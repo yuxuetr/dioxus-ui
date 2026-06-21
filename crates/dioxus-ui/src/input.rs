@@ -29,7 +29,21 @@ pub fn Input(
       value,
       placeholder,
       disabled,
-      "aria-invalid": "{invalid}",
+      "aria-invalid": invalid.to_string(),
     }
+  }
+}
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  #[test]
+  fn input_class_adds_invalid_state() {
+    let actual = input_class(true, "w-64");
+
+    assert!(actual.contains(INPUT_BASE_CLASS));
+    assert!(actual.contains("border-red-500 focus-visible:ring-red-500"));
+    assert!(actual.ends_with("w-64"));
   }
 }

@@ -1,0 +1,12 @@
+{
+  "name": "textarea",
+  "description": "Textarea component with disabled and invalid states.",
+  "files": [
+    {
+      "source": "templates/textarea.rs",
+      "target": "src/components/ui/textarea.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

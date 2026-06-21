@@ -1,0 +1,12 @@
+{
+  "name": "label",
+  "description": "Label component for associating text with form controls.",
+  "files": [
+    {
+      "source": "templates/label.rs",
+      "target": "src/components/ui/label.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}
