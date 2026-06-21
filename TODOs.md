@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
-- Current milestone: M1 Project Skeleton
-- Current task: M1.3 Add examples
+- Overall: 30%
+- Current milestone: M2 Foundation Components
+- Current task: M2.1 Implement core class utilities
 
 ## M0 Documentation
 
@@ -37,7 +37,7 @@
   - Add placeholder templates for Button and Input.
   - Add validation tests for registry metadata.
 
-- TODO M1.3 Add examples
+- DONE M1.3 Add examples
   - Add `examples/web-demo`.
   - Add `examples/desktop-demo`.
   - Document how to run each example.
