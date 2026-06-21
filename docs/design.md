@@ -173,6 +173,9 @@ Common conventions:
 - `children` is supported for composable content.
 - event props should follow Dioxus conventions.
 
+Detailed API rules are documented in
+[Component API Specification](component-api.md).
+
 ## Component Modules
 
 Components should be modular from the beginning. Users should be able to add,
