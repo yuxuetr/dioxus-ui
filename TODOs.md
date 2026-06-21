@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 10%
-- Current milestone: M0 Documentation
-- Current task: M0.3 Component API specification
+- Overall: 15%
+- Current milestone: M1 Project Skeleton
+- Current task: M1.1 Convert crate into a Cargo workspace
 
 ## M0 Documentation
 
@@ -19,7 +19,7 @@
   - Document feature flag strategy.
   - Document component module boundaries and platform profile strategy.
 
-- TODO M0.3 Component API specification
+- DONE M0.3 Component API specification
   - Specify common props, class extension behavior, and children handling.
   - Define naming conventions for variants, sizes, and events.
   - Document accessibility requirements per component category.
