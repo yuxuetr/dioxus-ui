@@ -30,6 +30,9 @@ crates/dioxus-ui
         └── dioxus-ui-primitives
 ```
 
+The detailed Cargo workspace contract is documented in
+[Workspace Specification](workspace.md).
+
 ## Crate Responsibilities
 
 ### dioxus-ui-core
