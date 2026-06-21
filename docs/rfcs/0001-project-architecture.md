@@ -44,6 +44,27 @@ Templates may duplicate or adapt crate code when that produces better generated
 source for users. Shared behavior for complex components should come from
 primitives where possible.
 
+Components should be organized as independent modules. Each component should
+have its own registry entry, template files, optional primitive dependencies,
+and crate feature flag.
+
+Example feature layout:
+
+```toml
+[features]
+default = []
+button = []
+input = []
+tabs = []
+dialog = ["dioxus-ui-primitives/dialog"]
+popover = ["dioxus-ui-primitives/popover"]
+select = ["dioxus-ui-primitives/select"]
+```
+
+Platform-specific code should be isolated behind small adapters or explicit
+props. The project should not fork every component into web, desktop, and mobile
+variants.
+
 ## Alternatives Considered
 
 ### Single Component Crate
@@ -81,3 +102,5 @@ Costs:
   primitive behavior into the user project?
 - How much should `dxui init` modify an existing Dioxus project?
 - What minimum Dioxus version should be supported for the first release?
+- Should the first release include `UiPlatform`, or start with only
+  `UiDensity`?

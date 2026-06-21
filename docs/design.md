@@ -170,6 +170,78 @@ Common conventions:
 - `children` is supported for composable content.
 - event props should follow Dioxus conventions.
 
+## Component Modules
+
+Components should be modular from the beginning. Users should be able to add,
+import, and feature-enable components independently.
+
+Source-copy mode:
+
+```bash
+dxui add button
+dxui add dialog
+dxui add tabs
+```
+
+Crate mode:
+
+```toml
+dioxus-ui = { version = "0.1", default-features = false, features = ["button", "dialog"] }
+```
+
+Planned module layout:
+
+```text
+dioxus_ui::button
+dioxus_ui::input
+dioxus_ui::tabs
+dioxus_ui::dialog
+dioxus_ui::popover
+dioxus_ui::select
+```
+
+The crate may re-export common components at the root for ergonomic imports,
+but internal implementation and feature flags should stay component-scoped.
+
+## Platform and Density Strategy
+
+Tailwind's responsive utilities solve many layout differences across screen
+sizes, but they do not fully solve Dioxus platform differences. Web, desktop,
+and mobile can share most component source, while still needing different
+defaults for pointer targets, overlay behavior, safe areas, and keyboard-heavy
+workflows.
+
+The project should avoid separate component families such as `ButtonWeb`,
+`ButtonDesktop`, and `ButtonMobile`. Instead, components should support a small
+set of environment-oriented knobs:
+
+```rust
+pub enum UiDensity {
+  Compact,
+  Comfortable,
+  Touch,
+}
+
+pub enum UiPlatform {
+  Web,
+  Desktop,
+  Mobile,
+}
+```
+
+Early implementation should start with `density`, because it maps directly to
+spacing, height, and hit target size. Platform-specific behavior should be added
+only when a component needs it.
+
+Recommended defaults:
+
+- Web: `Comfortable`
+- Desktop: `Compact` or `Comfortable`, depending on app type
+- Mobile: `Touch`
+
+`dxui init` can later ask for a default target profile and write it to generated
+configuration. Individual components should still allow explicit overrides.
+
 ## Styling Strategy
 
 Tailwind classes are the default styled layer. Runtime selection between known

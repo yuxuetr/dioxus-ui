@@ -17,6 +17,7 @@
   - Specify the Cargo workspace layout.
   - Define crate responsibilities and dependency direction.
   - Document feature flag strategy.
+  - Document component module boundaries and platform profile strategy.
 
 - TODO M0.3 Component API specification
   - Specify common props, class extension behavior, and children handling.

@@ -10,7 +10,8 @@ Read in this order:
 4. [RFC 0002: CLI Registry and Code Generation](rfcs/0002-cli-registry-and-code-generation.md)
 5. [RFC 0003: Tailwind Styling Contract](rfcs/0003-tailwind-styling-contract.md)
 6. [RFC 0004: Benchmark and CSS Output Strategy](rfcs/0004-benchmark-and-css-output.md)
-7. [TODO Plan](../TODOs.md)
+7. [RFC 0005: Modules and Platform Profiles](rfcs/0005-modules-and-platform-profiles.md)
+8. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
