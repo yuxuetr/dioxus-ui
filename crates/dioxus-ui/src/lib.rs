@@ -1,5 +1,8 @@
 //! Styled Dioxus UI components.
 
+#[cfg(feature = "accordion")]
+pub mod accordion;
+
 #[cfg(feature = "button")]
 pub mod button;
 
@@ -15,6 +18,12 @@ pub mod label;
 #[cfg(feature = "textarea")]
 pub mod textarea;
 
+#[cfg(feature = "accordion")]
+pub use accordion::{
+  accordion_content_class, accordion_item_class, accordion_trigger_class, AccordionContent,
+  AccordionItem, AccordionTrigger, ACCORDION_CONTENT_BASE_CLASS, ACCORDION_ITEM_BASE_CLASS,
+  ACCORDION_TRIGGER_BASE_CLASS,
+};
 #[cfg(feature = "button")]
 pub use button::{button_class, Button, ButtonSize, ButtonVariant, BUTTON_BASE_CLASS};
 #[cfg(feature = "checkbox")]

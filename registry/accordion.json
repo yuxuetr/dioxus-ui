@@ -1,0 +1,12 @@
+{
+  "name": "accordion",
+  "description": "Accordion components with controlled open state.",
+  "files": [
+    {
+      "source": "templates/accordion.rs",
+      "target": "src/components/ui/accordion.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

@@ -1,7 +1,7 @@
 use dioxus_ui::{
-  button_class, checkbox_class, input_class, label_class, switch_class, switch_thumb_class,
-  tabs_content_class, tabs_list_class, tabs_trigger_class, textarea_class, ButtonSize,
-  ButtonVariant, UiDensity,
+  accordion_content_class, accordion_item_class, accordion_trigger_class, button_class,
+  checkbox_class, input_class, label_class, switch_class, switch_thumb_class, tabs_content_class,
+  tabs_list_class, tabs_trigger_class, textarea_class, ButtonSize, ButtonVariant, UiDensity,
 };
 
 fn main() {
@@ -25,4 +25,13 @@ fn main() {
     tabs_trigger_class(true, "min-w-24")
   );
   println!("dioxus-ui web demo tabs content class: {}", tabs_content_class("p-4"));
+  println!("dioxus-ui web demo accordion item class: {}", accordion_item_class(""));
+  println!(
+    "dioxus-ui web demo accordion trigger class: {}",
+    accordion_trigger_class(true, "")
+  );
+  println!(
+    "dioxus-ui web demo accordion content class: {}",
+    accordion_content_class("px-1")
+  );
 }
