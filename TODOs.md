@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M4 Primitive-First Components
-- Current task: M4.4 Implement Select and Dropdown primitives
+- Overall: 80%
+- Current milestone: M5 Distribution
+- Current task: M5.1 Implement `dxui init`
 
 ## M0 Documentation
 
@@ -69,7 +69,7 @@
 - DONE M4.1 Design focus and portal primitives
 - DONE M4.2 Implement Dialog primitive and styled Dialog
 - DONE M4.3 Implement Popover and Tooltip primitives
-- TODO M4.4 Implement Select and Dropdown primitives
+- DONE M4.4 Implement Select and Dropdown primitives
 
 ## M5 Distribution
 
