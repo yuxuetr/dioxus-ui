@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 5%
+- Overall: 10%
 - Current milestone: M0 Documentation
-- Current task: M0.2 Workspace architecture specification
+- Current task: M0.3 Component API specification
 
 ## M0 Documentation
 
@@ -13,7 +13,7 @@
   - Create docs index, design overview, roadmap, and initial RFCs.
   - Define the task sequence for implementation.
 
-- TODO M0.2 Workspace architecture specification
+- DONE M0.2 Workspace architecture specification
   - Specify the Cargo workspace layout.
   - Define crate responsibilities and dependency direction.
   - Document feature flag strategy.
