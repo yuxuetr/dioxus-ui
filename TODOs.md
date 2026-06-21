@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
-- Current milestone: M2 Foundation Components
-- Current task: M2.3 Implement Input, Textarea, and Label
+- Overall: 45%
+- Current milestone: M3 Stateful Components
+- Current task: M3.1 Implement Checkbox and Switch
 
 ## M0 Documentation
 
@@ -53,7 +53,7 @@
   - Add CLI template.
   - Add example usage.
 
-- TODO M2.3 Implement Input, Textarea, and Label
+- DONE M2.3 Implement Input, Textarea, and Label
   - Add styled components.
   - Add CLI templates.
   - Add example usage.
