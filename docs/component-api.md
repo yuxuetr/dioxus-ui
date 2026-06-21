@@ -162,17 +162,18 @@ Example:
 
 ```rust
 let class = classes([
-  "inline-flex items-center justify-center",
-  variant.class(),
-  size.class(),
-  density.class(),
+  Some("inline-flex items-center justify-center"),
+  Some(variant.class()),
+  Some(size.class()),
+  Some(density.class()),
   disabled.then_some("disabled:pointer-events-none disabled:opacity-50"),
   Some(class.as_str()),
 ]);
 ```
 
-`classes` is a planned helper name. The final implementation may choose a
-different name, but the behavior should stay deterministic.
+`classes` joins complete class fragments in order, skips empty fragments, and
+preserves duplicate tokens so later user classes can override earlier defaults
+where Tailwind ordering allows it.
 
 ## Attribute Forwarding
 

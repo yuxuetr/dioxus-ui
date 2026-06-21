@@ -1,6 +1,10 @@
 //! Shared foundation types and utilities for dioxus-ui.
 
+mod class;
+
 use serde::{Deserialize, Serialize};
+
+pub use class::classes;
 
 /// Density controls spacing and hit target size across platforms.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
