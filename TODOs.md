@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 65%
+- Overall: 70%
 - Current milestone: M4 Primitive-First Components
-- Current task: M4.2 Implement Dialog primitive and styled Dialog
+- Current task: M4.3 Implement Popover and Tooltip primitives
 
 ## M0 Documentation
 
@@ -67,7 +67,7 @@
 ## M4 Primitive-First Components
 
 - DONE M4.1 Design focus and portal primitives
-- TODO M4.2 Implement Dialog primitive and styled Dialog
+- DONE M4.2 Implement Dialog primitive and styled Dialog
 - TODO M4.3 Implement Popover and Tooltip primitives
 - TODO M4.4 Implement Select and Dropdown primitives
 
