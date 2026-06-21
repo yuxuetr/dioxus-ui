@@ -1,7 +1,8 @@
 use dioxus_ui::{
   accordion_content_class, accordion_item_class, accordion_trigger_class, button_class,
-  checkbox_class, input_class, label_class, switch_class, switch_thumb_class, tabs_content_class,
-  tabs_list_class, tabs_trigger_class, textarea_class, ButtonSize, ButtonVariant, UiDensity,
+  checkbox_class, dialog_content_class, dialog_overlay_class, input_class, label_class,
+  switch_class, switch_thumb_class, tabs_content_class, tabs_list_class, tabs_trigger_class,
+  textarea_class, ButtonSize, ButtonVariant, DialogPrimitiveConfig, UiDensity,
 };
 
 fn main() {
@@ -33,5 +34,14 @@ fn main() {
   println!(
     "dioxus-ui web demo accordion content class: {}",
     accordion_content_class("px-1")
+  );
+  println!("dioxus-ui web demo dialog overlay class: {}", dialog_overlay_class(""));
+  println!(
+    "dioxus-ui web demo dialog content class: {}",
+    dialog_content_class("max-w-xl")
+  );
+  println!(
+    "dioxus-ui web demo dialog primitive open: {}",
+    DialogPrimitiveConfig::controlled(true).open
   );
 }

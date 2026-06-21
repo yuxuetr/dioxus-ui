@@ -9,6 +9,9 @@ pub mod button;
 #[cfg(feature = "checkbox")]
 pub mod checkbox;
 
+#[cfg(feature = "dialog")]
+pub mod dialog;
+
 #[cfg(feature = "input")]
 pub mod input;
 
@@ -28,6 +31,14 @@ pub use accordion::{
 pub use button::{button_class, Button, ButtonSize, ButtonVariant, BUTTON_BASE_CLASS};
 #[cfg(feature = "checkbox")]
 pub use checkbox::{checkbox_class, Checkbox, CHECKBOX_BASE_CLASS};
+#[cfg(feature = "dialog")]
+pub use dialog::{
+  dialog_close_class, dialog_content_class, dialog_description_class, dialog_overlay_class,
+  dialog_title_class, DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogTitle,
+  DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
+  DIALOG_CLOSE_BASE_CLASS, DIALOG_CONTENT_BASE_CLASS, DIALOG_DESCRIPTION_BASE_CLASS,
+  DIALOG_OVERLAY_BASE_CLASS, DIALOG_TITLE_BASE_CLASS,
+};
 #[cfg(feature = "input")]
 pub use input::{input_class, Input, INPUT_BASE_CLASS};
 #[cfg(feature = "label")]
