@@ -27,6 +27,15 @@ pub use label::{label_class, Label, LABEL_BASE_CLASS};
 pub use textarea::{textarea_class, Textarea, TEXTAREA_BASE_CLASS};
 #[cfg(feature = "switch")]
 pub mod switch;
+
+#[cfg(feature = "tabs")]
+pub mod tabs;
+
 #[cfg(feature = "switch")]
 pub use switch::{switch_class, switch_thumb_class, Switch, SWITCH_BASE_CLASS, SWITCH_THUMB_BASE_CLASS};
+#[cfg(feature = "tabs")]
+pub use tabs::{
+  tabs_content_class, tabs_list_class, tabs_trigger_class, TabsContent, TabsList, TabsTrigger,
+  TABS_CONTENT_BASE_CLASS, TABS_LIST_BASE_CLASS, TABS_TRIGGER_BASE_CLASS,
+};
 pub use dioxus_ui_core::UiDensity;

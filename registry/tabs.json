@@ -1,0 +1,12 @@
+{
+  "name": "tabs",
+  "description": "Tabs components with controlled active state.",
+  "files": [
+    {
+      "source": "templates/tabs.rs",
+      "target": "src/components/ui/tabs.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}
