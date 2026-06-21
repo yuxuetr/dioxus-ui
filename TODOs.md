@@ -2,13 +2,13 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 5%
 - Current milestone: M0 Documentation
-- Current task: M0.1 Project documentation foundation
+- Current task: M0.2 Workspace architecture specification
 
 ## M0 Documentation
 
-- TODO M0.1 Project documentation foundation
+- DONE M0.1 Project documentation foundation
   - Create README with product direction, planned usage, and references.
   - Create docs index, design overview, roadmap, and initial RFCs.
   - Define the task sequence for implementation.
