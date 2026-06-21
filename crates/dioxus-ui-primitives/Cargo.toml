@@ -8,6 +8,7 @@ repository.workspace = true
 [features]
 default = []
 dialog = []
+dropdown = []
 popover = []
 select = []
 tooltip = []

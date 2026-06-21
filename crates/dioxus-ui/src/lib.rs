@@ -12,6 +12,9 @@ pub mod checkbox;
 #[cfg(feature = "dialog")]
 pub mod dialog;
 
+#[cfg(feature = "dropdown")]
+pub mod dropdown;
+
 #[cfg(feature = "input")]
 pub mod input;
 
@@ -20,6 +23,9 @@ pub mod label;
 
 #[cfg(feature = "popover")]
 pub mod popover;
+
+#[cfg(feature = "select")]
+pub mod select;
 
 #[cfg(feature = "textarea")]
 pub mod textarea;
@@ -42,6 +48,14 @@ pub use dialog::{
   DIALOG_CLOSE_BASE_CLASS, DIALOG_CONTENT_BASE_CLASS, DIALOG_DESCRIPTION_BASE_CLASS,
   DIALOG_OVERLAY_BASE_CLASS, DIALOG_TITLE_BASE_CLASS,
 };
+#[cfg(feature = "dropdown")]
+pub use dropdown::{
+  dropdown_content_class, dropdown_group_class, dropdown_item_class, dropdown_label_class,
+  dropdown_separator_class, DropdownContent, DropdownGroup, DropdownItem, DropdownLabel,
+  DropdownPrimitiveConfig, DropdownSeparator, DROPDOWN_CONTENT_BASE_CLASS,
+  DROPDOWN_GROUP_BASE_CLASS, DROPDOWN_ITEM_BASE_CLASS, DROPDOWN_LABEL_BASE_CLASS,
+  DROPDOWN_SEPARATOR_BASE_CLASS,
+};
 #[cfg(feature = "input")]
 pub use input::{input_class, Input, INPUT_BASE_CLASS};
 #[cfg(feature = "label")]
@@ -52,6 +66,15 @@ pub use popover::{
   OverlayAlign, OverlaySide, PopoverContent, PopoverDescription, PopoverHeader,
   PopoverPrimitiveConfig, PopoverTitle, POPOVER_CONTENT_BASE_CLASS,
   POPOVER_DESCRIPTION_BASE_CLASS, POPOVER_HEADER_BASE_CLASS, POPOVER_TITLE_BASE_CLASS,
+};
+#[cfg(feature = "select")]
+pub use select::{
+  select_content_class, select_group_class, select_item_class, select_label_class,
+  select_separator_class, select_trigger_class, select_value_class, SelectContent, SelectGroup,
+  SelectItem, SelectLabel, SelectPrimitiveConfig, SelectSeparator, SelectTrigger, SelectValue,
+  SELECT_CONTENT_BASE_CLASS, SELECT_GROUP_BASE_CLASS, SELECT_ITEM_BASE_CLASS,
+  SELECT_LABEL_BASE_CLASS, SELECT_SEPARATOR_BASE_CLASS, SELECT_TRIGGER_BASE_CLASS,
+  SELECT_VALUE_BASE_CLASS,
 };
 #[cfg(feature = "textarea")]
 pub use textarea::{textarea_class, Textarea, TEXTAREA_BASE_CLASS};

@@ -1,0 +1,12 @@
+{
+  "name": "select",
+  "description": "Select components backed by primitive configuration types.",
+  "files": [
+    {
+      "source": "templates/select.rs",
+      "target": "src/components/ui/select.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

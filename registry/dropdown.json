@@ -1,0 +1,12 @@
+{
+  "name": "dropdown",
+  "description": "Dropdown menu components backed by primitive configuration types.",
+  "files": [
+    {
+      "source": "templates/dropdown.rs",
+      "target": "src/components/ui/dropdown.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

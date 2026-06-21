@@ -1,10 +1,13 @@
 use dioxus_ui::{
   accordion_content_class, accordion_item_class, accordion_trigger_class, button_class,
-  checkbox_class, dialog_content_class, dialog_overlay_class, input_class, label_class,
+  checkbox_class, dialog_content_class, dialog_overlay_class, dropdown_content_class,
+  dropdown_item_class, dropdown_label_class, dropdown_separator_class, input_class, label_class,
   popover_content_class, popover_description_class, popover_header_class, popover_title_class,
-  switch_class, switch_thumb_class, tabs_content_class, tabs_list_class, tabs_trigger_class,
-  textarea_class, tooltip_content_class, ButtonSize, ButtonVariant, DialogPrimitiveConfig,
-  PopoverPrimitiveConfig, TooltipPrimitiveConfig, UiDensity,
+  select_content_class, select_item_class, select_label_class, select_separator_class,
+  select_trigger_class, select_value_class, switch_class, switch_thumb_class, tabs_content_class,
+  tabs_list_class, tabs_trigger_class, textarea_class, tooltip_content_class, ButtonSize,
+  ButtonVariant, DialogPrimitiveConfig, DropdownPrimitiveConfig, PopoverPrimitiveConfig,
+  SelectPrimitiveConfig, TooltipPrimitiveConfig, UiDensity,
 };
 
 fn main() {
@@ -61,5 +64,29 @@ fn main() {
   println!(
     "dioxus-ui web demo tooltip primitive delay: {}",
     TooltipPrimitiveConfig::controlled(true).delay_ms
+  );
+  println!("dioxus-ui web demo select trigger class: {}", select_trigger_class(false, "w-44"));
+  println!("dioxus-ui web demo select value class: {}", select_value_class(""));
+  println!("dioxus-ui web demo select content class: {}", select_content_class(""));
+  println!("dioxus-ui web demo select label class: {}", select_label_class(""));
+  println!("dioxus-ui web demo select item class: {}", select_item_class(true, ""));
+  println!("dioxus-ui web demo select separator class: {}", select_separator_class(""));
+  println!(
+    "dioxus-ui web demo select primitive value: {:?}",
+    SelectPrimitiveConfig::controlled(true, Some("system".to_string())).value
+  );
+  println!("dioxus-ui web demo dropdown content class: {}", dropdown_content_class(""));
+  println!("dioxus-ui web demo dropdown label class: {}", dropdown_label_class(""));
+  println!(
+    "dioxus-ui web demo dropdown item class: {}",
+    dropdown_item_class(false, "")
+  );
+  println!(
+    "dioxus-ui web demo dropdown separator class: {}",
+    dropdown_separator_class("")
+  );
+  println!(
+    "dioxus-ui web demo dropdown primitive open: {}",
+    DropdownPrimitiveConfig::controlled(true).open
   );
 }
