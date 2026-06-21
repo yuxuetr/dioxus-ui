@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 55%
-- Current milestone: M3 Stateful Components
-- Current task: M3.3 Implement Accordion
+- Overall: 60%
+- Current milestone: M4 Primitive-First Components
+- Current task: M4.1 Design focus and portal primitives
 
 ## M0 Documentation
 
@@ -62,7 +62,7 @@
 
 - DONE M3.1 Implement Checkbox and Switch
 - DONE M3.2 Implement Tabs
-- TODO M3.3 Implement Accordion
+- DONE M3.3 Implement Accordion
 
 ## M4 Primitive-First Components
 
