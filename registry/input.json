@@ -1,0 +1,12 @@
+{
+  "name": "input",
+  "description": "Input component with disabled and invalid states.",
+  "files": [
+    {
+      "source": "templates/input.rs",
+      "target": "src/components/ui/input.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

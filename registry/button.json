@@ -1,0 +1,12 @@
+{
+  "name": "button",
+  "description": "Button component with variants, sizes, and density-aware spacing.",
+  "files": [
+    {
+      "source": "templates/button.rs",
+      "target": "src/components/ui/button.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}
