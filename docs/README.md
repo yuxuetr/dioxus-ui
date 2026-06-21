@@ -9,13 +9,15 @@ Read in this order:
 3. [Workspace Specification](workspace.md)
 4. [Component API Specification](component-api.md)
 5. [Release and Package Strategy](release.md)
-6. [RFC 0001: Project Architecture](rfcs/0001-project-architecture.md)
-7. [RFC 0002: CLI Registry and Code Generation](rfcs/0002-cli-registry-and-code-generation.md)
-8. [RFC 0003: Tailwind Styling Contract](rfcs/0003-tailwind-styling-contract.md)
-9. [RFC 0004: Benchmark and CSS Output Strategy](rfcs/0004-benchmark-and-css-output.md)
-10. [RFC 0005: Modules and Platform Profiles](rfcs/0005-modules-and-platform-profiles.md)
-11. [RFC 0006: Focus and Portal Primitives](rfcs/0006-focus-and-portal-primitives.md)
-12. [TODO Plan](../TODOs.md)
+6. [Component Catalog](components/README.md)
+7. [Documentation Site Plan](site.md)
+8. [RFC 0001: Project Architecture](rfcs/0001-project-architecture.md)
+9. [RFC 0002: CLI Registry and Code Generation](rfcs/0002-cli-registry-and-code-generation.md)
+10. [RFC 0003: Tailwind Styling Contract](rfcs/0003-tailwind-styling-contract.md)
+11. [RFC 0004: Benchmark and CSS Output Strategy](rfcs/0004-benchmark-and-css-output.md)
+12. [RFC 0005: Modules and Platform Profiles](rfcs/0005-modules-and-platform-profiles.md)
+13. [RFC 0006: Focus and Portal Primitives](rfcs/0006-focus-and-portal-primitives.md)
+14. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
