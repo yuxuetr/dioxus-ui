@@ -1,0 +1,12 @@
+{
+  "name": "popover",
+  "description": "Popover content components backed by primitive configuration types.",
+  "files": [
+    {
+      "source": "templates/popover.rs",
+      "target": "src/components/ui/popover.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

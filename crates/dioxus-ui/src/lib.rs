@@ -18,6 +18,9 @@ pub mod input;
 #[cfg(feature = "label")]
 pub mod label;
 
+#[cfg(feature = "popover")]
+pub mod popover;
+
 #[cfg(feature = "textarea")]
 pub mod textarea;
 
@@ -43,6 +46,13 @@ pub use dialog::{
 pub use input::{input_class, Input, INPUT_BASE_CLASS};
 #[cfg(feature = "label")]
 pub use label::{label_class, Label, LABEL_BASE_CLASS};
+#[cfg(feature = "popover")]
+pub use popover::{
+  popover_content_class, popover_description_class, popover_header_class, popover_title_class,
+  OverlayAlign, OverlaySide, PopoverContent, PopoverDescription, PopoverHeader,
+  PopoverPrimitiveConfig, PopoverTitle, POPOVER_CONTENT_BASE_CLASS,
+  POPOVER_DESCRIPTION_BASE_CLASS, POPOVER_HEADER_BASE_CLASS, POPOVER_TITLE_BASE_CLASS,
+};
 #[cfg(feature = "textarea")]
 pub use textarea::{textarea_class, Textarea, TEXTAREA_BASE_CLASS};
 #[cfg(feature = "switch")]
@@ -51,11 +61,18 @@ pub mod switch;
 #[cfg(feature = "tabs")]
 pub mod tabs;
 
+#[cfg(feature = "tooltip")]
+pub mod tooltip;
+
 #[cfg(feature = "switch")]
 pub use switch::{switch_class, switch_thumb_class, Switch, SWITCH_BASE_CLASS, SWITCH_THUMB_BASE_CLASS};
 #[cfg(feature = "tabs")]
 pub use tabs::{
   tabs_content_class, tabs_list_class, tabs_trigger_class, TabsContent, TabsList, TabsTrigger,
   TABS_CONTENT_BASE_CLASS, TABS_LIST_BASE_CLASS, TABS_TRIGGER_BASE_CLASS,
+};
+#[cfg(feature = "tooltip")]
+pub use tooltip::{
+  tooltip_content_class, TooltipContent, TooltipPrimitiveConfig, TOOLTIP_CONTENT_BASE_CLASS,
 };
 pub use dioxus_ui_core::UiDensity;

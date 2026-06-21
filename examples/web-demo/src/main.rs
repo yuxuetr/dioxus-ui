@@ -1,8 +1,10 @@
 use dioxus_ui::{
   accordion_content_class, accordion_item_class, accordion_trigger_class, button_class,
   checkbox_class, dialog_content_class, dialog_overlay_class, input_class, label_class,
+  popover_content_class, popover_description_class, popover_header_class, popover_title_class,
   switch_class, switch_thumb_class, tabs_content_class, tabs_list_class, tabs_trigger_class,
-  textarea_class, ButtonSize, ButtonVariant, DialogPrimitiveConfig, UiDensity,
+  textarea_class, tooltip_content_class, ButtonSize, ButtonVariant, DialogPrimitiveConfig,
+  PopoverPrimitiveConfig, TooltipPrimitiveConfig, UiDensity,
 };
 
 fn main() {
@@ -43,5 +45,21 @@ fn main() {
   println!(
     "dioxus-ui web demo dialog primitive open: {}",
     DialogPrimitiveConfig::controlled(true).open
+  );
+  println!("dioxus-ui web demo popover content class: {}", popover_content_class("w-80"));
+  println!("dioxus-ui web demo popover header class: {}", popover_header_class(""));
+  println!("dioxus-ui web demo popover title class: {}", popover_title_class(""));
+  println!(
+    "dioxus-ui web demo popover description class: {}",
+    popover_description_class("")
+  );
+  println!(
+    "dioxus-ui web demo popover primitive open: {}",
+    PopoverPrimitiveConfig::controlled(true).open
+  );
+  println!("dioxus-ui web demo tooltip content class: {}", tooltip_content_class(""));
+  println!(
+    "dioxus-ui web demo tooltip primitive delay: {}",
+    TooltipPrimitiveConfig::controlled(true).delay_ms
   );
 }

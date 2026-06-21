@@ -1,0 +1,12 @@
+{
+  "name": "tooltip",
+  "description": "Tooltip content component backed by primitive configuration types.",
+  "files": [
+    {
+      "source": "templates/tooltip.rs",
+      "target": "src/components/ui/tooltip.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}
