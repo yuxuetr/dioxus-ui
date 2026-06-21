@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 95%
+- Overall: 100%
 - Current milestone: M5 Distribution
-- Current task: M5.4 Build documentation site and component previews
+- Current task: Complete
 
 ## M0 Documentation
 
@@ -76,7 +76,7 @@
 - DONE M5.1 Implement `dxui init`
 - DONE M5.2 Implement `dxui add`
 - DONE M5.3 Publish crate-mode package strategy
-- TODO M5.4 Build documentation site and component previews
+- DONE M5.4 Build documentation site and component previews
 
 ## Status Rules
 
