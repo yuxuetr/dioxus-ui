@@ -68,6 +68,21 @@ src/components/ui/input.rs
 assets/dioxus-ui.css
 ```
 
+For Tailwind CSS v4, `assets/dioxus-ui.css` should be an input stylesheet, not
+a precompiled full Tailwind output:
+
+```css
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--dxui-background);
+  --color-foreground: var(--dxui-foreground);
+}
+```
+
+The user's Dioxus app build should produce the final CSS after scanning the app
+source and generated component files.
+
 ### Crate Mode
 
 ```toml
@@ -147,4 +162,5 @@ format!("bg-{}-500", color)
 - Dioxus RSX and UI documentation: <https://dioxuslabs.com/learn/0.7/essentials/ui/rsx/>
 - Dioxus components direction: <https://github.com/DioxusLabs/dioxus-components>
 - Tailwind class detection: <https://tailwindcss.com/docs/detecting-classes-in-source-files>
+- Tailwind v4 installation: <https://tailwindcss.com/docs/installation>
 - Dioxus component macro docs: <https://docs.rs/dioxus/latest/dioxus/prelude/attr.component.html>

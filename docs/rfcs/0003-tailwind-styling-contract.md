@@ -8,6 +8,9 @@
 Use Tailwind CSS as the default styled layer while requiring every class token
 to appear as a complete static string in source files.
 
+Tailwind CSS v4 is the default target. Tailwind v3 compatibility can be
+documented later, but generated project files should use v4 syntax first.
+
 ## Motivation
 
 Tailwind scans source files for class-like tokens. It does not evaluate Rust
@@ -56,6 +59,35 @@ Components should compose classes in this order:
 
 User-provided classes come last so copied-source users can override defaults
 when Tailwind conflict behavior allows it.
+
+## CSS Entry File
+
+For Tailwind CSS v4, `dxui init` should create or update an input stylesheet
+using the CSS-first import:
+
+```css
+@import "tailwindcss";
+```
+
+Project theme variables may live in the same file:
+
+```css
+@theme {
+  --color-background: var(--dxui-background);
+  --color-foreground: var(--dxui-foreground);
+}
+```
+
+The v3 style directives are not the default:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+Those directives should only appear in compatibility documentation if the
+project explicitly supports Tailwind v3.
 
 ## Theming
 

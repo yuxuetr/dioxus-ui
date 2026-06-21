@@ -41,6 +41,17 @@ assets/
 └─ dioxus-ui.css
 ```
 
+`assets/dioxus-ui.css` is an input stylesheet. For Tailwind CSS v4, the default
+content should start with:
+
+```css
+@import "tailwindcss";
+```
+
+The CLI should not generate a complete compiled Tailwind CSS artifact. The
+application build should compile the final CSS after Tailwind scans the user's
+source files and generated component templates.
+
 ## Registry Metadata
 
 Initial registry fields:
@@ -80,5 +91,6 @@ Registry validation should check:
 ## Open Questions
 
 - Should the first CLI support `--overwrite`, or should conflicts fail only?
-- Should `dxui init` detect Tailwind automatically or only create a CSS entry?
+- Should `dxui init` detect an existing Tailwind v4 setup automatically or only
+  create a CSS entry?
 - Should generated components use project-local imports or a shared `ui` module?

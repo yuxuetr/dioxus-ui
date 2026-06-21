@@ -177,6 +177,17 @@ class strings is allowed. Runtime construction of class tokens is not allowed.
 
 The style layer should be replaceable by users who copy source files.
 
+For Tailwind CSS v4, the generated CSS entry should use CSS-first imports:
+
+```css
+@import "tailwindcss";
+```
+
+`dxui init` may also add project-level theme variables or base selectors to that
+entry file. It should not treat `assets/dioxus-ui.css` as a precompiled complete
+Tailwind output. The final CSS output belongs to the user's app build, because
+Tailwind must scan the user's application and generated component files.
+
 ## Accessibility Strategy
 
 Accessibility must be designed per component before implementation.
