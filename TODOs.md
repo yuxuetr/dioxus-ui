@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 45%
+- Overall: 50%
 - Current milestone: M3 Stateful Components
-- Current task: M3.1 Implement Checkbox and Switch
+- Current task: M3.2 Implement Tabs
 
 ## M0 Documentation
 
@@ -60,7 +60,7 @@
 
 ## M3 Stateful Components
 
-- TODO M3.1 Implement Checkbox and Switch
+- DONE M3.1 Implement Checkbox and Switch
 - TODO M3.2 Implement Tabs
 - TODO M3.3 Implement Accordion
 
