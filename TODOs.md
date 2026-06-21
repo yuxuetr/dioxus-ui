@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 15%
+- Overall: 20%
 - Current milestone: M1 Project Skeleton
-- Current task: M1.1 Convert crate into a Cargo workspace
+- Current task: M1.2 Add registry and template directories
 
 ## M0 Documentation
 
@@ -26,7 +26,7 @@
 
 ## M1 Project Skeleton
 
-- TODO M1.1 Convert crate into a Cargo workspace
+- DONE M1.1 Convert crate into a Cargo workspace
   - Add `crates/dioxus-ui-core`.
   - Add `crates/dioxus-ui-primitives`.
   - Add `crates/dioxus-ui`.
