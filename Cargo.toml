@@ -1,11 +1,21 @@
-[package]
-name = "dioxus-ui"
+[workspace]
+resolver = "2"
+members = [
+  "crates/dioxus-ui-core",
+  "crates/dioxus-ui-primitives",
+  "crates/dioxus-ui",
+  "crates/dioxus-ui-cli",
+]
+
+[workspace.package]
 version = "0.1.0"
 edition = "2024"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/your-org/dioxus-ui"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
+[workspace.dependencies]
+dioxus-ui-core = { path = "crates/dioxus-ui-core" }
+dioxus-ui-primitives = { path = "crates/dioxus-ui-primitives" }
 
 [profile.dev.package."*"]
 debug = false

@@ -1,0 +1,16 @@
+[package]
+name = "dioxus-ui-primitives"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[features]
+default = []
+dialog = []
+popover = []
+select = []
+tooltip = []
+
+[dependencies]
+dioxus-ui-core.workspace = true
