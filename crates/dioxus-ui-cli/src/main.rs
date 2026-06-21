@@ -4,6 +4,8 @@ use std::ffi::OsString;
 use std::fs;
 use std::path::{Path, PathBuf};
 
+use dioxus_ui_core::RegistryComponent;
+
 const DEFAULT_CSS: &str = r#"@import "tailwindcss";
 
 @theme {
@@ -32,6 +34,8 @@ where
 
   match args.first().and_then(|arg| arg.to_str()) {
     Some("init") => init_command(&args[1..]),
+    Some("add") => add_command(&args[1..]),
+    Some("list") => list_command(),
     Some("help") | Some("--help") | Some("-h") | None => {
       print_help();
       Ok(())
@@ -41,6 +45,34 @@ where
 }
 
 fn init_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
+  let root = parse_root(args, "init")?;
+
+  init_project(&root)?;
+  println!("initialized dioxus-ui in {}", root.display());
+  Ok(())
+}
+
+fn add_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
+  let component_name = args
+    .first()
+    .and_then(|arg| arg.to_str())
+    .ok_or("missing component name")?;
+  let root = parse_root(&args[1..], "add")?;
+
+  add_component(&root, component_name)?;
+  println!("added {component_name} to {}", root.display());
+  Ok(())
+}
+
+fn list_command() -> Result<(), Box<dyn Error>> {
+  for component in load_registry()? {
+    println!("{}", component.name);
+  }
+
+  Ok(())
+}
+
+fn parse_root(args: &[OsString], command: &str) -> Result<PathBuf, Box<dyn Error>> {
   let mut root = env::current_dir()?;
   let mut index = 0;
 
@@ -53,14 +85,12 @@ fn init_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
         root = PathBuf::from(value);
         index += 2;
       }
-      Some(flag) => return Err(format!("unknown init option `{flag}`").into()),
-      None => return Err("init option is not valid UTF-8".into()),
+      Some(flag) => return Err(format!("unknown {command} option `{flag}`").into()),
+      None => return Err(format!("{command} option is not valid UTF-8").into()),
     }
   }
 
-  init_project(&root)?;
-  println!("initialized dioxus-ui in {}", root.display());
-  Ok(())
+  Ok(root)
 }
 
 fn init_project(root: &Path) -> Result<(), Box<dyn Error>> {
@@ -76,6 +106,149 @@ fn init_project(root: &Path) -> Result<(), Box<dyn Error>> {
   Ok(())
 }
 
+fn add_component(root: &Path, component_name: &str) -> Result<(), Box<dyn Error>> {
+  init_project(root)?;
+
+  let registry = load_registry()?;
+  let mut added = Vec::new();
+
+  add_component_recursive(root, component_name, &registry, &mut added)?;
+  update_ui_mod(root, &added)?;
+
+  Ok(())
+}
+
+fn add_component_recursive(
+  root: &Path,
+  component_name: &str,
+  registry: &[RegistryComponent],
+  added: &mut Vec<String>,
+) -> Result<(), Box<dyn Error>> {
+  if added.iter().any(|name| name == component_name) {
+    return Ok(());
+  }
+
+  let component = registry
+    .iter()
+    .find(|component| component.name == component_name)
+    .ok_or_else(|| format!("unknown component `{component_name}`"))?;
+
+  for dependency in &component.dependencies {
+    add_component_recursive(root, dependency, registry, added)?;
+  }
+
+  let workspace = workspace_root();
+
+  for file in &component.files {
+    let source = workspace.join(&file.source);
+    let target = root.join(&file.target);
+    let content = fs::read_to_string(&source)?;
+
+    if let Some(parent) = target.parent() {
+      fs::create_dir_all(parent)?;
+    }
+
+    write_new_file(&target, &content)?;
+  }
+
+  for asset in &component.assets {
+    let source = workspace.join(&asset.source);
+    let target = root.join(&asset.target);
+    let content = fs::read_to_string(&source)?;
+
+    if let Some(parent) = target.parent() {
+      fs::create_dir_all(parent)?;
+    }
+
+    write_new_file(&target, &content)?;
+  }
+
+  added.push(component.name.clone());
+  Ok(())
+}
+
+fn update_ui_mod(root: &Path, component_names: &[String]) -> Result<(), Box<dyn Error>> {
+  let mod_path = root.join("src").join("components").join("ui").join("mod.rs");
+  let existing = if mod_path.exists() {
+    fs::read_to_string(&mod_path)?
+  } else {
+    String::new()
+  };
+  let mut modules = existing
+    .lines()
+    .filter_map(parse_mod_line)
+    .collect::<Vec<_>>();
+
+  for component_name in component_names {
+    let module = component_name.replace('-', "_");
+
+    if !modules.iter().any(|existing| existing == &module) {
+      modules.push(module);
+    }
+  }
+
+  modules.sort();
+
+  let content = modules
+    .iter()
+    .map(|module| format!("pub mod {module};\n"))
+    .collect::<String>();
+
+  if let Some(parent) = mod_path.parent() {
+    fs::create_dir_all(parent)?;
+  }
+
+  fs::write(mod_path, content)?;
+  Ok(())
+}
+
+fn parse_mod_line(line: &str) -> Option<String> {
+  let line = line.trim();
+  let name = line
+    .strip_prefix("pub mod ")?
+    .strip_suffix(';')?
+    .trim();
+
+  if name.is_empty() {
+    None
+  } else {
+    Some(name.to_string())
+  }
+}
+
+fn load_registry() -> Result<Vec<RegistryComponent>, Box<dyn Error>> {
+  let registry_dir = workspace_root().join("registry");
+  let mut components = Vec::new();
+
+  for entry in fs::read_dir(registry_dir)? {
+    let path = entry?.path();
+
+    if path.file_name().and_then(|name| name.to_str()) == Some("schema.json") {
+      continue;
+    }
+
+    if path.extension().and_then(|extension| extension.to_str()) != Some("json") {
+      continue;
+    }
+
+    let json = fs::read_to_string(path)?;
+    let component = serde_json::from_str::<RegistryComponent>(&json)?;
+
+    components.push(component);
+  }
+
+  components.sort_by(|left, right| left.name.cmp(&right.name));
+  Ok(components)
+}
+
+fn workspace_root() -> PathBuf {
+  Path::new(env!("CARGO_MANIFEST_DIR"))
+    .ancestors()
+    .nth(2)
+    .map(Path::to_path_buf)
+    .unwrap_or_else(|| PathBuf::from("."))
+}
+
 fn write_new_file(path: &Path, content: &str) -> Result<(), Box<dyn Error>> {
   if path.exists() {
     return Ok(());
@@ -87,7 +260,7 @@ fn write_new_file(path: &Path, content: &str) -> Result<(), Box<dyn Error>> {
 
 fn print_help() {
   println!(
-    "dxui\n\nUsage:\n  dxui init [--root <path>]\n\nCommands:\n  init    Prepare a Dioxus project for dioxus-ui generated components"
+    "dxui\n\nUsage:\n  dxui init [--root <path>]\n  dxui add <component> [--root <path>]\n  dxui list\n\nCommands:\n  init    Prepare a Dioxus project for dioxus-ui generated components\n  add     Copy a component template into a project\n  list    List available registry components"
   );
 }
 
@@ -135,5 +308,34 @@ mod tests {
     let css = fs::read_to_string(assets.join("dioxus-ui.css")).expect("css should be readable");
 
     assert_eq!(css, "custom");
+  }
+
+  #[test]
+  fn add_component_copies_template_and_updates_mod() {
+    let root = temp_project();
+
+    add_component(&root, "button").expect("add should succeed");
+
+    assert!(root.join("src").join("components").join("ui").join("button.rs").is_file());
+
+    let modules = fs::read_to_string(root.join("src").join("components").join("ui").join("mod.rs"))
+      .expect("mod file should be readable");
+
+    assert_eq!(modules, "pub mod button;\n");
+  }
+
+  #[test]
+  fn add_component_does_not_overwrite_existing_template() {
+    let root = temp_project();
+    let ui_dir = root.join("src").join("components").join("ui");
+
+    fs::create_dir_all(&ui_dir).expect("ui dir should be created");
+    fs::write(ui_dir.join("button.rs"), "custom").expect("button should be written");
+
+    add_component(&root, "button").expect("add should succeed");
+
+    let button = fs::read_to_string(ui_dir.join("button.rs")).expect("button should be readable");
+
+    assert_eq!(button, "custom");
   }
 }
