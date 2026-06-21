@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 35%
+- Overall: 40%
 - Current milestone: M2 Foundation Components
-- Current task: M2.2 Implement Button
+- Current task: M2.3 Implement Input, Textarea, and Label
 
 ## M0 Documentation
 
@@ -48,7 +48,7 @@
   - Provide deterministic class composition.
   - Support user class overrides without dynamic Tailwind token construction.
 
-- TODO M2.2 Implement Button
+- DONE M2.2 Implement Button
   - Add styled component.
   - Add CLI template.
   - Add example usage.
