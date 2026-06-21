@@ -19,5 +19,6 @@ select = ["dioxus-ui-primitives/select"]
 tooltip = ["dioxus-ui-primitives/tooltip"]
 
 [dependencies]
+dioxus.workspace = true
 dioxus-ui-core.workspace = true
 dioxus-ui-primitives.workspace = true

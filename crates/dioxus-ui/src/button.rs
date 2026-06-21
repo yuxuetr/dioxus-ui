@@ -1,8 +1,9 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::{classes, UiDensity};
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ButtonVariant {
+  #[default]
   Primary,
   Secondary,
   Destructive,
@@ -24,9 +25,10 @@ impl ButtonVariant {
   }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ButtonSize {
   Sm,
+  #[default]
   Md,
   Lg,
   Icon,
@@ -68,8 +70,8 @@ pub fn button_class(
 
 #[component]
 pub fn Button(
-  #[props(default = ButtonVariant::Primary)] variant: ButtonVariant,
-  #[props(default = ButtonSize::Md)] size: ButtonSize,
+  #[props(default)] variant: ButtonVariant,
+  #[props(default)] size: ButtonSize,
   #[props(default)] density: UiDensity,
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
@@ -83,5 +85,40 @@ pub fn Button(
       disabled,
       {children}
     }
+  }
+}
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  #[test]
+  fn button_class_includes_variant_size_density_and_user_class() {
+    let actual = button_class(
+      ButtonVariant::Destructive,
+      ButtonSize::Lg,
+      UiDensity::Touch,
+      "w-full",
+    );
+
+    assert!(actual.contains(BUTTON_BASE_CLASS));
+    assert!(actual.contains("bg-red-600 text-white hover:bg-red-700"));
+    assert!(actual.contains("h-12 px-6 text-base"));
+    assert!(actual.contains("min-h-12"));
+    assert!(actual.ends_with("w-full"));
+  }
+
+  #[test]
+  fn button_class_preserves_static_tailwind_tokens() {
+    let actual = button_class(
+      ButtonVariant::Primary,
+      ButtonSize::Md,
+      UiDensity::Comfortable,
+      "",
+    );
+
+    assert!(actual.contains("bg-blue-600"));
+    assert!(actual.contains("hover:bg-blue-700"));
+    assert!(!actual.contains("{}"));
   }
 }

@@ -16,6 +16,7 @@ license = "MIT OR Apache-2.0"
 repository = "https://github.com/your-org/dioxus-ui"
 
 [workspace.dependencies]
+dioxus = "0.7"
 dioxus-ui-core = { path = "crates/dioxus-ui-core" }
 dioxus-ui-primitives = { path = "crates/dioxus-ui-primitives" }
 dioxus-ui = { path = "crates/dioxus-ui" }
