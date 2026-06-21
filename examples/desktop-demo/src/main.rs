@@ -1,5 +1,6 @@
 use dioxus_ui::{
-  button_class, input_class, label_class, textarea_class, ButtonSize, ButtonVariant, UiDensity,
+  button_class, checkbox_class, input_class, label_class, switch_class, switch_thumb_class,
+  textarea_class, ButtonSize, ButtonVariant, UiDensity,
 };
 
 fn main() {
@@ -17,4 +18,13 @@ fn main() {
     textarea_class(false, "min-h-20")
   );
   println!("dioxus-ui desktop demo label class: {}", label_class("text-xs"));
+  println!(
+    "dioxus-ui desktop demo checkbox class: {}",
+    checkbox_class(false, "mt-1")
+  );
+  println!("dioxus-ui desktop demo switch class: {}", switch_class(false, "mt-1"));
+  println!(
+    "dioxus-ui desktop demo switch thumb class: {}",
+    switch_thumb_class(false)
+  );
 }

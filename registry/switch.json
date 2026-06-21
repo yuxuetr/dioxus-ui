@@ -1,0 +1,12 @@
+{
+  "name": "switch",
+  "description": "Switch component with checked and disabled states.",
+  "files": [
+    {
+      "source": "templates/switch.rs",
+      "target": "src/components/ui/switch.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

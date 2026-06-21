@@ -1,0 +1,12 @@
+{
+  "name": "checkbox",
+  "description": "Checkbox component with checked and disabled states.",
+  "files": [
+    {
+      "source": "templates/checkbox.rs",
+      "target": "src/components/ui/checkbox.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}
