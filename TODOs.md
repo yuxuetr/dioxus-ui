@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 25%
 - Current milestone: M1 Project Skeleton
-- Current task: M1.2 Add registry and template directories
+- Current task: M1.3 Add examples
 
 ## M0 Documentation
 
@@ -32,7 +32,7 @@
   - Add `crates/dioxus-ui`.
   - Add `crates/dioxus-ui-cli`.
 
-- TODO M1.2 Add registry and template directories
+- DONE M1.2 Add registry and template directories
   - Add initial component registry schema.
   - Add placeholder templates for Button and Input.
   - Add validation tests for registry metadata.
