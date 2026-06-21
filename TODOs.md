@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 30%
+- Overall: 35%
 - Current milestone: M2 Foundation Components
-- Current task: M2.1 Implement core class utilities
+- Current task: M2.2 Implement Button
 
 ## M0 Documentation
 
@@ -44,7 +44,7 @@
 
 ## M2 Foundation Components
 
-- TODO M2.1 Implement core class utilities
+- DONE M2.1 Implement core class utilities
   - Provide deterministic class composition.
   - Support user class overrides without dynamic Tailwind token construction.
 
