@@ -5,6 +5,8 @@ members = [
   "crates/dioxus-ui-primitives",
   "crates/dioxus-ui",
   "crates/dioxus-ui-cli",
+  "examples/web-demo",
+  "examples/desktop-demo",
 ]
 
 [workspace.package]
@@ -16,6 +18,7 @@ repository = "https://github.com/your-org/dioxus-ui"
 [workspace.dependencies]
 dioxus-ui-core = { path = "crates/dioxus-ui-core" }
 dioxus-ui-primitives = { path = "crates/dioxus-ui-primitives" }
+dioxus-ui = { path = "crates/dioxus-ui" }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 

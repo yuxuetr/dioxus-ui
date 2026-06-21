@@ -29,6 +29,7 @@ Deliverables:
 - `dioxus-ui`
 - `dioxus-ui-cli`
 - empty registry and template directories
+- web and desktop example skeletons
 
 Exit criteria:
 

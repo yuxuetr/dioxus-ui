@@ -46,6 +46,8 @@ dioxus-ui/
    └─ rfcs/
 ```
 
+Example run commands are documented in [examples/README.md](examples/README.md).
+
 ## Planned Usage
 
 ### Source-Copy Mode

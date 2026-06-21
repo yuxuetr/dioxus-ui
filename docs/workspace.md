@@ -50,6 +50,8 @@ members = [
   "crates/dioxus-ui-primitives",
   "crates/dioxus-ui",
   "crates/dioxus-ui-cli",
+  "examples/web-demo",
+  "examples/desktop-demo",
 ]
 
 [workspace.package]

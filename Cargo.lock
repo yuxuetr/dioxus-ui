@@ -26,10 +26,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "dioxus-ui-desktop-demo"
+version = "0.1.0"
+dependencies = [
+ "dioxus-ui",
+]
+
+[[package]]
 name = "dioxus-ui-primitives"
 version = "0.1.0"
 dependencies = [
  "dioxus-ui-core",
+]
+
+[[package]]
+name = "dioxus-ui-web-demo"
+version = "0.1.0"
+dependencies = [
+ "dioxus-ui",
 ]
 
 [[package]]
