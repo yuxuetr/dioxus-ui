@@ -282,6 +282,9 @@ Baseline requirements:
 Complex components should use primitives so the behavior can be reused by both
 styled crate components and copied templates.
 
+Focus, dismissal, and portal behavior are designed in
+[RFC 0006: Focus and Portal Primitives](rfcs/0006-focus-and-portal-primitives.md).
+
 ## Initial Implementation Sequence
 
 1. Finish documentation and RFCs.

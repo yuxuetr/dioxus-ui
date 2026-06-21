@@ -13,7 +13,8 @@ Read in this order:
 7. [RFC 0003: Tailwind Styling Contract](rfcs/0003-tailwind-styling-contract.md)
 8. [RFC 0004: Benchmark and CSS Output Strategy](rfcs/0004-benchmark-and-css-output.md)
 9. [RFC 0005: Modules and Platform Profiles](rfcs/0005-modules-and-platform-profiles.md)
-10. [TODO Plan](../TODOs.md)
+10. [RFC 0006: Focus and Portal Primitives](rfcs/0006-focus-and-portal-primitives.md)
+11. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
