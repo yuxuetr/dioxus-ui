@@ -29,3 +29,9 @@ Planned future command after the Dioxus desktop runtime is added:
 ```bash
 dx serve --package dioxus-ui-desktop-demo --platform desktop
 ```
+
+## CLI Init Smoke
+
+```bash
+cargo run -p dioxus-ui-cli -- init --root /tmp/dxui-demo
+```
