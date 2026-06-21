@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
+- Overall: 85%
 - Current milestone: M5 Distribution
-- Current task: M5.1 Implement `dxui init`
+- Current task: M5.2 Implement `dxui add`
 
 ## M0 Documentation
 
@@ -73,7 +73,7 @@
 
 ## M5 Distribution
 
-- TODO M5.1 Implement `dxui init`
+- DONE M5.1 Implement `dxui init`
 - TODO M5.2 Implement `dxui add`
 - TODO M5.3 Publish crate-mode package strategy
 - TODO M5.4 Build documentation site and component previews
