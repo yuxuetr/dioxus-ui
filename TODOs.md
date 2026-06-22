@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M6 Generated Source Quality
-- Current task: M6.2 Add generated fixture compile smoke
+- Current task: M6.3 Improve CLI add safeguards
 
 ## M0 Documentation
 
@@ -85,7 +85,7 @@
   - Remove `dioxus-ui-primitives` imports from generated templates.
   - Keep crate-mode implementations using shared crates.
 
-- TODO M6.2 Add generated fixture compile smoke
+- DONE M6.2 Add generated fixture compile smoke
   - Generate a temporary Dioxus app fixture with `dxui init`.
   - Add representative components with `dxui add`.
   - Verify generated source compiles with minimal dependencies.
