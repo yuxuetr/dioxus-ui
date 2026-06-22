@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M6 Generated Source Quality
-- Current task: M6.3 Improve CLI add safeguards
+- Current task: M6.4 Add component docs pages
 
 ## M0 Documentation
 
@@ -90,7 +90,7 @@
   - Add representative components with `dxui add`.
   - Verify generated source compiles with minimal dependencies.
 
-- TODO M6.3 Improve CLI add safeguards
+- DONE M6.3 Improve CLI add safeguards
   - Add `dxui add --overwrite` or documented conflict behavior.
   - Improve error messages for unknown components.
   - Add tests for repeated `dxui add`.
