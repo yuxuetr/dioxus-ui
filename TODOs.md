@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 14%
+- Overall: 28%
 - Current milestone: M11 Interaction Component Batch 1
-- Current task: M11.2 Implement Toggle
+- Current task: M11.3 Implement Radio Group
 
 ## M0 Documentation
 
@@ -221,7 +221,7 @@
   - Add CLI template, registry entry, docs page, and demo usage.
   - Verify generated fixture smoke includes Spinner.
 
-- TODO M11.2 Implement Toggle
+- DONE M11.2 Implement Toggle
   - Add controlled styled component with pressed, disabled, variant, and size states.
   - Add `aria-pressed` semantics in crate-mode and generated template APIs.
   - Add CLI template, registry entry, docs page, and demo usage.
