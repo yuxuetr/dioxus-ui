@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 91%
+- Overall: 92%
 - Current milestone: M10 Interaction Primitives
-- Current task: M10.1 Implement roving focus state primitives
+- Current task: M10.2 Implement typeahead primitives
 
 ## M0 Documentation
 
@@ -184,7 +184,7 @@
 
 ## M10 Interaction Primitives
 
-- TODO M10.1 Implement roving focus state primitives
+- DONE M10.1 Implement roving focus state primitives
   - Add orientation, looping, disabled-item skipping, and active item state.
   - Add pure unit tests for next, previous, first, last, and boundary behavior.
   - Keep primitive state independent from DOM handles.
