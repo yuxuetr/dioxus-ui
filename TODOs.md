@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M8 Complex Interaction Preparation
-- Current task: M8 complete
+- Overall: 83%
+- Current milestone: M9 Quality Baseline
+- Current task: M9.1 Add registry, docs, and template consistency checks
 
 ## M0 Documentation
 
@@ -151,6 +151,68 @@
   - Rank Calendar, Date Picker, Combobox, Command, Context Menu, Menubar, Navigation Menu, Sheet, Toast, Scroll Area, Slider, and Radio Group.
   - Split them into implementable milestones with explicit dependency order.
   - Identify which components need third-party logic crates versus first-party primitives.
+
+## M9 Quality Baseline
+
+- TODO M9.1 Add registry, docs, and template consistency checks
+  - Verify every public registry component has a template.
+  - Verify every public registry component has a docs page.
+  - Verify docs catalog links match registry component names.
+  - Keep `utils` excluded from public catalog checks.
+
+- TODO M9.2 Add per-feature crate compile checks
+  - Check each `dioxus-ui` feature compiles independently.
+  - Check representative feature combinations compile.
+  - Add a script or test harness that can run locally and in CI.
+  - Document expected runtime cost and when to run it.
+
+- TODO M9.3 Harden generated fixture smoke
+  - Ensure generated fixture smoke validates all public components.
+  - Add assertions for generated `mod.rs` content.
+  - Add checks that generated templates do not import `dioxus-ui-core` or `dioxus-ui-primitives`.
+  - Document the smoke command as a release gate.
+
+- TODO M9.4 Add accessibility contract checklist
+  - Document expected roles, ARIA attributes, keyboard behavior, and labeling per component group.
+  - Mark which contracts are currently implemented, planned, or intentionally deferred.
+  - Link the checklist from component docs and complex component batch planning.
+
+- TODO M9.5 Add CI quality gate plan
+  - Define the exact command set for local and CI verification.
+  - Include `cargo check`, `cargo test`, generated fixture smoke, and feature compile checks.
+  - Document known expensive checks separately from default checks.
+
+## M10 Interaction Primitives
+
+- TODO M10.1 Implement roving focus state primitives
+  - Add orientation, looping, disabled-item skipping, and active item state.
+  - Add pure unit tests for next, previous, first, last, and boundary behavior.
+  - Keep primitive state independent from DOM handles.
+
+- TODO M10.2 Implement typeahead primitives
+  - Add buffer state and timeout handling.
+  - Add matching over enabled item labels.
+  - Add tests for repeated characters, multi-character search, and timeout reset.
+
+- TODO M10.3 Implement active descendant primitives
+  - Add state types for active item IDs.
+  - Specify container and item attribute helpers.
+  - Add tests for active item transitions and empty collections.
+
+- TODO M10.4 Implement dismissal primitives
+  - Add reusable escape-key and outside-interaction state helpers.
+  - Integrate with existing dismiss behavior types where possible.
+  - Add tests for enabled and disabled dismissal paths.
+
+- TODO M10.5 Implement overlay placement math primitives
+  - Add placement, collision padding, and collision strategy types.
+  - Add pure placement tests for flip, shift, and no-collision behavior.
+  - Keep runtime measurement adapters out of the public state model.
+
+- TODO M10.6 Prepare first interaction component batch
+  - Use M10 primitives to define implementation specs for Radio Group, Toggle, Toggle Group, Slider, and Spinner.
+  - Decide which components require primitive crate APIs versus styled-only APIs.
+  - Create the next TODO milestone from the specs.
 
 ## Status Rules
 
