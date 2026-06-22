@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 85%
+- Overall: 87%
 - Current milestone: M9 Quality Baseline
-- Current task: M9.2 Add per-feature crate compile checks
+- Current task: M9.3 Harden generated fixture smoke
 
 ## M0 Documentation
 
@@ -160,7 +160,7 @@
   - Verify docs catalog links match registry component names.
   - Keep `utils` excluded from public catalog checks.
 
-- TODO M9.2 Add per-feature crate compile checks
+- DONE M9.2 Add per-feature crate compile checks
   - Check each `dioxus-ui` feature compiles independently.
   - Check representative feature combinations compile.
   - Add a script or test harness that can run locally and in CI.
