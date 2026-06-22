@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 99%
-- Current milestone: M10 Interaction Primitives
-- Current task: M10.6 Prepare first interaction component batch
+- Overall: 100%
+- Current milestone: M11 Interaction Component Batch 1
+- Current task: M11.1 Implement Spinner
 
 ## M0 Documentation
 
@@ -209,7 +209,7 @@
   - Add pure placement tests for flip, shift, and no-collision behavior.
   - Keep runtime measurement adapters out of the public state model.
 
-- TODO M10.6 Prepare first interaction component batch
+- DONE M10.6 Prepare first interaction component batch
   - Use M10 primitives to define implementation specs for Radio Group, Toggle, Toggle Group, Slider, and Spinner.
   - Decide which components require primitive crate APIs versus styled-only APIs.
   - Create the next TODO milestone from the specs.
