@@ -3,11 +3,17 @@
 #[cfg(feature = "accordion")]
 pub mod accordion;
 
+#[cfg(feature = "alert")]
+pub mod alert;
+
 #[cfg(feature = "badge")]
 pub mod badge;
 
 #[cfg(feature = "button")]
 pub mod button;
+
+#[cfg(feature = "card")]
+pub mod card;
 
 #[cfg(feature = "checkbox")]
 pub mod checkbox;
@@ -45,10 +51,22 @@ pub use accordion::{
   AccordionItem, AccordionTrigger, ACCORDION_CONTENT_BASE_CLASS, ACCORDION_ITEM_BASE_CLASS,
   ACCORDION_TRIGGER_BASE_CLASS,
 };
+#[cfg(feature = "alert")]
+pub use alert::{
+  alert_class, alert_description_class, alert_title_class, Alert, AlertDescription, AlertTitle,
+  AlertVariant, ALERT_BASE_CLASS, ALERT_DESCRIPTION_BASE_CLASS, ALERT_TITLE_BASE_CLASS,
+};
 #[cfg(feature = "badge")]
 pub use badge::{badge_class, Badge, BadgeVariant, BADGE_BASE_CLASS};
 #[cfg(feature = "button")]
 pub use button::{button_class, Button, ButtonSize, ButtonVariant, BUTTON_BASE_CLASS};
+#[cfg(feature = "card")]
+pub use card::{
+  card_class, card_content_class, card_description_class, card_footer_class, card_header_class,
+  card_title_class, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,
+  CARD_BASE_CLASS, CARD_CONTENT_BASE_CLASS, CARD_DESCRIPTION_BASE_CLASS, CARD_FOOTER_BASE_CLASS,
+  CARD_HEADER_BASE_CLASS, CARD_TITLE_BASE_CLASS,
+};
 #[cfg(feature = "checkbox")]
 pub use checkbox::{checkbox_class, Checkbox, CHECKBOX_BASE_CLASS};
 #[cfg(feature = "dialog")]

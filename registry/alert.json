@@ -1,0 +1,14 @@
+{
+  "name": "alert",
+  "description": "Alert component with title and description parts.",
+  "files": [
+    {
+      "source": "templates/alert.rs",
+      "target": "src/components/ui/alert.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

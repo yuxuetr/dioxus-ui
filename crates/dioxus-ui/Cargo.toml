@@ -7,8 +7,10 @@ repository.workspace = true
 
 [features]
 default = []
+alert = []
 badge = []
 button = []
+card = []
 input = []
 textarea = []
 label = []

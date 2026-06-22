@@ -23,8 +23,10 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | Component | CLI | Feature | Status |
 | --- | --- | --- | --- |
 | [Accordion](accordion.md) | `dxui add accordion` | `accordion` | Controlled styled parts |
+| [Alert](alert.md) | `dxui add alert` | `alert` | Styled parts |
 | [Badge](badge.md) | `dxui add badge` | `badge` | Styled |
 | [Button](button.md) | `dxui add button` | `button` | Styled |
+| [Card](card.md) | `dxui add card` | `card` | Styled parts |
 | [Checkbox](checkbox.md) | `dxui add checkbox` | `checkbox` | Controlled styled part |
 | [Dialog](dialog.md) | `dxui add dialog` | `dialog` | Primitive config + styled parts |
 | [Dropdown](dropdown.md) | `dxui add dropdown` | `dropdown` | Primitive config + styled parts |

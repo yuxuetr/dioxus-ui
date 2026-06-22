@@ -1,0 +1,14 @@
+{
+  "name": "card",
+  "description": "Card component with header, content, and footer parts.",
+  "files": [
+    {
+      "source": "templates/card.rs",
+      "target": "src/components/ui/card.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}
