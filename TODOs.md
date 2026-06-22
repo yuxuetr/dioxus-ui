@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 94%
+- Overall: 97%
 - Current milestone: M8 Complex Interaction Preparation
-- Current task: M8.2 Plan overlay positioning and portal behavior
+- Current task: M8.3 Prioritize complex component batches
 
 ## M0 Documentation
 
@@ -142,7 +142,7 @@
   - Specify reusable APIs for menu, combobox, command, radio group, and navigation components.
   - Document Web/Desktop/Mobile constraints before implementation.
 
-- TODO M8.2 Plan overlay positioning and portal behavior
+- DONE M8.2 Plan overlay positioning and portal behavior
   - Define placement, collision handling, anchor measurement, and portal defaults.
   - Decide what belongs in primitives versus styled components.
   - Document limitations for native desktop and mobile targets.
