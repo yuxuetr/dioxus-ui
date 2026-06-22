@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 96%
+- Overall: 98%
 - Current milestone: M10 Interaction Primitives
-- Current task: M10.4 Implement dismissal primitives
+- Current task: M10.5 Implement overlay placement math primitives
 
 ## M0 Documentation
 
@@ -199,7 +199,7 @@
   - Specify container and item attribute helpers.
   - Add tests for active item transitions and empty collections.
 
-- TODO M10.4 Implement dismissal primitives
+- DONE M10.4 Implement dismissal primitives
   - Add reusable escape-key and outside-interaction state helpers.
   - Integrate with existing dismiss behavior types where possible.
   - Add tests for enabled and disabled dismissal paths.
