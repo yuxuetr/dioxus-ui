@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
+- Overall: 100%
 - Current milestone: M6 Generated Source Quality
-- Current task: M6.4 Add component docs pages
+- Current task: M6 complete
 
 ## M0 Documentation
 
@@ -95,7 +95,7 @@
   - Improve error messages for unknown components.
   - Add tests for repeated `dxui add`.
 
-- TODO M6.4 Add component docs pages
+- DONE M6.4 Add component docs pages
   - Add one docs page per implemented component.
   - Include CLI usage, crate feature usage, and accessibility notes.
 
