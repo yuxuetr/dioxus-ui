@@ -65,3 +65,6 @@ After that, the safest component order is:
 5. Command and Combobox
 6. Calendar and Date Picker
 7. Data Table
+
+See [Complex Component Batches](complex-batches.md) for the expanded milestone
+plan.
