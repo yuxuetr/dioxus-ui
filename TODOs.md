@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 28%
+- Overall: 42%
 - Current milestone: M11 Interaction Component Batch 1
-- Current task: M11.3 Implement Radio Group
+- Current task: M11.4 Implement Toggle Group
 
 ## M0 Documentation
 
@@ -226,7 +226,7 @@
   - Add `aria-pressed` semantics in crate-mode and generated template APIs.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M11.3 Implement Radio Group
+- DONE M11.3 Implement Radio Group
   - Add primitive-backed styled Radio Group and Radio Group Item APIs.
   - Reuse roving focus primitives for orientation, looping, and disabled-item skipping.
   - Add CLI template, registry entry, docs page, and demo usage.
