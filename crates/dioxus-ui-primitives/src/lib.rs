@@ -7,6 +7,7 @@ pub mod dismissal;
 #[cfg(feature = "dropdown")]
 pub mod dropdown;
 pub mod overlay;
+pub mod placement;
 #[cfg(feature = "popover")]
 pub mod popover;
 pub mod roving_focus;
@@ -23,6 +24,10 @@ pub use dismissal::{DismissalDecision, DismissalEvent};
 pub use dioxus_ui_core::UiDensity;
 pub use overlay::{
   DismissBehavior, FocusReturn, FocusStrategy, OverlayAlign, OverlaySide, PortalTarget,
+};
+pub use placement::{
+  compute_overlay_placement, CollisionPadding, CollisionStrategy, OverlayOffset, OverlayPlacement,
+  OverlayPlacementInput, OverlayRect, OverlaySize,
 };
 pub use roving_focus::{FocusMove, NavigationOrientation, RovingFocusItem, RovingFocusState};
 pub use typeahead::{match_typeahead, TypeaheadItem, TypeaheadState};
