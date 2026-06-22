@@ -22,19 +22,19 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 
 | Component | CLI | Feature | Status |
 | --- | --- | --- | --- |
-| Accordion | `dxui add accordion` | `accordion` | Controlled styled parts |
-| Button | `dxui add button` | `button` | Styled |
-| Checkbox | `dxui add checkbox` | `checkbox` | Controlled styled part |
-| Dialog | `dxui add dialog` | `dialog` | Primitive config + styled parts |
-| Dropdown | `dxui add dropdown` | `dropdown` | Primitive config + styled parts |
-| Input | `dxui add input` | `input` | Styled |
-| Label | `dxui add label` | `label` | Styled |
-| Popover | `dxui add popover` | `popover` | Primitive config + styled parts |
-| Select | `dxui add select` | `select` | Primitive config + styled parts |
-| Switch | `dxui add switch` | `switch` | Controlled styled part |
-| Tabs | `dxui add tabs` | `tabs` | Controlled styled parts |
-| Textarea | `dxui add textarea` | `textarea` | Styled |
-| Tooltip | `dxui add tooltip` | `tooltip` | Primitive config + styled part |
+| [Accordion](accordion.md) | `dxui add accordion` | `accordion` | Controlled styled parts |
+| [Button](button.md) | `dxui add button` | `button` | Styled |
+| [Checkbox](checkbox.md) | `dxui add checkbox` | `checkbox` | Controlled styled part |
+| [Dialog](dialog.md) | `dxui add dialog` | `dialog` | Primitive config + styled parts |
+| [Dropdown](dropdown.md) | `dxui add dropdown` | `dropdown` | Primitive config + styled parts |
+| [Input](input.md) | `dxui add input` | `input` | Styled |
+| [Label](label.md) | `dxui add label` | `label` | Styled |
+| [Popover](popover.md) | `dxui add popover` | `popover` | Primitive config + styled parts |
+| [Select](select.md) | `dxui add select` | `select` | Primitive config + styled parts |
+| [Switch](switch.md) | `dxui add switch` | `switch` | Controlled styled part |
+| [Tabs](tabs.md) | `dxui add tabs` | `tabs` | Controlled styled parts |
+| [Textarea](textarea.md) | `dxui add textarea` | `textarea` | Styled |
+| [Tooltip](tooltip.md) | `dxui add tooltip` | `tooltip` | Primitive config + styled part |
 
 ## Preview Commands
 
