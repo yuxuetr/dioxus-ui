@@ -3,6 +3,7 @@
 pub mod active_descendant;
 #[cfg(feature = "dialog")]
 pub mod dialog;
+pub mod dismissal;
 #[cfg(feature = "dropdown")]
 pub mod dropdown;
 pub mod overlay;
@@ -18,6 +19,7 @@ pub mod typeahead;
 pub use active_descendant::{
   ActiveDescendantContainerAttributes, ActiveDescendantItemAttributes, ActiveDescendantState,
 };
+pub use dismissal::{DismissalDecision, DismissalEvent};
 pub use dioxus_ui_core::UiDensity;
 pub use overlay::{
   DismissBehavior, FocusReturn, FocusStrategy, OverlayAlign, OverlaySide, PortalTarget,
