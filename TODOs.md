@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 92%
+- Overall: 94%
 - Current milestone: M10 Interaction Primitives
-- Current task: M10.2 Implement typeahead primitives
+- Current task: M10.3 Implement active descendant primitives
 
 ## M0 Documentation
 
@@ -189,7 +189,7 @@
   - Add pure unit tests for next, previous, first, last, and boundary behavior.
   - Keep primitive state independent from DOM handles.
 
-- TODO M10.2 Implement typeahead primitives
+- DONE M10.2 Implement typeahead primitives
   - Add buffer state and timeout handling.
   - Add matching over enabled item labels.
   - Add tests for repeated characters, multi-character search, and timeout reset.
