@@ -214,6 +214,43 @@
   - Decide which components require primitive crate APIs versus styled-only APIs.
   - Create the next TODO milestone from the specs.
 
+## M11 Interaction Component Batch 1
+
+- TODO M11.1 Implement Spinner
+  - Add crate-mode styled component with size variants and accessible status semantics.
+  - Add CLI template, registry entry, docs page, and demo usage.
+  - Verify generated fixture smoke includes Spinner.
+
+- TODO M11.2 Implement Toggle
+  - Add controlled styled component with pressed, disabled, variant, and size states.
+  - Add `aria-pressed` semantics in crate-mode and generated template APIs.
+  - Add CLI template, registry entry, docs page, and demo usage.
+
+- TODO M11.3 Implement Radio Group
+  - Add primitive-backed styled Radio Group and Radio Group Item APIs.
+  - Reuse roving focus primitives for orientation, looping, and disabled-item skipping.
+  - Add CLI template, registry entry, docs page, and demo usage.
+
+- TODO M11.4 Implement Toggle Group
+  - Add single and multiple selection modes.
+  - Reuse roving focus primitives for grouped keyboard navigation.
+  - Add CLI template, registry entry, docs page, and demo usage.
+
+- TODO M11.5 Implement Slider state primitive
+  - Add pure value helpers for clamp, step, percentage, and keyboard delta behavior.
+  - Add unit tests for boundaries, step rounding, and min/max ranges.
+  - Keep runtime pointer measurement outside the primitive state model.
+
+- TODO M11.6 Implement Slider styled component
+  - Add styled root, track, range, and thumb APIs for horizontal sliders.
+  - Map controlled values to ARIA attributes and range percentage classes/styles.
+  - Add CLI template, registry entry, docs page, and demo usage.
+
+- TODO M11.7 Complete batch documentation and examples
+  - Update parity, accessibility, and component catalog docs for M11 components.
+  - Ensure web and desktop demos cover disabled, focused, selected, and boundary states.
+  - Run release quality gates before marking the batch complete.
+
 ## Status Rules
 
 - Change `TODO` to `DONE` only after implementation, validation, and commit.

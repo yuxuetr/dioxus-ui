@@ -16,6 +16,10 @@ Components:
 - Slider
 - Spinner
 
+Implementation specification:
+
+- [Interaction Batch 1 Specification](interaction-batch-1.md)
+
 Dependencies:
 
 - keyboard navigation primitives
@@ -152,14 +156,14 @@ measurement, and cross-platform ergonomics.
 ## Recommended Next Milestones
 
 ```text
-M9  Interaction primitives implementation
-M10 Radio Group, Toggle, Toggle Group, Slider, Spinner
-M11 Alert Dialog, Sheet, Drawer, Hover Card
-M12 Context Menu, Menubar, Navigation Menu
-M13 Command, Combobox, Native Select
-M14 Calendar and Date Picker
-M15 Data Table and Chart strategy
-M16 Sidebar, Carousel, Scroll Area, Resizable
+M10 Interaction primitives implementation
+M11 Radio Group, Toggle, Toggle Group, Slider, Spinner
+M12 Alert Dialog, Sheet, Drawer, Hover Card
+M13 Context Menu, Menubar, Navigation Menu
+M14 Command, Combobox, Native Select
+M15 Calendar and Date Picker
+M16 Data Table and Chart strategy
+M17 Sidebar, Carousel, Scroll Area, Resizable
 ```
 
 ## Third-Party Logic Candidates
