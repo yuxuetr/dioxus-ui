@@ -24,6 +24,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | --- | --- | --- | --- |
 | [Accordion](accordion.md) | `dxui add accordion` | `accordion` | Controlled styled parts |
 | [Alert](alert.md) | `dxui add alert` | `alert` | Styled parts |
+| [Avatar](avatar.md) | `dxui add avatar` | `avatar` | Styled parts |
 | [Badge](badge.md) | `dxui add badge` | `badge` | Styled |
 | [Button](button.md) | `dxui add button` | `button` | Styled |
 | [Card](card.md) | `dxui add card` | `card` | Styled parts |
@@ -33,6 +34,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Input](input.md) | `dxui add input` | `input` | Styled |
 | [Label](label.md) | `dxui add label` | `label` | Styled |
 | [Popover](popover.md) | `dxui add popover` | `popover` | Primitive config + styled parts |
+| [Progress](progress.md) | `dxui add progress` | `progress` | Styled |
 | [Select](select.md) | `dxui add select` | `select` | Primitive config + styled parts |
 | [Separator](separator.md) | `dxui add separator` | `separator` | Styled |
 | [Skeleton](skeleton.md) | `dxui add skeleton` | `skeleton` | Styled |

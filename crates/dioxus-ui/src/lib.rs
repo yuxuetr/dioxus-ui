@@ -6,6 +6,9 @@ pub mod accordion;
 #[cfg(feature = "alert")]
 pub mod alert;
 
+#[cfg(feature = "avatar")]
+pub mod avatar;
+
 #[cfg(feature = "badge")]
 pub mod badge;
 
@@ -33,6 +36,9 @@ pub mod label;
 #[cfg(feature = "popover")]
 pub mod popover;
 
+#[cfg(feature = "progress")]
+pub mod progress;
+
 #[cfg(feature = "select")]
 pub mod select;
 
@@ -55,6 +61,11 @@ pub use accordion::{
 pub use alert::{
   alert_class, alert_description_class, alert_title_class, Alert, AlertDescription, AlertTitle,
   AlertVariant, ALERT_BASE_CLASS, ALERT_DESCRIPTION_BASE_CLASS, ALERT_TITLE_BASE_CLASS,
+};
+#[cfg(feature = "avatar")]
+pub use avatar::{
+  avatar_class, avatar_fallback_class, avatar_image_class, Avatar, AvatarFallback, AvatarImage,
+  AVATAR_BASE_CLASS, AVATAR_FALLBACK_BASE_CLASS, AVATAR_IMAGE_BASE_CLASS,
 };
 #[cfg(feature = "badge")]
 pub use badge::{badge_class, Badge, BadgeVariant, BADGE_BASE_CLASS};
@@ -95,6 +106,11 @@ pub use popover::{
   OverlayAlign, OverlaySide, PopoverContent, PopoverDescription, PopoverHeader,
   PopoverPrimitiveConfig, PopoverTitle, POPOVER_CONTENT_BASE_CLASS,
   POPOVER_DESCRIPTION_BASE_CLASS, POPOVER_HEADER_BASE_CLASS, POPOVER_TITLE_BASE_CLASS,
+};
+#[cfg(feature = "progress")]
+pub use progress::{
+  progress_class, progress_indicator_class, progress_percent, Progress,
+  PROGRESS_BASE_CLASS, PROGRESS_INDICATOR_BASE_CLASS,
 };
 #[cfg(feature = "select")]
 pub use select::{

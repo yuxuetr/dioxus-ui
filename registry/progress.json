@@ -1,0 +1,14 @@
+{
+  "name": "progress",
+  "description": "Progress component with accessible value semantics.",
+  "files": [
+    {
+      "source": "templates/progress.rs",
+      "target": "src/components/ui/progress.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

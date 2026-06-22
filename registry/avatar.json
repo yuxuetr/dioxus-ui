@@ -1,0 +1,14 @@
+{
+  "name": "avatar",
+  "description": "Avatar component with image and fallback parts.",
+  "files": [
+    {
+      "source": "templates/avatar.rs",
+      "target": "src/components/ui/avatar.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}
