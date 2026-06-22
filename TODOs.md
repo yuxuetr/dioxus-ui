@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 88%
-- Current milestone: M7 Static Component Parity
-- Current task: M7.6 Update parity tracking documentation
+- Overall: 91%
+- Current milestone: M8 Complex Interaction Preparation
+- Current task: M8.1 Design shared keyboard navigation primitives
 
 ## M0 Documentation
 
@@ -130,7 +130,7 @@
   - Include density, variant, disabled, and empty-state examples where applicable.
   - Keep examples source-copy-compatible with generated template APIs.
 
-- TODO M7.6 Update parity tracking documentation
+- DONE M7.6 Update parity tracking documentation
   - Add a shadcn parity matrix for implemented, planned, and deferred components.
   - Group missing components by static, light interaction, overlay/menu, form/date, data display, and layout.
   - Use the matrix to seed the next milestone instead of mixing complex components into M7.
