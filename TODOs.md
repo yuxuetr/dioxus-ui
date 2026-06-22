@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 92%
+- Overall: 85%
 - Current milestone: M7 Static Component Parity
-- Current task: M7.4 Implement Table and Pagination
+- Current task: M7.5 Add static component examples
 
 ## M0 Documentation
 
@@ -119,7 +119,7 @@
   - Document accessibility expectations for fallback labels and progress semantics.
   - Verify generated fixture compile smoke includes the new components.
 
-- TODO M7.4 Implement Table and Pagination
+- DONE M7.4 Implement Table and Pagination
   - Add styled table parts for header, body, row, cell, caption, and footer.
   - Add pagination parts for previous, next, item, ellipsis, and link states.
   - Add CLI templates and registry entries.
