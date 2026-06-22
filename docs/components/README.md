@@ -8,6 +8,9 @@ future docs site should replace this with visual Dioxus Web/Desktop previews.
 For shadcn/ui coverage planning, see the [parity matrix](parity.md) and
 [complex component batches](complex-batches.md).
 
+For accessibility expectations, see the
+[accessibility contract checklist](accessibility.md).
+
 ## Install by Source Copy
 
 ```bash

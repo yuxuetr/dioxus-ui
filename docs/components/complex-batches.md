@@ -3,6 +3,9 @@
 This plan ranks the remaining shadcn-style components by dependency order and
 implementation risk.
 
+Accessibility expectations for these batches are tracked in the
+[accessibility contract checklist](accessibility.md).
+
 ## Batch 1: Light Interaction Controls
 
 Components:
