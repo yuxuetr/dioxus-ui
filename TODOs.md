@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 89%
+- Overall: 91%
 - Current milestone: M9 Quality Baseline
-- Current task: M9.4 Add accessibility contract checklist
+- Current task: M9.5 Add CI quality gate plan
 
 ## M0 Documentation
 
@@ -172,7 +172,7 @@
   - Add checks that generated templates do not import `dioxus-ui-core` or `dioxus-ui-primitives`.
   - Document the smoke command as a release gate.
 
-- TODO M9.4 Add accessibility contract checklist
+- DONE M9.4 Add accessibility contract checklist
   - Document expected roles, ARIA attributes, keyboard behavior, and labeling per component group.
   - Mark which contracts are currently implemented, planned, or intentionally deferred.
   - Link the checklist from component docs and complex component batch planning.
