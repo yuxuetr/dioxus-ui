@@ -33,6 +33,9 @@ pub mod input;
 #[cfg(feature = "label")]
 pub mod label;
 
+#[cfg(feature = "pagination")]
+pub mod pagination;
+
 #[cfg(feature = "popover")]
 pub mod popover;
 
@@ -50,6 +53,9 @@ pub mod skeleton;
 
 #[cfg(feature = "textarea")]
 pub mod textarea;
+
+#[cfg(feature = "table")]
+pub mod table;
 
 #[cfg(feature = "accordion")]
 pub use accordion::{
@@ -100,6 +106,14 @@ pub use dropdown::{
 pub use input::{input_class, Input, INPUT_BASE_CLASS};
 #[cfg(feature = "label")]
 pub use label::{label_class, Label, LABEL_BASE_CLASS};
+#[cfg(feature = "pagination")]
+pub use pagination::{
+  pagination_class, pagination_content_class, pagination_ellipsis_class, pagination_item_class,
+  pagination_link_class, Pagination, PaginationContent, PaginationEllipsis, PaginationItem,
+  PaginationLink, PaginationNext, PaginationPrevious, PAGINATION_BASE_CLASS,
+  PAGINATION_CONTENT_BASE_CLASS, PAGINATION_ELLIPSIS_BASE_CLASS, PAGINATION_ITEM_BASE_CLASS,
+  PAGINATION_LINK_ACTIVE_CLASS, PAGINATION_LINK_BASE_CLASS, PAGINATION_LINK_DISABLED_CLASS,
+};
 #[cfg(feature = "popover")]
 pub use popover::{
   popover_content_class, popover_description_class, popover_header_class, popover_title_class,
@@ -140,6 +154,15 @@ pub mod tooltip;
 
 #[cfg(feature = "switch")]
 pub use switch::{switch_class, switch_thumb_class, Switch, SWITCH_BASE_CLASS, SWITCH_THUMB_BASE_CLASS};
+#[cfg(feature = "table")]
+pub use table::{
+  table_body_class, table_caption_class, table_cell_class, table_class, table_container_class,
+  table_footer_class, table_head_class, table_header_class, table_row_class, Table, TableBody,
+  TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow, TABLE_BASE_CLASS,
+  TABLE_BODY_BASE_CLASS, TABLE_CAPTION_BASE_CLASS, TABLE_CELL_BASE_CLASS,
+  TABLE_CONTAINER_BASE_CLASS, TABLE_FOOTER_BASE_CLASS, TABLE_HEADER_BASE_CLASS,
+  TABLE_HEAD_BASE_CLASS, TABLE_ROW_BASE_CLASS,
+};
 #[cfg(feature = "tabs")]
 pub use tabs::{
   tabs_content_class, tabs_list_class, tabs_trigger_class, TabsContent, TabsList, TabsTrigger,

@@ -33,12 +33,14 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Dropdown](dropdown.md) | `dxui add dropdown` | `dropdown` | Primitive config + styled parts |
 | [Input](input.md) | `dxui add input` | `input` | Styled |
 | [Label](label.md) | `dxui add label` | `label` | Styled |
+| [Pagination](pagination.md) | `dxui add pagination` | `pagination` | Styled parts |
 | [Popover](popover.md) | `dxui add popover` | `popover` | Primitive config + styled parts |
 | [Progress](progress.md) | `dxui add progress` | `progress` | Styled |
 | [Select](select.md) | `dxui add select` | `select` | Primitive config + styled parts |
 | [Separator](separator.md) | `dxui add separator` | `separator` | Styled |
 | [Skeleton](skeleton.md) | `dxui add skeleton` | `skeleton` | Styled |
 | [Switch](switch.md) | `dxui add switch` | `switch` | Controlled styled part |
+| [Table](table.md) | `dxui add table` | `table` | Styled parts |
 | [Tabs](tabs.md) | `dxui add tabs` | `tabs` | Controlled styled parts |
 | [Textarea](textarea.md) | `dxui add textarea` | `textarea` | Styled |
 | [Tooltip](tooltip.md) | `dxui add tooltip` | `tooltip` | Primitive config + styled part |

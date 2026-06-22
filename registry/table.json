@@ -1,0 +1,14 @@
+{
+  "name": "table",
+  "description": "Table component with styled table parts.",
+  "files": [
+    {
+      "source": "templates/table.rs",
+      "target": "src/components/ui/table.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

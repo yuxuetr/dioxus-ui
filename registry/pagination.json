@@ -1,0 +1,14 @@
+{
+  "name": "pagination",
+  "description": "Pagination component with link, item, and ellipsis parts.",
+  "files": [
+    {
+      "source": "templates/pagination.rs",
+      "target": "src/components/ui/pagination.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}
