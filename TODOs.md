@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 57%
+- Overall: 71%
 - Current milestone: M11 Interaction Component Batch 1
-- Current task: M11.5 Implement Slider state primitive
+- Current task: M11.6 Implement Slider styled component
 
 ## M0 Documentation
 
@@ -236,7 +236,7 @@
   - Reuse roving focus primitives for grouped keyboard navigation.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M11.5 Implement Slider state primitive
+- DONE M11.5 Implement Slider state primitive
   - Add pure value helpers for clamp, step, percentage, and keyboard delta behavior.
   - Add unit tests for boundaries, step rounding, and min/max ranges.
   - Keep runtime pointer measurement outside the primitive state model.
