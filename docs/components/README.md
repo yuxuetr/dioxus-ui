@@ -43,6 +43,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Pagination](pagination.md) | `dxui add pagination` | `pagination` | Styled parts |
 | [Popover](popover.md) | `dxui add popover` | `popover` | Primitive config + styled parts |
 | [Progress](progress.md) | `dxui add progress` | `progress` | Styled |
+| [Radio Group](radio-group.md) | `dxui add radio-group` | `radio-group` | Primitive-backed styled parts |
 | [Select](select.md) | `dxui add select` | `select` | Primitive config + styled parts |
 | [Separator](separator.md) | `dxui add separator` | `separator` | Styled |
 | [Skeleton](skeleton.md) | `dxui add skeleton` | `skeleton` | Styled |

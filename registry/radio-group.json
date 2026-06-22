@@ -1,0 +1,14 @@
+{
+  "name": "radio-group",
+  "description": "Radio Group component for single-choice grouped selection.",
+  "files": [
+    {
+      "source": "templates/radio_group.rs",
+      "target": "src/components/ui/radio_group.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

@@ -42,6 +42,9 @@ pub mod popover;
 #[cfg(feature = "progress")]
 pub mod progress;
 
+#[cfg(feature = "radio-group")]
+pub mod radio_group;
+
 #[cfg(feature = "select")]
 pub mod select;
 
@@ -128,6 +131,15 @@ pub use popover::{
 pub use progress::{
   progress_class, progress_indicator_class, progress_percent, Progress,
   PROGRESS_BASE_CLASS, PROGRESS_INDICATOR_BASE_CLASS,
+};
+#[cfg(feature = "radio-group")]
+pub use dioxus_ui_primitives::{FocusMove, NavigationOrientation, RovingFocusItem};
+#[cfg(feature = "radio-group")]
+pub use radio_group::{
+  radio_group_class, radio_group_focus_state, radio_group_indicator_class,
+  radio_group_item_class, radio_group_item_tabindex, radio_group_move_value,
+  radio_group_orientation_attribute, RadioGroup, RadioGroupItem, RADIO_GROUP_BASE_CLASS,
+  RADIO_GROUP_INDICATOR_BASE_CLASS, RADIO_GROUP_ITEM_BASE_CLASS,
 };
 #[cfg(feature = "select")]
 pub use select::{

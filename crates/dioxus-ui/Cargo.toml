@@ -29,6 +29,7 @@ dialog = ["dioxus-ui-primitives/dialog"]
 dropdown = ["dioxus-ui-primitives/dropdown"]
 popover = ["dioxus-ui-primitives/popover"]
 progress = []
+radio-group = []
 select = ["dioxus-ui-primitives/select"]
 tooltip = ["dioxus-ui-primitives/tooltip"]
 

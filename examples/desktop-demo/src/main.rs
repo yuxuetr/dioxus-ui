@@ -7,13 +7,15 @@ use dioxus_ui::{
   dropdown_label_class, dropdown_separator_class, input_class, label_class, pagination_class,
   pagination_link_class, popover_content_class, popover_description_class, popover_header_class,
   popover_title_class, progress_class, progress_indicator_class, progress_percent,
-  select_content_class, select_item_class, select_label_class, select_separator_class,
-  select_trigger_class, select_value_class, separator_class, skeleton_class, switch_class,
-  spinner_class, switch_thumb_class, table_class, table_row_class, tabs_content_class,
-  tabs_list_class, tabs_trigger_class, textarea_class, toggle_class, tooltip_content_class,
-  AlertVariant, BadgeVariant, ButtonSize, ButtonVariant, DialogPrimitiveConfig,
-  DropdownPrimitiveConfig, PopoverPrimitiveConfig, SelectPrimitiveConfig, SeparatorOrientation,
-  SpinnerSize, ToggleSize, ToggleVariant, TooltipPrimitiveConfig, UiDensity,
+  radio_group_class, radio_group_item_class, radio_group_move_value, select_content_class,
+  select_item_class, select_label_class, select_separator_class, select_trigger_class,
+  select_value_class, separator_class, skeleton_class, switch_class, spinner_class,
+  switch_thumb_class, table_class, table_row_class, tabs_content_class, tabs_list_class,
+  tabs_trigger_class, textarea_class, toggle_class, tooltip_content_class, AlertVariant,
+  BadgeVariant, ButtonSize, ButtonVariant, DialogPrimitiveConfig, DropdownPrimitiveConfig,
+  FocusMove, NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
+  SelectPrimitiveConfig, SeparatorOrientation, SpinnerSize, ToggleSize, ToggleVariant,
+  TooltipPrimitiveConfig, UiDensity,
 };
 
 fn main() {
@@ -96,6 +98,28 @@ fn main() {
   println!(
     "dioxus-ui desktop demo progress percent: {}",
     progress_percent(3.0, 4.0)
+  );
+  println!(
+    "dioxus-ui desktop demo radio group class: {}",
+    radio_group_class(NavigationOrientation::Vertical, "gap-2")
+  );
+  println!(
+    "dioxus-ui desktop demo radio group item class: {}",
+    radio_group_item_class(false, "")
+  );
+  println!(
+    "dioxus-ui desktop demo radio group next value: {:?}",
+    radio_group_move_value(
+      Some("compact"),
+      &[
+        RovingFocusItem::enabled("compact"),
+        RovingFocusItem::disabled("comfortable"),
+        RovingFocusItem::enabled("touch"),
+      ],
+      FocusMove::Next,
+      NavigationOrientation::Vertical,
+      true,
+    )
   );
   println!(
     "dioxus-ui desktop demo separator class: {}",
