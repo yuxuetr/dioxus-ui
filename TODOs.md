@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 91%
-- Current milestone: M9 Quality Baseline
-- Current task: M9.5 Add CI quality gate plan
+- Current milestone: M10 Interaction Primitives
+- Current task: M10.1 Implement roving focus state primitives
 
 ## M0 Documentation
 
@@ -177,7 +177,7 @@
   - Mark which contracts are currently implemented, planned, or intentionally deferred.
   - Link the checklist from component docs and complex component batch planning.
 
-- TODO M9.5 Add CI quality gate plan
+- DONE M9.5 Add CI quality gate plan
   - Define the exact command set for local and CI verification.
   - Include `cargo check`, `cargo test`, generated fixture smoke, and feature compile checks.
   - Document known expensive checks separately from default checks.
