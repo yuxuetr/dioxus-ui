@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 77%
+- Overall: 85%
 - Current milestone: M7 Static Component Parity
-- Current task: M7.2 Implement Alert and Card
+- Current task: M7.3 Implement Avatar and Progress
 
 ## M0 Documentation
 
@@ -107,7 +107,7 @@
   - Add component docs pages and catalog links.
   - Verify generated fixture compile smoke includes the new components.
 
-- TODO M7.2 Implement Alert and Card
+- DONE M7.2 Implement Alert and Card
   - Add composable styled parts for title, description, header, content, and footer where applicable.
   - Add CLI templates and registry entries.
   - Add class utility tests for variants and user class extension.
