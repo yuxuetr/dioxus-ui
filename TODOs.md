@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 98%
+- Overall: 99%
 - Current milestone: M10 Interaction Primitives
-- Current task: M10.5 Implement overlay placement math primitives
+- Current task: M10.6 Prepare first interaction component batch
 
 ## M0 Documentation
 
@@ -204,7 +204,7 @@
   - Integrate with existing dismiss behavior types where possible.
   - Add tests for enabled and disabled dismissal paths.
 
-- TODO M10.5 Implement overlay placement math primitives
+- DONE M10.5 Implement overlay placement math primitives
   - Add placement, collision padding, and collision strategy types.
   - Add pure placement tests for flip, shift, and no-collision behavior.
   - Keep runtime measurement adapters out of the public state model.
