@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M6 Generated Source Quality
-- Current task: M6.1 Make generated templates self-contained
+- Current task: M6.2 Add generated fixture compile smoke
 
 ## M0 Documentation
 
@@ -80,7 +80,7 @@
 
 ## M6 Generated Source Quality
 
-- TODO M6.1 Make generated templates self-contained
+- DONE M6.1 Make generated templates self-contained
   - Remove `dioxus-ui-core` imports from generated templates.
   - Remove `dioxus-ui-primitives` imports from generated templates.
   - Keep crate-mode implementations using shared crates.
