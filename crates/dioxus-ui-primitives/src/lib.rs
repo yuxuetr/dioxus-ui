@@ -13,6 +13,7 @@ pub mod popover;
 pub mod roving_focus;
 #[cfg(feature = "select")]
 pub mod select;
+pub mod slider;
 #[cfg(feature = "tooltip")]
 pub mod tooltip;
 pub mod typeahead;
@@ -30,6 +31,9 @@ pub use placement::{
   OverlayPlacementInput, OverlayRect, OverlaySize,
 };
 pub use roving_focus::{FocusMove, NavigationOrientation, RovingFocusItem, RovingFocusState};
+pub use slider::{
+  slider_clamp, slider_percent, slider_snap, SliderAriaAttributes, SliderKeyMove, SliderState,
+};
 pub use typeahead::{match_typeahead, TypeaheadItem, TypeaheadState};
 
 #[cfg(feature = "dialog")]
