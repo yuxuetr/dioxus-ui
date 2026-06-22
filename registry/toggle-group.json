@@ -1,0 +1,14 @@
+{
+  "name": "toggle-group",
+  "description": "Toggle Group component for grouped single or multiple pressed states.",
+  "files": [
+    {
+      "source": "templates/toggle_group.rs",
+      "target": "src/components/ui/toggle_group.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

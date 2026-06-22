@@ -29,6 +29,7 @@ features=(
   tabs
   textarea
   toggle
+  toggle-group
   tooltip
 )
 
@@ -41,7 +42,7 @@ echo "checking static component feature set"
 cargo check -q -p dioxus-ui --no-default-features --features "alert,avatar,badge,card,pagination,progress,separator,skeleton,spinner,table"
 
 echo "checking primitive-backed feature set"
-cargo check -q -p dioxus-ui --no-default-features --features "dialog,dropdown,popover,radio-group,select,tooltip"
+cargo check -q -p dioxus-ui --no-default-features --features "dialog,dropdown,popover,radio-group,select,toggle-group,tooltip"
 
 echo "checking all dioxus-ui features"
 cargo check -q -p dioxus-ui --all-features

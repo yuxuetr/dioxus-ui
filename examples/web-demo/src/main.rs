@@ -11,7 +11,8 @@ use dioxus_ui::{
   select_item_class, select_label_class, select_separator_class, select_trigger_class,
   select_value_class, separator_class, skeleton_class, switch_class, spinner_class,
   switch_thumb_class, table_class, table_row_class, tabs_content_class, tabs_list_class,
-  tabs_trigger_class, textarea_class, toggle_class, tooltip_content_class, AlertVariant,
+  tabs_trigger_class, textarea_class, toggle_class, toggle_group_class, toggle_group_item_class,
+  toggle_group_move_value, toggle_group_multiple_selection, tooltip_content_class, AlertVariant,
   BadgeVariant, ButtonSize, ButtonVariant, DialogPrimitiveConfig, DropdownPrimitiveConfig,
   FocusMove, NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
   SelectPrimitiveConfig, SeparatorOrientation, SpinnerSize, ToggleSize, ToggleVariant,
@@ -102,6 +103,32 @@ fn main() {
       NavigationOrientation::Horizontal,
       true,
     )
+  );
+  println!(
+    "dioxus-ui web demo toggle group class: {}",
+    toggle_group_class(NavigationOrientation::Horizontal, "gap-1")
+  );
+  println!(
+    "dioxus-ui web demo toggle group item class: {}",
+    toggle_group_item_class(true, "")
+  );
+  println!(
+    "dioxus-ui web demo toggle group next value: {:?}",
+    toggle_group_move_value(
+      Some("bold"),
+      &[
+        RovingFocusItem::enabled("bold"),
+        RovingFocusItem::disabled("italic"),
+        RovingFocusItem::enabled("underline"),
+      ],
+      FocusMove::Next,
+      NavigationOrientation::Horizontal,
+      true,
+    )
+  );
+  println!(
+    "dioxus-ui web demo toggle group values: {:?}",
+    toggle_group_multiple_selection(&["bold".to_string()], "underline")
   );
   println!(
     "dioxus-ui web demo separator class: {}",

@@ -132,7 +132,7 @@ pub use progress::{
   progress_class, progress_indicator_class, progress_percent, Progress,
   PROGRESS_BASE_CLASS, PROGRESS_INDICATOR_BASE_CLASS,
 };
-#[cfg(feature = "radio-group")]
+#[cfg(any(feature = "radio-group", feature = "toggle-group"))]
 pub use dioxus_ui_primitives::{FocusMove, NavigationOrientation, RovingFocusItem};
 #[cfg(feature = "radio-group")]
 pub use radio_group::{
@@ -169,6 +169,9 @@ pub mod tabs;
 #[cfg(feature = "toggle")]
 pub mod toggle;
 
+#[cfg(feature = "toggle-group")]
+pub mod toggle_group;
+
 #[cfg(feature = "tooltip")]
 pub mod tooltip;
 
@@ -190,6 +193,13 @@ pub use tabs::{
 };
 #[cfg(feature = "toggle")]
 pub use toggle::{toggle_class, Toggle, ToggleSize, ToggleVariant, TOGGLE_BASE_CLASS};
+#[cfg(feature = "toggle-group")]
+pub use toggle_group::{
+  toggle_group_class, toggle_group_focus_state, toggle_group_item_class,
+  toggle_group_item_tabindex, toggle_group_move_value, toggle_group_multiple_selection,
+  toggle_group_orientation_attribute, toggle_group_single_selection, ToggleGroup,
+  ToggleGroupItem, ToggleGroupType, TOGGLE_GROUP_BASE_CLASS, TOGGLE_GROUP_ITEM_BASE_CLASS,
+};
 #[cfg(feature = "tooltip")]
 pub use tooltip::{
   tooltip_content_class, TooltipContent, TooltipPrimitiveConfig, TOOLTIP_CONTENT_BASE_CLASS,
