@@ -96,6 +96,7 @@ Before publishing any crate:
 cargo check --workspace --all-features
 cargo test --workspace --all-features
 cargo run -p dioxus-ui-cli -- list
+scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
 ```
 
@@ -112,7 +113,11 @@ Manual review:
 - generated `assets/dioxus-ui.css` uses Tailwind CSS v4 syntax
 - generated `src/components/ui/mod.rs` is deterministic
 - registry entries point to existing templates
-- component features compile with `--all-features`
+- component features compile individually and in representative combinations
+
+`scripts/feature-check.sh` is more expensive than a normal workspace check
+because it invokes Cargo once per public component feature. Run it before
+release and after feature-gating changes.
 
 ## CLI Release Notes
 
