@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 91%
+- Overall: 94%
 - Current milestone: M8 Complex Interaction Preparation
-- Current task: M8.1 Design shared keyboard navigation primitives
+- Current task: M8.2 Plan overlay positioning and portal behavior
 
 ## M0 Documentation
 
@@ -137,7 +137,7 @@
 
 ## M8 Complex Interaction Preparation
 
-- TODO M8.1 Design shared keyboard navigation primitives
+- DONE M8.1 Design shared keyboard navigation primitives
   - Define roving focus, typeahead, active descendant, and escape-key behavior.
   - Specify reusable APIs for menu, combobox, command, radio group, and navigation components.
   - Document Web/Desktop/Mobile constraints before implementation.
