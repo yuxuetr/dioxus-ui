@@ -18,7 +18,8 @@ Read in this order:
 12. [RFC 0005: Modules and Platform Profiles](rfcs/0005-modules-and-platform-profiles.md)
 13. [RFC 0006: Focus and Portal Primitives](rfcs/0006-focus-and-portal-primitives.md)
 14. [RFC 0007: Keyboard Navigation Primitives](rfcs/0007-keyboard-navigation-primitives.md)
-15. [TODO Plan](../TODOs.md)
+15. [RFC 0008: Overlay Positioning and Portals](rfcs/0008-overlay-positioning-and-portals.md)
+16. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
