@@ -41,3 +41,9 @@ cargo run -p dioxus-ui-cli -- init --root /tmp/dxui-demo
 ```bash
 cargo run -p dioxus-ui-cli -- add button --root /tmp/dxui-demo
 ```
+
+## Generated Fixture Smoke
+
+```bash
+scripts/generated-fixture-smoke.sh
+```

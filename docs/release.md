@@ -96,6 +96,7 @@ Before publishing any crate:
 cargo check --workspace --all-features
 cargo test --workspace --all-features
 cargo run -p dioxus-ui-cli -- list
+scripts/generated-fixture-smoke.sh
 ```
 
 Smoke commands:
