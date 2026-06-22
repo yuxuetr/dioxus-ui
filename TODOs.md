@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 97%
+- Overall: 100%
 - Current milestone: M8 Complex Interaction Preparation
-- Current task: M8.3 Prioritize complex component batches
+- Current task: M8 complete
 
 ## M0 Documentation
 
@@ -147,7 +147,7 @@
   - Decide what belongs in primitives versus styled components.
   - Document limitations for native desktop and mobile targets.
 
-- TODO M8.3 Prioritize complex component batches
+- DONE M8.3 Prioritize complex component batches
   - Rank Calendar, Date Picker, Combobox, Command, Context Menu, Menubar, Navigation Menu, Sheet, Toast, Scroll Area, Slider, and Radio Group.
   - Split them into implementable milestones with explicit dependency order.
   - Identify which components need third-party logic crates versus first-party primitives.
