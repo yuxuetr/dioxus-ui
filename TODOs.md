@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 42%
+- Overall: 57%
 - Current milestone: M11 Interaction Component Batch 1
-- Current task: M11.4 Implement Toggle Group
+- Current task: M11.5 Implement Slider state primitive
 
 ## M0 Documentation
 
@@ -231,7 +231,7 @@
   - Reuse roving focus primitives for orientation, looping, and disabled-item skipping.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M11.4 Implement Toggle Group
+- DONE M11.4 Implement Toggle Group
   - Add single and multiple selection modes.
   - Reuse roving focus primitives for grouped keyboard navigation.
   - Add CLI template, registry entry, docs page, and demo usage.
