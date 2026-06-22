@@ -1,5 +1,6 @@
 //! Unstyled behavior primitives for dioxus-ui components.
 
+pub mod active_descendant;
 #[cfg(feature = "dialog")]
 pub mod dialog;
 #[cfg(feature = "dropdown")]
@@ -14,6 +15,9 @@ pub mod select;
 pub mod tooltip;
 pub mod typeahead;
 
+pub use active_descendant::{
+  ActiveDescendantContainerAttributes, ActiveDescendantItemAttributes, ActiveDescendantState,
+};
 pub use dioxus_ui_core::UiDensity;
 pub use overlay::{
   DismissBehavior, FocusReturn, FocusStrategy, OverlayAlign, OverlaySide, PortalTarget,
