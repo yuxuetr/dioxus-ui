@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 94%
+- Overall: 96%
 - Current milestone: M10 Interaction Primitives
-- Current task: M10.3 Implement active descendant primitives
+- Current task: M10.4 Implement dismissal primitives
 
 ## M0 Documentation
 
@@ -194,7 +194,7 @@
   - Add matching over enabled item labels.
   - Add tests for repeated characters, multi-character search, and timeout reset.
 
-- TODO M10.3 Implement active descendant primitives
+- DONE M10.3 Implement active descendant primitives
   - Add state types for active item IDs.
   - Specify container and item attribute helpers.
   - Add tests for active item transitions and empty collections.
