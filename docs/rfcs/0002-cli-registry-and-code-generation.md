@@ -28,6 +28,7 @@ dxui init
 dxui list
 dxui add button
 dxui add dialog
+dxui add button --overwrite
 ```
 
 ## Default Generated Layout
@@ -73,9 +74,10 @@ Initial registry fields:
 
 ## Generation Rules
 
-- Existing user files must not be overwritten without an explicit flag.
+- Existing user files must not be overwritten unless `--overwrite` is set.
 - Component dependencies should be installed before the requested component.
 - `mod.rs` updates should be deterministic.
+- Unknown component errors should list available public registry components.
 - Paths should be configurable after the first working version.
 - Generated source should use 2-space indentation to match project preference.
 
@@ -90,7 +92,6 @@ Registry validation should check:
 
 ## Open Questions
 
-- Should the first CLI support `--overwrite`, or should conflicts fail only?
 - Should `dxui init` detect an existing Tailwind v4 setup automatically or only
   create a CSS entry?
 - Should generated components use project-local imports or a shared `ui` module?

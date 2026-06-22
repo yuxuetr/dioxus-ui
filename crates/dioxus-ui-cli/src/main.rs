@@ -19,6 +19,12 @@ const DEFAULT_CSS: &str = r#"@import "tailwindcss";
 }
 "#;
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+struct AddOptions {
+  root: PathBuf,
+  overwrite: bool,
+}
+
 fn main() {
   if let Err(error) = run(env::args_os().skip(1)) {
     eprintln!("dxui: {error}");
@@ -53,14 +59,10 @@ fn init_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
 }
 
 fn add_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
-  let component_name = args
-    .first()
-    .and_then(|arg| arg.to_str())
-    .ok_or("missing component name")?;
-  let root = parse_root(&args[1..], "add")?;
+  let (component_name, options) = parse_add_options(args)?;
 
-  add_component(&root, component_name)?;
-  println!("added {component_name} to {}", root.display());
+  add_component_with_options(&options.root, &component_name, options.overwrite)?;
+  println!("added {component_name} to {}", options.root.display());
   Ok(())
 }
 
@@ -97,6 +99,44 @@ fn parse_root(args: &[OsString], command: &str) -> Result<PathBuf, Box<dyn Error
   Ok(root)
 }
 
+fn parse_add_options(args: &[OsString]) -> Result<(String, AddOptions), Box<dyn Error>> {
+  let mut component_name = None;
+  let mut root = env::current_dir()?;
+  let mut overwrite = false;
+  let mut index = 0;
+
+  while index < args.len() {
+    match args[index].to_str() {
+      Some("--root") => {
+        let value = args
+          .get(index + 1)
+          .ok_or("missing value for --root")?;
+        root = PathBuf::from(value);
+        index += 2;
+      }
+      Some("--overwrite") => {
+        overwrite = true;
+        index += 1;
+      }
+      Some(flag) if flag.starts_with('-') => {
+        return Err(format!("unknown add option `{flag}`").into());
+      }
+      Some(value) => {
+        if component_name.is_some() {
+          return Err(format!("unexpected add argument `{value}`").into());
+        }
+
+        component_name = Some(value.to_string());
+        index += 1;
+      }
+      None => return Err("add argument is not valid UTF-8".into()),
+    }
+  }
+
+  let component_name = component_name.ok_or("missing component name")?;
+  Ok((component_name, AddOptions { root, overwrite }))
+}
+
 fn init_project(root: &Path) -> Result<(), Box<dyn Error>> {
   let assets_dir = root.join("assets");
   let ui_dir = root.join("src").join("components").join("ui");
@@ -110,13 +150,22 @@ fn init_project(root: &Path) -> Result<(), Box<dyn Error>> {
   Ok(())
 }
 
+#[cfg(test)]
 fn add_component(root: &Path, component_name: &str) -> Result<(), Box<dyn Error>> {
+  add_component_with_options(root, component_name, false)
+}
+
+fn add_component_with_options(
+  root: &Path,
+  component_name: &str,
+  overwrite: bool,
+) -> Result<(), Box<dyn Error>> {
   init_project(root)?;
 
   let registry = load_registry()?;
   let mut added = Vec::new();
 
-  add_component_recursive(root, component_name, &registry, &mut added)?;
+  add_component_recursive(root, component_name, &registry, overwrite, &mut added)?;
   update_ui_mod(root, &added)?;
 
   Ok(())
@@ -126,6 +175,7 @@ fn add_component_recursive(
   root: &Path,
   component_name: &str,
   registry: &[RegistryComponent],
+  overwrite: bool,
   added: &mut Vec<String>,
 ) -> Result<(), Box<dyn Error>> {
   if added.iter().any(|name| name == component_name) {
@@ -135,10 +185,10 @@ fn add_component_recursive(
   let component = registry
     .iter()
     .find(|component| component.name == component_name)
-    .ok_or_else(|| format!("unknown component `{component_name}`"))?;
+    .ok_or_else(|| unknown_component_error(component_name, registry))?;
 
   for dependency in &component.dependencies {
-    add_component_recursive(root, dependency, registry, added)?;
+    add_component_recursive(root, dependency, registry, overwrite, added)?;
   }
 
   let workspace = workspace_root();
@@ -152,7 +202,7 @@ fn add_component_recursive(
       fs::create_dir_all(parent)?;
     }
 
-    write_new_file(&target, &content)?;
+    write_component_file(&target, &content, overwrite)?;
   }
 
   for asset in &component.assets {
@@ -164,11 +214,22 @@ fn add_component_recursive(
       fs::create_dir_all(parent)?;
     }
 
-    write_new_file(&target, &content)?;
+    write_component_file(&target, &content, overwrite)?;
   }
 
   added.push(component.name.clone());
   Ok(())
+}
+
+fn unknown_component_error(component_name: &str, registry: &[RegistryComponent]) -> String {
+  let available = registry
+    .iter()
+    .filter(|component| component.name != "utils")
+    .map(|component| component.name.as_str())
+    .collect::<Vec<_>>()
+    .join(", ");
+
+  format!("unknown component `{component_name}`. available components: {available}")
 }
 
 fn update_ui_mod(root: &Path, component_names: &[String]) -> Result<(), Box<dyn Error>> {
@@ -262,9 +323,18 @@ fn write_new_file(path: &Path, content: &str) -> Result<(), Box<dyn Error>> {
   Ok(())
 }
 
+fn write_component_file(path: &Path, content: &str, overwrite: bool) -> Result<(), Box<dyn Error>> {
+  if path.exists() && !overwrite {
+    return Ok(());
+  }
+
+  fs::write(path, content)?;
+  Ok(())
+}
+
 fn print_help() {
   println!(
-    "dxui\n\nUsage:\n  dxui init [--root <path>]\n  dxui add <component> [--root <path>]\n  dxui list\n\nCommands:\n  init    Prepare a Dioxus project for dioxus-ui generated components\n  add     Copy a component template into a project\n  list    List available registry components"
+    "dxui\n\nUsage:\n  dxui init [--root <path>]\n  dxui add <component> [--root <path>] [--overwrite]\n  dxui list\n\nCommands:\n  init    Prepare a Dioxus project for dioxus-ui generated components\n  add     Copy a component template into a project\n  list    List available registry components"
   );
 }
 
@@ -341,5 +411,63 @@ mod tests {
     let button = fs::read_to_string(ui_dir.join("button.rs")).expect("button should be readable");
 
     assert_eq!(button, "custom");
+  }
+
+  #[test]
+  fn add_component_overwrites_existing_template_when_requested() {
+    let root = temp_project();
+    let ui_dir = root.join("src").join("components").join("ui");
+
+    fs::create_dir_all(&ui_dir).expect("ui dir should be created");
+    fs::write(ui_dir.join("button.rs"), "custom").expect("button should be written");
+
+    add_component_with_options(&root, "button", true).expect("add should succeed");
+
+    let button = fs::read_to_string(ui_dir.join("button.rs")).expect("button should be readable");
+
+    assert!(button.contains("pub enum ButtonVariant"));
+    assert_ne!(button, "custom");
+  }
+
+  #[test]
+  fn add_component_repeatedly_keeps_modules_unique() {
+    let root = temp_project();
+
+    add_component(&root, "button").expect("first add should succeed");
+    add_component(&root, "button").expect("second add should succeed");
+
+    let modules = fs::read_to_string(root.join("src").join("components").join("ui").join("mod.rs"))
+      .expect("mod file should be readable");
+
+    assert_eq!(modules, "pub mod button;\npub mod utils;\n");
+  }
+
+  #[test]
+  fn add_component_unknown_name_lists_available_components() {
+    let root = temp_project();
+    let error = add_component(&root, "missing").expect_err("add should fail");
+    let message = error.to_string();
+
+    assert!(message.contains("unknown component `missing`"));
+    assert!(message.contains("available components:"));
+    assert!(message.contains("button"));
+    assert!(!message.contains("utils"));
+  }
+
+  #[test]
+  fn parse_add_options_accepts_overwrite_and_root() {
+    let root = temp_project();
+    let args = vec![
+      OsString::from("button"),
+      OsString::from("--overwrite"),
+      OsString::from("--root"),
+      root.clone().into_os_string(),
+    ];
+
+    let (component_name, options) = parse_add_options(&args).expect("options should parse");
+
+    assert_eq!(component_name, "button");
+    assert_eq!(options.root, root);
+    assert!(options.overwrite);
   }
 }

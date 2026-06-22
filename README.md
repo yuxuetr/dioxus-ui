@@ -61,6 +61,10 @@ dxui add dialog
 dxui add input
 ```
 
+`dxui add` keeps existing component files by default. Use
+`dxui add button --overwrite` when you intentionally want to replace a
+previously generated component file.
+
 Expected output in a Dioxus app:
 
 ```text
