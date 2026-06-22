@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M6 Generated Source Quality
-- Current task: M6 complete
+- Overall: 69%
+- Current milestone: M7 Static Component Parity
+- Current task: M7.1 Implement Badge, Separator, and Skeleton
 
 ## M0 Documentation
 
@@ -98,6 +98,59 @@
 - DONE M6.4 Add component docs pages
   - Add one docs page per implemented component.
   - Include CLI usage, crate feature usage, and accessibility notes.
+
+## M7 Static Component Parity
+
+- TODO M7.1 Implement Badge, Separator, and Skeleton
+  - Add crate-mode styled components.
+  - Add CLI templates and registry entries.
+  - Add component docs pages and catalog links.
+  - Verify generated fixture compile smoke includes the new components.
+
+- TODO M7.2 Implement Alert and Card
+  - Add composable styled parts for title, description, header, content, and footer where applicable.
+  - Add CLI templates and registry entries.
+  - Add class utility tests for variants and user class extension.
+  - Add component docs pages and examples.
+
+- TODO M7.3 Implement Avatar and Progress
+  - Add styled component APIs for image/fallback avatar usage and progress value rendering.
+  - Add CLI templates and registry entries.
+  - Document accessibility expectations for fallback labels and progress semantics.
+  - Verify generated fixture compile smoke includes the new components.
+
+- TODO M7.4 Implement Table and Pagination
+  - Add styled table parts for header, body, row, cell, caption, and footer.
+  - Add pagination parts for previous, next, item, ellipsis, and link states.
+  - Add CLI templates and registry entries.
+  - Add docs pages with usage, crate feature usage, and accessibility notes.
+
+- TODO M7.5 Add static component examples
+  - Update web and desktop demos to render the new static component set.
+  - Include density, variant, disabled, and empty-state examples where applicable.
+  - Keep examples source-copy-compatible with generated template APIs.
+
+- TODO M7.6 Update parity tracking documentation
+  - Add a shadcn parity matrix for implemented, planned, and deferred components.
+  - Group missing components by static, light interaction, overlay/menu, form/date, data display, and layout.
+  - Use the matrix to seed the next milestone instead of mixing complex components into M7.
+
+## M8 Complex Interaction Preparation
+
+- TODO M8.1 Design shared keyboard navigation primitives
+  - Define roving focus, typeahead, active descendant, and escape-key behavior.
+  - Specify reusable APIs for menu, combobox, command, radio group, and navigation components.
+  - Document Web/Desktop/Mobile constraints before implementation.
+
+- TODO M8.2 Plan overlay positioning and portal behavior
+  - Define placement, collision handling, anchor measurement, and portal defaults.
+  - Decide what belongs in primitives versus styled components.
+  - Document limitations for native desktop and mobile targets.
+
+- TODO M8.3 Prioritize complex component batches
+  - Rank Calendar, Date Picker, Combobox, Command, Context Menu, Menubar, Navigation Menu, Sheet, Toast, Scroll Area, Slider, and Radio Group.
+  - Split them into implementable milestones with explicit dependency order.
+  - Identify which components need third-party logic crates versus first-party primitives.
 
 ## Status Rules
 
