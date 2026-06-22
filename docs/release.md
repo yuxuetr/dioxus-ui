@@ -119,6 +119,9 @@ Manual review:
 because it invokes Cargo once per public component feature. Run it before
 release and after feature-gating changes.
 
+See [Quality Gates](quality-gates.md) for local, CI, source-copy, feature, and
+release verification tiers.
+
 ## CLI Release Notes
 
 The first CLI release can support:
