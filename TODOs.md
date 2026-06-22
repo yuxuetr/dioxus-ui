@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
+- Overall: 14%
 - Current milestone: M11 Interaction Component Batch 1
-- Current task: M11.1 Implement Spinner
+- Current task: M11.2 Implement Toggle
 
 ## M0 Documentation
 
@@ -216,7 +216,7 @@
 
 ## M11 Interaction Component Batch 1
 
-- TODO M11.1 Implement Spinner
+- DONE M11.1 Implement Spinner
   - Add crate-mode styled component with size variants and accessible status semantics.
   - Add CLI template, registry entry, docs page, and demo usage.
   - Verify generated fixture smoke includes Spinner.
