@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
-use dioxus_ui_core::classes;
-use dioxus_ui_primitives::SelectPrimitiveConfig;
+use super::utils::classes;
+pub use super::utils::SelectPrimitiveConfig;
 
 pub const SELECT_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-950 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50";
 pub const SELECT_VALUE_BASE_CLASS: &str = "truncate";

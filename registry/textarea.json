@@ -7,6 +7,8 @@
       "target": "src/components/ui/textarea.rs"
     }
   ],
-  "dependencies": [],
+  "dependencies": [
+    "utils"
+  ],
   "assets": []
 }

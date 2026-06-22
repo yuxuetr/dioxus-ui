@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
-use dioxus_ui_core::classes;
-use dioxus_ui_primitives::{OverlaySide, TooltipPrimitiveConfig};
+use super::utils::classes;
+pub use super::utils::{OverlaySide, TooltipPrimitiveConfig};
 
 pub const TOOLTIP_CONTENT_BASE_CLASS: &str =
   "z-50 overflow-hidden rounded-md bg-zinc-950 px-3 py-1.5 text-xs text-white shadow-md";

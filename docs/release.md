@@ -131,7 +131,7 @@ in a stable install location.
 
 - Overlay primitives define state/config contracts but do not implement full
   focus trap, DOM portal, or positioning engines yet.
-- Generated templates currently depend on `dioxus-ui-core` and sometimes
-  `dioxus-ui-primitives`.
+- Generated templates include a local `utils.rs` helper module and should not
+  require `dioxus-ui-core` or `dioxus-ui-primitives` in source-copy mode.
 - Examples are command-line smoke examples, not full Dioxus Web/Desktop visual
   previews yet.

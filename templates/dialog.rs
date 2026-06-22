@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
-use dioxus_ui_core::classes;
-use dioxus_ui_primitives::{
+use super::utils::classes;
+pub use super::utils::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
 

@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui_core::classes;
+use super::utils::classes;
 
 pub const LABEL_BASE_CLASS: &str = "text-sm font-medium leading-none text-zinc-900 peer-disabled:cursor-not-allowed peer-disabled:opacity-70";
 

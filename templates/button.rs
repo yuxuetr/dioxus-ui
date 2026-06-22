@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui_core::{classes, UiDensity};
+use super::utils::{classes, UiDensity};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum ButtonVariant {

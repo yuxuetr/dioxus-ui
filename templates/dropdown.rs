@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
-use dioxus_ui_core::classes;
-use dioxus_ui_primitives::DropdownPrimitiveConfig;
+use super::utils::classes;
+pub use super::utils::DropdownPrimitiveConfig;
 
 pub const DROPDOWN_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-zinc-200 bg-white p-1 text-zinc-950 shadow-md";
 pub const DROPDOWN_GROUP_BASE_CLASS: &str = "p-1";

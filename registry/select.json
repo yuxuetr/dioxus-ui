@@ -7,6 +7,8 @@
       "target": "src/components/ui/select.rs"
     }
   ],
-  "dependencies": [],
+  "dependencies": [
+    "utils"
+  ],
   "assets": []
 }

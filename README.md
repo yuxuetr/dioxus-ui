@@ -67,6 +67,7 @@ Expected output in a Dioxus app:
 src/components/ui/button.rs
 src/components/ui/dialog.rs
 src/components/ui/input.rs
+src/components/ui/utils.rs
 assets/dioxus-ui.css
 ```
 

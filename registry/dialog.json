@@ -7,6 +7,8 @@
       "target": "src/components/ui/dialog.rs"
     }
   ],
-  "dependencies": [],
+  "dependencies": [
+    "utils"
+  ],
   "assets": []
 }

@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui_core::classes;
+use super::utils::classes;
 
 pub const ACCORDION_ITEM_BASE_CLASS: &str = "border-b border-zinc-200";
 pub const ACCORDION_TRIGGER_BASE_CLASS: &str = "flex w-full items-center justify-between py-4 text-left text-sm font-medium transition-colors hover:text-zinc-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";

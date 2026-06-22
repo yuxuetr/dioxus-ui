@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
-use dioxus_ui_core::classes;
-use dioxus_ui_primitives::{OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
+use super::utils::classes;
+pub use super::utils::{OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
 
 pub const POPOVER_CONTENT_BASE_CLASS: &str = "z-50 w-72 rounded-md border border-zinc-200 bg-white p-4 text-zinc-950 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600";
 pub const POPOVER_HEADER_BASE_CLASS: &str = "grid gap-1";

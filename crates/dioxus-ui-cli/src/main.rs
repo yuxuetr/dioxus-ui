@@ -66,6 +66,10 @@ fn add_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
 
 fn list_command() -> Result<(), Box<dyn Error>> {
   for component in load_registry()? {
+    if component.name == "utils" {
+      continue;
+    }
+
     println!("{}", component.name);
   }
 
@@ -321,7 +325,7 @@ mod tests {
     let modules = fs::read_to_string(root.join("src").join("components").join("ui").join("mod.rs"))
       .expect("mod file should be readable");
 
-    assert_eq!(modules, "pub mod button;\n");
+    assert_eq!(modules, "pub mod button;\npub mod utils;\n");
   }
 
   #[test]
