@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 85%
+- Overall: 92%
 - Current milestone: M7 Static Component Parity
-- Current task: M7.3 Implement Avatar and Progress
+- Current task: M7.4 Implement Table and Pagination
 
 ## M0 Documentation
 
@@ -113,7 +113,7 @@
   - Add class utility tests for variants and user class extension.
   - Add component docs pages and examples.
 
-- TODO M7.3 Implement Avatar and Progress
+- DONE M7.3 Implement Avatar and Progress
   - Add styled component APIs for image/fallback avatar usage and progress value rendering.
   - Add CLI templates and registry entries.
   - Document accessibility expectations for fallback labels and progress semantics.
