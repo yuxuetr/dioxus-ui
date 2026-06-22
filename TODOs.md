@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 85%
+- Overall: 88%
 - Current milestone: M7 Static Component Parity
-- Current task: M7.5 Add static component examples
+- Current task: M7.6 Update parity tracking documentation
 
 ## M0 Documentation
 
@@ -125,7 +125,7 @@
   - Add CLI templates and registry entries.
   - Add docs pages with usage, crate feature usage, and accessibility notes.
 
-- TODO M7.5 Add static component examples
+- DONE M7.5 Add static component examples
   - Update web and desktop demos to render the new static component set.
   - Include density, variant, disabled, and empty-state examples where applicable.
   - Keep examples source-copy-compatible with generated template APIs.
