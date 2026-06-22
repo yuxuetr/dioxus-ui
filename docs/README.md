@@ -17,7 +17,8 @@ Read in this order:
 11. [RFC 0004: Benchmark and CSS Output Strategy](rfcs/0004-benchmark-and-css-output.md)
 12. [RFC 0005: Modules and Platform Profiles](rfcs/0005-modules-and-platform-profiles.md)
 13. [RFC 0006: Focus and Portal Primitives](rfcs/0006-focus-and-portal-primitives.md)
-14. [TODO Plan](../TODOs.md)
+14. [RFC 0007: Keyboard Navigation Primitives](rfcs/0007-keyboard-navigation-primitives.md)
+15. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
