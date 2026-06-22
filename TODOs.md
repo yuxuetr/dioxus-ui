@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 83%
+- Overall: 85%
 - Current milestone: M9 Quality Baseline
-- Current task: M9.1 Add registry, docs, and template consistency checks
+- Current task: M9.2 Add per-feature crate compile checks
 
 ## M0 Documentation
 
@@ -154,7 +154,7 @@
 
 ## M9 Quality Baseline
 
-- TODO M9.1 Add registry, docs, and template consistency checks
+- DONE M9.1 Add registry, docs, and template consistency checks
   - Verify every public registry component has a template.
   - Verify every public registry component has a docs page.
   - Verify docs catalog links match registry component names.
