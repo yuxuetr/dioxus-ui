@@ -1,0 +1,14 @@
+{
+  "name": "toggle",
+  "description": "Toggle component for controlled pressed button states.",
+  "files": [
+    {
+      "source": "templates/toggle.rs",
+      "target": "src/components/ui/toggle.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

@@ -51,6 +51,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Table](table.md) | `dxui add table` | `table` | Styled parts |
 | [Tabs](tabs.md) | `dxui add tabs` | `tabs` | Controlled styled parts |
 | [Textarea](textarea.md) | `dxui add textarea` | `textarea` | Styled |
+| [Toggle](toggle.md) | `dxui add toggle` | `toggle` | Controlled styled part |
 | [Tooltip](tooltip.md) | `dxui add tooltip` | `tooltip` | Primitive config + styled part |
 
 ## Preview Commands

@@ -154,6 +154,9 @@ pub mod switch;
 #[cfg(feature = "tabs")]
 pub mod tabs;
 
+#[cfg(feature = "toggle")]
+pub mod toggle;
+
 #[cfg(feature = "tooltip")]
 pub mod tooltip;
 
@@ -173,6 +176,8 @@ pub use tabs::{
   tabs_content_class, tabs_list_class, tabs_trigger_class, TabsContent, TabsList, TabsTrigger,
   TABS_CONTENT_BASE_CLASS, TABS_LIST_BASE_CLASS, TABS_TRIGGER_BASE_CLASS,
 };
+#[cfg(feature = "toggle")]
+pub use toggle::{toggle_class, Toggle, ToggleSize, ToggleVariant, TOGGLE_BASE_CLASS};
 #[cfg(feature = "tooltip")]
 pub use tooltip::{
   tooltip_content_class, TooltipContent, TooltipPrimitiveConfig, TOOLTIP_CONTENT_BASE_CLASS,

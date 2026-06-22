@@ -27,6 +27,7 @@ features=(
   table
   tabs
   textarea
+  toggle
   tooltip
 )
 

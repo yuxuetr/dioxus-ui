@@ -10,10 +10,10 @@ use dioxus_ui::{
   select_content_class, select_item_class, select_label_class, select_separator_class,
   select_trigger_class, select_value_class, separator_class, skeleton_class, switch_class,
   spinner_class, switch_thumb_class, table_class, table_row_class, tabs_content_class,
-  tabs_list_class, tabs_trigger_class, textarea_class, tooltip_content_class, AlertVariant,
-  BadgeVariant, ButtonSize, ButtonVariant, DialogPrimitiveConfig, DropdownPrimitiveConfig,
-  PopoverPrimitiveConfig, SelectPrimitiveConfig, SeparatorOrientation, SpinnerSize,
-  TooltipPrimitiveConfig, UiDensity,
+  tabs_list_class, tabs_trigger_class, textarea_class, toggle_class, tooltip_content_class,
+  AlertVariant, BadgeVariant, ButtonSize, ButtonVariant, DialogPrimitiveConfig,
+  DropdownPrimitiveConfig, PopoverPrimitiveConfig, SelectPrimitiveConfig, SeparatorOrientation,
+  SpinnerSize, ToggleSize, ToggleVariant, TooltipPrimitiveConfig, UiDensity,
 };
 
 fn main() {
@@ -128,6 +128,10 @@ fn main() {
   println!(
     "dioxus-ui desktop demo tabs content class: {}",
     tabs_content_class("p-2")
+  );
+  println!(
+    "dioxus-ui desktop demo toggle class: {}",
+    toggle_class(ToggleVariant::Outline, ToggleSize::Sm, false, "")
   );
   println!(
     "dioxus-ui desktop demo accordion item class: {}",
