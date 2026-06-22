@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 87%
+- Overall: 89%
 - Current milestone: M9 Quality Baseline
-- Current task: M9.3 Harden generated fixture smoke
+- Current task: M9.4 Add accessibility contract checklist
 
 ## M0 Documentation
 
@@ -166,7 +166,7 @@
   - Add a script or test harness that can run locally and in CI.
   - Document expected runtime cost and when to run it.
 
-- TODO M9.3 Harden generated fixture smoke
+- DONE M9.3 Harden generated fixture smoke
   - Ensure generated fixture smoke validates all public components.
   - Add assertions for generated `mod.rs` content.
   - Add checks that generated templates do not import `dioxus-ui-core` or `dioxus-ui-primitives`.
