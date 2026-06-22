@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 69%
+- Overall: 77%
 - Current milestone: M7 Static Component Parity
-- Current task: M7.1 Implement Badge, Separator, and Skeleton
+- Current task: M7.2 Implement Alert and Card
 
 ## M0 Documentation
 
@@ -101,7 +101,7 @@
 
 ## M7 Static Component Parity
 
-- TODO M7.1 Implement Badge, Separator, and Skeleton
+- DONE M7.1 Implement Badge, Separator, and Skeleton
   - Add crate-mode styled components.
   - Add CLI templates and registry entries.
   - Add component docs pages and catalog links.
