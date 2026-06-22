@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M5 Distribution
-- Current task: Complete
+- Overall: 0%
+- Current milestone: M6 Generated Source Quality
+- Current task: M6.1 Make generated templates self-contained
 
 ## M0 Documentation
 
@@ -77,6 +77,27 @@
 - DONE M5.2 Implement `dxui add`
 - DONE M5.3 Publish crate-mode package strategy
 - DONE M5.4 Build documentation site and component previews
+
+## M6 Generated Source Quality
+
+- TODO M6.1 Make generated templates self-contained
+  - Remove `dioxus-ui-core` imports from generated templates.
+  - Remove `dioxus-ui-primitives` imports from generated templates.
+  - Keep crate-mode implementations using shared crates.
+
+- TODO M6.2 Add generated fixture compile smoke
+  - Generate a temporary Dioxus app fixture with `dxui init`.
+  - Add representative components with `dxui add`.
+  - Verify generated source compiles with minimal dependencies.
+
+- TODO M6.3 Improve CLI add safeguards
+  - Add `dxui add --overwrite` or documented conflict behavior.
+  - Improve error messages for unknown components.
+  - Add tests for repeated `dxui add`.
+
+- TODO M6.4 Add component docs pages
+  - Add one docs page per implemented component.
+  - Include CLI usage, crate feature usage, and accessibility notes.
 
 ## Status Rules
 
