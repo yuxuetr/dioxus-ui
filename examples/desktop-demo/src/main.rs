@@ -9,11 +9,11 @@ use dioxus_ui::{
   popover_title_class, progress_class, progress_indicator_class, progress_percent,
   select_content_class, select_item_class, select_label_class, select_separator_class,
   select_trigger_class, select_value_class, separator_class, skeleton_class, switch_class,
-  switch_thumb_class, table_class, table_row_class, tabs_content_class, tabs_list_class,
-  tabs_trigger_class, textarea_class, tooltip_content_class, AlertVariant, BadgeVariant,
-  ButtonSize, ButtonVariant, DialogPrimitiveConfig, DropdownPrimitiveConfig,
-  PopoverPrimitiveConfig, SelectPrimitiveConfig, SeparatorOrientation, TooltipPrimitiveConfig,
-  UiDensity,
+  spinner_class, switch_thumb_class, table_class, table_row_class, tabs_content_class,
+  tabs_list_class, tabs_trigger_class, textarea_class, tooltip_content_class, AlertVariant,
+  BadgeVariant, ButtonSize, ButtonVariant, DialogPrimitiveConfig, DropdownPrimitiveConfig,
+  PopoverPrimitiveConfig, SelectPrimitiveConfig, SeparatorOrientation, SpinnerSize,
+  TooltipPrimitiveConfig, UiDensity,
 };
 
 fn main() {
@@ -104,6 +104,10 @@ fn main() {
   println!(
     "dioxus-ui desktop demo skeleton class: {}",
     skeleton_class("h-3 w-24")
+  );
+  println!(
+    "dioxus-ui desktop demo spinner class: {}",
+    spinner_class(SpinnerSize::Sm, "text-zinc-700")
   );
   println!("dioxus-ui desktop demo table class: {}", table_class("text-xs"));
   println!("dioxus-ui desktop demo table row class: {}", table_row_class(""));

@@ -9,11 +9,11 @@ use dioxus_ui::{
   popover_title_class, progress_class, progress_indicator_class, progress_percent,
   select_content_class, select_item_class, select_label_class, select_separator_class,
   select_trigger_class, select_value_class, separator_class, skeleton_class, switch_class,
-  switch_thumb_class, table_class, table_row_class, tabs_content_class, tabs_list_class,
-  tabs_trigger_class, textarea_class, tooltip_content_class, AlertVariant, BadgeVariant,
-  ButtonSize, ButtonVariant, DialogPrimitiveConfig, DropdownPrimitiveConfig,
-  PopoverPrimitiveConfig, SelectPrimitiveConfig, SeparatorOrientation, TooltipPrimitiveConfig,
-  UiDensity,
+  spinner_class, switch_thumb_class, table_class, table_row_class, tabs_content_class,
+  tabs_list_class, tabs_trigger_class, textarea_class, tooltip_content_class, AlertVariant,
+  BadgeVariant, ButtonSize, ButtonVariant, DialogPrimitiveConfig, DropdownPrimitiveConfig,
+  PopoverPrimitiveConfig, SelectPrimitiveConfig, SeparatorOrientation, SpinnerSize,
+  TooltipPrimitiveConfig, UiDensity,
 };
 
 fn main() {
@@ -84,6 +84,10 @@ fn main() {
     separator_class(SeparatorOrientation::Horizontal, "my-4")
   );
   println!("dioxus-ui web demo skeleton class: {}", skeleton_class("h-4 w-32"));
+  println!(
+    "dioxus-ui web demo spinner class: {}",
+    spinner_class(SpinnerSize::Md, "text-blue-600")
+  );
   println!("dioxus-ui web demo table class: {}", table_class("min-w-lg"));
   println!("dioxus-ui web demo table row class: {}", table_row_class(""));
   println!("dioxus-ui web demo checkbox class: {}", checkbox_class(true, "mt-2"));

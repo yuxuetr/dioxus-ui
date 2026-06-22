@@ -1,0 +1,14 @@
+{
+  "name": "spinner",
+  "description": "Spinner component for loading status feedback.",
+  "files": [
+    {
+      "source": "templates/spinner.rs",
+      "target": "src/components/ui/spinner.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}
