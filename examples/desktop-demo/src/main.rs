@@ -1,13 +1,19 @@
 use dioxus_ui::{
-  accordion_content_class, accordion_item_class, accordion_trigger_class, button_class,
-  checkbox_class, dialog_content_class, dialog_overlay_class, dropdown_content_class,
-  dropdown_item_class, dropdown_label_class, dropdown_separator_class, input_class, label_class,
-  popover_content_class, popover_description_class, popover_header_class, popover_title_class,
+  accordion_content_class, accordion_item_class, accordion_trigger_class, alert_class,
+  alert_description_class, alert_title_class, avatar_class, avatar_fallback_class,
+  avatar_image_class, badge_class, button_class, card_class, card_content_class,
+  card_description_class, card_footer_class, card_header_class, card_title_class, checkbox_class,
+  dialog_content_class, dialog_overlay_class, dropdown_content_class, dropdown_item_class,
+  dropdown_label_class, dropdown_separator_class, input_class, label_class, pagination_class,
+  pagination_link_class, popover_content_class, popover_description_class, popover_header_class,
+  popover_title_class, progress_class, progress_indicator_class, progress_percent,
   select_content_class, select_item_class, select_label_class, select_separator_class,
-  select_trigger_class, select_value_class, switch_class, switch_thumb_class, tabs_content_class,
-  tabs_list_class, tabs_trigger_class, textarea_class, tooltip_content_class, ButtonSize,
-  ButtonVariant, DialogPrimitiveConfig, DropdownPrimitiveConfig, PopoverPrimitiveConfig,
-  SelectPrimitiveConfig, TooltipPrimitiveConfig, UiDensity,
+  select_trigger_class, select_value_class, separator_class, skeleton_class, switch_class,
+  switch_thumb_class, table_class, table_row_class, tabs_content_class, tabs_list_class,
+  tabs_trigger_class, textarea_class, tooltip_content_class, AlertVariant, BadgeVariant,
+  ButtonSize, ButtonVariant, DialogPrimitiveConfig, DropdownPrimitiveConfig,
+  PopoverPrimitiveConfig, SelectPrimitiveConfig, SeparatorOrientation, TooltipPrimitiveConfig,
+  UiDensity,
 };
 
 fn main() {
@@ -25,6 +31,82 @@ fn main() {
     textarea_class(false, "min-h-20")
   );
   println!("dioxus-ui desktop demo label class: {}", label_class("text-xs"));
+  println!(
+    "dioxus-ui desktop demo alert class: {}",
+    alert_class(AlertVariant::Destructive, "mb-2")
+  );
+  println!(
+    "dioxus-ui desktop demo alert title class: {}",
+    alert_title_class("text-sm")
+  );
+  println!(
+    "dioxus-ui desktop demo alert description class: {}",
+    alert_description_class(AlertVariant::Destructive, "")
+  );
+  println!(
+    "dioxus-ui desktop demo avatar class: {}",
+    avatar_class("h-8 w-8")
+  );
+  println!(
+    "dioxus-ui desktop demo avatar image class: {}",
+    avatar_image_class("")
+  );
+  println!(
+    "dioxus-ui desktop demo avatar fallback class: {}",
+    avatar_fallback_class("text-xs")
+  );
+  println!(
+    "dioxus-ui desktop demo badge class: {}",
+    badge_class(BadgeVariant::Secondary, "")
+  );
+  println!("dioxus-ui desktop demo card class: {}", card_class("shadow-none"));
+  println!(
+    "dioxus-ui desktop demo card header class: {}",
+    card_header_class("p-4")
+  );
+  println!("dioxus-ui desktop demo card title class: {}", card_title_class("text-lg"));
+  println!(
+    "dioxus-ui desktop demo card description class: {}",
+    card_description_class("")
+  );
+  println!(
+    "dioxus-ui desktop demo card content class: {}",
+    card_content_class("p-4 pt-0")
+  );
+  println!(
+    "dioxus-ui desktop demo card footer class: {}",
+    card_footer_class("p-4 pt-0")
+  );
+  println!(
+    "dioxus-ui desktop demo pagination class: {}",
+    pagination_class("mt-2")
+  );
+  println!(
+    "dioxus-ui desktop demo pagination link class: {}",
+    pagination_link_class(false, true, "")
+  );
+  println!(
+    "dioxus-ui desktop demo progress class: {}",
+    progress_class("h-1.5")
+  );
+  println!(
+    "dioxus-ui desktop demo progress indicator class: {}",
+    progress_indicator_class("bg-zinc-900")
+  );
+  println!(
+    "dioxus-ui desktop demo progress percent: {}",
+    progress_percent(3.0, 4.0)
+  );
+  println!(
+    "dioxus-ui desktop demo separator class: {}",
+    separator_class(SeparatorOrientation::Vertical, "mx-2")
+  );
+  println!(
+    "dioxus-ui desktop demo skeleton class: {}",
+    skeleton_class("h-3 w-24")
+  );
+  println!("dioxus-ui desktop demo table class: {}", table_class("text-xs"));
+  println!("dioxus-ui desktop demo table row class: {}", table_row_class(""));
   println!(
     "dioxus-ui desktop demo checkbox class: {}",
     checkbox_class(false, "mt-1")
