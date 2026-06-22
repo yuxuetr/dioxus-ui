@@ -1,0 +1,14 @@
+{
+  "name": "skeleton",
+  "description": "Skeleton component for loading placeholders.",
+  "files": [
+    {
+      "source": "templates/skeleton.rs",
+      "target": "src/components/ui/skeleton.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

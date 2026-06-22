@@ -1,0 +1,14 @@
+{
+  "name": "separator",
+  "description": "Separator component for visual or semantic content division.",
+  "files": [
+    {
+      "source": "templates/separator.rs",
+      "target": "src/components/ui/separator.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

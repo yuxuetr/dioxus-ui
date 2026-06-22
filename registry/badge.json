@@ -1,0 +1,14 @@
+{
+  "name": "badge",
+  "description": "Badge component with static status variants.",
+  "files": [
+    {
+      "source": "templates/badge.rs",
+      "target": "src/components/ui/badge.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

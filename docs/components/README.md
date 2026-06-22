@@ -23,6 +23,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | Component | CLI | Feature | Status |
 | --- | --- | --- | --- |
 | [Accordion](accordion.md) | `dxui add accordion` | `accordion` | Controlled styled parts |
+| [Badge](badge.md) | `dxui add badge` | `badge` | Styled |
 | [Button](button.md) | `dxui add button` | `button` | Styled |
 | [Checkbox](checkbox.md) | `dxui add checkbox` | `checkbox` | Controlled styled part |
 | [Dialog](dialog.md) | `dxui add dialog` | `dialog` | Primitive config + styled parts |
@@ -31,6 +32,8 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Label](label.md) | `dxui add label` | `label` | Styled |
 | [Popover](popover.md) | `dxui add popover` | `popover` | Primitive config + styled parts |
 | [Select](select.md) | `dxui add select` | `select` | Primitive config + styled parts |
+| [Separator](separator.md) | `dxui add separator` | `separator` | Styled |
+| [Skeleton](skeleton.md) | `dxui add skeleton` | `skeleton` | Styled |
 | [Switch](switch.md) | `dxui add switch` | `switch` | Controlled styled part |
 | [Tabs](tabs.md) | `dxui add tabs` | `tabs` | Controlled styled parts |
 | [Textarea](textarea.md) | `dxui add textarea` | `textarea` | Styled |

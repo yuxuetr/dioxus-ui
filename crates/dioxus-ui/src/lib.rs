@@ -3,6 +3,9 @@
 #[cfg(feature = "accordion")]
 pub mod accordion;
 
+#[cfg(feature = "badge")]
+pub mod badge;
+
 #[cfg(feature = "button")]
 pub mod button;
 
@@ -27,6 +30,12 @@ pub mod popover;
 #[cfg(feature = "select")]
 pub mod select;
 
+#[cfg(feature = "separator")]
+pub mod separator;
+
+#[cfg(feature = "skeleton")]
+pub mod skeleton;
+
 #[cfg(feature = "textarea")]
 pub mod textarea;
 
@@ -36,6 +45,8 @@ pub use accordion::{
   AccordionItem, AccordionTrigger, ACCORDION_CONTENT_BASE_CLASS, ACCORDION_ITEM_BASE_CLASS,
   ACCORDION_TRIGGER_BASE_CLASS,
 };
+#[cfg(feature = "badge")]
+pub use badge::{badge_class, Badge, BadgeVariant, BADGE_BASE_CLASS};
 #[cfg(feature = "button")]
 pub use button::{button_class, Button, ButtonSize, ButtonVariant, BUTTON_BASE_CLASS};
 #[cfg(feature = "checkbox")]
@@ -76,6 +87,12 @@ pub use select::{
   SELECT_LABEL_BASE_CLASS, SELECT_SEPARATOR_BASE_CLASS, SELECT_TRIGGER_BASE_CLASS,
   SELECT_VALUE_BASE_CLASS,
 };
+#[cfg(feature = "separator")]
+pub use separator::{
+  separator_class, Separator, SeparatorOrientation, SEPARATOR_BASE_CLASS,
+};
+#[cfg(feature = "skeleton")]
+pub use skeleton::{skeleton_class, Skeleton, SKELETON_BASE_CLASS};
 #[cfg(feature = "textarea")]
 pub use textarea::{textarea_class, Textarea, TEXTAREA_BASE_CLASS};
 #[cfg(feature = "switch")]
