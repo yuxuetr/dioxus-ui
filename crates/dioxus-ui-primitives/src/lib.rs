@@ -12,12 +12,14 @@ pub mod roving_focus;
 pub mod select;
 #[cfg(feature = "tooltip")]
 pub mod tooltip;
+pub mod typeahead;
 
 pub use dioxus_ui_core::UiDensity;
 pub use overlay::{
   DismissBehavior, FocusReturn, FocusStrategy, OverlayAlign, OverlaySide, PortalTarget,
 };
 pub use roving_focus::{FocusMove, NavigationOrientation, RovingFocusItem, RovingFocusState};
+pub use typeahead::{match_typeahead, TypeaheadItem, TypeaheadState};
 
 #[cfg(feature = "dialog")]
 pub use dialog::DialogPrimitiveConfig;
