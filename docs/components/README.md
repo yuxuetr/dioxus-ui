@@ -5,6 +5,8 @@ This page is the documentation-site seed for `dioxus-ui` components.
 Current preview mode is command-line smoke output from the example crates. A
 future docs site should replace this with visual Dioxus Web/Desktop previews.
 
+For shadcn/ui coverage planning, see the [parity matrix](parity.md).
+
 ## Install by Source Copy
 
 ```bash
