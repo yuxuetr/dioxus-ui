@@ -7,6 +7,7 @@ pub mod dropdown;
 pub mod overlay;
 #[cfg(feature = "popover")]
 pub mod popover;
+pub mod roving_focus;
 #[cfg(feature = "select")]
 pub mod select;
 #[cfg(feature = "tooltip")]
@@ -16,6 +17,7 @@ pub use dioxus_ui_core::UiDensity;
 pub use overlay::{
   DismissBehavior, FocusReturn, FocusStrategy, OverlayAlign, OverlaySide, PortalTarget,
 };
+pub use roving_focus::{FocusMove, NavigationOrientation, RovingFocusItem, RovingFocusState};
 
 #[cfg(feature = "dialog")]
 pub use dialog::DialogPrimitiveConfig;
