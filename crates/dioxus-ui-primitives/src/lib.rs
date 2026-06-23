@@ -1,6 +1,7 @@
 //! Unstyled behavior primitives for dioxus-ui components.
 
 pub mod active_descendant;
+pub mod calendar;
 #[cfg(feature = "dialog")]
 pub mod dialog;
 pub mod dismissal;
@@ -20,6 +21,11 @@ pub mod typeahead;
 
 pub use active_descendant::{
   ActiveDescendantContainerAttributes, ActiveDescendantItemAttributes, ActiveDescendantState,
+};
+pub use calendar::{
+  calendar_month_grid, calendar_move_date, calendar_range_state, days_in_month, is_leap_year,
+  CalendarDate, CalendarDay, CalendarKeyMove, CalendarMonth, CalendarMonthGrid,
+  CalendarRangeState, CalendarWeekday,
 };
 pub use dismissal::{DismissalDecision, DismissalEvent};
 pub use dioxus_ui_core::UiDensity;
