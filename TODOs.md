@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 60%
 - Current milestone: M14 Command and Choice
-- Current task: M14.3 Implement Combobox
+- Current task: M14.4 Implement Native Select
 
 ## M0 Documentation
 
@@ -320,7 +320,7 @@
   - Reuse active descendant and typeahead primitives where possible.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M14.3 Implement Combobox
+- DONE M14.3 Implement Combobox
   - Add controlled trigger/input/content/list/item/value APIs for searchable selection.
   - Reuse popover, active descendant, and typeahead primitives where possible.
   - Add CLI template, registry entry, docs page, and demo usage.
