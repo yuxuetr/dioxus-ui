@@ -27,6 +27,9 @@ pub mod checkbox;
 #[cfg(feature = "command")]
 pub mod command;
 
+#[cfg(feature = "combobox")]
+pub mod combobox;
+
 #[cfg(feature = "context-menu")]
 pub mod context_menu;
 
@@ -143,6 +146,17 @@ pub use command::{
   CommandShortcut, COMMAND_BASE_CLASS, COMMAND_EMPTY_BASE_CLASS, COMMAND_GROUP_BASE_CLASS,
   COMMAND_INPUT_BASE_CLASS, COMMAND_ITEM_BASE_CLASS, COMMAND_LABEL_BASE_CLASS,
   COMMAND_LIST_BASE_CLASS, COMMAND_SEPARATOR_BASE_CLASS, COMMAND_SHORTCUT_BASE_CLASS,
+};
+#[cfg(feature = "combobox")]
+pub use combobox::{
+  combobox_active_descendant_state, combobox_content_class, combobox_empty_class,
+  combobox_group_class, combobox_input_class, combobox_item_class, combobox_list_class,
+  combobox_trigger_class, combobox_value_class, ActiveDescendantState as ComboboxActiveDescendantState,
+  ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxList,
+  ComboboxTrigger, ComboboxValue, PopoverPrimitiveConfig as ComboboxPrimitiveConfig,
+  COMBOBOX_CONTENT_BASE_CLASS, COMBOBOX_EMPTY_BASE_CLASS, COMBOBOX_GROUP_BASE_CLASS,
+  COMBOBOX_INPUT_BASE_CLASS, COMBOBOX_ITEM_BASE_CLASS, COMBOBOX_LIST_BASE_CLASS,
+  COMBOBOX_TRIGGER_BASE_CLASS, COMBOBOX_VALUE_BASE_CLASS,
 };
 #[cfg(feature = "context-menu")]
 pub use context_menu::{

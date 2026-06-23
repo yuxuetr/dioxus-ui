@@ -37,6 +37,8 @@ Statuses:
 | Accordion | Needs trigger/content ARIA relationships. | Planned |
 | Command | Uses combobox, listbox, option, and active descendant semantics. | Implemented |
 | Command | Needs keyboard event and filtering integration verification. | Planned |
+| Combobox | Uses combobox, listbox, option, and active descendant semantics. | Implemented |
+| Combobox | Needs filtering, async loading, and keyboard event integration verification. | Planned |
 | Radio Group | Uses radiogroup/radio roles, checked state, and roving focus helpers. | Implemented |
 | Tabs | Needs tablist, tab, and tabpanel roles. | Planned |
 | Select | Needs listbox semantics and keyboard navigation. | Planned |

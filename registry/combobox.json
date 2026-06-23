@@ -1,0 +1,14 @@
+{
+  "name": "combobox",
+  "description": "Controlled searchable selection parts backed by popover primitive configuration.",
+  "files": [
+    {
+      "source": "templates/combobox.rs",
+      "target": "src/components/ui/combobox.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

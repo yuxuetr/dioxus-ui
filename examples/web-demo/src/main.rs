@@ -5,28 +5,28 @@ use dioxus_ui::{
   avatar_image_class, badge_class, button_class, card_class, card_content_class,
   card_description_class, card_footer_class, card_header_class, card_title_class, checkbox_class,
   command_active_descendant_state, command_class, command_input_class, command_item_class,
-  context_menu_content_class, context_menu_item_class, context_menu_shortcut_class,
-  dialog_content_class, dialog_overlay_class, drawer_content_class, drawer_overlay_class,
-  dropdown_content_class, dropdown_item_class, dropdown_label_class, dropdown_separator_class,
-  hover_card_align_attribute, hover_card_content_class, hover_card_side_attribute, input_class,
-  label_class, menubar_class, menubar_item_class, menubar_trigger_class, navigation_menu_class,
-  navigation_menu_link_class, navigation_menu_trigger_class, pagination_class,
-  pagination_link_class, popover_content_class, popover_description_class, popover_header_class,
-  popover_title_class, progress_class, progress_indicator_class, progress_percent,
-  radio_group_class, radio_group_item_class, radio_group_move_value, select_content_class,
-  select_item_class, select_label_class, select_separator_class, select_trigger_class,
-  select_value_class, separator_class, sheet_content_class, sheet_overlay_class, skeleton_class,
-  slider_percent, slider_range_style, slider_root_class, slider_thumb_style, slider_track_class,
-  switch_class, spinner_class, switch_thumb_class, table_class, table_row_class,
-  tabs_content_class, tabs_list_class, tabs_trigger_class, textarea_class, toggle_class,
-  toggle_group_class, toggle_group_item_class,
+  combobox_input_class, combobox_item_class, combobox_trigger_class, context_menu_content_class,
+  context_menu_item_class, context_menu_shortcut_class, dialog_content_class,
+  dialog_overlay_class, drawer_content_class, drawer_overlay_class, dropdown_content_class,
+  dropdown_item_class, dropdown_label_class, dropdown_separator_class, hover_card_align_attribute,
+  hover_card_content_class, hover_card_side_attribute, input_class, label_class, menubar_class,
+  menubar_item_class, menubar_trigger_class, navigation_menu_class, navigation_menu_link_class,
+  navigation_menu_trigger_class, pagination_class, pagination_link_class, popover_content_class,
+  popover_description_class, popover_header_class, popover_title_class, progress_class,
+  progress_indicator_class, progress_percent, radio_group_class, radio_group_item_class,
+  radio_group_move_value, select_content_class, select_item_class, select_label_class,
+  select_separator_class, select_trigger_class, select_value_class, separator_class,
+  sheet_content_class, sheet_overlay_class, skeleton_class, slider_percent, slider_range_style,
+  slider_root_class, slider_thumb_style, slider_track_class, switch_class, spinner_class,
+  switch_thumb_class, table_class, table_row_class, tabs_content_class, tabs_list_class,
+  tabs_trigger_class, textarea_class, toggle_class, toggle_group_class, toggle_group_item_class,
   toggle_group_move_value,
   toggle_group_multiple_selection, tooltip_content_class,
   AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant, ButtonSize,
-  ButtonVariant, ContextMenuPrimitiveConfig, DialogPrimitiveConfig, DrawerPrimitiveConfig,
-  DropdownPrimitiveConfig, FocusMove, HoverCardAlign, HoverCardPrimitiveConfig, HoverCardSide,
-  MenubarPrimitiveConfig, NavigationMenuPrimitiveConfig, NavigationOrientation,
-  PopoverPrimitiveConfig, RovingFocusItem,
+  ButtonVariant, ComboboxPrimitiveConfig, ContextMenuPrimitiveConfig, DialogPrimitiveConfig,
+  DrawerPrimitiveConfig, DropdownPrimitiveConfig, FocusMove, HoverCardAlign,
+  HoverCardPrimitiveConfig, HoverCardSide, MenubarPrimitiveConfig, NavigationMenuPrimitiveConfig,
+  NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
   SelectPrimitiveConfig, SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SpinnerSize,
   ToggleSize, ToggleVariant, TooltipPrimitiveConfig, UiDensity,
 };
@@ -199,6 +199,22 @@ fn main() {
   println!(
     "dioxus-ui web demo command active descendant: {:?}",
     command_active_descendant_state(Some("open-file".to_string())).active_id
+  );
+  println!(
+    "dioxus-ui web demo combobox trigger class: {}",
+    combobox_trigger_class(false, "w-64")
+  );
+  println!(
+    "dioxus-ui web demo combobox input class: {}",
+    combobox_input_class("")
+  );
+  println!(
+    "dioxus-ui web demo combobox item class: {}",
+    combobox_item_class(true, false, "")
+  );
+  println!(
+    "dioxus-ui web demo combobox primitive open: {}",
+    ComboboxPrimitiveConfig::controlled(true).open
   );
   println!(
     "dioxus-ui web demo context menu content class: {}",
