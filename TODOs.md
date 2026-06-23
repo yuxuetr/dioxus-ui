@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 85%
-- Current milestone: M11 Interaction Component Batch 1
-- Current task: M11.7 Complete batch documentation and examples
+- Overall: 100%
+- Current milestone: M12 Overlay Variants
+- Current task: M12.1 Plan overlay variant APIs
 
 ## M0 Documentation
 
@@ -246,9 +246,40 @@
   - Map controlled values to ARIA attributes and range percentage classes/styles.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M11.7 Complete batch documentation and examples
+- DONE M11.7 Complete batch documentation and examples
   - Update parity, accessibility, and component catalog docs for M11 components.
   - Ensure web and desktop demos cover disabled, focused, selected, and boundary states.
+  - Run release quality gates before marking the batch complete.
+
+## M12 Overlay Variants
+
+- TODO M12.1 Plan overlay variant APIs
+  - Define Alert Dialog, Sheet, Drawer, and Hover Card API boundaries.
+  - Decide which variants reuse Dialog, Popover, Tooltip, and overlay placement primitives.
+  - Document portal, dismissal, focus, Web/Desktop/Mobile constraints before implementation.
+
+- TODO M12.2 Implement Alert Dialog
+  - Add primitive-backed styled parts for alert dialog overlay, content, title, description, action, and cancel.
+  - Add CLI template, registry entry, docs page, and demo usage.
+  - Verify accessibility notes cover modal role, focus return, and destructive action labeling.
+
+- TODO M12.3 Implement Sheet
+  - Add side-based sheet content classes and dialog-backed state configuration.
+  - Add CLI template, registry entry, docs page, and demo usage.
+  - Verify generated fixture smoke includes Sheet.
+
+- TODO M12.4 Implement Drawer
+  - Decide whether Drawer is an alias/composition of Sheet or a separate mobile-oriented component.
+  - Add source-copy and crate-mode APIs only after the distinction is documented.
+  - Add docs page and demo usage if implemented as a public registry component.
+
+- TODO M12.5 Implement Hover Card
+  - Reuse popover/tooltip positioning and dismissal primitives where possible.
+  - Add CLI template, registry entry, docs page, and demo usage.
+  - Document hover/focus behavior and mobile fallback constraints.
+
+- TODO M12.6 Complete overlay variant documentation and examples
+  - Update parity, accessibility, complex batch, and component catalog docs.
   - Run release quality gates before marking the batch complete.
 
 ## Status Rules
