@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
+- Overall: 100%
 - Current milestone: M16 Data and Visualization
-- Current task: M16.5 Complete data and visualization documentation and examples
+- Current task: M16 complete
 
 ## M0 Documentation
 
@@ -382,7 +382,7 @@
   - Document accessibility, SSR/Web/Desktop constraints, and source-copy expectations.
   - Update parity and roadmap without introducing a chart component before the strategy is clear.
 
-- TODO M16.5 Complete data and visualization documentation and examples
+- DONE M16.5 Complete data and visualization documentation and examples
   - Update parity, accessibility, complex batch, and component catalog docs.
   - Run release quality gates before marking the batch complete.
 
