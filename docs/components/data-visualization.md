@@ -1,11 +1,10 @@
 # Data Table and Chart Strategy
 
-This document defines the M16 Data Table and Chart strategy before
-implementation. The goal is to add a useful Data Table composition layer while
-keeping Chart as an explicit strategy decision instead of shipping a weak
-backend too early.
+This document defines the M16 Data Table and Chart strategy. The goal is to add
+a useful Data Table composition layer while keeping Chart as an explicit
+strategy decision instead of shipping a weak backend too early.
 
-Status: Planned in M16.
+Status: Implemented in M16.
 
 ## Scope
 
@@ -14,7 +13,7 @@ M16 covers:
 - Data Table
 - Chart strategy
 
-Data Table should ship in crate mode and source-copy mode. Crate mode can reuse
+Data Table ships in crate mode and source-copy mode. Crate mode can reuse
 `dioxus-ui-core`, `dioxus-ui-primitives`, and existing styled components;
 generated templates must remain self-contained and must not import internal
 crates.
@@ -47,7 +46,7 @@ The consuming app owns:
 
 ## Data Table State Primitives
 
-Planned primitive API:
+Implemented primitive API:
 
 ```rust
 DataTableSortDirection::{Ascending, Descending}
@@ -57,7 +56,7 @@ DataTableSelectionState { selected_ids }
 DataTableColumnState { hidden_ids }
 ```
 
-Planned helper API:
+Implemented helper API:
 
 ```rust
 data_table_toggle_sort(current, column_id) -> Option<DataTableSortState>
@@ -78,7 +77,7 @@ Rules:
 
 ## Data Table Component
 
-Planned crate API:
+Implemented crate API:
 
 ```rust
 DataTable { class, children }
@@ -139,8 +138,8 @@ Future Chart requirements:
 4. Chart strategy document
 5. documentation, examples, and parity updates
 
-This order implements the lower-risk Data Table surface while keeping Chart out
-of the public API until the backend decision is explicit.
+This order implemented the lower-risk Data Table surface while keeping Chart
+out of the public API until the backend decision is explicit.
 
 ## Quality Gates
 

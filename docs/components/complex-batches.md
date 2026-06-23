@@ -156,6 +156,9 @@ commands, and portal mounting remain adapter or application work.
 
 ## Batch 6: Data and Visualization
 
+Status: Implemented in M16 for Data Table; Chart strategy documented and
+component deferred.
+
 Components:
 
 - Data Table
@@ -178,6 +181,11 @@ Rationale:
 
 Data Table is a composition layer over many existing parts. Chart should wait
 until the project chooses a rendering and data API strategy.
+
+M16 shipped pure Data Table state primitives and controlled Data Table
+composition parts. Chart remains intentionally deferred as a component; the
+backend, data API, accessibility, source-copy dependency, and platform support
+policy are documented in the Chart strategy.
 
 ## Batch 7: Layout Shells and Media
 
