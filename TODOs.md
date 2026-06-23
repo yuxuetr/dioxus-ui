@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 80%
 - Current milestone: M15 Calendar and Date Picker
-- Current task: M15.4 Implement Date Picker
+- Current task: M15.5 Complete calendar and date picker documentation and examples
 
 ## M0 Documentation
 
@@ -351,7 +351,7 @@
   - Reuse calendar date primitives and roving/grid navigation helpers where appropriate.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M15.4 Implement Date Picker
+- DONE M15.4 Implement Date Picker
   - Add input/trigger, popover content, selected value display, and calendar composition APIs.
   - Document when to use native inputs, Calendar, or Date Picker.
   - Add CLI template, registry entry, docs page, and demo usage.
