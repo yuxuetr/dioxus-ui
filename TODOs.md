@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 83%
+- Overall: 100%
 - Current milestone: M12 Overlay Variants
-- Current task: M12.6 Complete overlay variant documentation and examples
+- Current task: M12 complete
 
 ## M0 Documentation
 
@@ -278,7 +278,7 @@
   - Add CLI template, registry entry, docs page, and demo usage.
   - Document hover/focus behavior and mobile fallback constraints.
 
-- TODO M12.6 Complete overlay variant documentation and examples
+- DONE M12.6 Complete overlay variant documentation and examples
   - Update parity, accessibility, complex batch, and component catalog docs.
   - Run release quality gates before marking the batch complete.
 
