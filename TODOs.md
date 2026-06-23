@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 33%
+- Overall: 50%
 - Current milestone: M12 Overlay Variants
-- Current task: M12.3 Implement Sheet
+- Current task: M12.4 Implement Drawer
 
 ## M0 Documentation
 
@@ -263,7 +263,7 @@
   - Add CLI template, registry entry, docs page, and demo usage.
   - Verify accessibility notes cover modal role, focus return, and destructive action labeling.
 
-- TODO M12.3 Implement Sheet
+- DONE M12.3 Implement Sheet
   - Add side-based sheet content classes and dialog-backed state configuration.
   - Add CLI template, registry entry, docs page, and demo usage.
   - Verify generated fixture smoke includes Sheet.
