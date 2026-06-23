@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 66%
+- Overall: 83%
 - Current milestone: M12 Overlay Variants
-- Current task: M12.5 Implement Hover Card
+- Current task: M12.6 Complete overlay variant documentation and examples
 
 ## M0 Documentation
 
@@ -273,7 +273,7 @@
   - Add source-copy and crate-mode APIs only after the distinction is documented.
   - Add docs page and demo usage if implemented as a public registry component.
 
-- TODO M12.5 Implement Hover Card
+- DONE M12.5 Implement Hover Card
   - Reuse popover/tooltip positioning and dismissal primitives where possible.
   - Add CLI template, registry entry, docs page, and demo usage.
   - Document hover/focus behavior and mobile fallback constraints.
