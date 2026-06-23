@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 60%
 - Current milestone: M15 Calendar and Date Picker
-- Current task: M15.3 Implement Calendar
+- Current task: M15.4 Implement Date Picker
 
 ## M0 Documentation
 
@@ -346,7 +346,7 @@
   - Avoid runtime DOM dependencies in primitive state.
   - Add unit tests for month boundaries, leap years, disabled dates, and range selection behavior.
 
-- TODO M15.3 Implement Calendar
+- DONE M15.3 Implement Calendar
   - Add controlled calendar root, header, navigation, grid, row, day, and caption APIs.
   - Reuse calendar date primitives and roving/grid navigation helpers where appropriate.
   - Add CLI template, registry entry, docs page, and demo usage.
