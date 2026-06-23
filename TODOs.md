@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
+- Overall: 100%
 - Current milestone: M13 Menu Systems
-- Current task: M13.5 Complete menu system documentation and examples
+- Current task: M13 complete
 
 ## M0 Documentation
 
@@ -304,7 +304,7 @@
   - Document when to use navigation semantics versus menu semantics.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M13.5 Complete menu system documentation and examples
+- DONE M13.5 Complete menu system documentation and examples
   - Update parity, accessibility, complex batch, and component catalog docs.
   - Run release quality gates before marking the batch complete.
 
