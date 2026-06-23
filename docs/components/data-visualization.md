@@ -103,9 +103,10 @@ Behavior defaults:
 
 ## Chart Strategy
 
-Chart should be deferred as a component and documented as a strategy in M16.
+Chart is deferred as a component and documented as a strategy in M16. See the
+[Chart Strategy](chart-strategy.md) for the backend and accessibility policy.
 
-Initial position:
+M16 position:
 
 - do not introduce a first-party rendering backend in M16
 - do not hand-roll chart SVG primitives before accessibility and data APIs are

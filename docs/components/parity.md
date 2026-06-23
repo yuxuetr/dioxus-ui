@@ -41,7 +41,7 @@ be ported one-for-one.
 
 | Component | Reason |
 | --- | --- |
-| Chart | Should depend on a clear charting backend and data API decision. |
+| Chart | M16 documents the chart strategy; a component is deferred until backend, data API, and accessibility contracts are explicit. |
 | Data Table runtime adapters | Data Table state helpers and composition parts are implemented; filtering, async loading, and virtualization remain app-owned. |
 | Calendar / Date Picker runtime adapters | Date math primitives are implemented; parsing, localization, and focus adapters remain deferred. |
 

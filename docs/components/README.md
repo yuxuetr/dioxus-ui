@@ -15,7 +15,8 @@ For the command and choice milestone, see the
 For the calendar milestone, see the
 [calendar and date picker API plan](calendar-date.md).
 For the data milestone, see the
-[data table and chart strategy](data-visualization.md).
+[data table and chart strategy](data-visualization.md) and
+[chart strategy](chart-strategy.md).
 
 For accessibility expectations, see the
 [accessibility contract checklist](accessibility.md).
