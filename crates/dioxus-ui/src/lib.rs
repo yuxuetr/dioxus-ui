@@ -27,6 +27,9 @@ pub mod checkbox;
 #[cfg(feature = "dialog")]
 pub mod dialog;
 
+#[cfg(feature = "drawer")]
+pub mod drawer;
+
 #[cfg(feature = "dropdown")]
 pub mod dropdown;
 
@@ -123,6 +126,17 @@ pub use dialog::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
   DIALOG_CLOSE_BASE_CLASS, DIALOG_CONTENT_BASE_CLASS, DIALOG_DESCRIPTION_BASE_CLASS,
   DIALOG_OVERLAY_BASE_CLASS, DIALOG_TITLE_BASE_CLASS,
+};
+#[cfg(feature = "drawer")]
+pub use drawer::{
+  drawer_close_class, drawer_content_class, drawer_description_class, drawer_footer_class,
+  drawer_header_class, drawer_overlay_class, drawer_title_class,
+  DialogPrimitiveConfig as DrawerPrimitiveConfig, DismissBehavior as DrawerDismissBehavior,
+  DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerOverlay,
+  DrawerTitle, FocusReturn as DrawerFocusReturn, FocusStrategy as DrawerFocusStrategy,
+  PortalTarget as DrawerPortalTarget, DRAWER_CLOSE_BASE_CLASS, DRAWER_CONTENT_BASE_CLASS,
+  DRAWER_DESCRIPTION_BASE_CLASS, DRAWER_FOOTER_BASE_CLASS, DRAWER_HEADER_BASE_CLASS,
+  DRAWER_OVERLAY_BASE_CLASS, DRAWER_TITLE_BASE_CLASS,
 };
 #[cfg(feature = "dropdown")]
 pub use dropdown::{

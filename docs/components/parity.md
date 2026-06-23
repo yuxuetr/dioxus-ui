@@ -11,7 +11,7 @@ be ported one-for-one.
 | Static display | Alert, Avatar, Badge, Card, Separator, Skeleton |
 | Form basics | Button, Checkbox, Input, Label, Slider, Switch, Textarea |
 | Light interaction | Radio Group, Spinner, Toggle, Toggle Group |
-| Disclosure | Accordion, Alert Dialog, Sheet, Tabs |
+| Disclosure | Accordion, Alert Dialog, Drawer, Sheet, Tabs |
 | Overlay primitives | Dialog, Dropdown, Popover, Tooltip |
 | Selection | Select |
 | Feedback and data | Progress, Table, Pagination |
@@ -30,7 +30,7 @@ be ported one-for-one.
 | Command and search | Command, Combobox | Need keyboard navigation, filtering, and active item management. |
 | Menus | Context Menu, Menubar, Navigation Menu | Need roving focus, nested menus, dismissal, and positioning. |
 | Date and calendar | Calendar, Date Picker, Native Select | Prefer proven date logic instead of hand-rolling calendar rules. |
-| Overlays | Drawer, Hover Card | Reuse dialog/popover primitives after focus and positioning mature. |
+| Overlays | Hover Card | Reuse dialog/popover primitives after focus and positioning mature. |
 | Feedback | Toast, Sonner | Need queue and live-region behavior. |
 | Data | Data Table, Chart | Data Table needs table composition plus sorting/filtering state; Chart needs a charting decision. |
 | Navigation shell | Sidebar | Needs responsive layout, persistence, and keyboard shortcuts. |

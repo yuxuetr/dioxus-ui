@@ -116,7 +116,8 @@ duplicate Sheet behavior unless the API needs diverge.
 Planned approach:
 
 - implement after Sheet
-- reuse Sheet semantics and styling helpers where practical
+- expose a separate public component, not a pure alias
+- reuse Sheet semantics while keeping bottom-first mobile defaults
 - default side is bottom
 - default content height is smaller than full-screen but easy to override
 - keep touch gesture support out of M12
@@ -133,8 +134,10 @@ DrawerDescription { class, children }
 DrawerClose { class, disabled, children }
 ```
 
-If Sheet proves sufficient after implementation, Drawer can be documented as a
-composition template over Sheet instead of a separate primitive-backed module.
+Decision: Drawer ships as its own public component because mobile-oriented
+bottom sheets need different default sizing and documentation than desktop side
+panels. It remains dialog-backed and intentionally does not introduce a new
+primitive state model.
 
 ## Hover Card
 

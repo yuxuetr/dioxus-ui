@@ -4,23 +4,24 @@ use dioxus_ui::{
   alert_description_class, alert_title_class, avatar_class, avatar_fallback_class,
   avatar_image_class, badge_class, button_class, card_class, card_content_class,
   card_description_class, card_footer_class, card_header_class, card_title_class, checkbox_class,
-  dialog_content_class, dialog_overlay_class, dropdown_content_class, dropdown_item_class,
-  dropdown_label_class, dropdown_separator_class, input_class, label_class, pagination_class,
-  pagination_link_class, popover_content_class, popover_description_class, popover_header_class,
-  popover_title_class, progress_class, progress_indicator_class, progress_percent,
-  radio_group_class, radio_group_item_class, radio_group_move_value, select_content_class,
-  select_item_class, select_label_class, select_separator_class, select_trigger_class,
-  select_value_class, separator_class, sheet_content_class, sheet_overlay_class, skeleton_class,
-  slider_percent, slider_range_style, slider_root_class, slider_thumb_style, slider_track_class,
-  switch_class, spinner_class, switch_thumb_class, table_class, table_row_class,
-  tabs_content_class, tabs_list_class, tabs_trigger_class, textarea_class, toggle_class,
-  toggle_group_class, toggle_group_item_class, toggle_group_move_value,
+  dialog_content_class, dialog_overlay_class, drawer_content_class, drawer_overlay_class,
+  dropdown_content_class, dropdown_item_class, dropdown_label_class, dropdown_separator_class,
+  input_class, label_class, pagination_class, pagination_link_class, popover_content_class,
+  popover_description_class, popover_header_class, popover_title_class, progress_class,
+  progress_indicator_class, progress_percent, radio_group_class, radio_group_item_class,
+  radio_group_move_value, select_content_class, select_item_class, select_label_class,
+  select_separator_class, select_trigger_class, select_value_class, separator_class,
+  sheet_content_class, sheet_overlay_class, skeleton_class, slider_percent, slider_range_style,
+  slider_root_class, slider_thumb_style, slider_track_class, switch_class, spinner_class,
+  switch_thumb_class, table_class, table_row_class, tabs_content_class, tabs_list_class,
+  tabs_trigger_class, textarea_class, toggle_class, toggle_group_class, toggle_group_item_class,
+  toggle_group_move_value,
   toggle_group_multiple_selection, tooltip_content_class,
   AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant, ButtonSize,
-  ButtonVariant, DialogPrimitiveConfig, DropdownPrimitiveConfig, FocusMove, NavigationOrientation,
-  PopoverPrimitiveConfig, RovingFocusItem, SelectPrimitiveConfig, SeparatorOrientation,
-  SheetPrimitiveConfig, SheetSide, SpinnerSize, ToggleSize, ToggleVariant, TooltipPrimitiveConfig,
-  UiDensity,
+  ButtonVariant, DialogPrimitiveConfig, DrawerPrimitiveConfig, DropdownPrimitiveConfig,
+  FocusMove, NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
+  SelectPrimitiveConfig, SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SpinnerSize,
+  ToggleSize, ToggleVariant, TooltipPrimitiveConfig, UiDensity,
 };
 
 fn main() {
@@ -208,6 +209,15 @@ fn main() {
   println!(
     "dioxus-ui web demo dialog primitive open: {}",
     DialogPrimitiveConfig::controlled(true).open
+  );
+  println!("dioxus-ui web demo drawer overlay class: {}", drawer_overlay_class(""));
+  println!(
+    "dioxus-ui web demo drawer content class: {}",
+    drawer_content_class("max-h-[70vh]")
+  );
+  println!(
+    "dioxus-ui web demo drawer primitive open: {}",
+    DrawerPrimitiveConfig::controlled(true).open
   );
   println!("dioxus-ui web demo popover content class: {}", popover_content_class("w-80"));
   println!("dioxus-ui web demo popover header class: {}", popover_header_class(""));

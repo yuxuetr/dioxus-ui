@@ -1,0 +1,14 @@
+{
+  "name": "drawer",
+  "description": "Mobile-oriented bottom drawer components backed by dialog primitive configuration.",
+  "files": [
+    {
+      "source": "templates/drawer.rs",
+      "target": "src/components/ui/drawer.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}
