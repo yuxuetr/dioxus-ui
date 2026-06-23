@@ -52,6 +52,8 @@ Statuses:
 
 | Component | Contract | Status |
 | --- | --- | --- |
+| Alert Dialog | Uses alertdialog role and modal state for confirmation flows. | Implemented |
+| Alert Dialog | Needs focus trap and focus return verification. | Planned |
 | Dialog | Exposes dialog role and modal state. | Implemented |
 | Dialog | Needs focus trap and focus return verification. | Planned |
 | Dropdown | Needs menu roles, roving focus, and typeahead. | Planned |

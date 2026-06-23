@@ -8,6 +8,7 @@ repository.workspace = true
 [features]
 default = []
 alert = []
+alert-dialog = ["dioxus-ui-primitives/dialog"]
 avatar = []
 badge = []
 button = []

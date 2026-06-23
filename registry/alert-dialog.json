@@ -1,0 +1,14 @@
+{
+  "name": "alert-dialog",
+  "description": "Alert dialog confirmation components backed by dialog primitive configuration.",
+  "files": [
+    {
+      "source": "templates/alert_dialog.rs",
+      "target": "src/components/ui/alert_dialog.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

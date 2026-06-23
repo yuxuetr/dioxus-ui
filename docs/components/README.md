@@ -32,6 +32,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | --- | --- | --- | --- |
 | [Accordion](accordion.md) | `dxui add accordion` | `accordion` | Controlled styled parts |
 | [Alert](alert.md) | `dxui add alert` | `alert` | Styled parts |
+| [Alert Dialog](alert-dialog.md) | `dxui add alert-dialog` | `alert-dialog` | Dialog-backed styled parts |
 | [Avatar](avatar.md) | `dxui add avatar` | `avatar` | Styled parts |
 | [Badge](badge.md) | `dxui add badge` | `badge` | Styled |
 | [Button](button.md) | `dxui add button` | `button` | Styled |

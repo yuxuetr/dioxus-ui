@@ -6,6 +6,9 @@ pub mod accordion;
 #[cfg(feature = "alert")]
 pub mod alert;
 
+#[cfg(feature = "alert-dialog")]
+pub mod alert_dialog;
+
 #[cfg(feature = "avatar")]
 pub mod avatar;
 
@@ -76,6 +79,21 @@ pub use accordion::{
 pub use alert::{
   alert_class, alert_description_class, alert_title_class, Alert, AlertDescription, AlertTitle,
   AlertVariant, ALERT_BASE_CLASS, ALERT_DESCRIPTION_BASE_CLASS, ALERT_TITLE_BASE_CLASS,
+};
+#[cfg(feature = "alert-dialog")]
+pub use alert_dialog::{
+  alert_dialog_action_class, alert_dialog_cancel_class, alert_dialog_content_class,
+  alert_dialog_description_class, alert_dialog_footer_class, alert_dialog_header_class,
+  alert_dialog_overlay_class, alert_dialog_title_class, AlertDialogAction,
+  AlertDialogActionVariant, AlertDialogCancel, AlertDialogContent, AlertDialogDescription,
+  AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, AlertDialogTitle,
+  DialogPrimitiveConfig as AlertDialogPrimitiveConfig,
+  DismissBehavior as AlertDialogDismissBehavior, FocusReturn as AlertDialogFocusReturn,
+  FocusStrategy as AlertDialogFocusStrategy, PortalTarget as AlertDialogPortalTarget,
+  ALERT_DIALOG_ACTION_BASE_CLASS, ALERT_DIALOG_CANCEL_BASE_CLASS,
+  ALERT_DIALOG_CONTENT_BASE_CLASS, ALERT_DIALOG_DESCRIPTION_BASE_CLASS,
+  ALERT_DIALOG_FOOTER_BASE_CLASS, ALERT_DIALOG_HEADER_BASE_CLASS,
+  ALERT_DIALOG_OVERLAY_BASE_CLASS, ALERT_DIALOG_TITLE_BASE_CLASS,
 };
 #[cfg(feature = "avatar")]
 pub use avatar::{

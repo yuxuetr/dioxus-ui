@@ -1,5 +1,6 @@
 use dioxus_ui::{
-  accordion_content_class, accordion_item_class, accordion_trigger_class, alert_class,
+  accordion_content_class, accordion_item_class, accordion_trigger_class,
+  alert_dialog_action_class, alert_dialog_content_class, alert_dialog_overlay_class, alert_class,
   alert_description_class, alert_title_class, avatar_class, avatar_fallback_class,
   avatar_image_class, badge_class, button_class, card_class, card_content_class,
   card_description_class, card_footer_class, card_header_class, card_title_class, checkbox_class,
@@ -13,11 +14,11 @@ use dioxus_ui::{
   slider_root_class, slider_thumb_style, slider_track_class, switch_class, spinner_class,
   switch_thumb_class, table_class, table_row_class, tabs_content_class, tabs_list_class,
   tabs_trigger_class, textarea_class, toggle_class, toggle_group_class, toggle_group_item_class,
-  toggle_group_move_value, toggle_group_single_selection, tooltip_content_class, AlertVariant,
-  BadgeVariant, ButtonSize, ButtonVariant, DialogPrimitiveConfig, DropdownPrimitiveConfig,
-  FocusMove, NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
-  SelectPrimitiveConfig, SeparatorOrientation, SpinnerSize, ToggleSize, ToggleVariant,
-  TooltipPrimitiveConfig, UiDensity,
+  toggle_group_move_value, toggle_group_single_selection, tooltip_content_class,
+  AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant, ButtonSize,
+  ButtonVariant, DialogPrimitiveConfig, DropdownPrimitiveConfig, FocusMove, NavigationOrientation,
+  PopoverPrimitiveConfig, RovingFocusItem, SelectPrimitiveConfig, SeparatorOrientation,
+  SpinnerSize, ToggleSize, ToggleVariant, TooltipPrimitiveConfig, UiDensity,
 };
 
 fn main() {
@@ -46,6 +47,22 @@ fn main() {
   println!(
     "dioxus-ui desktop demo alert description class: {}",
     alert_description_class(AlertVariant::Destructive, "")
+  );
+  println!(
+    "dioxus-ui desktop demo alert dialog overlay class: {}",
+    alert_dialog_overlay_class("")
+  );
+  println!(
+    "dioxus-ui desktop demo alert dialog content class: {}",
+    alert_dialog_content_class("max-w-sm")
+  );
+  println!(
+    "dioxus-ui desktop demo alert dialog action class: {}",
+    alert_dialog_action_class(AlertDialogActionVariant::Default, "")
+  );
+  println!(
+    "dioxus-ui desktop demo alert dialog primitive open: {}",
+    AlertDialogPrimitiveConfig::controlled(false).open
   );
   println!(
     "dioxus-ui desktop demo avatar class: {}",
