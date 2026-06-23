@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 40%
 - Current milestone: M16 Data and Visualization
-- Current task: M16.2 Implement data table state primitives
+- Current task: M16.3 Implement Data Table
 
 ## M0 Documentation
 
@@ -367,7 +367,7 @@
   - Decide whether Chart ships as a component, strategy document, or deferred adapter surface.
   - Document Web/Desktop/Mobile, source-copy, accessibility, and dependency constraints before implementation.
 
-- TODO M16.2 Implement data table state primitives
+- DONE M16.2 Implement data table state primitives
   - Add pure sorting, pagination window, row selection, and column visibility helpers.
   - Avoid runtime DOM dependencies and data-source ownership.
   - Add unit tests for stable sorting, page boundaries, selection toggles, and hidden columns.
