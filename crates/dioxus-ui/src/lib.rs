@@ -36,6 +36,9 @@ pub mod combobox;
 #[cfg(feature = "context-menu")]
 pub mod context_menu;
 
+#[cfg(feature = "data-table")]
+pub mod data_table;
+
 #[cfg(feature = "date-picker")]
 pub mod date_picker;
 
@@ -193,6 +196,23 @@ pub use context_menu::{
   CONTEXT_MENU_CONTENT_BASE_CLASS, CONTEXT_MENU_GROUP_BASE_CLASS,
   CONTEXT_MENU_ITEM_BASE_CLASS, CONTEXT_MENU_ITEM_INSET_CLASS, CONTEXT_MENU_LABEL_BASE_CLASS,
   CONTEXT_MENU_SEPARATOR_BASE_CLASS, CONTEXT_MENU_SHORTCUT_BASE_CLASS,
+};
+#[cfg(feature = "data-table")]
+pub use data_table::{
+  data_table_cell_class, data_table_class, data_table_clamp_page, data_table_container_class,
+  data_table_empty_class, data_table_header_cell_class, data_table_is_column_visible,
+  data_table_loading_class, data_table_page_count, data_table_page_window,
+  data_table_pagination_class, data_table_row_class, data_table_selected_count_class,
+  data_table_sort_attribute, data_table_toggle_all_rows, data_table_toggle_column,
+  data_table_toggle_row, data_table_toggle_sort, data_table_toolbar_class, DataTable,
+  DataTableCell, DataTableColumnState, DataTableContainer, DataTableEmpty,
+  DataTableHeaderCell, DataTableLoading, DataTablePagination, DataTablePaginationState,
+  DataTableRow, DataTableSelectedCount, DataTableSelectionState, DataTableSortDirection,
+  DataTableSortState, DataTableToolbar, DATA_TABLE_BASE_CLASS, DATA_TABLE_CELL_BASE_CLASS,
+  DATA_TABLE_CONTAINER_BASE_CLASS, DATA_TABLE_EMPTY_BASE_CLASS,
+  DATA_TABLE_HEADER_CELL_BASE_CLASS, DATA_TABLE_LOADING_BASE_CLASS,
+  DATA_TABLE_PAGINATION_BASE_CLASS, DATA_TABLE_ROW_BASE_CLASS,
+  DATA_TABLE_SELECTED_COUNT_BASE_CLASS, DATA_TABLE_TOOLBAR_BASE_CLASS,
 };
 #[cfg(feature = "date-picker")]
 pub use date_picker::{

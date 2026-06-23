@@ -7,9 +7,11 @@ use dioxus_ui::{
   card_header_class, card_title_class, checkbox_class, command_active_descendant_state,
   command_class, command_input_class, command_item_class, combobox_input_class,
   combobox_item_class, combobox_trigger_class, context_menu_content_class,
-  context_menu_item_class, context_menu_shortcut_class, date_picker_align_attribute,
-  date_picker_content_class, date_picker_side_attribute, date_picker_trigger_class,
-  date_picker_value_class, dialog_content_class, dialog_overlay_class, drawer_content_class,
+  context_menu_item_class, context_menu_shortcut_class, data_table_header_cell_class,
+  data_table_page_window, data_table_row_class, data_table_sort_attribute,
+  data_table_toggle_row, date_picker_align_attribute, date_picker_content_class,
+  date_picker_side_attribute, date_picker_trigger_class, date_picker_value_class,
+  dialog_content_class, dialog_overlay_class, drawer_content_class,
   drawer_overlay_class, dropdown_content_class, dropdown_item_class, dropdown_label_class,
   dropdown_separator_class, hover_card_align_attribute, hover_card_content_class,
   hover_card_side_attribute, input_class, label_class, menubar_class, menubar_item_class,
@@ -29,8 +31,8 @@ use dioxus_ui::{
   AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant, ButtonSize,
   ButtonVariant, CalendarDate, CalendarKeyMove, CalendarMonth, CalendarRangeState,
   CalendarWeekday, ComboboxPrimitiveConfig, ContextMenuPrimitiveConfig, DatePickerAlign,
-  DatePickerPrimitiveConfig, DatePickerSide, DialogPrimitiveConfig, DrawerPrimitiveConfig,
-  DropdownPrimitiveConfig, FocusMove, HoverCardAlign,
+  DatePickerPrimitiveConfig, DatePickerSide, DataTableSortDirection, DialogPrimitiveConfig,
+  DrawerPrimitiveConfig, DropdownPrimitiveConfig, FocusMove, HoverCardAlign,
   HoverCardPrimitiveConfig, HoverCardSide, MenubarPrimitiveConfig, NavigationMenuPrimitiveConfig,
   NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
   SelectPrimitiveConfig, SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SpinnerSize,
@@ -263,6 +265,26 @@ fn main() {
   println!(
     "dioxus-ui web demo context menu primitive open: {}",
     ContextMenuPrimitiveConfig::controlled(true).open
+  );
+  println!(
+    "dioxus-ui web demo data table header class: {}",
+    data_table_header_cell_class(true, "w-40")
+  );
+  println!(
+    "dioxus-ui web demo data table row class: {}",
+    data_table_row_class(true, false, "")
+  );
+  println!(
+    "dioxus-ui web demo data table page window: {:?}",
+    data_table_page_window(1, 10, 24)
+  );
+  println!(
+    "dioxus-ui web demo data table selected rows: {:?}",
+    data_table_toggle_row(&["row-1".to_string()], "row-2")
+  );
+  println!(
+    "dioxus-ui web demo data table sort: {}",
+    data_table_sort_attribute(Some(DataTableSortDirection::Ascending))
   );
   println!(
     "dioxus-ui web demo date picker trigger class: {}",

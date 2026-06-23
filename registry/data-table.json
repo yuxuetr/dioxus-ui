@@ -1,0 +1,18 @@
+{
+  "name": "data-table",
+  "description": "Controlled Data Table composition parts and state helpers.",
+  "files": [
+    {
+      "source": "templates/data_table.rs",
+      "target": "src/components/ui/data_table.rs"
+    }
+  ],
+  "dependencies": [
+    "utils",
+    "table",
+    "pagination",
+    "checkbox",
+    "command"
+  ],
+  "assets": []
+}

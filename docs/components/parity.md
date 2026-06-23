@@ -15,7 +15,7 @@ be ported one-for-one.
 | Overlay primitives | Context Menu, Dialog, Dropdown, Menubar, Navigation Menu, Popover, Tooltip |
 | Command and search | Command, Combobox, Native Select |
 | Selection | Select |
-| Feedback and data | Progress, Table, Pagination |
+| Feedback and data | Data Table, Progress, Table, Pagination |
 
 ## Planned Static Or Light Interaction
 
@@ -33,7 +33,7 @@ be ported one-for-one.
 | Date and calendar | - | Calendar and Date Picker are implemented. |
 | Overlays | - | Current M12 overlay variant set is implemented. |
 | Feedback | Toast, Sonner | Need queue and live-region behavior. |
-| Data | Data Table, Chart | Data Table needs table composition plus sorting/filtering state; Chart needs a charting decision. |
+| Data | Chart | Data Table is implemented; Chart needs a charting decision. |
 | Navigation shell | Sidebar | Needs responsive layout, persistence, and keyboard shortcuts. |
 | Media | Carousel | Needs interaction, gesture, and accessibility decisions. |
 
@@ -42,7 +42,7 @@ be ported one-for-one.
 | Component | Reason |
 | --- | --- |
 | Chart | Should depend on a clear charting backend and data API decision. |
-| Data Table | Better built after table, pagination, command, checkbox, and sorting primitives settle. |
+| Data Table runtime adapters | Data Table state helpers and composition parts are implemented; filtering, async loading, and virtualization remain app-owned. |
 | Calendar / Date Picker runtime adapters | Date math primitives are implemented; parsing, localization, and focus adapters remain deferred. |
 
 ## Next Milestone Seeds
@@ -57,12 +57,11 @@ define shared primitive behavior for:
 - pointer outside dismissal
 - overlay positioning and collision handling
 
-After M15, the safest remaining component order is:
+After Data Table, the safest remaining component order is:
 
-1. Data Table
-2. Sidebar, Scroll Area, Resizable, and Carousel
-3. Toast and Sonner
-4. Chart strategy
+1. Sidebar, Scroll Area, Resizable, and Carousel
+2. Toast and Sonner
+3. Chart strategy
 
 See [Complex Component Batches](complex-batches.md) for the expanded milestone
 plan.

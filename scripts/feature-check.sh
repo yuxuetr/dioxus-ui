@@ -17,6 +17,7 @@ features=(
   command
   combobox
   context-menu
+  data-table
   date-picker
   dialog
   drawer

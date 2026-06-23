@@ -88,6 +88,8 @@ Statuses:
 | Pagination | Uses navigation region and current-page state. | Implemented |
 | Progress | Uses progressbar value attributes. | Implemented |
 | Table | Uses semantic table elements. | Implemented |
+| Data Table | Exposes sorted header state, selected row state, hidden cells, loading status, and empty state composition. | Implemented |
+| Data Table | Needs app-level filtering, async loading, keyboard shortcuts, and virtualization verification. | Planned |
 
 ## Complex Component Gates
 
