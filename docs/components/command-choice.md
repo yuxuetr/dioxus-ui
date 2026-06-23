@@ -1,11 +1,10 @@
 # Command and Choice API Plan
 
-This document defines the M14 command and choice APIs before implementation.
-The goal is to reuse active descendant, typeahead, selection, and popover
-primitives while keeping the first implementation controlled and source-copy
-friendly.
+This document defines the M14 command and choice APIs. The goal is to reuse
+active descendant, typeahead, selection, and popover primitives while keeping
+the first implementation controlled and source-copy friendly.
 
-Status: Planned in M14.
+Status: Implemented in M14.
 
 ## Scope
 
@@ -53,7 +52,7 @@ Deferred runtime work:
 Command is a composable command palette and searchable action list. It is not a
 form control by itself.
 
-Planned crate API:
+Implemented crate API:
 
 ```rust
 Command { class, children }
@@ -83,7 +82,7 @@ keyboard events, and command execution are owned by the consuming app.
 Combobox is a searchable selection component. It combines trigger/input,
 popover-like content, listbox semantics, and selected value display.
 
-Planned crate API:
+Implemented crate API:
 
 ```rust
 ComboboxTrigger { open, invalid, disabled, class, children }
@@ -112,11 +111,11 @@ Native Select for browser-native forms and simple option lists.
 Native Select is a styled wrapper around the browser/platform native select
 element. It should be the low-risk default for simple forms.
 
-Planned crate API:
+Implemented crate API:
 
 ```rust
 NativeSelect { invalid, disabled, class, children }
-NativeSelectGroup { class, children }
+NativeSelectGroup { label, class, children }
 NativeSelectOption { value, disabled, selected, class, children }
 ```
 
@@ -127,7 +126,7 @@ Behavior defaults:
 - map invalid state to `aria-invalid`
 - do not replace native keyboard behavior
 
-Native Select should be documented separately from custom Select and Combobox.
+Native Select is documented separately from custom Select and Combobox.
 
 ## Platform Defaults
 
@@ -144,8 +143,9 @@ Native Select should be documented separately from custom Select and Combobox.
 3. Native Select
 4. documentation, examples, and parity updates
 
-This order starts with the lowest-risk active descendant surface, then applies
-the same model to searchable selection, then adds a native form-friendly option.
+This order started with the lowest-risk active descendant surface, then applied
+the same model to searchable selection, then added a native form-friendly
+option.
 
 ## Quality Gates
 

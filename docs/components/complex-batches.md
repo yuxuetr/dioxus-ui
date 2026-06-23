@@ -95,7 +95,7 @@ submenu handoff, and viewport measurement remain tracked as adapter work.
 
 ## Batch 4: Command and Choice
 
-Status: Planned in M14.
+Status: Implemented in M14.
 
 Components:
 
@@ -119,6 +119,10 @@ Rationale:
 Command and Combobox should share the same active item and filtering model.
 Native Select can be simpler but should be documented separately from custom
 Select.
+
+M14 shipped controlled styled parts for Command, Combobox, and Native Select.
+Runtime filtering, keyboard event wiring, DOM focus commands, async loading,
+portal mounting, and virtualization remain app-owned or deferred adapter work.
 
 ## Batch 5: Date and Calendar
 
