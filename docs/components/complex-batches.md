@@ -35,12 +35,18 @@ portal positioning.
 
 ## Batch 2: Overlay Variants
 
+Status: Planned in M12.
+
 Components:
 
 - Alert Dialog
 - Sheet
 - Drawer
 - Hover Card
+
+Implementation specification:
+
+- [Overlay Variant API Plan](overlay-variants.md)
 
 Dependencies:
 
