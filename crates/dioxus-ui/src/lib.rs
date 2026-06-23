@@ -54,6 +54,9 @@ pub mod label;
 #[cfg(feature = "menubar")]
 pub mod menubar;
 
+#[cfg(feature = "native-select")]
+pub mod native_select;
+
 #[cfg(feature = "navigation-menu")]
 pub mod navigation_menu;
 
@@ -220,6 +223,12 @@ pub use menubar::{
   MENUBAR_CONTENT_BASE_CLASS, MENUBAR_ITEM_BASE_CLASS, MENUBAR_ITEM_INSET_CLASS,
   MENUBAR_LABEL_BASE_CLASS, MENUBAR_MENU_BASE_CLASS, MENUBAR_SEPARATOR_BASE_CLASS,
   MENUBAR_SHORTCUT_BASE_CLASS, MENUBAR_TRIGGER_BASE_CLASS,
+};
+#[cfg(feature = "native-select")]
+pub use native_select::{
+  native_select_class, native_select_group_class, native_select_option_class, NativeSelect,
+  NativeSelectGroup, NativeSelectOption, NATIVE_SELECT_BASE_CLASS,
+  NATIVE_SELECT_GROUP_BASE_CLASS, NATIVE_SELECT_OPTION_BASE_CLASS,
 };
 #[cfg(feature = "navigation-menu")]
 pub use navigation_menu::{

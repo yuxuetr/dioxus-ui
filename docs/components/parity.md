@@ -13,7 +13,7 @@ be ported one-for-one.
 | Light interaction | Radio Group, Spinner, Toggle, Toggle Group |
 | Disclosure | Accordion, Alert Dialog, Drawer, Hover Card, Sheet, Tabs |
 | Overlay primitives | Context Menu, Dialog, Dropdown, Menubar, Navigation Menu, Popover, Tooltip |
-| Command and search | Command, Combobox |
+| Command and search | Command, Combobox, Native Select |
 | Selection | Select |
 | Feedback and data | Progress, Table, Pagination |
 
@@ -30,7 +30,7 @@ be ported one-for-one.
 | --- | --- | --- |
 | Command and search | - | Current M14 command search components are implemented. |
 | Menus | - | Current M13 menu system set is implemented. |
-| Date and calendar | Calendar, Date Picker, Native Select | Prefer proven date logic instead of hand-rolling calendar rules. |
+| Date and calendar | Calendar, Date Picker | Prefer proven date logic instead of hand-rolling calendar rules. |
 | Overlays | - | Current M12 overlay variant set is implemented. |
 | Feedback | Toast, Sonner | Need queue and live-region behavior. |
 | Data | Data Table, Chart | Data Table needs table composition plus sorting/filtering state; Chart needs a charting decision. |
@@ -59,7 +59,7 @@ define shared primitive behavior for:
 
 After M13, the safest remaining component order is:
 
-1. Command and Combobox
+1. Command, Combobox, and Native Select
 2. Calendar and Date Picker
 3. Data Table
 4. Sidebar, Scroll Area, Resizable, and Carousel

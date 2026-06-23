@@ -1,0 +1,14 @@
+{
+  "name": "native-select",
+  "description": "Styled native select, optgroup, and option components.",
+  "files": [
+    {
+      "source": "templates/native_select.rs",
+      "target": "src/components/ui/native_select.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

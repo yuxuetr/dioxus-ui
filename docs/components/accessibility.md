@@ -39,6 +39,7 @@ Statuses:
 | Command | Needs keyboard event and filtering integration verification. | Planned |
 | Combobox | Uses combobox, listbox, option, and active descendant semantics. | Implemented |
 | Combobox | Needs filtering, async loading, and keyboard event integration verification. | Planned |
+| Native Select | Uses native select, optgroup, and option elements with platform keyboard and form behavior. | Implemented |
 | Radio Group | Uses radiogroup/radio roles, checked state, and roving focus helpers. | Implemented |
 | Tabs | Needs tablist, tab, and tabpanel roles. | Planned |
 | Select | Needs listbox semantics and keyboard navigation. | Planned |
