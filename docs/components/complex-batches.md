@@ -8,6 +8,8 @@ Accessibility expectations for these batches are tracked in the
 
 ## Batch 1: Light Interaction Controls
 
+Status: Implemented in M11.
+
 Components:
 
 - Radio Group

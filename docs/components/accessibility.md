@@ -35,8 +35,18 @@ Statuses:
 | Component | Contract | Status |
 | --- | --- | --- |
 | Accordion | Needs trigger/content ARIA relationships. | Planned |
+| Radio Group | Uses radiogroup/radio roles, checked state, and roving focus helpers. | Implemented |
 | Tabs | Needs tablist, tab, and tabpanel roles. | Planned |
 | Select | Needs listbox semantics and keyboard navigation. | Planned |
+
+## Light Interaction
+
+| Component | Contract | Status |
+| --- | --- | --- |
+| Slider | Uses slider role, horizontal orientation, and value attributes. | Implemented |
+| Spinner | Uses status semantics and an accessible label. | Implemented |
+| Toggle | Uses button semantics with `aria-pressed`. | Implemented |
+| Toggle Group | Uses grouped toggle buttons with roving focus helpers. | Implemented |
 
 ## Overlays
 

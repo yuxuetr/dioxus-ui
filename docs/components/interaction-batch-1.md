@@ -1,6 +1,7 @@
 # Interaction Batch 1 Specification
 
 This document defines the first post-primitive interaction component batch.
+The batch was implemented in M11.
 
 Batch 1 should stay below overlay complexity. These components exercise
 controlled state, ARIA mapping, keyboard behavior, and source-copy templates
@@ -15,6 +16,24 @@ without requiring portals or runtime DOM measurement.
 | Radio Group | Roving focus | Primitive-backed styled component | Needs grouped single selection and arrow-key navigation. |
 | Toggle Group | Roving focus | Primitive-backed styled component | Needs grouped pressed state and arrow-key navigation. |
 | Slider | First-party slider state | Primitive-backed styled component | Needs value math, keyboard increments, and ARIA value mapping. |
+
+## Implementation Status
+
+| Component | Status |
+| --- | --- |
+| Spinner | Implemented |
+| Toggle | Implemented |
+| Radio Group | Implemented |
+| Toggle Group | Implemented |
+| Slider primitive state | Implemented |
+| Slider styled component | Implemented |
+
+Remaining hardening:
+
+- Wire real keyboard events in examples instead of only exposing pure helpers.
+- Add browser-level focus movement tests when the docs/demo app has a rendered
+  component preview surface.
+- Revisit mobile touch drag behavior for Slider before declaring it stable.
 
 ## Shared API Rules
 
