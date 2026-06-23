@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 60%
 - Current milestone: M16 Data and Visualization
-- Current task: M16.3 Implement Data Table
+- Current task: M16.4 Document Chart strategy
 
 ## M0 Documentation
 
@@ -372,7 +372,7 @@
   - Avoid runtime DOM dependencies and data-source ownership.
   - Add unit tests for stable sorting, page boundaries, selection toggles, and hidden columns.
 
-- TODO M16.3 Implement Data Table
+- DONE M16.3 Implement Data Table
   - Add controlled Data Table toolbar, container, header cell, row, cell, pagination, empty state, and selected-count APIs.
   - Compose existing Table, Checkbox, Command, and Pagination patterns where practical.
   - Add CLI template, registry entry, docs page, and demo usage.
