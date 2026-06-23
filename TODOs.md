@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 20%
 - Current milestone: M14 Command and Choice
-- Current task: M14.1 Plan command and choice APIs
+- Current task: M14.2 Implement Command
 
 ## M0 Documentation
 
@@ -310,7 +310,7 @@
 
 ## M14 Command and Choice
 
-- TODO M14.1 Plan command and choice APIs
+- DONE M14.1 Plan command and choice APIs
   - Define Command, Combobox, and Native Select API boundaries.
   - Decide which parts reuse active descendant, typeahead, filtering, selection, and popover primitives.
   - Document Web/Desktop/Mobile, form integration, and source-copy constraints before implementation.
