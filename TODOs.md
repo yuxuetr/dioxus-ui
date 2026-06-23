@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 20%
 - Current milestone: M16 Data and Visualization
-- Current task: M16.1 Plan data table and chart strategy
+- Current task: M16.2 Implement data table state primitives
 
 ## M0 Documentation
 
@@ -362,7 +362,7 @@
 
 ## M16 Data and Visualization
 
-- TODO M16.1 Plan data table and chart strategy
+- DONE M16.1 Plan data table and chart strategy
   - Define Data Table composition, sorting, filtering, selection, pagination, and empty-state boundaries.
   - Decide whether Chart ships as a component, strategy document, or deferred adapter surface.
   - Document Web/Desktop/Mobile, source-copy, accessibility, and dependency constraints before implementation.
