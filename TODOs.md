@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 66%
 - Current milestone: M12 Overlay Variants
-- Current task: M12.4 Implement Drawer
+- Current task: M12.5 Implement Hover Card
 
 ## M0 Documentation
 
@@ -268,7 +268,7 @@
   - Add CLI template, registry entry, docs page, and demo usage.
   - Verify generated fixture smoke includes Sheet.
 
-- TODO M12.4 Implement Drawer
+- DONE M12.4 Implement Drawer
   - Decide whether Drawer is an alias/composition of Sheet or a separate mobile-oriented component.
   - Add source-copy and crate-mode APIs only after the distinction is documented.
   - Add docs page and demo usage if implemented as a public registry component.
