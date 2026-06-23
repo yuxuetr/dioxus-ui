@@ -1,0 +1,14 @@
+{
+  "name": "navigation-menu",
+  "description": "Controlled navigation menu parts with navigation semantics.",
+  "files": [
+    {
+      "source": "templates/navigation_menu.rs",
+      "target": "src/components/ui/navigation_menu.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

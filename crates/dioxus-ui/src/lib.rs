@@ -48,6 +48,9 @@ pub mod label;
 #[cfg(feature = "menubar")]
 pub mod menubar;
 
+#[cfg(feature = "navigation-menu")]
+pub mod navigation_menu;
+
 #[cfg(feature = "pagination")]
 pub mod pagination;
 
@@ -190,6 +193,19 @@ pub use menubar::{
   MENUBAR_CONTENT_BASE_CLASS, MENUBAR_ITEM_BASE_CLASS, MENUBAR_ITEM_INSET_CLASS,
   MENUBAR_LABEL_BASE_CLASS, MENUBAR_MENU_BASE_CLASS, MENUBAR_SEPARATOR_BASE_CLASS,
   MENUBAR_SHORTCUT_BASE_CLASS, MENUBAR_TRIGGER_BASE_CLASS,
+};
+#[cfg(feature = "navigation-menu")]
+pub use navigation_menu::{
+  navigation_menu_class, navigation_menu_content_class, navigation_menu_indicator_class,
+  navigation_menu_item_class, navigation_menu_link_class, navigation_menu_list_class,
+  navigation_menu_trigger_class, navigation_menu_viewport_class, NavigationMenu,
+  NavigationMenuContent, NavigationMenuIndicator, NavigationMenuItem, NavigationMenuLink,
+  NavigationMenuList, NavigationMenuTrigger, NavigationMenuViewport,
+  PopoverPrimitiveConfig as NavigationMenuPrimitiveConfig, NAVIGATION_MENU_BASE_CLASS,
+  NAVIGATION_MENU_CONTENT_BASE_CLASS, NAVIGATION_MENU_INDICATOR_BASE_CLASS,
+  NAVIGATION_MENU_ITEM_BASE_CLASS, NAVIGATION_MENU_LINK_BASE_CLASS,
+  NAVIGATION_MENU_LIST_BASE_CLASS, NAVIGATION_MENU_TRIGGER_BASE_CLASS,
+  NAVIGATION_MENU_VIEWPORT_BASE_CLASS,
 };
 #[cfg(feature = "pagination")]
 pub use pagination::{

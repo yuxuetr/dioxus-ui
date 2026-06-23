@@ -65,6 +65,8 @@ Statuses:
 | Hover Card | Needs hover/focus timing and mobile fallback verification. | Planned |
 | Menubar | Exposes menubar, menu, and menu item roles. | Implemented |
 | Menubar | Needs roving focus, typeahead, and nested submenu verification. | Planned |
+| Navigation Menu | Uses navigation structure and link semantics for destinations. | Implemented |
+| Navigation Menu | Needs trigger roving focus and viewport measurement verification. | Planned |
 | Popover | Needs dismissal and focus behavior verification. | Planned |
 | Sheet | Uses dialog role and modal state for side-panel flows. | Implemented |
 | Sheet | Needs focus trap and focus return verification. | Planned |

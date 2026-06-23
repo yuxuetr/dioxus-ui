@@ -9,20 +9,23 @@ use dioxus_ui::{
   dropdown_content_class, dropdown_item_class, dropdown_label_class, dropdown_separator_class,
   hover_card_align_attribute, hover_card_content_class, hover_card_side_attribute, input_class,
   label_class, menubar_class, menubar_item_class, menubar_trigger_class, pagination_class,
-  pagination_link_class, popover_content_class, popover_description_class, popover_header_class,
-  popover_title_class, progress_class, progress_indicator_class, progress_percent,
-  radio_group_class, radio_group_item_class, radio_group_move_value, select_content_class,
-  select_item_class, select_label_class, select_separator_class, select_trigger_class,
-  select_value_class, separator_class, sheet_content_class, sheet_overlay_class, skeleton_class,
-  slider_percent, slider_range_style, slider_root_class, slider_thumb_style, slider_track_class,
-  switch_class, spinner_class, switch_thumb_class, table_class, table_row_class,
-  tabs_content_class, tabs_list_class, tabs_trigger_class, textarea_class, toggle_class,
-  toggle_group_class, toggle_group_item_class, toggle_group_move_value,
+  pagination_link_class, navigation_menu_class, navigation_menu_link_class,
+  navigation_menu_trigger_class, popover_content_class, popover_description_class,
+  popover_header_class, popover_title_class, progress_class, progress_indicator_class,
+  progress_percent, radio_group_class, radio_group_item_class, radio_group_move_value,
+  select_content_class, select_item_class, select_label_class, select_separator_class,
+  select_trigger_class, select_value_class, separator_class, sheet_content_class,
+  sheet_overlay_class, skeleton_class, slider_percent, slider_range_style, slider_root_class,
+  slider_thumb_style, slider_track_class, switch_class, spinner_class, switch_thumb_class,
+  table_class, table_row_class, tabs_content_class, tabs_list_class, tabs_trigger_class,
+  textarea_class, toggle_class, toggle_group_class, toggle_group_item_class,
+  toggle_group_move_value,
   toggle_group_single_selection, tooltip_content_class,
   AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant, ButtonSize,
   ButtonVariant, ContextMenuPrimitiveConfig, DialogPrimitiveConfig, DrawerPrimitiveConfig,
   DropdownPrimitiveConfig, FocusMove, HoverCardAlign, HoverCardPrimitiveConfig, HoverCardSide,
-  MenubarPrimitiveConfig, NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
+  MenubarPrimitiveConfig, NavigationMenuPrimitiveConfig, NavigationOrientation,
+  PopoverPrimitiveConfig, RovingFocusItem,
   SelectPrimitiveConfig, SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SpinnerSize,
   ToggleSize, ToggleVariant, TooltipPrimitiveConfig, UiDensity,
 };
@@ -241,6 +244,22 @@ fn main() {
   println!(
     "dioxus-ui desktop demo menubar primitive open: {}",
     MenubarPrimitiveConfig::controlled(false).open
+  );
+  println!(
+    "dioxus-ui desktop demo navigation menu class: {}",
+    navigation_menu_class("w-full")
+  );
+  println!(
+    "dioxus-ui desktop demo navigation menu trigger class: {}",
+    navigation_menu_trigger_class(false, "")
+  );
+  println!(
+    "dioxus-ui desktop demo navigation menu link class: {}",
+    navigation_menu_link_class(false, "")
+  );
+  println!(
+    "dioxus-ui desktop demo navigation menu primitive open: {}",
+    NavigationMenuPrimitiveConfig::controlled(false).open
   );
   println!("dioxus-ui desktop demo switch class: {}", switch_class(false, "mt-1"));
   println!(
