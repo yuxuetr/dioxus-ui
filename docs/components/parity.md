@@ -13,6 +13,7 @@ be ported one-for-one.
 | Light interaction | Radio Group, Spinner, Toggle, Toggle Group |
 | Disclosure | Accordion, Alert Dialog, Drawer, Hover Card, Sheet, Tabs |
 | Overlay primitives | Context Menu, Dialog, Dropdown, Menubar, Navigation Menu, Popover, Tooltip |
+| Command and search | Command |
 | Selection | Select |
 | Feedback and data | Progress, Table, Pagination |
 
@@ -27,7 +28,7 @@ be ported one-for-one.
 
 | Group | Components | Notes |
 | --- | --- | --- |
-| Command and search | Command, Combobox | Need keyboard navigation, filtering, and active item management. |
+| Command and search | Combobox | Need keyboard navigation, filtering, and active item management. |
 | Menus | - | Current M13 menu system set is implemented. |
 | Date and calendar | Calendar, Date Picker, Native Select | Prefer proven date logic instead of hand-rolling calendar rules. |
 | Overlays | - | Current M12 overlay variant set is implemented. |

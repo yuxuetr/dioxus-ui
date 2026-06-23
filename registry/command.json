@@ -1,0 +1,14 @@
+{
+  "name": "command",
+  "description": "Controlled command palette parts with active descendant semantics.",
+  "files": [
+    {
+      "source": "templates/command.rs",
+      "target": "src/components/ui/command.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

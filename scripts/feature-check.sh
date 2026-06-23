@@ -13,6 +13,7 @@ features=(
   button
   card
   checkbox
+  command
   context-menu
   dialog
   drawer

@@ -41,6 +41,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Button](button.md) | `dxui add button` | `button` | Styled |
 | [Card](card.md) | `dxui add card` | `card` | Styled parts |
 | [Checkbox](checkbox.md) | `dxui add checkbox` | `checkbox` | Controlled styled part |
+| [Command](command.md) | `dxui add command` | `command` | Active descendant command parts |
 | [Context Menu](context-menu.md) | `dxui add context-menu` | `context-menu` | Dropdown-backed menu parts |
 | [Dialog](dialog.md) | `dxui add dialog` | `dialog` | Primitive config + styled parts |
 | [Drawer](drawer.md) | `dxui add drawer` | `drawer` | Dialog-backed bottom drawer |

@@ -24,6 +24,9 @@ pub mod card;
 #[cfg(feature = "checkbox")]
 pub mod checkbox;
 
+#[cfg(feature = "command")]
+pub mod command;
+
 #[cfg(feature = "context-menu")]
 pub mod context_menu;
 
@@ -131,6 +134,16 @@ pub use card::{
 };
 #[cfg(feature = "checkbox")]
 pub use checkbox::{checkbox_class, Checkbox, CHECKBOX_BASE_CLASS};
+#[cfg(feature = "command")]
+pub use command::{
+  command_active_descendant_state, command_class, command_empty_class, command_group_class,
+  command_input_class, command_item_class, command_label_class, command_list_class,
+  command_separator_class, command_shortcut_class, ActiveDescendantState, Command, CommandEmpty,
+  CommandGroup, CommandInput, CommandItem, CommandLabel, CommandList, CommandSeparator,
+  CommandShortcut, COMMAND_BASE_CLASS, COMMAND_EMPTY_BASE_CLASS, COMMAND_GROUP_BASE_CLASS,
+  COMMAND_INPUT_BASE_CLASS, COMMAND_ITEM_BASE_CLASS, COMMAND_LABEL_BASE_CLASS,
+  COMMAND_LIST_BASE_CLASS, COMMAND_SEPARATOR_BASE_CLASS, COMMAND_SHORTCUT_BASE_CLASS,
+};
 #[cfg(feature = "context-menu")]
 pub use context_menu::{
   context_menu_content_class, context_menu_group_class, context_menu_item_class,
