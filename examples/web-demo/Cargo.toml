@@ -7,4 +7,4 @@ repository.workspace = true
 publish = false
 
 [dependencies]
-dioxus-ui = { workspace = true, features = ["accordion", "alert", "alert-dialog", "avatar", "badge", "button", "card", "checkbox", "dialog", "drawer", "dropdown", "input", "label", "pagination", "popover", "progress", "radio-group", "select", "separator", "sheet", "skeleton", "slider", "spinner", "switch", "table", "tabs", "textarea", "toggle", "toggle-group", "tooltip"] }
+dioxus-ui = { workspace = true, features = ["accordion", "alert", "alert-dialog", "avatar", "badge", "button", "card", "checkbox", "dialog", "drawer", "dropdown", "hover-card", "input", "label", "pagination", "popover", "progress", "radio-group", "select", "separator", "sheet", "skeleton", "slider", "spinner", "switch", "table", "tabs", "textarea", "toggle", "toggle-group", "tooltip"] }

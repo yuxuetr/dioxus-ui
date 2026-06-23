@@ -41,6 +41,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Dialog](dialog.md) | `dxui add dialog` | `dialog` | Primitive config + styled parts |
 | [Drawer](drawer.md) | `dxui add drawer` | `drawer` | Dialog-backed bottom drawer |
 | [Dropdown](dropdown.md) | `dxui add dropdown` | `dropdown` | Primitive config + styled parts |
+| [Hover Card](hover-card.md) | `dxui add hover-card` | `hover-card` | Popover-backed preview content |
 | [Input](input.md) | `dxui add input` | `input` | Styled |
 | [Label](label.md) | `dxui add label` | `label` | Styled |
 | [Pagination](pagination.md) | `dxui add pagination` | `pagination` | Styled parts |

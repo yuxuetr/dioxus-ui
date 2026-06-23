@@ -1,0 +1,14 @@
+{
+  "name": "hover-card",
+  "description": "Controlled rich preview content backed by popover primitive configuration.",
+  "files": [
+    {
+      "source": "templates/hover_card.rs",
+      "target": "src/components/ui/hover_card.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

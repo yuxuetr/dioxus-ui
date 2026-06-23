@@ -16,6 +16,7 @@ features=(
   dialog
   drawer
   dropdown
+  hover-card
   input
   label
   pagination
@@ -46,7 +47,7 @@ echo "checking static component feature set"
 cargo check -q -p dioxus-ui --no-default-features --features "alert,alert-dialog,avatar,badge,card,pagination,progress,separator,skeleton,spinner,table"
 
 echo "checking primitive-backed feature set"
-cargo check -q -p dioxus-ui --no-default-features --features "dialog,drawer,dropdown,popover,radio-group,select,sheet,slider,toggle-group,tooltip"
+cargo check -q -p dioxus-ui --no-default-features --features "dialog,drawer,dropdown,hover-card,popover,radio-group,select,sheet,slider,toggle-group,tooltip"
 
 echo "checking all dioxus-ui features"
 cargo check -q -p dioxus-ui --all-features

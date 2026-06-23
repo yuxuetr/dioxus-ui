@@ -59,6 +59,8 @@ Statuses:
 | Drawer | Uses dialog role and modal state for bottom-panel flows. | Implemented |
 | Drawer | Needs focus trap, focus return, and gesture verification. | Planned |
 | Dropdown | Needs menu roles, roving focus, and typeahead. | Planned |
+| Hover Card | Provides controlled rich preview content with placement metadata. | Implemented |
+| Hover Card | Needs hover/focus timing and mobile fallback verification. | Planned |
 | Popover | Needs dismissal and focus behavior verification. | Planned |
 | Sheet | Uses dialog role and modal state for side-panel flows. | Implemented |
 | Sheet | Needs focus trap and focus return verification. | Planned |

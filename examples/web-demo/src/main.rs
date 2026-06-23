@@ -6,7 +6,8 @@ use dioxus_ui::{
   card_description_class, card_footer_class, card_header_class, card_title_class, checkbox_class,
   dialog_content_class, dialog_overlay_class, drawer_content_class, drawer_overlay_class,
   dropdown_content_class, dropdown_item_class, dropdown_label_class, dropdown_separator_class,
-  input_class, label_class, pagination_class, pagination_link_class, popover_content_class,
+  hover_card_align_attribute, hover_card_content_class, hover_card_side_attribute, input_class,
+  label_class, pagination_class, pagination_link_class, popover_content_class,
   popover_description_class, popover_header_class, popover_title_class, progress_class,
   progress_indicator_class, progress_percent, radio_group_class, radio_group_item_class,
   radio_group_move_value, select_content_class, select_item_class, select_label_class,
@@ -19,7 +20,8 @@ use dioxus_ui::{
   toggle_group_multiple_selection, tooltip_content_class,
   AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant, ButtonSize,
   ButtonVariant, DialogPrimitiveConfig, DrawerPrimitiveConfig, DropdownPrimitiveConfig,
-  FocusMove, NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
+  FocusMove, HoverCardAlign, HoverCardPrimitiveConfig, HoverCardSide, NavigationOrientation,
+  PopoverPrimitiveConfig, RovingFocusItem,
   SelectPrimitiveConfig, SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SpinnerSize,
   ToggleSize, ToggleVariant, TooltipPrimitiveConfig, UiDensity,
 };
@@ -229,6 +231,19 @@ fn main() {
   println!(
     "dioxus-ui web demo popover primitive open: {}",
     PopoverPrimitiveConfig::controlled(true).open
+  );
+  println!(
+    "dioxus-ui web demo hover card content class: {}",
+    hover_card_content_class("w-96")
+  );
+  println!(
+    "dioxus-ui web demo hover card side/align: {}/{}",
+    hover_card_side_attribute(HoverCardSide::Bottom),
+    hover_card_align_attribute(HoverCardAlign::Center)
+  );
+  println!(
+    "dioxus-ui web demo hover card primitive open: {}",
+    HoverCardPrimitiveConfig::controlled(true).open
   );
   println!("dioxus-ui web demo tooltip content class: {}", tooltip_content_class(""));
   println!(

@@ -33,6 +33,9 @@ pub mod drawer;
 #[cfg(feature = "dropdown")]
 pub mod dropdown;
 
+#[cfg(feature = "hover-card")]
+pub mod hover_card;
+
 #[cfg(feature = "input")]
 pub mod input;
 
@@ -145,6 +148,16 @@ pub use dropdown::{
   DropdownPrimitiveConfig, DropdownSeparator, DROPDOWN_CONTENT_BASE_CLASS,
   DROPDOWN_GROUP_BASE_CLASS, DROPDOWN_ITEM_BASE_CLASS, DROPDOWN_LABEL_BASE_CLASS,
   DROPDOWN_SEPARATOR_BASE_CLASS,
+};
+#[cfg(feature = "hover-card")]
+pub use hover_card::{
+  hover_card_align_attribute, hover_card_content_class, hover_card_description_class,
+  hover_card_header_class, hover_card_side_attribute, hover_card_title_class,
+  HoverCardContent, HoverCardDescription, HoverCardHeader, HoverCardTitle,
+  OverlayAlign as HoverCardAlign, OverlaySide as HoverCardSide,
+  PopoverPrimitiveConfig as HoverCardPrimitiveConfig, HOVER_CARD_CONTENT_BASE_CLASS,
+  HOVER_CARD_DESCRIPTION_BASE_CLASS, HOVER_CARD_HEADER_BASE_CLASS,
+  HOVER_CARD_TITLE_BASE_CLASS,
 };
 #[cfg(feature = "input")]
 pub use input::{input_class, Input, INPUT_BASE_CLASS};
