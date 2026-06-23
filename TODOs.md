@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M15 Calendar and Date Picker
-- Current task: M15 complete
+- Overall: 0%
+- Current milestone: M16 Data and Visualization
+- Current task: M16.1 Plan data table and chart strategy
 
 ## M0 Documentation
 
@@ -357,6 +357,32 @@
   - Add CLI template, registry entry, docs page, and demo usage.
 
 - DONE M15.5 Complete calendar and date picker documentation and examples
+  - Update parity, accessibility, complex batch, and component catalog docs.
+  - Run release quality gates before marking the batch complete.
+
+## M16 Data and Visualization
+
+- TODO M16.1 Plan data table and chart strategy
+  - Define Data Table composition, sorting, filtering, selection, pagination, and empty-state boundaries.
+  - Decide whether Chart ships as a component, strategy document, or deferred adapter surface.
+  - Document Web/Desktop/Mobile, source-copy, accessibility, and dependency constraints before implementation.
+
+- TODO M16.2 Implement data table state primitives
+  - Add pure sorting, pagination window, row selection, and column visibility helpers.
+  - Avoid runtime DOM dependencies and data-source ownership.
+  - Add unit tests for stable sorting, page boundaries, selection toggles, and hidden columns.
+
+- TODO M16.3 Implement Data Table
+  - Add controlled Data Table toolbar, container, header cell, row, cell, pagination, empty state, and selected-count APIs.
+  - Compose existing Table, Checkbox, Command, and Pagination patterns where practical.
+  - Add CLI template, registry entry, docs page, and demo usage.
+
+- TODO M16.4 Document Chart strategy
+  - Decide the initial chart backend policy and whether charts are first-party, adapter-based, or deferred.
+  - Document accessibility, SSR/Web/Desktop constraints, and source-copy expectations.
+  - Update parity and roadmap without introducing a chart component before the strategy is clear.
+
+- TODO M16.5 Complete data and visualization documentation and examples
   - Update parity, accessibility, complex batch, and component catalog docs.
   - Run release quality gates before marking the batch complete.
 
