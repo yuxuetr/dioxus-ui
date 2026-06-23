@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 80%
 - Current milestone: M14 Command and Choice
-- Current task: M14.4 Implement Native Select
+- Current task: M14.5 Complete command and choice documentation and examples
 
 ## M0 Documentation
 
@@ -325,7 +325,7 @@
   - Reuse popover, active descendant, and typeahead primitives where possible.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M14.4 Implement Native Select
+- DONE M14.4 Implement Native Select
   - Add styled native select wrapper, trigger-like select element, option group notes, and invalid/disabled states.
   - Document when to prefer native select over custom Select or Combobox.
   - Add CLI template, registry entry, docs page, and demo usage.
