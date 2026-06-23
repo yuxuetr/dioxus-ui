@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M14 Command and Choice
-- Current task: M14 complete
+- Overall: 0%
+- Current milestone: M15 Calendar and Date Picker
+- Current task: M15.1 Plan calendar and date picker APIs
 
 ## M0 Documentation
 
@@ -331,6 +331,32 @@
   - Add CLI template, registry entry, docs page, and demo usage.
 
 - DONE M14.5 Complete command and choice documentation and examples
+  - Update parity, accessibility, complex batch, and component catalog docs.
+  - Run release quality gates before marking the batch complete.
+
+## M15 Calendar and Date Picker
+
+- TODO M15.1 Plan calendar and date picker APIs
+  - Define Calendar and Date Picker API boundaries.
+  - Decide date math, locale, grid navigation, range selection, and popover composition strategy.
+  - Document Web/Desktop/Mobile, source-copy, and form integration constraints before implementation.
+
+- TODO M15.2 Implement calendar date primitives
+  - Add pure month grid, date comparison, selection, range, and keyboard movement helpers.
+  - Avoid runtime DOM dependencies in primitive state.
+  - Add unit tests for month boundaries, leap years, disabled dates, and range selection behavior.
+
+- TODO M15.3 Implement Calendar
+  - Add controlled calendar root, header, navigation, grid, row, day, and caption APIs.
+  - Reuse calendar date primitives and roving/grid navigation helpers where appropriate.
+  - Add CLI template, registry entry, docs page, and demo usage.
+
+- TODO M15.4 Implement Date Picker
+  - Add input/trigger, popover content, selected value display, and calendar composition APIs.
+  - Document when to use native inputs, Calendar, or Date Picker.
+  - Add CLI template, registry entry, docs page, and demo usage.
+
+- TODO M15.5 Complete calendar and date picker documentation and examples
   - Update parity, accessibility, complex batch, and component catalog docs.
   - Run release quality gates before marking the batch complete.
 
