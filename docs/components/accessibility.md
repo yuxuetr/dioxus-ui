@@ -39,6 +39,8 @@ Statuses:
 | Calendar | Needs keyboard event and DOM focus integration verification. | Planned |
 | Command | Uses combobox, listbox, option, and active descendant semantics. | Implemented |
 | Command | Needs keyboard event and filtering integration verification. | Planned |
+| Date Picker | Uses button trigger semantics, dialog content semantics, expanded state, invalid state, and placement data attributes. | Implemented |
+| Date Picker | Needs focus entry, focus return, typed parsing, and Calendar keyboard integration verification. | Planned |
 | Combobox | Uses combobox, listbox, option, and active descendant semantics. | Implemented |
 | Combobox | Needs filtering, async loading, and keyboard event integration verification. | Planned |
 | Native Select | Uses native select, optgroup, and option elements with platform keyboard and form behavior. | Implemented |

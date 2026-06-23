@@ -17,6 +17,7 @@ features=(
   command
   combobox
   context-menu
+  date-picker
   dialog
   drawer
   dropdown
@@ -54,7 +55,7 @@ echo "checking static component feature set"
 cargo check -q -p dioxus-ui --no-default-features --features "alert,alert-dialog,avatar,badge,card,native-select,pagination,progress,separator,skeleton,spinner,table"
 
 echo "checking primitive-backed feature set"
-cargo check -q -p dioxus-ui --no-default-features --features "combobox,context-menu,dialog,drawer,dropdown,hover-card,menubar,navigation-menu,popover,radio-group,select,sheet,slider,toggle-group,tooltip"
+cargo check -q -p dioxus-ui --no-default-features --features "combobox,context-menu,date-picker,dialog,drawer,dropdown,hover-card,menubar,navigation-menu,popover,radio-group,select,sheet,slider,toggle-group,tooltip"
 
 echo "checking all dioxus-ui features"
 cargo check -q -p dioxus-ui --all-features

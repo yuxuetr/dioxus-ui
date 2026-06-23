@@ -7,11 +7,13 @@ use dioxus_ui::{
   card_header_class, card_title_class, checkbox_class, command_active_descendant_state,
   command_class, command_input_class, command_item_class, combobox_input_class,
   combobox_item_class, combobox_trigger_class, context_menu_content_class,
-  context_menu_item_class, context_menu_shortcut_class, dialog_content_class,
-  dialog_overlay_class, drawer_content_class, drawer_overlay_class, dropdown_content_class,
-  dropdown_item_class, dropdown_label_class, dropdown_separator_class, hover_card_align_attribute,
-  hover_card_content_class, hover_card_side_attribute, input_class, label_class, menubar_class,
-  menubar_item_class, menubar_trigger_class, native_select_class, native_select_group_class,
+  context_menu_item_class, context_menu_shortcut_class, date_picker_align_attribute,
+  date_picker_content_class, date_picker_side_attribute, date_picker_trigger_class,
+  date_picker_value_class, dialog_content_class, dialog_overlay_class, drawer_content_class,
+  drawer_overlay_class, dropdown_content_class, dropdown_item_class, dropdown_label_class,
+  dropdown_separator_class, hover_card_align_attribute, hover_card_content_class,
+  hover_card_side_attribute, input_class, label_class, menubar_class, menubar_item_class,
+  menubar_trigger_class, native_select_class, native_select_group_class,
   native_select_option_class, navigation_menu_class, navigation_menu_link_class,
   navigation_menu_trigger_class, pagination_class, pagination_link_class,
   popover_content_class, popover_description_class, popover_header_class, popover_title_class,
@@ -26,8 +28,9 @@ use dioxus_ui::{
   toggle_group_multiple_selection, tooltip_content_class,
   AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant, ButtonSize,
   ButtonVariant, CalendarDate, CalendarKeyMove, CalendarMonth, CalendarRangeState,
-  CalendarWeekday, ComboboxPrimitiveConfig, ContextMenuPrimitiveConfig, DialogPrimitiveConfig,
-  DrawerPrimitiveConfig, DropdownPrimitiveConfig, FocusMove, HoverCardAlign,
+  CalendarWeekday, ComboboxPrimitiveConfig, ContextMenuPrimitiveConfig, DatePickerAlign,
+  DatePickerPrimitiveConfig, DatePickerSide, DialogPrimitiveConfig, DrawerPrimitiveConfig,
+  DropdownPrimitiveConfig, FocusMove, HoverCardAlign,
   HoverCardPrimitiveConfig, HoverCardSide, MenubarPrimitiveConfig, NavigationMenuPrimitiveConfig,
   NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
   SelectPrimitiveConfig, SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SpinnerSize,
@@ -260,6 +263,27 @@ fn main() {
   println!(
     "dioxus-ui web demo context menu primitive open: {}",
     ContextMenuPrimitiveConfig::controlled(true).open
+  );
+  println!(
+    "dioxus-ui web demo date picker trigger class: {}",
+    date_picker_trigger_class(false, "w-64")
+  );
+  println!(
+    "dioxus-ui web demo date picker value class: {}",
+    date_picker_value_class("")
+  );
+  println!(
+    "dioxus-ui web demo date picker content class: {}",
+    date_picker_content_class("p-3")
+  );
+  println!(
+    "dioxus-ui web demo date picker side/align: {}/{}",
+    date_picker_side_attribute(DatePickerSide::Bottom),
+    date_picker_align_attribute(DatePickerAlign::Start)
+  );
+  println!(
+    "dioxus-ui web demo date picker primitive open: {}",
+    DatePickerPrimitiveConfig::controlled(true).open
   );
   println!("dioxus-ui web demo menubar class: {}", menubar_class("w-fit"));
   println!(

@@ -1,0 +1,15 @@
+{
+  "name": "date-picker",
+  "description": "Date Picker trigger, value, and popover content parts for composing Calendar.",
+  "files": [
+    {
+      "source": "templates/date_picker.rs",
+      "target": "src/components/ui/date_picker.rs"
+    }
+  ],
+  "dependencies": [
+    "utils",
+    "calendar"
+  ],
+  "assets": []
+}
