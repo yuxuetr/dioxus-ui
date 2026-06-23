@@ -65,11 +65,17 @@ remain tracked as overlay runtime adapter work rather than component API work.
 
 ## Batch 3: Menu Systems
 
+Status: Planned in M13.
+
 Components:
 
 - Context Menu
 - Menubar
 - Navigation Menu
+
+Implementation specification:
+
+- [Menu System API Plan](menu-systems.md)
 
 Dependencies:
 

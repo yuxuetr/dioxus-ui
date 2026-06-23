@@ -9,6 +9,7 @@ For shadcn/ui coverage planning, see the [parity matrix](parity.md),
 [complex component batches](complex-batches.md), and
 [interaction batch 1 specification](interaction-batch-1.md). For the next
 overlay milestone, see the [overlay variant API plan](overlay-variants.md).
+For the menu milestone, see the [menu system API plan](menu-systems.md).
 
 For accessibility expectations, see the
 [accessibility contract checklist](accessibility.md).
