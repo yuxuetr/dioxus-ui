@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 20%
 - Current milestone: M13 Menu Systems
-- Current task: M13.1 Plan menu system APIs
+- Current task: M13.2 Implement Context Menu
 
 ## M0 Documentation
 
@@ -284,7 +284,7 @@
 
 ## M13 Menu Systems
 
-- TODO M13.1 Plan menu system APIs
+- DONE M13.1 Plan menu system APIs
   - Define Context Menu, Menubar, and Navigation Menu API boundaries.
   - Decide which parts reuse roving focus, typeahead, dismissal, and placement primitives.
   - Document nested menu, Web/Desktop/Mobile, and source-copy constraints before implementation.
