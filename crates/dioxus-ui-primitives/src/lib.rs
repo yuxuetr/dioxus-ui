@@ -2,6 +2,7 @@
 
 pub mod active_descendant;
 pub mod calendar;
+pub mod data_table;
 #[cfg(feature = "dialog")]
 pub mod dialog;
 pub mod dismissal;
@@ -26,6 +27,12 @@ pub use calendar::{
   calendar_month_grid, calendar_move_date, calendar_range_state, days_in_month, is_leap_year,
   CalendarDate, CalendarDay, CalendarKeyMove, CalendarMonth, CalendarMonthGrid,
   CalendarRangeState, CalendarWeekday,
+};
+pub use data_table::{
+  data_table_clamp_page, data_table_is_column_visible, data_table_page_count,
+  data_table_page_window, data_table_toggle_all_rows, data_table_toggle_column,
+  data_table_toggle_row, data_table_toggle_sort, DataTableColumnState,
+  DataTablePaginationState, DataTableSelectionState, DataTableSortDirection, DataTableSortState,
 };
 pub use dismissal::{DismissalDecision, DismissalEvent};
 pub use dioxus_ui_core::UiDensity;
