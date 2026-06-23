@@ -1,11 +1,11 @@
 # Calendar and Date Picker API Plan
 
-This document defines the M15 Calendar and Date Picker APIs before
-implementation. The goal is to provide predictable date-grid primitives and
-controlled styled parts without taking ownership of locale formatting, time
-zones, or application-specific parsing too early.
+This document defines the M15 Calendar and Date Picker APIs. The goal is to
+provide predictable date-grid primitives and controlled styled parts without
+taking ownership of locale formatting, time zones, or application-specific
+parsing too early.
 
-Status: Planned in M15.
+Status: Implemented in M15.
 
 ## Scope
 
@@ -20,14 +20,13 @@ remain self-contained and must not import internal crates.
 
 ## Date Strategy
 
-The first implementation should use a small first-party date primitive for UI
-state:
+The first implementation uses a small first-party date primitive for UI state:
 
 ```rust
 CalendarDate { year, month, day }
 CalendarMonth { year, month }
 CalendarDay { date, outside_month, today, selected, disabled, range_state }
-CalendarSelection::{Single, Range}
+CalendarRangeState::{Outside, Single, Start, Middle, End}
 CalendarWeekday::{Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday}
 ```
 
@@ -79,7 +78,7 @@ Deferred runtime work:
 Calendar is a controlled date grid. It can be used as a standalone picker or as
 the calendar body inside Date Picker.
 
-Planned crate API:
+Implemented crate API:
 
 ```rust
 Calendar { class, children }
@@ -97,7 +96,7 @@ CalendarDay { date, selected, today, outside_month, disabled, range_state, class
 
 Behavior defaults:
 
-- grid uses table-like or grid semantics documented before implementation
+- grid uses grid, row, columnheader, rowgroup, and gridcell semantics
 - day cells expose selected, disabled, outside-month, and range data attributes
 - keyboard movement helpers are pure and app-invoked
 - selection is controlled by the consuming app
@@ -110,7 +109,7 @@ month internally in the first implementation.
 Date Picker composes a trigger/input-like surface with popover content and a
 Calendar body.
 
-Planned crate API:
+Implemented crate API:
 
 ```rust
 DatePickerTrigger { open, invalid, disabled, class, children }
@@ -144,7 +143,7 @@ important than a custom grid.
 3. Date Picker composition parts
 4. documentation, examples, and parity updates
 
-This order validates deterministic date math before exposing styled grids and
+This order validated deterministic date math before exposing styled grids and
 popover composition.
 
 ## Quality Gates

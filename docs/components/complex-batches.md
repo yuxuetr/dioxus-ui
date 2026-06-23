@@ -126,6 +126,8 @@ portal mounting, and virtualization remain app-owned or deferred adapter work.
 
 ## Batch 5: Date and Calendar
 
+Status: Implemented in M15.
+
 Components:
 
 - Calendar
@@ -146,6 +148,11 @@ Rationale:
 
 Date logic should use a proven crate or a dedicated design pass. Hand-rolled
 calendar behavior is high risk.
+
+M15 shipped pure first-party Calendar date primitives, controlled Calendar
+styled parts, and controlled Date Picker composition parts. Typed parsing,
+locale formatting, time zone conversion, non-Gregorian calendars, DOM focus
+commands, and portal mounting remain adapter or application work.
 
 ## Batch 6: Data and Visualization
 
