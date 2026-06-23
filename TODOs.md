@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 60%
 - Current milestone: M13 Menu Systems
-- Current task: M13.3 Implement Menubar
+- Current task: M13.4 Implement Navigation Menu
 
 ## M0 Documentation
 
@@ -294,7 +294,7 @@
   - Add CLI template, registry entry, docs page, and demo usage.
   - Verify keyboard and accessibility notes cover menu roles, roving focus, and typeahead limits.
 
-- TODO M13.3 Implement Menubar
+- DONE M13.3 Implement Menubar
   - Add horizontal menu root and trigger/content/item parts.
   - Reuse roving focus and typeahead primitives where possible.
   - Add CLI template, registry entry, docs page, and demo usage.
