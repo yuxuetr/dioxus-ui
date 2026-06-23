@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 80%
 - Current milestone: M16 Data and Visualization
-- Current task: M16.4 Document Chart strategy
+- Current task: M16.5 Complete data and visualization documentation and examples
 
 ## M0 Documentation
 
@@ -377,7 +377,7 @@
   - Compose existing Table, Checkbox, Command, and Pagination patterns where practical.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M16.4 Document Chart strategy
+- DONE M16.4 Document Chart strategy
   - Decide the initial chart backend policy and whether charts are first-party, adapter-based, or deferred.
   - Document accessibility, SSR/Web/Desktop constraints, and source-copy expectations.
   - Update parity and roadmap without introducing a chart component before the strategy is clear.
