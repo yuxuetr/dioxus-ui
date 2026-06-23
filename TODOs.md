@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
+- Overall: 16%
 - Current milestone: M12 Overlay Variants
-- Current task: M12.1 Plan overlay variant APIs
+- Current task: M12.2 Implement Alert Dialog
 
 ## M0 Documentation
 
@@ -253,7 +253,7 @@
 
 ## M12 Overlay Variants
 
-- TODO M12.1 Plan overlay variant APIs
+- DONE M12.1 Plan overlay variant APIs
   - Define Alert Dialog, Sheet, Drawer, and Hover Card API boundaries.
   - Decide which variants reuse Dialog, Popover, Tooltip, and overlay placement primitives.
   - Document portal, dismissal, focus, Web/Desktop/Mobile constraints before implementation.
