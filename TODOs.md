@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 20%
 - Current milestone: M15 Calendar and Date Picker
-- Current task: M15.1 Plan calendar and date picker APIs
+- Current task: M15.2 Implement calendar date primitives
 
 ## M0 Documentation
 
@@ -336,7 +336,7 @@
 
 ## M15 Calendar and Date Picker
 
-- TODO M15.1 Plan calendar and date picker APIs
+- DONE M15.1 Plan calendar and date picker APIs
   - Define Calendar and Date Picker API boundaries.
   - Decide date math, locale, grid navigation, range selection, and popover composition strategy.
   - Document Web/Desktop/Mobile, source-copy, and form integration constraints before implementation.
