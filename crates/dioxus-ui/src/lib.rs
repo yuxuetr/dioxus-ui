@@ -54,6 +54,9 @@ pub mod select;
 #[cfg(feature = "separator")]
 pub mod separator;
 
+#[cfg(feature = "sheet")]
+pub mod sheet;
+
 #[cfg(feature = "skeleton")]
 pub mod skeleton;
 
@@ -174,6 +177,17 @@ pub use select::{
 #[cfg(feature = "separator")]
 pub use separator::{
   separator_class, Separator, SeparatorOrientation, SEPARATOR_BASE_CLASS,
+};
+#[cfg(feature = "sheet")]
+pub use sheet::{
+  sheet_close_class, sheet_content_class, sheet_description_class, sheet_footer_class,
+  sheet_header_class, sheet_overlay_class, sheet_title_class,
+  DialogPrimitiveConfig as SheetPrimitiveConfig, DismissBehavior as SheetDismissBehavior,
+  FocusReturn as SheetFocusReturn, FocusStrategy as SheetFocusStrategy,
+  PortalTarget as SheetPortalTarget, SheetClose, SheetContent, SheetDescription, SheetFooter,
+  SheetHeader, SheetOverlay, SheetSide, SheetTitle, SHEET_CLOSE_BASE_CLASS,
+  SHEET_CONTENT_BASE_CLASS, SHEET_DESCRIPTION_BASE_CLASS, SHEET_FOOTER_BASE_CLASS,
+  SHEET_HEADER_BASE_CLASS, SHEET_OVERLAY_BASE_CLASS, SHEET_TITLE_BASE_CLASS,
 };
 #[cfg(feature = "skeleton")]
 pub use skeleton::{skeleton_class, Skeleton, SKELETON_BASE_CLASS};

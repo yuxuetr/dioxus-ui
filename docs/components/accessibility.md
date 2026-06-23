@@ -58,6 +58,8 @@ Statuses:
 | Dialog | Needs focus trap and focus return verification. | Planned |
 | Dropdown | Needs menu roles, roving focus, and typeahead. | Planned |
 | Popover | Needs dismissal and focus behavior verification. | Planned |
+| Sheet | Uses dialog role and modal state for side-panel flows. | Implemented |
+| Sheet | Needs focus trap and focus return verification. | Planned |
 | Tooltip | Should be discoverable by hover and focus. | Planned |
 
 ## Data And Navigation

@@ -10,15 +10,17 @@ use dioxus_ui::{
   popover_title_class, progress_class, progress_indicator_class, progress_percent,
   radio_group_class, radio_group_item_class, radio_group_move_value, select_content_class,
   select_item_class, select_label_class, select_separator_class, select_trigger_class,
-  select_value_class, separator_class, skeleton_class, slider_percent, slider_range_style,
-  slider_root_class, slider_thumb_style, slider_track_class, switch_class, spinner_class,
-  switch_thumb_class, table_class, table_row_class, tabs_content_class, tabs_list_class,
-  tabs_trigger_class, textarea_class, toggle_class, toggle_group_class, toggle_group_item_class,
-  toggle_group_move_value, toggle_group_single_selection, tooltip_content_class,
+  select_value_class, separator_class, sheet_content_class, sheet_overlay_class, skeleton_class,
+  slider_percent, slider_range_style, slider_root_class, slider_thumb_style, slider_track_class,
+  switch_class, spinner_class, switch_thumb_class, table_class, table_row_class,
+  tabs_content_class, tabs_list_class, tabs_trigger_class, textarea_class, toggle_class,
+  toggle_group_class, toggle_group_item_class, toggle_group_move_value,
+  toggle_group_single_selection, tooltip_content_class,
   AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant, ButtonSize,
   ButtonVariant, DialogPrimitiveConfig, DropdownPrimitiveConfig, FocusMove, NavigationOrientation,
   PopoverPrimitiveConfig, RovingFocusItem, SelectPrimitiveConfig, SeparatorOrientation,
-  SpinnerSize, ToggleSize, ToggleVariant, TooltipPrimitiveConfig, UiDensity,
+  SheetPrimitiveConfig, SheetSide, SpinnerSize, ToggleSize, ToggleVariant, TooltipPrimitiveConfig,
+  UiDensity,
 };
 
 fn main() {
@@ -292,6 +294,18 @@ fn main() {
   println!(
     "dioxus-ui desktop demo select primitive value: {:?}",
     SelectPrimitiveConfig::controlled(false, None).value
+  );
+  println!(
+    "dioxus-ui desktop demo sheet overlay class: {}",
+    sheet_overlay_class("")
+  );
+  println!(
+    "dioxus-ui desktop demo sheet content class: {}",
+    sheet_content_class(SheetSide::Left, "w-72")
+  );
+  println!(
+    "dioxus-ui desktop demo sheet primitive open: {}",
+    SheetPrimitiveConfig::controlled(false).open
   );
   println!(
     "dioxus-ui desktop demo dropdown content class: {}",

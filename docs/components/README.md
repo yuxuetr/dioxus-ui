@@ -48,6 +48,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Radio Group](radio-group.md) | `dxui add radio-group` | `radio-group` | Primitive-backed styled parts |
 | [Select](select.md) | `dxui add select` | `select` | Primitive config + styled parts |
 | [Separator](separator.md) | `dxui add separator` | `separator` | Styled |
+| [Sheet](sheet.md) | `dxui add sheet` | `sheet` | Dialog-backed side panel |
 | [Skeleton](skeleton.md) | `dxui add skeleton` | `skeleton` | Styled |
 | [Slider](slider.md) | `dxui add slider` | `slider` | Primitive-backed styled part |
 | [Spinner](spinner.md) | `dxui add spinner` | `spinner` | Styled |

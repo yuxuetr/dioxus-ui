@@ -1,0 +1,14 @@
+{
+  "name": "sheet",
+  "description": "Side sheet overlay components backed by dialog primitive configuration.",
+  "files": [
+    {
+      "source": "templates/sheet.rs",
+      "target": "src/components/ui/sheet.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}
