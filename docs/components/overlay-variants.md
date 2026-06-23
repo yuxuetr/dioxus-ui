@@ -4,14 +4,16 @@ This document defines the M12 overlay variant APIs before implementation. The
 goal is to reuse the existing Dialog, Popover, Tooltip, dismissal, and placement
 primitives instead of creating independent behavior models for every overlay.
 
+Status: Implemented in M12.
+
 ## Scope
 
 M12 covers:
 
-- Alert Dialog
-- Sheet
-- Drawer
-- Hover Card
+- Alert Dialog: implemented
+- Sheet: implemented
+- Drawer: implemented
+- Hover Card: implemented
 
 These components should ship in both crate mode and source-copy mode. Crate mode
 can reuse `dioxus-ui-core` and `dioxus-ui-primitives`; generated templates must
@@ -182,6 +184,8 @@ The primitive default remains `PortalTarget::Inline` until runtime portal
 behavior is implemented and tested across targets.
 
 ## Implementation Order
+
+Completed order:
 
 1. Alert Dialog
 2. Sheet

@@ -56,13 +56,13 @@ define shared primitive behavior for:
 - pointer outside dismissal
 - overlay positioning and collision handling
 
-After M10 and M11, the safest remaining component order is:
+After M12, the safest remaining component order is:
 
-1. Alert Dialog and Sheet
-2. Context Menu and Menubar
-3. Command and Combobox
-4. Calendar and Date Picker
-5. Data Table
+1. Context Menu and Menubar
+2. Command and Combobox
+3. Calendar and Date Picker
+4. Data Table
+5. Sidebar, Scroll Area, Resizable, and Carousel
 
 See [Complex Component Batches](complex-batches.md) for the expanded milestone
 plan.

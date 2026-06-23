@@ -35,7 +35,7 @@ portal positioning.
 
 ## Batch 2: Overlay Variants
 
-Status: Planned in M12.
+Status: Implemented in M12.
 
 Components:
 
@@ -58,6 +58,10 @@ Rationale:
 
 These can reuse Dialog, Popover, and Tooltip foundations after portal behavior
 is more mature.
+
+M12 shipped controlled styled parts for all four overlay variants. Runtime focus
+trapping, portal mounting, hover timing, gestures, and transition orchestration
+remain tracked as overlay runtime adapter work rather than component API work.
 
 ## Batch 3: Menu Systems
 
