@@ -14,6 +14,8 @@ For the command and choice milestone, see the
 [command and choice API plan](command-choice.md).
 For the calendar milestone, see the
 [calendar and date picker API plan](calendar-date.md).
+For the data milestone, see the
+[data table and chart strategy](data-visualization.md).
 
 For accessibility expectations, see the
 [accessibility contract checklist](accessibility.md).

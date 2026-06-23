@@ -161,6 +161,10 @@ Components:
 - Data Table
 - Chart
 
+Implementation specification:
+
+- [Data Table and Chart Strategy](data-visualization.md)
+
 Dependencies:
 
 - Table
