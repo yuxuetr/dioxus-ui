@@ -1,0 +1,14 @@
+{
+  "name": "slider",
+  "description": "Slider component for controlled horizontal numeric values.",
+  "files": [
+    {
+      "source": "templates/slider.rs",
+      "target": "src/components/ui/slider.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

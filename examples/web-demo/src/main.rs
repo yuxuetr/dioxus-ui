@@ -9,7 +9,8 @@ use dioxus_ui::{
   popover_title_class, progress_class, progress_indicator_class, progress_percent,
   radio_group_class, radio_group_item_class, radio_group_move_value, select_content_class,
   select_item_class, select_label_class, select_separator_class, select_trigger_class,
-  select_value_class, separator_class, skeleton_class, switch_class, spinner_class,
+  select_value_class, separator_class, skeleton_class, slider_percent, slider_range_style,
+  slider_root_class, slider_thumb_style, slider_track_class, switch_class, spinner_class,
   switch_thumb_class, table_class, table_row_class, tabs_content_class, tabs_list_class,
   tabs_trigger_class, textarea_class, toggle_class, toggle_group_class, toggle_group_item_class,
   toggle_group_move_value, toggle_group_multiple_selection, tooltip_content_class, AlertVariant,
@@ -81,6 +82,23 @@ fn main() {
   println!(
     "dioxus-ui web demo progress percent: {}",
     progress_percent(64.0, 100.0)
+  );
+  println!("dioxus-ui web demo slider class: {}", slider_root_class("mt-3"));
+  println!(
+    "dioxus-ui web demo slider track class: {}",
+    slider_track_class("")
+  );
+  println!(
+    "dioxus-ui web demo slider percent: {}",
+    slider_percent(42.0, 0.0, 100.0, 1.0)
+  );
+  println!(
+    "dioxus-ui web demo slider range style: {}",
+    slider_range_style(42.0)
+  );
+  println!(
+    "dioxus-ui web demo slider thumb style: {}",
+    slider_thumb_style(42.0)
   );
   println!(
     "dioxus-ui web demo radio group class: {}",

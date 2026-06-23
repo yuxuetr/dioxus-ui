@@ -54,6 +54,9 @@ pub mod separator;
 #[cfg(feature = "skeleton")]
 pub mod skeleton;
 
+#[cfg(feature = "slider")]
+pub mod slider;
+
 #[cfg(feature = "spinner")]
 pub mod spinner;
 
@@ -156,6 +159,15 @@ pub use separator::{
 };
 #[cfg(feature = "skeleton")]
 pub use skeleton::{skeleton_class, Skeleton, SKELETON_BASE_CLASS};
+#[cfg(feature = "slider")]
+pub use slider::{
+  slider_aria_attributes, slider_percent, slider_range_class, slider_range_style,
+  slider_root_class, slider_state, slider_thumb_class, slider_thumb_style, slider_track_class,
+  Slider, SLIDER_RANGE_BASE_CLASS, SLIDER_ROOT_BASE_CLASS, SLIDER_THUMB_BASE_CLASS,
+  SLIDER_TRACK_BASE_CLASS,
+};
+#[cfg(feature = "slider")]
+pub use dioxus_ui_primitives::{SliderAriaAttributes, SliderKeyMove, SliderState};
 #[cfg(feature = "spinner")]
 pub use spinner::{spinner_class, Spinner, SpinnerSize, SPINNER_BASE_CLASS};
 #[cfg(feature = "textarea")]
