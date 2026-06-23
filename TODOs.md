@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 40%
 - Current milestone: M13 Menu Systems
-- Current task: M13.2 Implement Context Menu
+- Current task: M13.3 Implement Menubar
 
 ## M0 Documentation
 
@@ -289,7 +289,7 @@
   - Decide which parts reuse roving focus, typeahead, dismissal, and placement primitives.
   - Document nested menu, Web/Desktop/Mobile, and source-copy constraints before implementation.
 
-- TODO M13.2 Implement Context Menu
+- DONE M13.2 Implement Context Menu
   - Add primitive-backed styled parts for root content, group, item, label, separator, checkbox item, radio item, and submenu placeholders.
   - Add CLI template, registry entry, docs page, and demo usage.
   - Verify keyboard and accessibility notes cover menu roles, roving focus, and typeahead limits.
