@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 40%
 - Current milestone: M15 Calendar and Date Picker
-- Current task: M15.2 Implement calendar date primitives
+- Current task: M15.3 Implement Calendar
 
 ## M0 Documentation
 
@@ -341,7 +341,7 @@
   - Decide date math, locale, grid navigation, range selection, and popover composition strategy.
   - Document Web/Desktop/Mobile, source-copy, and form integration constraints before implementation.
 
-- TODO M15.2 Implement calendar date primitives
+- DONE M15.2 Implement calendar date primitives
   - Add pure month grid, date comparison, selection, range, and keyboard movement helpers.
   - Avoid runtime DOM dependencies in primitive state.
   - Add unit tests for month boundaries, leap years, disabled dates, and range selection behavior.
