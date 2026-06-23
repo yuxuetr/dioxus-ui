@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 80%
 - Current milestone: M13 Menu Systems
-- Current task: M13.4 Implement Navigation Menu
+- Current task: M13.5 Complete menu system documentation and examples
 
 ## M0 Documentation
 
@@ -299,7 +299,7 @@
   - Reuse roving focus and typeahead primitives where possible.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M13.4 Implement Navigation Menu
+- DONE M13.4 Implement Navigation Menu
   - Add navigation root, list, item, trigger, content, link, and viewport-style parts.
   - Document when to use navigation semantics versus menu semantics.
   - Add CLI template, registry entry, docs page, and demo usage.
