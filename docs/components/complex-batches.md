@@ -95,11 +95,17 @@ submenu handoff, and viewport measurement remain tracked as adapter work.
 
 ## Batch 4: Command and Choice
 
+Status: Planned in M14.
+
 Components:
 
 - Command
 - Combobox
 - Native Select
+
+Implementation specification:
+
+- [Command and Choice API Plan](command-choice.md)
 
 Dependencies:
 

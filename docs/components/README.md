@@ -10,6 +10,8 @@ For shadcn/ui coverage planning, see the [parity matrix](parity.md),
 [interaction batch 1 specification](interaction-batch-1.md). For the next
 overlay milestone, see the [overlay variant API plan](overlay-variants.md).
 For the menu milestone, see the [menu system API plan](menu-systems.md).
+For the command and choice milestone, see the
+[command and choice API plan](command-choice.md).
 
 For accessibility expectations, see the
 [accessibility contract checklist](accessibility.md).
