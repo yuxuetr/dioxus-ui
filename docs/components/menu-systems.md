@@ -4,15 +4,15 @@ This document defines the M13 menu system APIs before implementation. The goal
 is to reuse existing keyboard, typeahead, dismissal, and placement primitives
 without pretending that all menu-like components have the same semantics.
 
-Status: Planned in M13.
+Status: Implemented in M13.
 
 ## Scope
 
 M13 covers:
 
-- Context Menu
-- Menubar
-- Navigation Menu
+- Context Menu: implemented
+- Menubar: implemented
+- Navigation Menu: implemented
 
 These components should ship in both crate mode and source-copy mode. Crate mode
 can reuse `dioxus-ui-core` and `dioxus-ui-primitives`; generated templates must
@@ -147,6 +147,8 @@ commands and application actions.
 
 ## Implementation Order
 
+Completed order:
+
 1. Context Menu
 2. Menubar
 3. Navigation Menu
@@ -154,6 +156,10 @@ commands and application actions.
 
 This order starts with the menu semantics that are closest to Dropdown, then
 adds persistent top-level triggers, then separates navigation-specific behavior.
+
+M13 shipped controlled styled parts for all three menu systems. Runtime roving
+focus commands, typeahead event wiring, context-trigger anchoring, nested
+submenu handoff, and viewport measurement remain adapter work.
 
 ## Quality Gates
 

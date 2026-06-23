@@ -65,7 +65,7 @@ remain tracked as overlay runtime adapter work rather than component API work.
 
 ## Batch 3: Menu Systems
 
-Status: Planned in M13.
+Status: Implemented in M13.
 
 Components:
 
@@ -88,6 +88,10 @@ Rationale:
 
 Menu components combine focus, positioning, nesting, and selection. They should
 not be started before the primitives are tested on Web and Desktop.
+
+M13 shipped controlled styled parts for all three menu systems. Runtime roving
+focus commands, typeahead event wiring, context-trigger anchoring, nested
+submenu handoff, and viewport measurement remain tracked as adapter work.
 
 ## Batch 4: Command and Choice
 
