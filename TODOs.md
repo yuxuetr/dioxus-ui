@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M13 Menu Systems
-- Current task: M13 complete
+- Overall: 0%
+- Current milestone: M14 Command and Choice
+- Current task: M14.1 Plan command and choice APIs
 
 ## M0 Documentation
 
@@ -305,6 +305,32 @@
   - Add CLI template, registry entry, docs page, and demo usage.
 
 - DONE M13.5 Complete menu system documentation and examples
+  - Update parity, accessibility, complex batch, and component catalog docs.
+  - Run release quality gates before marking the batch complete.
+
+## M14 Command and Choice
+
+- TODO M14.1 Plan command and choice APIs
+  - Define Command, Combobox, and Native Select API boundaries.
+  - Decide which parts reuse active descendant, typeahead, filtering, selection, and popover primitives.
+  - Document Web/Desktop/Mobile, form integration, and source-copy constraints before implementation.
+
+- TODO M14.2 Implement Command
+  - Add controlled command root, input, list, group, item, empty, separator, and shortcut parts.
+  - Reuse active descendant and typeahead primitives where possible.
+  - Add CLI template, registry entry, docs page, and demo usage.
+
+- TODO M14.3 Implement Combobox
+  - Add controlled trigger/input/content/list/item/value APIs for searchable selection.
+  - Reuse popover, active descendant, and typeahead primitives where possible.
+  - Add CLI template, registry entry, docs page, and demo usage.
+
+- TODO M14.4 Implement Native Select
+  - Add styled native select wrapper, trigger-like select element, option group notes, and invalid/disabled states.
+  - Document when to prefer native select over custom Select or Combobox.
+  - Add CLI template, registry entry, docs page, and demo usage.
+
+- TODO M14.5 Complete command and choice documentation and examples
   - Update parity, accessibility, complex batch, and component catalog docs.
   - Run release quality gates before marking the batch complete.
 
