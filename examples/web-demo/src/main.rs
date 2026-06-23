@@ -4,6 +4,7 @@ use dioxus_ui::{
   alert_description_class, alert_title_class, avatar_class, avatar_fallback_class,
   avatar_image_class, badge_class, button_class, card_class, card_content_class,
   card_description_class, card_footer_class, card_header_class, card_title_class, checkbox_class,
+  context_menu_content_class, context_menu_item_class, context_menu_shortcut_class,
   dialog_content_class, dialog_overlay_class, drawer_content_class, drawer_overlay_class,
   dropdown_content_class, dropdown_item_class, dropdown_label_class, dropdown_separator_class,
   hover_card_align_attribute, hover_card_content_class, hover_card_side_attribute, input_class,
@@ -19,9 +20,9 @@ use dioxus_ui::{
   toggle_group_move_value,
   toggle_group_multiple_selection, tooltip_content_class,
   AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant, ButtonSize,
-  ButtonVariant, DialogPrimitiveConfig, DrawerPrimitiveConfig, DropdownPrimitiveConfig,
-  FocusMove, HoverCardAlign, HoverCardPrimitiveConfig, HoverCardSide, NavigationOrientation,
-  PopoverPrimitiveConfig, RovingFocusItem,
+  ButtonVariant, ContextMenuPrimitiveConfig, DialogPrimitiveConfig, DrawerPrimitiveConfig,
+  DropdownPrimitiveConfig, FocusMove, HoverCardAlign, HoverCardPrimitiveConfig, HoverCardSide,
+  NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
   SelectPrimitiveConfig, SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SpinnerSize,
   ToggleSize, ToggleVariant, TooltipPrimitiveConfig, UiDensity,
 };
@@ -182,6 +183,22 @@ fn main() {
   println!("dioxus-ui web demo table class: {}", table_class("min-w-lg"));
   println!("dioxus-ui web demo table row class: {}", table_row_class(""));
   println!("dioxus-ui web demo checkbox class: {}", checkbox_class(true, "mt-2"));
+  println!(
+    "dioxus-ui web demo context menu content class: {}",
+    context_menu_content_class("min-w-48")
+  );
+  println!(
+    "dioxus-ui web demo context menu item class: {}",
+    context_menu_item_class(true, false, "")
+  );
+  println!(
+    "dioxus-ui web demo context menu shortcut class: {}",
+    context_menu_shortcut_class("")
+  );
+  println!(
+    "dioxus-ui web demo context menu primitive open: {}",
+    ContextMenuPrimitiveConfig::controlled(true).open
+  );
   println!("dioxus-ui web demo switch class: {}", switch_class(true, "mt-2"));
   println!("dioxus-ui web demo switch thumb class: {}", switch_thumb_class(true));
   println!("dioxus-ui web demo tabs list class: {}", tabs_list_class("mt-4"));

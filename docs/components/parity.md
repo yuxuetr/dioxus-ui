@@ -12,7 +12,7 @@ be ported one-for-one.
 | Form basics | Button, Checkbox, Input, Label, Slider, Switch, Textarea |
 | Light interaction | Radio Group, Spinner, Toggle, Toggle Group |
 | Disclosure | Accordion, Alert Dialog, Drawer, Hover Card, Sheet, Tabs |
-| Overlay primitives | Dialog, Dropdown, Popover, Tooltip |
+| Overlay primitives | Context Menu, Dialog, Dropdown, Popover, Tooltip |
 | Selection | Select |
 | Feedback and data | Progress, Table, Pagination |
 
@@ -28,7 +28,7 @@ be ported one-for-one.
 | Group | Components | Notes |
 | --- | --- | --- |
 | Command and search | Command, Combobox | Need keyboard navigation, filtering, and active item management. |
-| Menus | Context Menu, Menubar, Navigation Menu | Need roving focus, nested menus, dismissal, and positioning. |
+| Menus | Menubar, Navigation Menu | Need roving focus, nested menus, dismissal, and positioning. |
 | Date and calendar | Calendar, Date Picker, Native Select | Prefer proven date logic instead of hand-rolling calendar rules. |
 | Overlays | - | Current M12 overlay variant set is implemented. |
 | Feedback | Toast, Sonner | Need queue and live-region behavior. |

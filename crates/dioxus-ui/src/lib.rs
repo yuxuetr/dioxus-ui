@@ -24,6 +24,9 @@ pub mod card;
 #[cfg(feature = "checkbox")]
 pub mod checkbox;
 
+#[cfg(feature = "context-menu")]
+pub mod context_menu;
+
 #[cfg(feature = "dialog")]
 pub mod dialog;
 
@@ -122,6 +125,17 @@ pub use card::{
 };
 #[cfg(feature = "checkbox")]
 pub use checkbox::{checkbox_class, Checkbox, CHECKBOX_BASE_CLASS};
+#[cfg(feature = "context-menu")]
+pub use context_menu::{
+  context_menu_content_class, context_menu_group_class, context_menu_item_class,
+  context_menu_label_class, context_menu_separator_class, context_menu_shortcut_class,
+  ContextMenuCheckboxItem, ContextMenuContent, ContextMenuGroup, ContextMenuItem,
+  ContextMenuLabel, ContextMenuRadioGroup, ContextMenuRadioItem, ContextMenuSeparator,
+  ContextMenuShortcut, DropdownPrimitiveConfig as ContextMenuPrimitiveConfig,
+  CONTEXT_MENU_CONTENT_BASE_CLASS, CONTEXT_MENU_GROUP_BASE_CLASS,
+  CONTEXT_MENU_ITEM_BASE_CLASS, CONTEXT_MENU_ITEM_INSET_CLASS, CONTEXT_MENU_LABEL_BASE_CLASS,
+  CONTEXT_MENU_SEPARATOR_BASE_CLASS, CONTEXT_MENU_SHORTCUT_BASE_CLASS,
+};
 #[cfg(feature = "dialog")]
 pub use dialog::{
   dialog_close_class, dialog_content_class, dialog_description_class, dialog_overlay_class,

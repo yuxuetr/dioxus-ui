@@ -4,6 +4,7 @@ use dioxus_ui::{
   alert_description_class, alert_title_class, avatar_class, avatar_fallback_class,
   avatar_image_class, badge_class, button_class, card_class, card_content_class,
   card_description_class, card_footer_class, card_header_class, card_title_class, checkbox_class,
+  context_menu_content_class, context_menu_item_class, context_menu_shortcut_class,
   dialog_content_class, dialog_overlay_class, drawer_content_class, drawer_overlay_class,
   dropdown_content_class, dropdown_item_class, dropdown_label_class, dropdown_separator_class,
   hover_card_align_attribute, hover_card_content_class, hover_card_side_attribute, input_class,
@@ -19,9 +20,9 @@ use dioxus_ui::{
   toggle_group_move_value,
   toggle_group_single_selection, tooltip_content_class,
   AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant, ButtonSize,
-  ButtonVariant, DialogPrimitiveConfig, DrawerPrimitiveConfig, DropdownPrimitiveConfig,
-  FocusMove, HoverCardAlign, HoverCardPrimitiveConfig, HoverCardSide, NavigationOrientation,
-  PopoverPrimitiveConfig, RovingFocusItem,
+  ButtonVariant, ContextMenuPrimitiveConfig, DialogPrimitiveConfig, DrawerPrimitiveConfig,
+  DropdownPrimitiveConfig, FocusMove, HoverCardAlign, HoverCardPrimitiveConfig, HoverCardSide,
+  NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
   SelectPrimitiveConfig, SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SpinnerSize,
   ToggleSize, ToggleVariant, TooltipPrimitiveConfig, UiDensity,
 };
@@ -208,6 +209,22 @@ fn main() {
   println!(
     "dioxus-ui desktop demo checkbox class: {}",
     checkbox_class(false, "mt-1")
+  );
+  println!(
+    "dioxus-ui desktop demo context menu content class: {}",
+    context_menu_content_class("min-w-40")
+  );
+  println!(
+    "dioxus-ui desktop demo context menu item class: {}",
+    context_menu_item_class(false, true, "")
+  );
+  println!(
+    "dioxus-ui desktop demo context menu shortcut class: {}",
+    context_menu_shortcut_class("")
+  );
+  println!(
+    "dioxus-ui desktop demo context menu primitive open: {}",
+    ContextMenuPrimitiveConfig::controlled(false).open
   );
   println!("dioxus-ui desktop demo switch class: {}", switch_class(false, "mt-1"));
   println!(

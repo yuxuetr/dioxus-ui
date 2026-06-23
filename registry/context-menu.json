@@ -1,0 +1,14 @@
+{
+  "name": "context-menu",
+  "description": "Controlled context menu parts backed by dropdown primitive configuration.",
+  "files": [
+    {
+      "source": "templates/context_menu.rs",
+      "target": "src/components/ui/context_menu.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

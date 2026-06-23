@@ -54,6 +54,8 @@ Statuses:
 | --- | --- | --- |
 | Alert Dialog | Uses alertdialog role and modal state for confirmation flows. | Implemented |
 | Alert Dialog | Needs focus trap and focus return verification. | Planned |
+| Context Menu | Exposes menu, menuitem, menuitemcheckbox, and menuitemradio roles. | Implemented |
+| Context Menu | Needs roving focus, typeahead, anchoring, and nested submenu verification. | Planned |
 | Dialog | Exposes dialog role and modal state. | Implemented |
 | Dialog | Needs focus trap and focus return verification. | Planned |
 | Drawer | Uses dialog role and modal state for bottom-panel flows. | Implemented |
