@@ -46,6 +46,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Hover Card](hover-card.md) | `dxui add hover-card` | `hover-card` | Popover-backed preview content |
 | [Input](input.md) | `dxui add input` | `input` | Styled |
 | [Label](label.md) | `dxui add label` | `label` | Styled |
+| [Menubar](menubar.md) | `dxui add menubar` | `menubar` | Dropdown-backed menubar parts |
 | [Pagination](pagination.md) | `dxui add pagination` | `pagination` | Styled parts |
 | [Popover](popover.md) | `dxui add popover` | `popover` | Primitive config + styled parts |
 | [Progress](progress.md) | `dxui add progress` | `progress` | Styled |

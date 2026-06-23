@@ -45,6 +45,9 @@ pub mod input;
 #[cfg(feature = "label")]
 pub mod label;
 
+#[cfg(feature = "menubar")]
+pub mod menubar;
+
 #[cfg(feature = "pagination")]
 pub mod pagination;
 
@@ -177,6 +180,17 @@ pub use hover_card::{
 pub use input::{input_class, Input, INPUT_BASE_CLASS};
 #[cfg(feature = "label")]
 pub use label::{label_class, Label, LABEL_BASE_CLASS};
+#[cfg(feature = "menubar")]
+pub use menubar::{
+  menubar_class, menubar_content_class, menubar_item_class, menubar_label_class,
+  menubar_menu_class, menubar_separator_class, menubar_shortcut_class, menubar_trigger_class,
+  DropdownPrimitiveConfig as MenubarPrimitiveConfig, Menubar, MenubarCheckboxItem,
+  MenubarContent, MenubarItem, MenubarLabel, MenubarMenu, MenubarRadioGroup, MenubarRadioItem,
+  MenubarSeparator, MenubarShortcut, MenubarTrigger, MENUBAR_BASE_CLASS,
+  MENUBAR_CONTENT_BASE_CLASS, MENUBAR_ITEM_BASE_CLASS, MENUBAR_ITEM_INSET_CLASS,
+  MENUBAR_LABEL_BASE_CLASS, MENUBAR_MENU_BASE_CLASS, MENUBAR_SEPARATOR_BASE_CLASS,
+  MENUBAR_SHORTCUT_BASE_CLASS, MENUBAR_TRIGGER_BASE_CLASS,
+};
 #[cfg(feature = "pagination")]
 pub use pagination::{
   pagination_class, pagination_content_class, pagination_ellipsis_class, pagination_item_class,

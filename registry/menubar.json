@@ -1,0 +1,14 @@
+{
+  "name": "menubar",
+  "description": "Controlled menubar parts backed by dropdown primitive configuration.",
+  "files": [
+    {
+      "source": "templates/menubar.rs",
+      "target": "src/components/ui/menubar.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

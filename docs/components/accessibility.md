@@ -63,6 +63,8 @@ Statuses:
 | Dropdown | Needs menu roles, roving focus, and typeahead. | Planned |
 | Hover Card | Provides controlled rich preview content with placement metadata. | Implemented |
 | Hover Card | Needs hover/focus timing and mobile fallback verification. | Planned |
+| Menubar | Exposes menubar, menu, and menu item roles. | Implemented |
+| Menubar | Needs roving focus, typeahead, and nested submenu verification. | Planned |
 | Popover | Needs dismissal and focus behavior verification. | Planned |
 | Sheet | Uses dialog role and modal state for side-panel flows. | Implemented |
 | Sheet | Needs focus trap and focus return verification. | Planned |
