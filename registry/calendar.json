@@ -1,0 +1,14 @@
+{
+  "name": "calendar",
+  "description": "Calendar components backed by pure date grid primitives.",
+  "files": [
+    {
+      "source": "templates/calendar.rs",
+      "target": "src/components/ui/calendar.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

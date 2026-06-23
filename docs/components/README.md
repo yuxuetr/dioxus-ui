@@ -41,6 +41,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Avatar](avatar.md) | `dxui add avatar` | `avatar` | Styled parts |
 | [Badge](badge.md) | `dxui add badge` | `badge` | Styled |
 | [Button](button.md) | `dxui add button` | `button` | Styled |
+| [Calendar](calendar.md) | `dxui add calendar` | `calendar` | Date grid styled parts |
 | [Card](card.md) | `dxui add card` | `card` | Styled parts |
 | [Checkbox](checkbox.md) | `dxui add checkbox` | `checkbox` | Controlled styled part |
 | [Command](command.md) | `dxui add command` | `command` | Active descendant command parts |

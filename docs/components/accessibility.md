@@ -35,6 +35,8 @@ Statuses:
 | Component | Contract | Status |
 | --- | --- | --- |
 | Accordion | Needs trigger/content ARIA relationships. | Planned |
+| Calendar | Exposes grid, row, columnheader, gridcell, selected, disabled, today, and range state attributes. | Implemented |
+| Calendar | Needs keyboard event and DOM focus integration verification. | Planned |
 | Command | Uses combobox, listbox, option, and active descendant semantics. | Implemented |
 | Command | Needs keyboard event and filtering integration verification. | Planned |
 | Combobox | Uses combobox, listbox, option, and active descendant semantics. | Implemented |

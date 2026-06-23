@@ -11,7 +11,7 @@ be ported one-for-one.
 | Static display | Alert, Avatar, Badge, Card, Separator, Skeleton |
 | Form basics | Button, Checkbox, Input, Label, Slider, Switch, Textarea |
 | Light interaction | Radio Group, Spinner, Toggle, Toggle Group |
-| Disclosure | Accordion, Alert Dialog, Drawer, Hover Card, Sheet, Tabs |
+| Disclosure | Accordion, Alert Dialog, Calendar, Drawer, Hover Card, Sheet, Tabs |
 | Overlay primitives | Context Menu, Dialog, Dropdown, Menubar, Navigation Menu, Popover, Tooltip |
 | Command and search | Command, Combobox, Native Select |
 | Selection | Select |
@@ -30,7 +30,7 @@ be ported one-for-one.
 | --- | --- | --- |
 | Command and search | - | Current M14 command search components are implemented. |
 | Menus | - | Current M13 menu system set is implemented. |
-| Date and calendar | Calendar, Date Picker | Prefer proven date logic instead of hand-rolling calendar rules. |
+| Date and calendar | Date Picker | Calendar is implemented; Date Picker remains planned. |
 | Overlays | - | Current M12 overlay variant set is implemented. |
 | Feedback | Toast, Sonner | Need queue and live-region behavior. |
 | Data | Data Table, Chart | Data Table needs table composition plus sorting/filtering state; Chart needs a charting decision. |

@@ -97,8 +97,9 @@ impl CalendarWeekday {
   }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum CalendarRangeState {
+  #[default]
   Outside,
   Single,
   Start,

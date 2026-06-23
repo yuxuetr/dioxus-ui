@@ -2,10 +2,11 @@ use dioxus_ui::{
   accordion_content_class, accordion_item_class, accordion_trigger_class,
   alert_dialog_action_class, alert_dialog_content_class, alert_dialog_overlay_class, alert_class,
   alert_description_class, alert_title_class, avatar_class, avatar_fallback_class,
-  avatar_image_class, badge_class, button_class, card_class, card_content_class,
-  card_description_class, card_footer_class, card_header_class, card_title_class, checkbox_class,
-  command_active_descendant_state, command_class, command_input_class, command_item_class,
-  combobox_input_class, combobox_item_class, combobox_trigger_class, context_menu_content_class,
+  avatar_image_class, badge_class, button_class, calendar_day_class, calendar_month_grid,
+  calendar_move_date, card_class, card_content_class, card_description_class, card_footer_class,
+  card_header_class, card_title_class, checkbox_class, command_active_descendant_state,
+  command_class, command_input_class, command_item_class, combobox_input_class,
+  combobox_item_class, combobox_trigger_class, context_menu_content_class,
   context_menu_item_class, context_menu_shortcut_class, dialog_content_class,
   dialog_overlay_class, drawer_content_class, drawer_overlay_class, dropdown_content_class,
   dropdown_item_class, dropdown_label_class, dropdown_separator_class, hover_card_align_attribute,
@@ -24,7 +25,8 @@ use dioxus_ui::{
   toggle_group_item_class, toggle_group_move_value,
   toggle_group_multiple_selection, tooltip_content_class,
   AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant, ButtonSize,
-  ButtonVariant, ComboboxPrimitiveConfig, ContextMenuPrimitiveConfig, DialogPrimitiveConfig,
+  ButtonVariant, CalendarDate, CalendarKeyMove, CalendarMonth, CalendarRangeState,
+  CalendarWeekday, ComboboxPrimitiveConfig, ContextMenuPrimitiveConfig, DialogPrimitiveConfig,
   DrawerPrimitiveConfig, DropdownPrimitiveConfig, FocusMove, HoverCardAlign,
   HoverCardPrimitiveConfig, HoverCardSide, MenubarPrimitiveConfig, NavigationMenuPrimitiveConfig,
   NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
@@ -81,6 +83,32 @@ fn main() {
   println!(
     "dioxus-ui web demo badge class: {}",
     badge_class(BadgeVariant::Default, "")
+  );
+  println!(
+    "dioxus-ui web demo calendar day class: {}",
+    calendar_day_class(true, false, false, false, CalendarRangeState::Single, "")
+  );
+  println!(
+    "dioxus-ui web demo calendar grid first day: {:?}",
+    calendar_month_grid(
+      CalendarMonth::unchecked(2024, 6),
+      CalendarWeekday::Sunday,
+      Some(CalendarDate::unchecked(2024, 6, 10)),
+      Some(CalendarDate::unchecked(2024, 6, 11)),
+      None,
+      None,
+      &[],
+    )
+    .weeks[0][0]
+    .date
+  );
+  println!(
+    "dioxus-ui web demo calendar moved date: {:?}",
+    calendar_move_date(
+      CalendarDate::unchecked(2024, 6, 5),
+      CalendarKeyMove::NextWeek,
+      CalendarWeekday::Sunday,
+    )
   );
   println!("dioxus-ui web demo card class: {}", card_class("max-w-sm"));
   println!("dioxus-ui web demo card header class: {}", card_header_class(""));

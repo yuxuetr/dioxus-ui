@@ -11,6 +11,7 @@ features=(
   avatar
   badge
   button
+  calendar
   card
   checkbox
   command

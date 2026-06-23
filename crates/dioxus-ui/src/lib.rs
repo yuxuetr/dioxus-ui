@@ -18,6 +18,9 @@ pub mod badge;
 #[cfg(feature = "button")]
 pub mod button;
 
+#[cfg(feature = "calendar")]
+pub mod calendar;
+
 #[cfg(feature = "card")]
 pub mod card;
 
@@ -131,6 +134,22 @@ pub use avatar::{
 pub use badge::{badge_class, Badge, BadgeVariant, BADGE_BASE_CLASS};
 #[cfg(feature = "button")]
 pub use button::{button_class, Button, ButtonSize, ButtonVariant, BUTTON_BASE_CLASS};
+#[cfg(feature = "calendar")]
+pub use calendar::{
+  calendar_caption_class, calendar_class, calendar_day_class, calendar_grid_class,
+  calendar_head_cell_class, calendar_head_class, calendar_header_class, calendar_month_grid,
+  calendar_move_date, calendar_nav_button_class, calendar_nav_class, calendar_range_attribute,
+  calendar_range_state, calendar_row_class, days_in_month, is_leap_year, Calendar,
+  CalendarBody, CalendarCaption, CalendarDate, CalendarDay, CalendarGrid, CalendarHead,
+  CalendarHeadCell, CalendarHeader, CalendarKeyMove, CalendarMonth, CalendarMonthGrid,
+  CalendarNav, CalendarNavButton, CalendarNavDirection, CalendarPrimitiveDay,
+  CalendarRangeState, CalendarRow, CalendarWeekday, CALENDAR_BASE_CLASS,
+  CALENDAR_BODY_BASE_CLASS, CALENDAR_CAPTION_BASE_CLASS, CALENDAR_DAY_BASE_CLASS,
+  CALENDAR_DAY_OUTSIDE_CLASS, CALENDAR_DAY_RANGE_CLASS, CALENDAR_DAY_SELECTED_CLASS,
+  CALENDAR_DAY_TODAY_CLASS, CALENDAR_GRID_BASE_CLASS, CALENDAR_HEAD_BASE_CLASS,
+  CALENDAR_HEAD_CELL_BASE_CLASS, CALENDAR_HEADER_BASE_CLASS, CALENDAR_NAV_BASE_CLASS,
+  CALENDAR_NAV_BUTTON_BASE_CLASS, CALENDAR_ROW_BASE_CLASS,
+};
 #[cfg(feature = "card")]
 pub use card::{
   card_class, card_content_class, card_description_class, card_footer_class, card_header_class,
