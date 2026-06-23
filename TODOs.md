@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 16%
+- Overall: 33%
 - Current milestone: M12 Overlay Variants
-- Current task: M12.2 Implement Alert Dialog
+- Current task: M12.3 Implement Sheet
 
 ## M0 Documentation
 
@@ -258,7 +258,7 @@
   - Decide which variants reuse Dialog, Popover, Tooltip, and overlay placement primitives.
   - Document portal, dismissal, focus, Web/Desktop/Mobile constraints before implementation.
 
-- TODO M12.2 Implement Alert Dialog
+- DONE M12.2 Implement Alert Dialog
   - Add primitive-backed styled parts for alert dialog overlay, content, title, description, action, and cancel.
   - Add CLI template, registry entry, docs page, and demo usage.
   - Verify accessibility notes cover modal role, focus return, and destructive action labeling.
