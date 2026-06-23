@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
+- Overall: 100%
 - Current milestone: M15 Calendar and Date Picker
-- Current task: M15.5 Complete calendar and date picker documentation and examples
+- Current task: M15 complete
 
 ## M0 Documentation
 
@@ -356,7 +356,7 @@
   - Document when to use native inputs, Calendar, or Date Picker.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M15.5 Complete calendar and date picker documentation and examples
+- DONE M15.5 Complete calendar and date picker documentation and examples
   - Update parity, accessibility, complex batch, and component catalog docs.
   - Run release quality gates before marking the batch complete.
 
