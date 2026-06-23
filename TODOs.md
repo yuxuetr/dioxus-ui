@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
+- Overall: 100%
 - Current milestone: M14 Command and Choice
-- Current task: M14.5 Complete command and choice documentation and examples
+- Current task: M14 complete
 
 ## M0 Documentation
 
@@ -330,7 +330,7 @@
   - Document when to prefer native select over custom Select or Combobox.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M14.5 Complete command and choice documentation and examples
+- DONE M14.5 Complete command and choice documentation and examples
   - Update parity, accessibility, complex batch, and component catalog docs.
   - Run release quality gates before marking the batch complete.
 
