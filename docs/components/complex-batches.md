@@ -131,6 +131,10 @@ Components:
 - Calendar
 - Date Picker
 
+Implementation specification:
+
+- [Calendar and Date Picker API Plan](calendar-date.md)
+
 Dependencies:
 
 - date math and locale strategy
