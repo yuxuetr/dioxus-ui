@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 40%
 - Current milestone: M14 Command and Choice
-- Current task: M14.2 Implement Command
+- Current task: M14.3 Implement Combobox
 
 ## M0 Documentation
 
@@ -315,7 +315,7 @@
   - Decide which parts reuse active descendant, typeahead, filtering, selection, and popover primitives.
   - Document Web/Desktop/Mobile, form integration, and source-copy constraints before implementation.
 
-- TODO M14.2 Implement Command
+- DONE M14.2 Implement Command
   - Add controlled command root, input, list, group, item, empty, separator, and shortcut parts.
   - Reuse active descendant and typeahead primitives where possible.
   - Add CLI template, registry entry, docs page, and demo usage.
