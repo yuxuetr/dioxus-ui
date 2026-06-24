@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 14%
 - Current milestone: M17 Layout Shells and Media
-- Current task: M17.1 Plan layout shell and media APIs
+- Current task: M17.2 Implement layout state primitives
 
 ## M0 Documentation
 
@@ -388,7 +388,7 @@
 
 ## M17 Layout Shells and Media
 
-- TODO M17.1 Plan layout shell and media APIs
+- DONE M17.1 Plan layout shell and media APIs
   - Define Sidebar, Scroll Area, Resizable, and Carousel API boundaries.
   - Decide which parts need layout, measurement, persistence, pointer, and gesture primitives.
   - Document Web/Desktop/Mobile, source-copy, accessibility, and dependency constraints before implementation.
