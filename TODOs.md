@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 14%
+- Overall: 28%
 - Current milestone: M17 Layout Shells and Media
-- Current task: M17.2 Implement layout state primitives
+- Current task: M17.3 Implement Scroll Area
 
 ## M0 Documentation
 
@@ -393,7 +393,7 @@
   - Decide which parts need layout, measurement, persistence, pointer, and gesture primitives.
   - Document Web/Desktop/Mobile, source-copy, accessibility, and dependency constraints before implementation.
 
-- TODO M17.2 Implement layout state primitives
+- DONE M17.2 Implement layout state primitives
   - Add pure sidebar collapse state, resizable panel math, scroll orientation metadata, and carousel index helpers.
   - Avoid runtime DOM measurement and pointer event ownership in primitives.
   - Add unit tests for collapse toggles, panel clamping, carousel wrapping, and scroll orientation behavior.
