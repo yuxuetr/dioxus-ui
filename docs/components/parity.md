@@ -16,14 +16,14 @@ be ported one-for-one.
 | Command and search | Command, Combobox, Native Select |
 | Selection | Select |
 | Feedback and data | Data Table, Progress, Table, Pagination |
-| Layout and scroll | Resizable, Scroll Area, Sidebar |
+| Layout and scroll | Carousel, Resizable, Scroll Area, Sidebar |
 
 ## Planned Static Or Light Interaction
 
 | Group | Components | Notes |
 | --- | --- | --- |
 | Static display | Aspect Ratio, Breadcrumb, Empty, Field, Item, Kbd, Typography | Mostly styling and composition. |
-| Layout and scroll | - | Scroll Area, Resizable, and Sidebar are implemented; runtime measurement and persistence remain app-owned. |
+| Layout and scroll | - | Carousel, Scroll Area, Resizable, and Sidebar are implemented; runtime measurement, persistence, and gestures remain app-owned. |
 
 ## Planned Complex Interaction
 
@@ -36,7 +36,7 @@ be ported one-for-one.
 | Feedback | Toast, Sonner | Need queue and live-region behavior. |
 | Data | Chart | Data Table is implemented; Chart needs a charting decision. |
 | Navigation shell | - | Sidebar is implemented; persistence and keyboard shortcuts remain app-owned. |
-| Media | Carousel | Needs interaction, gesture, and accessibility decisions. |
+| Media | - | Carousel is implemented; gestures, autoplay, and live announcements remain app-owned. |
 
 ## Deferred Or External
 

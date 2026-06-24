@@ -1,0 +1,14 @@
+{
+  "name": "carousel",
+  "description": "Controlled carousel composition parts and index helpers.",
+  "files": [
+    {
+      "source": "templates/carousel.rs",
+      "target": "src/components/ui/carousel.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

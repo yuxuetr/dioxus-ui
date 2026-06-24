@@ -21,6 +21,9 @@ pub mod button;
 #[cfg(feature = "calendar")]
 pub mod calendar;
 
+#[cfg(feature = "carousel")]
+pub mod carousel;
+
 #[cfg(feature = "card")]
 pub mod card;
 
@@ -164,6 +167,16 @@ pub use calendar::{
   CALENDAR_DAY_TODAY_CLASS, CALENDAR_GRID_BASE_CLASS, CALENDAR_HEAD_BASE_CLASS,
   CALENDAR_HEAD_CELL_BASE_CLASS, CALENDAR_HEADER_BASE_CLASS, CALENDAR_NAV_BASE_CLASS,
   CALENDAR_NAV_BUTTON_BASE_CLASS, CALENDAR_ROW_BASE_CLASS,
+};
+#[cfg(feature = "carousel")]
+pub use carousel::{
+  carousel_can_go_next, carousel_can_go_previous, carousel_clamp_index, carousel_class,
+  carousel_content_class, carousel_control_class, carousel_indicator_class, carousel_item_class,
+  carousel_next, carousel_orientation_attribute, carousel_previous, carousel_viewport_class,
+  Carousel, CarouselContent, CarouselIndicator, CarouselItem, CarouselNext, CarouselOrientation,
+  CarouselPrevious, CarouselState, CarouselViewport, CAROUSEL_BASE_CLASS,
+  CAROUSEL_CONTENT_BASE_CLASS, CAROUSEL_CONTROL_BASE_CLASS, CAROUSEL_INDICATOR_BASE_CLASS,
+  CAROUSEL_ITEM_BASE_CLASS, CAROUSEL_VIEWPORT_BASE_CLASS,
 };
 #[cfg(feature = "card")]
 pub use card::{

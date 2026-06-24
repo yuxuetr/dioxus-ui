@@ -3,9 +3,11 @@ use dioxus_ui::{
   alert_dialog_action_class, alert_dialog_content_class, alert_dialog_overlay_class, alert_class,
   alert_description_class, alert_title_class, avatar_class, avatar_fallback_class,
   avatar_image_class, badge_class, button_class, calendar_day_class, calendar_month_grid,
-  calendar_move_date, card_class, card_content_class, card_description_class, card_footer_class,
-  card_header_class, card_title_class, checkbox_class, command_active_descendant_state,
-  command_class, command_input_class, command_item_class, combobox_input_class,
+  calendar_move_date, carousel_can_go_previous, carousel_content_class, carousel_control_class,
+  carousel_indicator_class, carousel_item_class, carousel_previous, card_class,
+  card_content_class, card_description_class, card_footer_class, card_header_class,
+  card_title_class, checkbox_class, command_active_descendant_state, command_class,
+  command_input_class, command_item_class, combobox_input_class,
   combobox_item_class, combobox_trigger_class, context_menu_content_class,
   context_menu_item_class, context_menu_shortcut_class, data_table_header_cell_class,
   data_table_page_window, data_table_row_class, data_table_sort_attribute,
@@ -34,11 +36,11 @@ use dioxus_ui::{
   toggle_group_single_selection, tooltip_content_class,
   AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant, ButtonSize,
   ButtonVariant, CalendarDate, CalendarKeyMove, CalendarMonth, CalendarRangeState,
-  CalendarWeekday, ComboboxPrimitiveConfig, ContextMenuPrimitiveConfig, DatePickerAlign,
-  DatePickerPrimitiveConfig, DatePickerSide, DataTableSortDirection, DialogPrimitiveConfig,
-  DrawerPrimitiveConfig, DropdownPrimitiveConfig, FocusMove, HoverCardAlign,
-  HoverCardPrimitiveConfig, HoverCardSide, MenubarPrimitiveConfig, NavigationMenuPrimitiveConfig,
-  NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
+  CalendarWeekday, CarouselOrientation, CarouselState, ComboboxPrimitiveConfig,
+  ContextMenuPrimitiveConfig, DatePickerAlign, DatePickerPrimitiveConfig, DatePickerSide,
+  DataTableSortDirection, DialogPrimitiveConfig, DrawerPrimitiveConfig, DropdownPrimitiveConfig,
+  FocusMove, HoverCardAlign, HoverCardPrimitiveConfig, HoverCardSide, MenubarPrimitiveConfig,
+  NavigationMenuPrimitiveConfig, NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
   LayoutOrientation, ResizablePanelState, ScrollAreaOrientation, SelectPrimitiveConfig,
   SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SidebarSide, SidebarState, SpinnerSize,
   ToggleSize, ToggleVariant, TooltipPrimitiveConfig, UiDensity,
@@ -127,6 +129,31 @@ fn main() {
       CalendarDate::unchecked(2024, 2, 29),
       CalendarKeyMove::NextYear,
       CalendarWeekday::Monday,
+    )
+  );
+  println!(
+    "dioxus-ui desktop demo carousel content class: {}",
+    carousel_content_class(CarouselOrientation::Vertical, "")
+  );
+  println!(
+    "dioxus-ui desktop demo carousel item class: {}",
+    carousel_item_class(CarouselOrientation::Vertical, false, "basis-full")
+  );
+  println!(
+    "dioxus-ui desktop demo carousel previous control class: {}",
+    carousel_control_class(true, "")
+  );
+  println!(
+    "dioxus-ui desktop demo carousel indicator class: {}",
+    carousel_indicator_class(false, "")
+  );
+  println!(
+    "dioxus-ui desktop demo carousel previous/can: {}/{}",
+    carousel_previous(0, 3, true),
+    carousel_can_go_previous(
+      CarouselState::new(0, 3).index,
+      CarouselState::new(0, 3).item_count,
+      true,
     )
   );
   println!("dioxus-ui desktop demo card class: {}", card_class("shadow-none"));
