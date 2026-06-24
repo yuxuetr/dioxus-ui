@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 70%
+- Overall: 84%
 - Current milestone: M17 Layout Shells and Media
-- Current task: M17.6 Implement Carousel
+- Current task: M17.7 Complete layout shell and media documentation and examples
 
 ## M0 Documentation
 
@@ -413,7 +413,7 @@
   - Reuse collapse primitives and document persistence as app-owned.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M17.6 Implement Carousel
+- DONE M17.6 Implement Carousel
   - Add controlled carousel root, viewport, content, item, previous, next, and indicator APIs.
   - Reuse carousel index primitives and document gesture/autoplay as deferred.
   - Add CLI template, registry entry, docs page, and demo usage.
