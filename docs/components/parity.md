@@ -22,7 +22,7 @@ be ported one-for-one.
 | Group | Components | Notes |
 | --- | --- | --- |
 | Static display | Aspect Ratio, Breadcrumb, Empty, Field, Item, Kbd, Typography | Mostly styling and composition. |
-| Layout and scroll | Scroll Area, Resizable | Need measurement and platform-specific behavior. |
+| Layout and scroll | Resizable | Scroll Area is implemented; Resizable needs measurement and platform-specific behavior. |
 
 ## Planned Complex Interaction
 

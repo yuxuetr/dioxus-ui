@@ -33,6 +33,7 @@ features=(
   progress
   radio-group
   select
+  scroll-area
   separator
   sheet
   skeleton

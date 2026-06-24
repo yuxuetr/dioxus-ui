@@ -84,6 +84,9 @@ pub mod radio_group;
 #[cfg(feature = "select")]
 pub mod select;
 
+#[cfg(feature = "scroll-area")]
+pub mod scroll_area;
+
 #[cfg(feature = "separator")]
 pub mod separator;
 
@@ -330,6 +333,16 @@ pub use select::{
   SELECT_CONTENT_BASE_CLASS, SELECT_GROUP_BASE_CLASS, SELECT_ITEM_BASE_CLASS,
   SELECT_LABEL_BASE_CLASS, SELECT_SEPARATOR_BASE_CLASS, SELECT_TRIGGER_BASE_CLASS,
   SELECT_VALUE_BASE_CLASS,
+};
+#[cfg(feature = "scroll-area")]
+pub use scroll_area::{
+  scroll_area_class, scroll_area_content_class, scroll_area_corner_class,
+  scroll_area_orientation_attribute, scroll_area_scrollbar_class, scroll_area_thumb_class,
+  scroll_area_viewport_class, ScrollArea, ScrollAreaContent, ScrollAreaCorner,
+  ScrollAreaOrientation, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport,
+  SCROLL_AREA_BASE_CLASS, SCROLL_AREA_CONTENT_BASE_CLASS, SCROLL_AREA_CORNER_BASE_CLASS,
+  SCROLL_AREA_SCROLLBAR_BASE_CLASS, SCROLL_AREA_THUMB_BASE_CLASS,
+  SCROLL_AREA_VIEWPORT_BASE_CLASS,
 };
 #[cfg(feature = "separator")]
 pub use separator::{

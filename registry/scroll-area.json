@@ -1,0 +1,14 @@
+{
+  "name": "scroll-area",
+  "description": "Native scroll area wrapper with styled viewport and scrollbar parts.",
+  "files": [
+    {
+      "source": "templates/scroll_area.rs",
+      "target": "src/components/ui/scroll_area.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

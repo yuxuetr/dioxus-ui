@@ -46,6 +46,7 @@ popover = ["dioxus-ui-primitives/popover"]
 progress = []
 radio-group = []
 select = ["dioxus-ui-primitives/select"]
+scroll-area = []
 tooltip = ["dioxus-ui-primitives/tooltip"]
 
 [dependencies]

@@ -20,13 +20,15 @@ use dioxus_ui::{
   navigation_menu_trigger_class, pagination_class, pagination_link_class,
   popover_content_class, popover_description_class, popover_header_class, popover_title_class,
   progress_class, progress_indicator_class, progress_percent, radio_group_class,
-  radio_group_item_class, radio_group_move_value, select_content_class, select_item_class,
-  select_label_class, select_separator_class, select_trigger_class, select_value_class,
-  separator_class, sheet_content_class, sheet_overlay_class, skeleton_class, slider_percent,
-  slider_range_style, slider_root_class, slider_thumb_style, slider_track_class, switch_class,
-  spinner_class, switch_thumb_class, table_class, table_row_class, tabs_content_class,
-  tabs_list_class, tabs_trigger_class, textarea_class, toggle_class, toggle_group_class,
-  toggle_group_item_class, toggle_group_move_value,
+  radio_group_item_class, radio_group_move_value, scroll_area_class,
+  scroll_area_orientation_attribute, scroll_area_scrollbar_class, scroll_area_thumb_class,
+  scroll_area_viewport_class, select_content_class, select_item_class, select_label_class,
+  select_separator_class, select_trigger_class, select_value_class, separator_class,
+  sheet_content_class, sheet_overlay_class, skeleton_class, slider_percent, slider_range_style,
+  slider_root_class, slider_thumb_style, slider_track_class, switch_class, spinner_class,
+  switch_thumb_class, table_class, table_row_class, tabs_content_class, tabs_list_class,
+  tabs_trigger_class, textarea_class, toggle_class, toggle_group_class, toggle_group_item_class,
+  toggle_group_move_value,
   toggle_group_single_selection, tooltip_content_class,
   AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant, ButtonSize,
   ButtonVariant, CalendarDate, CalendarKeyMove, CalendarMonth, CalendarRangeState,
@@ -35,8 +37,8 @@ use dioxus_ui::{
   DrawerPrimitiveConfig, DropdownPrimitiveConfig, FocusMove, HoverCardAlign,
   HoverCardPrimitiveConfig, HoverCardSide, MenubarPrimitiveConfig, NavigationMenuPrimitiveConfig,
   NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
-  SelectPrimitiveConfig, SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SpinnerSize,
-  ToggleSize, ToggleVariant, TooltipPrimitiveConfig, UiDensity,
+  ScrollAreaOrientation, SelectPrimitiveConfig, SeparatorOrientation, SheetPrimitiveConfig,
+  SheetSide, SpinnerSize, ToggleSize, ToggleVariant, TooltipPrimitiveConfig, UiDensity,
 };
 
 fn main() {
@@ -315,6 +317,26 @@ fn main() {
   println!(
     "dioxus-ui desktop demo data table sort: {}",
     data_table_sort_attribute(Some(DataTableSortDirection::Descending))
+  );
+  println!(
+    "dioxus-ui desktop demo scroll area class: {}",
+    scroll_area_class("h-64")
+  );
+  println!(
+    "dioxus-ui desktop demo scroll area viewport class: {}",
+    scroll_area_viewport_class("")
+  );
+  println!(
+    "dioxus-ui desktop demo scroll area scrollbar class: {}",
+    scroll_area_scrollbar_class(ScrollAreaOrientation::Horizontal, "")
+  );
+  println!(
+    "dioxus-ui desktop demo scroll area thumb class: {}",
+    scroll_area_thumb_class("")
+  );
+  println!(
+    "dioxus-ui desktop demo scroll area orientation: {}",
+    scroll_area_orientation_attribute(ScrollAreaOrientation::Horizontal)
   );
   println!(
     "dioxus-ui desktop demo date picker trigger class: {}",

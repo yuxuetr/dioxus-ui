@@ -90,6 +90,7 @@ Statuses:
 | Table | Uses semantic table elements. | Implemented |
 | Data Table | Exposes sorted header state, selected row state, hidden cells, loading status, and empty state composition. | Implemented |
 | Data Table | Needs app-level filtering, async loading, keyboard shortcuts, and virtualization verification. | Planned |
+| Scroll Area | Keeps native scrolling behavior and exposes presentational scrollbar hooks. | Implemented |
 
 ## Complex Component Gates
 
