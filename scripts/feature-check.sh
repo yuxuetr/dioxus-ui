@@ -32,6 +32,7 @@ features=(
   popover
   progress
   radio-group
+  resizable
   select
   scroll-area
   separator

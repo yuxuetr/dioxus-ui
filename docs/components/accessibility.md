@@ -91,6 +91,8 @@ Statuses:
 | Data Table | Exposes sorted header state, selected row state, hidden cells, loading status, and empty state composition. | Implemented |
 | Data Table | Needs app-level filtering, async loading, keyboard shortcuts, and virtualization verification. | Planned |
 | Scroll Area | Keeps native scrolling behavior and exposes presentational scrollbar hooks. | Implemented |
+| Resizable | Exposes separator handles with orientation and disabled state. | Implemented |
+| Resizable | Needs app-level keyboard resizing, pointer dragging, and measurement verification. | Planned |
 
 ## Complex Component Gates
 

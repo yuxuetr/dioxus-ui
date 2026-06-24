@@ -67,6 +67,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Popover](popover.md) | `dxui add popover` | `popover` | Primitive config + styled parts |
 | [Progress](progress.md) | `dxui add progress` | `progress` | Styled |
 | [Radio Group](radio-group.md) | `dxui add radio-group` | `radio-group` | Primitive-backed styled parts |
+| [Resizable](resizable.md) | `dxui add resizable` | `resizable` | Controlled resizable panel parts |
 | [Select](select.md) | `dxui add select` | `select` | Primitive config + styled parts |
 | [Scroll Area](scroll-area.md) | `dxui add scroll-area` | `scroll-area` | Native scroll styled parts |
 | [Separator](separator.md) | `dxui add separator` | `separator` | Styled |

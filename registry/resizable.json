@@ -1,0 +1,14 @@
+{
+  "name": "resizable",
+  "description": "Controlled resizable panel group, panel, and handle parts.",
+  "files": [
+    {
+      "source": "templates/resizable.rs",
+      "target": "src/components/ui/resizable.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

@@ -81,6 +81,9 @@ pub mod progress;
 #[cfg(feature = "radio-group")]
 pub mod radio_group;
 
+#[cfg(feature = "resizable")]
+pub mod resizable;
+
 #[cfg(feature = "select")]
 pub mod select;
 
@@ -324,6 +327,13 @@ pub use radio_group::{
   radio_group_item_class, radio_group_item_tabindex, radio_group_move_value,
   radio_group_orientation_attribute, RadioGroup, RadioGroupItem, RADIO_GROUP_BASE_CLASS,
   RADIO_GROUP_INDICATOR_BASE_CLASS, RADIO_GROUP_ITEM_BASE_CLASS,
+};
+#[cfg(feature = "resizable")]
+pub use resizable::{
+  layout_orientation_attribute, resizable_clamp, resizable_handle_class, resizable_panel_class,
+  resizable_panel_group_class, resizable_panel_style, resizable_resize_pair, LayoutOrientation,
+  ResizableHandle, ResizablePanel, ResizablePanelGroup, ResizablePanelState,
+  RESIZABLE_HANDLE_BASE_CLASS, RESIZABLE_PANEL_BASE_CLASS, RESIZABLE_PANEL_GROUP_BASE_CLASS,
 };
 #[cfg(feature = "select")]
 pub use select::{

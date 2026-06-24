@@ -20,7 +20,8 @@ use dioxus_ui::{
   navigation_menu_trigger_class, pagination_class, pagination_link_class,
   popover_content_class, popover_description_class, popover_header_class, popover_title_class,
   progress_class, progress_indicator_class, progress_percent, radio_group_class,
-  radio_group_item_class, radio_group_move_value, scroll_area_class,
+  radio_group_item_class, radio_group_move_value, resizable_handle_class,
+  resizable_panel_group_class, resizable_panel_style, resizable_resize_pair, scroll_area_class,
   scroll_area_orientation_attribute, scroll_area_scrollbar_class, scroll_area_thumb_class,
   scroll_area_viewport_class, select_content_class, select_item_class, select_label_class,
   select_separator_class, select_trigger_class, select_value_class, separator_class,
@@ -37,8 +38,9 @@ use dioxus_ui::{
   DrawerPrimitiveConfig, DropdownPrimitiveConfig, FocusMove, HoverCardAlign,
   HoverCardPrimitiveConfig, HoverCardSide, MenubarPrimitiveConfig, NavigationMenuPrimitiveConfig,
   NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
-  ScrollAreaOrientation, SelectPrimitiveConfig, SeparatorOrientation, SheetPrimitiveConfig,
-  SheetSide, SpinnerSize, ToggleSize, ToggleVariant, TooltipPrimitiveConfig, UiDensity,
+  LayoutOrientation, ResizablePanelState, ScrollAreaOrientation, SelectPrimitiveConfig,
+  SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SpinnerSize, ToggleSize, ToggleVariant,
+  TooltipPrimitiveConfig, UiDensity,
 };
 
 fn main() {
@@ -307,6 +309,26 @@ fn main() {
   println!(
     "dioxus-ui web demo scroll area orientation: {}",
     scroll_area_orientation_attribute(ScrollAreaOrientation::Both)
+  );
+  println!(
+    "dioxus-ui web demo resizable group class: {}",
+    resizable_panel_group_class(LayoutOrientation::Horizontal, "h-64")
+  );
+  println!(
+    "dioxus-ui web demo resizable handle class: {}",
+    resizable_handle_class(false, "")
+  );
+  println!(
+    "dioxus-ui web demo resizable panel style: {}",
+    resizable_panel_style(75.0, 20.0, 80.0)
+  );
+  println!(
+    "dioxus-ui web demo resizable resize: {:?}",
+    resizable_resize_pair(
+      ResizablePanelState::new(50.0, 20.0, 80.0),
+      ResizablePanelState::new(50.0, 20.0, 80.0),
+      10.0,
+    )
   );
   println!(
     "dioxus-ui web demo date picker trigger class: {}",
