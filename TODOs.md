@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 28%
+- Overall: 42%
 - Current milestone: M17 Layout Shells and Media
-- Current task: M17.3 Implement Scroll Area
+- Current task: M17.4 Implement Resizable
 
 ## M0 Documentation
 
@@ -398,7 +398,7 @@
   - Avoid runtime DOM measurement and pointer event ownership in primitives.
   - Add unit tests for collapse toggles, panel clamping, carousel wrapping, and scroll orientation behavior.
 
-- TODO M17.3 Implement Scroll Area
+- DONE M17.3 Implement Scroll Area
   - Add styled viewport, content, scrollbar, thumb, and corner APIs.
   - Document native scrolling behavior and custom scrollbar limits across Web/Desktop/Mobile.
   - Add CLI template, registry entry, docs page, and demo usage.
