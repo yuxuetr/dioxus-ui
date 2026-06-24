@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 42%
+- Overall: 56%
 - Current milestone: M17 Layout Shells and Media
-- Current task: M17.4 Implement Resizable
+- Current task: M17.5 Implement Sidebar
 
 ## M0 Documentation
 
@@ -403,7 +403,7 @@
   - Document native scrolling behavior and custom scrollbar limits across Web/Desktop/Mobile.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M17.4 Implement Resizable
+- DONE M17.4 Implement Resizable
   - Add controlled panel group, panel, handle, and helper APIs using layout primitives.
   - Keep pointer dragging and DOM measurement app-owned in the first implementation.
   - Add CLI template, registry entry, docs page, and demo usage.
