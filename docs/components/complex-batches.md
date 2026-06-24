@@ -189,6 +189,8 @@ policy are documented in the Chart strategy.
 
 ## Batch 7: Layout Shells and Media
 
+Status: Implemented in M17.
+
 Components:
 
 - Sidebar
@@ -212,6 +214,11 @@ Rationale:
 These components are less about static styling and more about layout behavior,
 measurement, and cross-platform ergonomics.
 
+M17 shipped pure layout/media state primitives and controlled composition parts
+for Sidebar, Carousel, Scroll Area, and Resizable. Runtime measurement, pointer
+dragging, persistence, responsive breakpoint orchestration, carousel gestures,
+autoplay, and live announcements remain app-owned or deferred adapter work.
+
 ## Recommended Next Milestones
 
 ```text
@@ -223,6 +230,8 @@ M14 Command, Combobox, Native Select
 M15 Calendar and Date Picker
 M16 Data Table and Chart strategy
 M17 Sidebar, Carousel, Scroll Area, Resizable
+M18 Toast and Sonner feedback primitives
+M19 Chart strategy follow-through or runtime adapters
 ```
 
 ## Third-Party Logic Candidates

@@ -48,21 +48,11 @@ be ported one-for-one.
 
 ## Next Milestone Seeds
 
-M8 should not start by implementing a single large component. It should first
-define shared primitive behavior for:
+After M17, the safest remaining component order is:
 
-- roving focus
-- typeahead
-- active descendant state
-- escape-key dismissal
-- pointer outside dismissal
-- overlay positioning and collision handling
-
-After Data Table, the safest remaining component order is:
-
-1. Sidebar, Scroll Area, Resizable, and Carousel
-2. Toast and Sonner
-3. Chart strategy
+1. Toast and Sonner feedback primitives
+2. Chart strategy follow-through or runtime adapters
+3. Static composition gaps such as Aspect Ratio, Breadcrumb, Empty, Field, Item, Kbd, and Typography
 
 See [Complex Component Batches](complex-batches.md) for the expanded milestone
 plan.

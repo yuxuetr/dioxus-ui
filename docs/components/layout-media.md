@@ -1,12 +1,12 @@
-# Layout Shells and Media API Plan
+# Layout Shells and Media
 
 This document defines the M17 Sidebar, Scroll Area, Resizable, and Carousel
-APIs before implementation. The goal is to provide controlled layout and media
+APIs and completion status. The goal is to provide controlled layout and media
 composition parts backed by pure state primitives, without taking ownership of
 DOM measurement, pointer dragging, gesture recognition, autoplay, or
 persistence too early.
 
-Status: Planned in M17.
+Status: Implemented in M17.
 
 ## Scope
 
@@ -23,16 +23,16 @@ remain self-contained and must not import internal crates.
 
 ## Shared Primitive Strategy
 
-M17 should add pure layout/media state helpers:
+M17 added pure layout/media state helpers:
 
 ```rust
 SidebarState { collapsed }
-ResizablePanelState { id, size, min_size, max_size, collapsed }
+ResizablePanelState { size, min_size, max_size, collapsed }
 ScrollAreaOrientation::{Vertical, Horizontal, Both}
 CarouselState { index, item_count, looping }
 ```
 
-Planned helpers:
+Shipped helpers:
 
 ```rust
 sidebar_toggle(collapsed) -> bool
@@ -58,7 +58,7 @@ Rules:
 Scroll Area wraps native scrolling with styled parts. It should not replace
 native scroll behavior in the first implementation.
 
-Planned crate API:
+Shipped crate API:
 
 ```rust
 ScrollArea { orientation, class, children }
@@ -81,17 +81,17 @@ Behavior defaults:
 Resizable provides controlled panel layout parts. It does not own dragging or
 measurement in the first implementation.
 
-Planned crate API:
+Shipped crate API:
 
 ```rust
-ResizablePanelGroup { direction, class, children }
+ResizablePanelGroup { orientation, class, children }
 ResizablePanel { size, min_size, max_size, collapsed, class, children }
 ResizableHandle { disabled, class }
 ```
 
 Behavior defaults:
 
-- direction is horizontal or vertical
+- orientation is horizontal or vertical
 - panel size is controlled and represented with inline flex-basis style helpers
 - handle is a semantic separator with orientation data
 - pointer dragging and layout measurement are app-owned
@@ -101,7 +101,7 @@ Behavior defaults:
 Sidebar provides a controlled app shell and navigation composition surface. It
 does not own routing, persistence, or keyboard shortcuts.
 
-Planned crate API:
+Shipped crate API:
 
 ```rust
 Sidebar { collapsed, side, class, children }
@@ -127,7 +127,7 @@ Behavior defaults:
 Carousel provides controlled slide composition parts. Gesture recognition,
 momentum, and autoplay are deferred.
 
-Planned crate API:
+Shipped crate API:
 
 ```rust
 Carousel { orientation, class, children }
@@ -137,6 +137,7 @@ CarouselItem { selected, class, children }
 CarouselPrevious { disabled, class, children }
 CarouselNext { disabled, class, children }
 CarouselIndicator { selected, class }
+CarouselOrientation::{Horizontal, Vertical}
 ```
 
 Behavior defaults:
@@ -169,7 +170,7 @@ controlled layout and media composition.
 
 ## Quality Gates
 
-Each M17 component should include:
+Each M17 component includes:
 
 - primitive unit tests for state helpers
 - crate-mode class composition tests
