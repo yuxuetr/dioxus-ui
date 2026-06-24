@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 56%
+- Overall: 70%
 - Current milestone: M17 Layout Shells and Media
-- Current task: M17.5 Implement Sidebar
+- Current task: M17.6 Implement Carousel
 
 ## M0 Documentation
 
@@ -408,7 +408,7 @@
   - Keep pointer dragging and DOM measurement app-owned in the first implementation.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M17.5 Implement Sidebar
+- DONE M17.5 Implement Sidebar
   - Add controlled sidebar provider-style shell parts, rail, header, content, footer, group, item, and trigger APIs.
   - Reuse collapse primitives and document persistence as app-owned.
   - Add CLI template, registry entry, docs page, and demo usage.
