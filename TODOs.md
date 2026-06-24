@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M16 Data and Visualization
-- Current task: M16 complete
+- Overall: 0%
+- Current milestone: M17 Layout Shells and Media
+- Current task: M17.1 Plan layout shell and media APIs
 
 ## M0 Documentation
 
@@ -383,6 +383,42 @@
   - Update parity and roadmap without introducing a chart component before the strategy is clear.
 
 - DONE M16.5 Complete data and visualization documentation and examples
+  - Update parity, accessibility, complex batch, and component catalog docs.
+  - Run release quality gates before marking the batch complete.
+
+## M17 Layout Shells and Media
+
+- TODO M17.1 Plan layout shell and media APIs
+  - Define Sidebar, Scroll Area, Resizable, and Carousel API boundaries.
+  - Decide which parts need layout, measurement, persistence, pointer, and gesture primitives.
+  - Document Web/Desktop/Mobile, source-copy, accessibility, and dependency constraints before implementation.
+
+- TODO M17.2 Implement layout state primitives
+  - Add pure sidebar collapse state, resizable panel math, scroll orientation metadata, and carousel index helpers.
+  - Avoid runtime DOM measurement and pointer event ownership in primitives.
+  - Add unit tests for collapse toggles, panel clamping, carousel wrapping, and scroll orientation behavior.
+
+- TODO M17.3 Implement Scroll Area
+  - Add styled viewport, content, scrollbar, thumb, and corner APIs.
+  - Document native scrolling behavior and custom scrollbar limits across Web/Desktop/Mobile.
+  - Add CLI template, registry entry, docs page, and demo usage.
+
+- TODO M17.4 Implement Resizable
+  - Add controlled panel group, panel, handle, and helper APIs using layout primitives.
+  - Keep pointer dragging and DOM measurement app-owned in the first implementation.
+  - Add CLI template, registry entry, docs page, and demo usage.
+
+- TODO M17.5 Implement Sidebar
+  - Add controlled sidebar provider-style shell parts, rail, header, content, footer, group, item, and trigger APIs.
+  - Reuse collapse primitives and document persistence as app-owned.
+  - Add CLI template, registry entry, docs page, and demo usage.
+
+- TODO M17.6 Implement Carousel
+  - Add controlled carousel root, viewport, content, item, previous, next, and indicator APIs.
+  - Reuse carousel index primitives and document gesture/autoplay as deferred.
+  - Add CLI template, registry entry, docs page, and demo usage.
+
+- TODO M17.7 Complete layout shell and media documentation and examples
   - Update parity, accessibility, complex batch, and component catalog docs.
   - Run release quality gates before marking the batch complete.
 
