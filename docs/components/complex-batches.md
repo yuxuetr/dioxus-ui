@@ -196,6 +196,10 @@ Components:
 - Scroll Area
 - Resizable
 
+Implementation specification:
+
+- [Layout Shells and Media API Plan](layout-media.md)
+
 Dependencies:
 
 - responsive layout policy

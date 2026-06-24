@@ -17,6 +17,8 @@ For the calendar milestone, see the
 For the data milestone, see the
 [data table and chart strategy](data-visualization.md) and
 [chart strategy](chart-strategy.md).
+For the layout and media milestone, see the
+[layout shells and media API plan](layout-media.md).
 
 For accessibility expectations, see the
 [accessibility contract checklist](accessibility.md).
