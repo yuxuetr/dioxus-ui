@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 84%
+- Overall: 100%
 - Current milestone: M17 Layout Shells and Media
-- Current task: M17.7 Complete layout shell and media documentation and examples
+- Current task: M17 complete
 
 ## M0 Documentation
 
@@ -418,7 +418,7 @@
   - Reuse carousel index primitives and document gesture/autoplay as deferred.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M17.7 Complete layout shell and media documentation and examples
+- DONE M17.7 Complete layout shell and media documentation and examples
   - Update parity, accessibility, complex batch, and component catalog docs.
   - Run release quality gates before marking the batch complete.
 
