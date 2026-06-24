@@ -6,6 +6,7 @@ pub mod data_table;
 #[cfg(feature = "dialog")]
 pub mod dialog;
 pub mod dismissal;
+pub mod layout;
 #[cfg(feature = "dropdown")]
 pub mod dropdown;
 pub mod overlay;
@@ -35,6 +36,12 @@ pub use data_table::{
   DataTablePaginationState, DataTableSelectionState, DataTableSortDirection, DataTableSortState,
 };
 pub use dismissal::{DismissalDecision, DismissalEvent};
+pub use layout::{
+  carousel_can_go_next, carousel_can_go_previous, carousel_clamp_index, carousel_next,
+  carousel_previous, layout_orientation_attribute, resizable_clamp, resizable_resize_pair,
+  scroll_area_orientation_attribute, sidebar_toggle, CarouselState, LayoutOrientation,
+  ResizablePanelState, ScrollAreaOrientation, SidebarState,
+};
 pub use dioxus_ui_core::UiDensity;
 pub use overlay::{
   DismissBehavior, FocusReturn, FocusStrategy, OverlayAlign, OverlaySide, PortalTarget,
