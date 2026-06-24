@@ -72,6 +72,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Scroll Area](scroll-area.md) | `dxui add scroll-area` | `scroll-area` | Native scroll styled parts |
 | [Separator](separator.md) | `dxui add separator` | `separator` | Styled |
 | [Sheet](sheet.md) | `dxui add sheet` | `sheet` | Dialog-backed side panel |
+| [Sidebar](sidebar.md) | `dxui add sidebar` | `sidebar` | Controlled navigation shell parts |
 | [Skeleton](skeleton.md) | `dxui add skeleton` | `skeleton` | Styled |
 | [Slider](slider.md) | `dxui add slider` | `slider` | Primitive-backed styled part |
 | [Spinner](spinner.md) | `dxui add spinner` | `spinner` | Styled |

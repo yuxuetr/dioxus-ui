@@ -1,0 +1,14 @@
+{
+  "name": "sidebar",
+  "description": "Controlled sidebar shell and navigation composition parts.",
+  "files": [
+    {
+      "source": "templates/sidebar.rs",
+      "target": "src/components/ui/sidebar.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

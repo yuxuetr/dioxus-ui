@@ -93,6 +93,8 @@ Statuses:
 | Scroll Area | Keeps native scrolling behavior and exposes presentational scrollbar hooks. | Implemented |
 | Resizable | Exposes separator handles with orientation and disabled state. | Implemented |
 | Resizable | Needs app-level keyboard resizing, pointer dragging, and measurement verification. | Planned |
+| Sidebar | Exposes collapsed, side, active item, disabled item, trigger expansion, and native navigation composition hooks. | Implemented |
+| Sidebar | Needs app-level persistence, responsive breakpoint behavior, and keyboard shortcut verification. | Planned |
 
 ## Complex Component Gates
 

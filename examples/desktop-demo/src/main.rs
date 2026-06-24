@@ -25,11 +25,12 @@ use dioxus_ui::{
   scroll_area_orientation_attribute, scroll_area_scrollbar_class, scroll_area_thumb_class,
   scroll_area_viewport_class, select_content_class, select_item_class, select_label_class,
   select_separator_class, select_trigger_class, select_value_class, separator_class,
-  sheet_content_class, sheet_overlay_class, skeleton_class, slider_percent, slider_range_style,
-  slider_root_class, slider_thumb_style, slider_track_class, switch_class, spinner_class,
-  switch_thumb_class, table_class, table_row_class, tabs_content_class, tabs_list_class,
-  tabs_trigger_class, textarea_class, toggle_class, toggle_group_class, toggle_group_item_class,
-  toggle_group_move_value,
+  sheet_content_class, sheet_overlay_class, sidebar_class, sidebar_item_class,
+  sidebar_side_attribute, sidebar_toggle, sidebar_trigger_class, skeleton_class, slider_percent,
+  slider_range_style, slider_root_class, slider_thumb_style, slider_track_class, switch_class,
+  spinner_class, switch_thumb_class, table_class, table_row_class, tabs_content_class,
+  tabs_list_class, tabs_trigger_class, textarea_class, toggle_class, toggle_group_class,
+  toggle_group_item_class, toggle_group_move_value,
   toggle_group_single_selection, tooltip_content_class,
   AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant, ButtonSize,
   ButtonVariant, CalendarDate, CalendarKeyMove, CalendarMonth, CalendarRangeState,
@@ -39,8 +40,8 @@ use dioxus_ui::{
   HoverCardPrimitiveConfig, HoverCardSide, MenubarPrimitiveConfig, NavigationMenuPrimitiveConfig,
   NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
   LayoutOrientation, ResizablePanelState, ScrollAreaOrientation, SelectPrimitiveConfig,
-  SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SpinnerSize, ToggleSize, ToggleVariant,
-  TooltipPrimitiveConfig, UiDensity,
+  SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SidebarSide, SidebarState, SpinnerSize,
+  ToggleSize, ToggleVariant, TooltipPrimitiveConfig, UiDensity,
 };
 
 fn main() {
@@ -359,6 +360,23 @@ fn main() {
       ResizablePanelState::new(40.0, 20.0, 80.0),
       -15.0,
     )
+  );
+  println!(
+    "dioxus-ui desktop demo sidebar class: {}",
+    sidebar_class(true, SidebarSide::Right, "shrink-0")
+  );
+  println!(
+    "dioxus-ui desktop demo sidebar item class: {}",
+    sidebar_item_class(false, true, "")
+  );
+  println!(
+    "dioxus-ui desktop demo sidebar trigger class: {}",
+    sidebar_trigger_class("")
+  );
+  println!(
+    "dioxus-ui desktop demo sidebar side/toggle: {}/{}",
+    sidebar_side_attribute(SidebarSide::Right),
+    sidebar_toggle(SidebarState::new(true).collapsed)
   );
   println!(
     "dioxus-ui desktop demo date picker trigger class: {}",

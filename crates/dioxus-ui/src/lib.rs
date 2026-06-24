@@ -96,6 +96,9 @@ pub mod separator;
 #[cfg(feature = "sheet")]
 pub mod sheet;
 
+#[cfg(feature = "sidebar")]
+pub mod sidebar;
+
 #[cfg(feature = "skeleton")]
 pub mod skeleton;
 
@@ -368,6 +371,17 @@ pub use sheet::{
   SheetHeader, SheetOverlay, SheetSide, SheetTitle, SHEET_CLOSE_BASE_CLASS,
   SHEET_CONTENT_BASE_CLASS, SHEET_DESCRIPTION_BASE_CLASS, SHEET_FOOTER_BASE_CLASS,
   SHEET_HEADER_BASE_CLASS, SHEET_OVERLAY_BASE_CLASS, SHEET_TITLE_BASE_CLASS,
+};
+#[cfg(feature = "sidebar")]
+pub use sidebar::{
+  sidebar_class, sidebar_content_class, sidebar_footer_class, sidebar_group_class,
+  sidebar_group_label_class, sidebar_header_class, sidebar_item_class, sidebar_rail_class,
+  sidebar_side_attribute, sidebar_toggle, sidebar_trigger_class, Sidebar, SidebarContent,
+  SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarItem, SidebarRail,
+  SidebarSide, SidebarState, SidebarTrigger, SIDEBAR_BASE_CLASS, SIDEBAR_CONTENT_BASE_CLASS,
+  SIDEBAR_FOOTER_BASE_CLASS, SIDEBAR_GROUP_BASE_CLASS, SIDEBAR_GROUP_LABEL_BASE_CLASS,
+  SIDEBAR_HEADER_BASE_CLASS, SIDEBAR_ITEM_BASE_CLASS, SIDEBAR_RAIL_BASE_CLASS,
+  SIDEBAR_TRIGGER_BASE_CLASS,
 };
 #[cfg(feature = "skeleton")]
 pub use skeleton::{skeleton_class, Skeleton, SKELETON_BASE_CLASS};
