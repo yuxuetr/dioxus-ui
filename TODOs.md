@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 40%
 - Current milestone: M20 Static Composition Gaps
-- Current task: M20.2 Implement Aspect Ratio, Kbd, and Typography
+- Current task: M20.3 Implement Breadcrumb and Empty
 
 ## M0 Documentation
 
@@ -481,7 +481,7 @@
   - Decide which components are pure styled wrappers versus small semantic composition parts.
   - Document Web/Desktop/Mobile, source-copy, accessibility, and dependency constraints before implementation.
 
-- TODO M20.2 Implement Aspect Ratio, Kbd, and Typography
+- DONE M20.2 Implement Aspect Ratio, Kbd, and Typography
   - Add low-risk styled parts for fixed-ratio media slots, keyboard hints, and prose text.
   - Keep ratio math deterministic and class tokens static.
   - Add CLI templates, registry entries, docs pages, and demo usage.
