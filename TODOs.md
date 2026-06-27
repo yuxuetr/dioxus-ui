@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
+- Overall: 100%
 - Current milestone: M21 Runtime Adapter Planning
-- Current task: M21.5 Complete runtime adapter planning docs
+- Current task: M22.1 Design focus and portal contract implementation
 
 ## M0 Documentation
 
@@ -522,7 +522,7 @@
   - Document Web/Desktop/Mobile risks and adapter test strategy.
   - Keep physics, virtualization, and backend-specific rendering out of the first adapter pass.
 
-- TODO M21.5 Complete runtime adapter planning docs
+- DONE M21.5 Complete runtime adapter planning docs
   - Update parity, accessibility, complex batch, roadmap, and component docs links.
   - Decide the next implementable milestone from the adapter plan.
   - Run documentation and quality checks before marking the batch complete.
