@@ -1,4 +1,4 @@
-use crate::{FocusReturn, FocusStrategy, PortalTarget};
+use crate::{FocusReturn, FocusStrategy, PortalTarget, ToastItem, ToastVariant};
 
 /// Result of a runtime focus command.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -271,6 +271,14 @@ impl TimerRuntime for TimerRuntimeUnsupported {
   }
 }
 
+pub const fn toast_timer_request(item: &ToastItem) -> TimerRuntimeRequest {
+  TimerRuntimeRequest::toast_dismiss(item.duration_ms)
+}
+
+pub const fn sonner_timer_request(item: &ToastItem) -> TimerRuntimeRequest {
+  TimerRuntimeRequest::sonner_dismiss(item.duration_ms)
+}
+
 /// Live-region announcement urgency.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum AnnouncementPriority {
@@ -369,6 +377,34 @@ impl LiveRegionRuntime for LiveRegionRuntimeUnsupported {
     } else {
       LiveRegionRuntimeResult::Unsupported
     }
+  }
+}
+
+pub fn toast_live_region_request(item: &ToastItem) -> LiveRegionRuntimeRequest {
+  feedback_live_region_request(item)
+}
+
+pub fn sonner_live_region_request(item: &ToastItem) -> LiveRegionRuntimeRequest {
+  feedback_live_region_request(item)
+}
+
+fn feedback_live_region_request(item: &ToastItem) -> LiveRegionRuntimeRequest {
+  let message = feedback_announcement_message(item);
+
+  match item.variant {
+    ToastVariant::Warning | ToastVariant::Error => LiveRegionRuntimeRequest::assertive(message),
+    ToastVariant::Default | ToastVariant::Success | ToastVariant::Info | ToastVariant::Loading => {
+      LiveRegionRuntimeRequest::polite(message)
+    }
+  }
+}
+
+fn feedback_announcement_message(item: &ToastItem) -> String {
+  match item.description.as_deref().map(str::trim) {
+    Some(description) if !description.is_empty() => {
+      format!("{} {}", item.title.trim(), description)
+    }
+    _ => item.title.trim().to_string(),
   }
 }
 
@@ -592,6 +628,59 @@ mod tests {
     let request = LiveRegionRuntimeRequest::polite(" ");
 
     assert_eq!(runtime.announce(&request), LiveRegionRuntimeResult::EmptyMessage);
+  }
+
+  #[test]
+  fn toast_timer_request_uses_toast_dismiss_reason() {
+    let item = crate::ToastItem::new("one", "Saved").with_duration_ms(3000);
+    let request = toast_timer_request(&item);
+
+    assert_eq!(request.delay_ms, 3000);
+    assert_eq!(request.reason, TimerReason::ToastDismiss);
+  }
+
+  #[test]
+  fn sonner_timer_request_uses_sonner_dismiss_reason() {
+    let item = crate::ToastItem::new("one", "Saved").with_duration_ms(4000);
+    let request = sonner_timer_request(&item);
+
+    assert_eq!(request.delay_ms, 4000);
+    assert_eq!(request.reason, TimerReason::SonnerDismiss);
+  }
+
+  #[test]
+  fn toast_live_region_request_maps_error_to_assertive() {
+    let item = crate::ToastItem::new("upload", "Upload failed")
+      .with_description("Try again")
+      .with_variant(crate::ToastVariant::Error);
+    let request = toast_live_region_request(&item);
+
+    assert_eq!(request.message, "Upload failed Try again");
+    assert_eq!(request.priority, AnnouncementPriority::Assertive);
+    assert_eq!(
+      request.duplicate_policy,
+      DuplicateAnnouncementPolicy::SuppressConsecutive
+    );
+  }
+
+  #[test]
+  fn sonner_live_region_request_maps_success_to_polite() {
+    let item = crate::ToastItem::new("saved", "Saved")
+      .with_description("Settings updated")
+      .with_variant(crate::ToastVariant::Success);
+    let request = sonner_live_region_request(&item);
+
+    assert_eq!(request.message, "Saved Settings updated");
+    assert_eq!(request.priority, AnnouncementPriority::Polite);
+  }
+
+  #[test]
+  fn feedback_live_region_request_trims_empty_description() {
+    let item = crate::ToastItem::new("saved", " Saved ").with_description("  ");
+    let request = toast_live_region_request(&item);
+
+    assert_eq!(request.message, "Saved");
+    assert_eq!(request.priority, AnnouncementPriority::Polite);
   }
 
   #[cfg(feature = "dialog")]

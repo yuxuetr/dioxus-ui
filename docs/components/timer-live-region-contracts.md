@@ -161,6 +161,11 @@ let announcement = LiveRegionRuntimeRequest::polite(format!(
 Toast and Sonner pass request metadata to runtimes, but controlled queue updates
 remain app-owned.
 
+M23 includes pure helper mappings for Toast and Sonner timer requests and
+live-region requests. The helpers derive timer duration from `ToastItem`, use
+separate timer reasons for Toast and Sonner, and map warning/error variants to
+assertive announcements while keeping all other variants polite.
+
 ## Source-Copy Policy
 
 M23 should not change default generated component output.
