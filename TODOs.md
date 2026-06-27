@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 60%
 - Current milestone: M22 Focus And Portal Adapter Contracts
-- Current task: M22.3 Implement portal adapter contract types
+- Current task: M22.4 Add Dialog and Popover adapter contract examples
 
 ## M0 Documentation
 
@@ -539,7 +539,7 @@
   - Add tests for focus strategy mapping, unsupported fallback, and modal versus non-modal policy.
   - Avoid DOM or WebView commands in the first contract layer.
 
-- TODO M22.3 Implement portal adapter contract types
+- DONE M22.3 Implement portal adapter contract types
   - Add narrow portal runtime traits or structs with explicit target availability.
   - Add tests for inline, body, selector/named target, and unsupported fallback behavior.
   - Keep app shell z-index and target provisioning app-owned.
