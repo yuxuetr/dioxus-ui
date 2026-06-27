@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
+- Overall: 100%
 - Current milestone: M23 Timer And Live Region Adapter Contracts
-- Current task: M23.5 Complete timer and live-region adapter contract documentation
+- Current task: M24.1 Design measurement, pointer, and gesture contract implementation
 
 ## M0 Documentation
 
@@ -574,7 +574,7 @@
   - Show how Toast and Sonner would request timer scheduling and live-region announcements.
   - Keep examples controlled and avoid renderer-specific timer or DOM commands until verified.
 
-- TODO M23.5 Complete timer and live-region adapter contract documentation
+- DONE M23.5 Complete timer and live-region adapter contract documentation
   - Update runtime adapter docs, accessibility checklist, and complex batch plan.
   - Run workspace tests and documentation checks before marking the batch complete.
 
