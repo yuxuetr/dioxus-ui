@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M19 Chart Follow-through
-- Current task: M19 complete
+- Overall: 0%
+- Current milestone: M20 Static Composition Gaps
+- Current task: M20.1 Plan static composition APIs
 
 ## M0 Documentation
 
@@ -471,6 +471,32 @@
   - Update chart strategy with backend evaluation criteria and dependency policy.
 
 - DONE M19.5 Complete chart follow-through documentation
+  - Update parity, accessibility, complex batch, and component catalog docs.
+  - Run release quality gates before marking the batch complete.
+
+## M20 Static Composition Gaps
+
+- TODO M20.1 Plan static composition APIs
+  - Define Aspect Ratio, Kbd, Typography, Breadcrumb, Empty, Field, and Item API boundaries.
+  - Decide which components are pure styled wrappers versus small semantic composition parts.
+  - Document Web/Desktop/Mobile, source-copy, accessibility, and dependency constraints before implementation.
+
+- TODO M20.2 Implement Aspect Ratio, Kbd, and Typography
+  - Add low-risk styled parts for fixed-ratio media slots, keyboard hints, and prose text.
+  - Keep ratio math deterministic and class tokens static.
+  - Add CLI templates, registry entries, docs pages, and demo usage.
+
+- TODO M20.3 Implement Breadcrumb and Empty
+  - Add semantic navigation breadcrumb parts and empty-state composition parts.
+  - Keep routing, icons, and actions app-owned.
+  - Add CLI templates, registry entries, docs pages, and demo usage.
+
+- TODO M20.4 Implement Field and Item
+  - Add form field composition parts and generic list/item composition parts.
+  - Keep validation state, descriptions, controls, and data rendering app-owned.
+  - Add CLI templates, registry entries, docs pages, and demo usage.
+
+- TODO M20.5 Complete static composition documentation and examples
   - Update parity, accessibility, complex batch, and component catalog docs.
   - Run release quality gates before marking the batch complete.
 
