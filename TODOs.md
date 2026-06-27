@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 20%
 - Current milestone: M18 Feedback Notifications
-- Current task: M18.1 Plan feedback notification APIs
+- Current task: M18.2 Implement feedback state primitives
 
 ## M0 Documentation
 
@@ -424,7 +424,7 @@
 
 ## M18 Feedback Notifications
 
-- TODO M18.1 Plan feedback notification APIs
+- DONE M18.1 Plan feedback notification APIs
   - Define Toast and Sonner API boundaries.
   - Decide queue, placement, dismiss, action, live-region, and timing ownership.
   - Document Web/Desktop/Mobile, source-copy, accessibility, and dependency constraints before implementation.
