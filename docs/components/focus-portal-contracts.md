@@ -124,6 +124,24 @@ pub trait PortalRuntime {
 The implementation may use simpler helper functions for M22.2 and M22.3, but it
 must preserve explicit fallback results.
 
+## Dialog And Popover Mapping
+
+The first examples should be pure mappings from existing primitive config to
+runtime requests:
+
+```rust
+let focus = FocusRuntimeRequest::from_policy(
+  dialog.focus_strategy,
+  dialog.focus_return,
+  true,
+);
+let portal = PortalRuntimeRequest::from_policy(dialog.portal_target, true);
+```
+
+Dialog and Alert Dialog pass `modal: true`; Popover passes `modal: false`.
+Runtime implementations can then decide whether they support the requested
+focus or portal command.
+
 ## Source-Copy Policy
 
 M22 should not change default generated component output.

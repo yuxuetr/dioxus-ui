@@ -41,6 +41,14 @@ impl FocusRuntimeRequest {
     Self::non_modal(FocusStrategy::None, FocusReturn::None)
   }
 
+  pub const fn from_policy(
+    strategy: FocusStrategy,
+    return_policy: FocusReturn,
+    modal: bool,
+  ) -> Self {
+    Self::new(strategy, return_policy, modal)
+  }
+
   pub const fn should_focus_initial(self) -> bool {
     !matches!(self.strategy, FocusStrategy::None)
   }
@@ -140,6 +148,10 @@ impl PortalRuntimeRequest {
 
   pub fn selector(selector: impl Into<String>, modal: bool) -> Self {
     Self::new(PortalTarget::Selector(selector.into()), modal)
+  }
+
+  pub fn from_policy(target: PortalTarget, modal: bool) -> Self {
+    Self::new(target, modal)
   }
 
   pub fn should_mount(&self) -> bool {
@@ -270,5 +282,46 @@ mod tests {
       runtime.mount_target(&PortalRuntimeRequest::selector("#overlays", false)),
       PortalMountResult::Unsupported
     );
+  }
+
+  #[cfg(feature = "dialog")]
+  #[test]
+  fn dialog_config_maps_to_modal_runtime_requests() {
+    let mut config = crate::DialogPrimitiveConfig::controlled(true);
+    config.portal_target = PortalTarget::Body;
+
+    let focus_request = FocusRuntimeRequest::from_policy(
+      config.focus_strategy,
+      config.focus_return,
+      true,
+    );
+    let portal_request = PortalRuntimeRequest::from_policy(config.portal_target, true);
+
+    assert!(focus_request.should_focus_initial());
+    assert!(focus_request.should_restore_focus());
+    assert!(focus_request.should_trap_focus());
+    assert_eq!(portal_request.target, PortalTarget::Body);
+    assert!(portal_request.modal);
+    assert!(portal_request.should_mount());
+  }
+
+  #[cfg(feature = "popover")]
+  #[test]
+  fn popover_config_maps_to_non_modal_runtime_requests() {
+    let config = crate::PopoverPrimitiveConfig::controlled(true);
+
+    let focus_request = FocusRuntimeRequest::from_policy(
+      config.focus_strategy,
+      config.focus_return,
+      false,
+    );
+    let portal_request = PortalRuntimeRequest::from_policy(config.portal_target, false);
+
+    assert!(!focus_request.should_focus_initial());
+    assert!(focus_request.should_restore_focus());
+    assert!(!focus_request.should_trap_focus());
+    assert_eq!(portal_request.target, PortalTarget::Inline);
+    assert!(!portal_request.modal);
+    assert!(!portal_request.should_mount());
   }
 }
