@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M20 Static Composition Gaps
-- Current task: None
+- Overall: 0%
+- Current milestone: M21 Runtime Adapter Planning
+- Current task: M21.1 Plan runtime adapter boundaries
 
 ## M0 Documentation
 
@@ -499,6 +499,33 @@
 - DONE M20.5 Complete static composition documentation and examples
   - Update parity, accessibility, complex batch, and component catalog docs.
   - Run release quality gates before marking the batch complete.
+
+## M21 Runtime Adapter Planning
+
+- TODO M21.1 Plan runtime adapter boundaries
+  - Define which runtime behavior belongs in adapters versus primitives, styled components, and consuming apps.
+  - Cover focus commands, portal mounting, timer scheduling, live-region announcements, pointer gestures, and DOM measurement.
+  - Document Web/Desktop/Mobile constraints before implementation.
+
+- TODO M21.2 Plan focus and portal adapters
+  - Define focus trap, focus return, initial focus, outside focus, and portal target contracts.
+  - Map Dialog, Alert Dialog, Sheet, Drawer, Popover, Tooltip, Select, Combobox, and menu components to adapter needs.
+  - Identify what can be pure state, what needs DOM/WebView commands, and what remains app-owned.
+
+- TODO M21.3 Plan timer and live-region adapters
+  - Define timer scheduling and dismissal ownership for Toast and Sonner.
+  - Define live-region announcement wording, queueing, urgency, and duplicate suppression boundaries.
+  - Keep async promise orchestration and persisted history app-owned unless explicitly justified.
+
+- TODO M21.4 Plan measurement, pointer, and gesture adapters
+  - Define anchor measurement, viewport collision updates, resizable pointer dragging, carousel gestures, and scroll restoration boundaries.
+  - Document Web/Desktop/Mobile risks and adapter test strategy.
+  - Keep physics, virtualization, and backend-specific rendering out of the first adapter pass.
+
+- TODO M21.5 Complete runtime adapter planning docs
+  - Update parity, accessibility, complex batch, roadmap, and component docs links.
+  - Decide the next implementable milestone from the adapter plan.
+  - Run documentation and quality checks before marking the batch complete.
 
 ## Status Rules
 
