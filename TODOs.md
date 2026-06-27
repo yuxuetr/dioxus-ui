@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
+- Overall: 100%
 - Current milestone: M20 Static Composition Gaps
-- Current task: M20.5 Complete static composition documentation and examples
+- Current task: None
 
 ## M0 Documentation
 
@@ -496,7 +496,7 @@
   - Keep validation state, descriptions, controls, and data rendering app-owned.
   - Add CLI templates, registry entries, docs pages, and demo usage.
 
-- TODO M20.5 Complete static composition documentation and examples
+- DONE M20.5 Complete static composition documentation and examples
   - Update parity, accessibility, complex batch, and component catalog docs.
   - Run release quality gates before marking the batch complete.
 
