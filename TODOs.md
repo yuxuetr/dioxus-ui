@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 80%
 - Current milestone: M19 Chart Follow-through
-- Current task: M19.4 Document chart recipes without public component
+- Current task: M19.5 Complete chart follow-through documentation
 
 ## M0 Documentation
 
@@ -465,7 +465,7 @@
   - Keep localization, formatting, and announcement timing app-owned.
   - Add unit tests for summary output, missing values, color-independent labels, and fallback rows.
 
-- TODO M19.4 Document chart recipes without public component
+- DONE M19.4 Document chart recipes without public component
   - Add docs-only recipes for line, bar, and area chart composition using app-owned rendering.
   - Document why `dxui add chart` and a `chart` feature remain deferred.
   - Update chart strategy with backend evaluation criteria and dependency policy.
