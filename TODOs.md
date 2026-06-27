@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M22 Focus And Portal Adapter Contracts
-- Current task: M23.1 Design timer and live-region contract implementation
+- Overall: 20%
+- Current milestone: M23 Timer And Live Region Adapter Contracts
+- Current task: M23.2 Implement timer adapter contract types
 
 ## M0 Documentation
 
@@ -555,7 +555,7 @@
 
 ## M23 Timer And Live Region Adapter Contracts
 
-- TODO M23.1 Design timer and live-region contract implementation
+- DONE M23.1 Design timer and live-region contract implementation
   - Define the exact module location, feature flags, public exports, and source-copy policy for feedback runtime contracts.
   - Decide whether contracts extend `dioxus-ui-primitives/runtime` or use separate modules.
   - Document Web/Desktop/Mobile fallback behavior before code changes.
