@@ -4,7 +4,8 @@ Chart is deferred as a public component until the rendering backend, data API,
 and accessibility contract are explicit. M16 records the strategy instead of
 shipping a placeholder chart surface.
 
-Status: Strategy documented in M16; component deferred.
+Status: Strategy documented in M16; M19 adds primitive helpers and docs-only
+recipes while keeping the component deferred.
 
 ## Decision
 
@@ -31,6 +32,9 @@ The project should evaluate chart backends before committing to an API:
 
 M16 chooses the deferred docs-only recipe. A later milestone can introduce an
 adapter once the target backend and component set are clear.
+
+M19 follows through by adding shared data and accessibility primitives plus
+[chart recipes](chart-recipes.md). Rendering remains app-owned.
 
 ## Future Minimum API
 
@@ -73,12 +77,19 @@ obvious.
 | Desktop | Verify WebView rendering, measurement, and pointer behavior before stability. |
 | Mobile | Prefer responsive summaries and avoid dense interactive-only charts. |
 
-## Future Milestone Seed
+## M19 Follow-through
 
-A future chart milestone should start with:
+M19 adds:
 
-1. backend evaluation
-2. accessible data model design
-3. one narrow chart type
-4. generated source dependency review
-5. visual and keyboard verification in Web and Desktop examples
+- pure chart data primitives
+- pure scale and color token helpers
+- accessible summary and fallback-row helpers
+- docs-only line, bar, and area recipes
+
+Still deferred:
+
+- public Chart component
+- registry entry
+- crate feature
+- rendering backend
+- visual and keyboard verification for a specific backend
