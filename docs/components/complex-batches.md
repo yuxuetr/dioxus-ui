@@ -221,7 +221,7 @@ autoplay, and live announcements remain app-owned or deferred adapter work.
 
 ## Batch 8: Feedback Notifications
 
-Status: Planned in M18.
+Status: Implemented in M18.
 
 Components:
 
@@ -246,6 +246,11 @@ Feedback notifications combine transient state, urgency, announcement timing,
 actions, and dismissal behavior. They should start with deterministic queue
 helpers and controlled styled parts before adding timer, portal, or async
 runtime adapters.
+
+M18 shipped pure feedback queue primitives and controlled composition parts for
+Toast and Sonner. Runtime timers, portal mounting, promise orchestration,
+live-region announcement wording, escape-key behavior, and focus policy remain
+app-owned or deferred adapter work.
 
 ## Recommended Next Milestones
 

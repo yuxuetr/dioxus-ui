@@ -48,11 +48,11 @@ be ported one-for-one.
 
 ## Next Milestone Seeds
 
-After M17, the safest remaining component order is:
+After M18, the safest remaining component order is:
 
-1. Toast and Sonner feedback primitives
-2. Chart strategy follow-through or runtime adapters
-3. Static composition gaps such as Aspect Ratio, Breadcrumb, Empty, Field, Item, Kbd, and Typography
+1. Chart strategy follow-through or runtime adapters
+2. Static composition gaps such as Aspect Ratio, Breadcrumb, Empty, Field, Item, Kbd, and Typography
+3. Runtime adapters for timers, portals, focus, gestures, and live announcements
 
 See [Complex Component Batches](complex-batches.md) for the expanded milestone
 plan.

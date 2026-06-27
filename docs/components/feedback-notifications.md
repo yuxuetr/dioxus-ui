@@ -1,12 +1,12 @@
-# Feedback Notifications API Plan
+# Feedback Notifications
 
-This document defines the M18 Toast and Sonner APIs before implementation. The
+This document defines the M18 Toast and Sonner APIs and completion status. The
 goal is to provide controlled feedback notification composition parts backed by
 pure queue state primitives, without taking ownership of timers, portal
 mounting, promise orchestration, DOM focus, or live-region announcement runtime
 too early.
 
-Status: Planned in M18.
+Status: Implemented in M18.
 
 ## Scope
 
@@ -21,7 +21,7 @@ remain self-contained and must not import internal crates.
 
 ## Shared Primitive Strategy
 
-M18 should add pure feedback state helpers:
+M18 added pure feedback state helpers:
 
 ```rust
 ToastItem { id, title, description, variant, duration_ms, dismissible }
@@ -31,7 +31,7 @@ ToastVariant::{Default, Success, Info, Warning, Error, Loading}
 ToastDismissReason::{Action, Close, Timeout, Programmatic}
 ```
 
-Planned helpers:
+Shipped helpers:
 
 ```rust
 toast_placement_attribute(placement) -> &'static str
@@ -58,7 +58,7 @@ Toast provides controlled notification composition parts. It does not own queue
 lifetime, timers, portal mounting, or live announcements in the first
 implementation.
 
-Planned crate API:
+Shipped crate API:
 
 ```rust
 ToastViewport { placement, class, children }
@@ -84,11 +84,13 @@ Sonner provides an opinionated toast list composition surface for common
 feedback variants. It should remain a styled layer over the same primitive
 queue helpers rather than a separate runtime.
 
-Planned crate API:
+Shipped crate API:
 
 ```rust
 SonnerViewport { placement, class, children }
 SonnerToast { variant, class, children }
+SonnerIcon { variant, class }
+SonnerContent { class, children }
 SonnerTitle { class, children }
 SonnerDescription { class, children }
 SonnerAction { disabled, class, children }
@@ -134,7 +136,7 @@ Toast composition parts before the more opinionated Sonner presentation.
 
 ## Quality Gates
 
-Each M18 component should include:
+Each M18 component includes:
 
 - primitive unit tests for queue and state helpers
 - crate-mode class composition tests
