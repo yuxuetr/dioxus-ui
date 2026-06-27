@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M21 Runtime Adapter Planning
-- Current task: M22.1 Design focus and portal contract implementation
+- Overall: 20%
+- Current milestone: M22 Focus And Portal Adapter Contracts
+- Current task: M22.2 Implement focus adapter contract types
 
 ## M0 Documentation
 
@@ -529,7 +529,7 @@
 
 ## M22 Focus And Portal Adapter Contracts
 
-- TODO M22.1 Design focus and portal contract implementation
+- DONE M22.1 Design focus and portal contract implementation
   - Define the exact module location, feature flags, public exports, and source-copy policy for adapter contracts.
   - Decide whether contracts live in `dioxus-ui-primitives`, `dioxus-ui-core`, or a new runtime module.
   - Document Web/Desktop/Mobile fallback behavior before code changes.
