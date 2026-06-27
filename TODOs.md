@@ -578,6 +578,32 @@
   - Update runtime adapter docs, accessibility checklist, and complex batch plan.
   - Run workspace tests and documentation checks before marking the batch complete.
 
+## M24 Measurement Pointer Gesture Adapter Contracts
+
+- TODO M24.1 Design measurement, pointer, and gesture contract implementation
+  - Define the exact module location, feature flags, public exports, and source-copy policy for measurement runtime contracts.
+  - Decide whether contracts extend `dioxus-ui-primitives/runtime` or use separate modules.
+  - Document Web/Desktop/Mobile fallback behavior before code changes.
+
+- TODO M24.2 Implement measurement adapter contract types
+  - Add rectangle, measurement request/result, and measurement runtime types with explicit unsupported results.
+  - Add tests for node measurement, viewport measurement, missing target, and unsupported fallback behavior.
+  - Avoid DOM or WebView measurement commands in the contract layer.
+
+- TODO M24.3 Implement pointer adapter contract types
+  - Add pointer phase, delta, request/result, and pointer runtime types with explicit unsupported results.
+  - Add tests for start, move, end, cancel, and unsupported fallback behavior.
+  - Keep Resizable panel mutation app-owned.
+
+- TODO M24.4 Implement gesture adapter contract types and examples
+  - Add gesture axis, state, outcome, and request/result types with explicit unsupported results.
+  - Show how Carousel would request next, previous, or cancel from gesture state.
+  - Keep physics, snapping, autoplay, and native-scroll arbitration app-owned.
+
+- TODO M24.5 Complete measurement pointer gesture adapter contract documentation
+  - Update runtime adapter docs, accessibility checklist, and complex batch plan.
+  - Run workspace tests and documentation checks before marking the batch complete.
+
 ## Status Rules
 
 - Change `TODO` to `DONE` only after implementation, validation, and commit.

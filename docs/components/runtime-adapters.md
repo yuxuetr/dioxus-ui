@@ -24,6 +24,8 @@ when no adapter is installed.
 
 M22 implemented the first primitive-layer contract slice for focus and portal
 requests behind the `dioxus-ui-primitives/runtime` feature.
+M23 extends the same feature with timer and live-region contracts for feedback
+runtime integration.
 
 ## Ownership Model
 

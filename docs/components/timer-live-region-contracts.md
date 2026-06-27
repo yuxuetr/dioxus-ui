@@ -4,7 +4,7 @@ This document defines the M23.1 implementation plan for timer and live-region
 adapter contracts. It turns the M21 timer/live-region plan into a narrow
 primitive-layer code surface before any renderer-specific runtime is added.
 
-Status: Planned in M23.
+Status: Implemented in M23.
 
 ## Decision
 
@@ -203,6 +203,11 @@ Fallback behavior must be testable without a renderer.
 2. Extend `runtime` contracts with live-region request/result/trait types.
 3. Add Toast and Sonner mapping examples in pure tests.
 4. Update runtime planning docs after the contract surface is proven.
+
+M23 shipped timer and live-region request, result, trait, unsupported-runtime,
+and Toast/Sonner mapping helpers behind the existing
+`dioxus-ui-primitives/runtime` feature. Renderer-specific timers and DOM live
+regions remain future work.
 
 ## Quality Gates
 

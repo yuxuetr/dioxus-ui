@@ -119,11 +119,15 @@ Runtime adapter planning is tracked in:
 - [Focus And Portal Adapter Plan](focus-portal-adapters.md)
 - [Focus And Portal Contract Implementation Plan](focus-portal-contracts.md)
 - [Timer And Live Region Adapter Plan](timer-live-region-adapters.md)
+- [Timer And Live Region Contract Implementation Plan](timer-live-region-contracts.md)
 - [Measurement, Pointer, And Gesture Adapter Plan](measurement-pointer-gesture-adapters.md)
 
 M22 implements focus and portal contract types only. Components still require
 renderer-level verification before planned focus trap, focus return, and portal
 contracts can be marked stable.
+M23 implements timer and live-region contract types only. Toast and Sonner still
+require renderer-level timer and live-region verification before announcement
+runtime behavior can be marked stable.
 
 Before complex interaction components are marked stable:
 
