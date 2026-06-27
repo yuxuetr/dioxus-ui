@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 20%
 - Current milestone: M21 Runtime Adapter Planning
-- Current task: M21.1 Plan runtime adapter boundaries
+- Current task: M21.2 Plan focus and portal adapters
 
 ## M0 Documentation
 
@@ -502,7 +502,7 @@
 
 ## M21 Runtime Adapter Planning
 
-- TODO M21.1 Plan runtime adapter boundaries
+- DONE M21.1 Plan runtime adapter boundaries
   - Define which runtime behavior belongs in adapters versus primitives, styled components, and consuming apps.
   - Cover focus commands, portal mounting, timer scheduling, live-region announcements, pointer gestures, and DOM measurement.
   - Document Web/Desktop/Mobile constraints before implementation.
