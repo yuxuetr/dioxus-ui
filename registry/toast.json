@@ -1,0 +1,14 @@
+{
+  "name": "toast",
+  "description": "Controlled toast notification parts and queue helpers.",
+  "files": [
+    {
+      "source": "templates/toast.rs",
+      "target": "src/components/ui/toast.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

@@ -33,7 +33,8 @@ use dioxus_ui::{
   spinner_class, switch_thumb_class, table_class, table_row_class, tabs_content_class,
   tabs_list_class, tabs_trigger_class, textarea_class, toggle_class, toggle_group_class,
   toggle_group_item_class, toggle_group_move_value,
-  toggle_group_single_selection, tooltip_content_class,
+  toggle_group_single_selection, toast_action_class, toast_close_class, toast_is_expired,
+  toast_queue_push, toast_root_class, toast_viewport_class, tooltip_content_class,
   AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant, ButtonSize,
   ButtonVariant, CalendarDate, CalendarKeyMove, CalendarMonth, CalendarRangeState,
   CalendarWeekday, CarouselOrientation, CarouselState, ComboboxPrimitiveConfig,
@@ -43,7 +44,8 @@ use dioxus_ui::{
   NavigationMenuPrimitiveConfig, NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
   LayoutOrientation, ResizablePanelState, ScrollAreaOrientation, SelectPrimitiveConfig,
   SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SidebarSide, SidebarState, SpinnerSize,
-  ToggleSize, ToggleVariant, TooltipPrimitiveConfig, UiDensity,
+  ToastItem, ToastPlacement, ToastQueue, ToastVariant, ToggleSize, ToggleVariant,
+  TooltipPrimitiveConfig, UiDensity,
 };
 
 fn main() {
@@ -193,6 +195,24 @@ fn main() {
   println!(
     "dioxus-ui desktop demo progress percent: {}",
     progress_percent(3.0, 4.0)
+  );
+  println!(
+    "dioxus-ui desktop demo toast viewport class: {}",
+    toast_viewport_class(ToastPlacement::TopRight, "")
+  );
+  println!(
+    "dioxus-ui desktop demo toast root class: {}",
+    toast_root_class(ToastVariant::Error, "")
+  );
+  println!(
+    "dioxus-ui desktop demo toast action/close class: {}/{}",
+    toast_action_class(true, ""),
+    toast_close_class(false, "")
+  );
+  println!(
+    "dioxus-ui desktop demo toast queue/expired: {}/{}",
+    toast_queue_push(ToastQueue::new(1), ToastItem::new("failed", "Failed")).items.len(),
+    toast_is_expired(1000, 5000)
   );
   println!(
     "dioxus-ui desktop demo slider class: {}",

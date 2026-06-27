@@ -423,6 +423,9 @@ pub mod toggle;
 #[cfg(feature = "toggle-group")]
 pub mod toggle_group;
 
+#[cfg(feature = "toast")]
+pub mod toast;
+
 #[cfg(feature = "tooltip")]
 pub mod tooltip;
 
@@ -450,6 +453,17 @@ pub use toggle_group::{
   toggle_group_item_tabindex, toggle_group_move_value, toggle_group_multiple_selection,
   toggle_group_orientation_attribute, toggle_group_single_selection, ToggleGroup,
   ToggleGroupItem, ToggleGroupType, TOGGLE_GROUP_BASE_CLASS, TOGGLE_GROUP_ITEM_BASE_CLASS,
+};
+#[cfg(feature = "toast")]
+pub use toast::{
+  toast_action_class, toast_close_class, toast_description_class,
+  toast_dismiss_reason_attribute, toast_is_expired, toast_live_attribute,
+  toast_placement_attribute, toast_queue_dismiss, toast_queue_limit, toast_queue_push,
+  toast_root_class, toast_title_class, toast_variant_attribute, toast_viewport_class,
+  ToastAction, ToastClose, ToastDescription, ToastDismissReason, ToastItem, ToastPlacement,
+  ToastQueue, ToastRoot, ToastTitle, ToastVariant, ToastViewport, TOAST_ACTION_BASE_CLASS,
+  TOAST_CLOSE_BASE_CLASS, TOAST_DESCRIPTION_BASE_CLASS, TOAST_ROOT_BASE_CLASS,
+  TOAST_TITLE_BASE_CLASS, TOAST_VIEWPORT_BASE_CLASS,
 };
 #[cfg(feature = "tooltip")]
 pub use tooltip::{
