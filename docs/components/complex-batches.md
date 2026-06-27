@@ -285,6 +285,37 @@ summary helpers, fallback-row helpers, and docs-only recipes for line, bar, and
 area charts. A public Chart component, registry entry, crate feature, rendering
 backend, tooltip runtime, and chart animation runtime remain deferred.
 
+## Batch 10: Static Composition Gaps
+
+Status: Planned in M20.
+
+Components:
+
+- Aspect Ratio
+- Kbd
+- Typography
+- Breadcrumb
+- Empty
+- Field
+- Item
+
+Implementation specification:
+
+- [Static Composition API Plan](static-composition.md)
+
+Dependencies:
+
+- class composition helpers
+- semantic HTML mapping
+- source-copy template policy
+- accessibility checklist updates
+
+Rationale:
+
+These components are mostly styled wrappers and semantic composition parts.
+They close visible catalog gaps without requiring runtime adapters, routing,
+validation engines, or rendering backends.
+
 ## Recommended Next Milestones
 
 ```text

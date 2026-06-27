@@ -23,6 +23,8 @@ For the layout and media milestone, see the
 [layout shells and media API plan](layout-media.md).
 For the feedback notification milestone, see the
 [feedback notifications API plan](feedback-notifications.md).
+For the static composition milestone, see the
+[static composition API plan](static-composition.md).
 
 For accessibility expectations, see the
 [accessibility contract checklist](accessibility.md).
