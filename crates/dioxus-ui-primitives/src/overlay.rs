@@ -1,5 +1,5 @@
 /// Strategy for focusing content when an overlay opens.
-#[derive(Clone, Debug, Default, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum FocusStrategy {
   #[default]
   FirstFocusable,
@@ -8,7 +8,7 @@ pub enum FocusStrategy {
 }
 
 /// Strategy for returning focus when an overlay closes.
-#[derive(Clone, Debug, Default, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum FocusReturn {
   #[default]
   Trigger,

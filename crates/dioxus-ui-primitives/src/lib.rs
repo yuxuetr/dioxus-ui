@@ -16,6 +16,8 @@ pub mod placement;
 #[cfg(feature = "popover")]
 pub mod popover;
 pub mod roving_focus;
+#[cfg(feature = "runtime")]
+pub mod runtime;
 #[cfg(feature = "select")]
 pub mod select;
 pub mod slider;
@@ -64,6 +66,10 @@ pub use placement::{
   OverlayPlacementInput, OverlayRect, OverlaySize,
 };
 pub use roving_focus::{FocusMove, NavigationOrientation, RovingFocusItem, RovingFocusState};
+#[cfg(feature = "runtime")]
+pub use runtime::{
+  FocusCommandResult, FocusRuntime, FocusRuntimeRequest, FocusRuntimeUnsupported,
+};
 pub use slider::{
   slider_clamp, slider_percent, slider_snap, SliderAriaAttributes, SliderKeyMove, SliderState,
 };
