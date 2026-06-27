@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
+- Overall: 100%
 - Current milestone: M22 Focus And Portal Adapter Contracts
-- Current task: M22.5 Complete focus and portal adapter contract documentation
+- Current task: M23.1 Design timer and live-region contract implementation
 
 ## M0 Documentation
 
@@ -549,7 +549,7 @@
   - Show how Popover would request non-modal portal behavior.
   - Keep examples controlled and avoid renderer-specific commands until verified.
 
-- TODO M22.5 Complete focus and portal adapter contract documentation
+- DONE M22.5 Complete focus and portal adapter contract documentation
   - Update runtime adapter docs, accessibility checklist, and complex batch plan.
   - Run workspace tests and documentation checks before marking the batch complete.
 
