@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 40%
 - Current milestone: M22 Focus And Portal Adapter Contracts
-- Current task: M22.2 Implement focus adapter contract types
+- Current task: M22.3 Implement portal adapter contract types
 
 ## M0 Documentation
 
@@ -534,7 +534,7 @@
   - Decide whether contracts live in `dioxus-ui-primitives`, `dioxus-ui-core`, or a new runtime module.
   - Document Web/Desktop/Mobile fallback behavior before code changes.
 
-- TODO M22.2 Implement focus adapter contract types
+- DONE M22.2 Implement focus adapter contract types
   - Add narrow focus runtime traits or structs with explicit unsupported results.
   - Add tests for focus strategy mapping, unsupported fallback, and modal versus non-modal policy.
   - Avoid DOM or WebView commands in the first contract layer.
