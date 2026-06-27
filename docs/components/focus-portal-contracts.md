@@ -4,7 +4,7 @@ This document defines the M22.1 implementation plan for focus and portal
 adapter contracts. It turns the M21 planning documents into a narrow code
 surface before any renderer-specific runtime is added.
 
-Status: Planned in M22.
+Status: Implemented in M22.
 
 ## Decision
 
@@ -180,6 +180,10 @@ Fallback behavior must be testable without a renderer.
 3. Implement portal contract result/request types and tests.
 4. Add Dialog and Popover contract examples in docs or pure tests.
 5. Update runtime planning docs after the contract surface is proven.
+
+M22 shipped the primitive-layer `runtime` feature with focus and portal request,
+result, trait, and unsupported-runtime types. Dialog and Popover mappings are
+covered by pure tests without renderer-specific commands.
 
 ## Quality Gates
 

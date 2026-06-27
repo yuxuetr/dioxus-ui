@@ -117,8 +117,13 @@ Runtime adapter planning is tracked in:
 
 - [Runtime Adapter Plan](runtime-adapters.md)
 - [Focus And Portal Adapter Plan](focus-portal-adapters.md)
+- [Focus And Portal Contract Implementation Plan](focus-portal-contracts.md)
 - [Timer And Live Region Adapter Plan](timer-live-region-adapters.md)
 - [Measurement, Pointer, And Gesture Adapter Plan](measurement-pointer-gesture-adapters.md)
+
+M22 implements focus and portal contract types only. Components still require
+renderer-level verification before planned focus trap, focus return, and portal
+contracts can be marked stable.
 
 Before complex interaction components are marked stable:
 

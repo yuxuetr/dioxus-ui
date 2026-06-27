@@ -354,17 +354,18 @@ M10-M20 intentionally left runtime commands out of primitives and styled
 components. M21 defines the adapter boundaries needed to add richer behavior
 without making source-copy components renderer-specific by default.
 
-M21 recommends implementing focus and portal adapter contracts first, with
-Dialog or Alert Dialog as the first modal verification slice and Popover as the
-first non-modal verification slice.
+M21 recommended implementing focus and portal adapter contracts first. M22
+shipped the primitive-layer contract surface and pure Dialog/Popover mapping
+tests; renderer-specific Web/Desktop runtime commands remain future work.
 
 ## Recommended Next Milestones
 
 ```text
 M10-M20 completed component and primitive batches
 M21 completed runtime adapter planning
-Next: focus and portal adapter contracts with Dialog/Popover verification
-Next: timer/live-region and measurement/pointer/gesture adapter contracts
+M22 completed focus and portal adapter contracts with Dialog/Popover mapping tests
+Next: timer/live-region adapter contracts for Toast and Sonner
+Next: measurement/pointer/gesture adapter contracts
 Next: chart rendering backend evaluation after adapter requirements are concrete
 ```
 

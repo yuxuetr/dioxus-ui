@@ -45,15 +45,15 @@ be ported one-for-one.
 | Chart component | M19 implements chart data and accessibility primitives plus recipes; a component remains deferred until backend, measurement, interaction, and fallback-table contracts are explicit. |
 | Data Table runtime adapters | Data Table state helpers and composition parts are implemented; filtering, async loading, and virtualization remain app-owned. |
 | Calendar / Date Picker runtime adapters | Date math primitives are implemented; parsing, localization, and focus adapters remain deferred. |
-| Runtime adapters | M21 documents adapter boundaries; concrete adapter contracts and renderer implementations are the next step. |
+| Runtime adapters | M21 documents adapter boundaries; M22 implements focus and portal contract types. Renderer implementations remain deferred. |
 
 ## Next Milestone Seeds
 
 After M21, the safest remaining implementation order is:
 
-1. Focus and portal adapter contracts with Dialog/Alert Dialog and Popover verification
-2. Timer/live-region adapter contracts for Toast and Sonner
-3. Measurement/pointer/gesture adapter contracts for Popover, Resizable, and Carousel
+1. Timer/live-region adapter contracts for Toast and Sonner
+2. Measurement/pointer/gesture adapter contracts for Popover, Resizable, and Carousel
+3. Renderer-backed focus and portal implementations after Web/Desktop verification
 4. Chart rendering backend evaluation after adapter requirements are concrete
 
 See [Complex Component Batches](complex-batches.md) for the expanded milestone

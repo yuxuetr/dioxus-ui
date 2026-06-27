@@ -553,6 +553,31 @@
   - Update runtime adapter docs, accessibility checklist, and complex batch plan.
   - Run workspace tests and documentation checks before marking the batch complete.
 
+## M23 Timer And Live Region Adapter Contracts
+
+- TODO M23.1 Design timer and live-region contract implementation
+  - Define the exact module location, feature flags, public exports, and source-copy policy for feedback runtime contracts.
+  - Decide whether contracts extend `dioxus-ui-primitives/runtime` or use separate modules.
+  - Document Web/Desktop/Mobile fallback behavior before code changes.
+
+- TODO M23.2 Implement timer adapter contract types
+  - Add narrow timer runtime request/result types with explicit unsupported results.
+  - Add tests for schedule, cancel, missing timer, and unsupported fallback behavior.
+  - Avoid owning Toast or Sonner queue mutation in the timer layer.
+
+- TODO M23.3 Implement live-region adapter contract types
+  - Add announcement priority and duplicate policy request/result types.
+  - Add tests for polite/assertive requests, duplicate policy, and unsupported fallback behavior.
+  - Keep announcement wording and localization app-owned.
+
+- TODO M23.4 Add Toast and Sonner adapter contract examples
+  - Show how Toast and Sonner would request timer scheduling and live-region announcements.
+  - Keep examples controlled and avoid renderer-specific timer or DOM commands until verified.
+
+- TODO M23.5 Complete timer and live-region adapter contract documentation
+  - Update runtime adapter docs, accessibility checklist, and complex batch plan.
+  - Run workspace tests and documentation checks before marking the batch complete.
+
 ## Status Rules
 
 - Change `TODO` to `DONE` only after implementation, validation, and commit.

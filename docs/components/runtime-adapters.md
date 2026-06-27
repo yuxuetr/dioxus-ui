@@ -22,6 +22,9 @@ The first adapter pass should stay optional. Existing crate-mode and
 source-copy components must continue to work as controlled composition parts
 when no adapter is installed.
 
+M22 implemented the first primitive-layer contract slice for focus and portal
+requests behind the `dioxus-ui-primitives/runtime` feature.
+
 ## Ownership Model
 
 | Layer | Owns | Does Not Own |
