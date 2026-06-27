@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 80%
 - Current milestone: M21 Runtime Adapter Planning
-- Current task: M21.4 Plan measurement, pointer, and gesture adapters
+- Current task: M21.5 Complete runtime adapter planning docs
 
 ## M0 Documentation
 
@@ -517,7 +517,7 @@
   - Define live-region announcement wording, queueing, urgency, and duplicate suppression boundaries.
   - Keep async promise orchestration and persisted history app-owned unless explicitly justified.
 
-- TODO M21.4 Plan measurement, pointer, and gesture adapters
+- DONE M21.4 Plan measurement, pointer, and gesture adapters
   - Define anchor measurement, viewport collision updates, resizable pointer dragging, carousel gestures, and scroll restoration boundaries.
   - Document Web/Desktop/Mobile risks and adapter test strategy.
   - Keep physics, virtualization, and backend-specific rendering out of the first adapter pass.
