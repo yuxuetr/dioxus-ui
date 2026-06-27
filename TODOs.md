@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 40%
 - Current milestone: M23 Timer And Live Region Adapter Contracts
-- Current task: M23.2 Implement timer adapter contract types
+- Current task: M23.3 Implement live-region adapter contract types
 
 ## M0 Documentation
 
@@ -560,7 +560,7 @@
   - Decide whether contracts extend `dioxus-ui-primitives/runtime` or use separate modules.
   - Document Web/Desktop/Mobile fallback behavior before code changes.
 
-- TODO M23.2 Implement timer adapter contract types
+- DONE M23.2 Implement timer adapter contract types
   - Add narrow timer runtime request/result types with explicit unsupported results.
   - Add tests for schedule, cancel, missing timer, and unsupported fallback behavior.
   - Avoid owning Toast or Sonner queue mutation in the timer layer.
