@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
+- Overall: 100%
 - Current milestone: M19 Chart Follow-through
-- Current task: M19.5 Complete chart follow-through documentation
+- Current task: M19 complete
 
 ## M0 Documentation
 
@@ -470,7 +470,7 @@
   - Document why `dxui add chart` and a `chart` feature remain deferred.
   - Update chart strategy with backend evaluation criteria and dependency policy.
 
-- TODO M19.5 Complete chart follow-through documentation
+- DONE M19.5 Complete chart follow-through documentation
   - Update parity, accessibility, complex batch, and component catalog docs.
   - Run release quality gates before marking the batch complete.
 
