@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 40%
 - Current milestone: M18 Feedback Notifications
-- Current task: M18.2 Implement feedback state primitives
+- Current task: M18.3 Implement Toast
 
 ## M0 Documentation
 
@@ -429,7 +429,7 @@
   - Decide queue, placement, dismiss, action, live-region, and timing ownership.
   - Document Web/Desktop/Mobile, source-copy, accessibility, and dependency constraints before implementation.
 
-- TODO M18.2 Implement feedback state primitives
+- DONE M18.2 Implement feedback state primitives
   - Add pure toast item, queue, placement, and timeout helper types.
   - Avoid timer ownership, DOM focus ownership, and portal mounting in primitives.
   - Add unit tests for queue add, dismiss, limit, placement, and timeout behavior.
