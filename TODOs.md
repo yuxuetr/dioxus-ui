@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 80%
 - Current milestone: M23 Timer And Live Region Adapter Contracts
-- Current task: M23.4 Add Toast and Sonner adapter contract examples
+- Current task: M23.5 Complete timer and live-region adapter contract documentation
 
 ## M0 Documentation
 
@@ -570,7 +570,7 @@
   - Add tests for polite/assertive requests, duplicate policy, and unsupported fallback behavior.
   - Keep announcement wording and localization app-owned.
 
-- TODO M23.4 Add Toast and Sonner adapter contract examples
+- DONE M23.4 Add Toast and Sonner adapter contract examples
   - Show how Toast and Sonner would request timer scheduling and live-region announcements.
   - Keep examples controlled and avoid renderer-specific timer or DOM commands until verified.
 
