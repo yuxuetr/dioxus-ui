@@ -63,11 +63,17 @@ pub mod dropdown;
 #[cfg(feature = "empty")]
 pub mod empty;
 
+#[cfg(feature = "field")]
+pub mod field;
+
 #[cfg(feature = "hover-card")]
 pub mod hover_card;
 
 #[cfg(feature = "input")]
 pub mod input;
+
+#[cfg(feature = "item")]
+pub mod item;
 
 #[cfg(feature = "kbd")]
 pub mod kbd;
@@ -308,6 +314,13 @@ pub use empty::{
   EMPTY_CONTENT_BASE_CLASS, EMPTY_DESCRIPTION_BASE_CLASS, EMPTY_HEADER_BASE_CLASS,
   EMPTY_TITLE_BASE_CLASS,
 };
+#[cfg(feature = "field")]
+pub use field::{
+  field_class, field_description_class, field_error_class, field_group_class,
+  field_label_class, Field, FieldDescription, FieldError, FieldGroup, FieldLabel,
+  FIELD_BASE_CLASS, FIELD_DESCRIPTION_BASE_CLASS, FIELD_ERROR_BASE_CLASS,
+  FIELD_GROUP_BASE_CLASS, FIELD_INVALID_CLASS, FIELD_LABEL_BASE_CLASS,
+};
 #[cfg(feature = "hover-card")]
 pub use hover_card::{
   hover_card_align_attribute, hover_card_content_class, hover_card_description_class,
@@ -320,6 +333,14 @@ pub use hover_card::{
 };
 #[cfg(feature = "input")]
 pub use input::{input_class, Input, INPUT_BASE_CLASS};
+#[cfg(feature = "item")]
+pub use item::{
+  item_actions_class, item_class, item_content_class, item_description_class, item_media_class,
+  item_title_class, Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle,
+  ITEM_ACTIONS_BASE_CLASS, ITEM_BASE_CLASS, ITEM_CONTENT_BASE_CLASS,
+  ITEM_DESCRIPTION_BASE_CLASS, ITEM_DISABLED_CLASS, ITEM_MEDIA_BASE_CLASS,
+  ITEM_SELECTED_CLASS, ITEM_TITLE_BASE_CLASS,
+};
 #[cfg(feature = "kbd")]
 pub use kbd::{kbd_class, Kbd, KbdSize, KBD_BASE_CLASS};
 #[cfg(feature = "label")]

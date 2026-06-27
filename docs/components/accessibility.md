@@ -19,6 +19,8 @@ Statuses:
 | Breadcrumb | Uses navigation and ordered-list semantics, with current page state on links or page text. | Implemented |
 | Card | Does not add implicit landmark or interactive semantics. | Implemented |
 | Empty | Does not add implicit alert or status semantics; text and actions remain app-owned. | Implemented |
+| Field | Exposes invalid and disabled state attributes while apps own control association and validation semantics. | Implemented |
+| Item | Exposes selected and disabled state attributes while apps own collection roles and actions. | Implemented |
 | Kbd | Uses native `kbd` semantics for keyboard hints. | Implemented |
 | Separator | Supports decorative and semantic separator usage. | Implemented |
 | Skeleton | Hidden from assistive technology by default. | Implemented |

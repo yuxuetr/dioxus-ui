@@ -67,8 +67,10 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Drawer](drawer.md) | `dxui add drawer` | `drawer` | Dialog-backed bottom drawer |
 | [Dropdown](dropdown.md) | `dxui add dropdown` | `dropdown` | Primitive config + styled parts |
 | [Empty](empty.md) | `dxui add empty` | `empty` | Empty-state composition parts |
+| [Field](field.md) | `dxui add field` | `field` | Form field composition parts |
 | [Hover Card](hover-card.md) | `dxui add hover-card` | `hover-card` | Popover-backed preview content |
 | [Input](input.md) | `dxui add input` | `input` | Styled |
+| [Item](item.md) | `dxui add item` | `item` | Generic item composition parts |
 | [Kbd](kbd.md) | `dxui add kbd` | `kbd` | Styled keyboard hint |
 | [Label](label.md) | `dxui add label` | `label` | Styled |
 | [Menubar](menubar.md) | `dxui add menubar` | `menubar` | Dropdown-backed menubar parts |

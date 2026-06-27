@@ -1,0 +1,14 @@
+{
+  "name": "item",
+  "description": "Generic list item composition parts.",
+  "files": [
+    {
+      "source": "templates/item.rs",
+      "target": "src/components/ui/item.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

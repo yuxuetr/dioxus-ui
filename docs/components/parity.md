@@ -8,7 +8,7 @@ be ported one-for-one.
 
 | Group | Components |
 | --- | --- |
-| Static display | Alert, Aspect Ratio, Avatar, Badge, Breadcrumb, Card, Empty, Kbd, Separator, Skeleton, Typography |
+| Static display | Alert, Aspect Ratio, Avatar, Badge, Breadcrumb, Card, Empty, Field, Item, Kbd, Separator, Skeleton, Typography |
 | Form basics | Button, Checkbox, Input, Label, Slider, Switch, Textarea |
 | Light interaction | Radio Group, Spinner, Toggle, Toggle Group |
 | Disclosure | Accordion, Alert Dialog, Calendar, Date Picker, Drawer, Hover Card, Sheet, Tabs |
@@ -22,7 +22,7 @@ be ported one-for-one.
 
 | Group | Components | Notes |
 | --- | --- | --- |
-| Static display | Field, Item | Mostly styling and composition. |
+| Static display | - | M20 static composition gaps are implemented. |
 | Layout and scroll | - | Carousel, Scroll Area, Resizable, and Sidebar are implemented; runtime measurement, persistence, and gestures remain app-owned. |
 
 ## Planned Complex Interaction
@@ -48,11 +48,10 @@ be ported one-for-one.
 
 ## Next Milestone Seeds
 
-After M19, the safest remaining component order is:
+After M20, the safest remaining component order is:
 
-1. Static composition gaps such as Field and Item
-2. Runtime adapters for timers, portals, focus, gestures, and live announcements
-3. Chart rendering backend evaluation after adapter requirements are concrete
+1. Runtime adapters for timers, portals, focus, gestures, and live announcements
+2. Chart rendering backend evaluation after adapter requirements are concrete
 
 See [Complex Component Batches](complex-batches.md) for the expanded milestone
 plan.

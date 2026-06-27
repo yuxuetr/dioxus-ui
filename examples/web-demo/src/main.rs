@@ -18,9 +18,10 @@ use dioxus_ui::{
   dialog_content_class, dialog_overlay_class, drawer_content_class,
   drawer_overlay_class, dropdown_content_class, dropdown_item_class, dropdown_label_class,
   dropdown_separator_class, empty_actions_class, empty_class, empty_title_class,
-  hover_card_align_attribute, hover_card_content_class, hover_card_side_attribute, input_class,
-  kbd_class, label_class, menubar_class, menubar_item_class, menubar_trigger_class,
-  native_select_class, native_select_group_class,
+  field_class, field_error_class, field_group_class, hover_card_align_attribute,
+  hover_card_content_class, hover_card_side_attribute, input_class, item_class,
+  item_description_class, item_title_class, kbd_class, label_class, menubar_class,
+  menubar_item_class, menubar_trigger_class, native_select_class, native_select_group_class,
   native_select_option_class, navigation_menu_class, navigation_menu_link_class,
   navigation_menu_trigger_class, pagination_class, pagination_link_class,
   popover_content_class, popover_description_class, popover_header_class, popover_title_class,
@@ -123,6 +124,27 @@ fn main() {
   println!(
     "dioxus-ui web demo empty actions class: {}",
     empty_actions_class("")
+  );
+  println!(
+    "dioxus-ui web demo field class: {}",
+    field_class(true, "max-w-sm")
+  );
+  println!(
+    "dioxus-ui web demo field error class: {}",
+    field_error_class("")
+  );
+  println!(
+    "dioxus-ui web demo field group class: {}",
+    field_group_class("")
+  );
+  println!(
+    "dioxus-ui web demo item class: {}",
+    item_class(true, false, "")
+  );
+  println!("dioxus-ui web demo item title class: {}", item_title_class(""));
+  println!(
+    "dioxus-ui web demo item description class: {}",
+    item_description_class("")
   );
   println!("dioxus-ui web demo kbd class: {}", kbd_class(KbdSize::Md, ""));
   println!(

@@ -1,0 +1,14 @@
+{
+  "name": "field",
+  "description": "Form field layout composition parts.",
+  "files": [
+    {
+      "source": "templates/field.rs",
+      "target": "src/components/ui/field.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}
