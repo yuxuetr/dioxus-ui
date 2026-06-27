@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 60%
 - Current milestone: M19 Chart Follow-through
-- Current task: M19.3 Implement chart accessibility helpers
+- Current task: M19.4 Document chart recipes without public component
 
 ## M0 Documentation
 
@@ -460,7 +460,7 @@
   - Avoid rendering backend, DOM measurement, canvas, SVG generation, and pointer event ownership in primitives.
   - Add unit tests for domain calculation, scale mapping, empty data, and stacked/ranged values.
 
-- TODO M19.3 Implement chart accessibility helpers
+- DONE M19.3 Implement chart accessibility helpers
   - Add pure helpers for summary text, series labels, value labels, and tabular fallback metadata.
   - Keep localization, formatting, and announcement timing app-owned.
   - Add unit tests for summary output, missing values, color-independent labels, and fallback rows.
