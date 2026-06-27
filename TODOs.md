@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 20%
 - Current milestone: M19 Chart Follow-through
-- Current task: M19.1 Plan chart follow-through APIs
+- Current task: M19.2 Implement chart data primitives
 
 ## M0 Documentation
 
@@ -450,7 +450,7 @@
 
 ## M19 Chart Follow-through
 
-- TODO M19.1 Plan chart follow-through APIs
+- DONE M19.1 Plan chart follow-through APIs
   - Define chart data model, scale helper, color token, summary, and recipe boundaries.
   - Decide which chart pieces remain docs-only versus primitive helpers.
   - Document Web/Desktop/Mobile, source-copy, accessibility, and dependency constraints before implementation.
