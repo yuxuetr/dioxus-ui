@@ -254,7 +254,7 @@ app-owned or deferred adapter work.
 
 ## Batch 9: Chart Follow-through
 
-Status: Planned in M19.
+Status: Implemented in M19.
 
 Components:
 
@@ -280,6 +280,11 @@ Chart remains too broad for a public component without a backend decision, but
 the project can still make progress by defining data and accessibility
 primitives that future rendering adapters can share.
 
+M19 shipped pure chart data primitives, scale helpers, color token helpers,
+summary helpers, fallback-row helpers, and docs-only recipes for line, bar, and
+area charts. A public Chart component, registry entry, crate feature, rendering
+backend, tooltip runtime, and chart animation runtime remain deferred.
+
 ## Recommended Next Milestones
 
 ```text
@@ -293,6 +298,7 @@ M16 Data Table and Chart strategy
 M17 Sidebar, Carousel, Scroll Area, Resizable
 M18 Toast and Sonner feedback primitives
 M19 Chart strategy follow-through or runtime adapters
+M20 Static composition gaps or runtime adapter planning
 ```
 
 ## Third-Party Logic Candidates

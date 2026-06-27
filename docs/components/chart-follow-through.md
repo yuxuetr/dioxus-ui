@@ -1,11 +1,11 @@
-# Chart Follow-through API Plan
+# Chart Follow-through
 
-This document defines the M19 chart follow-through scope before implementation.
+This document defines the M19 chart follow-through scope and completion status.
 The goal is to add pure chart data and accessibility primitives while keeping
 rendering backends, generated chart components, DOM measurement, pointer
 interaction, and animation runtime out of the public component surface.
 
-Status: Planned in M19.
+Status: Implemented in M19.
 
 ## Scope
 
@@ -25,7 +25,7 @@ M19 does not add:
 
 ## Primitive Strategy
 
-M19 should add pure chart primitives:
+M19 added pure chart primitives:
 
 ```rust
 ChartPoint { x, y }
@@ -33,17 +33,20 @@ ChartSeries { id, label, points }
 ChartDomain { min, max }
 ChartScale { domain, range }
 ChartColorToken::{Primary, Secondary, Success, Warning, Destructive, Neutral}
-ChartFallbackRow { series_label, x_label, y_label }
+ChartFallbackRow { series_id, series_label, x_label, y_label, missing }
 ```
 
-Planned helpers:
+Shipped helpers:
 
 ```rust
 chart_domain(values) -> ChartDomain
+chart_series_x_domain(series) -> ChartDomain
 chart_series_y_domain(series) -> ChartDomain
 chart_scale_value(value, domain, range) -> f64
 chart_color_class(token) -> &'static str
 chart_summary(series) -> String
+chart_series_label(series, token) -> String
+chart_value_label(series_label, x_label, y) -> String
 chart_fallback_rows(series) -> Vec<ChartFallbackRow>
 ```
 
@@ -102,7 +105,7 @@ Apps still own:
 
 ## Recipe Boundaries
 
-M19 should add docs-only recipes for:
+M19 added docs-only recipes for:
 
 - line chart
 - bar chart

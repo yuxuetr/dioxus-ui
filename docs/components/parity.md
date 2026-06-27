@@ -34,7 +34,7 @@ be ported one-for-one.
 | Date and calendar | - | Calendar and Date Picker are implemented. |
 | Overlays | - | Current M12 overlay variant set is implemented. |
 | Feedback | - | Toast and Sonner are implemented; runtime timers and live regions remain app-owned. |
-| Data | Chart | Data Table is implemented; Chart needs a charting decision. |
+| Data | Chart component | Chart data and accessibility primitives are implemented; public rendering component remains deferred. |
 | Navigation shell | - | Sidebar is implemented; persistence and keyboard shortcuts remain app-owned. |
 | Media | - | Carousel is implemented; gestures, autoplay, and live announcements remain app-owned. |
 
@@ -42,17 +42,17 @@ be ported one-for-one.
 
 | Component | Reason |
 | --- | --- |
-| Chart | M16 documents the chart strategy; a component is deferred until backend, data API, and accessibility contracts are explicit. |
+| Chart component | M19 implements chart data and accessibility primitives plus recipes; a component remains deferred until backend, measurement, interaction, and fallback-table contracts are explicit. |
 | Data Table runtime adapters | Data Table state helpers and composition parts are implemented; filtering, async loading, and virtualization remain app-owned. |
 | Calendar / Date Picker runtime adapters | Date math primitives are implemented; parsing, localization, and focus adapters remain deferred. |
 
 ## Next Milestone Seeds
 
-After M18, the safest remaining component order is:
+After M19, the safest remaining component order is:
 
-1. Chart strategy follow-through or runtime adapters
-2. Static composition gaps such as Aspect Ratio, Breadcrumb, Empty, Field, Item, Kbd, and Typography
-3. Runtime adapters for timers, portals, focus, gestures, and live announcements
+1. Static composition gaps such as Aspect Ratio, Breadcrumb, Empty, Field, Item, Kbd, and Typography
+2. Runtime adapters for timers, portals, focus, gestures, and live announcements
+3. Chart rendering backend evaluation after adapter requirements are concrete
 
 See [Complex Component Batches](complex-batches.md) for the expanded milestone
 plan.
