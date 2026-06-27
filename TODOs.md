@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
+- Overall: 100%
 - Current milestone: M18 Feedback Notifications
-- Current task: M18.5 Complete feedback notification documentation and examples
+- Current task: M18 complete
 
 ## M0 Documentation
 
@@ -444,7 +444,7 @@
   - Reuse feedback primitives and keep timers, promises, and async orchestration app-owned.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M18.5 Complete feedback notification documentation and examples
+- DONE M18.5 Complete feedback notification documentation and examples
   - Update parity, accessibility, complex batch, and component catalog docs.
   - Run release quality gates before marking the batch complete.
 
