@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 60%
 - Current milestone: M21 Runtime Adapter Planning
-- Current task: M21.3 Plan timer and live-region adapters
+- Current task: M21.4 Plan measurement, pointer, and gesture adapters
 
 ## M0 Documentation
 
@@ -512,7 +512,7 @@
   - Map Dialog, Alert Dialog, Sheet, Drawer, Popover, Tooltip, Select, Combobox, and menu components to adapter needs.
   - Identify what can be pure state, what needs DOM/WebView commands, and what remains app-owned.
 
-- TODO M21.3 Plan timer and live-region adapters
+- DONE M21.3 Plan timer and live-region adapters
   - Define timer scheduling and dismissal ownership for Toast and Sonner.
   - Define live-region announcement wording, queueing, urgency, and duplicate suppression boundaries.
   - Keep async promise orchestration and persisted history app-owned unless explicitly justified.
