@@ -33,8 +33,9 @@ pub use calendar::{
 };
 pub use chart::{
   chart_color_attribute, chart_color_class, chart_domain, chart_domain_normalize,
-  chart_scale_value, chart_series_x_domain, chart_series_y_domain, ChartColorToken, ChartDomain,
-  ChartPoint, ChartScale, ChartSeries,
+  chart_fallback_rows, chart_number_label, chart_scale_value, chart_series_label,
+  chart_series_x_domain, chart_series_y_domain, chart_summary, chart_value_label,
+  ChartColorToken, ChartDomain, ChartFallbackRow, ChartPoint, ChartScale, ChartSeries,
 };
 pub use data_table::{
   data_table_clamp_page, data_table_is_column_visible, data_table_page_count,
