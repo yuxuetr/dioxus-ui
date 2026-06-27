@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 80%
 - Current milestone: M22 Focus And Portal Adapter Contracts
-- Current task: M22.4 Add Dialog and Popover adapter contract examples
+- Current task: M22.5 Complete focus and portal adapter contract documentation
 
 ## M0 Documentation
 
@@ -544,7 +544,7 @@
   - Add tests for inline, body, selector/named target, and unsupported fallback behavior.
   - Keep app shell z-index and target provisioning app-owned.
 
-- TODO M22.4 Add Dialog and Popover adapter contract examples
+- DONE M22.4 Add Dialog and Popover adapter contract examples
   - Show how Dialog or Alert Dialog would request modal focus behavior.
   - Show how Popover would request non-modal portal behavior.
   - Keep examples controlled and avoid renderer-specific commands until verified.
