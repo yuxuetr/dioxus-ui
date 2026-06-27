@@ -219,6 +219,8 @@ policies.
 
 For the focus and portal slice, see the
 [focus and portal adapter plan](focus-portal-adapters.md).
+For transient feedback behavior, see the
+[timer and live-region adapter plan](timer-live-region-adapters.md).
 
 ## Implementation Order
 
