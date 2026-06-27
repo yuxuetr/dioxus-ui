@@ -287,7 +287,7 @@ backend, tooltip runtime, and chart animation runtime remain deferred.
 
 ## Batch 10: Static Composition Gaps
 
-Status: Planned in M20.
+Status: Implemented in M20.
 
 Components:
 
@@ -316,20 +316,16 @@ These components are mostly styled wrappers and semantic composition parts.
 They close visible catalog gaps without requiring runtime adapters, routing,
 validation engines, or rendering backends.
 
+M20 shipped all seven components in crate mode and source-copy mode. Runtime
+routing, validation, collection semantics, icon rendering, and media loading
+remain app-owned.
+
 ## Recommended Next Milestones
 
 ```text
-M10 Interaction primitives implementation
-M11 Radio Group, Toggle, Toggle Group, Slider, Spinner
-M12 Alert Dialog, Sheet, Drawer, Hover Card
-M13 Context Menu, Menubar, Navigation Menu
-M14 Command, Combobox, Native Select
-M15 Calendar and Date Picker
-M16 Data Table and Chart strategy
-M17 Sidebar, Carousel, Scroll Area, Resizable
-M18 Toast and Sonner feedback primitives
-M19 Chart strategy follow-through or runtime adapters
-M20 Static composition gaps or runtime adapter planning
+M10-M20 completed component and primitive batches
+Next: runtime adapter planning for timers, portals, focus, gestures, and live announcements
+Next: chart rendering backend evaluation after adapter requirements are concrete
 ```
 
 ## Third-Party Logic Candidates

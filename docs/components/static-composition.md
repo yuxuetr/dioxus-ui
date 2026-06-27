@@ -1,10 +1,10 @@
 # Static Composition API Plan
 
-This document defines the M20 static composition component scope before
-implementation. The goal is to close low-risk shadcn-style gaps with styled,
-semantic composition parts that do not introduce runtime behavior.
+This document defines the M20 static composition component scope. The goal is
+to close low-risk shadcn-style gaps with styled, semantic composition parts
+that do not introduce runtime behavior.
 
-Status: Planned in M20.
+Status: Implemented in M20.
 
 ## Scope
 
@@ -36,7 +36,7 @@ not import internal crates.
 
 Aspect Ratio provides a fixed-ratio slot for media or custom content.
 
-Planned crate API:
+Crate API:
 
 ```rust
 AspectRatio { ratio, class, children }
@@ -54,7 +54,7 @@ Behavior defaults:
 
 Kbd provides styled keyboard shortcut hints.
 
-Planned crate API:
+Crate API:
 
 ```rust
 Kbd { size, class, children }
@@ -71,7 +71,7 @@ Behavior defaults:
 
 Typography provides styled text composition parts for prose-like content.
 
-Planned crate API:
+Crate API:
 
 ```rust
 TypographyProse { class, children }
@@ -95,7 +95,7 @@ Behavior defaults:
 
 Breadcrumb provides semantic navigation composition parts.
 
-Planned crate API:
+Crate API:
 
 ```rust
 Breadcrumb { class, children }
@@ -118,7 +118,7 @@ Behavior defaults:
 
 Empty provides empty-state layout parts.
 
-Planned crate API:
+Crate API:
 
 ```rust
 Empty { class, children }
@@ -139,7 +139,7 @@ Behavior defaults:
 
 Field provides form layout composition around existing controls.
 
-Planned crate API:
+Crate API:
 
 ```rust
 Field { invalid, disabled, class, children }
@@ -159,7 +159,7 @@ Behavior defaults:
 
 Item provides generic list or command result composition parts.
 
-Planned crate API:
+Crate API:
 
 ```rust
 Item { selected, disabled, class, children }
@@ -186,6 +186,10 @@ Behavior defaults:
 
 This order starts with the lowest-risk styled wrappers, then moves into small
 semantic composition surfaces.
+
+M20 shipped all seven components in crate mode and source-copy mode with docs
+pages, registry entries, demo usage, per-feature compile coverage, and generated
+fixture smoke coverage.
 
 ## Quality Gates
 
