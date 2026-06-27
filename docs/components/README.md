@@ -30,8 +30,9 @@ planning milestone, see the [runtime adapter plan](runtime-adapters.md) and
 implementation slice, see the
 [focus and portal contract implementation plan](focus-portal-contracts.md). For
 feedback runtime details, see the
-[timer and live-region adapter plan](timer-live-region-adapters.md). For
-measurement and gesture runtime details, see the
+[timer and live-region adapter plan](timer-live-region-adapters.md) and
+[timer and live-region contract implementation plan](timer-live-region-contracts.md).
+For measurement and gesture runtime details, see the
 [measurement, pointer, and gesture adapter plan](measurement-pointer-gesture-adapters.md).
 
 For accessibility expectations, see the

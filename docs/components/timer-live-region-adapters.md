@@ -162,3 +162,6 @@ runtime policy they did not choose.
 3. Add live-region adapter contracts with testable history.
 4. Build a Web demo proving timer cancellation and polite/assertive channels.
 5. Decide whether Toast/Sonner should provide optional helper hooks later.
+
+M23 turns this plan into concrete primitive-layer contracts. See the
+[timer and live-region contract implementation plan](timer-live-region-contracts.md).

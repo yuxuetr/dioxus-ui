@@ -226,6 +226,8 @@ For the first implementation slice, see the
 [focus and portal contract implementation plan](focus-portal-contracts.md).
 For transient feedback behavior, see the
 [timer and live-region adapter plan](timer-live-region-adapters.md).
+For the feedback runtime contract slice, see the
+[timer and live-region contract implementation plan](timer-live-region-contracts.md).
 For layout and interaction measurement, see the
 [measurement, pointer, and gesture adapter plan](measurement-pointer-gesture-adapters.md).
 
