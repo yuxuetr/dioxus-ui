@@ -49,6 +49,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Accordion](accordion.md) | `dxui add accordion` | `accordion` | Controlled styled parts |
 | [Alert](alert.md) | `dxui add alert` | `alert` | Styled parts |
 | [Alert Dialog](alert-dialog.md) | `dxui add alert-dialog` | `alert-dialog` | Dialog-backed styled parts |
+| [Aspect Ratio](aspect-ratio.md) | `dxui add aspect-ratio` | `aspect-ratio` | Fixed-ratio content slot |
 | [Avatar](avatar.md) | `dxui add avatar` | `avatar` | Styled parts |
 | [Badge](badge.md) | `dxui add badge` | `badge` | Styled |
 | [Button](button.md) | `dxui add button` | `button` | Styled |
@@ -66,6 +67,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Dropdown](dropdown.md) | `dxui add dropdown` | `dropdown` | Primitive config + styled parts |
 | [Hover Card](hover-card.md) | `dxui add hover-card` | `hover-card` | Popover-backed preview content |
 | [Input](input.md) | `dxui add input` | `input` | Styled |
+| [Kbd](kbd.md) | `dxui add kbd` | `kbd` | Styled keyboard hint |
 | [Label](label.md) | `dxui add label` | `label` | Styled |
 | [Menubar](menubar.md) | `dxui add menubar` | `menubar` | Dropdown-backed menubar parts |
 | [Native Select](native-select.md) | `dxui add native-select` | `native-select` | Styled native form select |
@@ -92,6 +94,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Toggle Group](toggle-group.md) | `dxui add toggle-group` | `toggle-group` | Primitive-backed styled parts |
 | [Toast](toast.md) | `dxui add toast` | `toast` | Controlled notification parts |
 | [Tooltip](tooltip.md) | `dxui add tooltip` | `tooltip` | Primitive config + styled part |
+| [Typography](typography.md) | `dxui add typography` | `typography` | Styled semantic text parts |
 
 ## Preview Commands
 

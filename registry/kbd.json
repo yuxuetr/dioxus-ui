@@ -1,0 +1,14 @@
+{
+  "name": "kbd",
+  "description": "Styled keyboard shortcut hint.",
+  "files": [
+    {
+      "source": "templates/kbd.rs",
+      "target": "src/components/ui/kbd.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

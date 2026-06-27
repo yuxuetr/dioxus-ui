@@ -1,0 +1,14 @@
+{
+  "name": "aspect-ratio",
+  "description": "Fixed-ratio media and content slot.",
+  "files": [
+    {
+      "source": "templates/aspect_ratio.rs",
+      "target": "src/components/ui/aspect_ratio.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

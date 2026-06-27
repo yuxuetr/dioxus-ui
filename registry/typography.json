@@ -1,0 +1,14 @@
+{
+  "name": "typography",
+  "description": "Styled semantic typography parts.",
+  "files": [
+    {
+      "source": "templates/typography.rs",
+      "target": "src/components/ui/typography.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

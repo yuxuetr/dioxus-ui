@@ -8,6 +8,7 @@ features=(
   accordion
   alert
   alert-dialog
+  aspect-ratio
   avatar
   badge
   button
@@ -25,6 +26,7 @@ features=(
   dropdown
   hover-card
   input
+  kbd
   label
   menubar
   native-select
@@ -51,6 +53,7 @@ features=(
   toggle-group
   toast
   tooltip
+  typography
 )
 
 for feature in "${features[@]}"; do
@@ -59,7 +62,7 @@ for feature in "${features[@]}"; do
 done
 
 echo "checking static component feature set"
-cargo check -q -p dioxus-ui --no-default-features --features "alert,alert-dialog,avatar,badge,card,carousel,native-select,pagination,progress,separator,sidebar,skeleton,sonner,spinner,table,toast"
+cargo check -q -p dioxus-ui --no-default-features --features "alert,alert-dialog,aspect-ratio,avatar,badge,card,carousel,kbd,native-select,pagination,progress,separator,sidebar,skeleton,sonner,spinner,table,toast,typography"
 
 echo "checking primitive-backed feature set"
 cargo check -q -p dioxus-ui --no-default-features --features "combobox,context-menu,date-picker,dialog,drawer,dropdown,hover-card,menubar,navigation-menu,popover,radio-group,select,sheet,slider,toggle-group,tooltip"

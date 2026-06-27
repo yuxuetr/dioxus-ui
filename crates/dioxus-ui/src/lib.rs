@@ -9,6 +9,9 @@ pub mod alert;
 #[cfg(feature = "alert-dialog")]
 pub mod alert_dialog;
 
+#[cfg(feature = "aspect-ratio")]
+pub mod aspect_ratio;
+
 #[cfg(feature = "avatar")]
 pub mod avatar;
 
@@ -59,6 +62,9 @@ pub mod hover_card;
 
 #[cfg(feature = "input")]
 pub mod input;
+
+#[cfg(feature = "kbd")]
+pub mod kbd;
 
 #[cfg(feature = "label")]
 pub mod label;
@@ -145,6 +151,11 @@ pub use alert_dialog::{
   ALERT_DIALOG_CONTENT_BASE_CLASS, ALERT_DIALOG_DESCRIPTION_BASE_CLASS,
   ALERT_DIALOG_FOOTER_BASE_CLASS, ALERT_DIALOG_HEADER_BASE_CLASS,
   ALERT_DIALOG_OVERLAY_BASE_CLASS, ALERT_DIALOG_TITLE_BASE_CLASS,
+};
+#[cfg(feature = "aspect-ratio")]
+pub use aspect_ratio::{
+  aspect_ratio_class, aspect_ratio_style, aspect_ratio_value, AspectRatio,
+  ASPECT_RATIO_BASE_CLASS, DEFAULT_ASPECT_RATIO,
 };
 #[cfg(feature = "avatar")]
 pub use avatar::{
@@ -286,6 +297,8 @@ pub use hover_card::{
 };
 #[cfg(feature = "input")]
 pub use input::{input_class, Input, INPUT_BASE_CLASS};
+#[cfg(feature = "kbd")]
+pub use kbd::{kbd_class, Kbd, KbdSize, KBD_BASE_CLASS};
 #[cfg(feature = "label")]
 pub use label::{label_class, Label, LABEL_BASE_CLASS};
 #[cfg(feature = "menubar")]
@@ -444,6 +457,9 @@ pub mod toast;
 #[cfg(feature = "tooltip")]
 pub mod tooltip;
 
+#[cfg(feature = "typography")]
+pub mod typography;
+
 #[cfg(feature = "switch")]
 pub use switch::{switch_class, switch_thumb_class, Switch, SWITCH_BASE_CLASS, SWITCH_THUMB_BASE_CLASS};
 #[cfg(feature = "table")]
@@ -483,5 +499,16 @@ pub use toast::{
 #[cfg(feature = "tooltip")]
 pub use tooltip::{
   tooltip_content_class, TooltipContent, TooltipPrimitiveConfig, TOOLTIP_CONTENT_BASE_CLASS,
+};
+#[cfg(feature = "typography")]
+pub use typography::{
+  typography_blockquote_class, typography_h1_class, typography_h2_class, typography_h3_class,
+  typography_inline_code_class, typography_lead_class, typography_muted_class,
+  typography_p_class, typography_prose_class, TypographyBlockquote, TypographyH1,
+  TypographyH2, TypographyH3, TypographyInlineCode, TypographyLead, TypographyMuted,
+  TypographyP, TypographyProse, TYPOGRAPHY_BLOCKQUOTE_BASE_CLASS, TYPOGRAPHY_H1_BASE_CLASS,
+  TYPOGRAPHY_H2_BASE_CLASS, TYPOGRAPHY_H3_BASE_CLASS, TYPOGRAPHY_INLINE_CODE_BASE_CLASS,
+  TYPOGRAPHY_LEAD_BASE_CLASS, TYPOGRAPHY_MUTED_BASE_CLASS, TYPOGRAPHY_P_BASE_CLASS,
+  TYPOGRAPHY_PROSE_BASE_CLASS,
 };
 pub use dioxus_ui_core::UiDensity;

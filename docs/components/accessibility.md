@@ -13,11 +13,14 @@ Statuses:
 | Component | Contract | Status |
 | --- | --- | --- |
 | Alert | Uses alert semantics for urgent messages. | Implemented |
+| Aspect Ratio | Adds no implicit media semantics; consuming apps provide labels, alt text, captions, or descriptions for slotted content. | Implemented |
 | Avatar | Image `alt` text is provided by the consuming app. | Implemented |
 | Badge | Text must communicate state, not color alone. | Planned |
 | Card | Does not add implicit landmark or interactive semantics. | Implemented |
+| Kbd | Uses native `kbd` semantics for keyboard hints. | Implemented |
 | Separator | Supports decorative and semantic separator usage. | Implemented |
 | Skeleton | Hidden from assistive technology by default. | Implemented |
+| Typography | Uses native text elements; consuming apps own heading hierarchy and landmark placement. | Implemented |
 
 ## Form Basics
 

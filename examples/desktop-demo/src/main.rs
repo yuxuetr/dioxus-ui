@@ -1,10 +1,10 @@
 use dioxus_ui::{
   accordion_content_class, accordion_item_class, accordion_trigger_class,
   alert_dialog_action_class, alert_dialog_content_class, alert_dialog_overlay_class, alert_class,
-  alert_description_class, alert_title_class, avatar_class, avatar_fallback_class,
-  avatar_image_class, badge_class, button_class, calendar_day_class, calendar_month_grid,
-  calendar_move_date, carousel_can_go_previous, carousel_content_class, carousel_control_class,
-  carousel_indicator_class, carousel_item_class, carousel_previous, card_class,
+  alert_description_class, alert_title_class, aspect_ratio_style, avatar_class,
+  avatar_fallback_class, avatar_image_class, badge_class, button_class, calendar_day_class,
+  calendar_month_grid, calendar_move_date, carousel_can_go_previous, carousel_content_class,
+  carousel_control_class, carousel_indicator_class, carousel_item_class, carousel_previous, card_class,
   card_content_class, card_description_class, card_footer_class, card_header_class,
   card_title_class, checkbox_class, command_active_descendant_state, command_class,
   command_input_class, command_item_class, combobox_input_class,
@@ -16,8 +16,8 @@ use dioxus_ui::{
   dialog_content_class, dialog_overlay_class, drawer_content_class,
   drawer_overlay_class, dropdown_content_class, dropdown_item_class, dropdown_label_class,
   dropdown_separator_class, hover_card_align_attribute, hover_card_content_class,
-  hover_card_side_attribute, input_class, label_class, menubar_class, menubar_item_class,
-  menubar_trigger_class, native_select_class, native_select_group_class,
+  hover_card_side_attribute, input_class, kbd_class, label_class, menubar_class,
+  menubar_item_class, menubar_trigger_class, native_select_class, native_select_group_class,
   native_select_option_class, navigation_menu_class, navigation_menu_link_class,
   navigation_menu_trigger_class, pagination_class, pagination_link_class,
   popover_content_class, popover_description_class, popover_header_class, popover_title_class,
@@ -36,6 +36,7 @@ use dioxus_ui::{
   toggle_group_item_class, toggle_group_move_value,
   toggle_group_single_selection, toast_action_class, toast_close_class, toast_is_expired,
   toast_queue_push, toast_root_class, toast_viewport_class, tooltip_content_class,
+  typography_h2_class, typography_inline_code_class, typography_p_class,
   AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant, ButtonSize,
   ButtonVariant, CalendarDate, CalendarKeyMove, CalendarMonth, CalendarRangeState,
   CalendarWeekday, CarouselOrientation, CarouselState, ComboboxPrimitiveConfig,
@@ -43,7 +44,7 @@ use dioxus_ui::{
   DataTableSortDirection, DialogPrimitiveConfig, DrawerPrimitiveConfig, DropdownPrimitiveConfig,
   FocusMove, HoverCardAlign, HoverCardPrimitiveConfig, HoverCardSide, MenubarPrimitiveConfig,
   NavigationMenuPrimitiveConfig, NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
-  LayoutOrientation, ResizablePanelState, ScrollAreaOrientation, SelectPrimitiveConfig,
+  KbdSize, LayoutOrientation, ResizablePanelState, ScrollAreaOrientation, SelectPrimitiveConfig,
   SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SidebarSide, SidebarState, SpinnerSize,
   SonnerItem, SonnerPlacement, SonnerQueue, SonnerVariant, ToastItem, ToastPlacement,
   ToastQueue, ToastVariant, ToggleSize, ToggleVariant, TooltipPrimitiveConfig, UiDensity,
@@ -93,6 +94,10 @@ fn main() {
     AlertDialogPrimitiveConfig::controlled(false).open
   );
   println!(
+    "dioxus-ui desktop demo aspect ratio style: {}",
+    aspect_ratio_style(4.0 / 3.0)
+  );
+  println!(
     "dioxus-ui desktop demo avatar class: {}",
     avatar_class("h-8 w-8")
   );
@@ -107,6 +112,22 @@ fn main() {
   println!(
     "dioxus-ui desktop demo badge class: {}",
     badge_class(BadgeVariant::Secondary, "")
+  );
+  println!(
+    "dioxus-ui desktop demo kbd class: {}",
+    kbd_class(KbdSize::Sm, "")
+  );
+  println!(
+    "dioxus-ui desktop demo typography h2 class: {}",
+    typography_h2_class("")
+  );
+  println!(
+    "dioxus-ui desktop demo typography p class: {}",
+    typography_p_class("")
+  );
+  println!(
+    "dioxus-ui desktop demo typography inline code class: {}",
+    typography_inline_code_class("")
   );
   println!(
     "dioxus-ui desktop demo calendar day class: {}",

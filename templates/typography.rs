@@ -1,0 +1,102 @@
+use dioxus::prelude::*;
+use super::utils::classes;
+
+pub const TYPOGRAPHY_PROSE_BASE_CLASS: &str = "max-w-none text-zinc-700";
+pub const TYPOGRAPHY_H1_BASE_CLASS: &str = "scroll-m-20 text-4xl font-extrabold tracking-normal text-zinc-950";
+pub const TYPOGRAPHY_H2_BASE_CLASS: &str = "scroll-m-20 border-b border-zinc-200 pb-2 text-3xl font-semibold tracking-normal text-zinc-950";
+pub const TYPOGRAPHY_H3_BASE_CLASS: &str = "scroll-m-20 text-2xl font-semibold tracking-normal text-zinc-950";
+pub const TYPOGRAPHY_P_BASE_CLASS: &str = "leading-7 text-zinc-700";
+pub const TYPOGRAPHY_LEAD_BASE_CLASS: &str = "text-xl text-zinc-600";
+pub const TYPOGRAPHY_MUTED_BASE_CLASS: &str = "text-sm text-zinc-500";
+pub const TYPOGRAPHY_BLOCKQUOTE_BASE_CLASS: &str = "mt-6 border-l-2 border-zinc-200 pl-6 italic text-zinc-700";
+pub const TYPOGRAPHY_INLINE_CODE_BASE_CLASS: &str = "relative rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-sm text-zinc-950";
+
+pub fn typography_prose_class(class: &str) -> String {
+  classes([Some(TYPOGRAPHY_PROSE_BASE_CLASS), Some(class)])
+}
+
+pub fn typography_h1_class(class: &str) -> String {
+  classes([Some(TYPOGRAPHY_H1_BASE_CLASS), Some(class)])
+}
+
+pub fn typography_h2_class(class: &str) -> String {
+  classes([Some(TYPOGRAPHY_H2_BASE_CLASS), Some(class)])
+}
+
+pub fn typography_h3_class(class: &str) -> String {
+  classes([Some(TYPOGRAPHY_H3_BASE_CLASS), Some(class)])
+}
+
+pub fn typography_p_class(class: &str) -> String {
+  classes([Some(TYPOGRAPHY_P_BASE_CLASS), Some(class)])
+}
+
+pub fn typography_lead_class(class: &str) -> String {
+  classes([Some(TYPOGRAPHY_LEAD_BASE_CLASS), Some(class)])
+}
+
+pub fn typography_muted_class(class: &str) -> String {
+  classes([Some(TYPOGRAPHY_MUTED_BASE_CLASS), Some(class)])
+}
+
+pub fn typography_blockquote_class(class: &str) -> String {
+  classes([Some(TYPOGRAPHY_BLOCKQUOTE_BASE_CLASS), Some(class)])
+}
+
+pub fn typography_inline_code_class(class: &str) -> String {
+  classes([Some(TYPOGRAPHY_INLINE_CODE_BASE_CLASS), Some(class)])
+}
+
+#[component]
+pub fn TypographyProse(#[props(default)] class: String, children: Element) -> Element {
+  let class = typography_prose_class(&class);
+  rsx! { div { class, {children} } }
+}
+
+#[component]
+pub fn TypographyH1(#[props(default)] class: String, children: Element) -> Element {
+  let class = typography_h1_class(&class);
+  rsx! { h1 { class, {children} } }
+}
+
+#[component]
+pub fn TypographyH2(#[props(default)] class: String, children: Element) -> Element {
+  let class = typography_h2_class(&class);
+  rsx! { h2 { class, {children} } }
+}
+
+#[component]
+pub fn TypographyH3(#[props(default)] class: String, children: Element) -> Element {
+  let class = typography_h3_class(&class);
+  rsx! { h3 { class, {children} } }
+}
+
+#[component]
+pub fn TypographyP(#[props(default)] class: String, children: Element) -> Element {
+  let class = typography_p_class(&class);
+  rsx! { p { class, {children} } }
+}
+
+#[component]
+pub fn TypographyLead(#[props(default)] class: String, children: Element) -> Element {
+  let class = typography_lead_class(&class);
+  rsx! { p { class, {children} } }
+}
+
+#[component]
+pub fn TypographyMuted(#[props(default)] class: String, children: Element) -> Element {
+  let class = typography_muted_class(&class);
+  rsx! { p { class, {children} } }
+}
+
+#[component]
+pub fn TypographyBlockquote(#[props(default)] class: String, children: Element) -> Element {
+  let class = typography_blockquote_class(&class);
+  rsx! { blockquote { class, {children} } }
+}
+
+#[component]
+pub fn TypographyInlineCode(#[props(default)] class: String, children: Element) -> Element {
+  let class = typography_inline_code_class(&class);
+  rsx! { code { class, {children} } }
+}
