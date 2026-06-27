@@ -252,6 +252,34 @@ Toast and Sonner. Runtime timers, portal mounting, promise orchestration,
 live-region announcement wording, escape-key behavior, and focus policy remain
 app-owned or deferred adapter work.
 
+## Batch 9: Chart Follow-through
+
+Status: Planned in M19.
+
+Components:
+
+- Chart data primitives
+- Chart accessibility helpers
+- Docs-only chart recipes
+
+Implementation specification:
+
+- [Chart Follow-through API Plan](chart-follow-through.md)
+
+Dependencies:
+
+- data domain helpers
+- scale helpers
+- color token policy
+- accessible summary and fallback-row helpers
+- backend dependency policy
+
+Rationale:
+
+Chart remains too broad for a public component without a backend decision, but
+the project can still make progress by defining data and accessibility
+primitives that future rendering adapters can share.
+
 ## Recommended Next Milestones
 
 ```text

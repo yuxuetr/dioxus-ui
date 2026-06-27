@@ -16,7 +16,8 @@ For the calendar milestone, see the
 [calendar and date picker API plan](calendar-date.md).
 For the data milestone, see the
 [data table and chart strategy](data-visualization.md) and
-[chart strategy](chart-strategy.md).
+[chart strategy](chart-strategy.md). For chart follow-through, see the
+[chart follow-through API plan](chart-follow-through.md).
 For the layout and media milestone, see the
 [layout shells and media API plan](layout-media.md).
 For the feedback notification milestone, see the
