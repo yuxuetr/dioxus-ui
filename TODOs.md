@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 80%
 - Current milestone: M20 Static Composition Gaps
-- Current task: M20.4 Implement Field and Item
+- Current task: M20.5 Complete static composition documentation and examples
 
 ## M0 Documentation
 
@@ -491,7 +491,7 @@
   - Keep routing, icons, and actions app-owned.
   - Add CLI templates, registry entries, docs pages, and demo usage.
 
-- TODO M20.4 Implement Field and Item
+- DONE M20.4 Implement Field and Item
   - Add form field composition parts and generic list/item composition parts.
   - Keep validation state, descriptions, controls, and data rendering app-owned.
   - Add CLI templates, registry entries, docs pages, and demo usage.
