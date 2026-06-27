@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 20%
 - Current milestone: M20 Static Composition Gaps
-- Current task: M20.1 Plan static composition APIs
+- Current task: M20.2 Implement Aspect Ratio, Kbd, and Typography
 
 ## M0 Documentation
 
@@ -476,7 +476,7 @@
 
 ## M20 Static Composition Gaps
 
-- TODO M20.1 Plan static composition APIs
+- DONE M20.1 Plan static composition APIs
   - Define Aspect Ratio, Kbd, Typography, Breadcrumb, Empty, Field, and Item API boundaries.
   - Decide which components are pure styled wrappers versus small semantic composition parts.
   - Document Web/Desktop/Mobile, source-copy, accessibility, and dependency constraints before implementation.
