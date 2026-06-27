@@ -33,10 +33,10 @@ be ported one-for-one.
 | Menus | - | Current M13 menu system set is implemented. |
 | Date and calendar | - | Calendar and Date Picker are implemented. |
 | Overlays | - | Current M12 overlay variant set is implemented. |
-| Feedback | - | Toast and Sonner are implemented; runtime timers and live regions remain app-owned. |
+| Feedback | - | Toast and Sonner are implemented; M21 defines optional timer and live-region adapter boundaries. |
 | Data | Chart component | Chart data and accessibility primitives are implemented; public rendering component remains deferred. |
 | Navigation shell | - | Sidebar is implemented; persistence and keyboard shortcuts remain app-owned. |
-| Media | - | Carousel is implemented; gestures, autoplay, and live announcements remain app-owned. |
+| Media | - | Carousel is implemented; M21 defines optional gesture and live-announcement adapter boundaries. |
 
 ## Deferred Or External
 
@@ -45,13 +45,16 @@ be ported one-for-one.
 | Chart component | M19 implements chart data and accessibility primitives plus recipes; a component remains deferred until backend, measurement, interaction, and fallback-table contracts are explicit. |
 | Data Table runtime adapters | Data Table state helpers and composition parts are implemented; filtering, async loading, and virtualization remain app-owned. |
 | Calendar / Date Picker runtime adapters | Date math primitives are implemented; parsing, localization, and focus adapters remain deferred. |
+| Runtime adapters | M21 documents adapter boundaries; concrete adapter contracts and renderer implementations are the next step. |
 
 ## Next Milestone Seeds
 
-After M20, the safest remaining component order is:
+After M21, the safest remaining implementation order is:
 
-1. Runtime adapters for timers, portals, focus, gestures, and live announcements
-2. Chart rendering backend evaluation after adapter requirements are concrete
+1. Focus and portal adapter contracts with Dialog/Alert Dialog and Popover verification
+2. Timer/live-region adapter contracts for Toast and Sonner
+3. Measurement/pointer/gesture adapter contracts for Popover, Resizable, and Carousel
+4. Chart rendering backend evaluation after adapter requirements are concrete
 
 See [Complex Component Batches](complex-batches.md) for the expanded milestone
 plan.

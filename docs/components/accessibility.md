@@ -113,6 +113,13 @@ Statuses:
 
 ## Complex Component Gates
 
+Runtime adapter planning is tracked in:
+
+- [Runtime Adapter Plan](runtime-adapters.md)
+- [Focus And Portal Adapter Plan](focus-portal-adapters.md)
+- [Timer And Live Region Adapter Plan](timer-live-region-adapters.md)
+- [Measurement, Pointer, And Gesture Adapter Plan](measurement-pointer-gesture-adapters.md)
+
 Before complex interaction components are marked stable:
 
 - Keyboard behavior must be documented.

@@ -124,3 +124,24 @@ Exit criteria:
 
 - each component has API docs, examples, and accessibility notes
 - generated source and crate-mode examples stay in sync
+
+## Stage 7: Runtime Adapters
+
+Goal: add optional renderer-aware behavior without making controlled styled
+components or source-copy templates depend on runtime commands by default.
+
+Deliverables:
+
+- focus and portal adapter contracts
+- timer and live-region adapter contracts
+- measurement, pointer, and gesture adapter contracts
+- Web/Desktop verification examples
+- documented fallback behavior for unsupported targets
+
+Exit criteria:
+
+- components still work without adapters
+- adapters can report unsupported behavior without panics
+- Dialog or Alert Dialog verifies modal focus behavior
+- Popover verifies non-modal portal and measurement behavior
+- Toast or Sonner verifies timer and live-region behavior

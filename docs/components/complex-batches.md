@@ -320,11 +320,51 @@ M20 shipped all seven components in crate mode and source-copy mode. Runtime
 routing, validation, collection semantics, icon rendering, and media loading
 remain app-owned.
 
+## Batch 11: Runtime Adapter Planning
+
+Status: Implemented in M21.
+
+Adapter families:
+
+- focus commands and focus traps
+- portal mounting
+- timer scheduling
+- live-region announcements
+- measurement
+- pointer dragging
+- gestures
+
+Implementation specifications:
+
+- [Runtime Adapter Plan](runtime-adapters.md)
+- [Focus And Portal Adapter Plan](focus-portal-adapters.md)
+- [Timer And Live Region Adapter Plan](timer-live-region-adapters.md)
+- [Measurement, Pointer, And Gesture Adapter Plan](measurement-pointer-gesture-adapters.md)
+
+Dependencies:
+
+- existing pure primitives
+- controlled styled component APIs
+- Web/Desktop/Mobile verification strategy
+- source-copy opt-in policy
+
+Rationale:
+
+M10-M20 intentionally left runtime commands out of primitives and styled
+components. M21 defines the adapter boundaries needed to add richer behavior
+without making source-copy components renderer-specific by default.
+
+M21 recommends implementing focus and portal adapter contracts first, with
+Dialog or Alert Dialog as the first modal verification slice and Popover as the
+first non-modal verification slice.
+
 ## Recommended Next Milestones
 
 ```text
 M10-M20 completed component and primitive batches
-Next: runtime adapter planning for timers, portals, focus, gestures, and live announcements
+M21 completed runtime adapter planning
+Next: focus and portal adapter contracts with Dialog/Popover verification
+Next: timer/live-region and measurement/pointer/gesture adapter contracts
 Next: chart rendering backend evaluation after adapter requirements are concrete
 ```
 

@@ -527,6 +527,32 @@
   - Decide the next implementable milestone from the adapter plan.
   - Run documentation and quality checks before marking the batch complete.
 
+## M22 Focus And Portal Adapter Contracts
+
+- TODO M22.1 Design focus and portal contract implementation
+  - Define the exact module location, feature flags, public exports, and source-copy policy for adapter contracts.
+  - Decide whether contracts live in `dioxus-ui-primitives`, `dioxus-ui-core`, or a new runtime module.
+  - Document Web/Desktop/Mobile fallback behavior before code changes.
+
+- TODO M22.2 Implement focus adapter contract types
+  - Add narrow focus runtime traits or structs with explicit unsupported results.
+  - Add tests for focus strategy mapping, unsupported fallback, and modal versus non-modal policy.
+  - Avoid DOM or WebView commands in the first contract layer.
+
+- TODO M22.3 Implement portal adapter contract types
+  - Add narrow portal runtime traits or structs with explicit target availability.
+  - Add tests for inline, body, selector/named target, and unsupported fallback behavior.
+  - Keep app shell z-index and target provisioning app-owned.
+
+- TODO M22.4 Add Dialog and Popover adapter contract examples
+  - Show how Dialog or Alert Dialog would request modal focus behavior.
+  - Show how Popover would request non-modal portal behavior.
+  - Keep examples controlled and avoid renderer-specific commands until verified.
+
+- TODO M22.5 Complete focus and portal adapter contract documentation
+  - Update runtime adapter docs, accessibility checklist, and complex batch plan.
+  - Run workspace tests and documentation checks before marking the batch complete.
+
 ## Status Rules
 
 - Change `TODO` to `DONE` only after implementation, validation, and commit.
