@@ -6,6 +6,7 @@ pub mod data_table;
 #[cfg(feature = "dialog")]
 pub mod dialog;
 pub mod dismissal;
+pub mod feedback;
 pub mod layout;
 #[cfg(feature = "dropdown")]
 pub mod dropdown;
@@ -36,6 +37,11 @@ pub use data_table::{
   DataTablePaginationState, DataTableSelectionState, DataTableSortDirection, DataTableSortState,
 };
 pub use dismissal::{DismissalDecision, DismissalEvent};
+pub use feedback::{
+  toast_dismiss_reason_attribute, toast_is_expired, toast_placement_attribute,
+  toast_queue_dismiss, toast_queue_limit, toast_queue_push, toast_variant_attribute, ToastDismissReason,
+  ToastItem, ToastPlacement, ToastQueue, ToastVariant,
+};
 pub use layout::{
   carousel_can_go_next, carousel_can_go_previous, carousel_clamp_index, carousel_next,
   carousel_previous, layout_orientation_attribute, resizable_clamp, resizable_resize_pair,
