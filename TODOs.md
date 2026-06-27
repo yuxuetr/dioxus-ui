@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 60%
 - Current milestone: M20 Static Composition Gaps
-- Current task: M20.3 Implement Breadcrumb and Empty
+- Current task: M20.4 Implement Field and Item
 
 ## M0 Documentation
 
@@ -486,7 +486,7 @@
   - Keep ratio math deterministic and class tokens static.
   - Add CLI templates, registry entries, docs pages, and demo usage.
 
-- TODO M20.3 Implement Breadcrumb and Empty
+- DONE M20.3 Implement Breadcrumb and Empty
   - Add semantic navigation breadcrumb parts and empty-state composition parts.
   - Keep routing, icons, and actions app-owned.
   - Add CLI templates, registry entries, docs pages, and demo usage.
