@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M18 Feedback Notifications
-- Current task: M18 complete
+- Overall: 0%
+- Current milestone: M19 Chart Follow-through
+- Current task: M19.1 Plan chart follow-through APIs
 
 ## M0 Documentation
 
@@ -445,6 +445,32 @@
   - Add CLI template, registry entry, docs page, and demo usage.
 
 - DONE M18.5 Complete feedback notification documentation and examples
+  - Update parity, accessibility, complex batch, and component catalog docs.
+  - Run release quality gates before marking the batch complete.
+
+## M19 Chart Follow-through
+
+- TODO M19.1 Plan chart follow-through APIs
+  - Define chart data model, scale helper, color token, summary, and recipe boundaries.
+  - Decide which chart pieces remain docs-only versus primitive helpers.
+  - Document Web/Desktop/Mobile, source-copy, accessibility, and dependency constraints before implementation.
+
+- TODO M19.2 Implement chart data primitives
+  - Add pure chart series, point, domain, and scale helper types.
+  - Avoid rendering backend, DOM measurement, canvas, SVG generation, and pointer event ownership in primitives.
+  - Add unit tests for domain calculation, scale mapping, empty data, and stacked/ranged values.
+
+- TODO M19.3 Implement chart accessibility helpers
+  - Add pure helpers for summary text, series labels, value labels, and tabular fallback metadata.
+  - Keep localization, formatting, and announcement timing app-owned.
+  - Add unit tests for summary output, missing values, color-independent labels, and fallback rows.
+
+- TODO M19.4 Document chart recipes without public component
+  - Add docs-only recipes for line, bar, and area chart composition using app-owned rendering.
+  - Document why `dxui add chart` and a `chart` feature remain deferred.
+  - Update chart strategy with backend evaluation criteria and dependency policy.
+
+- TODO M19.5 Complete chart follow-through documentation
   - Update parity, accessibility, complex batch, and component catalog docs.
   - Run release quality gates before marking the batch complete.
 
