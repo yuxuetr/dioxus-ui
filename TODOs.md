@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 60%
 - Current milestone: M23 Timer And Live Region Adapter Contracts
-- Current task: M23.3 Implement live-region adapter contract types
+- Current task: M23.4 Add Toast and Sonner adapter contract examples
 
 ## M0 Documentation
 
@@ -565,7 +565,7 @@
   - Add tests for schedule, cancel, missing timer, and unsupported fallback behavior.
   - Avoid owning Toast or Sonner queue mutation in the timer layer.
 
-- TODO M23.3 Implement live-region adapter contract types
+- DONE M23.3 Implement live-region adapter contract types
   - Add announcement priority and duplicate policy request/result types.
   - Add tests for polite/assertive requests, duplicate policy, and unsupported fallback behavior.
   - Keep announcement wording and localization app-owned.
