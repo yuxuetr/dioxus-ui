@@ -217,6 +217,9 @@ The exact API may change after Web and Desktop verification. The important
 boundary is that adapters perform commands while primitives hold state and
 policies.
 
+For the focus and portal slice, see the
+[focus and portal adapter plan](focus-portal-adapters.md).
+
 ## Implementation Order
 
 1. Runtime adapter boundary plan

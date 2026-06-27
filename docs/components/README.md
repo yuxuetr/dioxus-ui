@@ -25,7 +25,8 @@ For the feedback notification milestone, see the
 [feedback notifications API plan](feedback-notifications.md).
 For the static composition milestone, see the
 [static composition API plan](static-composition.md). For the runtime adapter
-planning milestone, see the [runtime adapter plan](runtime-adapters.md).
+planning milestone, see the [runtime adapter plan](runtime-adapters.md) and
+[focus and portal adapter plan](focus-portal-adapters.md).
 
 For accessibility expectations, see the
 [accessibility contract checklist](accessibility.md).
