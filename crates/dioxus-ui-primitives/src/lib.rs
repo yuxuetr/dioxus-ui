@@ -69,6 +69,8 @@ pub use roving_focus::{FocusMove, NavigationOrientation, RovingFocusItem, Roving
 #[cfg(feature = "runtime")]
 pub use runtime::{
   FocusCommandResult, FocusRuntime, FocusRuntimeRequest, FocusRuntimeUnsupported,
+  AnnouncementPriority, DuplicateAnnouncementPolicy, LiveRegionRuntime,
+  LiveRegionRuntimeRequest, LiveRegionRuntimeResult, LiveRegionRuntimeUnsupported,
   PortalMountResult, PortalRuntime, PortalRuntimeRequest, PortalRuntimeUnsupported,
   TimerReason, TimerRuntime, TimerRuntimeRequest, TimerRuntimeResult, TimerRuntimeUnsupported,
 };

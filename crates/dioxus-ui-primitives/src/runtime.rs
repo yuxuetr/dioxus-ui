@@ -271,6 +271,107 @@ impl TimerRuntime for TimerRuntimeUnsupported {
   }
 }
 
+/// Live-region announcement urgency.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum AnnouncementPriority {
+  Polite,
+  Assertive,
+}
+
+/// Duplicate handling policy for consecutive announcements.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum DuplicateAnnouncementPolicy {
+  Allow,
+  SuppressConsecutive,
+}
+
+/// Request metadata for a runtime live-region announcement.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct LiveRegionRuntimeRequest {
+  pub message: String,
+  pub priority: AnnouncementPriority,
+  pub duplicate_policy: DuplicateAnnouncementPolicy,
+}
+
+impl LiveRegionRuntimeRequest {
+  pub fn new(
+    message: impl Into<String>,
+    priority: AnnouncementPriority,
+    duplicate_policy: DuplicateAnnouncementPolicy,
+  ) -> Self {
+    Self {
+      message: message.into(),
+      priority,
+      duplicate_policy,
+    }
+  }
+
+  pub fn polite(message: impl Into<String>) -> Self {
+    Self::new(
+      message,
+      AnnouncementPriority::Polite,
+      DuplicateAnnouncementPolicy::SuppressConsecutive,
+    )
+  }
+
+  pub fn assertive(message: impl Into<String>) -> Self {
+    Self::new(
+      message,
+      AnnouncementPriority::Assertive,
+      DuplicateAnnouncementPolicy::SuppressConsecutive,
+    )
+  }
+
+  pub fn allow_duplicates(mut self) -> Self {
+    self.duplicate_policy = DuplicateAnnouncementPolicy::Allow;
+    self
+  }
+
+  pub fn suppress_consecutive_duplicates(mut self) -> Self {
+    self.duplicate_policy = DuplicateAnnouncementPolicy::SuppressConsecutive;
+    self
+  }
+
+  pub fn is_empty(&self) -> bool {
+    self.message.trim().is_empty()
+  }
+
+  pub fn should_suppress_duplicate(&self, previous_message: Option<&str>) -> bool {
+    matches!(
+      self.duplicate_policy,
+      DuplicateAnnouncementPolicy::SuppressConsecutive
+    ) && previous_message == Some(self.message.as_str())
+  }
+}
+
+/// Result of a runtime live-region announcement command.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum LiveRegionRuntimeResult {
+  Queued,
+  SuppressedDuplicate,
+  EmptyMessage,
+  Unsupported,
+}
+
+/// Runtime live-region command surface.
+pub trait LiveRegionRuntime {
+  fn announce(&self, request: &LiveRegionRuntimeRequest) -> LiveRegionRuntimeResult;
+}
+
+/// Live-region runtime used when the current target has no adapter installed.
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct LiveRegionRuntimeUnsupported;
+
+impl LiveRegionRuntime for LiveRegionRuntimeUnsupported {
+  fn announce(&self, request: &LiveRegionRuntimeRequest) -> LiveRegionRuntimeResult {
+    if request.is_empty() {
+      LiveRegionRuntimeResult::EmptyMessage
+    } else {
+      LiveRegionRuntimeResult::Unsupported
+    }
+  }
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -427,6 +528,70 @@ mod tests {
     let timer_id = ();
 
     assert_eq!(runtime.cancel(&timer_id), TimerRuntimeResult::Unsupported);
+  }
+
+  #[test]
+  fn polite_live_region_request_uses_duplicate_suppression() {
+    let request = LiveRegionRuntimeRequest::polite("Saved");
+
+    assert_eq!(request.message, "Saved");
+    assert_eq!(request.priority, AnnouncementPriority::Polite);
+    assert_eq!(
+      request.duplicate_policy,
+      DuplicateAnnouncementPolicy::SuppressConsecutive
+    );
+    assert!(!request.is_empty());
+  }
+
+  #[test]
+  fn assertive_live_region_request_uses_assertive_priority() {
+    let request = LiveRegionRuntimeRequest::assertive("Failed");
+
+    assert_eq!(request.priority, AnnouncementPriority::Assertive);
+    assert_eq!(
+      request.duplicate_policy,
+      DuplicateAnnouncementPolicy::SuppressConsecutive
+    );
+  }
+
+  #[test]
+  fn live_region_request_can_allow_duplicates() {
+    let request = LiveRegionRuntimeRequest::polite("Saved").allow_duplicates();
+
+    assert_eq!(request.duplicate_policy, DuplicateAnnouncementPolicy::Allow);
+    assert!(!request.should_suppress_duplicate(Some("Saved")));
+  }
+
+  #[test]
+  fn live_region_request_detects_empty_message() {
+    let request = LiveRegionRuntimeRequest::polite("  ");
+
+    assert!(request.is_empty());
+  }
+
+  #[test]
+  fn live_region_request_suppresses_consecutive_duplicate() {
+    let request = LiveRegionRuntimeRequest::polite("Saved");
+
+    assert!(request.should_suppress_duplicate(Some("Saved")));
+    assert!(!request.should_suppress_duplicate(Some("Loaded")));
+    assert!(!request.should_suppress_duplicate(None));
+  }
+
+  #[test]
+  fn unsupported_live_region_runtime_reports_unsupported_for_message() {
+    let runtime = LiveRegionRuntimeUnsupported;
+    let request = LiveRegionRuntimeRequest::polite("Saved");
+
+    assert_eq!(runtime.announce(&request), LiveRegionRuntimeResult::Unsupported);
+  }
+
+  #[test]
+  fn unsupported_live_region_runtime_reports_empty_message() {
+    let runtime = LiveRegionRuntimeUnsupported;
+    let request = LiveRegionRuntimeRequest::polite(" ");
+
+    assert_eq!(runtime.announce(&request), LiveRegionRuntimeResult::EmptyMessage);
   }
 
   #[cfg(feature = "dialog")]
