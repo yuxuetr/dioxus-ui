@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M17 Layout Shells and Media
-- Current task: M17 complete
+- Overall: 0%
+- Current milestone: M18 Feedback Notifications
+- Current task: M18.1 Plan feedback notification APIs
 
 ## M0 Documentation
 
@@ -419,6 +419,32 @@
   - Add CLI template, registry entry, docs page, and demo usage.
 
 - DONE M17.7 Complete layout shell and media documentation and examples
+  - Update parity, accessibility, complex batch, and component catalog docs.
+  - Run release quality gates before marking the batch complete.
+
+## M18 Feedback Notifications
+
+- TODO M18.1 Plan feedback notification APIs
+  - Define Toast and Sonner API boundaries.
+  - Decide queue, placement, dismiss, action, live-region, and timing ownership.
+  - Document Web/Desktop/Mobile, source-copy, accessibility, and dependency constraints before implementation.
+
+- TODO M18.2 Implement feedback state primitives
+  - Add pure toast item, queue, placement, and timeout helper types.
+  - Avoid timer ownership, DOM focus ownership, and portal mounting in primitives.
+  - Add unit tests for queue add, dismiss, limit, placement, and timeout behavior.
+
+- TODO M18.3 Implement Toast
+  - Add controlled viewport, root, title, description, action, close, and provider-style helper APIs.
+  - Reuse feedback primitives and document live announcements as app-owned integration.
+  - Add CLI template, registry entry, docs page, and demo usage.
+
+- TODO M18.4 Implement Sonner
+  - Add opinionated toast list composition parts and variants for success, info, warning, error, and loading.
+  - Reuse feedback primitives and keep timers, promises, and async orchestration app-owned.
+  - Add CLI template, registry entry, docs page, and demo usage.
+
+- TODO M18.5 Complete feedback notification documentation and examples
   - Update parity, accessibility, complex batch, and component catalog docs.
   - Run release quality gates before marking the batch complete.
 
