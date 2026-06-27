@@ -186,6 +186,91 @@ impl PortalRuntime for PortalRuntimeUnsupported {
   }
 }
 
+/// Runtime timer use case.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum TimerReason {
+  ToastDismiss,
+  SonnerDismiss,
+  TooltipDelay,
+  HoverCardDelay,
+  CarouselAutoplay,
+}
+
+/// Request metadata for a one-shot runtime timer.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct TimerRuntimeRequest {
+  pub delay_ms: u64,
+  pub reason: TimerReason,
+}
+
+impl TimerRuntimeRequest {
+  pub const fn new(delay_ms: u64, reason: TimerReason) -> Self {
+    Self { delay_ms, reason }
+  }
+
+  pub const fn toast_dismiss(delay_ms: u64) -> Self {
+    Self::new(delay_ms, TimerReason::ToastDismiss)
+  }
+
+  pub const fn sonner_dismiss(delay_ms: u64) -> Self {
+    Self::new(delay_ms, TimerReason::SonnerDismiss)
+  }
+
+  pub const fn tooltip_delay(delay_ms: u64) -> Self {
+    Self::new(delay_ms, TimerReason::TooltipDelay)
+  }
+
+  pub const fn hover_card_delay(delay_ms: u64) -> Self {
+    Self::new(delay_ms, TimerReason::HoverCardDelay)
+  }
+
+  pub const fn carousel_autoplay(delay_ms: u64) -> Self {
+    Self::new(delay_ms, TimerReason::CarouselAutoplay)
+  }
+
+  pub const fn is_enabled(self) -> bool {
+    self.delay_ms > 0
+  }
+}
+
+/// Result of a runtime timer command.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub enum TimerRuntimeResult<TimerId> {
+  Scheduled(TimerId),
+  Cancelled,
+  Missing,
+  Disabled,
+  Unsupported,
+}
+
+/// Runtime timer command surface.
+pub trait TimerRuntime {
+  type TimerId;
+
+  fn schedule_once(&self, request: &TimerRuntimeRequest) -> TimerRuntimeResult<Self::TimerId>;
+  fn cancel(&self, id: &Self::TimerId) -> TimerRuntimeResult<Self::TimerId>;
+}
+
+/// Timer runtime used when the current target has no adapter installed.
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct TimerRuntimeUnsupported;
+
+impl TimerRuntime for TimerRuntimeUnsupported {
+  type TimerId = ();
+
+  fn schedule_once(&self, request: &TimerRuntimeRequest) -> TimerRuntimeResult<Self::TimerId> {
+    if request.is_enabled() {
+      TimerRuntimeResult::Unsupported
+    } else {
+      TimerRuntimeResult::Disabled
+    }
+  }
+
+  fn cancel(&self, _id: &Self::TimerId) -> TimerRuntimeResult<Self::TimerId> {
+    TimerRuntimeResult::Unsupported
+  }
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -282,6 +367,66 @@ mod tests {
       runtime.mount_target(&PortalRuntimeRequest::selector("#overlays", false)),
       PortalMountResult::Unsupported
     );
+  }
+
+  #[test]
+  fn timer_request_preserves_reason_and_delay() {
+    let request = TimerRuntimeRequest::toast_dismiss(5000);
+
+    assert_eq!(request.delay_ms, 5000);
+    assert_eq!(request.reason, TimerReason::ToastDismiss);
+    assert!(request.is_enabled());
+  }
+
+  #[test]
+  fn timer_request_can_be_disabled_by_zero_delay() {
+    let request = TimerRuntimeRequest::sonner_dismiss(0);
+
+    assert_eq!(request.reason, TimerReason::SonnerDismiss);
+    assert!(!request.is_enabled());
+  }
+
+  #[test]
+  fn timer_request_covers_deferred_runtime_reasons() {
+    assert_eq!(
+      TimerRuntimeRequest::tooltip_delay(150).reason,
+      TimerReason::TooltipDelay
+    );
+    assert_eq!(
+      TimerRuntimeRequest::hover_card_delay(200).reason,
+      TimerReason::HoverCardDelay
+    );
+    assert_eq!(
+      TimerRuntimeRequest::carousel_autoplay(3000).reason,
+      TimerReason::CarouselAutoplay
+    );
+  }
+
+  #[test]
+  fn unsupported_timer_runtime_reports_unsupported_for_enabled_timer() {
+    let runtime = TimerRuntimeUnsupported;
+    let request = TimerRuntimeRequest::toast_dismiss(5000);
+
+    assert_eq!(
+      runtime.schedule_once(&request),
+      TimerRuntimeResult::Unsupported
+    );
+  }
+
+  #[test]
+  fn unsupported_timer_runtime_reports_disabled_for_zero_delay() {
+    let runtime = TimerRuntimeUnsupported;
+    let request = TimerRuntimeRequest::toast_dismiss(0);
+
+    assert_eq!(runtime.schedule_once(&request), TimerRuntimeResult::Disabled);
+  }
+
+  #[test]
+  fn unsupported_timer_runtime_reports_unsupported_cancel() {
+    let runtime = TimerRuntimeUnsupported;
+    let timer_id = ();
+
+    assert_eq!(runtime.cancel(&timer_id), TimerRuntimeResult::Unsupported);
   }
 
   #[cfg(feature = "dialog")]

@@ -70,6 +70,7 @@ pub use roving_focus::{FocusMove, NavigationOrientation, RovingFocusItem, Roving
 pub use runtime::{
   FocusCommandResult, FocusRuntime, FocusRuntimeRequest, FocusRuntimeUnsupported,
   PortalMountResult, PortalRuntime, PortalRuntimeRequest, PortalRuntimeUnsupported,
+  TimerReason, TimerRuntime, TimerRuntimeRequest, TimerRuntimeResult, TimerRuntimeUnsupported,
 };
 pub use slider::{
   slider_clamp, slider_percent, slider_snap, SliderAriaAttributes, SliderKeyMove, SliderState,
