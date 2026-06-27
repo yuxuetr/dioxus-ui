@@ -219,6 +219,34 @@ for Sidebar, Carousel, Scroll Area, and Resizable. Runtime measurement, pointer
 dragging, persistence, responsive breakpoint orchestration, carousel gestures,
 autoplay, and live announcements remain app-owned or deferred adapter work.
 
+## Batch 8: Feedback Notifications
+
+Status: Planned in M18.
+
+Components:
+
+- Toast
+- Sonner
+
+Implementation specification:
+
+- [Feedback Notifications API Plan](feedback-notifications.md)
+
+Dependencies:
+
+- queue state primitives
+- placement policy
+- dismissal reasons
+- live-region accessibility contract
+- timer ownership policy
+
+Rationale:
+
+Feedback notifications combine transient state, urgency, announcement timing,
+actions, and dismissal behavior. They should start with deterministic queue
+helpers and controlled styled parts before adding timer, portal, or async
+runtime adapters.
+
 ## Recommended Next Milestones
 
 ```text
