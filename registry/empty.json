@@ -1,0 +1,14 @@
+{
+  "name": "empty",
+  "description": "Empty-state layout composition parts.",
+  "files": [
+    {
+      "source": "templates/empty.rs",
+      "target": "src/components/ui/empty.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

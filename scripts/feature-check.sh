@@ -11,6 +11,7 @@ features=(
   aspect-ratio
   avatar
   badge
+  breadcrumb
   button
   calendar
   carousel
@@ -24,6 +25,7 @@ features=(
   dialog
   drawer
   dropdown
+  empty
   hover-card
   input
   kbd
@@ -62,7 +64,7 @@ for feature in "${features[@]}"; do
 done
 
 echo "checking static component feature set"
-cargo check -q -p dioxus-ui --no-default-features --features "alert,alert-dialog,aspect-ratio,avatar,badge,card,carousel,kbd,native-select,pagination,progress,separator,sidebar,skeleton,sonner,spinner,table,toast,typography"
+cargo check -q -p dioxus-ui --no-default-features --features "alert,alert-dialog,aspect-ratio,avatar,badge,breadcrumb,card,carousel,empty,kbd,native-select,pagination,progress,separator,sidebar,skeleton,sonner,spinner,table,toast,typography"
 
 echo "checking primitive-backed feature set"
 cargo check -q -p dioxus-ui --no-default-features --features "combobox,context-menu,date-picker,dialog,drawer,dropdown,hover-card,menubar,navigation-menu,popover,radio-group,select,sheet,slider,toggle-group,tooltip"

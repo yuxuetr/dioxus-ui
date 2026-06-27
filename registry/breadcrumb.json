@@ -1,0 +1,14 @@
+{
+  "name": "breadcrumb",
+  "description": "Semantic breadcrumb navigation composition parts.",
+  "files": [
+    {
+      "source": "templates/breadcrumb.rs",
+      "target": "src/components/ui/breadcrumb.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

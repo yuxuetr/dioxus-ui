@@ -52,6 +52,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Aspect Ratio](aspect-ratio.md) | `dxui add aspect-ratio` | `aspect-ratio` | Fixed-ratio content slot |
 | [Avatar](avatar.md) | `dxui add avatar` | `avatar` | Styled parts |
 | [Badge](badge.md) | `dxui add badge` | `badge` | Styled |
+| [Breadcrumb](breadcrumb.md) | `dxui add breadcrumb` | `breadcrumb` | Navigation composition parts |
 | [Button](button.md) | `dxui add button` | `button` | Styled |
 | [Calendar](calendar.md) | `dxui add calendar` | `calendar` | Date grid styled parts |
 | [Carousel](carousel.md) | `dxui add carousel` | `carousel` | Controlled slide composition parts |
@@ -65,6 +66,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Dialog](dialog.md) | `dxui add dialog` | `dialog` | Primitive config + styled parts |
 | [Drawer](drawer.md) | `dxui add drawer` | `drawer` | Dialog-backed bottom drawer |
 | [Dropdown](dropdown.md) | `dxui add dropdown` | `dropdown` | Primitive config + styled parts |
+| [Empty](empty.md) | `dxui add empty` | `empty` | Empty-state composition parts |
 | [Hover Card](hover-card.md) | `dxui add hover-card` | `hover-card` | Popover-backed preview content |
 | [Input](input.md) | `dxui add input` | `input` | Styled |
 | [Kbd](kbd.md) | `dxui add kbd` | `kbd` | Styled keyboard hint |

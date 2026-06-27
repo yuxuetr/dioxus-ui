@@ -2,9 +2,10 @@ use dioxus_ui::{
   accordion_content_class, accordion_item_class, accordion_trigger_class,
   alert_dialog_action_class, alert_dialog_content_class, alert_dialog_overlay_class, alert_class,
   alert_description_class, alert_title_class, aspect_ratio_style, avatar_class,
-  avatar_fallback_class, avatar_image_class, badge_class, button_class, calendar_day_class,
-  calendar_month_grid, calendar_move_date, carousel_can_go_previous, carousel_content_class,
-  carousel_control_class, carousel_indicator_class, carousel_item_class, carousel_previous, card_class,
+  avatar_fallback_class, avatar_image_class, badge_class, breadcrumb_link_class,
+  breadcrumb_list_class, button_class, calendar_day_class, calendar_month_grid,
+  calendar_move_date, carousel_can_go_previous, carousel_content_class, carousel_control_class,
+  carousel_indicator_class, carousel_item_class, carousel_previous, card_class,
   card_content_class, card_description_class, card_footer_class, card_header_class,
   card_title_class, checkbox_class, command_active_descendant_state, command_class,
   command_input_class, command_item_class, combobox_input_class,
@@ -15,9 +16,10 @@ use dioxus_ui::{
   date_picker_side_attribute, date_picker_trigger_class, date_picker_value_class,
   dialog_content_class, dialog_overlay_class, drawer_content_class,
   drawer_overlay_class, dropdown_content_class, dropdown_item_class, dropdown_label_class,
-  dropdown_separator_class, hover_card_align_attribute, hover_card_content_class,
-  hover_card_side_attribute, input_class, kbd_class, label_class, menubar_class,
-  menubar_item_class, menubar_trigger_class, native_select_class, native_select_group_class,
+  dropdown_separator_class, empty_actions_class, empty_class, empty_title_class,
+  hover_card_align_attribute, hover_card_content_class, hover_card_side_attribute, input_class,
+  kbd_class, label_class, menubar_class, menubar_item_class, menubar_trigger_class,
+  native_select_class, native_select_group_class,
   native_select_option_class, navigation_menu_class, navigation_menu_link_class,
   navigation_menu_trigger_class, pagination_class, pagination_link_class,
   popover_content_class, popover_description_class, popover_header_class, popover_title_class,
@@ -112,6 +114,26 @@ fn main() {
   println!(
     "dioxus-ui desktop demo badge class: {}",
     badge_class(BadgeVariant::Secondary, "")
+  );
+  println!(
+    "dioxus-ui desktop demo breadcrumb list class: {}",
+    breadcrumb_list_class("gap-2")
+  );
+  println!(
+    "dioxus-ui desktop demo breadcrumb current link class: {}",
+    breadcrumb_link_class(true, "")
+  );
+  println!(
+    "dioxus-ui desktop demo empty class: {}",
+    empty_class("min-h-48")
+  );
+  println!(
+    "dioxus-ui desktop demo empty title class: {}",
+    empty_title_class("text-base")
+  );
+  println!(
+    "dioxus-ui desktop demo empty actions class: {}",
+    empty_actions_class("justify-end")
   );
   println!(
     "dioxus-ui desktop demo kbd class: {}",

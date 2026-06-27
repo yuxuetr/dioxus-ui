@@ -18,6 +18,9 @@ pub mod avatar;
 #[cfg(feature = "badge")]
 pub mod badge;
 
+#[cfg(feature = "breadcrumb")]
+pub mod breadcrumb;
+
 #[cfg(feature = "button")]
 pub mod button;
 
@@ -56,6 +59,9 @@ pub mod drawer;
 
 #[cfg(feature = "dropdown")]
 pub mod dropdown;
+
+#[cfg(feature = "empty")]
+pub mod empty;
 
 #[cfg(feature = "hover-card")]
 pub mod hover_card;
@@ -164,6 +170,15 @@ pub use avatar::{
 };
 #[cfg(feature = "badge")]
 pub use badge::{badge_class, Badge, BadgeVariant, BADGE_BASE_CLASS};
+#[cfg(feature = "breadcrumb")]
+pub use breadcrumb::{
+  breadcrumb_class, breadcrumb_ellipsis_class, breadcrumb_item_class, breadcrumb_link_class,
+  breadcrumb_list_class, breadcrumb_page_class, breadcrumb_separator_class, Breadcrumb,
+  BreadcrumbEllipsis, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage,
+  BreadcrumbSeparator, BREADCRUMB_BASE_CLASS, BREADCRUMB_ELLIPSIS_BASE_CLASS,
+  BREADCRUMB_ITEM_BASE_CLASS, BREADCRUMB_LINK_BASE_CLASS, BREADCRUMB_LINK_CURRENT_CLASS,
+  BREADCRUMB_LIST_BASE_CLASS, BREADCRUMB_PAGE_BASE_CLASS, BREADCRUMB_SEPARATOR_BASE_CLASS,
+};
 #[cfg(feature = "button")]
 pub use button::{button_class, Button, ButtonSize, ButtonVariant, BUTTON_BASE_CLASS};
 #[cfg(feature = "calendar")]
@@ -284,6 +299,14 @@ pub use dropdown::{
   DropdownPrimitiveConfig, DropdownSeparator, DROPDOWN_CONTENT_BASE_CLASS,
   DROPDOWN_GROUP_BASE_CLASS, DROPDOWN_ITEM_BASE_CLASS, DROPDOWN_LABEL_BASE_CLASS,
   DROPDOWN_SEPARATOR_BASE_CLASS,
+};
+#[cfg(feature = "empty")]
+pub use empty::{
+  empty_actions_class, empty_class, empty_content_class, empty_description_class,
+  empty_header_class, empty_title_class, Empty, EmptyActions, EmptyContent, EmptyDescription,
+  EmptyHeader, EmptyTitle, EMPTY_ACTIONS_BASE_CLASS, EMPTY_BASE_CLASS,
+  EMPTY_CONTENT_BASE_CLASS, EMPTY_DESCRIPTION_BASE_CLASS, EMPTY_HEADER_BASE_CLASS,
+  EMPTY_TITLE_BASE_CLASS,
 };
 #[cfg(feature = "hover-card")]
 pub use hover_card::{

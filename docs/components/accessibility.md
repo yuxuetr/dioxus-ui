@@ -16,7 +16,9 @@ Statuses:
 | Aspect Ratio | Adds no implicit media semantics; consuming apps provide labels, alt text, captions, or descriptions for slotted content. | Implemented |
 | Avatar | Image `alt` text is provided by the consuming app. | Implemented |
 | Badge | Text must communicate state, not color alone. | Planned |
+| Breadcrumb | Uses navigation and ordered-list semantics, with current page state on links or page text. | Implemented |
 | Card | Does not add implicit landmark or interactive semantics. | Implemented |
+| Empty | Does not add implicit alert or status semantics; text and actions remain app-owned. | Implemented |
 | Kbd | Uses native `kbd` semantics for keyboard hints. | Implemented |
 | Separator | Supports decorative and semantic separator usage. | Implemented |
 | Skeleton | Hidden from assistive technology by default. | Implemented |
