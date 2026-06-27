@@ -24,7 +24,8 @@ For the layout and media milestone, see the
 For the feedback notification milestone, see the
 [feedback notifications API plan](feedback-notifications.md).
 For the static composition milestone, see the
-[static composition API plan](static-composition.md).
+[static composition API plan](static-composition.md). For the runtime adapter
+planning milestone, see the [runtime adapter plan](runtime-adapters.md).
 
 For accessibility expectations, see the
 [accessibility contract checklist](accessibility.md).
