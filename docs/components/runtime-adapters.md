@@ -221,6 +221,8 @@ For the focus and portal slice, see the
 [focus and portal adapter plan](focus-portal-adapters.md).
 For transient feedback behavior, see the
 [timer and live-region adapter plan](timer-live-region-adapters.md).
+For layout and interaction measurement, see the
+[measurement, pointer, and gesture adapter plan](measurement-pointer-gesture-adapters.md).
 
 ## Implementation Order
 
