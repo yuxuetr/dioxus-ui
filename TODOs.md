@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 40%
 - Current milestone: M19 Chart Follow-through
-- Current task: M19.2 Implement chart data primitives
+- Current task: M19.3 Implement chart accessibility helpers
 
 ## M0 Documentation
 
@@ -455,7 +455,7 @@
   - Decide which chart pieces remain docs-only versus primitive helpers.
   - Document Web/Desktop/Mobile, source-copy, accessibility, and dependency constraints before implementation.
 
-- TODO M19.2 Implement chart data primitives
+- DONE M19.2 Implement chart data primitives
   - Add pure chart series, point, domain, and scale helper types.
   - Avoid rendering backend, DOM measurement, canvas, SVG generation, and pointer event ownership in primitives.
   - Add unit tests for domain calculation, scale mapping, empty data, and stacked/ranged values.
