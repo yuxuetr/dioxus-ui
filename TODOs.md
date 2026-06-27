@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 80%
 - Current milestone: M18 Feedback Notifications
-- Current task: M18.4 Implement Sonner
+- Current task: M18.5 Complete feedback notification documentation and examples
 
 ## M0 Documentation
 
@@ -439,7 +439,7 @@
   - Reuse feedback primitives and document live announcements as app-owned integration.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M18.4 Implement Sonner
+- DONE M18.4 Implement Sonner
   - Add opinionated toast list composition parts and variants for success, info, warning, error, and loading.
   - Reuse feedback primitives and keep timers, promises, and async orchestration app-owned.
   - Add CLI template, registry entry, docs page, and demo usage.
