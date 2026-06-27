@@ -26,8 +26,10 @@ For the feedback notification milestone, see the
 For the static composition milestone, see the
 [static composition API plan](static-composition.md). For the runtime adapter
 planning milestone, see the [runtime adapter plan](runtime-adapters.md) and
-[focus and portal adapter plan](focus-portal-adapters.md). For feedback runtime
-details, see the
+[focus and portal adapter plan](focus-portal-adapters.md). For the first
+implementation slice, see the
+[focus and portal contract implementation plan](focus-portal-contracts.md). For
+feedback runtime details, see the
 [timer and live-region adapter plan](timer-live-region-adapters.md). For
 measurement and gesture runtime details, see the
 [measurement, pointer, and gesture adapter plan](measurement-pointer-gesture-adapters.md).

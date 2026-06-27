@@ -156,3 +156,6 @@ Before enabling runtime defaults:
 3. Verify Dialog or Alert Dialog as the first modal adapter slice.
 4. Verify Popover as the first non-modal adapter slice.
 5. Reuse the same runtime contract for menu and choice components.
+
+M22 turns this plan into a concrete primitive-layer contract. See the
+[focus and portal contract implementation plan](focus-portal-contracts.md).
