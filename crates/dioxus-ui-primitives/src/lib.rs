@@ -69,6 +69,7 @@ pub use roving_focus::{FocusMove, NavigationOrientation, RovingFocusItem, Roving
 #[cfg(feature = "runtime")]
 pub use runtime::{
   FocusCommandResult, FocusRuntime, FocusRuntimeRequest, FocusRuntimeUnsupported,
+  PortalMountResult, PortalRuntime, PortalRuntimeRequest, PortalRuntimeUnsupported,
 };
 pub use slider::{
   slider_clamp, slider_percent, slider_snap, SliderAriaAttributes, SliderKeyMove, SliderState,

@@ -1,4 +1,4 @@
-use crate::{FocusReturn, FocusStrategy};
+use crate::{FocusReturn, FocusStrategy, PortalTarget};
 
 /// Result of a runtime focus command.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -109,6 +109,71 @@ impl FocusRuntime for FocusRuntimeUnsupported {
   }
 }
 
+/// Result of resolving a runtime portal target.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub enum PortalMountResult<MountId> {
+  Mounted(MountId),
+  Inline,
+  MissingTarget,
+  Unsupported,
+}
+
+/// Request metadata for runtime portal mounting.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct PortalRuntimeRequest {
+  pub target: PortalTarget,
+  pub modal: bool,
+}
+
+impl PortalRuntimeRequest {
+  pub fn new(target: PortalTarget, modal: bool) -> Self {
+    Self { target, modal }
+  }
+
+  pub fn inline(modal: bool) -> Self {
+    Self::new(PortalTarget::Inline, modal)
+  }
+
+  pub fn body(modal: bool) -> Self {
+    Self::new(PortalTarget::Body, modal)
+  }
+
+  pub fn selector(selector: impl Into<String>, modal: bool) -> Self {
+    Self::new(PortalTarget::Selector(selector.into()), modal)
+  }
+
+  pub fn should_mount(&self) -> bool {
+    !matches!(self.target, PortalTarget::Inline)
+  }
+
+  pub fn is_body_target(&self) -> bool {
+    matches!(self.target, PortalTarget::Body)
+  }
+}
+
+/// Runtime portal command surface.
+pub trait PortalRuntime {
+  type MountId;
+
+  fn mount_target(&self, request: &PortalRuntimeRequest) -> PortalMountResult<Self::MountId>;
+}
+
+/// Portal runtime used when the current target has no adapter installed.
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct PortalRuntimeUnsupported;
+
+impl PortalRuntime for PortalRuntimeUnsupported {
+  type MountId = ();
+
+  fn mount_target(&self, request: &PortalRuntimeRequest) -> PortalMountResult<Self::MountId> {
+    if matches!(request.target, PortalTarget::Inline) {
+      PortalMountResult::Inline
+    } else {
+      PortalMountResult::Unsupported
+    }
+  }
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -152,6 +217,58 @@ mod tests {
     assert_eq!(
       runtime.restore_focus(&node, request),
       FocusCommandResult::Unsupported
+    );
+  }
+
+  #[test]
+  fn inline_portal_request_does_not_require_mounting() {
+    let request = PortalRuntimeRequest::inline(false);
+
+    assert_eq!(request.target, PortalTarget::Inline);
+    assert!(!request.modal);
+    assert!(!request.should_mount());
+    assert!(!request.is_body_target());
+  }
+
+  #[test]
+  fn body_portal_request_requires_mounting() {
+    let request = PortalRuntimeRequest::body(true);
+
+    assert_eq!(request.target, PortalTarget::Body);
+    assert!(request.modal);
+    assert!(request.should_mount());
+    assert!(request.is_body_target());
+  }
+
+  #[test]
+  fn selector_portal_request_preserves_target() {
+    let request = PortalRuntimeRequest::selector("#overlays", false);
+
+    assert_eq!(request.target, PortalTarget::Selector("#overlays".to_string()));
+    assert!(!request.modal);
+    assert!(request.should_mount());
+    assert!(!request.is_body_target());
+  }
+
+  #[test]
+  fn unsupported_portal_runtime_keeps_inline_fallback() {
+    let runtime = PortalRuntimeUnsupported;
+    let request = PortalRuntimeRequest::inline(false);
+
+    assert_eq!(runtime.mount_target(&request), PortalMountResult::Inline);
+  }
+
+  #[test]
+  fn unsupported_portal_runtime_reports_unsupported_external_targets() {
+    let runtime = PortalRuntimeUnsupported;
+
+    assert_eq!(
+      runtime.mount_target(&PortalRuntimeRequest::body(true)),
+      PortalMountResult::Unsupported
+    );
+    assert_eq!(
+      runtime.mount_target(&PortalRuntimeRequest::selector("#overlays", false)),
+      PortalMountResult::Unsupported
     );
   }
 }
