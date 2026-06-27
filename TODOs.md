@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 60%
 - Current milestone: M18 Feedback Notifications
-- Current task: M18.3 Implement Toast
+- Current task: M18.4 Implement Sonner
 
 ## M0 Documentation
 
@@ -434,7 +434,7 @@
   - Avoid timer ownership, DOM focus ownership, and portal mounting in primitives.
   - Add unit tests for queue add, dismiss, limit, placement, and timeout behavior.
 
-- TODO M18.3 Implement Toast
+- DONE M18.3 Implement Toast
   - Add controlled viewport, root, title, description, action, close, and provider-style helper APIs.
   - Reuse feedback primitives and document live announcements as app-owned integration.
   - Add CLI template, registry entry, docs page, and demo usage.
