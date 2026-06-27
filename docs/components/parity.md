@@ -15,7 +15,7 @@ be ported one-for-one.
 | Overlay primitives | Context Menu, Dialog, Dropdown, Menubar, Navigation Menu, Popover, Tooltip |
 | Command and search | Command, Combobox, Native Select |
 | Selection | Select |
-| Feedback and data | Data Table, Progress, Table, Pagination, Toast |
+| Feedback and data | Data Table, Progress, Sonner, Table, Pagination, Toast |
 | Layout and scroll | Carousel, Resizable, Scroll Area, Sidebar |
 
 ## Planned Static Or Light Interaction
@@ -33,7 +33,7 @@ be ported one-for-one.
 | Menus | - | Current M13 menu system set is implemented. |
 | Date and calendar | - | Calendar and Date Picker are implemented. |
 | Overlays | - | Current M12 overlay variant set is implemented. |
-| Feedback | Sonner | Toast is implemented; Sonner still needs opinionated variant presentation. |
+| Feedback | - | Toast and Sonner are implemented; runtime timers and live regions remain app-owned. |
 | Data | Chart | Data Table is implemented; Chart needs a charting decision. |
 | Navigation shell | - | Sidebar is implemented; persistence and keyboard shortcuts remain app-owned. |
 | Media | - | Carousel is implemented; gestures, autoplay, and live announcements remain app-owned. |

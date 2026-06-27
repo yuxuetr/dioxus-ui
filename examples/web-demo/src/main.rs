@@ -29,7 +29,8 @@ use dioxus_ui::{
   select_separator_class, select_trigger_class, select_value_class, separator_class,
   sheet_content_class, sheet_overlay_class, sidebar_class, sidebar_item_class,
   sidebar_side_attribute, sidebar_toggle, sidebar_trigger_class, skeleton_class, slider_percent,
-  slider_range_style, slider_root_class, slider_thumb_style, slider_track_class, switch_class,
+  slider_range_style, slider_root_class, slider_thumb_style, slider_track_class,
+  sonner_icon_class, sonner_queue_push, sonner_toast_class, sonner_viewport_class, switch_class,
   spinner_class, switch_thumb_class, table_class, table_row_class, tabs_content_class,
   tabs_list_class, tabs_trigger_class, textarea_class, toggle_class, toggle_group_class,
   toggle_group_item_class, toggle_group_move_value,
@@ -44,8 +45,8 @@ use dioxus_ui::{
   NavigationMenuPrimitiveConfig, NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
   LayoutOrientation, ResizablePanelState, ScrollAreaOrientation, SelectPrimitiveConfig,
   SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SidebarSide, SidebarState, SpinnerSize,
-  ToastItem, ToastPlacement, ToastQueue, ToastVariant, ToggleSize, ToggleVariant,
-  TooltipPrimitiveConfig, UiDensity,
+  SonnerItem, SonnerPlacement, SonnerQueue, SonnerVariant, ToastItem, ToastPlacement,
+  ToastQueue, ToastVariant, ToggleSize, ToggleVariant, TooltipPrimitiveConfig, UiDensity,
 };
 
 fn main() {
@@ -195,6 +196,19 @@ fn main() {
     "dioxus-ui web demo toast queue/expired: {}/{}",
     toast_queue_push(ToastQueue::new(2), ToastItem::new("saved", "Saved")).items.len(),
     toast_is_expired(5000, 5000)
+  );
+  println!(
+    "dioxus-ui web demo sonner viewport class: {}",
+    sonner_viewport_class(SonnerPlacement::BottomRight, "")
+  );
+  println!(
+    "dioxus-ui web demo sonner toast/icon class: {}/{}",
+    sonner_toast_class(SonnerVariant::Success, ""),
+    sonner_icon_class(SonnerVariant::Success, "")
+  );
+  println!(
+    "dioxus-ui web demo sonner queue: {}",
+    sonner_queue_push(SonnerQueue::new(2), SonnerItem::new("synced", "Synced")).items.len()
   );
   println!("dioxus-ui web demo slider class: {}", slider_root_class("mt-3"));
   println!(

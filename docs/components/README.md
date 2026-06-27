@@ -78,6 +78,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Sidebar](sidebar.md) | `dxui add sidebar` | `sidebar` | Controlled navigation shell parts |
 | [Skeleton](skeleton.md) | `dxui add skeleton` | `skeleton` | Styled |
 | [Slider](slider.md) | `dxui add slider` | `slider` | Primitive-backed styled part |
+| [Sonner](sonner.md) | `dxui add sonner` | `sonner` | Opinionated notification parts |
 | [Spinner](spinner.md) | `dxui add spinner` | `spinner` | Styled |
 | [Switch](switch.md) | `dxui add switch` | `switch` | Controlled styled part |
 | [Table](table.md) | `dxui add table` | `table` | Styled parts |

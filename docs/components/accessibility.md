@@ -92,6 +92,8 @@ Statuses:
 | Data Table | Needs app-level filtering, async loading, keyboard shortcuts, and virtualization verification. | Planned |
 | Toast | Exposes status semantics, variant urgency, close/action native controls, and queue state helpers. | Implemented |
 | Toast | Needs app-level live-region wording, timer scheduling, portal mounting, and focus policy verification. | Planned |
+| Sonner | Exposes status semantics, decorative variant icons, close/action native controls, and queue state helpers. | Implemented |
+| Sonner | Needs app-level promise orchestration, live-region wording, timer scheduling, portal mounting, and focus policy verification. | Planned |
 | Carousel | Exposes carousel region, slide group semantics, selected indicator state, and disabled native controls. | Implemented |
 | Carousel | Needs app-level keyboard shortcuts, live announcements, gesture behavior, and autoplay verification. | Planned |
 | Scroll Area | Keeps native scrolling behavior and exposes presentational scrollbar hooks. | Implemented |

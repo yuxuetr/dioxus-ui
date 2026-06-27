@@ -108,6 +108,9 @@ pub mod skeleton;
 #[cfg(feature = "slider")]
 pub mod slider;
 
+#[cfg(feature = "sonner")]
+pub mod sonner;
+
 #[cfg(feature = "spinner")]
 pub mod spinner;
 
@@ -407,6 +410,18 @@ pub use slider::{
 };
 #[cfg(feature = "slider")]
 pub use dioxus_ui_primitives::{SliderAriaAttributes, SliderKeyMove, SliderState};
+#[cfg(feature = "sonner")]
+pub use sonner::{
+  sonner_action_class, sonner_close_class, sonner_content_class, sonner_description_class,
+  sonner_icon_class, sonner_is_expired, sonner_live_attribute, sonner_placement_attribute,
+  sonner_queue_dismiss, sonner_queue_limit, sonner_queue_push, sonner_title_class,
+  sonner_toast_class, sonner_variant_attribute, sonner_viewport_class, SonnerAction,
+  SonnerClose, SonnerContent, SonnerDescription, SonnerIcon, SonnerItem, SonnerPlacement,
+  SonnerQueue, SonnerTitle, SonnerToast, SonnerVariant, SonnerViewport,
+  SONNER_ACTION_BASE_CLASS, SONNER_CLOSE_BASE_CLASS, SONNER_CONTENT_BASE_CLASS,
+  SONNER_DESCRIPTION_BASE_CLASS, SONNER_ICON_BASE_CLASS, SONNER_TITLE_BASE_CLASS,
+  SONNER_TOAST_BASE_CLASS, SONNER_VIEWPORT_BASE_CLASS,
+};
 #[cfg(feature = "spinner")]
 pub use spinner::{spinner_class, Spinner, SpinnerSize, SPINNER_BASE_CLASS};
 #[cfg(feature = "textarea")]

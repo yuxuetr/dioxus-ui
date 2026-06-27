@@ -1,0 +1,14 @@
+{
+  "name": "sonner",
+  "description": "Opinionated toast notification parts and queue helpers.",
+  "files": [
+    {
+      "source": "templates/sonner.rs",
+      "target": "src/components/ui/sonner.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}
