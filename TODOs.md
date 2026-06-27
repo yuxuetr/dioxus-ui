@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 40%
 - Current milestone: M21 Runtime Adapter Planning
-- Current task: M21.2 Plan focus and portal adapters
+- Current task: M21.3 Plan timer and live-region adapters
 
 ## M0 Documentation
 
@@ -507,7 +507,7 @@
   - Cover focus commands, portal mounting, timer scheduling, live-region announcements, pointer gestures, and DOM measurement.
   - Document Web/Desktop/Mobile constraints before implementation.
 
-- TODO M21.2 Plan focus and portal adapters
+- DONE M21.2 Plan focus and portal adapters
   - Define focus trap, focus return, initial focus, outside focus, and portal target contracts.
   - Map Dialog, Alert Dialog, Sheet, Drawer, Popover, Tooltip, Select, Combobox, and menu components to adapter needs.
   - Identify what can be pure state, what needs DOM/WebView commands, and what remains app-owned.
