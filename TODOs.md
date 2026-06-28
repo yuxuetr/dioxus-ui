@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M23 Timer And Live Region Adapter Contracts
-- Current task: M24.1 Design measurement, pointer, and gesture contract implementation
+- Overall: 20%
+- Current milestone: M24 Measurement Pointer Gesture Adapter Contracts
+- Current task: M24.2 Implement measurement adapter contract types
 
 ## M0 Documentation
 
@@ -580,7 +580,7 @@
 
 ## M24 Measurement Pointer Gesture Adapter Contracts
 
-- TODO M24.1 Design measurement, pointer, and gesture contract implementation
+- DONE M24.1 Design measurement, pointer, and gesture contract implementation
   - Define the exact module location, feature flags, public exports, and source-copy policy for measurement runtime contracts.
   - Decide whether contracts extend `dioxus-ui-primitives/runtime` or use separate modules.
   - Document Web/Desktop/Mobile fallback behavior before code changes.
