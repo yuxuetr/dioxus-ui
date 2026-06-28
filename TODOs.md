@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 60%
 - Current milestone: M27 Experimental Web Runtime Adapters
-- Current task: M27.3 Implement Web overlay adapters
+- Current task: M27.4 Implement Web measurement adapters
 
 ## M0 Documentation
 
@@ -665,7 +665,7 @@
   - Keep Toast and Sonner queue mutation app-owned.
   - Add browser assertions before documenting runtime behavior as implemented.
 
-- TODO M27.3 Implement Web overlay adapters
+- DONE M27.3 Implement Web overlay adapters
   - Add portal, focus return, and modal focus trap adapters behind explicit opt-in wiring.
   - Verify Dialog, Alert Dialog, Sheet, Drawer, Popover, and menu fallback behavior.
   - Keep app shell target and z-index policy app-owned.
