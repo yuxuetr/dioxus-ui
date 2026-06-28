@@ -6,7 +6,8 @@ work isolated until browser assertions prove the behavior.
 
 Status: M27.1 boundaries documented. M27.2 adds fixture-local timer and
 live-region feedback adapters. M27.3 adds fixture-local overlay adapters.
-M27.4 adds fixture-local measurement adapters.
+M27.4 adds fixture-local measurement adapters. M27.5 adds fixture-local pointer
+and gesture adapters.
 
 ## Decision
 
@@ -130,6 +131,21 @@ The measurement slice still reads fixture-owned rectangles from memory. It does
 not call browser layout APIs, subscribe to resize observers, own scroll
 restoration policy, or move collision math out of pure placement helpers.
 
+M27.5 adds `WebPointerRuntime` and `WebGestureRuntime` in the same fixture
+module. The pointer and gesture slice verifies:
+
+- pointer start, move, end, and cancel requests can report success results
+- pointer capture release can be represented as adapter-owned state
+- unsupported pointer runtimes remain visible beside success paths
+- gesture next, previous, and cancel requests can report resolved outcomes
+- Carousel state application remains separate from gesture recognition
+- unsupported gesture runtimes remain visible beside success paths
+
+The pointer and gesture slice still records normalized requests in memory. It
+does not attach browser event listeners, call pointer capture APIs, prevent
+native scrolling, or own gesture physics beyond resolving the existing
+contract-level outcome.
+
 ## Implementation Order
 
 1. Timer and live-region adapters, started in M27.2
@@ -137,8 +153,8 @@ restoration policy, or move collision math out of pure placement helpers.
 3. Non-modal focus return, started in M27.3
 4. Modal focus trap, started in M27.3
 5. Measurement adapter, started in M27.4
-6. Pointer adapter
-7. Gesture adapter
+6. Pointer adapter, started in M27.5
+7. Gesture adapter, started in M27.5
 
 This order intentionally delays gesture-heavy work until lower-level pointer
 behavior is verified.

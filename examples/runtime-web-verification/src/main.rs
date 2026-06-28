@@ -9,8 +9,8 @@ use dioxus_ui_primitives::{
   RuntimeRect, TimerRuntime, TimerRuntimeRequest, TimerRuntimeUnsupported, carousel_apply_gesture,
 };
 use web_runtime::{
-  WebFocusNode, WebFocusRuntime, WebLiveRegionRuntime, WebMeasurementNode, WebMeasurementRuntime,
-  WebPortalRuntime, WebTimerRuntime,
+  WebFocusNode, WebFocusRuntime, WebGestureRuntime, WebLiveRegionRuntime, WebMeasurementNode,
+  WebMeasurementRuntime, WebPointerRuntime, WebPortalRuntime, WebTimerRuntime,
 };
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -483,63 +483,73 @@ fn timer_live_region_measurement_panel_states() -> Vec<String> {
 }
 
 fn pointer_gesture_panel_states() -> Vec<String> {
-  let pointer_runtime = PointerRuntimeUnsupported;
+  let web_pointer_runtime = WebPointerRuntime::new();
+  let unsupported_pointer_runtime = PointerRuntimeUnsupported;
   let next_request = GestureRuntimeRequest::horizontal(-48.0, 0.0, 32.0, 500.0);
   let previous_request = GestureRuntimeRequest::horizontal(48.0, 0.0, 32.0, 500.0);
   let cancel_request = GestureRuntimeRequest::horizontal(8.0, 0.0, 32.0, 500.0);
-  let gesture_runtime = GestureRuntimeUnsupported;
+  let web_gesture_runtime = WebGestureRuntime::new();
+  let unsupported_gesture_runtime = GestureRuntimeUnsupported;
   let carousel_state = CarouselState::new(1, 3);
   let next_outcome = next_request.resolve_outcome();
   let previous_outcome = previous_request.resolve_outcome();
   let cancel_outcome = cancel_request.resolve_outcome();
+  let pointer_start_result = web_pointer_runtime.handle_pointer(&PointerRuntimeRequest::start());
+  let pointer_move_result = web_pointer_runtime
+    .handle_pointer(&PointerRuntimeRequest::move_by(PointerDelta::new(12.0, 0.0)));
+  let pointer_end_result = web_pointer_runtime.handle_pointer(&PointerRuntimeRequest::end());
+  let pointer_capture_released = !web_pointer_runtime.capture_active();
+  let pointer_cancel_result = web_pointer_runtime.handle_pointer(&PointerRuntimeRequest::cancel());
+  let gesture_next_result = web_gesture_runtime.resolve_gesture(&next_request);
+  let gesture_previous_result = web_gesture_runtime.resolve_gesture(&previous_request);
+  let gesture_cancel_result = web_gesture_runtime.resolve_gesture(&cancel_request);
 
   vec![
     format!(
       "pointer_start testid={} expected={} result={:?}",
-      POINTER_CHECKS[0].test_id,
-      POINTER_CHECKS[0].expected,
-      pointer_runtime.handle_pointer(&PointerRuntimeRequest::start())
+      POINTER_CHECKS[0].test_id, POINTER_CHECKS[0].expected, pointer_start_result
     ),
     format!(
       "pointer_move testid={} expected={} result={:?}",
-      POINTER_CHECKS[1].test_id,
-      POINTER_CHECKS[1].expected,
-      pointer_runtime.handle_pointer(&PointerRuntimeRequest::move_by(PointerDelta::new(12.0, 0.0)))
+      POINTER_CHECKS[1].test_id, POINTER_CHECKS[1].expected, pointer_move_result
     ),
     format!(
       "pointer_end testid={} expected={} result={:?}",
-      POINTER_CHECKS[2].test_id,
-      POINTER_CHECKS[2].expected,
-      pointer_runtime.handle_pointer(&PointerRuntimeRequest::end())
+      POINTER_CHECKS[2].test_id, POINTER_CHECKS[2].expected, pointer_end_result
     ),
     format!(
       "pointer_cancel testid={} expected={} result={:?}",
-      POINTER_CHECKS[3].test_id,
-      POINTER_CHECKS[3].expected,
-      pointer_runtime.handle_pointer(&PointerRuntimeRequest::cancel())
+      POINTER_CHECKS[3].test_id, POINTER_CHECKS[3].expected, pointer_cancel_result
     ),
     format!(
-      "pointer_capture_release testid={} expected={} result=pending-browser-assertion",
-      POINTER_CHECKS[4].test_id, POINTER_CHECKS[4].expected
+      "pointer_capture_release testid={} expected={} result={}",
+      POINTER_CHECKS[4].test_id, POINTER_CHECKS[4].expected, pointer_capture_released
     ),
     format!(
-      "gesture_next testid={} expected={} outcome={:?} index={}",
+      "pointer_unsupported testid=runtime-pointer-unsupported expected=Unsupported result={:?}",
+      unsupported_pointer_runtime.handle_pointer(&PointerRuntimeRequest::start())
+    ),
+    format!(
+      "gesture_next testid={} expected={} result={:?} outcome={:?} index={}",
       GESTURE_CHECKS[0].test_id,
       GESTURE_CHECKS[0].expected,
+      gesture_next_result,
       next_outcome,
       carousel_apply_gesture(carousel_state, next_outcome).index
     ),
     format!(
-      "gesture_previous testid={} expected={} outcome={:?} index={}",
+      "gesture_previous testid={} expected={} result={:?} outcome={:?} index={}",
       GESTURE_CHECKS[1].test_id,
       GESTURE_CHECKS[1].expected,
+      gesture_previous_result,
       previous_outcome,
       carousel_apply_gesture(carousel_state, previous_outcome).index
     ),
     format!(
-      "gesture_cancel testid={} expected={} outcome={:?} index={}",
+      "gesture_cancel testid={} expected={} result={:?} outcome={:?} index={}",
       GESTURE_CHECKS[2].test_id,
       GESTURE_CHECKS[2].expected,
+      gesture_cancel_result,
       cancel_outcome,
       carousel_apply_gesture(carousel_state, cancel_outcome).index
     ),
@@ -549,7 +559,7 @@ fn pointer_gesture_panel_states() -> Vec<String> {
     ),
     format!(
       "gesture_unsupported testid=runtime-gesture-unsupported expected=Unsupported result={:?}",
-      gesture_runtime.resolve_gesture(&next_request)
+      unsupported_gesture_runtime.resolve_gesture(&next_request)
     ),
   ]
 }
@@ -799,11 +809,12 @@ mod tests {
   fn pointer_gesture_states_report_fallbacks_and_carousel_outcomes() {
     let states = pointer_gesture_panel_states();
 
-    assert_eq!(states.len(), POINTER_CHECKS.len() + GESTURE_CHECKS.len() + 1);
+    assert_eq!(states.len(), POINTER_CHECKS.len() + GESTURE_CHECKS.len() + 2);
     assert!(states.iter().any(|state| state.contains("pointer_start")));
     assert!(states.iter().any(|state| state.contains("pointer_move")));
     assert!(states.iter().any(|state| state.contains("pointer_end")));
     assert!(states.iter().any(|state| state.contains("pointer_cancel")));
+    assert!(states.iter().any(|state| state.contains("pointer_unsupported")));
     assert!(states.iter().any(|state| state.contains("gesture_next")));
     assert!(states.iter().any(|state| state.contains("gesture_previous")));
     assert!(states.iter().any(|state| state.contains("gesture_cancel")));

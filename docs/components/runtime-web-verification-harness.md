@@ -7,7 +7,7 @@ implementation.
 Status: Fixture command documented in M26.5. M27.2 adds fixture-local timer and
 live-region success-path adapters. M27.3 adds fixture-local focus and portal
 success-path adapters. M27.4 adds fixture-local measurement success-path
-adapters.
+adapters. M27.5 adds fixture-local pointer and gesture success-path adapters.
 
 ## Decision
 
@@ -61,6 +61,13 @@ now includes anchor rects, content rects, viewport rects, simulated viewport
 resize results, missing node fallbacks, and explicit unsupported fallback lines.
 Browser layout APIs, resize observers, scroll listeners, and collision
 placement behavior remain deferred.
+
+M27.5 adds in-memory `WebPointerRuntime` and `WebGestureRuntime` adapters. The
+visible status output now includes pointer start, move, end, cancel, capture
+release state, unsupported pointer fallback, resolved gesture next, previous,
+cancel outcomes, native-scroll placeholder, and unsupported gesture fallback.
+Browser pointer capture APIs, event listener cleanup, native-scroll escape, and
+gesture physics remain deferred.
 
 The fixture should expose one route or panel per runtime family:
 

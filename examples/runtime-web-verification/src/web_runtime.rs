@@ -3,9 +3,11 @@ use std::sync::atomic::{AtomicU64, Ordering};
 
 use dioxus_ui_primitives::{
   DuplicateAnnouncementPolicy, FocusCommandResult, FocusRuntime, FocusRuntimeRequest,
-  LiveRegionRuntime, LiveRegionRuntimeRequest, LiveRegionRuntimeResult, MeasurementRuntime,
-  MeasurementRuntimeRequest, MeasurementRuntimeResult, PortalMountResult, PortalRuntime,
-  PortalRuntimeRequest, RuntimeRect, TimerRuntime, TimerRuntimeRequest, TimerRuntimeResult,
+  GestureRuntime, GestureRuntimeRequest, GestureRuntimeResult, LiveRegionRuntime,
+  LiveRegionRuntimeRequest, LiveRegionRuntimeResult, MeasurementRuntime, MeasurementRuntimeRequest,
+  MeasurementRuntimeResult, PointerRuntime, PointerRuntimeRequest, PointerRuntimeResult,
+  PortalMountResult, PortalRuntime, PortalRuntimeRequest, RuntimeRect, TimerRuntime,
+  TimerRuntimeRequest, TimerRuntimeResult,
 };
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -345,6 +347,121 @@ impl MeasurementRuntime for WebMeasurementRuntime {
   }
 }
 
+#[derive(Clone, Debug, PartialEq)]
+pub struct WebPointerRecord {
+  pub request: PointerRuntimeRequest,
+}
+
+#[derive(Debug, Default)]
+pub struct WebPointerRuntime {
+  capture_active: Mutex<bool>,
+  records: Mutex<Vec<WebPointerRecord>>,
+}
+
+impl WebPointerRuntime {
+  pub fn new() -> Self {
+    Self { capture_active: Mutex::new(false), records: Mutex::new(Vec::new()) }
+  }
+
+  pub fn capture_active(&self) -> bool {
+    match self.capture_active.lock() {
+      Ok(capture_active) => *capture_active,
+      Err(_) => false,
+    }
+  }
+
+  #[cfg(test)]
+  pub fn records(&self) -> Vec<WebPointerRecord> {
+    match self.records.lock() {
+      Ok(records) => records.clone(),
+      Err(_) => Vec::new(),
+    }
+  }
+
+  fn set_capture(&self, active: bool) -> Result<(), ()> {
+    match self.capture_active.lock() {
+      Ok(mut capture_active) => {
+        *capture_active = active;
+        Ok(())
+      }
+      Err(_) => Err(()),
+    }
+  }
+
+  fn record(&self, request: PointerRuntimeRequest) -> Result<(), ()> {
+    match self.records.lock() {
+      Ok(mut records) => {
+        records.push(WebPointerRecord { request });
+        Ok(())
+      }
+      Err(_) => Err(()),
+    }
+  }
+}
+
+impl PointerRuntime for WebPointerRuntime {
+  fn handle_pointer(&self, request: &PointerRuntimeRequest) -> PointerRuntimeResult {
+    if self.record(*request).is_err() {
+      return PointerRuntimeResult::Unsupported;
+    }
+
+    match request.phase {
+      dioxus_ui_primitives::PointerPhase::Start => match self.set_capture(true) {
+        Ok(()) => PointerRuntimeResult::Started,
+        Err(()) => PointerRuntimeResult::Unsupported,
+      },
+      dioxus_ui_primitives::PointerPhase::Move => PointerRuntimeResult::Moved(request.delta),
+      dioxus_ui_primitives::PointerPhase::End => match self.set_capture(false) {
+        Ok(()) => PointerRuntimeResult::Ended,
+        Err(()) => PointerRuntimeResult::Unsupported,
+      },
+      dioxus_ui_primitives::PointerPhase::Cancel => match self.set_capture(false) {
+        Ok(()) => PointerRuntimeResult::Cancelled,
+        Err(()) => PointerRuntimeResult::Unsupported,
+      },
+    }
+  }
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct WebGestureRecord {
+  pub request: GestureRuntimeRequest,
+  pub result: GestureRuntimeResult,
+}
+
+#[derive(Debug, Default)]
+pub struct WebGestureRuntime {
+  records: Mutex<Vec<WebGestureRecord>>,
+}
+
+impl WebGestureRuntime {
+  pub fn new() -> Self {
+    Self { records: Mutex::new(Vec::new()) }
+  }
+
+  #[cfg(test)]
+  pub fn records(&self) -> Vec<WebGestureRecord> {
+    match self.records.lock() {
+      Ok(records) => records.clone(),
+      Err(_) => Vec::new(),
+    }
+  }
+}
+
+impl GestureRuntime for WebGestureRuntime {
+  fn resolve_gesture(&self, request: &GestureRuntimeRequest) -> GestureRuntimeResult {
+    let result = GestureRuntimeResult::Resolved(request.resolve_outcome());
+
+    match self.records.lock() {
+      Ok(mut records) => {
+        records.push(WebGestureRecord { request: *request, result });
+        result
+      }
+      Err(_) => GestureRuntimeResult::Unsupported,
+    }
+  }
+}
+
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct WebLiveRegionAnnouncement {
   pub message: String,
@@ -518,6 +635,54 @@ mod tests {
       runtime.update_viewport(RuntimeRect::new(0.0, 0.0, 1024.0, 640.0)),
       MeasurementRuntimeResult::Rect(RuntimeRect::new(0.0, 0.0, 1024.0, 640.0))
     );
+  }
+
+  #[test]
+  fn web_pointer_reports_phases_and_capture_release() {
+    let runtime = WebPointerRuntime::new();
+
+    assert_eq!(
+      runtime.handle_pointer(&PointerRuntimeRequest::start()),
+      PointerRuntimeResult::Started
+    );
+    assert!(runtime.capture_active());
+    assert_eq!(
+      runtime.handle_pointer(&PointerRuntimeRequest::move_by(
+        dioxus_ui_primitives::PointerDelta::new(12.0, 0.0)
+      )),
+      PointerRuntimeResult::Moved(dioxus_ui_primitives::PointerDelta::new(12.0, 0.0))
+    );
+    assert_eq!(runtime.handle_pointer(&PointerRuntimeRequest::end()), PointerRuntimeResult::Ended);
+    assert!(!runtime.capture_active());
+    assert_eq!(runtime.records().len(), 3);
+  }
+
+  #[test]
+  fn web_pointer_reports_cancelled() {
+    let runtime = WebPointerRuntime::new();
+
+    assert_eq!(
+      runtime.handle_pointer(&PointerRuntimeRequest::cancel()),
+      PointerRuntimeResult::Cancelled
+    );
+    assert!(!runtime.capture_active());
+  }
+
+  #[test]
+  fn web_gesture_resolves_and_records_outcomes() {
+    let runtime = WebGestureRuntime::new();
+    let next_request = GestureRuntimeRequest::horizontal(-48.0, 0.0, 32.0, 500.0);
+    let cancel_request = GestureRuntimeRequest::horizontal(8.0, 0.0, 32.0, 500.0);
+
+    assert_eq!(
+      runtime.resolve_gesture(&next_request),
+      GestureRuntimeResult::Resolved(dioxus_ui_primitives::GestureOutcome::CommitNext)
+    );
+    assert_eq!(
+      runtime.resolve_gesture(&cancel_request),
+      GestureRuntimeResult::Resolved(dioxus_ui_primitives::GestureOutcome::Cancel)
+    );
+    assert_eq!(runtime.records().len(), 2);
   }
 
   #[test]
