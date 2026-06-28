@@ -36,7 +36,7 @@ be ported one-for-one.
 | Feedback | - | Toast and Sonner are implemented; M23 defines timer and live-region contract types. |
 | Data | Chart component | Chart data and accessibility primitives are implemented; public rendering component remains deferred. |
 | Navigation shell | - | Sidebar is implemented; persistence and keyboard shortcuts remain app-owned. |
-| Media | - | Carousel is implemented; M21 defines optional gesture and live-announcement adapter boundaries. |
+| Media | - | Carousel is implemented; M24 defines gesture contract types. |
 
 ## Deferred Or External
 
@@ -45,14 +45,14 @@ be ported one-for-one.
 | Chart component | M19 implements chart data and accessibility primitives plus recipes; a component remains deferred until backend, measurement, interaction, and fallback-table contracts are explicit. |
 | Data Table runtime adapters | Data Table state helpers and composition parts are implemented; filtering, async loading, and virtualization remain app-owned. |
 | Calendar / Date Picker runtime adapters | Date math primitives are implemented; parsing, localization, and focus adapters remain deferred. |
-| Runtime adapters | M21 documents adapter boundaries; M22 implements focus/portal contract types; M23 implements timer/live-region contract types. Renderer implementations remain deferred. |
+| Runtime adapters | M21 documents adapter boundaries; M22 implements focus/portal contract types; M23 implements timer/live-region contract types; M24 implements measurement/pointer/gesture contract types. Renderer implementations remain deferred. |
 
 ## Next Milestone Seeds
 
-After M23, the safest remaining implementation order is:
+After M24, the safest remaining implementation order is:
 
-1. Measurement/pointer/gesture adapter contracts for Popover, Resizable, and Carousel
-2. Renderer-backed focus, portal, timer, and live-region implementations after Web/Desktop verification
+1. Renderer runtime verification plan for Web, Desktop, and Mobile adapter behavior
+2. Renderer-backed focus, portal, timer, live-region, measurement, pointer, and gesture implementations after verification
 3. Chart rendering backend evaluation after adapter requirements are concrete
 
 See [Complex Component Batches](complex-batches.md) for the expanded milestone

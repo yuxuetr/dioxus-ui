@@ -1,11 +1,11 @@
 # Measurement Pointer Gesture Contract Implementation Plan
 
-This document defines the M24.1 implementation plan for measurement, pointer,
-and gesture adapter contracts. It turns the M21 measurement/pointer/gesture
-plan into a narrow primitive-layer code surface before any renderer-specific
-runtime is added.
+This document defines the M24 implementation for measurement, pointer, and
+gesture adapter contracts. It turns the M21 measurement/pointer/gesture plan
+into a narrow primitive-layer code surface before any renderer-specific runtime
+is added.
 
-Status: Planned in M24.
+Status: Implemented in M24.
 
 ## Decision
 
@@ -57,6 +57,7 @@ GestureRuntimeRequest
 GestureRuntimeResult
 GestureRuntime
 GestureRuntimeUnsupported
+carousel_apply_gesture
 ```
 
 The implementation may refine names, but it should preserve these concepts:
@@ -161,10 +162,26 @@ pub enum GestureOutcome {
   CommitPrevious,
   Cancel,
 }
+
+pub struct GestureRuntimeRequest {
+  pub state: GestureState,
+  pub distance_threshold: f64,
+  pub velocity_threshold: f64,
+}
+
+pub enum GestureRuntimeResult {
+  Resolved(GestureOutcome),
+  Unsupported,
+}
 ```
 
 Gesture contracts describe normalized gesture state and outcome. Carousel index
 transitions remain owned by existing pure carousel helpers.
+
+`GestureRuntimeRequest::resolve_outcome` provides deterministic threshold
+resolution for tests and adapters. Negative motion maps to `CommitNext`,
+positive motion maps to `CommitPrevious`, and below-threshold motion maps to
+`Cancel`.
 
 ## Component Mapping
 
@@ -215,8 +232,13 @@ Fallback behavior must be testable without a renderer.
 1. Extend `runtime` contracts with rectangle and measurement types.
 2. Extend `runtime` contracts with pointer phase/delta types.
 3. Extend `runtime` contracts with gesture state/outcome types.
-4. Add Popover, Resizable, and Carousel mapping examples in pure tests.
+4. Add Carousel gesture mapping examples in pure tests.
 5. Update runtime planning docs after the contract surface is proven.
+
+M24 shipped rectangle measurement contracts, pointer phase/delta contracts,
+gesture state/outcome contracts, unsupported-runtime fallbacks, and a
+`carousel_apply_gesture` helper behind the `dioxus-ui-primitives/runtime`
+feature. Renderer-specific DOM, WebView, and mobile adapters remain deferred.
 
 ## Quality Gates
 

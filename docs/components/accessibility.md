@@ -121,12 +121,17 @@ Runtime adapter planning is tracked in:
 - [Timer And Live Region Adapter Plan](timer-live-region-adapters.md)
 - [Timer And Live Region Contract Implementation Plan](timer-live-region-contracts.md)
 - [Measurement, Pointer, And Gesture Adapter Plan](measurement-pointer-gesture-adapters.md)
+- [Measurement Pointer Gesture Contract Implementation Plan](measurement-pointer-gesture-contracts.md)
 
 M22 implements focus and portal contract types only. Components still require
 renderer-level verification before planned focus trap, focus return, and portal
 contracts can be marked stable.
 M23 implements timer and live-region contract types only. Toast and Sonner still
 require renderer-level timer and live-region verification before announcement
+runtime behavior can be marked stable.
+M24 implements measurement, pointer, and gesture contract types only. Popover,
+Tooltip, Dropdown, Select, menu overlays, Resizable, Carousel, and Chart still
+require renderer-level measurement, pointer, and gesture verification before
 runtime behavior can be marked stable.
 
 Before complex interaction components are marked stable:

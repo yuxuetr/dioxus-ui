@@ -357,7 +357,9 @@ without making source-copy components renderer-specific by default.
 M21 recommended implementing focus and portal adapter contracts first. M22
 shipped the primitive-layer contract surface and pure Dialog/Popover mapping
 tests. M23 shipped timer and live-region contracts plus Toast/Sonner mapping
-helpers. Renderer-specific Web/Desktop runtime commands remain future work.
+helpers. M24 shipped measurement, pointer, and gesture contracts plus Carousel
+gesture mapping helpers. Renderer-specific Web/Desktop/Mobile runtime commands
+remain future work.
 
 ## Recommended Next Milestones
 
@@ -366,7 +368,8 @@ M10-M20 completed component and primitive batches
 M21 completed runtime adapter planning
 M22 completed focus and portal adapter contracts with Dialog/Popover mapping tests
 M23 completed timer/live-region adapter contracts for Toast and Sonner
-Next: measurement/pointer/gesture adapter contracts
+M24 completed measurement/pointer/gesture adapter contracts
+Next: renderer runtime verification planning for Web, Desktop, and Mobile
 Next: chart rendering backend evaluation after adapter requirements are concrete
 ```
 

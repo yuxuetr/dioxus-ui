@@ -604,6 +604,28 @@
   - Update runtime adapter docs, accessibility checklist, and complex batch plan.
   - Run workspace tests and documentation checks before marking the batch complete.
 
+## M25 Runtime Renderer Verification Planning
+
+- TODO M25.1 Design renderer verification matrix
+  - Define Web, Desktop, and Mobile behavior that must be verified before runtime adapters become default behavior.
+  - Map focus, portal, timer, live-region, measurement, pointer, and gesture contracts to verification cases.
+  - Document which checks can be pure Rust tests, browser automation, desktop smoke tests, or manual accessibility checks.
+
+- TODO M25.2 Define Web runtime verification harness
+  - Plan the minimal Dioxus Web fixture needed to verify focus, portals, timers, live regions, measurement, pointers, and gestures.
+  - Specify Playwright or browser-level assertions without adding runtime defaults to generated components.
+  - Document failure modes and fallback behavior for unsupported adapters.
+
+- TODO M25.3 Define Desktop and Mobile verification strategy
+  - Plan desktop WebView verification for focus, portal stacking, measurement, pointer capture, and timers.
+  - Plan mobile constraints for touch gestures, safe areas, hover absence, visual viewport behavior, and native scroll arbitration.
+  - Decide which targets remain documentation-only until stable tooling exists.
+
+- TODO M25.4 Seed renderer runtime implementation milestones
+  - Split future implementation into narrow slices after verification plans are accepted.
+  - Prioritize low-risk adapter implementations before gesture-heavy or chart-dependent work.
+  - Update parity, accessibility, and complex batch docs with the next implementation order.
+
 ## Status Rules
 
 - Change `TODO` to `DONE` only after implementation, validation, and commit.

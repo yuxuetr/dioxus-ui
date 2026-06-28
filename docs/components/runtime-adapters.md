@@ -205,8 +205,14 @@ Preferred source-copy model:
 
 ## Initial API Direction
 
-M21 should design trait-sized contracts before implementing renderer-specific
-code. Example shape:
+M21 designed trait-sized contracts before renderer-specific code. M22-M24 then
+implemented primitive-layer contracts behind the `dioxus-ui-primitives/runtime`
+feature for focus, portal, timer, live-region, measurement, pointer, and
+gesture boundaries. Renderer-specific commands remain deferred until Web,
+Desktop, and Mobile verification is planned and tested.
+
+The original adapter shape remains the intended direction for renderer
+implementations:
 
 ```rust
 pub trait FocusAdapter {
@@ -241,7 +247,9 @@ For the measurement, pointer, and gesture contract slice, see the
 2. Focus and portal adapter plan
 3. Timer and live-region adapter plan
 4. Measurement, pointer, and gesture adapter plan
-5. Documentation updates and next implementation milestone
+5. Measurement, pointer, and gesture contract implementation
+6. Renderer verification planning before concrete Web/Desktop/Mobile runtime
+   implementations
 
 ## Quality Gates
 
@@ -250,4 +258,4 @@ Before implementation starts:
 - every adapter family has clear ownership boundaries
 - Web/Desktop/Mobile differences are documented
 - accessibility checklist links planned adapter work to affected components
-- the next milestone identifies one narrow adapter slice to implement first
+- renderer verification plans prove behavior before runtime defaults change
