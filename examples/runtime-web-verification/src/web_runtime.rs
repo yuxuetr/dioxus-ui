@@ -2,8 +2,9 @@ use std::sync::Mutex;
 use std::sync::atomic::{AtomicU64, Ordering};
 
 use dioxus_ui_primitives::{
-  DuplicateAnnouncementPolicy, LiveRegionRuntime, LiveRegionRuntimeRequest,
-  LiveRegionRuntimeResult, TimerRuntime, TimerRuntimeRequest, TimerRuntimeResult,
+  DuplicateAnnouncementPolicy, FocusCommandResult, FocusRuntime, FocusRuntimeRequest,
+  LiveRegionRuntime, LiveRegionRuntimeRequest, LiveRegionRuntimeResult, PortalMountResult,
+  PortalRuntime, PortalRuntimeRequest, TimerRuntime, TimerRuntimeRequest, TimerRuntimeResult,
 };
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -67,6 +68,180 @@ impl TimerRuntime for WebTimerRuntime {
         }
       }
       Err(_) => TimerRuntimeResult::Unsupported,
+    }
+  }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct WebFocusNode {
+  pub id: String,
+  pub mounted: bool,
+}
+
+impl WebFocusNode {
+  pub fn new(id: impl Into<String>) -> Self {
+    Self { id: id.into(), mounted: true }
+  }
+
+  pub fn missing(id: impl Into<String>) -> Self {
+    Self { id: id.into(), mounted: false }
+  }
+
+  fn is_available(&self) -> bool {
+    self.mounted && !self.id.trim().is_empty()
+  }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum WebFocusCommand {
+  Initial,
+  Trap,
+  Restore,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct WebFocusRecord {
+  pub node_id: String,
+  pub command: WebFocusCommand,
+  pub request: FocusRuntimeRequest,
+}
+
+#[derive(Debug, Default)]
+pub struct WebFocusRuntime {
+  records: Mutex<Vec<WebFocusRecord>>,
+}
+
+impl WebFocusRuntime {
+  pub fn new() -> Self {
+    Self { records: Mutex::new(Vec::new()) }
+  }
+
+  #[cfg(test)]
+  pub fn records(&self) -> Vec<WebFocusRecord> {
+    match self.records.lock() {
+      Ok(records) => records.clone(),
+      Err(_) => Vec::new(),
+    }
+  }
+
+  fn apply_command(
+    &self,
+    node: &WebFocusNode,
+    request: FocusRuntimeRequest,
+    command: WebFocusCommand,
+  ) -> FocusCommandResult {
+    if !node.is_available() {
+      return FocusCommandResult::MissingTarget;
+    }
+
+    let record = WebFocusRecord { node_id: node.id.clone(), command, request };
+
+    match self.records.lock() {
+      Ok(mut records) => {
+        records.push(record);
+        FocusCommandResult::Applied
+      }
+      Err(_) => FocusCommandResult::Unsupported,
+    }
+  }
+}
+
+impl FocusRuntime for WebFocusRuntime {
+  type NodeId = WebFocusNode;
+
+  fn focus_initial(
+    &self,
+    scope: &Self::NodeId,
+    request: FocusRuntimeRequest,
+  ) -> FocusCommandResult {
+    self.apply_command(scope, request, WebFocusCommand::Initial)
+  }
+
+  fn trap_focus(&self, scope: &Self::NodeId, request: FocusRuntimeRequest) -> FocusCommandResult {
+    self.apply_command(scope, request, WebFocusCommand::Trap)
+  }
+
+  fn restore_focus(
+    &self,
+    target: &Self::NodeId,
+    request: FocusRuntimeRequest,
+  ) -> FocusCommandResult {
+    self.apply_command(target, request, WebFocusCommand::Restore)
+  }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct WebPortalMountId(u64);
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct WebPortalRecord {
+  pub id: WebPortalMountId,
+  pub target: String,
+  pub modal: bool,
+}
+
+#[derive(Debug, Default)]
+pub struct WebPortalRuntime {
+  next_id: AtomicU64,
+  available_selectors: Vec<String>,
+  records: Mutex<Vec<WebPortalRecord>>,
+}
+
+impl WebPortalRuntime {
+  #[cfg(test)]
+  pub fn new() -> Self {
+    Self {
+      next_id: AtomicU64::new(1),
+      available_selectors: Vec::new(),
+      records: Mutex::new(Vec::new()),
+    }
+  }
+
+  pub fn with_selectors(selectors: impl IntoIterator<Item = impl Into<String>>) -> Self {
+    Self {
+      next_id: AtomicU64::new(1),
+      available_selectors: selectors.into_iter().map(Into::into).collect(),
+      records: Mutex::new(Vec::new()),
+    }
+  }
+
+  #[cfg(test)]
+  pub fn records(&self) -> Vec<WebPortalRecord> {
+    match self.records.lock() {
+      Ok(records) => records.clone(),
+      Err(_) => Vec::new(),
+    }
+  }
+
+  fn mount(&self, target: String, modal: bool) -> PortalMountResult<WebPortalMountId> {
+    let id = WebPortalMountId(self.next_id.fetch_add(1, Ordering::Relaxed));
+    let record = WebPortalRecord { id, target, modal };
+
+    match self.records.lock() {
+      Ok(mut records) => {
+        records.push(record);
+        PortalMountResult::Mounted(id)
+      }
+      Err(_) => PortalMountResult::Unsupported,
+    }
+  }
+}
+
+impl PortalRuntime for WebPortalRuntime {
+  type MountId = WebPortalMountId;
+
+  fn mount_target(&self, request: &PortalRuntimeRequest) -> PortalMountResult<Self::MountId> {
+    match &request.target {
+      dioxus_ui_primitives::PortalTarget::Inline => PortalMountResult::Inline,
+      dioxus_ui_primitives::PortalTarget::Body => self.mount("body".to_string(), request.modal),
+      dioxus_ui_primitives::PortalTarget::Selector(selector) => {
+        if self.available_selectors.iter().any(|available_selector| available_selector == selector)
+        {
+          self.mount(selector.clone(), request.modal)
+        } else {
+          PortalMountResult::MissingTarget
+        }
+      }
     }
   }
 }
@@ -154,6 +329,58 @@ mod tests {
       TimerRuntimeResult::Disabled
     );
     assert_eq!(runtime.cancel(&WebTimerId(99)), TimerRuntimeResult::Missing);
+  }
+
+  #[test]
+  fn web_focus_applies_commands_and_records_requests() {
+    let runtime = WebFocusRuntime::new();
+    let node = WebFocusNode::new("dialog-content");
+    let request = FocusRuntimeRequest::dialog_default();
+
+    assert_eq!(runtime.focus_initial(&node, request), FocusCommandResult::Applied);
+    assert_eq!(runtime.trap_focus(&node, request), FocusCommandResult::Applied);
+    assert_eq!(runtime.restore_focus(&node, request), FocusCommandResult::Applied);
+    assert_eq!(runtime.records().len(), 3);
+  }
+
+  #[test]
+  fn web_focus_reports_missing_targets() {
+    let runtime = WebFocusRuntime::new();
+    let node = WebFocusNode::missing("missing-dialog-content");
+
+    assert_eq!(
+      runtime.focus_initial(&node, FocusRuntimeRequest::dialog_default()),
+      FocusCommandResult::MissingTarget
+    );
+  }
+
+  #[test]
+  fn web_portal_mounts_body_and_known_selectors() {
+    let runtime = WebPortalRuntime::with_selectors(["#runtime-overlay-root"]);
+
+    assert!(matches!(
+      runtime.mount_target(&PortalRuntimeRequest::body(true)),
+      PortalMountResult::Mounted(_)
+    ));
+    assert!(matches!(
+      runtime.mount_target(&PortalRuntimeRequest::selector("#runtime-overlay-root", false)),
+      PortalMountResult::Mounted(_)
+    ));
+    assert_eq!(runtime.records().len(), 2);
+  }
+
+  #[test]
+  fn web_portal_reports_inline_and_missing_targets() {
+    let runtime = WebPortalRuntime::new();
+
+    assert_eq!(
+      runtime.mount_target(&PortalRuntimeRequest::inline(false)),
+      PortalMountResult::Inline
+    );
+    assert_eq!(
+      runtime.mount_target(&PortalRuntimeRequest::selector("#missing", false)),
+      PortalMountResult::MissingTarget
+    );
   }
 
   #[test]

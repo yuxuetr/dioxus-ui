@@ -8,7 +8,9 @@ use dioxus_ui_primitives::{
   PointerRuntimeUnsupported, PortalRuntime, PortalRuntimeRequest, PortalRuntimeUnsupported,
   TimerRuntime, TimerRuntimeRequest, TimerRuntimeUnsupported, carousel_apply_gesture,
 };
-use web_runtime::{WebLiveRegionRuntime, WebTimerRuntime};
+use web_runtime::{
+  WebFocusNode, WebFocusRuntime, WebLiveRegionRuntime, WebPortalRuntime, WebTimerRuntime,
+};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 enum RuntimeFamily {
@@ -288,9 +290,13 @@ fn sample_contract_states() -> Vec<String> {
 
 fn focus_portal_panel_states() -> Vec<String> {
   let focus_request = FocusRuntimeRequest::dialog_default();
-  let focus_runtime = FocusRuntimeUnsupported;
-  let focus_node = ();
-  let portal_runtime = PortalRuntimeUnsupported;
+  let web_focus_runtime = WebFocusRuntime::new();
+  let unsupported_focus_runtime = FocusRuntimeUnsupported;
+  let focus_node = WebFocusNode::new("runtime-dialog-content");
+  let missing_focus_node = WebFocusNode::missing("missing-dialog-content");
+  let unsupported_focus_node = ();
+  let web_portal_runtime = WebPortalRuntime::with_selectors(["#runtime-overlay-root"]);
+  let unsupported_portal_runtime = PortalRuntimeUnsupported;
   let inline_request = PortalRuntimeRequest::inline(false);
   let body_request = PortalRuntimeRequest::body(true);
   let named_request = PortalRuntimeRequest::selector("#runtime-overlay-root", true);
@@ -301,47 +307,59 @@ fn focus_portal_panel_states() -> Vec<String> {
       "focus_initial testid={} expected={} result={:?}",
       FOCUS_CHECKS[0].test_id,
       FOCUS_CHECKS[0].expected,
-      focus_runtime.focus_initial(&focus_node, focus_request)
+      web_focus_runtime.focus_initial(&focus_node, focus_request)
     ),
     format!(
       "focus_trap testid={} expected={} result={:?}",
       FOCUS_CHECKS[1].test_id,
       FOCUS_CHECKS[1].expected,
-      focus_runtime.trap_focus(&focus_node, focus_request)
+      web_focus_runtime.trap_focus(&focus_node, focus_request)
     ),
     format!(
       "focus_return testid={} expected={} result={:?}",
       FOCUS_CHECKS[2].test_id,
       FOCUS_CHECKS[2].expected,
-      focus_runtime.restore_focus(&focus_node, focus_request)
+      web_focus_runtime.restore_focus(&focus_node, focus_request)
     ),
     format!(
       "focus_escape testid={} expected={} result=pending-browser-assertion",
       FOCUS_CHECKS[3].test_id, FOCUS_CHECKS[3].expected
     ),
     format!(
+      "focus_missing testid=runtime-focus-missing-target expected=MissingTarget result={:?}",
+      web_focus_runtime.focus_initial(&missing_focus_node, focus_request)
+    ),
+    format!(
+      "focus_unsupported testid=runtime-focus-unsupported expected=Unsupported result={:?}",
+      unsupported_focus_runtime.focus_initial(&unsupported_focus_node, focus_request)
+    ),
+    format!(
       "portal_inline testid={} expected={} result={:?}",
       PORTAL_CHECKS[0].test_id,
       PORTAL_CHECKS[0].expected,
-      portal_runtime.mount_target(&inline_request)
+      web_portal_runtime.mount_target(&inline_request)
     ),
     format!(
       "portal_body testid={} expected={} result={:?}",
       PORTAL_CHECKS[1].test_id,
       PORTAL_CHECKS[1].expected,
-      portal_runtime.mount_target(&body_request)
+      web_portal_runtime.mount_target(&body_request)
     ),
     format!(
       "portal_named testid={} expected={} result={:?}",
       PORTAL_CHECKS[2].test_id,
       PORTAL_CHECKS[2].expected,
-      portal_runtime.mount_target(&named_request)
+      web_portal_runtime.mount_target(&named_request)
     ),
     format!(
       "portal_missing testid={} expected={} result={:?}",
       PORTAL_CHECKS[3].test_id,
       PORTAL_CHECKS[3].expected,
-      portal_runtime.mount_target(&missing_request)
+      web_portal_runtime.mount_target(&missing_request)
+    ),
+    format!(
+      "portal_unsupported testid=runtime-portal-unsupported expected=Unsupported result={:?}",
+      unsupported_portal_runtime.mount_target(&body_request)
     ),
   ]
 }
@@ -572,15 +590,43 @@ mod tests {
   fn focus_portal_states_report_unsupported_fallbacks() {
     let states = focus_portal_panel_states();
 
-    assert_eq!(states.len(), FOCUS_CHECKS.len() + PORTAL_CHECKS.len());
+    assert_eq!(states.len(), FOCUS_CHECKS.len() + PORTAL_CHECKS.len() + 3);
     assert!(states.iter().any(|state| state.contains("focus_initial")));
     assert!(states.iter().any(|state| state.contains("focus_trap")));
     assert!(states.iter().any(|state| state.contains("focus_return")));
     assert!(states.iter().any(|state| state.contains("focus_escape")));
+    assert!(states.iter().any(|state| state.contains("focus_missing")));
+    assert!(states.iter().any(|state| state.contains("focus_unsupported")));
     assert!(states.iter().any(|state| state.contains("portal_inline")));
     assert!(states.iter().any(|state| state.contains("portal_body")));
     assert!(states.iter().any(|state| state.contains("portal_named")));
     assert!(states.iter().any(|state| state.contains("portal_missing")));
+    assert!(states.iter().any(|state| state.contains("portal_unsupported")));
+  }
+
+  #[test]
+  fn web_overlay_adapters_report_success_and_fallback_results() {
+    let focus_runtime = WebFocusRuntime::new();
+    let focus_node = WebFocusNode::new("runtime-dialog-content");
+    let missing_focus_node = WebFocusNode::missing("missing-dialog-content");
+    let portal_runtime = WebPortalRuntime::with_selectors(["#runtime-overlay-root"]);
+
+    assert_eq!(
+      focus_runtime.focus_initial(&focus_node, FocusRuntimeRequest::dialog_default()),
+      dioxus_ui_primitives::FocusCommandResult::Applied
+    );
+    assert_eq!(
+      focus_runtime.focus_initial(&missing_focus_node, FocusRuntimeRequest::dialog_default()),
+      dioxus_ui_primitives::FocusCommandResult::MissingTarget
+    );
+    assert!(matches!(
+      portal_runtime.mount_target(&PortalRuntimeRequest::body(true)),
+      dioxus_ui_primitives::PortalMountResult::Mounted(_)
+    ));
+    assert_eq!(
+      portal_runtime.mount_target(&PortalRuntimeRequest::selector("#missing", true)),
+      dioxus_ui_primitives::PortalMountResult::MissingTarget
+    );
   }
 
   #[test]

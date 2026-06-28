@@ -5,7 +5,7 @@ boundaries. It follows the Web verification fixture and keeps concrete adapter
 work isolated until browser assertions prove the behavior.
 
 Status: M27.1 boundaries documented. M27.2 adds fixture-local timer and
-live-region feedback adapters.
+live-region feedback adapters. M27.3 adds fixture-local overlay adapters.
 
 ## Decision
 
@@ -82,7 +82,7 @@ component commands by default.
 | Pointer | `WebPointerRuntime` | pointer event normalization and capture cleanup | Resizable panel mutation |
 | Gesture | `WebGestureRuntime` | browser gesture stream normalization | carousel physics or native-scroll policy |
 
-## Implemented Fixture Slice
+## Implemented Fixture Slices
 
 M27.2 adds `WebTimerRuntime` and `WebLiveRegionRuntime` inside
 `examples/runtime-web-verification/src/web_runtime.rs`.
@@ -101,12 +101,26 @@ This implementation intentionally records adapter state in memory. It does not
 call browser timeout APIs or mutate DOM live-region nodes yet. Browser-backed
 behavior remains behind the future browser assertion gate.
 
+M27.3 adds `WebFocusRuntime` and `WebPortalRuntime` in the same fixture module.
+The overlay slice verifies:
+
+- initial focus, focus trap, and focus return requests can report `Applied`
+- missing focus nodes report `MissingTarget`
+- inline portal requests remain inline
+- body and known selector portal requests can return adapter-owned mount ids
+- missing selector portal requests report `MissingTarget`
+- unsupported focus and portal runtimes remain visible beside success paths
+
+The overlay slice still records commands in memory. It does not call browser
+focus APIs, create DOM portal roots, own app shell z-index policy, or prove
+keyboard trap behavior until browser automation is added.
+
 ## Implementation Order
 
 1. Timer and live-region adapters, started in M27.2
-2. Portal adapter
-3. Non-modal focus return
-4. Modal focus trap
+2. Portal adapter, started in M27.3
+3. Non-modal focus return, started in M27.3
+4. Modal focus trap, started in M27.3
 5. Measurement adapter
 6. Pointer adapter
 7. Gesture adapter

@@ -5,7 +5,8 @@ they become default behavior. It is a harness specification, not an
 implementation.
 
 Status: Fixture command documented in M26.5. M27.2 adds fixture-local timer and
-live-region success-path adapters.
+live-region success-path adapters. M27.3 adds fixture-local focus and portal
+success-path adapters.
 
 ## Decision
 
@@ -47,6 +48,12 @@ successful timer scheduling, cancellation, live-region queueing, duplicate
 suppression, and the explicit unsupported fallback lines. Browser timeout APIs,
 DOM live-region mutation, and cleanup assertions are still deferred to the
 browser automation layer.
+
+M27.3 adds in-memory `WebFocusRuntime` and `WebPortalRuntime` adapters. The
+visible status output now includes successful initial focus, focus trap, focus
+return, body portal mounting, named portal mounting, missing target fallbacks,
+and explicit unsupported fallback lines. Browser focus commands, DOM portal
+mounting, tab wrapping, and z-index policy remain deferred.
 
 The fixture should expose one route or panel per runtime family:
 
