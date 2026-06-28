@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
-- Current milestone: M28 Desktop And Mobile Runtime Verification Follow-through
-- Current task: M28.2 Define Mobile runtime verification checklist or device harness
+- Overall: 100%
+- Current milestone: M29 Chart Rendering Backend Evaluation
+- Current task: M29.1 Evaluate chart backend options after measurement verification
 
 ## M0 Documentation
 
@@ -687,7 +687,7 @@
   - Verify focus, portal stacking, timers, measurement, pointer capture, and unsupported fallbacks.
   - Keep live-region support manual until assistive behavior is verified.
 
-- TODO M28.2 Define Mobile runtime verification checklist or device harness
+- DONE M28.2 Define Mobile runtime verification checklist or device harness
   - Cover touch targets, safe areas, visual viewport changes, native scroll, reduced motion, and visible status text.
   - Decide whether checks are manual, emulator-backed, or deferred.
   - Keep mobile runtime behavior opt-in until repeatable tooling exists.
