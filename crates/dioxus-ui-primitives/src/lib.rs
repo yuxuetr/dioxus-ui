@@ -68,7 +68,10 @@ pub use placement::{
 pub use roving_focus::{FocusMove, NavigationOrientation, RovingFocusItem, RovingFocusState};
 #[cfg(feature = "runtime")]
 pub use runtime::{
+  carousel_apply_gesture,
   FocusCommandResult, FocusRuntime, FocusRuntimeRequest, FocusRuntimeUnsupported,
+  GestureAxis, GestureOutcome, GestureRuntime, GestureRuntimeRequest, GestureRuntimeResult,
+  GestureRuntimeUnsupported, GestureState,
   AnnouncementPriority, DuplicateAnnouncementPolicy, LiveRegionRuntime,
   LiveRegionRuntimeRequest, LiveRegionRuntimeResult, LiveRegionRuntimeUnsupported,
   MeasurementRuntime, MeasurementRuntimeRequest, MeasurementRuntimeResult,

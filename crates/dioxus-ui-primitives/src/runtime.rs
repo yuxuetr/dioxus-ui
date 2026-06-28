@@ -541,6 +541,204 @@ impl PointerRuntime for PointerRuntimeUnsupported {
   }
 }
 
+/// Axis used by normalized gesture adapters.
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub enum GestureAxis {
+  #[default]
+  Horizontal,
+  Vertical,
+}
+
+impl GestureAxis {
+  pub const fn from_orientation(orientation: crate::LayoutOrientation) -> Self {
+    match orientation {
+      crate::LayoutOrientation::Horizontal => Self::Horizontal,
+      crate::LayoutOrientation::Vertical => Self::Vertical,
+    }
+  }
+
+  pub const fn orientation(self) -> crate::LayoutOrientation {
+    match self {
+      Self::Horizontal => crate::LayoutOrientation::Horizontal,
+      Self::Vertical => crate::LayoutOrientation::Vertical,
+    }
+  }
+}
+
+/// Normalized gesture state in logical pixels and pixels per second.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct GestureState {
+  pub axis: GestureAxis,
+  pub distance: f64,
+  pub velocity: f64,
+}
+
+impl GestureState {
+  pub const fn new(axis: GestureAxis, distance: f64, velocity: f64) -> Self {
+    Self {
+      axis,
+      distance,
+      velocity,
+    }
+  }
+
+  pub const fn horizontal(distance: f64, velocity: f64) -> Self {
+    Self::new(GestureAxis::Horizontal, distance, velocity)
+  }
+
+  pub const fn vertical(distance: f64, velocity: f64) -> Self {
+    Self::new(GestureAxis::Vertical, distance, velocity)
+  }
+
+  pub fn primary_delta(&self) -> PointerDelta {
+    match self.axis {
+      GestureAxis::Horizontal => PointerDelta::new(self.distance, 0.0),
+      GestureAxis::Vertical => PointerDelta::new(0.0, self.distance),
+    }
+  }
+
+  pub fn is_stationary(&self) -> bool {
+    self.distance == 0.0 && self.velocity == 0.0
+  }
+}
+
+/// Normalized result of a completed gesture.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum GestureOutcome {
+  CommitNext,
+  CommitPrevious,
+  Cancel,
+}
+
+impl GestureOutcome {
+  pub const fn is_commit(self) -> bool {
+    matches!(self, Self::CommitNext | Self::CommitPrevious)
+  }
+}
+
+/// Request metadata for runtime gesture recognition.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct GestureRuntimeRequest {
+  pub state: GestureState,
+  pub distance_threshold: f64,
+  pub velocity_threshold: f64,
+}
+
+impl GestureRuntimeRequest {
+  pub const fn new(
+    state: GestureState,
+    distance_threshold: f64,
+    velocity_threshold: f64,
+  ) -> Self {
+    Self {
+      state,
+      distance_threshold,
+      velocity_threshold,
+    }
+  }
+
+  pub const fn horizontal(
+    distance: f64,
+    velocity: f64,
+    distance_threshold: f64,
+    velocity_threshold: f64,
+  ) -> Self {
+    Self::new(
+      GestureState::horizontal(distance, velocity),
+      distance_threshold,
+      velocity_threshold,
+    )
+  }
+
+  pub const fn vertical(
+    distance: f64,
+    velocity: f64,
+    distance_threshold: f64,
+    velocity_threshold: f64,
+  ) -> Self {
+    Self::new(
+      GestureState::vertical(distance, velocity),
+      distance_threshold,
+      velocity_threshold,
+    )
+  }
+
+  pub fn resolve_outcome(&self) -> GestureOutcome {
+    let distance_threshold = finite_threshold(self.distance_threshold);
+    let velocity_threshold = finite_threshold(self.velocity_threshold);
+    let distance = finite_or_zero(self.state.distance);
+    let velocity = finite_or_zero(self.state.velocity);
+
+    if distance.abs() >= distance_threshold && distance_threshold > 0.0 {
+      gesture_outcome_from_motion(distance)
+    } else if velocity.abs() >= velocity_threshold && velocity_threshold > 0.0 {
+      gesture_outcome_from_motion(velocity)
+    } else {
+      GestureOutcome::Cancel
+    }
+  }
+}
+
+/// Result of a runtime gesture command.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum GestureRuntimeResult {
+  Resolved(GestureOutcome),
+  Unsupported,
+}
+
+/// Runtime gesture command surface.
+pub trait GestureRuntime {
+  fn resolve_gesture(&self, request: &GestureRuntimeRequest) -> GestureRuntimeResult;
+}
+
+/// Gesture runtime used when the current target has no adapter installed.
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct GestureRuntimeUnsupported;
+
+impl GestureRuntime for GestureRuntimeUnsupported {
+  fn resolve_gesture(&self, _request: &GestureRuntimeRequest) -> GestureRuntimeResult {
+    GestureRuntimeResult::Unsupported
+  }
+}
+
+/// Apply a normalized gesture outcome to Carousel state.
+pub fn carousel_apply_gesture(
+  state: crate::CarouselState,
+  outcome: GestureOutcome,
+) -> crate::CarouselState {
+  match outcome {
+    GestureOutcome::CommitNext => state.next(),
+    GestureOutcome::CommitPrevious => state.previous(),
+    GestureOutcome::Cancel => state.clamped(),
+  }
+}
+
+fn gesture_outcome_from_motion(motion: f64) -> GestureOutcome {
+  if motion < 0.0 {
+    GestureOutcome::CommitNext
+  } else if motion > 0.0 {
+    GestureOutcome::CommitPrevious
+  } else {
+    GestureOutcome::Cancel
+  }
+}
+
+fn finite_threshold(value: f64) -> f64 {
+  if value.is_finite() {
+    value.abs()
+  } else {
+    0.0
+  }
+}
+
+fn finite_or_zero(value: f64) -> f64 {
+  if value.is_finite() {
+    value
+  } else {
+    0.0
+  }
+}
+
 pub fn toast_live_region_request(item: &ToastItem) -> LiveRegionRuntimeRequest {
   feedback_live_region_request(item)
 }
@@ -940,6 +1138,97 @@ mod tests {
       runtime.handle_pointer(&PointerRuntimeRequest::cancel()),
       PointerRuntimeResult::Unsupported
     );
+  }
+
+  #[test]
+  fn gesture_axis_maps_layout_orientation() {
+    assert_eq!(
+      GestureAxis::from_orientation(crate::LayoutOrientation::Horizontal),
+      GestureAxis::Horizontal
+    );
+    assert_eq!(
+      GestureAxis::from_orientation(crate::LayoutOrientation::Vertical),
+      GestureAxis::Vertical
+    );
+    assert_eq!(
+      GestureAxis::Horizontal.orientation(),
+      crate::LayoutOrientation::Horizontal
+    );
+  }
+
+  #[test]
+  fn gesture_state_reports_primary_delta() {
+    let horizontal = GestureState::horizontal(24.0, 180.0);
+    let vertical = GestureState::vertical(-12.0, -90.0);
+
+    assert_eq!(horizontal.primary_delta(), PointerDelta::new(24.0, 0.0));
+    assert_eq!(vertical.primary_delta(), PointerDelta::new(0.0, -12.0));
+    assert!(!horizontal.is_stationary());
+    assert!(GestureState::horizontal(0.0, 0.0).is_stationary());
+  }
+
+  #[test]
+  fn gesture_request_resolves_distance_before_velocity() {
+    let request = GestureRuntimeRequest::horizontal(-48.0, 600.0, 32.0, 500.0);
+
+    assert_eq!(request.resolve_outcome(), GestureOutcome::CommitNext);
+    assert!(request.resolve_outcome().is_commit());
+  }
+
+  #[test]
+  fn gesture_request_uses_velocity_when_distance_is_below_threshold() {
+    let request = GestureRuntimeRequest::horizontal(12.0, -520.0, 32.0, 500.0);
+
+    assert_eq!(request.resolve_outcome(), GestureOutcome::CommitNext);
+  }
+
+  #[test]
+  fn gesture_request_cancels_below_thresholds() {
+    let request = GestureRuntimeRequest::vertical(12.0, 200.0, 32.0, 500.0);
+
+    assert_eq!(request.resolve_outcome(), GestureOutcome::Cancel);
+    assert!(!request.resolve_outcome().is_commit());
+  }
+
+  #[test]
+  fn gesture_request_sanitizes_non_finite_values() {
+    let request = GestureRuntimeRequest::horizontal(f64::NAN, f64::INFINITY, 32.0, 500.0);
+
+    assert_eq!(request.resolve_outcome(), GestureOutcome::Cancel);
+  }
+
+  #[test]
+  fn unsupported_gesture_runtime_reports_unsupported() {
+    let runtime = GestureRuntimeUnsupported;
+    let request = GestureRuntimeRequest::horizontal(-48.0, 0.0, 32.0, 500.0);
+
+    assert_eq!(
+      runtime.resolve_gesture(&request),
+      GestureRuntimeResult::Unsupported
+    );
+  }
+
+  #[test]
+  fn gesture_runtime_result_can_carry_outcome() {
+    assert_eq!(
+      GestureRuntimeResult::Resolved(GestureOutcome::CommitPrevious),
+      GestureRuntimeResult::Resolved(GestureOutcome::CommitPrevious)
+    );
+  }
+
+  #[test]
+  fn carousel_can_apply_gesture_outcome() {
+    let state = crate::CarouselState::new(1, 3);
+
+    assert_eq!(
+      carousel_apply_gesture(state, GestureOutcome::CommitNext).index,
+      2
+    );
+    assert_eq!(
+      carousel_apply_gesture(state, GestureOutcome::CommitPrevious).index,
+      0
+    );
+    assert_eq!(carousel_apply_gesture(state, GestureOutcome::Cancel).index, 1);
   }
 
   #[cfg(feature = "dialog")]
