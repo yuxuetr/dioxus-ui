@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 80%
 - Current milestone: M26 Web Runtime Verification Fixture
-- Current task: M26.4 Add pointer and gesture verification panels
+- Current task: M26.5 Document Web verification command and quality gate
 
 ## M0 Documentation
 
@@ -643,7 +643,7 @@
   - Add browser assertion hooks without changing generated component templates.
   - Keep product copy and localization app-owned.
 
-- TODO M26.4 Add pointer and gesture verification panels
+- DONE M26.4 Add pointer and gesture verification panels
   - Verify pointer start, move, end, cancel, capture release, carousel next, previous, cancel, and native-scroll escape behavior.
   - Keep gesture physics and snapping out of primitives and styled components.
   - Mark unsupported or flaky target behavior explicitly.
