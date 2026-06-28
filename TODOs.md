@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M25 Runtime Renderer Verification Planning
-- Current task: M25.3 Define Desktop and Mobile verification strategy
+- Current task: M25.4 Seed renderer runtime implementation milestones
 
 ## M0 Documentation
 
@@ -616,7 +616,7 @@
   - Specify Playwright or browser-level assertions without adding runtime defaults to generated components.
   - Document failure modes and fallback behavior for unsupported adapters.
 
-- TODO M25.3 Define Desktop and Mobile verification strategy
+- DONE M25.3 Define Desktop and Mobile verification strategy
   - Plan desktop WebView verification for focus, portal stacking, measurement, pointer capture, and timers.
   - Plan mobile constraints for touch gestures, safe areas, hover absence, visual viewport behavior, and native scroll arbitration.
   - Decide which targets remain documentation-only until stable tooling exists.
