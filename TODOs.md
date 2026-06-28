@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 20%
 - Current milestone: M26 Web Runtime Verification Fixture
-- Current task: M26.1 Scaffold Web runtime verification example
+- Current task: M26.2 Add focus and portal verification panels
 
 ## M0 Documentation
 
@@ -628,7 +628,7 @@
 
 ## M26 Web Runtime Verification Fixture
 
-- TODO M26.1 Scaffold Web runtime verification example
+- DONE M26.1 Scaffold Web runtime verification example
   - Add `examples/runtime-web-verification` as a dedicated fixture crate.
   - Keep runtime verification separate from existing web and desktop demos.
   - Expose visible status output and stable `data-testid` hooks for each runtime family.
