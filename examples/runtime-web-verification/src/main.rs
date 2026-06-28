@@ -6,10 +6,11 @@ use dioxus_ui_primitives::{
   LiveRegionRuntimeUnsupported, MeasurementRuntime, MeasurementRuntimeRequest,
   MeasurementRuntimeUnsupported, PointerDelta, PointerRuntime, PointerRuntimeRequest,
   PointerRuntimeUnsupported, PortalRuntime, PortalRuntimeRequest, PortalRuntimeUnsupported,
-  TimerRuntime, TimerRuntimeRequest, TimerRuntimeUnsupported, carousel_apply_gesture,
+  RuntimeRect, TimerRuntime, TimerRuntimeRequest, TimerRuntimeUnsupported, carousel_apply_gesture,
 };
 use web_runtime::{
-  WebFocusNode, WebFocusRuntime, WebLiveRegionRuntime, WebPortalRuntime, WebTimerRuntime,
+  WebFocusNode, WebFocusRuntime, WebLiveRegionRuntime, WebMeasurementNode, WebMeasurementRuntime,
+  WebPortalRuntime, WebTimerRuntime,
 };
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -385,8 +386,19 @@ fn timer_live_region_measurement_panel_states() -> Vec<String> {
   let polite_result = web_live_region_runtime.announce(&polite_request);
   let duplicate_result = web_live_region_runtime.announce(&polite_request);
   let assertive_result = web_live_region_runtime.announce(&assertive_request);
-  let measurement_runtime = MeasurementRuntimeUnsupported;
-  let node = ();
+  let web_measurement_runtime = WebMeasurementRuntime::with_rects(
+    RuntimeRect::new(0.0, 0.0, 1280.0, 720.0),
+    [
+      ("runtime-anchor", RuntimeRect::new(24.0, 48.0, 160.0, 32.0)),
+      ("runtime-content", RuntimeRect::new(24.0, 88.0, 320.0, 240.0)),
+    ],
+  );
+  let unsupported_measurement_runtime = MeasurementRuntimeUnsupported;
+  let anchor_node = WebMeasurementNode::new("runtime-anchor");
+  let content_node = WebMeasurementNode::new("runtime-content");
+  let missing_node = WebMeasurementNode::missing("missing-runtime-anchor");
+  let unsupported_node = ();
+  let resized_viewport = RuntimeRect::new(0.0, 0.0, 1024.0, 640.0);
 
   vec![
     format!(
@@ -439,21 +451,33 @@ fn timer_live_region_measurement_panel_states() -> Vec<String> {
       "measurement_node testid={} expected={} result={:?}",
       MEASUREMENT_CHECKS[0].test_id,
       MEASUREMENT_CHECKS[0].expected,
-      measurement_runtime.measure(&MeasurementRuntimeRequest::Node(node))
+      web_measurement_runtime.measure(&MeasurementRuntimeRequest::Node(anchor_node))
+    ),
+    format!(
+      "measurement_content testid=runtime-measurement-content expected=Rect result={:?}",
+      web_measurement_runtime.measure(&MeasurementRuntimeRequest::Node(content_node))
     ),
     format!(
       "measurement_viewport testid={} expected={} result={:?}",
       MEASUREMENT_CHECKS[1].test_id,
       MEASUREMENT_CHECKS[1].expected,
-      measurement_runtime.measure(&MeasurementRuntimeRequest::Viewport)
+      web_measurement_runtime.measure(&MeasurementRuntimeRequest::Viewport)
     ),
     format!(
-      "measurement_scroll_resize testid={} expected={} result=pending-browser-assertion",
-      MEASUREMENT_CHECKS[2].test_id, MEASUREMENT_CHECKS[2].expected
+      "measurement_scroll_resize testid={} expected={} result={:?}",
+      MEASUREMENT_CHECKS[2].test_id,
+      MEASUREMENT_CHECKS[2].expected,
+      web_measurement_runtime.update_viewport(resized_viewport)
     ),
     format!(
-      "measurement_missing testid={} expected={} result=pending-adapter-missing-target",
-      MEASUREMENT_CHECKS[3].test_id, MEASUREMENT_CHECKS[3].expected
+      "measurement_missing testid={} expected={} result={:?}",
+      MEASUREMENT_CHECKS[3].test_id,
+      MEASUREMENT_CHECKS[3].expected,
+      web_measurement_runtime.measure(&MeasurementRuntimeRequest::Node(missing_node))
+    ),
+    format!(
+      "measurement_unsupported testid=runtime-measurement-unsupported expected=Unsupported result={:?}",
+      unsupported_measurement_runtime.measure(&MeasurementRuntimeRequest::Node(unsupported_node))
     ),
   ]
 }
@@ -689,7 +713,7 @@ mod tests {
 
     assert_eq!(
       states.len(),
-      TIMER_CHECKS.len() + LIVE_REGION_CHECKS.len() + MEASUREMENT_CHECKS.len() + 2
+      TIMER_CHECKS.len() + LIVE_REGION_CHECKS.len() + MEASUREMENT_CHECKS.len() + 4
     );
     assert!(states.iter().any(|state| state.contains("timer_schedule")));
     assert!(states.iter().any(|state| state.contains("timer_cancel")));
@@ -699,8 +723,10 @@ mod tests {
     assert!(states.iter().any(|state| state.contains("live_region_empty")));
     assert!(states.iter().any(|state| state.contains("live_region_unsupported")));
     assert!(states.iter().any(|state| state.contains("measurement_node")));
+    assert!(states.iter().any(|state| state.contains("measurement_content")));
     assert!(states.iter().any(|state| state.contains("measurement_viewport")));
     assert!(states.iter().any(|state| state.contains("measurement_missing")));
+    assert!(states.iter().any(|state| state.contains("measurement_unsupported")));
   }
 
   #[test]

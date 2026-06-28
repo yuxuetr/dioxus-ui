@@ -3,8 +3,9 @@ use std::sync::atomic::{AtomicU64, Ordering};
 
 use dioxus_ui_primitives::{
   DuplicateAnnouncementPolicy, FocusCommandResult, FocusRuntime, FocusRuntimeRequest,
-  LiveRegionRuntime, LiveRegionRuntimeRequest, LiveRegionRuntimeResult, PortalMountResult,
-  PortalRuntime, PortalRuntimeRequest, TimerRuntime, TimerRuntimeRequest, TimerRuntimeResult,
+  LiveRegionRuntime, LiveRegionRuntimeRequest, LiveRegionRuntimeResult, MeasurementRuntime,
+  MeasurementRuntimeRequest, MeasurementRuntimeResult, PortalMountResult, PortalRuntime,
+  PortalRuntimeRequest, RuntimeRect, TimerRuntime, TimerRuntimeRequest, TimerRuntimeResult,
 };
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -247,6 +248,104 @@ impl PortalRuntime for WebPortalRuntime {
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
+pub struct WebMeasurementNode {
+  pub id: String,
+  pub mounted: bool,
+}
+
+impl WebMeasurementNode {
+  pub fn new(id: impl Into<String>) -> Self {
+    Self { id: id.into(), mounted: true }
+  }
+
+  pub fn missing(id: impl Into<String>) -> Self {
+    Self { id: id.into(), mounted: false }
+  }
+
+  fn is_available(&self) -> bool {
+    self.mounted && !self.id.trim().is_empty()
+  }
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct WebMeasurementRecord {
+  pub node_id: String,
+  pub rect: RuntimeRect,
+}
+
+#[derive(Debug)]
+pub struct WebMeasurementRuntime {
+  viewport: Mutex<RuntimeRect>,
+  records: Mutex<Vec<WebMeasurementRecord>>,
+}
+
+impl WebMeasurementRuntime {
+  pub fn with_rects(
+    viewport: RuntimeRect,
+    records: impl IntoIterator<Item = (impl Into<String>, RuntimeRect)>,
+  ) -> Self {
+    Self {
+      viewport: Mutex::new(viewport),
+      records: Mutex::new(
+        records
+          .into_iter()
+          .map(|(node_id, rect)| WebMeasurementRecord { node_id: node_id.into(), rect })
+          .collect(),
+      ),
+    }
+  }
+
+  pub fn update_viewport(&self, rect: RuntimeRect) -> MeasurementRuntimeResult {
+    if rect.is_empty() {
+      return MeasurementRuntimeResult::Missing;
+    }
+
+    match self.viewport.lock() {
+      Ok(mut viewport) => {
+        *viewport = rect;
+        MeasurementRuntimeResult::Rect(rect)
+      }
+      Err(_) => MeasurementRuntimeResult::Unsupported,
+    }
+  }
+
+  #[cfg(test)]
+  pub fn records(&self) -> Vec<WebMeasurementRecord> {
+    match self.records.lock() {
+      Ok(records) => records.clone(),
+      Err(_) => Vec::new(),
+    }
+  }
+}
+
+impl MeasurementRuntime for WebMeasurementRuntime {
+  type NodeId = WebMeasurementNode;
+
+  fn measure(&self, request: &MeasurementRuntimeRequest<Self::NodeId>) -> MeasurementRuntimeResult {
+    match request {
+      MeasurementRuntimeRequest::Viewport => match self.viewport.lock() {
+        Ok(viewport) => MeasurementRuntimeResult::Rect(*viewport),
+        Err(_) => MeasurementRuntimeResult::Unsupported,
+      },
+      MeasurementRuntimeRequest::Node(node) => {
+        if !node.is_available() {
+          return MeasurementRuntimeResult::Missing;
+        }
+
+        match self.records.lock() {
+          Ok(records) => records
+            .iter()
+            .find(|record| record.node_id == node.id)
+            .map(|record| MeasurementRuntimeResult::Rect(record.rect))
+            .unwrap_or(MeasurementRuntimeResult::Missing),
+          Err(_) => MeasurementRuntimeResult::Unsupported,
+        }
+      }
+    }
+  }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
 pub struct WebLiveRegionAnnouncement {
   pub message: String,
 }
@@ -380,6 +479,44 @@ mod tests {
     assert_eq!(
       runtime.mount_target(&PortalRuntimeRequest::selector("#missing", false)),
       PortalMountResult::MissingTarget
+    );
+  }
+
+  #[test]
+  fn web_measurement_reports_node_and_viewport_rects() {
+    let runtime = WebMeasurementRuntime::with_rects(
+      RuntimeRect::new(0.0, 0.0, 1280.0, 720.0),
+      [
+        ("trigger", RuntimeRect::new(24.0, 48.0, 160.0, 32.0)),
+        ("content", RuntimeRect::new(24.0, 88.0, 320.0, 240.0)),
+      ],
+    );
+
+    assert_eq!(runtime.records().len(), 2);
+    assert_eq!(
+      runtime.measure(&MeasurementRuntimeRequest::Node(WebMeasurementNode::new("trigger"))),
+      MeasurementRuntimeResult::Rect(RuntimeRect::new(24.0, 48.0, 160.0, 32.0))
+    );
+    assert_eq!(
+      runtime.measure(&MeasurementRuntimeRequest::Viewport),
+      MeasurementRuntimeResult::Rect(RuntimeRect::new(0.0, 0.0, 1280.0, 720.0))
+    );
+  }
+
+  #[test]
+  fn web_measurement_reports_missing_and_updated_viewport() {
+    let runtime = WebMeasurementRuntime::with_rects(
+      RuntimeRect::new(0.0, 0.0, 1280.0, 720.0),
+      [("trigger", RuntimeRect::new(24.0, 48.0, 160.0, 32.0))],
+    );
+
+    assert_eq!(
+      runtime.measure(&MeasurementRuntimeRequest::Node(WebMeasurementNode::missing("missing"))),
+      MeasurementRuntimeResult::Missing
+    );
+    assert_eq!(
+      runtime.update_viewport(RuntimeRect::new(0.0, 0.0, 1024.0, 640.0)),
+      MeasurementRuntimeResult::Rect(RuntimeRect::new(0.0, 0.0, 1024.0, 640.0))
     );
   }
 

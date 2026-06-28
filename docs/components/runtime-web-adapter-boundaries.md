@@ -6,6 +6,7 @@ work isolated until browser assertions prove the behavior.
 
 Status: M27.1 boundaries documented. M27.2 adds fixture-local timer and
 live-region feedback adapters. M27.3 adds fixture-local overlay adapters.
+M27.4 adds fixture-local measurement adapters.
 
 ## Decision
 
@@ -115,13 +116,27 @@ The overlay slice still records commands in memory. It does not call browser
 focus APIs, create DOM portal roots, own app shell z-index policy, or prove
 keyboard trap behavior until browser automation is added.
 
+M27.4 adds `WebMeasurementRuntime` in the same fixture module. The measurement
+slice verifies:
+
+- anchor node measurement can return a `RuntimeRect`
+- content node measurement can return a `RuntimeRect`
+- viewport measurement can return a `RuntimeRect`
+- viewport updates can simulate scroll or resize invalidation
+- missing mounted nodes report `Missing`
+- unsupported measurement runtimes remain visible beside success paths
+
+The measurement slice still reads fixture-owned rectangles from memory. It does
+not call browser layout APIs, subscribe to resize observers, own scroll
+restoration policy, or move collision math out of pure placement helpers.
+
 ## Implementation Order
 
 1. Timer and live-region adapters, started in M27.2
 2. Portal adapter, started in M27.3
 3. Non-modal focus return, started in M27.3
 4. Modal focus trap, started in M27.3
-5. Measurement adapter
+5. Measurement adapter, started in M27.4
 6. Pointer adapter
 7. Gesture adapter
 

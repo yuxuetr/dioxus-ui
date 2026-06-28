@@ -6,7 +6,8 @@ implementation.
 
 Status: Fixture command documented in M26.5. M27.2 adds fixture-local timer and
 live-region success-path adapters. M27.3 adds fixture-local focus and portal
-success-path adapters.
+success-path adapters. M27.4 adds fixture-local measurement success-path
+adapters.
 
 ## Decision
 
@@ -54,6 +55,12 @@ visible status output now includes successful initial focus, focus trap, focus
 return, body portal mounting, named portal mounting, missing target fallbacks,
 and explicit unsupported fallback lines. Browser focus commands, DOM portal
 mounting, tab wrapping, and z-index policy remain deferred.
+
+M27.4 adds in-memory `WebMeasurementRuntime` adapters. The visible status output
+now includes anchor rects, content rects, viewport rects, simulated viewport
+resize results, missing node fallbacks, and explicit unsupported fallback lines.
+Browser layout APIs, resize observers, scroll listeners, and collision
+placement behavior remain deferred.
 
 The fixture should expose one route or panel per runtime family:
 
