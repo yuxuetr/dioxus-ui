@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
-- Current milestone: M27 Experimental Web Runtime Adapters
-- Current task: M27.5 Implement Web pointer and gesture adapters
+- Overall: 100%
+- Current milestone: M28 Desktop And Mobile Runtime Verification Follow-through
+- Current task: M28.1 Scaffold Desktop runtime verification smoke fixture
 
 ## M0 Documentation
 
@@ -675,7 +675,7 @@
   - Verify Popover, Tooltip, Dropdown, Select, Menubar, Context Menu, Navigation Menu, Resizable, and Chart prerequisites.
   - Keep collision math in pure placement helpers.
 
-- TODO M27.5 Implement Web pointer and gesture adapters
+- DONE M27.5 Implement Web pointer and gesture adapters
   - Add pointer and gesture adapters after pointer capture and native-scroll behavior are verified.
   - Verify Resizable and Carousel before considering Drawer drag behavior.
   - Keep gesture-heavy physics opt-in or app-owned.
