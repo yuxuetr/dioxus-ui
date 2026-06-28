@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 80%
 - Current milestone: M24 Measurement Pointer Gesture Adapter Contracts
-- Current task: M24.4 Implement gesture adapter contract types and examples
+- Current task: M24.5 Complete measurement pointer gesture adapter contract documentation
 
 ## M0 Documentation
 
@@ -595,7 +595,7 @@
   - Add tests for start, move, end, cancel, and unsupported fallback behavior.
   - Keep Resizable panel mutation app-owned.
 
-- TODO M24.4 Implement gesture adapter contract types and examples
+- DONE M24.4 Implement gesture adapter contract types and examples
   - Add gesture axis, state, outcome, and request/result types with explicit unsupported results.
   - Show how Carousel would request next, previous, or cancel from gesture state.
   - Keep physics, snapping, autoplay, and native-scroll arbitration app-owned.
