@@ -124,6 +124,7 @@ Runtime adapter planning is tracked in:
 - [Measurement Pointer Gesture Contract Implementation Plan](measurement-pointer-gesture-contracts.md)
 - [Runtime Renderer Verification Matrix](runtime-renderer-verification.md)
 - [Desktop And Mobile Runtime Verification Strategy](runtime-desktop-mobile-verification.md)
+- [Runtime Implementation Milestone Seeds](runtime-implementation-milestones.md)
 
 M22 implements focus and portal contract types only. Components still require
 renderer-level verification before planned focus trap, focus return, and portal
@@ -135,6 +136,9 @@ M24 implements measurement, pointer, and gesture contract types only. Popover,
 Tooltip, Dropdown, Select, menu overlays, Resizable, Carousel, and Chart still
 require renderer-level measurement, pointer, and gesture verification before
 runtime behavior can be marked stable.
+M25 defines the renderer verification path and implementation order. Runtime
+accessibility behavior should not move from planned to stable until the relevant
+Web, Desktop, or Mobile verification milestone is implemented.
 
 Before complex interaction components are marked stable:
 

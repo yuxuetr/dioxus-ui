@@ -358,8 +358,9 @@ M21 recommended implementing focus and portal adapter contracts first. M22
 shipped the primitive-layer contract surface and pure Dialog/Popover mapping
 tests. M23 shipped timer and live-region contracts plus Toast/Sonner mapping
 helpers. M24 shipped measurement, pointer, and gesture contracts plus Carousel
-gesture mapping helpers. Renderer-specific Web/Desktop/Mobile runtime commands
-remain future work.
+gesture mapping helpers. M25 defines the renderer verification matrix, Web
+harness plan, Desktop/Mobile strategy, and implementation milestone seeds.
+Renderer-specific Web/Desktop/Mobile runtime commands remain future work.
 
 ## Recommended Next Milestones
 
@@ -369,7 +370,9 @@ M21 completed runtime adapter planning
 M22 completed focus and portal adapter contracts with Dialog/Popover mapping tests
 M23 completed timer/live-region adapter contracts for Toast and Sonner
 M24 completed measurement/pointer/gesture adapter contracts
-Next: renderer runtime verification planning for Web, Desktop, and Mobile
+M25 completed renderer runtime verification planning for Web, Desktop, and Mobile
+Next: Web runtime verification fixture and browser assertions
+Next: opt-in Web runtime adapters after fixture coverage
 Next: chart rendering backend evaluation after adapter requirements are concrete
 ```
 

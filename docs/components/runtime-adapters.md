@@ -246,6 +246,8 @@ For the Web-specific verification fixture plan, see the
 [Web runtime verification harness](runtime-web-verification-harness.md).
 For Desktop and Mobile verification strategy, see the
 [Desktop and Mobile runtime verification strategy](runtime-desktop-mobile-verification.md).
+For the post-verification implementation order, see the
+[runtime implementation milestone seeds](runtime-implementation-milestones.md).
 
 ## Implementation Order
 
@@ -256,6 +258,7 @@ For Desktop and Mobile verification strategy, see the
 5. Measurement, pointer, and gesture contract implementation
 6. Renderer verification planning before concrete Web/Desktop/Mobile runtime
    implementations
+7. Web runtime verification fixture before adapter defaults change
 
 ## Quality Gates
 

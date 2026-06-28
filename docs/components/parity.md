@@ -49,11 +49,13 @@ be ported one-for-one.
 
 ## Next Milestone Seeds
 
-After M24, the safest remaining implementation order is:
+After M25, the safest remaining implementation order is:
 
-1. Renderer runtime verification plan for Web, Desktop, and Mobile adapter behavior
-2. Renderer-backed focus, portal, timer, live-region, measurement, pointer, and gesture implementations after verification
-3. Chart rendering backend evaluation after adapter requirements are concrete
+1. Web runtime verification fixture and browser assertions
+2. Experimental Web timer/live-region and focus/portal adapters behind opt-in wiring
+3. Experimental Web measurement, pointer, and gesture adapters after fixture coverage
+4. Desktop smoke verification and Mobile checklist or device harness
+5. Chart rendering backend evaluation after adapter requirements are concrete
 
 See [Complex Component Batches](complex-batches.md) for the expanded milestone
 plan.

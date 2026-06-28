@@ -626,6 +626,79 @@
   - Prioritize low-risk adapter implementations before gesture-heavy or chart-dependent work.
   - Update parity, accessibility, and complex batch docs with the next implementation order.
 
+## M26 Web Runtime Verification Fixture
+
+- TODO M26.1 Scaffold Web runtime verification example
+  - Add `examples/runtime-web-verification` as a dedicated fixture crate.
+  - Keep runtime verification separate from existing web and desktop demos.
+  - Expose visible status output and stable `data-testid` hooks for each runtime family.
+
+- TODO M26.2 Add focus and portal verification panels
+  - Verify initial focus, focus trap, focus return, escape close, inline portal, body portal, named target, and missing target fallback.
+  - Keep adapter code experimental and local to the verification fixture.
+  - Document unsupported fallback states in the fixture UI.
+
+- TODO M26.3 Add timer, live-region, and measurement verification panels
+  - Verify schedule, cancel, disabled timer, cleanup, polite/assertive announcements, duplicate suppression, empty messages, and missing measurement targets.
+  - Add browser assertion hooks without changing generated component templates.
+  - Keep product copy and localization app-owned.
+
+- TODO M26.4 Add pointer and gesture verification panels
+  - Verify pointer start, move, end, cancel, capture release, carousel next, previous, cancel, and native-scroll escape behavior.
+  - Keep gesture physics and snapping out of primitives and styled components.
+  - Mark unsupported or flaky target behavior explicitly.
+
+- TODO M26.5 Document Web verification command and quality gate
+  - Add the eventual browser verification command to docs as an expensive runtime check.
+  - Keep default release gates unchanged until the fixture is stable.
+  - Update parity, accessibility, and runtime docs before marking M26 complete.
+
+## M27 Experimental Web Runtime Adapters
+
+- TODO M27.1 Plan opt-in Web runtime adapter module boundaries
+  - Decide where experimental Web adapters live and how they are enabled.
+  - Keep source-copy templates runtime-free by default.
+  - Define API boundaries for timers, live regions, portals, focus, measurement, pointer, and gestures.
+
+- TODO M27.2 Implement low-risk Web feedback adapters
+  - Add timer and live-region adapters after M26 verifies success and fallback states.
+  - Keep Toast and Sonner queue mutation app-owned.
+  - Add browser assertions before documenting runtime behavior as implemented.
+
+- TODO M27.3 Implement Web overlay adapters
+  - Add portal, focus return, and modal focus trap adapters behind explicit opt-in wiring.
+  - Verify Dialog, Alert Dialog, Sheet, Drawer, Popover, and menu fallback behavior.
+  - Keep app shell target and z-index policy app-owned.
+
+- TODO M27.4 Implement Web measurement adapters
+  - Add anchor, content, viewport, scroll, and resize measurement after fixture coverage exists.
+  - Verify Popover, Tooltip, Dropdown, Select, Menubar, Context Menu, Navigation Menu, Resizable, and Chart prerequisites.
+  - Keep collision math in pure placement helpers.
+
+- TODO M27.5 Implement Web pointer and gesture adapters
+  - Add pointer and gesture adapters after pointer capture and native-scroll behavior are verified.
+  - Verify Resizable and Carousel before considering Drawer drag behavior.
+  - Keep gesture-heavy physics opt-in or app-owned.
+
+## M28 Desktop And Mobile Runtime Verification Follow-through
+
+- TODO M28.1 Scaffold Desktop runtime verification smoke fixture
+  - Add a Desktop fixture only after Web runtime verification shape is stable.
+  - Verify focus, portal stacking, timers, measurement, pointer capture, and unsupported fallbacks.
+  - Keep live-region support manual until assistive behavior is verified.
+
+- TODO M28.2 Define Mobile runtime verification checklist or device harness
+  - Cover touch targets, safe areas, visual viewport changes, native scroll, reduced motion, and visible status text.
+  - Decide whether checks are manual, emulator-backed, or deferred.
+  - Keep mobile runtime behavior opt-in until repeatable tooling exists.
+
+## M29 Chart Rendering Backend Evaluation
+
+- TODO M29.1 Evaluate chart backend options after measurement verification
+  - Compare SVG, canvas, and external Rust chart backends against Dioxus Web/Desktop/Mobile constraints.
+  - Require measurement, accessibility, fallback table, tooltip, and animation policies before adding a public Chart component.
+  - Update chart strategy, parity, and component catalog docs with the decision.
+
 ## Status Rules
 
 - Change `TODO` to `DONE` only after implementation, validation, and commit.
