@@ -362,6 +362,8 @@ gesture mapping helpers. M25 defines the renderer verification matrix, Web
 harness plan, Desktop/Mobile strategy, and implementation milestone seeds.
 M26 adds a compile-checked Web runtime verification fixture with visible
 fallback output for all runtime contract families.
+M27 starts with opt-in Web runtime adapter module boundaries before concrete
+adapter implementations.
 Renderer-specific Web/Desktop/Mobile runtime commands remain future work.
 
 ## Recommended Next Milestones
@@ -374,6 +376,7 @@ M23 completed timer/live-region adapter contracts for Toast and Sonner
 M24 completed measurement/pointer/gesture adapter contracts
 M25 completed renderer runtime verification planning for Web, Desktop, and Mobile
 M26 completed Web runtime verification fixture scaffold and command documentation
+M27 started opt-in Web runtime adapter module boundary planning
 Next: browser assertions for the Web runtime verification fixture
 Next: opt-in Web runtime adapters after fixture coverage
 Next: chart rendering backend evaluation after adapter requirements are concrete

@@ -62,6 +62,9 @@ Recommended adapter order:
 Each slice should add tests before changing component docs from planned to
 implemented runtime behavior.
 
+For M27 module ownership and opt-in rules, see
+[Web Runtime Adapter Module Boundaries](runtime-web-adapter-boundaries.md).
+
 ## Documentation Updates
 
 When each milestone lands, update:

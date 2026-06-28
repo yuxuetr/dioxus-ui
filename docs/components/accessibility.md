@@ -125,6 +125,7 @@ Runtime adapter planning is tracked in:
 - [Runtime Renderer Verification Matrix](runtime-renderer-verification.md)
 - [Desktop And Mobile Runtime Verification Strategy](runtime-desktop-mobile-verification.md)
 - [Runtime Implementation Milestone Seeds](runtime-implementation-milestones.md)
+- [Web Runtime Adapter Module Boundaries](runtime-web-adapter-boundaries.md)
 
 M22 implements focus and portal contract types only. Components still require
 renderer-level verification before planned focus trap, focus return, and portal
@@ -142,6 +143,8 @@ Web, Desktop, or Mobile verification milestone is implemented.
 M26 adds Web fixture status output for accessibility-relevant runtime paths, but
 browser automation and manual assistive checks are still required before stable
 runtime accessibility claims.
+M27 starts with opt-in Web adapter module boundaries. Runtime adapters remain
+experimental until browser assertions cover the relevant behavior.
 
 Before complex interaction components are marked stable:
 

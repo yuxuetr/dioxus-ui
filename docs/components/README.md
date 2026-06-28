@@ -43,6 +43,8 @@ For Desktop and Mobile target checks, see the
 [Desktop and Mobile runtime verification strategy](runtime-desktop-mobile-verification.md).
 For the implementation order after verification planning, see the
 [runtime implementation milestone seeds](runtime-implementation-milestones.md).
+For experimental Web adapter boundaries, see the
+[Web runtime adapter module boundaries](runtime-web-adapter-boundaries.md).
 
 For accessibility expectations, see the
 [accessibility contract checklist](accessibility.md).

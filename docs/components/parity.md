@@ -52,7 +52,7 @@ be ported one-for-one.
 After M25, the safest remaining implementation order is:
 
 1. Browser assertions for the Web runtime verification fixture
-2. Experimental Web timer/live-region and focus/portal adapters behind opt-in wiring
+2. Experimental Web timer/live-region and focus/portal adapters behind the M27 opt-in module boundaries
 3. Experimental Web measurement, pointer, and gesture adapters after browser coverage
 4. Desktop smoke verification and Mobile checklist or device harness
 5. Chart rendering backend evaluation after adapter requirements are concrete

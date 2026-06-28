@@ -248,6 +248,8 @@ For Desktop and Mobile verification strategy, see the
 [Desktop and Mobile runtime verification strategy](runtime-desktop-mobile-verification.md).
 For the post-verification implementation order, see the
 [runtime implementation milestone seeds](runtime-implementation-milestones.md).
+For experimental Web adapter module boundaries, see the
+[Web runtime adapter module boundaries](runtime-web-adapter-boundaries.md).
 
 ## Implementation Order
 
