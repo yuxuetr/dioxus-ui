@@ -380,6 +380,72 @@ impl LiveRegionRuntime for LiveRegionRuntimeUnsupported {
   }
 }
 
+/// Renderer-independent rectangle reported by measurement runtimes.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct RuntimeRect {
+  pub x: f64,
+  pub y: f64,
+  pub width: f64,
+  pub height: f64,
+}
+
+impl RuntimeRect {
+  pub const fn new(x: f64, y: f64, width: f64, height: f64) -> Self {
+    Self {
+      x,
+      y,
+      width,
+      height,
+    }
+  }
+
+  pub fn right(&self) -> f64 {
+    self.x + self.width
+  }
+
+  pub fn bottom(&self) -> f64 {
+    self.y + self.height
+  }
+
+  pub fn is_empty(&self) -> bool {
+    self.width <= 0.0 || self.height <= 0.0
+  }
+}
+
+/// Request for runtime measurement.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub enum MeasurementRuntimeRequest<NodeId> {
+  Node(NodeId),
+  Viewport,
+}
+
+/// Result of a runtime measurement command.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum MeasurementRuntimeResult {
+  Rect(RuntimeRect),
+  Missing,
+  Unsupported,
+}
+
+/// Runtime measurement command surface.
+pub trait MeasurementRuntime {
+  type NodeId;
+
+  fn measure(&self, request: &MeasurementRuntimeRequest<Self::NodeId>) -> MeasurementRuntimeResult;
+}
+
+/// Measurement runtime used when the current target has no adapter installed.
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct MeasurementRuntimeUnsupported;
+
+impl MeasurementRuntime for MeasurementRuntimeUnsupported {
+  type NodeId = ();
+
+  fn measure(&self, _request: &MeasurementRuntimeRequest<Self::NodeId>) -> MeasurementRuntimeResult {
+    MeasurementRuntimeResult::Unsupported
+  }
+}
+
 pub fn toast_live_region_request(item: &ToastItem) -> LiveRegionRuntimeRequest {
   feedback_live_region_request(item)
 }
@@ -681,6 +747,52 @@ mod tests {
 
     assert_eq!(request.message, "Saved");
     assert_eq!(request.priority, AnnouncementPriority::Polite);
+  }
+
+  #[test]
+  fn runtime_rect_reports_edges_and_empty_state() {
+    let rect = RuntimeRect::new(10.0, 20.0, 30.0, 40.0);
+
+    assert_eq!(rect.right(), 40.0);
+    assert_eq!(rect.bottom(), 60.0);
+    assert!(!rect.is_empty());
+    assert!(RuntimeRect::new(0.0, 0.0, 0.0, 10.0).is_empty());
+    assert!(RuntimeRect::new(0.0, 0.0, 10.0, 0.0).is_empty());
+  }
+
+  #[test]
+  fn measurement_request_can_target_node_or_viewport() {
+    let node = MeasurementRuntimeRequest::Node("trigger");
+    let viewport = MeasurementRuntimeRequest::<&str>::Viewport;
+
+    assert_eq!(node, MeasurementRuntimeRequest::Node("trigger"));
+    assert_eq!(viewport, MeasurementRuntimeRequest::Viewport);
+  }
+
+  #[test]
+  fn measurement_result_can_carry_rect_or_missing() {
+    let rect = RuntimeRect::new(0.0, 0.0, 100.0, 50.0);
+
+    assert_eq!(
+      MeasurementRuntimeResult::Rect(rect),
+      MeasurementRuntimeResult::Rect(rect)
+    );
+    assert_eq!(MeasurementRuntimeResult::Missing, MeasurementRuntimeResult::Missing);
+  }
+
+  #[test]
+  fn unsupported_measurement_runtime_reports_unsupported() {
+    let runtime = MeasurementRuntimeUnsupported;
+    let node = ();
+
+    assert_eq!(
+      runtime.measure(&MeasurementRuntimeRequest::Node(node)),
+      MeasurementRuntimeResult::Unsupported
+    );
+    assert_eq!(
+      runtime.measure(&MeasurementRuntimeRequest::Viewport),
+      MeasurementRuntimeResult::Unsupported
+    );
   }
 
   #[cfg(feature = "dialog")]
