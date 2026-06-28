@@ -4,7 +4,7 @@ This document defines the M25.2 plan for verifying Web runtime adapters before
 they become default behavior. It is a harness specification, not an
 implementation.
 
-Status: Planned in M25.2.
+Status: Scaffold started in M26.1.
 
 ## Decision
 
@@ -27,6 +27,9 @@ Planned location:
 ```text
 examples/runtime-web-verification/
 ```
+
+M26.1 adds the fixture crate and compile-checked runtime family metadata. It
+does not add browser automation or concrete Web adapter implementations yet.
 
 The fixture should expose one route or panel per runtime family:
 
@@ -97,8 +100,9 @@ cargo run -p dioxus-ui-runtime-web-verification
 node scripts/runtime-web-verify.mjs
 ```
 
-The exact command should wait until the fixture and browser driver are added.
-Until then, M25.2 only defines the expected harness shape.
+The Rust fixture command exists as of M26.1. The browser assertion command
+should wait until the fixture renders under a Web runtime and a browser driver
+is added.
 
 ## Graduation Criteria
 

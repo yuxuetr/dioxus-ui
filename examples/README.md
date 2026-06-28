@@ -30,6 +30,16 @@ Planned future command after the Dioxus desktop runtime is added:
 dx serve --package dioxus-ui-desktop-demo --platform desktop
 ```
 
+## Runtime Web Verification
+
+```bash
+cargo run -p dioxus-ui-runtime-web-verification
+```
+
+This fixture starts as a compile-checked runtime contract scaffold. Browser
+automation should be added separately after the panels can render under a Web
+runtime.
+
 ## CLI Init Smoke
 
 ```bash

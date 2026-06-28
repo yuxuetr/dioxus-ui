@@ -7,6 +7,7 @@ members = [
   "crates/dioxus-ui-cli",
   "examples/web-demo",
   "examples/desktop-demo",
+  "examples/runtime-web-verification",
 ]
 
 [workspace.package]

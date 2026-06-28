@@ -559,6 +559,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "dioxus-ui-runtime-web-verification"
+version = "0.1.0"
+dependencies = [
+ "dioxus-ui-primitives",
+]
+
+[[package]]
 name = "dioxus-ui-web-demo"
 version = "0.1.0"
 dependencies = [
