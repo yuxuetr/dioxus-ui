@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M30 shadcn Current Gap Planning
-- Current task: M30.1 Verify current shadcn parity gaps
+- Current task: M30.2 Plan low-risk composition gap APIs
 
 ## Backup
 
@@ -12,7 +12,7 @@
 
 ## M30 shadcn Current Gap Planning
 
-- TODO M30.1 Verify current shadcn parity gaps
+- DONE M30.1 Verify current shadcn parity gaps
   - Recheck current shadcn/ui component catalog against local `registry/`, `templates/`, crate features, and docs.
   - Classify missing components into low-risk composition, form-specific, chat/message, chart, and runtime-dependent groups.
   - Update parity, component catalog, and complex batch docs before implementation.
