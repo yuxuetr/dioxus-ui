@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 20%
 - Current milestone: M27 Experimental Web Runtime Adapters
-- Current task: M27.1 Plan opt-in Web runtime adapter module boundaries
+- Current task: M27.2 Implement low-risk Web feedback adapters
 
 ## M0 Documentation
 
@@ -655,7 +655,7 @@
 
 ## M27 Experimental Web Runtime Adapters
 
-- TODO M27.1 Plan opt-in Web runtime adapter module boundaries
+- DONE M27.1 Plan opt-in Web runtime adapter module boundaries
   - Decide where experimental Web adapters live and how they are enabled.
   - Keep source-copy templates runtime-free by default.
   - Define API boundaries for timers, live regions, portals, focus, measurement, pointer, and gestures.
