@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 40%
 - Current milestone: M26 Web Runtime Verification Fixture
-- Current task: M26.2 Add focus and portal verification panels
+- Current task: M26.3 Add timer, live-region, and measurement verification panels
 
 ## M0 Documentation
 
@@ -633,7 +633,7 @@
   - Keep runtime verification separate from existing web and desktop demos.
   - Expose visible status output and stable `data-testid` hooks for each runtime family.
 
-- TODO M26.2 Add focus and portal verification panels
+- DONE M26.2 Add focus and portal verification panels
   - Verify initial focus, focus trap, focus return, escape close, inline portal, body portal, named target, and missing target fallback.
   - Keep adapter code experimental and local to the verification fixture.
   - Document unsupported fallback states in the fixture UI.
