@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
-- Current milestone: M24 Measurement Pointer Gesture Adapter Contracts
-- Current task: M24.5 Complete measurement pointer gesture adapter contract documentation
+- Overall: 0%
+- Current milestone: M25 Runtime Renderer Verification Planning
+- Current task: M25.1 Design renderer verification matrix
 
 ## M0 Documentation
 
@@ -600,7 +600,7 @@
   - Show how Carousel would request next, previous, or cancel from gesture state.
   - Keep physics, snapping, autoplay, and native-scroll arbitration app-owned.
 
-- TODO M24.5 Complete measurement pointer gesture adapter contract documentation
+- DONE M24.5 Complete measurement pointer gesture adapter contract documentation
   - Update runtime adapter docs, accessibility checklist, and complex batch plan.
   - Run workspace tests and documentation checks before marking the batch complete.
 
