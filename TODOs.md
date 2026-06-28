@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
+- Overall: 50%
 - Current milestone: M28 Desktop And Mobile Runtime Verification Follow-through
-- Current task: M28.1 Scaffold Desktop runtime verification smoke fixture
+- Current task: M28.2 Define Mobile runtime verification checklist or device harness
 
 ## M0 Documentation
 
@@ -682,7 +682,7 @@
 
 ## M28 Desktop And Mobile Runtime Verification Follow-through
 
-- TODO M28.1 Scaffold Desktop runtime verification smoke fixture
+- DONE M28.1 Scaffold Desktop runtime verification smoke fixture
   - Add a Desktop fixture only after Web runtime verification shape is stable.
   - Verify focus, portal stacking, timers, measurement, pointer capture, and unsupported fallbacks.
   - Keep live-region support manual until assistive behavior is verified.
