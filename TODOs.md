@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 40%
 - Current milestone: M24 Measurement Pointer Gesture Adapter Contracts
-- Current task: M24.2 Implement measurement adapter contract types
+- Current task: M24.3 Implement pointer adapter contract types
 
 ## M0 Documentation
 
@@ -585,7 +585,7 @@
   - Decide whether contracts extend `dioxus-ui-primitives/runtime` or use separate modules.
   - Document Web/Desktop/Mobile fallback behavior before code changes.
 
-- TODO M24.2 Implement measurement adapter contract types
+- DONE M24.2 Implement measurement adapter contract types
   - Add rectangle, measurement request/result, and measurement runtime types with explicit unsupported results.
   - Add tests for node measurement, viewport measurement, missing target, and unsupported fallback behavior.
   - Avoid DOM or WebView measurement commands in the contract layer.
