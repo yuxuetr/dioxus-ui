@@ -98,7 +98,7 @@ Statuses:
 | Data Table | Exposes sorted header state, selected row state, hidden cells, loading status, and empty state composition. | Implemented |
 | Data Table | Needs app-level filtering, async loading, keyboard shortcuts, and virtualization verification. | Planned |
 | Chart primitives | Expose summary text, color-independent series labels, value labels, and fallback-row metadata. | Implemented |
-| Chart component | Public rendering component remains deferred until backend, measurement, keyboard, and fallback-table contracts are proven. | Deferred |
+| Chart component | Public rendering component remains deferred until SVG backend, measurement, keyboard, tooltip, animation, and fallback-table contracts are proven. | Deferred |
 | Toast | Exposes status semantics, variant urgency, close/action native controls, and queue state helpers. | Implemented |
 | Toast | Needs app-level live-region wording, timer scheduling, portal mounting, and focus policy verification. | Planned |
 | Sonner | Exposes status semantics, decorative variant icons, close/action native controls, and queue state helpers. | Implemented |

@@ -103,7 +103,9 @@ Behavior defaults:
 ## Chart Strategy
 
 Chart is deferred as a component and documented as a strategy in M16. See the
-[Chart Strategy](chart-strategy.md) for the backend and accessibility policy.
+[Chart Strategy](chart-strategy.md) for the backend and accessibility policy,
+and [Chart Backend Evaluation](chart-backend-evaluation.md) for the M29.1
+backend decision.
 
 M16 position:
 

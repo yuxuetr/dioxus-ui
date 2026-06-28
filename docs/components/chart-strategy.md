@@ -5,7 +5,9 @@ and accessibility contract are explicit. M16 records the strategy instead of
 shipping a placeholder chart surface.
 
 Status: Strategy documented in M16; M19 adds primitive helpers and docs-only
-recipes while keeping the component deferred.
+recipes while keeping the component deferred. M29.1 selects first-party SVG as
+the preferred first rendering path, with Plotters as the first external Rust
+backend candidate.
 
 ## Decision
 
@@ -30,11 +32,17 @@ The project should evaluate chart backends before committing to an API:
 | Web canvas/SVG JS interop | Mature chart ecosystem | Cross-platform and source-copy complexity |
 | Deferred docs-only recipe | Lowest risk now | No turnkey chart component yet |
 
-M16 chooses the deferred docs-only recipe. A later milestone can introduce an
-adapter once the target backend and component set are clear.
+M16 chooses the deferred docs-only recipe. M29.1 keeps the public component
+deferred but narrows the backend direction: first-party SVG should be the first
+implementation path when Chart work resumes, Plotters should be the first
+external Rust backend candidate, and ECharts-backed approaches should remain
+app-owned.
 
 M19 follows through by adding shared data and accessibility primitives plus
 [chart recipes](chart-recipes.md). Rendering remains app-owned.
+
+For the backend evaluation decision, see
+[Chart Backend Evaluation](chart-backend-evaluation.md).
 
 ## Future Minimum API
 
@@ -93,3 +101,10 @@ Still deferred:
 - crate feature
 - rendering backend
 - visual and keyboard verification for a specific backend
+
+## M29 Backend Decision
+
+M29.1 keeps `Chart` deferred as a public component. The first future slice
+should be source-copy-friendly SVG composition, gated by measurement,
+accessibility, fallback table, tooltip, and animation policies. Plotters remains
+the preferred external Rust backend candidate for a later opt-in adapter.

@@ -34,7 +34,7 @@ be ported one-for-one.
 | Date and calendar | - | Calendar and Date Picker are implemented. |
 | Overlays | - | Current M12 overlay variant set is implemented. |
 | Feedback | - | Toast and Sonner are implemented; M23 defines timer and live-region contract types. |
-| Data | Chart component | Chart data and accessibility primitives are implemented; public rendering component remains deferred. |
+| Data | Chart component | Chart data and accessibility primitives are implemented; M29.1 selects first-party SVG as the first future rendering path, but the public component remains deferred. |
 | Navigation shell | - | Sidebar is implemented; persistence and keyboard shortcuts remain app-owned. |
 | Media | - | Carousel is implemented; M24 defines gesture contract types. |
 
@@ -42,7 +42,7 @@ be ported one-for-one.
 
 | Component | Reason |
 | --- | --- |
-| Chart component | M19 implements chart data and accessibility primitives plus recipes; a component remains deferred until backend, measurement, interaction, and fallback-table contracts are explicit. |
+| Chart component | M19 implements chart data and accessibility primitives plus recipes; M29.1 selects first-party SVG as the first future rendering path and keeps Chart deferred until measurement, interaction, animation, and fallback-table contracts are explicit. |
 | Data Table runtime adapters | Data Table state helpers and composition parts are implemented; filtering, async loading, and virtualization remain app-owned. |
 | Calendar / Date Picker runtime adapters | Date math primitives are implemented; parsing, localization, and focus adapters remain deferred. |
 | Runtime adapters | M21 documents adapter boundaries; M22 implements focus/portal contract types; M23 implements timer/live-region contract types; M24 implements measurement/pointer/gesture contract types. Renderer implementations remain deferred. |

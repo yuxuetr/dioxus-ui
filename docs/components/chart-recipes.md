@@ -88,6 +88,10 @@ Before adding a public chart component or adapter, validate:
 - color-independent series identification is built in
 - responsive measurement is reliable without hard-coded browser assumptions
 
+M29.1 selects first-party SVG as the preferred first future rendering path and
+keeps Plotters as the first external Rust backend candidate. See
+[Chart Backend Evaluation](chart-backend-evaluation.md).
+
 ## Deferred Public API
 
 The following remain intentionally deferred:
