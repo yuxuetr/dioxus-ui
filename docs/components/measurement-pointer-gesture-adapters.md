@@ -223,3 +223,6 @@ when an app opts in.
 3. Add pointer contracts and verify Resizable as the first pointer slice.
 4. Add gesture contracts and verify Carousel as the first gesture slice.
 5. Revisit Chart backend evaluation only after measurement contracts are proven.
+
+M24 turns this plan into concrete primitive-layer contracts. See the
+[measurement pointer gesture contract implementation plan](measurement-pointer-gesture-contracts.md).

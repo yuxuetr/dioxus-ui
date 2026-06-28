@@ -33,7 +33,9 @@ feedback runtime details, see the
 [timer and live-region adapter plan](timer-live-region-adapters.md) and
 [timer and live-region contract implementation plan](timer-live-region-contracts.md).
 For measurement and gesture runtime details, see the
-[measurement, pointer, and gesture adapter plan](measurement-pointer-gesture-adapters.md).
+[measurement, pointer, and gesture adapter plan](measurement-pointer-gesture-adapters.md)
+and
+[measurement pointer gesture contract implementation plan](measurement-pointer-gesture-contracts.md).
 
 For accessibility expectations, see the
 [accessibility contract checklist](accessibility.md).

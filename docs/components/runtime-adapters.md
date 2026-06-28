@@ -232,6 +232,8 @@ For the feedback runtime contract slice, see the
 [timer and live-region contract implementation plan](timer-live-region-contracts.md).
 For layout and interaction measurement, see the
 [measurement, pointer, and gesture adapter plan](measurement-pointer-gesture-adapters.md).
+For the measurement, pointer, and gesture contract slice, see the
+[measurement pointer gesture contract implementation plan](measurement-pointer-gesture-contracts.md).
 
 ## Implementation Order
 
