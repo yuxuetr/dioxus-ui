@@ -48,6 +48,8 @@ For the implementation order after verification planning, see the
 [runtime implementation milestone seeds](runtime-implementation-milestones.md).
 For experimental Web adapter boundaries, see the
 [Web runtime adapter module boundaries](runtime-web-adapter-boundaries.md).
+For the current upstream shadcn component gap audit, see
+[Current shadcn Gap Audit](current-shadcn-gaps.md).
 
 For accessibility expectations, see the
 [accessibility contract checklist](accessibility.md).

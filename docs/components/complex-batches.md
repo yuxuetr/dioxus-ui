@@ -361,10 +361,157 @@ helpers. M24 shipped measurement, pointer, and gesture contracts plus Carousel
 gesture mapping helpers. M25 defines the renderer verification matrix, Web
 harness plan, Desktop/Mobile strategy, and implementation milestone seeds.
 M26 adds a compile-checked Web runtime verification fixture with visible
-fallback output for all runtime contract families.
-M27 starts with opt-in Web runtime adapter module boundaries before concrete
-adapter implementations.
-Renderer-specific Web/Desktop/Mobile runtime commands remain future work.
+fallback output for all runtime contract families. M27 adds fixture-local
+experimental Web adapters for feedback, overlay, measurement, pointer, and
+gesture families. M28 adds Desktop smoke verification and a Mobile checklist.
+M29 evaluates chart rendering backends.
+Renderer-specific default runtime commands remain future work.
+
+## Batch 12: Current shadcn Gap Planning
+
+Status: Planned in M30.
+
+Components:
+
+- Button Group
+- Input Group
+- Collapsible
+- Direction
+- Input OTP
+- Attachment
+- Bubble
+- Message
+- Marker
+- Message Scroller
+- Chart
+
+Implementation specification:
+
+- [Current shadcn Gap Audit](current-shadcn-gaps.md)
+
+Dependencies:
+
+- current upstream component audit
+- local registry/template/docs parity check
+- source-copy policy
+- runtime verification status
+
+Rationale:
+
+The upstream shadcn catalog has added low-risk composition components,
+form-specific components, and message/AI-style components. M30 classifies these
+before implementation so runtime-heavy scrolling, upload, markdown, and chart
+behavior stay app-owned until explicitly designed.
+
+## Batch 13: Low-risk Composition Gaps
+
+Status: Planned in M31.
+
+Components:
+
+- Button Group
+- Input Group
+- Collapsible
+- Direction
+
+Dependencies:
+
+- existing Button and Input components
+- disclosure and controlled state conventions
+- RTL/LTR attribute and class policy
+- generated source-copy smoke checks
+
+Rationale:
+
+These are the safest current upstream gaps. They mostly compose existing parts
+and should be implemented before message and chart work.
+
+## Batch 14: Form-specific Gap
+
+Status: Planned in M32.
+
+Components:
+
+- Input OTP
+
+Dependencies:
+
+- input semantics
+- keyboard and paste handling
+- mobile keyboard constraints
+- screen-reader labeling strategy
+
+Rationale:
+
+Input OTP is small but easy to get wrong. It should get a focused primitive or
+helper pass before the styled component lands.
+
+## Batch 15: Message and Attachment Components
+
+Status: Planned in M33.
+
+Components:
+
+- Attachment
+- Bubble
+- Message
+- Marker
+
+Dependencies:
+
+- static composition conventions
+- Avatar, Badge, Button, Tooltip, and Popover composition
+- accessibility checklist updates
+- source-copy examples
+
+Rationale:
+
+These components should remain provider-neutral. Upload transport, markdown,
+syntax highlighting, citation resolution, streaming, and model/provider behavior
+stay app-owned.
+
+## Batch 16: Message Scroller and Runtime Follow-through
+
+Status: Planned in M34.
+
+Components:
+
+- Message Scroller
+
+Dependencies:
+
+- scroll intent state helpers
+- runtime measurement and scroll command boundaries
+- Web browser assertions
+- Desktop/Mobile deferred behavior notes
+
+Rationale:
+
+Message Scroller depends on runtime behavior: sticky bottom, unread marker,
+streaming append, user-scrolled-away state, and scroll commands. It should come
+after static message components.
+
+## Batch 17: Chart Public Component Preparation
+
+Status: Planned in M35.
+
+Components:
+
+- Chart
+
+Dependencies:
+
+- M29 backend decision
+- chart data and accessibility primitives
+- measurement verification
+- fallback table policy
+- tooltip and reduced-motion strategy
+
+Rationale:
+
+M29 selects first-party SVG as the preferred first rendering path, but a public
+Chart component remains gated by measurement, accessibility, fallback table,
+tooltip, animation, and source-copy policy.
 
 ## Recommended Next Milestones
 
@@ -376,10 +523,15 @@ M23 completed timer/live-region adapter contracts for Toast and Sonner
 M24 completed measurement/pointer/gesture adapter contracts
 M25 completed renderer runtime verification planning for Web, Desktop, and Mobile
 M26 completed Web runtime verification fixture scaffold and command documentation
-M27 started opt-in Web runtime adapter module boundary planning
-Next: browser assertions for the Web runtime verification fixture
-Next: opt-in Web runtime adapters after fixture coverage
-Next: chart rendering backend evaluation after adapter requirements are concrete
+M27 completed fixture-local experimental Web runtime adapters
+M28 completed Desktop smoke fixture and Mobile verification checklist
+M29 completed chart rendering backend evaluation
+Next: verify current shadcn gaps and plan missing API surfaces
+Next: implement low-risk composition gaps
+Next: implement Input OTP
+Next: implement message and attachment components
+Next: implement Message Scroller after runtime boundary planning
+Next: prepare first-party SVG Chart only after gates pass
 ```
 
 ## Third-Party Logic Candidates
@@ -388,6 +540,8 @@ Next: chart rendering backend evaluation after adapter requirements are concrete
 | --- | --- |
 | Calendar/date math | proven Rust date/time crate |
 | Chart rendering | explicit chart backend decision |
+| Message virtualization | dedicated virtualization strategy |
+| Markdown or rich message content | app-owned parser/renderer or explicit optional adapter |
 | Virtualized data tables | dedicated virtualization strategy |
 | Gesture-heavy carousel | proven interaction logic or a focused primitive |
 
