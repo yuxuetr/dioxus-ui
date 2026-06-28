@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M29 Chart Rendering Backend Evaluation
-- Current task: M29.1 Evaluate chart backend options after measurement verification
+- Current task: None
 
 ## M0 Documentation
 
@@ -694,7 +694,7 @@
 
 ## M29 Chart Rendering Backend Evaluation
 
-- TODO M29.1 Evaluate chart backend options after measurement verification
+- DONE M29.1 Evaluate chart backend options after measurement verification
   - Compare SVG, canvas, and external Rust chart backends against Dioxus Web/Desktop/Mobile constraints.
   - Require measurement, accessibility, fallback table, tooltip, and animation policies before adding a public Chart component.
   - Update chart strategy, parity, and component catalog docs with the decision.
