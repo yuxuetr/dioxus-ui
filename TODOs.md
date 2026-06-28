@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M25 Runtime Renderer Verification Planning
-- Current task: M25.2 Define Web runtime verification harness
+- Current task: M25.3 Define Desktop and Mobile verification strategy
 
 ## M0 Documentation
 
@@ -611,7 +611,7 @@
   - Map focus, portal, timer, live-region, measurement, pointer, and gesture contracts to verification cases.
   - Document which checks can be pure Rust tests, browser automation, desktop smoke tests, or manual accessibility checks.
 
-- TODO M25.2 Define Web runtime verification harness
+- DONE M25.2 Define Web runtime verification harness
   - Plan the minimal Dioxus Web fixture needed to verify focus, portals, timers, live regions, measurement, pointers, and gestures.
   - Specify Playwright or browser-level assertions without adding runtime defaults to generated components.
   - Document failure modes and fallback behavior for unsupported adapters.
