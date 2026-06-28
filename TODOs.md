@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M25 Runtime Renderer Verification Planning
-- Current task: M25.1 Design renderer verification matrix
+- Current task: M25.2 Define Web runtime verification harness
 
 ## M0 Documentation
 
@@ -606,7 +606,7 @@
 
 ## M25 Runtime Renderer Verification Planning
 
-- TODO M25.1 Design renderer verification matrix
+- DONE M25.1 Design renderer verification matrix
   - Define Web, Desktop, and Mobile behavior that must be verified before runtime adapters become default behavior.
   - Map focus, portal, timer, live-region, measurement, pointer, and gesture contracts to verification cases.
   - Document which checks can be pure Rust tests, browser automation, desktop smoke tests, or manual accessibility checks.
