@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 60%
 - Current milestone: M26 Web Runtime Verification Fixture
-- Current task: M26.3 Add timer, live-region, and measurement verification panels
+- Current task: M26.4 Add pointer and gesture verification panels
 
 ## M0 Documentation
 
@@ -638,7 +638,7 @@
   - Keep adapter code experimental and local to the verification fixture.
   - Document unsupported fallback states in the fixture UI.
 
-- TODO M26.3 Add timer, live-region, and measurement verification panels
+- DONE M26.3 Add timer, live-region, and measurement verification panels
   - Verify schedule, cancel, disabled timer, cleanup, polite/assertive announcements, duplicate suppression, empty messages, and missing measurement targets.
   - Add browser assertion hooks without changing generated component templates.
   - Keep product copy and localization app-owned.
