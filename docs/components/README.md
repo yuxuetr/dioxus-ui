@@ -37,7 +37,8 @@ For measurement and gesture runtime details, see the
 and
 [measurement pointer gesture contract implementation plan](measurement-pointer-gesture-contracts.md).
 For renderer verification before runtime defaults, see the
-[runtime renderer verification matrix](runtime-renderer-verification.md).
+[runtime renderer verification matrix](runtime-renderer-verification.md) and
+the [Web runtime verification harness](runtime-web-verification-harness.md).
 
 For accessibility expectations, see the
 [accessibility contract checklist](accessibility.md).

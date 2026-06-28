@@ -242,6 +242,8 @@ For the measurement, pointer, and gesture contract slice, see the
 [measurement pointer gesture contract implementation plan](measurement-pointer-gesture-contracts.md).
 For renderer-level verification before runtime defaults, see the
 [runtime renderer verification matrix](runtime-renderer-verification.md).
+For the Web-specific verification fixture plan, see the
+[Web runtime verification harness](runtime-web-verification-harness.md).
 
 ## Implementation Order
 

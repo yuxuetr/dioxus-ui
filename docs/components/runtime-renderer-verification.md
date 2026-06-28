@@ -103,6 +103,9 @@ without imports from `dioxus-ui-primitives`.
 4. Seed concrete runtime implementation milestones after verification plans are
    accepted.
 
+For the Web harness shape, see the
+[Web runtime verification harness](runtime-web-verification-harness.md).
+
 ## Quality Gates
 
 Before a renderer adapter is marked stable:
