@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M25 Runtime Renderer Verification Planning
-- Current task: M25.4 Seed renderer runtime implementation milestones
+- Overall: 0%
+- Current milestone: M26 Web Runtime Verification Fixture
+- Current task: M26.1 Scaffold Web runtime verification example
 
 ## M0 Documentation
 
@@ -621,7 +621,7 @@
   - Plan mobile constraints for touch gestures, safe areas, hover absence, visual viewport behavior, and native scroll arbitration.
   - Decide which targets remain documentation-only until stable tooling exists.
 
-- TODO M25.4 Seed renderer runtime implementation milestones
+- DONE M25.4 Seed renderer runtime implementation milestones
   - Split future implementation into narrow slices after verification plans are accepted.
   - Prioritize low-risk adapter implementations before gesture-heavy or chart-dependent work.
   - Update parity, accessibility, and complex batch docs with the next implementation order.
