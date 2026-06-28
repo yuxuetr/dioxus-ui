@@ -107,6 +107,8 @@ For the Web harness shape, see the
 [Web runtime verification harness](runtime-web-verification-harness.md).
 For Desktop and Mobile target strategy, see the
 [Desktop and Mobile runtime verification strategy](runtime-desktop-mobile-verification.md).
+For the Mobile checklist defined after the Desktop smoke fixture, see the
+[Mobile runtime verification checklist](runtime-mobile-verification-checklist.md).
 For the implementation order after verification planning, see the
 [runtime implementation milestone seeds](runtime-implementation-milestones.md).
 

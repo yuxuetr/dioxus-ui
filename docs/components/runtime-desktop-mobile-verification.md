@@ -6,7 +6,7 @@ renderer-specific behavior out of default components until each target is
 verified.
 
 Status: Desktop strategy planned in M25.3. M28.1 adds the Desktop runtime smoke
-fixture scaffold.
+fixture scaffold. M28.2 defines the Mobile runtime verification checklist.
 
 ## Decision
 
@@ -83,6 +83,11 @@ should remain opt-in or documentation-only. Source-copy components should
 continue to expose controlled parts that apps can wire to platform-specific
 behavior.
 
+M28.2 defines the detailed Mobile checklist in
+[Mobile Runtime Verification Checklist](runtime-mobile-verification-checklist.md).
+The chosen M28.2 path is documentation-first: no Mobile workspace fixture is
+added until an emulator or device command is selected.
+
 ## Documentation-Only Targets
 
 These areas should stay documentation-only until tooling or target behavior is
@@ -127,4 +132,5 @@ Mobile runtime support can move from documentation-only to implementation when:
 
 - [Runtime Renderer Verification Matrix](runtime-renderer-verification.md)
 - [Web Runtime Verification Harness](runtime-web-verification-harness.md)
+- [Mobile Runtime Verification Checklist](runtime-mobile-verification-checklist.md)
 - [Runtime Adapter Plan](runtime-adapters.md)

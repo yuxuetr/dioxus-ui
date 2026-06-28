@@ -127,3 +127,20 @@ measurement, pointer capture, and conservative gesture checks.
 
 Do not promote runtime Desktop verification into the default release gate until
 the fixture starts a real Desktop WebView and the smoke checks are stable.
+
+## Runtime Mobile Verification Gate
+
+Mobile verification is documentation-only until a repeatable device or emulator
+command exists.
+
+After changes to Mobile runtime plans, review:
+
+```text
+docs/components/runtime-mobile-verification-checklist.md
+docs/components/runtime-desktop-mobile-verification.md
+docs/components/runtime-renderer-verification.md
+```
+
+Do not add Mobile runtime adapters or default component behavior until touch,
+safe area, visual viewport, native scroll, reduced motion, and visible status
+checks can be repeated and fallback states are visible.
