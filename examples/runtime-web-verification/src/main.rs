@@ -1,9 +1,10 @@
 use dioxus_ui_primitives::{
-  FocusRuntime, FocusRuntimeRequest, FocusRuntimeUnsupported, GestureRuntimeRequest,
-  LiveRegionRuntime, LiveRegionRuntimeRequest, LiveRegionRuntimeUnsupported, MeasurementRuntime,
-  MeasurementRuntimeRequest, MeasurementRuntimeUnsupported, PointerDelta, PointerRuntimeRequest,
-  PortalRuntime, PortalRuntimeRequest, PortalRuntimeUnsupported, TimerRuntime, TimerRuntimeRequest,
-  TimerRuntimeUnsupported,
+  CarouselState, FocusRuntime, FocusRuntimeRequest, FocusRuntimeUnsupported, GestureRuntime,
+  GestureRuntimeRequest, GestureRuntimeUnsupported, LiveRegionRuntime, LiveRegionRuntimeRequest,
+  LiveRegionRuntimeUnsupported, MeasurementRuntime, MeasurementRuntimeRequest,
+  MeasurementRuntimeUnsupported, PointerDelta, PointerRuntime, PointerRuntimeRequest,
+  PointerRuntimeUnsupported, PortalRuntime, PortalRuntimeRequest, PortalRuntimeUnsupported,
+  TimerRuntime, TimerRuntimeRequest, TimerRuntimeUnsupported, carousel_apply_gesture,
 };
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -192,6 +193,57 @@ const MEASUREMENT_CHECKS: [VerificationCheck; 4] = [
   },
 ];
 
+const POINTER_CHECKS: [VerificationCheck; 5] = [
+  VerificationCheck {
+    test_id: "runtime-pointer-start",
+    label: "pointer start",
+    expected: "Started or Unsupported",
+  },
+  VerificationCheck {
+    test_id: "runtime-pointer-move",
+    label: "pointer move",
+    expected: "Moved or Unsupported",
+  },
+  VerificationCheck {
+    test_id: "runtime-pointer-end",
+    label: "pointer end",
+    expected: "Ended or Unsupported",
+  },
+  VerificationCheck {
+    test_id: "runtime-pointer-cancel",
+    label: "pointer cancel",
+    expected: "Cancelled or Unsupported",
+  },
+  VerificationCheck {
+    test_id: "runtime-pointer-capture-release",
+    label: "pointer capture release",
+    expected: "pending-browser-assertion",
+  },
+];
+
+const GESTURE_CHECKS: [VerificationCheck; 4] = [
+  VerificationCheck {
+    test_id: "runtime-gesture-next",
+    label: "carousel next gesture",
+    expected: "CommitNext",
+  },
+  VerificationCheck {
+    test_id: "runtime-gesture-previous",
+    label: "carousel previous gesture",
+    expected: "CommitPrevious",
+  },
+  VerificationCheck {
+    test_id: "runtime-gesture-cancel",
+    label: "gesture cancel",
+    expected: "Cancel",
+  },
+  VerificationCheck {
+    test_id: "runtime-gesture-native-scroll",
+    label: "native scroll escape",
+    expected: "pending-browser-assertion",
+  },
+];
+
 fn main() {
   println!("dioxus-ui runtime web verification fixture scaffold");
 
@@ -208,6 +260,10 @@ fn main() {
   }
 
   for state in timer_live_region_measurement_panel_states() {
+    println!("{state}");
+  }
+
+  for state in pointer_gesture_panel_states() {
     println!("{state}");
   }
 }
@@ -365,6 +421,78 @@ fn timer_live_region_measurement_panel_states() -> Vec<String> {
     format!(
       "measurement_missing testid={} expected={} result=pending-adapter-missing-target",
       MEASUREMENT_CHECKS[3].test_id, MEASUREMENT_CHECKS[3].expected
+    ),
+  ]
+}
+
+fn pointer_gesture_panel_states() -> Vec<String> {
+  let pointer_runtime = PointerRuntimeUnsupported;
+  let next_request = GestureRuntimeRequest::horizontal(-48.0, 0.0, 32.0, 500.0);
+  let previous_request = GestureRuntimeRequest::horizontal(48.0, 0.0, 32.0, 500.0);
+  let cancel_request = GestureRuntimeRequest::horizontal(8.0, 0.0, 32.0, 500.0);
+  let gesture_runtime = GestureRuntimeUnsupported;
+  let carousel_state = CarouselState::new(1, 3);
+  let next_outcome = next_request.resolve_outcome();
+  let previous_outcome = previous_request.resolve_outcome();
+  let cancel_outcome = cancel_request.resolve_outcome();
+
+  vec![
+    format!(
+      "pointer_start testid={} expected={} result={:?}",
+      POINTER_CHECKS[0].test_id,
+      POINTER_CHECKS[0].expected,
+      pointer_runtime.handle_pointer(&PointerRuntimeRequest::start())
+    ),
+    format!(
+      "pointer_move testid={} expected={} result={:?}",
+      POINTER_CHECKS[1].test_id,
+      POINTER_CHECKS[1].expected,
+      pointer_runtime.handle_pointer(&PointerRuntimeRequest::move_by(PointerDelta::new(12.0, 0.0)))
+    ),
+    format!(
+      "pointer_end testid={} expected={} result={:?}",
+      POINTER_CHECKS[2].test_id,
+      POINTER_CHECKS[2].expected,
+      pointer_runtime.handle_pointer(&PointerRuntimeRequest::end())
+    ),
+    format!(
+      "pointer_cancel testid={} expected={} result={:?}",
+      POINTER_CHECKS[3].test_id,
+      POINTER_CHECKS[3].expected,
+      pointer_runtime.handle_pointer(&PointerRuntimeRequest::cancel())
+    ),
+    format!(
+      "pointer_capture_release testid={} expected={} result=pending-browser-assertion",
+      POINTER_CHECKS[4].test_id, POINTER_CHECKS[4].expected
+    ),
+    format!(
+      "gesture_next testid={} expected={} outcome={:?} index={}",
+      GESTURE_CHECKS[0].test_id,
+      GESTURE_CHECKS[0].expected,
+      next_outcome,
+      carousel_apply_gesture(carousel_state, next_outcome).index
+    ),
+    format!(
+      "gesture_previous testid={} expected={} outcome={:?} index={}",
+      GESTURE_CHECKS[1].test_id,
+      GESTURE_CHECKS[1].expected,
+      previous_outcome,
+      carousel_apply_gesture(carousel_state, previous_outcome).index
+    ),
+    format!(
+      "gesture_cancel testid={} expected={} outcome={:?} index={}",
+      GESTURE_CHECKS[2].test_id,
+      GESTURE_CHECKS[2].expected,
+      cancel_outcome,
+      carousel_apply_gesture(carousel_state, cancel_outcome).index
+    ),
+    format!(
+      "gesture_native_scroll testid={} expected={} result=pending-browser-assertion",
+      GESTURE_CHECKS[3].test_id, GESTURE_CHECKS[3].expected
+    ),
+    format!(
+      "gesture_unsupported testid=runtime-gesture-unsupported expected=Unsupported result={:?}",
+      gesture_runtime.resolve_gesture(&next_request)
     ),
   ]
 }
@@ -531,5 +659,57 @@ mod tests {
       measurement_runtime.measure(&MeasurementRuntimeRequest::Node(node)),
       dioxus_ui_primitives::MeasurementRuntimeResult::Unsupported
     );
+  }
+
+  #[test]
+  fn pointer_panel_checks_expose_stable_test_ids() {
+    assert_eq!(POINTER_CHECKS.len(), 5);
+    assert!(POINTER_CHECKS.iter().any(|check| check.test_id == "runtime-pointer-start"));
+    assert!(POINTER_CHECKS.iter().any(|check| check.test_id == "runtime-pointer-move"));
+    assert!(POINTER_CHECKS.iter().any(|check| check.test_id == "runtime-pointer-end"));
+    assert!(POINTER_CHECKS.iter().any(|check| check.test_id == "runtime-pointer-cancel"));
+    assert!(POINTER_CHECKS.iter().any(|check| check.test_id == "runtime-pointer-capture-release"));
+  }
+
+  #[test]
+  fn gesture_panel_checks_expose_stable_test_ids() {
+    assert_eq!(GESTURE_CHECKS.len(), 4);
+    assert!(GESTURE_CHECKS.iter().any(|check| check.test_id == "runtime-gesture-next"));
+    assert!(GESTURE_CHECKS.iter().any(|check| check.test_id == "runtime-gesture-previous"));
+    assert!(GESTURE_CHECKS.iter().any(|check| check.test_id == "runtime-gesture-cancel"));
+    assert!(GESTURE_CHECKS.iter().any(|check| check.test_id == "runtime-gesture-native-scroll"));
+  }
+
+  #[test]
+  fn pointer_gesture_states_report_fallbacks_and_carousel_outcomes() {
+    let states = pointer_gesture_panel_states();
+
+    assert_eq!(states.len(), POINTER_CHECKS.len() + GESTURE_CHECKS.len() + 1);
+    assert!(states.iter().any(|state| state.contains("pointer_start")));
+    assert!(states.iter().any(|state| state.contains("pointer_move")));
+    assert!(states.iter().any(|state| state.contains("pointer_end")));
+    assert!(states.iter().any(|state| state.contains("pointer_cancel")));
+    assert!(states.iter().any(|state| state.contains("gesture_next")));
+    assert!(states.iter().any(|state| state.contains("gesture_previous")));
+    assert!(states.iter().any(|state| state.contains("gesture_cancel")));
+    assert!(states.iter().any(|state| state.contains("gesture_unsupported")));
+  }
+
+  #[test]
+  fn pointer_and_gesture_results_are_explicit() {
+    let pointer_runtime = PointerRuntimeUnsupported;
+    let gesture_runtime = GestureRuntimeUnsupported;
+    let next_request = GestureRuntimeRequest::horizontal(-48.0, 0.0, 32.0, 500.0);
+    let carousel_state = CarouselState::new(1, 3);
+
+    assert_eq!(
+      pointer_runtime.handle_pointer(&PointerRuntimeRequest::start()),
+      dioxus_ui_primitives::PointerRuntimeResult::Unsupported
+    );
+    assert_eq!(
+      gesture_runtime.resolve_gesture(&next_request),
+      dioxus_ui_primitives::GestureRuntimeResult::Unsupported
+    );
+    assert_eq!(carousel_apply_gesture(carousel_state, next_request.resolve_outcome()).index, 2);
   }
 }

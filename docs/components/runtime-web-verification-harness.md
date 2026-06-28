@@ -36,7 +36,9 @@ for scheduling, cancellation, disabled timers, cleanup, polite/assertive
 announcements, duplicate suppression, empty messages, node measurement,
 viewport measurement, scroll/resize invalidation, and missing measurement
 targets. Browser automation and concrete Web adapter implementations remain
-deferred.
+deferred. M26.4 adds pointer and gesture status output for pointer start, move,
+end, cancel, capture release, Carousel next, previous, cancel, unsupported
+gesture fallback, and native-scroll escape placeholders.
 
 The fixture should expose one route or panel per runtime family:
 
