@@ -47,6 +47,23 @@ cargo test -p dioxus-ui-runtime-web-verification
 cargo run -p dioxus-ui-runtime-web-verification
 ```
 
+## Runtime Desktop Verification
+
+```bash
+cargo run -p dioxus-ui-runtime-desktop-verification
+```
+
+This fixture starts as a compile-checked Desktop WebView smoke scaffold.
+Renderer-backed Desktop automation should be added separately after the smoke
+states are stable.
+
+For the current expensive runtime check, run:
+
+```bash
+cargo test -p dioxus-ui-runtime-desktop-verification
+cargo run -p dioxus-ui-runtime-desktop-verification
+```
+
 ## CLI Init Smoke
 
 ```bash

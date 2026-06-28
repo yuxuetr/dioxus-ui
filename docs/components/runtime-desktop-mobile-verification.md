@@ -5,7 +5,8 @@ adapter verification. It complements the Web harness plan and keeps
 renderer-specific behavior out of default components until each target is
 verified.
 
-Status: Planned in M25.3.
+Status: Desktop strategy planned in M25.3. M28.1 adds the Desktop runtime smoke
+fixture scaffold.
 
 ## Decision
 
@@ -31,6 +32,18 @@ Planned location:
 ```text
 examples/runtime-desktop-verification/
 ```
+
+M28.1 adds the fixture as a workspace package:
+
+```bash
+cargo test -p dioxus-ui-runtime-desktop-verification
+cargo run -p dioxus-ui-runtime-desktop-verification
+```
+
+The first fixture is a compile-checked smoke scaffold. It exposes stable
+Desktop-oriented status output for focus, portal stacking, timers, visible live
+status, measurement, pointer capture, and conservative gesture checks. It does
+not start a real WebView window or claim renderer support.
 
 The Desktop fixture should reuse the same runtime panels as the Web harness but
 verify WebView-specific behavior:

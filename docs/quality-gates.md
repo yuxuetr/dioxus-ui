@@ -110,3 +110,20 @@ node scripts/runtime-web-verify.mjs
 
 Do not promote runtime Web verification into the default release gate until the
 fixture renders under a Web runtime and the browser assertions are stable.
+
+## Runtime Desktop Verification Gate
+
+Run after changes to Desktop runtime verification fixtures or Desktop-specific
+runtime adapter plans:
+
+```bash
+cargo test -p dioxus-ui-runtime-desktop-verification
+cargo run -p dioxus-ui-runtime-desktop-verification
+```
+
+This currently verifies compile-checked Desktop WebView smoke metadata and
+visible fallback status output for focus, portal stacking, timers, live status,
+measurement, pointer capture, and conservative gesture checks.
+
+Do not promote runtime Desktop verification into the default release gate until
+the fixture starts a real Desktop WebView and the smoke checks are stable.

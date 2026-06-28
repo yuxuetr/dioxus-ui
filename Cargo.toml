@@ -8,6 +8,7 @@ members = [
   "examples/web-demo",
   "examples/desktop-demo",
   "examples/runtime-web-verification",
+  "examples/runtime-desktop-verification",
 ]
 
 [workspace.package]
