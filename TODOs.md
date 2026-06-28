@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 80%
 - Current milestone: M27 Experimental Web Runtime Adapters
-- Current task: M27.4 Implement Web measurement adapters
+- Current task: M27.5 Implement Web pointer and gesture adapters
 
 ## M0 Documentation
 
@@ -670,7 +670,7 @@
   - Verify Dialog, Alert Dialog, Sheet, Drawer, Popover, and menu fallback behavior.
   - Keep app shell target and z-index policy app-owned.
 
-- TODO M27.4 Implement Web measurement adapters
+- DONE M27.4 Implement Web measurement adapters
   - Add anchor, content, viewport, scroll, and resize measurement after fixture coverage exists.
   - Verify Popover, Tooltip, Dropdown, Select, Menubar, Context Menu, Navigation Menu, Resizable, and Chart prerequisites.
   - Keep collision math in pure placement helpers.
