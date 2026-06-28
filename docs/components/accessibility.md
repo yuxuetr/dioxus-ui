@@ -139,6 +139,9 @@ runtime behavior can be marked stable.
 M25 defines the renderer verification path and implementation order. Runtime
 accessibility behavior should not move from planned to stable until the relevant
 Web, Desktop, or Mobile verification milestone is implemented.
+M26 adds Web fixture status output for accessibility-relevant runtime paths, but
+browser automation and manual assistive checks are still required before stable
+runtime accessibility claims.
 
 Before complex interaction components are marked stable:
 

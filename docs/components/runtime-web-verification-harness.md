@@ -4,7 +4,7 @@ This document defines the M25.2 plan for verifying Web runtime adapters before
 they become default behavior. It is a harness specification, not an
 implementation.
 
-Status: Scaffold started in M26.1.
+Status: Fixture command documented in M26.5.
 
 ## Decision
 
@@ -100,18 +100,24 @@ The fixture must not:
 - hide app-owned policy inside styled component class helpers
 - depend on Tailwind runtime class generation
 
-## Candidate Commands
+## Verification Commands
 
-Future implementation can add commands similar to:
+Current fixture commands:
 
 ```bash
 cargo run -p dioxus-ui-runtime-web-verification
+cargo test -p dioxus-ui-runtime-web-verification
+```
+
+Future browser implementation can add a command similar to:
+
+```bash
 node scripts/runtime-web-verify.mjs
 ```
 
-The Rust fixture command exists as of M26.1. The browser assertion command
-should wait until the fixture renders under a Web runtime and a browser driver
-is added.
+The Rust fixture command exists as of M26.1 and is documented as an expensive
+runtime check in M26.5. The browser assertion command should wait until the
+fixture renders under a Web runtime and a browser driver is added.
 
 ## Graduation Criteria
 

@@ -86,3 +86,27 @@ scripts/feature-check.sh
 
 The feature gate is separated because it recompiles the same crate many times.
 If CI time remains acceptable, it can be promoted into default pull request CI.
+
+## Runtime Web Verification Gate
+
+Run after changes to runtime verification fixtures or experimental Web runtime
+adapters:
+
+```bash
+cargo test -p dioxus-ui-runtime-web-verification
+cargo run -p dioxus-ui-runtime-web-verification
+```
+
+This currently verifies compile-checked runtime panel metadata and visible
+fallback status output for focus, portal, timer, live-region, measurement,
+pointer, and gesture contracts.
+
+Future browser automation should be added as a separate expensive check, for
+example:
+
+```bash
+node scripts/runtime-web-verify.mjs
+```
+
+Do not promote runtime Web verification into the default release gate until the
+fixture renders under a Web runtime and the browser assertions are stable.

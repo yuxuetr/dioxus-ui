@@ -360,6 +360,8 @@ tests. M23 shipped timer and live-region contracts plus Toast/Sonner mapping
 helpers. M24 shipped measurement, pointer, and gesture contracts plus Carousel
 gesture mapping helpers. M25 defines the renderer verification matrix, Web
 harness plan, Desktop/Mobile strategy, and implementation milestone seeds.
+M26 adds a compile-checked Web runtime verification fixture with visible
+fallback output for all runtime contract families.
 Renderer-specific Web/Desktop/Mobile runtime commands remain future work.
 
 ## Recommended Next Milestones
@@ -371,7 +373,8 @@ M22 completed focus and portal adapter contracts with Dialog/Popover mapping tes
 M23 completed timer/live-region adapter contracts for Toast and Sonner
 M24 completed measurement/pointer/gesture adapter contracts
 M25 completed renderer runtime verification planning for Web, Desktop, and Mobile
-Next: Web runtime verification fixture and browser assertions
+M26 completed Web runtime verification fixture scaffold and command documentation
+Next: browser assertions for the Web runtime verification fixture
 Next: opt-in Web runtime adapters after fixture coverage
 Next: chart rendering backend evaluation after adapter requirements are concrete
 ```

@@ -40,6 +40,13 @@ This fixture starts as a compile-checked runtime contract scaffold. Browser
 automation should be added separately after the panels can render under a Web
 runtime.
 
+For the current expensive runtime check, run:
+
+```bash
+cargo test -p dioxus-ui-runtime-web-verification
+cargo run -p dioxus-ui-runtime-web-verification
+```
+
 ## CLI Init Smoke
 
 ```bash

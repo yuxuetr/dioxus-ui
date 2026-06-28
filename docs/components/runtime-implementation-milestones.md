@@ -42,6 +42,9 @@ Initial tasks:
 - add a browser assertion script only after the fixture can run locally
 - document the command as an expensive runtime check, not a default release gate
 
+M26 ships the compile-checked fixture and Rust command first. Browser automation
+remains a later step.
+
 ## Later Adapter Slices
 
 M27 and M28 should not start until M26 can prove both success and fallback
