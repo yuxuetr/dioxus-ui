@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 40%
 - Current milestone: M27 Experimental Web Runtime Adapters
-- Current task: M27.2 Implement low-risk Web feedback adapters
+- Current task: M27.3 Implement Web overlay adapters
 
 ## M0 Documentation
 
@@ -660,7 +660,7 @@
   - Keep source-copy templates runtime-free by default.
   - Define API boundaries for timers, live regions, portals, focus, measurement, pointer, and gestures.
 
-- TODO M27.2 Implement low-risk Web feedback adapters
+- DONE M27.2 Implement low-risk Web feedback adapters
   - Add timer and live-region adapters after M26 verifies success and fallback states.
   - Keep Toast and Sonner queue mutation app-owned.
   - Add browser assertions before documenting runtime behavior as implemented.
