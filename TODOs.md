@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 60%
 - Current milestone: M24 Measurement Pointer Gesture Adapter Contracts
-- Current task: M24.3 Implement pointer adapter contract types
+- Current task: M24.4 Implement gesture adapter contract types and examples
 
 ## M0 Documentation
 
@@ -590,7 +590,7 @@
   - Add tests for node measurement, viewport measurement, missing target, and unsupported fallback behavior.
   - Avoid DOM or WebView measurement commands in the contract layer.
 
-- TODO M24.3 Implement pointer adapter contract types
+- DONE M24.3 Implement pointer adapter contract types
   - Add pointer phase, delta, request/result, and pointer runtime types with explicit unsupported results.
   - Add tests for start, move, end, cancel, and unsupported fallback behavior.
   - Keep Resizable panel mutation app-owned.
