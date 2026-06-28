@@ -1,3 +1,5 @@
+mod web_runtime;
+
 use dioxus_ui_primitives::{
   CarouselState, FocusRuntime, FocusRuntimeRequest, FocusRuntimeUnsupported, GestureRuntime,
   GestureRuntimeRequest, GestureRuntimeUnsupported, LiveRegionRuntime, LiveRegionRuntimeRequest,
@@ -6,6 +8,7 @@ use dioxus_ui_primitives::{
   PointerRuntimeUnsupported, PortalRuntime, PortalRuntimeRequest, PortalRuntimeUnsupported,
   TimerRuntime, TimerRuntimeRequest, TimerRuntimeUnsupported, carousel_apply_gesture,
 };
+use web_runtime::{WebLiveRegionRuntime, WebTimerRuntime};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 enum RuntimeFamily {
@@ -344,63 +347,75 @@ fn focus_portal_panel_states() -> Vec<String> {
 }
 
 fn timer_live_region_measurement_panel_states() -> Vec<String> {
-  let timer_runtime = TimerRuntimeUnsupported;
+  let web_timer_runtime = WebTimerRuntime::new();
+  let unsupported_timer_runtime = TimerRuntimeUnsupported;
   let timer_request = TimerRuntimeRequest::toast_dismiss(3000);
   let disabled_timer_request = TimerRuntimeRequest::toast_dismiss(0);
-  let timer_id = ();
-  let live_region_runtime = LiveRegionRuntimeUnsupported;
+  let scheduled_timer = web_timer_runtime.schedule_once(&timer_request);
+  let cancelled_timer = match scheduled_timer {
+    dioxus_ui_primitives::TimerRuntimeResult::Scheduled(timer_id) => {
+      web_timer_runtime.cancel(&timer_id)
+    }
+    _ => dioxus_ui_primitives::TimerRuntimeResult::Unsupported,
+  };
+  let unsupported_timer_id = ();
+  let web_live_region_runtime = WebLiveRegionRuntime::new();
+  let unsupported_live_region_runtime = LiveRegionRuntimeUnsupported;
   let polite_request = LiveRegionRuntimeRequest::polite("Saved");
   let assertive_request = LiveRegionRuntimeRequest::assertive("Failed");
   let empty_request = LiveRegionRuntimeRequest::polite(" ");
+  let polite_result = web_live_region_runtime.announce(&polite_request);
+  let duplicate_result = web_live_region_runtime.announce(&polite_request);
+  let assertive_result = web_live_region_runtime.announce(&assertive_request);
   let measurement_runtime = MeasurementRuntimeUnsupported;
   let node = ();
 
   vec![
     format!(
       "timer_schedule testid={} expected={} result={:?}",
-      TIMER_CHECKS[0].test_id,
-      TIMER_CHECKS[0].expected,
-      timer_runtime.schedule_once(&timer_request)
+      TIMER_CHECKS[0].test_id, TIMER_CHECKS[0].expected, scheduled_timer
     ),
     format!(
       "timer_cancel testid={} expected={} result={:?}",
-      TIMER_CHECKS[1].test_id,
-      TIMER_CHECKS[1].expected,
-      timer_runtime.cancel(&timer_id)
+      TIMER_CHECKS[1].test_id, TIMER_CHECKS[1].expected, cancelled_timer
     ),
     format!(
       "timer_disabled testid={} expected={} result={:?}",
       TIMER_CHECKS[2].test_id,
       TIMER_CHECKS[2].expected,
-      timer_runtime.schedule_once(&disabled_timer_request)
+      web_timer_runtime.schedule_once(&disabled_timer_request)
     ),
     format!(
       "timer_cleanup testid={} expected={} result=pending-browser-assertion",
       TIMER_CHECKS[3].test_id, TIMER_CHECKS[3].expected
     ),
     format!(
+      "timer_unsupported testid=runtime-timer-unsupported expected=Unsupported result={:?}",
+      unsupported_timer_runtime.cancel(&unsupported_timer_id)
+    ),
+    format!(
       "live_region_polite testid={} expected={} result={:?}",
-      LIVE_REGION_CHECKS[0].test_id,
-      LIVE_REGION_CHECKS[0].expected,
-      live_region_runtime.announce(&polite_request)
+      LIVE_REGION_CHECKS[0].test_id, LIVE_REGION_CHECKS[0].expected, polite_result
     ),
     format!(
       "live_region_assertive testid={} expected={} result={:?}",
-      LIVE_REGION_CHECKS[1].test_id,
-      LIVE_REGION_CHECKS[1].expected,
-      live_region_runtime.announce(&assertive_request)
+      LIVE_REGION_CHECKS[1].test_id, LIVE_REGION_CHECKS[1].expected, assertive_result
     ),
     format!(
       "live_region_duplicate testid={} expected={} result={}",
       LIVE_REGION_CHECKS[2].test_id,
       LIVE_REGION_CHECKS[2].expected,
-      polite_request.should_suppress_duplicate(Some("Saved"))
+      duplicate_result == dioxus_ui_primitives::LiveRegionRuntimeResult::SuppressedDuplicate
     ),
     format!(
       "live_region_empty testid={} expected={} result={:?}",
       LIVE_REGION_CHECKS[3].test_id,
       LIVE_REGION_CHECKS[3].expected,
-      live_region_runtime.announce(&empty_request)
+      web_live_region_runtime.announce(&empty_request)
+    ),
+    format!(
+      "live_region_unsupported testid=runtime-live-region-unsupported expected=Unsupported result={:?}",
+      unsupported_live_region_runtime.announce(&polite_request)
     ),
     format!(
       "measurement_node testid={} expected={} result={:?}",
@@ -628,13 +643,15 @@ mod tests {
 
     assert_eq!(
       states.len(),
-      TIMER_CHECKS.len() + LIVE_REGION_CHECKS.len() + MEASUREMENT_CHECKS.len()
+      TIMER_CHECKS.len() + LIVE_REGION_CHECKS.len() + MEASUREMENT_CHECKS.len() + 2
     );
     assert!(states.iter().any(|state| state.contains("timer_schedule")));
     assert!(states.iter().any(|state| state.contains("timer_cancel")));
     assert!(states.iter().any(|state| state.contains("timer_disabled")));
+    assert!(states.iter().any(|state| state.contains("timer_unsupported")));
     assert!(states.iter().any(|state| state.contains("live_region_polite")));
     assert!(states.iter().any(|state| state.contains("live_region_empty")));
+    assert!(states.iter().any(|state| state.contains("live_region_unsupported")));
     assert!(states.iter().any(|state| state.contains("measurement_node")));
     assert!(states.iter().any(|state| state.contains("measurement_viewport")));
     assert!(states.iter().any(|state| state.contains("measurement_missing")));
@@ -658,6 +675,32 @@ mod tests {
     assert_eq!(
       measurement_runtime.measure(&MeasurementRuntimeRequest::Node(node)),
       dioxus_ui_primitives::MeasurementRuntimeResult::Unsupported
+    );
+  }
+
+  #[test]
+  fn web_feedback_adapters_report_success_and_policy_results() {
+    let timer_runtime = WebTimerRuntime::new();
+    let live_region_runtime = WebLiveRegionRuntime::new();
+    let timer_request = TimerRuntimeRequest::toast_dismiss(3000);
+    let scheduled = timer_runtime.schedule_once(&timer_request);
+
+    let timer_id = match scheduled {
+      dioxus_ui_primitives::TimerRuntimeResult::Scheduled(timer_id) => timer_id,
+      other => panic!("expected scheduled timer, got {other:?}"),
+    };
+
+    assert_eq!(
+      timer_runtime.cancel(&timer_id),
+      dioxus_ui_primitives::TimerRuntimeResult::Cancelled
+    );
+    assert_eq!(
+      live_region_runtime.announce(&LiveRegionRuntimeRequest::polite("Saved")),
+      dioxus_ui_primitives::LiveRegionRuntimeResult::Queued
+    );
+    assert_eq!(
+      live_region_runtime.announce(&LiveRegionRuntimeRequest::polite("Saved")),
+      dioxus_ui_primitives::LiveRegionRuntimeResult::SuppressedDuplicate
     );
   }
 

@@ -1,10 +1,11 @@
 # Web Runtime Adapter Module Boundaries
 
-This document defines the M27.1 plan for experimental Web runtime adapter
-module boundaries. It follows the Web verification fixture and comes before any
-concrete Web adapter implementation.
+This document defines the M27 plan for experimental Web runtime adapter module
+boundaries. It follows the Web verification fixture and keeps concrete adapter
+work isolated until browser assertions prove the behavior.
 
-Status: Planned in M27.1.
+Status: M27.1 boundaries documented. M27.2 adds fixture-local timer and
+live-region feedback adapters.
 
 ## Decision
 
@@ -81,9 +82,28 @@ component commands by default.
 | Pointer | `WebPointerRuntime` | pointer event normalization and capture cleanup | Resizable panel mutation |
 | Gesture | `WebGestureRuntime` | browser gesture stream normalization | carousel physics or native-scroll policy |
 
+## Implemented Fixture Slice
+
+M27.2 adds `WebTimerRuntime` and `WebLiveRegionRuntime` inside
+`examples/runtime-web-verification/src/web_runtime.rs`.
+
+The current slice verifies:
+
+- timer scheduling returns a stable adapter-owned timer id
+- timer cancellation marks the scheduled record as cancelled
+- disabled timer requests still report `Disabled`
+- live-region requests queue trimmed messages
+- consecutive duplicate announcements can be suppressed
+- empty live-region messages still report `EmptyMessage`
+- unsupported fallback results remain visible beside the success paths
+
+This implementation intentionally records adapter state in memory. It does not
+call browser timeout APIs or mutate DOM live-region nodes yet. Browser-backed
+behavior remains behind the future browser assertion gate.
+
 ## Implementation Order
 
-1. Timer and live-region adapters
+1. Timer and live-region adapters, started in M27.2
 2. Portal adapter
 3. Non-modal focus return
 4. Modal focus trap

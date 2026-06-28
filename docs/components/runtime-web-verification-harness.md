@@ -4,7 +4,8 @@ This document defines the M25.2 plan for verifying Web runtime adapters before
 they become default behavior. It is a harness specification, not an
 implementation.
 
-Status: Fixture command documented in M26.5.
+Status: Fixture command documented in M26.5. M27.2 adds fixture-local timer and
+live-region success-path adapters.
 
 ## Decision
 
@@ -39,6 +40,13 @@ targets. Browser automation and concrete Web adapter implementations remain
 deferred. M26.4 adds pointer and gesture status output for pointer start, move,
 end, cancel, capture release, Carousel next, previous, cancel, unsupported
 gesture fallback, and native-scroll escape placeholders.
+
+M27.2 keeps the same fixture boundary and adds in-memory `WebTimerRuntime` and
+`WebLiveRegionRuntime` adapters. The visible status output now includes
+successful timer scheduling, cancellation, live-region queueing, duplicate
+suppression, and the explicit unsupported fallback lines. Browser timeout APIs,
+DOM live-region mutation, and cleanup assertions are still deferred to the
+browser automation layer.
 
 The fixture should expose one route or panel per runtime family:
 
