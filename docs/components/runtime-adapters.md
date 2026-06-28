@@ -244,6 +244,8 @@ For renderer-level verification before runtime defaults, see the
 [runtime renderer verification matrix](runtime-renderer-verification.md).
 For the Web-specific verification fixture plan, see the
 [Web runtime verification harness](runtime-web-verification-harness.md).
+For Desktop and Mobile verification strategy, see the
+[Desktop and Mobile runtime verification strategy](runtime-desktop-mobile-verification.md).
 
 ## Implementation Order
 

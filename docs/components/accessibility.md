@@ -123,6 +123,7 @@ Runtime adapter planning is tracked in:
 - [Measurement, Pointer, And Gesture Adapter Plan](measurement-pointer-gesture-adapters.md)
 - [Measurement Pointer Gesture Contract Implementation Plan](measurement-pointer-gesture-contracts.md)
 - [Runtime Renderer Verification Matrix](runtime-renderer-verification.md)
+- [Desktop And Mobile Runtime Verification Strategy](runtime-desktop-mobile-verification.md)
 
 M22 implements focus and portal contract types only. Components still require
 renderer-level verification before planned focus trap, focus return, and portal

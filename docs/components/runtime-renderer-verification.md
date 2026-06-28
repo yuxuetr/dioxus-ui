@@ -105,6 +105,8 @@ without imports from `dioxus-ui-primitives`.
 
 For the Web harness shape, see the
 [Web runtime verification harness](runtime-web-verification-harness.md).
+For Desktop and Mobile target strategy, see the
+[Desktop and Mobile runtime verification strategy](runtime-desktop-mobile-verification.md).
 
 ## Quality Gates
 

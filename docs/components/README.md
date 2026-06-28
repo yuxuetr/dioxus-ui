@@ -39,6 +39,8 @@ and
 For renderer verification before runtime defaults, see the
 [runtime renderer verification matrix](runtime-renderer-verification.md) and
 the [Web runtime verification harness](runtime-web-verification-harness.md).
+For Desktop and Mobile target checks, see the
+[Desktop and Mobile runtime verification strategy](runtime-desktop-mobile-verification.md).
 
 For accessibility expectations, see the
 [accessibility contract checklist](accessibility.md).
