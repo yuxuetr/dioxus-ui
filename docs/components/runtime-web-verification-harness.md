@@ -28,8 +28,11 @@ Planned location:
 examples/runtime-web-verification/
 ```
 
-M26.1 adds the fixture crate and compile-checked runtime family metadata. It
-does not add browser automation or concrete Web adapter implementations yet.
+M26.1 adds the fixture crate and compile-checked runtime family metadata. M26.2
+adds focus and portal panel status output for initial focus, focus trap, focus
+return, escape close, inline portal, body portal, named target, and missing
+target fallback. Browser automation and concrete Web adapter implementations
+remain deferred.
 
 The fixture should expose one route or panel per runtime family:
 
