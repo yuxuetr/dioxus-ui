@@ -73,6 +73,8 @@ pub use runtime::{
   LiveRegionRuntimeRequest, LiveRegionRuntimeResult, LiveRegionRuntimeUnsupported,
   MeasurementRuntime, MeasurementRuntimeRequest, MeasurementRuntimeResult,
   MeasurementRuntimeUnsupported,
+  PointerDelta, PointerPhase, PointerRuntime, PointerRuntimeRequest, PointerRuntimeResult,
+  PointerRuntimeUnsupported,
   PortalMountResult, PortalRuntime, PortalRuntimeRequest, PortalRuntimeUnsupported,
   RuntimeRect,
   sonner_live_region_request, sonner_timer_request, toast_live_region_request,

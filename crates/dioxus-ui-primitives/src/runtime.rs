@@ -446,6 +446,101 @@ impl MeasurementRuntime for MeasurementRuntimeUnsupported {
   }
 }
 
+/// Renderer-independent pointer delta in logical pixels.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct PointerDelta {
+  pub delta_x: f64,
+  pub delta_y: f64,
+}
+
+impl PointerDelta {
+  pub const fn new(delta_x: f64, delta_y: f64) -> Self {
+    Self { delta_x, delta_y }
+  }
+
+  pub const fn zero() -> Self {
+    Self::new(0.0, 0.0)
+  }
+
+  pub fn primary_delta(&self, orientation: crate::LayoutOrientation) -> f64 {
+    match orientation {
+      crate::LayoutOrientation::Horizontal => self.delta_x,
+      crate::LayoutOrientation::Vertical => self.delta_y,
+    }
+  }
+
+  pub fn is_zero(&self) -> bool {
+    self.delta_x == 0.0 && self.delta_y == 0.0
+  }
+}
+
+/// Normalized pointer interaction phase.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum PointerPhase {
+  Start,
+  Move,
+  End,
+  Cancel,
+}
+
+/// Request metadata for runtime pointer handling.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct PointerRuntimeRequest {
+  pub phase: PointerPhase,
+  pub delta: PointerDelta,
+}
+
+impl PointerRuntimeRequest {
+  pub const fn new(phase: PointerPhase, delta: PointerDelta) -> Self {
+    Self { phase, delta }
+  }
+
+  pub const fn start() -> Self {
+    Self::new(PointerPhase::Start, PointerDelta::zero())
+  }
+
+  pub const fn move_by(delta: PointerDelta) -> Self {
+    Self::new(PointerPhase::Move, delta)
+  }
+
+  pub const fn end() -> Self {
+    Self::new(PointerPhase::End, PointerDelta::zero())
+  }
+
+  pub const fn cancel() -> Self {
+    Self::new(PointerPhase::Cancel, PointerDelta::zero())
+  }
+
+  pub const fn is_terminal(&self) -> bool {
+    matches!(self.phase, PointerPhase::End | PointerPhase::Cancel)
+  }
+}
+
+/// Result of a runtime pointer command.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum PointerRuntimeResult {
+  Started,
+  Moved(PointerDelta),
+  Ended,
+  Cancelled,
+  Unsupported,
+}
+
+/// Runtime pointer command surface.
+pub trait PointerRuntime {
+  fn handle_pointer(&self, request: &PointerRuntimeRequest) -> PointerRuntimeResult;
+}
+
+/// Pointer runtime used when the current target has no adapter installed.
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct PointerRuntimeUnsupported;
+
+impl PointerRuntime for PointerRuntimeUnsupported {
+  fn handle_pointer(&self, _request: &PointerRuntimeRequest) -> PointerRuntimeResult {
+    PointerRuntimeResult::Unsupported
+  }
+}
+
 pub fn toast_live_region_request(item: &ToastItem) -> LiveRegionRuntimeRequest {
   feedback_live_region_request(item)
 }
@@ -792,6 +887,58 @@ mod tests {
     assert_eq!(
       runtime.measure(&MeasurementRuntimeRequest::Viewport),
       MeasurementRuntimeResult::Unsupported
+    );
+  }
+
+  #[test]
+  fn pointer_delta_reports_primary_axis() {
+    let delta = PointerDelta::new(12.0, -4.0);
+
+    assert_eq!(
+      delta.primary_delta(crate::LayoutOrientation::Horizontal),
+      12.0
+    );
+    assert_eq!(delta.primary_delta(crate::LayoutOrientation::Vertical), -4.0);
+    assert!(!delta.is_zero());
+    assert!(PointerDelta::zero().is_zero());
+  }
+
+  #[test]
+  fn pointer_requests_cover_all_phases() {
+    assert_eq!(PointerRuntimeRequest::start().phase, PointerPhase::Start);
+    assert_eq!(
+      PointerRuntimeRequest::move_by(PointerDelta::new(1.0, 2.0)).phase,
+      PointerPhase::Move
+    );
+    assert!(PointerRuntimeRequest::end().is_terminal());
+    assert!(PointerRuntimeRequest::cancel().is_terminal());
+  }
+
+  #[test]
+  fn pointer_runtime_result_can_carry_movement() {
+    let delta = PointerDelta::new(3.0, 4.0);
+
+    assert_eq!(
+      PointerRuntimeResult::Moved(delta),
+      PointerRuntimeResult::Moved(delta)
+    );
+  }
+
+  #[test]
+  fn unsupported_pointer_runtime_reports_unsupported() {
+    let runtime = PointerRuntimeUnsupported;
+
+    assert_eq!(
+      runtime.handle_pointer(&PointerRuntimeRequest::start()),
+      PointerRuntimeResult::Unsupported
+    );
+    assert_eq!(
+      runtime.handle_pointer(&PointerRuntimeRequest::move_by(PointerDelta::new(1.0, 0.0))),
+      PointerRuntimeResult::Unsupported
+    );
+    assert_eq!(
+      runtime.handle_pointer(&PointerRuntimeRequest::cancel()),
+      PointerRuntimeResult::Unsupported
     );
   }
 
