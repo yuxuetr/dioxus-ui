@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
-- Current milestone: M26 Web Runtime Verification Fixture
-- Current task: M26.5 Document Web verification command and quality gate
+- Overall: 0%
+- Current milestone: M27 Experimental Web Runtime Adapters
+- Current task: M27.1 Plan opt-in Web runtime adapter module boundaries
 
 ## M0 Documentation
 
@@ -648,7 +648,7 @@
   - Keep gesture physics and snapping out of primitives and styled components.
   - Mark unsupported or flaky target behavior explicitly.
 
-- TODO M26.5 Document Web verification command and quality gate
+- DONE M26.5 Document Web verification command and quality gate
   - Add the eventual browser verification command to docs as an expensive runtime check.
   - Keep default release gates unchanged until the fixture is stable.
   - Update parity, accessibility, and runtime docs before marking M26 complete.
