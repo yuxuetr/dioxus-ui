@@ -240,6 +240,8 @@ For layout and interaction measurement, see the
 [measurement, pointer, and gesture adapter plan](measurement-pointer-gesture-adapters.md).
 For the measurement, pointer, and gesture contract slice, see the
 [measurement pointer gesture contract implementation plan](measurement-pointer-gesture-contracts.md).
+For renderer-level verification before runtime defaults, see the
+[runtime renderer verification matrix](runtime-renderer-verification.md).
 
 ## Implementation Order
 

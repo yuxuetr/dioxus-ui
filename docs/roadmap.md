@@ -135,6 +135,7 @@ Deliverables:
 - focus and portal adapter contracts
 - timer and live-region adapter contracts
 - measurement, pointer, and gesture adapter contracts
+- renderer verification matrix
 - Web/Desktop verification examples
 - documented fallback behavior for unsupported targets
 
@@ -142,6 +143,7 @@ Exit criteria:
 
 - components still work without adapters
 - adapters can report unsupported behavior without panics
+- Web, Desktop, and Mobile checks are planned before defaults change
 - Dialog or Alert Dialog verifies modal focus behavior
 - Popover verifies non-modal portal and measurement behavior
 - Toast or Sonner verifies timer and live-region behavior
