@@ -31,8 +31,12 @@ examples/runtime-web-verification/
 M26.1 adds the fixture crate and compile-checked runtime family metadata. M26.2
 adds focus and portal panel status output for initial focus, focus trap, focus
 return, escape close, inline portal, body portal, named target, and missing
-target fallback. Browser automation and concrete Web adapter implementations
-remain deferred.
+target fallback. M26.3 adds timer, live-region, and measurement status output
+for scheduling, cancellation, disabled timers, cleanup, polite/assertive
+announcements, duplicate suppression, empty messages, node measurement,
+viewport measurement, scroll/resize invalidation, and missing measurement
+targets. Browser automation and concrete Web adapter implementations remain
+deferred.
 
 The fixture should expose one route or panel per runtime family:
 

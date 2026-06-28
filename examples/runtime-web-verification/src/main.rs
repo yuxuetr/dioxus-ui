@@ -1,7 +1,9 @@
 use dioxus_ui_primitives::{
   FocusRuntime, FocusRuntimeRequest, FocusRuntimeUnsupported, GestureRuntimeRequest,
-  LiveRegionRuntimeRequest, MeasurementRuntimeRequest, PointerDelta, PointerRuntimeRequest,
-  PortalRuntime, PortalRuntimeRequest, PortalRuntimeUnsupported, TimerRuntimeRequest,
+  LiveRegionRuntime, LiveRegionRuntimeRequest, LiveRegionRuntimeUnsupported, MeasurementRuntime,
+  MeasurementRuntimeRequest, MeasurementRuntimeUnsupported, PointerDelta, PointerRuntimeRequest,
+  PortalRuntime, PortalRuntimeRequest, PortalRuntimeUnsupported, TimerRuntime, TimerRuntimeRequest,
+  TimerRuntimeUnsupported,
 };
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -121,6 +123,75 @@ const PORTAL_CHECKS: [VerificationCheck; 4] = [
   },
 ];
 
+const TIMER_CHECKS: [VerificationCheck; 4] = [
+  VerificationCheck {
+    test_id: "runtime-timer-schedule",
+    label: "schedule timer",
+    expected: "Scheduled or Unsupported",
+  },
+  VerificationCheck {
+    test_id: "runtime-timer-cancel",
+    label: "cancel timer",
+    expected: "Cancelled, Missing, or Unsupported",
+  },
+  VerificationCheck {
+    test_id: "runtime-timer-disabled",
+    label: "disabled timer",
+    expected: "Disabled",
+  },
+  VerificationCheck {
+    test_id: "runtime-timer-cleanup",
+    label: "timer cleanup",
+    expected: "no stale callback after unmount",
+  },
+];
+
+const LIVE_REGION_CHECKS: [VerificationCheck; 4] = [
+  VerificationCheck {
+    test_id: "runtime-live-region-polite",
+    label: "polite announcement",
+    expected: "Queued or Unsupported",
+  },
+  VerificationCheck {
+    test_id: "runtime-live-region-assertive",
+    label: "assertive announcement",
+    expected: "Queued or Unsupported",
+  },
+  VerificationCheck {
+    test_id: "runtime-live-region-duplicate",
+    label: "duplicate suppression",
+    expected: "SuppressedDuplicate or true policy check",
+  },
+  VerificationCheck {
+    test_id: "runtime-live-region-empty",
+    label: "empty announcement",
+    expected: "EmptyMessage",
+  },
+];
+
+const MEASUREMENT_CHECKS: [VerificationCheck; 4] = [
+  VerificationCheck {
+    test_id: "runtime-measurement-node",
+    label: "node measurement",
+    expected: "Rect, Missing, or Unsupported",
+  },
+  VerificationCheck {
+    test_id: "runtime-measurement-viewport",
+    label: "viewport measurement",
+    expected: "Rect or Unsupported",
+  },
+  VerificationCheck {
+    test_id: "runtime-measurement-scroll-resize",
+    label: "scroll and resize invalidation",
+    expected: "pending-browser-assertion",
+  },
+  VerificationCheck {
+    test_id: "runtime-measurement-missing",
+    label: "missing measurement target",
+    expected: "Missing or Unsupported",
+  },
+];
+
 fn main() {
   println!("dioxus-ui runtime web verification fixture scaffold");
 
@@ -133,6 +204,10 @@ fn main() {
   }
 
   for state in focus_portal_panel_states() {
+    println!("{state}");
+  }
+
+  for state in timer_live_region_measurement_panel_states() {
     println!("{state}");
   }
 }
@@ -208,6 +283,88 @@ fn focus_portal_panel_states() -> Vec<String> {
       PORTAL_CHECKS[3].test_id,
       PORTAL_CHECKS[3].expected,
       portal_runtime.mount_target(&missing_request)
+    ),
+  ]
+}
+
+fn timer_live_region_measurement_panel_states() -> Vec<String> {
+  let timer_runtime = TimerRuntimeUnsupported;
+  let timer_request = TimerRuntimeRequest::toast_dismiss(3000);
+  let disabled_timer_request = TimerRuntimeRequest::toast_dismiss(0);
+  let timer_id = ();
+  let live_region_runtime = LiveRegionRuntimeUnsupported;
+  let polite_request = LiveRegionRuntimeRequest::polite("Saved");
+  let assertive_request = LiveRegionRuntimeRequest::assertive("Failed");
+  let empty_request = LiveRegionRuntimeRequest::polite(" ");
+  let measurement_runtime = MeasurementRuntimeUnsupported;
+  let node = ();
+
+  vec![
+    format!(
+      "timer_schedule testid={} expected={} result={:?}",
+      TIMER_CHECKS[0].test_id,
+      TIMER_CHECKS[0].expected,
+      timer_runtime.schedule_once(&timer_request)
+    ),
+    format!(
+      "timer_cancel testid={} expected={} result={:?}",
+      TIMER_CHECKS[1].test_id,
+      TIMER_CHECKS[1].expected,
+      timer_runtime.cancel(&timer_id)
+    ),
+    format!(
+      "timer_disabled testid={} expected={} result={:?}",
+      TIMER_CHECKS[2].test_id,
+      TIMER_CHECKS[2].expected,
+      timer_runtime.schedule_once(&disabled_timer_request)
+    ),
+    format!(
+      "timer_cleanup testid={} expected={} result=pending-browser-assertion",
+      TIMER_CHECKS[3].test_id, TIMER_CHECKS[3].expected
+    ),
+    format!(
+      "live_region_polite testid={} expected={} result={:?}",
+      LIVE_REGION_CHECKS[0].test_id,
+      LIVE_REGION_CHECKS[0].expected,
+      live_region_runtime.announce(&polite_request)
+    ),
+    format!(
+      "live_region_assertive testid={} expected={} result={:?}",
+      LIVE_REGION_CHECKS[1].test_id,
+      LIVE_REGION_CHECKS[1].expected,
+      live_region_runtime.announce(&assertive_request)
+    ),
+    format!(
+      "live_region_duplicate testid={} expected={} result={}",
+      LIVE_REGION_CHECKS[2].test_id,
+      LIVE_REGION_CHECKS[2].expected,
+      polite_request.should_suppress_duplicate(Some("Saved"))
+    ),
+    format!(
+      "live_region_empty testid={} expected={} result={:?}",
+      LIVE_REGION_CHECKS[3].test_id,
+      LIVE_REGION_CHECKS[3].expected,
+      live_region_runtime.announce(&empty_request)
+    ),
+    format!(
+      "measurement_node testid={} expected={} result={:?}",
+      MEASUREMENT_CHECKS[0].test_id,
+      MEASUREMENT_CHECKS[0].expected,
+      measurement_runtime.measure(&MeasurementRuntimeRequest::Node(node))
+    ),
+    format!(
+      "measurement_viewport testid={} expected={} result={:?}",
+      MEASUREMENT_CHECKS[1].test_id,
+      MEASUREMENT_CHECKS[1].expected,
+      measurement_runtime.measure(&MeasurementRuntimeRequest::Viewport)
+    ),
+    format!(
+      "measurement_scroll_resize testid={} expected={} result=pending-browser-assertion",
+      MEASUREMENT_CHECKS[2].test_id, MEASUREMENT_CHECKS[2].expected
+    ),
+    format!(
+      "measurement_missing testid={} expected={} result=pending-adapter-missing-target",
+      MEASUREMENT_CHECKS[3].test_id, MEASUREMENT_CHECKS[3].expected
     ),
   ]
 }
@@ -301,6 +458,78 @@ mod tests {
     assert_eq!(
       portal_runtime.mount_target(&PortalRuntimeRequest::selector("#missing", true)),
       dioxus_ui_primitives::PortalMountResult::Unsupported
+    );
+  }
+
+  #[test]
+  fn timer_panel_checks_expose_stable_test_ids() {
+    assert_eq!(TIMER_CHECKS.len(), 4);
+    assert!(TIMER_CHECKS.iter().any(|check| check.test_id == "runtime-timer-schedule"));
+    assert!(TIMER_CHECKS.iter().any(|check| check.test_id == "runtime-timer-cancel"));
+    assert!(TIMER_CHECKS.iter().any(|check| check.test_id == "runtime-timer-disabled"));
+    assert!(TIMER_CHECKS.iter().any(|check| check.test_id == "runtime-timer-cleanup"));
+  }
+
+  #[test]
+  fn live_region_panel_checks_expose_stable_test_ids() {
+    assert_eq!(LIVE_REGION_CHECKS.len(), 4);
+    assert!(LIVE_REGION_CHECKS.iter().any(|check| check.test_id == "runtime-live-region-polite"));
+    assert!(
+      LIVE_REGION_CHECKS.iter().any(|check| check.test_id == "runtime-live-region-assertive")
+    );
+    assert!(
+      LIVE_REGION_CHECKS.iter().any(|check| check.test_id == "runtime-live-region-duplicate")
+    );
+    assert!(LIVE_REGION_CHECKS.iter().any(|check| check.test_id == "runtime-live-region-empty"));
+  }
+
+  #[test]
+  fn measurement_panel_checks_expose_stable_test_ids() {
+    assert_eq!(MEASUREMENT_CHECKS.len(), 4);
+    assert!(MEASUREMENT_CHECKS.iter().any(|check| check.test_id == "runtime-measurement-node"));
+    assert!(MEASUREMENT_CHECKS.iter().any(|check| check.test_id == "runtime-measurement-viewport"));
+    assert!(
+      MEASUREMENT_CHECKS.iter().any(|check| check.test_id == "runtime-measurement-scroll-resize")
+    );
+    assert!(MEASUREMENT_CHECKS.iter().any(|check| check.test_id == "runtime-measurement-missing"));
+  }
+
+  #[test]
+  fn timer_live_region_measurement_states_report_fallbacks() {
+    let states = timer_live_region_measurement_panel_states();
+
+    assert_eq!(
+      states.len(),
+      TIMER_CHECKS.len() + LIVE_REGION_CHECKS.len() + MEASUREMENT_CHECKS.len()
+    );
+    assert!(states.iter().any(|state| state.contains("timer_schedule")));
+    assert!(states.iter().any(|state| state.contains("timer_cancel")));
+    assert!(states.iter().any(|state| state.contains("timer_disabled")));
+    assert!(states.iter().any(|state| state.contains("live_region_polite")));
+    assert!(states.iter().any(|state| state.contains("live_region_empty")));
+    assert!(states.iter().any(|state| state.contains("measurement_node")));
+    assert!(states.iter().any(|state| state.contains("measurement_viewport")));
+    assert!(states.iter().any(|state| state.contains("measurement_missing")));
+  }
+
+  #[test]
+  fn unsupported_timer_live_region_and_measurement_results_are_explicit() {
+    let timer_runtime = TimerRuntimeUnsupported;
+    let live_region_runtime = LiveRegionRuntimeUnsupported;
+    let measurement_runtime = MeasurementRuntimeUnsupported;
+    let node = ();
+
+    assert_eq!(
+      timer_runtime.schedule_once(&TimerRuntimeRequest::toast_dismiss(0)),
+      dioxus_ui_primitives::TimerRuntimeResult::Disabled
+    );
+    assert_eq!(
+      live_region_runtime.announce(&LiveRegionRuntimeRequest::polite(" ")),
+      dioxus_ui_primitives::LiveRegionRuntimeResult::EmptyMessage
+    );
+    assert_eq!(
+      measurement_runtime.measure(&MeasurementRuntimeRequest::Node(node)),
+      dioxus_ui_primitives::MeasurementRuntimeResult::Unsupported
     );
   }
 }
