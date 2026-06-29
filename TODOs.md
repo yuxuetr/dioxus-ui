@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 0%
-- Current milestone: M30 shadcn Current Gap Planning
-- Current task: M30.4 Plan message and AI-style component APIs
+- Current milestone: M31 Low-risk Composition Gaps
+- Current task: M31.1 Implement Button Group
 
 ## Backup
 
@@ -27,7 +27,7 @@
   - Decide whether Input OTP needs primitive helpers or can remain a controlled styled part.
   - Document generated template expectations and test strategy.
 
-- TODO M30.4 Plan message and AI-style component APIs
+- DONE M30.4 Plan message and AI-style component APIs
   - Define Attachment, Bubble, Message, Message Scroller, and Marker API boundaries.
   - Decide which parts are generic chat/message composition versus AI-specific convenience parts.
   - Keep uploads, streaming, markdown parsing, virtualized scrolling, and model/provider behavior app-owned.
