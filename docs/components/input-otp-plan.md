@@ -2,7 +2,7 @@
 
 This document defines the M30.3 API plan for the Input OTP component.
 
-Status: Planned in M30.3.
+Status: Planned in M30.3. Implemented in M32.
 
 ## Decision
 
@@ -60,6 +60,15 @@ otp_next_index(value: &str, index: usize, length: usize) -> usize
 otp_previous_index(index: usize) -> usize
 ```
 
+Implemented helper API also includes:
+
+```rust
+otp_slots_with_disabled(...)
+otp_insert_char_filtered(...)
+otp_apply_paste_filtered(...)
+otp_clamp_value(...)
+```
+
 Rules:
 
 - helpers are pure and renderer-independent
@@ -87,8 +96,6 @@ Planned crate API:
 
 ```rust
 InputOtp {
-  value: String,
-  length: usize,
   invalid: bool,
   disabled: bool,
   class: String,
@@ -111,7 +118,7 @@ InputOtpSlot {
 
 InputOtpSeparator {
   class: String,
-  children: Element,
+  content: String,
 }
 
 InputOtpHiddenInput {
@@ -120,6 +127,7 @@ InputOtpHiddenInput {
   input_mode: InputOtpInputMode,
   autocomplete: Option<String>,
   disabled: bool,
+  invalid: bool,
   class: String,
 }
 
@@ -131,13 +139,26 @@ input_otp_separator_class(...)
 input_otp_hidden_input_class(...)
 ```
 
-The implementation may adjust names during coding, but it should preserve:
+The implementation preserves:
 
-- controlled `value`
-- explicit `length`
+- controlled `value` on `InputOtpHiddenInput`
+- explicit `length` through `otp_slots(value, length, active_index)`
 - slot composition
 - invalid and disabled visual states
 - native input compatibility for mobile keyboards and forms
+
+## Implementation Result
+
+M32 implemented Input OTP in two steps:
+
+- M32.1 added renderer-independent primitive helpers with tests for slot state,
+  insertion, deletion, filtering, paste overflow, disabled slots, and completion.
+- M32.2 added the styled component feature, source-copy template, registry
+  entry, component docs page, catalog row, feature-check coverage, and
+  Web/Desktop smoke output.
+
+Validation, submission, resend timers, paste permission, and keyboard event
+wiring remain app-owned as planned.
 
 ## Keyboard Behavior
 

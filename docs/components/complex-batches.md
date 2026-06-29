@@ -435,7 +435,7 @@ and were implemented before message and chart work.
 
 ## Batch 14: Form-specific Gap
 
-Status: Planned in M32.
+Status: Implemented in M32.
 
 Components:
 
@@ -454,8 +454,9 @@ Dependencies:
 
 Rationale:
 
-Input OTP is small but easy to get wrong. It should get a focused primitive or
-helper pass before the styled component lands.
+Input OTP is small but easy to get wrong. M32 implemented a focused primitive
+helper pass before the styled component and kept validation, submission, resend
+timers, paste permission, and keyboard event wiring app-owned.
 
 ## Batch 15: Message and Attachment Components
 
@@ -546,7 +547,6 @@ M27 completed fixture-local experimental Web runtime adapters
 M28 completed Desktop smoke fixture and Mobile verification checklist
 M29 completed chart rendering backend evaluation
 Next: verify current shadcn gaps and plan missing API surfaces
-Next: implement Input OTP
 Next: implement message and attachment components
 Next: implement Message Scroller after runtime boundary planning
 Next: prepare first-party SVG Chart only after gates pass

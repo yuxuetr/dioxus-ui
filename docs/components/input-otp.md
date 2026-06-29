@@ -52,3 +52,26 @@ readers, and mobile OTP keyboards have a real control.
 Visual slots are presentation mirrors of the controlled value. Keep validation,
 submission, resend timers, paste policy, and keyboard event handlers in the
 application.
+
+## Keyboard And Paste
+
+The component exposes pure helpers for deterministic value updates:
+
+- `otp_insert_char_filtered` for typed character policies
+- `otp_delete_char` for Backspace/Delete behavior
+- `otp_apply_paste_filtered` for paste distribution and overflow handling
+- `otp_next_index` and `otp_previous_index` for app-owned focus movement
+
+The component does not install Dioxus keyboard handlers. Apps wire events to
+their controlled value and focus policy.
+
+## Mobile Notes
+
+Use `InputOtpHiddenInput` with `InputOtpInputMode::Numeric` for numeric codes.
+The default autocomplete value is `one-time-code`; pass `None` when an app does
+not want platform OTP autofill.
+
+## Quality Gates
+
+M32 verified Input OTP through crate tests, registry docs checks, feature
+checks, generated source-copy fixture smoke, and Web/Desktop demo smoke output.

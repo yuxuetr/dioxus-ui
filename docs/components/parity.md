@@ -9,7 +9,7 @@ be ported one-for-one.
 | Group | Components |
 | --- | --- |
 | Static display | Alert, Aspect Ratio, Avatar, Badge, Breadcrumb, Card, Empty, Field, Item, Kbd, Separator, Skeleton, Typography |
-| Form basics | Button, Button Group, Checkbox, Input, Input Group, Label, Slider, Switch, Textarea |
+| Form basics | Button, Button Group, Checkbox, Input, Input Group, Input OTP, Label, Slider, Switch, Textarea |
 | Light interaction | Radio Group, Spinner, Toggle, Toggle Group |
 | Disclosure | Accordion, Alert Dialog, Calendar, Collapsible, Date Picker, Drawer, Hover Card, Sheet, Tabs |
 | Overlay primitives | Context Menu, Dialog, Dropdown, Menubar, Navigation Menu, Popover, Tooltip |
@@ -35,7 +35,7 @@ be ported one-for-one.
 | Overlays | - | Current M12 overlay variant set is implemented. |
 | Feedback | - | Toast and Sonner are implemented; M23 defines timer and live-region contract types. |
 | Data | Chart component | Chart data and accessibility primitives are implemented; M29.1 selects first-party SVG as the first future rendering path, but the public component remains deferred. |
-| Form-specific | Input OTP | M30.1 audit identifies Input OTP as a current shadcn gap; M32 plans and implements it after low-risk composition gaps. |
+| Form-specific | - | Input OTP is implemented; validation, submission, resend timers, and paste policy remain app-owned. |
 | Message and AI-style composition | Attachment, Bubble, Message, Marker, Message Scroller | M30.1 audit identifies these current shadcn gaps; M33 covers static message parts and M34 covers runtime-dependent scrolling. |
 | Navigation shell | - | Sidebar is implemented; persistence and keyboard shortcuts remain app-owned. |
 | Media | - | Carousel is implemented; M24 defines gesture contract types. |
@@ -47,7 +47,6 @@ be ported one-for-one.
 | Attachment | Planned for M33; upload transport, previews, object URLs, and network state stay app-owned. |
 | Bubble | Planned for M33; markdown and rich content parsing stay app-owned. |
 | Chart component | M19 implements chart data and accessibility primitives plus recipes; M29.1 selects first-party SVG as the first future rendering path and keeps Chart deferred until measurement, interaction, animation, and fallback-table contracts are explicit. |
-| Input OTP | Planned for M32 because paste, mobile keyboard, and screen-reader behavior need a focused pass. |
 | Marker | Planned for M33; citation/search semantics stay app-owned. |
 | Message | Planned for M33; provider, streaming, markdown, and syntax highlighting stay app-owned. |
 | Message Scroller | Planned for M34 because sticky bottom, unread markers, streaming append, and scroll commands depend on runtime verification. |
@@ -57,12 +56,11 @@ be ported one-for-one.
 
 ## Next Milestone Seeds
 
-After M31, the safest remaining implementation order is:
+After M32, the safest remaining implementation order is:
 
-1. Form-specific gap: Input OTP
-2. Message and AI-style composition: Attachment, Bubble, Message, Marker
-3. Runtime-dependent message layout: Message Scroller plus Web browser assertions
-4. Chart public component preparation after measurement and fallback-table gates
+1. Message and AI-style composition: Attachment, Bubble, Message, Marker
+2. Runtime-dependent message layout: Message Scroller plus Web browser assertions
+3. Chart public component preparation after measurement and fallback-table gates
 
 See [Current shadcn Gap Audit](current-shadcn-gaps.md) and
 [Complex Component Batches](complex-batches.md) for the expanded milestone plan.
