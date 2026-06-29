@@ -388,6 +388,7 @@ Components:
 Implementation specification:
 
 - [Current shadcn Gap Audit](current-shadcn-gaps.md)
+- [Low-risk Composition Gap API Plan](low-risk-composition-gaps.md)
 
 Dependencies:
 
@@ -413,6 +414,10 @@ Components:
 - Input Group
 - Collapsible
 - Direction
+
+Implementation specification:
+
+- [Low-risk Composition Gap API Plan](low-risk-composition-gaps.md)
 
 Dependencies:
 

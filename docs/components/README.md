@@ -50,6 +50,8 @@ For experimental Web adapter boundaries, see the
 [Web runtime adapter module boundaries](runtime-web-adapter-boundaries.md).
 For the current upstream shadcn component gap audit, see
 [Current shadcn Gap Audit](current-shadcn-gaps.md).
+For the first new gap implementation plan, see the
+[Low-risk Composition Gap API Plan](low-risk-composition-gaps.md).
 
 For accessibility expectations, see the
 [accessibility contract checklist](accessibility.md).

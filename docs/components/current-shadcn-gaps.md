@@ -3,7 +3,7 @@
 This document records the M30.1 audit against the current shadcn/ui component
 catalog.
 
-Status: Audited in M30.1.
+Status: Audited in M30.1. Low-risk composition APIs planned in M30.2.
 
 ## Source
 
@@ -121,6 +121,9 @@ implemented:
 
 This order avoids starting with runtime-heavy scrolling, upload, or chart
 rendering before the underlying contracts are proven.
+
+For Button Group, Input Group, Collapsible, and Direction API details, see
+[Low-risk Composition Gap API Plan](low-risk-composition-gaps.md).
 
 ## Quality Gates
 
