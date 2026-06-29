@@ -1,5 +1,8 @@
 //! Styled Dioxus UI components.
 
+#[cfg(feature = "attachment")]
+pub mod attachment;
+
 #[cfg(feature = "accordion")]
 pub mod accordion;
 
@@ -153,6 +156,22 @@ pub mod textarea;
 #[cfg(feature = "table")]
 pub mod table;
 
+#[cfg(feature = "attachment")]
+pub use attachment::{
+  attachment_action_class, attachment_actions_class, attachment_class,
+  attachment_content_class, attachment_description_class, attachment_group_class,
+  attachment_media_class, attachment_title_class, attachment_trigger_class, Attachment,
+  AttachmentAction, AttachmentActions, AttachmentContent, AttachmentDescription,
+  AttachmentGroup, AttachmentMedia, AttachmentMediaVariant, AttachmentOrientation,
+  AttachmentSize, AttachmentState, AttachmentTitle, AttachmentTrigger,
+  ATTACHMENT_ACTIONS_BASE_CLASS, ATTACHMENT_ACTION_BASE_CLASS, ATTACHMENT_BASE_CLASS,
+  ATTACHMENT_CONTENT_BASE_CLASS, ATTACHMENT_DESCRIPTION_BASE_CLASS,
+  ATTACHMENT_DONE_CLASS, ATTACHMENT_ERROR_CLASS, ATTACHMENT_GROUP_BASE_CLASS,
+  ATTACHMENT_HORIZONTAL_CLASS, ATTACHMENT_MEDIA_BASE_CLASS, ATTACHMENT_MEDIA_ICON_CLASS,
+  ATTACHMENT_MEDIA_IMAGE_CLASS, ATTACHMENT_PROCESSING_CLASS, ATTACHMENT_SIZE_DEFAULT_CLASS,
+  ATTACHMENT_SIZE_SM_CLASS, ATTACHMENT_SIZE_XS_CLASS, ATTACHMENT_TITLE_BASE_CLASS,
+  ATTACHMENT_TRIGGER_BASE_CLASS, ATTACHMENT_UPLOADING_CLASS, ATTACHMENT_VERTICAL_CLASS,
+};
 #[cfg(feature = "accordion")]
 pub use accordion::{
   accordion_content_class, accordion_item_class, accordion_trigger_class, AccordionContent,

@@ -1,9 +1,12 @@
 use dioxus_ui::{
   accordion_content_class, accordion_item_class, accordion_trigger_class,
   alert_dialog_action_class, alert_dialog_content_class, alert_dialog_overlay_class, alert_class,
-  alert_description_class, alert_title_class, aspect_ratio_style, avatar_class,
-  avatar_fallback_class, avatar_image_class, badge_class, breadcrumb_link_class,
-  breadcrumb_list_class, button_class, button_group_class, button_group_item_class,
+  alert_description_class, alert_title_class, aspect_ratio_style, attachment_action_class,
+  attachment_actions_class, attachment_class, attachment_content_class,
+  attachment_description_class, attachment_group_class, attachment_media_class,
+  attachment_title_class, attachment_trigger_class, avatar_class, avatar_fallback_class,
+  avatar_image_class, badge_class, breadcrumb_link_class, breadcrumb_list_class, button_class,
+  button_group_class, button_group_item_class,
   calendar_day_class, calendar_month_grid, calendar_move_date, carousel_can_go_next,
   carousel_content_class, carousel_control_class, carousel_indicator_class, carousel_item_class,
   carousel_next,
@@ -46,7 +49,8 @@ use dioxus_ui::{
   toggle_group_multiple_selection, toast_action_class, toast_close_class, toast_is_expired,
   toast_queue_push, toast_root_class, toast_viewport_class, tooltip_content_class,
   typography_h1_class, typography_inline_code_class, typography_p_class,
-  AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant,
+  AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, AttachmentMediaVariant,
+  AttachmentOrientation, AttachmentSize, AttachmentState, BadgeVariant,
   ButtonGroupOrientation, ButtonSize, ButtonVariant, CalendarDate, CalendarKeyMove,
   CalendarMonth, CalendarRangeState, CalendarWeekday, CarouselOrientation, CarouselState,
   ComboboxPrimitiveConfig, InputGroupAddonPosition, InputOtpInputMode,
@@ -77,6 +81,33 @@ fn main() {
   println!(
     "dioxus-ui web demo button group item class: {}",
     button_group_item_class("min-w-20")
+  );
+  println!(
+    "dioxus-ui web demo attachment class: {}",
+    attachment_class(
+      AttachmentState::Uploading,
+      AttachmentSize::Default,
+      AttachmentOrientation::Horizontal,
+      "max-w-md"
+    )
+  );
+  println!(
+    "dioxus-ui web demo attachment parts: {}/{}/{}/{}",
+    attachment_group_class("pb-1"),
+    attachment_media_class(AttachmentMediaVariant::Icon, ""),
+    attachment_content_class(""),
+    attachment_title_class("")
+  );
+  println!(
+    "dioxus-ui web demo attachment actions: {}/{}/{}",
+    attachment_description_class("text-blue-700"),
+    attachment_actions_class("ml-auto"),
+    attachment_action_class("text-blue-600")
+  );
+  println!(
+    "dioxus-ui web demo attachment trigger/state: {}/{}",
+    attachment_trigger_class("w-full"),
+    AttachmentState::Uploading.attribute()
   );
   println!("dioxus-ui web demo input class: {}", input_class(false, "mt-2"));
   println!(

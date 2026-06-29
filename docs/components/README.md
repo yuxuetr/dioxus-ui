@@ -81,6 +81,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Alert](alert.md) | `dxui add alert` | `alert` | Styled parts |
 | [Alert Dialog](alert-dialog.md) | `dxui add alert-dialog` | `alert-dialog` | Dialog-backed styled parts |
 | [Aspect Ratio](aspect-ratio.md) | `dxui add aspect-ratio` | `aspect-ratio` | Fixed-ratio content slot |
+| [Attachment](attachment.md) | `dxui add attachment` | `attachment` | File preview composition parts |
 | [Avatar](avatar.md) | `dxui add avatar` | `avatar` | Styled parts |
 | [Badge](badge.md) | `dxui add badge` | `badge` | Styled |
 | [Breadcrumb](breadcrumb.md) | `dxui add breadcrumb` | `breadcrumb` | Navigation composition parts |

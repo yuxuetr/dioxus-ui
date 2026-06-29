@@ -7,6 +7,7 @@ repository.workspace = true
 
 [features]
 default = []
+attachment = []
 alert = []
 alert-dialog = ["dioxus-ui-primitives/dialog"]
 aspect-ratio = []

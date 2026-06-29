@@ -1,0 +1,14 @@
+{
+  "name": "attachment",
+  "description": "Attachment component for provider-neutral file preview rows and actions.",
+  "files": [
+    {
+      "source": "templates/attachment.rs",
+      "target": "src/components/ui/attachment.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}
