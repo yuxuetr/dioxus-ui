@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M33 Message and Attachment Components
-- Current task: M33.1 Implement Attachment
+- Current task: M33.2 Implement Bubble
 
 ## Backup
 
@@ -78,7 +78,7 @@
 
 ## M33 Message and Attachment Components
 
-- TODO M33.1 Implement Attachment
+- DONE M33.1 Implement Attachment
   - Add attachment root, preview, metadata, action, and remove/download slots.
   - Keep file upload, object URLs, drag-drop, and network state app-owned.
   - Add CLI template, registry entry, docs page, and demo usage.
