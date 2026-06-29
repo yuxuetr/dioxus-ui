@@ -439,6 +439,10 @@ Components:
 
 - Input OTP
 
+Implementation specification:
+
+- [Input OTP API Plan](input-otp-plan.md)
+
 Dependencies:
 
 - input semantics

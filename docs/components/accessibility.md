@@ -33,6 +33,7 @@ Statuses:
 | Button | Supports disabled state and native button semantics. | Implemented |
 | Checkbox | Uses native checkbox input state. | Implemented |
 | Input | Supports `aria-invalid` for invalid state. | Implemented |
+| Input OTP | Needs native input or equivalent grouped slot strategy, paste behavior, mobile keyboard support, and screen-reader labeling. | Planned |
 | Label | Can be associated with a form control by the app. | Implemented |
 | Switch | Needs explicit switch semantics before stability. | Planned |
 | Textarea | Supports `aria-invalid` for invalid state. | Implemented |
@@ -126,6 +127,7 @@ Runtime adapter planning is tracked in:
 - [Desktop And Mobile Runtime Verification Strategy](runtime-desktop-mobile-verification.md)
 - [Runtime Implementation Milestone Seeds](runtime-implementation-milestones.md)
 - [Web Runtime Adapter Module Boundaries](runtime-web-adapter-boundaries.md)
+- [Input OTP API Plan](input-otp-plan.md)
 
 M22 implements focus and portal contract types only. Components still require
 renderer-level verification before planned focus trap, focus return, and portal

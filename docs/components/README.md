@@ -52,6 +52,8 @@ For the current upstream shadcn component gap audit, see
 [Current shadcn Gap Audit](current-shadcn-gaps.md).
 For the first new gap implementation plan, see the
 [Low-risk Composition Gap API Plan](low-risk-composition-gaps.md).
+For the form-specific gap plan, see the
+[Input OTP API Plan](input-otp-plan.md).
 
 For accessibility expectations, see the
 [accessibility contract checklist](accessibility.md).
