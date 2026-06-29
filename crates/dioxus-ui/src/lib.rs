@@ -84,6 +84,9 @@ pub mod input;
 #[cfg(feature = "input-group")]
 pub mod input_group;
 
+#[cfg(feature = "input-otp")]
+pub mod input_otp;
+
 #[cfg(feature = "item")]
 pub mod item;
 
@@ -370,6 +373,19 @@ pub use input_group::{
   INPUT_GROUP_ADDON_BASE_CLASS, INPUT_GROUP_ADDON_END_CLASS,
   INPUT_GROUP_ADDON_START_CLASS, INPUT_GROUP_BASE_CLASS, INPUT_GROUP_CONTROL_BASE_CLASS,
   INPUT_GROUP_DISABLED_CLASS, INPUT_GROUP_INVALID_CLASS,
+};
+#[cfg(feature = "input-otp")]
+pub use input_otp::{
+  input_otp_class, input_otp_group_class, input_otp_hidden_input_class,
+  input_otp_separator_class, input_otp_slot_class, input_otp_slot_display,
+  otp_apply_paste, otp_apply_paste_filtered, otp_clamp_value, otp_delete_char,
+  otp_insert_char, otp_insert_char_filtered, otp_is_complete, otp_next_index,
+  otp_previous_index, otp_slots, otp_slots_with_disabled, InputOtp, InputOtpGroup,
+  InputOtpHiddenInput, InputOtpInputMode, InputOtpSeparator, InputOtpSlot, OtpSlotState,
+  INPUT_OTP_BASE_CLASS, INPUT_OTP_DISABLED_CLASS, INPUT_OTP_GROUP_BASE_CLASS,
+  INPUT_OTP_HIDDEN_INPUT_BASE_CLASS, INPUT_OTP_SEPARATOR_BASE_CLASS,
+  INPUT_OTP_SLOT_ACTIVE_CLASS, INPUT_OTP_SLOT_BASE_CLASS, INPUT_OTP_SLOT_DISABLED_CLASS,
+  INPUT_OTP_SLOT_EMPTY_CLASS, INPUT_OTP_SLOT_INVALID_CLASS,
 };
 #[cfg(feature = "item")]
 pub use item::{

@@ -1,0 +1,14 @@
+{
+  "name": "input-otp",
+  "description": "Input OTP component with controlled visual slots and native input support.",
+  "files": [
+    {
+      "source": "templates/input_otp.rs",
+      "target": "src/components/ui/input_otp.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

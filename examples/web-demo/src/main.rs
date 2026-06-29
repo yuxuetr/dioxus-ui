@@ -22,7 +22,9 @@ use dioxus_ui::{
   dropdown_separator_class, empty_actions_class, empty_class, empty_title_class,
   field_class, field_error_class, field_group_class, hover_card_align_attribute,
   hover_card_content_class, hover_card_side_attribute, input_class, input_group_action_class,
-  input_group_addon_class, input_group_class, input_group_control_class, item_class,
+  input_group_addon_class, input_group_class, input_group_control_class, input_otp_class,
+  input_otp_group_class, input_otp_hidden_input_class, input_otp_separator_class,
+  input_otp_slot_class, otp_apply_paste_filtered, otp_slots, item_class,
   item_description_class, item_title_class, kbd_class, label_class, menubar_class,
   menubar_item_class, menubar_trigger_class, native_select_class, native_select_group_class,
   native_select_option_class, navigation_menu_class, navigation_menu_link_class,
@@ -47,7 +49,7 @@ use dioxus_ui::{
   AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant,
   ButtonGroupOrientation, ButtonSize, ButtonVariant, CalendarDate, CalendarKeyMove,
   CalendarMonth, CalendarRangeState, CalendarWeekday, CarouselOrientation, CarouselState,
-  ComboboxPrimitiveConfig, InputGroupAddonPosition,
+  ComboboxPrimitiveConfig, InputGroupAddonPosition, InputOtpInputMode,
   ContextMenuPrimitiveConfig, DatePickerAlign, DatePickerPrimitiveConfig, DatePickerSide,
   DataTableSortDirection, DialogPrimitiveConfig, DrawerPrimitiveConfig, DropdownPrimitiveConfig,
   FocusMove, HoverCardAlign, HoverCardPrimitiveConfig, HoverCardSide, MenubarPrimitiveConfig,
@@ -92,6 +94,33 @@ fn main() {
   println!(
     "dioxus-ui web demo input group action class: {}",
     input_group_action_class("text-blue-600")
+  );
+  println!(
+    "dioxus-ui web demo input otp class: {}",
+    input_otp_class(false, "max-w-xs")
+  );
+  println!(
+    "dioxus-ui web demo input otp group class: {}",
+    input_otp_group_class("gap-2")
+  );
+  println!(
+    "dioxus-ui web demo input otp slot class: {}",
+    input_otp_slot_class(true, false, false, "h-12 w-12")
+  );
+  println!(
+    "dioxus-ui web demo input otp separator/input: {}/{}",
+    input_otp_separator_class("text-blue-600"),
+    input_otp_hidden_input_class("")
+  );
+  let web_otp = otp_apply_paste_filtered("", 0, "12a3", 6, |ch| ch.is_ascii_digit());
+  println!(
+    "dioxus-ui web demo input otp helper: {}/{}",
+    web_otp,
+    otp_slots(&web_otp, 6, 3).len()
+  );
+  println!(
+    "dioxus-ui web demo input otp mode: {}",
+    InputOtpInputMode::Numeric.attribute()
   );
   println!("dioxus-ui web demo textarea class: {}", textarea_class(false, "mt-2"));
   println!("dioxus-ui web demo label class: {}", label_class("mb-2"));
