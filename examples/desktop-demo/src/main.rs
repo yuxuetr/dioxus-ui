@@ -5,7 +5,8 @@ use dioxus_ui::{
   attachment_actions_class, attachment_class, attachment_content_class,
   attachment_description_class, attachment_group_class, attachment_media_class,
   attachment_title_class, attachment_trigger_class, avatar_class, avatar_fallback_class,
-  avatar_image_class, badge_class, breadcrumb_link_class, breadcrumb_list_class, button_class,
+  avatar_image_class, badge_class, breadcrumb_link_class, breadcrumb_list_class, bubble_class,
+  bubble_content_class, bubble_group_class, bubble_reactions_class, button_class,
   button_group_class, button_group_item_class,
   calendar_day_class, calendar_month_grid, calendar_move_date, carousel_can_go_previous,
   carousel_content_class, carousel_control_class, carousel_indicator_class, carousel_item_class,
@@ -49,7 +50,8 @@ use dioxus_ui::{
   toast_queue_push, toast_root_class, toast_viewport_class, tooltip_content_class,
   typography_h2_class, typography_inline_code_class, typography_p_class,
   AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, AttachmentMediaVariant,
-  AttachmentOrientation, AttachmentSize, AttachmentState, BadgeVariant,
+  AttachmentOrientation, AttachmentSize, AttachmentState, BadgeVariant, BubbleAlign,
+  BubbleReactionAlign, BubbleReactionSide, BubbleVariant,
   ButtonGroupOrientation, ButtonSize, ButtonVariant, CalendarDate, CalendarKeyMove,
   CalendarMonth, CalendarRangeState, CalendarWeekday, CarouselOrientation, CarouselState,
   ComboboxPrimitiveConfig, InputGroupAddonPosition, InputOtpInputMode,
@@ -107,6 +109,27 @@ fn main() {
     "dioxus-ui desktop demo attachment trigger/state: {}/{}",
     attachment_trigger_class("w-full"),
     AttachmentState::Error.attribute()
+  );
+  println!(
+    "dioxus-ui desktop demo bubble class: {}",
+    bubble_class(BubbleAlign::Start, "max-w-sm")
+  );
+  println!(
+    "dioxus-ui desktop demo bubble content class: {}",
+    bubble_content_class(BubbleVariant::Destructive, "rounded-lg")
+  );
+  println!(
+    "dioxus-ui desktop demo bubble reactions class: {}",
+    bubble_reactions_class(
+      BubbleReactionSide::Top,
+      BubbleReactionAlign::Start,
+      "opacity-80"
+    )
+  );
+  println!(
+    "dioxus-ui desktop demo bubble group/variant: {}/{}",
+    bubble_group_class("gap-1"),
+    BubbleVariant::Destructive.attribute()
   );
   println!("dioxus-ui desktop demo input class: {}", input_class(false, "h-8"));
   println!(

@@ -1,0 +1,14 @@
+{
+  "name": "bubble",
+  "description": "Bubble component for provider-neutral message surfaces and reactions.",
+  "files": [
+    {
+      "source": "templates/bubble.rs",
+      "target": "src/components/ui/bubble.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

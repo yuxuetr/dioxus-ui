@@ -24,6 +24,9 @@ pub mod badge;
 #[cfg(feature = "breadcrumb")]
 pub mod breadcrumb;
 
+#[cfg(feature = "bubble")]
+pub mod bubble;
+
 #[cfg(feature = "button")]
 pub mod button;
 
@@ -218,6 +221,18 @@ pub use breadcrumb::{
   BreadcrumbSeparator, BREADCRUMB_BASE_CLASS, BREADCRUMB_ELLIPSIS_BASE_CLASS,
   BREADCRUMB_ITEM_BASE_CLASS, BREADCRUMB_LINK_BASE_CLASS, BREADCRUMB_LINK_CURRENT_CLASS,
   BREADCRUMB_LIST_BASE_CLASS, BREADCRUMB_PAGE_BASE_CLASS, BREADCRUMB_SEPARATOR_BASE_CLASS,
+};
+#[cfg(feature = "bubble")]
+pub use bubble::{
+  bubble_class, bubble_content_class, bubble_group_class, bubble_reactions_class, Bubble,
+  BubbleAlign, BubbleContent, BubbleGroup, BubbleReactionAlign, BubbleReactions,
+  BubbleReactionSide, BubbleVariant, BUBBLE_ALIGN_END_CLASS, BUBBLE_ALIGN_START_CLASS,
+  BUBBLE_BASE_CLASS, BUBBLE_CONTENT_BASE_CLASS, BUBBLE_DEFAULT_CLASS,
+  BUBBLE_DESTRUCTIVE_CLASS, BUBBLE_GHOST_CLASS, BUBBLE_GROUP_BASE_CLASS,
+  BUBBLE_MUTED_CLASS, BUBBLE_OUTLINE_CLASS, BUBBLE_REACTIONS_ALIGN_CENTER_CLASS,
+  BUBBLE_REACTIONS_ALIGN_END_CLASS, BUBBLE_REACTIONS_ALIGN_START_CLASS,
+  BUBBLE_REACTIONS_BASE_CLASS, BUBBLE_REACTIONS_BOTTOM_CLASS, BUBBLE_REACTIONS_TOP_CLASS,
+  BUBBLE_SECONDARY_CLASS, BUBBLE_TINTED_CLASS,
 };
 #[cfg(feature = "button")]
 pub use button::{button_class, Button, ButtonSize, ButtonVariant, BUTTON_BASE_CLASS};
