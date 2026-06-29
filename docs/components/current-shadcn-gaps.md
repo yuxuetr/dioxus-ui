@@ -4,7 +4,7 @@ This document records the M30.1 audit against the current shadcn/ui component
 catalog.
 
 Status: Audited in M30.1. Low-risk composition APIs planned in M30.2. Input
-OTP APIs planned in M30.3.
+OTP APIs planned in M30.3. Message and AI-style APIs planned in M30.4.
 
 ## Source
 
@@ -126,6 +126,8 @@ rendering before the underlying contracts are proven.
 For Button Group, Input Group, Collapsible, and Direction API details, see
 [Low-risk Composition Gap API Plan](low-risk-composition-gaps.md).
 For Input OTP API details, see [Input OTP API Plan](input-otp-plan.md).
+For Attachment, Bubble, Message, Marker, and Message Scroller API details, see
+[Message and AI-style API Plan](message-ai-plan.md).
 
 ## Quality Gates
 

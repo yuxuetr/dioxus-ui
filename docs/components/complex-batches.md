@@ -389,6 +389,8 @@ Implementation specification:
 
 - [Current shadcn Gap Audit](current-shadcn-gaps.md)
 - [Low-risk Composition Gap API Plan](low-risk-composition-gaps.md)
+- [Input OTP API Plan](input-otp-plan.md)
+- [Message and AI-style API Plan](message-ai-plan.md)
 
 Dependencies:
 
@@ -466,6 +468,10 @@ Components:
 - Message
 - Marker
 
+Implementation specification:
+
+- [Message and AI-style API Plan](message-ai-plan.md)
+
 Dependencies:
 
 - static composition conventions
@@ -486,6 +492,10 @@ Status: Planned in M34.
 Components:
 
 - Message Scroller
+
+Implementation specification:
+
+- [Message and AI-style API Plan](message-ai-plan.md)
 
 Dependencies:
 

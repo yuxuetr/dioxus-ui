@@ -54,6 +54,8 @@ For the first new gap implementation plan, see the
 [Low-risk Composition Gap API Plan](low-risk-composition-gaps.md).
 For the form-specific gap plan, see the
 [Input OTP API Plan](input-otp-plan.md).
+For the message and AI-style gap plan, see the
+[Message and AI-style API Plan](message-ai-plan.md).
 
 For accessibility expectations, see the
 [accessibility contract checklist](accessibility.md).

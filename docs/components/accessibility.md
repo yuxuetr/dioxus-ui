@@ -65,6 +65,16 @@ Statuses:
 | Toggle | Uses button semantics with `aria-pressed`. | Implemented |
 | Toggle Group | Uses grouped toggle buttons with roving focus helpers. | Implemented |
 
+## Message Components
+
+| Component | Contract | Status |
+| --- | --- | --- |
+| Attachment | Icon-only actions need labels; error state must include text, not only color. | Planned |
+| Bubble | Variant meaning must be supported by text, alignment, or surrounding context. | Planned |
+| Marker | Streaming or progress markers need explicit status semantics when announcements matter. | Planned |
+| Message | Footer icon-only actions need labels; assistant/tool semantics remain app-owned. | Planned |
+| Message Scroller | Must preserve focus, avoid noisy announcements, and verify scroll behavior per runtime. | Planned |
+
 ## Overlays
 
 | Component | Contract | Status |
@@ -128,6 +138,7 @@ Runtime adapter planning is tracked in:
 - [Runtime Implementation Milestone Seeds](runtime-implementation-milestones.md)
 - [Web Runtime Adapter Module Boundaries](runtime-web-adapter-boundaries.md)
 - [Input OTP API Plan](input-otp-plan.md)
+- [Message and AI-style API Plan](message-ai-plan.md)
 
 M22 implements focus and portal contract types only. Components still require
 renderer-level verification before planned focus trap, focus return, and portal
