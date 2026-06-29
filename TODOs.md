@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M31 Low-risk Composition Gaps
-- Current task: M31.1 Implement Button Group
+- Current task: M31.2 Implement Input Group
 
 ## Backup
 
@@ -34,7 +34,7 @@
 
 ## M31 Low-risk Composition Gaps
 
-- TODO M31.1 Implement Button Group
+- DONE M31.1 Implement Button Group
   - Add crate-mode styled Button Group root/item APIs.
   - Add CLI template, registry entry, docs page, and demo usage.
   - Verify source-copy output compiles without internal crate imports.
