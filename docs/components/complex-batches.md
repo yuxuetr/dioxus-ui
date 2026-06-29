@@ -408,7 +408,7 @@ behavior stay app-owned until explicitly designed.
 
 ## Batch 13: Low-risk Composition Gaps
 
-Status: Planned in M31.
+Status: Implemented in M31.
 
 Components:
 
@@ -431,7 +431,7 @@ Dependencies:
 Rationale:
 
 These are the safest current upstream gaps. They mostly compose existing parts
-and should be implemented before message and chart work.
+and were implemented before message and chart work.
 
 ## Batch 14: Form-specific Gap
 
@@ -546,7 +546,6 @@ M27 completed fixture-local experimental Web runtime adapters
 M28 completed Desktop smoke fixture and Mobile verification checklist
 M29 completed chart rendering backend evaluation
 Next: verify current shadcn gaps and plan missing API surfaces
-Next: implement low-risk composition gaps
 Next: implement Input OTP
 Next: implement message and attachment components
 Next: implement Message Scroller after runtime boundary planning

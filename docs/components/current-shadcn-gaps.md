@@ -120,7 +120,8 @@ implemented:
 
 ## Implementation Order
 
-1. Low-risk composition gaps: Button Group, Input Group, Collapsible, Direction.
+1. Completed low-risk composition gaps: Button Group, Input Group,
+   Collapsible, Direction.
 2. Form-specific gap: Input OTP.
 3. Static message parts: Attachment, Bubble, Message, Marker.
 4. Runtime-dependent message layout: Message Scroller and Web browser assertions.

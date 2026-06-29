@@ -3,7 +3,7 @@
 This document defines the M30.2 API plan for Button Group, Input Group,
 Collapsible, and Direction.
 
-Status: Planned in M30.2.
+Status: Planned in M30.2. Implemented in M31.
 
 ## Decision
 
@@ -287,6 +287,19 @@ templates should still be usable independently.
 This order starts with pure composition, then adds controlled disclosure, and
 leaves Direction last because it may be a documentation-only recommendation if
 the wrapper is not useful enough.
+
+## Implementation Result
+
+M31 accepted and implemented all four low-risk composition gaps:
+
+- Button Group
+- Input Group
+- Collapsible
+- Direction
+
+All four components have crate features, source-copy templates, registry
+entries, docs pages, catalog entries, accessibility notes, parity updates, and
+demo smoke coverage.
 
 ## Quality Gates
 

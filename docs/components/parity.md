@@ -57,13 +57,12 @@ be ported one-for-one.
 
 ## Next Milestone Seeds
 
-After M30, the safest remaining implementation order is:
+After M31, the safest remaining implementation order is:
 
-1. Low-risk composition gaps: Button Group, Input Group, Collapsible, Direction
-2. Form-specific gap: Input OTP
-3. Message and AI-style composition: Attachment, Bubble, Message, Marker
-4. Runtime-dependent message layout: Message Scroller plus Web browser assertions
-5. Chart public component preparation after measurement and fallback-table gates
+1. Form-specific gap: Input OTP
+2. Message and AI-style composition: Attachment, Bubble, Message, Marker
+3. Runtime-dependent message layout: Message Scroller plus Web browser assertions
+4. Chart public component preparation after measurement and fallback-table gates
 
 See [Current shadcn Gap Audit](current-shadcn-gaps.md) and
 [Complex Component Batches](complex-batches.md) for the expanded milestone plan.
