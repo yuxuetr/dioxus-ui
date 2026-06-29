@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M30 shadcn Current Gap Planning
-- Current task: M30.2 Plan low-risk composition gap APIs
+- Current task: M30.3 Plan form-specific gap APIs
 
 ## Backup
 
@@ -17,7 +17,7 @@
   - Classify missing components into low-risk composition, form-specific, chat/message, chart, and runtime-dependent groups.
   - Update parity, component catalog, and complex batch docs before implementation.
 
-- TODO M30.2 Plan low-risk composition gap APIs
+- DONE M30.2 Plan low-risk composition gap APIs
   - Define Button Group, Input Group, Collapsible, and Direction API boundaries.
   - Decide which components are pure styled composition versus primitive-backed state.
   - Document source-copy, accessibility, Web/Desktop/Mobile, and Tailwind token constraints.
