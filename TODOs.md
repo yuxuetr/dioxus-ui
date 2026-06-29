@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M32 Form-specific Gap
-- Current task: M32.2 Implement Input OTP component
+- Current task: M32.3 Complete Input OTP documentation and quality gates
 
 ## Backup
 
@@ -66,7 +66,7 @@
   - Add unit tests for boundaries, invalid characters, paste overflow, and disabled slots.
   - Keep actual value storage controlled by the consuming app.
 
-- TODO M32.2 Implement Input OTP component
+- DONE M32.2 Implement Input OTP component
   - Add controlled root, group, slot, separator, and hidden/native input strategy where appropriate.
   - Add keyboard and accessibility notes for screen readers and mobile keyboards.
   - Add CLI template, registry entry, docs page, and demo usage.
