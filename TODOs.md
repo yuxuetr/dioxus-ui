@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M33 Message and Attachment Components
-- Current task: M33.2 Implement Bubble
+- Current task: M33.3 Implement Message
 
 ## Backup
 
@@ -83,7 +83,7 @@
   - Keep file upload, object URLs, drag-drop, and network state app-owned.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M33.2 Implement Bubble
+- DONE M33.2 Implement Bubble
   - Add message bubble composition parts with sender/receiver variants and density options.
   - Keep markdown, syntax highlighting, and rich content parsing app-owned.
   - Add CLI template, registry entry, docs page, and demo usage.
