@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 0%
-- Current milestone: M32 Form-specific Gap
-- Current task: M32.3 Complete Input OTP documentation and quality gates
+- Current milestone: M33 Message and Attachment Components
+- Current task: M33.1 Implement Attachment
 
 ## Backup
 
@@ -71,7 +71,7 @@
   - Add keyboard and accessibility notes for screen readers and mobile keyboards.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M32.3 Complete Input OTP documentation and quality gates
+- DONE M32.3 Complete Input OTP documentation and quality gates
   - Update parity, component catalog, accessibility, and form docs.
   - Verify generated fixture smoke and feature checks include Input OTP.
   - Keep validation and submission app-owned.
