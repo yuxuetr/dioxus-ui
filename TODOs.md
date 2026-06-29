@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M31 Low-risk Composition Gaps
-- Current task: M31.4 Implement Direction
+- Current task: M31.5 Complete low-risk gap documentation and quality gates
 
 ## Backup
 
@@ -49,7 +49,7 @@
   - Reuse disclosure state helpers where practical and expose ARIA-expanded semantics.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M31.4 Implement Direction
+- DONE M31.4 Implement Direction
   - Add direction/provider-style composition helper if it can stay source-copy friendly.
   - Document RTL/LTR class and attribute ownership.
   - Add CLI template, registry entry, docs page, and demo usage if accepted as a public component.
