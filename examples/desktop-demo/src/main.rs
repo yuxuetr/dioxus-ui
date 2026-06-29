@@ -3,9 +3,10 @@ use dioxus_ui::{
   alert_dialog_action_class, alert_dialog_content_class, alert_dialog_overlay_class, alert_class,
   alert_description_class, alert_title_class, aspect_ratio_style, avatar_class,
   avatar_fallback_class, avatar_image_class, badge_class, breadcrumb_link_class,
-  breadcrumb_list_class, button_class, calendar_day_class, calendar_month_grid,
-  calendar_move_date, carousel_can_go_previous, carousel_content_class, carousel_control_class,
-  carousel_indicator_class, carousel_item_class, carousel_previous, card_class,
+  breadcrumb_list_class, button_class, button_group_class, button_group_item_class,
+  calendar_day_class, calendar_month_grid, calendar_move_date, carousel_can_go_previous,
+  carousel_content_class, carousel_control_class, carousel_indicator_class, carousel_item_class,
+  carousel_previous, card_class,
   card_content_class, card_description_class, card_footer_class, card_header_class,
   card_title_class, checkbox_class, command_active_descendant_state, command_class,
   command_input_class, command_item_class, combobox_input_class,
@@ -40,9 +41,10 @@ use dioxus_ui::{
   toggle_group_single_selection, toast_action_class, toast_close_class, toast_is_expired,
   toast_queue_push, toast_root_class, toast_viewport_class, tooltip_content_class,
   typography_h2_class, typography_inline_code_class, typography_p_class,
-  AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant, ButtonSize,
-  ButtonVariant, CalendarDate, CalendarKeyMove, CalendarMonth, CalendarRangeState,
-  CalendarWeekday, CarouselOrientation, CarouselState, ComboboxPrimitiveConfig,
+  AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, BadgeVariant,
+  ButtonGroupOrientation, ButtonSize, ButtonVariant, CalendarDate, CalendarKeyMove,
+  CalendarMonth, CalendarRangeState, CalendarWeekday, CarouselOrientation, CarouselState,
+  ComboboxPrimitiveConfig,
   ContextMenuPrimitiveConfig, DatePickerAlign, DatePickerPrimitiveConfig, DatePickerSide,
   DataTableSortDirection, DialogPrimitiveConfig, DrawerPrimitiveConfig, DropdownPrimitiveConfig,
   FocusMove, HoverCardAlign, HoverCardPrimitiveConfig, HoverCardSide, MenubarPrimitiveConfig,
@@ -62,6 +64,14 @@ fn main() {
   );
 
   println!("dioxus-ui desktop demo button class: {class}");
+  println!(
+    "dioxus-ui desktop demo button group class: {}",
+    button_group_class(ButtonGroupOrientation::Vertical, false, "items-start")
+  );
+  println!(
+    "dioxus-ui desktop demo button group item class: {}",
+    button_group_item_class("min-w-16")
+  );
   println!("dioxus-ui desktop demo input class: {}", input_class(false, "h-8"));
   println!(
     "dioxus-ui desktop demo textarea class: {}",

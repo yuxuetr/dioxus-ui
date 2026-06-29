@@ -9,7 +9,7 @@ be ported one-for-one.
 | Group | Components |
 | --- | --- |
 | Static display | Alert, Aspect Ratio, Avatar, Badge, Breadcrumb, Card, Empty, Field, Item, Kbd, Separator, Skeleton, Typography |
-| Form basics | Button, Checkbox, Input, Label, Slider, Switch, Textarea |
+| Form basics | Button, Button Group, Checkbox, Input, Label, Slider, Switch, Textarea |
 | Light interaction | Radio Group, Spinner, Toggle, Toggle Group |
 | Disclosure | Accordion, Alert Dialog, Calendar, Date Picker, Drawer, Hover Card, Sheet, Tabs |
 | Overlay primitives | Context Menu, Dialog, Dropdown, Menubar, Navigation Menu, Popover, Tooltip |
@@ -22,7 +22,7 @@ be ported one-for-one.
 
 | Group | Components | Notes |
 | --- | --- | --- |
-| Low-risk composition | Button Group, Input Group, Collapsible, Direction | M30.1 audit identifies these as current shadcn gaps; M31 plans and implements them first. |
+| Low-risk composition | Input Group, Collapsible, Direction | M31 implements these after Button Group. |
 | Layout and scroll | - | Carousel, Scroll Area, Resizable, and Sidebar are implemented; runtime measurement, persistence, and gestures remain app-owned. |
 
 ## Planned Complex Interaction
@@ -46,7 +46,6 @@ be ported one-for-one.
 | --- | --- |
 | Attachment | Planned for M33; upload transport, previews, object URLs, and network state stay app-owned. |
 | Bubble | Planned for M33; markdown and rich content parsing stay app-owned. |
-| Button Group | Planned for M31 as low-risk composition. |
 | Chart component | M19 implements chart data and accessibility primitives plus recipes; M29.1 selects first-party SVG as the first future rendering path and keeps Chart deferred until measurement, interaction, animation, and fallback-table contracts are explicit. |
 | Collapsible | Planned for M31 as controlled disclosure composition. |
 | Direction | Planned for M31 if it remains source-copy friendly and clearly useful for RTL/LTR composition. |

@@ -1,0 +1,30 @@
+# Button Group
+
+Button Group provides a grouped layout for related command buttons.
+
+## Source Copy
+
+```bash
+dxui add button-group
+```
+
+## Crate Feature
+
+```toml
+dioxus-ui = { version = "0.1", default-features = false, features = ["button-group"] }
+```
+
+## API Surface
+
+- `ButtonGroup`
+- `ButtonGroupItem`
+- `ButtonGroupOrientation`
+- `button_group_class`
+- `button_group_item_class`
+
+## Accessibility Notes
+
+Button Group renders a `role="group"` wrapper and native button items. Pass
+`aria_label` when the group needs an accessible name. Apps own icon-only
+accessible names, command behavior, pressed state, and any toolbar or
+roving-focus semantics.

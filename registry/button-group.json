@@ -1,0 +1,14 @@
+{
+  "name": "button-group",
+  "description": "Button Group component for grouped command buttons.",
+  "files": [
+    {
+      "source": "templates/button_group.rs",
+      "target": "src/components/ui/button_group.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

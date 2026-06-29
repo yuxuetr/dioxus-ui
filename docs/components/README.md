@@ -85,6 +85,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Badge](badge.md) | `dxui add badge` | `badge` | Styled |
 | [Breadcrumb](breadcrumb.md) | `dxui add breadcrumb` | `breadcrumb` | Navigation composition parts |
 | [Button](button.md) | `dxui add button` | `button` | Styled |
+| [Button Group](button-group.md) | `dxui add button-group` | `button-group` | Grouped command buttons |
 | [Calendar](calendar.md) | `dxui add calendar` | `calendar` | Date grid styled parts |
 | [Carousel](carousel.md) | `dxui add carousel` | `carousel` | Controlled slide composition parts |
 | [Card](card.md) | `dxui add card` | `card` | Styled parts |

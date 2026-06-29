@@ -24,6 +24,9 @@ pub mod breadcrumb;
 #[cfg(feature = "button")]
 pub mod button;
 
+#[cfg(feature = "button-group")]
+pub mod button_group;
+
 #[cfg(feature = "calendar")]
 pub mod calendar;
 
@@ -187,6 +190,13 @@ pub use breadcrumb::{
 };
 #[cfg(feature = "button")]
 pub use button::{button_class, Button, ButtonSize, ButtonVariant, BUTTON_BASE_CLASS};
+#[cfg(feature = "button-group")]
+pub use button_group::{
+  button_group_class, button_group_item_class, ButtonGroup, ButtonGroupItem,
+  ButtonGroupOrientation, BUTTON_GROUP_ATTACHED_HORIZONTAL_CLASS,
+  BUTTON_GROUP_ATTACHED_VERTICAL_CLASS, BUTTON_GROUP_BASE_CLASS, BUTTON_GROUP_GAP_CLASS,
+  BUTTON_GROUP_ITEM_BASE_CLASS,
+};
 #[cfg(feature = "calendar")]
 pub use calendar::{
   calendar_caption_class, calendar_class, calendar_day_class, calendar_grid_class,

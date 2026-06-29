@@ -31,6 +31,7 @@ Statuses:
 | Component | Contract | Status |
 | --- | --- | --- |
 | Button | Supports disabled state and native button semantics. | Implemented |
+| Button Group | Uses grouped native button composition; apps own labels, pressed state, and toolbar semantics. | Implemented |
 | Checkbox | Uses native checkbox input state. | Implemented |
 | Input | Supports `aria-invalid` for invalid state. | Implemented |
 | Input OTP | Needs native input or equivalent grouped slot strategy, paste behavior, mobile keyboard support, and screen-reader labeling. | Planned |
