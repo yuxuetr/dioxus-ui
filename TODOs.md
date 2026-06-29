@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M31 Low-risk Composition Gaps
-- Current task: M31.2 Implement Input Group
+- Current task: M31.3 Implement Collapsible
 
 ## Backup
 
@@ -39,7 +39,7 @@
   - Add CLI template, registry entry, docs page, and demo usage.
   - Verify source-copy output compiles without internal crate imports.
 
-- TODO M31.2 Implement Input Group
+- DONE M31.2 Implement Input Group
   - Add input group root, addon, control, and action composition parts.
   - Preserve native input semantics and label/description ownership.
   - Add CLI template, registry entry, docs page, and demo usage.
