@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M31 Low-risk Composition Gaps
-- Current task: M31.3 Implement Collapsible
+- Current task: M31.4 Implement Direction
 
 ## Backup
 
@@ -44,7 +44,7 @@
   - Preserve native input semantics and label/description ownership.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M31.3 Implement Collapsible
+- DONE M31.3 Implement Collapsible
   - Add controlled Collapsible root, trigger, and content APIs.
   - Reuse disclosure state helpers where practical and expose ARIA-expanded semantics.
   - Add CLI template, registry entry, docs page, and demo usage.
