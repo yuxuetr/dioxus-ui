@@ -11,7 +11,7 @@ be ported one-for-one.
 | Static display | Alert, Aspect Ratio, Avatar, Badge, Breadcrumb, Card, Empty, Field, Item, Kbd, Separator, Skeleton, Typography |
 | Form basics | Button, Button Group, Checkbox, Input, Input Group, Label, Slider, Switch, Textarea |
 | Light interaction | Radio Group, Spinner, Toggle, Toggle Group |
-| Disclosure | Accordion, Alert Dialog, Calendar, Date Picker, Drawer, Hover Card, Sheet, Tabs |
+| Disclosure | Accordion, Alert Dialog, Calendar, Collapsible, Date Picker, Drawer, Hover Card, Sheet, Tabs |
 | Overlay primitives | Context Menu, Dialog, Dropdown, Menubar, Navigation Menu, Popover, Tooltip |
 | Command and search | Command, Combobox, Native Select |
 | Selection | Select |
@@ -22,7 +22,7 @@ be ported one-for-one.
 
 | Group | Components | Notes |
 | --- | --- | --- |
-| Low-risk composition | Collapsible, Direction | M31 implements these after Button Group and Input Group. |
+| Low-risk composition | Direction | M31 implements this after Button Group, Input Group, and Collapsible. |
 | Layout and scroll | - | Carousel, Scroll Area, Resizable, and Sidebar are implemented; runtime measurement, persistence, and gestures remain app-owned. |
 
 ## Planned Complex Interaction
@@ -47,7 +47,6 @@ be ported one-for-one.
 | Attachment | Planned for M33; upload transport, previews, object URLs, and network state stay app-owned. |
 | Bubble | Planned for M33; markdown and rich content parsing stay app-owned. |
 | Chart component | M19 implements chart data and accessibility primitives plus recipes; M29.1 selects first-party SVG as the first future rendering path and keeps Chart deferred until measurement, interaction, animation, and fallback-table contracts are explicit. |
-| Collapsible | Planned for M31 as controlled disclosure composition. |
 | Direction | Planned for M31 if it remains source-copy friendly and clearly useful for RTL/LTR composition. |
 | Input OTP | Planned for M32 because paste, mobile keyboard, and screen-reader behavior need a focused pass. |
 | Marker | Planned for M33; citation/search semantics stay app-owned. |

@@ -5,7 +5,8 @@ catalog.
 
 Status: Audited in M30.1. Low-risk composition APIs planned in M30.2. Input
 OTP APIs planned in M30.3. Message and AI-style APIs planned in M30.4. Button
-Group implemented in M31.1. Input Group implemented in M31.2.
+Group implemented in M31.1. Input Group implemented in M31.2. Collapsible
+implemented in M31.3.
 
 ## Source
 
@@ -46,6 +47,7 @@ calendar
 card
 carousel
 checkbox
+collapsible
 combobox
 command
 context-menu
@@ -97,7 +99,7 @@ parity.
 
 | Group | Missing Components | Priority | Notes |
 | --- | --- | --- | --- |
-| Low-risk composition | Collapsible, Direction | M31 | Button Group and Input Group are implemented; remaining items are controlled disclosure/direction helpers. |
+| Low-risk composition | Direction | M31 | Button Group, Input Group, and Collapsible are implemented; Direction remains a controlled direction helper decision. |
 | Form-specific | Input OTP | M32 | Needs keyboard, paste, mobile input, and screen-reader planning. |
 | Message and AI-style composition | Attachment, Bubble, Message, Marker | M33 | Keep upload, markdown, citation, streaming, and provider behavior app-owned. |
 | Runtime-dependent message layout | Message Scroller | M34 | Needs scroll intent, bottom anchoring, unread markers, and browser assertions. |

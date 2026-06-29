@@ -47,6 +47,7 @@ Statuses:
 | Accordion | Needs trigger/content ARIA relationships. | Planned |
 | Calendar | Exposes grid, row, columnheader, gridcell, selected, disabled, today, and range state attributes. | Implemented |
 | Calendar | Needs keyboard event and DOM focus integration verification. | Planned |
+| Collapsible | Uses native trigger button with expanded state and optional trigger/content association. | Implemented |
 | Command | Uses combobox, listbox, option, and active descendant semantics. | Implemented |
 | Command | Needs keyboard event and filtering integration verification. | Planned |
 | Date Picker | Uses button trigger semantics, dialog content semantics, expanded state, invalid state, and placement data attributes. | Implemented |

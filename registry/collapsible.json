@@ -1,0 +1,14 @@
+{
+  "name": "collapsible",
+  "description": "Collapsible component for controlled disclosure content.",
+  "files": [
+    {
+      "source": "templates/collapsible.rs",
+      "target": "src/components/ui/collapsible.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

@@ -8,7 +8,8 @@ use dioxus_ui::{
   carousel_content_class, carousel_control_class, carousel_indicator_class, carousel_item_class,
   carousel_previous, card_class,
   card_content_class, card_description_class, card_footer_class, card_header_class,
-  card_title_class, checkbox_class, command_active_descendant_state, command_class,
+  card_title_class, checkbox_class, collapsible_class, collapsible_content_class,
+  collapsible_trigger_class, command_active_descendant_state, command_class,
   command_input_class, command_item_class, combobox_input_class,
   combobox_item_class, combobox_trigger_class, context_menu_content_class,
   context_menu_item_class, context_menu_shortcut_class, data_table_header_cell_class,
@@ -408,6 +409,18 @@ fn main() {
   println!(
     "dioxus-ui desktop demo checkbox class: {}",
     checkbox_class(false, "mt-1")
+  );
+  println!(
+    "dioxus-ui desktop demo collapsible class: {}",
+    collapsible_class(true, "max-w-xs")
+  );
+  println!(
+    "dioxus-ui desktop demo collapsible trigger class: {}",
+    collapsible_trigger_class(false, "w-full")
+  );
+  println!(
+    "dioxus-ui desktop demo collapsible content class: {}",
+    collapsible_content_class(false, "pt-1")
   );
   println!(
     "dioxus-ui desktop demo command class: {}",

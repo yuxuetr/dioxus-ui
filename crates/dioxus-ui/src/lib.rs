@@ -39,6 +39,9 @@ pub mod card;
 #[cfg(feature = "checkbox")]
 pub mod checkbox;
 
+#[cfg(feature = "collapsible")]
+pub mod collapsible;
+
 #[cfg(feature = "command")]
 pub mod command;
 
@@ -235,6 +238,14 @@ pub use card::{
 };
 #[cfg(feature = "checkbox")]
 pub use checkbox::{checkbox_class, Checkbox, CHECKBOX_BASE_CLASS};
+#[cfg(feature = "collapsible")]
+pub use collapsible::{
+  collapsible_class, collapsible_content_class, collapsible_trigger_class, Collapsible,
+  CollapsibleContent, CollapsibleTrigger, COLLAPSIBLE_BASE_CLASS,
+  COLLAPSIBLE_CONTENT_BASE_CLASS, COLLAPSIBLE_CONTENT_CLOSED_CLASS,
+  COLLAPSIBLE_CONTENT_OPEN_CLASS, COLLAPSIBLE_TRIGGER_BASE_CLASS,
+  COLLAPSIBLE_TRIGGER_CLOSED_CLASS, COLLAPSIBLE_TRIGGER_OPEN_CLASS,
+};
 #[cfg(feature = "command")]
 pub use command::{
   command_active_descendant_state, command_class, command_empty_class, command_group_class,
