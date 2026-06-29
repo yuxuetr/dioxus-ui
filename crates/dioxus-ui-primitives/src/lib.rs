@@ -8,6 +8,7 @@ pub mod data_table;
 pub mod dialog;
 pub mod dismissal;
 pub mod feedback;
+pub mod input_otp;
 pub mod layout;
 #[cfg(feature = "dropdown")]
 pub mod dropdown;
@@ -50,6 +51,11 @@ pub use feedback::{
   toast_dismiss_reason_attribute, toast_is_expired, toast_placement_attribute,
   toast_queue_dismiss, toast_queue_limit, toast_queue_push, toast_variant_attribute, ToastDismissReason,
   ToastItem, ToastPlacement, ToastQueue, ToastVariant,
+};
+pub use input_otp::{
+  otp_apply_paste, otp_apply_paste_filtered, otp_clamp_value, otp_delete_char,
+  otp_insert_char, otp_insert_char_filtered, otp_is_complete, otp_next_index,
+  otp_previous_index, otp_slots, otp_slots_with_disabled, OtpSlotState,
 };
 pub use layout::{
   carousel_can_go_next, carousel_can_go_previous, carousel_clamp_index, carousel_next,
