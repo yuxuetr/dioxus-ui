@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 0%
-- Current milestone: M31 Low-risk Composition Gaps
-- Current task: M31.5 Complete low-risk gap documentation and quality gates
+- Current milestone: M32 Form-specific Gap
+- Current task: M32.1 Implement Input OTP primitives or helpers
 
 ## Backup
 
@@ -54,7 +54,7 @@
   - Document RTL/LTR class and attribute ownership.
   - Add CLI template, registry entry, docs page, and demo usage if accepted as a public component.
 
-- TODO M31.5 Complete low-risk gap documentation and quality gates
+- DONE M31.5 Complete low-risk gap documentation and quality gates
   - Update parity, component catalog, accessibility, and complex batch docs.
   - Run generated fixture smoke, workspace tests, and feature checks.
   - Mark M31 complete only after all new components are committed.
