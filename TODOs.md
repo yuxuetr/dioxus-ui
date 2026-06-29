@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M32 Form-specific Gap
-- Current task: M32.1 Implement Input OTP primitives or helpers
+- Current task: M32.2 Implement Input OTP component
 
 ## Backup
 
@@ -61,7 +61,7 @@
 
 ## M32 Form-specific Gap
 
-- TODO M32.1 Implement Input OTP primitives or helpers
+- DONE M32.1 Implement Input OTP primitives or helpers
   - Add pure helpers for slot index, paste distribution, deletion behavior, and completion state if needed.
   - Add unit tests for boundaries, invalid characters, paste overflow, and disabled slots.
   - Keep actual value storage controlled by the consuming app.
