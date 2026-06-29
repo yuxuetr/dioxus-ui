@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M30 shadcn Current Gap Planning
-- Current task: M30.3 Plan form-specific gap APIs
+- Current task: M30.4 Plan message and AI-style component APIs
 
 ## Backup
 
@@ -22,7 +22,7 @@
   - Decide which components are pure styled composition versus primitive-backed state.
   - Document source-copy, accessibility, Web/Desktop/Mobile, and Tailwind token constraints.
 
-- TODO M30.3 Plan form-specific gap APIs
+- DONE M30.3 Plan form-specific gap APIs
   - Define Input OTP API boundaries, state ownership, keyboard behavior, paste handling, and accessibility semantics.
   - Decide whether Input OTP needs primitive helpers or can remain a controlled styled part.
   - Document generated template expectations and test strategy.
