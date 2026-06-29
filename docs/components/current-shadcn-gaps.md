@@ -5,7 +5,7 @@ catalog.
 
 Status: Audited in M30.1. Low-risk composition APIs planned in M30.2. Input
 OTP APIs planned in M30.3. Message and AI-style APIs planned in M30.4. Button
-Group implemented in M31.1.
+Group implemented in M31.1. Input Group implemented in M31.2.
 
 ## Source
 
@@ -41,6 +41,7 @@ avatar
 badge
 breadcrumb
 button
+button-group
 calendar
 card
 carousel
@@ -57,6 +58,7 @@ empty
 field
 hover-card
 input
+input-group
 item
 kbd
 label
@@ -95,7 +97,7 @@ parity.
 
 | Group | Missing Components | Priority | Notes |
 | --- | --- | --- | --- |
-| Low-risk composition | Input Group, Collapsible, Direction | M31 | Button Group is implemented; remaining items are styled composition or controlled disclosure/direction helpers. |
+| Low-risk composition | Collapsible, Direction | M31 | Button Group and Input Group are implemented; remaining items are controlled disclosure/direction helpers. |
 | Form-specific | Input OTP | M32 | Needs keyboard, paste, mobile input, and screen-reader planning. |
 | Message and AI-style composition | Attachment, Bubble, Message, Marker | M33 | Keep upload, markdown, citation, streaming, and provider behavior app-owned. |
 | Runtime-dependent message layout | Message Scroller | M34 | Needs scroll intent, bottom anchoring, unread markers, and browser assertions. |

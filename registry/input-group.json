@@ -1,0 +1,14 @@
+{
+  "name": "input-group",
+  "description": "Input Group component for addons, controls, and actions around inputs.",
+  "files": [
+    {
+      "source": "templates/input_group.rs",
+      "target": "src/components/ui/input_group.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

@@ -102,6 +102,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Field](field.md) | `dxui add field` | `field` | Form field composition parts |
 | [Hover Card](hover-card.md) | `dxui add hover-card` | `hover-card` | Popover-backed preview content |
 | [Input](input.md) | `dxui add input` | `input` | Styled |
+| [Input Group](input-group.md) | `dxui add input-group` | `input-group` | Grouped input composition parts |
 | [Item](item.md) | `dxui add item` | `item` | Generic item composition parts |
 | [Kbd](kbd.md) | `dxui add kbd` | `kbd` | Styled keyboard hint |
 | [Label](label.md) | `dxui add label` | `label` | Styled |

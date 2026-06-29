@@ -34,6 +34,7 @@ Statuses:
 | Button Group | Uses grouped native button composition; apps own labels, pressed state, and toolbar semantics. | Implemented |
 | Checkbox | Uses native checkbox input state. | Implemented |
 | Input | Supports `aria-invalid` for invalid state. | Implemented |
+| Input Group | Preserves native input semantics while apps own labels, descriptions, and decorative addon handling. | Implemented |
 | Input OTP | Needs native input or equivalent grouped slot strategy, paste behavior, mobile keyboard support, and screen-reader labeling. | Planned |
 | Label | Can be associated with a form control by the app. | Implemented |
 | Switch | Needs explicit switch semantics before stability. | Planned |

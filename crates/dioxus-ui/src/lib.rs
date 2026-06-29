@@ -75,6 +75,9 @@ pub mod hover_card;
 #[cfg(feature = "input")]
 pub mod input;
 
+#[cfg(feature = "input-group")]
+pub mod input_group;
+
 #[cfg(feature = "item")]
 pub mod item;
 
@@ -343,6 +346,15 @@ pub use hover_card::{
 };
 #[cfg(feature = "input")]
 pub use input::{input_class, Input, INPUT_BASE_CLASS};
+#[cfg(feature = "input-group")]
+pub use input_group::{
+  input_group_action_class, input_group_addon_class, input_group_class,
+  input_group_control_class, InputGroup, InputGroupAction, InputGroupAddon,
+  InputGroupAddonPosition, InputGroupControl, INPUT_GROUP_ACTION_BASE_CLASS,
+  INPUT_GROUP_ADDON_BASE_CLASS, INPUT_GROUP_ADDON_END_CLASS,
+  INPUT_GROUP_ADDON_START_CLASS, INPUT_GROUP_BASE_CLASS, INPUT_GROUP_CONTROL_BASE_CLASS,
+  INPUT_GROUP_DISABLED_CLASS, INPUT_GROUP_INVALID_CLASS,
+};
 #[cfg(feature = "item")]
 pub use item::{
   item_actions_class, item_class, item_content_class, item_description_class, item_media_class,
