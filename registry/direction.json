@@ -1,0 +1,14 @@
+{
+  "name": "direction",
+  "description": "Direction component for scoped native ltr/rtl text direction.",
+  "files": [
+    {
+      "source": "templates/direction.rs",
+      "target": "src/components/ui/direction.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

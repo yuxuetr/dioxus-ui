@@ -16,7 +16,7 @@ use dioxus_ui::{
   data_table_page_window, data_table_row_class, data_table_sort_attribute,
   data_table_toggle_row, date_picker_align_attribute, date_picker_content_class,
   date_picker_side_attribute, date_picker_trigger_class, date_picker_value_class,
-  dialog_content_class, dialog_overlay_class, drawer_content_class,
+  dialog_content_class, dialog_overlay_class, direction_class, drawer_content_class,
   drawer_overlay_class, dropdown_content_class, dropdown_item_class, dropdown_label_class,
   dropdown_separator_class, empty_actions_class, empty_class, empty_title_class,
   field_class, field_error_class, field_group_class, hover_card_align_attribute,
@@ -53,8 +53,9 @@ use dioxus_ui::{
   NavigationMenuPrimitiveConfig, NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
   KbdSize, LayoutOrientation, ResizablePanelState, ScrollAreaOrientation, SelectPrimitiveConfig,
   SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SidebarSide, SidebarState, SpinnerSize,
-  SonnerItem, SonnerPlacement, SonnerQueue, SonnerVariant, ToastItem, ToastPlacement,
-  ToastQueue, ToastVariant, ToggleSize, ToggleVariant, TooltipPrimitiveConfig, UiDensity,
+  SonnerItem, SonnerPlacement, SonnerQueue, SonnerVariant, TextDirection, ToastItem,
+  ToastPlacement, ToastQueue, ToastVariant, ToggleSize, ToggleVariant, TooltipPrimitiveConfig,
+  UiDensity,
 };
 
 fn main() {
@@ -123,6 +124,11 @@ fn main() {
   println!(
     "dioxus-ui desktop demo alert dialog primitive open: {}",
     AlertDialogPrimitiveConfig::controlled(false).open
+  );
+  println!(
+    "dioxus-ui desktop demo direction class/attr: {}/{}",
+    direction_class("inline"),
+    TextDirection::Ltr.attribute()
   );
   println!(
     "dioxus-ui desktop demo aspect ratio style: {}",

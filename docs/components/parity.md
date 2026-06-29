@@ -16,13 +16,13 @@ be ported one-for-one.
 | Command and search | Command, Combobox, Native Select |
 | Selection | Select |
 | Feedback and data | Data Table, Progress, Sonner, Table, Pagination, Toast |
-| Layout and scroll | Carousel, Resizable, Scroll Area, Sidebar |
+| Layout and scroll | Carousel, Direction, Resizable, Scroll Area, Sidebar |
 
 ## Planned Static Or Light Interaction
 
 | Group | Components | Notes |
 | --- | --- | --- |
-| Low-risk composition | Direction | M31 implements this after Button Group, Input Group, and Collapsible. |
+| Low-risk composition | - | Button Group, Input Group, Collapsible, and Direction are implemented. |
 | Layout and scroll | - | Carousel, Scroll Area, Resizable, and Sidebar are implemented; runtime measurement, persistence, and gestures remain app-owned. |
 
 ## Planned Complex Interaction
@@ -47,7 +47,6 @@ be ported one-for-one.
 | Attachment | Planned for M33; upload transport, previews, object URLs, and network state stay app-owned. |
 | Bubble | Planned for M33; markdown and rich content parsing stay app-owned. |
 | Chart component | M19 implements chart data and accessibility primitives plus recipes; M29.1 selects first-party SVG as the first future rendering path and keeps Chart deferred until measurement, interaction, animation, and fallback-table contracts are explicit. |
-| Direction | Planned for M31 if it remains source-copy friendly and clearly useful for RTL/LTR composition. |
 | Input OTP | Planned for M32 because paste, mobile keyboard, and screen-reader behavior need a focused pass. |
 | Marker | Planned for M33; citation/search semantics stay app-owned. |
 | Message | Planned for M33; provider, streaming, markdown, and syntax highlighting stay app-owned. |

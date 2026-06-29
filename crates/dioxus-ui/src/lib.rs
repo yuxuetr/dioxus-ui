@@ -60,6 +60,9 @@ pub mod date_picker;
 #[cfg(feature = "dialog")]
 pub mod dialog;
 
+#[cfg(feature = "direction")]
+pub mod direction;
+
 #[cfg(feature = "drawer")]
 pub mod drawer;
 
@@ -311,6 +314,8 @@ pub use dialog::{
   DIALOG_CLOSE_BASE_CLASS, DIALOG_CONTENT_BASE_CLASS, DIALOG_DESCRIPTION_BASE_CLASS,
   DIALOG_OVERLAY_BASE_CLASS, DIALOG_TITLE_BASE_CLASS,
 };
+#[cfg(feature = "direction")]
+pub use direction::{direction_class, Direction, TextDirection, DIRECTION_BASE_CLASS};
 #[cfg(feature = "drawer")]
 pub use drawer::{
   drawer_close_class, drawer_content_class, drawer_description_class, drawer_footer_class,

@@ -111,6 +111,7 @@ Statuses:
 | Table | Uses semantic table elements. | Implemented |
 | Data Table | Exposes sorted header state, selected row state, hidden cells, loading status, and empty state composition. | Implemented |
 | Data Table | Needs app-level filtering, async loading, keyboard shortcuts, and virtualization verification. | Planned |
+| Direction | Sets native `dir` semantics for scoped LTR/RTL content. | Implemented |
 | Chart primitives | Expose summary text, color-independent series labels, value labels, and fallback-row metadata. | Implemented |
 | Chart component | Public rendering component remains deferred until SVG backend, measurement, keyboard, tooltip, animation, and fallback-table contracts are proven. | Deferred |
 | Toast | Exposes status semantics, variant urgency, close/action native controls, and queue state helpers. | Implemented |
