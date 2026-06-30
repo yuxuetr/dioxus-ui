@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M33 Message and Attachment Components
-- Current task: M33.3 Implement Message
+- Current task: M33.4 Implement Marker
 
 ## Backup
 
@@ -88,7 +88,7 @@
   - Keep markdown, syntax highlighting, and rich content parsing app-owned.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M33.3 Implement Message
+- DONE M33.3 Implement Message
   - Add message root, avatar slot, header, content, footer/actions, and status parts.
   - Support user/assistant/system-style variants without coupling to a provider.
   - Add CLI template, registry entry, docs page, and demo usage.
