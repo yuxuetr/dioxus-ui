@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M36 Release Hardening for Expanded Parity
-- Current task: M36.2 Update examples and screenshots strategy
+- Current task: M36.3 Final parity audit against shadcn current catalog
 
 ## Backup
 
@@ -159,7 +159,7 @@
   - Extend generated fixture smoke coverage to every new component.
   - Keep `utils` and docs-only chart recipes excluded where appropriate.
 
-- TODO M36.2 Update examples and screenshots strategy
+- DONE M36.2 Update examples and screenshots strategy
   - Add representative web and desktop demo states for new composition, form, message, and chart components.
   - Document any visual verification gaps before claiming parity.
   - Avoid adding a marketing landing page instead of usable component previews.
