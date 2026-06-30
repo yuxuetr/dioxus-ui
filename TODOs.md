@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M35 Chart Public Component Preparation
-- Current task: M35.1 Plan first-party SVG Chart API
+- Current task: M35.2 Build chart example fixture before public component
 
 ## Backup
 
@@ -132,7 +132,7 @@
 
 ## M35 Chart Public Component Preparation
 
-- TODO M35.1 Plan first-party SVG Chart API
+- DONE M35.1 Plan first-party SVG Chart API
   - Define ChartRoot, ChartSvg, ChartTitle, ChartDescription, ChartLegend, ChartFallbackTable, and ChartTooltipSlot APIs.
   - Limit first public chart types to line, bar, and area.
   - Keep Plotters and Charming adapters out of default generated source.
