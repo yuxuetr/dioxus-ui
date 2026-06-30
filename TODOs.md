@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 0%
-- Current milestone: M34 Message Scroller and Runtime Follow-through
-- Current task: M34.5 Complete message scroller docs and quality gates
+- Current milestone: M35 Chart Public Component Preparation
+- Current task: M35.1 Plan first-party SVG Chart API
 
 ## Backup
 
@@ -125,7 +125,7 @@
   - Cover focus, portal, timers, live-region, measurement, pointer, gesture, and message scroller prerequisites.
   - Keep the check separate from default release gates until stable.
 
-- TODO M34.5 Complete message scroller docs and quality gates
+- DONE M34.5 Complete message scroller docs and quality gates
   - Update parity, accessibility, runtime docs, and quality gate docs.
   - Run workspace tests, feature checks, generated fixture smoke, and runtime fixture commands.
   - Document any deferred Desktop/Mobile scroller behavior.
