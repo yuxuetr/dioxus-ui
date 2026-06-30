@@ -12,7 +12,9 @@ use dioxus_ui::{
   carousel_content_class, carousel_control_class, carousel_indicator_class, carousel_item_class,
   carousel_previous, card_class,
   card_content_class, card_description_class, card_footer_class, card_header_class,
-  card_title_class, checkbox_class, collapsible_class, collapsible_content_class,
+  card_title_class, chart_area_series_class, chart_bar_rects, chart_bar_series_class,
+  chart_class, chart_fallback_rows, chart_line_path, chart_line_series_class,
+  chart_view_box, checkbox_class, collapsible_class, collapsible_content_class,
   collapsible_trigger_class, command_active_descendant_state, command_class,
   command_input_class, command_item_class, combobox_input_class,
   combobox_item_class, combobox_trigger_class, context_menu_content_class,
@@ -62,6 +64,7 @@ use dioxus_ui::{
   BubbleReactionAlign, BubbleReactionSide, BubbleVariant,
   ButtonGroupOrientation, ButtonSize, ButtonVariant, CalendarDate, CalendarKeyMove,
   CalendarMonth, CalendarRangeState, CalendarWeekday, CarouselOrientation, CarouselState,
+  ChartColorToken, ChartDomain, ChartPoint, ChartScale, ChartSeries,
   ComboboxPrimitiveConfig, InputGroupAddonPosition, InputOtpInputMode,
   ContextMenuPrimitiveConfig, DatePickerAlign, DatePickerPrimitiveConfig, DatePickerSide,
   DataTableSortDirection, DialogPrimitiveConfig, DrawerPrimitiveConfig, DropdownPrimitiveConfig,
@@ -174,6 +177,35 @@ fn main() {
     message_scroller_is_at_bottom(desktop_message_metrics, 16.0),
     message_scroller_jump_button_class(desktop_unread_visible, "text-red-700"),
     message_scroller_intent_attribute(MessageScrollerIntent::JumpToLatest)
+  );
+  let desktop_chart_series = ChartSeries::new(
+    "cost",
+    "Cost",
+    vec![
+      ChartPoint::new(0.0, 8.0),
+      ChartPoint::new(1.0, 11.0),
+      ChartPoint::new(2.0, 10.0),
+      ChartPoint::new(3.0, 13.0),
+    ],
+  );
+  let desktop_chart_x = ChartScale::new(ChartDomain::new(0.0, 3.0), ChartDomain::new(24.0, 456.0));
+  let desktop_chart_y = ChartScale::new(ChartDomain::new(0.0, 16.0), ChartDomain::new(220.0, 24.0));
+  println!(
+    "dioxus-ui desktop demo chart classes: {}/{}/{}/{}",
+    chart_class("max-w-xl"),
+    chart_line_series_class(ChartColorToken::Secondary, ""),
+    chart_area_series_class(ChartColorToken::Secondary, "opacity-15"),
+    chart_bar_series_class(ChartColorToken::Neutral, "")
+  );
+  println!(
+    "dioxus-ui desktop demo chart helper: {}/{}/{}",
+    chart_view_box(480.0, 240.0),
+    chart_line_path(&desktop_chart_series, desktop_chart_x, desktop_chart_y),
+    chart_fallback_rows(&[desktop_chart_series.clone()]).len()
+  );
+  println!(
+    "dioxus-ui desktop demo chart bars: {}",
+    chart_bar_rects(&desktop_chart_series, desktop_chart_x, desktop_chart_y, 0.0, 14.0).len()
   );
   println!(
     "dioxus-ui desktop demo marker class: {}",

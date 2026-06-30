@@ -95,6 +95,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Carousel](carousel.md) | `dxui add carousel` | `carousel` | Controlled slide composition parts |
 | [Card](card.md) | `dxui add card` | `card` | Styled parts |
 | [Checkbox](checkbox.md) | `dxui add checkbox` | `checkbox` | Controlled styled part |
+| [Chart](chart.md) | `dxui add chart` | `chart` | SVG line/bar/area composition parts |
 | [Collapsible](collapsible.md) | `dxui add collapsible` | `collapsible` | Controlled disclosure parts |
 | [Command](command.md) | `dxui add command` | `command` | Active descendant command parts |
 | [Combobox](combobox.md) | `dxui add combobox` | `combobox` | Popover-backed searchable choice parts |

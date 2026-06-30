@@ -12,7 +12,9 @@ use dioxus_ui::{
   carousel_content_class, carousel_control_class, carousel_indicator_class, carousel_item_class,
   carousel_next,
   card_class, card_content_class, card_description_class, card_footer_class,
-  card_header_class, card_title_class, checkbox_class, collapsible_class,
+  card_header_class, card_title_class, chart_area_series_class, chart_bar_rects,
+  chart_bar_series_class, chart_class, chart_fallback_rows, chart_line_path,
+  chart_line_series_class, chart_view_box, checkbox_class, collapsible_class,
   collapsible_content_class, collapsible_trigger_class,
   command_active_descendant_state, command_class, command_input_class, command_item_class,
   combobox_input_class,
@@ -63,6 +65,7 @@ use dioxus_ui::{
   BubbleReactionAlign, BubbleReactionSide, BubbleVariant,
   ButtonGroupOrientation, ButtonSize, ButtonVariant, CalendarDate, CalendarKeyMove,
   CalendarMonth, CalendarRangeState, CalendarWeekday, CarouselOrientation, CarouselState,
+  ChartColorToken, ChartDomain, ChartPoint, ChartScale, ChartSeries,
   ComboboxPrimitiveConfig, InputGroupAddonPosition, InputOtpInputMode,
   ContextMenuPrimitiveConfig, DatePickerAlign, DatePickerPrimitiveConfig, DatePickerSide,
   DataTableSortDirection, DialogPrimitiveConfig, DrawerPrimitiveConfig, DropdownPrimitiveConfig,
@@ -175,6 +178,35 @@ fn main() {
     message_scroller_is_at_bottom(web_message_metrics, 24.0),
     message_scroller_jump_button_class(web_unread_visible, "rounded-full"),
     message_scroller_intent_attribute(MessageScrollerIntent::Hold)
+  );
+  let web_chart_series = ChartSeries::new(
+    "revenue",
+    "Revenue",
+    vec![
+      ChartPoint::new(0.0, 12.0),
+      ChartPoint::new(1.0, 18.0),
+      ChartPoint::missing(2.0),
+      ChartPoint::new(3.0, 24.0),
+    ],
+  );
+  let web_chart_x = ChartScale::new(ChartDomain::new(0.0, 3.0), ChartDomain::new(32.0, 608.0));
+  let web_chart_y = ChartScale::new(ChartDomain::new(0.0, 24.0), ChartDomain::new(288.0, 32.0));
+  println!(
+    "dioxus-ui web demo chart classes: {}/{}/{}/{}",
+    chart_class("max-w-3xl"),
+    chart_line_series_class(ChartColorToken::Primary, ""),
+    chart_area_series_class(ChartColorToken::Primary, "opacity-20"),
+    chart_bar_series_class(ChartColorToken::Secondary, "")
+  );
+  println!(
+    "dioxus-ui web demo chart helper: {}/{}/{}",
+    chart_view_box(640.0, 320.0),
+    chart_line_path(&web_chart_series, web_chart_x, web_chart_y),
+    chart_fallback_rows(&[web_chart_series.clone()]).len()
+  );
+  println!(
+    "dioxus-ui web demo chart bars: {}",
+    chart_bar_rects(&web_chart_series, web_chart_x, web_chart_y, 0.0, 18.0).len()
   );
   println!(
     "dioxus-ui web demo marker class: {}",

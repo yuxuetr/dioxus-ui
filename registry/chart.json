@@ -1,0 +1,14 @@
+{
+  "name": "chart",
+  "description": "Source-copy friendly SVG chart composition parts.",
+  "files": [
+    {
+      "source": "templates/chart.rs",
+      "target": "src/components/ui/chart.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

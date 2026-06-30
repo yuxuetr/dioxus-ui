@@ -45,6 +45,9 @@ pub mod card;
 #[cfg(feature = "checkbox")]
 pub mod checkbox;
 
+#[cfg(feature = "chart")]
+pub mod chart;
+
 #[cfg(feature = "collapsible")]
 pub mod collapsible;
 
@@ -287,6 +290,22 @@ pub use card::{
 };
 #[cfg(feature = "checkbox")]
 pub use checkbox::{checkbox_class, Checkbox, CHECKBOX_BASE_CLASS};
+#[cfg(feature = "chart")]
+pub use chart::{
+  chart_area_path, chart_area_series_class, chart_bar_rects, chart_bar_series_class,
+  chart_class, chart_color_attribute, chart_color_class, chart_description_class,
+  chart_domain, chart_domain_normalize, chart_fallback_rows, chart_fallback_table_class,
+  chart_legend_class, chart_line_path, chart_line_series_class, chart_number_label,
+  chart_scale_value, chart_series_label, chart_series_x_domain, chart_series_y_domain,
+  chart_summary, chart_svg_class, chart_title_class, chart_tooltip_slot_class,
+  chart_value_label, chart_view_box, ChartAreaSeries, ChartBarRect, ChartBarSeries,
+  ChartColorToken, ChartDescription, ChartDomain, ChartFallbackRow, ChartFallbackTable,
+  ChartLegend, ChartLineSeries, ChartPoint, ChartRoot, ChartScale, ChartSeries, ChartSvg,
+  ChartTitle, ChartTooltipSlot, CHART_AREA_SERIES_BASE_CLASS, CHART_BAR_SERIES_BASE_CLASS,
+  CHART_BASE_CLASS, CHART_DESCRIPTION_BASE_CLASS, CHART_FALLBACK_TABLE_BASE_CLASS,
+  CHART_LEGEND_BASE_CLASS, CHART_LINE_SERIES_BASE_CLASS, CHART_SVG_BASE_CLASS,
+  CHART_TITLE_BASE_CLASS, CHART_TOOLTIP_SLOT_BASE_CLASS,
+};
 #[cfg(feature = "collapsible")]
 pub use collapsible::{
   collapsible_class, collapsible_content_class, collapsible_trigger_class, Collapsible,
