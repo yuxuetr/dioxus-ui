@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M34 Message Scroller and Runtime Follow-through
-- Current task: M34.2 Implement Message Scroller state helpers
+- Current task: M34.3 Implement Message Scroller component
 
 ## Backup
 
@@ -110,7 +110,7 @@
   - Decide what can be pure state and what needs measurement/scroll runtime adapters.
   - Keep virtualization and async stream ownership app-owned.
 
-- TODO M34.2 Implement Message Scroller state helpers
+- DONE M34.2 Implement Message Scroller state helpers
   - Add pure helpers for bottom threshold, unread marker visibility, and scroll intent.
   - Add unit tests for streaming append, user-scrolled-away, and reset behavior.
   - Avoid DOM measurement inside primitive state.
