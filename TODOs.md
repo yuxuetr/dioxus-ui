@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M34 Message Scroller and Runtime Follow-through
-- Current task: M34.1 Plan Message Scroller runtime boundaries
+- Current task: M34.2 Implement Message Scroller state helpers
 
 ## Backup
 
@@ -105,7 +105,7 @@
 
 ## M34 Message Scroller and Runtime Follow-through
 
-- TODO M34.1 Plan Message Scroller runtime boundaries
+- DONE M34.1 Plan Message Scroller runtime boundaries
   - Define scroll-to-bottom, sticky-at-bottom, unread marker, and streaming update behavior.
   - Decide what can be pure state and what needs measurement/scroll runtime adapters.
   - Keep virtualization and async stream ownership app-owned.
