@@ -1,3 +1,4 @@
+mod chart_fixture;
 mod web_runtime;
 
 use dioxus_ui_primitives::{
@@ -11,6 +12,7 @@ use dioxus_ui_primitives::{
   message_scroller_is_at_bottom, message_scroller_next_intent,
   message_scroller_show_unread_marker, message_scroller_should_follow,
 };
+use chart_fixture::chart_fixture_states;
 use web_runtime::{
   WebFocusNode, WebFocusRuntime, WebGestureRuntime, WebLiveRegionRuntime, WebMeasurementNode,
   WebMeasurementRuntime, WebPointerRuntime, WebPortalRuntime, WebTimerRuntime,
@@ -312,6 +314,10 @@ fn main() {
   }
 
   for state in pointer_gesture_panel_states() {
+    println!("{state}");
+  }
+
+  for state in chart_fixture_states() {
     println!("{state}");
   }
 }

@@ -50,7 +50,9 @@ node scripts/runtime-web-verify.mjs
 
 The Node command is intentionally separate from default checks. It validates
 the browser-assertion prerequisites exposed by the runtime fixture before real
-Web runtime automation is added.
+Web runtime automation is added. It also validates the example-only SVG Chart
+fixture prerequisites for sizing, responsive viewBox output, fallback table
+rows, and reduced-motion behavior before a public Chart component is added.
 
 ## Runtime Desktop Verification
 

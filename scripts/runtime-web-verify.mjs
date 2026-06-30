@@ -54,6 +54,13 @@ const requiredFragments = [
   "testid=runtime-gesture-previous",
   "testid=runtime-gesture-cancel",
   "testid=runtime-gesture-native-scroll",
+  "testid=runtime-chart-fixture",
+  "testid=runtime-chart-measurement",
+  "testid=runtime-chart-responsive",
+  "testid=runtime-chart-svg-semantics",
+  "testid=runtime-chart-series-shapes",
+  "testid=runtime-chart-fallback-table",
+  "testid=runtime-chart-reduced-motion",
 ];
 
 const missing = requiredFragments.filter((fragment) => !output.includes(fragment));
@@ -84,6 +91,29 @@ if (missingPending.length > 0) {
   console.error("runtime web verification output is missing pending browser assertion markers:");
   for (const fragment of missingPending) {
     console.error(`- ${fragment}`);
+  }
+  process.exit(1);
+}
+
+const requiredChartAssertions = [
+  ["chart_measurement testid=runtime-chart-measurement", "result=640x320"],
+  ["chart_responsive testid=runtime-chart-responsive", "result=0 0 640 320"],
+  ["chart_svg_semantics testid=runtime-chart-svg-semantics", "result=true"],
+  ["chart_series_shapes testid=runtime-chart-series-shapes", "result=true/true/true"],
+  ["chart_fallback_table testid=runtime-chart-fallback-table", "result=8 missing=1"],
+  ["chart_reduced_motion testid=runtime-chart-reduced-motion", "result=true"],
+];
+
+const missingChartAssertions = requiredChartAssertions.filter(([lineFragment, resultFragment]) => {
+  return !outputLines.some((line) => {
+    return line.includes(lineFragment) && line.includes(resultFragment);
+  });
+});
+
+if (missingChartAssertions.length > 0) {
+  console.error("runtime web verification output is missing chart fixture assertions:");
+  for (const [lineFragment, resultFragment] of missingChartAssertions) {
+    console.error(`- ${lineFragment} with ${resultFragment}`);
   }
   process.exit(1);
 }
