@@ -30,7 +30,9 @@ use dioxus_ui::{
   input_otp_group_class, input_otp_hidden_input_class, input_otp_separator_class,
   input_otp_slot_class, otp_apply_paste_filtered, otp_slots, item_class,
   item_description_class, item_title_class, kbd_class, label_class, menubar_class,
-  menubar_item_class, menubar_trigger_class, native_select_class, native_select_group_class,
+  menubar_item_class, menubar_trigger_class, message_avatar_class, message_class,
+  message_content_class, message_footer_class, message_group_class, message_header_class,
+  native_select_class, native_select_group_class,
   native_select_option_class, navigation_menu_class, navigation_menu_link_class,
   navigation_menu_trigger_class, pagination_class, pagination_link_class,
   popover_content_class, popover_description_class, popover_header_class, popover_title_class,
@@ -59,8 +61,8 @@ use dioxus_ui::{
   ContextMenuPrimitiveConfig, DatePickerAlign, DatePickerPrimitiveConfig, DatePickerSide,
   DataTableSortDirection, DialogPrimitiveConfig, DrawerPrimitiveConfig, DropdownPrimitiveConfig,
   FocusMove, HoverCardAlign, HoverCardPrimitiveConfig, HoverCardSide, MenubarPrimitiveConfig,
-  NavigationMenuPrimitiveConfig, NavigationOrientation, PopoverPrimitiveConfig, RovingFocusItem,
-  KbdSize, LayoutOrientation, ResizablePanelState, ScrollAreaOrientation, SelectPrimitiveConfig,
+  MessageAlign, NavigationMenuPrimitiveConfig, NavigationOrientation, PopoverPrimitiveConfig,
+  RovingFocusItem, KbdSize, LayoutOrientation, ResizablePanelState, ScrollAreaOrientation, SelectPrimitiveConfig,
   SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SidebarSide, SidebarState, SpinnerSize,
   SonnerItem, SonnerPlacement, SonnerQueue, SonnerVariant, TextDirection, ToastItem,
   ToastPlacement, ToastQueue, ToastVariant, ToggleSize, ToggleVariant, TooltipPrimitiveConfig,
@@ -131,6 +133,22 @@ fn main() {
     "dioxus-ui web demo bubble group/variant: {}/{}",
     bubble_group_class("gap-3"),
     BubbleVariant::Tinted.attribute()
+  );
+  println!(
+    "dioxus-ui web demo message class: {}",
+    message_class(MessageAlign::End, "max-w-2xl")
+  );
+  println!(
+    "dioxus-ui web demo message parts: {}/{}/{}/{}",
+    message_group_class("gap-5"),
+    message_avatar_class("bg-blue-100"),
+    message_content_class(MessageAlign::End, "gap-2"),
+    message_header_class("justify-end")
+  );
+  println!(
+    "dioxus-ui web demo message footer/align: {}/{}",
+    message_footer_class("justify-end"),
+    MessageAlign::End.attribute()
   );
   println!("dioxus-ui web demo input class: {}", input_class(false, "mt-2"));
   println!(

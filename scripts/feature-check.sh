@@ -40,6 +40,7 @@ features=(
   kbd
   label
   menubar
+  message
   native-select
   navigation-menu
   pagination
@@ -73,7 +74,7 @@ for feature in "${features[@]}"; do
 done
 
 echo "checking static component feature set"
-cargo check -q -p dioxus-ui --no-default-features --features "alert,alert-dialog,aspect-ratio,attachment,avatar,badge,breadcrumb,bubble,button-group,card,carousel,collapsible,direction,empty,field,input-group,input-otp,item,kbd,native-select,pagination,progress,separator,sidebar,skeleton,sonner,spinner,table,toast,typography"
+cargo check -q -p dioxus-ui --no-default-features --features "alert,alert-dialog,aspect-ratio,attachment,avatar,badge,breadcrumb,bubble,button-group,card,carousel,collapsible,direction,empty,field,input-group,input-otp,item,kbd,message,native-select,pagination,progress,separator,sidebar,skeleton,sonner,spinner,table,toast,typography"
 
 echo "checking primitive-backed feature set"
 cargo check -q -p dioxus-ui --no-default-features --features "combobox,context-menu,date-picker,dialog,drawer,dropdown,hover-card,menubar,navigation-menu,popover,radio-group,select,sheet,slider,toggle-group,tooltip"

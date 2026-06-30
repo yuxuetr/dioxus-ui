@@ -105,6 +105,9 @@ pub mod label;
 #[cfg(feature = "menubar")]
 pub mod menubar;
 
+#[cfg(feature = "message")]
+pub mod message;
+
 #[cfg(feature = "native-select")]
 pub mod native_select;
 
@@ -443,6 +446,16 @@ pub use menubar::{
   MENUBAR_CONTENT_BASE_CLASS, MENUBAR_ITEM_BASE_CLASS, MENUBAR_ITEM_INSET_CLASS,
   MENUBAR_LABEL_BASE_CLASS, MENUBAR_MENU_BASE_CLASS, MENUBAR_SEPARATOR_BASE_CLASS,
   MENUBAR_SHORTCUT_BASE_CLASS, MENUBAR_TRIGGER_BASE_CLASS,
+};
+#[cfg(feature = "message")]
+pub use message::{
+  message_avatar_class, message_class, message_content_class, message_footer_class,
+  message_group_class, message_header_class, Message, MessageAlign, MessageAvatar,
+  MessageContent, MessageFooter, MessageGroup, MessageHeader, MESSAGE_ALIGN_END_CLASS,
+  MESSAGE_ALIGN_START_CLASS, MESSAGE_AVATAR_BASE_CLASS, MESSAGE_BASE_CLASS,
+  MESSAGE_CONTENT_ALIGN_END_CLASS, MESSAGE_CONTENT_ALIGN_START_CLASS,
+  MESSAGE_CONTENT_BASE_CLASS, MESSAGE_FOOTER_BASE_CLASS, MESSAGE_GROUP_BASE_CLASS,
+  MESSAGE_HEADER_BASE_CLASS,
 };
 #[cfg(feature = "native-select")]
 pub use native_select::{

@@ -112,6 +112,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Kbd](kbd.md) | `dxui add kbd` | `kbd` | Styled keyboard hint |
 | [Label](label.md) | `dxui add label` | `label` | Styled |
 | [Menubar](menubar.md) | `dxui add menubar` | `menubar` | Dropdown-backed menubar parts |
+| [Message](message.md) | `dxui add message` | `message` | Provider-neutral message row parts |
 | [Native Select](native-select.md) | `dxui add native-select` | `native-select` | Styled native form select |
 | [Navigation Menu](navigation-menu.md) | `dxui add navigation-menu` | `navigation-menu` | Navigation-oriented disclosure parts |
 | [Pagination](pagination.md) | `dxui add pagination` | `pagination` | Styled parts |

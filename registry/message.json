@@ -1,0 +1,14 @@
+{
+  "name": "message",
+  "description": "Message component for provider-neutral chat row layout.",
+  "files": [
+    {
+      "source": "templates/message.rs",
+      "target": "src/components/ui/message.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}
