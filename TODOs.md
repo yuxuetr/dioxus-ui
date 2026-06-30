@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 0%
-- Current milestone: M33 Message and Attachment Components
-- Current task: M33.5 Complete message component docs and examples
+- Current milestone: M34 Message Scroller and Runtime Follow-through
+- Current task: M34.1 Plan Message Scroller runtime boundaries
 
 ## Backup
 
@@ -98,7 +98,7 @@
   - Keep search indexing, citation resolution, and popover details app-owned.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M33.5 Complete message component docs and examples
+- DONE M33.5 Complete message component docs and examples
   - Update parity, component catalog, accessibility, and complex batch docs.
   - Add web/desktop examples for static message states.
   - Run generated fixture smoke, workspace tests, and feature checks.
