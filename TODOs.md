@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M34 Message Scroller and Runtime Follow-through
-- Current task: M34.3 Implement Message Scroller component
+- Current task: M34.4 Add browser assertions for Web runtime verification
 
 ## Backup
 
@@ -115,7 +115,7 @@
   - Add unit tests for streaming append, user-scrolled-away, and reset behavior.
   - Avoid DOM measurement inside primitive state.
 
-- TODO M34.3 Implement Message Scroller component
+- DONE M34.3 Implement Message Scroller component
   - Add controlled scroller root, viewport, content, bottom anchor, unread marker, and jump button parts.
   - Wire only visible status attributes; leave actual scroll commands app/runtime-owned.
   - Add CLI template, registry entry, docs page, and demo usage.
