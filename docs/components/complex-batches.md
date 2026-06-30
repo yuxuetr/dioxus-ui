@@ -460,7 +460,7 @@ timers, paste permission, and keyboard event wiring app-owned.
 
 ## Batch 15: Message and Attachment Components
 
-Status: Planned in M33.
+Status: Implemented in M33.
 
 Components:
 
@@ -482,9 +482,9 @@ Dependencies:
 
 Rationale:
 
-These components should remain provider-neutral. Upload transport, markdown,
-syntax highlighting, citation resolution, streaming, and model/provider behavior
-stay app-owned.
+These components remain provider-neutral. Upload transport, markdown, syntax
+highlighting, citation resolution, streaming, and model/provider behavior stay
+app-owned.
 
 ## Batch 16: Message Scroller and Runtime Follow-through
 
@@ -547,7 +547,6 @@ M27 completed fixture-local experimental Web runtime adapters
 M28 completed Desktop smoke fixture and Mobile verification checklist
 M29 completed chart rendering backend evaluation
 Next: verify current shadcn gaps and plan missing API surfaces
-Next: implement message and attachment components
 Next: implement Message Scroller after runtime boundary planning
 Next: prepare first-party SVG Chart only after gates pass
 ```

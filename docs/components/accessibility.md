@@ -72,10 +72,10 @@ Statuses:
 
 | Component | Contract | Status |
 | --- | --- | --- |
-| Attachment | Icon-only actions need labels; error state must include text, not only color. | Planned |
-| Bubble | Variant meaning must be supported by text, alignment, or surrounding context. | Planned |
-| Marker | Streaming or progress markers need explicit status semantics when announcements matter. | Planned |
-| Message | Footer icon-only actions need labels; assistant/tool semantics remain app-owned. | Planned |
+| Attachment | Icon-only actions need labels; error state includes visible text, not only color. | Implemented |
+| Bubble | Variant meaning must be supported by text, alignment, or surrounding context. | Implemented |
+| Marker | Progress or streaming announcements remain app-owned; static marker semantics are implemented. | Implemented |
+| Message | Footer icon-only actions need labels; assistant/tool semantics remain app-owned. | Implemented |
 | Message Scroller | Must preserve focus, avoid noisy announcements, and verify scroll behavior per runtime. | Planned |
 
 ## Overlays

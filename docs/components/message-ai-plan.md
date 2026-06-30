@@ -2,7 +2,8 @@
 
 This document defines the M30.4 API plan for message and AI-style components.
 
-Status: Planned in M30.4.
+Status: Planned in M30.4. Attachment, Bubble, Message, and Marker implemented
+in M33. Message Scroller remains planned for M34.
 
 ## Sources
 
@@ -18,7 +19,7 @@ and Message Scroller as new components:
 
 ## Decision
 
-M33 should implement Attachment, Bubble, Message, and Marker as provider-neutral
+M33 implemented Attachment, Bubble, Message, and Marker as provider-neutral
 composition components.
 
 M34 should handle Message Scroller separately because sticky bottom behavior,
@@ -430,9 +431,19 @@ Generated message component sources must remain self-contained:
 If components need shared enums or class helpers in source-copy mode, copy them
 into the generated file for that component.
 
+## M33 Implementation Result
+
+M33 added crate features, source-copy templates, registry entries, component
+docs, catalog coverage, and Web/Desktop demo states for Attachment, Bubble,
+Message, and Marker.
+
+The implementation keeps upload transport, object URL lifecycle, markdown,
+syntax highlighting, citation lookup, streaming, provider integration, and
+virtualization app-owned.
+
 ## Quality Gates
 
-M33 implementation should run:
+M33 implementation was validated with:
 
 ```bash
 cargo test --workspace --all-features --quiet
@@ -441,7 +452,7 @@ scripts/generated-fixture-smoke.sh
 git diff --check
 ```
 
-Before marking Attachment, Bubble, Message, or Marker complete, update:
+M33 completion required updates to:
 
 - `registry/*.json`
 - `templates/*.rs`

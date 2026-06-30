@@ -17,6 +17,7 @@ be ported one-for-one.
 | Selection | Select |
 | Feedback and data | Data Table, Progress, Sonner, Table, Pagination, Toast |
 | Layout and scroll | Carousel, Direction, Resizable, Scroll Area, Sidebar |
+| Message and AI-style composition | Attachment, Bubble, Marker, Message |
 
 ## Planned Static Or Light Interaction
 
@@ -36,7 +37,7 @@ be ported one-for-one.
 | Feedback | - | Toast and Sonner are implemented; M23 defines timer and live-region contract types. |
 | Data | Chart component | Chart data and accessibility primitives are implemented; M29.1 selects first-party SVG as the first future rendering path, but the public component remains deferred. |
 | Form-specific | - | Input OTP is implemented; validation, submission, resend timers, and paste policy remain app-owned. |
-| Message and AI-style composition | Attachment, Bubble, Message, Marker, Message Scroller | M30.1 audit identifies these current shadcn gaps; M33 covers static message parts and M34 covers runtime-dependent scrolling. |
+| Message and AI-style composition | Message Scroller | Attachment, Bubble, Message, and Marker are implemented; M34 covers runtime-dependent scrolling. |
 | Navigation shell | - | Sidebar is implemented; persistence and keyboard shortcuts remain app-owned. |
 | Media | - | Carousel is implemented; M24 defines gesture contract types. |
 
@@ -44,11 +45,7 @@ be ported one-for-one.
 
 | Component | Reason |
 | --- | --- |
-| Attachment | Planned for M33; upload transport, previews, object URLs, and network state stay app-owned. |
-| Bubble | Planned for M33; markdown and rich content parsing stay app-owned. |
 | Chart component | M19 implements chart data and accessibility primitives plus recipes; M29.1 selects first-party SVG as the first future rendering path and keeps Chart deferred until measurement, interaction, animation, and fallback-table contracts are explicit. |
-| Marker | Planned for M33; citation/search semantics stay app-owned. |
-| Message | Planned for M33; provider, streaming, markdown, and syntax highlighting stay app-owned. |
 | Message Scroller | Planned for M34 because sticky bottom, unread markers, streaming append, and scroll commands depend on runtime verification. |
 | Data Table runtime adapters | Data Table state helpers and composition parts are implemented; filtering, async loading, and virtualization remain app-owned. |
 | Calendar / Date Picker runtime adapters | Date math primitives are implemented; parsing, localization, and focus adapters remain deferred. |
@@ -56,11 +53,10 @@ be ported one-for-one.
 
 ## Next Milestone Seeds
 
-After M32, the safest remaining implementation order is:
+After M33, the safest remaining implementation order is:
 
-1. Message and AI-style composition: Attachment, Bubble, Message, Marker
-2. Runtime-dependent message layout: Message Scroller plus Web browser assertions
-3. Chart public component preparation after measurement and fallback-table gates
+1. Runtime-dependent message layout: Message Scroller plus Web browser assertions
+2. Chart public component preparation after measurement and fallback-table gates
 
 See [Current shadcn Gap Audit](current-shadcn-gaps.md) and
 [Complex Component Batches](complex-batches.md) for the expanded milestone plan.

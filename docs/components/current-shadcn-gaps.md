@@ -7,7 +7,7 @@ Status: Audited in M30.1. Low-risk composition APIs planned in M30.2. Input
 OTP APIs planned in M30.3. Message and AI-style APIs planned in M30.4. Button
 Group implemented in M31.1. Input Group implemented in M31.2. Collapsible
 implemented in M31.3. Direction implemented in M31.4. Input OTP implemented in
-M32.
+M32. Attachment, Bubble, Message, and Marker implemented in M33.
 
 ## Source
 
@@ -39,9 +39,11 @@ accordion
 alert
 alert-dialog
 aspect-ratio
+attachment
 avatar
 badge
 breadcrumb
+bubble
 button
 button-group
 calendar
@@ -67,7 +69,9 @@ input-otp
 item
 kbd
 label
+marker
 menubar
+message
 native-select
 navigation-menu
 pagination
@@ -104,7 +108,7 @@ parity.
 | --- | --- | --- | --- |
 | Low-risk composition | - | M31 | Button Group, Input Group, Collapsible, and Direction are implemented. |
 | Form-specific | - | M32 | Input OTP is implemented; validation, submission, resend timers, and paste policy remain app-owned. |
-| Message and AI-style composition | Attachment, Bubble, Message, Marker | M33 | Keep upload, markdown, citation, streaming, and provider behavior app-owned. |
+| Message and AI-style composition | - | M33 | Attachment, Bubble, Message, and Marker are implemented; upload, markdown, citation, streaming, and provider behavior remain app-owned. |
 | Runtime-dependent message layout | Message Scroller | M34 | Needs scroll intent, bottom anchoring, unread markers, and browser assertions. |
 | Chart | Chart | M35 | Backend direction is decided, but public component remains gated. |
 
@@ -125,7 +129,7 @@ implemented:
 1. Completed low-risk composition gaps: Button Group, Input Group,
    Collapsible, Direction.
 2. Completed form-specific gap: Input OTP.
-3. Static message parts: Attachment, Bubble, Message, Marker.
+3. Completed static message parts: Attachment, Bubble, Message, Marker.
 4. Runtime-dependent message layout: Message Scroller and Web browser assertions.
 5. Chart public component preparation after measurement and fallback-table gates.
 
