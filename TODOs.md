@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 0%
-- Current milestone: M36 Release Hardening for Expanded Parity
-- Current task: M36 complete
+- Current milestone: M37 Rendered Preview and Screenshot Verification
+- Current task: M37.2 Add shared preview state inventory
 
 ## Backup
 
@@ -168,6 +168,33 @@
   - Recheck upstream shadcn/ui docs after M31-M35.
   - Mark implemented, deferred, and app-owned components with explicit reasons.
   - Create the next TODO plan if upstream adds new public components.
+
+## M37 Rendered Preview and Screenshot Verification
+
+- DONE M37.1 Plan rendered preview architecture
+  - Define the Web and Desktop preview surfaces without removing command-line smoke examples.
+  - Decide how preview state inventory, Tailwind CSS v4 input, and screenshot gates should fit together.
+  - Document non-goals such as landing pages, committed full Tailwind output, and app-owned runtime features.
+
+- TODO M37.2 Add shared preview state inventory
+  - Add reusable representative state data for composition, form, message, chart, and runtime-sensitive components.
+  - Keep command-line smoke output, future Web previews, and future Desktop previews aligned through the same inventory.
+  - Avoid network data, upload transport, markdown parsing, provider integration, and external chart adapters.
+
+- TODO M37.3 Build rendered Web preview shell
+  - Add a usable Dioxus Web preview surface for representative component states.
+  - Preserve existing command-line smoke commands or split them into explicit smoke binaries.
+  - Use Tailwind CSS v4 source input syntax and avoid committing full generated Tailwind output.
+
+- TODO M37.4 Add Web screenshot verification gate
+  - Add desktop-width and mobile-width screenshot checks for the rendered Web preview.
+  - Cover chart, message, form, and at least one overlay/open-state panel.
+  - Keep the gate separate from default checks until runtime browser automation is stable.
+
+- TODO M37.5 Plan Desktop WebView preview follow-through
+  - Define the smallest Desktop WebView smoke path after the Web preview stabilizes.
+  - Document remaining Mobile verification gaps and any platform-specific constraints.
+  - Update quality gates and release docs with the new preview and screenshot commands.
 
 ## Status Rules
 
