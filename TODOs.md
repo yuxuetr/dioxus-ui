@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M34 Message Scroller and Runtime Follow-through
-- Current task: M34.4 Add browser assertions for Web runtime verification
+- Current task: M34.5 Complete message scroller docs and quality gates
 
 ## Backup
 
@@ -120,7 +120,7 @@
   - Wire only visible status attributes; leave actual scroll commands app/runtime-owned.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M34.4 Add browser assertions for Web runtime verification
+- DONE M34.4 Add browser assertions for Web runtime verification
   - Add an expensive browser-level command for runtime Web fixture checks.
   - Cover focus, portal, timers, live-region, measurement, pointer, gesture, and message scroller prerequisites.
   - Keep the check separate from default release gates until stable.
