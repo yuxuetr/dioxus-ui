@@ -7,6 +7,10 @@ Current examples are command-line smoke applications. They verify local crate
 wiring and representative crate-mode states before a rendered Dioxus preview app
 lands.
 
+Representative preview states live in `examples/preview-states` so command-line
+smoke output, future Web previews, and future Desktop previews can share the
+same inventory.
+
 ## Web Demo
 
 ```bash

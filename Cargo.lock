@@ -549,6 +549,14 @@ name = "dioxus-ui-desktop-demo"
 version = "0.1.0"
 dependencies = [
  "dioxus-ui",
+ "dioxus-ui-preview-states",
+]
+
+[[package]]
+name = "dioxus-ui-preview-states"
+version = "0.1.0"
+dependencies = [
+ "dioxus-ui",
 ]
 
 [[package]]
@@ -577,6 +585,7 @@ name = "dioxus-ui-web-demo"
 version = "0.1.0"
 dependencies = [
  "dioxus-ui",
+ "dioxus-ui-preview-states",
 ]
 
 [[package]]

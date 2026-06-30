@@ -80,6 +80,12 @@ use dioxus_ui::{
 };
 
 fn main() {
+  for line in dioxus_ui_preview_states::preview_smoke_lines(
+    dioxus_ui_preview_states::PreviewTarget::Web,
+  ) {
+    println!("{line}");
+  }
+
   let class = button_class(
     ButtonVariant::Primary,
     ButtonSize::Md,

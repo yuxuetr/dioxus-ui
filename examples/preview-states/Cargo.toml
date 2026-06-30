@@ -1,0 +1,10 @@
+[package]
+name = "dioxus-ui-preview-states"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+publish = false
+
+[dependencies]
+dioxus-ui = { workspace = true, features = ["attachment", "bubble", "button-group", "chart", "collapsible", "direction", "input-group", "input-otp", "marker", "message", "message-scroller"] }
