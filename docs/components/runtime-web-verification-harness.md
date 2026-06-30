@@ -8,6 +8,8 @@ Status: Fixture command documented in M26.5. M27.2 adds fixture-local timer and
 live-region success-path adapters. M27.3 adds fixture-local focus and portal
 success-path adapters. M27.4 adds fixture-local measurement success-path
 adapters. M27.5 adds fixture-local pointer and gesture success-path adapters.
+M34.4 adds the browser-assertion prerequisite command and Message Scroller
+scroll-command checks.
 
 ## Decision
 
@@ -68,6 +70,13 @@ release state, unsupported pointer fallback, resolved gesture next, previous,
 cancel outcomes, native-scroll placeholder, and unsupported gesture fallback.
 Browser pointer capture APIs, event listener cleanup, native-scroll escape, and
 gesture physics remain deferred.
+
+M34.4 keeps the fixture compile-checked and adds Message Scroller scroll-command
+prerequisite status output for sticky-bottom, hold-position, unread-marker,
+jump-latest, and focus-preserved paths. It also adds
+`node scripts/runtime-web-verify.mjs`, which asserts that all current runtime
+families expose stable test ids and explicit pending-browser-assertion markers
+where actual browser behavior remains deferred.
 
 The fixture should expose one route or panel per runtime family:
 
@@ -138,17 +147,14 @@ Current fixture commands:
 ```bash
 cargo run -p dioxus-ui-runtime-web-verification
 cargo test -p dioxus-ui-runtime-web-verification
-```
-
-Future browser implementation can add a command similar to:
-
-```bash
 node scripts/runtime-web-verify.mjs
 ```
 
 The Rust fixture command exists as of M26.1 and is documented as an expensive
-runtime check in M26.5. The browser assertion command should wait until the
-fixture renders under a Web runtime and a browser driver is added.
+runtime check in M26.5. The Node command exists as of M34.4 and verifies
+browser-assertion prerequisites from fixture output. Real browser automation
+should wait until the fixture renders under a Web runtime and a browser driver
+is added.
 
 ## Graduation Criteria
 

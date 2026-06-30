@@ -4,9 +4,12 @@ use dioxus_ui_primitives::{
   CarouselState, FocusRuntime, FocusRuntimeRequest, FocusRuntimeUnsupported, GestureRuntime,
   GestureRuntimeRequest, GestureRuntimeUnsupported, LiveRegionRuntime, LiveRegionRuntimeRequest,
   LiveRegionRuntimeUnsupported, MeasurementRuntime, MeasurementRuntimeRequest,
-  MeasurementRuntimeUnsupported, PointerDelta, PointerRuntime, PointerRuntimeRequest,
+  MeasurementRuntimeUnsupported, MessageScrollerEvent, MessageScrollerIntent,
+  MessageScrollerMetrics, PointerDelta, PointerRuntime, PointerRuntimeRequest,
   PointerRuntimeUnsupported, PortalRuntime, PortalRuntimeRequest, PortalRuntimeUnsupported,
   RuntimeRect, TimerRuntime, TimerRuntimeRequest, TimerRuntimeUnsupported, carousel_apply_gesture,
+  message_scroller_is_at_bottom, message_scroller_next_intent,
+  message_scroller_show_unread_marker, message_scroller_should_follow,
 };
 use web_runtime::{
   WebFocusNode, WebFocusRuntime, WebGestureRuntime, WebLiveRegionRuntime, WebMeasurementNode,
@@ -20,6 +23,7 @@ enum RuntimeFamily {
   Timer,
   LiveRegion,
   Measurement,
+  ScrollCommand,
   Pointer,
   Gesture,
 }
@@ -39,7 +43,7 @@ struct VerificationCheck {
   expected: &'static str,
 }
 
-const RUNTIME_PANELS: [RuntimePanel; 7] = [
+const RUNTIME_PANELS: [RuntimePanel; 8] = [
   RuntimePanel {
     family: RuntimeFamily::Focus,
     test_id: "runtime-focus-panel",
@@ -69,6 +73,12 @@ const RUNTIME_PANELS: [RuntimePanel; 7] = [
     test_id: "runtime-measurement-panel",
     label: "Measurement",
     fallback: "Missing or Unsupported",
+  },
+  RuntimePanel {
+    family: RuntimeFamily::ScrollCommand,
+    test_id: "runtime-scroll-command-panel",
+    label: "Scroll command",
+    fallback: "Unsupported without focus movement",
   },
   RuntimePanel {
     family: RuntimeFamily::Pointer,
@@ -199,6 +209,34 @@ const MEASUREMENT_CHECKS: [VerificationCheck; 4] = [
   },
 ];
 
+const SCROLL_COMMAND_CHECKS: [VerificationCheck; 5] = [
+  VerificationCheck {
+    test_id: "runtime-scroll-sticky-bottom",
+    label: "sticky bottom",
+    expected: "follow when near bottom",
+  },
+  VerificationCheck {
+    test_id: "runtime-scroll-hold-position",
+    label: "hold position",
+    expected: "hold when user scrolled away",
+  },
+  VerificationCheck {
+    test_id: "runtime-scroll-unread-marker",
+    label: "unread marker",
+    expected: "visible unread marker on append while held",
+  },
+  VerificationCheck {
+    test_id: "runtime-scroll-jump-latest",
+    label: "jump latest",
+    expected: "JumpToLatest intent",
+  },
+  VerificationCheck {
+    test_id: "runtime-scroll-focus-preserved",
+    label: "focus preserved",
+    expected: "pending-browser-assertion",
+  },
+];
+
 const POINTER_CHECKS: [VerificationCheck; 5] = [
   VerificationCheck {
     test_id: "runtime-pointer-start",
@@ -269,6 +307,10 @@ fn main() {
     println!("{state}");
   }
 
+  for state in message_scroller_panel_states() {
+    println!("{state}");
+  }
+
   for state in pointer_gesture_panel_states() {
     println!("{state}");
   }
@@ -281,6 +323,14 @@ fn sample_contract_states() -> Vec<String> {
     format!("timer={:?}", TimerRuntimeRequest::toast_dismiss(3000)),
     format!("live_region={:?}", LiveRegionRuntimeRequest::polite("Saved")),
     format!("measurement={:?}", MeasurementRuntimeRequest::<&str>::Viewport),
+    format!(
+      "message_scroller={:?}",
+      message_scroller_next_intent(
+        MessageScrollerIntent::Hold,
+        MessageScrollerEvent::JumpRequested,
+        false,
+      )
+    ),
     format!("pointer={:?}", PointerRuntimeRequest::move_by(PointerDelta::new(4.0, 0.0))),
     format!(
       "gesture={:?}",
@@ -482,6 +532,53 @@ fn timer_live_region_measurement_panel_states() -> Vec<String> {
   ]
 }
 
+fn message_scroller_panel_states() -> Vec<String> {
+  let near_bottom_metrics = MessageScrollerMetrics::new(880.0, 300.0, 1200.0);
+  let away_metrics = MessageScrollerMetrics::new(500.0, 300.0, 1200.0);
+  let away_from_bottom = message_scroller_is_at_bottom(away_metrics, 24.0);
+  let held_after_scroll = message_scroller_next_intent(
+    MessageScrollerIntent::Follow,
+    MessageScrollerEvent::UserScrolled,
+    away_from_bottom,
+  );
+  let jump_intent = message_scroller_next_intent(
+    MessageScrollerIntent::Hold,
+    MessageScrollerEvent::JumpRequested,
+    false,
+  );
+
+  vec![
+    format!(
+      "scroll_sticky_bottom testid={} expected={} result={}",
+      SCROLL_COMMAND_CHECKS[0].test_id,
+      SCROLL_COMMAND_CHECKS[0].expected,
+      message_scroller_should_follow(MessageScrollerIntent::Hold, near_bottom_metrics, 24.0)
+    ),
+    format!(
+      "scroll_hold_position testid={} expected={} result={:?}",
+      SCROLL_COMMAND_CHECKS[1].test_id,
+      SCROLL_COMMAND_CHECKS[1].expected,
+      held_after_scroll
+    ),
+    format!(
+      "scroll_unread_marker testid={} expected={} result={}",
+      SCROLL_COMMAND_CHECKS[2].test_id,
+      SCROLL_COMMAND_CHECKS[2].expected,
+      message_scroller_show_unread_marker(held_after_scroll, 2)
+    ),
+    format!(
+      "scroll_jump_latest testid={} expected={} result={:?}",
+      SCROLL_COMMAND_CHECKS[3].test_id,
+      SCROLL_COMMAND_CHECKS[3].expected,
+      jump_intent
+    ),
+    format!(
+      "scroll_focus_preserved testid={} expected={} result=pending-browser-assertion",
+      SCROLL_COMMAND_CHECKS[4].test_id, SCROLL_COMMAND_CHECKS[4].expected
+    ),
+  ]
+}
+
 fn pointer_gesture_panel_states() -> Vec<String> {
   let web_pointer_runtime = WebPointerRuntime::new();
   let unsupported_pointer_runtime = PointerRuntimeUnsupported;
@@ -570,12 +667,13 @@ mod tests {
 
   #[test]
   fn runtime_panels_cover_all_families() {
-    assert_eq!(RUNTIME_PANELS.len(), 7);
+    assert_eq!(RUNTIME_PANELS.len(), 8);
     assert!(RUNTIME_PANELS.iter().any(|panel| panel.family == RuntimeFamily::Focus));
     assert!(RUNTIME_PANELS.iter().any(|panel| panel.family == RuntimeFamily::Portal));
     assert!(RUNTIME_PANELS.iter().any(|panel| panel.family == RuntimeFamily::Timer));
     assert!(RUNTIME_PANELS.iter().any(|panel| panel.family == RuntimeFamily::LiveRegion));
     assert!(RUNTIME_PANELS.iter().any(|panel| panel.family == RuntimeFamily::Measurement));
+    assert!(RUNTIME_PANELS.iter().any(|panel| panel.family == RuntimeFamily::ScrollCommand));
     assert!(RUNTIME_PANELS.iter().any(|panel| panel.family == RuntimeFamily::Pointer));
     assert!(RUNTIME_PANELS.iter().any(|panel| panel.family == RuntimeFamily::Gesture));
   }
@@ -598,6 +696,7 @@ mod tests {
     assert!(states.iter().any(|state| state.starts_with("timer=")));
     assert!(states.iter().any(|state| state.starts_with("live_region=")));
     assert!(states.iter().any(|state| state.starts_with("measurement=")));
+    assert!(states.iter().any(|state| state.starts_with("message_scroller=")));
     assert!(states.iter().any(|state| state.starts_with("pointer=")));
     assert!(states.iter().any(|state| state.starts_with("gesture=")));
   }
@@ -737,6 +836,41 @@ mod tests {
     assert!(states.iter().any(|state| state.contains("measurement_viewport")));
     assert!(states.iter().any(|state| state.contains("measurement_missing")));
     assert!(states.iter().any(|state| state.contains("measurement_unsupported")));
+  }
+
+  #[test]
+  fn scroll_command_checks_expose_stable_test_ids() {
+    assert_eq!(SCROLL_COMMAND_CHECKS.len(), 5);
+    assert!(
+      SCROLL_COMMAND_CHECKS.iter().any(|check| check.test_id == "runtime-scroll-sticky-bottom")
+    );
+    assert!(
+      SCROLL_COMMAND_CHECKS.iter().any(|check| check.test_id == "runtime-scroll-hold-position")
+    );
+    assert!(
+      SCROLL_COMMAND_CHECKS.iter().any(|check| check.test_id == "runtime-scroll-unread-marker")
+    );
+    assert!(
+      SCROLL_COMMAND_CHECKS.iter().any(|check| check.test_id == "runtime-scroll-jump-latest")
+    );
+    assert!(
+      SCROLL_COMMAND_CHECKS.iter().any(|check| check.test_id == "runtime-scroll-focus-preserved")
+    );
+  }
+
+  #[test]
+  fn message_scroller_states_report_prerequisite_assertions() {
+    let states = message_scroller_panel_states();
+
+    assert_eq!(states.len(), SCROLL_COMMAND_CHECKS.len());
+    assert!(states.iter().any(|state| state.contains("scroll_sticky_bottom")));
+    assert!(states.iter().any(|state| state.contains("result=true")));
+    assert!(states.iter().any(|state| state.contains("scroll_hold_position")));
+    assert!(states.iter().any(|state| state.contains("result=Hold")));
+    assert!(states.iter().any(|state| state.contains("scroll_unread_marker")));
+    assert!(states.iter().any(|state| state.contains("scroll_jump_latest")));
+    assert!(states.iter().any(|state| state.contains("result=JumpToLatest")));
+    assert!(states.iter().any(|state| state.contains("scroll_focus_preserved")));
   }
 
   #[test]

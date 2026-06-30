@@ -95,18 +95,16 @@ adapters:
 ```bash
 cargo test -p dioxus-ui-runtime-web-verification
 cargo run -p dioxus-ui-runtime-web-verification
+node scripts/runtime-web-verify.mjs
 ```
 
 This currently verifies compile-checked runtime panel metadata and visible
 fallback status output for focus, portal, timer, live-region, measurement,
-pointer, and gesture contracts.
-
-Future browser automation should be added as a separate expensive check, for
-example:
-
-```bash
-node scripts/runtime-web-verify.mjs
-```
+scroll command, pointer, and gesture contracts. The Node command is the
+separate expensive browser-assertion prerequisite check; it asserts stable
+fixture output for focus, portal, timers, live-region, measurement, pointer,
+gesture, and Message Scroller prerequisites before a real Web runtime browser
+driver is promoted.
 
 Do not promote runtime Web verification into the default release gate until the
 fixture renders under a Web runtime and the browser assertions are stable.

@@ -4,7 +4,8 @@ This document defines the M34.1 boundary for Message Scroller before state
 helpers or styled parts are implemented.
 
 Status: Planned in M34.1. Pure state helpers implemented in M34.2. Controlled
-composition parts implemented in M34.3.
+composition parts implemented in M34.3. Web runtime assertion prerequisites
+added in M34.4.
 
 ## Decision
 
@@ -192,3 +193,8 @@ scripts/feature-check.sh
 
 M34.4 browser assertions should stay an expensive runtime gate and should not
 be promoted into default release checks until stable.
+
+M34.4 adds `node scripts/runtime-web-verify.mjs` as the separate expensive Web
+runtime assertion prerequisite command. It validates fixture-visible
+Message Scroller scroll-command states and pending browser assertion markers
+without claiming real DOM scroll support.

@@ -45,7 +45,12 @@ For the current expensive runtime check, run:
 ```bash
 cargo test -p dioxus-ui-runtime-web-verification
 cargo run -p dioxus-ui-runtime-web-verification
+node scripts/runtime-web-verify.mjs
 ```
+
+The Node command is intentionally separate from default checks. It validates
+the browser-assertion prerequisites exposed by the runtime fixture before real
+Web runtime automation is added.
 
 ## Runtime Desktop Verification
 
