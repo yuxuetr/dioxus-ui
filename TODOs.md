@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M36 Release Hardening for Expanded Parity
-- Current task: M36.3 Final parity audit against shadcn current catalog
+- Current task: M36 complete
 
 ## Backup
 
@@ -164,7 +164,7 @@
   - Document any visual verification gaps before claiming parity.
   - Avoid adding a marketing landing page instead of usable component previews.
 
-- TODO M36.3 Final parity audit against shadcn current catalog
+- DONE M36.3 Final parity audit against shadcn current catalog
   - Recheck upstream shadcn/ui docs after M31-M35.
   - Mark implemented, deferred, and app-owned components with explicit reasons.
   - Create the next TODO plan if upstream adds new public components.
