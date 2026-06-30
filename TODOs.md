@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M35 Chart Public Component Preparation
-- Current task: M35.3 Implement public Chart component if gates pass
+- Current task: M35.4 Complete chart public component quality gates
 
 ## Backup
 
@@ -142,7 +142,7 @@
   - Verify measurement, responsive sizing, fallback table, and reduced-motion behavior.
   - Avoid adding `registry/chart.json` until the fixture is validated.
 
-- TODO M35.3 Implement public Chart component if gates pass
+- DONE M35.3 Implement public Chart component if gates pass
   - Add crate-mode and source-copy Chart composition parts.
   - Add registry entry, template, docs page, and demo usage.
   - Clearly document backend ownership and fallback-table requirements.
