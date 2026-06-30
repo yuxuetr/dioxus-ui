@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 0%
-- Current milestone: M35 Chart Public Component Preparation
-- Current task: M35.4 Complete chart public component quality gates
+- Current milestone: M36 Release Hardening for Expanded Parity
+- Current task: M36.1 Update registry/docs/template consistency checks
 
 ## Backup
 
@@ -147,7 +147,7 @@
   - Add registry entry, template, docs page, and demo usage.
   - Clearly document backend ownership and fallback-table requirements.
 
-- TODO M35.4 Complete chart public component quality gates
+- DONE M35.4 Complete chart public component quality gates
   - Run workspace tests, feature checks, generated fixture smoke, and runtime verification commands.
   - Update parity, accessibility, chart strategy, chart recipes, and component catalog docs.
   - Keep external backend adapters deferred unless explicitly approved.
