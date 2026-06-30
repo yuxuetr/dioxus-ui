@@ -19,7 +19,9 @@ For the data milestone, see the
 [chart strategy](chart-strategy.md). For chart follow-through, see the
 [chart follow-through API plan](chart-follow-through.md) and
 [chart recipes](chart-recipes.md). For the backend decision, see the
-[chart backend evaluation](chart-backend-evaluation.md).
+[chart backend evaluation](chart-backend-evaluation.md). For the first public
+Chart component preparation, see the
+[Chart Public API Plan](chart-public-api-plan.md).
 For the layout and media milestone, see the
 [layout shells and media API plan](layout-media.md).
 For the feedback notification milestone, see the

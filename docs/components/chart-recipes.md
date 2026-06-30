@@ -92,6 +92,9 @@ M29.1 selects first-party SVG as the preferred first future rendering path and
 keeps Plotters as the first external Rust backend candidate. See
 [Chart Backend Evaluation](chart-backend-evaluation.md).
 
+M35.1 defines the planned source-copy-friendly SVG composition surface before
+implementation. See [Chart Public API Plan](chart-public-api-plan.md).
+
 ## Deferred Public API
 
 The following remain intentionally deferred:

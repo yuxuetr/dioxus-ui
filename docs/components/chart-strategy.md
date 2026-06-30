@@ -7,7 +7,8 @@ shipping a placeholder chart surface.
 Status: Strategy documented in M16; M19 adds primitive helpers and docs-only
 recipes while keeping the component deferred. M29.1 selects first-party SVG as
 the preferred first rendering path, with Plotters as the first external Rust
-backend candidate.
+backend candidate. M35.1 defines the first public SVG composition API plan while
+keeping implementation gated.
 
 ## Decision
 
@@ -108,3 +109,21 @@ M29.1 keeps `Chart` deferred as a public component. The first future slice
 should be source-copy-friendly SVG composition, gated by measurement,
 accessibility, fallback table, tooltip, and animation policies. Plotters remains
 the preferred external Rust backend candidate for a later opt-in adapter.
+
+## M35 Public API Preparation
+
+M35.1 defines the planned first-party SVG composition surface:
+
+```text
+ChartRoot
+ChartSvg
+ChartTitle
+ChartDescription
+ChartLegend
+ChartFallbackTable
+ChartTooltipSlot
+```
+
+The first chart types stay limited to line, bar, and area charts. External
+backends remain out of the default generated source. See
+[Chart Public API Plan](chart-public-api-plan.md).

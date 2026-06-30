@@ -8,7 +8,7 @@ OTP APIs planned in M30.3. Message and AI-style APIs planned in M30.4. Button
 Group implemented in M31.1. Input Group implemented in M31.2. Collapsible
 implemented in M31.3. Direction implemented in M31.4. Input OTP implemented in
 M32. Attachment, Bubble, Message, and Marker implemented in M33. Message
-Scroller implemented in M34.
+Scroller implemented in M34. Chart public API planned in M35.1.
 
 ## Source
 
@@ -112,7 +112,7 @@ parity.
 | Form-specific | - | M32 | Input OTP is implemented; validation, submission, resend timers, and paste policy remain app-owned. |
 | Message and AI-style composition | - | M33 | Attachment, Bubble, Message, and Marker are implemented; upload, markdown, citation, streaming, and provider behavior remain app-owned. |
 | Runtime-dependent message layout | - | M34 | Message Scroller is implemented; actual scroll commands, browser automation, and Desktop/Mobile behavior remain runtime-gated. |
-| Chart | Chart | M35 | Backend direction is decided, but public component remains gated. |
+| Chart | Chart | M35 | Backend direction and public SVG API are planned, but implementation remains gated by an example fixture. |
 
 ## Explicit Deferrals
 
@@ -133,7 +133,8 @@ implemented:
 2. Completed form-specific gap: Input OTP.
 3. Completed static message parts: Attachment, Bubble, Message, Marker.
 4. Completed runtime-dependent message layout surface: Message Scroller and Web assertion prerequisites.
-5. Chart public component preparation after measurement and fallback-table gates.
+5. Chart public component preparation: M35.1 defines the public SVG API plan;
+   M35.2 must validate the example fixture before implementation.
 
 This order avoids starting with runtime-heavy scrolling, upload, or chart
 rendering before the underlying contracts are proven.
@@ -143,6 +144,7 @@ For Button Group, Input Group, Collapsible, and Direction API details, see
 For Input OTP API details, see [Input OTP API Plan](input-otp-plan.md).
 For Attachment, Bubble, Message, Marker, and Message Scroller API details, see
 [Message and AI-style API Plan](message-ai-plan.md).
+For Chart API preparation, see [Chart Public API Plan](chart-public-api-plan.md).
 
 ## Quality Gates
 

@@ -525,6 +525,7 @@ Dependencies:
 
 - M29 backend decision
 - chart data and accessibility primitives
+- M35.1 public SVG API plan
 - measurement verification
 - fallback table policy
 - tooltip and reduced-motion strategy
@@ -533,7 +534,9 @@ Rationale:
 
 M29 selects first-party SVG as the preferred first rendering path, but a public
 Chart component remains gated by measurement, accessibility, fallback table,
-tooltip, animation, and source-copy policy.
+tooltip, animation, and source-copy policy. M35.1 defines the planned
+composition surface in [Chart Public API Plan](chart-public-api-plan.md);
+implementation should wait for the M35.2 example-only fixture.
 
 ## Recommended Next Milestones
 

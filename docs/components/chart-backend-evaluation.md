@@ -130,5 +130,6 @@ policy."
 - [Chart Strategy](chart-strategy.md)
 - [Chart Follow-through](chart-follow-through.md)
 - [Chart Recipes](chart-recipes.md)
+- [Chart Public API Plan](chart-public-api-plan.md)
 - [Runtime Renderer Verification Matrix](runtime-renderer-verification.md)
 - [Mobile Runtime Verification Checklist](runtime-mobile-verification-checklist.md)
