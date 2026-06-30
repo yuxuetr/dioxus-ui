@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M36 Release Hardening for Expanded Parity
-- Current task: M36.1 Update registry/docs/template consistency checks
+- Current task: M36.2 Update examples and screenshots strategy
 
 ## Backup
 
@@ -154,7 +154,7 @@
 
 ## M36 Release Hardening for Expanded Parity
 
-- TODO M36.1 Update registry/docs/template consistency checks
+- DONE M36.1 Update registry/docs/template consistency checks
   - Ensure new public components have registry entries, templates, docs pages, and catalog links.
   - Extend generated fixture smoke coverage to every new component.
   - Keep `utils` and docs-only chart recipes excluded where appropriate.
