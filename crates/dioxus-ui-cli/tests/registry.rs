@@ -1,4 +1,4 @@
-use std::collections::HashSet;
+use std::collections::{BTreeSet, HashSet};
 use std::fs;
 use std::path::{Path, PathBuf};
 
@@ -92,6 +92,110 @@ fn component_catalog_matches_public_registry() {
   );
 }
 
+#[test]
+fn public_registry_components_match_crate_features() {
+  let root = workspace_root();
+  let components = load_registry_components(&root);
+  let public_registry_names = public_component_names(&components);
+  let manifest_path = root.join("crates").join("dioxus-ui").join("Cargo.toml");
+  let manifest = fs::read_to_string(&manifest_path).expect("dioxus-ui manifest should be readable");
+  let feature_names = parse_manifest_features(&manifest);
+
+  assert_eq!(
+    public_registry_names, feature_names,
+    "public registry component names should match dioxus-ui crate feature names"
+  );
+}
+
+#[test]
+fn registry_files_match_template_and_module_names() {
+  let root = workspace_root();
+  let components = load_registry_components(&root);
+
+  for (path, component) in &components {
+    let module_name = component_name_to_module(&component.name);
+    let expected_source = format!("templates/{module_name}.rs");
+    let expected_target = format!("src/components/ui/{module_name}.rs");
+
+    assert_eq!(
+      component.files.len(),
+      1,
+      "{} should copy exactly one component template",
+      path.display()
+    );
+    assert_eq!(
+      component.files[0].source, expected_source,
+      "{} source should match component module name",
+      path.display()
+    );
+    assert_eq!(
+      component.files[0].target, expected_target,
+      "{} target should match generated module path",
+      path.display()
+    );
+  }
+}
+
+#[test]
+fn every_template_file_is_registered() {
+  let root = workspace_root();
+  let components = load_registry_components(&root);
+  let registered_sources = components
+    .iter()
+    .flat_map(|(_, component)| component.files.iter().map(|file| file.source.as_str()))
+    .collect::<BTreeSet<_>>();
+  let template_sources = fs::read_dir(root.join("templates"))
+    .expect("templates directory should exist")
+    .map(|entry| {
+      let entry = entry.expect("template entry should be readable");
+      let file_name = entry
+        .file_name()
+        .into_string()
+        .expect("template filename should be utf-8");
+
+      format!("templates/{file_name}")
+    })
+    .collect::<BTreeSet<_>>();
+
+  assert_eq!(
+    registered_sources.into_iter().map(str::to_string).collect::<BTreeSet<_>>(),
+    template_sources,
+    "every template should be owned by exactly one registry entry"
+  );
+}
+
+#[test]
+fn generated_templates_do_not_import_internal_crates() {
+  let root = workspace_root();
+
+  for entry in fs::read_dir(root.join("templates")).expect("templates directory should exist") {
+    let entry = entry.expect("template entry should be readable");
+    let path = entry.path();
+    let source = fs::read_to_string(&path).expect("template should be readable");
+
+    assert!(
+      !source.contains("dioxus_ui_core") && !source.contains("dioxus_ui_primitives"),
+      "{} should not import internal dioxus-ui crates",
+      path.display()
+    );
+  }
+}
+
+#[test]
+fn feature_check_script_covers_public_registry_features() {
+  let root = workspace_root();
+  let components = load_registry_components(&root);
+  let public_registry_names = public_component_names(&components);
+  let script_path = root.join("scripts").join("feature-check.sh");
+  let script = fs::read_to_string(&script_path).expect("feature-check script should be readable");
+  let script_features = parse_feature_check_features(&script);
+
+  assert_eq!(
+    public_registry_names, script_features,
+    "feature-check.sh should cover every public registry feature exactly once"
+  );
+}
+
 fn load_registry_components(root: &Path) -> Vec<(PathBuf, RegistryComponent)> {
   let registry_dir = root.join("registry");
   let entries = fs::read_dir(&registry_dir).expect("registry directory should exist");
@@ -119,6 +223,13 @@ fn load_registry_components(root: &Path) -> Vec<(PathBuf, RegistryComponent)> {
   components
 }
 
+fn public_component_names(components: &[(PathBuf, RegistryComponent)]) -> BTreeSet<String> {
+  public_components(components)
+    .into_iter()
+    .map(|(_, component)| component.name.clone())
+    .collect()
+}
+
 fn public_components(
   components: &[(PathBuf, RegistryComponent)],
 ) -> Vec<(&PathBuf, &RegistryComponent)> {
@@ -127,6 +238,10 @@ fn public_components(
     .filter(|(_, component)| component.name != "utils")
     .map(|(path, component)| (path, component))
     .collect()
+}
+
+fn component_name_to_module(name: &str) -> String {
+  name.replace('-', "_")
 }
 
 fn parse_catalog_component_names(catalog: &str) -> HashSet<&str> {
@@ -145,4 +260,60 @@ fn parse_catalog_component_names(catalog: &str) -> HashSet<&str> {
       Some(&trimmed[link_start + 2..link_end])
     })
     .collect()
+}
+
+fn parse_manifest_features(manifest: &str) -> BTreeSet<String> {
+  let mut features = BTreeSet::new();
+  let mut in_features = false;
+
+  for line in manifest.lines() {
+    let trimmed = line.trim();
+
+    if trimmed == "[features]" {
+      in_features = true;
+      continue;
+    }
+
+    if in_features && trimmed.starts_with('[') {
+      break;
+    }
+
+    if !in_features || trimmed.is_empty() || trimmed.starts_with('#') {
+      continue;
+    }
+
+    if let Some((name, _)) = trimmed.split_once('=') {
+      let name = name.trim();
+
+      if name != "default" {
+        features.insert(name.to_string());
+      }
+    }
+  }
+
+  features
+}
+
+fn parse_feature_check_features(script: &str) -> BTreeSet<String> {
+  let mut features = BTreeSet::new();
+  let mut in_features = false;
+
+  for line in script.lines() {
+    let trimmed = line.trim();
+
+    if trimmed == "features=(" {
+      in_features = true;
+      continue;
+    }
+
+    if in_features && trimmed == ")" {
+      break;
+    }
+
+    if in_features && !trimmed.is_empty() && !trimmed.starts_with('#') {
+      features.insert(trimmed.to_string());
+    }
+  }
+
+  features
 }

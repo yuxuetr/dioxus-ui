@@ -166,6 +166,7 @@ Before marking implementation tasks done, run:
 
 ```bash
 cargo test --workspace --all-features --quiet
+cargo test -q -p dioxus-ui-cli --test registry
 scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
 ```

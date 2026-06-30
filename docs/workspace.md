@@ -259,3 +259,7 @@ Before marking component tasks complete:
 - component feature compiles alone when practical
 - source-copy template compiles in an example
 - registry entry points to existing template files
+- public registry names match crate feature names
+- component docs and catalog entries match public registry entries
+- every template is registered exactly once, with `utils` kept as a support
+  template outside public component parity

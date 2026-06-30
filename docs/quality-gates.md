@@ -18,11 +18,17 @@ These commands should stay fast enough for regular development.
 Run after changes to CLI, registry, templates, or component dependencies:
 
 ```bash
+cargo test -p dioxus-ui-cli --test registry
 scripts/generated-fixture-smoke.sh
 ```
 
 This verifies:
 
+- public registry component names match `dioxus-ui` crate feature names.
+- public registry components have docs pages and catalog entries.
+- registry template source and target paths match generated module names.
+- every template file is registered exactly once, including `utils`.
+- `scripts/feature-check.sh` covers every public component feature.
 - `dxui list` returns public components.
 - `dxui init` creates the generated project structure.
 - `dxui add` can add every public component.
@@ -56,6 +62,7 @@ Run before publishing:
 ```bash
 cargo check --workspace --all-features
 cargo test --workspace --all-features
+cargo test -p dioxus-ui-cli --test registry
 cargo run -p dioxus-ui-cli -- list
 scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
@@ -75,6 +82,7 @@ Default pull request CI should run:
 ```bash
 cargo check --workspace --all-features
 cargo test --workspace --all-features
+cargo test -p dioxus-ui-cli --test registry
 scripts/generated-fixture-smoke.sh
 ```
 
