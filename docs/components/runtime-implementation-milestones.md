@@ -13,7 +13,7 @@ Status: Planned in M25.4.
 | M27 Web feedback and overlay runtime adapters | Add experimental Web focus, portal, timer, and live-region adapters behind explicit opt-in wiring. | Source-copy templates remain runtime-free. |
 | M28 Web measurement, pointer, and gesture adapters | Add experimental Web measurement, pointer, and gesture adapters after the fixture proves fallback behavior. | Gesture-heavy behavior remains opt-in. |
 | M29 Desktop and Mobile verification follow-through | Add Desktop smoke fixture and Mobile checklist or device harness when tooling is selected. | Desktop/Mobile support remains conservative. |
-| M30 Chart backend evaluation | Revisit chart rendering backend after measurement and fallback-table requirements are concrete. | No `chart` component ships before backend choice. |
+| M30/M35 Chart backend and public SVG follow-through | Revisit chart rendering backend after measurement and fallback-table requirements are concrete, then add first-party SVG composition. | `chart` ships without external backend adapters. |
 
 ## Priority Rationale
 

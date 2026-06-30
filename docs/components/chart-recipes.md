@@ -1,11 +1,13 @@
 # Chart Recipes
 
-These recipes show how to use chart primitives with app-owned rendering. They
-are intentionally docs-only: there is no `dxui add chart`, no `chart` registry
-entry, and no `chart` feature in `dioxus-ui`.
+These recipes show how to use chart primitives with app-owned rendering or the
+first-party SVG Chart composition parts. M35 adds `dxui add chart`, a `chart`
+registry entry, and a `dioxus-ui` `chart` feature for line, bar, and area SVG
+composition.
 
-Use these helpers from `dioxus-ui-primitives` when an app wants shared data and
-accessibility behavior without taking a rendering dependency from this library.
+Use these helpers from `dioxus-ui-primitives` or `dioxus-ui` when an app wants
+shared data and accessibility behavior without taking an external rendering
+dependency.
 
 ## Shared Data Setup
 
@@ -79,7 +81,7 @@ Rendering guidance:
 
 ## Backend Evaluation Checklist
 
-Before adding a public chart component or adapter, validate:
+Before adding another chart type or external adapter, validate:
 
 - rendering backend works in Web and Desktop targets
 - source-copy dependency impact is explicit
@@ -92,16 +94,13 @@ M29.1 selects first-party SVG as the preferred first future rendering path and
 keeps Plotters as the first external Rust backend candidate. See
 [Chart Backend Evaluation](chart-backend-evaluation.md).
 
-M35.1 defines the planned source-copy-friendly SVG composition surface before
-implementation. See [Chart Public API Plan](chart-public-api-plan.md).
+M35 implements the source-copy-friendly SVG composition surface. See
+[Chart Public API Plan](chart-public-api-plan.md) and [Chart](chart.md).
 
 ## Deferred Public API
 
 The following remain intentionally deferred:
 
-- `dxui add chart`
-- `dioxus-ui` `chart` feature
-- first-party SVG chart components
 - canvas/WebView backend adapters
 - tooltip cursor runtime
 - chart animation runtime

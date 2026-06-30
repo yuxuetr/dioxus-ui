@@ -1,32 +1,31 @@
 # Chart Backend Evaluation
 
 This document records the M29.1 chart backend evaluation after Web, Desktop,
-and Mobile runtime verification planning. It decides the next chart direction
-without adding a public Chart component yet.
+and Mobile runtime verification planning. M35 followed this direction by adding
+first-party SVG Chart composition without adding external backend adapters.
 
-Status: Decided in M29.1.
+Status: Decided in M29.1; first-party SVG composition implemented in M35.
 
 ## Decision
 
-Do not add `dxui add chart`, a `chart` registry entry, or a `dioxus-ui` `chart`
-feature yet.
+M35 adds `dxui add chart`, a `chart` registry entry, and a `dioxus-ui` `chart`
+feature for first-party SVG composition only.
 
 When chart rendering starts, prefer a first-party, source-copy-friendly SVG
 recipe and adapter shape for the first public slice. Keep Plotters as the first
 external Rust backend candidate for future opt-in rendering. Keep Charming or
 other ECharts-backed approaches app-owned.
 
-This means the project should continue shipping:
+This means the project now ships:
 
 - pure chart data primitives
 - scale helpers
 - color token helpers
 - summary and fallback-row helpers
-- docs-only rendering recipes
+- first-party SVG composition parts for line, bar, and area charts
 
-It should not yet ship:
+It still does not ship:
 
-- first-party chart rendering components
 - canvas rendering adapters
 - ECharts/JavaScript interop wrappers
 - tooltip cursor runtime
@@ -36,7 +35,7 @@ It should not yet ship:
 
 | Backend | Fit | Strengths | Risks | Decision |
 | --- | --- | --- | --- | --- |
-| First-party SVG in Dioxus RSX | Best first public path | Source-copy friendly, accessible markup is controllable, works naturally across Web/Desktop WebView, no heavy dependency | More rendering work for axes, ticks, paths, and stacked charts | Preferred first implementation path, but still deferred until measurement and fallback-table gates are explicit |
+| First-party SVG in Dioxus RSX | Implemented first public path | Source-copy friendly, accessible markup is controllable, works naturally across Web/Desktop WebView, no heavy dependency | More rendering work for axes, ticks, paths, and stacked charts | Implemented in M35 for line, bar, and area composition |
 | Canvas with app-owned drawing | Useful for dense data | Better for many points and custom drawing | Weaker built-in semantics, needs explicit fallback table and hit testing, Web/Desktop/Mobile verification is heavier | Keep as recipe or future opt-in adapter, not default |
 | Plotters adapter | Strong Rust-native candidate | Mature Rust plotting API, supports multiple backends including SVG, bitmap, and WASM/canvas paths | Dependency surface, Dioxus event integration, accessibility and source-copy policy need adapter design | First external Rust backend candidate after first-party SVG contract is proven |
 | Charming/ECharts adapter | Strong app-owned option | Rich ECharts feature set, HTML/WASM/SSR renderer options | JS/ECharts rendering model, optional SSR/WASM feature split, generated source complexity, accessibility policy not controlled by this library | Keep app-owned, not a default `dioxus-ui` backend |
@@ -49,9 +48,9 @@ It should not yet ship:
 - Charming docs describe an Apache ECharts-backed Rust library with HTML,
   image/SSR, and WASM renderers: <https://docs.rs/charming/latest/charming/>.
 
-## Required Gates Before A Public Chart
+## Gates Used Before The Public Chart
 
-Before a public Chart component is added, the project must have:
+Before the public Chart component was added, the project required:
 
 - measurement behavior verified for Web and Desktop, and a Mobile visual
   viewport policy
@@ -76,9 +75,9 @@ Still deferred:
 - cursor exploration runtime
 - synchronized multi-chart interactions
 
-## Recommended First Public Slice
+## Implemented First Public Slice
 
-When implementation resumes, use this order:
+M35 used this order:
 
 1. Add first-party SVG recipe components in an example-only fixture.
 2. Verify measurement, responsive sizing, and fallback table output.
@@ -86,9 +85,9 @@ When implementation resumes, use this order:
    tooltips.
 4. Add generated source-copy docs explaining that chart rendering remains
    source-owned.
-5. Only then consider `dxui add chart` and a `chart` feature.
+5. Add `dxui add chart` and a `chart` feature after the fixture passed.
 
-The first public component should expose composition parts rather than a large
+The first public component exposes composition parts rather than a large
 all-in-one chart engine:
 
 ```text
@@ -120,10 +119,9 @@ Apps should still own:
 
 ## Parity Impact
 
-The shadcn-style `Chart` component remains deferred. M29.1 changes the reason
-from "backend undecided" to "first path selected, public component gated by
-measurement, accessibility, fallback table, tooltip, animation, and source-copy
-policy."
+The shadcn-style `Chart` component is implemented as a first-party SVG
+composition surface. M35 keeps external backend adapters, cursor exploration,
+hit testing, animation runtime, and complex chart types deferred or app-owned.
 
 ## Relationship To Other Plans
 

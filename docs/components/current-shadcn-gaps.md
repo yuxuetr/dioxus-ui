@@ -8,7 +8,7 @@ OTP APIs planned in M30.3. Message and AI-style APIs planned in M30.4. Button
 Group implemented in M31.1. Input Group implemented in M31.2. Collapsible
 implemented in M31.3. Direction implemented in M31.4. Input OTP implemented in
 M32. Attachment, Bubble, Message, and Marker implemented in M33. Message
-Scroller implemented in M34. Chart public API planned in M35.1.
+Scroller implemented in M34. Chart implemented in M35.
 
 ## Source
 
@@ -50,6 +50,7 @@ button-group
 calendar
 card
 carousel
+chart
 checkbox
 collapsible
 combobox
@@ -112,7 +113,7 @@ parity.
 | Form-specific | - | M32 | Input OTP is implemented; validation, submission, resend timers, and paste policy remain app-owned. |
 | Message and AI-style composition | - | M33 | Attachment, Bubble, Message, and Marker are implemented; upload, markdown, citation, streaming, and provider behavior remain app-owned. |
 | Runtime-dependent message layout | - | M34 | Message Scroller is implemented; actual scroll commands, browser automation, and Desktop/Mobile behavior remain runtime-gated. |
-| Chart | Chart | M35 | Backend direction and public SVG API are planned, but implementation remains gated by an example fixture. |
+| Chart | - | M35 | Chart is implemented as first-party SVG composition for line, bar, and area charts. |
 
 ## Explicit Deferrals
 
@@ -125,6 +126,7 @@ implemented:
 - actual DOM/WebView scroll commands until runtime browser assertions exist
 - Chart external backend adapters such as Plotters or Charming
 - Chart cursor exploration and animation runtime
+- Chart pie, radial, radar, heatmap, candlestick, composed, dense-data, and synchronized cursor variants
 
 ## Implementation Order
 
@@ -133,8 +135,9 @@ implemented:
 2. Completed form-specific gap: Input OTP.
 3. Completed static message parts: Attachment, Bubble, Message, Marker.
 4. Completed runtime-dependent message layout surface: Message Scroller and Web assertion prerequisites.
-5. Chart public component preparation: M35.1 defines the public SVG API plan;
-   M35.2 must validate the example fixture before implementation.
+5. Completed Chart public component preparation: M35.1 defined the public SVG
+   API plan, M35.2 validated the example fixture, and M35.3 implemented the
+   public source-copy and crate-mode surface.
 
 This order avoids starting with runtime-heavy scrolling, upload, or chart
 rendering before the underlying contracts are proven.
@@ -145,6 +148,7 @@ For Input OTP API details, see [Input OTP API Plan](input-otp-plan.md).
 For Attachment, Bubble, Message, Marker, and Message Scroller API details, see
 [Message and AI-style API Plan](message-ai-plan.md).
 For Chart API preparation, see [Chart Public API Plan](chart-public-api-plan.md).
+For the public Chart component, see [Chart](chart.md).
 
 ## Quality Gates
 

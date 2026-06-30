@@ -102,10 +102,11 @@ Behavior defaults:
 
 ## Chart Strategy
 
-Chart is deferred as a component and documented as a strategy in M16. See the
-[Chart Strategy](chart-strategy.md) for the backend and accessibility policy,
-and [Chart Backend Evaluation](chart-backend-evaluation.md) for the M29.1
-backend decision.
+Chart was deferred as a component in M16 and documented as a strategy first.
+M35 later implements first-party SVG Chart composition for line, bar, and area
+charts. See the [Chart Strategy](chart-strategy.md) for the backend and
+accessibility policy, and [Chart Backend Evaluation](chart-backend-evaluation.md)
+for the M29.1 backend decision.
 
 M16 position:
 
@@ -115,21 +116,26 @@ M16 position:
 - prefer an adapter strategy that can support multiple backends later
 - document the minimum contract for future chart components
 
-Future Chart requirements:
+M35 Chart requirements:
 
-- explicit data model per chart type
+- explicit data model for line, bar, and area charts
 - accessible title, description, and tabular fallback expectations
 - color-token strategy that does not rely on color alone
-- Web/Desktop rendering support plan
-- SSR and hydration behavior plan
-- generated source compatibility
+- source-copy generated code without external backend dependencies
+
+Still deferred:
+
+- external backend adapters
+- cursor exploration runtime
+- animation runtime
+- complex chart types
 
 ## Platform Defaults
 
 | Target | Data and visualization |
 | --- | --- |
-| Web | Data Table can use semantic tables; Chart needs a backend decision. |
-| Desktop | Data Table should avoid DOM measurement assumptions; Chart needs WebView validation. |
+| Web | Data Table can use semantic tables; Chart uses first-party SVG composition for the first public slice. |
+| Desktop | Data Table should avoid DOM measurement assumptions; Chart SVG remains simple and external backend validation stays deferred. |
 | Mobile | Data Table should support horizontal overflow and compact controls; large tables may need app-owned alternate layouts. |
 
 ## Implementation Order

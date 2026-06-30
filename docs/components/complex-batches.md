@@ -515,7 +515,7 @@ virtualized rendering remain app-owned or runtime-gated.
 
 ## Batch 17: Chart Public Component Preparation
 
-Status: Planned in M35.
+Status: Implemented in M35.
 
 Components:
 
@@ -532,11 +532,13 @@ Dependencies:
 
 Rationale:
 
-M29 selects first-party SVG as the preferred first rendering path, but a public
-Chart component remains gated by measurement, accessibility, fallback table,
-tooltip, animation, and source-copy policy. M35.1 defines the planned
-composition surface in [Chart Public API Plan](chart-public-api-plan.md);
-implementation should wait for the M35.2 example-only fixture.
+M29 selects first-party SVG as the preferred first rendering path, and M35
+implemented the public Chart component after measurement, accessibility,
+fallback table, tooltip, animation, and source-copy policy gates. M35.1 defined
+the composition surface in [Chart Public API Plan](chart-public-api-plan.md),
+M35.2 validated the example fixture, and M35.3 implemented first-party SVG
+composition. External backend adapters and cursor/animation runtime remain
+deferred.
 
 ## Recommended Next Milestones
 

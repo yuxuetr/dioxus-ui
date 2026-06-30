@@ -1,18 +1,19 @@
 # Chart Strategy
 
-Chart is deferred as a public component until the rendering backend, data API,
-and accessibility contract are explicit. M16 records the strategy instead of
-shipping a placeholder chart surface.
+Chart was deferred as a public component until the rendering backend, data API,
+and accessibility contract were explicit. M16 recorded the strategy instead of
+shipping a placeholder chart surface; M35 implements the first public SVG
+composition slice.
 
 Status: Strategy documented in M16; M19 adds primitive helpers and docs-only
 recipes while keeping the component deferred. M29.1 selects first-party SVG as
 the preferred first rendering path, with Plotters as the first external Rust
-backend candidate. M35.1 defines the first public SVG composition API plan while
-keeping implementation gated.
+backend candidate. M35 implements the first public SVG composition surface.
 
 ## Decision
 
-Do not add `dxui add chart` or a `chart` crate feature yet.
+Add `dxui add chart` and a `chart` crate feature only for first-party SVG
+composition.
 
 Reasons:
 
@@ -33,34 +34,38 @@ The project should evaluate chart backends before committing to an API:
 | Web canvas/SVG JS interop | Mature chart ecosystem | Cross-platform and source-copy complexity |
 | Deferred docs-only recipe | Lowest risk now | No turnkey chart component yet |
 
-M16 chooses the deferred docs-only recipe. M29.1 keeps the public component
-deferred but narrows the backend direction: first-party SVG should be the first
-implementation path when Chart work resumes, Plotters should be the first
-external Rust backend candidate, and ECharts-backed approaches should remain
-app-owned.
+M16 chooses the deferred docs-only recipe. M29.1 narrows the backend direction:
+first-party SVG should be the first implementation path when Chart work resumes,
+Plotters should be the first external Rust backend candidate, and ECharts-backed
+approaches should remain app-owned. M35 implements the first-party SVG path.
 
 M19 follows through by adding shared data and accessibility primitives plus
-[chart recipes](chart-recipes.md). Rendering remains app-owned.
+[chart recipes](chart-recipes.md). M35 adds first-party SVG composition for
+line, bar, and area charts. External rendering backends remain app-owned.
 
 For the backend evaluation decision, see
 [Chart Backend Evaluation](chart-backend-evaluation.md).
 
-## Future Minimum API
+## Minimum API
 
-Before adding a public Chart component, define:
+The public Chart component defines:
 
-- chart types in scope: line, bar, area, pie, or composed charts
+- chart types in scope: line, bar, and area
 - data shape per chart type
 - scale and domain behavior
 - color token and series token strategy
 - tooltip and legend composition
-- responsive measurement behavior
-- Web/Desktop support matrix
 - generated source dependency policy
+
+Still future:
+
+- responsive measurement behavior beyond explicit dimensions and viewBox
+- Web/Desktop/Mobile backend adapter support matrix
+- pie, radial, radar, heatmap, candlestick, and composed charts
 
 ## Accessibility Contract
 
-Future charts must support:
+Charts must support:
 
 - visible title or label
 - optional description
@@ -95,24 +100,31 @@ M19 adds:
 - accessible summary and fallback-row helpers
 - docs-only line, bar, and area recipes
 
-Still deferred:
+M35 implements:
 
 - public Chart component
 - registry entry
 - crate feature
-- rendering backend
-- visual and keyboard verification for a specific backend
+- source-copy SVG composition parts
+
+Still deferred:
+
+- external rendering backend adapters
+- cursor exploration runtime
+- animation runtime
+- visual and keyboard verification for backend-specific adapters
 
 ## M29 Backend Decision
 
-M29.1 keeps `Chart` deferred as a public component. The first future slice
-should be source-copy-friendly SVG composition, gated by measurement,
-accessibility, fallback table, tooltip, and animation policies. Plotters remains
-the preferred external Rust backend candidate for a later opt-in adapter.
+M29.1 kept `Chart` deferred as a public component and selected
+source-copy-friendly SVG composition for the first future slice. M35 implements
+that slice after fixture, fallback table, tooltip ownership, animation policy,
+and source-copy gates. Plotters remains the preferred external Rust backend
+candidate for a later opt-in adapter.
 
 ## M35 Public API Preparation
 
-M35.1 defines the planned first-party SVG composition surface:
+M35 defines and implements the first-party SVG composition surface:
 
 ```text
 ChartRoot

@@ -113,7 +113,8 @@ Statuses:
 | Data Table | Needs app-level filtering, async loading, keyboard shortcuts, and virtualization verification. | Planned |
 | Direction | Sets native `dir` semantics for scoped LTR/RTL content. | Implemented |
 | Chart primitives | Expose summary text, color-independent series labels, value labels, and fallback-row metadata. | Implemented |
-| Chart component | Public rendering component remains deferred until SVG backend, measurement, keyboard, tooltip, animation, and fallback-table contracts are proven. | Deferred |
+| Chart component | Provides SVG `role="img"` composition, title and description references, text legend hooks, and fallback table rendering for line, bar, and area charts. | Implemented |
+| Chart runtime | Cursor exploration, hit testing, keyboard data navigation, animation timing, and external backend accessibility remain app-owned or deferred. | Planned |
 | Toast | Exposes status semantics, variant urgency, close/action native controls, and queue state helpers. | Implemented |
 | Toast | Needs app-level live-region wording, timer scheduling, portal mounting, and focus policy verification. | Planned |
 | Sonner | Exposes status semantics, decorative variant icons, close/action native controls, and queue state helpers. | Implemented |

@@ -1,21 +1,21 @@
 # Chart Public API Plan
 
-This document defines the M35.1 first-party SVG Chart API plan. It narrows the
-future public component surface before any `chart` registry entry, crate
-feature, or generated source is added.
+This document defines the M35 first-party SVG Chart API plan. It narrowed the
+public component surface before the `chart` registry entry, crate feature, and
+generated source were added.
 
-Status: Planned in M35.1.
+Status: Planned in M35.1, fixture-validated in M35.2, implemented in M35.3.
 
 ## Decision
 
-The first public Chart slice should be first-party SVG composition built from
+The first public Chart slice is first-party SVG composition built from
 existing pure chart primitives. It should support only:
 
 - line charts
 - bar charts
 - area charts
 
-The default generated source must not include Plotters, Charming, ECharts,
+The default generated source does not include Plotters, Charming, ECharts,
 canvas, JavaScript interop, or any other rendering backend dependency. Those
 remain app-owned or future opt-in adapters.
 
@@ -49,8 +49,8 @@ choose an external chart library.
 
 ## Public Composition Surface
 
-The first component should expose small parts instead of a full chart engine.
-Names below describe the intended source-copy and crate-mode API.
+The component exposes small parts instead of a full chart engine. Names below
+describe the source-copy and crate-mode API.
 
 ```text
 ChartRoot
@@ -147,8 +147,8 @@ M35 should continue in this order:
    accepted.
 4. Add `registry/chart.json`, docs, demo usage, and generated fixture coverage.
 
-Before M35.3 starts, the project should still have no public `chart` registry
-entry and no default Plotters or Charming adapter.
+M35.3 added the public `chart` registry entry and kept Plotters and Charming
+out of the default generated source.
 
 ## Related Documents
 

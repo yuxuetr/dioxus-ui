@@ -5,7 +5,7 @@ The goal is to add pure chart data and accessibility primitives while keeping
 rendering backends, generated chart components, DOM measurement, pointer
 interaction, and animation runtime out of the public component surface.
 
-Status: Implemented in M19.
+Status: Implemented in M19; M35 later adds first-party SVG Chart composition.
 
 ## Scope
 
@@ -16,12 +16,15 @@ M19 covers:
 - chart accessibility helpers
 - docs-only rendering recipes
 
-M19 does not add:
+M19 did not add:
 
 - `dxui add chart`
 - a `chart` feature in `dioxus-ui`
 - SVG or canvas rendering components
 - a dependency on a charting backend
+
+M35 later adds `dxui add chart`, a `chart` feature, and source-copy SVG
+composition parts while keeping external backend adapters deferred.
 
 ## Primitive Strategy
 
@@ -111,9 +114,9 @@ M19 added docs-only recipes for:
 - bar chart
 - area chart
 
-Recipe docs should show how to combine primitives with app-owned SVG, Canvas, or
-backend rendering. They should explicitly state that the registry has no
-`chart.json` entry yet.
+Recipe docs should show how to combine primitives with first-party SVG
+composition, app-owned SVG or Canvas, or backend rendering. M35 adds
+`registry/chart.json`; external backend rendering remains app-owned.
 
 ## Platform Defaults
 
