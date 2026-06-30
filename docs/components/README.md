@@ -52,6 +52,8 @@ For experimental Web adapter boundaries, see the
 [Web runtime adapter module boundaries](runtime-web-adapter-boundaries.md).
 For the current upstream shadcn component gap audit, see
 [Current shadcn Gap Audit](current-shadcn-gaps.md).
+For the M36 final upstream parity audit, see the
+[Final shadcn Parity Audit](final-shadcn-parity-audit.md).
 For example and screenshot coverage, see the
 [Example And Screenshot Strategy](example-screenshot-strategy.md).
 For the first new gap implementation plan, see the

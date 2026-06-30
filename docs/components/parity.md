@@ -53,10 +53,14 @@ be ported one-for-one.
 
 ## Next Milestone Seeds
 
-After M35, the safest remaining implementation order is:
+After M36, no new component-fill milestone is required by the current upstream
+component catalog. The safest remaining implementation order is:
 
-1. Complete release hardening for registry, docs, templates, and examples
-2. Run a final upstream shadcn audit before claiming expanded parity
+1. Build rendered Web component previews for state matrices
+2. Add Desktop WebView preview smoke coverage
+3. Add screenshot assertions for desktop-width and mobile-width views
+4. Keep source-copy registry, crate-mode examples, and previews in sync
 
 See [Current shadcn Gap Audit](current-shadcn-gaps.md) and
-[Complex Component Batches](complex-batches.md) for the expanded milestone plan.
+[Final shadcn Parity Audit](final-shadcn-parity-audit.md) for the expanded
+milestone result.

@@ -8,7 +8,8 @@ OTP APIs planned in M30.3. Message and AI-style APIs planned in M30.4. Button
 Group implemented in M31.1. Input Group implemented in M31.2. Collapsible
 implemented in M31.3. Direction implemented in M31.4. Input OTP implemented in
 M32. Attachment, Bubble, Message, and Marker implemented in M33. Message
-Scroller implemented in M34. Chart implemented in M35.
+Scroller implemented in M34. Chart implemented in M35. Final upstream parity
+rechecked in M36.3 with no new public component gaps found.
 
 ## Source
 
@@ -149,6 +150,8 @@ For Attachment, Bubble, Message, Marker, and Message Scroller API details, see
 [Message and AI-style API Plan](message-ai-plan.md).
 For Chart API preparation, see [Chart Public API Plan](chart-public-api-plan.md).
 For the public Chart component, see [Chart](chart.md).
+For the final M36 upstream audit, see
+[Final shadcn Parity Audit](final-shadcn-parity-audit.md).
 
 ## Quality Gates
 
