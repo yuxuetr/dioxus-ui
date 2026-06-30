@@ -68,6 +68,19 @@ This verifies that both command-line demo crates expose representative states
 for low-risk composition, form-specific, message, scroller, direction,
 collapsible, and chart components. It is not a screenshot or visual parity gate.
 
+## Web Preview Gate
+
+Run after changes to the rendered Web preview shell:
+
+```bash
+node scripts/web-preview-verify.mjs
+```
+
+This verifies the Dioxus Web preview binary, Tailwind CSS v4 source input, stable
+`data-preview-*` screenshot targets, and representative shared inventory output.
+It is the structural prerequisite for browser screenshots; visual screenshot
+automation should be added after a browser automation dependency is available.
+
 ## Release Gate
 
 Run before publishing:
@@ -78,6 +91,7 @@ cargo test --workspace --all-features
 cargo test -p dioxus-ui-cli --test registry
 cargo run -p dioxus-ui-cli -- list
 scripts/example-smoke.sh
+node scripts/web-preview-verify.mjs
 scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
 ```

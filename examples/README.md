@@ -26,6 +26,12 @@ dx serve --package dioxus-ui-web-demo --bin preview
 The preview shell uses `examples/web-demo/assets/preview.css` as a Tailwind CSS
 v4 source input. It is not a committed complete Tailwind output file.
 
+Structural preview gate:
+
+```bash
+node scripts/web-preview-verify.mjs
+```
+
 ## Desktop Demo
 
 ```bash
