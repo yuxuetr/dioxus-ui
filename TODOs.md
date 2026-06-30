@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M37 Rendered Preview and Screenshot Verification
-- Current task: M37.3 Build rendered Web preview shell
+- Current task: M37.4 Add Web screenshot verification gate
 
 ## Backup
 
@@ -181,7 +181,7 @@
   - Keep command-line smoke output, future Web previews, and future Desktop previews aligned through the same inventory.
   - Avoid network data, upload transport, markdown parsing, provider integration, and external chart adapters.
 
-- TODO M37.3 Build rendered Web preview shell
+- DONE M37.3 Build rendered Web preview shell
   - Add a usable Dioxus Web preview surface for representative component states.
   - Preserve existing command-line smoke commands or split them into explicit smoke binaries.
   - Use Tailwind CSS v4 source input syntax and avoid committing full generated Tailwind output.
