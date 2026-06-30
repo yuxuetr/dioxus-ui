@@ -3,7 +3,8 @@
 This document defines the M34.1 boundary for Message Scroller before state
 helpers or styled parts are implemented.
 
-Status: Planned in M34.1. Pure state helpers implemented in M34.2.
+Status: Planned in M34.1. Pure state helpers implemented in M34.2. Controlled
+composition parts implemented in M34.3.
 
 ## Decision
 
@@ -142,6 +143,9 @@ MessageScrollerJumpButton {
 
 The component may expose data attributes such as `data-intent`,
 `data-following`, and `data-unread`, but it must not execute scroll commands.
+
+M34.3 implements the controlled component, source-copy template, registry
+entry, component docs page, catalog entry, and Web/Desktop demo states.
 
 ## Accessibility
 

@@ -1,0 +1,14 @@
+{
+  "name": "message-scroller",
+  "description": "Controlled message scroller composition parts with pure scroll intent helpers.",
+  "files": [
+    {
+      "source": "templates/message_scroller.rs",
+      "target": "src/components/ui/message_scroller.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

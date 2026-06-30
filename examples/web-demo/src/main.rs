@@ -32,7 +32,12 @@ use dioxus_ui::{
   item_description_class, item_title_class, kbd_class, label_class, marker_class,
   marker_content_class, marker_icon_class, menubar_class, menubar_item_class,
   menubar_trigger_class, message_avatar_class, message_class, message_content_class,
-  message_footer_class, message_group_class, message_header_class, native_select_class,
+  message_footer_class, message_group_class, message_header_class,
+  message_scroller_bottom_anchor_class, message_scroller_class,
+  message_scroller_content_class, message_scroller_intent_attribute,
+  message_scroller_is_at_bottom, message_scroller_jump_button_class,
+  message_scroller_show_unread_marker, message_scroller_unread_marker_class,
+  message_scroller_viewport_class, native_select_class,
   native_select_group_class,
   native_select_option_class, navigation_menu_class, navigation_menu_link_class,
   navigation_menu_trigger_class, pagination_class, pagination_link_class,
@@ -62,7 +67,8 @@ use dioxus_ui::{
   ContextMenuPrimitiveConfig, DatePickerAlign, DatePickerPrimitiveConfig, DatePickerSide,
   DataTableSortDirection, DialogPrimitiveConfig, DrawerPrimitiveConfig, DropdownPrimitiveConfig,
   FocusMove, HoverCardAlign, HoverCardPrimitiveConfig, HoverCardSide, MarkerVariant,
-  MenubarPrimitiveConfig, MessageAlign, NavigationMenuPrimitiveConfig, NavigationOrientation, PopoverPrimitiveConfig,
+  MenubarPrimitiveConfig, MessageAlign, MessageScrollerIntent, MessageScrollerMetrics,
+  NavigationMenuPrimitiveConfig, NavigationOrientation, PopoverPrimitiveConfig,
   RovingFocusItem, KbdSize, LayoutOrientation, ResizablePanelState, ScrollAreaOrientation, SelectPrimitiveConfig,
   SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SidebarSide, SidebarState, SpinnerSize,
   SonnerItem, SonnerPlacement, SonnerQueue, SonnerVariant, TextDirection, ToastItem,
@@ -150,6 +156,25 @@ fn main() {
     "dioxus-ui web demo message footer/align: {}/{}",
     message_footer_class("justify-end"),
     MessageAlign::End.attribute()
+  );
+  let web_message_metrics = MessageScrollerMetrics::new(880.0, 300.0, 1200.0);
+  let web_unread_visible = message_scroller_show_unread_marker(MessageScrollerIntent::Hold, 2);
+  println!(
+    "dioxus-ui web demo message scroller class: {}",
+    message_scroller_class(MessageScrollerIntent::Hold, "h-96")
+  );
+  println!(
+    "dioxus-ui web demo message scroller parts: {}/{}/{}/{}",
+    message_scroller_viewport_class("px-2"),
+    message_scroller_content_class("gap-5"),
+    message_scroller_bottom_anchor_class("scroll-mb-8"),
+    message_scroller_unread_marker_class(web_unread_visible, "bottom-6")
+  );
+  println!(
+    "dioxus-ui web demo message scroller helper: {}/{}/{}",
+    message_scroller_is_at_bottom(web_message_metrics, 24.0),
+    message_scroller_jump_button_class(web_unread_visible, "rounded-full"),
+    message_scroller_intent_attribute(MessageScrollerIntent::Hold)
   );
   println!(
     "dioxus-ui web demo marker class: {}",

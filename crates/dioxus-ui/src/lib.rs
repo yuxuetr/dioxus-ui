@@ -111,6 +111,9 @@ pub mod menubar;
 #[cfg(feature = "message")]
 pub mod message;
 
+#[cfg(feature = "message-scroller")]
+pub mod message_scroller;
+
 #[cfg(feature = "native-select")]
 pub mod native_select;
 
@@ -465,6 +468,22 @@ pub use message::{
   MESSAGE_CONTENT_ALIGN_END_CLASS, MESSAGE_CONTENT_ALIGN_START_CLASS,
   MESSAGE_CONTENT_BASE_CLASS, MESSAGE_FOOTER_BASE_CLASS, MESSAGE_GROUP_BASE_CLASS,
   MESSAGE_HEADER_BASE_CLASS,
+};
+#[cfg(feature = "message-scroller")]
+pub use message_scroller::{
+  message_scroller_bottom_anchor_class, message_scroller_class,
+  message_scroller_content_class, message_scroller_distance_to_bottom,
+  message_scroller_intent_attribute, message_scroller_is_at_bottom,
+  message_scroller_is_following_intent, message_scroller_jump_button_class,
+  message_scroller_next_intent, message_scroller_should_follow,
+  message_scroller_show_unread_marker, message_scroller_unread_marker_class,
+  message_scroller_viewport_class, MessageScroller, MessageScrollerBottomAnchor,
+  MessageScrollerContent, MessageScrollerEvent, MessageScrollerIntent,
+  MessageScrollerJumpButton, MessageScrollerMetrics, MessageScrollerUnreadMarker,
+  MessageScrollerViewport, MESSAGE_SCROLLER_BASE_CLASS,
+  MESSAGE_SCROLLER_BOTTOM_ANCHOR_BASE_CLASS, MESSAGE_SCROLLER_CONTENT_BASE_CLASS,
+  MESSAGE_SCROLLER_JUMP_BUTTON_BASE_CLASS, MESSAGE_SCROLLER_UNREAD_MARKER_BASE_CLASS,
+  MESSAGE_SCROLLER_VIEWPORT_BASE_CLASS,
 };
 #[cfg(feature = "native-select")]
 pub use native_select::{

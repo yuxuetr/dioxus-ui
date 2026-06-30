@@ -115,6 +115,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Marker](marker.md) | `dxui add marker` | `marker` | Inline message marker parts |
 | [Menubar](menubar.md) | `dxui add menubar` | `menubar` | Dropdown-backed menubar parts |
 | [Message](message.md) | `dxui add message` | `message` | Provider-neutral message row parts |
+| [Message Scroller](message-scroller.md) | `dxui add message-scroller` | `message-scroller` | Controlled transcript viewport parts |
 | [Native Select](native-select.md) | `dxui add native-select` | `native-select` | Styled native form select |
 | [Navigation Menu](navigation-menu.md) | `dxui add navigation-menu` | `navigation-menu` | Navigation-oriented disclosure parts |
 | [Pagination](pagination.md) | `dxui add pagination` | `pagination` | Styled parts |
