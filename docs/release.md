@@ -114,6 +114,7 @@ Manual review:
 - generated `src/components/ui/mod.rs` is deterministic
 - registry entries point to existing templates
 - component features compile individually and in representative combinations
+- command-line Web and Desktop examples expose representative parity states
 
 `scripts/feature-check.sh` is more expensive than a normal workspace check
 because it invokes Cargo once per public component feature. Run it before

@@ -55,6 +55,19 @@ This verifies:
 This command invokes Cargo many times and is intentionally separated from the
 default local gate.
 
+## Example Smoke Gate
+
+Run after changes to Web or Desktop examples, component demo output, or expanded
+parity coverage:
+
+```bash
+scripts/example-smoke.sh
+```
+
+This verifies that both command-line demo crates expose representative states
+for low-risk composition, form-specific, message, scroller, direction,
+collapsible, and chart components. It is not a screenshot or visual parity gate.
+
 ## Release Gate
 
 Run before publishing:
@@ -64,6 +77,7 @@ cargo check --workspace --all-features
 cargo test --workspace --all-features
 cargo test -p dioxus-ui-cli --test registry
 cargo run -p dioxus-ui-cli -- list
+scripts/example-smoke.sh
 scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
 ```

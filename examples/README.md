@@ -3,8 +3,9 @@
 The examples are workspace members so they stay checked by `cargo check
 --workspace`.
 
-Current examples are skeleton applications. They verify local crate wiring before
-the first Dioxus runtime and component implementations land.
+Current examples are command-line smoke applications. They verify local crate
+wiring and representative crate-mode states before a rendered Dioxus preview app
+lands.
 
 ## Web Demo
 
@@ -88,3 +89,13 @@ cargo run -p dioxus-ui-cli -- add button --root /tmp/dxui-demo
 ```bash
 scripts/generated-fixture-smoke.sh
 ```
+
+## Example Smoke
+
+```bash
+scripts/example-smoke.sh
+```
+
+This runs the Web and Desktop demo crates and verifies representative states for
+composition, form-specific, message, scroller, direction, collapsible, and chart
+components. The examples are not screenshot or visual parity proof yet.
