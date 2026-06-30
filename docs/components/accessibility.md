@@ -76,7 +76,7 @@ Statuses:
 | Bubble | Variant meaning must be supported by text, alignment, or surrounding context. | Implemented |
 | Marker | Progress or streaming announcements remain app-owned; static marker semantics are implemented. | Implemented |
 | Message | Footer icon-only actions need labels; assistant/tool semantics remain app-owned. | Implemented |
-| Message Scroller | Must preserve focus, avoid noisy announcements, and verify scroll behavior per runtime. | Planned |
+| Message Scroller | Controlled parts avoid noisy announcements by default; focus preservation and scroll behavior remain runtime-gated. | Implemented |
 
 ## Overlays
 

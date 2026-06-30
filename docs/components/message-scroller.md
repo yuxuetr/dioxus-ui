@@ -35,6 +35,21 @@ Message Scroller does not add feed, log, list, or live-region semantics by
 default. Unread markers should contain visible text. Icon-only jump controls
 need accessible labels from the app. Appends must not move focus automatically.
 
+## Runtime Notes
+
+The component does not measure the DOM and does not execute scroll commands.
+Web runtime verification currently checks fixture-visible prerequisites with:
+
+```bash
+node scripts/runtime-web-verify.mjs
+```
+
+Desktop and Mobile scroll behavior remains deferred. Desktop WebView scroll,
+resize, device scale, and focus preservation need a repeatable smoke path before
+support is claimed. Mobile visual viewport, safe area, keyboard viewport,
+native scroll, and reduced-motion behavior remain documentation-only until a
+device or emulator command exists.
+
 ## Ownership Boundaries
 
 Message Scroller owns static viewport composition, visible unread/jump states,

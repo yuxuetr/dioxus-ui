@@ -7,7 +7,8 @@ Status: Audited in M30.1. Low-risk composition APIs planned in M30.2. Input
 OTP APIs planned in M30.3. Message and AI-style APIs planned in M30.4. Button
 Group implemented in M31.1. Input Group implemented in M31.2. Collapsible
 implemented in M31.3. Direction implemented in M31.4. Input OTP implemented in
-M32. Attachment, Bubble, Message, and Marker implemented in M33.
+M32. Attachment, Bubble, Message, and Marker implemented in M33. Message
+Scroller implemented in M34.
 
 ## Source
 
@@ -72,6 +73,7 @@ label
 marker
 menubar
 message
+message-scroller
 native-select
 navigation-menu
 pagination
@@ -109,7 +111,7 @@ parity.
 | Low-risk composition | - | M31 | Button Group, Input Group, Collapsible, and Direction are implemented. |
 | Form-specific | - | M32 | Input OTP is implemented; validation, submission, resend timers, and paste policy remain app-owned. |
 | Message and AI-style composition | - | M33 | Attachment, Bubble, Message, and Marker are implemented; upload, markdown, citation, streaming, and provider behavior remain app-owned. |
-| Runtime-dependent message layout | Message Scroller | M34 | Needs scroll intent, bottom anchoring, unread markers, and browser assertions. |
+| Runtime-dependent message layout | - | M34 | Message Scroller is implemented; actual scroll commands, browser automation, and Desktop/Mobile behavior remain runtime-gated. |
 | Chart | Chart | M35 | Backend direction is decided, but public component remains gated. |
 
 ## Explicit Deferrals
@@ -119,8 +121,8 @@ implemented:
 
 - upload transport, drag-drop, and object URL lifecycle for Attachment
 - markdown parsing, syntax highlighting, and model/provider coupling for Message
-- streaming and virtualized rendering for Message Scroller
-- actual DOM scroll commands until runtime browser assertions exist
+- streaming, virtualized rendering, and history prepend behavior for Message Scroller
+- actual DOM/WebView scroll commands until runtime browser assertions exist
 - Chart external backend adapters such as Plotters or Charming
 - Chart cursor exploration and animation runtime
 
@@ -130,7 +132,7 @@ implemented:
    Collapsible, Direction.
 2. Completed form-specific gap: Input OTP.
 3. Completed static message parts: Attachment, Bubble, Message, Marker.
-4. Runtime-dependent message layout: Message Scroller and Web browser assertions.
+4. Completed runtime-dependent message layout surface: Message Scroller and Web assertion prerequisites.
 5. Chart public component preparation after measurement and fallback-table gates.
 
 This order avoids starting with runtime-heavy scrolling, upload, or chart

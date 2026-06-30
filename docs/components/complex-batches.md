@@ -472,7 +472,6 @@ Components:
 Implementation specification:
 
 - [Message and AI-style API Plan](message-ai-plan.md)
-- [Message Scroller Runtime Boundary Plan](message-scroller-plan.md)
 
 Dependencies:
 
@@ -489,7 +488,7 @@ app-owned.
 
 ## Batch 16: Message Scroller and Runtime Follow-through
 
-Status: Planned in M34.
+Status: Implemented in M34.
 
 Components:
 
@@ -498,6 +497,7 @@ Components:
 Implementation specification:
 
 - [Message and AI-style API Plan](message-ai-plan.md)
+- [Message Scroller Runtime Boundary Plan](message-scroller-plan.md)
 
 Dependencies:
 
@@ -508,9 +508,10 @@ Dependencies:
 
 Rationale:
 
-Message Scroller depends on runtime behavior: sticky bottom, unread marker,
-streaming append, user-scrolled-away state, and scroll commands. It should come
-after static message components.
+Message Scroller implements controlled parts, pure scroll intent helpers, and
+Web assertion prerequisites. Actual DOM/WebView scroll commands, focus
+preservation, history prepend offset restoration, streaming transport, and
+virtualized rendering remain app-owned or runtime-gated.
 
 ## Batch 17: Chart Public Component Preparation
 
@@ -548,7 +549,6 @@ M27 completed fixture-local experimental Web runtime adapters
 M28 completed Desktop smoke fixture and Mobile verification checklist
 M29 completed chart rendering backend evaluation
 Next: verify current shadcn gaps and plan missing API surfaces
-Next: implement Message Scroller after runtime boundary planning
 Next: prepare first-party SVG Chart only after gates pass
 ```
 

@@ -5,7 +5,7 @@ helpers or styled parts are implemented.
 
 Status: Planned in M34.1. Pure state helpers implemented in M34.2. Controlled
 composition parts implemented in M34.3. Web runtime assertion prerequisites
-added in M34.4.
+added in M34.4. Documentation and quality gates completed in M34.5.
 
 ## Decision
 
