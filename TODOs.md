@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M37 Rendered Preview and Screenshot Verification
-- Current task: M37.2 Add shared preview state inventory
+- Current task: M37.3 Build rendered Web preview shell
 
 ## Backup
 
@@ -176,7 +176,7 @@
   - Decide how preview state inventory, Tailwind CSS v4 input, and screenshot gates should fit together.
   - Document non-goals such as landing pages, committed full Tailwind output, and app-owned runtime features.
 
-- TODO M37.2 Add shared preview state inventory
+- DONE M37.2 Add shared preview state inventory
   - Add reusable representative state data for composition, form, message, chart, and runtime-sensitive components.
   - Keep command-line smoke output, future Web previews, and future Desktop previews aligned through the same inventory.
   - Avoid network data, upload transport, markdown parsing, provider integration, and external chart adapters.
