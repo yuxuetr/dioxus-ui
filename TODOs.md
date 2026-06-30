@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M33 Message and Attachment Components
-- Current task: M33.4 Implement Marker
+- Current task: M33.5 Complete message component docs and examples
 
 ## Backup
 
@@ -93,7 +93,7 @@
   - Support user/assistant/system-style variants without coupling to a provider.
   - Add CLI template, registry entry, docs page, and demo usage.
 
-- TODO M33.4 Implement Marker
+- DONE M33.4 Implement Marker
   - Add inline marker/highlight part for cited, selected, or annotated content.
   - Keep search indexing, citation resolution, and popover details app-owned.
   - Add CLI template, registry entry, docs page, and demo usage.
