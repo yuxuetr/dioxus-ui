@@ -43,6 +43,7 @@ are required only when a concrete adapter is introduced.
 | Timer | Toast, Sonner, Tooltip delay, Hover Card delay, Carousel autoplay | schedule/cancel/disabled results | timeout scheduling, cancellation, cleanup on unmount | WebView timer behavior while backgrounded or hidden | reduced-motion and user policy can disable timers | `Disabled` or `Unsupported` |
 | Live region | Toast, Sonner, Carousel announcements, async status | priority and duplicate policy mapping | DOM live-region insertion, duplicate suppression, cleanup | assistive behavior verified before support claim | visible status text preferred for noisy updates | `EmptyMessage`, `SuppressedDuplicate`, or `Unsupported` |
 | Measurement | Popover, Tooltip, Dropdown, Select, Menubar, Context Menu, Navigation Menu, Resizable, Chart | rectangle requests and missing target results | anchor/content/viewport rects, scroll and resize invalidation | WebView rect consistency and device scale behavior | visual viewport, safe areas, and orientation changes | `Missing` or `Unsupported` |
+| Scroll command | Message Scroller | intent, threshold, and unread-marker helpers | sticky bottom, jump to latest, scroll invalidation, and prepend offset preservation | WebView scroll and resize consistency | native scroll, visual viewport, keyboard, and safe-area behavior | `Unsupported` without moving focus or mutating app messages |
 | Pointer | Resizable, future drag interactions | phase/delta request mapping | pointer down/move/up/cancel and capture release | pointer capture differences in WebView | touch-first stream and cancellation | `Unsupported` without mutating app state |
 | Gesture | Carousel, future Drawer drag-to-dismiss | threshold resolution and outcome mapping | swipe next/previous/cancel without native scroll conflicts | conservative support after pointer behavior is proven | native scroll escape, velocity thresholds, safe areas | `Cancel` or `Unsupported` |
 
@@ -58,6 +59,8 @@ proves:
 - timers can be scheduled, cancelled, and disabled
 - live-region announcements can be queued without duplicate noise
 - measurement returns stable rectangles after layout, scroll, and resize
+- message scroller scroll commands preserve focus and report unsupported
+  fallback states explicitly
 - pointer and gesture events can be cancelled without stealing native scroll
 
 ### Desktop

@@ -55,7 +55,8 @@ For the first new gap implementation plan, see the
 For the form-specific gap plan, see the
 [Input OTP API Plan](input-otp-plan.md).
 For the message and AI-style gap plan, see the
-[Message and AI-style API Plan](message-ai-plan.md).
+[Message and AI-style API Plan](message-ai-plan.md). For the Message Scroller
+runtime boundary, see the [Message Scroller Runtime Boundary Plan](message-scroller-plan.md).
 
 For accessibility expectations, see the
 [accessibility contract checklist](accessibility.md).

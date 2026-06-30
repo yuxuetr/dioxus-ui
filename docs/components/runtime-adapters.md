@@ -16,6 +16,7 @@ M21 covers planning for:
 - timer scheduling
 - live-region announcements
 - pointer gestures
+- scroll commands
 - DOM or WebView measurement
 
 The first adapter pass should stay optional. Existing crate-mode and
@@ -180,6 +181,29 @@ Non-goals:
 - full physics engine
 - gesture libraries hidden inside styled components
 - replacing native scroll behavior
+
+### Scroll Command Adapter
+
+Required by:
+
+- Message Scroller
+- future transcript or log viewers, if added later
+
+Responsibilities:
+
+- read scroll container metrics when the renderer can provide them
+- subscribe to scroll, resize, and content-size invalidation
+- request scroll-to-bottom or scroll-to-anchor commands
+- preserve visible offset when older history is prepended
+- expose unsupported or missing-target fallback states
+
+Non-goals:
+
+- owning message stream transport
+- owning virtualization or windowing
+- deciding when the app should follow new content
+- moving focus when new messages arrive
+- replacing native user scrolling
 
 ## Platform Constraints
 

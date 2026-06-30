@@ -472,6 +472,7 @@ Components:
 Implementation specification:
 
 - [Message and AI-style API Plan](message-ai-plan.md)
+- [Message Scroller Runtime Boundary Plan](message-scroller-plan.md)
 
 Dependencies:
 

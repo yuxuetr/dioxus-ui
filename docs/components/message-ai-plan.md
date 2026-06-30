@@ -319,7 +319,8 @@ Rules:
 ## Message Scroller API Boundary
 
 Message Scroller should not be implemented with the M33 static components.
-M34 must first define pure state helpers and runtime boundaries.
+M34.1 defines pure state helpers and runtime boundaries in the
+[Message Scroller Runtime Boundary Plan](message-scroller-plan.md).
 
 Planned source-copy command after M34 planning:
 
@@ -327,12 +328,12 @@ Planned source-copy command after M34 planning:
 dxui add message-scroller
 ```
 
-Potential API surface after runtime planning:
+Controlled API surface after runtime planning:
 
 ```rust
 MessageScroller {
-  following: bool,
-  has_new_messages: bool,
+  intent: MessageScrollerIntent,
+  has_unread: bool,
   class: String,
   children: Element,
 }
@@ -364,17 +365,19 @@ MessageScrollerJumpButton {
 }
 ```
 
-Potential helper area:
+Pure helper area:
 
 ```rust
-ScrollIntent::{Follow, Hold, JumpToLatest}
+MessageScrollerIntent::{Follow, Hold, JumpToLatest}
 
+message_scroller_distance_to_bottom(...)
+message_scroller_is_at_bottom(...)
 message_scroller_should_follow(...)
 message_scroller_show_unread_marker(...)
 message_scroller_next_intent(...)
 ```
 
-Deferred until M34:
+Deferred until M34.4 or later runtime work:
 
 - actual scroll commands
 - scroll position restoration

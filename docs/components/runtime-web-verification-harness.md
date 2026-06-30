@@ -96,6 +96,7 @@ driver. The important assertions are behavioral rather than tool-specific.
 | Timer | Scheduled callback fires once, cancellation prevents callback, disabled delay reports disabled, and unmount cleanup prevents later updates. |
 | Live region | Polite and assertive regions receive messages, consecutive duplicate suppression works, empty messages are ignored, and cleanup removes stale text. |
 | Measurement | Rectangles are non-empty for mounted targets, viewport rect is available, scroll/resize invalidates stale values, and missing nodes report missing. |
+| Scroll command | Message Scroller stays pinned when already at bottom, holds when user scrolled away, shows unread state on append, jumps to latest on request, and preserves focus. |
 | Pointer | Pointer move reports deterministic deltas, cancel stops further movement, release clears active capture, and unsupported mode leaves controlled state unchanged. |
 | Gesture | Negative horizontal swipe commits next, positive horizontal swipe commits previous, below-threshold swipe cancels, and vertical native scroll is not blocked. |
 
@@ -110,6 +111,7 @@ The harness must make failures visible through explicit adapter results:
 | Disabled timer policy | `TimerRuntimeResult::Disabled` |
 | Empty announcement | `LiveRegionRuntimeResult::EmptyMessage` |
 | Missing measured node | `MeasurementRuntimeResult::Missing` |
+| Scroll target unavailable | explicit `Unsupported` or missing-target result without moving focus |
 | Pointer adapter unavailable | `PointerRuntimeResult::Unsupported` |
 | Gesture below threshold | `GestureOutcome::Cancel` |
 
