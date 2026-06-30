@@ -10,6 +10,7 @@ pub mod dismissal;
 pub mod feedback;
 pub mod input_otp;
 pub mod layout;
+pub mod message_scroller;
 #[cfg(feature = "dropdown")]
 pub mod dropdown;
 pub mod overlay;
@@ -62,6 +63,12 @@ pub use layout::{
   carousel_previous, layout_orientation_attribute, resizable_clamp, resizable_resize_pair,
   scroll_area_orientation_attribute, sidebar_toggle, CarouselState, LayoutOrientation,
   ResizablePanelState, ScrollAreaOrientation, SidebarState,
+};
+pub use message_scroller::{
+  message_scroller_distance_to_bottom, message_scroller_is_at_bottom,
+  message_scroller_next_intent, message_scroller_should_follow,
+  message_scroller_show_unread_marker, MessageScrollerEvent, MessageScrollerIntent,
+  MessageScrollerMetrics,
 };
 pub use dioxus_ui_core::UiDensity;
 pub use overlay::{

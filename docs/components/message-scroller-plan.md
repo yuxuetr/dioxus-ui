@@ -3,7 +3,7 @@
 This document defines the M34.1 boundary for Message Scroller before state
 helpers or styled parts are implemented.
 
-Status: Planned in M34.1.
+Status: Planned in M34.1. Pure state helpers implemented in M34.2.
 
 ## Decision
 
@@ -72,6 +72,9 @@ Required helper behavior:
   only when new content arrived while the user is held away from the bottom.
 - `message_scroller_next_intent(intent, event, at_bottom)` resolves the next
   controlled intent without measuring the viewport itself.
+
+M34.2 implements these helpers in
+`crates/dioxus-ui-primitives/src/message_scroller.rs`.
 
 ## Runtime Boundary
 
