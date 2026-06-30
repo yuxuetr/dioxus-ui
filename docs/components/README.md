@@ -56,6 +56,8 @@ For the M36 final upstream parity audit, see the
 [Final shadcn Parity Audit](final-shadcn-parity-audit.md).
 For example and screenshot coverage, see the
 [Example And Screenshot Strategy](example-screenshot-strategy.md).
+For the rendered preview milestone, see the
+[Rendered Preview Plan](rendered-preview-plan.md).
 For the first new gap implementation plan, see the
 [Low-risk Composition Gap API Plan](low-risk-composition-gaps.md).
 For the form-specific gap plan, see the
