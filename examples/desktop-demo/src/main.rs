@@ -28,10 +28,11 @@ use dioxus_ui::{
   input_group_addon_class, input_group_class, input_group_control_class, input_otp_class,
   input_otp_group_class, input_otp_hidden_input_class, input_otp_separator_class,
   input_otp_slot_class, otp_apply_paste_filtered, otp_slots, item_class,
-  item_description_class, item_title_class, kbd_class, label_class, menubar_class,
-  menubar_item_class, menubar_trigger_class, message_avatar_class, message_class,
-  message_content_class, message_footer_class, message_group_class, message_header_class,
-  native_select_class, native_select_group_class,
+  item_description_class, item_title_class, kbd_class, label_class, marker_class,
+  marker_content_class, marker_icon_class, menubar_class, menubar_item_class,
+  menubar_trigger_class, message_avatar_class, message_class, message_content_class,
+  message_footer_class, message_group_class, message_header_class, native_select_class,
+  native_select_group_class,
   native_select_option_class, navigation_menu_class, navigation_menu_link_class,
   navigation_menu_trigger_class, pagination_class, pagination_link_class,
   popover_content_class, popover_description_class, popover_header_class, popover_title_class,
@@ -59,8 +60,8 @@ use dioxus_ui::{
   ComboboxPrimitiveConfig, InputGroupAddonPosition, InputOtpInputMode,
   ContextMenuPrimitiveConfig, DatePickerAlign, DatePickerPrimitiveConfig, DatePickerSide,
   DataTableSortDirection, DialogPrimitiveConfig, DrawerPrimitiveConfig, DropdownPrimitiveConfig,
-  FocusMove, HoverCardAlign, HoverCardPrimitiveConfig, HoverCardSide, MenubarPrimitiveConfig,
-  MessageAlign, NavigationMenuPrimitiveConfig, NavigationOrientation, PopoverPrimitiveConfig,
+  FocusMove, HoverCardAlign, HoverCardPrimitiveConfig, HoverCardSide, MarkerVariant,
+  MenubarPrimitiveConfig, MessageAlign, NavigationMenuPrimitiveConfig, NavigationOrientation, PopoverPrimitiveConfig,
   RovingFocusItem, KbdSize, LayoutOrientation, ResizablePanelState, ScrollAreaOrientation, SelectPrimitiveConfig,
   SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SidebarSide, SidebarState, SpinnerSize,
   SonnerItem, SonnerPlacement, SonnerQueue, SonnerVariant, TextDirection, ToastItem,
@@ -148,6 +149,16 @@ fn main() {
     "dioxus-ui desktop demo message footer/align: {}/{}",
     message_footer_class("justify-start"),
     MessageAlign::Start.attribute()
+  );
+  println!(
+    "dioxus-ui desktop demo marker class: {}",
+    marker_class(MarkerVariant::Separator, "text-red-700")
+  );
+  println!(
+    "dioxus-ui desktop demo marker parts: {}/{}/{}",
+    marker_icon_class("text-red-600"),
+    marker_content_class("font-medium"),
+    MarkerVariant::Separator.attribute()
   );
   println!("dioxus-ui desktop demo input class: {}", input_class(false, "h-8"));
   println!(

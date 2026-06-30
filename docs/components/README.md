@@ -111,6 +111,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 | [Item](item.md) | `dxui add item` | `item` | Generic item composition parts |
 | [Kbd](kbd.md) | `dxui add kbd` | `kbd` | Styled keyboard hint |
 | [Label](label.md) | `dxui add label` | `label` | Styled |
+| [Marker](marker.md) | `dxui add marker` | `marker` | Inline message marker parts |
 | [Menubar](menubar.md) | `dxui add menubar` | `menubar` | Dropdown-backed menubar parts |
 | [Message](message.md) | `dxui add message` | `message` | Provider-neutral message row parts |
 | [Native Select](native-select.md) | `dxui add native-select` | `native-select` | Styled native form select |

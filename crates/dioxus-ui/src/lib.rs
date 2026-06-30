@@ -102,6 +102,9 @@ pub mod kbd;
 #[cfg(feature = "label")]
 pub mod label;
 
+#[cfg(feature = "marker")]
+pub mod marker;
+
 #[cfg(feature = "menubar")]
 pub mod menubar;
 
@@ -436,6 +439,12 @@ pub use item::{
 pub use kbd::{kbd_class, Kbd, KbdSize, KBD_BASE_CLASS};
 #[cfg(feature = "label")]
 pub use label::{label_class, Label, LABEL_BASE_CLASS};
+#[cfg(feature = "marker")]
+pub use marker::{
+  marker_class, marker_content_class, marker_icon_class, Marker, MarkerContent, MarkerIcon,
+  MarkerVariant, MARKER_BASE_CLASS, MARKER_BORDER_CLASS, MARKER_CONTENT_BASE_CLASS,
+  MARKER_DEFAULT_CLASS, MARKER_ICON_BASE_CLASS, MARKER_SEPARATOR_CLASS,
+};
 #[cfg(feature = "menubar")]
 pub use menubar::{
   menubar_class, menubar_content_class, menubar_item_class, menubar_label_class,

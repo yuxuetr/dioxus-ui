@@ -1,0 +1,14 @@
+{
+  "name": "marker",
+  "description": "Marker component for inline status, bordered rows, and labeled separators.",
+  "files": [
+    {
+      "source": "templates/marker.rs",
+      "target": "src/components/ui/marker.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}
