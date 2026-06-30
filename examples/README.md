@@ -17,11 +17,14 @@ same inventory.
 cargo run -p dioxus-ui-web-demo
 ```
 
-Planned future command after the Dioxus web runtime is added:
+Rendered preview shell:
 
 ```bash
-dx serve --package dioxus-ui-web-demo
+dx serve --package dioxus-ui-web-demo --bin preview
 ```
+
+The preview shell uses `examples/web-demo/assets/preview.css` as a Tailwind CSS
+v4 source input. It is not a committed complete Tailwind output file.
 
 ## Desktop Demo
 
