@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M35 Chart Public Component Preparation
-- Current task: M35.2 Build chart example fixture before public component
+- Current task: M35.3 Implement public Chart component if gates pass
 
 ## Backup
 
@@ -137,7 +137,7 @@
   - Limit first public chart types to line, bar, and area.
   - Keep Plotters and Charming adapters out of default generated source.
 
-- TODO M35.2 Build chart example fixture before public component
+- DONE M35.2 Build chart example fixture before public component
   - Add example-only SVG chart rendering using existing chart primitives.
   - Verify measurement, responsive sizing, fallback table, and reduced-motion behavior.
   - Avoid adding `registry/chart.json` until the fixture is validated.
