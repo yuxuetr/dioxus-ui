@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M44 Mobile Browser Smoke Script
-- Current task: M44 complete; next milestone pending
+- Overall: 0%
+- Current milestone: M45 Mobile Browser Smoke End-to-end
+- Current task: M45.1 Plan Chromium install and end-to-end browser smoke
 
 ## Backup
 
@@ -354,6 +354,28 @@
   - Run deterministic gates and run the browser smoke if Chromium is available.
   - If Chromium is missing, verify the command fails with actionable install guidance.
   - Update TODO status after commits and leave next seed for CI or screenshot follow-through.
+
+## M45 Mobile Browser Smoke End-to-end
+
+- TODO M45.1 Plan Chromium install and end-to-end browser smoke
+  - Define the local opt-in Chromium install path and cache/artifact expectations.
+  - Keep browser downloads out of default release gates.
+  - Document expected success and failure modes before installing.
+
+- TODO M45.2 Install Playwright Chromium if feasible
+  - Run `npx playwright install chromium` only as an opt-in local setup step.
+  - Verify downloaded browser artifacts remain outside Git.
+  - Document network or platform failures without committing generated binaries.
+
+- TODO M45.3 Run mobile browser smoke end to end
+  - Run `npm run verify:mobile-browser` with Chromium available.
+  - Verify server startup, selector assertions, nonblank rendering, chart bounding box, and cleanup.
+  - Keep screenshots optional and ignored.
+
+- TODO M45.4 Complete mobile browser smoke end-to-end milestone
+  - Run deterministic gates and the end-to-end browser smoke if installation succeeded.
+  - Update docs with the supported local claim and remaining non-release status.
+  - Leave next seed for optional screenshots or CI integration.
 
 ## Status Rules
 
