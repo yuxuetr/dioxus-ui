@@ -136,3 +136,6 @@ a real development dependency. That milestone should include:
 - explicit generated artifact ignore rules
 - a first opt-in browser smoke script that owns `dx serve` startup and cleanup
 - clear exclusion from default release gates until CI/local stability is proven
+
+M43 starts this follow-through. See
+[Playwright Dependency Plan](playwright-dependency-plan.md).
