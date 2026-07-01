@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M38 Desktop WebView Preview
-- Current task: M38.5 Complete Desktop preview milestone
+- Current task: M38 complete
 
 ## Backup
 
@@ -218,7 +218,7 @@
   - Update examples, quality gates, and release docs with the explicit Desktop preview command.
   - Do not add Desktop screenshots to default release gates yet.
 
-- TODO M38.5 Complete Desktop preview milestone
+- DONE M38.5 Complete Desktop preview milestone
   - Run workspace checks, Web preview gate, Desktop preview gate, and example smoke.
   - Document remaining WebView screenshot and Mobile automation gaps.
   - Mark M38 complete only after all changes are committed.
