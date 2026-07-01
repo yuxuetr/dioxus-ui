@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M47 Mobile Browser Screenshot Artifacts
-- Current task: M47.2 Add opt-in screenshot capture support
+- Current task: M47.3 Document screenshot usage and cleanup expectations
 
 ## Backup
 
@@ -406,7 +406,7 @@
   - Specify artifact naming, ignored paths, and failure behavior.
   - Keep screenshots outside default release gates and committed source artifacts.
 
-- TODO M47.2 Add opt-in screenshot capture support
+- DONE M47.2 Add opt-in screenshot capture support
   - Update `scripts/mobile-browser-smoke.mjs` to save a mobile screenshot only when configured.
   - Preserve existing assertion-only behavior by default.
   - Print the saved screenshot path when capture succeeds.
