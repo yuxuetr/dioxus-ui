@@ -210,6 +210,40 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           button { class: "{secondary_button_class}", "Secondary action" }
         }
         section {
+          class: "grid gap-3 rounded-md border border-zinc-200 p-4 sm:grid-cols-2 lg:grid-cols-3",
+          "data-preview-panel": "mobile-profile",
+          h2 { class: "text-sm font-medium sm:col-span-2 lg:col-span-3", "Mobile Web profile" }
+          p {
+            class: "text-sm text-zinc-600 sm:col-span-2 lg:col-span-3",
+            "Source-level markers for mobile-width Web verification. Native device behavior remains app-owned."
+          }
+          div {
+            class: "rounded-md bg-zinc-50 p-3 text-sm",
+            "data-mobile-profile": "touch-targets",
+            button { class: "{primary_button_class} min-h-11 w-full", "Touch target" }
+          }
+          div {
+            class: "rounded-md bg-zinc-50 p-3 text-sm",
+            "data-mobile-profile": "hover-alternative",
+            button { class: "{secondary_button_class} min-h-11 w-full", "Tap or focus" }
+          }
+          div {
+            class: "rounded-md bg-zinc-50 p-3 text-sm",
+            "data-mobile-profile": "safe-area-owned",
+            "Safe-area padding is owned by the app shell."
+          }
+          div {
+            class: "rounded-md bg-zinc-50 p-3 text-sm",
+            "data-mobile-profile": "reduced-motion",
+            "Animation and timer policy remains app-owned."
+          }
+          div {
+            class: "rounded-md bg-zinc-50 p-3 text-sm",
+            "data-mobile-profile": "visible-status",
+            "Visible status text mirrors runtime-sensitive behavior."
+          }
+        }
+        section {
           class: "grid gap-4 lg:grid-cols-2",
           "data-preview-panel": "form",
           article {
