@@ -108,3 +108,30 @@ proven.
 Playwright mobile browser profiles do not verify native Dioxus Mobile behavior,
 software keyboard changes, safe-area inset measurement, mobile assistive
 technology, or native gesture arbitration.
+
+## M43.4 Validation Result
+
+M43 completed with a reviewed Playwright development dependency and npm
+lockfile. The milestone validation ran:
+
+```bash
+npm run verify:smoke
+npm ls --depth=0
+cargo test --workspace --all-features -q
+git diff --check
+```
+
+All commands passed. `npm ls --depth=0` reports `@playwright/test@1.61.1`.
+No browser binary was installed, and no browser-rendered smoke script was added.
+
+## Next Milestone Seed
+
+The next browser automation milestone can add the first opt-in browser smoke
+script. It should:
+
+- fail clearly when Chromium is not installed
+- document `npx playwright install chromium`
+- start and stop `dx serve` itself
+- use a mobile viewport against the Web preview
+- assert the M41 mobile browser selectors
+- stay outside default release gates until stability is proven
