@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M50 CI Browser Workflow Template
-- Current task: M50.1 Plan non-blocking CI browser workflow template
+- Current task: M50.2 Add reviewed workflow template document
 
 ## Backup
 
@@ -467,7 +467,7 @@
 
 ## M50 CI Browser Workflow Template
 
-- TODO M50.1 Plan non-blocking CI browser workflow template
+- DONE M50.1 Plan non-blocking CI browser workflow template
   - Define the workflow shape without adding `.github/workflows`.
   - Decide which browser strategy the template should prefer first.
   - Document permissions, triggers, cache, and artifact behavior.
