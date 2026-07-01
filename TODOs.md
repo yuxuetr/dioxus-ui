@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M49 CI Browser Smoke Documentation
-- Current task: M49 complete; next milestone pending
+- Overall: 0%
+- Current milestone: M50 CI Browser Workflow Template
+- Current task: M50.1 Plan non-blocking CI browser workflow template
 
 ## Backup
 
@@ -463,6 +463,28 @@
 - DONE M49.4 Complete CI browser smoke documentation milestone
   - Run deterministic gates and documentation checks.
   - Verify no workflow or browser artifacts are accidentally committed.
+  - Update TODO status only after commits and validation.
+
+## M50 CI Browser Workflow Template
+
+- TODO M50.1 Plan non-blocking CI browser workflow template
+  - Define the workflow shape without adding `.github/workflows`.
+  - Decide which browser strategy the template should prefer first.
+  - Document permissions, triggers, cache, and artifact behavior.
+
+- TODO M50.2 Add reviewed workflow template document
+  - Add a copyable non-blocking workflow template under docs.
+  - Include Playwright-managed Chromium and external Chrome notes.
+  - Keep the template manual or scheduled by default, not a required merge gate.
+
+- TODO M50.3 Link workflow template from CI browser smoke docs
+  - Update README, CI browser guide, quality gates, and release docs as needed.
+  - Clarify that the template is documentation until copied into `.github/workflows`.
+  - Keep default local gates unchanged.
+
+- TODO M50.4 Complete CI browser workflow template milestone
+  - Run deterministic gates and documentation checks.
+  - Verify no `.github/workflows` file is committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
