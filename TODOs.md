@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M50 CI Browser Workflow Template
-- Current task: M50.2 Add reviewed workflow template document
+- Current task: M50.3 Link workflow template from CI browser smoke docs
 
 ## Backup
 
@@ -472,7 +472,7 @@
   - Decide which browser strategy the template should prefer first.
   - Document permissions, triggers, cache, and artifact behavior.
 
-- TODO M50.2 Add reviewed workflow template document
+- DONE M50.2 Add reviewed workflow template document
   - Add a copyable non-blocking workflow template under docs.
   - Include Playwright-managed Chromium and external Chrome notes.
   - Keep the template manual or scheduled by default, not a required merge gate.
