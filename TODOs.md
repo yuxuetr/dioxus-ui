@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M40 Mobile Web Profile Verification
-- Current task: M40 complete; next milestone pending
+- Overall: 0%
+- Current milestone: M41 Mobile Browser Smoke Feasibility
+- Current task: M41.1 Plan Mobile browser smoke path
 
 ## Backup
 
@@ -266,6 +266,28 @@
   - Run Web preview gate, Mobile Web profile gate, example smoke, and workspace checks as appropriate.
   - Update TODO status only after commits and validation.
   - Leave a clear next milestone seed for emulator/device follow-through if needed.
+
+## M41 Mobile Browser Smoke Feasibility
+
+- TODO M41.1 Plan Mobile browser smoke path
+  - Define a Playwright-style mobile browser profile attached to the rendered Web preview.
+  - Decide what can be verified without adding npm dependencies to the repository.
+  - Keep native iOS/Android simulator, software keyboard, and assistive technology out of scope.
+
+- TODO M41.2 Probe local browser automation availability
+  - Check whether the local configured browser automation can open the Web preview at a mobile viewport.
+  - Verify the mobile-profile panel, form, message, chart, and overlay-open selectors.
+  - Document any tooling, dependency, or server lifecycle constraints.
+
+- TODO M41.3 Add repeatable smoke command if feasible
+  - Add a repository script only if it can run deterministically without unplanned dependency churn.
+  - Ensure the command starts and cleans up the Web preview server or clearly documents the external server requirement.
+  - Keep screenshots or browser artifacts ignored by Git.
+
+- TODO M41.4 Complete Mobile browser smoke feasibility milestone
+  - Run Mobile Web profile gate, Web preview gate, example smoke, and any feasible browser smoke.
+  - Update docs and release gates with the supported claim and remaining native Mobile gaps.
+  - Leave a clear next milestone seed for emulator/device follow-through if browser smoke is not enough.
 
 ## Status Rules
 
