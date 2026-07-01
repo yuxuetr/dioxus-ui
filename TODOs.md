@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M47 Mobile Browser Screenshot Artifacts
-- Current task: M47.1 Plan opt-in screenshot artifact contract
+- Current task: M47.2 Add opt-in screenshot capture support
 
 ## Backup
 
@@ -401,7 +401,7 @@
 
 ## M47 Mobile Browser Screenshot Artifacts
 
-- TODO M47.1 Plan opt-in screenshot artifact contract
+- DONE M47.1 Plan opt-in screenshot artifact contract
   - Define when the mobile browser smoke should save screenshots.
   - Specify artifact naming, ignored paths, and failure behavior.
   - Keep screenshots outside default release gates and committed source artifacts.
