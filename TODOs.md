@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M49 CI Browser Smoke Documentation
-- Current task: M49.3 Link CI browser smoke guide from release and quality docs
+- Current task: M49.4 Complete CI browser smoke documentation milestone
 
 ## Backup
 
@@ -455,7 +455,7 @@
   - Include separate paths for Playwright-managed Chromium and external Chrome executables.
   - Keep native Mobile and pixel visual regression claims out of scope.
 
-- TODO M49.3 Link CI browser smoke guide from release and quality docs
+- DONE M49.3 Link CI browser smoke guide from release and quality docs
   - Update README, quality gates, release docs, and component docs index.
   - Explain that CI browser smoke remains opt-in until the repository has a reviewed workflow.
   - Keep default local gates unchanged.
