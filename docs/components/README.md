@@ -46,6 +46,8 @@ For Desktop and Mobile target checks, see the
 [Desktop and Mobile runtime verification strategy](runtime-desktop-mobile-verification.md).
 For Mobile target follow-through, see the
 [Mobile runtime verification checklist](runtime-mobile-verification-checklist.md).
+For the Mobile Web profile milestone, see the
+[Mobile Web Profile Verification](mobile-web-profile-verification.md).
 For the implementation order after verification planning, see the
 [runtime implementation milestone seeds](runtime-implementation-milestones.md).
 For experimental Web adapter boundaries, see the
