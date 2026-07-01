@@ -488,3 +488,42 @@ native Mobile verification path.
 The next browser milestone can document CI browser setup or add a comparison
 step for screenshot dimensions and key selectors once a portable CI browser
 installation strategy is selected.
+
+## M48.1 Screenshot Metadata Validation Contract
+
+M48 tightens the M47 screenshot artifact path by validating basic PNG metadata
+after the screenshot is written. The check should run only when screenshot
+capture is explicitly enabled:
+
+```bash
+DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+```
+
+No additional dependency is needed. The script can parse the PNG signature and
+IHDR chunk directly from the generated file.
+
+Minimum metadata checks:
+
+- generated file exists
+- file size is greater than zero
+- file starts with the PNG signature
+- IHDR width is at least the mobile viewport width, currently `390`
+- IHDR height is at least the mobile viewport height, currently `844`
+
+Expected output should include the saved path plus basic metadata:
+
+```text
+mobile browser screenshot saved: /path/to/dioxus-ui-mobile-browser-preview-*.png
+mobile browser screenshot metadata: 390xNNNN, BBBBBB bytes
+```
+
+Failure behavior:
+
+- selector and rendering assertions still run before screenshot capture
+- if screenshot capture is requested and metadata validation fails, the command
+  fails because the requested artifact is not trustworthy
+- cleanup must still close the browser and stop the preview server
+
+This is not visual regression testing. It does not compare pixels, inspect
+layout quality, or prove native Mobile behavior. It only prevents empty,
+non-PNG, or undersized screenshot artifacts from being reported as successful.
