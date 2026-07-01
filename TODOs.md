@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M46 External Chrome Browser Smoke Path
-- Current task: M46.3 Probe external Chrome path locally
+- Current task: M46.4 Complete external Chrome browser smoke milestone
 
 ## Backup
 
@@ -389,7 +389,7 @@
   - Preserve the existing missing Playwright Chromium install guidance when no external path is set.
   - Fail clearly when the configured executable path is invalid.
 
-- TODO M46.3 Probe external Chrome path locally
+- DONE M46.3 Probe external Chrome path locally
   - Check whether a local Chrome executable exists and can run the smoke command.
   - Document platform launch failures without claiming browser smoke success.
   - Verify server cleanup and ignored artifacts.
