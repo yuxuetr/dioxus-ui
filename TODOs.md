@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M37 Rendered Preview and Screenshot Verification
-- Current task: M37.5 Plan Desktop WebView preview follow-through
+- Current task: M37 complete
 
 ## Backup
 
@@ -191,7 +191,7 @@
   - Cover chart, message, form, and at least one overlay/open-state panel.
   - Keep the gate separate from default checks until runtime browser automation is stable.
 
-- TODO M37.5 Plan Desktop WebView preview follow-through
+- DONE M37.5 Plan Desktop WebView preview follow-through
   - Define the smallest Desktop WebView smoke path after the Web preview stabilizes.
   - Document remaining Mobile verification gaps and any platform-specific constraints.
   - Update quality gates and release docs with the new preview and screenshot commands.
