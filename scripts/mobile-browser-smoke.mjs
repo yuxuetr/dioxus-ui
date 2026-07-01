@@ -3,6 +3,7 @@ import { request } from "node:http";
 import { once } from "node:events";
 import { spawn } from "node:child_process";
 import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { chromium, devices } from "@playwright/test";
 
 const repoRoot = new URL("..", import.meta.url).pathname;
@@ -11,6 +12,9 @@ const port = 45237;
 const previewUrl = `http://${host}:${port}`;
 const installHint = "npx playwright install chromium";
 const executablePath = process.env.DIOXUS_UI_BROWSER_EXECUTABLE;
+const shouldCaptureScreenshot = ["1", "true", "yes"].includes(
+  String(process.env.DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT ?? "").toLowerCase(),
+);
 
 let server;
 let serverOutput = "";
@@ -33,6 +37,11 @@ function browserLaunchOptions() {
   }
 
   return { headless: true, executablePath };
+}
+
+function screenshotPath() {
+  const stamp = new Date().toISOString().replaceAll(":", "-").replaceAll(".", "-");
+  return join(repoRoot, `dioxus-ui-mobile-browser-preview-${stamp}.png`);
 }
 
 function startServer() {
@@ -219,6 +228,12 @@ async function runBrowserAssertions() {
       throw new Error(
         `mobile browser smoke failed: ${failures.join(", ")}\n${JSON.stringify(result, null, 2)}`,
       );
+    }
+
+    if (shouldCaptureScreenshot) {
+      const path = screenshotPath();
+      await page.screenshot({ path, fullPage: true });
+      console.log(`mobile browser screenshot saved: ${path}`);
     }
   } finally {
     await browser.close();
