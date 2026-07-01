@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 100%
 - Current milestone: M43 Playwright Dependency Preparation
-- Current task: M43.4 Complete Playwright dependency milestone
+- Current task: M43 complete; next milestone pending
 
 ## Backup
 
@@ -328,7 +328,7 @@
   - Explain which commands work without browser binaries and which require downloads.
   - Keep native Mobile support explicitly out of scope.
 
-- TODO M43.4 Complete Playwright dependency milestone
+- DONE M43.4 Complete Playwright dependency milestone
   - Run npm verification aliases, workspace tests, and any package lock checks.
   - Do not add browser-rendered smoke unless browser binaries are installed and stable.
   - Leave a clear next seed for the first opt-in browser smoke script.
