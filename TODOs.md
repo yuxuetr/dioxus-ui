@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 100%
 - Current milestone: M48 Mobile Screenshot Metadata Checks
-- Current task: M48.4 Complete mobile screenshot metadata milestone
+- Current task: M48 complete; next milestone pending
 
 ## Backup
 
@@ -438,7 +438,7 @@
   - Keep the command opt-in and outside default release gates.
   - Avoid claiming visual diffing or native Mobile verification.
 
-- TODO M48.4 Complete mobile screenshot metadata milestone
+- DONE M48.4 Complete mobile screenshot metadata milestone
   - Run deterministic gates and the external Chrome screenshot metadata smoke if feasible.
   - Verify server cleanup and ignored artifact behavior.
   - Update TODO status only after commits and validation.
