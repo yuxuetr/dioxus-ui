@@ -78,8 +78,10 @@ node scripts/web-preview-verify.mjs
 
 This verifies the Dioxus Web preview binary, Tailwind CSS v4 source input, stable
 `data-preview-*` screenshot targets, and representative shared inventory output.
-It is the structural prerequisite for browser screenshots; visual screenshot
-automation should be added after a browser automation dependency is available.
+It is the structural prerequisite for browser screenshots.
+
+For the Playwright screenshot procedure, see
+`docs/components/web-preview-screenshot-verification.md`.
 
 ## Release Gate
 

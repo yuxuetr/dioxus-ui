@@ -58,6 +58,8 @@ For example and screenshot coverage, see the
 [Example And Screenshot Strategy](example-screenshot-strategy.md).
 For the rendered preview milestone, see the
 [Rendered Preview Plan](rendered-preview-plan.md).
+For the Web screenshot verification gate, see the
+[Web Preview Screenshot Verification](web-preview-screenshot-verification.md).
 For the first new gap implementation plan, see the
 [Low-risk Composition Gap API Plan](low-risk-composition-gaps.md).
 For the form-specific gap plan, see the
