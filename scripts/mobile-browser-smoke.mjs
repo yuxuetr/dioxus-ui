@@ -2,7 +2,7 @@
 import { request } from "node:http";
 import { once } from "node:events";
 import { spawn } from "node:child_process";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { chromium, devices } from "@playwright/test";
 
@@ -12,6 +12,7 @@ const port = 45237;
 const previewUrl = `http://${host}:${port}`;
 const installHint = "npx playwright install chromium";
 const executablePath = process.env.DIOXUS_UI_BROWSER_EXECUTABLE;
+const mobileViewport = { width: 390, height: 844 };
 const shouldCaptureScreenshot = ["1", "true", "yes"].includes(
   String(process.env.DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT ?? "").toLowerCase(),
 );
@@ -42,6 +43,41 @@ function browserLaunchOptions() {
 function screenshotPath() {
   const stamp = new Date().toISOString().replaceAll(":", "-").replaceAll(".", "-");
   return join(repoRoot, `dioxus-ui-mobile-browser-preview-${stamp}.png`);
+}
+
+function readPngMetadata(path) {
+  const bytes = readFileSync(path);
+  const stat = statSync(path);
+  const signature = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a];
+
+  if (stat.size <= 0) {
+    throw new Error(`screenshot artifact is empty: ${path}`);
+  }
+
+  if (bytes.length < 24) {
+    throw new Error(`screenshot artifact is too small to be a PNG: ${path}`);
+  }
+
+  for (let index = 0; index < signature.length; index += 1) {
+    if (bytes[index] !== signature[index]) {
+      throw new Error(`screenshot artifact is not a PNG: ${path}`);
+    }
+  }
+
+  if (bytes.toString("ascii", 12, 16) !== "IHDR") {
+    throw new Error(`screenshot artifact is missing PNG IHDR metadata: ${path}`);
+  }
+
+  const width = bytes.readUInt32BE(16);
+  const height = bytes.readUInt32BE(20);
+
+  if (width < mobileViewport.width || height < mobileViewport.height) {
+    throw new Error(
+      `screenshot artifact is below mobile viewport size: ${width}x${height}, expected at least ${mobileViewport.width}x${mobileViewport.height}`,
+    );
+  }
+
+  return { width, height, bytes: stat.size };
 }
 
 function startServer() {
@@ -167,7 +203,7 @@ async function runBrowserAssertions() {
   try {
     const context = await browser.newContext({
       ...devices["iPhone 12"],
-      viewport: { width: 390, height: 844 },
+      viewport: mobileViewport,
     });
     const page = await context.newPage();
 
@@ -233,7 +269,11 @@ async function runBrowserAssertions() {
     if (shouldCaptureScreenshot) {
       const path = screenshotPath();
       await page.screenshot({ path, fullPage: true });
+      const metadata = readPngMetadata(path);
       console.log(`mobile browser screenshot saved: ${path}`);
+      console.log(
+        `mobile browser screenshot metadata: ${metadata.width}x${metadata.height}, ${metadata.bytes} bytes`,
+      );
     }
   } finally {
     await browser.close();
