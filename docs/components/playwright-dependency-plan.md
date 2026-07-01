@@ -410,3 +410,49 @@ path for this machine, not a default release gate.
 The next browser milestone can add optional screenshot capture for the external
 Chrome path, or document CI setup once a portable browser installation strategy
 is selected.
+
+## M47.1 Screenshot Artifact Contract
+
+M47 adds optional screenshot capture to the existing mobile browser smoke. The
+default command remains assertion-only:
+
+```bash
+npm run verify:mobile-browser
+```
+
+Screenshot capture should be opt-in through an environment variable so local
+artifact generation never changes default release gates. The planned contract is:
+
+```bash
+DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+```
+
+The script may also combine screenshot capture with the local external Chrome
+path:
+
+```bash
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+```
+
+Artifact rules:
+
+- save screenshots under the repository root with the existing ignored pattern
+  `dioxus-ui-mobile-browser-preview-*.png`
+- include a timestamp or similar unique suffix to avoid overwriting previous
+  local captures
+- print the saved path after a successful screenshot write
+- do not commit screenshots as source artifacts
+- do not promote screenshot capture into default release gates
+
+Failure behavior:
+
+- selector and rendering assertions should still run before screenshot capture
+- if assertions fail, report assertion failures and do not claim a screenshot
+  result
+- if screenshot writing fails after assertions pass, fail the opt-in command
+  because the requested artifact was not produced
+- server and browser cleanup must still run in all cases
+
+This verifies rendered Web preview output at a mobile browser viewport. It does
+not verify native Dioxus Mobile, mobile soft keyboard behavior, native safe-area
+measurement, or device/emulator rendering.
