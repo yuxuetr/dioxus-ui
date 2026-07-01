@@ -175,3 +175,38 @@ script. It should:
 - use a mobile viewport against the Web preview
 - assert the M41 mobile browser selectors
 - stay outside default release gates until stability is proven
+
+## M44.4 Validation Result
+
+M44 completed with an opt-in mobile browser smoke command:
+
+```bash
+npm run verify:mobile-browser
+```
+
+The milestone validation ran:
+
+```bash
+npm run verify:smoke
+npm run verify:mobile-browser
+cargo test --workspace --all-features -q
+git diff --check
+```
+
+`npm run verify:smoke`, workspace tests, and diff checks passed. The browser
+smoke command failed as expected in the current environment because Playwright
+Chromium is not installed, and it printed:
+
+```text
+Playwright Chromium is not installed. Run `npx playwright install chromium` before npm run verify:mobile-browser.
+```
+
+The failure path cleaned up the preview server, so no localhost listener was
+left behind.
+
+## Next Milestone Seed
+
+The next browser milestone should install Chromium in an opt-in environment and
+run `npm run verify:mobile-browser` end to end. If it passes, the follow-through
+can add optional screenshot capture and CI documentation while keeping the
+command outside default release gates.
