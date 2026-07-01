@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 100%
 - Current milestone: M47 Mobile Browser Screenshot Artifacts
-- Current task: M47.4 Complete mobile browser screenshot artifact milestone
+- Current task: M47 complete; next milestone pending
 
 ## Backup
 
@@ -416,7 +416,7 @@
   - Explain that screenshots verify rendered Web mobile viewport output, not native Mobile.
   - Keep generated screenshot files ignored by Git.
 
-- TODO M47.4 Complete mobile browser screenshot artifact milestone
+- DONE M47.4 Complete mobile browser screenshot artifact milestone
   - Run deterministic gates and the external Chrome screenshot smoke if feasible.
   - Verify screenshot artifact creation and cleanup behavior.
   - Update TODO status only after commits and validation.
