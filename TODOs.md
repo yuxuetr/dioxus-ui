@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M41 Mobile Browser Smoke Feasibility
-- Current task: M41.1 Plan Mobile browser smoke path
+- Current task: M41.2 Probe local browser automation availability
 
 ## Backup
 
@@ -269,7 +269,7 @@
 
 ## M41 Mobile Browser Smoke Feasibility
 
-- TODO M41.1 Plan Mobile browser smoke path
+- DONE M41.1 Plan Mobile browser smoke path
   - Define a Playwright-style mobile browser profile attached to the rendered Web preview.
   - Decide what can be verified without adding npm dependencies to the repository.
   - Keep native iOS/Android simulator, software keyboard, and assistive technology out of scope.
