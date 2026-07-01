@@ -610,3 +610,31 @@ DIOXUS_UI_BROWSER_EXECUTABLE="$CHROME_BIN" DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1
 The CI guide should not claim visual regression coverage, native Mobile
 coverage, or Desktop WebView screenshot coverage. It should only document
 rendered Web preview smoke assertions and optional PNG metadata validation.
+
+## M49.4 Final Result
+
+M49 completed with CI browser smoke setup documentation and no repository
+workflow changes. The milestone added:
+
+- `docs/ci-browser-smoke.md`
+- README, quality gate, release, and component-doc index links
+- explicit guidance for Playwright-managed Chromium and external Chrome paths
+- artifact and failure-mode guidance for screenshot metadata runs
+
+The milestone validation ran:
+
+```bash
+npm run verify:smoke
+cargo test --workspace --all-features -q
+git diff --check
+test ! -d .github
+```
+
+All commands passed. No `.github/workflows` directory was added, and browser
+smoke remains opt-in until a workflow is reviewed separately.
+
+## Next Milestone Seed
+
+The next CI milestone can add a reviewed non-blocking workflow file or a
+workflow template document. That milestone should decide whether the browser job
+uses Playwright-managed Chromium, a runner-provided Chrome executable, or both.
