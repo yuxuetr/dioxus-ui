@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 100%
 - Current milestone: M41 Mobile Browser Smoke Feasibility
-- Current task: M41.4 Complete Mobile browser smoke feasibility milestone
+- Current task: M41 complete; next milestone pending
 
 ## Backup
 
@@ -284,7 +284,7 @@
   - Ensure the command starts and cleans up the Web preview server or clearly documents the external server requirement.
   - Keep screenshots or browser artifacts ignored by Git.
 
-- TODO M41.4 Complete Mobile browser smoke feasibility milestone
+- DONE M41.4 Complete Mobile browser smoke feasibility milestone
   - Run Mobile Web profile gate, Web preview gate, example smoke, and any feasible browser smoke.
   - Update docs and release gates with the supported claim and remaining native Mobile gaps.
   - Leave a clear next milestone seed for emulator/device follow-through if browser smoke is not enough.
