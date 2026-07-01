@@ -638,3 +638,43 @@ smoke remains opt-in until a workflow is reviewed separately.
 The next CI milestone can add a reviewed non-blocking workflow file or a
 workflow template document. That milestone should decide whether the browser job
 uses Playwright-managed Chromium, a runner-provided Chrome executable, or both.
+
+## M50.1 Non-blocking Workflow Template Plan
+
+M50 should add a workflow template document, not an active workflow file. The
+template should be copyable into `.github/workflows` later after review.
+
+Planned workflow shape:
+
+- `workflow_dispatch` trigger by default
+- optional commented `schedule` trigger for later periodic runs
+- no `pull_request` trigger in the first template
+- `contents: read` permissions only
+- `continue-on-error: true` at the job level if copied as an experimental job
+- `timeout-minutes` set so hung `dx serve` or browser downloads cannot block CI
+
+Preferred first browser strategy:
+
+- Playwright-managed Chromium as the primary documented path because it is
+  portable across CI images
+- external Chrome as a documented variant for self-hosted or prebuilt runners
+
+Template command order:
+
+```bash
+npm ci
+npm run verify:smoke
+cargo test --workspace --all-features -q
+npx playwright install chromium
+DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+```
+
+Artifact behavior:
+
+- upload `dioxus-ui-mobile-browser-preview-*.png` only when screenshot capture
+  is enabled
+- do not upload Playwright browser caches as source artifacts
+- keep screenshots ignored by Git
+
+The template must explicitly state that it is documentation until copied into a
+real workflow location. It must not make browser smoke a required merge gate.
