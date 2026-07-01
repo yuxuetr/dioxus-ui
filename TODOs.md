@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 100%
 - Current milestone: M39 Desktop WebView Screenshot Feasibility
-- Current task: M39.4 Complete Desktop screenshot feasibility milestone
+- Current task: M39 complete; next milestone pending
 
 ## Backup
 
@@ -240,7 +240,7 @@
   - Ensure the script starts and cleans up the Desktop preview process.
   - Keep generated screenshots ignored by Git.
 
-- TODO M39.4 Complete Desktop screenshot feasibility milestone
+- DONE M39.4 Complete Desktop screenshot feasibility milestone
   - Run Desktop structural gate, Web preview gate, example smoke, and any feasible screenshot smoke.
   - Update preview docs, quality gates, and release notes with the outcome.
   - Mark unsupported behavior explicitly if local screenshot capture is not reliable.
