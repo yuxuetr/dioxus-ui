@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 100%
 - Current milestone: M46 External Chrome Browser Smoke Path
-- Current task: M46.4 Complete external Chrome browser smoke milestone
+- Current task: M46 complete; next milestone pending
 
 ## Backup
 
@@ -394,7 +394,7 @@
   - Document platform launch failures without claiming browser smoke success.
   - Verify server cleanup and ignored artifacts.
 
-- TODO M46.4 Complete external Chrome browser smoke milestone
+- DONE M46.4 Complete external Chrome browser smoke milestone
   - Run deterministic gates and any feasible external-browser smoke.
   - Update docs with the supported local command and remaining limitations.
   - Leave next seed for CI or screenshot follow-through.
