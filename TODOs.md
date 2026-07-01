@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M44 Mobile Browser Smoke Script
-- Current task: M44.1 Plan opt-in mobile browser smoke script
+- Current task: M44.2 Implement opt-in mobile browser smoke script
 
 ## Backup
 
@@ -335,7 +335,7 @@
 
 ## M44 Mobile Browser Smoke Script
 
-- TODO M44.1 Plan opt-in mobile browser smoke script
+- DONE M44.1 Plan opt-in mobile browser smoke script
   - Define the script contract for server startup, mobile viewport assertions, screenshots, and cleanup.
   - Decide how the script fails when Playwright Chromium is not installed.
   - Keep the command outside default release gates.
