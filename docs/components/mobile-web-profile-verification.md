@@ -126,6 +126,9 @@ adding native Mobile runtime behavior. Reasonable candidates are:
 - an iOS simulator command if Dioxus Mobile tooling is selected
 - an Android emulator command if Dioxus Mobile tooling is selected
 
+M41 starts with the first option. See
+[Mobile Browser Smoke Feasibility](mobile-browser-smoke-feasibility.md).
+
 Do not implement adapter defaults until the selected command can produce stable
 visible status output for touch, safe area, visual viewport, native scroll,
 reduced motion, and fallback states.
