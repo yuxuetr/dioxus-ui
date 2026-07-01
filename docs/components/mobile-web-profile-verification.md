@@ -98,3 +98,34 @@ Mobile verification can move beyond the M40 Mobile Web profile when:
 
 Until then, Mobile remains a target profile and integration policy, not a
 separate component implementation track.
+
+## M40.4 Validation Result
+
+M40 completed with the Mobile Web profile as a structural, source-level gate.
+The milestone validation ran:
+
+```bash
+node scripts/mobile-web-profile-verify.mjs
+node scripts/web-preview-verify.mjs
+node scripts/desktop-preview-verify.mjs
+scripts/example-smoke.sh
+cargo test --workspace --all-features -q
+```
+
+All commands passed. The supported claim is limited to the Web preview exposing
+mobile-profile markers and the documentation preserving native Mobile
+boundaries. Native device, emulator, software keyboard, safe-area inset,
+assistive technology, and gesture arbitration checks remain deferred.
+
+## Next Milestone Seed
+
+The next Mobile milestone should choose one repeatable target command before
+adding native Mobile runtime behavior. Reasonable candidates are:
+
+- a Playwright mobile browser profile attached to the rendered Web preview
+- an iOS simulator command if Dioxus Mobile tooling is selected
+- an Android emulator command if Dioxus Mobile tooling is selected
+
+Do not implement adapter defaults until the selected command can produce stable
+visible status output for touch, safe area, visual viewport, native scroll,
+reduced motion, and fallback states.
