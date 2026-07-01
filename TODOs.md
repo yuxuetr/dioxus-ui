@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M37 Rendered Preview and Screenshot Verification
-- Current task: M37.4 Add Web screenshot verification gate
+- Current task: M37.5 Plan Desktop WebView preview follow-through
 
 ## Backup
 
@@ -186,7 +186,7 @@
   - Preserve existing command-line smoke commands or split them into explicit smoke binaries.
   - Use Tailwind CSS v4 source input syntax and avoid committing full generated Tailwind output.
 
-- TODO M37.4 Add Web screenshot verification gate
+- DONE M37.4 Add Web screenshot verification gate
   - Add desktop-width and mobile-width screenshot checks for the rendered Web preview.
   - Cover chart, message, form, and at least one overlay/open-state panel.
   - Keep the gate separate from default checks until runtime browser automation is stable.
