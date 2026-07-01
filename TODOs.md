@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M40 Mobile Web Profile Verification
-- Current task: M40.1 Plan Mobile Web profile verification path
+- Current task: M40.2 Add Mobile Web profile structural gate
 
 ## Backup
 
@@ -247,7 +247,7 @@
 
 ## M40 Mobile Web Profile Verification
 
-- TODO M40.1 Plan Mobile Web profile verification path
+- DONE M40.1 Plan Mobile Web profile verification path
   - Define the difference between Web mobile viewport checks and native Dioxus Mobile support.
   - Select the first repeatable checks for touch target metadata, hover alternatives, safe-area placeholders, reduced motion, and viewport sizing.
   - Keep emulator/device automation and native Mobile claims out of scope.
