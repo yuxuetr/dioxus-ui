@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 100%
 - Current milestone: M45 Mobile Browser Smoke End-to-end
-- Current task: M45.4 Complete mobile browser smoke end-to-end milestone
+- Current task: M45 complete; next milestone pending
 
 ## Backup
 
@@ -372,7 +372,7 @@
   - Verify server startup, selector assertions, nonblank rendering, chart bounding box, and cleanup.
   - Keep screenshots optional and ignored.
 
-- TODO M45.4 Complete mobile browser smoke end-to-end milestone
+- DONE M45.4 Complete mobile browser smoke end-to-end milestone
   - Run deterministic gates and the end-to-end browser smoke if installation succeeded.
   - Update docs with the supported local claim and remaining non-release status.
   - Leave next seed for optional screenshots or CI integration.
