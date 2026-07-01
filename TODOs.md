@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 0%
-- Current milestone: M38 Desktop WebView Preview
-- Current task: M38 complete
+- Current milestone: M39 Desktop WebView Screenshot Feasibility
+- Current task: M39.2 Probe local Desktop screenshot tooling
 
 ## Backup
 
@@ -222,6 +222,28 @@
   - Run workspace checks, Web preview gate, Desktop preview gate, and example smoke.
   - Document remaining WebView screenshot and Mobile automation gaps.
   - Mark M38 complete only after all changes are committed.
+
+## M39 Desktop WebView Screenshot Feasibility
+
+- DONE M39.1 Plan Desktop WebView screenshot capture
+  - Define why Desktop WebView screenshot capture differs from Web Playwright screenshots.
+  - Specify candidate local commands, cleanup expectations, and unsupported behavior.
+  - Keep Desktop screenshots out of default release gates until repeatable.
+
+- TODO M39.2 Probe local Desktop screenshot tooling
+  - Check whether local macOS window capture tooling can find and capture the Desktop preview window.
+  - Document required permissions, platform constraints, and failure modes.
+  - Avoid adding a flaky release gate if the window cannot be selected reliably.
+
+- TODO M39.3 Add local-only Desktop screenshot smoke script if feasible
+  - Add `scripts/desktop-webview-screenshot-smoke.sh` only if local window capture is repeatable.
+  - Ensure the script starts and cleans up the Desktop preview process.
+  - Keep generated screenshots ignored by Git.
+
+- TODO M39.4 Complete Desktop screenshot feasibility milestone
+  - Run Desktop structural gate, Web preview gate, example smoke, and any feasible screenshot smoke.
+  - Update preview docs, quality gates, and release notes with the outcome.
+  - Mark unsupported behavior explicitly if local screenshot capture is not reliable.
 
 ## Status Rules
 
