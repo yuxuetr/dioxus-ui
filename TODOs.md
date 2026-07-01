@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M46 External Chrome Browser Smoke Path
-- Current task: M46.2 Add external browser executable support
+- Current task: M46.3 Probe external Chrome path locally
 
 ## Backup
 
@@ -384,7 +384,7 @@
   - Document how this differs from Playwright-managed Chromium.
   - Keep browser smoke outside default release gates.
 
-- TODO M46.2 Add external browser executable support
+- DONE M46.2 Add external browser executable support
   - Update `scripts/mobile-browser-smoke.mjs` to use the external executable when configured.
   - Preserve the existing missing Playwright Chromium install guidance when no external path is set.
   - Fail clearly when the configured executable path is invalid.
