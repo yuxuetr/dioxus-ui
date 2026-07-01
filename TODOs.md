@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M41 Mobile Browser Smoke Feasibility
-- Current task: M41.2 Probe local browser automation availability
+- Current task: M41.3 Add repeatable smoke command if feasible
 
 ## Backup
 
@@ -274,7 +274,7 @@
   - Decide what can be verified without adding npm dependencies to the repository.
   - Keep native iOS/Android simulator, software keyboard, and assistive technology out of scope.
 
-- TODO M41.2 Probe local browser automation availability
+- DONE M41.2 Probe local browser automation availability
   - Check whether the local configured browser automation can open the Web preview at a mobile viewport.
   - Verify the mobile-profile panel, form, message, chart, and overlay-open selectors.
   - Document any tooling, dependency, or server lifecycle constraints.
