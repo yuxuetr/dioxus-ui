@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M41 Mobile Browser Smoke Feasibility
-- Current task: M41.3 Add repeatable smoke command if feasible
+- Current task: M41.4 Complete Mobile browser smoke feasibility milestone
 
 ## Backup
 
@@ -279,7 +279,7 @@
   - Verify the mobile-profile panel, form, message, chart, and overlay-open selectors.
   - Document any tooling, dependency, or server lifecycle constraints.
 
-- TODO M41.3 Add repeatable smoke command if feasible
+- DONE M41.3 Add repeatable smoke command if feasible
   - Add a repository script only if it can run deterministically without unplanned dependency churn.
   - Ensure the command starts and cleans up the Web preview server or clearly documents the external server requirement.
   - Keep screenshots or browser artifacts ignored by Git.
