@@ -7,6 +7,7 @@
     "verify:web-preview": "node scripts/web-preview-verify.mjs",
     "verify:desktop-preview": "node scripts/desktop-preview-verify.mjs",
     "verify:mobile-web-profile": "node scripts/mobile-web-profile-verify.mjs",
+    "verify:mobile-browser": "node scripts/mobile-browser-smoke.mjs",
     "verify:examples": "scripts/example-smoke.sh",
     "verify:preview": "npm run verify:web-preview && npm run verify:mobile-web-profile && npm run verify:desktop-preview",
     "verify:smoke": "npm run verify:preview && npm run verify:examples"
