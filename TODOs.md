@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M45 Mobile Browser Smoke End-to-end
-- Current task: M45.3 Run mobile browser smoke end to end
+- Current task: M45.4 Complete mobile browser smoke end-to-end milestone
 
 ## Backup
 
@@ -367,7 +367,7 @@
   - Verify downloaded browser artifacts remain outside Git.
   - Document network or platform failures without committing generated binaries.
 
-- TODO M45.3 Run mobile browser smoke end to end
+- DONE M45.3 Run mobile browser smoke end to end
   - Run `npm run verify:mobile-browser` with Chromium available.
   - Verify server startup, selector assertions, nonblank rendering, chart bounding box, and cleanup.
   - Keep screenshots optional and ignored.
