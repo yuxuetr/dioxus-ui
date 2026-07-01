@@ -276,3 +276,23 @@ Playwright Chromium is not installed. Run `npx playwright install chromium` befo
 
 M45 should not claim end-to-end browser smoke success unless Chromium installs
 cleanly and the smoke command passes.
+
+## M45.3 Browser Smoke Result
+
+The M45.3 browser smoke attempt ran:
+
+```bash
+npm run verify:mobile-browser
+```
+
+It did not run end to end because Chromium was not installed. The command
+failed with the expected install guidance and left no listener on port `45237`.
+
+The deterministic gates still passed:
+
+```bash
+npm run verify:smoke
+```
+
+M45 should finish as a documented blocked end-to-end run unless Chromium is
+installed successfully in a later opt-in environment.
