@@ -350,3 +350,36 @@ Expected behavior:
 - if it is set to an executable that cannot launch, report the launch failure
   and clean up the preview server
 - do not claim native Mobile support or release-gate stability from this path
+
+## M46.3 External Chrome Probe Result
+
+The local system Chrome executable exists:
+
+```text
+/Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+```
+
+Running the smoke in the default sandbox first failed while binding the preview
+server:
+
+```text
+Failed to bind server to: 127.0.0.1:45237
+Operation not permitted (os error 1)
+```
+
+Running the same command with local dev-server permissions passed:
+
+```bash
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:mobile-browser
+```
+
+Result:
+
+```text
+mobile browser smoke passed
+```
+
+The command cleaned up the preview server and left no listener on port `45237`.
+This proves a local opt-in external Chrome path, but it remains outside default
+release gates because the executable path and launch behavior are
+machine-specific.
