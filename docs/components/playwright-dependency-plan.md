@@ -456,3 +456,35 @@ Failure behavior:
 This verifies rendered Web preview output at a mobile browser viewport. It does
 not verify native Dioxus Mobile, mobile soft keyboard behavior, native safe-area
 measurement, or device/emulator rendering.
+
+## M47.4 Final Result
+
+M47 completed with opt-in screenshot artifact support for the mobile browser
+smoke. The milestone validation ran:
+
+```bash
+npm run verify:smoke
+cargo test --workspace --all-features -q
+git diff --check
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+```
+
+All commands passed. The screenshot smoke printed:
+
+```text
+mobile browser screenshot saved: /Users/hal/arch/dioxus-ui/dioxus-ui-mobile-browser-preview-2026-07-01T15-15-26-935Z.png
+mobile browser smoke passed
+```
+
+The generated PNG matched the ignored
+`dioxus-ui-mobile-browser-preview-*.png` pattern. The command left no listener
+on port `45237`.
+
+This remains a local opt-in artifact path, not a default release gate and not a
+native Mobile verification path.
+
+## Next Milestone Seed
+
+The next browser milestone can document CI browser setup or add a comparison
+step for screenshot dimensions and key selectors once a portable CI browser
+installation strategy is selected.
