@@ -83,6 +83,24 @@ It is the structural prerequisite for browser screenshots.
 For the Playwright screenshot procedure, see
 `docs/components/web-preview-screenshot-verification.md`.
 
+## Mobile Web Profile Gate
+
+Run after changes to the rendered Web preview shell, Mobile verification docs,
+or mobile-profile source markers:
+
+```bash
+node scripts/mobile-web-profile-verify.mjs
+```
+
+This verifies that the Web preview exposes the shared `mobile-profile` panel,
+keeps the documented `390x844` mobile viewport target, and preserves
+source-level markers for touch targets, hover alternatives, safe-area ownership,
+reduced-motion policy, and visible status text.
+
+This is not a native Mobile gate. It does not verify software keyboard behavior,
+safe-area inset measurement, mobile assistive technology, or native WebView
+gesture arbitration.
+
 ## Release Gate
 
 Run before publishing:
@@ -94,6 +112,7 @@ cargo test -p dioxus-ui-cli --test registry
 cargo run -p dioxus-ui-cli -- list
 scripts/example-smoke.sh
 node scripts/web-preview-verify.mjs
+node scripts/mobile-web-profile-verify.mjs
 node scripts/desktop-preview-verify.mjs
 scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
@@ -192,12 +211,14 @@ to use `node scripts/desktop-preview-verify.mjs` as the supported Desktop gate.
 
 ## Runtime Mobile Verification Gate
 
-Mobile verification is documentation-only until a repeatable device or emulator
-command exists.
+Mobile verification now has a Mobile Web profile structural gate, but native
+Mobile verification remains documentation-only until a repeatable device or
+emulator command exists.
 
 After changes to Mobile runtime plans, review:
 
 ```text
+docs/components/mobile-web-profile-verification.md
 docs/components/runtime-mobile-verification-checklist.md
 docs/components/runtime-desktop-mobile-verification.md
 docs/components/runtime-renderer-verification.md

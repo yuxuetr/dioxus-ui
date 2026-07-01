@@ -3,7 +3,7 @@
 This document defines the M40 plan for adding a repeatable Mobile Web profile
 verification path without claiming native Dioxus Mobile support.
 
-Status: Planned in M40.1.
+Status: Planned in M40.1. Structural gate added in M40.2.
 
 ## Goal
 
@@ -43,6 +43,17 @@ M40 should start with checks that are stable in the repository:
 The first script should be structural. It should prove that the repository
 continues to expose the selected Mobile Web profile markers and documented
 viewport target, without opening a native Mobile target.
+
+M40.2 added the shared preview panel:
+
+```text
+[data-preview-panel="mobile-profile"]
+[data-mobile-profile="touch-targets"]
+[data-mobile-profile="hover-alternative"]
+[data-mobile-profile="safe-area-owned"]
+[data-mobile-profile="reduced-motion"]
+[data-mobile-profile="visible-status"]
+```
 
 ## Candidate Gate
 

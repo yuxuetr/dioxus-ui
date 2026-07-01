@@ -4,14 +4,15 @@ This document defines the M28.2 Mobile runtime verification checklist. It keeps
 Mobile runtime behavior opt-in until this project has repeatable device or
 emulator tooling.
 
-Status: Defined in M28.2.
+Status: Defined in M28.2. M40 adds a Mobile Web profile structural gate for the
+checks that can be repeated without a native device or emulator.
 
 ## Decision
 
-Mobile verification should begin as a documentation-first checklist, not a
-runtime fixture. The current project has repeatable Rust, Web fixture, and
-Desktop smoke commands, but it does not yet have stable Mobile device or
-emulator automation.
+Mobile verification began as a documentation-first checklist, not a runtime
+fixture. The project now has a Mobile Web profile structural gate for source and
+Web-preview markers, but it does not yet have stable Mobile device or emulator
+automation.
 
 Mobile runtime adapters must remain opt-in until the checks below can run
 repeatably and expose explicit fallback states.
@@ -67,6 +68,16 @@ mobile-runtime-visible-status
 
 Do not add a workspace package until the target command and runtime surface are
 chosen. A documentation checklist is enough for M28.2.
+
+M40 adds a smaller non-native gate:
+
+```bash
+node scripts/mobile-web-profile-verify.mjs
+```
+
+This checks the rendered Web preview source and documentation for mobile-profile
+markers. It does not verify native Mobile keyboard, safe-area, assistive, or
+gesture behavior.
 
 ## Manual Pass Template
 

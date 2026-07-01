@@ -29,6 +29,7 @@ Rationale:
 | Browser automation | DOM focus, portal mounting, timers, live regions, measurement, pointer events, and gesture events | Web runtime adapters |
 | Desktop smoke tests | WebView focus, stacking, measurement, pointer capture, timers, and live-region behavior | Desktop runtime adapters |
 | Mobile verification | touch gestures, visual viewport behavior, safe areas, reduced motion, and native scroll arbitration | Mobile runtime adapters |
+| Mobile Web profile | mobile-width Web preview markers, touch-target intent, hover alternatives, safe-area ownership notes, reduced-motion policy, and visible status text | pre-device Mobile planning |
 | Manual accessibility checks | screen reader announcement behavior, focus order, escape behavior, and modality | overlays and feedback |
 
 Pure Rust tests remain the default gate for primitive contracts. Renderer tests
@@ -83,6 +84,15 @@ Mobile adapters should be opt-in until verification covers:
 - reduced-motion and longer-duration notification policy
 - explicit visible status text for important updates
 
+The M40 Mobile Web profile gate is a pre-device check:
+
+```bash
+node scripts/mobile-web-profile-verify.mjs
+```
+
+It verifies source-level mobile-profile markers on the Web preview and keeps
+native Mobile behavior unclaimed until an emulator or device command exists.
+
 ## Source-Copy Policy
 
 M25 does not change generated component output.
@@ -112,6 +122,8 @@ For Desktop and Mobile target strategy, see the
 [Desktop and Mobile runtime verification strategy](runtime-desktop-mobile-verification.md).
 For the Mobile checklist defined after the Desktop smoke fixture, see the
 [Mobile runtime verification checklist](runtime-mobile-verification-checklist.md).
+For the Mobile Web profile structural gate, see the
+[Mobile Web Profile Verification](mobile-web-profile-verification.md).
 For the implementation order after verification planning, see the
 [runtime implementation milestone seeds](runtime-implementation-milestones.md).
 

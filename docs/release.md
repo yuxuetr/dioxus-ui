@@ -98,6 +98,7 @@ cargo test --workspace --all-features
 cargo run -p dioxus-ui-cli -- list
 scripts/example-smoke.sh
 node scripts/web-preview-verify.mjs
+node scripts/mobile-web-profile-verify.mjs
 node scripts/desktop-preview-verify.mjs
 scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
@@ -119,6 +120,8 @@ Manual review:
 - component features compile individually and in representative combinations
 - command-line Web and Desktop examples expose representative parity states
 - Web preview screenshots cover desktop and mobile viewports
+- Mobile Web profile gate passes; native Mobile device, simulator, keyboard,
+  safe-area, and assistive behavior remain unclaimed
 - Desktop preview structural gate passes; Desktop WebView screenshot capture
   was locally probed in M39 but is not repeatable yet, so it should not be
   claimed or added to release gates
@@ -154,3 +157,5 @@ in a stable install location.
   rendered preview shell and structural gate, but Desktop WebView screenshot
   capture is currently unsupported because the native preview window is not
   repeatable in local probes.
+- Mobile has a Web profile structural gate for source-level mobile viewport and
+  fallback markers, but no native device or emulator gate yet.
