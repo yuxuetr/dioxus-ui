@@ -296,3 +296,32 @@ npm run verify:smoke
 
 M45 should finish as a documented blocked end-to-end run unless Chromium is
 installed successfully in a later opt-in environment.
+
+## M45.4 Final Result
+
+M45 completed as a documented blocked end-to-end run. The deterministic gates
+passed:
+
+```bash
+npm run verify:smoke
+cargo test --workspace --all-features -q
+git diff --check
+```
+
+The opt-in browser smoke command exists and has a validated missing-browser
+failure path, but end-to-end browser rendering is not claimed because Chromium
+did not install successfully in this environment.
+
+## Next Milestone Seed
+
+The next browser milestone should focus on reliable browser installation rather
+than selector work. Options:
+
+- retry `npx playwright install chromium` with a more verbose or mirrored
+  download configuration
+- document a supported preinstalled Chromium path if Playwright-managed browser
+  downloads are unreliable
+- add CI notes only after one browser installation path is proven repeatable
+
+Until then, keep `npm run verify:mobile-browser` opt-in and out of default
+release gates.
