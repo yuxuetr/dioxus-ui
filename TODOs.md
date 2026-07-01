@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M40 Mobile Web Profile Verification
-- Current task: M40.3 Update Mobile verification docs and quality gates
+- Current task: M40.4 Complete Mobile Web profile milestone
 
 ## Backup
 
@@ -257,7 +257,7 @@
   - Reuse the rendered Web preview and shared preview inventory instead of creating a separate component tree.
   - Keep the gate local and deterministic without requiring a native device.
 
-- TODO M40.3 Update Mobile verification docs and quality gates
+- DONE M40.3 Update Mobile verification docs and quality gates
   - Link the Mobile Web profile gate from runtime Mobile checklist, renderer verification, quality gates, and release docs.
   - Document which checklist items remain manual, emulator-backed later, or unsupported.
   - Avoid promoting Mobile runtime adapters or native Mobile support.
