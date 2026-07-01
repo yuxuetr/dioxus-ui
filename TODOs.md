@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M38 Desktop WebView Preview
-- Current task: M38.3 Add Desktop preview binary
+- Current task: M38.4 Add Desktop preview structural gate
 
 ## Backup
 
@@ -208,7 +208,7 @@
   - Keep Web and Desktop preview selectors aligned through the same rendering path.
   - Preserve Tailwind CSS v4 source scanning and command-line smoke output.
 
-- TODO M38.3 Add Desktop preview binary
+- DONE M38.3 Add Desktop preview binary
   - Add `dioxus-ui-desktop-demo --bin preview` using the shared rendered panels.
   - Enable only the Desktop runtime features required by the preview binary.
   - Ensure `cargo run -p dioxus-ui-desktop-demo` remains the command-line smoke path.
