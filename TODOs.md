@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M48 Mobile Screenshot Metadata Checks
-- Current task: M48.2 Add screenshot metadata validation
+- Current task: M48.3 Document screenshot metadata checks
 
 ## Backup
 
@@ -428,7 +428,7 @@
   - Decide whether checks should run only when screenshot capture is enabled.
   - Document failure behavior, dimensions, and file size expectations.
 
-- TODO M48.2 Add screenshot metadata validation
+- DONE M48.2 Add screenshot metadata validation
   - Parse the generated PNG dimensions without adding a new dependency.
   - Fail the screenshot-enabled smoke when the artifact is empty or below the mobile viewport size.
   - Print screenshot dimensions and byte size after validation succeeds.
