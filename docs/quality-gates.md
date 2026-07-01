@@ -94,6 +94,7 @@ cargo test -p dioxus-ui-cli --test registry
 cargo run -p dioxus-ui-cli -- list
 scripts/example-smoke.sh
 node scripts/web-preview-verify.mjs
+node scripts/desktop-preview-verify.mjs
 scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
 ```
@@ -166,15 +167,15 @@ the fixture starts a real Desktop WebView and the smoke checks are stable.
 
 ## Desktop Preview Gate
 
-Desktop rendered preview screenshots are planned but not implemented. The future
-gate should live behind an explicit command such as:
+Run after changes to the rendered Desktop preview shell:
 
 ```bash
 node scripts/desktop-preview-verify.mjs
 ```
 
-Do not add this command to default release gates until the Desktop WebView
-preview opens reliably and screenshot capture is repeatable.
+This verifies the Desktop preview binary, Tailwind CSS v4 source input, stable
+`data-preview-*` selectors, and representative command-line Desktop smoke
+output. Desktop WebView screenshot capture remains separate until repeatable.
 
 ## Runtime Mobile Verification Gate
 

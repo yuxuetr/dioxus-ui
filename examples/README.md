@@ -38,15 +38,21 @@ node scripts/web-preview-verify.mjs
 cargo run -p dioxus-ui-desktop-demo
 ```
 
-Planned future command after the Dioxus desktop runtime is added:
+Rendered Desktop preview shell:
 
 ```bash
 dx serve --package dioxus-ui-desktop-demo --bin preview --platform desktop
 ```
 
-The Desktop rendered preview is planned in
-`docs/components/desktop-webview-preview-follow-through.md`. Until it lands,
-`cargo run -p dioxus-ui-desktop-demo` remains the Desktop smoke command.
+The Desktop rendered preview uses `examples/desktop-demo/assets/preview.css` as
+a Tailwind CSS v4 source input. It is not a committed complete Tailwind output
+file. `cargo run -p dioxus-ui-desktop-demo` remains the Desktop smoke command.
+
+Structural Desktop preview gate:
+
+```bash
+node scripts/desktop-preview-verify.mjs
+```
 
 ## Runtime Web Verification
 
@@ -115,5 +121,5 @@ scripts/example-smoke.sh
 
 This runs the Web and Desktop demo crates and verifies representative states for
 composition, form-specific, message, scroller, direction, collapsible, and chart
-components. Web screenshots are covered by the Web preview gate; Desktop
-screenshots remain planned.
+components. Web screenshots are covered by the Web preview gate; Desktop has a
+structural preview gate and screenshot capture remains planned.
