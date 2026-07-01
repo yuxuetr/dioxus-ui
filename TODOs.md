@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 100%
 - Current milestone: M49 CI Browser Smoke Documentation
-- Current task: M49.4 Complete CI browser smoke documentation milestone
+- Current task: M49 complete; next milestone pending
 
 ## Backup
 
@@ -460,7 +460,7 @@
   - Explain that CI browser smoke remains opt-in until the repository has a reviewed workflow.
   - Keep default local gates unchanged.
 
-- TODO M49.4 Complete CI browser smoke documentation milestone
+- DONE M49.4 Complete CI browser smoke documentation milestone
   - Run deterministic gates and documentation checks.
   - Verify no workflow or browser artifacts are accidentally committed.
   - Update TODO status only after commits and validation.
