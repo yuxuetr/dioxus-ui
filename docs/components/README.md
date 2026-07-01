@@ -62,6 +62,8 @@ For the Web screenshot verification gate, see the
 [Web Preview Screenshot Verification](web-preview-screenshot-verification.md).
 For Desktop WebView preview follow-through, see
 [Desktop WebView Preview Follow-through](desktop-webview-preview-follow-through.md).
+For the Desktop preview implementation plan, see
+[Desktop Preview Implementation Plan](desktop-preview-implementation-plan.md).
 For the first new gap implementation plan, see the
 [Low-risk Composition Gap API Plan](low-risk-composition-gaps.md).
 For the form-specific gap plan, see the
