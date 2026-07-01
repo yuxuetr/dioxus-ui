@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M43 Playwright Dependency Preparation
-- Current task: M43.1 Plan Playwright dependency and lockfile policy
+- Current task: M43.2 Add Playwright package dependency if feasible
 
 ## Backup
 
@@ -313,7 +313,7 @@
 
 ## M43 Playwright Dependency Preparation
 
-- TODO M43.1 Plan Playwright dependency and lockfile policy
+- DONE M43.1 Plan Playwright dependency and lockfile policy
   - Decide whether to use npm with `package-lock.json` for browser automation dependencies.
   - Define the Playwright package boundary and browser install command.
   - Keep browser-rendered smoke opt-in and outside default release gates.
