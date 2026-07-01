@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M42 Browser Automation Dependency Strategy
-- Current task: M42 complete; next milestone pending
+- Overall: 0%
+- Current milestone: M43 Playwright Dependency Preparation
+- Current task: M43.1 Plan Playwright dependency and lockfile policy
 
 ## Backup
 
@@ -310,6 +310,28 @@
   - Run existing Rust, Web preview, Mobile Web profile, and example gates.
   - Run npm/package checks only if package metadata is added and dependencies are available.
   - Update TODO status after commits and leave the next browser smoke implementation seed.
+
+## M43 Playwright Dependency Preparation
+
+- TODO M43.1 Plan Playwright dependency and lockfile policy
+  - Decide whether to use npm with `package-lock.json` for browser automation dependencies.
+  - Define the Playwright package boundary and browser install command.
+  - Keep browser-rendered smoke opt-in and outside default release gates.
+
+- TODO M43.2 Add Playwright package dependency if feasible
+  - Add a reviewed dev dependency and lockfile only if installation succeeds cleanly.
+  - Avoid browser downloads during package install.
+  - Keep generated browser binaries and screenshots ignored by Git.
+
+- TODO M43.3 Document Playwright install and offline behavior
+  - Document `npm install` and browser install commands.
+  - Explain which commands work without browser binaries and which require downloads.
+  - Keep native Mobile support explicitly out of scope.
+
+- TODO M43.4 Complete Playwright dependency milestone
+  - Run npm verification aliases, workspace tests, and any package lock checks.
+  - Do not add browser-rendered smoke unless browser binaries are installed and stable.
+  - Leave a clear next seed for the first opt-in browser smoke script.
 
 ## Status Rules
 
