@@ -162,6 +162,7 @@ format!("bg-{}-500", color)
 - [Workspace Specification](docs/workspace.md)
 - [Component API Specification](docs/component-api.md)
 - [Release and Package Strategy](docs/release.md)
+- [CI Browser Smoke Guide](docs/ci-browser-smoke.md)
 - [Component Catalog](docs/components/README.md)
 - [Documentation Site Plan](docs/site.md)
 - [TODO Plan](TODOs.md)
@@ -228,6 +229,9 @@ signature, byte size, and dimensions against the mobile viewport lower bound.
 
 That browser smoke starts the Web preview, checks a mobile browser viewport, and
 cleans up the server. It is not part of default release gates.
+
+For CI setup options and non-blocking workflow policy, see the
+[CI Browser Smoke Guide](docs/ci-browser-smoke.md).
 
 ## References
 

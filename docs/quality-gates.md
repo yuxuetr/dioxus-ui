@@ -168,6 +168,10 @@ viewport, asserts the Mobile Web profile and representative preview panels, and
 cleans up the preview server. It remains outside default release gates until CI
 or local release stability is proven.
 
+For CI setup, artifact upload, and non-blocking job policy, see
+`docs/ci-browser-smoke.md`. This repository does not add a browser workflow
+until that workflow is reviewed separately.
+
 Manual release review:
 
 - Tailwind CSS v4 input stylesheet remains `@import "tailwindcss";`.
