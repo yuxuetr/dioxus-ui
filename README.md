@@ -169,6 +169,19 @@ format!("bg-{}-500", color)
 - [RFC 0002: CLI Registry and Code Generation](docs/rfcs/0002-cli-registry-and-code-generation.md)
 - [RFC 0003: Tailwind Styling Contract](docs/rfcs/0003-tailwind-styling-contract.md)
 
+## Verification Shortcuts
+
+The repository includes a minimal `package.json` for Node-based verification
+aliases. It does not install dependencies or browsers.
+
+```bash
+npm run verify:smoke
+```
+
+This wraps existing local gates for Web preview, Mobile Web profile, Desktop
+preview, and example smoke output. Browser-rendered Playwright smoke remains a
+future opt-in path.
+
 ## References
 
 - Dioxus RSX and UI documentation: <https://dioxuslabs.com/learn/0.7/essentials/ui/rsx/>

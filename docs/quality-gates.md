@@ -118,6 +118,16 @@ scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
 ```
 
+Equivalent npm convenience aliases are available for the preview and example
+smoke subset:
+
+```bash
+npm run verify:smoke
+```
+
+These aliases do not install browser dependencies and do not replace the full
+Rust release gate list above.
+
 Manual release review:
 
 - Tailwind CSS v4 input stylesheet remains `@import "tailwindcss";`.

@@ -64,7 +64,11 @@ are convenience aliases for commands that already exist in the repository.
 
 ## Install Policy
 
-Future browser automation should document two separate install steps:
+Current package metadata has no dependencies, so the npm verification aliases
+can run without `npm install`.
+
+Future browser automation should document separate install steps only when a
+browser dependency is introduced:
 
 ```bash
 npm install

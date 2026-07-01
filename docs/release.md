@@ -104,6 +104,15 @@ scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
 ```
 
+For the preview and example smoke subset, this convenience alias is available:
+
+```bash
+npm run verify:smoke
+```
+
+The npm alias does not install Playwright or browser binaries and does not
+replace the full release gate list.
+
 Smoke commands:
 
 ```bash
