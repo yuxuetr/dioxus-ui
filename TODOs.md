@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M42 Browser Automation Dependency Strategy
-- Current task: M42.3 Add dependency documentation and install policy
+- Current task: M42.4 Complete browser automation dependency milestone
 
 ## Backup
 
@@ -301,7 +301,7 @@
   - Define browser smoke scripts as opt-in commands, not default release gates.
   - Avoid committing generated browser binaries or large artifacts.
 
-- TODO M42.3 Add dependency documentation and install policy
+- DONE M42.3 Add dependency documentation and install policy
   - Document how contributors install Node dependencies and browsers.
   - Explain which commands require network access and which remain offline.
   - Keep unsupported Mobile native behavior explicit.
