@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M45 Mobile Browser Smoke End-to-end
-- Current task: M45 complete; next milestone pending
+- Overall: 0%
+- Current milestone: M46 External Chrome Browser Smoke Path
+- Current task: M46.1 Plan external Chrome executable support
 
 ## Backup
 
@@ -376,6 +376,28 @@
   - Run deterministic gates and the end-to-end browser smoke if installation succeeded.
   - Update docs with the supported local claim and remaining non-release status.
   - Leave next seed for optional screenshots or CI integration.
+
+## M46 External Chrome Browser Smoke Path
+
+- TODO M46.1 Plan external Chrome executable support
+  - Define an opt-in environment variable for using a local Chrome/Chromium executable.
+  - Document how this differs from Playwright-managed Chromium.
+  - Keep browser smoke outside default release gates.
+
+- TODO M46.2 Add external browser executable support
+  - Update `scripts/mobile-browser-smoke.mjs` to use the external executable when configured.
+  - Preserve the existing missing Playwright Chromium install guidance when no external path is set.
+  - Fail clearly when the configured executable path is invalid.
+
+- TODO M46.3 Probe external Chrome path locally
+  - Check whether a local Chrome executable exists and can run the smoke command.
+  - Document platform launch failures without claiming browser smoke success.
+  - Verify server cleanup and ignored artifacts.
+
+- TODO M46.4 Complete external Chrome browser smoke milestone
+  - Run deterministic gates and any feasible external-browser smoke.
+  - Update docs with the supported local command and remaining limitations.
+  - Leave next seed for CI or screenshot follow-through.
 
 ## Status Rules
 
