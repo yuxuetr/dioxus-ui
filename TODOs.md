@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M44 Mobile Browser Smoke Script
-- Current task: M44.2 Implement opt-in mobile browser smoke script
+- Current task: M44.3 Document browser smoke usage and install requirements
 
 ## Backup
 
@@ -340,7 +340,7 @@
   - Decide how the script fails when Playwright Chromium is not installed.
   - Keep the command outside default release gates.
 
-- TODO M44.2 Implement opt-in mobile browser smoke script
+- DONE M44.2 Implement opt-in mobile browser smoke script
   - Add `scripts/mobile-browser-smoke.mjs` and an npm alias.
   - Start `dx serve`, wait for the Web preview URL, run Playwright mobile assertions, and stop the server.
   - Keep screenshots optional and ignored by Git.
