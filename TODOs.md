@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M43 Playwright Dependency Preparation
-- Current task: M43.2 Add Playwright package dependency if feasible
+- Current task: M43.3 Document Playwright install and offline behavior
 
 ## Backup
 
@@ -318,7 +318,7 @@
   - Define the Playwright package boundary and browser install command.
   - Keep browser-rendered smoke opt-in and outside default release gates.
 
-- TODO M43.2 Add Playwright package dependency if feasible
+- DONE M43.2 Add Playwright package dependency if feasible
   - Add a reviewed dev dependency and lockfile only if installation succeeds cleanly.
   - Avoid browser downloads during package install.
   - Keep generated browser binaries and screenshots ignored by Git.
