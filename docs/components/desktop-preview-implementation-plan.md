@@ -3,7 +3,7 @@
 This document defines the M38 implementation plan for the Desktop WebView
 preview path.
 
-Status: Planned in M38.1.
+Status: Planned in M38.1. Implemented through M38.5.
 
 ## Goal
 
@@ -74,3 +74,35 @@ window launch and screenshot capture are repeatable in local and CI contexts.
 - do not add Desktop screenshots to default release gates yet
 - do not claim Mobile support from Desktop verification
 - do not duplicate preview state data by hand if shared helpers can be reused
+
+## M38 Result
+
+M38 added:
+
+- shared rendered preview panels in `examples/preview-states`
+- Web preview reuse of the shared `PreviewSurface`
+- Desktop preview binary at `examples/desktop-demo/src/bin/preview.rs`
+- Desktop Tailwind CSS v4 source input at `examples/desktop-demo/assets/preview.css`
+- structural Desktop gate at `scripts/desktop-preview-verify.mjs`
+
+The default command-line Desktop smoke path remains:
+
+```bash
+cargo run -p dioxus-ui-desktop-demo
+```
+
+The rendered Desktop preview path is:
+
+```bash
+dx serve --package dioxus-ui-desktop-demo --bin preview --platform desktop
+```
+
+## Remaining Gaps
+
+Desktop WebView screenshot capture is still planned. The current Desktop gate
+proves source selectors, Tailwind source input, preview binary compilation, and
+command-line smoke output. It does not open the Desktop WebView and capture
+screenshots.
+
+Mobile automation remains checklist-based until a repeatable device or emulator
+command is selected.
