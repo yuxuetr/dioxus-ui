@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M50 CI Browser Workflow Template
-- Current task: M50.3 Link workflow template from CI browser smoke docs
+- Current task: M50.4 Complete CI browser workflow template milestone
 
 ## Backup
 
@@ -477,7 +477,7 @@
   - Include Playwright-managed Chromium and external Chrome notes.
   - Keep the template manual or scheduled by default, not a required merge gate.
 
-- TODO M50.3 Link workflow template from CI browser smoke docs
+- DONE M50.3 Link workflow template from CI browser smoke docs
   - Update README, CI browser guide, quality gates, and release docs as needed.
   - Clarify that the template is documentation until copied into `.github/workflows`.
   - Keep default local gates unchanged.
