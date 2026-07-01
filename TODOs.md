@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 100%
 - Current milestone: M40 Mobile Web Profile Verification
-- Current task: M40.4 Complete Mobile Web profile milestone
+- Current task: M40 complete; next milestone pending
 
 ## Backup
 
@@ -262,7 +262,7 @@
   - Document which checklist items remain manual, emulator-backed later, or unsupported.
   - Avoid promoting Mobile runtime adapters or native Mobile support.
 
-- TODO M40.4 Complete Mobile Web profile milestone
+- DONE M40.4 Complete Mobile Web profile milestone
   - Run Web preview gate, Mobile Web profile gate, example smoke, and workspace checks as appropriate.
   - Update TODO status only after commits and validation.
   - Leave a clear next milestone seed for emulator/device follow-through if needed.
