@@ -164,6 +164,18 @@ measurement, pointer capture, and conservative gesture checks.
 Do not promote runtime Desktop verification into the default release gate until
 the fixture starts a real Desktop WebView and the smoke checks are stable.
 
+## Desktop Preview Gate
+
+Desktop rendered preview screenshots are planned but not implemented. The future
+gate should live behind an explicit command such as:
+
+```bash
+node scripts/desktop-preview-verify.mjs
+```
+
+Do not add this command to default release gates until the Desktop WebView
+preview opens reliably and screenshot capture is repeatable.
+
 ## Runtime Mobile Verification Gate
 
 Mobile verification is documentation-only until a repeatable device or emulator

@@ -115,6 +115,8 @@ Manual review:
 - registry entries point to existing templates
 - component features compile individually and in representative combinations
 - command-line Web and Desktop examples expose representative parity states
+- Web preview screenshots cover desktop and mobile viewports
+- Desktop WebView screenshots remain planned and should not be claimed yet
 
 `scripts/feature-check.sh` is more expensive than a normal workspace check
 because it invokes Cargo once per public component feature. Run it before
@@ -143,5 +145,6 @@ in a stable install location.
   focus trap, DOM portal, or positioning engines yet.
 - Generated templates include a local `utils.rs` helper module and should not
   require `dioxus-ui-core` or `dioxus-ui-primitives` in source-copy mode.
-- Examples are command-line smoke examples, not full Dioxus Web/Desktop visual
-  previews yet.
+- Web has a rendered preview shell and screenshot procedure. Desktop remains a
+  command-line smoke example until the Desktop WebView preview follow-through
+  lands.

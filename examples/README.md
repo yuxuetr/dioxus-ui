@@ -41,8 +41,12 @@ cargo run -p dioxus-ui-desktop-demo
 Planned future command after the Dioxus desktop runtime is added:
 
 ```bash
-dx serve --package dioxus-ui-desktop-demo --platform desktop
+dx serve --package dioxus-ui-desktop-demo --bin preview --platform desktop
 ```
+
+The Desktop rendered preview is planned in
+`docs/components/desktop-webview-preview-follow-through.md`. Until it lands,
+`cargo run -p dioxus-ui-desktop-demo` remains the Desktop smoke command.
 
 ## Runtime Web Verification
 
@@ -111,4 +115,5 @@ scripts/example-smoke.sh
 
 This runs the Web and Desktop demo crates and verifies representative states for
 composition, form-specific, message, scroller, direction, collapsible, and chart
-components. The examples are not screenshot or visual parity proof yet.
+components. Web screenshots are covered by the Web preview gate; Desktop
+screenshots remain planned.
