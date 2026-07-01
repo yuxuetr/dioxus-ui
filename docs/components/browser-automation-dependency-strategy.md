@@ -111,3 +111,28 @@ Adding Playwright or package metadata does not change the Mobile support claim.
 Playwright mobile profiles verify browser rendering at a mobile viewport. They
 do not verify native iOS or Android WebView behavior, software keyboard changes,
 safe-area insets, mobile assistive technology, or native gesture arbitration.
+
+## M42.4 Validation Result
+
+M42 completed with package metadata for existing deterministic gates only. The
+milestone validation ran:
+
+```bash
+npm run verify:smoke
+cargo test --workspace --all-features -q
+git diff --check
+```
+
+All commands passed. No Playwright dependency, package lockfile, browser binary,
+or browser-rendered smoke script was added.
+
+## Next Milestone Seed
+
+The next browser automation milestone should choose whether to add Playwright as
+a real development dependency. That milestone should include:
+
+- package manager and lockfile decision
+- `playwright install chromium` documentation
+- explicit generated artifact ignore rules
+- a first opt-in browser smoke script that owns `dx serve` startup and cleanup
+- clear exclusion from default release gates until CI/local stability is proven
