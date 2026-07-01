@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M47 Mobile Browser Screenshot Artifacts
-- Current task: M47.3 Document screenshot usage and cleanup expectations
+- Current task: M47.4 Complete mobile browser screenshot artifact milestone
 
 ## Backup
 
@@ -411,7 +411,7 @@
   - Preserve existing assertion-only behavior by default.
   - Print the saved screenshot path when capture succeeds.
 
-- TODO M47.3 Document screenshot usage and cleanup expectations
+- DONE M47.3 Document screenshot usage and cleanup expectations
   - Update README, quality gates, release docs, and browser smoke docs with the opt-in command.
   - Explain that screenshots verify rendered Web mobile viewport output, not native Mobile.
   - Keep generated screenshot files ignored by Git.
