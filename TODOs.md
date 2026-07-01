@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M46 External Chrome Browser Smoke Path
-- Current task: M46 complete; next milestone pending
+- Overall: 0%
+- Current milestone: M47 Mobile Browser Screenshot Artifacts
+- Current task: M47.1 Plan opt-in screenshot artifact contract
 
 ## Backup
 
@@ -398,6 +398,28 @@
   - Run deterministic gates and any feasible external-browser smoke.
   - Update docs with the supported local command and remaining limitations.
   - Leave next seed for CI or screenshot follow-through.
+
+## M47 Mobile Browser Screenshot Artifacts
+
+- TODO M47.1 Plan opt-in screenshot artifact contract
+  - Define when the mobile browser smoke should save screenshots.
+  - Specify artifact naming, ignored paths, and failure behavior.
+  - Keep screenshots outside default release gates and committed source artifacts.
+
+- TODO M47.2 Add opt-in screenshot capture support
+  - Update `scripts/mobile-browser-smoke.mjs` to save a mobile screenshot only when configured.
+  - Preserve existing assertion-only behavior by default.
+  - Print the saved screenshot path when capture succeeds.
+
+- TODO M47.3 Document screenshot usage and cleanup expectations
+  - Update README, quality gates, release docs, and browser smoke docs with the opt-in command.
+  - Explain that screenshots verify rendered Web mobile viewport output, not native Mobile.
+  - Keep generated screenshot files ignored by Git.
+
+- TODO M47.4 Complete mobile browser screenshot artifact milestone
+  - Run deterministic gates and the external Chrome screenshot smoke if feasible.
+  - Verify screenshot artifact creation and cleanup behavior.
+  - Update TODO status only after commits and validation.
 
 ## Status Rules
 
