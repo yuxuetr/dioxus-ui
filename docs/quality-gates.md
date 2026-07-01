@@ -122,11 +122,13 @@ Equivalent npm convenience aliases are available for the preview and example
 smoke subset:
 
 ```bash
+npm install
 npm run verify:smoke
 ```
 
-These aliases do not install browser dependencies and do not replace the full
-Rust release gate list above.
+These aliases do not require Playwright browser binaries and do not replace the
+full Rust release gate list above. Future browser-rendered smoke commands should
+document `npx playwright install chromium` separately.
 
 Manual release review:
 

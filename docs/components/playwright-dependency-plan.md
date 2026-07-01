@@ -62,6 +62,27 @@ node scripts/desktop-preview-verify.mjs
 Future browser-rendered scripts should fail with clear instructions when browser
 binaries are missing, rather than triggering an implicit download.
 
+## Contributor Install
+
+Install JavaScript dependencies:
+
+```bash
+npm install
+```
+
+This restores `node_modules` from `package-lock.json`. It does not install
+browser binaries.
+
+Install the Chromium browser binary only when working on browser-rendered smoke
+tests:
+
+```bash
+npx playwright install chromium
+```
+
+This command requires network access and writes to the local Playwright browser
+cache. The downloaded browser is not a repository artifact.
+
 ## Future Browser Smoke Shape
 
 The first future browser-rendered smoke should be opt-in, for example:

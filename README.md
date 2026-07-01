@@ -171,16 +171,33 @@ format!("bg-{}-500", color)
 
 ## Verification Shortcuts
 
-The repository includes a minimal `package.json` for Node-based verification
-aliases. It does not install dependencies or browsers.
+The repository includes `package.json` metadata for Node-based verification
+aliases and future browser smoke tests.
+
+Install JavaScript dependencies:
+
+```bash
+npm install
+```
+
+Run deterministic preview and example gates:
 
 ```bash
 npm run verify:smoke
 ```
 
 This wraps existing local gates for Web preview, Mobile Web profile, Desktop
-preview, and example smoke output. Browser-rendered Playwright smoke remains a
-future opt-in path.
+preview, and example smoke output. It does not require Playwright browser
+binaries.
+
+Future browser-rendered Playwright smoke will require an explicit browser
+install:
+
+```bash
+npx playwright install chromium
+```
+
+That browser install is opt-in and is not part of default release gates.
 
 ## References
 
