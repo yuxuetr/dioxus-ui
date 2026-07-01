@@ -204,5 +204,8 @@ Choose one of:
 - require an external Chrome executable and document supported versions
 - keep browser smoke as a local/manual MCP procedure outside release gates
 
+M42 starts with this decision. See
+[Browser Automation Dependency Strategy](browser-automation-dependency-strategy.md).
+
 After that decision, a future script can own server startup, mobile viewport
 assertions, screenshots, and cleanup.
