@@ -178,3 +178,31 @@ dioxus-ui-mobile-browser-preview-*.png
 A future script should be introduced only together with an explicit dependency
 and browser installation strategy, for example a committed package manifest with
 Playwright setup instructions or a documented external Chrome contract.
+
+## M41.4 Feasibility Result
+
+M41 completed without adding a repository browser smoke command. The milestone
+validated the available portable gates:
+
+```bash
+node scripts/mobile-web-profile-verify.mjs
+node scripts/web-preview-verify.mjs
+scripts/example-smoke.sh
+```
+
+All commands passed. The supported release claim remains source-level Mobile Web
+profile verification plus Web preview structural verification. Browser-rendered
+mobile smoke is feasible only after the project selects a deterministic
+Playwright dependency and browser binary strategy.
+
+## Next Milestone Seed
+
+The next practical milestone is dependency strategy, not more selector work.
+Choose one of:
+
+- add a committed Node package manifest and Playwright install procedure
+- require an external Chrome executable and document supported versions
+- keep browser smoke as a local/manual MCP procedure outside release gates
+
+After that decision, a future script can own server startup, mobile viewport
+assertions, screenshots, and cleanup.

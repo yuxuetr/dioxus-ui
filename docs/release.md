@@ -122,6 +122,8 @@ Manual review:
 - Web preview screenshots cover desktop and mobile viewports
 - Mobile Web profile gate passes; native Mobile device, simulator, keyboard,
   safe-area, and assistive behavior remain unclaimed
+- Mobile browser smoke was probed in M41 but is not a release gate until a
+  deterministic Playwright dependency and browser binary strategy exists
 - Desktop preview structural gate passes; Desktop WebView screenshot capture
   was locally probed in M39 but is not repeatable yet, so it should not be
   claimed or added to release gates
@@ -159,3 +161,5 @@ in a stable install location.
   repeatable in local probes.
 - Mobile has a Web profile structural gate for source-level mobile viewport and
   fallback markers, but no native device or emulator gate yet.
+- Mobile browser smoke is documented as infeasible for release gates until
+  browser automation dependencies are made portable.
