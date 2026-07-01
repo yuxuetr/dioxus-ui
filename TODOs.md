@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M41 Mobile Browser Smoke Feasibility
-- Current task: M41 complete; next milestone pending
+- Overall: 0%
+- Current milestone: M42 Browser Automation Dependency Strategy
+- Current task: M42.1 Plan browser automation dependency strategy
 
 ## Backup
 
@@ -288,6 +288,28 @@
   - Run Mobile Web profile gate, Web preview gate, example smoke, and any feasible browser smoke.
   - Update docs and release gates with the supported claim and remaining native Mobile gaps.
   - Leave a clear next milestone seed for emulator/device follow-through if browser smoke is not enough.
+
+## M42 Browser Automation Dependency Strategy
+
+- TODO M42.1 Plan browser automation dependency strategy
+  - Decide whether this repository should add Node package metadata for browser smoke tests.
+  - Compare Playwright-managed browsers, external Chrome contracts, and local/manual MCP-only verification.
+  - Keep default Rust and source-copy gates independent from browser downloads.
+
+- TODO M42.2 Add package metadata if accepted
+  - Add `package.json` only if it keeps scripts explicit and avoids changing Rust build behavior.
+  - Define browser smoke scripts as opt-in commands, not default release gates.
+  - Avoid committing generated browser binaries or large artifacts.
+
+- TODO M42.3 Add dependency documentation and install policy
+  - Document how contributors install Node dependencies and browsers.
+  - Explain which commands require network access and which remain offline.
+  - Keep unsupported Mobile native behavior explicit.
+
+- TODO M42.4 Complete browser automation dependency milestone
+  - Run existing Rust, Web preview, Mobile Web profile, and example gates.
+  - Run npm/package checks only if package metadata is added and dependencies are available.
+  - Update TODO status after commits and leave the next browser smoke implementation seed.
 
 ## Status Rules
 
