@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 100%
 - Current milestone: M44 Mobile Browser Smoke Script
-- Current task: M44.4 Complete mobile browser smoke milestone
+- Current task: M44 complete; next milestone pending
 
 ## Backup
 
@@ -350,7 +350,7 @@
   - Explain that the command verifies mobile browser rendering, not native Mobile behavior.
   - Keep release gates unchanged until the command is stable.
 
-- TODO M44.4 Complete mobile browser smoke milestone
+- DONE M44.4 Complete mobile browser smoke milestone
   - Run deterministic gates and run the browser smoke if Chromium is available.
   - If Chromium is missing, verify the command fails with actionable install guidance.
   - Update TODO status after commits and leave next seed for CI or screenshot follow-through.
