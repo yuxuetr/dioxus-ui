@@ -210,6 +210,20 @@ use an explicit executable path:
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:mobile-browser
 ```
 
+To save an ignored local screenshot after the assertions pass, add:
+
+```bash
+DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+```
+
+For local Chrome plus screenshot capture:
+
+```bash
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+```
+
+Screenshots use the ignored `dioxus-ui-mobile-browser-preview-*.png` pattern.
+
 That browser smoke starts the Web preview, checks a mobile browser viewport, and
 cleans up the server. It is not part of default release gates.
 

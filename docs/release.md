@@ -128,6 +128,21 @@ Local external Chrome fallback:
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:mobile-browser
 ```
 
+Optional local screenshot artifact:
+
+```bash
+DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+```
+
+External Chrome plus screenshot artifact:
+
+```bash
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+```
+
+Generated screenshots match the ignored
+`dioxus-ui-mobile-browser-preview-*.png` pattern.
+
 This is not part of the release gate yet. It verifies mobile browser rendering
 of the Web preview, not native Mobile behavior.
 

@@ -99,8 +99,8 @@ and then run assertions through the configured browser tool.
 
 ## Artifact Policy
 
-Screenshots are optional for M41. If local screenshots are produced, they should
-be ignored by Git with a pattern such as:
+Screenshots are optional. If local screenshots are produced, they should be
+ignored by Git with this pattern:
 
 ```text
 dioxus-ui-mobile-browser-preview-*.png
@@ -178,6 +178,35 @@ dioxus-ui-mobile-browser-preview-*.png
 A future script should be introduced only together with an explicit dependency
 and browser installation strategy, for example a committed package manifest with
 Playwright setup instructions or a documented external Chrome contract.
+
+## M47 Screenshot Artifact Follow-through
+
+M47 added optional screenshot capture to the repository mobile browser smoke.
+The default command remains assertion-only:
+
+```bash
+npm run verify:mobile-browser
+```
+
+To save a local screenshot after assertions pass:
+
+```bash
+DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+```
+
+To use the local external Chrome path and save a screenshot:
+
+```bash
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+```
+
+The script prints the saved screenshot path. Generated screenshots match the
+ignored `dioxus-ui-mobile-browser-preview-*.png` pattern and should not be
+committed.
+
+This artifact captures rendered Web preview output at a mobile browser
+viewport. It does not verify native Dioxus Mobile rendering, software keyboard
+behavior, or device safe-area behavior.
 
 ## M41.4 Feasibility Result
 

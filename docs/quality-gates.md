@@ -145,6 +145,21 @@ For local machines with a supported Chrome executable, the command also accepts:
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:mobile-browser
 ```
 
+Optional local screenshot capture:
+
+```bash
+DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+```
+
+With an external Chrome executable:
+
+```bash
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+```
+
+The screenshot artifact uses the ignored
+`dioxus-ui-mobile-browser-preview-*.png` pattern and should not be committed.
+
 This opt-in command starts the rendered Web preview, uses a mobile browser
 viewport, asserts the Mobile Web profile and representative preview panels, and
 cleans up the preview server. It remains outside default release gates until CI
