@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 100%
 - Current milestone: M42 Browser Automation Dependency Strategy
-- Current task: M42.4 Complete browser automation dependency milestone
+- Current task: M42 complete; next milestone pending
 
 ## Backup
 
@@ -306,7 +306,7 @@
   - Explain which commands require network access and which remain offline.
   - Keep unsupported Mobile native behavior explicit.
 
-- TODO M42.4 Complete browser automation dependency milestone
+- DONE M42.4 Complete browser automation dependency milestone
   - Run existing Rust, Web preview, Mobile Web profile, and example gates.
   - Run npm/package checks only if package metadata is added and dependencies are available.
   - Update TODO status after commits and leave the next browser smoke implementation seed.
