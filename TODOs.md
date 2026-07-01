@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M38 Desktop WebView Preview
-- Current task: M38.2 Extract shared rendered preview panels
+- Current task: M38.3 Add Desktop preview binary
 
 ## Backup
 
@@ -203,7 +203,7 @@
   - Specify required `data-preview-*` selectors and representative panels.
   - Keep Desktop screenshots and Mobile support out of scope until repeatable tooling exists.
 
-- TODO M38.2 Extract shared rendered preview panels
+- DONE M38.2 Extract shared rendered preview panels
   - Move reusable Web preview panel rendering into a shared example crate or helper module.
   - Keep Web and Desktop preview selectors aligned through the same rendering path.
   - Preserve Tailwind CSS v4 source scanning and command-line smoke output.
