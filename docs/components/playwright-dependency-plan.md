@@ -103,6 +103,37 @@ That command should:
 It should remain outside default release gates until local and CI stability are
 proven.
 
+## M44.1 Script Contract
+
+M44 should add an opt-in script:
+
+```bash
+npm run verify:mobile-browser
+```
+
+The script should:
+
+- use a fixed localhost URL, initially `http://127.0.0.1:45237`
+- start `dx serve --web --package dioxus-ui-web-demo --bin preview --port
+  45237 --addr 127.0.0.1 --open false --hot-reload false --watch false
+  --interactive false`
+- wait for the preview URL to return `200 OK`
+- launch Playwright Chromium with a `390x844` mobile viewport
+- assert the page title, root, `mobile-profile`, form, message, chart, and
+  overlay-open selectors
+- verify the page is nonblank and the chart SVG has a non-empty bounding box
+- close the browser and stop the `dx serve` process in cleanup paths
+
+If Playwright Chromium is not installed, the script should fail with actionable
+guidance:
+
+```bash
+npx playwright install chromium
+```
+
+The command remains opt-in and should not be added to default release gates in
+M44.
+
 ## Native Mobile Boundary
 
 Playwright mobile browser profiles do not verify native Dioxus Mobile behavior,
