@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 0%
-- Current milestone: M37 Rendered Preview and Screenshot Verification
-- Current task: M37 complete
+- Current milestone: M38 Desktop WebView Preview
+- Current task: M38.2 Extract shared rendered preview panels
 
 ## Backup
 
@@ -195,6 +195,33 @@
   - Define the smallest Desktop WebView smoke path after the Web preview stabilizes.
   - Document remaining Mobile verification gaps and any platform-specific constraints.
   - Update quality gates and release docs with the new preview and screenshot commands.
+
+## M38 Desktop WebView Preview
+
+- DONE M38.1 Plan Desktop preview implementation
+  - Define the explicit Desktop preview binary path without replacing command-line smoke output.
+  - Specify required `data-preview-*` selectors and representative panels.
+  - Keep Desktop screenshots and Mobile support out of scope until repeatable tooling exists.
+
+- TODO M38.2 Extract shared rendered preview panels
+  - Move reusable Web preview panel rendering into a shared example crate or helper module.
+  - Keep Web and Desktop preview selectors aligned through the same rendering path.
+  - Preserve Tailwind CSS v4 source scanning and command-line smoke output.
+
+- TODO M38.3 Add Desktop preview binary
+  - Add `dioxus-ui-desktop-demo --bin preview` using the shared rendered panels.
+  - Enable only the Desktop runtime features required by the preview binary.
+  - Ensure `cargo run -p dioxus-ui-desktop-demo` remains the command-line smoke path.
+
+- TODO M38.4 Add Desktop preview structural gate
+  - Add `scripts/desktop-preview-verify.mjs` for source selectors, binary compile, and smoke output.
+  - Update examples, quality gates, and release docs with the explicit Desktop preview command.
+  - Do not add Desktop screenshots to default release gates yet.
+
+- TODO M38.5 Complete Desktop preview milestone
+  - Run workspace checks, Web preview gate, Desktop preview gate, and example smoke.
+  - Document remaining WebView screenshot and Mobile automation gaps.
+  - Mark M38 complete only after all changes are committed.
 
 ## Status Rules
 
