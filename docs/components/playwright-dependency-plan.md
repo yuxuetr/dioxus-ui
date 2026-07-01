@@ -325,3 +325,28 @@ than selector work. Options:
 
 Until then, keep `npm run verify:mobile-browser` opt-in and out of default
 release gates.
+
+## M46.1 External Chrome Plan
+
+M46 adds a second opt-in path for environments where Playwright-managed Chromium
+downloads are unreliable. The mobile browser smoke command may use an external
+browser executable when this environment variable is set:
+
+```bash
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:mobile-browser
+```
+
+This differs from Playwright-managed Chromium:
+
+- the browser version is controlled by the local machine, not the lockfile
+- launch behavior may vary by operating system and installed Chrome version
+- it can avoid browser downloads for local smoke checks
+- it is not portable enough for default release gates
+
+Expected behavior:
+
+- if `DIOXUS_UI_BROWSER_EXECUTABLE` is unset, use Playwright-managed Chromium
+- if it is set to a missing path, fail before starting the preview server
+- if it is set to an executable that cannot launch, report the launch failure
+  and clean up the preview server
+- do not claim native Mobile support or release-gate stability from this path
