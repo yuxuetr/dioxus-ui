@@ -159,6 +159,9 @@ DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Goo
 
 The screenshot artifact uses the ignored
 `dioxus-ui-mobile-browser-preview-*.png` pattern and should not be committed.
+When screenshot capture is enabled, the script validates the generated PNG
+signature, nonzero byte size, and dimensions against the mobile viewport lower
+bound.
 
 This opt-in command starts the rendered Web preview, uses a mobile browser
 viewport, asserts the Mobile Web profile and representative preview panels, and

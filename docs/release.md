@@ -142,6 +142,9 @@ DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Goo
 
 Generated screenshots match the ignored
 `dioxus-ui-mobile-browser-preview-*.png` pattern.
+When screenshot capture is enabled, the script validates the generated PNG
+signature, nonzero byte size, and dimensions against the mobile viewport lower
+bound.
 
 This is not part of the release gate yet. It verifies mobile browser rendering
 of the Web preview, not native Mobile behavior.

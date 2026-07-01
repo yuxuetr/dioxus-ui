@@ -223,6 +223,8 @@ DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Goo
 ```
 
 Screenshots use the ignored `dioxus-ui-mobile-browser-preview-*.png` pattern.
+When screenshot capture is enabled, the smoke also validates the generated PNG
+signature, byte size, and dimensions against the mobile viewport lower bound.
 
 That browser smoke starts the Web preview, checks a mobile browser viewport, and
 cleans up the server. It is not part of default release gates.

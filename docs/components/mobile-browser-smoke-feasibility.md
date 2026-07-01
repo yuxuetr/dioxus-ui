@@ -204,6 +204,11 @@ The script prints the saved screenshot path. Generated screenshots match the
 ignored `dioxus-ui-mobile-browser-preview-*.png` pattern and should not be
 committed.
 
+M48 added metadata validation for screenshot-enabled runs. After writing the
+PNG, the script verifies the PNG signature, nonzero byte size, and dimensions at
+least as large as the `390x844` mobile viewport. It then prints the measured
+dimensions and byte count.
+
 This artifact captures rendered Web preview output at a mobile browser
 viewport. It does not verify native Dioxus Mobile rendering, software keyboard
 behavior, or device safe-area behavior.
