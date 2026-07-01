@@ -2,6 +2,7 @@
 import { request } from "node:http";
 import { once } from "node:events";
 import { spawn } from "node:child_process";
+import { existsSync } from "node:fs";
 import { chromium, devices } from "@playwright/test";
 
 const repoRoot = new URL("..", import.meta.url).pathname;
@@ -9,46 +10,74 @@ const host = "127.0.0.1";
 const port = 45237;
 const previewUrl = `http://${host}:${port}`;
 const installHint = "npx playwright install chromium";
+const executablePath = process.env.DIOXUS_UI_BROWSER_EXECUTABLE;
 
-const server = spawn(
-  "dx",
-  [
-    "serve",
-    "--web",
-    "--package",
-    "dioxus-ui-web-demo",
-    "--bin",
-    "preview",
-    "--port",
-    String(port),
-    "--addr",
-    host,
-    "--open",
-    "false",
-    "--hot-reload",
-    "false",
-    "--watch",
-    "false",
-    "--interactive",
-    "false",
-  ],
-  {
-    cwd: repoRoot,
-    stdio: ["ignore", "pipe", "pipe"],
-  },
-);
-
+let server;
 let serverOutput = "";
 
-server.stdout.on("data", (chunk) => {
-  serverOutput += chunk.toString();
-});
+function validateBrowserConfig() {
+  if (!executablePath) {
+    return;
+  }
 
-server.stderr.on("data", (chunk) => {
-  serverOutput += chunk.toString();
-});
+  if (!existsSync(executablePath)) {
+    throw new Error(
+      `DIOXUS_UI_BROWSER_EXECUTABLE does not exist: ${executablePath}`,
+    );
+  }
+}
+
+function browserLaunchOptions() {
+  if (!executablePath) {
+    return { headless: true };
+  }
+
+  return { headless: true, executablePath };
+}
+
+function startServer() {
+  server = spawn(
+    "dx",
+    [
+      "serve",
+      "--web",
+      "--package",
+      "dioxus-ui-web-demo",
+      "--bin",
+      "preview",
+      "--port",
+      String(port),
+      "--addr",
+      host,
+      "--open",
+      "false",
+      "--hot-reload",
+      "false",
+      "--watch",
+      "false",
+      "--interactive",
+      "false",
+    ],
+    {
+      cwd: repoRoot,
+      stdio: ["ignore", "pipe", "pipe"],
+    },
+  );
+
+  server.stdout.on("data", (chunk) => {
+    serverOutput += chunk.toString();
+  });
+
+  server.stderr.on("data", (chunk) => {
+    serverOutput += chunk.toString();
+  });
+}
 
 async function stopServer() {
+  if (!server) {
+    return;
+  }
+
   if (server.exitCode !== null || server.signalCode !== null) {
     return;
   }
@@ -115,9 +144,9 @@ async function runBrowserAssertions() {
   let browser;
 
   try {
-    browser = await chromium.launch({ headless: true });
+    browser = await chromium.launch(browserLaunchOptions());
   } catch (error) {
-    if (isMissingBrowserError(error)) {
+    if (!executablePath && isMissingBrowserError(error)) {
       throw new Error(
         `Playwright Chromium is not installed. Run \`${installHint}\` before npm run verify:mobile-browser.`,
       );
@@ -197,6 +226,8 @@ async function runBrowserAssertions() {
 }
 
 try {
+  validateBrowserConfig();
+  startServer();
   await waitForPreview();
   await runBrowserAssertions();
   console.log("mobile browser smoke passed");
