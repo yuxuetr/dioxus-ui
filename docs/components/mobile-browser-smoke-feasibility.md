@@ -120,3 +120,39 @@ M41 can add a repeatable smoke command only when:
 If those criteria are not met, M41 should finish as a documented feasibility
 result and keep the M40 structural gate as the supported Mobile Web profile
 verification path.
+
+## M41.2 Local Probe Result
+
+The local probe confirmed that the Web preview server can be started and served
+at the planned URL:
+
+```bash
+dx serve --web --package dioxus-ui-web-demo --bin preview --port 45237 --addr 127.0.0.1 --open false --hot-reload false --watch false --interactive false
+curl -I http://127.0.0.1:45237
+```
+
+The preview returned `HTTP/1.1 200 OK`, and the server was stopped cleanly after
+the probe.
+
+Browser automation availability is mixed:
+
+- the configured in-app browser list was empty, so no `iab` browser instance was
+  available for plugin-controlled assertions
+- the Node REPL tool environment could import `playwright`
+- repository shell commands could not import `playwright` because this project
+  has no `package.json` or local Playwright dependency
+- Playwright's bundled Chromium executable was not installed in the local cache
+- launching system Google Chrome through Playwright in headless mode exited with
+  `SIGABRT` under the current environment
+
+Because the only successful Playwright import is tool-environment-specific, M41
+should not add a repository browser smoke script yet. The current supported
+portable gate remains:
+
+```bash
+node scripts/mobile-web-profile-verify.mjs
+```
+
+M41.3 should add a script only if a deterministic dependency and browser binary
+strategy is selected, such as adding explicit npm tooling or documenting a
+supported external browser installation contract.
