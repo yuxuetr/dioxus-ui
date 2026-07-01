@@ -562,3 +562,51 @@ The next useful browser milestone is CI setup documentation: define how CI would
 install Node dependencies, install or provide Chromium, run
 `npm run verify:mobile-browser`, and decide whether the screenshot metadata path
 should remain manual or become a non-blocking CI job.
+
+## M49.1 CI Browser Smoke Setup Plan
+
+M49 documents how CI should run the mobile browser smoke without adding a
+repository workflow yet. This is intentional: the repository currently has no
+`.github/workflows` directory, and introducing a new CI job should be reviewed
+separately from documenting the command contract.
+
+CI prerequisites:
+
+- Rust toolchain and Dioxus CLI available before `dx serve`
+- Node dependency install with `npm ci`
+- either Playwright-managed Chromium installed with
+  `npx playwright install chromium` or a known executable path exported through
+  `DIOXUS_UI_BROWSER_EXECUTABLE`
+- localhost binding permissions for the fixed preview address
+  `127.0.0.1:45237`
+
+Recommended first CI mode:
+
+- manual or non-blocking job, not required for merges
+- run after the deterministic Rust and structural preview gates
+- upload screenshot artifacts only when
+  `DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1` is enabled
+- keep Playwright browser caches outside Git
+
+Candidate command sequence:
+
+```bash
+npm ci
+npm run verify:smoke
+cargo test --workspace --all-features -q
+npx playwright install chromium
+DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+```
+
+External browser variant:
+
+```bash
+npm ci
+npm run verify:smoke
+cargo test --workspace --all-features -q
+DIOXUS_UI_BROWSER_EXECUTABLE="$CHROME_BIN" DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+```
+
+The CI guide should not claim visual regression coverage, native Mobile
+coverage, or Desktop WebView screenshot coverage. It should only document
+rendered Web preview smoke assertions and optional PNG metadata validation.
