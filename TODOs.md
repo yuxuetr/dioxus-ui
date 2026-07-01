@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 100%
 - Current milestone: M50 CI Browser Workflow Template
-- Current task: M50.4 Complete CI browser workflow template milestone
+- Current task: M50 complete; next milestone pending
 
 ## Backup
 
@@ -482,7 +482,7 @@
   - Clarify that the template is documentation until copied into `.github/workflows`.
   - Keep default local gates unchanged.
 
-- TODO M50.4 Complete CI browser workflow template milestone
+- DONE M50.4 Complete CI browser workflow template milestone
   - Run deterministic gates and documentation checks.
   - Verify no `.github/workflows` file is committed.
   - Update TODO status only after commits and validation.
