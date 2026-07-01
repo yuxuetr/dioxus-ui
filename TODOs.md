@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M45 Mobile Browser Smoke End-to-end
-- Current task: M45.2 Install Playwright Chromium if feasible
+- Current task: M45.3 Run mobile browser smoke end to end
 
 ## Backup
 
@@ -362,7 +362,7 @@
   - Keep browser downloads out of default release gates.
   - Document expected success and failure modes before installing.
 
-- TODO M45.2 Install Playwright Chromium if feasible
+- DONE M45.2 Install Playwright Chromium if feasible
   - Run `npx playwright install chromium` only as an opt-in local setup step.
   - Verify downloaded browser artifacts remain outside Git.
   - Document network or platform failures without committing generated binaries.
