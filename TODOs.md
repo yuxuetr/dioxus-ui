@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M43 Playwright Dependency Preparation
-- Current task: M43.3 Document Playwright install and offline behavior
+- Current task: M43.4 Complete Playwright dependency milestone
 
 ## Backup
 
@@ -323,7 +323,7 @@
   - Avoid browser downloads during package install.
   - Keep generated browser binaries and screenshots ignored by Git.
 
-- TODO M43.3 Document Playwright install and offline behavior
+- DONE M43.3 Document Playwright install and offline behavior
   - Document `npm install` and browser install commands.
   - Explain which commands work without browser binaries and which require downloads.
   - Keep native Mobile support explicitly out of scope.
