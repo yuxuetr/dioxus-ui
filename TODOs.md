@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M47 Mobile Browser Screenshot Artifacts
-- Current task: M47 complete; next milestone pending
+- Overall: 0%
+- Current milestone: M48 Mobile Screenshot Metadata Checks
+- Current task: M48.1 Plan screenshot metadata validation contract
 
 ## Backup
 
@@ -419,6 +419,28 @@
 - DONE M47.4 Complete mobile browser screenshot artifact milestone
   - Run deterministic gates and the external Chrome screenshot smoke if feasible.
   - Verify screenshot artifact creation and cleanup behavior.
+  - Update TODO status only after commits and validation.
+
+## M48 Mobile Screenshot Metadata Checks
+
+- TODO M48.1 Plan screenshot metadata validation contract
+  - Define the minimum metadata checks for generated mobile browser screenshots.
+  - Decide whether checks should run only when screenshot capture is enabled.
+  - Document failure behavior, dimensions, and file size expectations.
+
+- TODO M48.2 Add screenshot metadata validation
+  - Parse the generated PNG dimensions without adding a new dependency.
+  - Fail the screenshot-enabled smoke when the artifact is empty or below the mobile viewport size.
+  - Print screenshot dimensions and byte size after validation succeeds.
+
+- TODO M48.3 Document screenshot metadata checks
+  - Update browser smoke docs, quality gates, release docs, and README with the validation claim.
+  - Keep the command opt-in and outside default release gates.
+  - Avoid claiming visual diffing or native Mobile verification.
+
+- TODO M48.4 Complete mobile screenshot metadata milestone
+  - Run deterministic gates and the external Chrome screenshot metadata smoke if feasible.
+  - Verify server cleanup and ignored artifact behavior.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
