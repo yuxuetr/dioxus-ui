@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M48 Mobile Screenshot Metadata Checks
-- Current task: M48 complete; next milestone pending
+- Overall: 0%
+- Current milestone: M49 CI Browser Smoke Documentation
+- Current task: M49.1 Plan CI browser smoke setup documentation
 
 ## Backup
 
@@ -441,6 +441,28 @@
 - DONE M48.4 Complete mobile screenshot metadata milestone
   - Run deterministic gates and the external Chrome screenshot metadata smoke if feasible.
   - Verify server cleanup and ignored artifact behavior.
+  - Update TODO status only after commits and validation.
+
+## M49 CI Browser Smoke Documentation
+
+- TODO M49.1 Plan CI browser smoke setup documentation
+  - Define CI prerequisites for Node dependencies, Playwright Chromium, and Dioxus Web preview serving.
+  - Decide whether browser smoke should be blocking, optional, scheduled, or manual.
+  - Document artifact upload and cache expectations without adding a workflow yet.
+
+- TODO M49.2 Add CI browser smoke setup guide
+  - Create a CI-focused guide with install commands, verification commands, and failure modes.
+  - Include separate paths for Playwright-managed Chromium and external Chrome executables.
+  - Keep native Mobile and pixel visual regression claims out of scope.
+
+- TODO M49.3 Link CI browser smoke guide from release and quality docs
+  - Update README, quality gates, release docs, and component docs index.
+  - Explain that CI browser smoke remains opt-in until the repository has a reviewed workflow.
+  - Keep default local gates unchanged.
+
+- TODO M49.4 Complete CI browser smoke documentation milestone
+  - Run deterministic gates and documentation checks.
+  - Verify no workflow or browser artifacts are accidentally committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
