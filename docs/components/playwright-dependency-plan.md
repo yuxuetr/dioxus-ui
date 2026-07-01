@@ -3,7 +3,8 @@
 This document defines the M43 plan for introducing Playwright as an optional
 browser automation dependency.
 
-Status: Planned in M43.1.
+Status: Planned in M43.1. Playwright dev dependency and npm lockfile added in
+M43.2.
 
 ## Decision
 
@@ -41,6 +42,10 @@ M43 should not add:
 - screenshots or temporary browser profiles
 - native Mobile support claims
 - postinstall hooks that download browsers automatically
+
+M43.2 added `@playwright/test` as a development dependency and committed
+`package-lock.json`. It did not run `npx playwright install chromium`, so browser
+binaries remain an explicit opt-in installation step.
 
 ## Offline Behavior
 
