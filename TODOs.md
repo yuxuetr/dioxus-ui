@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M49 CI Browser Smoke Documentation
-- Current task: M49.2 Add CI browser smoke setup guide
+- Current task: M49.3 Link CI browser smoke guide from release and quality docs
 
 ## Backup
 
@@ -450,7 +450,7 @@
   - Decide whether browser smoke should be blocking, optional, scheduled, or manual.
   - Document artifact upload and cache expectations without adding a workflow yet.
 
-- TODO M49.2 Add CI browser smoke setup guide
+- DONE M49.2 Add CI browser smoke setup guide
   - Create a CI-focused guide with install commands, verification commands, and failure modes.
   - Include separate paths for Playwright-managed Chromium and external Chrome executables.
   - Keep native Mobile and pixel visual regression claims out of scope.
