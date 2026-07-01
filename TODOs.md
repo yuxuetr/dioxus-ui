@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M39 Desktop WebView Screenshot Feasibility
-- Current task: M39.3 Add local-only Desktop screenshot smoke script if feasible
+- Current task: M39.4 Complete Desktop screenshot feasibility milestone
 
 ## Backup
 
@@ -235,7 +235,7 @@
   - Document required permissions, platform constraints, and failure modes.
   - Avoid adding a flaky release gate if the window cannot be selected reliably.
 
-- TODO M39.3 Add local-only Desktop screenshot smoke script if feasible
+- DONE M39.3 Add local-only Desktop screenshot smoke script if feasible
   - Add `scripts/desktop-webview-screenshot-smoke.sh` only if local window capture is repeatable.
   - Ensure the script starts and cleans up the Desktop preview process.
   - Keep generated screenshots ignored by Git.
