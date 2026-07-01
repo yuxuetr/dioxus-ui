@@ -3,7 +3,7 @@
 This document defines the M42 dependency strategy for future browser smoke
 tests.
 
-Status: Planned in M42.1.
+Status: Planned in M42.1. Minimal package metadata added in M42.2.
 
 ## Decision
 
@@ -57,6 +57,10 @@ Suggested script names:
 
 Browser smoke scripts should be added later, after the dependency and browser
 binary installation path is committed and tested.
+
+M42.2 adds package metadata for existing deterministic gates only. It does not
+add Playwright as a dependency and does not install browsers. The npm scripts
+are convenience aliases for commands that already exist in the repository.
 
 ## Install Policy
 

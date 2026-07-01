@@ -1,0 +1,14 @@
+{
+  "name": "dioxus-ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "verify:web-preview": "node scripts/web-preview-verify.mjs",
+    "verify:desktop-preview": "node scripts/desktop-preview-verify.mjs",
+    "verify:mobile-web-profile": "node scripts/mobile-web-profile-verify.mjs",
+    "verify:examples": "scripts/example-smoke.sh",
+    "verify:preview": "npm run verify:web-preview && npm run verify:mobile-web-profile && npm run verify:desktop-preview",
+    "verify:smoke": "npm run verify:preview && npm run verify:examples"
+  }
+}
