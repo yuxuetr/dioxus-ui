@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M39 Desktop WebView Screenshot Feasibility
-- Current task: M39.2 Probe local Desktop screenshot tooling
+- Current task: M39.3 Add local-only Desktop screenshot smoke script if feasible
 
 ## Backup
 
@@ -230,7 +230,7 @@
   - Specify candidate local commands, cleanup expectations, and unsupported behavior.
   - Keep Desktop screenshots out of default release gates until repeatable.
 
-- TODO M39.2 Probe local Desktop screenshot tooling
+- DONE M39.2 Probe local Desktop screenshot tooling
   - Check whether local macOS window capture tooling can find and capture the Desktop preview window.
   - Document required permissions, platform constraints, and failure modes.
   - Avoid adding a flaky release gate if the window cannot be selected reliably.
