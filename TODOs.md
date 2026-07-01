@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M40 Mobile Web Profile Verification
-- Current task: M40.2 Add Mobile Web profile structural gate
+- Current task: M40.3 Update Mobile verification docs and quality gates
 
 ## Backup
 
@@ -252,7 +252,7 @@
   - Select the first repeatable checks for touch target metadata, hover alternatives, safe-area placeholders, reduced motion, and viewport sizing.
   - Keep emulator/device automation and native Mobile claims out of scope.
 
-- TODO M40.2 Add Mobile Web profile structural gate
+- DONE M40.2 Add Mobile Web profile structural gate
   - Add a script that validates the Web preview exposes mobile-profile selectors or source markers.
   - Reuse the rendered Web preview and shared preview inventory instead of creating a separate component tree.
   - Keep the gate local and deterministic without requiring a native device.
