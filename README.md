@@ -231,7 +231,8 @@ That browser smoke starts the Web preview, checks a mobile browser viewport, and
 cleans up the server. It is not part of default release gates.
 
 For CI setup options and non-blocking workflow policy, see the
-[CI Browser Smoke Guide](docs/ci-browser-smoke.md).
+[CI Browser Smoke Guide](docs/ci-browser-smoke.md) and
+[CI Browser Workflow Template](docs/ci-browser-workflow-template.md).
 
 ## References
 

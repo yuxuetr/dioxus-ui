@@ -150,8 +150,8 @@ This is not part of the release gate yet. It verifies mobile browser rendering
 of the Web preview, not native Mobile behavior.
 
 For CI setup options and non-blocking workflow policy, see
-`docs/ci-browser-smoke.md`. Do not treat browser smoke as a required release
-gate until a reviewed workflow exists.
+`docs/ci-browser-smoke.md` and `docs/ci-browser-workflow-template.md`. Do not
+treat browser smoke as a required release gate until a reviewed workflow exists.
 
 Smoke commands:
 

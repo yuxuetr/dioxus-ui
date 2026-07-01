@@ -3,6 +3,9 @@
 This guide documents how CI can run the opt-in mobile browser smoke for the
 rendered Web preview. It does not add a repository workflow by itself.
 
+For a copyable non-blocking GitHub Actions example, see the
+[CI Browser Workflow Template](ci-browser-workflow-template.md).
+
 ## Status
 
 Recommended first mode: manual or non-blocking CI job.
@@ -135,3 +138,6 @@ The repository should keep browser smoke opt-in until a reviewed workflow is
 added. A first workflow should be manual, scheduled, or non-blocking. Required
 merge gates should continue to rely on deterministic Rust and structural preview
 checks until browser installation and local serving are stable in CI.
+
+The workflow template in `docs/ci-browser-workflow-template.md` is documentation
+until copied into `.github/workflows/`.
