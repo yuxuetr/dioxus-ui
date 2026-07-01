@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M43 Playwright Dependency Preparation
-- Current task: M43 complete; next milestone pending
+- Overall: 0%
+- Current milestone: M44 Mobile Browser Smoke Script
+- Current task: M44.1 Plan opt-in mobile browser smoke script
 
 ## Backup
 
@@ -332,6 +332,28 @@
   - Run npm verification aliases, workspace tests, and any package lock checks.
   - Do not add browser-rendered smoke unless browser binaries are installed and stable.
   - Leave a clear next seed for the first opt-in browser smoke script.
+
+## M44 Mobile Browser Smoke Script
+
+- TODO M44.1 Plan opt-in mobile browser smoke script
+  - Define the script contract for server startup, mobile viewport assertions, screenshots, and cleanup.
+  - Decide how the script fails when Playwright Chromium is not installed.
+  - Keep the command outside default release gates.
+
+- TODO M44.2 Implement opt-in mobile browser smoke script
+  - Add `scripts/mobile-browser-smoke.mjs` and an npm alias.
+  - Start `dx serve`, wait for the Web preview URL, run Playwright mobile assertions, and stop the server.
+  - Keep screenshots optional and ignored by Git.
+
+- TODO M44.3 Document browser smoke usage and install requirements
+  - Document `npm run verify:mobile-browser` and `npx playwright install chromium`.
+  - Explain that the command verifies mobile browser rendering, not native Mobile behavior.
+  - Keep release gates unchanged until the command is stable.
+
+- TODO M44.4 Complete mobile browser smoke milestone
+  - Run deterministic gates and run the browser smoke if Chromium is available.
+  - If Chromium is missing, verify the command fails with actionable install guidance.
+  - Update TODO status after commits and leave next seed for CI or screenshot follow-through.
 
 ## Status Rules
 
