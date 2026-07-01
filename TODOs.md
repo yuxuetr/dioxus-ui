@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M38 Desktop WebView Preview
-- Current task: M38.4 Add Desktop preview structural gate
+- Current task: M38.5 Complete Desktop preview milestone
 
 ## Backup
 
@@ -213,7 +213,7 @@
   - Enable only the Desktop runtime features required by the preview binary.
   - Ensure `cargo run -p dioxus-ui-desktop-demo` remains the command-line smoke path.
 
-- TODO M38.4 Add Desktop preview structural gate
+- DONE M38.4 Add Desktop preview structural gate
   - Add `scripts/desktop-preview-verify.mjs` for source selectors, binary compile, and smoke output.
   - Update examples, quality gates, and release docs with the explicit Desktop preview command.
   - Do not add Desktop screenshots to default release gates yet.
