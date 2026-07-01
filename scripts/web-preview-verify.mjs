@@ -11,6 +11,10 @@ const previewSource = readFileSync(
   join(repoRoot, "examples/web-demo/src/bin/preview.rs"),
   "utf8",
 );
+const previewSharedSource = readFileSync(
+  join(repoRoot, "examples/preview-states/src/lib.rs"),
+  "utf8",
+);
 const previewCss = readFileSync(
   join(repoRoot, "examples/web-demo/assets/preview.css"),
   "utf8",
@@ -27,11 +31,12 @@ const requiredSourceFragments = [
   "overlay-open",
   "inventory",
   "data-preview-state",
-  "preview_lines(PreviewTarget::Web)",
+  "PreviewSurface",
+  "PreviewTarget::Web",
 ];
 
 const missingSourceFragments = requiredSourceFragments.filter((fragment) => {
-  return !previewSource.includes(fragment);
+  return !previewSource.includes(fragment) && !previewSharedSource.includes(fragment);
 });
 
 if (missingSourceFragments.length > 0) {
