@@ -527,3 +527,38 @@ Failure behavior:
 This is not visual regression testing. It does not compare pixels, inspect
 layout quality, or prove native Mobile behavior. It only prevents empty,
 non-PNG, or undersized screenshot artifacts from being reported as successful.
+
+## M48.4 Final Result
+
+M48 completed with screenshot metadata validation for screenshot-enabled mobile
+browser smoke runs. The milestone validation ran:
+
+```bash
+npm run verify:smoke
+cargo test --workspace --all-features -q
+git diff --check
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+```
+
+All commands passed. The final screenshot metadata smoke printed:
+
+```text
+mobile browser screenshot saved: /Users/hal/arch/dioxus-ui/dioxus-ui-mobile-browser-preview-2026-07-01T15-37-16-400Z.png
+mobile browser screenshot metadata: 1170x7959, 785743 bytes
+mobile browser smoke passed
+```
+
+The generated PNG matched the ignored
+`dioxus-ui-mobile-browser-preview-*.png` pattern. The command left no listener
+on port `45237`.
+
+This remains an opt-in local browser artifact check. It validates screenshot
+file metadata, not pixel-level visual regressions and not native Mobile
+runtime behavior.
+
+## Next Milestone Seed
+
+The next useful browser milestone is CI setup documentation: define how CI would
+install Node dependencies, install or provide Chromium, run
+`npm run verify:mobile-browser`, and decide whether the screenshot metadata path
+should remain manual or become a non-blocking CI job.
