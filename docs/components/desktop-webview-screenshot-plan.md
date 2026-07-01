@@ -3,7 +3,8 @@
 This document defines the M39 plan for moving from Desktop preview structural
 verification to Desktop WebView screenshot capture.
 
-Status: Planned in M39.1.
+Status: Local probe completed in M39.2. Desktop window capture is not
+repeatable in the current environment.
 
 ## Goal
 
@@ -73,6 +74,47 @@ The script should be conservative:
 - keep screenshots ignored by Git
 - fail clearly when the Desktop window cannot be found
 - avoid claiming Desktop screenshot parity on unsupported platforms
+
+## Local Probe Result
+
+The M39.2 local probe found the expected macOS capture tools:
+
+```text
+/usr/sbin/screencapture
+/usr/bin/osascript
+/usr/bin/sips
+```
+
+The probe did not find a repeatable Desktop WebView window to capture.
+Running the Desktop preview through `dx serve` built successfully and attempted
+to launch the app, but the macOS app exited with `SIGBUS` immediately after
+launch:
+
+```text
+Build completed successfully ..., launching app!
+Application [macos] exited with error: signal: 10 (SIGBUS)
+```
+
+System Events did not expose a visible preview app window before the process
+exited. Directly running the preview binary with Cargo also exited after
+starting `/Users/hal/.target/debug/preview`, without producing a stable native
+window.
+
+Because the preview window cannot currently be selected reliably, M39 should
+not add a Desktop WebView screenshot gate. The existing Desktop structural gate
+remains the supported Desktop verification path until the WebView launch issue
+is resolved on a local GUI session.
+
+Documented failure modes:
+
+- macOS capture tooling is present, but it has no stable target window.
+- `dx serve --platform desktop` can complete the build while the launched app
+  still fails during native WebView startup.
+- sandboxed process enumeration may be unavailable, so cleanup should rely on
+  the known preview process started by a future script rather than broad process
+  scans.
+- CI and headless sessions should continue to report Desktop screenshot capture
+  as unsupported instead of failing release checks.
 
 ## Non-goals
 
