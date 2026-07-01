@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M49 CI Browser Smoke Documentation
-- Current task: M49.1 Plan CI browser smoke setup documentation
+- Current task: M49.2 Add CI browser smoke setup guide
 
 ## Backup
 
@@ -445,7 +445,7 @@
 
 ## M49 CI Browser Smoke Documentation
 
-- TODO M49.1 Plan CI browser smoke setup documentation
+- DONE M49.1 Plan CI browser smoke setup documentation
   - Define CI prerequisites for Node dependencies, Playwright Chromium, and Dioxus Web preview serving.
   - Decide whether browser smoke should be blocking, optional, scheduled, or manual.
   - Document artifact upload and cache expectations without adding a workflow yet.
