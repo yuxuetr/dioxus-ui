@@ -122,6 +122,12 @@ npx playwright install chromium
 npm run verify:mobile-browser
 ```
 
+Local external Chrome fallback:
+
+```bash
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:mobile-browser
+```
+
 This is not part of the release gate yet. It verifies mobile browser rendering
 of the Web preview, not native Mobile behavior.
 

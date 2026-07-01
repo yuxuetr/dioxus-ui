@@ -383,3 +383,30 @@ The command cleaned up the preview server and left no listener on port `45237`.
 This proves a local opt-in external Chrome path, but it remains outside default
 release gates because the executable path and launch behavior are
 machine-specific.
+
+## M46.4 Final Result
+
+M46 completed with a working local external Chrome browser smoke path. The
+milestone validation ran:
+
+```bash
+npm run verify:smoke
+cargo test --workspace --all-features -q
+git diff --check
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:mobile-browser
+```
+
+All commands passed. The external Chrome smoke printed:
+
+```text
+mobile browser smoke passed
+```
+
+The command left no listener on port `45237`. This is a supported local opt-in
+path for this machine, not a default release gate.
+
+## Next Milestone Seed
+
+The next browser milestone can add optional screenshot capture for the external
+Chrome path, or document CI setup once a portable browser installation strategy
+is selected.

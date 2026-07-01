@@ -203,6 +203,13 @@ After Chromium is installed, run the opt-in mobile browser smoke:
 npm run verify:mobile-browser
 ```
 
+If Playwright-managed Chromium is unavailable but local Chrome is installed,
+use an explicit executable path:
+
+```bash
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:mobile-browser
+```
+
 That browser smoke starts the Web preview, checks a mobile browser viewport, and
 cleans up the server. It is not part of default release gates.
 

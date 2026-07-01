@@ -139,6 +139,12 @@ npx playwright install chromium
 npm run verify:mobile-browser
 ```
 
+For local machines with a supported Chrome executable, the command also accepts:
+
+```bash
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:mobile-browser
+```
+
 This opt-in command starts the rendered Web preview, uses a mobile browser
 viewport, asserts the Mobile Web profile and representative preview panels, and
 cleans up the preview server. It remains outside default release gates until CI
