@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M42 Browser Automation Dependency Strategy
-- Current task: M42.2 Add package metadata if accepted
+- Current task: M42.3 Add dependency documentation and install policy
 
 ## Backup
 
@@ -296,7 +296,7 @@
   - Compare Playwright-managed browsers, external Chrome contracts, and local/manual MCP-only verification.
   - Keep default Rust and source-copy gates independent from browser downloads.
 
-- TODO M42.2 Add package metadata if accepted
+- DONE M42.2 Add package metadata if accepted
   - Add `package.json` only if it keeps scripts explicit and avoids changing Rust build behavior.
   - Define browser smoke scripts as opt-in commands, not default release gates.
   - Avoid committing generated browser binaries or large artifacts.
