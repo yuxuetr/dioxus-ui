@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M48 Mobile Screenshot Metadata Checks
-- Current task: M48.1 Plan screenshot metadata validation contract
+- Current task: M48.2 Add screenshot metadata validation
 
 ## Backup
 
@@ -423,7 +423,7 @@
 
 ## M48 Mobile Screenshot Metadata Checks
 
-- TODO M48.1 Plan screenshot metadata validation contract
+- DONE M48.1 Plan screenshot metadata validation contract
   - Define the minimum metadata checks for generated mobile browser screenshots.
   - Decide whether checks should run only when screenshot capture is enabled.
   - Document failure behavior, dimensions, and file size expectations.
