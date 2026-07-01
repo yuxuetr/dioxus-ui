@@ -130,6 +130,20 @@ These aliases do not require Playwright browser binaries and do not replace the
 full Rust release gate list above. Future browser-rendered smoke commands should
 document `npx playwright install chromium` separately.
 
+## Mobile Browser Smoke Gate
+
+Run only when Playwright Chromium has been installed:
+
+```bash
+npx playwright install chromium
+npm run verify:mobile-browser
+```
+
+This opt-in command starts the rendered Web preview, uses a mobile browser
+viewport, asserts the Mobile Web profile and representative preview panels, and
+cleans up the preview server. It remains outside default release gates until CI
+or local release stability is proven.
+
 Manual release review:
 
 - Tailwind CSS v4 input stylesheet remains `@import "tailwindcss";`.

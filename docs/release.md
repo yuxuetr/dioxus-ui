@@ -115,6 +115,16 @@ The npm alias does not install browser binaries and does not replace the full
 release gate list. Browser-rendered Playwright smoke remains opt-in until a
 stable command is added and proven.
 
+Optional browser smoke:
+
+```bash
+npx playwright install chromium
+npm run verify:mobile-browser
+```
+
+This is not part of the release gate yet. It verifies mobile browser rendering
+of the Web preview, not native Mobile behavior.
+
 Smoke commands:
 
 ```bash

@@ -197,7 +197,14 @@ install:
 npx playwright install chromium
 ```
 
-That browser install is opt-in and is not part of default release gates.
+After Chromium is installed, run the opt-in mobile browser smoke:
+
+```bash
+npm run verify:mobile-browser
+```
+
+That browser smoke starts the Web preview, checks a mobile browser viewport, and
+cleans up the server. It is not part of default release gates.
 
 ## References
 

@@ -4,7 +4,7 @@ This document defines the M43 plan for introducing Playwright as an optional
 browser automation dependency.
 
 Status: Planned in M43.1. Playwright dev dependency and npm lockfile added in
-M43.2.
+M43.2. Opt-in mobile browser smoke script added in M44.2.
 
 ## Decision
 
@@ -133,6 +133,15 @@ npx playwright install chromium
 
 The command remains opt-in and should not be added to default release gates in
 M44.
+
+M44.2 added:
+
+```bash
+npm run verify:mobile-browser
+```
+
+The command owns `dx serve` startup and cleanup. If Chromium is missing, it
+prints the install command and exits without leaving the preview server running.
 
 ## Native Mobile Boundary
 
