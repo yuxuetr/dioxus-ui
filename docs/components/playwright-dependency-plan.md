@@ -247,3 +247,32 @@ Expected failure modes:
 
 Any failure should be documented without promoting the browser smoke to a
 default release gate.
+
+## M45.2 Chromium Install Result
+
+The M45.2 install attempt ran:
+
+```bash
+npx playwright install chromium
+```
+
+The command produced no output for several minutes and was interrupted. The
+repository worktree remained clean, and no browser binary was committed.
+
+The local Playwright cache did not contain a usable Chromium browser after the
+interrupted run:
+
+```text
+/Users/hal/Library/Caches/ms-playwright
+/Users/hal/Library/Caches/ms-playwright/b
+```
+
+`npm run verify:mobile-browser` still fails with the expected actionable
+message:
+
+```text
+Playwright Chromium is not installed. Run `npx playwright install chromium` before npm run verify:mobile-browser.
+```
+
+M45 should not claim end-to-end browser smoke success unless Chromium installs
+cleanly and the smoke command passes.
