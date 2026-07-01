@@ -678,3 +678,32 @@ Artifact behavior:
 
 The template must explicitly state that it is documentation until copied into a
 real workflow location. It must not make browser smoke a required merge gate.
+
+## M50.4 Final Result
+
+M50 completed with a documented non-blocking CI browser workflow template and no
+active workflow files. The milestone added:
+
+- `docs/ci-browser-workflow-template.md`
+- links from the CI browser smoke guide, README, quality gates, and release docs
+- a Playwright-managed Chromium workflow template
+- an external Chrome variant for prebuilt or self-hosted runners
+
+The milestone validation ran:
+
+```bash
+npm run verify:smoke
+cargo test --workspace --all-features -q
+git diff --check
+test ! -d .github
+```
+
+All commands passed. No `.github/workflows` directory was added, so the template
+remains documentation until copied and reviewed.
+
+## Next Milestone Seed
+
+The next CI milestone can add an explicit workflow activation RFC, including
+required-run policy, artifact retention, cache keys, runner image choice, and
+whether browser smoke should stay non-blocking after the first active workflow
+lands.
