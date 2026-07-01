@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M48 Mobile Screenshot Metadata Checks
-- Current task: M48.3 Document screenshot metadata checks
+- Current task: M48.4 Complete mobile screenshot metadata milestone
 
 ## Backup
 
@@ -433,7 +433,7 @@
   - Fail the screenshot-enabled smoke when the artifact is empty or below the mobile viewport size.
   - Print screenshot dimensions and byte size after validation succeeds.
 
-- TODO M48.3 Document screenshot metadata checks
+- DONE M48.3 Document screenshot metadata checks
   - Update browser smoke docs, quality gates, release docs, and README with the validation claim.
   - Keep the command opt-in and outside default release gates.
   - Avoid claiming visual diffing or native Mobile verification.
