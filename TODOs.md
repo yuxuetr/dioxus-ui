@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M46 External Chrome Browser Smoke Path
-- Current task: M46.1 Plan external Chrome executable support
+- Current task: M46.2 Add external browser executable support
 
 ## Backup
 
@@ -379,7 +379,7 @@
 
 ## M46 External Chrome Browser Smoke Path
 
-- TODO M46.1 Plan external Chrome executable support
+- DONE M46.1 Plan external Chrome executable support
   - Define an opt-in environment variable for using a local Chrome/Chromium executable.
   - Document how this differs from Playwright-managed Chromium.
   - Keep browser smoke outside default release gates.
