@@ -210,3 +210,40 @@ The next browser milestone should install Chromium in an opt-in environment and
 run `npm run verify:mobile-browser` end to end. If it passes, the follow-through
 can add optional screenshot capture and CI documentation while keeping the
 command outside default release gates.
+
+## M45.1 Chromium Install And E2E Plan
+
+M45 is a local opt-in milestone. It may run:
+
+```bash
+npx playwright install chromium
+npm run verify:mobile-browser
+```
+
+Expected artifact behavior:
+
+- Playwright downloads Chromium into the local Playwright cache, not the
+  repository
+- `node_modules/` remains ignored
+- screenshot files, if added later, must match ignored preview artifact patterns
+- no browser binaries or generated profiles are committed
+
+Expected success path:
+
+1. Chromium installs successfully.
+2. `npm run verify:mobile-browser` starts `dx serve`.
+3. The script opens the Web preview at a mobile viewport.
+4. It verifies the Mobile Web profile markers, preview panels, nonblank body,
+   and chart SVG bounding box.
+5. It exits with `mobile browser smoke passed`.
+6. It leaves no listener on port `45237`.
+
+Expected failure modes:
+
+- network download failure during `npx playwright install chromium`
+- platform-specific browser launch failure
+- Dioxus preview server timeout
+- selector or rendering assertion failure
+
+Any failure should be documented without promoting the browser smoke to a
+default release gate.
