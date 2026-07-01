@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M39 Desktop WebView Screenshot Feasibility
-- Current task: M39 complete; next milestone pending
+- Overall: 0%
+- Current milestone: M40 Mobile Web Profile Verification
+- Current task: M40.1 Plan Mobile Web profile verification path
 
 ## Backup
 
@@ -244,6 +244,28 @@
   - Run Desktop structural gate, Web preview gate, example smoke, and any feasible screenshot smoke.
   - Update preview docs, quality gates, and release notes with the outcome.
   - Mark unsupported behavior explicitly if local screenshot capture is not reliable.
+
+## M40 Mobile Web Profile Verification
+
+- TODO M40.1 Plan Mobile Web profile verification path
+  - Define the difference between Web mobile viewport checks and native Dioxus Mobile support.
+  - Select the first repeatable checks for touch target metadata, hover alternatives, safe-area placeholders, reduced motion, and viewport sizing.
+  - Keep emulator/device automation and native Mobile claims out of scope.
+
+- TODO M40.2 Add Mobile Web profile structural gate
+  - Add a script that validates the Web preview exposes mobile-profile selectors or source markers.
+  - Reuse the rendered Web preview and shared preview inventory instead of creating a separate component tree.
+  - Keep the gate local and deterministic without requiring a native device.
+
+- TODO M40.3 Update Mobile verification docs and quality gates
+  - Link the Mobile Web profile gate from runtime Mobile checklist, renderer verification, quality gates, and release docs.
+  - Document which checklist items remain manual, emulator-backed later, or unsupported.
+  - Avoid promoting Mobile runtime adapters or native Mobile support.
+
+- TODO M40.4 Complete Mobile Web profile milestone
+  - Run Web preview gate, Mobile Web profile gate, example smoke, and workspace checks as appropriate.
+  - Update TODO status only after commits and validation.
+  - Leave a clear next milestone seed for emulator/device follow-through if needed.
 
 ## Status Rules
 
