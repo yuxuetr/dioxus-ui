@@ -116,6 +116,23 @@ Documented failure modes:
 - CI and headless sessions should continue to report Desktop screenshot capture
   as unsupported instead of failing release checks.
 
+## M39.3 Script Decision
+
+`scripts/desktop-webview-screenshot-smoke.sh` is intentionally not added while
+the native preview window is not repeatable. A smoke script that starts the app,
+fails to find a window, and exits unsuccessfully would not provide useful
+coverage beyond the documented probe.
+
+Future local experiments should use ignored filenames that match:
+
+```text
+dioxus-ui-desktop-webview-preview-*.png
+```
+
+The script can be added later when a local GUI session can launch the Desktop
+preview window consistently and select it by a stable title, process name, or
+window id.
+
 ## Non-goals
 
 - do not add Desktop screenshot capture to default release gates yet
