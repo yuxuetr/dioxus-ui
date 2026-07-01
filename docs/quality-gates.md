@@ -177,6 +177,19 @@ This verifies the Desktop preview binary, Tailwind CSS v4 source input, stable
 `data-preview-*` selectors, and representative command-line Desktop smoke
 output. Desktop WebView screenshot capture remains separate until repeatable.
 
+## Desktop WebView Screenshot Feasibility
+
+M39 probed local Desktop WebView screenshot capture and did not add a screenshot
+smoke gate. macOS capture tooling is present, but the Desktop preview does not
+currently produce a stable native window to select: `dx serve --platform
+desktop` can build and launch before the macOS app exits with `SIGBUS`, and the
+direct Cargo preview binary also exits without a repeatable window.
+
+Do not add `scripts/desktop-webview-screenshot-smoke.sh` to local, CI, or
+release gates until a local GUI session can launch the Desktop preview
+consistently and select it by stable title, process name, or window id. Continue
+to use `node scripts/desktop-preview-verify.mjs` as the supported Desktop gate.
+
 ## Runtime Mobile Verification Gate
 
 Mobile verification is documentation-only until a repeatable device or emulator

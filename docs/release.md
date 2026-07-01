@@ -119,8 +119,9 @@ Manual review:
 - component features compile individually and in representative combinations
 - command-line Web and Desktop examples expose representative parity states
 - Web preview screenshots cover desktop and mobile viewports
-- Desktop preview structural gate passes; Desktop WebView screenshots remain
-  planned and should not be claimed yet
+- Desktop preview structural gate passes; Desktop WebView screenshot capture
+  was locally probed in M39 but is not repeatable yet, so it should not be
+  claimed or added to release gates
 
 `scripts/feature-check.sh` is more expensive than a normal workspace check
 because it invokes Cargo once per public component feature. Run it before
@@ -151,4 +152,5 @@ in a stable install location.
   require `dioxus-ui-core` or `dioxus-ui-primitives` in source-copy mode.
 - Web has a rendered preview shell and screenshot procedure. Desktop has a
   rendered preview shell and structural gate, but Desktop WebView screenshot
-  capture remains planned.
+  capture is currently unsupported because the native preview window is not
+  repeatable in local probes.

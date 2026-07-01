@@ -3,7 +3,9 @@
 This document records the M37.5 follow-through plan after the rendered Web
 preview and Web screenshot gate landed.
 
-Status: Planned in M37.5.
+Status: Desktop preview implemented in M38. Desktop WebView screenshot capture
+was probed in M39 and remains unsupported until native window launch is
+repeatable.
 
 ## Goal
 
@@ -44,21 +46,23 @@ Web preview so screenshot tooling can share selectors.
 
 ## Desktop Screenshot Gate
 
-Add a separate Desktop gate after the preview can open reliably:
+The supported Desktop preview gate is currently structural:
 
 ```bash
 node scripts/desktop-preview-verify.mjs
 ```
 
-The first gate should assert:
+It asserts:
 
 - preview starts without replacing `cargo run -p dioxus-ui-desktop-demo`
-- compact and comfortable Desktop viewport screenshots can be captured
-- form, message, chart, and overlay-open panels are visible
+- form, message, chart, and overlay-open panel selectors stay present in source
 - unsupported WebView behavior is visible instead of silently omitted
 
-Do not add the Desktop screenshot command to default release gates until it is
-stable on local machines and CI.
+M39 did not add `scripts/desktop-webview-screenshot-smoke.sh` because the
+native Desktop preview window is not repeatable in the current local
+environment. Do not add the Desktop screenshot command to default release gates
+until the preview can launch consistently and be selected by a stable title,
+process name, or window id.
 
 ## Mobile Follow-through
 
