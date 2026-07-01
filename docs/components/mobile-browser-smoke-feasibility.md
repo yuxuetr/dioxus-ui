@@ -156,3 +156,25 @@ node scripts/mobile-web-profile-verify.mjs
 M41.3 should add a script only if a deterministic dependency and browser binary
 strategy is selected, such as adding explicit npm tooling or documenting a
 supported external browser installation contract.
+
+## M41.3 Script Decision
+
+No repository browser smoke script is added in M41.3. The current environment
+can prove that the Web preview server responds, but it cannot provide a
+portable browser automation path:
+
+- committed project files do not include Node package metadata or a Playwright
+  dependency
+- the only successful Playwright import came from the tool runtime, not the
+  repository shell environment
+- the available browser binary paths were not stable enough for a local script
+
+Future experiments may save screenshots with this ignored pattern:
+
+```text
+dioxus-ui-mobile-browser-preview-*.png
+```
+
+A future script should be introduced only together with an explicit dependency
+and browser installation strategy, for example a committed package manifest with
+Playwright setup instructions or a documented external Chrome contract.
