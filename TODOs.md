@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M44 Mobile Browser Smoke Script
-- Current task: M44.3 Document browser smoke usage and install requirements
+- Current task: M44.4 Complete mobile browser smoke milestone
 
 ## Backup
 
@@ -345,7 +345,7 @@
   - Start `dx serve`, wait for the Web preview URL, run Playwright mobile assertions, and stop the server.
   - Keep screenshots optional and ignored by Git.
 
-- TODO M44.3 Document browser smoke usage and install requirements
+- DONE M44.3 Document browser smoke usage and install requirements
   - Document `npm run verify:mobile-browser` and `npx playwright install chromium`.
   - Explain that the command verifies mobile browser rendering, not native Mobile behavior.
   - Keep release gates unchanged until the command is stable.
