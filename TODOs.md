@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M45 Mobile Browser Smoke End-to-end
-- Current task: M45.1 Plan Chromium install and end-to-end browser smoke
+- Current task: M45.2 Install Playwright Chromium if feasible
 
 ## Backup
 
@@ -357,7 +357,7 @@
 
 ## M45 Mobile Browser Smoke End-to-end
 
-- TODO M45.1 Plan Chromium install and end-to-end browser smoke
+- DONE M45.1 Plan Chromium install and end-to-end browser smoke
   - Define the local opt-in Chromium install path and cache/artifact expectations.
   - Keep browser downloads out of default release gates.
   - Document expected success and failure modes before installing.
