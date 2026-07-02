@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M53 Docs Site Catalog Data Contract
-- Current task: M53.2 Add catalog metadata verification script
+- Current task: M53.3 Document catalog consumption path
 
 ## Backup
 
@@ -538,7 +538,7 @@
   - Decide which fields are required, derived, or intentionally deferred to a visual docs runtime.
   - Keep component API and visual docs-site implementation out of scope.
 
-- TODO M53.2 Add catalog metadata verification script
+- DONE M53.2 Add catalog metadata verification script
   - Add a deterministic script that builds an in-memory catalog from local sources.
   - Verify every public component has registry, docs, template, crate feature, module, and source file coverage.
   - Print summary counts and fail on drift without writing generated output.
