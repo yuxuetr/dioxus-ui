@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M52 Product Surface Audit
-- Current task: M52.2 Run local catalog consistency audit
+- Current task: M52.3 Document next product-surface recommendation
 
 ## Backup
 
@@ -516,7 +516,7 @@
   - Keep upstream shadcn parity refresh out of scope unless explicitly scheduled as a separate milestone.
   - Decide what evidence should drive the next implementation milestone.
 
-- TODO M52.2 Run local catalog consistency audit
+- DONE M52.2 Run local catalog consistency audit
   - Compare registry entries, template files, crate modules, docs pages, and public feature/export surfaces.
   - Identify missing, extra, or intentionally docs-only/source-only items.
   - Record exact counts and drift categories.
