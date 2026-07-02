@@ -6,6 +6,16 @@ function escapeTableCell(value) {
 }
 
 export function renderDocsCatalogMarkdown(catalogData = buildDocsCatalog()) {
+  const groupedLines = catalogData.catalogCategories.flatMap((category) => {
+    const items = catalogData.catalog.filter((item) => item.category === category.id);
+
+    return [
+      `### ${category.label}`,
+      "",
+      ...items.map((item) => `- [${item.title}](${item.slug}.md): ${item.description}`),
+      "",
+    ];
+  });
   const rows = catalogData.catalog.map((item) => [
     `[${item.title}](${item.slug}.md)`,
     item.description,
@@ -29,6 +39,11 @@ export function renderDocsCatalogMarkdown(catalogData = buildDocsCatalog()) {
     "preview routes, screenshot artifacts, or generated JSON metadata.",
     "",
     `Public components: ${catalogData.summary.publicComponents}`,
+    "",
+    "## Groups",
+    "",
+    ...groupedLines,
+    "## Full Index",
     "",
     "| Component | Description | CLI | Feature | Template | Source Target |",
     "| --- | --- | --- | --- | --- | --- |",

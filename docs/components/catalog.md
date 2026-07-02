@@ -12,6 +12,98 @@ preview routes, screenshot artifacts, or generated JSON metadata.
 
 Public components: 64
 
+## Groups
+
+### Actions
+
+- [Button](button.md): Button component with variants, sizes, and density-aware spacing.
+- [Button Group](button-group.md): Button Group component for grouped command buttons.
+- [Command](command.md): Controlled command palette parts with active descendant semantics.
+- [Kbd](kbd.md): Styled keyboard shortcut hint.
+- [Toggle](toggle.md): Toggle component for controlled pressed button states.
+- [Toggle Group](toggle-group.md): Toggle Group component for grouped single or multiple pressed states.
+
+### Forms
+
+- [Calendar](calendar.md): Calendar components backed by pure date grid primitives.
+- [Checkbox](checkbox.md): Checkbox component with checked and disabled states.
+- [Date Picker](date-picker.md): Date Picker trigger, value, and popover content parts for composing Calendar.
+- [Field](field.md): Form field layout composition parts.
+- [Input](input.md): Input component with disabled and invalid states.
+- [Input Group](input-group.md): Input Group component for addons, controls, and actions around inputs.
+- [Input Otp](input-otp.md): Input OTP component with controlled visual slots and native input support.
+- [Label](label.md): Label component for associating text with form controls.
+- [Native Select](native-select.md): Styled native select, optgroup, and option components.
+- [Radio Group](radio-group.md): Radio Group component for single-choice grouped selection.
+- [Select](select.md): Select components backed by primitive configuration types.
+- [Slider](slider.md): Slider component for controlled horizontal numeric values.
+- [Switch](switch.md): Switch component with checked and disabled states.
+- [Textarea](textarea.md): Textarea component with disabled and invalid states.
+
+### Overlays
+
+- [Alert Dialog](alert-dialog.md): Alert dialog confirmation components backed by dialog primitive configuration.
+- [Combobox](combobox.md): Controlled searchable selection parts backed by popover primitive configuration.
+- [Context Menu](context-menu.md): Controlled context menu parts backed by dropdown primitive configuration.
+- [Dialog](dialog.md): Dialog overlay components backed by primitive configuration types.
+- [Drawer](drawer.md): Mobile-oriented bottom drawer components backed by dialog primitive configuration.
+- [Dropdown](dropdown.md): Dropdown menu components backed by primitive configuration types.
+- [Hover Card](hover-card.md): Controlled rich preview content backed by popover primitive configuration.
+- [Menubar](menubar.md): Controlled menubar parts backed by dropdown primitive configuration.
+- [Popover](popover.md): Popover content components backed by primitive configuration types.
+- [Sheet](sheet.md): Side sheet overlay components backed by dialog primitive configuration.
+- [Tooltip](tooltip.md): Tooltip content component backed by primitive configuration types.
+
+### Navigation
+
+- [Breadcrumb](breadcrumb.md): Semantic breadcrumb navigation composition parts.
+- [Navigation Menu](navigation-menu.md): Controlled navigation menu parts with navigation semantics.
+- [Pagination](pagination.md): Pagination component with link, item, and ellipsis parts.
+- [Sidebar](sidebar.md): Controlled sidebar shell and navigation composition parts.
+- [Tabs](tabs.md): Tabs components with controlled active state.
+
+### Layout
+
+- [Accordion](accordion.md): Accordion components with controlled open state.
+- [Aspect Ratio](aspect-ratio.md): Fixed-ratio media and content slot.
+- [Card](card.md): Card component with header, content, and footer parts.
+- [Carousel](carousel.md): Controlled carousel composition parts and index helpers.
+- [Collapsible](collapsible.md): Collapsible component for controlled disclosure content.
+- [Direction](direction.md): Direction component for scoped native ltr/rtl text direction.
+- [Item](item.md): Generic list item composition parts.
+- [Resizable](resizable.md): Controlled resizable panel group, panel, and handle parts.
+- [Scroll Area](scroll-area.md): Native scroll area wrapper with styled viewport and scrollbar parts.
+- [Separator](separator.md): Separator component for visual or semantic content division.
+
+### Data Display
+
+- [Avatar](avatar.md): Avatar component with image and fallback parts.
+- [Badge](badge.md): Badge component with static status variants.
+- [Chart](chart.md): Source-copy friendly SVG chart composition parts.
+- [Data Table](data-table.md): Controlled Data Table composition parts and state helpers.
+- [Empty](empty.md): Empty-state layout composition parts.
+- [Progress](progress.md): Progress component with accessible value semantics.
+- [Table](table.md): Table component with styled table parts.
+- [Typography](typography.md): Styled semantic typography parts.
+
+### Feedback
+
+- [Alert](alert.md): Alert component with title and description parts.
+- [Skeleton](skeleton.md): Skeleton component for loading placeholders.
+- [Sonner](sonner.md): Opinionated toast notification parts and queue helpers.
+- [Spinner](spinner.md): Spinner component for loading status feedback.
+- [Toast](toast.md): Controlled toast notification parts and queue helpers.
+
+### Messaging
+
+- [Attachment](attachment.md): Attachment component for provider-neutral file preview rows and actions.
+- [Bubble](bubble.md): Bubble component for provider-neutral message surfaces and reactions.
+- [Marker](marker.md): Marker component for inline status, bordered rows, and labeled separators.
+- [Message](message.md): Message component for provider-neutral chat row layout.
+- [Message Scroller](message-scroller.md): Controlled message scroller composition parts with pure scroll intent helpers.
+
+## Full Index
+
 | Component | Description | CLI | Feature | Template | Source Target |
 | --- | --- | --- | --- | --- | --- |
 | [Accordion](accordion.md) | Accordion components with controlled open state. | `dxui add accordion` | `accordion` | `templates/accordion.rs` | `src/components/ui/accordion.rs` |
