@@ -214,3 +214,33 @@ registry, template, docs, feature, or module parsing.
 The builder is intentionally read-only. M54 still does not create
 `catalog.json`, preview route ids, screenshot artifact paths, or rendered docs
 pages.
+
+## M54 Final Result
+
+M54 extracted the docs catalog source-reading and record-building logic into a
+shared JavaScript module while keeping validation behavior in the existing
+verification entry point.
+
+Validation ran:
+
+```bash
+npm run verify:smoke
+cargo test --workspace --all-features -q
+npm run verify:docs-catalog
+git diff --check
+```
+
+All commands passed. `npm run verify:docs-catalog` reported:
+
+```text
+publicComponents: 64
+registryEntries: 65
+sourceCopyHelpers: ["utils"]
+templates: 65
+crateModules: 64
+crateFeatures: 64
+componentDocs: 64
+```
+
+No generated catalog JSON artifact was written, and no preview server remained
+listening on port 45237.
