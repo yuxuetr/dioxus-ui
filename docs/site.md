@@ -317,3 +317,42 @@ git diff --check
 
 All commands passed. The static page lists 64 public components and remains a
 Markdown review artifact, not a generated JSON catalog or visual docs route.
+
+## M56 Static Catalog Grouping Plan
+
+The flat static catalog is accurate but hard to scan. M56 should add a small
+category taxonomy to the static catalog output before any visual docs navigation
+exists.
+
+Initial category taxonomy:
+
+- Actions: buttons, toggles, command-style controls, and keyboard hints
+- Forms: form controls, field composition, labels, and date entry
+- Overlays: dialogs, drawers, popovers, menus, tooltips, and hover cards
+- Navigation: breadcrumbs, pagination, tabs, sidebar, and navigation menus
+- Layout: cards, separators, scroll areas, resizable panels, and structural
+  primitives
+- Data Display: tables, charts, progress, avatars, badges, empty states, and
+  typography
+- Feedback: alerts, toast/sonner, skeleton, and spinner
+- Messaging: attachment, bubble, message, marker, and message scroller
+
+Metadata ownership:
+
+- Keep grouping metadata near the docs catalog builder for M56.
+- Do not add category fields to every registry entry until the taxonomy has
+  proven useful.
+- The builder should fail on missing grouping metadata so new public components
+  cannot silently disappear from grouped docs.
+
+Out of scope for M56:
+
+- visual docs navigation
+- rendered route generation
+- registry schema changes
+- component API changes
+- screenshot or preview asset fields
+
+The grouped catalog should still preserve the flat table because it remains the
+fastest way to audit CLI commands, feature names, templates, and source-copy
+targets.
