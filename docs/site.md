@@ -244,3 +244,42 @@ componentDocs: 64
 
 No generated catalog JSON artifact was written, and no preview server remained
 listening on port 45237.
+
+## M55 Static Catalog View Plan
+
+The next docs-site step is a deterministic Markdown catalog view generated from
+the shared builder. This gives reviewers and users a readable component index
+before a routed Dioxus docs runtime exists.
+
+Static page target:
+
+```text
+docs/components/catalog.md
+```
+
+The page should include one row per public component with:
+
+- component title and docs link
+- registry description
+- `dxui add` source-copy command
+- crate feature name
+- template path
+- source-copy target path
+
+Generation boundary:
+
+- `scripts/docs-catalog-builder.mjs` remains the only source-reading path
+- a small renderer script may convert builder output to Markdown
+- a verification script should fail when `docs/components/catalog.md` drifts
+  from current builder output
+
+Out of scope for M55:
+
+- visual docs routes
+- preview screenshots or image paths
+- generated JSON catalog artifacts
+- component API changes
+- runtime preview tabs
+
+The existing `npm run verify:docs-catalog` command should continue to verify
+metadata coverage. The new static-page verification should be additive.
