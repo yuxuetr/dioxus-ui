@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M51 CI Browser Workflow Activation RFC
-- Current task: M51 complete; next milestone pending
+- Overall: 0%
+- Current milestone: M52 Product Surface Audit
+- Current task: M52.1 Plan product surface audit scope
 
 ## Backup
 
@@ -507,6 +507,28 @@
 - DONE M51.4 Complete workflow activation RFC milestone
   - Run deterministic gates and documentation checks.
   - Verify no `.github/workflows` file is committed.
+  - Update TODO status only after commits and validation.
+
+## M52 Product Surface Audit
+
+- TODO M52.1 Plan product surface audit scope
+  - Define local audit dimensions for registry entries, templates, crate modules, docs pages, and feature exports.
+  - Keep upstream shadcn parity refresh out of scope unless explicitly scheduled as a separate milestone.
+  - Decide what evidence should drive the next implementation milestone.
+
+- TODO M52.2 Run local catalog consistency audit
+  - Compare registry entries, template files, crate modules, docs pages, and public feature/export surfaces.
+  - Identify missing, extra, or intentionally docs-only/source-only items.
+  - Record exact counts and drift categories.
+
+- TODO M52.3 Document next product-surface recommendation
+  - Add an audit document with findings and recommended next milestone.
+  - Classify next work as component parity, theme tokens, docs-site rendering, or release hardening.
+  - Avoid implementing new components in this audit milestone.
+
+- TODO M52.4 Complete product surface audit milestone
+  - Run deterministic gates and documentation checks.
+  - Verify no unintended generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
