@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M53 Docs Site Catalog Data Contract
-- Current task: M53.1 Plan docs-site catalog data contract
+- Current task: M53.2 Add catalog metadata verification script
 
 ## Backup
 
@@ -533,7 +533,7 @@
 
 ## M53 Docs Site Catalog Data Contract
 
-- TODO M53.1 Plan docs-site catalog data contract
+- DONE M53.1 Plan docs-site catalog data contract
   - Define catalog fields derived from registry, docs pages, crate features, and template files.
   - Decide which fields are required, derived, or intentionally deferred to a visual docs runtime.
   - Keep component API and visual docs-site implementation out of scope.
