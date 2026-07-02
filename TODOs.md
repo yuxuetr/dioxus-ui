@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M52 Product Surface Audit
-- Current task: M52.1 Plan product surface audit scope
+- Current task: M52.2 Run local catalog consistency audit
 
 ## Backup
 
@@ -511,7 +511,7 @@
 
 ## M52 Product Surface Audit
 
-- TODO M52.1 Plan product surface audit scope
+- DONE M52.1 Plan product surface audit scope
   - Define local audit dimensions for registry entries, templates, crate modules, docs pages, and feature exports.
   - Keep upstream shadcn parity refresh out of scope unless explicitly scheduled as a separate milestone.
   - Decide what evidence should drive the next implementation milestone.
