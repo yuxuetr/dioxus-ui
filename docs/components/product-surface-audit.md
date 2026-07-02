@@ -173,3 +173,15 @@ M53 Docs Site Catalog Data Contract
 
 M53 should turn this audit result into a docs-site data contract and a
 repeatable metadata check before building a visual docs runtime.
+
+## M53 Follow-through
+
+M53 added an in-memory docs catalog verification command:
+
+```bash
+npm run verify:docs-catalog
+```
+
+The command confirms the M52 audit assumptions remain true and exposes sample
+catalog records with required and derived fields. It is a metadata contract
+check, not a docs-site renderer and not a generated catalog file.

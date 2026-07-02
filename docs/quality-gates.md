@@ -124,11 +124,16 @@ smoke subset:
 ```bash
 npm install
 npm run verify:smoke
+npm run verify:docs-catalog
 ```
 
 These aliases do not require Playwright browser binaries and do not replace the
 full Rust release gate list above. Future browser-rendered smoke commands should
 document `npx playwright install chromium` separately.
+
+`npm run verify:docs-catalog` checks the docs-site catalog contract in memory
+from registry entries, templates, component docs, crate features, and crate
+modules. It must not write generated catalog artifacts.
 
 ## Mobile Browser Smoke Gate
 

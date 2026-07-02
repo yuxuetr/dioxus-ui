@@ -192,6 +192,16 @@ This wraps existing local gates for Web preview, Mobile Web profile, Desktop
 preview, and example smoke output. It does not require Playwright browser
 binaries.
 
+Verify the docs-site catalog metadata contract:
+
+```bash
+npm run verify:docs-catalog
+```
+
+This builds the catalog in memory from registry entries, templates, component
+docs, crate features, and crate modules. It does not write generated catalog
+files.
+
 Future browser-rendered Playwright smoke will require an explicit browser
 install:
 

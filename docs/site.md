@@ -105,3 +105,25 @@ Deferred visual-runtime fields:
 - interactive examples
 
 Those fields should be added only after the catalog metadata check is stable.
+
+## Catalog Verification
+
+The current catalog contract is verified by:
+
+```bash
+npm run verify:docs-catalog
+```
+
+The command builds the catalog in memory and fails on missing required fields or
+surface drift. It verifies:
+
+- public component registry entries
+- source-copy template paths and generated targets
+- component docs pages
+- crate feature names
+- styled crate module paths
+- `lib.rs` public module exports
+
+The command intentionally does not write a generated catalog artifact. A future
+docs runtime should either call the same source-reading logic or introduce a
+generated artifact only after the contract is stable and reviewed.
