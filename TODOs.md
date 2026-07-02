@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
+- Overall: 100%
 - Current milestone: M56 Static Catalog Grouping
-- Current task: M56.4 Document grouping usage and complete milestone
+- Current task: M56 complete
 
 ## Backup
 
@@ -614,7 +614,7 @@
   - Preserve the full flat component table for scanning.
   - Keep the catalog page drift verification passing.
 
-- TODO M56.4 Document grouping usage and complete milestone
+- DONE M56.4 Document grouping usage and complete milestone
   - Update docs-site planning and quality gate docs with grouping ownership.
   - Run deterministic gates, workspace tests, and catalog verification.
   - Update TODO status only after commits and validation.
