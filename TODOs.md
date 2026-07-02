@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M53 Docs Site Catalog Data Contract
-- Current task: M53 complete; next milestone pending
+- Overall: 0%
+- Current milestone: M54 Shared Docs Catalog Builder
+- Current task: M54.1 Plan shared docs catalog builder extraction
 
 ## Backup
 
@@ -549,6 +549,28 @@
   - Explain how a future Dioxus docs site should consume the catalog without duplicating metadata.
 
 - DONE M53.4 Complete docs-site catalog data contract milestone
+  - Run deterministic gates, workspace tests, and catalog verification.
+  - Verify no generated catalog artifact is committed.
+  - Update TODO status only after commits and validation.
+
+## M54 Shared Docs Catalog Builder
+
+- TODO M54.1 Plan shared docs catalog builder extraction
+  - Define which catalog-building functions should move out of the verification script.
+  - Keep generated catalog artifacts and visual docs runtime out of scope.
+  - Preserve the existing `verify:docs-catalog` command behavior.
+
+- TODO M54.2 Extract reusable catalog builder module
+  - Move source-reading and catalog construction into a shared script module.
+  - Update `scripts/docs-catalog-verify.mjs` to consume the shared builder.
+  - Preserve validation output and failure behavior.
+
+- TODO M54.3 Document shared catalog builder usage
+  - Update docs-site plan with the shared builder boundary.
+  - Explain how future docs runtime code can reuse it without duplicating metadata.
+  - Keep generated artifacts deferred.
+
+- TODO M54.4 Complete shared docs catalog builder milestone
   - Run deterministic gates, workspace tests, and catalog verification.
   - Verify no generated catalog artifact is committed.
   - Update TODO status only after commits and validation.
