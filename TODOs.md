@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M50 CI Browser Workflow Template
-- Current task: M50 complete; next milestone pending
+- Overall: 0%
+- Current milestone: M51 CI Browser Workflow Activation RFC
+- Current task: M51.1 Plan workflow activation RFC scope
 
 ## Backup
 
@@ -483,6 +483,28 @@
   - Keep default local gates unchanged.
 
 - DONE M50.4 Complete CI browser workflow template milestone
+  - Run deterministic gates and documentation checks.
+  - Verify no `.github/workflows` file is committed.
+  - Update TODO status only after commits and validation.
+
+## M51 CI Browser Workflow Activation RFC
+
+- TODO M51.1 Plan workflow activation RFC scope
+  - Define the decision points for turning the documented template into an active workflow.
+  - Cover required-run policy, artifact retention, cache keys, runner image choice, and browser strategy.
+  - Keep actual workflow activation out of scope.
+
+- TODO M51.2 Add workflow activation RFC
+  - Add a new RFC under `docs/rfcs`.
+  - Document the recommended phased rollout from manual non-blocking workflow to possible required gate.
+  - Include rollback criteria and failure ownership.
+
+- TODO M51.3 Link workflow activation RFC
+  - Update CI browser docs, workflow template docs, release docs, and README/RFC index references.
+  - Clarify that the RFC is a decision document, not an active workflow.
+  - Keep default local and release gates unchanged.
+
+- TODO M51.4 Complete workflow activation RFC milestone
   - Run deterministic gates and documentation checks.
   - Verify no `.github/workflows` file is committed.
   - Update TODO status only after commits and validation.
