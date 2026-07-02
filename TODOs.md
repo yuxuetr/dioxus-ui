@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M51 CI Browser Workflow Activation RFC
-- Current task: M51.2 Add workflow activation RFC
+- Current task: M51.3 Link workflow activation RFC
 
 ## Backup
 
@@ -494,7 +494,7 @@
   - Cover required-run policy, artifact retention, cache keys, runner image choice, and browser strategy.
   - Keep actual workflow activation out of scope.
 
-- TODO M51.2 Add workflow activation RFC
+- DONE M51.2 Add workflow activation RFC
   - Add a new RFC under `docs/rfcs`.
   - Document the recommended phased rollout from manual non-blocking workflow to possible required gate.
   - Include rollback criteria and failure ownership.
