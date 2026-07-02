@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M55 Static Docs Catalog View
-- Current task: M55 complete
+- Overall: 0%
+- Current milestone: M56 Static Catalog Grouping
+- Current task: M56.1 Plan static catalog grouping
 
 ## Backup
 
@@ -595,6 +595,28 @@
 - DONE M55.4 Complete static docs catalog view milestone
   - Run deterministic gates, workspace tests, and catalog verification.
   - Verify the static catalog page is the only committed catalog artifact.
+  - Update TODO status only after commits and validation.
+
+## M56 Static Catalog Grouping
+
+- TODO M56.1 Plan static catalog grouping
+  - Define a small category taxonomy for the static catalog page.
+  - Decide whether grouping metadata should live in registry entries or renderer-owned data.
+  - Keep visual docs navigation and component API changes out of scope.
+
+- TODO M56.2 Add catalog grouping metadata
+  - Add deterministic grouping data for every public component.
+  - Extend the shared catalog builder output with category fields.
+  - Fail if any public component is missing grouping metadata.
+
+- TODO M56.3 Render grouped catalog Markdown
+  - Update the static catalog page renderer to include grouped sections.
+  - Preserve the full flat component table for scanning.
+  - Keep the catalog page drift verification passing.
+
+- TODO M56.4 Document grouping usage and complete milestone
+  - Update docs-site planning and quality gate docs with grouping ownership.
+  - Run deterministic gates, workspace tests, and catalog verification.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
