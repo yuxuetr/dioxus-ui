@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M55 Static Docs Catalog View
-- Current task: M55.1 Plan static docs catalog view
+- Current task: M55.2 Add catalog Markdown renderer and static page
 
 ## Backup
 
@@ -577,7 +577,7 @@
 
 ## M55 Static Docs Catalog View
 
-- TODO M55.1 Plan static docs catalog view
+- DONE M55.1 Plan static docs catalog view
   - Define a Markdown catalog view generated from the shared builder.
   - Decide which fields should appear in the static page and which remain deferred to a visual docs runtime.
   - Keep route rendering, screenshots, and preview images out of scope.
