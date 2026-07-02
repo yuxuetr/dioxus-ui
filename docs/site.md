@@ -180,3 +180,37 @@ Out of scope for M54:
 
 The existing `npm run verify:docs-catalog` behavior should remain stable after
 the extraction.
+
+## M54 Shared Builder Usage
+
+The shared catalog builder lives at:
+
+```text
+scripts/docs-catalog-builder.mjs
+```
+
+It exports `buildDocsCatalog(options)`. The default call reads from the current
+repository root and returns:
+
+- `catalog`: normalized public component records
+- `registryNames`, `templateNames`, `crateModuleNames`, `docsNames`,
+  `featureNames`, and `libModuleNames`: source inventories used for drift checks
+- `publicComponentNames`: registry entries excluding source-copy helpers
+- `sourceCopyHelpers`: helper entries such as `utils`
+- `summary`: stable counts for reporting
+
+The verification entry point remains:
+
+```bash
+npm run verify:docs-catalog
+```
+
+`scripts/docs-catalog-verify.mjs` consumes the shared builder, then owns the
+validation rules and failure messages. Future docs runtime code should reuse the
+builder output directly, or move the builder behind a package boundary if the
+runtime needs to import it from Rust/Dioxus tooling. It should not reimplement
+registry, template, docs, feature, or module parsing.
+
+The builder is intentionally read-only. M54 still does not create
+`catalog.json`, preview route ids, screenshot artifact paths, or rendered docs
+pages.
