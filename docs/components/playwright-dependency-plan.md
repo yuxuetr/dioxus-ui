@@ -751,3 +751,32 @@ RFC 0009 should be reachable from:
 
 Those links should state that the RFC is a decision and promotion policy. They
 should not imply that an active workflow exists.
+
+## M51.4 Final Result
+
+M51 completed with RFC 0009 for CI browser workflow activation policy and no
+active workflow files. The milestone added:
+
+- `docs/rfcs/0009-ci-browser-workflow-activation.md`
+- links from README, CI browser smoke docs, workflow template docs, and release
+  docs
+- phased rollout policy from documentation-only to possible required gate
+- rollback, failure ownership, cache, artifact, and browser strategy decisions
+
+The milestone validation ran:
+
+```bash
+npm run verify:smoke
+cargo test --workspace --all-features -q
+git diff --check
+test ! -d .github
+```
+
+All commands passed. No `.github/workflows` directory was added.
+
+## Next Milestone Seed
+
+The next practical milestone can shift back from CI policy to product surface:
+audit the current component catalog, registry entries, templates, and docs to
+decide whether the next implementation work should target component parity,
+theme tokens, or docs-site rendering.
