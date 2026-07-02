@@ -134,11 +134,12 @@ document `npx playwright install chromium` separately.
 
 `npm run verify:docs-catalog` checks the docs-site catalog contract in memory
 from registry entries, templates, component docs, crate features, and crate
-modules. It must not write generated catalog artifacts.
+modules. It also verifies every public component has static catalog grouping
+metadata. It must not write generated catalog artifacts.
 
 `npm run verify:docs-catalog-page` checks that
 `docs/components/catalog.md` matches the Markdown rendered from the shared
-catalog builder.
+catalog builder, including grouped sections and the full flat index.
 
 ## Mobile Browser Smoke Gate
 

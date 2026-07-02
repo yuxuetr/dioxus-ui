@@ -356,3 +356,35 @@ Out of scope for M56:
 The grouped catalog should still preserve the flat table because it remains the
 fastest way to audit CLI commands, feature names, templates, and source-copy
 targets.
+
+## M56 Final Result
+
+M56 added static catalog grouping metadata and rendered grouped sections into:
+
+```text
+docs/components/catalog.md
+```
+
+The shared builder now returns `category` and `category_label` for each public
+component, plus a `catalogCategories` summary count. The verification gate fails
+when a public component has missing or unknown grouping metadata.
+
+Current category count:
+
+```text
+catalogCategories: 8
+```
+
+Validation ran:
+
+```bash
+npm run verify:smoke
+cargo test --workspace --all-features -q
+npm run verify:docs-catalog
+npm run verify:docs-catalog-page
+git diff --check
+```
+
+All commands passed. The grouping metadata remains owned by the docs catalog
+builder for now; registry schema changes remain deferred until the taxonomy is
+proven useful.
