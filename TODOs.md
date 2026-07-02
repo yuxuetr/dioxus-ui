@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M52 Product Surface Audit
-- Current task: M52 complete; next milestone pending
+- Overall: 0%
+- Current milestone: M53 Docs Site Catalog Data Contract
+- Current task: M53.1 Plan docs-site catalog data contract
 
 ## Backup
 
@@ -529,6 +529,28 @@
 - DONE M52.4 Complete product surface audit milestone
   - Run deterministic gates and documentation checks.
   - Verify no unintended generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M53 Docs Site Catalog Data Contract
+
+- TODO M53.1 Plan docs-site catalog data contract
+  - Define catalog fields derived from registry, docs pages, crate features, and template files.
+  - Decide which fields are required, derived, or intentionally deferred to a visual docs runtime.
+  - Keep component API and visual docs-site implementation out of scope.
+
+- TODO M53.2 Add catalog metadata verification script
+  - Add a deterministic script that builds an in-memory catalog from local sources.
+  - Verify every public component has registry, docs, template, crate feature, module, and source file coverage.
+  - Print summary counts and fail on drift without writing generated output.
+
+- TODO M53.3 Document catalog consumption path
+  - Update docs-site plan and product surface audit docs with the catalog contract.
+  - Add npm verification alias if appropriate.
+  - Explain how a future Dioxus docs site should consume the catalog without duplicating metadata.
+
+- TODO M53.4 Complete docs-site catalog data contract milestone
+  - Run deterministic gates, workspace tests, and catalog verification.
+  - Verify no generated catalog artifact is committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
