@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M56 Static Catalog Grouping
-- Current task: M56.3 Render grouped catalog Markdown
+- Current task: M56.4 Document grouping usage and complete milestone
 
 ## Backup
 
@@ -609,7 +609,7 @@
   - Extend the shared catalog builder output with category fields.
   - Fail if any public component is missing grouping metadata.
 
-- TODO M56.3 Render grouped catalog Markdown
+- DONE M56.3 Render grouped catalog Markdown
   - Update the static catalog page renderer to include grouped sections.
   - Preserve the full flat component table for scanning.
   - Keep the catalog page drift verification passing.
