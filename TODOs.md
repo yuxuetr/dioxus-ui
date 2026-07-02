@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M55 Static Docs Catalog View
-- Current task: M55.2 Add catalog Markdown renderer and static page
+- Current task: M55.3 Add catalog Markdown drift verification and docs links
 
 ## Backup
 
@@ -582,7 +582,7 @@
   - Decide which fields should appear in the static page and which remain deferred to a visual docs runtime.
   - Keep route rendering, screenshots, and preview images out of scope.
 
-- TODO M55.2 Add catalog Markdown renderer and static page
+- DONE M55.2 Add catalog Markdown renderer and static page
   - Add a script that renders a deterministic component catalog Markdown page from `buildDocsCatalog`.
   - Add the generated static catalog page under docs without duplicating source parsing logic.
   - Preserve the existing `verify:docs-catalog` metadata check.
