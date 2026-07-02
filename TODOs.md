@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M54 Shared Docs Catalog Builder
-- Current task: M54 complete
+- Overall: 0%
+- Current milestone: M55 Static Docs Catalog View
+- Current task: M55.1 Plan static docs catalog view
 
 ## Backup
 
@@ -573,6 +573,28 @@
 - DONE M54.4 Complete shared docs catalog builder milestone
   - Run deterministic gates, workspace tests, and catalog verification.
   - Verify no generated catalog artifact is committed.
+  - Update TODO status only after commits and validation.
+
+## M55 Static Docs Catalog View
+
+- TODO M55.1 Plan static docs catalog view
+  - Define a Markdown catalog view generated from the shared builder.
+  - Decide which fields should appear in the static page and which remain deferred to a visual docs runtime.
+  - Keep route rendering, screenshots, and preview images out of scope.
+
+- TODO M55.2 Add catalog Markdown renderer and static page
+  - Add a script that renders a deterministic component catalog Markdown page from `buildDocsCatalog`.
+  - Add the generated static catalog page under docs without duplicating source parsing logic.
+  - Preserve the existing `verify:docs-catalog` metadata check.
+
+- TODO M55.3 Add catalog Markdown drift verification and docs links
+  - Add a verification command that fails when the static catalog page drifts from builder output.
+  - Link the static catalog page from docs index and quality gate docs.
+  - Document how future docs runtime work should reuse the same data path.
+
+- TODO M55.4 Complete static docs catalog view milestone
+  - Run deterministic gates, workspace tests, and catalog verification.
+  - Verify the static catalog page is the only committed catalog artifact.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
