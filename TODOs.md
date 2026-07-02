@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
+- Overall: 100%
 - Current milestone: M54 Shared Docs Catalog Builder
-- Current task: M54.4 Complete shared docs catalog builder milestone
+- Current task: M54 complete
 
 ## Backup
 
@@ -570,7 +570,7 @@
   - Explain how future docs runtime code can reuse it without duplicating metadata.
   - Keep generated artifacts deferred.
 
-- TODO M54.4 Complete shared docs catalog builder milestone
+- DONE M54.4 Complete shared docs catalog builder milestone
   - Run deterministic gates, workspace tests, and catalog verification.
   - Verify no generated catalog artifact is committed.
   - Update TODO status only after commits and validation.
