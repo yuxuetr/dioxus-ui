@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 100%
 - Current milestone: M52 Product Surface Audit
-- Current task: M52.4 Complete product surface audit milestone
+- Current task: M52 complete; next milestone pending
 
 ## Backup
 
@@ -526,7 +526,7 @@
   - Classify next work as component parity, theme tokens, docs-site rendering, or release hardening.
   - Avoid implementing new components in this audit milestone.
 
-- TODO M52.4 Complete product surface audit milestone
+- DONE M52.4 Complete product surface audit milestone
   - Run deterministic gates and documentation checks.
   - Verify no unintended generated artifacts are committed.
   - Update TODO status only after commits and validation.
