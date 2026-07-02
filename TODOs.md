@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 100%
 - Current milestone: M53 Docs Site Catalog Data Contract
-- Current task: M53.4 Complete docs-site catalog data contract milestone
+- Current task: M53 complete; next milestone pending
 
 ## Backup
 
@@ -548,7 +548,7 @@
   - Add npm verification alias if appropriate.
   - Explain how a future Dioxus docs site should consume the catalog without duplicating metadata.
 
-- TODO M53.4 Complete docs-site catalog data contract milestone
+- DONE M53.4 Complete docs-site catalog data contract milestone
   - Run deterministic gates, workspace tests, and catalog verification.
   - Verify no generated catalog artifact is committed.
   - Update TODO status only after commits and validation.
