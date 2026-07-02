@@ -13,6 +13,8 @@ const {
   libModuleNames,
   publicComponentNames,
   sourceCopyHelpers,
+  missingCategoryNames,
+  unknownCategoryNames,
   summary,
 } = buildDocsCatalog();
 
@@ -20,6 +22,8 @@ const failures = [];
 
 for (const item of catalog) {
   if (!item.description) failures.push(`${item.name}: missing registry description`);
+  if (!item.category) failures.push(`${item.name}: missing catalog category`);
+  if (!item.category_label) failures.push(`${item.name}: missing catalog category label`);
   if (!item.template_path) failures.push(`${item.name}: missing primary template path`);
   if (!item.source_copy_target) failures.push(`${item.name}: missing source-copy target`);
 
@@ -67,6 +71,14 @@ for (const name of extraCrateModules) {
 
 for (const name of extraFeatures) {
   failures.push(`${name}: crate feature missing public registry component`);
+}
+
+for (const name of missingCategoryNames) {
+  failures.push(`${name}: missing catalog grouping metadata`);
+}
+
+for (const name of unknownCategoryNames) {
+  failures.push(`${name}: unknown catalog grouping category`);
 }
 
 if (failures.length > 0) {

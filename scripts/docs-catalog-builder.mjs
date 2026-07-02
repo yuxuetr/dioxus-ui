@@ -4,6 +4,86 @@ import { fileURLToPath } from "node:url";
 
 const defaultRepoRoot = dirname(dirname(fileURLToPath(import.meta.url)));
 
+export const catalogCategories = [
+  { id: "actions", label: "Actions" },
+  { id: "forms", label: "Forms" },
+  { id: "overlays", label: "Overlays" },
+  { id: "navigation", label: "Navigation" },
+  { id: "layout", label: "Layout" },
+  { id: "data-display", label: "Data Display" },
+  { id: "feedback", label: "Feedback" },
+  { id: "messaging", label: "Messaging" },
+];
+
+const componentCategories = {
+  accordion: "layout",
+  alert: "feedback",
+  "alert-dialog": "overlays",
+  "aspect-ratio": "layout",
+  attachment: "messaging",
+  avatar: "data-display",
+  badge: "data-display",
+  breadcrumb: "navigation",
+  bubble: "messaging",
+  button: "actions",
+  "button-group": "actions",
+  calendar: "forms",
+  card: "layout",
+  carousel: "layout",
+  chart: "data-display",
+  checkbox: "forms",
+  collapsible: "layout",
+  combobox: "overlays",
+  command: "actions",
+  "context-menu": "overlays",
+  "data-table": "data-display",
+  "date-picker": "forms",
+  dialog: "overlays",
+  direction: "layout",
+  drawer: "overlays",
+  dropdown: "overlays",
+  empty: "data-display",
+  field: "forms",
+  "hover-card": "overlays",
+  input: "forms",
+  "input-group": "forms",
+  "input-otp": "forms",
+  item: "layout",
+  kbd: "actions",
+  label: "forms",
+  marker: "messaging",
+  menubar: "overlays",
+  message: "messaging",
+  "message-scroller": "messaging",
+  "native-select": "forms",
+  "navigation-menu": "navigation",
+  pagination: "navigation",
+  popover: "overlays",
+  progress: "data-display",
+  "radio-group": "forms",
+  resizable: "layout",
+  "scroll-area": "layout",
+  select: "forms",
+  separator: "layout",
+  sheet: "overlays",
+  sidebar: "navigation",
+  skeleton: "feedback",
+  slider: "forms",
+  sonner: "feedback",
+  spinner: "feedback",
+  switch: "forms",
+  table: "data-display",
+  tabs: "navigation",
+  textarea: "forms",
+  toast: "feedback",
+  toggle: "actions",
+  "toggle-group": "actions",
+  tooltip: "overlays",
+  typography: "data-display",
+};
+
+const categoryLabels = new Map(catalogCategories.map((category) => [category.id, category.label]));
+
 function namesFromFiles(repoRoot, dir, extension) {
   return readdirSync(join(repoRoot, dir))
     .filter((file) => file.endsWith(extension))
@@ -49,9 +129,12 @@ function buildCatalogItems(repoRoot, publicComponentNames) {
     const entry = readRegistryEntry(repoRoot, name);
     const primaryFile = entry.files?.[0];
     const crateImport = name.replaceAll("-", "_");
+    const category = componentCategories[name];
 
     return {
       name,
+      category,
+      category_label: categoryLabels.get(category),
       description: entry.description,
       registry_path: `registry/${name}.json`,
       template_path: primaryFile?.source,
@@ -82,10 +165,16 @@ export function buildDocsCatalog(options = {}) {
   const libModuleNames = parseLibModules(repoRoot);
   const publicComponentNames = registryNames.filter((name) => !sourceCopyHelpers.has(name));
   const catalog = buildCatalogItems(repoRoot, publicComponentNames);
+  const categoryIds = catalogCategories.map((category) => category.id);
+  const missingCategoryNames = publicComponentNames.filter((name) => !componentCategories[name]);
+  const unknownCategoryNames = catalog
+    .filter((item) => item.category && !categoryIds.includes(item.category))
+    .map((item) => item.name);
 
   return {
     repoRoot,
     catalog,
+    catalogCategories,
     registryNames,
     templateNames,
     crateModuleNames,
@@ -94,6 +183,8 @@ export function buildDocsCatalog(options = {}) {
     libModuleNames,
     publicComponentNames,
     sourceCopyHelpers,
+    missingCategoryNames,
+    unknownCategoryNames,
     summary: {
       publicComponents: catalog.length,
       registryEntries: registryNames.length,
@@ -102,6 +193,7 @@ export function buildDocsCatalog(options = {}) {
       crateModules: crateModuleNames.length,
       crateFeatures: featureNames.length,
       componentDocs: catalog.filter((item) => docsNames.includes(item.name)).length,
+      catalogCategories: catalogCategories.length,
     },
   };
 }
