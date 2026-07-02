@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
+- Overall: 100%
 - Current milestone: M55 Static Docs Catalog View
-- Current task: M55.4 Complete static docs catalog view milestone
+- Current task: M55 complete
 
 ## Backup
 
@@ -592,7 +592,7 @@
   - Link the static catalog page from docs index and quality gate docs.
   - Document how future docs runtime work should reuse the same data path.
 
-- TODO M55.4 Complete static docs catalog view milestone
+- DONE M55.4 Complete static docs catalog view milestone
   - Run deterministic gates, workspace tests, and catalog verification.
   - Verify the static catalog page is the only committed catalog artifact.
   - Update TODO status only after commits and validation.
