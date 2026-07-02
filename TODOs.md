@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M55 Static Docs Catalog View
-- Current task: M55.3 Add catalog Markdown drift verification and docs links
+- Current task: M55.4 Complete static docs catalog view milestone
 
 ## Backup
 
@@ -587,7 +587,7 @@
   - Add the generated static catalog page under docs without duplicating source parsing logic.
   - Preserve the existing `verify:docs-catalog` metadata check.
 
-- TODO M55.3 Add catalog Markdown drift verification and docs links
+- DONE M55.3 Add catalog Markdown drift verification and docs links
   - Add a verification command that fails when the static catalog page drifts from builder output.
   - Link the static catalog page from docs index and quality gate docs.
   - Document how future docs runtime work should reuse the same data path.
