@@ -63,3 +63,45 @@ The docs site should derive its catalog from:
 
 Duplicating component metadata manually should be avoided once the docs site
 becomes executable.
+
+## M53 Catalog Data Contract
+
+Before building a visual docs runtime, the project should expose a deterministic
+catalog contract that can be derived from local source files.
+
+Required catalog fields:
+
+| Field | Source | Notes |
+| --- | --- | --- |
+| `name` | `registry/*.json` | Stable CLI/source-copy component id. |
+| `description` | `registry/*.json` | Short catalog summary. |
+| `registry_path` | filesystem | Path to the registry entry. |
+| `template_path` | registry file list | Primary source-copy template path. |
+| `docs_path` | `docs/components/{name}.md` | Component detail markdown page. |
+| `crate_feature` | `crates/dioxus-ui/Cargo.toml` | Feature users enable for crate mode. |
+| `crate_module` | `crates/dioxus-ui/src/{name}.rs` | Styled crate module path. |
+| `source_copy_target` | registry file list | Generated target path for `dxui add`. |
+
+Derived catalog fields:
+
+- `slug`: same as `name`
+- `title`: title-cased `name`
+- `crate_import`: module name with dashes converted to underscores
+- `source_copy_command`: `dxui add {name}`
+- `crate_feature_toml`: `dioxus-ui = { features = ["{name}"] }`
+
+Intentional exceptions:
+
+- `utils` remains a source-copy helper, not a catalog component page.
+- Planning and strategy markdown files under `docs/components` are not component
+  detail pages unless their basename matches a registry component.
+
+Deferred visual-runtime fields:
+
+- preview image paths
+- rendered Web/Desktop route ids
+- screenshot artifact paths
+- visual state matrix ids
+- interactive examples
+
+Those fields should be added only after the catalog metadata check is stable.
