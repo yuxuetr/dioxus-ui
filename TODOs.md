@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M56 Static Catalog Grouping
-- Current task: M56.1 Plan static catalog grouping
+- Current task: M56.2 Add catalog grouping metadata
 
 ## Backup
 
@@ -599,7 +599,7 @@
 
 ## M56 Static Catalog Grouping
 
-- TODO M56.1 Plan static catalog grouping
+- DONE M56.1 Plan static catalog grouping
   - Define a small category taxonomy for the static catalog page.
   - Decide whether grouping metadata should live in registry entries or renderer-owned data.
   - Keep visual docs navigation and component API changes out of scope.
