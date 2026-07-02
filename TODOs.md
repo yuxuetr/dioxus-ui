@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M51 CI Browser Workflow Activation RFC
-- Current task: M51.1 Plan workflow activation RFC scope
+- Current task: M51.2 Add workflow activation RFC
 
 ## Backup
 
@@ -489,7 +489,7 @@
 
 ## M51 CI Browser Workflow Activation RFC
 
-- TODO M51.1 Plan workflow activation RFC scope
+- DONE M51.1 Plan workflow activation RFC scope
   - Define the decision points for turning the documented template into an active workflow.
   - Cover required-run policy, artifact retention, cache keys, runner image choice, and browser strategy.
   - Keep actual workflow activation out of scope.
