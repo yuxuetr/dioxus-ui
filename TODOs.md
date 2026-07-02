@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M51 CI Browser Workflow Activation RFC
-- Current task: M51.3 Link workflow activation RFC
+- Current task: M51.4 Complete workflow activation RFC milestone
 
 ## Backup
 
@@ -499,7 +499,7 @@
   - Document the recommended phased rollout from manual non-blocking workflow to possible required gate.
   - Include rollback criteria and failure ownership.
 
-- TODO M51.3 Link workflow activation RFC
+- DONE M51.3 Link workflow activation RFC
   - Update CI browser docs, workflow template docs, release docs, and README/RFC index references.
   - Clarify that the RFC is a decision document, not an active workflow.
   - Keep default local and release gates unchanged.
