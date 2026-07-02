@@ -156,3 +156,27 @@ componentDocs: 64
 No generated catalog artifact was written. The next docs-site milestone can
 extract shared catalog-building logic for a future runtime or start a minimal
 static catalog view using the same contract.
+
+## M54 Shared Builder Plan
+
+The catalog-building logic should be reusable before a visual docs runtime
+exists.
+
+Extraction boundary:
+
+- shared builder module: read local sources, normalize component names, build
+  in-memory catalog records, and return summary counts
+- verification script: call the shared builder, enforce required fields, print
+  summary output, and fail on drift
+- future docs runtime: consume the shared builder or a reviewed generated
+  artifact, but should not duplicate registry/docs/feature parsing logic
+
+Out of scope for M54:
+
+- writing `catalog.json`
+- adding a visual docs route
+- changing component APIs
+- adding preview image or route ids to catalog records
+
+The existing `npm run verify:docs-catalog` behavior should remain stable after
+the extraction.
