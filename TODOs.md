@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 100%
 - Current milestone: M51 CI Browser Workflow Activation RFC
-- Current task: M51.4 Complete workflow activation RFC milestone
+- Current task: M51 complete; next milestone pending
 
 ## Backup
 
@@ -504,7 +504,7 @@
   - Clarify that the RFC is a decision document, not an active workflow.
   - Keep default local and release gates unchanged.
 
-- TODO M51.4 Complete workflow activation RFC milestone
+- DONE M51.4 Complete workflow activation RFC milestone
   - Run deterministic gates and documentation checks.
   - Verify no `.github/workflows` file is committed.
   - Update TODO status only after commits and validation.
