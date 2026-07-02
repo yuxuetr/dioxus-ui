@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M52 Product Surface Audit
-- Current task: M52.3 Document next product-surface recommendation
+- Current task: M52.4 Complete product surface audit milestone
 
 ## Backup
 
@@ -521,7 +521,7 @@
   - Identify missing, extra, or intentionally docs-only/source-only items.
   - Record exact counts and drift categories.
 
-- TODO M52.3 Document next product-surface recommendation
+- DONE M52.3 Document next product-surface recommendation
   - Add an audit document with findings and recommended next milestone.
   - Classify next work as component parity, theme tokens, docs-site rendering, or release hardening.
   - Avoid implementing new components in this audit milestone.
