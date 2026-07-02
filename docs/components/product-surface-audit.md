@@ -101,3 +101,50 @@ immediate release-hardening task for registry/template/docs/crate drift.
 
 The remaining 48 docs under `docs/components` are planning, verification,
 runtime strategy, or audit documents rather than public component pages.
+
+## M52.3 Recommendation
+
+Recommended next milestone: docs-site rendering preparation.
+
+Reasoning:
+
+- Component parity does not need an immediate local implementation milestone.
+  The current parity matrix says no new component-fill milestone is required by
+  the current tracked catalog.
+- Release hardening for registry/template/docs/crate drift is not the bottleneck.
+  M52.2 found no local product surface drift.
+- Theme tokens are useful later, but RFC 0003 still recommends direct Tailwind
+  classes before introducing a large token system.
+- The project already has rendered Web and Desktop preview shells plus a shared
+  preview state inventory, but the docs site remains Markdown-first.
+
+The next milestone should therefore make the product easier to inspect without
+changing component APIs:
+
+1. define a docs-site catalog data contract derived from registry entries,
+   component docs, crate features, and preview states
+2. add a small script or static metadata check that proves catalog pages can be
+   generated without hand-maintained duplication
+3. keep actual visual site runtime work separate unless the data contract is
+   stable
+
+Suggested next milestone name:
+
+```text
+M53 Docs Site Catalog Data Contract
+```
+
+Suggested M53 tasks:
+
+- plan catalog fields and source ownership
+- generate or verify a local catalog index from registry/docs/features
+- document how the future docs site should consume the catalog
+- run deterministic gates without adding new component APIs
+
+Not recommended as the next milestone:
+
+- component parity refresh: requires browsing upstream and should be scheduled
+  separately when desired
+- theme token implementation: premature until catalog and preview consumption
+  are easier to inspect
+- active CI workflow: intentionally deferred by RFC 0009
