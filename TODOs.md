@@ -4,7 +4,7 @@
 
 - Overall: 0%
 - Current milestone: M53 Docs Site Catalog Data Contract
-- Current task: M53.3 Document catalog consumption path
+- Current task: M53.4 Complete docs-site catalog data contract milestone
 
 ## Backup
 
@@ -543,7 +543,7 @@
   - Verify every public component has registry, docs, template, crate feature, module, and source file coverage.
   - Print summary counts and fail on drift without writing generated output.
 
-- TODO M53.3 Document catalog consumption path
+- DONE M53.3 Document catalog consumption path
   - Update docs-site plan and product surface audit docs with the catalog contract.
   - Add npm verification alias if appropriate.
   - Explain how a future Dioxus docs site should consume the catalog without duplicating metadata.
