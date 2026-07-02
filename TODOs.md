@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M56 Static Catalog Grouping
-- Current task: M56.2 Add catalog grouping metadata
+- Current task: M56.3 Render grouped catalog Markdown
 
 ## Backup
 
@@ -604,7 +604,7 @@
   - Decide whether grouping metadata should live in registry entries or renderer-owned data.
   - Keep visual docs navigation and component API changes out of scope.
 
-- TODO M56.2 Add catalog grouping metadata
+- DONE M56.2 Add catalog grouping metadata
   - Add deterministic grouping data for every public component.
   - Extend the shared catalog builder output with category fields.
   - Fail if any public component is missing grouping metadata.
