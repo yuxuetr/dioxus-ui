@@ -48,3 +48,56 @@ Decision required for M52.3:
   docs-site rendering, or release hardening
 - the smallest next milestone that improves user-facing quality without adding
   unrelated churn
+
+## M52.2 Local Catalog Consistency Result
+
+The local audit compared normalized component names across:
+
+- `registry/*.json`
+- `templates/*.rs`
+- `crates/dioxus-ui/src/*.rs`
+- `crates/dioxus-ui/Cargo.toml` features
+- `crates/dioxus-ui/src/lib.rs` modules and re-exports
+- `docs/components/*.md`
+
+Counts:
+
+| Surface | Count |
+| --- | ---: |
+| Registry entries, excluding `schema.json` | 65 |
+| Template files | 65 |
+| Styled crate modules, excluding `lib.rs` | 64 |
+| Styled crate features, excluding `default` | 64 |
+| `lib.rs` public modules | 64 |
+| `lib.rs` component re-export modules | 64 |
+| Component docs matching registry names | 64 |
+| Planning and strategy docs | 48 |
+
+Intentional exceptions:
+
+- `utils` is a source-copy helper with `registry/utils.json` and
+  `templates/utils.rs`; it is not a styled crate component, feature, or docs
+  page.
+- `dioxus-ui-core` and `dioxus-ui-primitives` are external crate re-exports in
+  `lib.rs`; they are not component modules and are excluded from component
+  re-export counts.
+
+Drift result:
+
+| Check | Result |
+| --- | --- |
+| Registry entries missing templates | none |
+| Registry components missing crate modules | none |
+| Registry components missing features | none |
+| Registry components missing docs pages | none |
+| Templates missing registry entries | none |
+| Crate modules missing registry entries | none |
+| Features missing registry entries | none |
+| `lib.rs` modules missing crate files | none |
+| Component docs missing registry entries | none |
+
+Conclusion: the local product surface is internally consistent. There is no
+immediate release-hardening task for registry/template/docs/crate drift.
+
+The remaining 48 docs under `docs/components` are planning, verification,
+runtime strategy, or audit documents rather than public component pages.
