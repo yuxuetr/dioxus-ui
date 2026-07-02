@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M54 Shared Docs Catalog Builder
-- Current task: M54.1 Plan shared docs catalog builder extraction
+- Current task: M54.2 Extract reusable catalog builder module
 
 ## Backup
 
@@ -555,7 +555,7 @@
 
 ## M54 Shared Docs Catalog Builder
 
-- TODO M54.1 Plan shared docs catalog builder extraction
+- DONE M54.1 Plan shared docs catalog builder extraction
   - Define which catalog-building functions should move out of the verification script.
   - Keep generated catalog artifacts and visual docs runtime out of scope.
   - Preserve the existing `verify:docs-catalog` command behavior.
