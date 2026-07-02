@@ -125,6 +125,7 @@ smoke subset:
 npm install
 npm run verify:smoke
 npm run verify:docs-catalog
+npm run verify:docs-catalog-page
 ```
 
 These aliases do not require Playwright browser binaries and do not replace the
@@ -134,6 +135,10 @@ document `npx playwright install chromium` separately.
 `npm run verify:docs-catalog` checks the docs-site catalog contract in memory
 from registry entries, templates, component docs, crate features, and crate
 modules. It must not write generated catalog artifacts.
+
+`npm run verify:docs-catalog-page` checks that
+`docs/components/catalog.md` matches the Markdown rendered from the shared
+catalog builder.
 
 ## Mobile Browser Smoke Gate
 

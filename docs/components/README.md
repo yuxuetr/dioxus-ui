@@ -87,6 +87,9 @@ runtime boundary, see the [Message Scroller Runtime Boundary Plan](message-scrol
 For accessibility expectations, see the
 [accessibility contract checklist](accessibility.md).
 
+For the generated static component index, see the
+[Component Catalog](catalog.md).
+
 ## Install by Source Copy
 
 ```bash

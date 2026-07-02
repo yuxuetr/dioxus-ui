@@ -196,11 +196,12 @@ Verify the docs-site catalog metadata contract:
 
 ```bash
 npm run verify:docs-catalog
+npm run verify:docs-catalog-page
 ```
 
 This builds the catalog in memory from registry entries, templates, component
-docs, crate features, and crate modules. It does not write generated catalog
-files.
+docs, crate features, and crate modules. The page check also verifies
+`docs/components/catalog.md` matches the shared catalog builder output.
 
 Future browser-rendered Playwright smoke will require an explicit browser
 install:
