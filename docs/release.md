@@ -152,6 +152,8 @@ of the Web preview, not native Mobile behavior.
 For CI setup options and non-blocking workflow policy, see
 `docs/ci-browser-smoke.md` and `docs/ci-browser-workflow-template.md`. Do not
 treat browser smoke as a required release gate until a reviewed workflow exists.
+Workflow activation and required-gate promotion should follow
+`docs/rfcs/0009-ci-browser-workflow-activation.md`.
 
 Smoke commands:
 

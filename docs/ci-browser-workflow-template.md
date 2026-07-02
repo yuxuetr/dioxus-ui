@@ -4,6 +4,9 @@ This document provides a copyable, non-blocking GitHub Actions workflow template
 for the mobile browser smoke. It is documentation only. It is not active until a
 maintainer copies the YAML into `.github/workflows/`.
 
+Before copying this template, review
+[RFC 0009: CI Browser Workflow Activation](rfcs/0009-ci-browser-workflow-activation.md).
+
 ## Recommended First Template
 
 The first workflow should be manually triggered and non-blocking. It should not
@@ -94,6 +97,7 @@ the preview server if `DIOXUS_UI_BROWSER_EXECUTABLE` points to a missing file.
 
 Before making this workflow active:
 
+- review RFC 0009 and choose the current rollout phase
 - verify `cargo install dioxus-cli --locked` is acceptable for CI runtime
 - decide whether `continue-on-error: true` should stay enabled
 - decide whether the job should stay `workflow_dispatch` only

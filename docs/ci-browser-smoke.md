@@ -5,6 +5,8 @@ rendered Web preview. It does not add a repository workflow by itself.
 
 For a copyable non-blocking GitHub Actions example, see the
 [CI Browser Workflow Template](ci-browser-workflow-template.md).
+For activation policy and promotion criteria, see
+[RFC 0009: CI Browser Workflow Activation](rfcs/0009-ci-browser-workflow-activation.md).
 
 ## Status
 
@@ -141,3 +143,5 @@ checks until browser installation and local serving are stable in CI.
 
 The workflow template in `docs/ci-browser-workflow-template.md` is documentation
 until copied into `.github/workflows/`.
+Activation should follow
+`docs/rfcs/0009-ci-browser-workflow-activation.md`.

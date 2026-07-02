@@ -739,3 +739,15 @@ The RFC should recommend a phased rollout:
 
 The RFC should include rollback criteria so a flaky browser job can return to
 manual-only without changing the default Rust and structural preview gates.
+
+## M51.3 Link Scope
+
+RFC 0009 should be reachable from:
+
+- README RFC links
+- `docs/ci-browser-smoke.md`
+- `docs/ci-browser-workflow-template.md`
+- `docs/release.md`
+
+Those links should state that the RFC is a decision and promotion policy. They
+should not imply that an active workflow exists.

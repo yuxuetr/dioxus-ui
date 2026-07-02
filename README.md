@@ -169,6 +169,7 @@ format!("bg-{}-500", color)
 - [RFC 0001: Project Architecture](docs/rfcs/0001-project-architecture.md)
 - [RFC 0002: CLI Registry and Code Generation](docs/rfcs/0002-cli-registry-and-code-generation.md)
 - [RFC 0003: Tailwind Styling Contract](docs/rfcs/0003-tailwind-styling-contract.md)
+- [RFC 0009: CI Browser Workflow Activation](docs/rfcs/0009-ci-browser-workflow-activation.md)
 
 ## Verification Shortcuts
 
