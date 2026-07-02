@@ -707,3 +707,35 @@ The next CI milestone can add an explicit workflow activation RFC, including
 required-run policy, artifact retention, cache keys, runner image choice, and
 whether browser smoke should stay non-blocking after the first active workflow
 lands.
+
+## M51.1 Workflow Activation RFC Scope
+
+M51 should add an RFC for activating the documented browser workflow template.
+It should not add `.github/workflows` or make browser smoke required.
+
+The RFC should decide:
+
+- when a copied workflow can be added to the repository
+- whether the first active workflow is manual-only, scheduled, or pull-request
+  triggered
+- whether the job remains `continue-on-error: true`
+- which runner image is the default
+- whether Playwright-managed Chromium or runner-provided Chrome is preferred
+- which cache keys are acceptable for Node dependencies, Cargo artifacts, and
+  Playwright browser binaries
+- whether screenshot PNG files are uploaded, how long they are retained, and who
+  owns artifact cleanup
+- what failure rate or flake pattern blocks promotion to a required gate
+- who owns failures when Dioxus CLI install, browser install, localhost serving,
+  or selector assertions break
+
+The RFC should recommend a phased rollout:
+
+1. documented template only
+2. active manual non-blocking workflow
+3. scheduled non-blocking workflow
+4. pull-request non-blocking workflow
+5. required merge gate only after repeated stable runs
+
+The RFC should include rollback criteria so a flaky browser job can return to
+manual-only without changing the default Rust and structural preview gates.
