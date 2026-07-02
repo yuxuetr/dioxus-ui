@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M54 Shared Docs Catalog Builder
-- Current task: M54.3 Document shared catalog builder usage
+- Current task: M54.4 Complete shared docs catalog builder milestone
 
 ## Backup
 
@@ -565,7 +565,7 @@
   - Update `scripts/docs-catalog-verify.mjs` to consume the shared builder.
   - Preserve validation output and failure behavior.
 
-- TODO M54.3 Document shared catalog builder usage
+- DONE M54.3 Document shared catalog builder usage
   - Update docs-site plan with the shared builder boundary.
   - Explain how future docs runtime code can reuse it without duplicating metadata.
   - Keep generated artifacts deferred.
