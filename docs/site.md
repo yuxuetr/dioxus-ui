@@ -418,3 +418,39 @@ remain out of scope.
 
 The manifest should be generated from `scripts/docs-catalog-builder.mjs` and
 verified for drift so future route work does not duplicate component metadata.
+
+## M57 Final Result
+
+M57 added static route metadata to the docs catalog builder and rendered a
+reviewable route manifest:
+
+```text
+docs/components/routes.md
+```
+
+The route manifest renderer lives at:
+
+```text
+scripts/docs-route-manifest-markdown.mjs
+```
+
+The drift gate lives at:
+
+```text
+scripts/docs-route-manifest-verify.mjs
+```
+
+Validation ran:
+
+```bash
+npm run verify:smoke
+cargo test --workspace --all-features -q
+npm run verify:docs-catalog
+npm run verify:docs-catalog-page
+npm run verify:docs-routes
+git diff --check
+```
+
+All commands passed. The manifest defines 64 component routes and 8 category
+routes. It remains a static planning artifact; no Dioxus router, rendered route,
+browser route assertion, or generated JSON route file was added.
