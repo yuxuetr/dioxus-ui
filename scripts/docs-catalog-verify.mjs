@@ -15,6 +15,8 @@ const {
   sourceCopyHelpers,
   missingCategoryNames,
   unknownCategoryNames,
+  duplicateDocsRoutes,
+  duplicateSourceRoutes,
   summary,
 } = buildDocsCatalog();
 
@@ -24,6 +26,11 @@ for (const item of catalog) {
   if (!item.description) failures.push(`${item.name}: missing registry description`);
   if (!item.category) failures.push(`${item.name}: missing catalog category`);
   if (!item.category_label) failures.push(`${item.name}: missing catalog category label`);
+  if (!item.docs_route) failures.push(`${item.name}: missing docs route`);
+  if (!item.markdown_path) failures.push(`${item.name}: missing markdown path`);
+  if (!item.category_anchor) failures.push(`${item.name}: missing category anchor`);
+  if (!item.category_route) failures.push(`${item.name}: missing category route`);
+  if (!item.source_route) failures.push(`${item.name}: missing source route`);
   if (!item.template_path) failures.push(`${item.name}: missing primary template path`);
   if (!item.source_copy_target) failures.push(`${item.name}: missing source-copy target`);
 
@@ -79,6 +86,14 @@ for (const name of missingCategoryNames) {
 
 for (const name of unknownCategoryNames) {
   failures.push(`${name}: unknown catalog grouping category`);
+}
+
+for (const route of duplicateDocsRoutes) {
+  failures.push(`${route}: duplicate docs route`);
+}
+
+for (const route of duplicateSourceRoutes) {
+  failures.push(`${route}: duplicate source route`);
 }
 
 if (failures.length > 0) {

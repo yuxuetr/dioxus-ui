@@ -102,6 +102,10 @@ function titleCase(name) {
     .join(" ");
 }
 
+function categoryAnchor(category) {
+  return `category-${category}`;
+}
+
 function parseCargoFeatures(repoRoot) {
   const cargo = readFileSync(join(repoRoot, "crates/dioxus-ui/Cargo.toml"), "utf8");
   const featureBlock = cargo.split(/\n\[features\]\n/)[1]?.split(/\n\[/)[0] ?? "";
@@ -139,6 +143,11 @@ function buildCatalogItems(repoRoot, publicComponentNames) {
       registry_path: `registry/${name}.json`,
       template_path: primaryFile?.source,
       docs_path: `docs/components/${name}.md`,
+      markdown_path: `docs/components/${name}.md`,
+      docs_route: `/components/${name}`,
+      category_anchor: category ? categoryAnchor(category) : undefined,
+      category_route: category ? `/components#${categoryAnchor(category)}` : undefined,
+      source_route: `/components/${name}/source`,
       crate_feature: name,
       crate_module: `crates/dioxus-ui/src/${crateImport}.rs`,
       source_copy_target: primaryFile?.target,
@@ -170,6 +179,10 @@ export function buildDocsCatalog(options = {}) {
   const unknownCategoryNames = catalog
     .filter((item) => item.category && !categoryIds.includes(item.category))
     .map((item) => item.name);
+  const docsRoutes = catalog.map((item) => item.docs_route);
+  const duplicateDocsRoutes = docsRoutes.filter((route, index) => docsRoutes.indexOf(route) !== index);
+  const sourceRoutes = catalog.map((item) => item.source_route);
+  const duplicateSourceRoutes = sourceRoutes.filter((route, index) => sourceRoutes.indexOf(route) !== index);
 
   return {
     repoRoot,
@@ -185,6 +198,8 @@ export function buildDocsCatalog(options = {}) {
     sourceCopyHelpers,
     missingCategoryNames,
     unknownCategoryNames,
+    duplicateDocsRoutes: [...new Set(duplicateDocsRoutes)].sort(),
+    duplicateSourceRoutes: [...new Set(duplicateSourceRoutes)].sort(),
     summary: {
       publicComponents: catalog.length,
       registryEntries: registryNames.length,
@@ -194,6 +209,7 @@ export function buildDocsCatalog(options = {}) {
       crateFeatures: featureNames.length,
       componentDocs: catalog.filter((item) => docsNames.includes(item.name)).length,
       catalogCategories: catalogCategories.length,
+      docsRoutes: docsRoutes.length,
     },
   };
 }
