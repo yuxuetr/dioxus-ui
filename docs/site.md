@@ -388,3 +388,33 @@ git diff --check
 All commands passed. The grouping metadata remains owned by the docs catalog
 builder for now; registry schema changes remain deferred until the taxonomy is
 proven useful.
+
+## M57 Docs Route Manifest Plan
+
+The static catalog now has enough metadata to define future docs runtime routes
+without rendering a routed app yet. M57 should add a deterministic route
+manifest derived from the shared builder.
+
+Static route fields:
+
+- `docs_route`: canonical future runtime route for a component detail page
+- `markdown_path`: current markdown source for that route
+- `category_route`: grouped catalog anchor for the component category
+- `category_anchor`: stable anchor id derived from the category id
+- `source_route`: future source-copy preview route placeholder
+
+Initial route shape:
+
+```text
+/components
+/components/{slug}
+/components#category-{category}
+/components/{slug}/source
+```
+
+Only the route manifest should be committed in M57. A Dioxus router, visual
+navigation, rendered source preview, screenshots, and browser route assertions
+remain out of scope.
+
+The manifest should be generated from `scripts/docs-catalog-builder.mjs` and
+verified for drift so future route work does not duplicate component metadata.
