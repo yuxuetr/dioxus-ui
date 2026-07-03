@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M56 Static Catalog Grouping
-- Current task: M56 complete
+- Overall: 0%
+- Current milestone: M57 Docs Route Manifest
+- Current task: M57.1 Plan docs route manifest
 
 ## Backup
 
@@ -617,6 +617,28 @@
 - DONE M56.4 Document grouping usage and complete milestone
   - Update docs-site planning and quality gate docs with grouping ownership.
   - Run deterministic gates, workspace tests, and catalog verification.
+  - Update TODO status only after commits and validation.
+
+## M57 Docs Route Manifest
+
+- TODO M57.1 Plan docs route manifest
+  - Define route metadata needed by a future Dioxus docs runtime.
+  - Decide which routes can be represented statically before rendered navigation exists.
+  - Keep visual route rendering and screenshot verification out of scope.
+
+- TODO M57.2 Add route metadata to catalog builder
+  - Extend catalog records with deterministic docs route and anchor fields.
+  - Verify route uniqueness and stable category anchors.
+  - Preserve existing catalog metadata and static page verification behavior.
+
+- TODO M57.3 Add static route manifest page and drift gate
+  - Render a deterministic Markdown route manifest from the shared builder.
+  - Add a verification command that fails when the route manifest drifts.
+  - Link the route manifest from docs index and quality gates.
+
+- TODO M57.4 Complete docs route manifest milestone
+  - Update docs-site planning with final route manifest ownership.
+  - Run deterministic gates, workspace tests, catalog verification, and route manifest verification.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
