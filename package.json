@@ -10,6 +10,7 @@
     "verify:mobile-browser": "node scripts/mobile-browser-smoke.mjs",
     "verify:docs-catalog": "node scripts/docs-catalog-verify.mjs",
     "verify:docs-catalog-page": "node scripts/docs-catalog-markdown-verify.mjs",
+    "verify:docs-routes": "node scripts/docs-route-manifest-verify.mjs",
     "verify:examples": "scripts/example-smoke.sh",
     "verify:preview": "npm run verify:web-preview && npm run verify:mobile-web-profile && npm run verify:desktop-preview",
     "verify:smoke": "npm run verify:preview && npm run verify:examples"

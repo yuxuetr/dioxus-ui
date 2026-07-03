@@ -88,7 +88,8 @@ For accessibility expectations, see the
 [accessibility contract checklist](accessibility.md).
 
 For the generated static component index, see the
-[Component Catalog](catalog.md).
+[Component Catalog](catalog.md). For future docs runtime route metadata, see the
+[Docs Route Manifest](routes.md).
 
 ## Install by Source Copy
 

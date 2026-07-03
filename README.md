@@ -197,11 +197,13 @@ Verify the docs-site catalog metadata contract:
 ```bash
 npm run verify:docs-catalog
 npm run verify:docs-catalog-page
+npm run verify:docs-routes
 ```
 
 This builds the catalog in memory from registry entries, templates, component
 docs, crate features, and crate modules. The page check also verifies
-`docs/components/catalog.md` matches the shared catalog builder output.
+`docs/components/catalog.md` matches the shared catalog builder output. The
+route check verifies future docs runtime route metadata.
 
 Future browser-rendered Playwright smoke will require an explicit browser
 install:
