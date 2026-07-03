@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M57 Docs Route Manifest
-- Current task: M57.1 Plan docs route manifest
+- Current task: M57.2 Add route metadata to catalog builder
 
 ## Backup
 
@@ -621,7 +621,7 @@
 
 ## M57 Docs Route Manifest
 
-- TODO M57.1 Plan docs route manifest
+- DONE M57.1 Plan docs route manifest
   - Define route metadata needed by a future Dioxus docs runtime.
   - Decide which routes can be represented statically before rendered navigation exists.
   - Keep visual route rendering and screenshot verification out of scope.
