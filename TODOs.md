@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
+- Overall: 100%
 - Current milestone: M57 Docs Route Manifest
-- Current task: M57.4 Complete docs route manifest milestone
+- Current task: M57 complete
 
 ## Backup
 
@@ -636,7 +636,7 @@
   - Add a verification command that fails when the route manifest drifts.
   - Link the route manifest from docs index and quality gates.
 
-- TODO M57.4 Complete docs route manifest milestone
+- DONE M57.4 Complete docs route manifest milestone
   - Update docs-site planning with final route manifest ownership.
   - Run deterministic gates, workspace tests, catalog verification, and route manifest verification.
   - Update TODO status only after commits and validation.
