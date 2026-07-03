@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M57 Docs Route Manifest
-- Current task: M57.2 Add route metadata to catalog builder
+- Current task: M57.3 Add static route manifest page and drift gate
 
 ## Backup
 
@@ -626,7 +626,7 @@
   - Decide which routes can be represented statically before rendered navigation exists.
   - Keep visual route rendering and screenshot verification out of scope.
 
-- TODO M57.2 Add route metadata to catalog builder
+- DONE M57.2 Add route metadata to catalog builder
   - Extend catalog records with deterministic docs route and anchor fields.
   - Verify route uniqueness and stable category anchors.
   - Preserve existing catalog metadata and static page verification behavior.
