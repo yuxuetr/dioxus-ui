@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M57 Docs Route Manifest
-- Current task: M57.3 Add static route manifest page and drift gate
+- Current task: M57.4 Complete docs route manifest milestone
 
 ## Backup
 
@@ -631,7 +631,7 @@
   - Verify route uniqueness and stable category anchors.
   - Preserve existing catalog metadata and static page verification behavior.
 
-- TODO M57.3 Add static route manifest page and drift gate
+- DONE M57.3 Add static route manifest page and drift gate
   - Render a deterministic Markdown route manifest from the shared builder.
   - Add a verification command that fails when the route manifest drifts.
   - Link the route manifest from docs index and quality gates.
