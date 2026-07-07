@@ -12,6 +12,7 @@
     "verify:docs-catalog-page": "node scripts/docs-catalog-markdown-verify.mjs",
     "verify:docs-routes": "node scripts/docs-route-manifest-verify.mjs",
     "verify:docs-source-preview": "node scripts/docs-source-preview-verify.mjs",
+    "verify:release-docs": "node scripts/release-docs-verify.mjs",
     "verify:docs": "npm run verify:docs-catalog && npm run verify:docs-catalog-page && npm run verify:docs-routes && npm run verify:docs-source-preview",
     "verify:examples": "scripts/example-smoke.sh",
     "verify:preview": "npm run verify:web-preview && npm run verify:mobile-web-profile && npm run verify:desktop-preview",
