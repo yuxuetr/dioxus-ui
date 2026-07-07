@@ -17,6 +17,7 @@ const {
   unknownCategoryNames,
   duplicateDocsRoutes,
   duplicateSourceRoutes,
+  duplicateSourcePreviewRoutes,
   summary,
 } = buildDocsCatalog();
 
@@ -31,6 +32,16 @@ for (const item of catalog) {
   if (!item.category_anchor) failures.push(`${item.name}: missing category anchor`);
   if (!item.category_route) failures.push(`${item.name}: missing category route`);
   if (!item.source_route) failures.push(`${item.name}: missing source route`);
+  if (!item.source_preview_route) failures.push(`${item.name}: missing source preview route`);
+  if (!item.source_preview_path) failures.push(`${item.name}: missing source preview path`);
+  if (!item.source_preview_target) failures.push(`${item.name}: missing source preview target`);
+  if (item.source_preview_language !== "rust") failures.push(`${item.name}: invalid source preview language`);
+  if (!Number.isInteger(item.source_preview_lines) || item.source_preview_lines <= 0) {
+    failures.push(`${item.name}: invalid source preview line count`);
+  }
+  if (!Number.isInteger(item.source_preview_bytes) || item.source_preview_bytes <= 0) {
+    failures.push(`${item.name}: invalid source preview byte count`);
+  }
   if (!item.template_path) failures.push(`${item.name}: missing primary template path`);
   if (!item.source_copy_target) failures.push(`${item.name}: missing source-copy target`);
 
@@ -94,6 +105,10 @@ for (const route of duplicateDocsRoutes) {
 
 for (const route of duplicateSourceRoutes) {
   failures.push(`${route}: duplicate source route`);
+}
+
+for (const route of duplicateSourcePreviewRoutes) {
+  failures.push(`${route}: duplicate source preview route`);
 }
 
 if (failures.length > 0) {

@@ -128,12 +128,29 @@ function readRegistryEntry(repoRoot, name) {
   return JSON.parse(readFileSync(registryPath, "utf8"));
 }
 
+function sourceStats(repoRoot, sourcePath) {
+  if (!sourcePath) {
+    return {
+      bytes: undefined,
+      lines: undefined,
+    };
+  }
+
+  const source = readFileSync(join(repoRoot, sourcePath), "utf8");
+
+  return {
+    bytes: Buffer.byteLength(source, "utf8"),
+    lines: source.length === 0 ? 0 : source.split("\n").length,
+  };
+}
+
 function buildCatalogItems(repoRoot, publicComponentNames) {
   return publicComponentNames.map((name) => {
     const entry = readRegistryEntry(repoRoot, name);
     const primaryFile = entry.files?.[0];
     const crateImport = name.replaceAll("-", "_");
     const category = componentCategories[name];
+    const stats = sourceStats(repoRoot, primaryFile?.source);
 
     return {
       name,
@@ -148,6 +165,12 @@ function buildCatalogItems(repoRoot, publicComponentNames) {
       category_anchor: category ? categoryAnchor(category) : undefined,
       category_route: category ? `/components#${categoryAnchor(category)}` : undefined,
       source_route: `/components/${name}/source`,
+      source_preview_route: `/components/${name}/source`,
+      source_preview_path: primaryFile?.source,
+      source_preview_target: primaryFile?.target,
+      source_preview_language: "rust",
+      source_preview_lines: stats.lines,
+      source_preview_bytes: stats.bytes,
       crate_feature: name,
       crate_module: `crates/dioxus-ui/src/${crateImport}.rs`,
       source_copy_target: primaryFile?.target,
@@ -183,6 +206,9 @@ export function buildDocsCatalog(options = {}) {
   const duplicateDocsRoutes = docsRoutes.filter((route, index) => docsRoutes.indexOf(route) !== index);
   const sourceRoutes = catalog.map((item) => item.source_route);
   const duplicateSourceRoutes = sourceRoutes.filter((route, index) => sourceRoutes.indexOf(route) !== index);
+  const sourcePreviewRoutes = catalog.map((item) => item.source_preview_route);
+  const duplicateSourcePreviewRoutes = sourcePreviewRoutes
+    .filter((route, index) => sourcePreviewRoutes.indexOf(route) !== index);
 
   return {
     repoRoot,
@@ -200,6 +226,7 @@ export function buildDocsCatalog(options = {}) {
     unknownCategoryNames,
     duplicateDocsRoutes: [...new Set(duplicateDocsRoutes)].sort(),
     duplicateSourceRoutes: [...new Set(duplicateSourceRoutes)].sort(),
+    duplicateSourcePreviewRoutes: [...new Set(duplicateSourcePreviewRoutes)].sort(),
     summary: {
       publicComponents: catalog.length,
       registryEntries: registryNames.length,
@@ -210,6 +237,7 @@ export function buildDocsCatalog(options = {}) {
       componentDocs: catalog.filter((item) => docsNames.includes(item.name)).length,
       catalogCategories: catalogCategories.length,
       docsRoutes: docsRoutes.length,
+      sourcePreviewRoutes: sourcePreviewRoutes.length,
     },
   };
 }
