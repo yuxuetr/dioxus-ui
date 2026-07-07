@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M61 Release Verification Alignment
-- Current task: M61.2 Add release documentation consistency check
+- Current task: M61.3 Update release verification documentation
 
 ## Backup
 
@@ -714,7 +714,7 @@
   - Keep browser install, CI workflow activation, and new release automation out of scope.
   - Document which release commands are aggregate aliases versus required explicit gates.
 
-- TODO M61.2 Add release documentation consistency check
+- DONE M61.2 Add release documentation consistency check
   - Add a deterministic script that verifies release docs mention the local aggregate gate and release-only gates.
   - Add an npm alias for the release docs consistency check.
   - Keep the check read-only and avoid generating release artifacts.
