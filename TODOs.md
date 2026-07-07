@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M60 Local Verification Aggregator
-- Current task: M60.2 Add local aggregate verification command
+- Current task: M60.3 Document local aggregate verification
 
 ## Backup
 
@@ -692,7 +692,7 @@
   - Decide whether the command should include smoke and docs metadata checks only.
   - Keep full Rust workspace tests, browser automation, screenshots, and release gates out of scope.
 
-- TODO M60.2 Add local aggregate verification command
+- DONE M60.2 Add local aggregate verification command
   - Add an npm alias that runs `verify:smoke` and `verify:docs`.
   - Preserve existing focused commands for targeted debugging.
   - Verify the aggregate command succeeds through normal npm command chaining.
