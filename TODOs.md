@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M60 Local Verification Aggregator
-- Current task: M60 complete
+- Overall: 0%
+- Current milestone: M61 Release Verification Alignment
+- Current task: M61.1 Plan release verification alignment
 
 ## Backup
 
@@ -705,6 +705,28 @@
 - DONE M60.4 Complete local verification aggregator milestone
   - Run deterministic gates, workspace tests, local aggregate verification, and diff checks.
   - Verify no generated JSON artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M61 Release Verification Alignment
+
+- TODO M61.1 Plan release verification alignment
+  - Define how `npm run verify`, Rust workspace tests, source-copy gates, feature checks, and opt-in browser smoke relate.
+  - Keep browser install, CI workflow activation, and new release automation out of scope.
+  - Document which release commands are aggregate aliases versus required explicit gates.
+
+- TODO M61.2 Add release documentation consistency check
+  - Add a deterministic script that verifies release docs mention the local aggregate gate and release-only gates.
+  - Add an npm alias for the release docs consistency check.
+  - Keep the check read-only and avoid generating release artifacts.
+
+- TODO M61.3 Update release verification documentation
+  - Update release, quality gate, and docs-site planning docs with the release verification alignment.
+  - Clarify that `npm run verify` is a local deterministic alias and not a replacement for Rust workspace or release-only gates.
+  - Preserve focused commands for debugging and opt-in browser smoke.
+
+- TODO M61.4 Complete release verification alignment milestone
+  - Run deterministic gates, workspace tests, release docs consistency checks, and diff checks.
+  - Verify no generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
