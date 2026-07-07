@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M58 Source Preview Manifest
-- Current task: M58.1 Plan source preview manifest
+- Current task: M58.2 Add source preview metadata to catalog builder
 
 ## Backup
 
@@ -643,7 +643,7 @@
 
 ## M58 Source Preview Manifest
 
-- TODO M58.1 Plan source preview manifest
+- DONE M58.1 Plan source preview manifest
   - Define source preview metadata for future `/components/{slug}/source` routes.
   - Decide which template fields should be represented statically without embedding full source.
   - Keep rendered source previews, syntax highlighting, and browser route assertions out of scope.
