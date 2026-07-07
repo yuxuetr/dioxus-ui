@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
+- Overall: 100%
 - Current milestone: M61 Release Verification Alignment
-- Current task: M61.4 Complete release verification alignment milestone
+- Current task: M61 complete
 
 ## Backup
 
@@ -724,7 +724,7 @@
   - Clarify that `npm run verify` is a local deterministic alias and not a replacement for Rust workspace or release-only gates.
   - Preserve focused commands for debugging and opt-in browser smoke.
 
-- TODO M61.4 Complete release verification alignment milestone
+- DONE M61.4 Complete release verification alignment milestone
   - Run deterministic gates, workspace tests, release docs consistency checks, and diff checks.
   - Verify no generated artifacts are committed.
   - Update TODO status only after commits and validation.
