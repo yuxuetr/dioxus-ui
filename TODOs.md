@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M59 Docs Metadata Gate Aggregator
-- Current task: M59.3 Document aggregate docs verification
+- Current task: M59.4 Complete docs metadata gate aggregator milestone
 
 ## Backup
 
@@ -675,7 +675,7 @@
   - Preserve existing individual commands for focused debugging.
   - Verify the aggregate command fails through normal npm command chaining.
 
-- TODO M59.3 Document aggregate docs verification
+- DONE M59.3 Document aggregate docs verification
   - Update README, quality gates, and docs-site plan with the aggregate command.
   - Keep release and browser smoke gates separate.
   - Explain when to use individual commands versus the aggregate command.
