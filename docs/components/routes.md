@@ -8,6 +8,8 @@ node scripts/docs-route-manifest-markdown.mjs
 
 The manifest defines static route metadata for a future Dioxus docs runtime.
 It does not create rendered routes, router code, screenshots, or generated JSON.
+For source preview route metadata, see the
+[Source Preview Manifest](source-preview.md).
 
 Component routes: 64
 Category routes: 8

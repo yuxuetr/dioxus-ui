@@ -127,6 +127,7 @@ npm run verify:smoke
 npm run verify:docs-catalog
 npm run verify:docs-catalog-page
 npm run verify:docs-routes
+npm run verify:docs-source-preview
 ```
 
 These aliases do not require Playwright browser binaries and do not replace the
@@ -144,6 +145,10 @@ catalog builder, including grouped sections and the full flat index.
 
 `npm run verify:docs-routes` checks that `docs/components/routes.md` matches the
 route manifest rendered from the shared catalog builder.
+
+`npm run verify:docs-source-preview` checks that
+`docs/components/source-preview.md` matches the source preview manifest rendered
+from the shared catalog builder.
 
 ## Mobile Browser Smoke Gate
 

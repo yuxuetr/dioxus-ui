@@ -89,7 +89,8 @@ For accessibility expectations, see the
 
 For the generated static component index, see the
 [Component Catalog](catalog.md). For future docs runtime route metadata, see the
-[Docs Route Manifest](routes.md).
+[Docs Route Manifest](routes.md). For source preview route metadata, see the
+[Source Preview Manifest](source-preview.md).
 
 ## Install by Source Copy
 
