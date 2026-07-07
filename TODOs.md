@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
+- Overall: 100%
 - Current milestone: M60 Local Verification Aggregator
-- Current task: M60.4 Complete local verification aggregator milestone
+- Current task: M60 complete
 
 ## Backup
 
@@ -702,7 +702,7 @@
   - Explain which checks remain separate and why.
   - Keep CI/browser workflow docs unchanged unless required.
 
-- TODO M60.4 Complete local verification aggregator milestone
+- DONE M60.4 Complete local verification aggregator milestone
   - Run deterministic gates, workspace tests, local aggregate verification, and diff checks.
   - Verify no generated JSON artifacts are committed.
   - Update TODO status only after commits and validation.
