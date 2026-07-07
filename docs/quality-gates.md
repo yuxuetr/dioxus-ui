@@ -119,17 +119,21 @@ scripts/generated-fixture-smoke.sh
 ```
 
 Equivalent npm convenience aliases are available for the preview and example
-smoke subset:
+smoke plus docs metadata subset:
 
 ```bash
 npm install
-npm run verify:smoke
-npm run verify:docs
+npm run verify
 ```
 
-These aliases do not require Playwright browser binaries and do not replace the
+This alias does not require Playwright browser binaries and does not replace the
 full Rust release gate list above. Future browser-rendered smoke commands should
 document `npx playwright install chromium` separately.
+
+`npm run verify` runs `npm run verify:smoke` and `npm run verify:docs`.
+
+`npm run verify:smoke` runs rendered preview structural checks and example smoke
+output.
 
 `npm run verify:docs` runs all docs metadata and Markdown drift checks. Use the
 individual commands below when isolating a specific failure.

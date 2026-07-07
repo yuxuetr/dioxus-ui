@@ -635,3 +635,24 @@ Out of scope:
 
 The command should be a local convenience alias. Focused commands and full
 workspace Rust tests should remain available and documented separately.
+
+## M60 Local Gate Usage
+
+Use the default local deterministic gate before handing off routine docs,
+catalog, preview, or example-smoke changes:
+
+```bash
+npm run verify
+```
+
+The command runs:
+
+```bash
+npm run verify:smoke
+npm run verify:docs
+```
+
+Use `npm run verify:smoke` for preview/example-only changes and
+`npm run verify:docs` for catalog or generated Markdown drift changes.
+Full Rust workspace tests, browser automation, screenshots, `dx serve`, and
+release-only gates remain separate.

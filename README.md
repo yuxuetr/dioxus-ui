@@ -182,7 +182,17 @@ Install JavaScript dependencies:
 npm install
 ```
 
-Run deterministic preview and example gates:
+Run the default deterministic local gate:
+
+```bash
+npm run verify
+```
+
+This wraps preview/example smoke plus docs metadata checks. It does not run full
+Rust workspace tests, browser automation that needs an installed browser,
+screenshots, or release-only gates.
+
+Run deterministic preview and example gates only:
 
 ```bash
 npm run verify:smoke
@@ -192,7 +202,7 @@ This wraps existing local gates for Web preview, Mobile Web profile, Desktop
 preview, and example smoke output. It does not require Playwright browser
 binaries.
 
-Verify the docs-site catalog metadata contract:
+Verify the docs-site catalog metadata contract only:
 
 ```bash
 npm run verify:docs
