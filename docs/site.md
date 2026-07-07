@@ -603,3 +603,35 @@ git diff --check
 All commands passed. The aggregate gate remains a convenience alias for
 deterministic docs metadata and Markdown drift checks; browser, screenshot,
 `dx serve`, and Rust workspace gates remain separate.
+
+## M60 Local Verification Gate Plan
+
+The project now has two stable npm aggregate gates:
+
+```bash
+npm run verify:smoke
+npm run verify:docs
+```
+
+M60 should add one local default verification command that runs both. The goal is
+to give contributors a single deterministic npm entry point before opening a PR
+or making docs/catalog changes.
+
+Aggregate command scope:
+
+- rendered preview structural checks
+- example smoke output
+- docs metadata contract checks
+- Markdown drift checks for catalog, routes, and source preview manifests
+
+Out of scope:
+
+- full Rust workspace tests
+- browser automation that requires installed Chromium
+- screenshots
+- `dx serve`
+- CI workflow activation
+- release-only gates
+
+The command should be a local convenience alias. Focused commands and full
+workspace Rust tests should remain available and documented separately.
