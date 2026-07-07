@@ -683,3 +683,30 @@ git diff --check
 All commands passed. The local aggregate gate remains deterministic and does not
 include browser automation, screenshots, `dx serve`, full Rust workspace tests,
 or release-only gates.
+
+## M61 Release Verification Alignment Plan
+
+The project now has a stable local npm aggregate command, but release guidance
+must keep stronger gates explicit. M61 aligns the release documentation around
+three tiers:
+
+- `npm run verify` is the default deterministic local alias for preview smoke,
+  example smoke, docs metadata, and Markdown drift checks.
+- Rust workspace tests, source-copy fixture smoke, and feature checks remain
+  explicit release gates because they cover compile-time and packaging surfaces
+  that the npm aggregate command intentionally does not own.
+- Playwright browser smoke and screenshots remain opt-in because they require
+  browser installation or a local browser executable.
+
+The release docs should make the aggregate alias useful without making it look
+like a substitute for full pre-publish verification. The consistency check added
+in this milestone should be read-only and should fail only when release docs no
+longer mention the local aggregate gate, required Rust/source-copy/feature
+gates, or the opt-in browser boundary.
+
+Out of scope:
+
+- installing browser binaries
+- activating CI browser workflows
+- adding new release automation
+- changing component APIs, registry entries, or templates
