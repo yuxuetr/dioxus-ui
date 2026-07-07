@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M59 Docs Metadata Gate Aggregator
-- Current task: M59.1 Plan docs metadata aggregate gate
+- Current task: M59.2 Add aggregate docs verification command
 
 ## Backup
 
@@ -665,7 +665,7 @@
 
 ## M59 Docs Metadata Gate Aggregator
 
-- TODO M59.1 Plan docs metadata aggregate gate
+- DONE M59.1 Plan docs metadata aggregate gate
   - Define a single local command for all docs metadata and Markdown drift checks.
   - Decide which existing docs checks belong in the aggregate gate.
   - Keep browser, screenshot, and rendered runtime checks out of scope.
