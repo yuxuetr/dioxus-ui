@@ -482,3 +482,40 @@ Out of scope for M58:
 The source preview manifest should be generated from
 `scripts/docs-catalog-builder.mjs` and verified for drift. It should remain a
 reviewable Markdown artifact until the visual docs runtime exists.
+
+## M58 Final Result
+
+M58 added source preview metadata to the docs catalog builder and rendered a
+reviewable source preview manifest:
+
+```text
+docs/components/source-preview.md
+```
+
+The source preview manifest renderer lives at:
+
+```text
+scripts/docs-source-preview-markdown.mjs
+```
+
+The drift gate lives at:
+
+```text
+scripts/docs-source-preview-verify.mjs
+```
+
+Validation ran:
+
+```bash
+npm run verify:smoke
+cargo test --workspace --all-features -q
+npm run verify:docs-catalog
+npm run verify:docs-catalog-page
+npm run verify:docs-routes
+npm run verify:docs-source-preview
+git diff --check
+```
+
+All commands passed. The manifest defines 64 source preview routes with template
+path, target path, language, line count, and byte count. It does not embed full
+template source or add rendered source preview routes.
