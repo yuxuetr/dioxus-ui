@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M58 Source Preview Manifest
-- Current task: M58 complete
+- Overall: 0%
+- Current milestone: M59 Docs Metadata Gate Aggregator
+- Current task: M59.1 Plan docs metadata aggregate gate
 
 ## Backup
 
@@ -661,6 +661,28 @@
 - DONE M58.4 Complete source preview manifest milestone
   - Update docs-site planning with final source preview ownership.
   - Run deterministic gates, workspace tests, catalog verification, route verification, and source manifest verification.
+  - Update TODO status only after commits and validation.
+
+## M59 Docs Metadata Gate Aggregator
+
+- TODO M59.1 Plan docs metadata aggregate gate
+  - Define a single local command for all docs metadata and Markdown drift checks.
+  - Decide which existing docs checks belong in the aggregate gate.
+  - Keep browser, screenshot, and rendered runtime checks out of scope.
+
+- TODO M59.2 Add aggregate docs verification command
+  - Add an npm alias that runs catalog, catalog page, route manifest, and source preview checks.
+  - Preserve existing individual commands for focused debugging.
+  - Verify the aggregate command fails through normal npm command chaining.
+
+- TODO M59.3 Document aggregate docs verification
+  - Update README, quality gates, and docs-site plan with the aggregate command.
+  - Keep release and browser smoke gates separate.
+  - Explain when to use individual commands versus the aggregate command.
+
+- TODO M59.4 Complete docs metadata gate aggregator milestone
+  - Run deterministic gates, workspace tests, docs aggregate verification, and diff checks.
+  - Verify no generated JSON artifacts are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
