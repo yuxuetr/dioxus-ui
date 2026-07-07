@@ -519,3 +519,36 @@ git diff --check
 All commands passed. The manifest defines 64 source preview routes with template
 path, target path, language, line count, and byte count. It does not embed full
 template source or add rendered source preview routes.
+
+## M59 Docs Metadata Gate Plan
+
+The docs metadata surface now has four related verification commands:
+
+```bash
+npm run verify:docs-catalog
+npm run verify:docs-catalog-page
+npm run verify:docs-routes
+npm run verify:docs-source-preview
+```
+
+M59 should add one aggregate command for local docs metadata checks while
+keeping the individual commands available for focused debugging.
+
+Aggregate command scope:
+
+- catalog contract verification
+- static catalog Markdown drift verification
+- route manifest drift verification
+- source preview manifest drift verification
+
+Out of scope:
+
+- browser automation
+- screenshots
+- `dx serve`
+- rendered Dioxus docs runtime
+- Rust workspace tests
+- generated JSON artifacts
+
+The aggregate gate should be a convenience alias, not a replacement for release
+or browser smoke gates.
