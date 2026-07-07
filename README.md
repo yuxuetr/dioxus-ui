@@ -223,6 +223,15 @@ docs, crate features, and crate modules. The page check also verifies
 route check verifies future docs runtime route metadata. The source preview
 check verifies template metadata for future source preview routes.
 
+Verify release documentation consistency only:
+
+```bash
+npm run verify:release-docs
+```
+
+This checks that release docs still distinguish the local aggregate command,
+required Rust/source-copy/feature release gates, and opt-in browser smoke.
+
 Future browser-rendered Playwright smoke will require an explicit browser
 install:
 

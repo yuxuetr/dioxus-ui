@@ -116,6 +116,7 @@ node scripts/mobile-web-profile-verify.mjs
 node scripts/desktop-preview-verify.mjs
 scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
+node scripts/release-docs-verify.mjs
 ```
 
 Equivalent npm convenience aliases are available for the preview and example
@@ -153,6 +154,11 @@ route manifest rendered from the shared catalog builder.
 `npm run verify:docs-source-preview` checks that
 `docs/components/source-preview.md` matches the source preview manifest rendered
 from the shared catalog builder.
+
+`npm run verify:release-docs` checks that release documentation still mentions
+the local aggregate alias, required Rust workspace gates, source-copy fixture
+smoke, feature checks, and opt-in browser smoke boundary. It is read-only and
+does not generate release artifacts.
 
 ## Mobile Browser Smoke Gate
 

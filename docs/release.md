@@ -102,18 +102,31 @@ node scripts/mobile-web-profile-verify.mjs
 node scripts/desktop-preview-verify.mjs
 scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
+node scripts/release-docs-verify.mjs
 ```
 
-For the preview and example smoke subset, this convenience alias is available:
+For routine local handoff before release-specific gates, this deterministic
+convenience alias is available:
 
 ```bash
 npm install
-npm run verify:smoke
+npm run verify
 ```
 
-The npm alias does not install browser binaries and does not replace the full
-release gate list. Browser-rendered Playwright smoke remains opt-in until a
-stable command is added and proven.
+The alias runs preview smoke, example smoke, docs metadata, and Markdown drift
+checks. It does not install browser binaries and does not replace the full Rust,
+source-copy, feature, or release documentation gate list above.
+
+Focused npm aliases are also available:
+
+```bash
+npm run verify:smoke
+npm run verify:docs
+npm run verify:release-docs
+```
+
+Browser-rendered Playwright smoke remains opt-in until a stable command is added
+and proven.
 
 Optional browser smoke:
 

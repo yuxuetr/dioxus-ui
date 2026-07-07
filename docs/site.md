@@ -710,3 +710,24 @@ Out of scope:
 - activating CI browser workflows
 - adding new release automation
 - changing component APIs, registry entries, or templates
+
+## M61 Release Docs Consistency Gate
+
+M61 adds a focused read-only release documentation check:
+
+```bash
+npm run verify:release-docs
+```
+
+The command verifies that `docs/release.md` still mentions:
+
+- the local `npm run verify` aggregate alias
+- required Rust workspace check and test commands
+- source-copy fixture smoke
+- feature checks
+- opt-in mobile browser smoke and its release-gate boundary
+
+This check is intentionally separate from `npm run verify`. The local aggregate
+gate remains optimized for deterministic preview, example, docs metadata, and
+Markdown drift checks, while release documentation consistency is a
+release-hardening concern.
