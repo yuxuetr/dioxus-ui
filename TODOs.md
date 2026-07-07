@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M58 Source Preview Manifest
-- Current task: M58.3 Add static source preview manifest and drift gate
+- Current task: M58.4 Complete source preview manifest milestone
 
 ## Backup
 
@@ -653,7 +653,7 @@
   - Verify template files are readable and source preview metadata is complete.
   - Preserve existing catalog, grouped catalog, and route manifest checks.
 
-- TODO M58.3 Add static source preview manifest and drift gate
+- DONE M58.3 Add static source preview manifest and drift gate
   - Render a deterministic Markdown source preview manifest from the shared builder.
   - Add a verification command that fails when the source preview manifest drifts.
   - Link the source preview manifest from docs index, route manifest, and quality gates.
