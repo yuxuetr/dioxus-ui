@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M59 Docs Metadata Gate Aggregator
-- Current task: M59 complete
+- Overall: 0%
+- Current milestone: M60 Local Verification Aggregator
+- Current task: M60.1 Plan local verification aggregate gate
 
 ## Backup
 
@@ -682,6 +682,28 @@
 
 - DONE M59.4 Complete docs metadata gate aggregator milestone
   - Run deterministic gates, workspace tests, docs aggregate verification, and diff checks.
+  - Verify no generated JSON artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M60 Local Verification Aggregator
+
+- TODO M60.1 Plan local verification aggregate gate
+  - Define a single local npm command for default deterministic verification.
+  - Decide whether the command should include smoke and docs metadata checks only.
+  - Keep full Rust workspace tests, browser automation, screenshots, and release gates out of scope.
+
+- TODO M60.2 Add local aggregate verification command
+  - Add an npm alias that runs `verify:smoke` and `verify:docs`.
+  - Preserve existing focused commands for targeted debugging.
+  - Verify the aggregate command succeeds through normal npm command chaining.
+
+- TODO M60.3 Document local aggregate verification
+  - Update README, quality gates, and docs-site plan with the local aggregate command.
+  - Explain which checks remain separate and why.
+  - Keep CI/browser workflow docs unchanged unless required.
+
+- TODO M60.4 Complete local verification aggregator milestone
+  - Run deterministic gates, workspace tests, local aggregate verification, and diff checks.
   - Verify no generated JSON artifacts are committed.
   - Update TODO status only after commits and validation.
 
