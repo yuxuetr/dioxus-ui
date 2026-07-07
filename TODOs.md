@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M61 Release Verification Alignment
-- Current task: M61.1 Plan release verification alignment
+- Current task: M61.2 Add release documentation consistency check
 
 ## Backup
 
@@ -709,7 +709,7 @@
 
 ## M61 Release Verification Alignment
 
-- TODO M61.1 Plan release verification alignment
+- DONE M61.1 Plan release verification alignment
   - Define how `npm run verify`, Rust workspace tests, source-copy gates, feature checks, and opt-in browser smoke relate.
   - Keep browser install, CI workflow activation, and new release automation out of scope.
   - Document which release commands are aggregate aliases versus required explicit gates.
