@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M60 Local Verification Aggregator
-- Current task: M60.1 Plan local verification aggregate gate
+- Current task: M60.2 Add local aggregate verification command
 
 ## Backup
 
@@ -687,7 +687,7 @@
 
 ## M60 Local Verification Aggregator
 
-- TODO M60.1 Plan local verification aggregate gate
+- DONE M60.1 Plan local verification aggregate gate
   - Define a single local npm command for default deterministic verification.
   - Decide whether the command should include smoke and docs metadata checks only.
   - Keep full Rust workspace tests, browser automation, screenshots, and release gates out of scope.
