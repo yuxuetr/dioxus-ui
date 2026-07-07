@@ -454,3 +454,31 @@ git diff --check
 All commands passed. The manifest defines 64 component routes and 8 category
 routes. It remains a static planning artifact; no Dioxus router, rendered route,
 browser route assertion, or generated JSON route file was added.
+
+## M58 Source Preview Manifest Plan
+
+M57 reserved `/components/{slug}/source` routes. M58 should define the static
+source preview metadata those routes need before rendering source previews in a
+Dioxus docs runtime.
+
+Static source preview fields:
+
+- `source_preview_route`: same route as the component `source_route`
+- `source_preview_path`: template file used by `dxui add`
+- `source_preview_target`: source-copy target path generated into user projects
+- `source_preview_language`: language hint for future syntax highlighting
+- `source_preview_lines`: deterministic line count for the template
+- `source_preview_bytes`: deterministic byte count for the template
+
+Out of scope for M58:
+
+- embedding full template source in docs pages
+- syntax highlighting
+- rendered source preview routes
+- browser route assertions
+- generated JSON source manifests
+- component API changes
+
+The source preview manifest should be generated from
+`scripts/docs-catalog-builder.mjs` and verified for drift. It should remain a
+reviewable Markdown artifact until the visual docs runtime exists.
