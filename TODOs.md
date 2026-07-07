@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M58 Source Preview Manifest
-- Current task: M58.2 Add source preview metadata to catalog builder
+- Current task: M58.3 Add static source preview manifest and drift gate
 
 ## Backup
 
@@ -648,7 +648,7 @@
   - Decide which template fields should be represented statically without embedding full source.
   - Keep rendered source previews, syntax highlighting, and browser route assertions out of scope.
 
-- TODO M58.2 Add source preview metadata to catalog builder
+- DONE M58.2 Add source preview metadata to catalog builder
   - Extend catalog records with deterministic source preview fields.
   - Verify template files are readable and source preview metadata is complete.
   - Preserve existing catalog, grouped catalog, and route manifest checks.
