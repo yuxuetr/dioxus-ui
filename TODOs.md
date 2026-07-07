@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M59 Docs Metadata Gate Aggregator
-- Current task: M59.2 Add aggregate docs verification command
+- Current task: M59.3 Document aggregate docs verification
 
 ## Backup
 
@@ -670,7 +670,7 @@
   - Decide which existing docs checks belong in the aggregate gate.
   - Keep browser, screenshot, and rendered runtime checks out of scope.
 
-- TODO M59.2 Add aggregate docs verification command
+- DONE M59.2 Add aggregate docs verification command
   - Add an npm alias that runs catalog, catalog page, route manifest, and source preview checks.
   - Preserve existing individual commands for focused debugging.
   - Verify the aggregate command fails through normal npm command chaining.
