@@ -731,3 +731,27 @@ This check is intentionally separate from `npm run verify`. The local aggregate
 gate remains optimized for deterministic preview, example, docs metadata, and
 Markdown drift checks, while release documentation consistency is a
 release-hardening concern.
+
+## M61 Final Result
+
+M61 aligned release verification documentation around the local aggregate gate
+and explicit release-only checks. The milestone added:
+
+```bash
+npm run verify:release-docs
+```
+
+The command reads `docs/release.md` and fails if release guidance stops
+mentioning the local `npm run verify` alias, Rust workspace check/test gates,
+source-copy fixture smoke, feature checks, or the opt-in browser smoke boundary.
+
+Validation ran:
+
+```bash
+npm run verify
+npm run verify:release-docs
+cargo test --workspace --all-features -q
+git diff --check
+```
+
+All commands passed. No generated release artifacts were committed.
