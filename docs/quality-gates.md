@@ -124,15 +124,15 @@ smoke subset:
 ```bash
 npm install
 npm run verify:smoke
-npm run verify:docs-catalog
-npm run verify:docs-catalog-page
-npm run verify:docs-routes
-npm run verify:docs-source-preview
+npm run verify:docs
 ```
 
 These aliases do not require Playwright browser binaries and do not replace the
 full Rust release gate list above. Future browser-rendered smoke commands should
 document `npx playwright install chromium` separately.
+
+`npm run verify:docs` runs all docs metadata and Markdown drift checks. Use the
+individual commands below when isolating a specific failure.
 
 `npm run verify:docs-catalog` checks the docs-site catalog contract in memory
 from registry entries, templates, component docs, crate features, and crate

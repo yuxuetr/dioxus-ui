@@ -195,6 +195,12 @@ binaries.
 Verify the docs-site catalog metadata contract:
 
 ```bash
+npm run verify:docs
+```
+
+For focused debugging, the aggregate command expands to:
+
+```bash
 npm run verify:docs-catalog
 npm run verify:docs-catalog-page
 npm run verify:docs-routes

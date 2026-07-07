@@ -552,3 +552,24 @@ Out of scope:
 
 The aggregate gate should be a convenience alias, not a replacement for release
 or browser smoke gates.
+
+## M59 Aggregate Gate Usage
+
+Use the aggregate docs metadata gate for normal local docs checks:
+
+```bash
+npm run verify:docs
+```
+
+Use the individual commands only when isolating a specific failure:
+
+```bash
+npm run verify:docs-catalog
+npm run verify:docs-catalog-page
+npm run verify:docs-routes
+npm run verify:docs-source-preview
+```
+
+The aggregate command is intentionally limited to deterministic metadata and
+Markdown drift checks. It does not run browser automation, screenshots, `dx
+serve`, or Rust workspace tests.
