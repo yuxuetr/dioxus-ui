@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M57 Docs Route Manifest
-- Current task: M57 complete
+- Overall: 0%
+- Current milestone: M58 Source Preview Manifest
+- Current task: M58.1 Plan source preview manifest
 
 ## Backup
 
@@ -639,6 +639,28 @@
 - DONE M57.4 Complete docs route manifest milestone
   - Update docs-site planning with final route manifest ownership.
   - Run deterministic gates, workspace tests, catalog verification, and route manifest verification.
+  - Update TODO status only after commits and validation.
+
+## M58 Source Preview Manifest
+
+- TODO M58.1 Plan source preview manifest
+  - Define source preview metadata for future `/components/{slug}/source` routes.
+  - Decide which template fields should be represented statically without embedding full source.
+  - Keep rendered source previews, syntax highlighting, and browser route assertions out of scope.
+
+- TODO M58.2 Add source preview metadata to catalog builder
+  - Extend catalog records with deterministic source preview fields.
+  - Verify template files are readable and source preview metadata is complete.
+  - Preserve existing catalog, grouped catalog, and route manifest checks.
+
+- TODO M58.3 Add static source preview manifest and drift gate
+  - Render a deterministic Markdown source preview manifest from the shared builder.
+  - Add a verification command that fails when the source preview manifest drifts.
+  - Link the source preview manifest from docs index, route manifest, and quality gates.
+
+- TODO M58.4 Complete source preview manifest milestone
+  - Update docs-site planning with final source preview ownership.
+  - Run deterministic gates, workspace tests, catalog verification, route verification, and source manifest verification.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
