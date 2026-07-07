@@ -573,3 +573,33 @@ npm run verify:docs-source-preview
 The aggregate command is intentionally limited to deterministic metadata and
 Markdown drift checks. It does not run browser automation, screenshots, `dx
 serve`, or Rust workspace tests.
+
+## M59 Final Result
+
+M59 added a single aggregate docs metadata gate:
+
+```bash
+npm run verify:docs
+```
+
+The command runs:
+
+```bash
+npm run verify:docs-catalog
+npm run verify:docs-catalog-page
+npm run verify:docs-routes
+npm run verify:docs-source-preview
+```
+
+Validation ran:
+
+```bash
+npm run verify:smoke
+cargo test --workspace --all-features -q
+npm run verify:docs
+git diff --check
+```
+
+All commands passed. The aggregate gate remains a convenience alias for
+deterministic docs metadata and Markdown drift checks; browser, screenshot,
+`dx serve`, and Rust workspace gates remain separate.
