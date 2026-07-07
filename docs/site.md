@@ -656,3 +656,30 @@ Use `npm run verify:smoke` for preview/example-only changes and
 `npm run verify:docs` for catalog or generated Markdown drift changes.
 Full Rust workspace tests, browser automation, screenshots, `dx serve`, and
 release-only gates remain separate.
+
+## M60 Final Result
+
+M60 added a single default local npm verification command:
+
+```bash
+npm run verify
+```
+
+The command runs:
+
+```bash
+npm run verify:smoke
+npm run verify:docs
+```
+
+Validation ran:
+
+```bash
+npm run verify
+cargo test --workspace --all-features -q
+git diff --check
+```
+
+All commands passed. The local aggregate gate remains deterministic and does not
+include browser automation, screenshots, `dx serve`, full Rust workspace tests,
+or release-only gates.
