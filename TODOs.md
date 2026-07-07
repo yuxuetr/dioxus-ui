@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
+- Overall: 100%
 - Current milestone: M59 Docs Metadata Gate Aggregator
-- Current task: M59.4 Complete docs metadata gate aggregator milestone
+- Current task: M59 complete
 
 ## Backup
 
@@ -680,7 +680,7 @@
   - Keep release and browser smoke gates separate.
   - Explain when to use individual commands versus the aggregate command.
 
-- TODO M59.4 Complete docs metadata gate aggregator milestone
+- DONE M59.4 Complete docs metadata gate aggregator milestone
   - Run deterministic gates, workspace tests, docs aggregate verification, and diff checks.
   - Verify no generated JSON artifacts are committed.
   - Update TODO status only after commits and validation.
