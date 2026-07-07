@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
+- Overall: 100%
 - Current milestone: M58 Source Preview Manifest
-- Current task: M58.4 Complete source preview manifest milestone
+- Current task: M58 complete
 
 ## Backup
 
@@ -658,7 +658,7 @@
   - Add a verification command that fails when the source preview manifest drifts.
   - Link the source preview manifest from docs index, route manifest, and quality gates.
 
-- TODO M58.4 Complete source preview manifest milestone
+- DONE M58.4 Complete source preview manifest milestone
   - Update docs-site planning with final source preview ownership.
   - Run deterministic gates, workspace tests, catalog verification, route verification, and source manifest verification.
   - Update TODO status only after commits and validation.
