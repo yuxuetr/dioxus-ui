@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M60 Local Verification Aggregator
-- Current task: M60.3 Document local aggregate verification
+- Current task: M60.4 Complete local verification aggregator milestone
 
 ## Backup
 
@@ -697,7 +697,7 @@
   - Preserve existing focused commands for targeted debugging.
   - Verify the aggregate command succeeds through normal npm command chaining.
 
-- TODO M60.3 Document local aggregate verification
+- DONE M60.3 Document local aggregate verification
   - Update README, quality gates, and docs-site plan with the local aggregate command.
   - Explain which checks remain separate and why.
   - Keep CI/browser workflow docs unchanged unless required.
