@@ -809,3 +809,32 @@ npm run verify:mobile-browser
 
 That command still requires Playwright Chromium or an explicit browser
 executable, so it is not part of the release aggregate.
+
+## M62 Final Result
+
+M62 added the release aggregate command:
+
+```bash
+npm run verify:release
+```
+
+The command runs:
+
+- `cargo check --workspace --all-features`
+- `cargo test --workspace --all-features`
+- `cargo test -p dioxus-ui-cli --test registry`
+- `cargo run -p dioxus-ui-cli -- list`
+- `npm run verify`
+- `scripts/feature-check.sh`
+- `scripts/generated-fixture-smoke.sh`
+- `npm run verify:release-docs`
+
+Validation ran:
+
+```bash
+npm run verify:release
+git diff --check
+```
+
+All commands passed. Browser installation, screenshots, and native runtime
+automation remain opt-in and outside the release aggregate.
