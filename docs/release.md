@@ -132,6 +132,8 @@ Package script wiring checks are also part of the release aggregate, but they
 only inspect `package.json`; they do not execute the release gate recursively.
 CI browser docs checks are read-only and do not create workflow files.
 CI Plan checks are also read-only and validate documentation only.
+Documentation index checks are part of `npm run verify:docs` and validate only
+README entry-point links.
 
 Focused npm aliases are also available:
 
@@ -143,6 +145,7 @@ npm run verify:release-docs
 npm run verify:package-scripts
 npm run verify:ci-docs
 npm run verify:ci-plan
+npm run verify:docs-index
 ```
 
 Browser-rendered Playwright smoke remains opt-in until a stable command is added

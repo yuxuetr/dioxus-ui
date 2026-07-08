@@ -126,6 +126,7 @@ scripts/generated-fixture-smoke.sh
 node scripts/release-docs-verify.mjs
 npm run verify:package-scripts
 npm run verify:ci-docs
+npm run verify:ci-plan
 ```
 
 Use the smaller deterministic local alias before routine handoff when full
@@ -145,7 +146,7 @@ Future browser-rendered smoke commands should document
 `npm run verify:release` runs Rust workspace checks, CLI registry/list smoke,
 `npm run verify`, component feature checks, generated fixture smoke, release
 documentation consistency checks, package script wiring checks, and CI browser
-documentation checks.
+documentation checks. It also checks CI Plan documentation.
 
 `npm run verify:smoke` runs rendered preview structural checks and example smoke
 output.
@@ -168,6 +169,10 @@ route manifest rendered from the shared catalog builder.
 `npm run verify:docs-source-preview` checks that
 `docs/components/source-preview.md` matches the source preview manifest rendered
 from the shared catalog builder.
+
+`npm run verify:docs-index` checks that README and docs/README keep required
+quality, release, CI, site, RFC, and TODO entry points discoverable. It is
+read-only and does not crawl external links or generate navigation artifacts.
 
 `npm run verify:release-docs` checks that release documentation still mentions
 the local aggregate alias, required Rust workspace gates, source-copy fixture

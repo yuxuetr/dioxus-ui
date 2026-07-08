@@ -30,6 +30,7 @@ const aggregateScriptRequirements = {
     "npm run verify:docs-catalog-page",
     "npm run verify:docs-routes",
     "npm run verify:docs-source-preview",
+    "npm run verify:docs-index",
   ],
   "verify:preview": [
     "npm run verify:web-preview",

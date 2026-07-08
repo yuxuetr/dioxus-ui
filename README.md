@@ -162,7 +162,9 @@ format!("bg-{}-500", color)
 - [Workspace Specification](docs/workspace.md)
 - [Component API Specification](docs/component-api.md)
 - [Release and Package Strategy](docs/release.md)
+- [Quality Gates](docs/quality-gates.md)
 - [CI Browser Smoke Guide](docs/ci-browser-smoke.md)
+- [CI Browser Workflow Template](docs/ci-browser-workflow-template.md)
 - [Component Catalog](docs/components/README.md)
 - [Documentation Site Plan](docs/site.md)
 - [TODO Plan](TODOs.md)
@@ -227,13 +229,24 @@ npm run verify:docs-catalog
 npm run verify:docs-catalog-page
 npm run verify:docs-routes
 npm run verify:docs-source-preview
+npm run verify:docs-index
 ```
 
 This builds the catalog in memory from registry entries, templates, component
 docs, crate features, and crate modules. The page check also verifies
 `docs/components/catalog.md` matches the shared catalog builder output. The
 route check verifies future docs runtime route metadata. The source preview
-check verifies template metadata for future source preview routes.
+check verifies template metadata for future source preview routes. The index
+check verifies README and docs/README keep the required project entry points.
+
+Verify documentation index consistency only:
+
+```bash
+npm run verify:docs-index
+```
+
+This checks that the root README and docs README link the required quality,
+release, CI, site, RFC, and TODO entry points.
 
 Verify release documentation consistency only:
 

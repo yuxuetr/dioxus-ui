@@ -1086,3 +1086,22 @@ It should fail on missing required link tokens, but it should not validate
 Markdown rendering, external URLs, generated route manifests, or filesystem-wide
 link integrity. Those concerns belong to separate docs-site or link-check
 milestones.
+
+## M66 Documentation Index Consistency Gate Usage
+
+M66 adds the documentation index check:
+
+```bash
+npm run verify:docs-index
+```
+
+The command checks the root README and docs README for required links to
+architecture, roadmap, component API, release, quality, CI, docs-site, RFC, and
+TODO entry points. It is read-only and does not build the docs site, crawl
+external URLs, create navigation files, or create workflow files.
+
+Because the check is deterministic and cheap, it is included in:
+
+```bash
+npm run verify:docs
+```
