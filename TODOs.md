@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
+- Overall: 100%
 - Current milestone: M63 Package Script Consistency Gate
-- Current task: M63.4 Complete package script consistency milestone
+- Current task: M63 complete
 
 ## Backup
 
@@ -768,7 +768,7 @@
   - Include the package script check in the release aggregate command if it remains deterministic and read-only.
   - Clarify that the check validates command wiring but does not execute the release gate.
 
-- TODO M63.4 Complete package script consistency milestone
+- DONE M63.4 Complete package script consistency milestone
   - Run release aggregate verification, package script consistency checks, release docs consistency checks, and diff checks.
   - Verify no generated artifacts are committed.
   - Update TODO status only after commits and validation.
