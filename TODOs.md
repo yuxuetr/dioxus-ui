@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M61 Release Verification Alignment
-- Current task: M61 complete
+- Overall: 0%
+- Current milestone: M62 Release Gate Aggregator
+- Current task: M62.1 Plan release gate aggregation
 
 ## Backup
 
@@ -726,6 +726,28 @@
 
 - DONE M61.4 Complete release verification alignment milestone
   - Run deterministic gates, workspace tests, release docs consistency checks, and diff checks.
+  - Verify no generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M62 Release Gate Aggregator
+
+- TODO M62.1 Plan release gate aggregation
+  - Define a single explicit release verification alias for the existing required local release gates.
+  - Decide command ordering so cheap deterministic checks fail before expensive feature and fixture checks where practical.
+  - Keep browser installation, screenshots, CI workflow activation, and native Mobile/Desktop runtime automation out of scope.
+
+- TODO M62.2 Add release aggregate verification command
+  - Add an npm alias that runs the required release gate commands without replacing focused aliases.
+  - Preserve opt-in browser smoke as a separate command.
+  - Verify the aggregate command succeeds through normal npm command chaining.
+
+- TODO M62.3 Update release aggregate documentation
+  - Update README, release docs, quality gates, and docs-site planning docs with the release aggregate command.
+  - Extend release docs consistency checks to require the aggregate alias.
+  - Clarify that focused commands remain useful for isolating failures.
+
+- TODO M62.4 Complete release gate aggregator milestone
+  - Run the release aggregate command, release docs consistency checks, workspace tests as needed, and diff checks.
   - Verify no generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
