@@ -982,3 +982,23 @@ test ! -e .github/workflows/browser-smoke.yml
 ```
 
 All commands passed. No workflow files or generated artifacts were committed.
+
+## M65 CI Plan Documentation Gate Plan
+
+M65 should align the CI Plan documentation with the verification aliases added
+through M59-M64. The CI Plan remains documentation only; this milestone should
+not create or activate workflows.
+
+Expected CI Plan shape:
+
+- default pull request CI should run Rust workspace checks, CLI registry checks,
+  source-copy fixture smoke, and `npm run verify`.
+- scheduled or release CI should run `npm run verify:release`.
+- feature checks remain part of the release aggregate and can still be called
+  out as the expensive gate.
+- browser smoke remains opt-in through `npm run verify:mobile-browser`.
+- CI docs checks should verify the plan text but not execute CI commands.
+
+The read-only check should inspect `docs/quality-gates.md` and ensure the CI
+Plan mentions the current local, release, and browser verification boundaries.
+It should also keep workflow creation out of scope.
