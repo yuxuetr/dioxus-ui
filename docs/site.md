@@ -1029,3 +1029,31 @@ Because it is read-only and deterministic, it is included at the end of:
 ```bash
 npm run verify:release
 ```
+
+## M65 Final Result
+
+M65 aligned the CI Plan section in `docs/quality-gates.md` with the current
+verification aliases and added:
+
+```bash
+npm run verify:ci-plan
+```
+
+The command checks that the CI Plan documents default pull request gates,
+scheduled/release gates, feature-check placement, and the opt-in browser smoke
+boundary without creating workflow files or running CI commands.
+
+Validation ran:
+
+```bash
+npm run verify:ci-plan
+npm run verify:package-scripts
+npm run verify:ci-docs
+npm run verify:release-docs
+npm run verify:docs
+npm run verify:release
+git diff --check
+test ! -e .github/workflows/browser-smoke.yml
+```
+
+All commands passed. No workflow files or generated artifacts were committed.
