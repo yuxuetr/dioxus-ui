@@ -1057,3 +1057,32 @@ test ! -e .github/workflows/browser-smoke.yml
 ```
 
 All commands passed. No workflow files or generated artifacts were committed.
+
+## M66 Documentation Index Consistency Gate Plan
+
+M66 should keep project entry-point documentation discoverable as verification
+commands and planning docs accumulate. This milestone is an index consistency
+gate only; it should not build the docs site, crawl arbitrary links, generate
+navigation files, or create CI workflows.
+
+The required top-level `README.md` index should expose:
+
+- architecture and roadmap docs
+- component API, catalog, and docs-site planning docs
+- quality gates and release docs
+- CI browser smoke docs and workflow template docs
+- TODO plan and current RFC entry points
+
+The required `docs/README.md` index should expose:
+
+- core design, roadmap, workspace, component API, release, and quality docs
+- component catalog and docs-site planning docs
+- runtime verification planning docs
+- all currently active RFC documents, including CI browser workflow activation
+- the root TODO plan
+
+The read-only check should inspect only `README.md` and `docs/README.md`.
+It should fail on missing required link tokens, but it should not validate
+Markdown rendering, external URLs, generated route manifests, or filesystem-wide
+link integrity. Those concerns belong to separate docs-site or link-check
+milestones.
