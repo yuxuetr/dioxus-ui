@@ -879,3 +879,31 @@ This is a wiring check only. It does not run Cargo, browser automation,
 generated fixture smoke, or any release command recursively. Because it is
 read-only and deterministic, it is included at the end of `npm run
 verify:release`.
+
+## M63 Final Result
+
+M63 added the package script consistency command:
+
+```bash
+npm run verify:package-scripts
+```
+
+The command validates required `package.json` verification aliases and aggregate
+command relationships without executing the commands. It is included at the end
+of:
+
+```bash
+npm run verify:release
+```
+
+Validation ran:
+
+```bash
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:docs
+npm run verify:release
+git diff --check
+```
+
+All commands passed. No generated artifacts were committed.
