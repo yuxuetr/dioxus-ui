@@ -125,6 +125,7 @@ scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
 node scripts/release-docs-verify.mjs
 npm run verify:package-scripts
+npm run verify:ci-docs
 ```
 
 Use the smaller deterministic local alias before routine handoff when full
@@ -143,7 +144,8 @@ Future browser-rendered smoke commands should document
 
 `npm run verify:release` runs Rust workspace checks, CLI registry/list smoke,
 `npm run verify`, component feature checks, generated fixture smoke, release
-documentation consistency checks, and package script wiring checks.
+documentation consistency checks, package script wiring checks, and CI browser
+documentation checks.
 
 `npm run verify:smoke` runs rendered preview structural checks and example smoke
 output.
@@ -175,6 +177,10 @@ does not generate release artifacts.
 `npm run verify:package-scripts` checks that `package.json` still exposes the
 required verification aliases and that aggregate aliases reference the expected
 focused commands. It is read-only and does not execute release commands.
+
+`npm run verify:ci-docs` checks that the opt-in CI browser smoke guide and
+workflow template still reference the current local verification aliases and do
+not add an active browser smoke workflow.
 
 ## Mobile Browser Smoke Gate
 

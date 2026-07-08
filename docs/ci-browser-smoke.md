@@ -54,9 +54,20 @@ npm ci
 Run deterministic gates before the browser smoke:
 
 ```bash
-npm run verify:smoke
+npm run verify
 cargo test --workspace --all-features -q
 ```
+
+Before publishing or promoting browser smoke toward a required gate, run the
+full local release aggregate separately:
+
+```bash
+npm run verify:release
+```
+
+The release aggregate is intentionally separate from browser smoke because it
+does not install browsers, launch Playwright, capture screenshots, or claim
+native Mobile/Desktop runtime coverage.
 
 ## Playwright-managed Chromium
 

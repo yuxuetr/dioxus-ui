@@ -21,6 +21,12 @@ const requiredSnippets = [
   {
     file: "docs/ci-browser-smoke.md",
     content: ciGuide,
+    label: "release aggregate gate",
+    snippet: "npm run verify:release",
+  },
+  {
+    file: "docs/ci-browser-smoke.md",
+    content: ciGuide,
     label: "workspace test gate",
     snippet: "cargo test --workspace --all-features -q",
   },

@@ -929,3 +929,28 @@ The consistency check should read `docs/ci-browser-smoke.md` and
 `docs/ci-browser-workflow-template.md` only. It should verify command references
 and opt-in language without running browser automation or creating workflow
 files.
+
+## M64 CI Browser Docs Alignment Usage
+
+M64 adds the CI browser documentation check:
+
+```bash
+npm run verify:ci-docs
+```
+
+The command verifies that the opt-in CI browser smoke guide and workflow
+template reference the current local gates:
+
+- `npm run verify`
+- `cargo test --workspace --all-features -q`
+- `npm run verify:release`
+- `npm run verify:mobile-browser`
+
+It also checks that the workflow template remains manual and non-blocking and
+that `.github/workflows/browser-smoke.yml` is not committed.
+
+Because the check is read-only and deterministic, it is included at the end of:
+
+```bash
+npm run verify:release
+```

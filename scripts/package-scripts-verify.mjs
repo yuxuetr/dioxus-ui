@@ -52,6 +52,7 @@ const aggregateScriptRequirements = {
     "scripts/generated-fixture-smoke.sh",
     "npm run verify:release-docs",
     "npm run verify:package-scripts",
+    "npm run verify:ci-docs",
   ],
 };
 

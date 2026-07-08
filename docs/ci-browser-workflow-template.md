@@ -53,8 +53,8 @@ jobs:
       - name: Install Dioxus CLI
         run: cargo install dioxus-cli --locked
 
-      - name: Run deterministic smoke gates
-        run: npm run verify:smoke
+      - name: Run deterministic local gates
+        run: npm run verify
 
       - name: Run Rust workspace tests
         run: cargo test --workspace --all-features -q

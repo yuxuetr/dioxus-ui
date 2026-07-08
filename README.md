@@ -200,8 +200,8 @@ npm run verify:release
 
 This runs Rust workspace checks, CLI registry/list smoke, the default local
 gate, feature checks, generated source-copy fixture smoke, release docs
-consistency checks, and package script wiring checks. It still keeps browser
-installation and screenshots opt-in.
+consistency checks, package script wiring checks, and CI browser docs checks. It
+still keeps browser installation and screenshots opt-in.
 
 Run deterministic preview and example gates only:
 
@@ -251,6 +251,15 @@ npm run verify:package-scripts
 
 This checks `package.json` script relationships without executing Cargo,
 browser automation, generated fixture smoke, or release commands.
+
+Verify CI browser smoke documentation only:
+
+```bash
+npm run verify:ci-docs
+```
+
+This checks that the opt-in CI browser smoke guide and workflow template still
+reference the current local gates without creating active workflow files.
 
 Future browser-rendered Playwright smoke will require an explicit browser
 install:
