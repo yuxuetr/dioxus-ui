@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M63 Package Script Consistency Gate
-- Current task: M63.1 Plan package script consistency gate
+- Current task: M63.2 Add package script consistency check
 
 ## Backup
 
@@ -753,7 +753,7 @@
 
 ## M63 Package Script Consistency Gate
 
-- TODO M63.1 Plan package script consistency gate
+- DONE M63.1 Plan package script consistency gate
   - Define which npm verification aliases are required for local, docs, release, and opt-in browser gates.
   - Decide which aggregate command relationships should be checked for drift.
   - Keep command execution, browser installation, and generated artifacts out of the consistency check.
