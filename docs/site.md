@@ -828,6 +828,7 @@ The command runs:
 - `scripts/feature-check.sh`
 - `scripts/generated-fixture-smoke.sh`
 - `npm run verify:release-docs`
+- `npm run verify:package-scripts`
 
 Validation ran:
 
@@ -860,3 +861,21 @@ an expensive gate.
 If the check remains deterministic and read-only, it can be included in the
 release aggregate command. Focused commands should remain available for failure
 isolation.
+
+## M63 Package Script Consistency Gate Usage
+
+M63 adds the package script consistency command:
+
+```bash
+npm run verify:package-scripts
+```
+
+The command parses `package.json` and verifies that required focused and
+aggregate verification aliases are present. It also checks that aggregate
+commands still reference their expected focused checks, including the release
+aggregate command.
+
+This is a wiring check only. It does not run Cargo, browser automation,
+generated fixture smoke, or any release command recursively. Because it is
+read-only and deterministic, it is included at the end of `npm run
+verify:release`.

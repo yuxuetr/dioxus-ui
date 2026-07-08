@@ -112,6 +112,7 @@ node scripts/desktop-preview-verify.mjs
 scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
 node scripts/release-docs-verify.mjs
+npm run verify:package-scripts
 ```
 
 For routine local handoff before release-specific gates, this deterministic
@@ -125,6 +126,8 @@ npm run verify
 The alias runs preview smoke, example smoke, docs metadata, and Markdown drift
 checks. It does not install browser binaries and does not replace the full Rust,
 source-copy, feature, or release documentation gate list above.
+Package script wiring checks are also part of the release aggregate, but they
+only inspect `package.json`; they do not execute the release gate recursively.
 
 Focused npm aliases are also available:
 
@@ -133,6 +136,7 @@ npm run verify:smoke
 npm run verify:docs
 npm run verify:release
 npm run verify:release-docs
+npm run verify:package-scripts
 ```
 
 Browser-rendered Playwright smoke remains opt-in until a stable command is added
