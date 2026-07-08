@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M65 CI Plan Documentation Gate
-- Current task: M65 complete
+- Current milestone: M66 Documentation Index Consistency Gate
+- Current task: M66.2 Add documentation index consistency check
 
 ## Backup
 
@@ -819,7 +819,7 @@
 
 ## M66 Documentation Index Consistency Gate
 
-- TODO M66.1 Plan documentation index consistency gate
+- DONE M66.1 Plan documentation index consistency gate
   - Define which top-level docs and verification docs must be discoverable from README and docs/README.
   - Keep generated docs site, navigation runtime, link crawling, and CI workflow creation out of scope.
   - Decide which index invariants should be checked by a read-only script.
