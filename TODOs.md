@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M65 CI Plan Documentation Gate
-- Current task: M65.3 Update CI Plan documentation and wiring
+- Current task: M65.4 Complete CI Plan documentation milestone
 
 ## Backup
 
@@ -807,7 +807,7 @@
   - Add an npm alias for the CI Plan documentation check.
   - Keep the check read-only and avoid executing CI commands or creating workflow files.
 
-- TODO M65.3 Update CI Plan documentation and wiring
+- DONE M65.3 Update CI Plan documentation and wiring
   - Update quality gates, README, release docs, and docs-site planning docs with the CI Plan consistency check.
   - Include the CI Plan check in package script consistency and release aggregate checks if it remains deterministic and read-only.
   - Clarify that CI Plan checks validate documentation only, not active workflow configuration.
