@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M62 Release Gate Aggregator
-- Current task: M62.3 Update release aggregate documentation
+- Current task: M62.4 Complete release gate aggregator milestone
 
 ## Backup
 
@@ -741,7 +741,7 @@
   - Preserve opt-in browser smoke as a separate command.
   - Verify the aggregate command succeeds through normal npm command chaining.
 
-- TODO M62.3 Update release aggregate documentation
+- DONE M62.3 Update release aggregate documentation
   - Update README, release docs, quality gates, and docs-site planning docs with the release aggregate command.
   - Extend release docs consistency checks to require the aggregate alias.
   - Clarify that focused commands remain useful for isolating failures.
