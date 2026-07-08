@@ -838,3 +838,25 @@ git diff --check
 
 All commands passed. Browser installation, screenshots, and native runtime
 automation remain opt-in and outside the release aggregate.
+
+## M63 Package Script Consistency Gate Plan
+
+M63 should add a read-only package script consistency check for `package.json`.
+The check should validate that the verification aliases remain wired to the
+expected focused commands:
+
+- docs metadata aliases and `npm run verify:docs`
+- preview/example aliases and `npm run verify:smoke`
+- default local `npm run verify`
+- release documentation and package script consistency aliases
+- release aggregate `npm run verify:release`
+- opt-in mobile browser smoke alias
+
+The consistency check should inspect command strings only. It should not execute
+Cargo, Node, browser automation, screenshots, generated fixture smoke, or release
+commands. The goal is to catch accidental alias drift before a contributor runs
+an expensive gate.
+
+If the check remains deterministic and read-only, it can be included in the
+release aggregate command. Focused commands should remain available for failure
+isolation.
