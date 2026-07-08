@@ -787,3 +787,25 @@ Out of scope:
 - enabling screenshots by default
 - activating CI workflows
 - claiming native Mobile or native Desktop runtime automation
+
+## M62 Release Aggregate Usage
+
+M62 adds the release aggregate command:
+
+```bash
+npm run verify:release
+```
+
+The aggregate command keeps the release checklist executable while preserving
+focused commands for debugging. It runs Rust workspace checks, CLI registry/list
+smoke, `npm run verify`, feature checks, generated fixture smoke, and release
+documentation consistency checks.
+
+Browser-rendered smoke remains separate:
+
+```bash
+npm run verify:mobile-browser
+```
+
+That command still requires Playwright Chromium or an explicit browser
+executable, so it is not part of the release aggregate.

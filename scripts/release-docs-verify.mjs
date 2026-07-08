@@ -9,6 +9,10 @@ const releaseDocs = readFileSync(releaseDocsPath, "utf8");
 
 const requiredSnippets = [
   {
+    label: "release aggregate verification alias",
+    snippet: "npm run verify:release",
+  },
+  {
     label: "local aggregate verification alias",
     snippet: "npm run verify",
   },

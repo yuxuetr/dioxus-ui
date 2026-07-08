@@ -93,8 +93,17 @@ Patch releases should be limited to:
 Before publishing any crate:
 
 ```bash
+npm install
+npm run verify:release
+```
+
+The release aggregate runs the required local release gates in command-chain
+order. For manual review or focused failure isolation, the expanded gate set is:
+
+```bash
 cargo check --workspace --all-features
 cargo test --workspace --all-features
+cargo test -p dioxus-ui-cli --test registry
 cargo run -p dioxus-ui-cli -- list
 scripts/example-smoke.sh
 node scripts/web-preview-verify.mjs
@@ -122,6 +131,7 @@ Focused npm aliases are also available:
 ```bash
 npm run verify:smoke
 npm run verify:docs
+npm run verify:release
 npm run verify:release-docs
 ```
 

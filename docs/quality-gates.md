@@ -106,6 +106,13 @@ gesture arbitration.
 Run before publishing:
 
 ```bash
+npm install
+npm run verify:release
+```
+
+The release aggregate expands to the required local release gates:
+
+```bash
 cargo check --workspace --all-features
 cargo test --workspace --all-features
 cargo test -p dioxus-ui-cli --test registry
@@ -119,19 +126,23 @@ scripts/generated-fixture-smoke.sh
 node scripts/release-docs-verify.mjs
 ```
 
-Equivalent npm convenience aliases are available for the preview and example
-smoke plus docs metadata subset:
+Use the smaller deterministic local alias before routine handoff when full
+release checks are not needed:
 
 ```bash
-npm install
 npm run verify
 ```
 
-This alias does not require Playwright browser binaries and does not replace the
-full Rust release gate list above. Future browser-rendered smoke commands should
-document `npx playwright install chromium` separately.
+The local alias does not require Playwright browser binaries and does not
+replace feature, source-copy fixture, registry, or release documentation gates.
+Future browser-rendered smoke commands should document
+`npx playwright install chromium` separately.
 
 `npm run verify` runs `npm run verify:smoke` and `npm run verify:docs`.
+
+`npm run verify:release` runs Rust workspace checks, CLI registry/list smoke,
+`npm run verify`, component feature checks, generated fixture smoke, and release
+documentation consistency checks.
 
 `npm run verify:smoke` runs rendered preview structural checks and example smoke
 output.

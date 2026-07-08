@@ -192,6 +192,16 @@ This wraps preview/example smoke plus docs metadata checks. It does not run full
 Rust workspace tests, browser automation that needs an installed browser,
 screenshots, or release-only gates.
 
+Run the local release gate before publishing:
+
+```bash
+npm run verify:release
+```
+
+This runs Rust workspace checks, CLI registry/list smoke, the default local
+gate, feature checks, generated source-copy fixture smoke, and release docs
+consistency checks. It still keeps browser installation and screenshots opt-in.
+
 Run deterministic preview and example gates only:
 
 ```bash
