@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M66 Documentation Index Consistency Gate
-- Current task: M66.3 Update documentation indexes and verification wiring
+- Current task: M66.4 Complete documentation index consistency milestone
 
 ## Backup
 
@@ -829,7 +829,7 @@
   - Add an npm alias for the documentation index consistency check.
   - Keep the check read-only and avoid generated artifacts.
 
-- TODO M66.3 Update documentation indexes and verification wiring
+- DONE M66.3 Update documentation indexes and verification wiring
   - Update README and docs/README with missing quality, release, CI, site, RFC, and TODO links.
   - Include the docs index check in deterministic docs/package/release verification if appropriate.
   - Document the docs index check in quality gates, release docs, and docs-site planning docs.
