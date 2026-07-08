@@ -54,6 +54,7 @@ const aggregateScriptRequirements = {
     "npm run verify:release-docs",
     "npm run verify:package-scripts",
     "npm run verify:ci-docs",
+    "npm run verify:ci-plan",
   ],
 };
 

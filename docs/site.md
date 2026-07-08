@@ -1002,3 +1002,30 @@ Expected CI Plan shape:
 The read-only check should inspect `docs/quality-gates.md` and ensure the CI
 Plan mentions the current local, release, and browser verification boundaries.
 It should also keep workflow creation out of scope.
+
+## M65 CI Plan Documentation Gate Usage
+
+M65 adds the CI Plan documentation check:
+
+```bash
+npm run verify:ci-plan
+```
+
+The command checks the `docs/quality-gates.md` CI Plan section for current PR,
+scheduled/release, and opt-in browser verification boundaries:
+
+- Rust workspace checks
+- CLI registry checks
+- source-copy fixture smoke
+- `npm run verify`
+- `npm run verify:release`
+- `scripts/feature-check.sh`
+- `docs/ci-browser-smoke.md`
+
+The check is documentation-only. It does not execute CI commands, create
+workflow files, install browsers, or promote browser smoke to a required gate.
+Because it is read-only and deterministic, it is included at the end of:
+
+```bash
+npm run verify:release
+```

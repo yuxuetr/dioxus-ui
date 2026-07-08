@@ -114,6 +114,7 @@ scripts/generated-fixture-smoke.sh
 node scripts/release-docs-verify.mjs
 npm run verify:package-scripts
 npm run verify:ci-docs
+npm run verify:ci-plan
 ```
 
 For routine local handoff before release-specific gates, this deterministic
@@ -130,6 +131,7 @@ source-copy, feature, or release documentation gate list above.
 Package script wiring checks are also part of the release aggregate, but they
 only inspect `package.json`; they do not execute the release gate recursively.
 CI browser docs checks are read-only and do not create workflow files.
+CI Plan checks are also read-only and validate documentation only.
 
 Focused npm aliases are also available:
 
@@ -140,6 +142,7 @@ npm run verify:release
 npm run verify:release-docs
 npm run verify:package-scripts
 npm run verify:ci-docs
+npm run verify:ci-plan
 ```
 
 Browser-rendered Playwright smoke remains opt-in until a stable command is added

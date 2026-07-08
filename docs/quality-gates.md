@@ -241,16 +241,29 @@ cargo check --workspace --all-features
 cargo test --workspace --all-features
 cargo test -p dioxus-ui-cli --test registry
 scripts/generated-fixture-smoke.sh
+npm run verify
 ```
 
-Scheduled or release CI should additionally run:
+This keeps pull request CI on deterministic Rust, source-copy, preview, example,
+docs metadata, and Markdown drift checks without requiring browser installation.
+
+Scheduled or release CI should run the full local release aggregate:
+
+```bash
+npm run verify:release
+```
+
+The release aggregate includes the feature gate, generated fixture smoke,
+release documentation checks, package script wiring checks, and CI documentation
+checks. The feature gate recompiles the same crate many times, so keeping it in
+scheduled or release CI is the conservative default:
 
 ```bash
 scripts/feature-check.sh
 ```
 
-The feature gate is separated because it recompiles the same crate many times.
-If CI time remains acceptable, it can be promoted into default pull request CI.
+Browser smoke remains opt-in and should follow the policy in
+`docs/ci-browser-smoke.md` and `docs/ci-browser-workflow-template.md`.
 
 ## Runtime Web Verification Gate
 

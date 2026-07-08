@@ -37,8 +37,20 @@ const requiredSnippets = [
     snippet: "scripts/generated-fixture-smoke.sh",
   },
   {
+    label: "local deterministic aggregate command",
+    snippet: "npm run verify",
+  },
+  {
+    label: "release aggregate command",
+    snippet: "npm run verify:release",
+  },
+  {
     label: "feature check command",
     snippet: "scripts/feature-check.sh",
+  },
+  {
+    label: "browser smoke opt-in command",
+    snippet: "docs/ci-browser-smoke.md",
   },
 ];
 
