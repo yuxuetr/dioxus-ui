@@ -954,3 +954,31 @@ Because the check is read-only and deterministic, it is included at the end of:
 ```bash
 npm run verify:release
 ```
+
+## M64 Final Result
+
+M64 aligned CI browser smoke documentation with the current verification aliases
+and added:
+
+```bash
+npm run verify:ci-docs
+```
+
+The command checks `docs/ci-browser-smoke.md` and
+`docs/ci-browser-workflow-template.md` for the expected local gate references,
+manual/non-blocking workflow language, and absence of
+`.github/workflows/browser-smoke.yml`.
+
+Validation ran:
+
+```bash
+npm run verify:ci-docs
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:docs
+npm run verify:release
+git diff --check
+test ! -e .github/workflows/browser-smoke.yml
+```
+
+All commands passed. No workflow files or generated artifacts were committed.
