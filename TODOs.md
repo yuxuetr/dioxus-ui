@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
+- Overall: 100%
 - Current milestone: M65 CI Plan Documentation Gate
-- Current task: M65.4 Complete CI Plan documentation milestone
+- Current task: M65 complete
 
 ## Backup
 
@@ -812,7 +812,7 @@
   - Include the CI Plan check in package script consistency and release aggregate checks if it remains deterministic and read-only.
   - Clarify that CI Plan checks validate documentation only, not active workflow configuration.
 
-- TODO M65.4 Complete CI Plan documentation milestone
+- DONE M65.4 Complete CI Plan documentation milestone
   - Run release aggregate verification, CI Plan docs checks, package script checks, CI browser docs checks, release docs checks, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
