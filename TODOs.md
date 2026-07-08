@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M62 Release Gate Aggregator
-- Current task: M62 complete
+- Overall: 0%
+- Current milestone: M63 Package Script Consistency Gate
+- Current task: M63.1 Plan package script consistency gate
 
 ## Backup
 
@@ -748,6 +748,28 @@
 
 - DONE M62.4 Complete release gate aggregator milestone
   - Run the release aggregate command, release docs consistency checks, workspace tests as needed, and diff checks.
+  - Verify no generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M63 Package Script Consistency Gate
+
+- TODO M63.1 Plan package script consistency gate
+  - Define which npm verification aliases are required for local, docs, release, and opt-in browser gates.
+  - Decide which aggregate command relationships should be checked for drift.
+  - Keep command execution, browser installation, and generated artifacts out of the consistency check.
+
+- TODO M63.2 Add package script consistency check
+  - Add a deterministic read-only script that validates required `package.json` verification aliases.
+  - Verify aggregate aliases reference the expected focused commands.
+  - Add an npm alias for the package script consistency check.
+
+- TODO M63.3 Update package script gate documentation
+  - Update README, quality gates, release docs, and docs-site planning docs with the new consistency check.
+  - Include the package script check in the release aggregate command if it remains deterministic and read-only.
+  - Clarify that the check validates command wiring but does not execute the release gate.
+
+- TODO M63.4 Complete package script consistency milestone
+  - Run release aggregate verification, package script consistency checks, release docs consistency checks, and diff checks.
   - Verify no generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
