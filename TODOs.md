@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M66 Documentation Index Consistency Gate
-- Current task: M66.4 Complete documentation index consistency milestone
+- Current task: M66 complete
 
 ## Backup
 
@@ -834,7 +834,7 @@
   - Include the docs index check in deterministic docs/package/release verification if appropriate.
   - Document the docs index check in quality gates, release docs, and docs-site planning docs.
 
-- TODO M66.4 Complete documentation index consistency milestone
+- DONE M66.4 Complete documentation index consistency milestone
   - Run docs index checks, docs aggregate, package script checks, release docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
