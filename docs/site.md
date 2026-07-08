@@ -1105,3 +1105,30 @@ Because the check is deterministic and cheap, it is included in:
 ```bash
 npm run verify:docs
 ```
+
+## M66 Final Result
+
+M66 added the documentation index consistency check:
+
+```bash
+npm run verify:docs-index
+```
+
+The command verifies required root README and docs README links for quality,
+release, CI, docs-site, RFC, and TODO entry points. It is included in
+`npm run verify:docs`, and package script consistency checks now require the
+alias and aggregate wiring.
+
+Validation ran:
+
+```bash
+npm run verify:docs-index
+npm run verify:docs
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:release
+git diff --check
+test ! -e .github/workflows/browser-smoke.yml
+```
+
+All commands passed. No workflow files or generated artifacts were committed.
