@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M66 Documentation Index Consistency Gate
-- Current task: M66.2 Add documentation index consistency check
+- Current task: M66.3 Update documentation indexes and verification wiring
 
 ## Backup
 
@@ -824,7 +824,7 @@
   - Keep generated docs site, navigation runtime, link crawling, and CI workflow creation out of scope.
   - Decide which index invariants should be checked by a read-only script.
 
-- TODO M66.2 Add documentation index consistency check
+- DONE M66.2 Add documentation index consistency check
   - Add a deterministic script that verifies required README and docs/README links.
   - Add an npm alias for the documentation index consistency check.
   - Keep the check read-only and avoid generated artifacts.
