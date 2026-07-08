@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M62 Release Gate Aggregator
-- Current task: M62.1 Plan release gate aggregation
+- Current task: M62.2 Add release aggregate verification command
 
 ## Backup
 
@@ -731,7 +731,7 @@
 
 ## M62 Release Gate Aggregator
 
-- TODO M62.1 Plan release gate aggregation
+- DONE M62.1 Plan release gate aggregation
   - Define a single explicit release verification alias for the existing required local release gates.
   - Decide command ordering so cheap deterministic checks fail before expensive feature and fixture checks where practical.
   - Keep browser installation, screenshots, CI workflow activation, and native Mobile/Desktop runtime automation out of scope.
