@@ -755,3 +755,35 @@ git diff --check
 ```
 
 All commands passed. No generated release artifacts were committed.
+
+## M62 Release Gate Aggregator Plan
+
+M62 should add a single explicit npm alias for the existing local release gate
+set:
+
+```bash
+npm run verify:release
+```
+
+The command should aggregate already-documented release checks rather than
+introduce new release behavior. It should run:
+
+- Rust workspace check and tests
+- CLI registry test and `dxui list` smoke
+- default deterministic local verification through `npm run verify`
+- feature compilation checks
+- generated source-copy fixture smoke
+- release documentation consistency check
+
+Command ordering should fail on broad deterministic checks before the more
+expensive feature and generated-fixture gates where practical. Focused aliases
+must remain available for isolation, and opt-in browser smoke should stay
+outside the aggregate command because it requires browser installation or a
+local browser executable.
+
+Out of scope:
+
+- installing Playwright browser binaries
+- enabling screenshots by default
+- activating CI workflows
+- claiming native Mobile or native Desktop runtime automation
