@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M64 CI Browser Docs Alignment
-- Current task: M64.3 Update CI browser docs and verification wiring
+- Current task: M64.4 Complete CI browser docs alignment milestone
 
 ## Backup
 
@@ -785,7 +785,7 @@
   - Add an npm alias for the CI docs consistency check.
   - Keep the check read-only and avoid creating `.github/workflows`.
 
-- TODO M64.3 Update CI browser docs and verification wiring
+- DONE M64.3 Update CI browser docs and verification wiring
   - Update CI browser smoke docs and workflow template to use the current local verification aliases.
   - Document the CI docs consistency check in README, quality gates, release docs, and docs-site planning docs.
   - Include the CI docs check in package script consistency and release aggregate checks if it remains deterministic and read-only.
