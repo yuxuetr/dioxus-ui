@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M65 CI Plan Documentation Gate
-- Current task: M65.1 Plan CI plan documentation gate
+- Current task: M65.2 Add CI plan consistency check
 
 ## Backup
 
@@ -797,7 +797,7 @@
 
 ## M65 CI Plan Documentation Gate
 
-- TODO M65.1 Plan CI plan documentation gate
+- DONE M65.1 Plan CI plan documentation gate
   - Define how the CI Plan section should reference default PR, release, scheduled, and opt-in browser verification.
   - Keep actual workflow files, required gate promotion, browser installation changes, and CI provider configuration out of scope.
   - Decide which CI Plan invariants should be covered by a read-only documentation check.
