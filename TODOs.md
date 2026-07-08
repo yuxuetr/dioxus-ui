@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M64 CI Browser Docs Alignment
-- Current task: M64.2 Add CI browser docs consistency check
+- Current task: M64.3 Update CI browser docs and verification wiring
 
 ## Backup
 
@@ -780,7 +780,7 @@
   - Keep workflow activation, required merge gates, browser installation changes, and native Mobile/Desktop claims out of scope.
   - Decide which CI browser documentation invariants should be checked by a read-only script.
 
-- TODO M64.2 Add CI browser docs consistency check
+- DONE M64.2 Add CI browser docs consistency check
   - Add a deterministic script that verifies CI browser smoke docs and workflow template mention the expected local gates and opt-in boundary.
   - Add an npm alias for the CI docs consistency check.
   - Keep the check read-only and avoid creating `.github/workflows`.
