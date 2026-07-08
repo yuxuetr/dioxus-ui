@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
+- Overall: 100%
 - Current milestone: M62 Release Gate Aggregator
-- Current task: M62.4 Complete release gate aggregator milestone
+- Current task: M62 complete
 
 ## Backup
 
@@ -746,7 +746,7 @@
   - Extend release docs consistency checks to require the aggregate alias.
   - Clarify that focused commands remain useful for isolating failures.
 
-- TODO M62.4 Complete release gate aggregator milestone
+- DONE M62.4 Complete release gate aggregator milestone
   - Run the release aggregate command, release docs consistency checks, workspace tests as needed, and diff checks.
   - Verify no generated artifacts are committed.
   - Update TODO status only after commits and validation.
