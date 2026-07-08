@@ -907,3 +907,25 @@ git diff --check
 ```
 
 All commands passed. No generated artifacts were committed.
+
+## M64 CI Browser Docs Alignment Plan
+
+M64 should align the CI browser smoke documentation with the current verification
+aliases. CI browser smoke remains opt-in and should not become an active
+workflow in this milestone.
+
+Expected documentation shape:
+
+- local deterministic checks before browser smoke should use `npm run verify`
+  plus Rust workspace tests where appropriate.
+- release-ready checks should point to `npm run verify:release`.
+- browser smoke should remain `npm run verify:mobile-browser` with explicit
+  Playwright Chromium or external browser setup.
+- the workflow template should stay documentation-only, manually triggered, and
+  non-blocking.
+- no `.github/workflows` file should be added.
+
+The consistency check should read `docs/ci-browser-smoke.md` and
+`docs/ci-browser-workflow-template.md` only. It should verify command references
+and opt-in language without running browser automation or creating workflow
+files.
