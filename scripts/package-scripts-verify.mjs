@@ -19,6 +19,7 @@ const requiredScripts = {
   "verify:docs-source-preview": "node scripts/docs-source-preview-verify.mjs",
   "verify:release-docs": "node scripts/release-docs-verify.mjs",
   "verify:package-scripts": "node scripts/package-scripts-verify.mjs",
+  "verify:ci-docs": "node scripts/ci-docs-verify.mjs",
 };
 
 const aggregateScriptRequirements = {

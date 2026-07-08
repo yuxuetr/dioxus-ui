@@ -14,6 +14,7 @@
     "verify:docs-source-preview": "node scripts/docs-source-preview-verify.mjs",
     "verify:release-docs": "node scripts/release-docs-verify.mjs",
     "verify:package-scripts": "node scripts/package-scripts-verify.mjs",
+    "verify:ci-docs": "node scripts/ci-docs-verify.mjs",
     "verify:docs": "npm run verify:docs-catalog && npm run verify:docs-catalog-page && npm run verify:docs-routes && npm run verify:docs-source-preview",
     "verify:examples": "scripts/example-smoke.sh",
     "verify:preview": "npm run verify:web-preview && npm run verify:mobile-web-profile && npm run verify:desktop-preview",
