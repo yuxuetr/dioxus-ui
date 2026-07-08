@@ -817,6 +817,28 @@
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
+## M66 Documentation Index Consistency Gate
+
+- TODO M66.1 Plan documentation index consistency gate
+  - Define which top-level docs and verification docs must be discoverable from README and docs/README.
+  - Keep generated docs site, navigation runtime, link crawling, and CI workflow creation out of scope.
+  - Decide which index invariants should be checked by a read-only script.
+
+- TODO M66.2 Add documentation index consistency check
+  - Add a deterministic script that verifies required README and docs/README links.
+  - Add an npm alias for the documentation index consistency check.
+  - Keep the check read-only and avoid generated artifacts.
+
+- TODO M66.3 Update documentation indexes and verification wiring
+  - Update README and docs/README with missing quality, release, CI, site, RFC, and TODO links.
+  - Include the docs index check in deterministic docs/package/release verification if appropriate.
+  - Document the docs index check in quality gates, release docs, and docs-site planning docs.
+
+- TODO M66.4 Complete documentation index consistency milestone
+  - Run docs index checks, docs aggregate, package script checks, release docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
 ## Status Rules
 
 - Change `TODO` to `DONE` only after implementation, validation, and commit.
