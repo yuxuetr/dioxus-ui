@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
+- Overall: 100%
 - Current milestone: M64 CI Browser Docs Alignment
-- Current task: M64.4 Complete CI browser docs alignment milestone
+- Current task: M64 complete
 
 ## Backup
 
@@ -790,7 +790,7 @@
   - Document the CI docs consistency check in README, quality gates, release docs, and docs-site planning docs.
   - Include the CI docs check in package script consistency and release aggregate checks if it remains deterministic and read-only.
 
-- TODO M64.4 Complete CI browser docs alignment milestone
+- DONE M64.4 Complete CI browser docs alignment milestone
   - Run release aggregate verification, CI docs consistency checks, package script consistency checks, release docs checks, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
