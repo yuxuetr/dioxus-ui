@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M64 CI Browser Docs Alignment
-- Current task: M64.1 Plan CI browser docs alignment
+- Current task: M64.2 Add CI browser docs consistency check
 
 ## Backup
 
@@ -775,7 +775,7 @@
 
 ## M64 CI Browser Docs Alignment
 
-- TODO M64.1 Plan CI browser docs alignment
+- DONE M64.1 Plan CI browser docs alignment
   - Define how CI browser smoke docs should reference `npm run verify`, `npm run verify:release`, and opt-in browser smoke.
   - Keep workflow activation, required merge gates, browser installation changes, and native Mobile/Desktop claims out of scope.
   - Decide which CI browser documentation invariants should be checked by a read-only script.
