@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M63 Package Script Consistency Gate
-- Current task: M63.2 Add package script consistency check
+- Current task: M63.3 Update package script gate documentation
 
 ## Backup
 
@@ -758,7 +758,7 @@
   - Decide which aggregate command relationships should be checked for drift.
   - Keep command execution, browser installation, and generated artifacts out of the consistency check.
 
-- TODO M63.2 Add package script consistency check
+- DONE M63.2 Add package script consistency check
   - Add a deterministic read-only script that validates required `package.json` verification aliases.
   - Verify aggregate aliases reference the expected focused commands.
   - Add an npm alias for the package script consistency check.
