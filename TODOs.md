@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M64 CI Browser Docs Alignment
-- Current task: M64 complete
+- Overall: 0%
+- Current milestone: M65 CI Plan Documentation Gate
+- Current task: M65.1 Plan CI plan documentation gate
 
 ## Backup
 
@@ -792,6 +792,28 @@
 
 - DONE M64.4 Complete CI browser docs alignment milestone
   - Run release aggregate verification, CI docs consistency checks, package script consistency checks, release docs checks, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M65 CI Plan Documentation Gate
+
+- TODO M65.1 Plan CI plan documentation gate
+  - Define how the CI Plan section should reference default PR, release, scheduled, and opt-in browser verification.
+  - Keep actual workflow files, required gate promotion, browser installation changes, and CI provider configuration out of scope.
+  - Decide which CI Plan invariants should be covered by a read-only documentation check.
+
+- TODO M65.2 Add CI plan consistency check
+  - Add a deterministic script that verifies the CI Plan documents the current local and release verification aliases.
+  - Add an npm alias for the CI Plan documentation check.
+  - Keep the check read-only and avoid executing CI commands or creating workflow files.
+
+- TODO M65.3 Update CI Plan documentation and wiring
+  - Update quality gates, README, release docs, and docs-site planning docs with the CI Plan consistency check.
+  - Include the CI Plan check in package script consistency and release aggregate checks if it remains deterministic and read-only.
+  - Clarify that CI Plan checks validate documentation only, not active workflow configuration.
+
+- TODO M65.4 Complete CI Plan documentation milestone
+  - Run release aggregate verification, CI Plan docs checks, package script checks, CI browser docs checks, release docs checks, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
