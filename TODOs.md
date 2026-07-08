@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M63 Package Script Consistency Gate
-- Current task: M63.3 Update package script gate documentation
+- Current task: M63.4 Complete package script consistency milestone
 
 ## Backup
 
@@ -763,7 +763,7 @@
   - Verify aggregate aliases reference the expected focused commands.
   - Add an npm alias for the package script consistency check.
 
-- TODO M63.3 Update package script gate documentation
+- DONE M63.3 Update package script gate documentation
   - Update README, quality gates, release docs, and docs-site planning docs with the new consistency check.
   - Include the package script check in the release aggregate command if it remains deterministic and read-only.
   - Clarify that the check validates command wiring but does not execute the release gate.
