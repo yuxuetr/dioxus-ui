@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M65 CI Plan Documentation Gate
-- Current task: M65.2 Add CI plan consistency check
+- Current task: M65.3 Update CI Plan documentation and wiring
 
 ## Backup
 
@@ -802,7 +802,7 @@
   - Keep actual workflow files, required gate promotion, browser installation changes, and CI provider configuration out of scope.
   - Decide which CI Plan invariants should be covered by a read-only documentation check.
 
-- TODO M65.2 Add CI plan consistency check
+- DONE M65.2 Add CI plan consistency check
   - Add a deterministic script that verifies the CI Plan documents the current local and release verification aliases.
   - Add an npm alias for the CI Plan documentation check.
   - Keep the check read-only and avoid executing CI commands or creating workflow files.
