@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M63 Package Script Consistency Gate
-- Current task: M63 complete
+- Overall: 0%
+- Current milestone: M64 CI Browser Docs Alignment
+- Current task: M64.1 Plan CI browser docs alignment
 
 ## Backup
 
@@ -771,6 +771,28 @@
 - DONE M63.4 Complete package script consistency milestone
   - Run release aggregate verification, package script consistency checks, release docs consistency checks, and diff checks.
   - Verify no generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M64 CI Browser Docs Alignment
+
+- TODO M64.1 Plan CI browser docs alignment
+  - Define how CI browser smoke docs should reference `npm run verify`, `npm run verify:release`, and opt-in browser smoke.
+  - Keep workflow activation, required merge gates, browser installation changes, and native Mobile/Desktop claims out of scope.
+  - Decide which CI browser documentation invariants should be checked by a read-only script.
+
+- TODO M64.2 Add CI browser docs consistency check
+  - Add a deterministic script that verifies CI browser smoke docs and workflow template mention the expected local gates and opt-in boundary.
+  - Add an npm alias for the CI docs consistency check.
+  - Keep the check read-only and avoid creating `.github/workflows`.
+
+- TODO M64.3 Update CI browser docs and verification wiring
+  - Update CI browser smoke docs and workflow template to use the current local verification aliases.
+  - Document the CI docs consistency check in README, quality gates, release docs, and docs-site planning docs.
+  - Include the CI docs check in package script consistency and release aggregate checks if it remains deterministic and read-only.
+
+- TODO M64.4 Complete CI browser docs alignment milestone
+  - Run release aggregate verification, CI docs consistency checks, package script consistency checks, release docs checks, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
