@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M67 Local Markdown Link Target Gate
-- Current task: M67.2 Add local Markdown link target check
+- Current task: M67.3 Update link target verification wiring
 
 ## Backup
 
@@ -846,7 +846,7 @@
   - Keep external URL validation, anchor validation, generated docs runtime checks, and link crawling out of scope.
   - Decide how the check should handle ignored build outputs and non-Markdown assets.
 
-- TODO M67.2 Add local Markdown link target check
+- DONE M67.2 Add local Markdown link target check
   - Add a deterministic read-only script that scans repository Markdown files for local relative links.
   - Fail when a relative file target does not exist in the repository.
   - Add an npm alias for the local Markdown link target check.
