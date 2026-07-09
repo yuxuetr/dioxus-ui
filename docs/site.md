@@ -1132,3 +1132,32 @@ test ! -e .github/workflows/browser-smoke.yml
 ```
 
 All commands passed. No workflow files or generated artifacts were committed.
+
+## M67 Local Markdown Link Target Gate Plan
+
+M67 should verify that local relative Markdown links keep pointing at real
+repository files as documentation grows. This complements the M66 index check:
+M66 checks that required entry-point links are present, while M67 checks that
+local links in Markdown documents do not drift to missing files.
+
+The check should scan tracked Markdown documentation sources, including:
+
+- root README and TODO plan files
+- `docs/**/*.md`
+- RFC documents
+- component documentation pages
+
+The check should include local relative links to Markdown and repository assets.
+It should strip query strings, fragments, and angle-bracket wrappers before
+resolving the target relative to the source file.
+
+Out of scope for this milestone:
+
+- external URL validation
+- fragment or heading anchor validation
+- generated docs runtime route validation
+- crawling HTML, Rust docs, registry JSON, or generated fixture output
+- network access
+
+Ignored build output, Cargo target directories, node modules, git metadata, and
+temporary generated fixtures should remain outside the scan.
