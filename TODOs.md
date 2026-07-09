@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M68 Local Markdown Anchor Gate
-- Current task: M68.3 Update anchor verification wiring
+- Current task: M68.4 Complete local Markdown anchor milestone
 
 ## Backup
 
@@ -873,7 +873,7 @@
   - Validate same-file and relative Markdown fragments against target headings or explicit anchors.
   - Add an npm alias for the local Markdown anchor check.
 
-- TODO M68.3 Update anchor verification wiring
+- DONE M68.3 Update anchor verification wiring
   - Include the anchor check in deterministic docs/package/release verification if appropriate.
   - Document the check in README, quality gates, release docs, and docs-site planning docs.
   - Keep external anchors and generated route anchors documented as future scope.
