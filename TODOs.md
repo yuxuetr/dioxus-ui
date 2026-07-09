@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M68 Local Markdown Anchor Gate
-- Current task: M68.2 Add local Markdown anchor check
+- Current task: M68.3 Update anchor verification wiring
 
 ## Backup
 
@@ -868,7 +868,7 @@
   - Keep external URL anchors, generated docs runtime routes, rendered HTML checks, and network access out of scope.
   - Decide how the check should handle GitHub-style heading slugs and duplicate headings.
 
-- TODO M68.2 Add local Markdown anchor check
+- DONE M68.2 Add local Markdown anchor check
   - Add a deterministic read-only script that scans tracked Markdown files for local fragment links.
   - Validate same-file and relative Markdown fragments against target headings or explicit anchors.
   - Add an npm alias for the local Markdown anchor check.
