@@ -230,6 +230,7 @@ npm run verify:docs-catalog-page
 npm run verify:docs-routes
 npm run verify:docs-source-preview
 npm run verify:docs-index
+npm run verify:docs-links
 ```
 
 This builds the catalog in memory from registry entries, templates, component
@@ -238,6 +239,8 @@ docs, crate features, and crate modules. The page check also verifies
 route check verifies future docs runtime route metadata. The source preview
 check verifies template metadata for future source preview routes. The index
 check verifies README and docs/README keep the required project entry points.
+The link target check verifies tracked Markdown files do not reference missing
+local files.
 
 Verify documentation index consistency only:
 
@@ -247,6 +250,15 @@ npm run verify:docs-index
 
 This checks that the root README and docs README link the required quality,
 release, CI, site, RFC, and TODO entry points.
+
+Verify local Markdown link targets only:
+
+```bash
+npm run verify:docs-links
+```
+
+This checks local relative links in tracked Markdown files. It does not validate
+external URLs or heading fragments.
 
 Verify release documentation consistency only:
 

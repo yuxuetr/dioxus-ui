@@ -18,7 +18,7 @@
     "verify:package-scripts": "node scripts/package-scripts-verify.mjs",
     "verify:ci-docs": "node scripts/ci-docs-verify.mjs",
     "verify:ci-plan": "node scripts/ci-plan-verify.mjs",
-    "verify:docs": "npm run verify:docs-catalog && npm run verify:docs-catalog-page && npm run verify:docs-routes && npm run verify:docs-source-preview && npm run verify:docs-index",
+    "verify:docs": "npm run verify:docs-catalog && npm run verify:docs-catalog-page && npm run verify:docs-routes && npm run verify:docs-source-preview && npm run verify:docs-index && npm run verify:docs-links",
     "verify:examples": "scripts/example-smoke.sh",
     "verify:preview": "npm run verify:web-preview && npm run verify:mobile-web-profile && npm run verify:desktop-preview",
     "verify:smoke": "npm run verify:preview && npm run verify:examples",

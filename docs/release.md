@@ -134,6 +134,8 @@ CI browser docs checks are read-only and do not create workflow files.
 CI Plan checks are also read-only and validate documentation only.
 Documentation index checks are part of `npm run verify:docs` and validate only
 README entry-point links.
+Markdown link target checks are part of `npm run verify:docs` and validate only
+local relative file targets in tracked Markdown files.
 
 Focused npm aliases are also available:
 
@@ -146,6 +148,7 @@ npm run verify:package-scripts
 npm run verify:ci-docs
 npm run verify:ci-plan
 npm run verify:docs-index
+npm run verify:docs-links
 ```
 
 Browser-rendered Playwright smoke remains opt-in until a stable command is added

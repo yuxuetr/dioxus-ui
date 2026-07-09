@@ -1161,3 +1161,22 @@ Out of scope for this milestone:
 
 Ignored build output, Cargo target directories, node modules, git metadata, and
 temporary generated fixtures should remain outside the scan.
+
+## M67 Local Markdown Link Target Gate Usage
+
+M67 adds the local Markdown link target check:
+
+```bash
+npm run verify:docs-links
+```
+
+The command scans tracked Markdown files and verifies that local relative file
+targets exist. It strips query strings and fragments before resolving targets.
+It does not validate external URLs, heading fragments, generated docs routes,
+or runtime navigation.
+
+Because the check is deterministic and read-only, it is included in:
+
+```bash
+npm run verify:docs
+```
