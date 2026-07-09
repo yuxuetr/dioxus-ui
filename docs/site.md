@@ -1326,3 +1326,29 @@ Because the check is deterministic and read-only, it is included in:
 ```bash
 npm run verify:release
 ```
+
+## M69 Final Result
+
+M69 added the repository hygiene check:
+
+```bash
+npm run verify:repo-hygiene
+```
+
+The command checks tracked files and repository-local paths for forbidden
+artifacts such as the inactive browser smoke workflow and generated mobile
+browser screenshots. It is included in `npm run verify:release`, and package
+script consistency checks now require the alias and aggregate wiring.
+
+Validation ran:
+
+```bash
+npm run verify:repo-hygiene
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:docs
+npm run verify:release
+git diff --check
+```
+
+All commands passed. No workflow files or generated artifacts were committed.
