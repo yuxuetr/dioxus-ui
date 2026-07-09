@@ -22,6 +22,7 @@ const requiredScripts = {
   "verify:docs-anchors": "node scripts/docs-anchors-verify.mjs",
   "verify:release-docs": "node scripts/release-docs-verify.mjs",
   "verify:package-scripts": "node scripts/package-scripts-verify.mjs",
+  "verify:repo-hygiene": "node scripts/repo-hygiene-verify.mjs",
   "verify:ci-docs": "node scripts/ci-docs-verify.mjs",
   "verify:ci-plan": "node scripts/ci-plan-verify.mjs",
 };

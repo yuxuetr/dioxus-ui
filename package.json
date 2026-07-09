@@ -17,6 +17,7 @@
     "verify:docs-anchors": "node scripts/docs-anchors-verify.mjs",
     "verify:release-docs": "node scripts/release-docs-verify.mjs",
     "verify:package-scripts": "node scripts/package-scripts-verify.mjs",
+    "verify:repo-hygiene": "node scripts/repo-hygiene-verify.mjs",
     "verify:ci-docs": "node scripts/ci-docs-verify.mjs",
     "verify:ci-plan": "node scripts/ci-plan-verify.mjs",
     "verify:docs": "npm run verify:docs-catalog && npm run verify:docs-catalog-page && npm run verify:docs-routes && npm run verify:docs-source-preview && npm run verify:docs-index && npm run verify:docs-links && npm run verify:docs-anchors",
