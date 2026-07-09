@@ -18,6 +18,7 @@ const requiredScripts = {
   "verify:docs-routes": "node scripts/docs-route-manifest-verify.mjs",
   "verify:docs-source-preview": "node scripts/docs-source-preview-verify.mjs",
   "verify:docs-index": "node scripts/docs-index-verify.mjs",
+  "verify:docs-links": "node scripts/docs-link-targets-verify.mjs",
   "verify:release-docs": "node scripts/release-docs-verify.mjs",
   "verify:package-scripts": "node scripts/package-scripts-verify.mjs",
   "verify:ci-docs": "node scripts/ci-docs-verify.mjs",
