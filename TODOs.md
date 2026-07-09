@@ -883,6 +883,28 @@
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
+## M69 Repository Hygiene Gate
+
+- TODO M69.1 Plan repository hygiene gate
+  - Define which generated artifacts and inactive workflow files must not be committed.
+  - Keep cleanup, destructive deletion, dependency pruning, and formatting changes out of scope.
+  - Decide which hygiene invariants should be checked by a read-only script.
+
+- TODO M69.2 Add repository hygiene check
+  - Add a deterministic read-only script that checks for forbidden tracked files and inactive workflow files.
+  - Verify browser screenshot artifacts and the inactive browser smoke workflow are not committed.
+  - Add an npm alias for the repository hygiene check.
+
+- TODO M69.3 Update repository hygiene verification wiring
+  - Include the hygiene check in deterministic package/release verification if appropriate.
+  - Document the check in README, quality gates, release docs, and docs-site planning docs.
+  - Clarify that the check reports hygiene drift but does not remove files.
+
+- TODO M69.4 Complete repository hygiene milestone
+  - Run hygiene checks, package script checks, release docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
 ## Status Rules
 
 - Change `TODO` to `DONE` only after implementation, validation, and commit.
