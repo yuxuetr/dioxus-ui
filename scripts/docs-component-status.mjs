@@ -16,6 +16,30 @@ const sortByCategoryThenName = (left, right) => {
   return left.category_label.localeCompare(right.category_label);
 };
 
+const mark = (value) => {
+  return value ? "yes" : "no";
+};
+
+const hasText = (value) => {
+  return typeof value === "string" && value.length > 0;
+};
+
+const coverageFor = (item) => {
+  const coverage = {
+    docs: hasText(item.markdown_path),
+    template: hasText(item.template_path),
+    target: hasText(item.source_copy_target),
+    feature: hasText(item.crate_feature),
+    module: hasText(item.crate_module),
+    sourcePreview: hasText(item.source_preview_route) && hasText(item.source_preview_path),
+  };
+
+  return {
+    ...coverage,
+    complete: Object.values(coverage).every(Boolean),
+  };
+};
+
 export function renderComponentStatusMarkdown(options = {}) {
   const {
     catalog,
@@ -25,6 +49,13 @@ export function renderComponentStatusMarkdown(options = {}) {
   } = buildDocsCatalog(options);
   const sortedCatalog = [...catalog].sort(sortByCategoryThenName);
   const sortedSourceCopyHelpers = [...sourceCopyHelpers].sort();
+  const coverageRecords = sortedCatalog.map((item) => {
+    return { item, coverage: coverageFor(item) };
+  });
+  const completeCoverageCount = coverageRecords.filter(({ coverage }) => {
+    return coverage.complete;
+  }).length;
+  const incompleteCoverageCount = coverageRecords.length - completeCoverageCount;
   const categoryCounts = new Map();
 
   for (const item of sortedCatalog) {
@@ -54,6 +85,8 @@ export function renderComponentStatusMarkdown(options = {}) {
     `- Crate modules: ${summary.crateModules}`,
     `- Crate features: ${summary.crateFeatures}`,
     `- Component docs pages: ${summary.componentDocs}`,
+    `- Complete local wiring: ${completeCoverageCount}`,
+    `- Incomplete local wiring: ${incompleteCoverageCount}`,
     "",
     "## Category Counts",
     "",
@@ -67,7 +100,21 @@ export function renderComponentStatusMarkdown(options = {}) {
 
   lines.push(
     "",
-    "## Public Components",
+    "## Coverage Matrix",
+    "",
+    "| Component | Category | Docs | Template | Target | Feature | Module | Source Preview | Complete |",
+    "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+  );
+
+  for (const { item, coverage } of coverageRecords) {
+    lines.push(
+      `| ${item.title} | ${item.category_label} | ${mark(coverage.docs)} | ${mark(coverage.template)} | ${mark(coverage.target)} | ${mark(coverage.feature)} | ${mark(coverage.module)} | ${mark(coverage.sourcePreview)} | ${mark(coverage.complete)} |`,
+    );
+  }
+
+  lines.push(
+    "",
+    "## Public Component Details",
     "",
     "| Component | Category | Docs | CLI | Feature | Template | Target |",
     "| --- | --- | --- | --- | --- | --- | --- |",

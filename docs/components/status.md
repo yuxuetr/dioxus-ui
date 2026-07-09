@@ -20,6 +20,8 @@ parity.
 - Crate modules: 64
 - Crate features: 64
 - Component docs pages: 64
+- Complete local wiring: 64
+- Incomplete local wiring: 0
 
 ## Category Counts
 
@@ -34,7 +36,76 @@ parity.
 | Feedback | 5 |
 | Messaging | 5 |
 
-## Public Components
+## Coverage Matrix
+
+| Component | Category | Docs | Template | Target | Feature | Module | Source Preview | Complete |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Button | Actions | yes | yes | yes | yes | yes | yes | yes |
+| Button Group | Actions | yes | yes | yes | yes | yes | yes | yes |
+| Command | Actions | yes | yes | yes | yes | yes | yes | yes |
+| Kbd | Actions | yes | yes | yes | yes | yes | yes | yes |
+| Toggle | Actions | yes | yes | yes | yes | yes | yes | yes |
+| Toggle Group | Actions | yes | yes | yes | yes | yes | yes | yes |
+| Avatar | Data Display | yes | yes | yes | yes | yes | yes | yes |
+| Badge | Data Display | yes | yes | yes | yes | yes | yes | yes |
+| Chart | Data Display | yes | yes | yes | yes | yes | yes | yes |
+| Data Table | Data Display | yes | yes | yes | yes | yes | yes | yes |
+| Empty | Data Display | yes | yes | yes | yes | yes | yes | yes |
+| Progress | Data Display | yes | yes | yes | yes | yes | yes | yes |
+| Table | Data Display | yes | yes | yes | yes | yes | yes | yes |
+| Typography | Data Display | yes | yes | yes | yes | yes | yes | yes |
+| Alert | Feedback | yes | yes | yes | yes | yes | yes | yes |
+| Skeleton | Feedback | yes | yes | yes | yes | yes | yes | yes |
+| Sonner | Feedback | yes | yes | yes | yes | yes | yes | yes |
+| Spinner | Feedback | yes | yes | yes | yes | yes | yes | yes |
+| Toast | Feedback | yes | yes | yes | yes | yes | yes | yes |
+| Calendar | Forms | yes | yes | yes | yes | yes | yes | yes |
+| Checkbox | Forms | yes | yes | yes | yes | yes | yes | yes |
+| Date Picker | Forms | yes | yes | yes | yes | yes | yes | yes |
+| Field | Forms | yes | yes | yes | yes | yes | yes | yes |
+| Input | Forms | yes | yes | yes | yes | yes | yes | yes |
+| Input Group | Forms | yes | yes | yes | yes | yes | yes | yes |
+| Input Otp | Forms | yes | yes | yes | yes | yes | yes | yes |
+| Label | Forms | yes | yes | yes | yes | yes | yes | yes |
+| Native Select | Forms | yes | yes | yes | yes | yes | yes | yes |
+| Radio Group | Forms | yes | yes | yes | yes | yes | yes | yes |
+| Select | Forms | yes | yes | yes | yes | yes | yes | yes |
+| Slider | Forms | yes | yes | yes | yes | yes | yes | yes |
+| Switch | Forms | yes | yes | yes | yes | yes | yes | yes |
+| Textarea | Forms | yes | yes | yes | yes | yes | yes | yes |
+| Accordion | Layout | yes | yes | yes | yes | yes | yes | yes |
+| Aspect Ratio | Layout | yes | yes | yes | yes | yes | yes | yes |
+| Card | Layout | yes | yes | yes | yes | yes | yes | yes |
+| Carousel | Layout | yes | yes | yes | yes | yes | yes | yes |
+| Collapsible | Layout | yes | yes | yes | yes | yes | yes | yes |
+| Direction | Layout | yes | yes | yes | yes | yes | yes | yes |
+| Item | Layout | yes | yes | yes | yes | yes | yes | yes |
+| Resizable | Layout | yes | yes | yes | yes | yes | yes | yes |
+| Scroll Area | Layout | yes | yes | yes | yes | yes | yes | yes |
+| Separator | Layout | yes | yes | yes | yes | yes | yes | yes |
+| Attachment | Messaging | yes | yes | yes | yes | yes | yes | yes |
+| Bubble | Messaging | yes | yes | yes | yes | yes | yes | yes |
+| Marker | Messaging | yes | yes | yes | yes | yes | yes | yes |
+| Message | Messaging | yes | yes | yes | yes | yes | yes | yes |
+| Message Scroller | Messaging | yes | yes | yes | yes | yes | yes | yes |
+| Breadcrumb | Navigation | yes | yes | yes | yes | yes | yes | yes |
+| Navigation Menu | Navigation | yes | yes | yes | yes | yes | yes | yes |
+| Pagination | Navigation | yes | yes | yes | yes | yes | yes | yes |
+| Sidebar | Navigation | yes | yes | yes | yes | yes | yes | yes |
+| Tabs | Navigation | yes | yes | yes | yes | yes | yes | yes |
+| Alert Dialog | Overlays | yes | yes | yes | yes | yes | yes | yes |
+| Combobox | Overlays | yes | yes | yes | yes | yes | yes | yes |
+| Context Menu | Overlays | yes | yes | yes | yes | yes | yes | yes |
+| Dialog | Overlays | yes | yes | yes | yes | yes | yes | yes |
+| Drawer | Overlays | yes | yes | yes | yes | yes | yes | yes |
+| Dropdown | Overlays | yes | yes | yes | yes | yes | yes | yes |
+| Hover Card | Overlays | yes | yes | yes | yes | yes | yes | yes |
+| Menubar | Overlays | yes | yes | yes | yes | yes | yes | yes |
+| Popover | Overlays | yes | yes | yes | yes | yes | yes | yes |
+| Sheet | Overlays | yes | yes | yes | yes | yes | yes | yes |
+| Tooltip | Overlays | yes | yes | yes | yes | yes | yes | yes |
+
+## Public Component Details
 
 | Component | Category | Docs | CLI | Feature | Template | Target |
 | --- | --- | --- | --- | --- | --- | --- |
