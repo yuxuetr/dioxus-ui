@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M71 Component Coverage Matrix
-- Current task: M71.4 Complete component coverage matrix milestone
+- Current task: M71 complete
 
 ## Backup
 
@@ -944,7 +944,7 @@
   - Clarify that the matrix reflects local wiring completeness, not runtime visual parity.
   - Keep the status page linked from component docs indexes.
 
-- TODO M71.4 Complete component coverage matrix milestone
+- DONE M71.4 Complete component coverage matrix milestone
   - Run component status checks, docs aggregate, package script checks, release docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
