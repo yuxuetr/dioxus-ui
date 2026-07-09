@@ -204,7 +204,8 @@ This runs Rust workspace checks, CLI registry/list smoke, the default local
 gate, feature checks, generated source-copy fixture smoke, release docs
 consistency checks, package script wiring checks, and CI browser docs checks. It
 also checks CI Plan documentation while keeping browser installation and
-screenshots opt-in.
+screenshots opt-in, then checks repository hygiene for forbidden generated
+artifacts and inactive workflow files.
 
 Run deterministic preview and example gates only:
 
@@ -288,6 +289,15 @@ npm run verify:package-scripts
 
 This checks `package.json` script relationships without executing Cargo,
 browser automation, generated fixture smoke, or release commands.
+
+Verify repository hygiene only:
+
+```bash
+npm run verify:repo-hygiene
+```
+
+This checks that inactive browser workflow files and known generated artifacts
+are not committed. It reports drift but does not remove files.
 
 Verify CI browser smoke documentation only:
 

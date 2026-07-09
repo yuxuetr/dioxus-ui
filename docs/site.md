@@ -1181,57 +1181,6 @@ Because the check is deterministic and read-only, it is included in:
 npm run verify:docs
 ```
 
-## M68 Final Result
-
-M68 added the local Markdown anchor check:
-
-```bash
-npm run verify:docs-anchors
-```
-
-The command scans tracked Markdown files and verifies same-file and relative
-Markdown fragments against headings or explicit anchors. It is included in
-`npm run verify:docs`, and package script consistency checks now require the
-alias and aggregate wiring.
-
-Validation ran:
-
-```bash
-npm run verify:docs-anchors
-npm run verify:docs
-npm run verify:package-scripts
-npm run verify:release-docs
-npm run verify:release
-git diff --check
-test ! -e .github/workflows/browser-smoke.yml
-```
-
-All commands passed. No workflow files or generated artifacts were committed.
-
-## M69 Repository Hygiene Gate Plan
-
-M69 should turn repeated manual repository hygiene checks into a deterministic
-read-only gate. This milestone should report forbidden committed artifacts; it
-should not delete files, rewrite the working tree, prune dependencies, or run
-formatters.
-
-The check should verify:
-
-- `.github/workflows/browser-smoke.yml` is still absent until the browser smoke
-  workflow is explicitly reviewed and activated.
-- mobile browser screenshot artifacts matching
-  `dioxus-ui-mobile-browser-preview-*.png` are not tracked.
-- generated fixture directories or archives that match repository-local smoke
-  artifact naming are not tracked.
-
-Out of scope for this milestone:
-
-- deleting untracked files
-- checking ignored temporary directories outside the repository
-- enforcing `.gitignore` contents
-- validating CI provider configuration
-- promoting browser smoke to a required merge gate
-
 ## M67 Final Result
 
 M67 added the local Markdown link target check:
@@ -1306,4 +1255,74 @@ Because the check is deterministic and read-only, it is included in:
 
 ```bash
 npm run verify:docs
+```
+
+## M68 Final Result
+
+M68 added the local Markdown anchor check:
+
+```bash
+npm run verify:docs-anchors
+```
+
+The command scans tracked Markdown files and verifies same-file and relative
+Markdown fragments against headings or explicit anchors. It is included in
+`npm run verify:docs`, and package script consistency checks now require the
+alias and aggregate wiring.
+
+Validation ran:
+
+```bash
+npm run verify:docs-anchors
+npm run verify:docs
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:release
+git diff --check
+test ! -e .github/workflows/browser-smoke.yml
+```
+
+All commands passed. No workflow files or generated artifacts were committed.
+
+## M69 Repository Hygiene Gate Plan
+
+M69 should turn repeated manual repository hygiene checks into a deterministic
+read-only gate. This milestone should report forbidden committed artifacts; it
+should not delete files, rewrite the working tree, prune dependencies, or run
+formatters.
+
+The check should verify:
+
+- `.github/workflows/browser-smoke.yml` is still absent until the browser smoke
+  workflow is explicitly reviewed and activated.
+- mobile browser screenshot artifacts matching
+  `dioxus-ui-mobile-browser-preview-*.png` are not tracked.
+- generated fixture directories or archives that match repository-local smoke
+  artifact naming are not tracked.
+
+Out of scope for this milestone:
+
+- deleting untracked files
+- checking ignored temporary directories outside the repository
+- enforcing `.gitignore` contents
+- validating CI provider configuration
+- promoting browser smoke to a required merge gate
+
+## M69 Repository Hygiene Gate Usage
+
+M69 adds the repository hygiene check:
+
+```bash
+npm run verify:repo-hygiene
+```
+
+The command checks tracked files and the repository workspace for known
+forbidden artifacts, including the inactive browser smoke workflow and mobile
+browser screenshot artifacts. It is read-only and reports drift without
+removing files.
+
+Because the check is deterministic and read-only, it is included in:
+
+```bash
+npm run verify:release
 ```

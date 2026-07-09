@@ -127,6 +127,7 @@ node scripts/release-docs-verify.mjs
 npm run verify:package-scripts
 npm run verify:ci-docs
 npm run verify:ci-plan
+npm run verify:repo-hygiene
 ```
 
 Use the smaller deterministic local alias before routine handoff when full
@@ -146,7 +147,8 @@ Future browser-rendered smoke commands should document
 `npm run verify:release` runs Rust workspace checks, CLI registry/list smoke,
 `npm run verify`, component feature checks, generated fixture smoke, release
 documentation consistency checks, package script wiring checks, and CI browser
-documentation checks. It also checks CI Plan documentation.
+documentation checks. It also checks CI Plan documentation and repository
+hygiene.
 
 `npm run verify:smoke` runs rendered preview structural checks and example smoke
 output.
@@ -191,6 +193,10 @@ does not generate release artifacts.
 `npm run verify:package-scripts` checks that `package.json` still exposes the
 required verification aliases and that aggregate aliases reference the expected
 focused commands. It is read-only and does not execute release commands.
+
+`npm run verify:repo-hygiene` checks that inactive workflow files and known
+generated artifacts are not committed. It is read-only and reports drift without
+removing files.
 
 `npm run verify:ci-docs` checks that the opt-in CI browser smoke guide and
 workflow template still reference the current local verification aliases and do

@@ -115,6 +115,7 @@ node scripts/release-docs-verify.mjs
 npm run verify:package-scripts
 npm run verify:ci-docs
 npm run verify:ci-plan
+npm run verify:repo-hygiene
 ```
 
 For routine local handoff before release-specific gates, this deterministic
@@ -132,6 +133,8 @@ Package script wiring checks are also part of the release aggregate, but they
 only inspect `package.json`; they do not execute the release gate recursively.
 CI browser docs checks are read-only and do not create workflow files.
 CI Plan checks are also read-only and validate documentation only.
+Repository hygiene checks are read-only and report forbidden committed
+artifacts without deleting files.
 Documentation index checks are part of `npm run verify:docs` and validate only
 README entry-point links.
 Markdown link target checks are part of `npm run verify:docs` and validate only
@@ -152,6 +155,7 @@ npm run verify:ci-plan
 npm run verify:docs-index
 npm run verify:docs-links
 npm run verify:docs-anchors
+npm run verify:repo-hygiene
 ```
 
 Browser-rendered Playwright smoke remains opt-in until a stable command is added
