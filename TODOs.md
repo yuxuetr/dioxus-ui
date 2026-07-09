@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M67 Local Markdown Link Target Gate
-- Current task: M67.3 Update link target verification wiring
+- Current task: M67.4 Complete local Markdown link target milestone
 
 ## Backup
 
@@ -851,7 +851,7 @@
   - Fail when a relative file target does not exist in the repository.
   - Add an npm alias for the local Markdown link target check.
 
-- TODO M67.3 Update link target verification wiring
+- DONE M67.3 Update link target verification wiring
   - Include the link target check in deterministic docs/package/release verification if appropriate.
   - Document the check in README, quality gates, release docs, and docs-site planning docs.
   - Keep external URLs and anchor correctness documented as future scope.
