@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M70 Component Status Snapshot
-- Current task: M70.3 Update component status documentation wiring
+- Current task: M70.4 Complete component status milestone
 
 ## Backup
 
@@ -917,7 +917,7 @@
   - Add a verification script that fails when the status page drifts from local catalog metadata.
   - Add an npm alias for the component status check.
 
-- TODO M70.3 Update component status documentation wiring
+- DONE M70.3 Update component status documentation wiring
   - Link the status page from component docs indexes and user-facing docs.
   - Include the status check in deterministic docs/package/release verification if appropriate.
   - Document that the page reflects local implementation status, not live upstream shadcn changes.
