@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M69 Repository Hygiene Gate
-- Current task: M69 complete
+- Current milestone: M70 Component Status Snapshot
+- Current task: M70.2 Add component status generator and check
 
 ## Backup
 
@@ -907,7 +907,7 @@
 
 ## M70 Component Status Snapshot
 
-- TODO M70.1 Plan component status snapshot
+- DONE M70.1 Plan component status snapshot
   - Define a generated Markdown status page that summarizes implemented public components by category.
   - Reuse the docs catalog builder as the source of truth for registry, docs, template, source-copy, and crate feature coverage.
   - Keep upstream shadcn refresh, visual parity claims, and new component implementation out of scope.
