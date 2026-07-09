@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M69 Repository Hygiene Gate
-- Current task: M69.3 Update repository hygiene verification wiring
+- Current task: M69.4 Complete repository hygiene milestone
 
 ## Backup
 
@@ -895,7 +895,7 @@
   - Verify browser screenshot artifacts and the inactive browser smoke workflow are not committed.
   - Add an npm alias for the repository hygiene check.
 
-- TODO M69.3 Update repository hygiene verification wiring
+- DONE M69.3 Update repository hygiene verification wiring
   - Include the hygiene check in deterministic package/release verification if appropriate.
   - Document the check in README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check reports hygiene drift but does not remove files.
