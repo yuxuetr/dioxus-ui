@@ -861,6 +861,28 @@
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
+## M68 Local Markdown Anchor Gate
+
+- TODO M68.1 Plan local Markdown anchor gate
+  - Define which local Markdown fragments should be validated against headings or explicit anchors.
+  - Keep external URL anchors, generated docs runtime routes, rendered HTML checks, and network access out of scope.
+  - Decide how the check should handle GitHub-style heading slugs and duplicate headings.
+
+- TODO M68.2 Add local Markdown anchor check
+  - Add a deterministic read-only script that scans tracked Markdown files for local fragment links.
+  - Validate same-file and relative Markdown fragments against target headings or explicit anchors.
+  - Add an npm alias for the local Markdown anchor check.
+
+- TODO M68.3 Update anchor verification wiring
+  - Include the anchor check in deterministic docs/package/release verification if appropriate.
+  - Document the check in README, quality gates, release docs, and docs-site planning docs.
+  - Keep external anchors and generated route anchors documented as future scope.
+
+- TODO M68.4 Complete local Markdown anchor milestone
+  - Run anchor checks, docs aggregate, package script checks, release docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
 ## Status Rules
 
 - Change `TODO` to `DONE` only after implementation, validation, and commit.
