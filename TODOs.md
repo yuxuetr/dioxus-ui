@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M67 Local Markdown Link Target Gate
-- Current task: M67.4 Complete local Markdown link target milestone
+- Current task: M67 complete
 
 ## Backup
 
@@ -856,7 +856,7 @@
   - Document the check in README, quality gates, release docs, and docs-site planning docs.
   - Keep external URLs and anchor correctness documented as future scope.
 
-- TODO M67.4 Complete local Markdown link target milestone
+- DONE M67.4 Complete local Markdown link target milestone
   - Run link target checks, docs aggregate, package script checks, release docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
