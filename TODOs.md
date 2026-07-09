@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M68 Local Markdown Anchor Gate
-- Current task: M68.4 Complete local Markdown anchor milestone
+- Current task: M68 complete
 
 ## Backup
 
@@ -878,7 +878,7 @@
   - Document the check in README, quality gates, release docs, and docs-site planning docs.
   - Keep external anchors and generated route anchors documented as future scope.
 
-- TODO M68.4 Complete local Markdown anchor milestone
+- DONE M68.4 Complete local Markdown anchor milestone
   - Run anchor checks, docs aggregate, package script checks, release docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
