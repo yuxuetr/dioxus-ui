@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M68 Local Markdown Anchor Gate
-- Current task: M68 complete
+- Current milestone: M69 Repository Hygiene Gate
+- Current task: M69.2 Add repository hygiene check
 
 ## Backup
 
@@ -885,7 +885,7 @@
 
 ## M69 Repository Hygiene Gate
 
-- TODO M69.1 Plan repository hygiene gate
+- DONE M69.1 Plan repository hygiene gate
   - Define which generated artifacts and inactive workflow files must not be committed.
   - Keep cleanup, destructive deletion, dependency pruning, and formatting changes out of scope.
   - Decide which hygiene invariants should be checked by a read-only script.
