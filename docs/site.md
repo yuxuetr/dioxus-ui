@@ -1180,3 +1180,30 @@ Because the check is deterministic and read-only, it is included in:
 ```bash
 npm run verify:docs
 ```
+
+## M67 Final Result
+
+M67 added the local Markdown link target check:
+
+```bash
+npm run verify:docs-links
+```
+
+The command scans tracked Markdown files and verifies local relative link
+targets exist after stripping query strings and fragments. It is included in
+`npm run verify:docs`, and package script consistency checks now require the
+alias and aggregate wiring.
+
+Validation ran:
+
+```bash
+npm run verify:docs-links
+npm run verify:docs
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:release
+git diff --check
+test ! -e .github/workflows/browser-smoke.yml
+```
+
+All commands passed. No workflow files or generated artifacts were committed.
