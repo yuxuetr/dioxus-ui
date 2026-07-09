@@ -905,6 +905,28 @@
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
+## M70 Component Status Snapshot
+
+- TODO M70.1 Plan component status snapshot
+  - Define a generated Markdown status page that summarizes implemented public components by category.
+  - Reuse the docs catalog builder as the source of truth for registry, docs, template, source-copy, and crate feature coverage.
+  - Keep upstream shadcn refresh, visual parity claims, and new component implementation out of scope.
+
+- TODO M70.2 Add component status generator and check
+  - Add a deterministic renderer for `docs/components/status.md`.
+  - Add a verification script that fails when the status page drifts from local catalog metadata.
+  - Add an npm alias for the component status check.
+
+- TODO M70.3 Update component status documentation wiring
+  - Link the status page from component docs indexes and user-facing docs.
+  - Include the status check in deterministic docs/package/release verification if appropriate.
+  - Document that the page reflects local implementation status, not live upstream shadcn changes.
+
+- TODO M70.4 Complete component status milestone
+  - Run component status checks, docs aggregate, package script checks, release docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
 ## Status Rules
 
 - Change `TODO` to `DONE` only after implementation, validation, and commit.
