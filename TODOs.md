@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M70 Component Status Snapshot
-- Current task: M70.4 Complete component status milestone
+- Current task: M70 complete
 
 ## Backup
 
@@ -922,7 +922,7 @@
   - Include the status check in deterministic docs/package/release verification if appropriate.
   - Document that the page reflects local implementation status, not live upstream shadcn changes.
 
-- TODO M70.4 Complete component status milestone
+- DONE M70.4 Complete component status milestone
   - Run component status checks, docs aggregate, package script checks, release docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
