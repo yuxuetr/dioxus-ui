@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M70 Component Status Snapshot
-- Current task: M70.2 Add component status generator and check
+- Current task: M70.3 Update component status documentation wiring
 
 ## Backup
 
@@ -912,7 +912,7 @@
   - Reuse the docs catalog builder as the source of truth for registry, docs, template, source-copy, and crate feature coverage.
   - Keep upstream shadcn refresh, visual parity claims, and new component implementation out of scope.
 
-- TODO M70.2 Add component status generator and check
+- DONE M70.2 Add component status generator and check
   - Add a deterministic renderer for `docs/components/status.md`.
   - Add a verification script that fails when the status page drifts from local catalog metadata.
   - Add an npm alias for the component status check.
