@@ -136,6 +136,8 @@ Documentation index checks are part of `npm run verify:docs` and validate only
 README entry-point links.
 Markdown link target checks are part of `npm run verify:docs` and validate only
 local relative file targets in tracked Markdown files.
+Markdown anchor checks are part of `npm run verify:docs` and validate only
+local fragments in tracked Markdown files.
 
 Focused npm aliases are also available:
 
@@ -149,6 +151,7 @@ npm run verify:ci-docs
 npm run verify:ci-plan
 npm run verify:docs-index
 npm run verify:docs-links
+npm run verify:docs-anchors
 ```
 
 Browser-rendered Playwright smoke remains opt-in until a stable command is added

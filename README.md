@@ -231,6 +231,7 @@ npm run verify:docs-routes
 npm run verify:docs-source-preview
 npm run verify:docs-index
 npm run verify:docs-links
+npm run verify:docs-anchors
 ```
 
 This builds the catalog in memory from registry entries, templates, component
@@ -240,7 +241,8 @@ route check verifies future docs runtime route metadata. The source preview
 check verifies template metadata for future source preview routes. The index
 check verifies README and docs/README keep the required project entry points.
 The link target check verifies tracked Markdown files do not reference missing
-local files.
+local files. The anchor check verifies local Markdown fragments match headings
+or explicit anchors.
 
 Verify documentation index consistency only:
 
@@ -259,6 +261,15 @@ npm run verify:docs-links
 
 This checks local relative links in tracked Markdown files. It does not validate
 external URLs or heading fragments.
+
+Verify local Markdown anchors only:
+
+```bash
+npm run verify:docs-anchors
+```
+
+This checks same-file and relative Markdown fragments in tracked Markdown files.
+It does not validate external URL anchors or generated docs runtime routes.
 
 Verify release documentation consistency only:
 

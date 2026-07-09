@@ -1237,3 +1237,22 @@ Out of scope for this milestone:
 - rendered HTML heading ids
 - non-Markdown source scanning
 - network access
+
+## M68 Local Markdown Anchor Gate Usage
+
+M68 adds the local Markdown anchor check:
+
+```bash
+npm run verify:docs-anchors
+```
+
+The command scans tracked Markdown files and verifies same-file and relative
+Markdown fragments against target headings or explicit anchors. It does not
+validate external URL fragments, generated docs runtime routes, rendered HTML,
+or remote content.
+
+Because the check is deterministic and read-only, it is included in:
+
+```bash
+npm run verify:docs
+```

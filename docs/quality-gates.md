@@ -178,6 +178,11 @@ read-only and does not crawl external links or generate navigation artifacts.
 missing local relative file targets. It is read-only and does not validate
 external URLs, heading fragments, or generated docs runtime routes.
 
+`npm run verify:docs-anchors` checks that local Markdown fragments point to
+target document headings or explicit anchors. It is read-only and does not
+validate external URL anchors, rendered HTML anchors, or generated docs runtime
+routes.
+
 `npm run verify:release-docs` checks that release documentation still mentions
 the local aggregate alias, required Rust workspace gates, source-copy fixture
 smoke, feature checks, and opt-in browser smoke boundary. It is read-only and
