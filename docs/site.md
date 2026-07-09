@@ -1352,3 +1352,34 @@ git diff --check
 ```
 
 All commands passed. No workflow files or generated artifacts were committed.
+
+## M70 Component Status Snapshot Plan
+
+M70 should make the current implemented component surface easier to audit by
+adding a deterministic Markdown status page derived from the docs catalog
+builder. The page should answer which public components currently exist and
+which source-copy, crate feature, template, and docs entry points are present.
+
+The status snapshot should derive from:
+
+- `registry/*.json`
+- `templates/*.rs`
+- `crates/dioxus-ui/Cargo.toml`
+- `crates/dioxus-ui/src/*.rs`
+- `docs/components/*.md`
+- `scripts/docs-catalog-builder.mjs`
+
+The page should summarize:
+
+- public component count
+- source-copy helper count
+- category counts
+- per-component docs, CLI command, feature, template path, and generated target
+
+Out of scope for this milestone:
+
+- refreshing live upstream shadcn/ui parity
+- adding new components
+- visual parity claims
+- rendered preview screenshots
+- generated JSON artifacts
