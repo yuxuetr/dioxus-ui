@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M71 Component Coverage Matrix
-- Current task: M71.3 Update coverage matrix documentation
+- Current task: M71.4 Complete component coverage matrix milestone
 
 ## Backup
 
@@ -939,7 +939,7 @@
   - Add summary counts for fully covered components and incomplete components.
   - Keep the existing `verify:docs-status` check deterministic and read-only.
 
-- TODO M71.3 Update coverage matrix documentation
+- DONE M71.3 Update coverage matrix documentation
   - Document the expanded coverage matrix in README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the matrix reflects local wiring completeness, not runtime visual parity.
   - Keep the status page linked from component docs indexes.
