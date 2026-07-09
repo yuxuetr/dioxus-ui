@@ -17,6 +17,7 @@ const requiredScripts = {
   "verify:docs-catalog-page": "node scripts/docs-catalog-markdown-verify.mjs",
   "verify:docs-routes": "node scripts/docs-route-manifest-verify.mjs",
   "verify:docs-source-preview": "node scripts/docs-source-preview-verify.mjs",
+  "verify:docs-status": "node scripts/docs-component-status-verify.mjs",
   "verify:docs-index": "node scripts/docs-index-verify.mjs",
   "verify:docs-links": "node scripts/docs-link-targets-verify.mjs",
   "verify:docs-anchors": "node scripts/docs-anchors-verify.mjs",
