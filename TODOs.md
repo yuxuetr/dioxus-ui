@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M71 Component Coverage Matrix
-- Current task: M71.2 Add coverage matrix rendering
+- Current task: M71.3 Update coverage matrix documentation
 
 ## Backup
 
@@ -934,7 +934,7 @@
   - Reuse catalog metadata and keep upstream parity refresh, new components, and visual preview claims out of scope.
   - Decide how the generated Markdown should summarize complete versus incomplete coverage.
 
-- TODO M71.2 Add coverage matrix rendering
+- DONE M71.2 Add coverage matrix rendering
   - Extend the component status generator with per-component coverage columns.
   - Add summary counts for fully covered components and incomplete components.
   - Keep the existing `verify:docs-status` check deterministic and read-only.
