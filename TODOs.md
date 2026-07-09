@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M67 Local Markdown Link Target Gate
-- Current task: M67 complete
+- Current milestone: M68 Local Markdown Anchor Gate
+- Current task: M68.2 Add local Markdown anchor check
 
 ## Backup
 
@@ -863,7 +863,7 @@
 
 ## M68 Local Markdown Anchor Gate
 
-- TODO M68.1 Plan local Markdown anchor gate
+- DONE M68.1 Plan local Markdown anchor gate
   - Define which local Markdown fragments should be validated against headings or explicit anchors.
   - Keep external URL anchors, generated docs runtime routes, rendered HTML checks, and network access out of scope.
   - Decide how the check should handle GitHub-style heading slugs and duplicate headings.
