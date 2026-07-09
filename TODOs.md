@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M70 Component Status Snapshot
-- Current task: M70 complete
+- Current milestone: M71 Component Coverage Matrix
+- Current task: M71.2 Add coverage matrix rendering
 
 ## Backup
 
@@ -929,7 +929,7 @@
 
 ## M71 Component Coverage Matrix
 
-- TODO M71.1 Plan component coverage matrix
+- DONE M71.1 Plan component coverage matrix
   - Define additional status columns for docs, template, generated target, crate feature, crate module, and source preview coverage.
   - Reuse catalog metadata and keep upstream parity refresh, new components, and visual preview claims out of scope.
   - Decide how the generated Markdown should summarize complete versus incomplete coverage.
