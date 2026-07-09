@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M69 Repository Hygiene Gate
-- Current task: M69.2 Add repository hygiene check
+- Current task: M69.3 Update repository hygiene verification wiring
 
 ## Backup
 
@@ -890,7 +890,7 @@
   - Keep cleanup, destructive deletion, dependency pruning, and formatting changes out of scope.
   - Decide which hygiene invariants should be checked by a read-only script.
 
-- TODO M69.2 Add repository hygiene check
+- DONE M69.2 Add repository hygiene check
   - Add a deterministic read-only script that checks for forbidden tracked files and inactive workflow files.
   - Verify browser screenshot artifacts and the inactive browser smoke workflow are not committed.
   - Add an npm alias for the repository hygiene check.
