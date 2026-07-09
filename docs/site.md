@@ -1181,6 +1181,33 @@ Because the check is deterministic and read-only, it is included in:
 npm run verify:docs
 ```
 
+## M68 Final Result
+
+M68 added the local Markdown anchor check:
+
+```bash
+npm run verify:docs-anchors
+```
+
+The command scans tracked Markdown files and verifies same-file and relative
+Markdown fragments against headings or explicit anchors. It is included in
+`npm run verify:docs`, and package script consistency checks now require the
+alias and aggregate wiring.
+
+Validation ran:
+
+```bash
+npm run verify:docs-anchors
+npm run verify:docs
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:release
+git diff --check
+test ! -e .github/workflows/browser-smoke.yml
+```
+
+All commands passed. No workflow files or generated artifacts were committed.
+
 ## M67 Final Result
 
 M67 added the local Markdown link target check:
