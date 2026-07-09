@@ -254,7 +254,9 @@ npm run verify:docs-status
 ```
 
 This checks that the generated component status snapshot still matches local
-registry, template, docs, crate feature, and crate module metadata.
+registry, template, docs, crate feature, crate module, source preview, and
+source-copy target metadata. The coverage matrix is local wiring status, not
+runtime visual parity.
 
 Verify documentation index consistency only:
 

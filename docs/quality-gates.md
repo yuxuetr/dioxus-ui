@@ -167,8 +167,9 @@ catalog builder, including grouped sections and the full flat index.
 
 `npm run verify:docs-status` checks that `docs/components/status.md` matches
 the local implementation status derived from registry entries, templates, docs,
-crate features, and crate modules. It does not refresh live upstream shadcn/ui
-parity.
+crate features, crate modules, source preview metadata, and source-copy targets.
+It verifies wiring coverage, not live upstream shadcn/ui parity or runtime
+visual parity.
 
 `npm run verify:docs-routes` checks that `docs/components/routes.md` matches the
 route manifest rendered from the shared catalog builder.

@@ -1244,6 +1244,33 @@ Out of scope for this milestone:
 - adding or changing components
 - generated JSON artifacts
 
+## M71 Component Coverage Matrix Usage
+
+M71 expands the component status snapshot:
+
+```text
+docs/components/status.md
+```
+
+The page now includes a coverage matrix for each public component:
+
+- docs page
+- source-copy template
+- generated source-copy target
+- crate feature
+- styled crate module
+- source preview metadata
+- complete local wiring
+
+The drift check remains:
+
+```bash
+npm run verify:docs-status
+```
+
+The command verifies local wiring coverage only. It does not refresh upstream
+shadcn/ui parity, run visual previews, or assert screenshot coverage.
+
 ## M67 Final Result
 
 M67 added the local Markdown link target check:

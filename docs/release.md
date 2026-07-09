@@ -136,7 +136,8 @@ CI Plan checks are also read-only and validate documentation only.
 Repository hygiene checks are read-only and report forbidden committed
 artifacts without deleting files.
 Component status checks are part of `npm run verify:docs` and validate only the
-local implementation snapshot derived from catalog metadata.
+local implementation snapshot and wiring coverage matrix derived from catalog
+metadata.
 Documentation index checks are part of `npm run verify:docs` and validate only
 README entry-point links.
 Markdown link target checks are part of `npm run verify:docs` and validate only
