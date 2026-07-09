@@ -1271,6 +1271,30 @@ npm run verify:docs-status
 The command verifies local wiring coverage only. It does not refresh upstream
 shadcn/ui parity, run visual previews, or assert screenshot coverage.
 
+## M71 Final Result
+
+M71 expanded the generated component status snapshot with a coverage matrix for
+local component wiring. The matrix records whether each public component has a
+docs page, source-copy template, generated target, crate feature, styled crate
+module, source preview metadata, and complete local wiring.
+
+Validation completed:
+
+```bash
+npm run verify:docs-status
+npm run verify:docs
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:repo-hygiene
+npm run verify:release
+git diff --check
+```
+
+All commands passed. `verify:release` also covered workspace checks and tests,
+CLI registry tests, component listing, preview structural gates, example smoke,
+feature checks, generated fixture smoke, CI documentation checks, and repository
+hygiene.
+
 ## M67 Final Result
 
 M67 added the local Markdown link target check:
