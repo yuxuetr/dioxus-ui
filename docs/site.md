@@ -1219,6 +1219,31 @@ git diff --check
 
 All commands passed. No workflow files or generated artifacts were committed.
 
+## M71 Component Coverage Matrix Plan
+
+M71 should make the component status snapshot more useful by showing coverage
+across the local implementation surfaces each component needs:
+
+- component docs page
+- source-copy template
+- generated source-copy target
+- crate feature
+- styled crate module
+- source preview route and source file metadata
+
+The matrix should be derived from `scripts/docs-catalog-builder.mjs` and should
+summarize how many public components have complete local wiring. A component is
+complete for this matrix when all listed local surfaces are present in the
+catalog metadata.
+
+Out of scope for this milestone:
+
+- upstream shadcn/ui parity refresh
+- runtime visual preview status
+- screenshot coverage status
+- adding or changing components
+- generated JSON artifacts
+
 ## M67 Final Result
 
 M67 added the local Markdown link target check:
