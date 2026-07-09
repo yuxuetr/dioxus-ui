@@ -839,6 +839,28 @@
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
+## M67 Local Markdown Link Target Gate
+
+- TODO M67.1 Plan local Markdown link target gate
+  - Define which Markdown files and relative links should be checked for existing local targets.
+  - Keep external URL validation, anchor validation, generated docs runtime checks, and link crawling out of scope.
+  - Decide how the check should handle ignored build outputs and non-Markdown assets.
+
+- TODO M67.2 Add local Markdown link target check
+  - Add a deterministic read-only script that scans repository Markdown files for local relative links.
+  - Fail when a relative file target does not exist in the repository.
+  - Add an npm alias for the local Markdown link target check.
+
+- TODO M67.3 Update link target verification wiring
+  - Include the link target check in deterministic docs/package/release verification if appropriate.
+  - Document the check in README, quality gates, release docs, and docs-site planning docs.
+  - Keep external URLs and anchor correctness documented as future scope.
+
+- TODO M67.4 Complete local Markdown link target milestone
+  - Run link target checks, docs aggregate, package script checks, release docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
 ## Status Rules
 
 - Change `TODO` to `DONE` only after implementation, validation, and commit.
