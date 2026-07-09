@@ -1207,3 +1207,33 @@ test ! -e .github/workflows/browser-smoke.yml
 ```
 
 All commands passed. No workflow files or generated artifacts were committed.
+
+## M68 Local Markdown Anchor Gate Plan
+
+M68 should verify local Markdown fragment links after M67 has proven that local
+file targets exist. This milestone remains documentation-only and read-only. It
+should not render Markdown, crawl external URLs, validate generated docs routes,
+or check anchors on remote sites.
+
+The check should scan tracked Markdown files and validate fragment links for:
+
+- same-file links such as `#usage`
+- relative Markdown links such as `docs/site.md#m68-local-markdown-anchor-gate-plan`
+- explicit HTML anchors such as `<a id="usage"></a>` or `<a name="usage"></a>`
+
+Heading slugs should follow GitHub-style Markdown behavior closely enough for
+repository documentation:
+
+- lowercase heading text
+- strip inline Markdown formatting and HTML tags
+- remove punctuation that is not a word, CJK character, space, or hyphen
+- collapse whitespace to `-`
+- append `-1`, `-2`, and later suffixes for duplicate headings
+
+Out of scope for this milestone:
+
+- external URL fragment validation
+- generated docs runtime route anchors such as `/components#category-layout`
+- rendered HTML heading ids
+- non-Markdown source scanning
+- network access
