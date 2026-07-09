@@ -927,6 +927,28 @@
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
+## M71 Component Coverage Matrix
+
+- TODO M71.1 Plan component coverage matrix
+  - Define additional status columns for docs, template, generated target, crate feature, crate module, and source preview coverage.
+  - Reuse catalog metadata and keep upstream parity refresh, new components, and visual preview claims out of scope.
+  - Decide how the generated Markdown should summarize complete versus incomplete coverage.
+
+- TODO M71.2 Add coverage matrix rendering
+  - Extend the component status generator with per-component coverage columns.
+  - Add summary counts for fully covered components and incomplete components.
+  - Keep the existing `verify:docs-status` check deterministic and read-only.
+
+- TODO M71.3 Update coverage matrix documentation
+  - Document the expanded coverage matrix in README, quality gates, release docs, and docs-site planning docs.
+  - Clarify that the matrix reflects local wiring completeness, not runtime visual parity.
+  - Keep the status page linked from component docs indexes.
+
+- TODO M71.4 Complete component coverage matrix milestone
+  - Run component status checks, docs aggregate, package script checks, release docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
 ## Status Rules
 
 - Change `TODO` to `DONE` only after implementation, validation, and commit.
