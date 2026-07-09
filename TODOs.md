@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M69 Repository Hygiene Gate
-- Current task: M69.4 Complete repository hygiene milestone
+- Current task: M69 complete
 
 ## Backup
 
@@ -900,7 +900,7 @@
   - Document the check in README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check reports hygiene drift but does not remove files.
 
-- TODO M69.4 Complete repository hygiene milestone
+- DONE M69.4 Complete repository hygiene milestone
   - Run hygiene checks, package script checks, release docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
