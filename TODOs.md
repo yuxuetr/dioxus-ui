@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M66 Documentation Index Consistency Gate
-- Current task: M66 complete
+- Current milestone: M67 Local Markdown Link Target Gate
+- Current task: M67.2 Add local Markdown link target check
 
 ## Backup
 
@@ -841,7 +841,7 @@
 
 ## M67 Local Markdown Link Target Gate
 
-- TODO M67.1 Plan local Markdown link target gate
+- DONE M67.1 Plan local Markdown link target gate
   - Define which Markdown files and relative links should be checked for existing local targets.
   - Keep external URL validation, anchor validation, generated docs runtime checks, and link crawling out of scope.
   - Decide how the check should handle ignored build outputs and non-Markdown assets.
