@@ -135,6 +135,8 @@ CI browser docs checks are read-only and do not create workflow files.
 CI Plan checks are also read-only and validate documentation only.
 Repository hygiene checks are read-only and report forbidden committed
 artifacts without deleting files.
+Component status checks are part of `npm run verify:docs` and validate only the
+local implementation snapshot derived from catalog metadata.
 Documentation index checks are part of `npm run verify:docs` and validate only
 README entry-point links.
 Markdown link target checks are part of `npm run verify:docs` and validate only
@@ -152,6 +154,7 @@ npm run verify:release-docs
 npm run verify:package-scripts
 npm run verify:ci-docs
 npm run verify:ci-plan
+npm run verify:docs-status
 npm run verify:docs-index
 npm run verify:docs-links
 npm run verify:docs-anchors

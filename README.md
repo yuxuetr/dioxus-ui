@@ -228,6 +228,7 @@ For focused debugging, the aggregate command expands to:
 ```bash
 npm run verify:docs-catalog
 npm run verify:docs-catalog-page
+npm run verify:docs-status
 npm run verify:docs-routes
 npm run verify:docs-source-preview
 npm run verify:docs-index
@@ -238,12 +239,22 @@ npm run verify:docs-anchors
 This builds the catalog in memory from registry entries, templates, component
 docs, crate features, and crate modules. The page check also verifies
 `docs/components/catalog.md` matches the shared catalog builder output. The
-route check verifies future docs runtime route metadata. The source preview
-check verifies template metadata for future source preview routes. The index
-check verifies README and docs/README keep the required project entry points.
-The link target check verifies tracked Markdown files do not reference missing
-local files. The anchor check verifies local Markdown fragments match headings
-or explicit anchors.
+status check verifies `docs/components/status.md` matches the local component
+implementation surface. The route check verifies future docs runtime route
+metadata. The source preview check verifies template metadata for future source
+preview routes. The index check verifies README and docs/README keep the
+required project entry points. The link target check verifies tracked Markdown
+files do not reference missing local files. The anchor check verifies local
+Markdown fragments match headings or explicit anchors.
+
+Verify component implementation status only:
+
+```bash
+npm run verify:docs-status
+```
+
+This checks that the generated component status snapshot still matches local
+registry, template, docs, crate feature, and crate module metadata.
 
 Verify documentation index consistency only:
 
