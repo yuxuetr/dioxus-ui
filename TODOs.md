@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M72 Component Docs Structure Gate
-- Current task: M72.3 Update docs structure verification wiring
+- Current task: M72.4 Complete component docs structure milestone
 
 ## Backup
 
@@ -961,7 +961,7 @@
   - Fail when a public component doc is missing required sections or mismatched generated command/feature snippets.
   - Add an npm alias for the component docs structure check.
 
-- TODO M72.3 Update docs structure verification wiring
+- DONE M72.3 Update docs structure verification wiring
   - Include the docs structure check in deterministic docs/package/release verification if appropriate.
   - Document the check in README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check verifies documentation shape, not prose quality or runtime visual parity.
