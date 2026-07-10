@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M73 Registry Metadata Gate
-- Current task: M73.3 Update registry metadata verification wiring
+- Current task: M73.4 Complete registry metadata milestone
 
 ## Backup
 
@@ -983,7 +983,7 @@
   - Verify source paths exist and source-copy targets remain inside `src/components/ui`.
   - Add an npm alias for the registry metadata check.
 
-- TODO M73.3 Update registry metadata verification wiring
+- DONE M73.3 Update registry metadata verification wiring
   - Include the registry metadata check in deterministic package/release verification if appropriate.
   - Document the check in README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check verifies registry metadata shape, not runtime CLI behavior.
