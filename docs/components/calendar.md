@@ -27,7 +27,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["calendar"]
 use dioxus_ui::{Calendar, CalendarDay, CalendarDate, CalendarRangeState};
 ```
 
-## API
+## API Surface
 
 - `Calendar { class, children }`
 - `CalendarHeader { class, children }`
@@ -49,7 +49,7 @@ Primitive helpers:
 - `days_in_month(year, month)`
 - `is_leap_year(year)`
 
-## Accessibility
+## Accessibility Notes
 
 Calendar exposes grid, row, columnheader, and gridcell roles. Selection,
 disabled, outside-month, today, and range state are mapped to ARIA and data

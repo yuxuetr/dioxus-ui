@@ -27,7 +27,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["native-sel
 use dioxus_ui::{NativeSelect, NativeSelectGroup, NativeSelectOption};
 ```
 
-## API
+## API Surface
 
 - `NativeSelect { invalid, disabled, class, children }`
 - `NativeSelectGroup { label, class, children }`
@@ -39,7 +39,7 @@ Class helpers:
 - `native_select_group_class(class)`
 - `native_select_option_class(class)`
 
-## Accessibility
+## Accessibility Notes
 
 Native Select keeps browser/platform keyboard, focus, and form behavior. Pair it
 with a visible `Label` where possible, use `invalid` for `aria-invalid`, and use

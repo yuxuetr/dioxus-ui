@@ -30,7 +30,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["data-table
 use dioxus_ui::{DataTable, DataTableHeaderCell, DataTableSortDirection};
 ```
 
-## API
+## API Surface
 
 - `DataTable { class, children }`
 - `DataTableToolbar { class, children }`
@@ -53,7 +53,7 @@ State helpers:
 - `data_table_toggle_column(hidden_ids, column_id)`
 - `data_table_is_column_visible(hidden_ids, column_id)`
 
-## Accessibility
+## Accessibility Notes
 
 Use semantic `Table` parts or table markup inside `DataTableContainer`.
 Sorted headers map to `aria-sort`, selected rows map to `data-selected`, hidden

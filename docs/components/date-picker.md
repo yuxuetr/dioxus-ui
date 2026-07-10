@@ -27,7 +27,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["date-picke
 use dioxus_ui::{DatePickerContent, DatePickerTrigger, DatePickerValue};
 ```
 
-## API
+## API Surface
 
 - `DatePickerTrigger { open, invalid, disabled, class, children }`
 - `DatePickerValue { placeholder, class, children }`
@@ -40,7 +40,7 @@ Class helpers:
 - `date_picker_value_class(class)`
 - `date_picker_content_class(class)`
 
-## Accessibility
+## Accessibility Notes
 
 The trigger uses button semantics with `aria-haspopup="dialog"` and controlled
 expanded/invalid state. Content uses dialog semantics and popover placement data
