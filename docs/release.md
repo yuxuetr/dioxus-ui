@@ -105,13 +105,12 @@ cargo check --workspace --all-features
 cargo test --workspace --all-features
 cargo test -p dioxus-ui-cli --test registry
 cargo run -p dioxus-ui-cli -- list
-scripts/example-smoke.sh
-node scripts/web-preview-verify.mjs
-node scripts/mobile-web-profile-verify.mjs
-node scripts/desktop-preview-verify.mjs
+npm run verify:registry
+npm run verify:tailwind-static
+npm run verify
 scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
-node scripts/release-docs-verify.mjs
+npm run verify:release-docs
 npm run verify:package-scripts
 npm run verify:ci-docs
 npm run verify:ci-plan
@@ -129,6 +128,9 @@ npm run verify
 The alias runs preview smoke, example smoke, docs metadata, and Markdown drift
 checks. It does not install browser binaries and does not replace the full Rust,
 source-copy, feature, or release documentation gate list above.
+Preview and example focused checks are reached through the direct
+`npm run verify` release segment rather than listed as separate release command
+segments.
 Package script wiring checks are also part of the release aggregate, but they
 only inspect `package.json` and local script target existence; they do not
 execute the release gate recursively.
