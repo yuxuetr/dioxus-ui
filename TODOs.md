@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M78 Release Gate Order Verification
-- Current task: M78.2 Add release gate order check
+- Current task: M78.3 Update release gate order documentation
 
 ## Backup
 
@@ -1088,7 +1088,7 @@
   - Keep command execution, nested alias expansion, and arbitrary shell parsing out of scope.
   - Decide how to identify the intended release gate code block without relying on brittle prose offsets.
 
-- TODO M78.2 Add release gate order check
+- DONE M78.2 Add release gate order check
   - Extend the release documentation verifier to parse the expanded release gate code block.
   - Fail when commands are missing, extra, or out of order compared with the `verify:release` command chain.
   - Preserve existing release snippet and opt-in browser boundary checks.
