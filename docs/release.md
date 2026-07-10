@@ -130,7 +130,8 @@ The alias runs preview smoke, example smoke, docs metadata, and Markdown drift
 checks. It does not install browser binaries and does not replace the full Rust,
 source-copy, feature, or release documentation gate list above.
 Package script wiring checks are also part of the release aggregate, but they
-only inspect `package.json`; they do not execute the release gate recursively.
+only inspect `package.json` and local script target existence; they do not
+execute the release gate recursively.
 CI browser docs checks are read-only and do not create workflow files.
 CI Plan checks are also read-only and validate documentation only.
 Repository hygiene checks are read-only and report forbidden committed

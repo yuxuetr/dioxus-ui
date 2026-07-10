@@ -332,8 +332,9 @@ Verify npm verification alias wiring only:
 npm run verify:package-scripts
 ```
 
-This checks `package.json` script relationships without executing Cargo,
-browser automation, generated fixture smoke, or release commands.
+This checks `package.json` script relationships and local script target
+existence without executing Cargo, browser automation, generated fixture smoke,
+or release commands.
 
 Verify repository hygiene only:
 

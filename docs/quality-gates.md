@@ -212,8 +212,9 @@ does not compile Tailwind CSS, validate user-provided classes, or assert visual
 parity.
 
 `npm run verify:package-scripts` checks that `package.json` still exposes the
-required verification aliases and that aggregate aliases reference the expected
-focused commands. It is read-only and does not execute release commands.
+required verification aliases, that aggregate aliases reference the expected
+focused commands, and that local `scripts/` targets exist. It is read-only and
+does not execute release commands.
 
 `npm run verify:repo-hygiene` checks that inactive workflow files and known
 generated artifacts are not committed. It is read-only and reports drift without

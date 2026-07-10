@@ -1207,6 +1207,19 @@ npm run verify:package-scripts
 If accepted, no new alias is required; the package script verifier should own
 the additional target-existence invariant.
 
+## M75 Package Script Target Gate Usage
+
+M75 extends the package script verifier:
+
+```bash
+npm run verify:package-scripts
+```
+
+The command now checks required aliases, aggregate command references, and local
+script targets referenced as `node scripts/*.mjs` or direct `scripts/*`
+commands. It remains read-only and does not execute the referenced scripts,
+validate external commands, or interpret arbitrary shell syntax.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
