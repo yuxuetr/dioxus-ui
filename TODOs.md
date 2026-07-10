@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M79 Package Lock Metadata Gate
-- Current task: M79.1 Plan package lock metadata gate
+- Current task: M79.2 Add package lock metadata check
 
 ## Backup
 
@@ -1105,7 +1105,7 @@
 
 ## M79 Package Lock Metadata Gate
 
-- TODO M79.1 Plan package lock metadata gate
+- DONE M79.1 Plan package lock metadata gate
   - Define a deterministic read-only check that `package-lock.json` root metadata matches `package.json`.
   - Keep dependency resolution, network installs, lockfile regeneration, and package manager migration out of scope.
   - Decide which root fields are required for the current npm lockfile contract.
