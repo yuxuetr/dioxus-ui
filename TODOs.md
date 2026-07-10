@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M73 Registry Metadata Gate
-- Current task: M73.2 Add registry metadata check
+- Current task: M73.3 Update registry metadata verification wiring
 
 ## Backup
 
@@ -978,7 +978,7 @@
   - Keep Rust compile checks, CLI behavior tests, generated fixture smoke, and JSON Schema validation out of scope.
   - Decide which registry invariants should be verified from source paths, targets, dependencies, and assets.
 
-- TODO M73.2 Add registry metadata check
+- DONE M73.2 Add registry metadata check
   - Add a script that validates registry entry names, descriptions, file mappings, dependency references, and asset mappings.
   - Verify source paths exist and source-copy targets remain inside `src/components/ui`.
   - Add an npm alias for the registry metadata check.
