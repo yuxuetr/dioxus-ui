@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M72 Component Docs Structure Gate
-- Current task: M72.4 Complete component docs structure milestone
+- Current task: M72 complete
 
 ## Backup
 
@@ -966,7 +966,7 @@
   - Document the check in README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check verifies documentation shape, not prose quality or runtime visual parity.
 
-- TODO M72.4 Complete component docs structure milestone
+- DONE M72.4 Complete component docs structure milestone
   - Run docs structure checks, docs aggregate, package script checks, release docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
