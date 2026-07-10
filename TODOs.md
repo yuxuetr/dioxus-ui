@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M79 Package Lock Metadata Gate
-- Current task: M79.3 Update package lock metadata documentation
+- Current task: M79.4 Complete package lock metadata milestone
 
 ## Backup
 
@@ -1115,7 +1115,7 @@
   - Fail when `package-lock.json` is missing, has an unsupported lockfile version, or drifts from package metadata.
   - Include the check in release verification without requiring browser binaries or network access.
 
-- TODO M79.3 Update package lock metadata documentation
+- DONE M79.3 Update package lock metadata documentation
   - Document the package lock metadata check in README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check validates committed lockfile metadata, not dependency freshness or registry availability.
   - Keep package script and release aggregate behavior unchanged except for the new read-only gate.
