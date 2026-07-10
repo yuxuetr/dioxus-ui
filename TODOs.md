@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M77 Release Aggregate Docs Coverage Gate
-- Current task: M77.1 Plan release aggregate docs coverage
+- Current task: M77.2 Add release aggregate docs coverage check
 
 ## Backup
 
@@ -1061,7 +1061,7 @@
 
 ## M77 Release Aggregate Docs Coverage Gate
 
-- TODO M77.1 Plan release aggregate docs coverage
+- DONE M77.1 Plan release aggregate docs coverage
   - Define a deterministic read-only check that `docs/release.md` covers every command segment in `package.json` `verify:release`.
   - Keep command execution, shell interpretation beyond simple `&&` segments, and release aggregate rewrites out of scope.
   - Decide whether release docs should list aggregate aliases directly instead of expanding their nested commands.
