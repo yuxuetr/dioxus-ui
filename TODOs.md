@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M74 Tailwind Static Token Gate
-- Current task: M74.3 Update Tailwind static token verification wiring
+- Current task: M74.4 Complete Tailwind static token milestone
 
 ## Backup
 
@@ -1005,7 +1005,7 @@
   - Fail on patterns like `bg-{...}`, `text-{...}`, `border-{...}`, spacing interpolation, and common variant color interpolation.
   - Add an npm alias for the Tailwind static token check.
 
-- TODO M74.3 Update Tailwind static token verification wiring
+- DONE M74.3 Update Tailwind static token verification wiring
   - Include the Tailwind static token check in deterministic package/release verification if appropriate.
   - Document the check in README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check verifies static token shape, not compiled CSS output or visual parity.
