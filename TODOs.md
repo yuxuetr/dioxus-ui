@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M72 Component Docs Structure Gate
-- Current task: M72.2 Add component docs structure check
+- Current task: M72.3 Update docs structure verification wiring
 
 ## Backup
 
@@ -956,7 +956,7 @@
   - Reuse docs catalog metadata and keep content quality scoring, rendered docs checks, and live upstream shadcn parity out of scope.
   - Decide how the check should validate title, Source Copy, Crate Feature, API Surface, Accessibility Notes, and source preview references.
 
-- TODO M72.2 Add component docs structure check
+- DONE M72.2 Add component docs structure check
   - Add a deterministic read-only script that scans public component docs pages from the docs catalog.
   - Fail when a public component doc is missing required sections or mismatched generated command/feature snippets.
   - Add an npm alias for the component docs structure check.
