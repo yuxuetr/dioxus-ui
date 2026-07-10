@@ -14,6 +14,17 @@ const releaseCommandSegments =
   typeof releaseScript === "string"
     ? releaseScript.split(/\s*&&\s*/).filter((segment) => segment.length > 0)
     : [];
+const releaseGateMarker = "expanded gate set is:";
+const releaseGateMarkerIndex = releaseDocs.indexOf(releaseGateMarker);
+const releaseGateBlockMatch =
+  releaseGateMarkerIndex >= 0
+    ? releaseDocs.slice(releaseGateMarkerIndex).match(/```bash\n([\s\S]*?)\n```/)
+    : null;
+const documentedReleaseSegments =
+  releaseGateBlockMatch?.[1]
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0) ?? [];
 
 const requiredSnippets = [
   {
@@ -56,21 +67,46 @@ const missingSnippets = requiredSnippets.filter(({ snippet }) => {
 const missingReleaseSegments = releaseCommandSegments.filter((segment) => {
   return !releaseDocs.includes(segment);
 });
+const releaseGateOrderMatches =
+  documentedReleaseSegments.length === releaseCommandSegments.length &&
+  documentedReleaseSegments.every((segment, index) => {
+    return segment === releaseCommandSegments[index];
+  });
 
 if (
   typeof releaseScript !== "string" ||
+  releaseGateMarkerIndex < 0 ||
+  releaseGateBlockMatch === null ||
   missingSnippets.length > 0 ||
-  missingReleaseSegments.length > 0
+  missingReleaseSegments.length > 0 ||
+  !releaseGateOrderMatches
 ) {
   console.error("release documentation verification failed");
   if (typeof releaseScript !== "string") {
     console.error("- package.json is missing script: verify:release");
+  }
+  if (releaseGateMarkerIndex < 0) {
+    console.error(`- docs/release.md is missing release gate marker: ${releaseGateMarker}`);
+  }
+  if (releaseGateMarkerIndex >= 0 && releaseGateBlockMatch === null) {
+    console.error("- docs/release.md is missing expanded release gate bash block");
   }
   for (const { label, snippet } of missingSnippets) {
     console.error(`- missing ${label}: ${snippet}`);
   }
   for (const segment of missingReleaseSegments) {
     console.error(`- docs/release.md missing release command segment: ${segment}`);
+  }
+  if (releaseGateBlockMatch !== null && !releaseGateOrderMatches) {
+    console.error("- docs/release.md expanded release gate block does not match verify:release order");
+    console.error("  expected:");
+    for (const segment of releaseCommandSegments) {
+      console.error(`  - ${segment}`);
+    }
+    console.error("  actual:");
+    for (const segment of documentedReleaseSegments) {
+      console.error(`  - ${segment}`);
+    }
   }
   process.exitCode = 1;
 } else {
