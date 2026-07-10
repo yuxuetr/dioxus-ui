@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -77,6 +77,7 @@ const aggregateScriptRequirements = {
 const missingScripts = [];
 const mismatchedScripts = [];
 const missingAggregateParts = [];
+const missingLocalTargets = [];
 
 for (const [name, expectedCommand] of Object.entries(requiredScripts)) {
   const actualCommand = scripts[name];
@@ -101,10 +102,29 @@ for (const [name, requiredParts] of Object.entries(aggregateScriptRequirements))
   }
 }
 
+for (const [name, command] of Object.entries(scripts)) {
+  const nodeScriptMatches = command.matchAll(/\bnode\s+(scripts\/[^\s&|;]+)/g);
+  for (const match of nodeScriptMatches) {
+    const target = match[1];
+    if (!existsSync(join(repoRoot, target))) {
+      missingLocalTargets.push({ name, target });
+    }
+  }
+
+  const directScriptMatches = command.matchAll(/(?:^|[\s&|;])(scripts\/[^\s&|;]+)/g);
+  for (const match of directScriptMatches) {
+    const target = match[1];
+    if (!existsSync(join(repoRoot, target))) {
+      missingLocalTargets.push({ name, target });
+    }
+  }
+}
+
 if (
   missingScripts.length > 0 ||
   mismatchedScripts.length > 0 ||
-  missingAggregateParts.length > 0
+  missingAggregateParts.length > 0 ||
+  missingLocalTargets.length > 0
 ) {
   console.error("package script verification failed");
 
@@ -120,6 +140,10 @@ if (
 
   for (const { name, requiredPart } of missingAggregateParts) {
     console.error(`- aggregate script ${name} is missing: ${requiredPart}`);
+  }
+
+  for (const { name, target } of missingLocalTargets) {
+    console.error(`- script ${name} references missing local target: ${target}`);
   }
 
   process.exitCode = 1;
