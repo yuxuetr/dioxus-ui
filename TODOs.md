@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M72 Component Docs Structure Gate
-- Current task: M72.1 Plan component docs structure gate
+- Current task: M72.2 Add component docs structure check
 
 ## Backup
 
@@ -951,7 +951,7 @@
 
 ## M72 Component Docs Structure Gate
 
-- TODO M72.1 Plan component docs structure gate
+- DONE M72.1 Plan component docs structure gate
   - Define the required Markdown structure for public component docs pages.
   - Reuse docs catalog metadata and keep content quality scoring, rendered docs checks, and live upstream shadcn parity out of scope.
   - Decide how the check should validate title, Source Copy, Crate Feature, API Surface, Accessibility Notes, and source preview references.
