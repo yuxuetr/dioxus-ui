@@ -1216,6 +1216,26 @@ npm run verify:docs-structure
 If the gate is accepted, it should be included in `npm run verify:docs` and
 documented with the other release-quality checks.
 
+## M72 Component Docs Structure Gate Usage
+
+M72 adds the component docs structure check:
+
+```bash
+npm run verify:docs-structure
+```
+
+The check scans public component docs pages from the shared docs catalog and
+verifies required sections plus generated command and feature snippets. It is
+included in:
+
+```bash
+npm run verify:docs
+```
+
+The check remains documentation-shape focused. It does not score prose quality,
+refresh upstream shadcn/ui parity, validate rendered HTML, inspect screenshots,
+or assert runtime visual parity.
+
 ## M70 Final Result
 
 M70 added the component status snapshot:

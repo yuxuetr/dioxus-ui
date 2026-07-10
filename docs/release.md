@@ -138,6 +138,9 @@ artifacts without deleting files.
 Component status checks are part of `npm run verify:docs` and validate only the
 local implementation snapshot and wiring coverage matrix derived from catalog
 metadata.
+Component docs structure checks are part of `npm run verify:docs` and validate
+only required public component docs sections plus generated command and feature
+snippets.
 Documentation index checks are part of `npm run verify:docs` and validate only
 README entry-point links.
 Markdown link target checks are part of `npm run verify:docs` and validate only
@@ -156,6 +159,7 @@ npm run verify:package-scripts
 npm run verify:ci-docs
 npm run verify:ci-plan
 npm run verify:docs-status
+npm run verify:docs-structure
 npm run verify:docs-index
 npm run verify:docs-links
 npm run verify:docs-anchors

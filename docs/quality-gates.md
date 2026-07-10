@@ -171,6 +171,11 @@ crate features, crate modules, source preview metadata, and source-copy targets.
 It verifies wiring coverage, not live upstream shadcn/ui parity or runtime
 visual parity.
 
+`npm run verify:docs-structure` checks that every public component docs page
+keeps the required title, Source Copy, Crate Feature, API Surface, and
+Accessibility Notes structure. It is read-only and does not score prose quality,
+validate rendered HTML, or assert runtime visual parity.
+
 `npm run verify:docs-routes` checks that `docs/components/routes.md` matches the
 route manifest rendered from the shared catalog builder.
 

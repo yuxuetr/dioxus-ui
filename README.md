@@ -229,6 +229,7 @@ For focused debugging, the aggregate command expands to:
 npm run verify:docs-catalog
 npm run verify:docs-catalog-page
 npm run verify:docs-status
+npm run verify:docs-structure
 npm run verify:docs-routes
 npm run verify:docs-source-preview
 npm run verify:docs-index
@@ -240,12 +241,14 @@ This builds the catalog in memory from registry entries, templates, component
 docs, crate features, and crate modules. The page check also verifies
 `docs/components/catalog.md` matches the shared catalog builder output. The
 status check verifies `docs/components/status.md` matches the local component
-implementation surface. The route check verifies future docs runtime route
-metadata. The source preview check verifies template metadata for future source
-preview routes. The index check verifies README and docs/README keep the
-required project entry points. The link target check verifies tracked Markdown
-files do not reference missing local files. The anchor check verifies local
-Markdown fragments match headings or explicit anchors.
+implementation surface. The structure check verifies public component docs keep
+the required title, install, API, and accessibility sections. The route check
+verifies future docs runtime route metadata. The source preview check verifies
+template metadata for future source preview routes. The index check verifies
+README and docs/README keep the required project entry points. The link target
+check verifies tracked Markdown files do not reference missing local files. The
+anchor check verifies local Markdown fragments match headings or explicit
+anchors.
 
 Verify component implementation status only:
 
@@ -257,6 +260,15 @@ This checks that the generated component status snapshot still matches local
 registry, template, docs, crate feature, crate module, source preview, and
 source-copy target metadata. The coverage matrix is local wiring status, not
 runtime visual parity.
+
+Verify public component docs structure only:
+
+```bash
+npm run verify:docs-structure
+```
+
+This checks required component docs sections and generated command/feature
+snippets. It does not score prose quality or assert runtime visual parity.
 
 Verify documentation index consistency only:
 
