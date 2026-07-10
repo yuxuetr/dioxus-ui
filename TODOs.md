@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M75 Package Script Target Gate
-- Current task: M75.3 Update package script target documentation
+- Current task: M75.4 Complete package script target milestone
 
 ## Backup
 
@@ -1027,7 +1027,7 @@
   - Fail when a `node scripts/*.mjs` or direct `scripts/*` command points to a missing file.
   - Keep the check read-only and deterministic.
 
-- TODO M75.3 Update package script target documentation
+- DONE M75.3 Update package script target documentation
   - Document the target existence check in README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check validates package script wiring, not command behavior.
   - Keep release aggregation behavior unchanged.
