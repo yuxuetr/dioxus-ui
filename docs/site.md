@@ -1181,6 +1181,37 @@ Because the check is deterministic and read-only, it is included in:
 npm run verify:docs
 ```
 
+## M73 Registry Metadata Gate Plan
+
+M73 should add a fast npm-side registry metadata check for `registry/*.json`.
+The goal is to catch source-copy metadata drift before slower Rust tests or
+generated fixture smoke run.
+
+The check should validate:
+
+- registry filenames match the `name` field
+- names use component slug format
+- descriptions are non-empty strings
+- `files` is a non-empty array
+- every file source exists in the repository
+- every file target stays under `src/components/ui/`
+- dependency names point to existing registry entries
+- asset mappings, when present, have existing sources and non-empty targets
+- no duplicate registry names or source-copy targets exist
+
+The check should remain deterministic and read-only. It should not execute CLI
+commands, compile Rust crates, replace the existing CLI registry tests, validate
+against a full JSON Schema implementation, or run generated fixture smoke.
+
+The expected command should be:
+
+```bash
+npm run verify:registry
+```
+
+If accepted, the command should be included in package script consistency and
+release verification documentation.
+
 ## M72 Component Docs Structure Gate Plan
 
 M72 should add a deterministic gate for public component documentation shape.
