@@ -1427,6 +1427,32 @@ tests, CLI registry tests, component listing, registry metadata, Tailwind static
 tokens, preview structural gates, example smoke, feature checks, generated
 fixture smoke, CI documentation checks, CI plan checks, and repository hygiene.
 
+## M79 Package Lock Metadata Gate Plan
+
+M79 should add a deterministic read-only check that prevents `package.json` and
+`package-lock.json` root metadata from drifting. The repository relies on npm
+for local Node verification scripts, so lockfile drift should fail before
+release verification reaches dependency-sensitive commands.
+
+The check should validate:
+
+- `package-lock.json` exists and has the expected npm lockfile shape
+- lockfile root `name` and `version` match `package.json`
+- lockfile root `devDependencies` match `package.json` `devDependencies`
+- top-level lockfile `name` and `version` match `package.json`
+- lockfile version is supported by the repository's current npm contract
+
+The check should remain metadata-focused. It should not run `npm install`,
+resolve dependency freshness, contact the npm registry, inspect transitive
+package metadata, install Playwright browsers, or rewrite the lockfile.
+
+If accepted, it should have a focused alias and become part of the release
+aggregate:
+
+```bash
+npm run verify:package-lock
+```
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
