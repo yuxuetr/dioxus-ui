@@ -213,9 +213,9 @@ validate external URL anchors, rendered HTML anchors, or generated docs runtime
 routes.
 
 `npm run verify:release-docs` checks that release documentation still mentions
-the local aggregate alias, required Rust workspace gates, source-copy fixture
-smoke, feature checks, and opt-in browser smoke boundary. It is read-only and
-does not generate release artifacts.
+the local aggregate alias, every direct `verify:release` command segment,
+source-copy fixture smoke, feature checks, and opt-in browser smoke boundary. It
+is read-only and does not generate release artifacts.
 
 `npm run verify:registry` checks that registry entries have stable metadata,
 existing sources, valid source-copy targets, known dependency references, and

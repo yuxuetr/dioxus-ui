@@ -306,7 +306,8 @@ npm run verify:release-docs
 ```
 
 This checks that release docs still distinguish the local aggregate command,
-required Rust/source-copy/feature release gates, and opt-in browser smoke.
+cover every direct `verify:release` command segment, and keep the opt-in browser
+smoke boundary explicit.
 
 Verify registry metadata only:
 

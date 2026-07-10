@@ -1334,6 +1334,19 @@ The existing release docs verifier should own this invariant:
 npm run verify:release-docs
 ```
 
+## M77 Release Aggregate Docs Coverage Usage
+
+M77 extends the release documentation verifier:
+
+```bash
+npm run verify:release-docs
+```
+
+The command now reads `package.json`, splits `verify:release` by direct `&&`
+segments, and requires each segment to appear in `docs/release.md`. This keeps
+manual release review aligned with the actual npm command chain while preserving
+the existing opt-in browser smoke boundary checks.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
