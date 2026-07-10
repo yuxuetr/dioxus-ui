@@ -9,6 +9,9 @@ const readRepoFile = (relativePath) => {
   return readFileSync(join(repoRoot, relativePath), "utf8");
 };
 
+const packageJson = JSON.parse(readRepoFile("package.json"));
+const qualityGates = readRepoFile("docs/quality-gates.md");
+
 const requiredLinks = [
   {
     file: "README.md",
@@ -66,6 +69,7 @@ const requiredLinks = [
 ];
 
 const missingLinks = [];
+const missingQualityGateAliases = [];
 
 for (const { file, content, links } of requiredLinks) {
   for (const link of links) {
@@ -75,10 +79,24 @@ for (const { file, content, links } of requiredLinks) {
   }
 }
 
-if (missingLinks.length > 0) {
+const verifyAliases = Object.keys(packageJson.scripts ?? {})
+  .filter((name) => name === "verify" || name.startsWith("verify:"))
+  .sort();
+
+for (const alias of verifyAliases) {
+  const expectedSnippet = `npm run ${alias}`;
+  if (!qualityGates.includes(expectedSnippet)) {
+    missingQualityGateAliases.push(expectedSnippet);
+  }
+}
+
+if (missingLinks.length > 0 || missingQualityGateAliases.length > 0) {
   console.error("documentation index verification failed");
   for (const { file, link } of missingLinks) {
     console.error(`- ${file} missing link: ${link}`);
+  }
+  for (const snippet of missingQualityGateAliases) {
+    console.error(`- docs/quality-gates.md missing verification alias: ${snippet}`);
   }
   process.exitCode = 1;
 } else {

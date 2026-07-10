@@ -153,6 +153,22 @@ hygiene.
 `npm run verify:smoke` runs rendered preview structural checks and example smoke
 output.
 
+`npm run verify:preview` runs Web preview, Mobile Web profile, and Desktop
+preview structural checks.
+
+`npm run verify:web-preview` checks rendered Web preview screenshot
+prerequisites without launching a browser.
+
+`npm run verify:mobile-web-profile` checks source-level Mobile Web profile
+coverage and fallback markers. It is not a native Mobile device or emulator
+gate.
+
+`npm run verify:desktop-preview` checks Desktop preview structural coverage
+without launching a native WebView screenshot run.
+
+`npm run verify:examples` runs the example smoke script for Web and Desktop demo
+entry points.
+
 `npm run verify:docs` runs all docs metadata and Markdown drift checks. Use the
 individual commands below when isolating a specific failure.
 
