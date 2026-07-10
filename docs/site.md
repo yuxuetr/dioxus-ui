@@ -1368,6 +1368,30 @@ tests, CLI registry tests, component listing, registry metadata, Tailwind static
 tokens, preview structural gates, example smoke, feature checks, generated
 fixture smoke, CI documentation checks, CI plan checks, and repository hygiene.
 
+## M78 Release Gate Order Verification Plan
+
+M78 should make the release documentation check stricter by verifying that the
+expanded release gate block in `docs/release.md` exactly matches the
+`package.json` `verify:release` command-chain order.
+
+The check should:
+
+- read `package.json` and split `verify:release` by direct `&&` command segments
+- locate the first `bash` code block after the `expanded gate set is:` marker in
+  `docs/release.md`
+- compare the block line-for-line with the release command segments
+- fail on missing, extra, or reordered commands
+
+The check should remain documentation-only. It should not execute release
+commands, expand nested npm aliases, parse arbitrary shell syntax, or generate
+the release documentation block.
+
+The existing release docs verifier should own this invariant:
+
+```bash
+npm run verify:release-docs
+```
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
