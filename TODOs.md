@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M72 Component Docs Structure Gate
-- Current task: M72 complete
+- Current milestone: M73 Registry Metadata Gate
+- Current task: M73.1 Plan registry metadata gate
 
 ## Backup
 
@@ -968,6 +968,28 @@
 
 - DONE M72.4 Complete component docs structure milestone
   - Run docs structure checks, docs aggregate, package script checks, release docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M73 Registry Metadata Gate
+
+- TODO M73.1 Plan registry metadata gate
+  - Define a deterministic read-only npm check for `registry/*.json` metadata.
+  - Keep Rust compile checks, CLI behavior tests, generated fixture smoke, and JSON Schema validation out of scope.
+  - Decide which registry invariants should be verified from source paths, targets, dependencies, and assets.
+
+- TODO M73.2 Add registry metadata check
+  - Add a script that validates registry entry names, descriptions, file mappings, dependency references, and asset mappings.
+  - Verify source paths exist and source-copy targets remain inside `src/components/ui`.
+  - Add an npm alias for the registry metadata check.
+
+- TODO M73.3 Update registry metadata verification wiring
+  - Include the registry metadata check in deterministic package/release verification if appropriate.
+  - Document the check in README, quality gates, release docs, and docs-site planning docs.
+  - Clarify that the check verifies registry metadata shape, not runtime CLI behavior.
+
+- TODO M73.4 Complete registry metadata milestone
+  - Run registry metadata checks, package script checks, release docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
