@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M76 Quality Gate Alias Coverage Gate
-- Current task: M76.1 Plan quality gate alias coverage
+- Current task: M76.2 Add quality gate alias coverage check
 
 ## Backup
 
@@ -1039,7 +1039,7 @@
 
 ## M76 Quality Gate Alias Coverage Gate
 
-- TODO M76.1 Plan quality gate alias coverage
+- DONE M76.1 Plan quality gate alias coverage
   - Define a deterministic read-only check that every `package.json` `verify:*` alias is documented in `docs/quality-gates.md`.
   - Keep command execution, prose quality scoring, and release aggregation behavior out of scope.
   - Decide how to handle opt-in browser aliases and aggregate aliases.
