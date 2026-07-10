@@ -1287,6 +1287,28 @@ This keeps focused aliases such as `verify:web-preview`, `verify:examples`, and
 opt-in aliases such as `verify:mobile-browser` discoverable without changing
 which commands are part of the default release aggregate.
 
+## M76 Final Result
+
+M76 extended `npm run verify:docs-index` so quality gate documentation must
+mention every `verify` and `verify:*` npm alias from `package.json`.
+
+Validation completed:
+
+```bash
+npm run verify:docs-index
+npm run verify:docs
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:repo-hygiene
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The release aggregate also covered workspace checks and
+tests, CLI registry tests, component listing, registry metadata, Tailwind static
+tokens, preview structural gates, example smoke, feature checks, generated
+fixture smoke, CI documentation checks, CI plan checks, and repository hygiene.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
