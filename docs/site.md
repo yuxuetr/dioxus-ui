@@ -1271,6 +1271,22 @@ already checks required documentation entry points:
 npm run verify:docs-index
 ```
 
+## M76 Quality Gate Alias Coverage Usage
+
+M76 extends the docs index verifier:
+
+```bash
+npm run verify:docs-index
+```
+
+The command now checks both required documentation entry links and verification
+alias coverage. Every `verify` and `verify:*` script in `package.json` must be
+mentioned in `docs/quality-gates.md` as an `npm run ...` command.
+
+This keeps focused aliases such as `verify:web-preview`, `verify:examples`, and
+opt-in aliases such as `verify:mobile-browser` discoverable without changing
+which commands are part of the default release aggregate.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
