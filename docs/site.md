@@ -1241,6 +1241,36 @@ tests, CLI registry tests, component listing, registry metadata, Tailwind static
 tokens, preview structural gates, example smoke, feature checks, generated
 fixture smoke, CI documentation checks, CI plan checks, and repository hygiene.
 
+## M76 Quality Gate Alias Coverage Plan
+
+M76 should add a deterministic read-only check that keeps the quality gate
+documentation aligned with `package.json` verification aliases. Every npm script
+whose name starts with `verify` should be discoverable from
+`docs/quality-gates.md` so new local gates are not hidden behind package metadata
+only.
+
+The check should validate:
+
+- every `verify` and `verify:*` alias in `package.json` appears in
+  `docs/quality-gates.md`
+- aggregate aliases such as `verify`, `verify:docs`, `verify:smoke`, and
+  `verify:release` are documented explicitly
+- focused preview/example aliases are documented even when they are normally
+  reached through an aggregate alias
+- opt-in browser smoke aliases are documented without promoting them to default
+  release gates
+
+The check should remain documentation-coverage focused. It should not execute
+npm scripts, validate command behavior, score prose quality, inspect rendered
+HTML, or change the release aggregate command.
+
+If accepted, the existing docs index gate can own this invariant because it
+already checks required documentation entry points:
+
+```bash
+npm run verify:docs-index
+```
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
