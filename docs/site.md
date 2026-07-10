@@ -1405,6 +1405,28 @@ The command now requires the expanded release gate bash block in
 same commands, same order, and no extra commands. It still does not execute the
 release commands or expand nested aliases.
 
+## M78 Final Result
+
+M78 extended `npm run verify:release-docs` so the expanded release gate block in
+`docs/release.md` must exactly match the direct `package.json`
+`verify:release` command chain.
+
+Validation completed:
+
+```bash
+npm run verify:release-docs
+npm run verify:docs
+npm run verify:package-scripts
+npm run verify:repo-hygiene
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The release aggregate also covered workspace checks and
+tests, CLI registry tests, component listing, registry metadata, Tailwind static
+tokens, preview structural gates, example smoke, feature checks, generated
+fixture smoke, CI documentation checks, CI plan checks, and repository hygiene.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
