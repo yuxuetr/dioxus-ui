@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M77 Release Aggregate Docs Coverage Gate
-- Current task: M77.3 Update release aggregate documentation
+- Current task: M77.4 Complete release aggregate docs coverage milestone
 
 ## Backup
 
@@ -1071,7 +1071,7 @@
   - Fail when any release aggregate command segment is missing from `docs/release.md`.
   - Keep existing opt-in browser smoke boundary checks.
 
-- TODO M77.3 Update release aggregate documentation
+- DONE M77.3 Update release aggregate documentation
   - Align the expanded release gate list with the actual `verify:release` command chain.
   - Clarify which entries are direct aggregate segments and which are covered by nested aliases.
   - Update README, quality gates, or docs-site planning docs only where needed.
