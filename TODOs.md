@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M75 Package Script Target Gate
-- Current task: M75.4 Complete package script target milestone
+- Current task: M75 complete
 
 ## Backup
 
@@ -1032,7 +1032,7 @@
   - Clarify that the check validates package script wiring, not command behavior.
   - Keep release aggregation behavior unchanged.
 
-- TODO M75.4 Complete package script target milestone
+- DONE M75.4 Complete package script target milestone
   - Run package script checks, release docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
