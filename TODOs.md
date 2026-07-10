@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M73 Registry Metadata Gate
-- Current task: M73 complete
+- Current milestone: M74 Tailwind Static Token Gate
+- Current task: M74.1 Plan Tailwind static token gate
 
 ## Backup
 
@@ -990,6 +990,28 @@
 
 - DONE M73.4 Complete registry metadata milestone
   - Run registry metadata checks, package script checks, release docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M74 Tailwind Static Token Gate
+
+- TODO M74.1 Plan Tailwind static token gate
+  - Define a deterministic read-only check for dynamic Tailwind class token patterns in component source and templates.
+  - Keep full Tailwind compilation, CSS generation, visual regression, and user-provided class validation out of scope.
+  - Decide which source roots and class-prefix patterns should be scanned.
+
+- TODO M74.2 Add Tailwind static token check
+  - Add a script that scans styled crate source, source-copy templates, and class helpers for dynamic Tailwind token interpolation.
+  - Fail on patterns like `bg-{...}`, `text-{...}`, `border-{...}`, spacing interpolation, and common variant color interpolation.
+  - Add an npm alias for the Tailwind static token check.
+
+- TODO M74.3 Update Tailwind static token verification wiring
+  - Include the Tailwind static token check in deterministic package/release verification if appropriate.
+  - Document the check in README, quality gates, release docs, and docs-site planning docs.
+  - Clarify that the check verifies static token shape, not compiled CSS output or visual parity.
+
+- TODO M74.4 Complete Tailwind static token milestone
+  - Run Tailwind token checks, package script checks, release docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
