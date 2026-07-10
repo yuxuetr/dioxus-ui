@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M75 Package Script Target Gate
-- Current task: M75 complete
+- Current milestone: M76 Quality Gate Alias Coverage Gate
+- Current task: M76.1 Plan quality gate alias coverage
 
 ## Backup
 
@@ -1034,6 +1034,28 @@
 
 - DONE M75.4 Complete package script target milestone
   - Run package script checks, release docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M76 Quality Gate Alias Coverage Gate
+
+- TODO M76.1 Plan quality gate alias coverage
+  - Define a deterministic read-only check that every `package.json` `verify:*` alias is documented in `docs/quality-gates.md`.
+  - Keep command execution, prose quality scoring, and release aggregation behavior out of scope.
+  - Decide how to handle opt-in browser aliases and aggregate aliases.
+
+- TODO M76.2 Add quality gate alias coverage check
+  - Extend or add a verifier that compares `package.json` verification aliases against `docs/quality-gates.md`.
+  - Fail when a `verify:*` alias is missing from the quality gate docs.
+  - Include the check in the existing docs or release verification flow without adding browser runtime requirements.
+
+- TODO M76.3 Update quality gate alias documentation
+  - Document focused preview and example aliases that are currently only described indirectly.
+  - Clarify that opt-in browser smoke remains documented but outside default release gates.
+  - Update README, release, or docs-site planning docs only where needed.
+
+- TODO M76.4 Complete quality gate alias coverage milestone
+  - Run quality gate alias checks, docs checks, package script checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
