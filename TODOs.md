@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M75 Package Script Target Gate
-- Current task: M75.1 Plan package script target gate
+- Current task: M75.2 Add package script target check
 
 ## Backup
 
@@ -1017,7 +1017,7 @@
 
 ## M75 Package Script Target Gate
 
-- TODO M75.1 Plan package script target gate
+- DONE M75.1 Plan package script target gate
   - Define a deterministic read-only check that every local script target referenced from `package.json` exists.
   - Keep executing npm scripts, shell parsing beyond simple command segments, and external command validation out of scope.
   - Decide how to handle `node scripts/*.mjs` and direct `scripts/*.sh` references in aggregate commands.
