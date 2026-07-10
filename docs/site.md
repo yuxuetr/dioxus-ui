@@ -1468,6 +1468,30 @@ devDependencies. It is included in `npm run verify:release`.
 The check is read-only and does not resolve dependencies, run `npm install`,
 contact the npm registry, install Playwright browsers, or rewrite the lockfile.
 
+## M79 Final Result
+
+M79 added `npm run verify:package-lock` and included it in
+`npm run verify:release`. The check validates committed `package-lock.json` root
+metadata against `package.json` without network access or lockfile rewrites.
+
+Validation completed:
+
+```bash
+npm run verify:package-lock
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:docs
+npm run verify:repo-hygiene
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The release aggregate also covered workspace checks and
+tests, CLI registry tests, component listing, registry metadata, Tailwind static
+tokens, preview structural gates, example smoke, feature checks, generated
+fixture smoke, release documentation checks, package script checks, CI
+documentation checks, CI plan checks, and repository hygiene.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
