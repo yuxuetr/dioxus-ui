@@ -135,6 +135,9 @@ segments.
 Package script wiring checks are also part of the release aggregate, but they
 only inspect `package.json` and local script target existence; they do not
 execute the release gate recursively.
+Package lock metadata checks are also part of the release aggregate, but they
+only compare committed `package.json` and `package-lock.json` root metadata;
+they do not run `npm install` or contact the npm registry.
 CI browser docs checks are read-only and do not create workflow files.
 CI Plan checks are also read-only and validate documentation only.
 Repository hygiene checks are read-only and report forbidden committed

@@ -233,6 +233,11 @@ required verification aliases, that aggregate aliases reference the expected
 focused commands, and that local `scripts/` targets exist. It is read-only and
 does not execute release commands.
 
+`npm run verify:package-lock` checks that committed `package-lock.json` root
+metadata matches `package.json`, including package name, version, lockfile
+version, and root devDependencies. It is read-only and does not run npm install,
+contact the registry, or rewrite lockfiles.
+
 `npm run verify:repo-hygiene` checks that inactive workflow files and known
 generated artifacts are not committed. It is read-only and reports drift without
 removing files.

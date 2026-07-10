@@ -340,6 +340,16 @@ This checks `package.json` script relationships and local script target
 existence without executing Cargo, browser automation, generated fixture smoke,
 or release commands.
 
+Verify npm lockfile metadata only:
+
+```bash
+npm run verify:package-lock
+```
+
+This checks that committed `package-lock.json` root metadata matches
+`package.json` without running npm install, contacting the registry, or
+rewriting the lockfile.
+
 Verify repository hygiene only:
 
 ```bash

@@ -1453,6 +1453,21 @@ aggregate:
 npm run verify:package-lock
 ```
 
+## M79 Package Lock Metadata Gate Usage
+
+M79 adds a package lock metadata verifier:
+
+```bash
+npm run verify:package-lock
+```
+
+The command checks committed `package-lock.json` root metadata against
+`package.json`, including package name, version, lockfile version, and root
+devDependencies. It is included in `npm run verify:release`.
+
+The check is read-only and does not resolve dependencies, run `npm install`,
+contact the npm registry, install Playwright browsers, or rewrite the lockfile.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
