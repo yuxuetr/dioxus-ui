@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M77 Release Aggregate Docs Coverage Gate
-- Current task: M77.2 Add release aggregate docs coverage check
+- Current task: M77.3 Update release aggregate documentation
 
 ## Backup
 
@@ -1066,7 +1066,7 @@
   - Keep command execution, shell interpretation beyond simple `&&` segments, and release aggregate rewrites out of scope.
   - Decide whether release docs should list aggregate aliases directly instead of expanding their nested commands.
 
-- TODO M77.2 Add release aggregate docs coverage check
+- DONE M77.2 Add release aggregate docs coverage check
   - Extend the release documentation verifier to parse `verify:release` command segments from `package.json`.
   - Fail when any release aggregate command segment is missing from `docs/release.md`.
   - Keep existing opt-in browser smoke boundary checks.
