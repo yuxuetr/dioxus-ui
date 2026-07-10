@@ -1220,6 +1220,27 @@ script targets referenced as `node scripts/*.mjs` or direct `scripts/*`
 commands. It remains read-only and does not execute the referenced scripts,
 validate external commands, or interpret arbitrary shell syntax.
 
+## M75 Final Result
+
+M75 extended package script verification with local script target existence
+checks for `node scripts/*.mjs` and direct `scripts/*` references.
+
+Validation completed:
+
+```bash
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:docs
+npm run verify:repo-hygiene
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The release aggregate also covered workspace checks and
+tests, CLI registry tests, component listing, registry metadata, Tailwind static
+tokens, preview structural gates, example smoke, feature checks, generated
+fixture smoke, CI documentation checks, CI plan checks, and repository hygiene.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
