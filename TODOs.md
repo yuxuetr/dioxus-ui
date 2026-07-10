@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M71 Component Coverage Matrix
-- Current task: M71 complete
+- Current milestone: M72 Component Docs Structure Gate
+- Current task: M72.1 Plan component docs structure gate
 
 ## Backup
 
@@ -946,6 +946,28 @@
 
 - DONE M71.4 Complete component coverage matrix milestone
   - Run component status checks, docs aggregate, package script checks, release docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M72 Component Docs Structure Gate
+
+- TODO M72.1 Plan component docs structure gate
+  - Define the required Markdown structure for public component docs pages.
+  - Reuse docs catalog metadata and keep content quality scoring, rendered docs checks, and live upstream shadcn parity out of scope.
+  - Decide how the check should validate title, Source Copy, Crate Feature, API Surface, Accessibility Notes, and source preview references.
+
+- TODO M72.2 Add component docs structure check
+  - Add a deterministic read-only script that scans public component docs pages from the docs catalog.
+  - Fail when a public component doc is missing required sections or mismatched generated command/feature snippets.
+  - Add an npm alias for the component docs structure check.
+
+- TODO M72.3 Update docs structure verification wiring
+  - Include the docs structure check in deterministic docs/package/release verification if appropriate.
+  - Document the check in README, quality gates, release docs, and docs-site planning docs.
+  - Clarify that the check verifies documentation shape, not prose quality or runtime visual parity.
+
+- TODO M72.4 Complete component docs structure milestone
+  - Run docs structure checks, docs aggregate, package script checks, release docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
