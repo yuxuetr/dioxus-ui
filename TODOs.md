@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M73 Registry Metadata Gate
-- Current task: M73.4 Complete registry metadata milestone
+- Current task: M73 complete
 
 ## Backup
 
@@ -988,7 +988,7 @@
   - Document the check in README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check verifies registry metadata shape, not runtime CLI behavior.
 
-- TODO M73.4 Complete registry metadata milestone
+- DONE M73.4 Complete registry metadata milestone
   - Run registry metadata checks, package script checks, release docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
