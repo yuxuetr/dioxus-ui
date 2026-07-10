@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M75 Package Script Target Gate
-- Current task: M75.2 Add package script target check
+- Current task: M75.3 Update package script target documentation
 
 ## Backup
 
@@ -1022,7 +1022,7 @@
   - Keep executing npm scripts, shell parsing beyond simple command segments, and external command validation out of scope.
   - Decide how to handle `node scripts/*.mjs` and direct `scripts/*.sh` references in aggregate commands.
 
-- TODO M75.2 Add package script target check
+- DONE M75.2 Add package script target check
   - Extend the package script verifier to validate local `scripts/` targets referenced by npm aliases.
   - Fail when a `node scripts/*.mjs` or direct `scripts/*` command points to a missing file.
   - Keep the check read-only and deterministic.
