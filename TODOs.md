@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M74 Tailwind Static Token Gate
-- Current task: M74.1 Plan Tailwind static token gate
+- Current task: M74.2 Add Tailwind static token check
 
 ## Backup
 
@@ -995,7 +995,7 @@
 
 ## M74 Tailwind Static Token Gate
 
-- TODO M74.1 Plan Tailwind static token gate
+- DONE M74.1 Plan Tailwind static token gate
   - Define a deterministic read-only check for dynamic Tailwind class token patterns in component source and templates.
   - Keep full Tailwind compilation, CSS generation, visual regression, and user-provided class validation out of scope.
   - Decide which source roots and class-prefix patterns should be scanned.
