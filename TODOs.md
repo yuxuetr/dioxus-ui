@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M79 Package Lock Metadata Gate
-- Current task: M79.4 Complete package lock metadata milestone
+- Current task: M79 complete
 
 ## Backup
 
@@ -1120,7 +1120,7 @@
   - Clarify that the check validates committed lockfile metadata, not dependency freshness or registry availability.
   - Keep package script and release aggregate behavior unchanged except for the new read-only gate.
 
-- TODO M79.4 Complete package lock metadata milestone
+- DONE M79.4 Complete package lock metadata milestone
   - Run package lock checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
