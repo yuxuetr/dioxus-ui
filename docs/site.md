@@ -1236,6 +1236,30 @@ The check remains documentation-shape focused. It does not score prose quality,
 refresh upstream shadcn/ui parity, validate rendered HTML, inspect screenshots,
 or assert runtime visual parity.
 
+## M72 Final Result
+
+M72 added a read-only component docs structure gate and included it in the docs
+aggregate. The gate validates 64 public component docs pages for required
+headings, generated source-copy commands, generated crate feature snippets, API
+Surface bullets, and Accessibility Notes prose.
+
+Validation completed:
+
+```bash
+npm run verify:docs-structure
+npm run verify:docs
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:repo-hygiene
+npm run verify:release
+git diff --check
+```
+
+All commands passed. `verify:release` also covered workspace checks and tests,
+CLI registry tests, component listing, preview structural gates, example smoke,
+feature checks, generated fixture smoke, CI documentation checks, and repository
+hygiene.
+
 ## M70 Final Result
 
 M70 added the component status snapshot:
