@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M77 Release Aggregate Docs Coverage Gate
-- Current task: M77.4 Complete release aggregate docs coverage milestone
+- Current task: M77 complete
 
 ## Backup
 
@@ -1076,7 +1076,7 @@
   - Clarify which entries are direct aggregate segments and which are covered by nested aliases.
   - Update README, quality gates, or docs-site planning docs only where needed.
 
-- TODO M77.4 Complete release aggregate docs coverage milestone
+- DONE M77.4 Complete release aggregate docs coverage milestone
   - Run release docs checks, docs checks, package script checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
