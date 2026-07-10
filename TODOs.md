@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M79 Package Lock Metadata Gate
-- Current task: M79.2 Add package lock metadata check
+- Current task: M79.3 Update package lock metadata documentation
 
 ## Backup
 
@@ -1110,7 +1110,7 @@
   - Keep dependency resolution, network installs, lockfile regeneration, and package manager migration out of scope.
   - Decide which root fields are required for the current npm lockfile contract.
 
-- TODO M79.2 Add package lock metadata check
+- DONE M79.2 Add package lock metadata check
   - Add or extend a verifier to compare package name, version, and root devDependencies between `package.json` and `package-lock.json`.
   - Fail when `package-lock.json` is missing, has an unsupported lockfile version, or drifts from package metadata.
   - Include the check in release verification without requiring browser binaries or network access.
