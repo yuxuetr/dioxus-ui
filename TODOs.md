@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M74 Tailwind Static Token Gate
-- Current task: M74 complete
+- Current milestone: M75 Package Script Target Gate
+- Current task: M75.1 Plan package script target gate
 
 ## Backup
 
@@ -1012,6 +1012,28 @@
 
 - DONE M74.4 Complete Tailwind static token milestone
   - Run Tailwind token checks, package script checks, release docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M75 Package Script Target Gate
+
+- TODO M75.1 Plan package script target gate
+  - Define a deterministic read-only check that every local script target referenced from `package.json` exists.
+  - Keep executing npm scripts, shell parsing beyond simple command segments, and external command validation out of scope.
+  - Decide how to handle `node scripts/*.mjs` and direct `scripts/*.sh` references in aggregate commands.
+
+- TODO M75.2 Add package script target check
+  - Extend the package script verifier to validate local `scripts/` targets referenced by npm aliases.
+  - Fail when a `node scripts/*.mjs` or direct `scripts/*` command points to a missing file.
+  - Keep the check read-only and deterministic.
+
+- TODO M75.3 Update package script target documentation
+  - Document the target existence check in README, quality gates, release docs, and docs-site planning docs.
+  - Clarify that the check validates package script wiring, not command behavior.
+  - Keep release aggregation behavior unchanged.
+
+- TODO M75.4 Complete package script target milestone
+  - Run package script checks, release docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
