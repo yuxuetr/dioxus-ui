@@ -138,6 +138,9 @@ artifacts without deleting files.
 Registry metadata checks are part of `npm run verify:release` and validate only
 registry JSON names, descriptions, source mappings, source-copy targets,
 dependency references, and asset mappings.
+Tailwind static token checks are part of `npm run verify:release` and validate
+only that shipped Rust source and templates avoid dynamic Tailwind utility
+interpolation.
 Component status checks are part of `npm run verify:docs` and validate only the
 local implementation snapshot and wiring coverage matrix derived from catalog
 metadata.
@@ -160,6 +163,7 @@ npm run verify:release
 npm run verify:release-docs
 npm run verify:package-scripts
 npm run verify:registry
+npm run verify:tailwind-static
 npm run verify:ci-docs
 npm run verify:ci-plan
 npm run verify:docs-status

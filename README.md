@@ -316,6 +316,16 @@ This checks registry entry names, descriptions, source mappings, source-copy
 targets, dependency references, and asset mappings. It does not execute CLI
 commands or replace the Rust registry tests.
 
+Verify Tailwind static token safety only:
+
+```bash
+npm run verify:tailwind-static
+```
+
+This checks shipped Rust source and templates for dynamic Tailwind utility
+tokens such as `bg-{...}`. It does not compile Tailwind CSS or assert visual
+parity.
+
 Verify npm verification alias wiring only:
 
 ```bash

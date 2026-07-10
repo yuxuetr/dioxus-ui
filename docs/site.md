@@ -1216,6 +1216,28 @@ npm run verify:tailwind-static
 If accepted, the command should be included in package script consistency and
 release verification documentation.
 
+## M74 Tailwind Static Token Gate Usage
+
+M74 adds the Tailwind static token check:
+
+```bash
+npm run verify:tailwind-static
+```
+
+The check scans shipped Rust source and source-copy templates for dynamic
+Tailwind utility interpolation such as `bg-{...}`, `text-{...}`, spacing
+interpolation, gradient interpolation, and common grid/sizing interpolation.
+
+It is included in:
+
+```bash
+npm run verify:release
+```
+
+The check remains source-shape focused. It does not compile Tailwind CSS,
+validate user-provided `class` props, inspect rendered HTML, or assert visual
+parity.
+
 ## M73 Registry Metadata Gate Plan
 
 M73 should add a fast npm-side registry metadata check for `registry/*.json`.

@@ -206,6 +206,11 @@ existing sources, valid source-copy targets, known dependency references, and
 well-formed asset mappings. It is read-only and does not execute CLI commands,
 compile Rust crates, or replace CLI registry tests.
 
+`npm run verify:tailwind-static` checks shipped Rust source and source-copy
+templates for dynamic Tailwind utility token interpolation. It is read-only and
+does not compile Tailwind CSS, validate user-provided classes, or assert visual
+parity.
+
 `npm run verify:package-scripts` checks that `package.json` still exposes the
 required verification aliases and that aggregate aliases reference the expected
 focused commands. It is read-only and does not execute release commands.
