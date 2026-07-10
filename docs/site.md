@@ -1181,6 +1181,41 @@ Because the check is deterministic and read-only, it is included in:
 npm run verify:docs
 ```
 
+## M74 Tailwind Static Token Gate Plan
+
+M74 should add a deterministic read-only check that prevents dynamic Tailwind
+class token interpolation in shipped component source. Tailwind scans source as
+text, so tokens such as `bg-{color}-600` or `text-{tone}-foreground` are not
+safe defaults for a source-copy component library.
+
+The check should scan:
+
+- `crates/dioxus-ui/src/**/*.rs`
+- `templates/**/*.rs`
+- `crates/dioxus-ui-core/src/**/*.rs`
+
+The check should fail on common dynamic utility prefixes followed by
+interpolation, including:
+
+- color tokens such as `bg-{...}`, `text-{...}`, `border-{...}`, `ring-{...}`
+- gradient tokens such as `from-{...}`, `via-{...}`, `to-{...}`
+- SVG color tokens such as `fill-{...}` and `stroke-{...}`
+- spacing and sizing tokens such as `p-{...}`, `px-{...}`, `m-{...}`, `h-{...}`, and `w-{...}`
+- grid tokens such as `grid-cols-{...}`, `col-span-{...}`, and `row-span-{...}`
+
+The check should remain static and conservative. It should not compile
+Tailwind, generate CSS, validate user-provided `class` props, inspect rendered
+HTML, or assert visual parity.
+
+The expected command should be:
+
+```bash
+npm run verify:tailwind-static
+```
+
+If accepted, the command should be included in package script consistency and
+release verification documentation.
+
 ## M73 Registry Metadata Gate Plan
 
 M73 should add a fast npm-side registry metadata check for `registry/*.json`.
