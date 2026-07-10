@@ -8,6 +8,7 @@
     "verify:desktop-preview": "node scripts/desktop-preview-verify.mjs",
     "verify:mobile-web-profile": "node scripts/mobile-web-profile-verify.mjs",
     "verify:mobile-browser": "node scripts/mobile-browser-smoke.mjs",
+    "verify:registry": "node scripts/registry-verify.mjs",
     "verify:docs-catalog": "node scripts/docs-catalog-verify.mjs",
     "verify:docs-catalog-page": "node scripts/docs-catalog-markdown-verify.mjs",
     "verify:docs-routes": "node scripts/docs-route-manifest-verify.mjs",
