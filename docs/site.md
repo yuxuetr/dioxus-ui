@@ -1392,6 +1392,19 @@ The existing release docs verifier should own this invariant:
 npm run verify:release-docs
 ```
 
+## M78 Release Gate Order Verification Usage
+
+M78 extends the release documentation verifier:
+
+```bash
+npm run verify:release-docs
+```
+
+The command now requires the expanded release gate bash block in
+`docs/release.md` to match the direct `verify:release` command chain exactly:
+same commands, same order, and no extra commands. It still does not execute the
+release commands or expand nested aliases.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
