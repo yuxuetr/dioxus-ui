@@ -1347,6 +1347,27 @@ segments, and requires each segment to appear in `docs/release.md`. This keeps
 manual release review aligned with the actual npm command chain while preserving
 the existing opt-in browser smoke boundary checks.
 
+## M77 Final Result
+
+M77 extended `npm run verify:release-docs` so release documentation must cover
+every direct command segment from `package.json` `verify:release`.
+
+Validation completed:
+
+```bash
+npm run verify:release-docs
+npm run verify:docs
+npm run verify:package-scripts
+npm run verify:repo-hygiene
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The release aggregate also covered workspace checks and
+tests, CLI registry tests, component listing, registry metadata, Tailwind static
+tokens, preview structural gates, example smoke, feature checks, generated
+fixture smoke, CI documentation checks, CI plan checks, and repository hygiene.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
