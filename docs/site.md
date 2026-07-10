@@ -1181,6 +1181,32 @@ Because the check is deterministic and read-only, it is included in:
 npm run verify:docs
 ```
 
+## M75 Package Script Target Gate Plan
+
+M75 should extend package script verification so local script file references in
+`package.json` cannot drift silently. The check should catch aliases that point
+to removed or renamed files before release verification reaches that command.
+
+The check should inspect every npm script command and validate:
+
+- `node scripts/*.mjs` targets exist
+- direct `scripts/*` executable targets exist
+- aggregate commands such as `verify:release` are scanned segment by segment
+- non-local commands such as `cargo`, `npm run`, and environment variables are ignored
+
+The check should remain deterministic and read-only. It should not execute npm
+scripts, interpret arbitrary shell syntax, validate external commands, check
+file executable bits, or replace focused command behavior tests.
+
+The existing command remains:
+
+```bash
+npm run verify:package-scripts
+```
+
+If accepted, no new alias is required; the package script verifier should own
+the additional target-existence invariant.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
