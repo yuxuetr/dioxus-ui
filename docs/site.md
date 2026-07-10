@@ -1238,6 +1238,31 @@ The check remains source-shape focused. It does not compile Tailwind CSS,
 validate user-provided `class` props, inspect rendered HTML, or assert visual
 parity.
 
+## M74 Final Result
+
+M74 added a read-only Tailwind static token gate and included it in release
+verification. The gate scans 132 shipped Rust source and source-copy template
+files for dynamic Tailwind utility interpolation such as `bg-{...}`,
+`text-{...}`, spacing interpolation, gradient interpolation, and common
+grid/sizing interpolation.
+
+Validation completed:
+
+```bash
+npm run verify:tailwind-static
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:docs
+npm run verify:repo-hygiene
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The release aggregate also covered registry metadata,
+workspace checks and tests, CLI registry tests, component listing, preview
+structural gates, example smoke, feature checks, generated fixture smoke, CI
+documentation checks, and repository hygiene.
+
 ## M73 Registry Metadata Gate Plan
 
 M73 should add a fast npm-side registry metadata check for `registry/*.json`.
