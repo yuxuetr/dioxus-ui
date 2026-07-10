@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M77 Release Aggregate Docs Coverage Gate
-- Current task: M77 complete
+- Current milestone: M78 Release Gate Order Verification
+- Current task: M78.1 Plan release gate order verification
 
 ## Backup
 
@@ -1077,6 +1077,28 @@
   - Update README, quality gates, or docs-site planning docs only where needed.
 
 - DONE M77.4 Complete release aggregate docs coverage milestone
+  - Run release docs checks, docs checks, package script checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M78 Release Gate Order Verification
+
+- TODO M78.1 Plan release gate order verification
+  - Define a deterministic read-only check that the `docs/release.md` expanded gate block exactly matches `package.json` `verify:release` order.
+  - Keep command execution, nested alias expansion, and arbitrary shell parsing out of scope.
+  - Decide how to identify the intended release gate code block without relying on brittle prose offsets.
+
+- TODO M78.2 Add release gate order check
+  - Extend the release documentation verifier to parse the expanded release gate code block.
+  - Fail when commands are missing, extra, or out of order compared with the `verify:release` command chain.
+  - Preserve existing release snippet and opt-in browser boundary checks.
+
+- TODO M78.3 Update release gate order documentation
+  - Document that `verify:release-docs` checks direct segment order, not nested alias behavior.
+  - Clarify the expanded release gate block is generated manually but verified against `package.json`.
+  - Update README, quality gates, or docs-site planning docs only where needed.
+
+- TODO M78.4 Complete release gate order milestone
   - Run release docs checks, docs checks, package script checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
