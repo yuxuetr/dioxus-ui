@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M78 Release Gate Order Verification
-- Current task: M78.1 Plan release gate order verification
+- Current task: M78.2 Add release gate order check
 
 ## Backup
 
@@ -1083,7 +1083,7 @@
 
 ## M78 Release Gate Order Verification
 
-- TODO M78.1 Plan release gate order verification
+- DONE M78.1 Plan release gate order verification
   - Define a deterministic read-only check that the `docs/release.md` expanded gate block exactly matches `package.json` `verify:release` order.
   - Keep command execution, nested alias expansion, and arbitrary shell parsing out of scope.
   - Decide how to identify the intended release gate code block without relying on brittle prose offsets.
