@@ -1181,6 +1181,41 @@ Because the check is deterministic and read-only, it is included in:
 npm run verify:docs
 ```
 
+## M72 Component Docs Structure Gate Plan
+
+M72 should add a deterministic gate for public component documentation shape.
+The goal is to catch incomplete component docs when registry entries, templates,
+or crate features are added without the expected user-facing sections.
+
+The check should derive its public component list from:
+
+- `scripts/docs-catalog-builder.mjs`
+- `docs/components/*.md`
+- `registry/*.json`
+- `templates/*.rs`
+- `crates/dioxus-ui/Cargo.toml`
+
+Each public component docs page should include:
+
+- a level-one title matching the catalog title
+- a `Source Copy` section with the expected `dxui add <component>` command
+- a `Crate Feature` section with the expected `dioxus-ui` feature snippet
+- an `API Surface` section with at least one bullet
+- an `Accessibility Notes` section with non-empty prose
+
+The check should remain read-only and deterministic. It should not judge prose
+quality, validate rendered HTML, refresh live upstream shadcn/ui parity, inspect
+screenshots, or assert runtime visual parity.
+
+The expected command should be:
+
+```bash
+npm run verify:docs-structure
+```
+
+If the gate is accepted, it should be included in `npm run verify:docs` and
+documented with the other release-quality checks.
+
 ## M70 Final Result
 
 M70 added the component status snapshot:
