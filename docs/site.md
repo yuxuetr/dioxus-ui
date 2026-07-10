@@ -1309,6 +1309,31 @@ tests, CLI registry tests, component listing, registry metadata, Tailwind static
 tokens, preview structural gates, example smoke, feature checks, generated
 fixture smoke, CI documentation checks, CI plan checks, and repository hygiene.
 
+## M77 Release Aggregate Docs Coverage Plan
+
+M77 should add a deterministic read-only check that keeps `docs/release.md`
+aligned with the actual `package.json` `verify:release` command chain. The
+release documentation should list direct aggregate command segments so manual
+review and failure isolation follow the same order as the npm script.
+
+The check should validate:
+
+- the `verify:release` script exists in `package.json`
+- every command segment split by `&&` appears in `docs/release.md`
+- nested aggregate aliases such as `npm run verify` are documented as direct
+  release segments rather than expanded inline
+- existing opt-in browser smoke boundary snippets remain present
+
+The check should remain release-documentation focused. It should not execute
+release commands, parse arbitrary shell syntax, rewrite `package.json`, expand
+nested aliases, or promote browser smoke into the default release aggregate.
+
+The existing release docs verifier should own this invariant:
+
+```bash
+npm run verify:release-docs
+```
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
