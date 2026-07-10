@@ -1233,6 +1233,30 @@ npm run verify:release
 The check remains metadata-only. It does not execute CLI commands, compile Rust
 crates, replace the CLI registry tests, or run generated fixture smoke.
 
+## M73 Final Result
+
+M73 added a read-only registry metadata gate and included it in release
+verification. The gate validates 65 registry entries for stable names,
+descriptions, file mappings, source-copy targets, dependency references, asset
+mappings, existing sources, and duplicate targets.
+
+Validation completed:
+
+```bash
+npm run verify:registry
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:docs
+npm run verify:repo-hygiene
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. A normal online `npm run verify:release` reached generated
+fixture smoke but failed while Cargo was updating the crates.io index due an SSL
+connection error, so the final release verification was rerun in Cargo offline
+mode with cached dependencies.
+
 ## M72 Component Docs Structure Gate Plan
 
 M72 should add a deterministic gate for public component documentation shape.
