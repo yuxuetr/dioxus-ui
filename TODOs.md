@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M78 Release Gate Order Verification
-- Current task: M78.3 Update release gate order documentation
+- Current task: M78.4 Complete release gate order milestone
 
 ## Backup
 
@@ -1093,7 +1093,7 @@
   - Fail when commands are missing, extra, or out of order compared with the `verify:release` command chain.
   - Preserve existing release snippet and opt-in browser boundary checks.
 
-- TODO M78.3 Update release gate order documentation
+- DONE M78.3 Update release gate order documentation
   - Document that `verify:release-docs` checks direct segment order, not nested alias behavior.
   - Clarify the expanded release gate block is generated manually but verified against `package.json`.
   - Update README, quality gates, or docs-site planning docs only where needed.
