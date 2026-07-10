@@ -201,6 +201,11 @@ the local aggregate alias, required Rust workspace gates, source-copy fixture
 smoke, feature checks, and opt-in browser smoke boundary. It is read-only and
 does not generate release artifacts.
 
+`npm run verify:registry` checks that registry entries have stable metadata,
+existing sources, valid source-copy targets, known dependency references, and
+well-formed asset mappings. It is read-only and does not execute CLI commands,
+compile Rust crates, or replace CLI registry tests.
+
 `npm run verify:package-scripts` checks that `package.json` still exposes the
 required verification aliases and that aggregate aliases reference the expected
 focused commands. It is read-only and does not execute release commands.

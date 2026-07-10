@@ -306,6 +306,16 @@ npm run verify:release-docs
 This checks that release docs still distinguish the local aggregate command,
 required Rust/source-copy/feature release gates, and opt-in browser smoke.
 
+Verify registry metadata only:
+
+```bash
+npm run verify:registry
+```
+
+This checks registry entry names, descriptions, source mappings, source-copy
+targets, dependency references, and asset mappings. It does not execute CLI
+commands or replace the Rust registry tests.
+
 Verify npm verification alias wiring only:
 
 ```bash

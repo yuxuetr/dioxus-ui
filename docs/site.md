@@ -1212,6 +1212,27 @@ npm run verify:registry
 If accepted, the command should be included in package script consistency and
 release verification documentation.
 
+## M73 Registry Metadata Gate Usage
+
+M73 adds the registry metadata check:
+
+```bash
+npm run verify:registry
+```
+
+The check scans `registry/*.json` entries and verifies names, descriptions,
+file mappings, dependency references, asset mappings, existing sources, and
+source-copy targets under `src/components/ui/`.
+
+It is included in:
+
+```bash
+npm run verify:release
+```
+
+The check remains metadata-only. It does not execute CLI commands, compile Rust
+crates, replace the CLI registry tests, or run generated fixture smoke.
+
 ## M72 Component Docs Structure Gate Plan
 
 M72 should add a deterministic gate for public component documentation shape.
