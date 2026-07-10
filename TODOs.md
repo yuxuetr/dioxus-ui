@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M76 Quality Gate Alias Coverage Gate
-- Current task: M76.3 Update quality gate alias documentation
+- Current task: M76.4 Complete quality gate alias coverage milestone
 
 ## Backup
 
@@ -1049,7 +1049,7 @@
   - Fail when a `verify:*` alias is missing from the quality gate docs.
   - Include the check in the existing docs or release verification flow without adding browser runtime requirements.
 
-- TODO M76.3 Update quality gate alias documentation
+- DONE M76.3 Update quality gate alias documentation
   - Document focused preview and example aliases that are currently only described indirectly.
   - Clarify that opt-in browser smoke remains documented but outside default release gates.
   - Update README, release, or docs-site planning docs only where needed.
