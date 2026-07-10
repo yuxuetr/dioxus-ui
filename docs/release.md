@@ -112,6 +112,7 @@ scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
 npm run verify:release-docs
 npm run verify:package-scripts
+npm run verify:package-lock
 npm run verify:ci-docs
 npm run verify:ci-plan
 npm run verify:repo-hygiene
