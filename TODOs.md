@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M76 Quality Gate Alias Coverage Gate
-- Current task: M76 complete
+- Current milestone: M77 Release Aggregate Docs Coverage Gate
+- Current task: M77.1 Plan release aggregate docs coverage
 
 ## Backup
 
@@ -1056,6 +1056,28 @@
 
 - DONE M76.4 Complete quality gate alias coverage milestone
   - Run quality gate alias checks, docs checks, package script checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M77 Release Aggregate Docs Coverage Gate
+
+- TODO M77.1 Plan release aggregate docs coverage
+  - Define a deterministic read-only check that `docs/release.md` covers every command segment in `package.json` `verify:release`.
+  - Keep command execution, shell interpretation beyond simple `&&` segments, and release aggregate rewrites out of scope.
+  - Decide whether release docs should list aggregate aliases directly instead of expanding their nested commands.
+
+- TODO M77.2 Add release aggregate docs coverage check
+  - Extend the release documentation verifier to parse `verify:release` command segments from `package.json`.
+  - Fail when any release aggregate command segment is missing from `docs/release.md`.
+  - Keep existing opt-in browser smoke boundary checks.
+
+- TODO M77.3 Update release aggregate documentation
+  - Align the expanded release gate list with the actual `verify:release` command chain.
+  - Clarify which entries are direct aggregate segments and which are covered by nested aliases.
+  - Update README, quality gates, or docs-site planning docs only where needed.
+
+- TODO M77.4 Complete release aggregate docs coverage milestone
+  - Run release docs checks, docs checks, package script checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
