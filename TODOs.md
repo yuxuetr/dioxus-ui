@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M74 Tailwind Static Token Gate
-- Current task: M74.2 Add Tailwind static token check
+- Current task: M74.3 Update Tailwind static token verification wiring
 
 ## Backup
 
@@ -1000,7 +1000,7 @@
   - Keep full Tailwind compilation, CSS generation, visual regression, and user-provided class validation out of scope.
   - Decide which source roots and class-prefix patterns should be scanned.
 
-- TODO M74.2 Add Tailwind static token check
+- DONE M74.2 Add Tailwind static token check
   - Add a script that scans styled crate source, source-copy templates, and class helpers for dynamic Tailwind token interpolation.
   - Fail on patterns like `bg-{...}`, `text-{...}`, `border-{...}`, spacing interpolation, and common variant color interpolation.
   - Add an npm alias for the Tailwind static token check.
