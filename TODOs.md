@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M76 Quality Gate Alias Coverage Gate
-- Current task: M76.4 Complete quality gate alias coverage milestone
+- Current task: M76 complete
 
 ## Backup
 
@@ -1054,7 +1054,7 @@
   - Clarify that opt-in browser smoke remains documented but outside default release gates.
   - Update README, release, or docs-site planning docs only where needed.
 
-- TODO M76.4 Complete quality gate alias coverage milestone
+- DONE M76.4 Complete quality gate alias coverage milestone
   - Run quality gate alias checks, docs checks, package script checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
