@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M73 Registry Metadata Gate
-- Current task: M73.1 Plan registry metadata gate
+- Current task: M73.2 Add registry metadata check
 
 ## Backup
 
@@ -973,7 +973,7 @@
 
 ## M73 Registry Metadata Gate
 
-- TODO M73.1 Plan registry metadata gate
+- DONE M73.1 Plan registry metadata gate
   - Define a deterministic read-only npm check for `registry/*.json` metadata.
   - Keep Rust compile checks, CLI behavior tests, generated fixture smoke, and JSON Schema validation out of scope.
   - Decide which registry invariants should be verified from source paths, targets, dependencies, and assets.
