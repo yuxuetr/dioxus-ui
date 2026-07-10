@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M78 Release Gate Order Verification
-- Current task: M78.4 Complete release gate order milestone
+- Current task: M78 complete
 
 ## Backup
 
@@ -1098,7 +1098,7 @@
   - Clarify the expanded release gate block is generated manually but verified against `package.json`.
   - Update README, quality gates, or docs-site planning docs only where needed.
 
-- TODO M78.4 Complete release gate order milestone
+- DONE M78.4 Complete release gate order milestone
   - Run release docs checks, docs checks, package script checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
