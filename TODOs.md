@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M78 Release Gate Order Verification
-- Current task: M78 complete
+- Current milestone: M79 Package Lock Metadata Gate
+- Current task: M79.1 Plan package lock metadata gate
 
 ## Backup
 
@@ -1100,6 +1100,28 @@
 
 - DONE M78.4 Complete release gate order milestone
   - Run release docs checks, docs checks, package script checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M79 Package Lock Metadata Gate
+
+- TODO M79.1 Plan package lock metadata gate
+  - Define a deterministic read-only check that `package-lock.json` root metadata matches `package.json`.
+  - Keep dependency resolution, network installs, lockfile regeneration, and package manager migration out of scope.
+  - Decide which root fields are required for the current npm lockfile contract.
+
+- TODO M79.2 Add package lock metadata check
+  - Add or extend a verifier to compare package name, version, and root devDependencies between `package.json` and `package-lock.json`.
+  - Fail when `package-lock.json` is missing, has an unsupported lockfile version, or drifts from package metadata.
+  - Include the check in release verification without requiring browser binaries or network access.
+
+- TODO M79.3 Update package lock metadata documentation
+  - Document the package lock metadata check in README, quality gates, release docs, and docs-site planning docs.
+  - Clarify that the check validates committed lockfile metadata, not dependency freshness or registry availability.
+  - Keep package script and release aggregate behavior unchanged except for the new read-only gate.
+
+- TODO M79.4 Complete package lock metadata milestone
+  - Run package lock checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
