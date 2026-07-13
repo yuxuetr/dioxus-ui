@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M82 Quality Gate Release Block Sync
-- Current task: M82 complete
+- Overall: 98%
+- Current milestone: M83 Cargo Lock Metadata Gate
+- Current task: M83.1 Plan cargo lock metadata gate
 
 ## Backup
 
@@ -1188,6 +1188,28 @@
 
 - DONE M82.4 Complete quality gate release block milestone
   - Run quality gate docs checks, docs checks, package script checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M83 Cargo Lock Metadata Gate
+
+- TODO M83.1 Plan cargo lock metadata gate
+  - Define a deterministic read-only check that `Cargo.lock` workspace package entries match Cargo metadata.
+  - Keep dependency freshness, lockfile regeneration, dependency resolution, and registry availability out of scope.
+  - Decide which workspace package names, versions, and lockfile fields should be validated.
+
+- TODO M83.2 Add cargo lock metadata check
+  - Add a verifier that compares committed `Cargo.lock` package entries with `cargo metadata --no-deps` workspace members.
+  - Fail when the lockfile is missing, has an unsupported format, misses a workspace package, or records a mismatched workspace package version.
+  - Include the check in release verification without adding network or browser requirements.
+
+- TODO M83.3 Update cargo lock metadata documentation
+  - Document the cargo lock metadata check in README, quality gates, release docs, and docs-site planning docs.
+  - Clarify that the check validates committed lockfile metadata, not dependency freshness or lockfile regeneration.
+  - Keep package script and release aggregate behavior aligned with the new read-only gate.
+
+- TODO M83.4 Complete cargo lock metadata milestone
+  - Run cargo lock checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 

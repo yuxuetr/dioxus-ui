@@ -1693,6 +1693,31 @@ feature checks, generated fixture smoke, release documentation checks, package
 script checks, package lock checks, CI documentation checks, CI plan checks,
 and repository hygiene.
 
+## M83 Cargo Lock Metadata Gate Plan
+
+M83 should add a deterministic read-only gate for committed Cargo lockfile
+metadata. The Rust workspace already validates manifests through Cargo and
+workspace package metadata, but `Cargo.lock` can still drift from workspace
+package names or versions in a way that is useful to catch before release.
+
+The check should validate:
+
+- `Cargo.lock` exists and uses the expected lockfile format
+- every Cargo workspace member from `cargo metadata --no-deps` has a matching
+  lockfile package entry
+- lockfile package versions for workspace members match Cargo metadata
+- duplicate lockfile entries do not hide ambiguous workspace package metadata
+
+The gate should remain static and read-only. It should not run `cargo update`,
+rewrite `Cargo.lock`, resolve dependency freshness, inspect crates.io, or
+replace normal `cargo check` and `cargo test` release gates.
+
+The intended command is:
+
+```bash
+npm run verify:cargo-lock
+```
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
