@@ -270,6 +270,16 @@ These checks validate committed metadata and documentation wiring. They do not
 replace command behavior checks such as Rust tests, source-copy fixture smoke,
 or browser-rendered verification.
 
+Verify README verification shortcuts only:
+
+```bash
+npm run verify:readme
+```
+
+This checks command discoverability and summary coverage in this README. It
+does not execute the referenced commands, crawl external links, render docs, or
+rewrite prose.
+
 Verify component implementation status only:
 
 ```bash

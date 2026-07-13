@@ -1930,6 +1930,28 @@ The intended command is:
 npm run verify:readme
 ```
 
+## M86 README Verification Summary Gate Usage
+
+M86 adds a focused README verification summary command:
+
+```bash
+npm run verify:readme
+```
+
+The command checks that the root `README.md` keeps verification shortcuts
+discoverable for the default local gate, docs aggregate, smoke aggregate,
+release aggregate, focused metadata gates, and direct `verify:docs` command
+segments from package metadata.
+
+The check is included in:
+
+```bash
+npm run verify:docs
+```
+
+It remains read-only and does not execute referenced commands, crawl external
+links, render the docs site, install dependencies, or rewrite README prose.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind

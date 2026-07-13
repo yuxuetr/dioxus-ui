@@ -171,6 +171,9 @@ metadata.
 Component docs structure checks are part of `npm run verify:docs` and validate
 only required public component docs sections plus generated command and feature
 snippets.
+README verification summary checks are part of `npm run verify:docs` and
+validate only verification shortcut command discoverability and summary
+coverage in `README.md`.
 Documentation index checks are part of `npm run verify:docs` and validate only
 README entry-point links.
 Markdown link target checks are part of `npm run verify:docs` and validate only
@@ -191,6 +194,7 @@ npm run verify:cargo-workspace
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
+npm run verify:readme
 npm run verify:tailwind-static
 npm run verify:ci-docs
 npm run verify:ci-plan
