@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M80 Generated Directory Hygiene Gate
-- Current task: M80.4 Complete generated directory hygiene milestone
+- Current task: M80 complete
 
 ## Backup
 
@@ -1142,7 +1142,7 @@
   - Clarify that the check reports tracked artifacts but does not delete local build outputs.
   - Keep browser screenshot and workflow hygiene behavior unchanged.
 
-- TODO M80.4 Complete generated directory hygiene milestone
+- DONE M80.4 Complete generated directory hygiene milestone
   - Run repo hygiene checks, docs checks, package script checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
