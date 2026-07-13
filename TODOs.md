@@ -1264,7 +1264,7 @@
   - Keep command execution, external link crawling, generated docs rendering, and prose rewriting out of scope.
   - Decide which default, docs, smoke, release, and focused verification aliases must remain discoverable from README.
 
-- TODO M86.2 Add README verification summary check
+- DONE M86.2 Add README verification summary check
   - Add a verifier that checks README verification shortcut blocks and required command snippets against package metadata.
   - Fail when README omits required focused aliases or stale release/default gate descriptions.
   - Include the check in docs verification without running the referenced commands.
