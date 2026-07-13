@@ -4,7 +4,7 @@
 
 - Overall: 98%
 - Current milestone: M83 Cargo Lock Metadata Gate
-- Current task: M83.3 Update cargo lock metadata documentation
+- Current task: M83.4 Complete cargo lock metadata milestone
 
 ## Backup
 
@@ -1203,7 +1203,7 @@
   - Fail when the lockfile is missing, has an unsupported format, misses a workspace package, or records a mismatched workspace package version.
   - Include the check in release verification without adding network or browser requirements.
 
-- TODO M83.3 Update cargo lock metadata documentation
+- DONE M83.3 Update cargo lock metadata documentation
   - Document the cargo lock metadata check in README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check validates committed lockfile metadata, not dependency freshness or lockfile regeneration.
   - Keep package script and release aggregate behavior aligned with the new read-only gate.
