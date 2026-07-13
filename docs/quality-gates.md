@@ -149,10 +149,11 @@ Future browser-rendered smoke commands should document
 `npm run verify` runs `npm run verify:smoke` and `npm run verify:docs`.
 
 `npm run verify:release` runs Rust workspace checks, CLI registry/list smoke,
-Cargo workspace metadata checks, `npm run verify`, component feature checks,
-generated fixture smoke, release documentation consistency checks, package
-script wiring checks, and CI browser documentation checks. It also checks CI
-Plan documentation and repository hygiene.
+Cargo workspace metadata checks, Cargo lock metadata checks, pre-commit
+metadata checks, script metadata checks, `npm run verify`, component feature
+checks, generated fixture smoke, release documentation consistency checks,
+package script wiring checks, and CI browser documentation checks. It also
+checks CI Plan documentation and repository hygiene.
 
 `npm run verify:smoke` runs rendered preview structural checks and example smoke
 output.
@@ -202,6 +203,12 @@ route manifest rendered from the shared catalog builder.
 `npm run verify:docs-source-preview` checks that
 `docs/components/source-preview.md` matches the source preview manifest rendered
 from the shared catalog builder.
+
+`npm run verify:readme` checks that README verification shortcuts mention the
+primary local, docs, smoke, and release aliases, focused metadata aliases, and
+the direct `verify:docs` command segments from package metadata. It is
+read-only and does not execute commands, crawl external links, render the docs
+site, or rewrite README prose.
 
 `npm run verify:docs-index` checks that README and docs/README keep required
 quality, release, CI, site, RFC, and TODO entry points discoverable. It also

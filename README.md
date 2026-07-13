@@ -201,7 +201,8 @@ npm run verify:release
 ```
 
 This runs Rust workspace checks, CLI registry/list smoke, the default local
-gate, Cargo workspace metadata checks, feature checks, generated source-copy
+gate, Cargo workspace metadata checks, Cargo lock metadata checks, pre-commit
+metadata checks, script metadata checks, feature checks, generated source-copy
 fixture smoke, release docs consistency checks, package script wiring checks,
 and CI browser docs checks. It also checks CI Plan documentation while keeping
 browser installation and screenshots opt-in, then checks repository hygiene for
@@ -232,6 +233,7 @@ npm run verify:docs-status
 npm run verify:docs-structure
 npm run verify:docs-routes
 npm run verify:docs-source-preview
+npm run verify:readme
 npm run verify:docs-index
 npm run verify:docs-links
 npm run verify:docs-anchors
@@ -244,11 +246,29 @@ status check verifies `docs/components/status.md` matches the local component
 implementation surface. The structure check verifies public component docs keep
 the required title, install, API, and accessibility sections. The route check
 verifies future docs runtime route metadata. The source preview check verifies
-template metadata for future source preview routes. The index check verifies
-README and docs/README keep the required project entry points. The link target
-check verifies tracked Markdown files do not reference missing local files. The
-anchor check verifies local Markdown fragments match headings or explicit
-anchors.
+template metadata for future source preview routes. The README check verifies
+verification shortcut command discoverability and summary coverage. The index
+check verifies README and docs/README keep the required project entry points.
+The link target check verifies tracked Markdown files do not reference missing
+local files. The anchor check verifies local Markdown fragments match headings
+or explicit anchors.
+
+Verify focused metadata gates only:
+
+```bash
+npm run verify:cargo-workspace
+npm run verify:cargo-lock
+npm run verify:pre-commit
+npm run verify:scripts
+npm run verify:readme
+npm run verify:release-docs
+npm run verify:package-scripts
+npm run verify:repo-hygiene
+```
+
+These checks validate committed metadata and documentation wiring. They do not
+replace command behavior checks such as Rust tests, source-copy fixture smoke,
+or browser-rendered verification.
 
 Verify component implementation status only:
 
