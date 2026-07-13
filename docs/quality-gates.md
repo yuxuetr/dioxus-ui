@@ -254,6 +254,11 @@ entries match `cargo metadata --locked --no-deps` workspace members. It is
 read-only and does not run `cargo update`, rewrite the lockfile, contact
 crates.io, or check dependency freshness.
 
+`npm run verify:pre-commit` checks that committed `.pre-commit-config.yaml`
+local hook metadata and supporting config files remain wired. It is read-only
+and does not install pre-commit environments, execute hooks, contact remote hook
+repositories, or check remote hook freshness.
+
 `npm run verify:repo-hygiene` checks that inactive workflow files, generated
 directories such as `node_modules/`, `target/`, `dist/`, and `build/`, and known
 generated artifacts are not committed. It is read-only and reports drift without

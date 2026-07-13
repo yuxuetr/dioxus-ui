@@ -1786,6 +1786,23 @@ The intended command is:
 npm run verify:pre-commit
 ```
 
+## M84 Pre-commit Config Metadata Gate Usage
+
+M84 adds a focused pre-commit metadata verifier:
+
+```bash
+npm run verify:pre-commit
+```
+
+The command checks that `.pre-commit-config.yaml` has the expected local hook
+ids and entry command snippets, and that supporting config files such as
+`deny.toml`, `rustfmt.toml`, and `_typos.toml` exist.
+
+The check is included in `npm run verify:release`. It remains read-only and
+does not run `pre-commit`, install hook environments, execute Cargo or typos
+commands, contact remote hook repositories, check remote hook freshness, or
+rewrite YAML.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind

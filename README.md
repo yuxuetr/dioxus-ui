@@ -372,6 +372,16 @@ This checks that committed `Cargo.lock` workspace package entries match Cargo
 metadata without running `cargo update`, rewriting the lockfile, contacting
 crates.io, or checking dependency freshness.
 
+Verify pre-commit metadata only:
+
+```bash
+npm run verify:pre-commit
+```
+
+This checks committed `.pre-commit-config.yaml` local hook wiring and supporting
+config files without installing hook environments, executing hooks, or checking
+remote hook freshness.
+
 Verify repository hygiene only:
 
 ```bash
