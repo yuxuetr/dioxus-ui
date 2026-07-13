@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M86 README Verification Summary Gate
-- Current task: M86.3 Update README verification documentation
+- Current task: M86.4 Complete README verification milestone
 
 ## Backup
 

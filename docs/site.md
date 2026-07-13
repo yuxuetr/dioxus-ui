@@ -1952,6 +1952,32 @@ npm run verify:docs
 It remains read-only and does not execute referenced commands, crawl external
 links, render the docs site, install dependencies, or rewrite README prose.
 
+## M86 Final Result
+
+M86 added `npm run verify:readme` and wired it into `npm run verify:docs`. The
+gate validates README verification shortcut discoverability, focused metadata
+alias coverage, release summary coverage, and direct `verify:docs` command
+segments from package metadata.
+
+Validation completed:
+
+```bash
+npm run verify:readme
+npm run verify:package-scripts
+npm run verify:docs
+npm run verify:release-docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The release aggregate now covers workspace checks and
+tests, CLI registry tests, component listing, Cargo workspace metadata, Cargo
+lock metadata, pre-commit metadata, script metadata, registry metadata,
+Tailwind static tokens, preview structural gates, example smoke, docs metadata
+including README verification, feature checks, generated fixture smoke, release
+documentation checks, package script checks, package lock checks, CI
+documentation checks, CI plan checks, and repository hygiene.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
