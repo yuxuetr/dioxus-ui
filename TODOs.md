@@ -4,7 +4,7 @@
 
 - Overall: 98%
 - Current milestone: M82 Quality Gate Release Block Sync
-- Current task: M82.3 Update quality gate release documentation
+- Current task: M82.4 Complete quality gate release block milestone
 
 ## Backup
 
@@ -1181,7 +1181,7 @@
   - Fail when commands are missing, extra, or out of order.
   - Include the check in the docs verification flow without adding browser, network, or full release requirements.
 
-- TODO M82.3 Update quality gate release documentation
+- DONE M82.3 Update quality gate release documentation
   - Align `docs/quality-gates.md` release block with the actual release aggregate command chain.
   - Document that the quality gate check validates direct release segments, not nested alias expansion.
   - Update README, release docs, or docs-site planning docs only where needed.
