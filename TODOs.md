@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M80 Generated Directory Hygiene Gate
-- Current task: M80.3 Update generated directory hygiene documentation
+- Current task: M80.4 Complete generated directory hygiene milestone
 
 ## Backup
 
@@ -1137,7 +1137,7 @@
   - Add missing project `.gitignore` entries for local Rust and Node generated directories.
   - Keep the check read-only and part of the existing release hygiene gate.
 
-- TODO M80.3 Update generated directory hygiene documentation
+- DONE M80.3 Update generated directory hygiene documentation
   - Document the generated directory hygiene rule in README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check reports tracked artifacts but does not delete local build outputs.
   - Keep browser screenshot and workflow hygiene behavior unchanged.
