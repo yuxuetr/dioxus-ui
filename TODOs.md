@@ -4,7 +4,7 @@
 
 - Overall: 98%
 - Current milestone: M81 Cargo Workspace Metadata Gate
-- Current task: M81.1 Plan cargo workspace metadata gate
+- Current task: M81.2 Add cargo workspace metadata check
 
 ## Backup
 
@@ -1149,7 +1149,7 @@
 
 ## M81 Cargo Workspace Metadata Gate
 
-- TODO M81.1 Plan cargo workspace metadata gate
+- DONE M81.1 Plan cargo workspace metadata gate
   - Define a deterministic read-only check that workspace package metadata remains consistent across Rust crates.
   - Keep dependency freshness, publishing, cargo package output, and registry availability out of scope.
   - Decide which workspace package fields and member manifests should be validated.
