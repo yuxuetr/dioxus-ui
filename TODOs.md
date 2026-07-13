@@ -4,7 +4,7 @@
 
 - Overall: 98%
 - Current milestone: M81 Cargo Workspace Metadata Gate
-- Current task: M81.3 Update cargo workspace metadata documentation
+- Current task: M81.4 Complete cargo workspace metadata milestone
 
 ## Backup
 
@@ -1159,7 +1159,7 @@
   - Fail when crate manifests stop inheriting required workspace metadata or when Cargo metadata disagrees with the root workspace contract.
   - Include the check in release verification without adding network or browser requirements.
 
-- TODO M81.3 Update cargo workspace metadata documentation
+- DONE M81.3 Update cargo workspace metadata documentation
   - Document the workspace metadata check in README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check validates committed manifest metadata, not crate publishing or dependency freshness.
   - Keep package script and release aggregate behavior aligned with the new read-only gate.
