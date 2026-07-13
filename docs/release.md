@@ -105,6 +105,7 @@ cargo check --workspace --all-features
 cargo test --workspace --all-features
 cargo test -p dioxus-ui-cli --test registry
 cargo run -p dioxus-ui-cli -- list
+npm run verify:cargo-workspace
 npm run verify:registry
 npm run verify:tailwind-static
 npm run verify
@@ -138,6 +139,9 @@ execute the release gate recursively.
 Package lock metadata checks are also part of the release aggregate, but they
 only compare committed `package.json` and `package-lock.json` root metadata;
 they do not run `npm install` or contact the npm registry.
+Cargo workspace metadata checks are also part of the release aggregate, but
+they only compare committed workspace manifest metadata and `cargo metadata`
+output; they do not publish crates or contact crates.io.
 CI browser docs checks are read-only and do not create workflow files.
 CI Plan checks are also read-only and validate documentation only.
 Repository hygiene checks are read-only and report forbidden committed
@@ -171,6 +175,7 @@ npm run verify:release
 npm run verify:release-docs
 npm run verify:package-scripts
 npm run verify:registry
+npm run verify:cargo-workspace
 npm run verify:tailwind-static
 npm run verify:ci-docs
 npm run verify:ci-plan
