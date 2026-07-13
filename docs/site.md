@@ -1492,6 +1492,30 @@ tokens, preview structural gates, example smoke, feature checks, generated
 fixture smoke, release documentation checks, package script checks, CI
 documentation checks, CI plan checks, and repository hygiene.
 
+## M80 Generated Directory Hygiene Gate Plan
+
+M80 should strengthen repository hygiene by preventing generated dependency and
+build directories from being tracked. Local directories such as `node_modules/`
+and `target/` are expected during development, but they should never become
+committed repository content.
+
+The check should validate:
+
+- tracked files do not live under `node_modules/`
+- tracked files do not live under `target/`
+- tracked files do not live under generated preview or fixture output roots
+- project `.gitignore` explicitly documents common local generated directories
+
+The check should remain read-only. It should not delete local directories,
+clean Cargo or npm caches, validate global git ignore files, or remove generated
+screenshots from the working tree.
+
+The existing repository hygiene verifier should own this invariant:
+
+```bash
+npm run verify:repo-hygiene
+```
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
