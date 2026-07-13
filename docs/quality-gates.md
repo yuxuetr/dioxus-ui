@@ -260,6 +260,10 @@ local hook metadata and supporting config files remain wired. It is read-only
 and does not install pre-commit environments, execute hooks, contact remote hook
 repositories, or check remote hook freshness.
 
+`npm run verify:scripts` checks committed script shebangs, executable bits, and
+package-referenced script targets. It is read-only and does not execute scripts,
+lint shell syntax, install dependencies, or rewrite file modes.
+
 `npm run verify:repo-hygiene` checks that inactive workflow files, generated
 directories such as `node_modules/`, `target/`, `dist/`, and `build/`, and known
 generated artifacts are not committed. It is read-only and reports drift without

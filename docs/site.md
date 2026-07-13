@@ -1856,6 +1856,22 @@ The intended command is:
 npm run verify:scripts
 ```
 
+## M85 Script Metadata Gate Usage
+
+M85 adds a focused script metadata verifier:
+
+```bash
+npm run verify:scripts
+```
+
+The command checks shell script shebangs and executable bits, direct package
+script targets, and Node shebangs for runnable `.mjs` scripts. Helper-only
+modules such as `scripts/docs-catalog-builder.mjs` may remain import-only.
+
+The check is included in `npm run verify:release`. It remains read-only and
+does not execute scripts, lint shell syntax, install dependencies, inspect
+generated outputs, or rewrite file modes.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind

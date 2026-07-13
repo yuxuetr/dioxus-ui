@@ -382,6 +382,16 @@ This checks committed `.pre-commit-config.yaml` local hook wiring and supporting
 config files without installing hook environments, executing hooks, or checking
 remote hook freshness.
 
+Verify script metadata only:
+
+```bash
+npm run verify:scripts
+```
+
+This checks committed script shebangs, executable bits, and package-referenced
+script targets without executing scripts, linting shell syntax, or rewriting
+file modes.
+
 Verify repository hygiene only:
 
 ```bash
