@@ -4,7 +4,7 @@
 
 - Overall: 98%
 - Current milestone: M82 Quality Gate Release Block Sync
-- Current task: M82.1 Plan quality gate release block sync
+- Current task: M82.2 Add quality gate release block check
 
 ## Backup
 
@@ -1171,7 +1171,7 @@
 
 ## M82 Quality Gate Release Block Sync
 
-- TODO M82.1 Plan quality gate release block sync
+- DONE M82.1 Plan quality gate release block sync
   - Define a deterministic read-only check that the release gate block in `docs/quality-gates.md` matches `package.json` `verify:release`.
   - Keep command execution, nested alias expansion, and release documentation checks out of scope.
   - Decide how to identify and compare the intended quality gate release block.
