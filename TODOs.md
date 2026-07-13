@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 98%
+- Overall: 100%
 - Current milestone: M81 Cargo Workspace Metadata Gate
-- Current task: M81.4 Complete cargo workspace metadata milestone
+- Current task: M81 complete
 
 ## Backup
 
@@ -1164,7 +1164,7 @@
   - Clarify that the check validates committed manifest metadata, not crate publishing or dependency freshness.
   - Keep package script and release aggregate behavior aligned with the new read-only gate.
 
-- TODO M81.4 Complete cargo workspace metadata milestone
+- DONE M81.4 Complete cargo workspace metadata milestone
   - Run workspace metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
