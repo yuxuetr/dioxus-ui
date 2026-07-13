@@ -356,8 +356,9 @@ Verify repository hygiene only:
 npm run verify:repo-hygiene
 ```
 
-This checks that inactive browser workflow files and known generated artifacts
-are not committed. It reports drift but does not remove files.
+This checks that inactive browser workflow files, generated directories such as
+`node_modules/` and `target/`, and known generated artifacts are not committed.
+It reports drift but does not remove files.
 
 Verify CI browser smoke documentation only:
 

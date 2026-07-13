@@ -141,7 +141,8 @@ they do not run `npm install` or contact the npm registry.
 CI browser docs checks are read-only and do not create workflow files.
 CI Plan checks are also read-only and validate documentation only.
 Repository hygiene checks are read-only and report forbidden committed
-artifacts without deleting files.
+artifacts such as generated directories, screenshots, and inactive workflow
+files without deleting files.
 Registry metadata checks are part of `npm run verify:release` and validate only
 registry JSON names, descriptions, source mappings, source-copy targets,
 dependency references, and asset mappings.

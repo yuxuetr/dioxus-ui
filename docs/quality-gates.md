@@ -238,7 +238,8 @@ metadata matches `package.json`, including package name, version, lockfile
 version, and root devDependencies. It is read-only and does not run npm install,
 contact the registry, or rewrite lockfiles.
 
-`npm run verify:repo-hygiene` checks that inactive workflow files and known
+`npm run verify:repo-hygiene` checks that inactive workflow files, generated
+directories such as `node_modules/`, `target/`, `dist/`, and `build/`, and known
 generated artifacts are not committed. It is read-only and reports drift without
 removing files.
 

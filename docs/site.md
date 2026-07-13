@@ -1516,6 +1516,21 @@ The existing repository hygiene verifier should own this invariant:
 npm run verify:repo-hygiene
 ```
 
+## M80 Generated Directory Hygiene Gate Usage
+
+M80 extends the repository hygiene verifier:
+
+```bash
+npm run verify:repo-hygiene
+```
+
+The command now fails if tracked files appear under generated directories such
+as `node_modules/`, `target/`, `dist/`, or `build/`. The project `.gitignore`
+also explicitly lists those local output directories.
+
+The check remains read-only. It reports tracked generated artifacts but does not
+delete local dependencies, build outputs, screenshots, or fixture directories.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
