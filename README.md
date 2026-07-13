@@ -201,11 +201,11 @@ npm run verify:release
 ```
 
 This runs Rust workspace checks, CLI registry/list smoke, the default local
-gate, feature checks, generated source-copy fixture smoke, release docs
-consistency checks, package script wiring checks, and CI browser docs checks. It
-also checks CI Plan documentation while keeping browser installation and
-screenshots opt-in, then checks repository hygiene for forbidden generated
-artifacts and inactive workflow files.
+gate, Cargo workspace metadata checks, feature checks, generated source-copy
+fixture smoke, release docs consistency checks, package script wiring checks,
+and CI browser docs checks. It also checks CI Plan documentation while keeping
+browser installation and screenshots opt-in, then checks repository hygiene for
+forbidden generated artifacts and inactive workflow files.
 
 Run deterministic preview and example gates only:
 
@@ -349,6 +349,17 @@ npm run verify:package-lock
 This checks that committed `package-lock.json` root metadata matches
 `package.json` without running npm install, contacting the registry, or
 rewriting the lockfile.
+
+Verify Cargo workspace metadata only:
+
+```bash
+npm run verify:cargo-workspace
+```
+
+This checks that `crates/` package manifests keep inheriting root workspace
+package metadata and that `cargo metadata` resolves the same values. It does
+not publish crates, package crates, contact crates.io, or check dependency
+freshness.
 
 Verify repository hygiene only:
 

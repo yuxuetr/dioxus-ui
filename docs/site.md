@@ -1582,6 +1582,24 @@ The intended command is:
 npm run verify:cargo-workspace
 ```
 
+## M81 Cargo Workspace Metadata Gate Usage
+
+M81 adds a focused Cargo workspace metadata verifier:
+
+```bash
+npm run verify:cargo-workspace
+```
+
+The command checks that root `[workspace.package]` metadata defines `version`,
+`edition`, `license`, and `repository`, that crate manifests under `crates/`
+inherit those fields with `*.workspace = true`, and that `cargo metadata`
+resolves matching values for those workspace crate packages.
+
+The check is included in `npm run verify:release`. It remains read-only and
+does not run `cargo publish`, package crates, contact crates.io, rewrite
+manifests, update dependency versions, or enforce example application package
+metadata.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind

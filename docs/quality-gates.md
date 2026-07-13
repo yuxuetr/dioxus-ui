@@ -117,6 +117,7 @@ cargo check --workspace --all-features
 cargo test --workspace --all-features
 cargo test -p dioxus-ui-cli --test registry
 cargo run -p dioxus-ui-cli -- list
+npm run verify:cargo-workspace
 scripts/example-smoke.sh
 node scripts/web-preview-verify.mjs
 node scripts/mobile-web-profile-verify.mjs
@@ -145,10 +146,10 @@ Future browser-rendered smoke commands should document
 `npm run verify` runs `npm run verify:smoke` and `npm run verify:docs`.
 
 `npm run verify:release` runs Rust workspace checks, CLI registry/list smoke,
-`npm run verify`, component feature checks, generated fixture smoke, release
-documentation consistency checks, package script wiring checks, and CI browser
-documentation checks. It also checks CI Plan documentation and repository
-hygiene.
+Cargo workspace metadata checks, `npm run verify`, component feature checks,
+generated fixture smoke, release documentation consistency checks, package
+script wiring checks, and CI browser documentation checks. It also checks CI
+Plan documentation and repository hygiene.
 
 `npm run verify:smoke` runs rendered preview structural checks and example smoke
 output.
@@ -237,6 +238,11 @@ does not execute release commands.
 metadata matches `package.json`, including package name, version, lockfile
 version, and root devDependencies. It is read-only and does not run npm install,
 contact the registry, or rewrite lockfiles.
+
+`npm run verify:cargo-workspace` checks that committed Rust workspace package
+metadata stays consistent across root and `crates/` manifests. It verifies
+workspace inheritance and `cargo metadata` output without publishing crates,
+packaging crates, contacting crates.io, or checking dependency freshness.
 
 `npm run verify:repo-hygiene` checks that inactive workflow files, generated
 directories such as `node_modules/`, `target/`, `dist/`, and `build/`, and known
