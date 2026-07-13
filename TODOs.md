@@ -4,7 +4,7 @@
 
 - Overall: 98%
 - Current milestone: M85 Script Metadata Gate
-- Current task: M85.3 Update script metadata documentation
+- Current task: M85.4 Complete script metadata milestone
 
 ## Backup
 
@@ -1247,7 +1247,7 @@
   - Fail when direct shell script targets are not executable or when runnable Node scripts lack the expected shebang.
   - Include the check in release verification without executing the scripts being inspected.
 
-- TODO M85.3 Update script metadata documentation
+- DONE M85.3 Update script metadata documentation
   - Document the script metadata check in README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check validates committed file metadata, not script behavior or shell syntax.
   - Keep package script and release aggregate behavior aligned with the new read-only gate.
