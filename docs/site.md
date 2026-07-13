@@ -1600,6 +1600,31 @@ does not run `cargo publish`, package crates, contact crates.io, rewrite
 manifests, update dependency versions, or enforce example application package
 metadata.
 
+## M81 Final Result
+
+M81 added `npm run verify:cargo-workspace` and wired it into
+`npm run verify:release`. The gate validates root workspace package metadata,
+crate manifest inheritance under `crates/`, and resolved `cargo metadata`
+values for workspace crate packages.
+
+Validation completed:
+
+```bash
+npm run verify:cargo-workspace
+npm run verify:package-scripts
+npm run verify:docs
+npm run verify:release-docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The release aggregate now covers workspace checks and
+tests, CLI registry tests, component listing, Cargo workspace metadata,
+registry metadata, Tailwind static tokens, preview structural gates, example
+smoke, feature checks, generated fixture smoke, release documentation checks,
+package script checks, package lock checks, CI documentation checks, CI plan
+checks, and repository hygiene.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
