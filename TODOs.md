@@ -4,7 +4,7 @@
 
 - Overall: 98%
 - Current milestone: M82 Quality Gate Release Block Sync
-- Current task: M82.2 Add quality gate release block check
+- Current task: M82.3 Update quality gate release documentation
 
 ## Backup
 
@@ -1176,7 +1176,7 @@
   - Keep command execution, nested alias expansion, and release documentation checks out of scope.
   - Decide how to identify and compare the intended quality gate release block.
 
-- TODO M82.2 Add quality gate release block check
+- DONE M82.2 Add quality gate release block check
   - Extend or add a verifier that parses the quality gate release block and compares it with direct `verify:release` command segments.
   - Fail when commands are missing, extra, or out of order.
   - Include the check in the docs verification flow without adding browser, network, or full release requirements.
