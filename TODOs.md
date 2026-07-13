@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 96%
+- Overall: 100%
 - Current milestone: M86 README Verification Summary Gate
-- Current task: M86.4 Complete README verification milestone
+- Current task: M86 complete
 
 ## Backup
 
@@ -1274,7 +1274,7 @@
   - Clarify that the check validates command discoverability and summary coverage, not command behavior.
   - Keep package script, docs aggregate, and release aggregate behavior aligned with the new read-only gate.
 
-- TODO M86.4 Complete README verification milestone
+- DONE M86.4 Complete README verification milestone
   - Run README verification checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
