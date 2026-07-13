@@ -1759,6 +1759,33 @@ gates, example smoke, feature checks, generated fixture smoke, release
 documentation checks, package script checks, package lock checks, CI
 documentation checks, CI plan checks, and repository hygiene.
 
+## M84 Pre-commit Config Metadata Gate Plan
+
+M84 should add a deterministic read-only gate for committed pre-commit
+configuration metadata. The repository uses `.pre-commit-config.yaml` for local
+developer checks, and release verification should catch obvious drift in local
+hook wiring without installing or executing pre-commit hooks.
+
+The check should validate:
+
+- `.pre-commit-config.yaml` exists and defines the local repository hook block
+- required local hook ids are present: `cargo-fmt`, `cargo-deny`, `typos`,
+  `cargo-check`, `cargo-clippy`, and `cargo-test`
+- required local hook entry command snippets remain aligned with the project
+  conventions
+- supporting config files such as `deny.toml`, `rustfmt.toml`, and
+  `_typos.toml` are present when local hooks reference those tool families
+
+The gate should remain static and read-only. It should not run `pre-commit`,
+install hook environments, execute Cargo commands, contact remote hook
+repositories, check remote hook freshness, or rewrite YAML.
+
+The intended command is:
+
+```bash
+npm run verify:pre-commit
+```
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind

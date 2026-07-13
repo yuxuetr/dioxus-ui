@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M83 Cargo Lock Metadata Gate
-- Current task: M83 complete
+- Overall: 98%
+- Current milestone: M84 Pre-commit Config Metadata Gate
+- Current task: M84.1 Plan pre-commit config metadata gate
 
 ## Backup
 
@@ -1210,6 +1210,28 @@
 
 - DONE M83.4 Complete cargo lock metadata milestone
   - Run cargo lock checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M84 Pre-commit Config Metadata Gate
+
+- TODO M84.1 Plan pre-commit config metadata gate
+  - Define a deterministic read-only check that `.pre-commit-config.yaml` local hook metadata remains valid.
+  - Keep hook execution, dependency installation, remote repo freshness, and network checks out of scope.
+  - Decide which local hook ids, entries, and supporting config files should be validated.
+
+- TODO M84.2 Add pre-commit config metadata check
+  - Add a verifier that checks required local hook ids, command snippets, and referenced config files.
+  - Fail when `.pre-commit-config.yaml` is missing required local hooks or when local hook command targets drift.
+  - Include the check in release verification without adding network, browser, or full pre-commit requirements.
+
+- TODO M84.3 Update pre-commit config metadata documentation
+  - Document the pre-commit metadata check in README, quality gates, release docs, and docs-site planning docs.
+  - Clarify that the check validates committed hook metadata, not hook execution or remote hook freshness.
+  - Keep package script and release aggregate behavior aligned with the new read-only gate.
+
+- TODO M84.4 Complete pre-commit config metadata milestone
+  - Run pre-commit metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
