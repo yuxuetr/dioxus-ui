@@ -4,7 +4,7 @@
 
 - Overall: 98%
 - Current milestone: M83 Cargo Lock Metadata Gate
-- Current task: M83.2 Add cargo lock metadata check
+- Current task: M83.3 Update cargo lock metadata documentation
 
 ## Backup
 
@@ -1198,7 +1198,7 @@
   - Keep dependency freshness, lockfile regeneration, dependency resolution, and registry availability out of scope.
   - Decide which workspace package names, versions, and lockfile fields should be validated.
 
-- TODO M83.2 Add cargo lock metadata check
+- DONE M83.2 Add cargo lock metadata check
   - Add a verifier that compares committed `Cargo.lock` package entries with `cargo metadata --no-deps` workspace members.
   - Fail when the lockfile is missing, has an unsupported format, misses a workspace package, or records a mismatched workspace package version.
   - Include the check in release verification without adding network or browser requirements.
