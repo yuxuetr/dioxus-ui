@@ -4,7 +4,7 @@
 
 - Overall: 98%
 - Current milestone: M84 Pre-commit Config Metadata Gate
-- Current task: M84.1 Plan pre-commit config metadata gate
+- Current task: M84.2 Add pre-commit config metadata check
 
 ## Backup
 
@@ -1215,7 +1215,7 @@
 
 ## M84 Pre-commit Config Metadata Gate
 
-- TODO M84.1 Plan pre-commit config metadata gate
+- DONE M84.1 Plan pre-commit config metadata gate
   - Define a deterministic read-only check that `.pre-commit-config.yaml` local hook metadata remains valid.
   - Keep hook execution, dependency installation, remote repo freshness, and network checks out of scope.
   - Decide which local hook ids, entries, and supporting config files should be validated.
