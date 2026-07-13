@@ -16,6 +16,24 @@ const trackedFiles = execFileSync("git", ["ls-files"], {
 
 const forbiddenTrackedPatterns = [
   {
+    label: "Node dependency directory",
+    test: (file) => {
+      return file.startsWith("node_modules/");
+    },
+  },
+  {
+    label: "Rust target directory",
+    test: (file) => {
+      return file.startsWith("target/");
+    },
+  },
+  {
+    label: "distribution output directory",
+    test: (file) => {
+      return file.startsWith("dist/") || file.startsWith("build/");
+    },
+  },
+  {
     label: "inactive browser smoke workflow",
     test: (file) => {
       return file === ".github/workflows/browser-smoke.yml";

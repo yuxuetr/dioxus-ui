@@ -1,5 +1,8 @@
 .playwright-mcp/
 node_modules/
+target/
+dist/
+build/
 dioxus-ui-web-preview-*.png
 dioxus-ui-desktop-webview-preview-*.png
 dioxus-ui-mobile-browser-preview-*.png
