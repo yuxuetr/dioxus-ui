@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 98%
+- Overall: 100%
 - Current milestone: M84 Pre-commit Config Metadata Gate
-- Current task: M84.4 Complete pre-commit config metadata milestone
+- Current task: M84 complete
 
 ## Backup
 
@@ -1230,7 +1230,7 @@
   - Clarify that the check validates committed hook metadata, not hook execution or remote hook freshness.
   - Keep package script and release aggregate behavior aligned with the new read-only gate.
 
-- TODO M84.4 Complete pre-commit config metadata milestone
+- DONE M84.4 Complete pre-commit config metadata milestone
   - Run pre-commit metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
