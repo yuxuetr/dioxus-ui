@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M80 Generated Directory Hygiene Gate
-- Current task: M80.1 Plan generated directory hygiene gate
+- Current task: M80.2 Add generated directory hygiene check
 
 ## Backup
 
@@ -1127,7 +1127,7 @@
 
 ## M80 Generated Directory Hygiene Gate
 
-- TODO M80.1 Plan generated directory hygiene gate
+- DONE M80.1 Plan generated directory hygiene gate
   - Define a deterministic read-only check that generated dependency and build directories are never tracked.
   - Keep deleting local directories, cleaning workspaces, and validating global git ignore configuration out of scope.
   - Decide which repository-local generated directories must be explicitly ignored and forbidden when tracked.
