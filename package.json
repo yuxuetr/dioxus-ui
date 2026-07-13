@@ -23,6 +23,7 @@
     "verify:package-scripts": "node scripts/package-scripts-verify.mjs",
     "verify:package-lock": "node scripts/package-lock-verify.mjs",
     "verify:cargo-workspace": "node scripts/cargo-workspace-verify.mjs",
+    "verify:cargo-lock": "node scripts/cargo-lock-verify.mjs",
     "verify:repo-hygiene": "node scripts/repo-hygiene-verify.mjs",
     "verify:ci-docs": "node scripts/ci-docs-verify.mjs",
     "verify:ci-plan": "node scripts/ci-plan-verify.mjs",
@@ -31,7 +32,7 @@
     "verify:preview": "npm run verify:web-preview && npm run verify:mobile-web-profile && npm run verify:desktop-preview",
     "verify:smoke": "npm run verify:preview && npm run verify:examples",
     "verify": "npm run verify:smoke && npm run verify:docs",
-    "verify:release": "cargo check --workspace --all-features && cargo test --workspace --all-features && cargo test -p dioxus-ui-cli --test registry && cargo run -p dioxus-ui-cli -- list && npm run verify:cargo-workspace && npm run verify:registry && npm run verify:tailwind-static && npm run verify && scripts/feature-check.sh && scripts/generated-fixture-smoke.sh && npm run verify:release-docs && npm run verify:package-scripts && npm run verify:package-lock && npm run verify:ci-docs && npm run verify:ci-plan && npm run verify:repo-hygiene"
+    "verify:release": "cargo check --workspace --all-features && cargo test --workspace --all-features && cargo test -p dioxus-ui-cli --test registry && cargo run -p dioxus-ui-cli -- list && npm run verify:cargo-workspace && npm run verify:cargo-lock && npm run verify:registry && npm run verify:tailwind-static && npm run verify && scripts/feature-check.sh && scripts/generated-fixture-smoke.sh && npm run verify:release-docs && npm run verify:package-scripts && npm run verify:package-lock && npm run verify:ci-docs && npm run verify:ci-plan && npm run verify:repo-hygiene"
   },
   "devDependencies": {
     "@playwright/test": "^1.61.1"
