@@ -1872,6 +1872,32 @@ The check is included in `npm run verify:release`. It remains read-only and
 does not execute scripts, lint shell syntax, install dependencies, inspect
 generated outputs, or rewrite file modes.
 
+## M85 Final Result
+
+M85 added `npm run verify:scripts` and wired it into
+`npm run verify:release`. The gate validates committed script metadata,
+including shell shebangs, executable bits, direct package script targets, and
+Node shebangs for runnable `.mjs` scripts.
+
+Validation completed:
+
+```bash
+npm run verify:scripts
+npm run verify:package-scripts
+npm run verify:docs
+npm run verify:release-docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The release aggregate now covers workspace checks and
+tests, CLI registry tests, component listing, Cargo workspace metadata, Cargo
+lock metadata, pre-commit metadata, script metadata, registry metadata,
+Tailwind static tokens, preview structural gates, example smoke, feature
+checks, generated fixture smoke, release documentation checks, package script
+checks, package lock checks, CI documentation checks, CI plan checks, and
+repository hygiene.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
