@@ -1652,6 +1652,22 @@ The intended owner is:
 npm run verify:docs-index
 ```
 
+## M82 Quality Gate Release Block Sync Usage
+
+M82 extends the documentation index verifier:
+
+```bash
+npm run verify:docs-index
+```
+
+The command now checks that the release gate block in `docs/quality-gates.md`
+matches the direct `verify:release` command segments from `package.json` in
+order. The check is included in `npm run verify:docs`.
+
+The check remains read-only. It does not execute release commands, expand
+nested aliases such as `npm run verify`, rewrite Markdown, or replace the
+dedicated release documentation verifier for `docs/release.md`.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind

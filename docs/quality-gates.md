@@ -201,8 +201,11 @@ route manifest rendered from the shared catalog builder.
 from the shared catalog builder.
 
 `npm run verify:docs-index` checks that README and docs/README keep required
-quality, release, CI, site, RFC, and TODO entry points discoverable. It is
-read-only and does not crawl external links or generate navigation artifacts.
+quality, release, CI, site, RFC, and TODO entry points discoverable. It also
+checks that this document lists every verification alias and that the release
+gate block matches direct `verify:release` command segments in order. It is
+read-only and does not crawl external links, expand nested aliases, execute
+release commands, or generate navigation artifacts.
 
 `npm run verify:docs-links` checks that tracked Markdown files do not reference
 missing local relative file targets. It is read-only and does not validate

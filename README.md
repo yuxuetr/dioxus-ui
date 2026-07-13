@@ -279,7 +279,8 @@ npm run verify:docs-index
 This checks that the root README and docs README link the required quality,
 release, CI, site, RFC, and TODO entry points. It also checks that every
 `package.json` `verify` and `verify:*` alias is documented in
-`docs/quality-gates.md`.
+`docs/quality-gates.md`, and that the quality gate release block matches the
+direct `verify:release` command segments in order.
 
 Verify local Markdown link targets only:
 
