@@ -1668,6 +1668,31 @@ The check remains read-only. It does not execute release commands, expand
 nested aliases such as `npm run verify`, rewrite Markdown, or replace the
 dedicated release documentation verifier for `docs/release.md`.
 
+## M82 Final Result
+
+M82 extended `npm run verify:docs-index` so the release gate block in
+`docs/quality-gates.md` must match the direct `verify:release` command segments
+from `package.json` in order. The quality gate reference now uses the same
+direct release contract as the release aggregate.
+
+Validation completed:
+
+```bash
+npm run verify:docs-index
+npm run verify:docs
+npm run verify:package-scripts
+npm run verify:release-docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The release aggregate covered workspace checks and tests,
+CLI registry tests, component listing, Cargo workspace metadata, registry
+metadata, Tailwind static tokens, preview structural gates, example smoke,
+feature checks, generated fixture smoke, release documentation checks, package
+script checks, package lock checks, CI documentation checks, CI plan checks,
+and repository hygiene.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
