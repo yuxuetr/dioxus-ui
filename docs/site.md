@@ -1828,6 +1828,34 @@ preview structural gates, example smoke, feature checks, generated fixture
 smoke, release documentation checks, package script checks, package lock
 checks, CI documentation checks, CI plan checks, and repository hygiene.
 
+## M85 Script Metadata Gate Plan
+
+M85 should add a deterministic read-only gate for repository script metadata.
+Package and release verification already check script wiring, but direct shell
+script targets also rely on committed executable bits and shebangs. Runnable
+Node scripts should keep a stable Node shebang, while helper-only modules can
+remain import-only.
+
+The check should validate:
+
+- shell scripts under `scripts/` use `#!/usr/bin/env bash`
+- shell scripts under `scripts/` are executable
+- direct package script targets such as `scripts/example-smoke.sh` are
+  executable when invoked without `node`
+- runnable `.mjs` scripts under `scripts/` use `#!/usr/bin/env node`
+- known helper-only modules such as `scripts/docs-catalog-builder.mjs` are
+  allowed to omit a shebang
+
+The gate should remain static and read-only. It should not execute scripts,
+lint shell syntax, install dependencies, rewrite file modes, inspect generated
+outputs, or replace package script wiring checks.
+
+The intended command is:
+
+```bash
+npm run verify:scripts
+```
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind

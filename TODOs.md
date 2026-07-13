@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M84 Pre-commit Config Metadata Gate
-- Current task: M84 complete
+- Overall: 98%
+- Current milestone: M85 Script Metadata Gate
+- Current task: M85.1 Plan script metadata gate
 
 ## Backup
 
@@ -1232,6 +1232,28 @@
 
 - DONE M84.4 Complete pre-commit config metadata milestone
   - Run pre-commit metadata checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M85 Script Metadata Gate
+
+- TODO M85.1 Plan script metadata gate
+  - Define a deterministic read-only check that repository script metadata remains executable where required.
+  - Keep script execution, shell linting, dependency installation, and generated output checks out of scope.
+  - Decide which `scripts/*.sh` and `scripts/*.mjs` files should have shebangs and executable bits.
+
+- TODO M85.2 Add script metadata check
+  - Add a verifier that checks shell script shebangs, executable bits, and package-referenced script targets.
+  - Fail when direct shell script targets are not executable or when runnable Node scripts lack the expected shebang.
+  - Include the check in release verification without executing the scripts being inspected.
+
+- TODO M85.3 Update script metadata documentation
+  - Document the script metadata check in README, quality gates, release docs, and docs-site planning docs.
+  - Clarify that the check validates committed file metadata, not script behavior or shell syntax.
+  - Keep package script and release aggregate behavior aligned with the new read-only gate.
+
+- TODO M85.4 Complete script metadata milestone
+  - Run script metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
