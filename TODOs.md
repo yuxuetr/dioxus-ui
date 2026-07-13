@@ -1269,7 +1269,7 @@
   - Fail when README omits required focused aliases or stale release/default gate descriptions.
   - Include the check in docs verification without running the referenced commands.
 
-- TODO M86.3 Update README verification documentation
+- DONE M86.3 Update README verification documentation
   - Document the README verification summary gate in README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check validates command discoverability and summary coverage, not command behavior.
   - Keep package script, docs aggregate, and release aggregate behavior aligned with the new read-only gate.
