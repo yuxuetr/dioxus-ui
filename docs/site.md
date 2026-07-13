@@ -1803,6 +1803,31 @@ does not run `pre-commit`, install hook environments, execute Cargo or typos
 commands, contact remote hook repositories, check remote hook freshness, or
 rewrite YAML.
 
+## M84 Final Result
+
+M84 added `npm run verify:pre-commit` and wired it into
+`npm run verify:release`. The gate validates committed `.pre-commit-config.yaml`
+local hook metadata, expected local hook command snippets, and supporting config
+files without executing pre-commit hooks.
+
+Validation completed:
+
+```bash
+npm run verify:pre-commit
+npm run verify:package-scripts
+npm run verify:docs
+npm run verify:release-docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The release aggregate now covers workspace checks and
+tests, CLI registry tests, component listing, Cargo workspace metadata, Cargo
+lock metadata, pre-commit metadata, registry metadata, Tailwind static tokens,
+preview structural gates, example smoke, feature checks, generated fixture
+smoke, release documentation checks, package script checks, package lock
+checks, CI documentation checks, CI plan checks, and repository hygiene.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
