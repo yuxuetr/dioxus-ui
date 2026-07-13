@@ -11,6 +11,22 @@ const readRepoFile = (relativePath) => {
 
 const packageJson = JSON.parse(readRepoFile("package.json"));
 const qualityGates = readRepoFile("docs/quality-gates.md");
+const releaseScript = packageJson.scripts?.["verify:release"];
+const releaseCommandSegments =
+  typeof releaseScript === "string"
+    ? releaseScript.split(/\s*&&\s*/).filter((segment) => segment.length > 0)
+    : [];
+const qualityGateMarker = "The release aggregate expands to the required local release gates:";
+const qualityGateMarkerIndex = qualityGates.indexOf(qualityGateMarker);
+const qualityGateBlockMatch =
+  qualityGateMarkerIndex >= 0
+    ? qualityGates.slice(qualityGateMarkerIndex).match(/```bash\n([\s\S]*?)\n```/)
+    : null;
+const documentedQualityGateSegments =
+  qualityGateBlockMatch?.[1]
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0) ?? [];
 
 const requiredLinks = [
   {
@@ -70,6 +86,7 @@ const requiredLinks = [
 
 const missingLinks = [];
 const missingQualityGateAliases = [];
+const qualityGateBlockFailures = [];
 
 for (const { file, content, links } of requiredLinks) {
   for (const link of links) {
@@ -90,13 +107,50 @@ for (const alias of verifyAliases) {
   }
 }
 
-if (missingLinks.length > 0 || missingQualityGateAliases.length > 0) {
+if (typeof releaseScript !== "string") {
+  qualityGateBlockFailures.push("package.json is missing script: verify:release");
+}
+
+if (qualityGateMarkerIndex < 0) {
+  qualityGateBlockFailures.push(`docs/quality-gates.md is missing release gate marker: ${qualityGateMarker}`);
+}
+
+if (qualityGateMarkerIndex >= 0 && qualityGateBlockMatch === null) {
+  qualityGateBlockFailures.push("docs/quality-gates.md is missing release gate bash block");
+}
+
+const qualityGateBlockMatches =
+  documentedQualityGateSegments.length === releaseCommandSegments.length &&
+  documentedQualityGateSegments.every((segment, index) => {
+    return segment === releaseCommandSegments[index];
+  });
+
+if (qualityGateBlockMatch !== null && !qualityGateBlockMatches) {
+  qualityGateBlockFailures.push(
+    "docs/quality-gates.md release gate block does not match verify:release order",
+  );
+}
+
+if (missingLinks.length > 0 || missingQualityGateAliases.length > 0 || qualityGateBlockFailures.length > 0) {
   console.error("documentation index verification failed");
   for (const { file, link } of missingLinks) {
     console.error(`- ${file} missing link: ${link}`);
   }
   for (const snippet of missingQualityGateAliases) {
     console.error(`- docs/quality-gates.md missing verification alias: ${snippet}`);
+  }
+  for (const failure of qualityGateBlockFailures) {
+    console.error(`- ${failure}`);
+  }
+  if (qualityGateBlockMatch !== null && !qualityGateBlockMatches) {
+    console.error("  expected:");
+    for (const segment of releaseCommandSegments) {
+      console.error(`  - ${segment}`);
+    }
+    console.error("  actual:");
+    for (const segment of documentedQualityGateSegments) {
+      console.error(`  - ${segment}`);
+    }
   }
   process.exitCode = 1;
 } else {

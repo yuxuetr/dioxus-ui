@@ -118,14 +118,14 @@ cargo test --workspace --all-features
 cargo test -p dioxus-ui-cli --test registry
 cargo run -p dioxus-ui-cli -- list
 npm run verify:cargo-workspace
-scripts/example-smoke.sh
-node scripts/web-preview-verify.mjs
-node scripts/mobile-web-profile-verify.mjs
-node scripts/desktop-preview-verify.mjs
+npm run verify:registry
+npm run verify:tailwind-static
+npm run verify
 scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
-node scripts/release-docs-verify.mjs
+npm run verify:release-docs
 npm run verify:package-scripts
+npm run verify:package-lock
 npm run verify:ci-docs
 npm run verify:ci-plan
 npm run verify:repo-hygiene
