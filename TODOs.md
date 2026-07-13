@@ -4,7 +4,7 @@
 
 - Overall: 98%
 - Current milestone: M83 Cargo Lock Metadata Gate
-- Current task: M83.1 Plan cargo lock metadata gate
+- Current task: M83.2 Add cargo lock metadata check
 
 ## Backup
 
@@ -1193,7 +1193,7 @@
 
 ## M83 Cargo Lock Metadata Gate
 
-- TODO M83.1 Plan cargo lock metadata gate
+- DONE M83.1 Plan cargo lock metadata gate
   - Define a deterministic read-only check that `Cargo.lock` workspace package entries match Cargo metadata.
   - Keep dependency freshness, lockfile regeneration, dependency resolution, and registry availability out of scope.
   - Decide which workspace package names, versions, and lockfile fields should be validated.
