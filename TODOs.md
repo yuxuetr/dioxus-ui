@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 98%
+- Overall: 100%
 - Current milestone: M85 Script Metadata Gate
-- Current task: M85.4 Complete script metadata milestone
+- Current task: M85 complete
 
 ## Backup
 
@@ -1252,7 +1252,7 @@
   - Clarify that the check validates committed file metadata, not script behavior or shell syntax.
   - Keep package script and release aggregate behavior aligned with the new read-only gate.
 
-- TODO M85.4 Complete script metadata milestone
+- DONE M85.4 Complete script metadata milestone
   - Run script metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
