@@ -119,6 +119,7 @@ cargo test -p dioxus-ui-cli --test registry
 cargo run -p dioxus-ui-cli -- list
 npm run verify:cargo-workspace
 npm run verify:cargo-lock
+npm run verify:pre-commit
 npm run verify:registry
 npm run verify:tailwind-static
 npm run verify
