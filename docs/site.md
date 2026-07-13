@@ -1734,6 +1734,31 @@ The check is included in `npm run verify:release`. It remains read-only and
 does not run `cargo update`, rewrite `Cargo.lock`, resolve dependency
 freshness, contact crates.io, or replace normal Rust compile and test gates.
 
+## M83 Final Result
+
+M83 added `npm run verify:cargo-lock` and wired it into
+`npm run verify:release`. The gate validates committed `Cargo.lock` metadata
+against `cargo metadata --locked --no-deps` workspace members, including
+lockfile format, workspace package presence, and workspace package versions.
+
+Validation completed:
+
+```bash
+npm run verify:cargo-lock
+npm run verify:package-scripts
+npm run verify:docs
+npm run verify:release-docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The release aggregate now covers workspace checks and
+tests, CLI registry tests, component listing, Cargo workspace metadata, Cargo
+lock metadata, registry metadata, Tailwind static tokens, preview structural
+gates, example smoke, feature checks, generated fixture smoke, release
+documentation checks, package script checks, package lock checks, CI
+documentation checks, CI plan checks, and repository hygiene.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
