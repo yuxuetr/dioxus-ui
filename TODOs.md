@@ -4,7 +4,7 @@
 
 - Overall: 98%
 - Current milestone: M84 Pre-commit Config Metadata Gate
-- Current task: M84.2 Add pre-commit config metadata check
+- Current task: M84.3 Update pre-commit config metadata documentation
 
 ## Backup
 
@@ -1220,7 +1220,7 @@
   - Keep hook execution, dependency installation, remote repo freshness, and network checks out of scope.
   - Decide which local hook ids, entries, and supporting config files should be validated.
 
-- TODO M84.2 Add pre-commit config metadata check
+- DONE M84.2 Add pre-commit config metadata check
   - Add a verifier that checks required local hook ids, command snippets, and referenced config files.
   - Fail when `.pre-commit-config.yaml` is missing required local hooks or when local hook command targets drift.
   - Include the check in release verification without adding network, browser, or full pre-commit requirements.
