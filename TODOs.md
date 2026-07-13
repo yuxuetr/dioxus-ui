@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M79 Package Lock Metadata Gate
-- Current task: M79 complete
+- Current milestone: M80 Generated Directory Hygiene Gate
+- Current task: M80.1 Plan generated directory hygiene gate
 
 ## Backup
 
@@ -1122,6 +1122,28 @@
 
 - DONE M79.4 Complete package lock metadata milestone
   - Run package lock checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M80 Generated Directory Hygiene Gate
+
+- TODO M80.1 Plan generated directory hygiene gate
+  - Define a deterministic read-only check that generated dependency and build directories are never tracked.
+  - Keep deleting local directories, cleaning workspaces, and validating global git ignore configuration out of scope.
+  - Decide which repository-local generated directories must be explicitly ignored and forbidden when tracked.
+
+- TODO M80.2 Add generated directory hygiene check
+  - Extend repository hygiene verification to fail on tracked `node_modules/`, `target/`, and other generated output directories.
+  - Add missing project `.gitignore` entries for local Rust and Node generated directories.
+  - Keep the check read-only and part of the existing release hygiene gate.
+
+- TODO M80.3 Update generated directory hygiene documentation
+  - Document the generated directory hygiene rule in README, quality gates, release docs, and docs-site planning docs.
+  - Clarify that the check reports tracked artifacts but does not delete local build outputs.
+  - Keep browser screenshot and workflow hygiene behavior unchanged.
+
+- TODO M80.4 Complete generated directory hygiene milestone
+  - Run repo hygiene checks, docs checks, package script checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
