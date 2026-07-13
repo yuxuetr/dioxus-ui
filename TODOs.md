@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M81 Cargo Workspace Metadata Gate
-- Current task: M81 complete
+- Overall: 98%
+- Current milestone: M82 Quality Gate Release Block Sync
+- Current task: M82.1 Plan quality gate release block sync
 
 ## Backup
 
@@ -1166,6 +1166,28 @@
 
 - DONE M81.4 Complete cargo workspace metadata milestone
   - Run workspace metadata checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M82 Quality Gate Release Block Sync
+
+- TODO M82.1 Plan quality gate release block sync
+  - Define a deterministic read-only check that the release gate block in `docs/quality-gates.md` matches `package.json` `verify:release`.
+  - Keep command execution, nested alias expansion, and release documentation checks out of scope.
+  - Decide how to identify and compare the intended quality gate release block.
+
+- TODO M82.2 Add quality gate release block check
+  - Extend or add a verifier that parses the quality gate release block and compares it with direct `verify:release` command segments.
+  - Fail when commands are missing, extra, or out of order.
+  - Include the check in the docs verification flow without adding browser, network, or full release requirements.
+
+- TODO M82.3 Update quality gate release documentation
+  - Align `docs/quality-gates.md` release block with the actual release aggregate command chain.
+  - Document that the quality gate check validates direct release segments, not nested alias expansion.
+  - Update README, release docs, or docs-site planning docs only where needed.
+
+- TODO M82.4 Complete quality gate release block milestone
+  - Run quality gate docs checks, docs checks, package script checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 

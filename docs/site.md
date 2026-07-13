@@ -1625,6 +1625,33 @@ smoke, feature checks, generated fixture smoke, release documentation checks,
 package script checks, package lock checks, CI documentation checks, CI plan
 checks, and repository hygiene.
 
+## M82 Quality Gate Release Block Sync Plan
+
+M82 should add a deterministic read-only check that keeps the expanded release
+gate block in `docs/quality-gates.md` aligned with the `package.json`
+`verify:release` command chain. `docs/release.md` already has strict direct
+segment coverage, and the quality gate reference should not drift from that
+same release contract.
+
+The check should validate:
+
+- `package.json` exposes `verify:release`
+- `docs/quality-gates.md` contains the intended release gate marker and bash
+  block
+- the quality gate block lists every direct `verify:release` command segment
+  exactly once and in order
+- the check runs as part of docs verification without executing release gates
+
+The gate should remain static and read-only. It should not expand nested npm
+aliases, execute Cargo or browser commands, rewrite Markdown, or replace the
+dedicated `docs/release.md` release documentation verifier.
+
+The intended owner is:
+
+```bash
+npm run verify:docs-index
+```
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
