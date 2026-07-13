@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M85 Script Metadata Gate
-- Current task: M85 complete
+- Overall: 96%
+- Current milestone: M86 README Verification Summary Gate
+- Current task: M86.1 Plan README verification summary gate
 
 ## Backup
 
@@ -1254,6 +1254,28 @@
 
 - DONE M85.4 Complete script metadata milestone
   - Run script metadata checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M86 README Verification Summary Gate
+
+- TODO M86.1 Plan README verification summary gate
+  - Define a deterministic read-only check that README verification shortcut prose stays aligned with package scripts and quality gates.
+  - Keep command execution, external link crawling, generated docs rendering, and prose rewriting out of scope.
+  - Decide which default, docs, smoke, release, and focused verification aliases must remain discoverable from README.
+
+- TODO M86.2 Add README verification summary check
+  - Add a verifier that checks README verification shortcut blocks and required command snippets against package metadata.
+  - Fail when README omits required focused aliases or stale release/default gate descriptions.
+  - Include the check in docs verification without running the referenced commands.
+
+- TODO M86.3 Update README verification documentation
+  - Document the README verification summary gate in README, quality gates, release docs, and docs-site planning docs.
+  - Clarify that the check validates command discoverability and summary coverage, not command behavior.
+  - Keep package script, docs aggregate, and release aggregate behavior aligned with the new read-only gate.
+
+- TODO M86.4 Complete README verification milestone
+  - Run README verification checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 

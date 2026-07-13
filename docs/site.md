@@ -1898,6 +1898,38 @@ checks, generated fixture smoke, release documentation checks, package script
 checks, package lock checks, CI documentation checks, CI plan checks, and
 repository hygiene.
 
+## M86 README Verification Summary Gate Plan
+
+M86 should add a deterministic read-only check that keeps the README
+verification shortcut section aligned with package script metadata and quality
+gate documentation. The README is the first handoff surface for contributors,
+so it should continue to expose the default local gate, docs aggregate, smoke
+aggregate, release aggregate, and focused metadata gates as the verification
+surface grows.
+
+The check should validate:
+
+- README keeps the primary aliases discoverable, including `npm run verify`,
+  `npm run verify:docs`, `npm run verify:smoke`, and
+  `npm run verify:release`
+- README mentions focused metadata gates that are easy to forget, including
+  package scripts, release docs, Cargo workspace metadata, Cargo lock metadata,
+  pre-commit metadata, script metadata, and repository hygiene
+- README release shortcut prose acknowledges the same high-level gate groups
+  documented in `docs/quality-gates.md`
+- README docs aggregate expansion stays aligned with the package script
+  requirements for `verify:docs`
+
+The gate should not execute referenced commands, crawl external links, render
+the docs site, rewrite README prose, or replace the stricter release docs and
+package script checks.
+
+The intended command is:
+
+```bash
+npm run verify:readme
+```
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
