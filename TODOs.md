@@ -4,7 +4,7 @@
 
 - Overall: 98%
 - Current milestone: M81 Cargo Workspace Metadata Gate
-- Current task: M81.2 Add cargo workspace metadata check
+- Current task: M81.3 Update cargo workspace metadata documentation
 
 ## Backup
 
@@ -1154,7 +1154,7 @@
   - Keep dependency freshness, publishing, cargo package output, and registry availability out of scope.
   - Decide which workspace package fields and member manifests should be validated.
 
-- TODO M81.2 Add cargo workspace metadata check
+- DONE M81.2 Add cargo workspace metadata check
   - Add a verifier that compares workspace package metadata with member crate manifests.
   - Fail when crate manifests stop inheriting required workspace metadata or when Cargo metadata disagrees with the root workspace contract.
   - Include the check in release verification without adding network or browser requirements.
