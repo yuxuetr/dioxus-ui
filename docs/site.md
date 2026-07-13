@@ -1531,6 +1531,30 @@ also explicitly lists those local output directories.
 The check remains read-only. It reports tracked generated artifacts but does not
 delete local dependencies, build outputs, screenshots, or fixture directories.
 
+## M80 Final Result
+
+M80 extended `npm run verify:repo-hygiene` so tracked generated directories
+such as `node_modules/`, `target/`, `dist/`, and `build/` fail repository
+hygiene verification. The project `.gitignore` now explicitly lists those local
+output directories.
+
+Validation completed:
+
+```bash
+npm run verify:repo-hygiene
+npm run verify:docs
+npm run verify:package-scripts
+npm run verify:release-docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The release aggregate also covered workspace checks and
+tests, CLI registry tests, component listing, registry metadata, Tailwind static
+tokens, preview structural gates, example smoke, feature checks, generated
+fixture smoke, release documentation checks, package script checks, package lock
+checks, CI documentation checks, CI plan checks, and repository hygiene.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
