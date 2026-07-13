@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M80 Generated Directory Hygiene Gate
-- Current task: M80 complete
+- Overall: 98%
+- Current milestone: M81 Cargo Workspace Metadata Gate
+- Current task: M81.1 Plan cargo workspace metadata gate
 
 ## Backup
 
@@ -1144,6 +1144,28 @@
 
 - DONE M80.4 Complete generated directory hygiene milestone
   - Run repo hygiene checks, docs checks, package script checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M81 Cargo Workspace Metadata Gate
+
+- TODO M81.1 Plan cargo workspace metadata gate
+  - Define a deterministic read-only check that workspace package metadata remains consistent across Rust crates.
+  - Keep dependency freshness, publishing, cargo package output, and registry availability out of scope.
+  - Decide which workspace package fields and member manifests should be validated.
+
+- TODO M81.2 Add cargo workspace metadata check
+  - Add a verifier that compares workspace package metadata with member crate manifests.
+  - Fail when crate manifests stop inheriting required workspace metadata or when Cargo metadata disagrees with the root workspace contract.
+  - Include the check in release verification without adding network or browser requirements.
+
+- TODO M81.3 Update cargo workspace metadata documentation
+  - Document the workspace metadata check in README, quality gates, release docs, and docs-site planning docs.
+  - Clarify that the check validates committed manifest metadata, not crate publishing or dependency freshness.
+  - Keep package script and release aggregate behavior aligned with the new read-only gate.
+
+- TODO M81.4 Complete cargo workspace metadata milestone
+  - Run workspace metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 

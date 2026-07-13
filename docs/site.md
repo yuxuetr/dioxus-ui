@@ -1555,6 +1555,33 @@ tokens, preview structural gates, example smoke, feature checks, generated
 fixture smoke, release documentation checks, package script checks, package lock
 checks, CI documentation checks, CI plan checks, and repository hygiene.
 
+## M81 Cargo Workspace Metadata Gate Plan
+
+M81 should add a deterministic read-only gate for Rust workspace package
+metadata. The project already centralizes shared package fields in the root
+`[workspace.package]` table, so member crates should keep inheriting those
+fields instead of drifting locally.
+
+The check should validate:
+
+- the root workspace defines required package metadata such as `version`,
+  `edition`, `license`, and `repository`
+- publishable crates under `crates/` inherit those fields with
+  `*.workspace = true`
+- Cargo metadata resolves the same package field values for workspace members
+- the check runs without network access, publishing, packaging, or dependency
+  freshness checks
+
+The gate should remain static and read-only. It should not run `cargo publish`,
+rewrite manifests, regenerate lockfiles, inspect crates.io, or enforce
+application example package metadata.
+
+The intended command is:
+
+```bash
+npm run verify:cargo-workspace
+```
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
