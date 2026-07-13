@@ -4,7 +4,7 @@
 
 - Overall: 98%
 - Current milestone: M85 Script Metadata Gate
-- Current task: M85.2 Add script metadata check
+- Current task: M85.3 Update script metadata documentation
 
 ## Backup
 
@@ -1242,7 +1242,7 @@
   - Keep script execution, shell linting, dependency installation, and generated output checks out of scope.
   - Decide which `scripts/*.sh` and `scripts/*.mjs` files should have shebangs and executable bits.
 
-- TODO M85.2 Add script metadata check
+- DONE M85.2 Add script metadata check
   - Add a verifier that checks shell script shebangs, executable bits, and package-referenced script targets.
   - Fail when direct shell script targets are not executable or when runnable Node scripts lack the expected shebang.
   - Include the check in release verification without executing the scripts being inspected.
