@@ -4,7 +4,7 @@
 
 - Overall: 98%
 - Current milestone: M84 Pre-commit Config Metadata Gate
-- Current task: M84.3 Update pre-commit config metadata documentation
+- Current task: M84.4 Complete pre-commit config metadata milestone
 
 ## Backup
 
@@ -1225,7 +1225,7 @@
   - Fail when `.pre-commit-config.yaml` is missing required local hooks or when local hook command targets drift.
   - Include the check in release verification without adding network, browser, or full pre-commit requirements.
 
-- TODO M84.3 Update pre-commit config metadata documentation
+- DONE M84.3 Update pre-commit config metadata documentation
   - Document the pre-commit metadata check in README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check validates committed hook metadata, not hook execution or remote hook freshness.
   - Keep package script and release aggregate behavior aligned with the new read-only gate.
