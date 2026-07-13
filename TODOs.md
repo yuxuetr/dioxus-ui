@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 98%
+- Overall: 100%
 - Current milestone: M83 Cargo Lock Metadata Gate
-- Current task: M83.4 Complete cargo lock metadata milestone
+- Current task: M83 complete
 
 ## Backup
 
@@ -1208,7 +1208,7 @@
   - Clarify that the check validates committed lockfile metadata, not dependency freshness or lockfile regeneration.
   - Keep package script and release aggregate behavior aligned with the new read-only gate.
 
-- TODO M83.4 Complete cargo lock metadata milestone
+- DONE M83.4 Complete cargo lock metadata milestone
   - Run cargo lock checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
