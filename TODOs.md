@@ -1259,7 +1259,7 @@
 
 ## M86 README Verification Summary Gate
 
-- TODO M86.1 Plan README verification summary gate
+- DONE M86.1 Plan README verification summary gate
   - Define a deterministic read-only check that README verification shortcut prose stays aligned with package scripts and quality gates.
   - Keep command execution, external link crawling, generated docs rendering, and prose rewriting out of scope.
   - Decide which default, docs, smoke, release, and focused verification aliases must remain discoverable from README.
