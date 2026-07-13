@@ -1718,6 +1718,22 @@ The intended command is:
 npm run verify:cargo-lock
 ```
 
+## M83 Cargo Lock Metadata Gate Usage
+
+M83 adds a focused Cargo lock metadata verifier:
+
+```bash
+npm run verify:cargo-lock
+```
+
+The command checks that `Cargo.lock` exists, uses the expected lockfile format,
+and includes local workspace package entries whose names and versions match
+`cargo metadata --locked --no-deps` workspace members.
+
+The check is included in `npm run verify:release`. It remains read-only and
+does not run `cargo update`, rewrite `Cargo.lock`, resolve dependency
+freshness, contact crates.io, or replace normal Rust compile and test gates.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind

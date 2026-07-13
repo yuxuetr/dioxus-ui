@@ -362,6 +362,16 @@ package metadata and that `cargo metadata` resolves the same values. It does
 not publish crates, package crates, contact crates.io, or check dependency
 freshness.
 
+Verify Cargo lockfile metadata only:
+
+```bash
+npm run verify:cargo-lock
+```
+
+This checks that committed `Cargo.lock` workspace package entries match Cargo
+metadata without running `cargo update`, rewriting the lockfile, contacting
+crates.io, or checking dependency freshness.
+
 Verify repository hygiene only:
 
 ```bash

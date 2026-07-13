@@ -248,6 +248,11 @@ metadata stays consistent across root and `crates/` manifests. It verifies
 workspace inheritance and `cargo metadata` output without publishing crates,
 packaging crates, contacting crates.io, or checking dependency freshness.
 
+`npm run verify:cargo-lock` checks that committed `Cargo.lock` workspace package
+entries match `cargo metadata --locked --no-deps` workspace members. It is
+read-only and does not run `cargo update`, rewrite the lockfile, contact
+crates.io, or check dependency freshness.
+
 `npm run verify:repo-hygiene` checks that inactive workflow files, generated
 directories such as `node_modules/`, `target/`, `dist/`, and `build/`, and known
 generated artifacts are not committed. It is read-only and reports drift without
