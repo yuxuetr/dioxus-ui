@@ -1204,6 +1204,35 @@ It remains read-only. It does not delete files, inspect ignored artifact
 contents, validate global Git excludes, or replace repository hygiene tracking
 checks.
 
+## M90 Final Result
+
+M90 added `npm run verify:gitignore` and wired it into
+`npm run verify:release`. The gate validates `.gitignore` patterns for
+generated directories, browser automation state, and preview screenshot
+artifacts, and checks that repository hygiene policy still rejects tracked
+generated artifacts.
+
+Validation completed:
+
+```bash
+npm run verify:gitignore
+npm run verify:package-scripts
+npm run verify:docs
+npm run verify:release-docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The release aggregate now covers workspace checks and
+tests, CLI registry tests, component listing, Cargo workspace metadata, Cargo
+lock metadata, pre-commit metadata, script metadata, gitignore metadata,
+examples metadata, CSS input metadata, registry metadata, Tailwind static
+tokens, preview structural gates, example smoke, docs metadata including RFC
+and README verification, feature checks, generated fixture smoke, release
+documentation checks, package script checks, package lock checks, CI
+documentation checks, CI plan checks, repository hygiene, and ignored artifact
+policy.
+
 ## M75 Package Script Target Gate Plan
 
 M75 should extend package script verification so local script file references in
