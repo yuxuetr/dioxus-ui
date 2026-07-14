@@ -1330,7 +1330,7 @@
   - Keep Tailwind compilation, rendered preview checks, class token scanning, and generated output inspection out of scope.
   - Decide which preview CSS files, CLI generated CSS content, and documentation snippets must keep Tailwind v4 syntax.
 
-- TODO M89.2 Add CSS input metadata check
+- DONE M89.2 Add CSS input metadata check
   - Add a verifier that checks `@import "tailwindcss";`, preview `@source` paths, absence of Tailwind v3 directives, and CLI default CSS.
   - Fail when preview CSS inputs omit required source roots or when generated CSS defaults drift from documented Tailwind v4 input syntax.
   - Include the check in release verification without compiling Tailwind or launching previews.
