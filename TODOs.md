@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M86 README Verification Summary Gate
-- Current task: M86 complete
+- Overall: 96%
+- Current milestone: M87 Examples Metadata Gate
+- Current task: M87.1 Plan examples metadata gate
 
 ## Backup
 
@@ -1276,6 +1276,28 @@
 
 - DONE M86.4 Complete README verification milestone
   - Run README verification checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M87 Examples Metadata Gate
+
+- TODO M87.1 Plan examples metadata gate
+  - Define a deterministic read-only check that example workspace members, package aliases, smoke scripts, and examples documentation stay aligned.
+  - Keep example execution, rendered previews, browser automation, and generated fixture compilation out of scope.
+  - Decide which Web, Desktop, preview-state, runtime Web, and runtime Desktop example entry points must remain documented.
+
+- TODO M87.2 Add examples metadata check
+  - Add a verifier that checks example Cargo manifests, workspace membership, examples README commands, and package script wiring.
+  - Fail when an example crate is missing from the workspace or examples README omits required run and verification commands.
+  - Include the check in release verification without running the examples being inspected.
+
+- TODO M87.3 Update examples metadata documentation
+  - Document the examples metadata check in README, examples README, quality gates, release docs, and docs-site planning docs.
+  - Clarify that the check validates example metadata and documentation wiring, not runtime behavior or visual output.
+  - Keep package script and release aggregate behavior aligned with the new read-only gate.
+
+- TODO M87.4 Complete examples metadata milestone
+  - Run examples metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 

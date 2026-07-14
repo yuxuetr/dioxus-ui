@@ -1978,6 +1978,36 @@ including README verification, feature checks, generated fixture smoke, release
 documentation checks, package script checks, package lock checks, CI
 documentation checks, CI plan checks, and repository hygiene.
 
+## M87 Examples Metadata Gate Plan
+
+M87 should add a deterministic read-only check that keeps example metadata
+aligned across workspace configuration, package scripts, smoke scripts, and
+documentation. The repository now has command-line Web and Desktop demos,
+shared preview-state fixtures, runtime Web verification, and runtime Desktop
+verification. Those entry points should remain discoverable without relying on
+release-time command execution to reveal documentation drift.
+
+The check should validate:
+
+- every `examples/*/Cargo.toml` package is a Cargo workspace member
+- `examples/README.md` documents the Web demo, Desktop demo, runtime Web
+  verification fixture, runtime Desktop verification fixture, CLI init/add
+  smoke commands, generated fixture smoke, and example smoke
+- package metadata exposes `npm run verify:examples`
+- `scripts/example-smoke.sh` still runs the Web and Desktop demo packages
+- rendered preview checks continue to point at the documented Web and Desktop
+  preview packages
+
+The gate should not run examples, launch rendered previews, install browser
+dependencies, compile generated fixtures, rewrite docs, or replace runtime and
+browser verification checks.
+
+The intended command is:
+
+```bash
+npm run verify:examples-metadata
+```
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
