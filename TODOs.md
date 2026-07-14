@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 96%
+- Overall: 100%
 - Current milestone: M87 Examples Metadata Gate
-- Current task: M87.4 Complete examples metadata milestone
+- Current task: M87 complete
 
 ## Backup
 
@@ -1296,7 +1296,7 @@
   - Clarify that the check validates example metadata and documentation wiring, not runtime behavior or visual output.
   - Keep package script and release aggregate behavior aligned with the new read-only gate.
 
-- TODO M87.4 Complete examples metadata milestone
+- DONE M87.4 Complete examples metadata milestone
   - Run examples metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
