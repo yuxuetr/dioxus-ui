@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M88 RFC Metadata Gate
-- Current task: M88.3 Update RFC metadata documentation
+- Current task: M88.4 Complete RFC metadata milestone
 
 ## Backup
 
