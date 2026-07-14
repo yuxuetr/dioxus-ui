@@ -1325,7 +1325,7 @@
 
 ## M89 CSS Input Metadata Gate
 
-- TODO M89.1 Plan CSS input metadata gate
+- DONE M89.1 Plan CSS input metadata gate
   - Define a deterministic read-only check that Tailwind CSS v4 input files and CLI default CSS stay aligned.
   - Keep Tailwind compilation, rendered preview checks, class token scanning, and generated output inspection out of scope.
   - Decide which preview CSS files, CLI generated CSS content, and documentation snippets must keep Tailwind v4 syntax.
