@@ -122,6 +122,7 @@ npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
 npm run verify:examples-metadata
+npm run verify:css-inputs
 npm run verify:registry
 npm run verify:tailwind-static
 npm run verify
@@ -151,11 +152,11 @@ Future browser-rendered smoke commands should document
 
 `npm run verify:release` runs Rust workspace checks, CLI registry/list smoke,
 Cargo workspace metadata checks, Cargo lock metadata checks, pre-commit
-metadata checks, script metadata checks, examples metadata checks,
-`npm run verify`, component feature checks, generated fixture smoke, release
-documentation consistency checks, package script wiring checks, and CI browser
-documentation checks. It also checks CI Plan documentation and repository
-hygiene.
+metadata checks, script metadata checks, examples metadata checks, CSS input
+metadata checks, `npm run verify`, component feature checks, generated fixture
+smoke, release documentation consistency checks, package script wiring checks,
+and CI browser documentation checks. It also checks CI Plan documentation and
+repository hygiene.
 
 `npm run verify:smoke` runs rendered preview structural checks and example smoke
 output.
@@ -181,6 +182,12 @@ workspace membership, `examples/README.md`, preview verification scripts, and
 example package aliases stay aligned. It is read-only and does not run examples,
 compile generated fixtures, launch previews, install browser dependencies, or
 rewrite documentation.
+
+`npm run verify:css-inputs` checks that CLI default CSS and rendered preview CSS
+inputs keep Tailwind CSS v4 syntax, documented theme bridge tokens, required
+preview `@source` roots, and no Tailwind CSS v3 directives. It is read-only and
+does not compile Tailwind, inspect generated CSS output, launch previews, or
+assert visual parity.
 
 `npm run verify:docs` runs all docs metadata and Markdown drift checks. Use the
 individual commands below when isolating a specific failure.

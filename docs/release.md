@@ -110,6 +110,7 @@ npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
 npm run verify:examples-metadata
+npm run verify:css-inputs
 npm run verify:registry
 npm run verify:tailwind-static
 npm run verify
@@ -159,6 +160,9 @@ Examples metadata checks are also part of the release aggregate, but they only
 validate example workspace membership, package script wiring, smoke script
 references, preview verifier references, and examples documentation; they do
 not run examples or launch previews.
+CSS input metadata checks are also part of the release aggregate, but they only
+validate Tailwind CSS v4 input syntax, preview source roots, and CLI default
+CSS tokens; they do not compile Tailwind or inspect generated CSS output.
 CI browser docs checks are read-only and do not create workflow files.
 CI Plan checks are also read-only and validate documentation only.
 Repository hygiene checks are read-only and report forbidden committed
@@ -203,6 +207,7 @@ npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
 npm run verify:examples-metadata
+npm run verify:css-inputs
 npm run verify:rfcs
 npm run verify:readme
 npm run verify:tailwind-static

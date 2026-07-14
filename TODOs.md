@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M89 CSS Input Metadata Gate
-- Current task: M89.1 Plan CSS input metadata gate
+- Current task: M89.2 Add CSS input metadata check
 
 ## Backup
 
