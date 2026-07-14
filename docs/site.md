@@ -2183,6 +2183,33 @@ It remains read-only and does not compile Tailwind CSS, inspect generated CSS
 output, launch previews, run browser automation, scan Rust class tokens, or
 assert visual parity.
 
+## M89 Final Result
+
+M89 added `npm run verify:css-inputs` and wired it into
+`npm run verify:release`. The gate validates Tailwind CSS v4 input metadata for
+CLI default CSS and rendered preview CSS inputs, including required `@source`
+roots and the absence of Tailwind CSS v3 directives.
+
+Validation completed:
+
+```bash
+npm run verify:css-inputs
+npm run verify:package-scripts
+npm run verify:docs
+npm run verify:release-docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The release aggregate now covers workspace checks and
+tests, CLI registry tests, component listing, Cargo workspace metadata, Cargo
+lock metadata, pre-commit metadata, script metadata, examples metadata, CSS
+input metadata, registry metadata, Tailwind static tokens, preview structural
+gates, example smoke, docs metadata including RFC and README verification,
+feature checks, generated fixture smoke, release documentation checks, package
+script checks, package lock checks, CI documentation checks, CI plan checks,
+and repository hygiene.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
