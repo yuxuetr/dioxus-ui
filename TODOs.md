@@ -1347,7 +1347,7 @@
 
 ## M90 Gitignore Metadata Gate
 
-- TODO M90.1 Plan gitignore metadata gate
+- DONE M90.1 Plan gitignore metadata gate
   - Define a deterministic read-only check that `.gitignore`, repository hygiene policy, and documented artifact patterns stay aligned.
   - Keep deleting local artifacts, checking global git excludes, and validating untracked file contents out of scope.
   - Decide which dependency directories, build outputs, browser profiles, screenshots, and generated fixture patterns must remain ignored.
