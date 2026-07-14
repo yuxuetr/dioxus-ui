@@ -1357,7 +1357,7 @@
   - Fail when `.gitignore` omits required generated directories, screenshot patterns, or browser automation cache directories.
   - Include the check in release verification without removing local files.
 
-- TODO M90.3 Update gitignore metadata documentation
+- DONE M90.3 Update gitignore metadata documentation
   - Document the gitignore metadata check in README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check validates ignore policy metadata, not local cleanup or artifact contents.
   - Keep package script, repository hygiene, and release aggregate behavior aligned with the new read-only gate.
