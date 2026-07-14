@@ -266,6 +266,7 @@ npm run verify:cargo-workspace
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
+npm run verify:gitignore
 npm run verify:examples-metadata
 npm run verify:css-inputs
 npm run verify:rfcs
@@ -430,6 +431,18 @@ npm run verify:scripts
 This checks committed script shebangs, executable bits, and package-referenced
 script targets without executing scripts, linting shell syntax, or rewriting
 file modes.
+
+Verify gitignore metadata only:
+
+```bash
+npm run verify:gitignore
+```
+
+This checks required generated directory, browser state, and screenshot artifact
+patterns in `.gitignore`, plus the repository hygiene policy fragments that
+reject tracked generated artifacts. It does not delete local files, inspect
+ignored artifact contents, validate global Git excludes, or replace repository
+hygiene tracking checks.
 
 Verify repository hygiene only:
 

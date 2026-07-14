@@ -1181,6 +1181,29 @@ Because the check is deterministic and read-only, it is included in:
 npm run verify:docs
 ```
 
+## M90 Gitignore Metadata Gate Usage
+
+M90 adds a focused gitignore metadata command:
+
+```bash
+npm run verify:gitignore
+```
+
+The command checks `.gitignore` patterns for generated directories, browser
+automation state, and preview screenshot artifacts. It also verifies that the
+repository hygiene policy still rejects tracked generated artifacts matching
+those local artifact classes.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not delete files, inspect ignored artifact
+contents, validate global Git excludes, or replace repository hygiene tracking
+checks.
+
 ## M75 Package Script Target Gate Plan
 
 M75 should extend package script verification so local script file references in
