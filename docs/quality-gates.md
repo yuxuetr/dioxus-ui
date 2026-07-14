@@ -121,6 +121,7 @@ npm run verify:cargo-workspace
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
+npm run verify:examples-metadata
 npm run verify:registry
 npm run verify:tailwind-static
 npm run verify
@@ -150,10 +151,11 @@ Future browser-rendered smoke commands should document
 
 `npm run verify:release` runs Rust workspace checks, CLI registry/list smoke,
 Cargo workspace metadata checks, Cargo lock metadata checks, pre-commit
-metadata checks, script metadata checks, `npm run verify`, component feature
-checks, generated fixture smoke, release documentation consistency checks,
-package script wiring checks, and CI browser documentation checks. It also
-checks CI Plan documentation and repository hygiene.
+metadata checks, script metadata checks, examples metadata checks,
+`npm run verify`, component feature checks, generated fixture smoke, release
+documentation consistency checks, package script wiring checks, and CI browser
+documentation checks. It also checks CI Plan documentation and repository
+hygiene.
 
 `npm run verify:smoke` runs rendered preview structural checks and example smoke
 output.
@@ -173,6 +175,12 @@ without launching a native WebView screenshot run.
 
 `npm run verify:examples` runs the example smoke script for Web and Desktop demo
 entry points.
+
+`npm run verify:examples-metadata` checks that example Cargo manifests,
+workspace membership, `examples/README.md`, preview verification scripts, and
+example package aliases stay aligned. It is read-only and does not run examples,
+compile generated fixtures, launch previews, install browser dependencies, or
+rewrite documentation.
 
 `npm run verify:docs` runs all docs metadata and Markdown drift checks. Use the
 individual commands below when isolating a specific failure.

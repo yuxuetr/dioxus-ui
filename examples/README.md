@@ -7,9 +7,9 @@ Current examples are command-line smoke applications. They verify local crate
 wiring and representative crate-mode states before a rendered Dioxus preview app
 lands.
 
-Representative preview states live in `examples/preview-states` so command-line
-smoke output, future Web previews, and future Desktop previews can share the
-same inventory.
+Representative preview states live in `examples/preview-states`
+(`dioxus-ui-preview-states`) so command-line smoke output, future Web previews,
+and future Desktop previews can share the same inventory.
 
 ## Web Demo
 
@@ -123,3 +123,14 @@ This runs the Web and Desktop demo crates and verifies representative states for
 composition, form-specific, message, scroller, direction, collapsible, and chart
 components. Web screenshots are covered by the Web preview gate; Desktop has a
 structural preview gate and screenshot capture remains planned.
+
+## Examples Metadata
+
+```bash
+npm run verify:examples-metadata
+```
+
+This checks example workspace membership, package script wiring, smoke script
+references, preview verifier references, and this README. It does not run
+examples, compile generated fixtures, launch previews, install browser
+dependencies, or rewrite documentation.

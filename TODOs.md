@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M87 Examples Metadata Gate
-- Current task: M87.1 Plan examples metadata gate
+- Current task: M87.2 Add examples metadata check
 
 ## Backup
 

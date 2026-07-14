@@ -109,6 +109,7 @@ npm run verify:cargo-workspace
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
+npm run verify:examples-metadata
 npm run verify:registry
 npm run verify:tailwind-static
 npm run verify
@@ -154,6 +155,10 @@ not install or execute pre-commit hooks.
 Script metadata checks are also part of the release aggregate, but they only
 validate committed script shebangs, executable bits, and package-referenced
 script targets; they do not execute scripts.
+Examples metadata checks are also part of the release aggregate, but they only
+validate example workspace membership, package script wiring, smoke script
+references, preview verifier references, and examples documentation; they do
+not run examples or launch previews.
 CI browser docs checks are read-only and do not create workflow files.
 CI Plan checks are also read-only and validate documentation only.
 Repository hygiene checks are read-only and report forbidden committed
@@ -194,6 +199,7 @@ npm run verify:cargo-workspace
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
+npm run verify:examples-metadata
 npm run verify:readme
 npm run verify:tailwind-static
 npm run verify:ci-docs
