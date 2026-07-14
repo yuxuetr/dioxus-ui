@@ -2129,6 +2129,34 @@ generated fixture smoke, release documentation checks, package script checks,
 package lock checks, CI documentation checks, CI plan checks, and repository
 hygiene.
 
+## M89 CSS Input Metadata Gate Plan
+
+M89 should add a deterministic read-only check that keeps Tailwind CSS v4 input
+metadata aligned across generated CLI defaults, rendered preview CSS inputs, and
+documentation. The project intentionally treats `assets/dioxus-ui.css` and
+preview `preview.css` files as Tailwind input stylesheets, not committed full
+Tailwind output.
+
+The check should validate:
+
+- CLI default generated CSS includes `@import "tailwindcss";`
+- CLI default generated CSS keeps the documented `@theme` bridge tokens
+- preview CSS inputs use Tailwind CSS v4 `@import "tailwindcss";`
+- preview CSS inputs include required `@source` roots for crates, templates,
+  local preview source, and shared preview states
+- committed CSS inputs do not reintroduce Tailwind CSS v3 directives such as
+  `@tailwind base`, `@tailwind components`, or `@tailwind utilities`
+
+The gate should not compile Tailwind CSS, inspect generated CSS output, launch
+preview binaries, perform browser automation, scan Rust class tokens, or assert
+visual parity.
+
+The intended command is:
+
+```bash
+npm run verify:css-inputs
+```
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind

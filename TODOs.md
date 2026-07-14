@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M88 RFC Metadata Gate
-- Current task: M88 complete
+- Overall: 96%
+- Current milestone: M89 CSS Input Metadata Gate
+- Current task: M89.1 Plan CSS input metadata gate
 
 ## Backup
 
@@ -1320,6 +1320,28 @@
 
 - DONE M88.4 Complete RFC metadata milestone
   - Run RFC metadata checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M89 CSS Input Metadata Gate
+
+- TODO M89.1 Plan CSS input metadata gate
+  - Define a deterministic read-only check that Tailwind CSS v4 input files and CLI default CSS stay aligned.
+  - Keep Tailwind compilation, rendered preview checks, class token scanning, and generated output inspection out of scope.
+  - Decide which preview CSS files, CLI generated CSS content, and documentation snippets must keep Tailwind v4 syntax.
+
+- TODO M89.2 Add CSS input metadata check
+  - Add a verifier that checks `@import "tailwindcss";`, preview `@source` paths, absence of Tailwind v3 directives, and CLI default CSS.
+  - Fail when preview CSS inputs omit required source roots or when generated CSS defaults drift from documented Tailwind v4 input syntax.
+  - Include the check in release verification without compiling Tailwind or launching previews.
+
+- TODO M89.3 Update CSS input metadata documentation
+  - Document the CSS input metadata check in README, examples README, quality gates, release docs, and docs-site planning docs.
+  - Clarify that the check validates source input metadata, not final CSS output or visual styling.
+  - Keep package script and release aggregate behavior aligned with the new read-only gate.
+
+- TODO M89.4 Complete CSS input metadata milestone
+  - Run CSS input metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
