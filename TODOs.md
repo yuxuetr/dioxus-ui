@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 96%
+- Overall: 100%
 - Current milestone: M90 Gitignore Metadata Gate
-- Current task: M90.4 Complete gitignore metadata milestone
+- Current task: M90 complete
 
 ## Backup
 
@@ -1362,7 +1362,7 @@
   - Clarify that the check validates ignore policy metadata, not local cleanup or artifact contents.
   - Keep package script, repository hygiene, and release aggregate behavior aligned with the new read-only gate.
 
-- TODO M90.4 Complete gitignore metadata milestone
+- DONE M90.4 Complete gitignore metadata milestone
   - Run gitignore metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
