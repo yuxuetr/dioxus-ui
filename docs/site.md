@@ -2057,6 +2057,31 @@ smoke, docs metadata including README verification, feature checks, generated
 fixture smoke, release documentation checks, package script checks, package
 lock checks, CI documentation checks, CI plan checks, and repository hygiene.
 
+## M88 RFC Metadata Gate Plan
+
+M88 should add a deterministic read-only check that keeps RFC metadata
+discoverable and internally consistent. RFC files are stable planning anchors,
+but their numbering, first headings, root README links, and docs README index
+can drift as new RFCs are added.
+
+The check should validate:
+
+- every `docs/rfcs/*.md` file uses a `NNNN-kebab-title.md` filename
+- each RFC has a first heading shaped as `# RFC NNNN: Title`
+- RFC numbers are unique and contiguous from `0001`
+- root `README.md` links every current RFC document
+- `docs/README.md` links every current RFC document with matching titles
+
+The gate should not review RFC prose, decide whether RFCs are accepted,
+validate implementation status, crawl external links, render the docs site, or
+rewrite index files.
+
+The intended command is:
+
+```bash
+npm run verify:rfcs
+```
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind

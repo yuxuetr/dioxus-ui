@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M87 Examples Metadata Gate
-- Current task: M87 complete
+- Overall: 96%
+- Current milestone: M88 RFC Metadata Gate
+- Current task: M88.1 Plan RFC metadata gate
 
 ## Backup
 
@@ -1298,6 +1298,28 @@
 
 - DONE M87.4 Complete examples metadata milestone
   - Run examples metadata checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M88 RFC Metadata Gate
+
+- TODO M88.1 Plan RFC metadata gate
+  - Define a deterministic read-only check that RFC numbering, filenames, titles, and README indexes stay aligned.
+  - Keep RFC content review, external link crawling, generated docs rendering, and prose rewriting out of scope.
+  - Decide which root README, docs README, and release/quality references must keep RFC entry points discoverable.
+
+- TODO M88.2 Add RFC metadata check
+  - Add a verifier that checks RFC filename numbering, H1 title numbering, contiguous sequence, and README index coverage.
+  - Fail when an RFC file is missing from docs/README, missing from the root README RFC section, or has mismatched numbering/title metadata.
+  - Include the check in docs verification without interpreting RFC decisions.
+
+- TODO M88.3 Update RFC metadata documentation
+  - Document the RFC metadata check in README, docs README, quality gates, release docs, and docs-site planning docs.
+  - Clarify that the check validates RFC discoverability and metadata shape, not RFC acceptance or implementation status.
+  - Keep package script, docs aggregate, and release aggregate behavior aligned with the new read-only gate.
+
+- TODO M88.4 Complete RFC metadata milestone
+  - Run RFC metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
