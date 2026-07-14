@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M89 CSS Input Metadata Gate
-- Current task: M89 complete
+- Overall: 96%
+- Current milestone: M90 Gitignore Metadata Gate
+- Current task: M90.1 Plan gitignore metadata gate
 
 ## Backup
 
@@ -1342,6 +1342,28 @@
 
 - DONE M89.4 Complete CSS input metadata milestone
   - Run CSS input metadata checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M90 Gitignore Metadata Gate
+
+- TODO M90.1 Plan gitignore metadata gate
+  - Define a deterministic read-only check that `.gitignore`, repository hygiene policy, and documented artifact patterns stay aligned.
+  - Keep deleting local artifacts, checking global git excludes, and validating untracked file contents out of scope.
+  - Decide which dependency directories, build outputs, browser profiles, screenshots, and generated fixture patterns must remain ignored.
+
+- TODO M90.2 Add gitignore metadata check
+  - Add a verifier that checks `.gitignore` contains required local artifact patterns and that repository hygiene rejects matching tracked files.
+  - Fail when `.gitignore` omits required generated directories, screenshot patterns, or browser automation cache directories.
+  - Include the check in release verification without removing local files.
+
+- TODO M90.3 Update gitignore metadata documentation
+  - Document the gitignore metadata check in README, quality gates, release docs, and docs-site planning docs.
+  - Clarify that the check validates ignore policy metadata, not local cleanup or artifact contents.
+  - Keep package script, repository hygiene, and release aggregate behavior aligned with the new read-only gate.
+
+- TODO M90.4 Complete gitignore metadata milestone
+  - Run gitignore metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 

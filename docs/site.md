@@ -2210,6 +2210,35 @@ feature checks, generated fixture smoke, release documentation checks, package
 script checks, package lock checks, CI documentation checks, CI plan checks,
 and repository hygiene.
 
+## M90 Gitignore Metadata Gate Plan
+
+M90 should add a deterministic read-only check that keeps `.gitignore`,
+repository hygiene policy, and documented artifact patterns aligned. Local
+development can create `node_modules/`, Cargo target outputs, Playwright state,
+preview screenshots, and generated fixture directories; those should stay
+ignored and should continue to be rejected if accidentally tracked.
+
+The check should validate:
+
+- `.gitignore` lists common local generated directories such as `node_modules/`,
+  `target/`, `dist/`, and `build/`
+- `.gitignore` lists browser automation state such as `.playwright-mcp/`
+- `.gitignore` lists generated preview screenshot patterns for Web, Desktop
+  WebView, and Mobile browser smoke
+- `scripts/repo-hygiene-verify.mjs` rejects tracked generated directories and
+  known generated screenshot artifacts
+- package metadata exposes the focused gitignore metadata gate
+
+The gate should not delete files, inspect ignored artifact contents, validate
+global Git excludes, crawl temporary directories, or replace repository hygiene
+tracking checks.
+
+The intended command is:
+
+```bash
+npm run verify:gitignore
+```
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind
