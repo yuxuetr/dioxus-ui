@@ -2008,6 +2008,28 @@ The intended command is:
 npm run verify:examples-metadata
 ```
 
+## M87 Examples Metadata Gate Usage
+
+M87 adds a focused examples metadata command:
+
+```bash
+npm run verify:examples-metadata
+```
+
+The command checks example Cargo manifests, Cargo workspace membership,
+`examples/README.md`, `verify:examples` package script wiring,
+`scripts/example-smoke.sh`, and rendered preview verifier references.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only and does not run examples, launch rendered previews,
+install browser dependencies, compile generated fixtures, or rewrite
+documentation.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind

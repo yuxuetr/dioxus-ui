@@ -260,6 +260,7 @@ npm run verify:cargo-workspace
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
+npm run verify:examples-metadata
 npm run verify:readme
 npm run verify:release-docs
 npm run verify:package-scripts
