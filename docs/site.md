@@ -2157,6 +2157,32 @@ The intended command is:
 npm run verify:css-inputs
 ```
 
+## M89 CSS Input Metadata Gate Usage
+
+M89 adds a focused CSS input metadata command:
+
+```bash
+npm run verify:css-inputs
+```
+
+The command checks the CLI default generated `assets/dioxus-ui.css` content in
+`crates/dioxus-ui-cli/src/main.rs` and the rendered preview CSS inputs:
+
+```text
+examples/web-demo/assets/preview.css
+examples/desktop-demo/assets/preview.css
+```
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only and does not compile Tailwind CSS, inspect generated CSS
+output, launch previews, run browser automation, scan Rust class tokens, or
+assert visual parity.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind

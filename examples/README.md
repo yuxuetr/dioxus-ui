@@ -54,6 +54,16 @@ Structural Desktop preview gate:
 node scripts/desktop-preview-verify.mjs
 ```
 
+## CSS Input Metadata
+
+```bash
+npm run verify:css-inputs
+```
+
+This checks the Web and Desktop preview CSS input files plus the CLI default
+generated CSS. It validates Tailwind CSS v4 input metadata, not compiled CSS
+output or visual styling.
+
 ## Runtime Web Verification
 
 ```bash
