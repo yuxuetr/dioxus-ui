@@ -212,6 +212,11 @@ route manifest rendered from the shared catalog builder.
 `docs/components/source-preview.md` matches the source preview manifest rendered
 from the shared catalog builder.
 
+`npm run verify:rfcs` checks that RFC filenames, first headings, numbering, and
+README index links remain aligned. It is read-only and does not review RFC
+prose, decide acceptance status, validate implementation status, render docs,
+or rewrite index files.
+
 `npm run verify:readme` checks that README verification shortcuts mention the
 primary local, docs, smoke, and release aliases, focused metadata aliases, and
 the direct `verify:docs` command segments from package metadata. It is

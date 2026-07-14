@@ -171,6 +171,11 @@ format!("bg-{}-500", color)
 - [RFC 0001: Project Architecture](docs/rfcs/0001-project-architecture.md)
 - [RFC 0002: CLI Registry and Code Generation](docs/rfcs/0002-cli-registry-and-code-generation.md)
 - [RFC 0003: Tailwind Styling Contract](docs/rfcs/0003-tailwind-styling-contract.md)
+- [RFC 0004: Benchmark and CSS Output Strategy](docs/rfcs/0004-benchmark-and-css-output.md)
+- [RFC 0005: Modules and Platform Profiles](docs/rfcs/0005-modules-and-platform-profiles.md)
+- [RFC 0006: Focus and Portal Primitives](docs/rfcs/0006-focus-and-portal-primitives.md)
+- [RFC 0007: Keyboard Navigation Primitives](docs/rfcs/0007-keyboard-navigation-primitives.md)
+- [RFC 0008: Overlay Positioning and Portals](docs/rfcs/0008-overlay-positioning-and-portals.md)
 - [RFC 0009: CI Browser Workflow Activation](docs/rfcs/0009-ci-browser-workflow-activation.md)
 
 ## Verification Shortcuts
@@ -233,6 +238,7 @@ npm run verify:docs-status
 npm run verify:docs-structure
 npm run verify:docs-routes
 npm run verify:docs-source-preview
+npm run verify:rfcs
 npm run verify:readme
 npm run verify:docs-index
 npm run verify:docs-links
