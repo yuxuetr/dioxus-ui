@@ -1303,7 +1303,7 @@
 
 ## M88 RFC Metadata Gate
 
-- TODO M88.1 Plan RFC metadata gate
+- DONE M88.1 Plan RFC metadata gate
   - Define a deterministic read-only check that RFC numbering, filenames, titles, and README indexes stay aligned.
   - Keep RFC content review, external link crawling, generated docs rendering, and prose rewriting out of scope.
   - Decide which root README, docs README, and release/quality references must keep RFC entry points discoverable.
