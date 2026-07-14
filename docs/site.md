@@ -2082,6 +2082,27 @@ The intended command is:
 npm run verify:rfcs
 ```
 
+## M88 RFC Metadata Gate Usage
+
+M88 adds a focused RFC metadata command:
+
+```bash
+npm run verify:rfcs
+```
+
+The command checks RFC filenames, first headings, contiguous numbering, root
+README links, and docs README links for every `docs/rfcs/*.md` file.
+
+The check is included in:
+
+```bash
+npm run verify:docs
+```
+
+It remains read-only and does not review RFC prose, decide acceptance status,
+validate implementation status, crawl external links, render the docs site, or
+rewrite index files.
+
 ## M74 Tailwind Static Token Gate Plan
 
 M74 should add a deterministic read-only check that prevents dynamic Tailwind

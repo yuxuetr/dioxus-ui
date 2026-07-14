@@ -176,6 +176,9 @@ metadata.
 Component docs structure checks are part of `npm run verify:docs` and validate
 only required public component docs sections plus generated command and feature
 snippets.
+RFC metadata checks are part of `npm run verify:docs` and validate only RFC
+filename numbering, first headings, contiguous sequence, and README index
+coverage.
 README verification summary checks are part of `npm run verify:docs` and
 validate only verification shortcut command discoverability and summary
 coverage in `README.md`.
@@ -200,6 +203,7 @@ npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
 npm run verify:examples-metadata
+npm run verify:rfcs
 npm run verify:readme
 npm run verify:tailwind-static
 npm run verify:ci-docs
