@@ -1335,7 +1335,7 @@
   - Fail when preview CSS inputs omit required source roots or when generated CSS defaults drift from documented Tailwind v4 input syntax.
   - Include the check in release verification without compiling Tailwind or launching previews.
 
-- TODO M89.3 Update CSS input metadata documentation
+- DONE M89.3 Update CSS input metadata documentation
   - Document the CSS input metadata check in README, examples README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check validates source input metadata, not final CSS output or visual styling.
   - Keep package script and release aggregate behavior aligned with the new read-only gate.
