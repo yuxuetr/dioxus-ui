@@ -1313,7 +1313,7 @@
   - Fail when an RFC file is missing from docs/README, missing from the root README RFC section, or has mismatched numbering/title metadata.
   - Include the check in docs verification without interpreting RFC decisions.
 
-- TODO M88.3 Update RFC metadata documentation
+- DONE M88.3 Update RFC metadata documentation
   - Document the RFC metadata check in README, docs README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check validates RFC discoverability and metadata shape, not RFC acceptance or implementation status.
   - Keep package script, docs aggregate, and release aggregate behavior aligned with the new read-only gate.
