@@ -1352,7 +1352,7 @@
   - Keep deleting local artifacts, checking global git excludes, and validating untracked file contents out of scope.
   - Decide which dependency directories, build outputs, browser profiles, screenshots, and generated fixture patterns must remain ignored.
 
-- TODO M90.2 Add gitignore metadata check
+- DONE M90.2 Add gitignore metadata check
   - Add a verifier that checks `.gitignore` contains required local artifact patterns and that repository hygiene rejects matching tracked files.
   - Fail when `.gitignore` omits required generated directories, screenshot patterns, or browser automation cache directories.
   - Include the check in release verification without removing local files.
