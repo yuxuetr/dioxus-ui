@@ -1308,7 +1308,7 @@
   - Keep RFC content review, external link crawling, generated docs rendering, and prose rewriting out of scope.
   - Decide which root README, docs README, and release/quality references must keep RFC entry points discoverable.
 
-- TODO M88.2 Add RFC metadata check
+- DONE M88.2 Add RFC metadata check
   - Add a verifier that checks RFC filename numbering, H1 title numbering, contiguous sequence, and README index coverage.
   - Fail when an RFC file is missing from docs/README, missing from the root README RFC section, or has mismatched numbering/title metadata.
   - Include the check in docs verification without interpreting RFC decisions.
