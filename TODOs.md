@@ -1291,7 +1291,7 @@
   - Fail when an example crate is missing from the workspace or examples README omits required run and verification commands.
   - Include the check in release verification without running the examples being inspected.
 
-- TODO M87.3 Update examples metadata documentation
+- DONE M87.3 Update examples metadata documentation
   - Document the examples metadata check in README, examples README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check validates example metadata and documentation wiring, not runtime behavior or visual output.
   - Keep package script and release aggregate behavior aligned with the new read-only gate.
