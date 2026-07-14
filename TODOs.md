@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 96%
+- Overall: 100%
 - Current milestone: M88 RFC Metadata Gate
-- Current task: M88.4 Complete RFC metadata milestone
+- Current task: M88 complete
 
 ## Backup
 
@@ -1318,7 +1318,7 @@
   - Clarify that the check validates RFC discoverability and metadata shape, not RFC acceptance or implementation status.
   - Keep package script, docs aggregate, and release aggregate behavior aligned with the new read-only gate.
 
-- TODO M88.4 Complete RFC metadata milestone
+- DONE M88.4 Complete RFC metadata milestone
   - Run RFC metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
