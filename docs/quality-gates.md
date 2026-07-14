@@ -121,6 +121,7 @@ npm run verify:cargo-workspace
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
+npm run verify:gitignore
 npm run verify:examples-metadata
 npm run verify:css-inputs
 npm run verify:registry
@@ -152,11 +153,11 @@ Future browser-rendered smoke commands should document
 
 `npm run verify:release` runs Rust workspace checks, CLI registry/list smoke,
 Cargo workspace metadata checks, Cargo lock metadata checks, pre-commit
-metadata checks, script metadata checks, examples metadata checks, CSS input
-metadata checks, `npm run verify`, component feature checks, generated fixture
-smoke, release documentation consistency checks, package script wiring checks,
-and CI browser documentation checks. It also checks CI Plan documentation and
-repository hygiene.
+metadata checks, script metadata checks, gitignore metadata checks, examples
+metadata checks, CSS input metadata checks, `npm run verify`, component feature
+checks, generated fixture smoke, release documentation consistency checks,
+package script wiring checks, and CI browser documentation checks. It also
+checks CI Plan documentation and repository hygiene.
 
 `npm run verify:smoke` runs rendered preview structural checks and example smoke
 output.
@@ -290,6 +291,12 @@ repositories, or check remote hook freshness.
 `npm run verify:scripts` checks committed script shebangs, executable bits, and
 package-referenced script targets. It is read-only and does not execute scripts,
 lint shell syntax, install dependencies, or rewrite file modes.
+
+`npm run verify:gitignore` checks that `.gitignore` keeps required generated
+directory, browser state, and screenshot artifact patterns aligned with
+repository hygiene policy. It is read-only and does not delete files, inspect
+ignored artifact contents, validate global excludes, or replace repository
+hygiene tracking checks.
 
 `npm run verify:repo-hygiene` checks that inactive workflow files, generated
 directories such as `node_modules/`, `target/`, `dist/`, and `build/`, and known

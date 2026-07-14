@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M90 Gitignore Metadata Gate
-- Current task: M90.1 Plan gitignore metadata gate
+- Current task: M90.2 Add gitignore metadata check
 
 ## Backup
 

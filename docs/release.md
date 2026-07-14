@@ -109,6 +109,7 @@ npm run verify:cargo-workspace
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
+npm run verify:gitignore
 npm run verify:examples-metadata
 npm run verify:css-inputs
 npm run verify:registry
@@ -156,6 +157,9 @@ not install or execute pre-commit hooks.
 Script metadata checks are also part of the release aggregate, but they only
 validate committed script shebangs, executable bits, and package-referenced
 script targets; they do not execute scripts.
+Gitignore metadata checks are also part of the release aggregate, but they only
+validate `.gitignore` patterns and repository hygiene policy fragments; they do
+not delete local artifacts or inspect ignored file contents.
 Examples metadata checks are also part of the release aggregate, but they only
 validate example workspace membership, package script wiring, smoke script
 references, preview verifier references, and examples documentation; they do
@@ -206,6 +210,7 @@ npm run verify:cargo-workspace
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
+npm run verify:gitignore
 npm run verify:examples-metadata
 npm run verify:css-inputs
 npm run verify:rfcs
