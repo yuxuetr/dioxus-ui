@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 96%
+- Overall: 100%
 - Current milestone: M89 CSS Input Metadata Gate
-- Current task: M89.4 Complete CSS input metadata milestone
+- Current task: M89 complete
 
 ## Backup
 
@@ -1340,7 +1340,7 @@
   - Clarify that the check validates source input metadata, not final CSS output or visual styling.
   - Keep package script and release aggregate behavior aligned with the new read-only gate.
 
-- TODO M89.4 Complete CSS input metadata milestone
+- DONE M89.4 Complete CSS input metadata milestone
   - Run CSS input metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
