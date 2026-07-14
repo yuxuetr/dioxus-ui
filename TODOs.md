@@ -1281,7 +1281,7 @@
 
 ## M87 Examples Metadata Gate
 
-- TODO M87.1 Plan examples metadata gate
+- DONE M87.1 Plan examples metadata gate
   - Define a deterministic read-only check that example workspace members, package aliases, smoke scripts, and examples documentation stay aligned.
   - Keep example execution, rendered previews, browser automation, and generated fixture compilation out of scope.
   - Decide which Web, Desktop, preview-state, runtime Web, and runtime Desktop example entry points must remain documented.
