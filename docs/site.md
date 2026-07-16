@@ -1226,6 +1226,31 @@ npm run verify:release
 It remains read-only. It does not launch browsers, run `dx serve`, compile
 Tailwind output, inspect screenshots, or assert visual parity.
 
+## M91 Final Result
+
+M91 added `npm run verify:preview-state-metadata` and wired it into
+`npm run verify:release`. The gate validates shared preview state inventory
+labels, rendered preview panels, Web/Desktop preview binaries, structural
+preview verifier state lists, Tailwind CSS v4 preview source inputs, and release
+wiring without launching browser automation.
+
+Validation completed:
+
+```bash
+npm run verify:preview-state-metadata
+npm run verify:package-scripts
+npm run verify:docs
+npm run verify:release-docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The release aggregate now includes the preview state
+metadata gate before examples metadata, CSS input metadata, registry metadata,
+Tailwind static token checks, preview structural gates, example smoke, docs
+metadata, feature checks, generated fixture smoke, release documentation checks,
+package metadata checks, CI documentation checks, and repository hygiene.
+
 ## M90 Final Result
 
 M90 added `npm run verify:gitignore` and wired it into
