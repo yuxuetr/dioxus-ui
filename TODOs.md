@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M95 Release Warning Inventory Metadata Gate
-- Current task: M95.1 Plan release warning inventory metadata gate
+- Current task: M95.2 Add release warning inventory metadata check
 
 ## Backup
 
@@ -1457,7 +1457,7 @@
 
 ## M95 Release Warning Inventory Metadata Gate
 
-- TODO M95.1 Plan release warning inventory metadata gate
+- DONE M95.1 Plan release warning inventory metadata gate
   - Define a deterministic read-only check that known release warnings, Cargo lock evidence, release docs, quality gates, and docs-site results stay aligned.
   - Keep dependency upgrades, Cargo warning parsing, `cargo report` execution, warning suppression, and network lookups out of scope.
   - Decide which current `block v0.1.6` future-incompatibility warning details must remain discoverable until resolved.
