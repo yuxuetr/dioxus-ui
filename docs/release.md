@@ -110,6 +110,7 @@ npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
 npm run verify:gitignore
+npm run verify:preview-state-metadata
 npm run verify:examples-metadata
 npm run verify:css-inputs
 npm run verify:registry
