@@ -1313,6 +1313,27 @@ npm run verify:release
 It remains read-only. It does not launch browser automation, upload artifacts,
 delete local files, enforce remote retention, or validate screenshot pixels.
 
+## M94 Final Result
+
+M94 added `npm run verify:browser-artifact-policy` and wired it into
+`npm run verify:release`. The gate validates CI browser artifact guidance,
+workflow template upload fields, RFC 0009 artifact policy, `.gitignore`
+screenshot patterns, repository hygiene boundaries, and release wiring.
+
+Validation completed:
+
+```bash
+npm run verify:browser-artifact-policy
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:repo-hygiene
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The full release run still reports the existing Rust
+future-incompatibility warning for `block v0.1.6`.
+
 ## M92 Final Result
 
 M92 added `npm run verify:mobile-browser-metadata` and wired it into
