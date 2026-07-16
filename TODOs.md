@@ -1374,7 +1374,7 @@
   - Keep browser-rendered screenshot assertions, Tailwind compilation, `dx serve`, Desktop WebView automation, and visual parity scoring out of scope.
   - Decide which representative state labels, preview panels, preview targets, and CSS source inputs must remain discoverable.
 
-- TODO M91.2 Add preview state inventory metadata check
+- DONE M91.2 Add preview state inventory metadata check
   - Add a verifier that checks `examples/preview-states`, Web/Desktop preview binaries, structural preview verifiers, and package script wiring.
   - Fail when required preview state labels, `data-preview-panel` markers, preview targets, or Tailwind v4 source inputs drift.
   - Include the check in release verification without launching browsers or compiling Tailwind output.
