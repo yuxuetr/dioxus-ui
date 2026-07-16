@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M96 Cargo Publish Metadata Gate
-- Current task: M96.3 Update Cargo publish metadata documentation
+- Current task: M96.4 Complete Cargo publish metadata milestone
 
 ## Backup
 
@@ -1489,7 +1489,7 @@
   - Add a verifier that checks publishable crate metadata, workspace inheritance, example non-publishable boundaries, package script wiring, and release wiring.
   - Include the check in release verification without packaging or publishing crates.
 
-- TODO M96.3 Update Cargo publish metadata documentation
+- DONE M96.3 Update Cargo publish metadata documentation
   - Document the Cargo publish metadata check in README, docs README, workspace docs, release docs, quality gates, and docs-site planning docs.
   - Clarify that the check validates committed manifest metadata, not publish readiness or crates.io availability.
   - Keep package script, release aggregate, Cargo workspace metadata, and release documentation behavior aligned with the new read-only gate.
