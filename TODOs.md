@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 96%
+- Overall: 100%
 - Current milestone: M92 Mobile Browser Smoke Metadata Gate
-- Current task: M92.4 Complete mobile browser smoke metadata milestone
+- Current task: M92 complete
 
 ## Backup
 
@@ -1406,7 +1406,7 @@
   - Clarify that the check validates opt-in browser smoke wiring, not browser availability, rendered output, or screenshot content.
   - Keep package script, release aggregate, and browser opt-in behavior aligned with the new read-only gate.
 
-- TODO M92.4 Complete mobile browser smoke metadata milestone
+- DONE M92.4 Complete mobile browser smoke metadata milestone
   - Run mobile browser smoke metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files, browser profiles, or screenshots are committed.
   - Update TODO status only after commits and validation.
