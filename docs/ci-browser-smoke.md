@@ -90,6 +90,18 @@ activation policy, package alias, artifact pattern, and active workflow absence.
 It does not create `.github/workflows/browser-smoke.yml`, run GitHub Actions,
 install browsers, or upload artifacts.
 
+Verify the committed browser artifact policy without running or uploading
+artifacts:
+
+```bash
+npm run verify:browser-artifact-policy
+```
+
+This read-only check validates artifact guidance, screenshot upload patterns,
+RFC 0009 artifact policy, `.gitignore` coverage, repository hygiene boundaries,
+and release wiring. It does not launch Playwright, upload artifacts, delete
+local files, enforce remote retention, or validate screenshot pixels.
+
 ## Playwright-managed Chromium
 
 Use this path when CI is allowed to download and cache Playwright browser

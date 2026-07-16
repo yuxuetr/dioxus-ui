@@ -330,6 +330,13 @@ and active workflow absence stay aligned. It is read-only and does not create
 workflow files, run GitHub Actions, install browsers, upload artifacts, or
 change rollout policy.
 
+`npm run verify:browser-artifact-policy` checks that CI browser artifact
+guidance, workflow template upload fields, RFC 0009 artifact policy,
+`.gitignore` screenshot patterns, repository hygiene boundaries, and release
+wiring stay aligned. It is read-only and does not launch browser automation,
+upload artifacts, delete local files, enforce remote retention, or validate
+screenshot pixels.
+
 ## Mobile Browser Smoke Gate
 
 Run only when Playwright Chromium has been installed:

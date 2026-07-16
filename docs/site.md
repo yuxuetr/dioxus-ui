@@ -1291,6 +1291,28 @@ git diff --check
 All commands passed. The browser workflow remains documentation-only and
 non-blocking until maintainers explicitly copy and activate it.
 
+## M94 Browser Artifact Policy Metadata Gate Usage
+
+M94 adds a focused browser artifact policy metadata command:
+
+```bash
+npm run verify:browser-artifact-policy
+```
+
+The command checks CI browser artifact guidance, workflow template upload
+fields, RFC 0009 artifact policy, `.gitignore` screenshot patterns, repository
+hygiene boundaries, and release wiring. It keeps screenshot-only upload policy
+aligned while browser workflow execution remains opt-in.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not launch browser automation, upload artifacts,
+delete local files, enforce remote retention, or validate screenshot pixels.
+
 ## M92 Final Result
 
 M92 added `npm run verify:mobile-browser-metadata` and wired it into
