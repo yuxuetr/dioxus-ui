@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M94 Browser Artifact Policy Metadata Gate
-- Current task: M94.3 Update browser artifact policy metadata documentation
+- Current task: M94.4 Complete browser artifact policy metadata milestone
 
 ## Backup
 
@@ -1445,7 +1445,7 @@
   - Fail when CI docs allow browser profiles, Playwright caches, target directories, temporary preview output, or non-PNG browser artifacts into the normal upload path.
   - Include the check in release verification without launching browser automation or touching local artifacts.
 
-- TODO M94.3 Update browser artifact policy metadata documentation
+- DONE M94.3 Update browser artifact policy metadata documentation
   - Document the artifact policy metadata check in README, docs README, quality gates, release docs, CI browser docs, and docs-site planning docs.
   - Clarify that the check validates committed artifact policy metadata, not artifact upload execution or retention enforcement.
   - Keep package script, release aggregate, gitignore metadata, CI workflow template metadata, and repository hygiene behavior aligned with the new read-only gate.
