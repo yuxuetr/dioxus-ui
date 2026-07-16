@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M95 Release Warning Inventory Metadata Gate
-- Current task: M95.3 Update release warning inventory documentation
+- Current task: M95.4 Complete release warning inventory metadata milestone
 
 ## Backup
 
@@ -1467,7 +1467,7 @@
   - Fail when the known warning inventory omits the package name, version, warning type, observation command, or non-goal boundaries.
   - Include the check in release verification without running Cargo or changing dependency state.
 
-- TODO M95.3 Update release warning inventory documentation
+- DONE M95.3 Update release warning inventory documentation
   - Document the release warning inventory metadata check in README, docs README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check validates warning inventory metadata, not whether Cargo currently emits the warning.
   - Keep package script, release aggregate, Cargo lock metadata, and release documentation behavior aligned with the new read-only gate.
