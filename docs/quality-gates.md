@@ -299,6 +299,12 @@ repository hygiene policy. It is read-only and does not delete files, inspect
 ignored artifact contents, validate global excludes, or replace repository
 hygiene tracking checks.
 
+`npm run verify:preview-state-metadata` checks that the shared preview state
+inventory, Web/Desktop preview binaries, structural preview verifiers, Tailwind
+CSS v4 preview inputs, and release wiring stay aligned. It is read-only and
+does not launch browsers, run `dx serve`, compile Tailwind output, inspect
+screenshots, or assert visual parity.
+
 `npm run verify:repo-hygiene` checks that inactive workflow files, generated
 directories such as `node_modules/`, `target/`, `dist/`, and `build/`, and known
 generated artifacts are not committed. It is read-only and reports drift without

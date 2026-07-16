@@ -267,6 +267,7 @@ npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
 npm run verify:gitignore
+npm run verify:preview-state-metadata
 npm run verify:examples-metadata
 npm run verify:css-inputs
 npm run verify:rfcs
@@ -443,6 +444,17 @@ patterns in `.gitignore`, plus the repository hygiene policy fragments that
 reject tracked generated artifacts. It does not delete local files, inspect
 ignored artifact contents, validate global Git excludes, or replace repository
 hygiene tracking checks.
+
+Verify preview state metadata only:
+
+```bash
+npm run verify:preview-state-metadata
+```
+
+This checks that the shared Web/Desktop preview state inventory, preview
+binaries, structural preview verifiers, Tailwind CSS v4 source inputs, and
+release wiring stay aligned. It does not launch browsers, run `dx serve`,
+compile Tailwind output, inspect screenshots, or assert visual parity.
 
 Verify repository hygiene only:
 

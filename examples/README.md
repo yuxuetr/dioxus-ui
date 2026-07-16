@@ -54,6 +54,17 @@ Structural Desktop preview gate:
 node scripts/desktop-preview-verify.mjs
 ```
 
+## Preview State Metadata
+
+```bash
+npm run verify:preview-state-metadata
+```
+
+This checks the shared preview state inventory, Web/Desktop preview binaries,
+structural preview verifier state lists, Tailwind CSS v4 preview inputs, and
+release wiring. It validates preview metadata wiring, not browser-rendered
+visual correctness or screenshot pixels.
+
 ## CSS Input Metadata
 
 ```bash

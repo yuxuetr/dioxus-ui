@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M91 Preview State Inventory Metadata Gate
-- Current task: M91.2 Add preview state inventory metadata check
+- Current task: M91.3 Update preview state metadata documentation
 
 ## Backup
 

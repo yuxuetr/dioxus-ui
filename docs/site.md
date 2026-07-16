@@ -1204,6 +1204,28 @@ It remains read-only. It does not delete files, inspect ignored artifact
 contents, validate global Git excludes, or replace repository hygiene tracking
 checks.
 
+## M91 Preview State Inventory Metadata Gate Usage
+
+M91 adds a focused preview state metadata command:
+
+```bash
+npm run verify:preview-state-metadata
+```
+
+The command checks that the shared `examples/preview-states` inventory,
+Web/Desktop preview binaries, structural preview verifiers, Tailwind CSS v4
+preview source inputs, and release wiring stay aligned. It is intended to keep
+future docs runtime and screenshot work from duplicating preview state metadata.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not launch browsers, run `dx serve`, compile
+Tailwind output, inspect screenshots, or assert visual parity.
+
 ## M90 Final Result
 
 M90 added `npm run verify:gitignore` and wired it into

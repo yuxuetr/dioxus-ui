@@ -161,6 +161,11 @@ script targets; they do not execute scripts.
 Gitignore metadata checks are also part of the release aggregate, but they only
 validate `.gitignore` patterns and repository hygiene policy fragments; they do
 not delete local artifacts or inspect ignored file contents.
+Preview state metadata checks are also part of the release aggregate, but they
+only validate shared preview inventory wiring, Web/Desktop preview binaries,
+structural verifier state lists, Tailwind CSS v4 preview inputs, and release
+wiring; they do not launch browsers, run `dx serve`, compile Tailwind output,
+inspect screenshots, or assert visual parity.
 Examples metadata checks are also part of the release aggregate, but they only
 validate example workspace membership, package script wiring, smoke script
 references, preview verifier references, and examples documentation; they do
