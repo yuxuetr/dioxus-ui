@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M90 Gitignore Metadata Gate
-- Current task: M90 complete
+- Overall: 96%
+- Current milestone: M91 Preview State Inventory Metadata Gate
+- Current task: M91.1 Plan preview state inventory metadata gate
 
 ## Backup
 
@@ -1364,6 +1364,28 @@
 
 - DONE M90.4 Complete gitignore metadata milestone
   - Run gitignore metadata checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M91 Preview State Inventory Metadata Gate
+
+- TODO M91.1 Plan preview state inventory metadata gate
+  - Define a deterministic read-only check that shared preview state inventory, Web/Desktop preview gates, package aliases, and documentation stay aligned.
+  - Keep browser-rendered screenshot assertions, Tailwind compilation, `dx serve`, Desktop WebView automation, and visual parity scoring out of scope.
+  - Decide which representative state labels, preview panels, preview targets, and CSS source inputs must remain discoverable.
+
+- TODO M91.2 Add preview state inventory metadata check
+  - Add a verifier that checks `examples/preview-states`, Web/Desktop preview binaries, structural preview verifiers, and package script wiring.
+  - Fail when required preview state labels, `data-preview-panel` markers, preview targets, or Tailwind v4 source inputs drift.
+  - Include the check in release verification without launching browsers or compiling Tailwind output.
+
+- TODO M91.3 Update preview state metadata documentation
+  - Document the preview state metadata check in README, examples README, quality gates, release docs, and docs-site planning docs.
+  - Clarify that the check validates preview metadata wiring, not rendered visual correctness or screenshot pixels.
+  - Keep preview, smoke, package script, and release aggregate behavior aligned with the new read-only gate.
+
+- TODO M91.4 Complete preview state inventory metadata milestone
+  - Run preview state metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 

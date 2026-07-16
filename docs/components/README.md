@@ -68,6 +68,8 @@ For example and screenshot coverage, see the
 [Example And Screenshot Strategy](example-screenshot-strategy.md).
 For the rendered preview milestone, see the
 [Rendered Preview Plan](rendered-preview-plan.md).
+For the preview state inventory metadata gate, see the
+[Preview State Inventory Metadata Gate](preview-state-inventory-metadata.md).
 For the Web screenshot verification gate, see the
 [Web Preview Screenshot Verification](web-preview-screenshot-verification.md).
 For Desktop WebView preview follow-through, see
