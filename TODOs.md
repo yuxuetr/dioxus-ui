@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 96%
+- Overall: 100%
 - Current milestone: M97 Publish Readiness Blocker Metadata Gate
-- Current task: M97.4 Complete publish readiness blocker metadata milestone
+- Current task: M97 complete
 
 ## Backup
 
@@ -1516,7 +1516,7 @@
   - Clarify that the check preserves known blockers and does not resolve them.
   - Keep package script, release aggregate, Cargo publish metadata, and release documentation behavior aligned with the new read-only gate.
 
-- TODO M97.4 Complete publish readiness blocker metadata milestone
+- DONE M97.4 Complete publish readiness blocker metadata milestone
   - Run publish readiness blocker checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no repository URL replacement, package archives, registry lookups, publish commands, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
