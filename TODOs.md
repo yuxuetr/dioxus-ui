@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 96%
+- Overall: 100%
 - Current milestone: M96 Cargo Publish Metadata Gate
-- Current task: M96.4 Complete Cargo publish metadata milestone
+- Current task: M96 complete
 
 ## Backup
 
@@ -1494,7 +1494,7 @@
   - Clarify that the check validates committed manifest metadata, not publish readiness or crates.io availability.
   - Keep package script, release aggregate, Cargo workspace metadata, and release documentation behavior aligned with the new read-only gate.
 
-- TODO M96.4 Complete Cargo publish metadata milestone
+- DONE M96.4 Complete Cargo publish metadata milestone
   - Run Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no package archives, dependency updates, crates.io lookups, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
