@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M95 Release Warning Inventory Metadata Gate
-- Current task: M95 complete
+- Overall: 96%
+- Current milestone: M96 Cargo Publish Metadata Gate
+- Current task: M96.1 Plan Cargo publish metadata gate
 
 ## Backup
 
@@ -1475,6 +1475,28 @@
 - DONE M95.4 Complete release warning inventory metadata milestone
   - Run release warning inventory checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no dependency upgrades, lockfile rewrites, warning suppressions, or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M96 Cargo Publish Metadata Gate
+
+- TODO M96.1 Plan Cargo publish metadata gate
+  - Define a deterministic read-only check that publishable crate manifests, shared workspace package metadata, release docs, and quality gates stay aligned.
+  - Keep `cargo publish`, `cargo package`, crates.io lookups, dependency freshness checks, repository URL replacement, and changelog generation out of scope.
+  - Decide which crate descriptions, shared README/keywords/categories metadata, and example `publish = false` boundaries must remain discoverable.
+
+- TODO M96.2 Add Cargo publish metadata check
+  - Add crate-specific descriptions and shared publish metadata fields for README, keywords, and categories.
+  - Add a verifier that checks publishable crate metadata, workspace inheritance, example non-publishable boundaries, package script wiring, and release wiring.
+  - Include the check in release verification without packaging or publishing crates.
+
+- TODO M96.3 Update Cargo publish metadata documentation
+  - Document the Cargo publish metadata check in README, docs README, workspace docs, release docs, quality gates, and docs-site planning docs.
+  - Clarify that the check validates committed manifest metadata, not publish readiness or crates.io availability.
+  - Keep package script, release aggregate, Cargo workspace metadata, and release documentation behavior aligned with the new read-only gate.
+
+- TODO M96.4 Complete Cargo publish metadata milestone
+  - Run Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no package archives, dependency updates, crates.io lookups, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
