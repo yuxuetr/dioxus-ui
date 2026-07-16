@@ -1400,6 +1400,27 @@ npm run verify:release
 It remains read-only. It does not run `cargo publish`, run `cargo package`,
 contact crates.io, replace repository URLs, or create package archives.
 
+## M96 Final Result
+
+M96 added `npm run verify:cargo-publish-metadata` and wired it into
+`npm run verify:release`. The gate validates planned published crate
+descriptions, shared README/keywords/categories metadata, example `publish =
+false` boundaries, and release wiring.
+
+Validation completed:
+
+```bash
+npm run verify:cargo-publish-metadata
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The check does not package or publish crates, and the
+placeholder repository URL still requires a later publish-readiness review.
+
 ## M92 Final Result
 
 M92 added `npm run verify:mobile-browser-metadata` and wired it into
