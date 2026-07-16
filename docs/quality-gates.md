@@ -123,6 +123,7 @@ npm run verify:pre-commit
 npm run verify:scripts
 npm run verify:gitignore
 npm run verify:preview-state-metadata
+npm run verify:mobile-browser-metadata
 npm run verify:examples-metadata
 npm run verify:css-inputs
 npm run verify:registry
@@ -349,8 +350,8 @@ bound.
 
 This opt-in command starts the rendered Web preview, uses a mobile browser
 viewport, asserts the Mobile Web profile and representative preview panels, and
-cleans up the preview server. It remains outside default release gates until CI
-or local release stability is proven.
+cleans up the preview server. It is not part of the release gate and remains
+outside default release gates until CI or local release stability is proven.
 
 For CI setup, artifact upload, and non-blocking job policy, see
 `docs/ci-browser-smoke.md` and `docs/ci-browser-workflow-template.md`. This

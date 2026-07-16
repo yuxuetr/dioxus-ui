@@ -111,6 +111,7 @@ npm run verify:pre-commit
 npm run verify:scripts
 npm run verify:gitignore
 npm run verify:preview-state-metadata
+npm run verify:mobile-browser-metadata
 npm run verify:examples-metadata
 npm run verify:css-inputs
 npm run verify:registry
@@ -264,7 +265,7 @@ Generated screenshots match the ignored
 `dioxus-ui-mobile-browser-preview-*.png` pattern.
 When screenshot capture is enabled, the script validates the generated PNG
 signature, nonzero byte size, and dimensions against the mobile viewport lower
-bound.
+bound of `390x844`.
 
 This is not part of the release gate yet. It verifies mobile browser rendering
 of the Web preview, not native Mobile behavior.

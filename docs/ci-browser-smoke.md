@@ -67,7 +67,7 @@ npm run verify:release
 
 The release aggregate is intentionally separate from browser smoke because it
 does not install browsers, launch Playwright, capture screenshots, or claim
-native Mobile/Desktop runtime coverage.
+native Mobile/Desktop runtime coverage. The browser smoke is not part of the release gate.
 
 ## Playwright-managed Chromium
 
@@ -97,6 +97,7 @@ mobile browser smoke passed
 ```
 
 The script fails if Chromium is missing and no external executable is provided.
+The smoke uses a `390x844` mobile viewport.
 
 ## External Chrome
 
