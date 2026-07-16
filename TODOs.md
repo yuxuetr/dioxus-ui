@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M91 Preview State Inventory Metadata Gate
-- Current task: M91 complete
+- Overall: 96%
+- Current milestone: M92 Mobile Browser Smoke Metadata Gate
+- Current task: M92.1 Plan mobile browser smoke metadata gate
 
 ## Backup
 
@@ -1387,6 +1387,28 @@
 - DONE M91.4 Complete preview state inventory metadata milestone
   - Run preview state metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M92 Mobile Browser Smoke Metadata Gate
+
+- TODO M92.1 Plan mobile browser smoke metadata gate
+  - Define a deterministic read-only check that the opt-in mobile browser smoke script, docs, package alias, and CI browser guidance stay aligned.
+  - Keep launching Playwright, starting `dx serve`, installing browsers, writing screenshots, and validating screenshot pixels out of scope.
+  - Decide which localhost settings, viewport dimensions, selector assertions, screenshot artifact pattern, and environment variables must remain discoverable.
+
+- TODO M92.2 Add mobile browser smoke metadata check
+  - Add a verifier that checks `scripts/mobile-browser-smoke.mjs`, `package.json`, README, release docs, quality gates, CI browser docs, and workflow template references.
+  - Fail when required selectors, `DIOXUS_UI_BROWSER_EXECUTABLE`, `DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT`, `npx playwright install chromium`, or screenshot artifact patterns drift.
+  - Include the check in release verification without launching browser automation or writing artifacts.
+
+- TODO M92.3 Update mobile browser smoke metadata documentation
+  - Document the mobile browser smoke metadata check in README, quality gates, release docs, CI browser docs, and docs-site planning docs.
+  - Clarify that the check validates opt-in browser smoke wiring, not browser availability, rendered output, or screenshot content.
+  - Keep package script, release aggregate, and browser opt-in behavior aligned with the new read-only gate.
+
+- TODO M92.4 Complete mobile browser smoke metadata milestone
+  - Run mobile browser smoke metadata checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no workflow files, browser profiles, or screenshots are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules

@@ -50,6 +50,8 @@ For the Mobile Web profile milestone, see the
 [Mobile Web Profile Verification](mobile-web-profile-verification.md).
 For the Mobile browser smoke feasibility milestone, see the
 [Mobile Browser Smoke Feasibility](mobile-browser-smoke-feasibility.md).
+For the Mobile browser smoke metadata gate, see the
+[Mobile Browser Smoke Metadata Gate](mobile-browser-smoke-metadata.md).
 For browser automation dependency decisions, see the
 [Browser Automation Dependency Strategy](browser-automation-dependency-strategy.md).
 For the Playwright dependency milestone, see the
