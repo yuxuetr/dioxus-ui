@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 96%
+- Overall: 100%
 - Current milestone: M94 Browser Artifact Policy Metadata Gate
-- Current task: M94.4 Complete browser artifact policy metadata milestone
+- Current task: M94 complete
 
 ## Backup
 
@@ -1450,7 +1450,7 @@
   - Clarify that the check validates committed artifact policy metadata, not artifact upload execution or retention enforcement.
   - Keep package script, release aggregate, gitignore metadata, CI workflow template metadata, and repository hygiene behavior aligned with the new read-only gate.
 
-- TODO M94.4 Complete browser artifact policy metadata milestone
+- DONE M94.4 Complete browser artifact policy metadata milestone
   - Run browser artifact policy checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no active workflow files, browser profiles, screenshots, caches, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
