@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M93 CI Browser Workflow Template Metadata Gate
-- Current task: M93 complete
+- Overall: 96%
+- Current milestone: M94 Browser Artifact Policy Metadata Gate
+- Current task: M94.1 Plan browser artifact policy metadata gate
 
 ## Backup
 
@@ -1431,6 +1431,28 @@
 - DONE M93.4 Complete CI browser workflow template metadata milestone
   - Run CI workflow template metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no active workflow files, browser profiles, or screenshots are committed.
+  - Update TODO status only after commits and validation.
+
+## M94 Browser Artifact Policy Metadata Gate
+
+- TODO M94.1 Plan browser artifact policy metadata gate
+  - Define a deterministic read-only check that CI browser artifact policy, workflow template upload behavior, RFC 0009, `.gitignore`, and repository hygiene stay aligned.
+  - Keep running browser smoke, uploading artifacts, changing retention defaults, deleting local files, and validating screenshot pixels out of scope.
+  - Decide which screenshot-only upload pattern, forbidden browser profile/cache artifacts, temporary preview outputs, and retention guidance must remain discoverable.
+
+- TODO M94.2 Add browser artifact policy metadata check
+  - Add a verifier that checks artifact policy documentation, workflow template upload fields, `.gitignore` screenshot patterns, and repository hygiene boundaries.
+  - Fail when CI docs allow browser profiles, Playwright caches, target directories, temporary preview output, or non-PNG browser artifacts into the normal upload path.
+  - Include the check in release verification without launching browser automation or touching local artifacts.
+
+- TODO M94.3 Update browser artifact policy metadata documentation
+  - Document the artifact policy metadata check in README, docs README, quality gates, release docs, CI browser docs, and docs-site planning docs.
+  - Clarify that the check validates committed artifact policy metadata, not artifact upload execution or retention enforcement.
+  - Keep package script, release aggregate, gitignore metadata, CI workflow template metadata, and repository hygiene behavior aligned with the new read-only gate.
+
+- TODO M94.4 Complete browser artifact policy metadata milestone
+  - Run browser artifact policy checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no active workflow files, browser profiles, screenshots, caches, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
