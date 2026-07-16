@@ -1413,7 +1413,7 @@
 
 ## M93 CI Browser Workflow Template Metadata Gate
 
-- TODO M93.1 Plan CI browser workflow template metadata gate
+- DONE M93.1 Plan CI browser workflow template metadata gate
   - Define a deterministic read-only check that the documented CI browser workflow template, CI browser guide, RFC 0009 rollout policy, package alias, and active workflow absence stay aligned.
   - Keep creating `.github/workflows/`, running GitHub Actions, installing browsers, uploading artifacts, and changing workflow activation policy out of scope.
   - Decide which trigger, non-blocking policy, permission, timeout, artifact, browser strategy, and required-gate boundaries must remain discoverable.
