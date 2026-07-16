@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M93 CI Browser Workflow Template Metadata Gate
-- Current task: M93.1 Plan CI browser workflow template metadata gate
+- Current task: M93.2 Add CI browser workflow template metadata check
 
 ## Backup
 

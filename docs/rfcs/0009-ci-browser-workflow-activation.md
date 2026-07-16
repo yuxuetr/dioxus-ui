@@ -91,7 +91,7 @@ Requirements before promotion:
 - documented rollback path
 
 Until those are true, deterministic Rust and structural preview gates remain the
-required checks.
+required checks. In short, deterministic Rust and structural preview gates remain the required checks until an explicit follow-up decision promotes browser smoke.
 
 ## Browser Strategy
 

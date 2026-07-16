@@ -136,6 +136,7 @@ npm run verify:package-scripts
 npm run verify:package-lock
 npm run verify:ci-docs
 npm run verify:ci-plan
+npm run verify:ci-workflow-template
 npm run verify:repo-hygiene
 ```
 
