@@ -306,6 +306,13 @@ CSS v4 preview inputs, and release wiring stay aligned. It is read-only and
 does not launch browsers, run `dx serve`, compile Tailwind output, inspect
 screenshots, or assert visual parity.
 
+`npm run verify:mobile-browser-metadata` checks that the opt-in mobile browser
+smoke script, package alias, localhost target, `390x844` viewport, selector
+contract, screenshot artifact pattern, browser environment variables, and CI
+browser guidance stay aligned. It is read-only and does not launch Playwright,
+start `dx serve`, install browsers, write screenshots, or validate rendered
+output.
+
 `npm run verify:repo-hygiene` checks that inactive workflow files, generated
 directories such as `node_modules/`, `target/`, `dist/`, and `build/`, and known
 generated artifacts are not committed. It is read-only and reports drift without

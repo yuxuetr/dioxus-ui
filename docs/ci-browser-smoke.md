@@ -69,6 +69,16 @@ The release aggregate is intentionally separate from browser smoke because it
 does not install browsers, launch Playwright, capture screenshots, or claim
 native Mobile/Desktop runtime coverage. The browser smoke is not part of the release gate.
 
+Verify the committed browser smoke contract without launching a browser:
+
+```bash
+npm run verify:mobile-browser-metadata
+```
+
+This read-only check validates script and documentation wiring for the opt-in
+smoke. It does not install browsers, start `dx serve`, write screenshots, or
+validate rendered output.
+
 ## Playwright-managed Chromium
 
 Use this path when CI is allowed to download and cache Playwright browser

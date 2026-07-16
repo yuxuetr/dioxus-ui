@@ -167,6 +167,12 @@ only validate shared preview inventory wiring, Web/Desktop preview binaries,
 structural verifier state lists, Tailwind CSS v4 preview inputs, and release
 wiring; they do not launch browsers, run `dx serve`, compile Tailwind output,
 inspect screenshots, or assert visual parity.
+Mobile browser smoke metadata checks are also part of the release aggregate,
+but they only validate the opt-in browser smoke script, package alias,
+localhost target, `390x844` viewport, selector contract, screenshot artifact
+pattern, browser environment variables, and CI browser guidance; they do not
+launch Playwright, start `dx serve`, install browsers, write screenshots, or
+validate rendered output.
 Examples metadata checks are also part of the release aggregate, but they only
 validate example workspace membership, package script wiring, smoke script
 references, preview verifier references, and examples documentation; they do

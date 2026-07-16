@@ -1226,6 +1226,29 @@ npm run verify:release
 It remains read-only. It does not launch browsers, run `dx serve`, compile
 Tailwind output, inspect screenshots, or assert visual parity.
 
+## M92 Mobile Browser Smoke Metadata Gate Usage
+
+M92 adds a focused mobile browser smoke metadata command:
+
+```bash
+npm run verify:mobile-browser-metadata
+```
+
+The command checks the opt-in mobile browser smoke script, package alias,
+localhost target, `390x844` viewport, selector contract, screenshot artifact
+pattern, browser environment variables, CI browser guide, and workflow template
+references. It keeps browser smoke documentation aligned while the actual
+browser run remains opt-in.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not launch Playwright, start `dx serve`, install
+browsers, write screenshots, or validate rendered output.
+
 ## M91 Final Result
 
 M91 added `npm run verify:preview-state-metadata` and wired it into

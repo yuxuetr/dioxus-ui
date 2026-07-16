@@ -268,6 +268,7 @@ npm run verify:pre-commit
 npm run verify:scripts
 npm run verify:gitignore
 npm run verify:preview-state-metadata
+npm run verify:mobile-browser-metadata
 npm run verify:examples-metadata
 npm run verify:css-inputs
 npm run verify:rfcs
@@ -455,6 +456,18 @@ This checks that the shared Web/Desktop preview state inventory, preview
 binaries, structural preview verifiers, Tailwind CSS v4 source inputs, and
 release wiring stay aligned. It does not launch browsers, run `dx serve`,
 compile Tailwind output, inspect screenshots, or assert visual parity.
+
+Verify mobile browser smoke metadata only:
+
+```bash
+npm run verify:mobile-browser-metadata
+```
+
+This checks the opt-in mobile browser smoke script, package alias, localhost
+target, `390x844` viewport, selector contract, screenshot artifact pattern,
+browser environment variables, and CI browser guidance. It does not launch
+Playwright, start `dx serve`, install browsers, write screenshots, or validate
+rendered output.
 
 Verify repository hygiene only:
 
