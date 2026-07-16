@@ -1401,7 +1401,7 @@
   - Fail when required selectors, `DIOXUS_UI_BROWSER_EXECUTABLE`, `DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT`, `npx playwright install chromium`, or screenshot artifact patterns drift.
   - Include the check in release verification without launching browser automation or writing artifacts.
 
-- TODO M92.3 Update mobile browser smoke metadata documentation
+- DONE M92.3 Update mobile browser smoke metadata documentation
   - Document the mobile browser smoke metadata check in README, quality gates, release docs, CI browser docs, and docs-site planning docs.
   - Clarify that the check validates opt-in browser smoke wiring, not browser availability, rendered output, or screenshot content.
   - Keep package script, release aggregate, and browser opt-in behavior aligned with the new read-only gate.
