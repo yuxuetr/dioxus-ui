@@ -1358,6 +1358,27 @@ It remains read-only. It does not run Cargo, parse live compiler output, execute
 The inventory deliberately records the current warning instead of suppressing it
 or upgrading dependencies as a side effect of verification.
 
+## M95 Final Result
+
+M95 added `npm run verify:release-warning-inventory` and wired it into
+`npm run verify:release`. The gate validates the known `block` `0.1.6` Rust
+future-incompatibility warning inventory, Cargo lock evidence, release docs,
+quality gate notes, docs-site notes, and release wiring.
+
+Validation completed:
+
+```bash
+npm run verify:release-warning-inventory
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The full release run still reports the documented
+`block` `0.1.6` future-incompatibility warning.
+
 ## M92 Final Result
 
 M92 added `npm run verify:mobile-browser-metadata` and wired it into
