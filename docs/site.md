@@ -1249,6 +1249,29 @@ npm run verify:release
 It remains read-only. It does not launch Playwright, start `dx serve`, install
 browsers, write screenshots, or validate rendered output.
 
+## M92 Final Result
+
+M92 added `npm run verify:mobile-browser-metadata` and wired it into
+`npm run verify:release`. The gate validates the opt-in mobile browser smoke
+script, package alias, localhost target, `390x844` viewport, selector contract,
+screenshot artifact pattern, browser environment variables, CI browser guide,
+and workflow template references without launching browser automation.
+
+Validation completed:
+
+```bash
+npm run verify:mobile-browser-metadata
+npm run verify:package-scripts
+npm run verify:docs
+npm run verify:release-docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The actual browser smoke remains opt-in through
+`npm run verify:mobile-browser`; M92 only validates the committed metadata and
+documentation contract for that opt-in workflow.
+
 ## M91 Final Result
 
 M91 added `npm run verify:preview-state-metadata` and wired it into

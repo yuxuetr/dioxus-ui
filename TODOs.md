@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M92 Mobile Browser Smoke Metadata Gate
-- Current task: M92.3 Update mobile browser smoke metadata documentation
+- Current task: M92.4 Complete mobile browser smoke metadata milestone
 
 ## Backup
 
