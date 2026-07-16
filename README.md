@@ -212,7 +212,9 @@ fixture smoke, release docs consistency checks, package script wiring checks,
 and CI browser docs checks. It also checks CI Plan documentation while keeping
 browser installation and screenshots opt-in, verifies browser artifact policy
 metadata, validates the release warning inventory, then checks repository
-hygiene for forbidden generated artifacts and inactive workflow files.
+hygiene for forbidden generated artifacts and inactive workflow files. It also
+checks Cargo publish metadata for the planned library and CLI crates without
+packaging or publishing them.
 
 Run deterministic preview and example gates only:
 
@@ -264,6 +266,7 @@ Verify focused metadata gates only:
 
 ```bash
 npm run verify:cargo-workspace
+npm run verify:cargo-publish-metadata
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -407,6 +410,17 @@ This checks that `crates/` package manifests keep inheriting root workspace
 package metadata and that `cargo metadata` resolves the same values. It does
 not publish crates, package crates, contact crates.io, or check dependency
 freshness.
+
+Verify Cargo publish metadata only:
+
+```bash
+npm run verify:cargo-publish-metadata
+```
+
+This checks planned published crate descriptions, shared
+README/keywords/categories metadata, example `publish = false` boundaries, and
+release wiring. It does not run `cargo publish`, run `cargo package`, contact
+crates.io, replace repository URLs, or create package archives.
 
 Verify Cargo lockfile metadata only:
 

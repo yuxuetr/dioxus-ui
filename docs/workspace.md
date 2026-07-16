@@ -59,6 +59,9 @@ version = "0.1.0"
 edition = "2024"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/your-org/dioxus-ui"
+readme = "README.md"
+keywords = ["dioxus", "ui", "tailwind", "components"]
+categories = ["gui", "web-programming"]
 
 [workspace.dependencies]
 dioxus = "0.7"
@@ -67,6 +70,13 @@ serde_json = "1"
 ```
 
 The repository URL should be replaced before publishing.
+The shared README, keywords, and categories are publish metadata only; they do
+not imply the crates are ready to publish while the repository URL remains a
+placeholder and APIs are still pre-1.0.
+
+Publishable crate manifests under `crates/` should keep crate-specific
+descriptions and inherit shared workspace publish metadata. Example and
+verification crates should keep `publish = false`.
 
 ## Crate Responsibilities
 

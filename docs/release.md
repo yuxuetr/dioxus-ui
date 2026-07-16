@@ -352,6 +352,10 @@ The CLI currently reads registry and templates from the repository layout. A
 publish-ready CLI should either embed templates at compile time or package them
 in a stable install location.
 
+Cargo publish metadata is tracked by `npm run verify:cargo-publish-metadata`.
+That check keeps descriptions and shared README/keywords/categories metadata
+reviewable, but it does not replace a later publish-readiness review.
+
 ## Known Pre-1.0 Limitations
 
 - Overlay primitives define state/config contracts but do not implement full
