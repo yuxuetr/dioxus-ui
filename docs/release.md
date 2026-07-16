@@ -125,6 +125,7 @@ npm run verify:package-lock
 npm run verify:ci-docs
 npm run verify:ci-plan
 npm run verify:ci-workflow-template
+npm run verify:browser-artifact-policy
 npm run verify:repo-hygiene
 ```
 
@@ -187,6 +188,11 @@ CI workflow template metadata checks are also read-only and validate only the
 documented browser workflow template, RFC 0009 activation policy, CI browser
 guide, package alias, and absence of an active workflow file; they do not run
 GitHub Actions, install browsers, upload artifacts, or change rollout policy.
+Browser artifact policy metadata checks are also read-only and validate only
+committed artifact guidance, screenshot upload patterns, `.gitignore` coverage,
+repository hygiene boundaries, and release wiring; they do not launch browser
+automation, upload artifacts, delete local files, enforce remote retention, or
+validate screenshot pixels.
 Repository hygiene checks are read-only and report forbidden committed
 artifacts such as generated directories, screenshots, and inactive workflow
 files without deleting files.
@@ -236,6 +242,7 @@ npm run verify:readme
 npm run verify:tailwind-static
 npm run verify:ci-docs
 npm run verify:ci-plan
+npm run verify:browser-artifact-policy
 npm run verify:docs-status
 npm run verify:docs-structure
 npm run verify:docs-index
