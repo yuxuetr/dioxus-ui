@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 96%
+- Overall: 100%
 - Current milestone: M95 Release Warning Inventory Metadata Gate
-- Current task: M95.4 Complete release warning inventory metadata milestone
+- Current task: M95 complete
 
 ## Backup
 
@@ -1472,7 +1472,7 @@
   - Clarify that the check validates warning inventory metadata, not whether Cargo currently emits the warning.
   - Keep package script, release aggregate, Cargo lock metadata, and release documentation behavior aligned with the new read-only gate.
 
-- TODO M95.4 Complete release warning inventory metadata milestone
+- DONE M95.4 Complete release warning inventory metadata milestone
   - Run release warning inventory checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no dependency upgrades, lockfile rewrites, warning suppressions, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
