@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M97 Publish Readiness Blocker Metadata Gate
-- Current task: M97.1 Plan publish readiness blocker metadata gate
+- Current task: M97.2 Add publish readiness blocker metadata check
 
 ## Backup
 
@@ -1501,7 +1501,7 @@
 
 ## M97 Publish Readiness Blocker Metadata Gate
 
-- TODO M97.1 Plan publish readiness blocker metadata gate
+- DONE M97.1 Plan publish readiness blocker metadata gate
   - Define a deterministic read-only check that known publish blockers, release docs, Cargo publish metadata docs, workspace docs, and docs-site notes stay aligned.
   - Keep replacing repository URLs, checking crates.io availability, running `cargo package`, running `cargo publish`, changelog generation, and API stabilization out of scope.
   - Decide which repository placeholder, pre-1.0 API, changelog, CLI template packaging, and crates.io review blockers must remain discoverable.
