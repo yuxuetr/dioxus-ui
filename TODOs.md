@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M96 Cargo Publish Metadata Gate
-- Current task: M96.2 Add Cargo publish metadata check
+- Current task: M96.3 Update Cargo publish metadata documentation
 
 ## Backup
 
@@ -1484,7 +1484,7 @@
   - Keep `cargo publish`, `cargo package`, crates.io lookups, dependency freshness checks, repository URL replacement, and changelog generation out of scope.
   - Decide which crate descriptions, shared README/keywords/categories metadata, and example `publish = false` boundaries must remain discoverable.
 
-- TODO M96.2 Add Cargo publish metadata check
+- DONE M96.2 Add Cargo publish metadata check
   - Add crate-specific descriptions and shared publish metadata fields for README, keywords, and categories.
   - Add a verifier that checks publishable crate metadata, workspace inheritance, example non-publishable boundaries, package script wiring, and release wiring.
   - Include the check in release verification without packaging or publishing crates.
