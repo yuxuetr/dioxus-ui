@@ -1369,7 +1369,7 @@
 
 ## M91 Preview State Inventory Metadata Gate
 
-- TODO M91.1 Plan preview state inventory metadata gate
+- DONE M91.1 Plan preview state inventory metadata gate
   - Define a deterministic read-only check that shared preview state inventory, Web/Desktop preview gates, package aliases, and documentation stay aligned.
   - Keep browser-rendered screenshot assertions, Tailwind compilation, `dx serve`, Desktop WebView automation, and visual parity scoring out of scope.
   - Decide which representative state labels, preview panels, preview targets, and CSS source inputs must remain discoverable.
