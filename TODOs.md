@@ -1391,7 +1391,7 @@
 
 ## M92 Mobile Browser Smoke Metadata Gate
 
-- TODO M92.1 Plan mobile browser smoke metadata gate
+- DONE M92.1 Plan mobile browser smoke metadata gate
   - Define a deterministic read-only check that the opt-in mobile browser smoke script, docs, package alias, and CI browser guidance stay aligned.
   - Keep launching Playwright, starting `dx serve`, installing browsers, writing screenshots, and validating screenshot pixels out of scope.
   - Decide which localhost settings, viewport dimensions, selector assertions, screenshot artifact pattern, and environment variables must remain discoverable.
