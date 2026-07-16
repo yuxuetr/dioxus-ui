@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M97 Publish Readiness Blocker Metadata Gate
-- Current task: M97.3 Update publish readiness blocker documentation
+- Current task: M97.4 Complete publish readiness blocker metadata milestone
 
 ## Backup
 
@@ -1511,7 +1511,7 @@
   - Fail when docs imply metadata gates are enough to publish or omit required blocker categories.
   - Include the check in release verification without modifying manifests or contacting registries.
 
-- TODO M97.3 Update publish readiness blocker documentation
+- DONE M97.3 Update publish readiness blocker documentation
   - Document the blocker inventory check in README, docs README, workspace docs, release docs, quality gates, Cargo publish metadata docs, and docs-site planning docs.
   - Clarify that the check preserves known blockers and does not resolve them.
   - Keep package script, release aggregate, Cargo publish metadata, and release documentation behavior aligned with the new read-only gate.
