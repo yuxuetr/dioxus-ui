@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M94 Browser Artifact Policy Metadata Gate
-- Current task: M94.1 Plan browser artifact policy metadata gate
+- Current task: M94.2 Add browser artifact policy metadata check
 
 ## Backup
 
@@ -1435,7 +1435,7 @@
 
 ## M94 Browser Artifact Policy Metadata Gate
 
-- TODO M94.1 Plan browser artifact policy metadata gate
+- DONE M94.1 Plan browser artifact policy metadata gate
   - Define a deterministic read-only check that CI browser artifact policy, workflow template upload behavior, RFC 0009, `.gitignore`, and repository hygiene stay aligned.
   - Keep running browser smoke, uploading artifacts, changing retention defaults, deleting local files, and validating screenshot pixels out of scope.
   - Decide which screenshot-only upload pattern, forbidden browser profile/cache artifacts, temporary preview outputs, and retention guidance must remain discoverable.
