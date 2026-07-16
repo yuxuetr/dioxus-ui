@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M97 Publish Readiness Blocker Metadata Gate
-- Current task: M97.2 Add publish readiness blocker metadata check
+- Current task: M97.3 Update publish readiness blocker documentation
 
 ## Backup
 
@@ -1506,7 +1506,7 @@
   - Keep replacing repository URLs, checking crates.io availability, running `cargo package`, running `cargo publish`, changelog generation, and API stabilization out of scope.
   - Decide which repository placeholder, pre-1.0 API, changelog, CLI template packaging, and crates.io review blockers must remain discoverable.
 
-- TODO M97.2 Add publish readiness blocker metadata check
+- DONE M97.2 Add publish readiness blocker metadata check
   - Add a verifier that checks the blocker inventory, placeholder repository evidence, package script wiring, release wiring, and publish metadata boundary docs.
   - Fail when docs imply metadata gates are enough to publish or omit required blocker categories.
   - Include the check in release verification without modifying manifests or contacting registries.
