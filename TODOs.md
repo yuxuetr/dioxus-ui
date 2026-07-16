@@ -1423,7 +1423,7 @@
   - Fail when `workflow_dispatch`, `continue-on-error: true`, `contents: read`, screenshot artifact upload, Playwright install, external Chrome fallback, or required-gate boundary docs drift.
   - Include the check in release verification without activating or running CI browser automation.
 
-- TODO M93.3 Update CI workflow template metadata documentation
+- DONE M93.3 Update CI workflow template metadata documentation
   - Document the CI workflow template metadata check in README, docs README, quality gates, release docs, CI browser docs, and docs-site planning docs.
   - Clarify that the check validates committed workflow documentation only, not CI execution or browser availability.
   - Keep package script, release aggregate, CI docs, CI plan, and repository hygiene behavior aligned with the new read-only gate.
