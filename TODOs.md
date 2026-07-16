@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M94 Browser Artifact Policy Metadata Gate
-- Current task: M94 complete
+- Overall: 96%
+- Current milestone: M95 Release Warning Inventory Metadata Gate
+- Current task: M95.1 Plan release warning inventory metadata gate
 
 ## Backup
 
@@ -1453,6 +1453,28 @@
 - DONE M94.4 Complete browser artifact policy metadata milestone
   - Run browser artifact policy checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no active workflow files, browser profiles, screenshots, caches, or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M95 Release Warning Inventory Metadata Gate
+
+- TODO M95.1 Plan release warning inventory metadata gate
+  - Define a deterministic read-only check that known release warnings, Cargo lock evidence, release docs, quality gates, and docs-site results stay aligned.
+  - Keep dependency upgrades, Cargo warning parsing, `cargo report` execution, warning suppression, and network lookups out of scope.
+  - Decide which current `block v0.1.6` future-incompatibility warning details must remain discoverable until resolved.
+
+- TODO M95.2 Add release warning inventory metadata check
+  - Add a verifier that checks `Cargo.lock`, package script wiring, release warning inventory docs, release docs, quality gates, and docs-site notes.
+  - Fail when the known warning inventory omits the package name, version, warning type, observation command, or non-goal boundaries.
+  - Include the check in release verification without running Cargo or changing dependency state.
+
+- TODO M95.3 Update release warning inventory documentation
+  - Document the release warning inventory metadata check in README, docs README, quality gates, release docs, and docs-site planning docs.
+  - Clarify that the check validates warning inventory metadata, not whether Cargo currently emits the warning.
+  - Keep package script, release aggregate, Cargo lock metadata, and release documentation behavior aligned with the new read-only gate.
+
+- TODO M95.4 Complete release warning inventory metadata milestone
+  - Run release warning inventory checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no dependency upgrades, lockfile rewrites, warning suppressions, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
