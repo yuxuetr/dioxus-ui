@@ -1249,6 +1249,27 @@ npm run verify:release
 It remains read-only. It does not launch Playwright, start `dx serve`, install
 browsers, write screenshots, or validate rendered output.
 
+## M93 CI Browser Workflow Template Metadata Gate Usage
+
+M93 adds a focused CI workflow template metadata command:
+
+```bash
+npm run verify:ci-workflow-template
+```
+
+The command checks the documented browser smoke workflow template, RFC 0009
+activation policy, CI browser guide, package alias, screenshot artifact
+pattern, and absence of `.github/workflows/browser-smoke.yml`.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not create workflow files, run GitHub Actions,
+install browsers, upload artifacts, or change browser smoke rollout policy.
+
 ## M92 Final Result
 
 M92 added `npm run verify:mobile-browser-metadata` and wired it into

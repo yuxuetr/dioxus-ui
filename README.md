@@ -275,6 +275,7 @@ npm run verify:rfcs
 npm run verify:readme
 npm run verify:release-docs
 npm run verify:package-scripts
+npm run verify:ci-workflow-template
 npm run verify:repo-hygiene
 ```
 
@@ -496,6 +497,18 @@ npm run verify:ci-plan
 
 This checks that the quality gate CI Plan still references the current PR,
 release, and opt-in browser verification boundaries.
+
+Verify CI browser workflow template metadata only:
+
+```bash
+npm run verify:ci-workflow-template
+```
+
+This checks the documented browser smoke workflow template, RFC 0009 activation
+policy, CI browser guide, package alias, and absence of
+`.github/workflows/browser-smoke.yml`. It does not create workflows, run GitHub
+Actions, install browsers, upload artifacts, or change browser smoke rollout
+policy.
 
 Future browser-rendered Playwright smoke will require an explicit browser
 install:

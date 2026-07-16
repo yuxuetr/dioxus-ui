@@ -79,6 +79,17 @@ This read-only check validates script and documentation wiring for the opt-in
 smoke. It does not install browsers, start `dx serve`, write screenshots, or
 validate rendered output.
 
+Verify the committed workflow template contract without activating CI:
+
+```bash
+npm run verify:ci-workflow-template
+```
+
+This read-only check validates the documented workflow template, RFC 0009
+activation policy, package alias, artifact pattern, and active workflow absence.
+It does not create `.github/workflows/browser-smoke.yml`, run GitHub Actions,
+install browsers, or upload artifacts.
+
 ## Playwright-managed Chromium
 
 Use this path when CI is allowed to download and cache Playwright browser

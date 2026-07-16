@@ -323,6 +323,12 @@ removing files.
 workflow template still reference the current local verification aliases and do
 not add an active browser smoke workflow.
 
+`npm run verify:ci-workflow-template` checks that the documented browser smoke
+workflow template, RFC 0009 activation policy, CI browser guide, package alias,
+and active workflow absence stay aligned. It is read-only and does not create
+workflow files, run GitHub Actions, install browsers, upload artifacts, or
+change rollout policy.
+
 ## Mobile Browser Smoke Gate
 
 Run only when Playwright Chromium has been installed:

@@ -183,6 +183,10 @@ validate Tailwind CSS v4 input syntax, preview source roots, and CLI default
 CSS tokens; they do not compile Tailwind or inspect generated CSS output.
 CI browser docs checks are read-only and do not create workflow files.
 CI Plan checks are also read-only and validate documentation only.
+CI workflow template metadata checks are also read-only and validate only the
+documented browser workflow template, RFC 0009 activation policy, CI browser
+guide, package alias, and absence of an active workflow file; they do not run
+GitHub Actions, install browsers, upload artifacts, or change rollout policy.
 Repository hygiene checks are read-only and report forbidden committed
 artifacts such as generated directories, screenshots, and inactive workflow
 files without deleting files.
