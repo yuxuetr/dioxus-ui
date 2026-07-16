@@ -1421,6 +1421,28 @@ git diff --check
 All commands passed. The check does not package or publish crates, and the
 placeholder repository URL still requires a later publish-readiness review.
 
+## M97 Publish Readiness Blocker Metadata Gate Usage
+
+M97 adds a focused publish readiness blocker metadata command:
+
+```bash
+npm run verify:publish-readiness-blockers
+```
+
+The command checks the documented placeholder repository URL, pre-1.0 API
+stability, changelog ownership, CLI template packaging, and crates.io review
+blockers.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not replace repository URLs, check registries, run
+`cargo package`, run `cargo publish`, stabilize APIs, generate changelogs, or
+package CLI templates.
+
 ## M92 Final Result
 
 M92 added `npm run verify:mobile-browser-metadata` and wired it into

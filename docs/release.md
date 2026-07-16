@@ -107,6 +107,7 @@ cargo test -p dioxus-ui-cli --test registry
 cargo run -p dioxus-ui-cli -- list
 npm run verify:cargo-workspace
 npm run verify:cargo-publish-metadata
+npm run verify:publish-readiness-blockers
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -158,6 +159,11 @@ Cargo publish metadata checks are read-only and validate only planned published
 crate descriptions, shared README/keywords/categories metadata, example
 `publish = false` boundaries, and release wiring; they do not run
 `cargo publish`, run `cargo package`, contact crates.io, replace repository URLs, or create package archives.
+Publish readiness blocker checks are read-only and validate only the documented
+placeholder repository URL, pre-1.0 API stability, changelog ownership, CLI
+template packaging, and crates.io review blockers; they do not replace
+repository URLs, check registries, run `cargo package`, run `cargo publish`,
+stabilize APIs, generate changelogs, or package CLI templates.
 Cargo lock metadata checks are also part of the release aggregate, but they
 only compare committed `Cargo.lock` workspace package metadata and Cargo
 metadata output; they do not update the lockfile or contact crates.io.
@@ -242,6 +248,7 @@ npm run verify:package-scripts
 npm run verify:registry
 npm run verify:cargo-workspace
 npm run verify:cargo-publish-metadata
+npm run verify:publish-readiness-blockers
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
