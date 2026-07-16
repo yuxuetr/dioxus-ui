@@ -1270,6 +1270,27 @@ npm run verify:release
 It remains read-only. It does not create workflow files, run GitHub Actions,
 install browsers, upload artifacts, or change browser smoke rollout policy.
 
+## M93 Final Result
+
+M93 added `npm run verify:ci-workflow-template` and wired it into
+`npm run verify:release`. The gate validates the documented browser smoke
+workflow template, RFC 0009 activation policy, CI browser guide, package alias,
+screenshot artifact pattern, and absence of `.github/workflows/browser-smoke.yml`.
+
+Validation completed:
+
+```bash
+npm run verify:ci-workflow-template
+npm run verify:package-scripts
+npm run verify:docs
+npm run verify:release-docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The browser workflow remains documentation-only and
+non-blocking until maintainers explicitly copy and activate it.
+
 ## M92 Final Result
 
 M92 added `npm run verify:mobile-browser-metadata` and wired it into
