@@ -1379,6 +1379,27 @@ git diff --check
 All commands passed. The full release run still reports the documented
 `block` `0.1.6` future-incompatibility warning.
 
+## M96 Cargo Publish Metadata Gate Usage
+
+M96 adds a focused Cargo publish metadata command:
+
+```bash
+npm run verify:cargo-publish-metadata
+```
+
+The command checks planned published crate descriptions, shared
+README/keywords/categories metadata, example `publish = false` boundaries, and
+release wiring.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not run `cargo publish`, run `cargo package`,
+contact crates.io, replace repository URLs, or create package archives.
+
 ## M92 Final Result
 
 M92 added `npm run verify:mobile-browser-metadata` and wired it into

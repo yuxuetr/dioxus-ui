@@ -1,9 +1,13 @@
 [package]
 name = "dioxus-ui-cli"
+description = "Command-line tool for adding dioxus-ui components to Dioxus projects."
 version.workspace = true
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
+readme.workspace = true
+keywords.workspace = true
+categories.workspace = true
 
 [[bin]]
 name = "dxui"

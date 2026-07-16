@@ -1,9 +1,13 @@
 [package]
 name = "dioxus-ui"
+description = "Tailwind-styled Dioxus UI components with source-copy friendly APIs."
 version.workspace = true
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
+readme.workspace = true
+keywords.workspace = true
+categories.workspace = true
 
 [features]
 default = []

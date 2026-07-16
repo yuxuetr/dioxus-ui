@@ -106,6 +106,7 @@ cargo test --workspace --all-features
 cargo test -p dioxus-ui-cli --test registry
 cargo run -p dioxus-ui-cli -- list
 npm run verify:cargo-workspace
+npm run verify:cargo-publish-metadata
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -153,6 +154,10 @@ they do not run `npm install` or contact the npm registry.
 Cargo workspace metadata checks are also part of the release aggregate, but
 they only compare committed workspace manifest metadata and `cargo metadata`
 output; they do not publish crates or contact crates.io.
+Cargo publish metadata checks are read-only and validate only planned published
+crate descriptions, shared README/keywords/categories metadata, example
+`publish = false` boundaries, and release wiring; they do not run
+`cargo publish`, run `cargo package`, contact crates.io, replace repository URLs, or create package archives.
 Cargo lock metadata checks are also part of the release aggregate, but they
 only compare committed `Cargo.lock` workspace package metadata and Cargo
 metadata output; they do not update the lockfile or contact crates.io.
@@ -236,6 +241,7 @@ npm run verify:release-docs
 npm run verify:package-scripts
 npm run verify:registry
 npm run verify:cargo-workspace
+npm run verify:cargo-publish-metadata
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts

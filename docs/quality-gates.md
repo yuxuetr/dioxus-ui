@@ -118,6 +118,7 @@ cargo test --workspace --all-features
 cargo test -p dioxus-ui-cli --test registry
 cargo run -p dioxus-ui-cli -- list
 npm run verify:cargo-workspace
+npm run verify:cargo-publish-metadata
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -282,6 +283,11 @@ contact the registry, or rewrite lockfiles.
 metadata stays consistent across root and `crates/` manifests. It verifies
 workspace inheritance and `cargo metadata` output without publishing crates,
 packaging crates, contacting crates.io, or checking dependency freshness.
+
+`npm run verify:cargo-publish-metadata` checks planned published crate
+descriptions, shared README/keywords/categories metadata, example `publish =
+false` boundaries, and release wiring. It is read-only and does not run
+`cargo publish`, run `cargo package`, contact crates.io, replace repository URLs, or create package archives.
 
 `npm run verify:cargo-lock` checks that committed `Cargo.lock` workspace package
 entries match `cargo metadata --locked --no-deps` workspace members. It is
