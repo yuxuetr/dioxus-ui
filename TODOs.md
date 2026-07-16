@@ -1379,7 +1379,7 @@
   - Fail when required preview state labels, `data-preview-panel` markers, preview targets, or Tailwind v4 source inputs drift.
   - Include the check in release verification without launching browsers or compiling Tailwind output.
 
-- TODO M91.3 Update preview state metadata documentation
+- DONE M91.3 Update preview state metadata documentation
   - Document the preview state metadata check in README, examples README, quality gates, release docs, and docs-site planning docs.
   - Clarify that the check validates preview metadata wiring, not rendered visual correctness or screenshot pixels.
   - Keep preview, smoke, package script, and release aggregate behavior aligned with the new read-only gate.
