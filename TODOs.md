@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 96%
+- Overall: 100%
 - Current milestone: M93 CI Browser Workflow Template Metadata Gate
-- Current task: M93.4 Complete CI browser workflow template metadata milestone
+- Current task: M93 complete
 
 ## Backup
 
@@ -1428,7 +1428,7 @@
   - Clarify that the check validates committed workflow documentation only, not CI execution or browser availability.
   - Keep package script, release aggregate, CI docs, CI plan, and repository hygiene behavior aligned with the new read-only gate.
 
-- TODO M93.4 Complete CI browser workflow template metadata milestone
+- DONE M93.4 Complete CI browser workflow template metadata milestone
   - Run CI workflow template metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no active workflow files, browser profiles, or screenshots are committed.
   - Update TODO status only after commits and validation.
