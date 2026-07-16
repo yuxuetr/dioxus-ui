@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M96 Cargo Publish Metadata Gate
-- Current task: M96 complete
+- Overall: 96%
+- Current milestone: M97 Publish Readiness Blocker Metadata Gate
+- Current task: M97.1 Plan publish readiness blocker metadata gate
 
 ## Backup
 
@@ -1497,6 +1497,28 @@
 - DONE M96.4 Complete Cargo publish metadata milestone
   - Run Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no package archives, dependency updates, crates.io lookups, or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M97 Publish Readiness Blocker Metadata Gate
+
+- TODO M97.1 Plan publish readiness blocker metadata gate
+  - Define a deterministic read-only check that known publish blockers, release docs, Cargo publish metadata docs, workspace docs, and docs-site notes stay aligned.
+  - Keep replacing repository URLs, checking crates.io availability, running `cargo package`, running `cargo publish`, changelog generation, and API stabilization out of scope.
+  - Decide which repository placeholder, pre-1.0 API, changelog, CLI template packaging, and crates.io review blockers must remain discoverable.
+
+- TODO M97.2 Add publish readiness blocker metadata check
+  - Add a verifier that checks the blocker inventory, placeholder repository evidence, package script wiring, release wiring, and publish metadata boundary docs.
+  - Fail when docs imply metadata gates are enough to publish or omit required blocker categories.
+  - Include the check in release verification without modifying manifests or contacting registries.
+
+- TODO M97.3 Update publish readiness blocker documentation
+  - Document the blocker inventory check in README, docs README, workspace docs, release docs, quality gates, Cargo publish metadata docs, and docs-site planning docs.
+  - Clarify that the check preserves known blockers and does not resolve them.
+  - Keep package script, release aggregate, Cargo publish metadata, and release documentation behavior aligned with the new read-only gate.
+
+- TODO M97.4 Complete publish readiness blocker metadata milestone
+  - Run publish readiness blocker checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no repository URL replacement, package archives, registry lookups, publish commands, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
