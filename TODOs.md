@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M95 Release Warning Inventory Metadata Gate
-- Current task: M95.2 Add release warning inventory metadata check
+- Current task: M95.3 Update release warning inventory documentation
 
 ## Backup
 
@@ -1462,7 +1462,7 @@
   - Keep dependency upgrades, Cargo warning parsing, `cargo report` execution, warning suppression, and network lookups out of scope.
   - Decide which current `block v0.1.6` future-incompatibility warning details must remain discoverable until resolved.
 
-- TODO M95.2 Add release warning inventory metadata check
+- DONE M95.2 Add release warning inventory metadata check
   - Add a verifier that checks `Cargo.lock`, package script wiring, release warning inventory docs, release docs, quality gates, and docs-site notes.
   - Fail when the known warning inventory omits the package name, version, warning type, observation command, or non-goal boundaries.
   - Include the check in release verification without running Cargo or changing dependency state.
