@@ -126,6 +126,7 @@ npm run verify:ci-docs
 npm run verify:ci-plan
 npm run verify:ci-workflow-template
 npm run verify:browser-artifact-policy
+npm run verify:release-warning-inventory
 npm run verify:repo-hygiene
 ```
 
@@ -193,6 +194,10 @@ committed artifact guidance, screenshot upload patterns, `.gitignore` coverage,
 repository hygiene boundaries, and release wiring; they do not launch browser
 automation, upload artifacts, delete local files, enforce remote retention, or
 validate screenshot pixels.
+Release warning inventory metadata checks are also read-only and validate only
+the documented `block` `0.1.6` Rust future-incompatibility warning inventory,
+Cargo lock evidence, quality gate notes, docs-site notes, and release wiring;
+they do not run Cargo, parse compiler output, upgrade dependencies, or suppress warnings.
 Repository hygiene checks are read-only and report forbidden committed
 artifacts such as generated directories, screenshots, and inactive workflow
 files without deleting files.
@@ -244,6 +249,7 @@ npm run verify:ci-docs
 npm run verify:ci-plan
 npm run verify:ci-workflow-template
 npm run verify:browser-artifact-policy
+npm run verify:release-warning-inventory
 npm run verify:docs-status
 npm run verify:docs-structure
 npm run verify:docs-index

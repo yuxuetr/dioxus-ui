@@ -138,6 +138,7 @@ npm run verify:ci-docs
 npm run verify:ci-plan
 npm run verify:ci-workflow-template
 npm run verify:browser-artifact-policy
+npm run verify:release-warning-inventory
 npm run verify:repo-hygiene
 ```
 
@@ -336,6 +337,12 @@ guidance, workflow template upload fields, RFC 0009 artifact policy,
 wiring stay aligned. It is read-only and does not launch browser automation,
 upload artifacts, delete local files, enforce remote retention, or validate
 screenshot pixels.
+
+`npm run verify:release-warning-inventory` checks that the documented `block`
+`0.1.6` future-incompatibility warning inventory, Cargo lock evidence, release
+docs, quality gate notes, docs-site notes, and release wiring stay aligned. It
+is read-only and does not run Cargo, parse live compiler output, execute
+`cargo report`, upgrade dependencies, or suppress warnings.
 
 ## Mobile Browser Smoke Gate
 

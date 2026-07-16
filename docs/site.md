@@ -1334,6 +1334,27 @@ git diff --check
 All commands passed. The full release run still reports the existing Rust
 future-incompatibility warning for `block v0.1.6`.
 
+## M95 Release Warning Inventory Metadata Gate Usage
+
+M95 adds a focused release warning inventory metadata command:
+
+```bash
+npm run verify:release-warning-inventory
+```
+
+The command checks the documented `block` `0.1.6` Rust
+future-incompatibility warning inventory, Cargo lock evidence, release docs,
+quality gate notes, docs-site notes, and release wiring.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not run Cargo, parse live compiler output, execute
+`cargo report`, upgrade dependencies, or suppress warnings.
+
 ## M92 Final Result
 
 M92 added `npm run verify:mobile-browser-metadata` and wired it into

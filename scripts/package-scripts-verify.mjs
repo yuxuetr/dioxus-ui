@@ -43,6 +43,7 @@ const requiredScripts = {
   "verify:ci-plan": "node scripts/ci-plan-verify.mjs",
   "verify:ci-workflow-template": "node scripts/ci-workflow-template-verify.mjs",
   "verify:browser-artifact-policy": "node scripts/browser-artifact-policy-verify.mjs",
+  "verify:release-warning-inventory": "node scripts/release-warning-inventory-verify.mjs",
 };
 
 const aggregateScriptRequirements = {
@@ -98,6 +99,7 @@ const aggregateScriptRequirements = {
     "npm run verify:ci-plan",
     "npm run verify:ci-workflow-template",
     "npm run verify:browser-artifact-policy",
+    "npm run verify:release-warning-inventory",
     "npm run verify:repo-hygiene",
   ],
 };
