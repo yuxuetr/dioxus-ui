@@ -1443,6 +1443,27 @@ It remains read-only. It does not replace repository URLs, check registries, run
 `cargo package`, run `cargo publish`, stabilize APIs, generate changelogs, or
 package CLI templates.
 
+## M97 Final Result
+
+M97 added `npm run verify:publish-readiness-blockers` and wired it into
+`npm run verify:release`. The gate validates the known placeholder repository
+URL, pre-1.0 API stability, changelog ownership, CLI template packaging, and
+crates.io review blockers.
+
+Validation completed:
+
+```bash
+npm run verify:publish-readiness-blockers
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The blockers remain intentionally unresolved until a
+maintainer performs a dedicated publish-readiness review.
+
 ## M92 Final Result
 
 M92 added `npm run verify:mobile-browser-metadata` and wired it into
