@@ -1396,7 +1396,7 @@
   - Keep launching Playwright, starting `dx serve`, installing browsers, writing screenshots, and validating screenshot pixels out of scope.
   - Decide which localhost settings, viewport dimensions, selector assertions, screenshot artifact pattern, and environment variables must remain discoverable.
 
-- TODO M92.2 Add mobile browser smoke metadata check
+- DONE M92.2 Add mobile browser smoke metadata check
   - Add a verifier that checks `scripts/mobile-browser-smoke.mjs`, `package.json`, README, release docs, quality gates, CI browser docs, and workflow template references.
   - Fail when required selectors, `DIOXUS_UI_BROWSER_EXECUTABLE`, `DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT`, `npx playwright install chromium`, or screenshot artifact patterns drift.
   - Include the check in release verification without launching browser automation or writing artifacts.
