@@ -362,6 +362,8 @@ in a stable install location.
 Cargo publish metadata is tracked by `npm run verify:cargo-publish-metadata`.
 That check keeps descriptions and shared README/keywords/categories metadata
 reviewable, but it does not replace a later publish-readiness review.
+Known blockers for that review are tracked by
+`npm run verify:publish-readiness-blockers`.
 
 ## Known Pre-1.0 Limitations
 

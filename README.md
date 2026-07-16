@@ -214,7 +214,8 @@ browser installation and screenshots opt-in, verifies browser artifact policy
 metadata, validates the release warning inventory, then checks repository
 hygiene for forbidden generated artifacts and inactive workflow files. It also
 checks Cargo publish metadata for the planned library and CLI crates without
-packaging or publishing them.
+packaging or publishing them, then validates the publish readiness blocker
+inventory.
 
 Run deterministic preview and example gates only:
 
@@ -267,6 +268,7 @@ Verify focused metadata gates only:
 ```bash
 npm run verify:cargo-workspace
 npm run verify:cargo-publish-metadata
+npm run verify:publish-readiness-blockers
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -421,6 +423,17 @@ This checks planned published crate descriptions, shared
 README/keywords/categories metadata, example `publish = false` boundaries, and
 release wiring. It does not run `cargo publish`, run `cargo package`, contact
 crates.io, replace repository URLs, or create package archives.
+
+Verify publish readiness blockers only:
+
+```bash
+npm run verify:publish-readiness-blockers
+```
+
+This checks the documented placeholder repository URL, pre-1.0 API stability,
+changelog ownership, CLI template packaging, and crates.io review blockers. It
+does not replace repository URLs, check registries, run `cargo package`, run
+`cargo publish`, stabilize APIs, generate changelogs, or package CLI templates.
 
 Verify Cargo lockfile metadata only:
 

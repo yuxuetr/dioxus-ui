@@ -49,3 +49,7 @@ include:
 This gate should make publish metadata reviewable. It does not claim the crates
 are ready to publish while the repository URL is still a placeholder and APIs
 remain pre-1.0.
+
+Known blockers are tracked separately in
+[Publish Readiness Blockers](publish-readiness-blockers.md). Keep that
+inventory aligned when a maintainer intentionally resolves a blocker.

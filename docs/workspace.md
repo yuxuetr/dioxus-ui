@@ -78,6 +78,11 @@ Publishable crate manifests under `crates/` should keep crate-specific
 descriptions and inherit shared workspace publish metadata. Example and
 verification crates should keep `publish = false`.
 
+The placeholder repository URL is also tracked in
+[Publish Readiness Blockers](publish-readiness-blockers.md). Do not replace it
+as a side effect of metadata verification; update it only as part of an explicit
+publish-readiness review.
+
 ## Crate Responsibilities
 
 ### dioxus-ui-core
