@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M94 Browser Artifact Policy Metadata Gate
-- Current task: M94.2 Add browser artifact policy metadata check
+- Current task: M94.3 Update browser artifact policy metadata documentation
 
 ## Backup
 
@@ -1440,7 +1440,7 @@
   - Keep running browser smoke, uploading artifacts, changing retention defaults, deleting local files, and validating screenshot pixels out of scope.
   - Decide which screenshot-only upload pattern, forbidden browser profile/cache artifacts, temporary preview outputs, and retention guidance must remain discoverable.
 
-- TODO M94.2 Add browser artifact policy metadata check
+- DONE M94.2 Add browser artifact policy metadata check
   - Add a verifier that checks artifact policy documentation, workflow template upload fields, `.gitignore` screenshot patterns, and repository hygiene boundaries.
   - Fail when CI docs allow browser profiles, Playwright caches, target directories, temporary preview output, or non-PNG browser artifacts into the normal upload path.
   - Include the check in release verification without launching browser automation or touching local artifacts.
