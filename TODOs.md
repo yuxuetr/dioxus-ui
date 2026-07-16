@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M96 Cargo Publish Metadata Gate
-- Current task: M96.1 Plan Cargo publish metadata gate
+- Current task: M96.2 Add Cargo publish metadata check
 
 ## Backup
 
@@ -1479,7 +1479,7 @@
 
 ## M96 Cargo Publish Metadata Gate
 
-- TODO M96.1 Plan Cargo publish metadata gate
+- DONE M96.1 Plan Cargo publish metadata gate
   - Define a deterministic read-only check that publishable crate manifests, shared workspace package metadata, release docs, and quality gates stay aligned.
   - Keep `cargo publish`, `cargo package`, crates.io lookups, dependency freshness checks, repository URL replacement, and changelog generation out of scope.
   - Decide which crate descriptions, shared README/keywords/categories metadata, and example `publish = false` boundaries must remain discoverable.
