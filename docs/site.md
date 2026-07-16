@@ -1355,6 +1355,9 @@ npm run verify:release
 It remains read-only. It does not run Cargo, parse live compiler output, execute
 `cargo report`, upgrade dependencies, or suppress warnings.
 
+The inventory deliberately records the current warning instead of suppressing it
+or upgrading dependencies as a side effect of verification.
+
 ## M92 Final Result
 
 M92 added `npm run verify:mobile-browser-metadata` and wired it into

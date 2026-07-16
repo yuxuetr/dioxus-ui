@@ -211,8 +211,8 @@ metadata checks, script metadata checks, feature checks, generated source-copy
 fixture smoke, release docs consistency checks, package script wiring checks,
 and CI browser docs checks. It also checks CI Plan documentation while keeping
 browser installation and screenshots opt-in, verifies browser artifact policy
-metadata, then checks repository hygiene for forbidden generated artifacts and
-inactive workflow files.
+metadata, validates the release warning inventory, then checks repository
+hygiene for forbidden generated artifacts and inactive workflow files.
 
 Run deterministic preview and example gates only:
 
@@ -278,6 +278,7 @@ npm run verify:release-docs
 npm run verify:package-scripts
 npm run verify:ci-workflow-template
 npm run verify:browser-artifact-policy
+npm run verify:release-warning-inventory
 npm run verify:repo-hygiene
 ```
 
@@ -523,6 +524,17 @@ This checks CI browser artifact guidance, workflow template upload fields, RFC
 boundaries, and release wiring. It does not launch browser automation, upload
 artifacts, delete local files, enforce remote retention, or validate screenshot
 pixels.
+
+Verify release warning inventory metadata only:
+
+```bash
+npm run verify:release-warning-inventory
+```
+
+This checks the documented `block` `0.1.6` Rust future-incompatibility warning
+inventory, Cargo lock evidence, release docs, quality gate notes, docs-site
+notes, and release wiring. It does not run Cargo, parse live compiler output,
+execute `cargo report`, upgrade dependencies, or suppress warnings.
 
 Future browser-rendered Playwright smoke will require an explicit browser
 install:

@@ -360,3 +360,6 @@ in a stable install location.
   fallback markers, but no native device or emulator gate yet.
 - Mobile browser smoke is documented as infeasible for release gates until
   browser automation dependencies are made portable.
+- The release aggregate currently reports the known `block` `0.1.6` Rust
+  future-incompatibility warning. It is tracked by the release warning
+  inventory metadata gate until the dependency graph changes.
