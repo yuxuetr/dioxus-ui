@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 96%
+- Overall: 100%
 - Current milestone: M91 Preview State Inventory Metadata Gate
-- Current task: M91.4 Complete preview state inventory metadata milestone
+- Current task: M91 complete
 
 ## Backup
 
@@ -1384,7 +1384,7 @@
   - Clarify that the check validates preview metadata wiring, not rendered visual correctness or screenshot pixels.
   - Keep preview, smoke, package script, and release aggregate behavior aligned with the new read-only gate.
 
-- TODO M91.4 Complete preview state inventory metadata milestone
+- DONE M91.4 Complete preview state inventory metadata milestone
   - Run preview state metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no workflow files or generated artifacts are committed.
   - Update TODO status only after commits and validation.
