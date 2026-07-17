@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M104 Registry Availability Readiness Metadata Gate
-- Current task: M104.4 Complete registry availability readiness metadata milestone
+- Current task: M104 complete
 
 ## Backup
 
@@ -1670,7 +1670,7 @@
   - Clarify that the check preserves the unresolved crates.io name/ownership review blocker and does not query registries.
   - Keep package script, release aggregate, publish readiness blockers, Cargo publish metadata, and release documentation behavior aligned.
 
-- TODO M104.4 Complete registry availability readiness metadata milestone
+- DONE M104.4 Complete registry availability readiness metadata milestone
   - Run registry availability readiness checks, publish blocker checks, Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no crates.io lookups, credentials, package archives, publish commands, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
