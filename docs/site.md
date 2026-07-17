@@ -1509,6 +1509,27 @@ All commands passed. The check does not generate release notes, run git-cliff,
 derive changes from Git history, create tags, publish releases, or decide
 release contents.
 
+## M100 License Readiness Metadata Gate Usage
+
+M100 adds a focused license readiness metadata command:
+
+```bash
+npm run verify:license-readiness
+```
+
+The command checks workspace license metadata and missing root `LICENSE-MIT`
+and `LICENSE-APACHE` files.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not choose license terms, generate license text,
+change copyright holders, run `cargo package`, run `cargo publish`, or contact
+crates.io.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:

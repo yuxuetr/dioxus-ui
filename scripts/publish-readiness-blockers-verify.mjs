@@ -44,6 +44,7 @@ const blockerFragments = [
   "Placeholder repository URL",
   "Pre-1.0 API stability",
   "Release notes not publish-ready",
+  "Root license files not committed",
   "CLI template packaging strategy",
   "Registry availability not checked",
   "https://github.com/your-org/dioxus-ui",
@@ -61,6 +62,7 @@ const blockerBoundaryFragments = [
   "running `cargo publish`",
   "stabilizing component APIs",
   "generating changelogs or release notes",
+  "generating license text",
   "packaging CLI templates",
 ];
 
@@ -90,8 +92,8 @@ for (const fragment of workspaceFragments) {
 
 const releaseFragments = [
   "Publish readiness blocker checks are read-only",
-  "placeholder repository URL, pre-1.0 API stability, release notes readiness, CLI template packaging, and crates.io review blockers",
-  "they do not replace repository URLs, check registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate changelogs, or package CLI templates",
+  "placeholder repository URL, pre-1.0 API stability, release notes readiness, root license file readiness, CLI template packaging, and crates.io review blockers",
+  "they do not replace repository URLs, check registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate changelogs, generate license text, or package CLI templates",
   "publish-ready CLI should either embed templates at compile time or package them",
 ];
 
@@ -101,8 +103,8 @@ for (const fragment of releaseFragments) {
 
 const qualityFragments = [
   "`npm run verify:publish-readiness-blockers`",
-  "placeholder repository URL, pre-1.0 API stability, release notes readiness, CLI template packaging, and crates.io review blockers",
-  "does not replace repository URLs, check registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate changelogs, or package CLI templates",
+  "placeholder repository URL, pre-1.0 API stability, release notes readiness, root license file readiness, CLI template packaging, and crates.io review blockers",
+  "does not replace repository URLs, check registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate changelogs, generate license text, or package CLI templates",
 ];
 
 for (const fragment of qualityFragments) {
