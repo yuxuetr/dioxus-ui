@@ -216,7 +216,8 @@ hygiene for forbidden generated artifacts and inactive workflow files. It also
 checks Cargo publish metadata for the planned library and CLI crates without
 packaging or publishing them, then validates the publish readiness blocker
 inventory, release notes readiness metadata, license readiness metadata,
-repository identity readiness metadata, and changelog metadata.
+repository identity readiness metadata, API stability readiness metadata, and
+changelog metadata.
 
 Run deterministic preview and example gates only:
 
@@ -273,6 +274,7 @@ npm run verify:publish-readiness-blockers
 npm run verify:release-notes-readiness
 npm run verify:license-readiness
 npm run verify:repository-identity-readiness
+npm run verify:api-stability-readiness
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -484,6 +486,17 @@ This checks that the placeholder repository URL remains in workspace metadata.
 It does not choose a repository owner, replace repository metadata, check remote
 repository existence, check crates.io availability, run `cargo package`, or run
 `cargo publish`.
+
+Verify API stability readiness metadata only:
+
+```bash
+npm run verify:api-stability-readiness
+```
+
+This checks workspace version `0.1.0` and the unresolved pre-`1.0` API
+stability blocker. It does not stabilize component APIs, change crate versions,
+decide semantic versioning policy, generate migration guides, run
+`cargo package`, or run `cargo publish`.
 
 Verify Cargo lockfile metadata only:
 
