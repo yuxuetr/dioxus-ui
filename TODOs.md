@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M101 Repository Identity Readiness Metadata Gate
-- Current task: M101.1 Plan repository identity readiness metadata gate
+- Current task: M101.2 Add repository identity readiness metadata check
 
 ## Backup
 
@@ -1589,7 +1589,7 @@
 
 ## M101 Repository Identity Readiness Metadata Gate
 
-- TODO M101.1 Plan repository identity readiness metadata gate
+- DONE M101.1 Plan repository identity readiness metadata gate
   - Define the distinction between existing Cargo repository metadata and final publish-ready repository identity.
   - Keep repository URL replacement, remote repository checks, crates.io checks, packaging, and publishing out of scope.
   - Decide which workspace metadata, publish blockers, Cargo publish metadata, release docs, quality gates, and docs-site fragments must stay aligned.
