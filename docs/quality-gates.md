@@ -120,6 +120,7 @@ cargo run -p dioxus-ui-cli -- list
 npm run verify:cargo-workspace
 npm run verify:cargo-publish-metadata
 npm run verify:publish-readiness-blockers
+npm run verify:release-notes-readiness
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -298,10 +299,15 @@ false` boundaries, and release wiring. It is read-only and does not run
 `cargo publish`, run `cargo package`, contact crates.io, replace repository URLs, or create package archives.
 
 `npm run verify:publish-readiness-blockers` checks the documented placeholder
-repository URL, pre-1.0 API stability, changelog ownership, CLI template
+repository URL, pre-1.0 API stability, release notes readiness, CLI template
 packaging, and crates.io review blockers. It is read-only and does not replace
 repository URLs, check registries, run `cargo package`, run `cargo publish`,
 stabilize APIs, generate changelogs, or package CLI templates.
+
+`npm run verify:release-notes-readiness` checks that project-owned changelog
+structure exists while publish-ready release notes are still unresolved. It is
+read-only and does not generate release notes, run git-cliff, derive changes
+from Git history, create tags, publish releases, or decide release contents.
 
 `npm run verify:cargo-lock` checks that committed `Cargo.lock` workspace package
 entries match `cargo metadata --locked --no-deps` workspace members. It is

@@ -1430,7 +1430,7 @@ npm run verify:publish-readiness-blockers
 ```
 
 The command checks the documented placeholder repository URL, pre-1.0 API
-stability, changelog ownership, CLI template packaging, and crates.io review
+stability, release notes readiness, CLI template packaging, and crates.io review
 blockers.
 
 The check is included in:
@@ -1463,6 +1463,27 @@ git diff --check
 
 All commands passed. The blockers remain intentionally unresolved until a
 maintainer performs a dedicated publish-readiness review.
+
+## M99 Release Notes Readiness Metadata Gate Usage
+
+M99 adds a focused release notes readiness metadata command:
+
+```bash
+npm run verify:release-notes-readiness
+```
+
+The command checks that project-owned changelog structure exists while
+publish-ready release notes are still unresolved.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not generate release notes, run git-cliff, derive
+changes from Git history, create tags, publish releases, or decide release
+contents.
 
 ## M98 Changelog Metadata Gate Usage
 

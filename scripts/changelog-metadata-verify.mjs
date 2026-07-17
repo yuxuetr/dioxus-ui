@@ -86,7 +86,7 @@ requireIncludes("docs/quality-gates.md", qualityDoc, [
 ]);
 
 requireIncludes("docs/publish-readiness-blockers.md", blockersDoc, [
-  "Changelog not yet release-owned",
+  "Release notes not publish-ready",
   "CHANGELOG.md",
 ]);
 

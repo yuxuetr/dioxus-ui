@@ -30,6 +30,7 @@
     "verify:cargo-workspace": "node scripts/cargo-workspace-verify.mjs",
     "verify:cargo-publish-metadata": "node scripts/cargo-publish-metadata-verify.mjs",
     "verify:publish-readiness-blockers": "node scripts/publish-readiness-blockers-verify.mjs",
+    "verify:release-notes-readiness": "node scripts/release-notes-readiness-verify.mjs",
     "verify:cargo-lock": "node scripts/cargo-lock-verify.mjs",
     "verify:pre-commit": "node scripts/pre-commit-verify.mjs",
     "verify:scripts": "node scripts/script-metadata-verify.mjs",
@@ -47,7 +48,7 @@
     "verify:preview": "npm run verify:web-preview && npm run verify:mobile-web-profile && npm run verify:desktop-preview",
     "verify:smoke": "npm run verify:preview && npm run verify:examples",
     "verify": "npm run verify:smoke && npm run verify:docs",
-    "verify:release": "cargo check --workspace --all-features && cargo test --workspace --all-features && cargo test -p dioxus-ui-cli --test registry && cargo run -p dioxus-ui-cli -- list && npm run verify:cargo-workspace && npm run verify:cargo-publish-metadata && npm run verify:publish-readiness-blockers && npm run verify:cargo-lock && npm run verify:pre-commit && npm run verify:scripts && npm run verify:gitignore && npm run verify:preview-state-metadata && npm run verify:mobile-browser-metadata && npm run verify:examples-metadata && npm run verify:css-inputs && npm run verify:registry && npm run verify:tailwind-static && npm run verify && npm run verify:changelog && scripts/feature-check.sh && scripts/generated-fixture-smoke.sh && npm run verify:release-docs && npm run verify:package-scripts && npm run verify:package-lock && npm run verify:ci-docs && npm run verify:ci-plan && npm run verify:ci-workflow-template && npm run verify:browser-artifact-policy && npm run verify:release-warning-inventory && npm run verify:repo-hygiene"
+    "verify:release": "cargo check --workspace --all-features && cargo test --workspace --all-features && cargo test -p dioxus-ui-cli --test registry && cargo run -p dioxus-ui-cli -- list && npm run verify:cargo-workspace && npm run verify:cargo-publish-metadata && npm run verify:publish-readiness-blockers && npm run verify:release-notes-readiness && npm run verify:cargo-lock && npm run verify:pre-commit && npm run verify:scripts && npm run verify:gitignore && npm run verify:preview-state-metadata && npm run verify:mobile-browser-metadata && npm run verify:examples-metadata && npm run verify:css-inputs && npm run verify:registry && npm run verify:tailwind-static && npm run verify && npm run verify:changelog && scripts/feature-check.sh && scripts/generated-fixture-smoke.sh && npm run verify:release-docs && npm run verify:package-scripts && npm run verify:package-lock && npm run verify:ci-docs && npm run verify:ci-plan && npm run verify:ci-workflow-template && npm run verify:browser-artifact-policy && npm run verify:release-warning-inventory && npm run verify:repo-hygiene"
   },
   "devDependencies": {
     "@playwright/test": "^1.61.1"

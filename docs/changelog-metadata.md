@@ -54,5 +54,5 @@ include:
 - publish blocker docs stop tracking changelog ownership
 - release verification stops running the changelog metadata gate
 
-This gate should make changelog ownership explicit. It does not claim release
-notes are complete for publishing.
+This gate should make changelog ownership explicit. It validates changelog
+ownership and structure, not publish-ready release note completeness.

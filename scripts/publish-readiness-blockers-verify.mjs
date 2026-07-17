@@ -43,7 +43,7 @@ requireFragment("Cargo.toml", rootCargo, 'repository = "https://github.com/your-
 const blockerFragments = [
   "Placeholder repository URL",
   "Pre-1.0 API stability",
-  "Changelog not yet release-owned",
+  "Release notes not publish-ready",
   "CLI template packaging strategy",
   "Registry availability not checked",
   "https://github.com/your-org/dioxus-ui",
@@ -90,7 +90,7 @@ for (const fragment of workspaceFragments) {
 
 const releaseFragments = [
   "Publish readiness blocker checks are read-only",
-  "placeholder repository URL, pre-1.0 API stability, changelog ownership, CLI template packaging, and crates.io review blockers",
+  "placeholder repository URL, pre-1.0 API stability, release notes readiness, CLI template packaging, and crates.io review blockers",
   "they do not replace repository URLs, check registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate changelogs, or package CLI templates",
   "publish-ready CLI should either embed templates at compile time or package them",
 ];
@@ -101,7 +101,7 @@ for (const fragment of releaseFragments) {
 
 const qualityFragments = [
   "`npm run verify:publish-readiness-blockers`",
-  "placeholder repository URL, pre-1.0 API stability, changelog ownership, CLI template packaging, and crates.io review blockers",
+  "placeholder repository URL, pre-1.0 API stability, release notes readiness, CLI template packaging, and crates.io review blockers",
   "does not replace repository URLs, check registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate changelogs, or package CLI templates",
 ];
 
