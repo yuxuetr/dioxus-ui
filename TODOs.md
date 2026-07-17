@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 98%
+- Overall: 100%
 - Current milestone: M98 Changelog Metadata Gate
-- Current task: M98.4 Complete changelog metadata milestone
+- Current task: M98 complete
 
 ## Backup
 
@@ -1538,7 +1538,7 @@
   - Clarify that the check validates changelog ownership and structure, not completeness of generated release notes.
   - Keep package script, release aggregate, publish readiness blockers, and release documentation behavior aligned with the new read-only gate.
 
-- TODO M98.4 Complete changelog metadata milestone
+- DONE M98.4 Complete changelog metadata milestone
   - Run changelog metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no generated release notes, git history rewrites, tags, package archives, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
