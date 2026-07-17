@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M99 Release Notes Readiness Metadata Gate
-- Current task: M99 complete
+- Overall: 0%
+- Current milestone: M100 License Readiness Metadata Gate
+- Current task: M100.1 Plan license readiness metadata gate
 
 ## Backup
 
@@ -1563,6 +1563,28 @@
 - DONE M99.4 Complete release notes readiness metadata milestone
   - Run release notes readiness checks, changelog checks, publish blocker checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no generated release notes, git history rewrites, tags, package archives, or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M100 License Readiness Metadata Gate
+
+- TODO M100.1 Plan license readiness metadata gate
+  - Define the distinction between Cargo license metadata and committed root license text files.
+  - Keep license term changes, generated legal text, copyright decisions, packaging, publishing, and registry checks out of scope.
+  - Decide which workspace metadata, publish blockers, release docs, quality gates, and docs-site fragments must stay aligned.
+
+- TODO M100.2 Add license readiness metadata check
+  - Add a verifier that checks `MIT OR Apache-2.0` workspace metadata, inherited crate license metadata, missing root license file blocker wording, package script wiring, and release wiring.
+  - Fail if docs imply license file readiness is resolved before `LICENSE-MIT` and `LICENSE-APACHE` are committed.
+  - Keep the check read-only and include it in release verification without generating license files or contacting external services.
+
+- TODO M100.3 Update license readiness documentation
+  - Document the license readiness check in README, docs README, release docs, quality gates, publish blocker docs, Cargo publish metadata docs, and docs-site planning docs.
+  - Clarify that the check preserves the missing root license file blocker and does not choose license terms.
+  - Keep package script, release aggregate, publish readiness blockers, Cargo publish metadata, and release documentation behavior aligned.
+
+- TODO M100.4 Complete license readiness metadata milestone
+  - Run license readiness checks, publish blocker checks, Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no generated license text, package archives, registry lookups, publish commands, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
