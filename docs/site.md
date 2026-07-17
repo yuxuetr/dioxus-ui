@@ -1485,6 +1485,28 @@ It remains read-only. It does not generate release notes, run git-cliff, derive
 changes from Git history, create tags, publish releases, or rewrite commit
 history.
 
+## M98 Final Result
+
+M98 added `npm run verify:changelog` and wired it into
+`npm run verify:release`. The gate validates project-owned changelog structure,
+the Unreleased section, Keep a Changelog and Conventional Commits references,
+and stale template-link bans.
+
+Validation completed:
+
+```bash
+npm run verify:changelog
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The check does not generate release notes, run git-cliff,
+derive changes from Git history, create tags, publish releases, or rewrite
+commit history.
+
 ## M92 Final Result
 
 M92 added `npm run verify:mobile-browser-metadata` and wired it into
