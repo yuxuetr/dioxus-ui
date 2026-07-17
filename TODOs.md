@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M101 Repository Identity Readiness Metadata Gate
-- Current task: M101.3 Update repository identity readiness documentation
+- Current task: M101.4 Complete repository identity readiness metadata milestone
 
 ## Backup
 
@@ -1599,7 +1599,7 @@
   - Fail if docs imply repository identity readiness is resolved while `https://github.com/your-org/dioxus-ui` remains in workspace metadata.
   - Keep the check read-only and include it in release verification without replacing URLs or contacting external services.
 
-- TODO M101.3 Update repository identity readiness documentation
+- DONE M101.3 Update repository identity readiness documentation
   - Document the repository identity readiness check in README, docs README, workspace docs, release docs, quality gates, publish blocker docs, Cargo publish metadata docs, and docs-site planning docs.
   - Clarify that the check preserves the placeholder repository blocker and does not choose the final repository URL.
   - Keep package script, release aggregate, publish readiness blockers, Cargo publish metadata, and release documentation behavior aligned.
