@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M101 Repository Identity Readiness Metadata Gate
-- Current task: M101 complete
+- Overall: 0%
+- Current milestone: M102 API Stability Readiness Metadata Gate
+- Current task: M102.1 Plan API stability readiness metadata gate
 
 ## Backup
 
@@ -1607,6 +1607,28 @@
 - DONE M101.4 Complete repository identity readiness metadata milestone
   - Run repository identity readiness checks, publish blocker checks, Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no repository URL replacement, package archives, registry lookups, publish commands, or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M102 API Stability Readiness Metadata Gate
+
+- TODO M102.1 Plan API stability readiness metadata gate
+  - Define the distinction between pre-`1.0` crate metadata and publish-ready API stability.
+  - Keep API freezing, version changes, semantic versioning decisions, migration guide generation, packaging, and publishing out of scope.
+  - Decide which workspace metadata, publish blockers, Cargo publish metadata, release docs, quality gates, and docs-site fragments must stay aligned.
+
+- TODO M102.2 Add API stability readiness metadata check
+  - Add a verifier that checks workspace version metadata, pre-`1.0` blocker wording, release docs, Cargo publish metadata docs, package script wiring, and release wiring.
+  - Fail if docs imply API stability readiness is resolved while workspace version remains `0.1.0`.
+  - Keep the check read-only and include it in release verification without changing versions or stabilizing APIs.
+
+- TODO M102.3 Update API stability readiness documentation
+  - Document the API stability readiness check in README, docs README, release docs, quality gates, publish blocker docs, Cargo publish metadata docs, and docs-site planning docs.
+  - Clarify that the check preserves the pre-`1.0` stability blocker and does not freeze component APIs.
+  - Keep package script, release aggregate, publish readiness blockers, Cargo publish metadata, and release documentation behavior aligned.
+
+- TODO M102.4 Complete API stability readiness metadata milestone
+  - Run API stability readiness checks, publish blocker checks, Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no version changes, API freeze claims, package archives, registry lookups, publish commands, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
