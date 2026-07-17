@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M104 Registry Availability Readiness Metadata Gate
-- Current task: M104.2 Add registry availability readiness metadata check
+- Current task: M104.3 Update registry availability readiness documentation
 
 ## Backup
 
@@ -1660,7 +1660,7 @@
   - Keep crates.io lookups, registry ownership checks, token checks, package archives, `cargo package`, and `cargo publish` out of scope.
   - Decide which workspace metadata, publish blockers, Cargo publish metadata, release docs, quality gates, and docs-site fragments must stay aligned.
 
-- TODO M104.2 Add registry availability readiness metadata check
+- DONE M104.2 Add registry availability readiness metadata check
   - Add a verifier that checks planned publishable crate names, registry availability blocker wording, release docs, Cargo publish metadata docs, package script wiring, and release wiring.
   - Fail if docs imply crates.io registry availability has been checked while the blocker remains unresolved.
   - Keep the check read-only and include it in release verification without contacting crates.io or requiring credentials.
