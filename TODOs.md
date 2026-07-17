@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M99 Release Notes Readiness Metadata Gate
-- Current task: M99.1 Plan release notes readiness metadata gate
+- Current task: M99.2 Add release notes readiness metadata check
 
 ## Backup
 
@@ -1545,7 +1545,7 @@
 
 ## M99 Release Notes Readiness Metadata Gate
 
-- TODO M99.1 Plan release notes readiness metadata gate
+- DONE M99.1 Plan release notes readiness metadata gate
   - Define the distinction between project-owned changelog structure and publish-ready release notes.
   - Keep release note generation, git-cliff, Git history derivation, tags, publishing, and release content decisions out of scope.
   - Decide which publish blocker, release docs, quality gate, changelog metadata, and docs-site fragments must stay aligned.
