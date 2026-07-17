@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
+- Overall: 100%
 - Current milestone: M102 API Stability Readiness Metadata Gate
-- Current task: M102.4 Complete API stability readiness metadata milestone
+- Current task: M102 complete
 
 ## Backup
 
@@ -1626,7 +1626,7 @@
   - Clarify that the check preserves the pre-`1.0` stability blocker and does not freeze component APIs.
   - Keep package script, release aggregate, publish readiness blockers, Cargo publish metadata, and release documentation behavior aligned.
 
-- TODO M102.4 Complete API stability readiness metadata milestone
+- DONE M102.4 Complete API stability readiness metadata milestone
   - Run API stability readiness checks, publish blocker checks, Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no version changes, API freeze claims, package archives, registry lookups, publish commands, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
