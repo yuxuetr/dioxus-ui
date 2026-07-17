@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M100 License Readiness Metadata Gate
-- Current task: M100.2 Add license readiness metadata check
+- Current task: M100.3 Update license readiness documentation
 
 ## Backup
 
@@ -1572,7 +1572,7 @@
   - Keep license term changes, generated legal text, copyright decisions, packaging, publishing, and registry checks out of scope.
   - Decide which workspace metadata, publish blockers, release docs, quality gates, and docs-site fragments must stay aligned.
 
-- TODO M100.2 Add license readiness metadata check
+- DONE M100.2 Add license readiness metadata check
   - Add a verifier that checks `MIT OR Apache-2.0` workspace metadata, inherited crate license metadata, missing root license file blocker wording, package script wiring, and release wiring.
   - Fail if docs imply license file readiness is resolved before `LICENSE-MIT` and `LICENSE-APACHE` are committed.
   - Keep the check read-only and include it in release verification without generating license files or contacting external services.
