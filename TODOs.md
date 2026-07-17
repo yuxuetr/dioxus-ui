@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
+- Overall: 100%
 - Current milestone: M99 Release Notes Readiness Metadata Gate
-- Current task: M99.4 Complete release notes readiness metadata milestone
+- Current task: M99 complete
 
 ## Backup
 
@@ -1560,7 +1560,7 @@
   - Clarify that M98 validates changelog structure while M99 preserves the unresolved release notes readiness blocker.
   - Keep package script, release aggregate, publish readiness blockers, changelog metadata, and release documentation behavior aligned.
 
-- TODO M99.4 Complete release notes readiness metadata milestone
+- DONE M99.4 Complete release notes readiness metadata milestone
   - Run release notes readiness checks, changelog checks, publish blocker checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no generated release notes, git history rewrites, tags, package archives, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
