@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
+- Overall: 100%
 - Current milestone: M100 License Readiness Metadata Gate
-- Current task: M100.4 Complete license readiness metadata milestone
+- Current task: M100 complete
 
 ## Backup
 
@@ -1582,7 +1582,7 @@
   - Clarify that the check preserves the missing root license file blocker and does not choose license terms.
   - Keep package script, release aggregate, publish readiness blockers, Cargo publish metadata, and release documentation behavior aligned.
 
-- TODO M100.4 Complete license readiness metadata milestone
+- DONE M100.4 Complete license readiness metadata milestone
   - Run license readiness checks, publish blocker checks, Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no generated license text, package archives, registry lookups, publish commands, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
