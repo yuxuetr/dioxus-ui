@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M103 CLI Template Packaging Readiness Metadata Gate
-- Current task: M103.1 Plan CLI template packaging readiness metadata gate
+- Current task: M103.2 Add CLI template packaging readiness metadata check
 
 ## Backup
 
@@ -1633,7 +1633,7 @@
 
 ## M103 CLI Template Packaging Readiness Metadata Gate
 
-- TODO M103.1 Plan CLI template packaging readiness metadata gate
+- DONE M103.1 Plan CLI template packaging readiness metadata gate
   - Define the distinction between source-tree template loading and publish-ready CLI template packaging.
   - Keep embedding templates, changing CLI runtime path lookup, packaging templates, running `cargo package`, running `cargo publish`, and installing the CLI out of scope.
   - Decide which CLI source, publish blockers, release docs, quality gates, Cargo publish metadata, and docs-site fragments must stay aligned.
