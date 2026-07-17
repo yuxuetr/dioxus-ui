@@ -1485,6 +1485,30 @@ It remains read-only. It does not generate release notes, run git-cliff, derive
 changes from Git history, create tags, publish releases, or decide release
 contents.
 
+## M99 Final Result
+
+M99 added `npm run verify:release-notes-readiness` and wired it into
+`npm run verify:release`. The gate validates that project-owned changelog
+structure exists while publish-ready release notes remain unresolved.
+
+Validation completed:
+
+```bash
+npm run verify:release-notes-readiness
+npm run verify:publish-readiness-blockers
+npm run verify:changelog
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:readme
+npm run verify:docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The check does not generate release notes, run git-cliff,
+derive changes from Git history, create tags, publish releases, or decide
+release contents.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:
