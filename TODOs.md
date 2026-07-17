@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M100 License Readiness Metadata Gate
-- Current task: M100 complete
+- Overall: 0%
+- Current milestone: M101 Repository Identity Readiness Metadata Gate
+- Current task: M101.1 Plan repository identity readiness metadata gate
 
 ## Backup
 
@@ -1585,6 +1585,28 @@
 - DONE M100.4 Complete license readiness metadata milestone
   - Run license readiness checks, publish blocker checks, Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no generated license text, package archives, registry lookups, publish commands, or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M101 Repository Identity Readiness Metadata Gate
+
+- TODO M101.1 Plan repository identity readiness metadata gate
+  - Define the distinction between existing Cargo repository metadata and final publish-ready repository identity.
+  - Keep repository URL replacement, remote repository checks, crates.io checks, packaging, and publishing out of scope.
+  - Decide which workspace metadata, publish blockers, Cargo publish metadata, release docs, quality gates, and docs-site fragments must stay aligned.
+
+- TODO M101.2 Add repository identity readiness metadata check
+  - Add a verifier that checks the placeholder repository URL, publish blocker wording, workspace docs, Cargo publish metadata docs, package script wiring, and release wiring.
+  - Fail if docs imply repository identity readiness is resolved while `https://github.com/your-org/dioxus-ui` remains in workspace metadata.
+  - Keep the check read-only and include it in release verification without replacing URLs or contacting external services.
+
+- TODO M101.3 Update repository identity readiness documentation
+  - Document the repository identity readiness check in README, docs README, workspace docs, release docs, quality gates, publish blocker docs, Cargo publish metadata docs, and docs-site planning docs.
+  - Clarify that the check preserves the placeholder repository blocker and does not choose the final repository URL.
+  - Keep package script, release aggregate, publish readiness blockers, Cargo publish metadata, and release documentation behavior aligned.
+
+- TODO M101.4 Complete repository identity readiness metadata milestone
+  - Run repository identity readiness checks, publish blocker checks, Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no repository URL replacement, package archives, registry lookups, publish commands, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
