@@ -215,7 +215,7 @@ metadata, validates the release warning inventory, then checks repository
 hygiene for forbidden generated artifacts and inactive workflow files. It also
 checks Cargo publish metadata for the planned library and CLI crates without
 packaging or publishing them, then validates the publish readiness blocker
-inventory.
+inventory and changelog metadata.
 
 Run deterministic preview and example gates only:
 
@@ -278,6 +278,7 @@ npm run verify:mobile-browser-metadata
 npm run verify:examples-metadata
 npm run verify:css-inputs
 npm run verify:rfcs
+npm run verify:changelog
 npm run verify:readme
 npm run verify:release-docs
 npm run verify:package-scripts
@@ -300,6 +301,17 @@ npm run verify:readme
 This checks command discoverability and summary coverage in this README. It
 does not execute the referenced commands, crawl external links, render docs, or
 rewrite prose.
+
+Verify changelog metadata only:
+
+```bash
+npm run verify:changelog
+```
+
+This checks project-owned `CHANGELOG.md` structure, the Unreleased section,
+Keep a Changelog and Conventional Commits references, and stale template-link
+bans. It does not generate release notes, run git-cliff, derive changes from
+Git history, create tags, publish releases, or rewrite commit history.
 
 Verify component implementation status only:
 
