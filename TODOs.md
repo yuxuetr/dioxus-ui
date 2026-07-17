@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M99 Release Notes Readiness Metadata Gate
-- Current task: M99.3 Update release notes readiness documentation
+- Current task: M99.4 Complete release notes readiness metadata milestone
 
 ## Backup
 
@@ -1555,7 +1555,7 @@
   - Add or extend a verifier that rejects stale "changelog not project-owned" wording and requires release notes readiness wording.
   - Keep the check read-only and include it in release verification without generating notes or contacting external services.
 
-- TODO M99.3 Update release notes readiness documentation
+- DONE M99.3 Update release notes readiness documentation
   - Document the release notes readiness distinction in README, docs README, release docs, quality gates, publish blocker docs, changelog metadata docs, and docs-site planning docs.
   - Clarify that M98 validates changelog structure while M99 preserves the unresolved release notes readiness blocker.
   - Keep package script, release aggregate, publish readiness blockers, changelog metadata, and release documentation behavior aligned.
