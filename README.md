@@ -276,6 +276,7 @@ npm run verify:license-readiness
 npm run verify:repository-identity-readiness
 npm run verify:api-stability-readiness
 npm run verify:cli-template-packaging-readiness
+npm run verify:registry-availability-readiness
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -510,6 +511,18 @@ the unresolved template packaging blocker remains documented. It does not
 embed templates, package templates, change CLI runtime path lookup, run
 `cargo package`, run `cargo publish`, install the CLI, or create package
 archives.
+
+Verify registry availability readiness metadata only:
+
+```bash
+npm run verify:registry-availability-readiness
+```
+
+This checks that planned publishable crate names remain documented and that
+the unresolved crates.io name and ownership review blocker remains documented.
+It does not contact crates.io, check crate name availability, check ownership,
+inspect credentials, run `cargo package`, run `cargo publish`, or create
+package archives.
 
 Verify Cargo lockfile metadata only:
 
