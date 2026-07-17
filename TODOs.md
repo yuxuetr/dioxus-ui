@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M104 Registry Availability Readiness Metadata Gate
-- Current task: M104.1 Plan registry availability readiness metadata gate
+- Current task: M104.2 Add registry availability readiness metadata check
 
 ## Backup
 
@@ -1655,7 +1655,7 @@
 
 ## M104 Registry Availability Readiness Metadata Gate
 
-- TODO M104.1 Plan registry availability readiness metadata gate
+- DONE M104.1 Plan registry availability readiness metadata gate
   - Define the distinction between local publish metadata completeness and external crates.io name/ownership availability.
   - Keep crates.io lookups, registry ownership checks, token checks, package archives, `cargo package`, and `cargo publish` out of scope.
   - Decide which workspace metadata, publish blockers, Cargo publish metadata, release docs, quality gates, and docs-site fragments must stay aligned.
