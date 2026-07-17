@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
+- Overall: 100%
 - Current milestone: M101 Repository Identity Readiness Metadata Gate
-- Current task: M101.4 Complete repository identity readiness metadata milestone
+- Current task: M101 complete
 
 ## Backup
 
@@ -1604,7 +1604,7 @@
   - Clarify that the check preserves the placeholder repository blocker and does not choose the final repository URL.
   - Keep package script, release aggregate, publish readiness blockers, Cargo publish metadata, and release documentation behavior aligned.
 
-- TODO M101.4 Complete repository identity readiness metadata milestone
+- DONE M101.4 Complete repository identity readiness metadata milestone
   - Run repository identity readiness checks, publish blocker checks, Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no repository URL replacement, package archives, registry lookups, publish commands, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
