@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M100 License Readiness Metadata Gate
-- Current task: M100.1 Plan license readiness metadata gate
+- Current task: M100.2 Add license readiness metadata check
 
 ## Backup
 
@@ -1567,7 +1567,7 @@
 
 ## M100 License Readiness Metadata Gate
 
-- TODO M100.1 Plan license readiness metadata gate
+- DONE M100.1 Plan license readiness metadata gate
   - Define the distinction between Cargo license metadata and committed root license text files.
   - Keep license term changes, generated legal text, copyright decisions, packaging, publishing, and registry checks out of scope.
   - Decide which workspace metadata, publish blockers, release docs, quality gates, and docs-site fragments must stay aligned.
