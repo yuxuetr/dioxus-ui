@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 96%
+- Overall: 98%
 - Current milestone: M98 Changelog Metadata Gate
-- Current task: M98.2 Add changelog metadata check
+- Current task: M98.3 Update changelog metadata documentation
 
 ## Backup
 
@@ -1528,7 +1528,7 @@
   - Keep generating release notes, running git-cliff, rewriting commit history, deriving changes from Git, and publishing releases out of scope.
   - Decide which project-owned changelog heading, Unreleased section, Keep a Changelog style, conventional commit reference, and stale template-link bans must remain discoverable.
 
-- TODO M98.2 Add changelog metadata check
+- DONE M98.2 Add changelog metadata check
   - Replace stale template changelog content with a project-owned changelog scaffold.
   - Add a verifier that checks changelog structure, absence of `yuxuetr/rust-template` links, package script wiring, release wiring, and publish blocker alignment.
   - Include the check in release verification without generating release notes or contacting external services.
