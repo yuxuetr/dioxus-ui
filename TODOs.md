@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M102 API Stability Readiness Metadata Gate
-- Current task: M102 complete
+- Current milestone: M103 CLI Template Packaging Readiness Metadata Gate
+- Current task: M103.1 Plan CLI template packaging readiness metadata gate
 
 ## Backup
 
@@ -1629,6 +1629,28 @@
 - DONE M102.4 Complete API stability readiness metadata milestone
   - Run API stability readiness checks, publish blocker checks, Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no version changes, API freeze claims, package archives, registry lookups, publish commands, or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M103 CLI Template Packaging Readiness Metadata Gate
+
+- TODO M103.1 Plan CLI template packaging readiness metadata gate
+  - Define the distinction between source-tree template loading and publish-ready CLI template packaging.
+  - Keep embedding templates, changing CLI runtime path lookup, packaging templates, running `cargo package`, running `cargo publish`, and installing the CLI out of scope.
+  - Decide which CLI source, publish blockers, release docs, quality gates, Cargo publish metadata, and docs-site fragments must stay aligned.
+
+- TODO M103.2 Add CLI template packaging readiness metadata check
+  - Add a verifier that checks CLI source still reads registry/templates from repository layout, publish blocker wording, release docs, package script wiring, and release wiring.
+  - Fail if docs imply CLI template packaging readiness is resolved before templates are embedded or packaged in a stable install location.
+  - Keep the check read-only and include it in release verification without changing CLI packaging behavior.
+
+- TODO M103.3 Update CLI template packaging readiness documentation
+  - Document the CLI template packaging readiness check in README, docs README, release docs, quality gates, publish blocker docs, Cargo publish metadata docs, and docs-site planning docs.
+  - Clarify that the check preserves the unresolved CLI template packaging blocker and does not package or embed templates.
+  - Keep package script, release aggregate, publish readiness blockers, Cargo publish metadata, and release documentation behavior aligned.
+
+- TODO M103.4 Complete CLI template packaging readiness metadata milestone
+  - Run CLI template packaging readiness checks, publish blocker checks, Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no CLI template embedding, package archives, install-location changes, publish commands, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
