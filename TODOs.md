@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M104 Registry Availability Readiness Metadata Gate
-- Current task: M104.3 Update registry availability readiness documentation
+- Current task: M104.4 Complete registry availability readiness metadata milestone
 
 ## Backup
 
@@ -1665,7 +1665,7 @@
   - Fail if docs imply crates.io registry availability has been checked while the blocker remains unresolved.
   - Keep the check read-only and include it in release verification without contacting crates.io or requiring credentials.
 
-- TODO M104.3 Update registry availability readiness documentation
+- DONE M104.3 Update registry availability readiness documentation
   - Document the registry availability readiness check in README, docs README, release docs, quality gates, publish blocker docs, Cargo publish metadata docs, and docs-site planning docs.
   - Clarify that the check preserves the unresolved crates.io name/ownership review blocker and does not query registries.
   - Keep package script, release aggregate, publish readiness blockers, Cargo publish metadata, and release documentation behavior aligned.
