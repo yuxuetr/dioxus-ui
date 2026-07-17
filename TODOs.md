@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M98 Changelog Metadata Gate
-- Current task: M98 complete
+- Overall: 0%
+- Current milestone: M99 Release Notes Readiness Metadata Gate
+- Current task: M99.1 Plan release notes readiness metadata gate
 
 ## Backup
 
@@ -1540,6 +1540,28 @@
 
 - DONE M98.4 Complete changelog metadata milestone
   - Run changelog metadata checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no generated release notes, git history rewrites, tags, package archives, or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M99 Release Notes Readiness Metadata Gate
+
+- TODO M99.1 Plan release notes readiness metadata gate
+  - Define the distinction between project-owned changelog structure and publish-ready release notes.
+  - Keep release note generation, git-cliff, Git history derivation, tags, publishing, and release content decisions out of scope.
+  - Decide which publish blocker, release docs, quality gate, changelog metadata, and docs-site fragments must stay aligned.
+
+- TODO M99.2 Add release notes readiness metadata check
+  - Update publish blocker wording from changelog ownership to release notes readiness.
+  - Add or extend a verifier that rejects stale "changelog not project-owned" wording and requires release notes readiness wording.
+  - Keep the check read-only and include it in release verification without generating notes or contacting external services.
+
+- TODO M99.3 Update release notes readiness documentation
+  - Document the release notes readiness distinction in README, docs README, release docs, quality gates, publish blocker docs, changelog metadata docs, and docs-site planning docs.
+  - Clarify that M98 validates changelog structure while M99 preserves the unresolved release notes readiness blocker.
+  - Keep package script, release aggregate, publish readiness blockers, changelog metadata, and release documentation behavior aligned.
+
+- TODO M99.4 Complete release notes readiness metadata milestone
+  - Run release notes readiness checks, changelog checks, publish blocker checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no generated release notes, git history rewrites, tags, package archives, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
