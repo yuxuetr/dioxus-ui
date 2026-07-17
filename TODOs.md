@@ -4,7 +4,7 @@
 
 - Overall: 96%
 - Current milestone: M98 Changelog Metadata Gate
-- Current task: M98.1 Plan changelog metadata gate
+- Current task: M98.2 Add changelog metadata check
 
 ## Backup
 
@@ -1523,7 +1523,7 @@
 
 ## M98 Changelog Metadata Gate
 
-- TODO M98.1 Plan changelog metadata gate
+- DONE M98.1 Plan changelog metadata gate
   - Define a deterministic read-only check that `CHANGELOG.md`, release docs, publish blocker docs, quality gates, and docs-site notes stay aligned.
   - Keep generating release notes, running git-cliff, rewriting commit history, deriving changes from Git, and publishing releases out of scope.
   - Decide which project-owned changelog heading, Unreleased section, Keep a Changelog style, conventional commit reference, and stale template-link bans must remain discoverable.
