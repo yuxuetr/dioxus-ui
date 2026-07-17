@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M99 Release Notes Readiness Metadata Gate
-- Current task: M99.2 Add release notes readiness metadata check
+- Current task: M99.3 Update release notes readiness documentation
 
 ## Backup
 
@@ -1550,7 +1550,7 @@
   - Keep release note generation, git-cliff, Git history derivation, tags, publishing, and release content decisions out of scope.
   - Decide which publish blocker, release docs, quality gate, changelog metadata, and docs-site fragments must stay aligned.
 
-- TODO M99.2 Add release notes readiness metadata check
+- DONE M99.2 Add release notes readiness metadata check
   - Update publish blocker wording from changelog ownership to release notes readiness.
   - Add or extend a verifier that rejects stale "changelog not project-owned" wording and requires release notes readiness wording.
   - Keep the check read-only and include it in release verification without generating notes or contacting external services.
