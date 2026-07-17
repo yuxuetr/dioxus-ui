@@ -122,6 +122,7 @@ npm run verify:cargo-publish-metadata
 npm run verify:publish-readiness-blockers
 npm run verify:release-notes-readiness
 npm run verify:license-readiness
+npm run verify:repository-identity-readiness
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -316,6 +317,12 @@ from Git history, create tags, publish releases, or decide release contents.
 missing root `LICENSE-MIT` and `LICENSE-APACHE` files. It is read-only and
 does not choose license terms, generate license text, change copyright holders,
 run `cargo package`, run `cargo publish`, or contact crates.io.
+
+`npm run verify:repository-identity-readiness` checks that the placeholder
+repository URL remains in workspace metadata. It is read-only and does not
+choose a repository owner, replace repository metadata, check remote repository
+existence, check crates.io availability, run `cargo package`, or run
+`cargo publish`.
 
 `npm run verify:cargo-lock` checks that committed `Cargo.lock` workspace package
 entries match `cargo metadata --locked --no-deps` workspace members. It is

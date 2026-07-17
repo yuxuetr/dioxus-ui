@@ -110,6 +110,7 @@ npm run verify:cargo-publish-metadata
 npm run verify:publish-readiness-blockers
 npm run verify:release-notes-readiness
 npm run verify:license-readiness
+npm run verify:repository-identity-readiness
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -183,6 +184,11 @@ License readiness checks are read-only and validate only workspace license
 metadata and missing root `LICENSE-MIT` and `LICENSE-APACHE` files; they do not
 choose license terms, generate license text, change copyright holders, run
 `cargo package`, run `cargo publish`, or contact crates.io.
+Repository identity readiness checks are read-only and validate only that the
+placeholder repository URL remains in workspace metadata; they do not choose a
+repository owner, replace repository metadata, check remote repository
+existence, check crates.io availability, run `cargo package`, or run
+`cargo publish`.
 Cargo lock metadata checks are also part of the release aggregate, but they
 only compare committed `Cargo.lock` workspace package metadata and Cargo
 metadata output; they do not update the lockfile or contact crates.io.

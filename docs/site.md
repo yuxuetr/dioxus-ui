@@ -1554,6 +1554,27 @@ All commands passed. The check does not choose license terms, generate license
 text, change copyright holders, run `cargo package`, run `cargo publish`, or
 contact crates.io.
 
+## M101 Repository Identity Readiness Metadata Gate Usage
+
+M101 adds a focused repository identity readiness metadata command:
+
+```bash
+npm run verify:repository-identity-readiness
+```
+
+The command checks that the placeholder repository URL remains in workspace
+metadata.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not choose a repository owner, replace repository
+metadata, check remote repository existence, check crates.io availability, run
+`cargo package`, or run `cargo publish`.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:

@@ -1,0 +1,95 @@
+#!/usr/bin/env node
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)));
+
+const readText = (relativePath) => readFileSync(join(repoRoot, relativePath), "utf8");
+const normalizeWhitespace = (text) => text.replace(/\s+/g, " ");
+
+const rootCargo = readText("Cargo.toml");
+const packageJson = JSON.parse(readText("package.json"));
+const workspaceDoc = normalizeWhitespace(readText("docs/workspace.md"));
+const publishBlockers = readText("docs/publish-readiness-blockers.md");
+const repositoryDoc = readText("docs/repository-identity-readiness-metadata.md");
+const cargoPublishDoc = normalizeWhitespace(readText("docs/cargo-publish-metadata.md"));
+const releaseDoc = normalizeWhitespace(readText("docs/release.md"));
+const qualityDoc = normalizeWhitespace(readText("docs/quality-gates.md"));
+const siteDoc = normalizeWhitespace(readText("docs/site.md"));
+const scripts = packageJson.scripts ?? {};
+const failures = [];
+
+const placeholderRepository = "https://github.com/your-org/dioxus-ui";
+
+const requireIncludes = (name, text, fragments) => {
+  for (const fragment of fragments) {
+    if (!text.includes(fragment)) {
+      failures.push(`${name} is missing: ${fragment}`);
+    }
+  }
+};
+
+if (scripts["verify:repository-identity-readiness"] !== "node scripts/repository-identity-readiness-verify.mjs") {
+  failures.push("package.json verify:repository-identity-readiness script is missing or mismatched");
+}
+
+if (!scripts["verify:release"]?.includes("npm run verify:repository-identity-readiness")) {
+  failures.push("package.json verify:release must include npm run verify:repository-identity-readiness");
+}
+
+requireIncludes("Cargo.toml", rootCargo, [
+  `repository = "${placeholderRepository}"`,
+]);
+
+requireIncludes("docs/repository-identity-readiness-metadata.md", repositoryDoc, [
+  "Repository Identity Readiness Metadata",
+  placeholderRepository,
+  "The repository value is intentionally still a placeholder.",
+  "This gate must not replace the URL automatically.",
+  "without resolving it",
+]);
+
+requireIncludes("docs/publish-readiness-blockers.md", publishBlockers, [
+  "Placeholder repository URL",
+  placeholderRepository,
+  "Maintainer updates release identity before publishing",
+]);
+
+requireIncludes("docs/workspace.md", workspaceDoc, [
+  "The repository URL should be replaced before publishing.",
+  "repository URL remains a placeholder",
+  "Do not replace it as a side effect of metadata verification",
+]);
+
+requireIncludes("docs/cargo-publish-metadata.md", cargoPublishDoc, [
+  "repository URL is still a placeholder",
+]);
+
+requireIncludes("docs/release.md", releaseDoc, [
+  "Repository identity readiness checks are read-only",
+  "placeholder repository URL remains in workspace metadata",
+  "they do not choose a repository owner, replace repository metadata, check remote repository existence, check crates.io availability, run `cargo package`, or run `cargo publish`",
+]);
+
+requireIncludes("docs/quality-gates.md", qualityDoc, [
+  "`npm run verify:repository-identity-readiness`",
+  "placeholder repository URL remains in workspace metadata",
+  "does not choose a repository owner, replace repository metadata, check remote repository existence, check crates.io availability, run `cargo package`, or run `cargo publish`",
+]);
+
+requireIncludes("docs/site.md", siteDoc, [
+  "M101 Repository Identity Readiness Metadata Gate Usage",
+  "npm run verify:repository-identity-readiness",
+  "placeholder repository URL remains in workspace metadata",
+]);
+
+if (failures.length > 0) {
+  console.error("repository identity readiness metadata verification failed");
+  for (const failure of failures) {
+    console.error(`- ${failure}`);
+  }
+  process.exitCode = 1;
+} else {
+  console.log("repository identity readiness metadata verification passed");
+}

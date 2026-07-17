@@ -45,5 +45,4 @@ The verifier should fail when committed metadata drifts. Examples include:
 - release docs imply repository identity readiness is resolved
 - package scripts stop running the repository identity readiness gate
 
-This gate should keep repository identity readiness explicit without resolving
-it.
+This gate should keep repository identity readiness explicit without resolving it.
