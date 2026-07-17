@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M103 CLI Template Packaging Readiness Metadata Gate
-- Current task: M103.3 Update CLI template packaging readiness documentation
+- Current task: M103.4 Complete CLI template packaging readiness metadata milestone
 
 ## Backup
 
@@ -1643,7 +1643,7 @@
   - Fail if docs imply CLI template packaging readiness is resolved before templates are embedded or packaged in a stable install location.
   - Keep the check read-only and include it in release verification without changing CLI packaging behavior.
 
-- TODO M103.3 Update CLI template packaging readiness documentation
+- DONE M103.3 Update CLI template packaging readiness documentation
   - Document the CLI template packaging readiness check in README, docs README, release docs, quality gates, publish blocker docs, Cargo publish metadata docs, and docs-site planning docs.
   - Clarify that the check preserves the unresolved CLI template packaging blocker and does not package or embed templates.
   - Keep package script, release aggregate, publish readiness blockers, Cargo publish metadata, and release documentation behavior aligned.
