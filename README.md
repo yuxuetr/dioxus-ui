@@ -215,7 +215,7 @@ metadata, validates the release warning inventory, then checks repository
 hygiene for forbidden generated artifacts and inactive workflow files. It also
 checks Cargo publish metadata for the planned library and CLI crates without
 packaging or publishing them, then validates the publish readiness blocker
-inventory and changelog metadata.
+inventory, release notes readiness metadata, and changelog metadata.
 
 Run deterministic preview and example gates only:
 
@@ -269,6 +269,7 @@ Verify focused metadata gates only:
 npm run verify:cargo-workspace
 npm run verify:cargo-publish-metadata
 npm run verify:publish-readiness-blockers
+npm run verify:release-notes-readiness
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -443,9 +444,20 @@ npm run verify:publish-readiness-blockers
 ```
 
 This checks the documented placeholder repository URL, pre-1.0 API stability,
-changelog ownership, CLI template packaging, and crates.io review blockers. It
-does not replace repository URLs, check registries, run `cargo package`, run
+release notes readiness, CLI template packaging, and crates.io review blockers.
+It does not replace repository URLs, check registries, run `cargo package`, run
 `cargo publish`, stabilize APIs, generate changelogs, or package CLI templates.
+
+Verify release notes readiness metadata only:
+
+```bash
+npm run verify:release-notes-readiness
+```
+
+This checks that project-owned changelog structure exists while publish-ready
+release notes are still unresolved. It does not generate release notes, run
+git-cliff, derive changes from Git history, create tags, publish releases, or
+decide release contents.
 
 Verify Cargo lockfile metadata only:
 

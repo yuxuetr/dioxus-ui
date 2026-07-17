@@ -261,6 +261,7 @@ npm run verify:registry
 npm run verify:cargo-workspace
 npm run verify:cargo-publish-metadata
 npm run verify:publish-readiness-blockers
+npm run verify:release-notes-readiness
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts

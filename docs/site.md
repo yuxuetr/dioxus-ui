@@ -1447,8 +1447,8 @@ package CLI templates.
 
 M97 added `npm run verify:publish-readiness-blockers` and wired it into
 `npm run verify:release`. The gate validates the known placeholder repository
-URL, pre-1.0 API stability, changelog ownership, CLI template packaging, and
-crates.io review blockers.
+URL, pre-1.0 API stability, release notes readiness, CLI template packaging,
+and crates.io review blockers.
 
 Validation completed:
 
