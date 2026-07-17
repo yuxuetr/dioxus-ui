@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M101 Repository Identity Readiness Metadata Gate
-- Current task: M101.2 Add repository identity readiness metadata check
+- Current task: M101.3 Update repository identity readiness documentation
 
 ## Backup
 
@@ -1594,7 +1594,7 @@
   - Keep repository URL replacement, remote repository checks, crates.io checks, packaging, and publishing out of scope.
   - Decide which workspace metadata, publish blockers, Cargo publish metadata, release docs, quality gates, and docs-site fragments must stay aligned.
 
-- TODO M101.2 Add repository identity readiness metadata check
+- DONE M101.2 Add repository identity readiness metadata check
   - Add a verifier that checks the placeholder repository URL, publish blocker wording, workspace docs, Cargo publish metadata docs, package script wiring, and release wiring.
   - Fail if docs imply repository identity readiness is resolved while `https://github.com/your-org/dioxus-ui` remains in workspace metadata.
   - Keep the check read-only and include it in release verification without replacing URLs or contacting external services.
