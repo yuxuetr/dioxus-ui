@@ -111,6 +111,7 @@ npm run verify:publish-readiness-blockers
 npm run verify:release-notes-readiness
 npm run verify:license-readiness
 npm run verify:repository-identity-readiness
+npm run verify:api-stability-readiness
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -189,6 +190,10 @@ placeholder repository URL remains in workspace metadata; they do not choose a
 repository owner, replace repository metadata, check remote repository
 existence, check crates.io availability, run `cargo package`, or run
 `cargo publish`.
+API stability readiness checks are read-only and validate only workspace
+version `0.1.0` and the unresolved pre-`1.0` API stability blocker; they do not
+stabilize component APIs, change crate versions, decide semantic versioning
+policy, generate migration guides, run `cargo package`, or run `cargo publish`.
 Cargo lock metadata checks are also part of the release aggregate, but they
 only compare committed `Cargo.lock` workspace package metadata and Cargo
 metadata output; they do not update the lockfile or contact crates.io.

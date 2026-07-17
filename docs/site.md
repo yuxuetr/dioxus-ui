@@ -1600,6 +1600,27 @@ All commands passed. The check does not choose a repository owner, replace
 repository metadata, check remote repository existence, check crates.io
 availability, run `cargo package`, or run `cargo publish`.
 
+## M102 API Stability Readiness Metadata Gate Usage
+
+M102 adds a focused API stability readiness metadata command:
+
+```bash
+npm run verify:api-stability-readiness
+```
+
+The command checks workspace version `0.1.0` and the unresolved pre-`1.0` API
+stability blocker.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not stabilize component APIs, change crate
+versions, decide semantic versioning policy, generate migration guides, run
+`cargo package`, or run `cargo publish`.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:

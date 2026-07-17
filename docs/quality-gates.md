@@ -123,6 +123,7 @@ npm run verify:publish-readiness-blockers
 npm run verify:release-notes-readiness
 npm run verify:license-readiness
 npm run verify:repository-identity-readiness
+npm run verify:api-stability-readiness
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -323,6 +324,11 @@ repository URL remains in workspace metadata. It is read-only and does not
 choose a repository owner, replace repository metadata, check remote repository
 existence, check crates.io availability, run `cargo package`, or run
 `cargo publish`.
+
+`npm run verify:api-stability-readiness` checks workspace version `0.1.0` and
+the unresolved pre-`1.0` API stability blocker. It is read-only and does not
+stabilize component APIs, change crate versions, decide semantic versioning
+policy, generate migration guides, run `cargo package`, or run `cargo publish`.
 
 `npm run verify:cargo-lock` checks that committed `Cargo.lock` workspace package
 entries match `cargo metadata --locked --no-deps` workspace members. It is
