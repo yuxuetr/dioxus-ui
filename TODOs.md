@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M102 API Stability Readiness Metadata Gate
-- Current task: M102.2 Add API stability readiness metadata check
+- Current task: M102.3 Update API stability readiness documentation
 
 ## Backup
 
@@ -1616,7 +1616,7 @@
   - Keep API freezing, version changes, semantic versioning decisions, migration guide generation, packaging, and publishing out of scope.
   - Decide which workspace metadata, publish blockers, Cargo publish metadata, release docs, quality gates, and docs-site fragments must stay aligned.
 
-- TODO M102.2 Add API stability readiness metadata check
+- DONE M102.2 Add API stability readiness metadata check
   - Add a verifier that checks workspace version metadata, pre-`1.0` blocker wording, release docs, Cargo publish metadata docs, package script wiring, and release wiring.
   - Fail if docs imply API stability readiness is resolved while workspace version remains `0.1.0`.
   - Keep the check read-only and include it in release verification without changing versions or stabilizing APIs.
