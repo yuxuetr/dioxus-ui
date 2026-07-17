@@ -125,6 +125,7 @@ npm run verify:license-readiness
 npm run verify:repository-identity-readiness
 npm run verify:api-stability-readiness
 npm run verify:cli-template-packaging-readiness
+npm run verify:registry-availability-readiness
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -336,6 +337,12 @@ source is still repository-layout based and that the unresolved packaging
 blocker remains documented. It is read-only and does not embed templates,
 package templates, change CLI runtime path lookup, run `cargo package`, run
 `cargo publish`, install the CLI, or create package archives.
+
+`npm run verify:registry-availability-readiness` checks that the crates.io name
+and ownership review blocker remains documented. It is read-only and does not
+contact crates.io, check crate name availability, check ownership, inspect
+credentials, run `cargo package`, run `cargo publish`, or create package
+archives.
 
 `npm run verify:cargo-lock` checks that committed `Cargo.lock` workspace package
 entries match `cargo metadata --locked --no-deps` workspace members. It is

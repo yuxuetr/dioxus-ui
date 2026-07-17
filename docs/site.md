@@ -1691,6 +1691,28 @@ All commands passed. The check does not embed templates, package templates,
 change CLI runtime path lookup, run `cargo package`, run `cargo publish`,
 install the CLI, or create package archives.
 
+## M104 Registry Availability Readiness Metadata Gate Usage
+
+M104 adds a focused registry availability readiness metadata command:
+
+```bash
+npm run verify:registry-availability-readiness
+```
+
+The command checks that planned publishable crate names remain documented and
+that the unresolved crates.io name and ownership review blocker remains
+documented.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not contact crates.io, check crate name
+availability, check ownership, inspect credentials, run `cargo package`, run
+`cargo publish`, or create package archives.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:
