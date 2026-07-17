@@ -4,7 +4,7 @@
 
 - Overall: 98%
 - Current milestone: M98 Changelog Metadata Gate
-- Current task: M98.3 Update changelog metadata documentation
+- Current task: M98.4 Complete changelog metadata milestone
 
 ## Backup
 
@@ -1533,7 +1533,7 @@
   - Add a verifier that checks changelog structure, absence of `yuxuetr/rust-template` links, package script wiring, release wiring, and publish blocker alignment.
   - Include the check in release verification without generating release notes or contacting external services.
 
-- TODO M98.3 Update changelog metadata documentation
+- DONE M98.3 Update changelog metadata documentation
   - Document the changelog metadata check in README, docs README, release docs, quality gates, publish blocker docs, and docs-site planning docs.
   - Clarify that the check validates changelog ownership and structure, not completeness of generated release notes.
   - Keep package script, release aggregate, publish readiness blockers, and release documentation behavior aligned with the new read-only gate.
