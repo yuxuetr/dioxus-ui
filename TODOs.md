@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M103 CLI Template Packaging Readiness Metadata Gate
-- Current task: M103.4 Complete CLI template packaging readiness metadata milestone
+- Current task: M103 complete
 
 ## Backup
 
@@ -1648,7 +1648,7 @@
   - Clarify that the check preserves the unresolved CLI template packaging blocker and does not package or embed templates.
   - Keep package script, release aggregate, publish readiness blockers, Cargo publish metadata, and release documentation behavior aligned.
 
-- TODO M103.4 Complete CLI template packaging readiness metadata milestone
+- DONE M103.4 Complete CLI template packaging readiness metadata milestone
   - Run CLI template packaging readiness checks, publish blocker checks, Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no CLI template embedding, package archives, install-location changes, publish commands, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
