@@ -19,8 +19,8 @@ The implementation currently finds the repository root from
 templates from the paths listed in those registry files.
 
 That layout is useful for development and local source-copy verification, but
-it is not enough for a published CLI binary. A publish-ready CLI should either
-embed templates at compile time or package templates in a stable install
+it is not enough for a publish-ready CLI binary. A publish-ready CLI should
+either embed templates at compile time or package templates in a stable install
 location that works after `cargo install`.
 
 ## Readiness Contract

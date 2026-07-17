@@ -112,6 +112,7 @@ npm run verify:release-notes-readiness
 npm run verify:license-readiness
 npm run verify:repository-identity-readiness
 npm run verify:api-stability-readiness
+npm run verify:cli-template-packaging-readiness
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -194,6 +195,11 @@ API stability readiness checks are read-only and validate only workspace
 version `0.1.0` and the unresolved pre-`1.0` API stability blocker; they do not
 stabilize component APIs, change crate versions, decide semantic versioning
 policy, generate migration guides, run `cargo package`, or run `cargo publish`.
+CLI template packaging readiness checks are read-only. They validate that the
+CLI template source is still repository-layout based and that the unresolved
+packaging blocker remains documented; they do not embed templates, package
+templates, change CLI runtime path lookup, run `cargo package`, run
+`cargo publish`, install the CLI, or create package archives.
 Cargo lock metadata checks are also part of the release aggregate, but they
 only compare committed `Cargo.lock` workspace package metadata and Cargo
 metadata output; they do not update the lockfile or contact crates.io.
@@ -396,6 +402,8 @@ That check keeps descriptions and shared README/keywords/categories metadata
 reviewable, but it does not replace a later publish-readiness review.
 Known blockers for that review are tracked by
 `npm run verify:publish-readiness-blockers`.
+CLI template packaging remains unresolved until templates are embedded or
+packaged in a stable install location.
 
 ## Known Pre-1.0 Limitations
 

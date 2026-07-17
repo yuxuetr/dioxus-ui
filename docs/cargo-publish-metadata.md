@@ -48,7 +48,8 @@ include:
 
 This gate should make publish metadata reviewable. It does not claim the crates
 are ready to publish while the repository URL is still a placeholder, APIs
-remain pre-1.0, and root license files are not yet committed.
+remain pre-1.0, root license files are not yet committed, and CLI template
+packaging remains unresolved.
 
 Known blockers are tracked separately in
 [Publish Readiness Blockers](publish-readiness-blockers.md). Keep that

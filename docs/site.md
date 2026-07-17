@@ -1645,6 +1645,27 @@ All commands passed. The check does not stabilize component APIs, change crate
 versions, decide semantic versioning policy, generate migration guides, run
 `cargo package`, or run `cargo publish`.
 
+## M103 CLI Template Packaging Readiness Metadata Gate Usage
+
+M103 adds a focused CLI template packaging readiness metadata command:
+
+```bash
+npm run verify:cli-template-packaging-readiness
+```
+
+The command checks that CLI template source is still repository-layout based
+and that the unresolved template packaging blocker remains documented.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not embed templates, package templates, change
+CLI runtime path lookup, run `cargo package`, run `cargo publish`, install the
+CLI, or create package archives.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:

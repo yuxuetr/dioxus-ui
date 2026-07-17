@@ -124,6 +124,7 @@ npm run verify:release-notes-readiness
 npm run verify:license-readiness
 npm run verify:repository-identity-readiness
 npm run verify:api-stability-readiness
+npm run verify:cli-template-packaging-readiness
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -329,6 +330,12 @@ existence, check crates.io availability, run `cargo package`, or run
 the unresolved pre-`1.0` API stability blocker. It is read-only and does not
 stabilize component APIs, change crate versions, decide semantic versioning
 policy, generate migration guides, run `cargo package`, or run `cargo publish`.
+
+`npm run verify:cli-template-packaging-readiness` checks that the CLI template
+source is still repository-layout based and that the unresolved packaging
+blocker remains documented. It is read-only and does not embed templates,
+package templates, change CLI runtime path lookup, run `cargo package`, run
+`cargo publish`, install the CLI, or create package archives.
 
 `npm run verify:cargo-lock` checks that committed `Cargo.lock` workspace package
 entries match `cargo metadata --locked --no-deps` workspace members. It is
