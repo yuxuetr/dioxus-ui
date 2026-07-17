@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M102 API Stability Readiness Metadata Gate
-- Current task: M102.1 Plan API stability readiness metadata gate
+- Current task: M102.2 Add API stability readiness metadata check
 
 ## Backup
 
@@ -1611,7 +1611,7 @@
 
 ## M102 API Stability Readiness Metadata Gate
 
-- TODO M102.1 Plan API stability readiness metadata gate
+- DONE M102.1 Plan API stability readiness metadata gate
   - Define the distinction between pre-`1.0` crate metadata and publish-ready API stability.
   - Keep API freezing, version changes, semantic versioning decisions, migration guide generation, packaging, and publishing out of scope.
   - Decide which workspace metadata, publish blockers, Cargo publish metadata, release docs, quality gates, and docs-site fragments must stay aligned.
