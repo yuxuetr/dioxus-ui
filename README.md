@@ -275,6 +275,7 @@ npm run verify:release-notes-readiness
 npm run verify:license-readiness
 npm run verify:repository-identity-readiness
 npm run verify:api-stability-readiness
+npm run verify:cli-template-packaging-readiness
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -497,6 +498,18 @@ This checks workspace version `0.1.0` and the unresolved pre-`1.0` API
 stability blocker. It does not stabilize component APIs, change crate versions,
 decide semantic versioning policy, generate migration guides, run
 `cargo package`, or run `cargo publish`.
+
+Verify CLI template packaging readiness metadata only:
+
+```bash
+npm run verify:cli-template-packaging-readiness
+```
+
+This checks that CLI template source is still repository-layout based and that
+the unresolved template packaging blocker remains documented. It does not
+embed templates, package templates, change CLI runtime path lookup, run
+`cargo package`, run `cargo publish`, install the CLI, or create package
+archives.
 
 Verify Cargo lockfile metadata only:
 
