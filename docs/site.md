@@ -1713,6 +1713,30 @@ It remains read-only. It does not contact crates.io, check crate name
 availability, check ownership, inspect credentials, run `cargo package`, run
 `cargo publish`, or create package archives.
 
+## M104 Final Result
+
+M104 added `npm run verify:registry-availability-readiness` and wired it into
+`npm run verify:release`. The gate validates planned publishable crate names
+and preserves the unresolved crates.io name and ownership review blocker.
+
+Validation completed:
+
+```bash
+npm run verify:registry-availability-readiness
+npm run verify:publish-readiness-blockers
+npm run verify:cargo-publish-metadata
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:readme
+npm run verify:docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The check does not contact crates.io, check crate name
+availability, check ownership, inspect credentials, run `cargo package`, run
+`cargo publish`, or create package archives.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:
