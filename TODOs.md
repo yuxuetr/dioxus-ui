@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M97 Publish Readiness Blocker Metadata Gate
-- Current task: M97 complete
+- Overall: 96%
+- Current milestone: M98 Changelog Metadata Gate
+- Current task: M98.1 Plan changelog metadata gate
 
 ## Backup
 
@@ -1519,6 +1519,28 @@
 - DONE M97.4 Complete publish readiness blocker metadata milestone
   - Run publish readiness blocker checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no repository URL replacement, package archives, registry lookups, publish commands, or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M98 Changelog Metadata Gate
+
+- TODO M98.1 Plan changelog metadata gate
+  - Define a deterministic read-only check that `CHANGELOG.md`, release docs, publish blocker docs, quality gates, and docs-site notes stay aligned.
+  - Keep generating release notes, running git-cliff, rewriting commit history, deriving changes from Git, and publishing releases out of scope.
+  - Decide which project-owned changelog heading, Unreleased section, Keep a Changelog style, conventional commit reference, and stale template-link bans must remain discoverable.
+
+- TODO M98.2 Add changelog metadata check
+  - Replace stale template changelog content with a project-owned changelog scaffold.
+  - Add a verifier that checks changelog structure, absence of `yuxuetr/rust-template` links, package script wiring, release wiring, and publish blocker alignment.
+  - Include the check in release verification without generating release notes or contacting external services.
+
+- TODO M98.3 Update changelog metadata documentation
+  - Document the changelog metadata check in README, docs README, release docs, quality gates, publish blocker docs, and docs-site planning docs.
+  - Clarify that the check validates changelog ownership and structure, not completeness of generated release notes.
+  - Keep package script, release aggregate, publish readiness blockers, and release documentation behavior aligned with the new read-only gate.
+
+- TODO M98.4 Complete changelog metadata milestone
+  - Run changelog metadata checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no generated release notes, git history rewrites, tags, package archives, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
