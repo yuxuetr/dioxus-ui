@@ -1530,6 +1530,30 @@ It remains read-only. It does not choose license terms, generate license text,
 change copyright holders, run `cargo package`, run `cargo publish`, or contact
 crates.io.
 
+## M100 Final Result
+
+M100 added `npm run verify:license-readiness` and wired it into
+`npm run verify:release`. The gate validates workspace license metadata and the
+known missing root `LICENSE-MIT` and `LICENSE-APACHE` file blocker.
+
+Validation completed:
+
+```bash
+npm run verify:license-readiness
+npm run verify:publish-readiness-blockers
+npm run verify:cargo-publish-metadata
+npm run verify:package-scripts
+npm run verify:release-docs
+npm run verify:readme
+npm run verify:docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The check does not choose license terms, generate license
+text, change copyright holders, run `cargo package`, run `cargo publish`, or
+contact crates.io.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:
