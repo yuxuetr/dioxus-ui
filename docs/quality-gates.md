@@ -131,6 +131,7 @@ npm run verify:css-inputs
 npm run verify:registry
 npm run verify:tailwind-static
 npm run verify
+npm run verify:changelog
 scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
 npm run verify:release-docs
@@ -231,6 +232,12 @@ from the shared catalog builder.
 README index links remain aligned. It is read-only and does not review RFC
 prose, decide acceptance status, validate implementation status, render docs,
 or rewrite index files.
+
+`npm run verify:changelog` checks project-owned changelog structure,
+Unreleased section, Keep a Changelog and Conventional Commits references, and
+stale template-link bans. It is read-only and does not generate release notes,
+run git-cliff, derive changes from Git history, create tags, publish releases,
+or rewrite commit history.
 
 `npm run verify:readme` checks that README verification shortcuts mention the
 primary local, docs, smoke, and release aliases, focused metadata aliases, and

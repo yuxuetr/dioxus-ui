@@ -10,7 +10,7 @@ Current blockers:
 | --- | --- | --- |
 | Placeholder repository URL | `https://github.com/your-org/dioxus-ui` in workspace package metadata | Maintainer updates release identity before publishing |
 | Pre-1.0 API stability | Release docs allow breaking API changes before `1.0` | Maintainers decide crate-mode stability and versioning policy |
-| Changelog not yet release-owned | Release docs require breaking changes to be documented in the changelog | Maintainers define and maintain release notes before publishing |
+| Changelog not yet release-owned | Release docs require breaking changes to be documented in `CHANGELOG.md` | Maintainers define and maintain release notes before publishing |
 | CLI template packaging strategy | CLI release notes still say templates are read from the repository layout | CLI owner embeds templates or packages them in a stable install location |
 | Registry availability not checked | Cargo publish metadata gate intentionally avoids crates.io lookups | Release owner checks names and ownership during publish preparation |
 

@@ -119,6 +119,7 @@ npm run verify:css-inputs
 npm run verify:registry
 npm run verify:tailwind-static
 npm run verify
+npm run verify:changelog
 scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
 npm run verify:release-docs
@@ -146,6 +147,11 @@ source-copy, feature, or release documentation gate list above.
 Preview and example focused checks are reached through the direct
 `npm run verify` release segment rather than listed as separate release command
 segments.
+Changelog metadata checks are read-only and validate only project-owned
+changelog structure, Unreleased section, Keep a Changelog and Conventional
+Commits references, and stale template-link bans; they do not generate release
+notes, run git-cliff, derive changes from Git history, create tags, publish
+releases, or rewrite commit history.
 Package script wiring checks are also part of the release aggregate, but they
 only inspect `package.json` and local script target existence; they do not
 execute the release gate recursively.
@@ -256,6 +262,7 @@ npm run verify:gitignore
 npm run verify:examples-metadata
 npm run verify:css-inputs
 npm run verify:rfcs
+npm run verify:changelog
 npm run verify:readme
 npm run verify:tailwind-static
 npm run verify:ci-docs

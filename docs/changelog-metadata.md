@@ -1,5 +1,8 @@
 # Changelog Metadata
 
+Project-owned changelog structure is the release note baseline for this
+repository.
+
 M98 defines the read-only contract for the project changelog. The repository
 already has `CHANGELOG.md`, but it must be owned by `dioxus-ui` rather than
 carrying template release history.
@@ -11,7 +14,7 @@ carrying template release history.
 - `# Changelog`
 - a short Keep a Changelog style introduction
 - a link to Conventional Commits
-- an `## [Unreleased]` section
+- an `## [Unreleased]` section, also referred to as the Unreleased section
 - `### Added`, `### Changed`, and `### Fixed` subsections under Unreleased
 - a note that generated release notes are not produced by the metadata gate
 
@@ -26,7 +29,7 @@ github.com/yuxuetr/rust-template
 In scope:
 
 - changelog ownership and structure
-- stale template-link detection
+- stale template-link detection, including stale template-link bans
 - release docs and quality gate references
 - publish blocker alignment
 - package script and release aggregate wiring

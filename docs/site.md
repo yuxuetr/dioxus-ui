@@ -1464,6 +1464,27 @@ git diff --check
 All commands passed. The blockers remain intentionally unresolved until a
 maintainer performs a dedicated publish-readiness review.
 
+## M98 Changelog Metadata Gate Usage
+
+M98 adds a focused changelog metadata command:
+
+```bash
+npm run verify:changelog
+```
+
+The command checks project-owned changelog structure, Unreleased section, Keep
+a Changelog and Conventional Commits references, and stale template-link bans.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not generate release notes, run git-cliff, derive
+changes from Git history, create tags, publish releases, or rewrite commit
+history.
+
 ## M92 Final Result
 
 M92 added `npm run verify:mobile-browser-metadata` and wired it into
