@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M105 Publish Readiness Coverage Metadata Gate
-- Current task: M105.4 Complete publish readiness coverage metadata milestone
+- Current task: M105 complete
 
 ## Backup
 
@@ -1692,7 +1692,7 @@
   - Clarify that the check validates coverage only and does not make crates publish-ready.
   - Keep package script, release aggregate, publish readiness blockers, Cargo publish metadata, and release documentation behavior aligned.
 
-- TODO M105.4 Complete publish readiness coverage metadata milestone
+- DONE M105.4 Complete publish readiness coverage metadata milestone
   - Run publish readiness coverage checks, all focused readiness checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no blocker resolutions, credentials, package archives, publish commands, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
