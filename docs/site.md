@@ -1790,6 +1790,28 @@ URLs, stabilize APIs, generate release notes, generate license text, embed or
 package CLI templates, contact registries, inspect credentials, run
 `cargo package`, run `cargo publish`, or create package archives.
 
+## M106 Publish Readiness Resolution Runbook Metadata Gate Usage
+
+M106 adds a focused publish readiness runbook metadata command:
+
+```bash
+npm run verify:publish-readiness-runbook
+```
+
+The command checks manual resolution evidence for every current publish blocker
+and verifies required follow-up update targets remain documented.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not resolve blockers, replace repository URLs,
+stabilize APIs, generate release notes, generate license text, embed or package
+CLI templates, contact registries, inspect credentials, run `cargo package`,
+run `cargo publish`, or create package archives.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:

@@ -127,6 +127,7 @@ npm run verify:api-stability-readiness
 npm run verify:cli-template-packaging-readiness
 npm run verify:registry-availability-readiness
 npm run verify:publish-readiness-coverage
+npm run verify:publish-readiness-runbook
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -347,6 +348,13 @@ archives.
 
 `npm run verify:publish-readiness-coverage` checks that every current publish
 blocker has a focused readiness gate. It is read-only and does not resolve
+blockers, replace repository URLs, stabilize APIs, generate release notes,
+generate license text, embed or package CLI templates, contact registries,
+inspect credentials, run `cargo package`, run `cargo publish`, or create
+package archives.
+
+`npm run verify:publish-readiness-runbook` checks manual resolution evidence
+for every current publish blocker. It is read-only and does not resolve
 blockers, replace repository URLs, stabilize APIs, generate release notes,
 generate license text, embed or package CLI templates, contact registries,
 inspect credentials, run `cargo package`, run `cargo publish`, or create

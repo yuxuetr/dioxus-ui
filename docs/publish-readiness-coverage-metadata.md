@@ -37,4 +37,4 @@ embed or package CLI templates, contact registries, inspect credentials, run
 
 When a blocker is intentionally resolved or a new blocker is added, update the
 blocker inventory, focused readiness gate mapping, package scripts, release
-docs, quality gates, and TODO planning together.
+docs, quality gates, runbook, and TODO planning together.

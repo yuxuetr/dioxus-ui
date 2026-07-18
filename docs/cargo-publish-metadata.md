@@ -57,3 +57,5 @@ Known blockers are tracked separately in
 inventory aligned when a maintainer intentionally resolves a blocker.
 Publish readiness coverage is tracked separately in
 [Publish Readiness Coverage Metadata](publish-readiness-coverage-metadata.md).
+Publish readiness resolution is tracked separately in
+[Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md).
