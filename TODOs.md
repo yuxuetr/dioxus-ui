@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M107 Publish Order Metadata Gate
-- Current task: M107.1 Plan publish order metadata gate
+- Current task: M107.2 Add publish order metadata check
 
 ## Backup
 
@@ -1721,7 +1721,7 @@
 
 ## M107 Publish Order Metadata Gate
 
-- TODO M107.1 Plan publish order metadata gate
+- DONE M107.1 Plan publish order metadata gate
   - Define the planned crate publish order and why dependency crates must be published first.
   - Keep package archives, `cargo package`, `cargo publish`, registry ownership checks, token checks, and dependency version changes out of scope.
   - Decide which release docs, Cargo publish metadata, registry availability metadata, runbook docs, README, quality gates, and docs-site fragments must stay aligned.
