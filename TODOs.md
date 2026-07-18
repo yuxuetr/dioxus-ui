@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M107 Publish Order Metadata Gate
-- Current task: M107.3 Update publish order documentation
+- Current task: M107.4 Complete publish order metadata milestone
 
 ## Backup
 
@@ -1731,7 +1731,7 @@
   - Fail if the documented publish order drifts or if docs imply publish commands are authorized.
   - Keep the check read-only and include it in release verification without creating packages or contacting crates.io.
 
-- TODO M107.3 Update publish order documentation
+- DONE M107.3 Update publish order documentation
   - Document the publish order check in README, docs README, release docs, quality gates, Cargo publish metadata docs, registry availability docs, runbook docs, and docs-site planning docs.
   - Clarify that the check validates planned order only and does not publish crates.
   - Keep package script, release aggregate, Cargo publish metadata, registry availability, runbook, and release documentation behavior aligned.
