@@ -1737,6 +1737,28 @@ All commands passed. The check does not contact crates.io, check crate name
 availability, check ownership, inspect credentials, run `cargo package`, run
 `cargo publish`, or create package archives.
 
+## M105 Publish Readiness Coverage Metadata Gate Usage
+
+M105 adds a focused publish readiness coverage metadata command:
+
+```bash
+npm run verify:publish-readiness-coverage
+```
+
+The command checks that every current publish blocker has a focused readiness
+gate, metadata doc, README mention, package script, and release wiring.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not resolve blockers, replace repository URLs,
+stabilize APIs, generate release notes, generate license text, embed or package
+CLI templates, contact registries, inspect credentials, run `cargo package`,
+run `cargo publish`, or create package archives.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:

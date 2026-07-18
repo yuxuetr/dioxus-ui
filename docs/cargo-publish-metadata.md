@@ -55,3 +55,5 @@ unresolved.
 Known blockers are tracked separately in
 [Publish Readiness Blockers](publish-readiness-blockers.md). Keep that
 inventory aligned when a maintainer intentionally resolves a blocker.
+Publish readiness coverage is tracked separately in
+[Publish Readiness Coverage Metadata](publish-readiness-coverage-metadata.md).

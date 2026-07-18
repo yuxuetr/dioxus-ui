@@ -114,6 +114,7 @@ npm run verify:repository-identity-readiness
 npm run verify:api-stability-readiness
 npm run verify:cli-template-packaging-readiness
 npm run verify:registry-availability-readiness
+npm run verify:publish-readiness-coverage
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -206,6 +207,12 @@ crates.io name and ownership review blocker remains documented; they do not
 contact crates.io, check crate name availability, check ownership, inspect
 credentials, run `cargo package`, run `cargo publish`, or create package
 archives.
+Publish readiness coverage checks are read-only. They validate that every
+current publish blocker has a focused readiness gate; they do not resolve
+blockers, replace repository URLs, stabilize APIs, generate release notes,
+generate license text, embed or package CLI templates, contact registries,
+inspect credentials, run `cargo package`, run `cargo publish`, or create
+package archives.
 Cargo lock metadata checks are also part of the release aggregate, but they
 only compare committed `Cargo.lock` workspace package metadata and Cargo
 metadata output; they do not update the lockfile or contact crates.io.

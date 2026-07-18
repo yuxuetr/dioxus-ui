@@ -126,6 +126,7 @@ npm run verify:repository-identity-readiness
 npm run verify:api-stability-readiness
 npm run verify:cli-template-packaging-readiness
 npm run verify:registry-availability-readiness
+npm run verify:publish-readiness-coverage
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -343,6 +344,13 @@ and ownership review blocker remains documented. It is read-only and does not
 contact crates.io, check crate name availability, check ownership, inspect
 credentials, run `cargo package`, run `cargo publish`, or create package
 archives.
+
+`npm run verify:publish-readiness-coverage` checks that every current publish
+blocker has a focused readiness gate. It is read-only and does not resolve
+blockers, replace repository URLs, stabilize APIs, generate release notes,
+generate license text, embed or package CLI templates, contact registries,
+inspect credentials, run `cargo package`, run `cargo publish`, or create
+package archives.
 
 `npm run verify:cargo-lock` checks that committed `Cargo.lock` workspace package
 entries match `cargo metadata --locked --no-deps` workspace members. It is
