@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M106 Publish Readiness Resolution Runbook Metadata Gate
-- Current task: M106.2 Add publish readiness resolution runbook metadata check
+- Current task: M106.3 Update publish readiness resolution runbook documentation
 
 ## Backup
 
@@ -1704,7 +1704,7 @@
   - Keep repository URL replacement, API stabilization, release note generation, license text generation, CLI template packaging, registry lookups, package archives, and publishing out of scope.
   - Decide which blocker docs, coverage docs, release docs, quality gates, Cargo publish metadata, README, and docs-site fragments must stay aligned.
 
-- TODO M106.2 Add publish readiness resolution runbook metadata check
+- DONE M106.2 Add publish readiness resolution runbook metadata check
   - Add a verifier that checks the runbook covers each blocker, owner evidence, required follow-up updates, package script wiring, and release wiring.
   - Fail if docs imply the runbook resolves blockers or authorizes publish commands.
   - Keep the check read-only and include it in release verification without contacting external services or changing release state.
