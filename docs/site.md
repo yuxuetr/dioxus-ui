@@ -1913,6 +1913,33 @@ It remains read-only. It does not change dependency versions, run
 ownership, inspect credentials, create package archives, or authorize a
 release.
 
+## M108 Final Result
+
+M108 added `npm run verify:workspace-dependency-publish-readiness` and wired it
+into `npm run verify:release`. The gate validates that path-only internal
+workspace dependencies remain documented as unresolved publish readiness work
+across blocker docs, coverage metadata, the runbook, Cargo publish metadata,
+publish order metadata, release docs, quality gates, README, package scripts,
+and docs-site notes.
+
+Validation completed:
+
+```bash
+npm run verify:workspace-dependency-publish-readiness
+npm run verify:publish-readiness-coverage
+npm run verify:publish-readiness-runbook
+npm run verify:publish-order
+npm run verify:cargo-publish-metadata
+npm run verify:docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The check does not change dependency versions, run
+`cargo package`, run `cargo publish`, contact crates.io, check registry
+ownership, inspect credentials, create package archives, or authorize a
+release.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:
