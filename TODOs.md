@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M108 Workspace Dependency Publish Readiness Metadata Gate
-- Current task: M108.3 Update workspace dependency publish readiness documentation
+- Current task: M108.4 Complete workspace dependency publish readiness metadata milestone
 
 ## Backup
 
@@ -1753,7 +1753,7 @@
   - Fail if path-only internal crate dependencies remain but the readiness blocker is missing or docs imply dependency versions are publish-ready.
   - Keep the check read-only and include it in release verification without changing dependency versions, creating packages, or contacting crates.io.
 
-- TODO M108.3 Update workspace dependency publish readiness documentation
+- DONE M108.3 Update workspace dependency publish readiness documentation
   - Document the workspace dependency readiness check in README, docs README, release docs, quality gates, Cargo publish metadata docs, publish order docs, blocker docs, coverage docs, runbook docs, and docs-site planning docs.
   - Clarify that the check validates unresolved dependency publish readiness only and does not make crates publish-ready.
   - Keep package script, release aggregate, Cargo publish metadata, publish order, blocker, coverage, runbook, and release documentation behavior aligned.
