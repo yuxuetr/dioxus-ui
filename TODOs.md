@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M107 Publish Order Metadata Gate
-- Current task: M107 complete
+- Current milestone: M108 Workspace Dependency Publish Readiness Metadata Gate
+- Current task: M108.1 Plan workspace dependency publish readiness metadata gate
 
 ## Backup
 
@@ -1739,6 +1739,28 @@
 - DONE M107.4 Complete publish order metadata milestone
   - Run publish order checks, runbook checks, registry availability checks, Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no package archives, registry lookups, credentials, publish commands, or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M108 Workspace Dependency Publish Readiness Metadata Gate
+
+- TODO M108.1 Plan workspace dependency publish readiness metadata gate
+  - Define the unresolved publish-readiness risk for path-only internal workspace dependencies between publishable crates.
+  - Keep dependency version changes, `cargo package`, `cargo publish`, crates.io lookups, ownership checks, credentials, package archives, and release authorization out of scope.
+  - Decide which blocker docs, coverage docs, runbook docs, Cargo publish metadata, publish order metadata, README, quality gates, release docs, package scripts, and docs-site fragments must stay aligned.
+
+- TODO M108.2 Add workspace dependency publish readiness metadata check
+  - Add a verifier that checks internal publishable crate workspace dependencies, blocker inventory, coverage mapping, runbook evidence, package script wiring, and release wiring.
+  - Fail if path-only internal crate dependencies remain but the readiness blocker is missing or docs imply dependency versions are publish-ready.
+  - Keep the check read-only and include it in release verification without changing dependency versions, creating packages, or contacting crates.io.
+
+- TODO M108.3 Update workspace dependency publish readiness documentation
+  - Document the workspace dependency readiness check in README, docs README, release docs, quality gates, Cargo publish metadata docs, publish order docs, blocker docs, coverage docs, runbook docs, and docs-site planning docs.
+  - Clarify that the check validates unresolved dependency publish readiness only and does not make crates publish-ready.
+  - Keep package script, release aggregate, Cargo publish metadata, publish order, blocker, coverage, runbook, and release documentation behavior aligned.
+
+- TODO M108.4 Complete workspace dependency publish readiness metadata milestone
+  - Run workspace dependency readiness checks, coverage checks, runbook checks, publish order checks, Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no dependency version changes, package archives, registry lookups, credentials, publish commands, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
