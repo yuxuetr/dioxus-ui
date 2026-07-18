@@ -277,6 +277,7 @@ npm run verify:repository-identity-readiness
 npm run verify:api-stability-readiness
 npm run verify:cli-template-packaging-readiness
 npm run verify:registry-availability-readiness
+npm run verify:publish-readiness-coverage
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -523,6 +524,19 @@ the unresolved crates.io name and ownership review blocker remains documented.
 It does not contact crates.io, check crate name availability, check ownership,
 inspect credentials, run `cargo package`, run `cargo publish`, or create
 package archives.
+
+Verify publish readiness coverage metadata only:
+
+```bash
+npm run verify:publish-readiness-coverage
+```
+
+This checks that every current publish blocker has a focused readiness gate,
+metadata doc, README mention, package script, and release wiring. It does not
+resolve blockers, replace repository URLs, stabilize APIs, generate release
+notes, generate license text, embed or package CLI templates, contact
+registries, inspect credentials, run `cargo package`, run `cargo publish`, or
+create package archives.
 
 Verify Cargo lockfile metadata only:
 
