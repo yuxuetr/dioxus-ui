@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M107 Publish Order Metadata Gate
-- Current task: M107.2 Add publish order metadata check
+- Current task: M107.3 Update publish order documentation
 
 ## Backup
 
@@ -1726,7 +1726,7 @@
   - Keep package archives, `cargo package`, `cargo publish`, registry ownership checks, token checks, and dependency version changes out of scope.
   - Decide which release docs, Cargo publish metadata, registry availability metadata, runbook docs, README, quality gates, and docs-site fragments must stay aligned.
 
-- TODO M107.2 Add publish order metadata check
+- DONE M107.2 Add publish order metadata check
   - Add a verifier that checks planned publishable crates and documented publish order across release docs, Cargo publish metadata, registry availability metadata, runbook docs, package script wiring, and release wiring.
   - Fail if the documented publish order drifts or if docs imply publish commands are authorized.
   - Keep the check read-only and include it in release verification without creating packages or contacting crates.io.
