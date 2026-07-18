@@ -15,6 +15,15 @@ dioxus-ui
 dioxus-ui-cli
 ```
 
+The planned publish order is:
+
+```text
+dioxus-ui-core
+dioxus-ui-primitives
+dioxus-ui
+dioxus-ui-cli
+```
+
 Local Cargo metadata can confirm that these crate names are present in the
 workspace and that publish metadata is internally consistent. That does not
 prove the names are available on crates.io, that ownership is configured, or

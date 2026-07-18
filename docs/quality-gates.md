@@ -128,6 +128,7 @@ npm run verify:cli-template-packaging-readiness
 npm run verify:registry-availability-readiness
 npm run verify:publish-readiness-coverage
 npm run verify:publish-readiness-runbook
+npm run verify:publish-order
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -359,6 +360,11 @@ blockers, replace repository URLs, stabilize APIs, generate release notes,
 generate license text, embed or package CLI templates, contact registries,
 inspect credentials, run `cargo package`, run `cargo publish`, or create
 package archives.
+
+`npm run verify:publish-order` checks the planned crate publish order. It is
+read-only and does not create package archives, run `cargo package`, run
+`cargo publish`, contact crates.io, check registry ownership, inspect
+credentials, change dependency versions, or authorize a release.
 
 `npm run verify:cargo-lock` checks that committed `Cargo.lock` workspace package
 entries match `cargo metadata --locked --no-deps` workspace members. It is

@@ -116,6 +116,7 @@ npm run verify:cli-template-packaging-readiness
 npm run verify:registry-availability-readiness
 npm run verify:publish-readiness-coverage
 npm run verify:publish-readiness-runbook
+npm run verify:publish-order
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -220,6 +221,10 @@ blockers, replace repository URLs, stabilize APIs, generate release notes,
 generate license text, embed or package CLI templates, contact registries,
 inspect credentials, run `cargo package`, run `cargo publish`, or create
 package archives.
+Publish order checks are read-only. They validate the planned crate publish
+order; they do not create package archives, run `cargo package`, run
+`cargo publish`, contact crates.io, check registry ownership, inspect
+credentials, change dependency versions, or authorize a release.
 Cargo lock metadata checks are also part of the release aggregate, but they
 only compare committed `Cargo.lock` workspace package metadata and Cargo
 metadata output; they do not update the lockfile or contact crates.io.

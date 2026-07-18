@@ -46,3 +46,5 @@ embed or package CLI templates, contact registries, inspect credentials, run
 When a maintainer resolves a blocker, update the blocker-specific metadata
 gate and this runbook in the same change. The publish readiness coverage gate
 should continue to prove that every remaining blocker has a focused gate.
+Keep the planned publish order aligned with
+[Publish Order Metadata](publish-order-metadata.md).

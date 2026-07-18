@@ -1842,6 +1842,28 @@ URLs, stabilize APIs, generate release notes, generate license text, embed or
 package CLI templates, contact registries, inspect credentials, run
 `cargo package`, run `cargo publish`, or create package archives.
 
+## M107 Publish Order Metadata Gate Usage
+
+M107 adds a focused publish order metadata command:
+
+```bash
+npm run verify:publish-order
+```
+
+The command checks the planned crate publish order across release docs, Cargo
+publish metadata, registry availability metadata, and the publish readiness
+runbook.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not create package archives, run `cargo package`,
+run `cargo publish`, contact crates.io, check registry ownership, inspect
+credentials, change dependency versions, or authorize a release.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:
