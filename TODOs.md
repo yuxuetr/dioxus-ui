@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M108 Workspace Dependency Publish Readiness Metadata Gate
-- Current task: M108.4 Complete workspace dependency publish readiness metadata milestone
+- Current task: M108 complete
 
 ## Backup
 
@@ -1758,7 +1758,7 @@
   - Clarify that the check validates unresolved dependency publish readiness only and does not make crates publish-ready.
   - Keep package script, release aggregate, Cargo publish metadata, publish order, blocker, coverage, runbook, and release documentation behavior aligned.
 
-- TODO M108.4 Complete workspace dependency publish readiness metadata milestone
+- DONE M108.4 Complete workspace dependency publish readiness metadata milestone
   - Run workspace dependency readiness checks, coverage checks, runbook checks, publish order checks, Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no dependency version changes, package archives, registry lookups, credentials, publish commands, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
