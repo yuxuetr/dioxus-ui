@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M108 Workspace Dependency Publish Readiness Metadata Gate
-- Current task: M108.1 Plan workspace dependency publish readiness metadata gate
+- Current task: M108.2 Add workspace dependency publish readiness metadata check
 
 ## Backup
 
@@ -1743,7 +1743,7 @@
 
 ## M108 Workspace Dependency Publish Readiness Metadata Gate
 
-- TODO M108.1 Plan workspace dependency publish readiness metadata gate
+- DONE M108.1 Plan workspace dependency publish readiness metadata gate
   - Define the unresolved publish-readiness risk for path-only internal workspace dependencies between publishable crates.
   - Keep dependency version changes, `cargo package`, `cargo publish`, crates.io lookups, ownership checks, credentials, package archives, and release authorization out of scope.
   - Decide which blocker docs, coverage docs, runbook docs, Cargo publish metadata, publish order metadata, README, quality gates, release docs, package scripts, and docs-site fragments must stay aligned.
