@@ -1889,6 +1889,30 @@ All commands passed. The check does not create package archives, run
 ownership, inspect credentials, change dependency versions, or authorize a
 release.
 
+## M108 Workspace Dependency Publish Readiness Metadata Gate Usage
+
+M108 adds a focused workspace dependency publish readiness metadata command:
+
+```bash
+npm run verify:workspace-dependency-publish-readiness
+```
+
+The command checks that path-only internal workspace dependencies remain
+documented as unresolved publish readiness work across blocker docs, coverage
+metadata, the runbook, Cargo publish metadata, publish order metadata, release
+docs, quality gates, and docs-site notes.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not change dependency versions, run
+`cargo package`, run `cargo publish`, contact crates.io, check registry
+ownership, inspect credentials, create package archives, or authorize a
+release.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:

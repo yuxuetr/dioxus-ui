@@ -18,6 +18,8 @@ dioxus-ui = { path = "crates/dioxus-ui" }
 That layout is correct for local development, workspace tests, feature checks,
 and source-copy fixture smoke tests. It is not enough by itself to prove that
 publishable crates have crates.io-resolvable dependency metadata.
+The path-only internal workspace dependencies remain an unresolved publish
+readiness item until maintainers review dependency version metadata.
 
 Before publishing, internal publishable crate dependencies should be reviewed
 and updated so each published crate can resolve its internal dependencies from

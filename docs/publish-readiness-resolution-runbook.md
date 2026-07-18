@@ -13,6 +13,7 @@ Resolve blockers in this order before any package archive or publish command:
 4. Release notes readiness
 5. CLI template packaging strategy
 6. Registry availability and ownership
+7. Workspace dependency publish readiness
 
 ## Blocker Runbook
 
@@ -24,6 +25,7 @@ Resolve blockers in this order before any package archive or publish command:
 | Release notes not publish-ready | Maintainers define complete release notes for the intended first publish | Update release notes readiness metadata, changelog metadata, release docs, quality gates, README, and TODO planning |
 | CLI template packaging strategy | CLI owner implements compile-time embedding or a stable install-location template package | Update CLI template packaging metadata, publish blockers, release docs, quality gates, README, and TODO planning |
 | Registry availability not checked | Release owner confirms crates.io names, ownership, credentials, and publish order | Update registry availability metadata, publish blockers, Cargo publish metadata, release docs, quality gates, README, and TODO planning |
+| Workspace dependency publish readiness | Maintainers confirm internal crate dependencies have crates.io-resolvable version metadata | Update workspace dependency metadata, publish blockers, Cargo publish metadata, publish order metadata, release docs, quality gates, README, and TODO planning |
 
 ## Readiness Contract
 
@@ -38,8 +40,9 @@ Resolve blockers in this order before any package archive or publish command:
 
 The gate is intentionally read-only. It must not resolve blockers, replace
 repository URLs, stabilize APIs, generate release notes, generate license text,
-embed or package CLI templates, contact registries, inspect credentials, run
-`cargo package`, run `cargo publish`, or create package archives.
+embed or package CLI templates, change dependency versions, contact
+registries, inspect credentials, run `cargo package`, run `cargo publish`, or
+create package archives.
 
 ## Exit Criteria
 

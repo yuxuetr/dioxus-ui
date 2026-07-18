@@ -129,6 +129,7 @@ npm run verify:registry-availability-readiness
 npm run verify:publish-readiness-coverage
 npm run verify:publish-readiness-runbook
 npm run verify:publish-order
+npm run verify:workspace-dependency-publish-readiness
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -308,11 +309,11 @@ false` boundaries, and release wiring. It is read-only and does not run
 
 `npm run verify:publish-readiness-blockers` checks the documented placeholder
 repository URL, pre-1.0 API stability, release notes readiness, root license
-file readiness, CLI template packaging, and crates.io review blockers. It is
-read-only and does not replace
+file readiness, CLI template packaging, crates.io review, and workspace
+dependency publish readiness blockers. It is read-only and does not replace
 repository URLs, check registries, run `cargo package`, run `cargo publish`,
-stabilize APIs, generate changelogs, generate license text, or package CLI
-templates.
+stabilize APIs, generate changelogs, generate license text, package CLI
+templates, or change dependency versions.
 
 `npm run verify:release-notes-readiness` checks that project-owned changelog
 structure exists while publish-ready release notes are still unresolved. It is
@@ -350,21 +351,28 @@ archives.
 `npm run verify:publish-readiness-coverage` checks that every current publish
 blocker has a focused readiness gate. It is read-only and does not resolve
 blockers, replace repository URLs, stabilize APIs, generate release notes,
-generate license text, embed or package CLI templates, contact registries,
-inspect credentials, run `cargo package`, run `cargo publish`, or create
-package archives.
+generate license text, embed or package CLI templates, change dependency
+versions, contact registries, inspect credentials, run `cargo package`, run
+`cargo publish`, or create package archives.
 
 `npm run verify:publish-readiness-runbook` checks manual resolution evidence
 for every current publish blocker. It is read-only and does not resolve
 blockers, replace repository URLs, stabilize APIs, generate release notes,
-generate license text, embed or package CLI templates, contact registries,
-inspect credentials, run `cargo package`, run `cargo publish`, or create
-package archives.
+generate license text, embed or package CLI templates, change dependency
+versions, contact registries, inspect credentials, run `cargo package`, run
+`cargo publish`, or create package archives.
 
 `npm run verify:publish-order` checks the planned crate publish order. It is
 read-only and does not create package archives, run `cargo package`, run
 `cargo publish`, contact crates.io, check registry ownership, inspect
 credentials, change dependency versions, or authorize a release.
+
+`npm run verify:workspace-dependency-publish-readiness` checks that path-only
+internal workspace dependencies remain documented as unresolved publish
+readiness work. It is read-only and does not change dependency versions, run
+`cargo package`, run `cargo publish`, contact crates.io, check registry
+ownership, inspect credentials, create package archives, or authorize a
+release.
 
 `npm run verify:cargo-lock` checks that committed `Cargo.lock` workspace package
 entries match `cargo metadata --locked --no-deps` workspace members. It is

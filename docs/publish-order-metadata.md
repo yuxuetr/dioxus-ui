@@ -14,6 +14,11 @@ Publish crates in this order after all publish readiness blockers are resolved:
 
 The dependency crates come first so downstream crates can resolve their
 workspace dependencies from crates.io during publication.
+Workspace dependency publish readiness remains unresolved until internal crate
+dependencies have crates.io-resolvable version metadata aligned with this
+publish order.
+The workspace dependency publish readiness gate should stay aligned with this
+publish order whenever internal project crate dependencies change.
 
 ## Readiness Contract
 

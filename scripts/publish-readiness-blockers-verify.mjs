@@ -47,6 +47,7 @@ const blockerFragments = [
   "Root license files not committed",
   "CLI template packaging strategy",
   "Registry availability not checked",
+  "Workspace dependency publish readiness",
   "https://github.com/your-org/dioxus-ui",
   "does not resolve the blockers",
 ];
@@ -64,6 +65,7 @@ const blockerBoundaryFragments = [
   "generating changelogs or release notes",
   "generating license text",
   "packaging CLI templates",
+  "changing dependency versions",
 ];
 
 for (const fragment of blockerBoundaryFragments) {
@@ -92,8 +94,8 @@ for (const fragment of workspaceFragments) {
 
 const releaseFragments = [
   "Publish readiness blocker checks are read-only",
-  "placeholder repository URL, pre-1.0 API stability, release notes readiness, root license file readiness, CLI template packaging, and crates.io review blockers",
-  "they do not replace repository URLs, check registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate changelogs, generate license text, or package CLI templates",
+  "placeholder repository URL, pre-1.0 API stability, release notes readiness, root license file readiness, CLI template packaging, crates.io review, and workspace dependency publish readiness blockers",
+  "they do not replace repository URLs, check registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate changelogs, generate license text, package CLI templates, or change dependency versions",
   "publish-ready CLI should either embed templates at compile time or package them",
 ];
 
@@ -103,8 +105,8 @@ for (const fragment of releaseFragments) {
 
 const qualityFragments = [
   "`npm run verify:publish-readiness-blockers`",
-  "placeholder repository URL, pre-1.0 API stability, release notes readiness, root license file readiness, CLI template packaging, and crates.io review blockers",
-  "does not replace repository URLs, check registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate changelogs, generate license text, or package CLI templates",
+  "placeholder repository URL, pre-1.0 API stability, release notes readiness, root license file readiness, CLI template packaging, crates.io review, and workspace dependency publish readiness blockers",
+  "does not replace repository URLs, check registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate changelogs, generate license text, package CLI templates, or change dependency versions",
 ];
 
 for (const fragment of qualityFragments) {

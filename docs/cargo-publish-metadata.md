@@ -53,7 +53,8 @@ This gate should make publish metadata reviewable. It does not claim the crates
 are ready to publish while the repository URL is still a placeholder, APIs
 remain pre-1.0, root license files are not yet committed, and CLI template
 packaging remains unresolved. The crates.io name and ownership review remains
-unresolved.
+unresolved. Workspace dependency publish readiness is tracked separately while
+internal workspace dependencies remain path-only.
 
 Known blockers are tracked separately in
 [Publish Readiness Blockers](publish-readiness-blockers.md). Keep that
@@ -62,3 +63,5 @@ Publish readiness coverage is tracked separately in
 [Publish Readiness Coverage Metadata](publish-readiness-coverage-metadata.md).
 Publish readiness resolution is tracked separately in
 [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md).
+Workspace dependency publish readiness is tracked separately in
+[Workspace Dependency Publish Readiness Metadata](workspace-dependency-publish-readiness-metadata.md).

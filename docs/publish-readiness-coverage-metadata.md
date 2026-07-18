@@ -16,6 +16,7 @@ must have a focused metadata gate:
 | Root license files not committed | `npm run verify:license-readiness` | [License Readiness Metadata](license-readiness-metadata.md) |
 | CLI template packaging strategy | `npm run verify:cli-template-packaging-readiness` | [CLI Template Packaging Readiness Metadata](cli-template-packaging-readiness-metadata.md) |
 | Registry availability not checked | `npm run verify:registry-availability-readiness` | [Registry Availability Readiness Metadata](registry-availability-readiness-metadata.md) |
+| Workspace dependency publish readiness | `npm run verify:workspace-dependency-publish-readiness` | [Workspace Dependency Publish Readiness Metadata](workspace-dependency-publish-readiness-metadata.md) |
 
 ## Readiness Contract
 
@@ -30,8 +31,9 @@ must have a focused metadata gate:
 
 The gate is intentionally read-only. It must not resolve blockers, replace
 repository URLs, stabilize APIs, generate release notes, generate license text,
-embed or package CLI templates, contact registries, inspect credentials, run
-`cargo package`, run `cargo publish`, or create package archives.
+embed or package CLI templates, change dependency versions, contact registries,
+inspect credentials, run `cargo package`, run `cargo publish`, or create
+package archives.
 
 ## Resolution Criteria
 

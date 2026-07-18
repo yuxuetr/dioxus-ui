@@ -117,6 +117,7 @@ npm run verify:registry-availability-readiness
 npm run verify:publish-readiness-coverage
 npm run verify:publish-readiness-runbook
 npm run verify:publish-order
+npm run verify:workspace-dependency-publish-readiness
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -176,11 +177,11 @@ crate descriptions, shared README/keywords/categories metadata, example
 `cargo publish`, run `cargo package`, contact crates.io, replace repository URLs, or create package archives.
 Publish readiness blocker checks are read-only and validate only the documented
 placeholder repository URL, pre-1.0 API stability, release notes readiness,
-root license file readiness, CLI template packaging, and crates.io review
-blockers; they do not replace
+root license file readiness, CLI template packaging, crates.io review, and
+workspace dependency publish readiness blockers; they do not replace
 repository URLs, check registries, run `cargo package`, run `cargo publish`,
-stabilize APIs, generate changelogs, generate license text, or package CLI
-templates.
+stabilize APIs, generate changelogs, generate license text, package CLI
+templates, or change dependency versions.
 Release notes readiness checks are read-only and validate only that
 project-owned changelog structure exists while publish-ready release notes are
 still unresolved; they do not generate release notes, run git-cliff, derive
@@ -212,19 +213,25 @@ archives.
 Publish readiness coverage checks are read-only. They validate that every
 current publish blocker has a focused readiness gate; they do not resolve
 blockers, replace repository URLs, stabilize APIs, generate release notes,
-generate license text, embed or package CLI templates, contact registries,
-inspect credentials, run `cargo package`, run `cargo publish`, or create
-package archives.
+generate license text, embed or package CLI templates, change dependency
+versions, contact registries, inspect credentials, run `cargo package`, run
+`cargo publish`, or create package archives.
 Publish readiness runbook checks are read-only. They validate manual
 resolution evidence for every current publish blocker; they do not resolve
 blockers, replace repository URLs, stabilize APIs, generate release notes,
-generate license text, embed or package CLI templates, contact registries,
-inspect credentials, run `cargo package`, run `cargo publish`, or create
-package archives.
+generate license text, embed or package CLI templates, change dependency
+versions, contact registries, inspect credentials, run `cargo package`, run
+`cargo publish`, or create package archives.
 Publish order checks are read-only. They validate the planned crate publish
 order; they do not create package archives, run `cargo package`, run
 `cargo publish`, contact crates.io, check registry ownership, inspect
 credentials, change dependency versions, or authorize a release.
+Workspace dependency publish readiness checks are read-only. They validate
+that path-only internal workspace dependencies remain documented as unresolved
+publish readiness work; they do not change dependency versions, run
+`cargo package`, run `cargo publish`, contact crates.io, check registry
+ownership, inspect credentials, create package archives, or authorize a
+release.
 Cargo lock metadata checks are also part of the release aggregate, but they
 only compare committed `Cargo.lock` workspace package metadata and Cargo
 metadata output; they do not update the lockfile or contact crates.io.

@@ -280,6 +280,7 @@ npm run verify:registry-availability-readiness
 npm run verify:publish-readiness-coverage
 npm run verify:publish-readiness-runbook
 npm run verify:publish-order
+npm run verify:workspace-dependency-publish-readiness
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -563,6 +564,18 @@ metadata, registry availability metadata, and the publish readiness runbook. It
 does not create package archives, run `cargo package`, run `cargo publish`,
 contact crates.io, check registry ownership, inspect credentials, change
 dependency versions, or authorize a release.
+
+Verify workspace dependency publish readiness metadata only:
+
+```bash
+npm run verify:workspace-dependency-publish-readiness
+```
+
+This checks that path-only internal workspace dependencies remain documented
+as unresolved publish readiness work. It does not change dependency versions,
+run `cargo package`, run `cargo publish`, contact crates.io, check registry
+ownership, inspect credentials, create package archives, or authorize a
+release.
 
 Verify Cargo lockfile metadata only:
 
