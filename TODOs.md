@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M105 Publish Readiness Coverage Metadata Gate
-- Current task: M105.1 Plan publish readiness coverage metadata gate
+- Current task: M105.2 Add publish readiness coverage metadata check
 
 ## Backup
 
@@ -1677,7 +1677,7 @@
 
 ## M105 Publish Readiness Coverage Metadata Gate
 
-- TODO M105.1 Plan publish readiness coverage metadata gate
+- DONE M105.1 Plan publish readiness coverage metadata gate
   - Define the coverage contract between publish readiness blockers and focused readiness metadata gates.
   - Keep blocker resolution, repository URL changes, API stabilization, release note generation, license text generation, template packaging, registry lookups, package archives, and publishing out of scope.
   - Decide which blocker docs, focused readiness docs, package scripts, release docs, quality gates, and docs-site fragments must stay aligned.
