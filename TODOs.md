@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M106 Publish Readiness Resolution Runbook Metadata Gate
-- Current task: M106 complete
+- Current milestone: M107 Publish Order Metadata Gate
+- Current task: M107.1 Plan publish order metadata gate
 
 ## Backup
 
@@ -1717,6 +1717,28 @@
 - DONE M106.4 Complete publish readiness resolution runbook metadata milestone
   - Run runbook checks, coverage checks, all focused readiness checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no blocker resolutions, credentials, package archives, publish commands, or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M107 Publish Order Metadata Gate
+
+- TODO M107.1 Plan publish order metadata gate
+  - Define the planned crate publish order and why dependency crates must be published first.
+  - Keep package archives, `cargo package`, `cargo publish`, registry ownership checks, token checks, and dependency version changes out of scope.
+  - Decide which release docs, Cargo publish metadata, registry availability metadata, runbook docs, README, quality gates, and docs-site fragments must stay aligned.
+
+- TODO M107.2 Add publish order metadata check
+  - Add a verifier that checks planned publishable crates and documented publish order across release docs, Cargo publish metadata, registry availability metadata, runbook docs, package script wiring, and release wiring.
+  - Fail if the documented publish order drifts or if docs imply publish commands are authorized.
+  - Keep the check read-only and include it in release verification without creating packages or contacting crates.io.
+
+- TODO M107.3 Update publish order documentation
+  - Document the publish order check in README, docs README, release docs, quality gates, Cargo publish metadata docs, registry availability docs, runbook docs, and docs-site planning docs.
+  - Clarify that the check validates planned order only and does not publish crates.
+  - Keep package script, release aggregate, Cargo publish metadata, registry availability, runbook, and release documentation behavior aligned.
+
+- TODO M107.4 Complete publish order metadata milestone
+  - Run publish order checks, runbook checks, registry availability checks, Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no package archives, registry lookups, credentials, publish commands, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
