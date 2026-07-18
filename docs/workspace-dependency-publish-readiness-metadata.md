@@ -49,6 +49,24 @@ The gate should stay read-only. It must not change dependency versions, run
 ownership, inspect credentials, create package archives, or authorize a
 release.
 
+## Documentation Alignment
+
+Keep this metadata gate aligned with:
+
+- [Publish Readiness Blockers](publish-readiness-blockers.md)
+- [Publish Readiness Coverage Metadata](publish-readiness-coverage-metadata.md)
+- [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
+- [Cargo Publish Metadata](cargo-publish-metadata.md)
+- [Publish Order Metadata](publish-order-metadata.md)
+- [Release and Package Strategy](release.md)
+- [Quality Gates](quality-gates.md)
+- [Documentation Site Plan](site.md)
+- [Project README](../README.md)
+- [TODO Plan](../TODOs.md)
+
+These files should be updated in the same change whenever the blocker is
+resolved, renamed, or replaced with a different publish dependency strategy.
+
 ## Resolution Criteria
 
 This blocker can be removed only after maintainers review and commit a
