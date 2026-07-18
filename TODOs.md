@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M106 Publish Readiness Resolution Runbook Metadata Gate
-- Current task: M106.4 Complete publish readiness resolution runbook metadata milestone
+- Current task: M106 complete
 
 ## Backup
 
@@ -1714,7 +1714,7 @@
   - Clarify that the check validates manual resolution guidance only and does not make crates publish-ready.
   - Keep package script, release aggregate, publish readiness blockers, coverage metadata, Cargo publish metadata, and release documentation behavior aligned.
 
-- TODO M106.4 Complete publish readiness resolution runbook metadata milestone
+- DONE M106.4 Complete publish readiness resolution runbook metadata milestone
   - Run runbook checks, coverage checks, all focused readiness checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no blocker resolutions, credentials, package archives, publish commands, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
