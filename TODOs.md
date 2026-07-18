@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M106 Publish Readiness Resolution Runbook Metadata Gate
-- Current task: M106.3 Update publish readiness resolution runbook documentation
+- Current task: M106.4 Complete publish readiness resolution runbook metadata milestone
 
 ## Backup
 
@@ -1709,7 +1709,7 @@
   - Fail if docs imply the runbook resolves blockers or authorizes publish commands.
   - Keep the check read-only and include it in release verification without contacting external services or changing release state.
 
-- TODO M106.3 Update publish readiness resolution runbook documentation
+- DONE M106.3 Update publish readiness resolution runbook documentation
   - Document the runbook check in README, docs README, release docs, quality gates, publish blocker docs, coverage docs, Cargo publish metadata docs, and docs-site planning docs.
   - Clarify that the check validates manual resolution guidance only and does not make crates publish-ready.
   - Keep package script, release aggregate, publish readiness blockers, coverage metadata, Cargo publish metadata, and release documentation behavior aligned.
