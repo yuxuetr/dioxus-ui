@@ -279,6 +279,7 @@ npm run verify:cli-template-packaging-readiness
 npm run verify:registry-availability-readiness
 npm run verify:publish-readiness-coverage
 npm run verify:publish-readiness-runbook
+npm run verify:publish-order
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -550,6 +551,18 @@ current publish blocker. It does not resolve blockers, replace repository
 URLs, stabilize APIs, generate release notes, generate license text, embed or
 package CLI templates, contact registries, inspect credentials, run
 `cargo package`, run `cargo publish`, or create package archives.
+
+Verify publish order metadata only:
+
+```bash
+npm run verify:publish-order
+```
+
+This checks the planned crate publish order across release docs, Cargo publish
+metadata, registry availability metadata, and the publish readiness runbook. It
+does not create package archives, run `cargo package`, run `cargo publish`,
+contact crates.io, check registry ownership, inspect credentials, change
+dependency versions, or authorize a release.
 
 Verify Cargo lockfile metadata only:
 
