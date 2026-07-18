@@ -278,6 +278,7 @@ npm run verify:api-stability-readiness
 npm run verify:cli-template-packaging-readiness
 npm run verify:registry-availability-readiness
 npm run verify:publish-readiness-coverage
+npm run verify:publish-readiness-runbook
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -537,6 +538,18 @@ resolve blockers, replace repository URLs, stabilize APIs, generate release
 notes, generate license text, embed or package CLI templates, contact
 registries, inspect credentials, run `cargo package`, run `cargo publish`, or
 create package archives.
+
+Verify publish readiness runbook metadata only:
+
+```bash
+npm run verify:publish-readiness-runbook
+```
+
+This checks manual resolution evidence and follow-up update targets for every
+current publish blocker. It does not resolve blockers, replace repository
+URLs, stabilize APIs, generate release notes, generate license text, embed or
+package CLI templates, contact registries, inspect credentials, run
+`cargo package`, run `cargo publish`, or create package archives.
 
 Verify Cargo lockfile metadata only:
 
