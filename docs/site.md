@@ -1864,6 +1864,31 @@ It remains read-only. It does not create package archives, run `cargo package`,
 run `cargo publish`, contact crates.io, check registry ownership, inspect
 credentials, change dependency versions, or authorize a release.
 
+## M107 Final Result
+
+M107 added `npm run verify:publish-order` and wired it into
+`npm run verify:release`. The gate validates the planned crate publish order
+across release docs, Cargo publish metadata, registry availability metadata,
+and the publish readiness runbook.
+
+Validation completed:
+
+```bash
+npm run verify:publish-order
+npm run verify:publish-readiness-runbook
+npm run verify:registry-availability-readiness
+npm run verify:cargo-publish-metadata
+npm run verify:package-scripts
+npm run verify:docs
+CARGO_NET_OFFLINE=true npm run verify:release
+git diff --check
+```
+
+All commands passed. The check does not create package archives, run
+`cargo package`, run `cargo publish`, contact crates.io, check registry
+ownership, inspect credentials, change dependency versions, or authorize a
+release.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:
