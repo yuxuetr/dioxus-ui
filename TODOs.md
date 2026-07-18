@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M107 Publish Order Metadata Gate
-- Current task: M107.4 Complete publish order metadata milestone
+- Current task: M107 complete
 
 ## Backup
 
@@ -1736,7 +1736,7 @@
   - Clarify that the check validates planned order only and does not publish crates.
   - Keep package script, release aggregate, Cargo publish metadata, registry availability, runbook, and release documentation behavior aligned.
 
-- TODO M107.4 Complete publish order metadata milestone
+- DONE M107.4 Complete publish order metadata milestone
   - Run publish order checks, runbook checks, registry availability checks, Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no package archives, registry lookups, credentials, publish commands, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
