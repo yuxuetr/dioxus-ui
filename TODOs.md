@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M104 Registry Availability Readiness Metadata Gate
-- Current task: M104 complete
+- Current milestone: M105 Publish Readiness Coverage Metadata Gate
+- Current task: M105.1 Plan publish readiness coverage metadata gate
 
 ## Backup
 
@@ -1673,6 +1673,28 @@
 - DONE M104.4 Complete registry availability readiness metadata milestone
   - Run registry availability readiness checks, publish blocker checks, Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no crates.io lookups, credentials, package archives, publish commands, or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M105 Publish Readiness Coverage Metadata Gate
+
+- TODO M105.1 Plan publish readiness coverage metadata gate
+  - Define the coverage contract between publish readiness blockers and focused readiness metadata gates.
+  - Keep blocker resolution, repository URL changes, API stabilization, release note generation, license text generation, template packaging, registry lookups, package archives, and publishing out of scope.
+  - Decide which blocker docs, focused readiness docs, package scripts, release docs, quality gates, and docs-site fragments must stay aligned.
+
+- TODO M105.2 Add publish readiness coverage metadata check
+  - Add a verifier that checks every current publish blocker has a corresponding focused readiness gate, docs page, README mention, package script, and release wiring.
+  - Fail if blocker names, focused gate names, or release aggregate wiring drift out of sync.
+  - Keep the check read-only and include it in release verification without resolving blockers or contacting external services.
+
+- TODO M105.3 Update publish readiness coverage documentation
+  - Document the coverage check in README, docs README, release docs, quality gates, publish blocker docs, Cargo publish metadata docs, and docs-site planning docs.
+  - Clarify that the check validates coverage only and does not make crates publish-ready.
+  - Keep package script, release aggregate, publish readiness blockers, Cargo publish metadata, and release documentation behavior aligned.
+
+- TODO M105.4 Complete publish readiness coverage metadata milestone
+  - Run publish readiness coverage checks, all focused readiness checks, package script checks, docs checks, release aggregate, and diff checks.
+  - Verify no blocker resolutions, credentials, package archives, publish commands, or generated artifacts are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
