@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M105 Publish Readiness Coverage Metadata Gate
-- Current task: M105.3 Update publish readiness coverage documentation
+- Current task: M105.4 Complete publish readiness coverage metadata milestone
 
 ## Backup
 
@@ -1687,7 +1687,7 @@
   - Fail if blocker names, focused gate names, or release aggregate wiring drift out of sync.
   - Keep the check read-only and include it in release verification without resolving blockers or contacting external services.
 
-- TODO M105.3 Update publish readiness coverage documentation
+- DONE M105.3 Update publish readiness coverage documentation
   - Document the coverage check in README, docs README, release docs, quality gates, publish blocker docs, Cargo publish metadata docs, and docs-site planning docs.
   - Clarify that the check validates coverage only and does not make crates publish-ready.
   - Keep package script, release aggregate, publish readiness blockers, Cargo publish metadata, and release documentation behavior aligned.
