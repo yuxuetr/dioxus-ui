@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M109 Rendered Component Verification
-- Current task: M109.5 Complete rendered component verification milestone
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -1785,7 +1785,7 @@
   - Clarify that the check validates deterministic rendered target coverage, not visual parity or browser screenshot pixels.
   - Keep package script, release aggregate, preview-state metadata, docs catalog, and release documentation behavior aligned.
 
-- TODO M109.5 Complete rendered component verification milestone
+- DONE M109.5 Complete rendered component verification milestone
   - Run rendered coverage checks, preview metadata checks, Web/Desktop preview checks, docs checks, package script checks, release aggregate, and diff checks.
   - Verify no browser artifacts, screenshots, generated docs, component API changes, or template rewrites are committed.
   - Update TODO status only after commits and validation.
