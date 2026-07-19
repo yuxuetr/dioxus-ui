@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M109 Rendered Component Verification
-- Current task: M109.2 Add rendered component coverage metadata check
+- Current task: M109.3 Add preview coverage targets
 
 ## Backup
 
@@ -1770,7 +1770,7 @@
   - Keep browser launch, screenshot artifacts, visual diffing, runtime adapter stabilization, component API changes, and template edits out of scope.
   - Decide which preview-state docs, README, quality gates, release docs, docs-site notes, package scripts, and catalog metadata must stay aligned.
 
-- TODO M109.2 Add rendered component coverage metadata check
+- DONE M109.2 Add rendered component coverage metadata check
   - Add a deterministic verifier that compares a rendered coverage manifest against the docs catalog public component list.
   - Fail when a public component lacks a stable rendered preview target, category, panel, coverage level, or runtime/app-owned note.
   - Keep the check read-only and include it in release verification without starting servers, launching browsers, writing screenshots, or claiming visual parity.
