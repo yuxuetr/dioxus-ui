@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M109 Rendered Component Verification
-- Current task: M109.4 Update rendered coverage documentation
+- Current task: M109.5 Complete rendered component verification milestone
 
 ## Backup
 
@@ -1780,7 +1780,7 @@
   - Reuse the shared preview-state crate and preserve existing Web/Desktop preview panels and state markers.
   - Keep representative previews lightweight and avoid adding full prop matrices or runtime adapter behavior.
 
-- TODO M109.4 Update rendered coverage documentation
+- DONE M109.4 Update rendered coverage documentation
   - Document the rendered coverage check in README, docs README, release docs, quality gates, rendered verification docs, and docs-site planning docs.
   - Clarify that the check validates deterministic rendered target coverage, not visual parity or browser screenshot pixels.
   - Keep package script, release aggregate, preview-state metadata, docs catalog, and release documentation behavior aligned.
