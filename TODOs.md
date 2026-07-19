@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M109 Rendered Component Verification
-- Current task: M109.1 Plan rendered component coverage verification
+- Current task: M109.2 Add rendered component coverage metadata check
 
 ## Backup
 
@@ -1765,7 +1765,7 @@
 
 ## M109 Rendered Component Verification
 
-- TODO M109.1 Plan rendered component coverage verification
+- DONE M109.1 Plan rendered component coverage verification
   - Define the rendered coverage contract for all public shadcn/ui-aligned components.
   - Keep browser launch, screenshot artifacts, visual diffing, runtime adapter stabilization, component API changes, and template edits out of scope.
   - Decide which preview-state docs, README, quality gates, release docs, docs-site notes, package scripts, and catalog metadata must stay aligned.
