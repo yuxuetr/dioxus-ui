@@ -136,6 +136,7 @@ npm run verify:scripts
 npm run verify:gitignore
 npm run verify:preview-state-metadata
 npm run verify:mobile-browser-metadata
+npm run verify:rendered-component-coverage
 npm run verify:examples-metadata
 npm run verify:css-inputs
 npm run verify:registry
@@ -406,6 +407,11 @@ contract, screenshot artifact pattern, browser environment variables, and CI
 browser guidance stay aligned. It is read-only and does not launch Playwright,
 start `dx serve`, install browsers, write screenshots, or validate rendered
 output.
+
+`npm run verify:rendered-component-coverage` checks stable rendered preview
+target metadata for public components against the docs catalog. It is read-only
+and does not start a server, launch a browser, write screenshots, update
+generated docs, change component APIs, edit templates, or claim visual parity.
 
 `npm run verify:repo-hygiene` checks that inactive workflow files, generated
 directories such as `node_modules/`, `target/`, `dist/`, and `build/`, and known

@@ -1940,6 +1940,28 @@ All commands passed. The check does not change dependency versions, run
 ownership, inspect credentials, create package archives, or authorize a
 release.
 
+## M109 Rendered Component Verification Usage
+
+M109 adds a focused rendered component coverage metadata command:
+
+```bash
+npm run verify:rendered-component-coverage
+```
+
+The command checks stable rendered preview target metadata for public
+components against the docs catalog. It validates component slug, label,
+category, panel, test id, coverage level, and notes without running a renderer.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not start a server, launch a browser, write
+screenshots, update generated docs, change component APIs, edit templates, or
+claim visual parity.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:

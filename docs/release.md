@@ -124,6 +124,7 @@ npm run verify:scripts
 npm run verify:gitignore
 npm run verify:preview-state-metadata
 npm run verify:mobile-browser-metadata
+npm run verify:rendered-component-coverage
 npm run verify:examples-metadata
 npm run verify:css-inputs
 npm run verify:registry
@@ -255,6 +256,10 @@ localhost target, `390x844` viewport, selector contract, screenshot artifact
 pattern, browser environment variables, and CI browser guidance; they do not
 launch Playwright, start `dx serve`, install browsers, write screenshots, or
 validate rendered output.
+Rendered component coverage checks are read-only. They validate stable rendered
+preview target metadata for public components against the docs catalog; they do
+not start a server, launch a browser, write screenshots, update generated docs,
+change component APIs, edit templates, or claim visual parity.
 Examples metadata checks are also part of the release aggregate, but they only
 validate example workspace membership, package script wiring, smoke script
 references, preview verifier references, and examples documentation; they do
