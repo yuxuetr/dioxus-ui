@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M108 Workspace Dependency Publish Readiness Metadata Gate
-- Current task: M108 complete
+- Current milestone: M109 Rendered Component Verification
+- Current task: M109.1 Plan rendered component coverage verification
 
 ## Backup
 
@@ -1761,6 +1761,33 @@
 - DONE M108.4 Complete workspace dependency publish readiness metadata milestone
   - Run workspace dependency readiness checks, coverage checks, runbook checks, publish order checks, Cargo publish metadata checks, package script checks, docs checks, release aggregate, and diff checks.
   - Verify no dependency version changes, package archives, registry lookups, credentials, publish commands, or generated artifacts are committed.
+  - Update TODO status only after commits and validation.
+
+## M109 Rendered Component Verification
+
+- TODO M109.1 Plan rendered component coverage verification
+  - Define the rendered coverage contract for all public shadcn/ui-aligned components.
+  - Keep browser launch, screenshot artifacts, visual diffing, runtime adapter stabilization, component API changes, and template edits out of scope.
+  - Decide which preview-state docs, README, quality gates, release docs, docs-site notes, package scripts, and catalog metadata must stay aligned.
+
+- TODO M109.2 Add rendered component coverage metadata check
+  - Add a deterministic verifier that compares a rendered coverage manifest against the docs catalog public component list.
+  - Fail when a public component lacks a stable rendered preview target, category, panel, coverage level, or runtime/app-owned note.
+  - Keep the check read-only and include it in release verification without starting servers, launching browsers, writing screenshots, or claiming visual parity.
+
+- TODO M109.3 Add preview coverage targets
+  - Add rendered coverage records and stable `data-component-preview` target ids for all public components.
+  - Reuse the shared preview-state crate and preserve existing Web/Desktop preview panels and state markers.
+  - Keep representative previews lightweight and avoid adding full prop matrices or runtime adapter behavior.
+
+- TODO M109.4 Update rendered coverage documentation
+  - Document the rendered coverage check in README, docs README, release docs, quality gates, rendered verification docs, and docs-site planning docs.
+  - Clarify that the check validates deterministic rendered target coverage, not visual parity or browser screenshot pixels.
+  - Keep package script, release aggregate, preview-state metadata, docs catalog, and release documentation behavior aligned.
+
+- TODO M109.5 Complete rendered component verification milestone
+  - Run rendered coverage checks, preview metadata checks, Web/Desktop preview checks, docs checks, package script checks, release aggregate, and diff checks.
+  - Verify no browser artifacts, screenshots, generated docs, component API changes, or template rewrites are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules

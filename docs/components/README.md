@@ -95,7 +95,9 @@ For the generated static component index, see the
 [Component Catalog](catalog.md). For the local implementation status snapshot,
 see [Component Status](status.md). For future docs runtime route metadata, see
 the [Docs Route Manifest](routes.md). For source preview route metadata, see
-the [Source Preview Manifest](source-preview.md).
+the [Source Preview Manifest](source-preview.md). For rendered component
+coverage planning, see
+[Rendered Component Verification](rendered-component-verification.md).
 
 ## Install by Source Copy
 
