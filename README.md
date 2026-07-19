@@ -217,7 +217,8 @@ checks Cargo publish metadata for the planned library and CLI crates without
 packaging or publishing them, then validates the publish readiness blocker
 inventory, release notes readiness metadata, license readiness metadata,
 repository identity readiness metadata, API stability readiness metadata, and
-changelog metadata.
+changelog metadata. Rendered component coverage metadata is part of this gate
+and stays read-only.
 
 Run deterministic preview and example gates only:
 
@@ -287,6 +288,7 @@ npm run verify:scripts
 npm run verify:gitignore
 npm run verify:preview-state-metadata
 npm run verify:mobile-browser-metadata
+npm run verify:rendered-component-coverage
 npm run verify:examples-metadata
 npm run verify:css-inputs
 npm run verify:rfcs
@@ -641,6 +643,18 @@ target, `390x844` viewport, selector contract, screenshot artifact pattern,
 browser environment variables, and CI browser guidance. It does not launch
 Playwright, start `dx serve`, install browsers, write screenshots, or validate
 rendered output.
+
+Verify rendered component coverage metadata only:
+
+```bash
+npm run verify:rendered-component-coverage
+```
+
+This checks `docs/components/rendered-coverage.json` against the docs catalog
+and confirms `examples/preview-states` exposes stable
+`data-component-preview` targets for every public component. It does not start
+a server, launch a browser, write screenshots, update generated docs, change
+component APIs, edit templates, or claim visual parity.
 
 Verify repository hygiene only:
 

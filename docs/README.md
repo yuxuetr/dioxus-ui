@@ -55,3 +55,5 @@ Read in this order:
 - Headless primitives before complex styled components.
 - Complete Tailwind class tokens in source files.
 - Accessibility requirements are part of component behavior, not optional polish.
+- Rendered preview targets should be deterministic metadata before browser
+  screenshot claims.

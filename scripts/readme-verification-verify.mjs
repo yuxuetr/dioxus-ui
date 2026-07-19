@@ -64,6 +64,10 @@ const requiredSnippets = [
     snippet: "npm run verify:scripts",
   },
   {
+    label: "rendered component coverage focused gate",
+    snippet: "npm run verify:rendered-component-coverage",
+  },
+  {
     label: "repository hygiene focused gate",
     snippet: "npm run verify:repo-hygiene",
   },
@@ -90,6 +94,10 @@ const requiredSnippets = [
   {
     label: "release summary repository hygiene",
     snippet: "repository hygiene",
+  },
+  {
+    label: "release summary rendered coverage",
+    snippet: "Rendered component coverage metadata",
   },
 ];
 

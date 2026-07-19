@@ -409,9 +409,11 @@ start `dx serve`, install browsers, write screenshots, or validate rendered
 output.
 
 `npm run verify:rendered-component-coverage` checks stable rendered preview
-target metadata for public components against the docs catalog. It is read-only
-and does not start a server, launch a browser, write screenshots, update
-generated docs, change component APIs, edit templates, or claim visual parity.
+target metadata for public components against the docs catalog and confirms
+those `data-component-preview` ids are present in the shared preview state
+source. It is read-only and does not start a server, launch a browser, write
+screenshots, update generated docs, change component APIs, edit templates, or
+claim visual parity.
 
 `npm run verify:repo-hygiene` checks that inactive workflow files, generated
 directories such as `node_modules/`, `target/`, `dist/`, and `build/`, and known

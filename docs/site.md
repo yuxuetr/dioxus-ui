@@ -1950,7 +1950,9 @@ npm run verify:rendered-component-coverage
 
 The command checks stable rendered preview target metadata for public
 components against the docs catalog. It validates component slug, label,
-category, panel, test id, coverage level, and notes without running a renderer.
+category, panel, test id, coverage level, and notes, then confirms the shared
+preview state source contains the matching `data-component-preview` targets
+without running a renderer.
 
 The check is included in:
 

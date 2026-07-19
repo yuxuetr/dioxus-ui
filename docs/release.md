@@ -257,9 +257,11 @@ pattern, browser environment variables, and CI browser guidance; they do not
 launch Playwright, start `dx serve`, install browsers, write screenshots, or
 validate rendered output.
 Rendered component coverage checks are read-only. They validate stable rendered
-preview target metadata for public components against the docs catalog; they do
-not start a server, launch a browser, write screenshots, update generated docs,
-change component APIs, edit templates, or claim visual parity.
+preview target metadata for public components against the docs catalog and
+confirm those `data-component-preview` ids are present in the shared preview
+state source; they do not start a server, launch a browser, write screenshots,
+update generated docs, change component APIs, edit templates, or claim visual
+parity.
 Examples metadata checks are also part of the release aggregate, but they only
 validate example workspace membership, package script wiring, smoke script
 references, preview verifier references, and examples documentation; they do

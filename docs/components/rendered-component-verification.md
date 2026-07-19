@@ -3,7 +3,7 @@
 This document defines the M109 plan for moving from representative preview
 states to rendered coverage for every public shadcn/ui-aligned component.
 
-Status: Planned in M109.1.
+Status: Metadata gate and shared preview targets implemented in M109.2-M109.3.
 
 ## Problem
 
@@ -31,8 +31,8 @@ M109 should add rendered component coverage in layers:
 4. Expand Web/Desktop preview checks to assert the coverage targets exist.
 5. Keep full screenshot pixel assertions as a later, narrower milestone.
 
-The first gate should be metadata-first and read-only. It should not require a
-browser, start a dev server, write screenshots, or claim visual parity.
+The first gate is metadata-first and read-only. It does not require a browser,
+start a dev server, write screenshots, or claim visual parity.
 
 ## Coverage Contract
 
@@ -56,6 +56,11 @@ Coverage levels should be explicit:
 | `runtime-planned` | Preview has a deterministic target, but renderer behavior needs separate adapter verification. |
 | `app-owned` | Component composition is present, but domain behavior remains outside the UI library. |
 
+The committed manifest lives at
+[`rendered-coverage.json`](rendered-coverage.json). The shared preview surface
+uses the same stable target ids in
+[`examples/preview-states/src/lib.rs`](../../examples/preview-states/src/lib.rs).
+
 ## Initial Panel Groups
 
 The manifest should group components by the existing docs catalog categories:
@@ -69,9 +74,9 @@ The manifest should group components by the existing docs catalog categories:
 - Feedback
 - Messaging
 
-The first rendered preview expansion should reuse the existing
+The rendered preview expansion reuses the existing
 `examples/preview-states` crate and add stable `data-component-preview`
-targets. It should not replace existing `data-preview-panel` or
+targets. It does not replace existing `data-preview-panel` or
 `data-preview-state` markers.
 
 ## Verification Scope
@@ -80,6 +85,7 @@ targets. It should not replace existing `data-preview-panel` or
 
 - the coverage manifest contains exactly the public docs catalog components
 - every component has a stable `data-component-preview` test id
+- every stable target id is present in the shared preview source
 - every coverage record has a known panel and coverage level
 - runtime-sensitive components are marked `runtime-planned` or `controlled`
   rather than falsely claimed as fully browser-verified
@@ -103,11 +109,9 @@ templates, or claim visual parity.
 
 ## Follow-up Milestones
 
-After the metadata gate lands, useful next steps are:
+After the metadata gate and shared preview targets, useful next steps are:
 
-1. Add rendered coverage records for all 64 public components.
-2. Render the records in `examples/preview-states`.
-3. Add Web preview DOM checks for `data-component-preview` coverage targets.
-4. Add Desktop preview structural checks for the same coverage targets.
-5. Add targeted screenshot assertions for chart, form, message, and overlay
+1. Add Web preview DOM checks for `data-component-preview` coverage targets.
+2. Add Desktop preview structural checks for the same coverage targets.
+3. Add targeted screenshot assertions for chart, form, message, and overlay
    panels only after DOM coverage is deterministic.
