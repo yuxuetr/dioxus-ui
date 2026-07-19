@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M109 Rendered Component Verification
-- Current task: M109.3 Add preview coverage targets
+- Current task: M109.4 Update rendered coverage documentation
 
 ## Backup
 
@@ -1775,7 +1775,7 @@
   - Fail when a public component lacks a stable rendered preview target, category, panel, coverage level, or runtime/app-owned note.
   - Keep the check read-only and include it in release verification without starting servers, launching browsers, writing screenshots, or claiming visual parity.
 
-- TODO M109.3 Add preview coverage targets
+- DONE M109.3 Add preview coverage targets
   - Add rendered coverage records and stable `data-component-preview` target ids for all public components.
   - Reuse the shared preview-state crate and preserve existing Web/Desktop preview panels and state markers.
   - Keep representative previews lightweight and avoid adding full prop matrices or runtime adapter behavior.
