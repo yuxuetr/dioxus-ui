@@ -1,17 +1,16 @@
 use dioxus::prelude::*;
 use dioxus_ui::{
-  attachment_class, bubble_class, button_class, button_group_class, chart_area_path,
+  AttachmentOrientation, AttachmentSize, AttachmentState, BubbleAlign, ButtonGroupOrientation,
+  ButtonSize, ButtonVariant, ChartColorToken, ChartDomain, ChartPoint, ChartScale, ChartSeries,
+  MarkerVariant, MessageAlign, MessageScrollerIntent, MessageScrollerMetrics, TextDirection,
+  UiDensity, attachment_class, bubble_class, button_class, button_group_class, chart_area_path,
   chart_area_series_class, chart_bar_rects, chart_bar_series_class, chart_class,
-  chart_fallback_rows, chart_line_path, chart_line_series_class, chart_view_box,
-  collapsible_class, direction_class, input_group_class, input_otp_class, marker_class,
-  message_avatar_class, message_class, message_content_class, message_footer_class,
-  message_group_class, message_header_class, message_scroller_class,
-  message_scroller_intent_attribute, message_scroller_is_at_bottom,
-  message_scroller_jump_button_class, message_scroller_show_unread_marker,
-  otp_apply_paste_filtered, otp_slots, AttachmentOrientation, AttachmentSize, AttachmentState,
-  BubbleAlign, ButtonGroupOrientation, ButtonSize, ButtonVariant, ChartColorToken,
-  ChartDomain, ChartPoint, ChartScale, ChartSeries, MarkerVariant, MessageAlign,
-  MessageScrollerIntent, MessageScrollerMetrics, TextDirection, UiDensity,
+  chart_fallback_rows, chart_line_path, chart_line_series_class, chart_view_box, collapsible_class,
+  direction_class, input_group_class, input_otp_class, marker_class, message_avatar_class,
+  message_class, message_content_class, message_footer_class, message_group_class,
+  message_header_class, message_scroller_class, message_scroller_intent_attribute,
+  message_scroller_is_at_bottom, message_scroller_jump_button_class,
+  message_scroller_show_unread_marker, otp_apply_paste_filtered, otp_slots,
 };
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -37,14 +36,534 @@ pub struct PreviewLine {
 
 impl PreviewLine {
   pub fn render(&self, target: PreviewTarget) -> String {
-    format!(
-      "dioxus-ui {} demo {}: {}",
-      target.label(),
-      self.label,
-      self.value
-    )
+    format!("dioxus-ui {} demo {}: {}", target.label(), self.label, self.value)
   }
 }
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct ComponentPreviewTarget {
+  pub component: &'static str,
+  pub label: &'static str,
+  pub panel: &'static str,
+  pub test_id: &'static str,
+  pub coverage_level: &'static str,
+  pub notes: &'static str,
+}
+
+pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
+  ComponentPreviewTarget {
+    component: "accordion",
+    label: "Accordion",
+    panel: "layout",
+    test_id: "component-preview-accordion",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "alert",
+    label: "Alert",
+    panel: "feedback",
+    test_id: "component-preview-alert",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "alert-dialog",
+    label: "Alert Dialog",
+    panel: "overlays",
+    test_id: "component-preview-alert-dialog",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "aspect-ratio",
+    label: "Aspect Ratio",
+    panel: "layout",
+    test_id: "component-preview-aspect-ratio",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "attachment",
+    label: "Attachment",
+    panel: "messaging",
+    test_id: "component-preview-attachment",
+    coverage_level: "app-owned",
+    notes: "Composition target exists; domain behavior remains app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "avatar",
+    label: "Avatar",
+    panel: "data-display",
+    test_id: "component-preview-avatar",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "badge",
+    label: "Badge",
+    panel: "data-display",
+    test_id: "component-preview-badge",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "breadcrumb",
+    label: "Breadcrumb",
+    panel: "navigation",
+    test_id: "component-preview-breadcrumb",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "bubble",
+    label: "Bubble",
+    panel: "messaging",
+    test_id: "component-preview-bubble",
+    coverage_level: "app-owned",
+    notes: "Composition target exists; domain behavior remains app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "button",
+    label: "Button",
+    panel: "actions",
+    test_id: "component-preview-button",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "button-group",
+    label: "Button Group",
+    panel: "actions",
+    test_id: "component-preview-button-group",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "calendar",
+    label: "Calendar",
+    panel: "forms",
+    test_id: "component-preview-calendar",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "card",
+    label: "Card",
+    panel: "layout",
+    test_id: "component-preview-card",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "carousel",
+    label: "Carousel",
+    panel: "layout",
+    test_id: "component-preview-carousel",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "chart",
+    label: "Chart",
+    panel: "data-display",
+    test_id: "component-preview-chart",
+    coverage_level: "app-owned",
+    notes: "Composition target exists; domain behavior remains app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "checkbox",
+    label: "Checkbox",
+    panel: "forms",
+    test_id: "component-preview-checkbox",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "collapsible",
+    label: "Collapsible",
+    panel: "layout",
+    test_id: "component-preview-collapsible",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "combobox",
+    label: "Combobox",
+    panel: "overlays",
+    test_id: "component-preview-combobox",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "command",
+    label: "Command",
+    panel: "actions",
+    test_id: "component-preview-command",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "context-menu",
+    label: "Context Menu",
+    panel: "overlays",
+    test_id: "component-preview-context-menu",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "data-table",
+    label: "Data Table",
+    panel: "data-display",
+    test_id: "component-preview-data-table",
+    coverage_level: "app-owned",
+    notes: "Composition target exists; domain behavior remains app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "date-picker",
+    label: "Date Picker",
+    panel: "forms",
+    test_id: "component-preview-date-picker",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "dialog",
+    label: "Dialog",
+    panel: "overlays",
+    test_id: "component-preview-dialog",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "direction",
+    label: "Direction",
+    panel: "layout",
+    test_id: "component-preview-direction",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "drawer",
+    label: "Drawer",
+    panel: "overlays",
+    test_id: "component-preview-drawer",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "dropdown",
+    label: "Dropdown",
+    panel: "overlays",
+    test_id: "component-preview-dropdown",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "empty",
+    label: "Empty",
+    panel: "data-display",
+    test_id: "component-preview-empty",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "field",
+    label: "Field",
+    panel: "forms",
+    test_id: "component-preview-field",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "hover-card",
+    label: "Hover Card",
+    panel: "overlays",
+    test_id: "component-preview-hover-card",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "input",
+    label: "Input",
+    panel: "forms",
+    test_id: "component-preview-input",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "input-group",
+    label: "Input Group",
+    panel: "forms",
+    test_id: "component-preview-input-group",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "input-otp",
+    label: "Input Otp",
+    panel: "forms",
+    test_id: "component-preview-input-otp",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "item",
+    label: "Item",
+    panel: "layout",
+    test_id: "component-preview-item",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "kbd",
+    label: "Kbd",
+    panel: "actions",
+    test_id: "component-preview-kbd",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "label",
+    label: "Label",
+    panel: "forms",
+    test_id: "component-preview-label",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "marker",
+    label: "Marker",
+    panel: "messaging",
+    test_id: "component-preview-marker",
+    coverage_level: "app-owned",
+    notes: "Composition target exists; domain behavior remains app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "menubar",
+    label: "Menubar",
+    panel: "overlays",
+    test_id: "component-preview-menubar",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "message",
+    label: "Message",
+    panel: "messaging",
+    test_id: "component-preview-message",
+    coverage_level: "app-owned",
+    notes: "Composition target exists; domain behavior remains app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "message-scroller",
+    label: "Message Scroller",
+    panel: "messaging",
+    test_id: "component-preview-message-scroller",
+    coverage_level: "app-owned",
+    notes: "Composition target exists; domain behavior remains app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "native-select",
+    label: "Native Select",
+    panel: "forms",
+    test_id: "component-preview-native-select",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "navigation-menu",
+    label: "Navigation Menu",
+    panel: "navigation",
+    test_id: "component-preview-navigation-menu",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "pagination",
+    label: "Pagination",
+    panel: "navigation",
+    test_id: "component-preview-pagination",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "popover",
+    label: "Popover",
+    panel: "overlays",
+    test_id: "component-preview-popover",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "progress",
+    label: "Progress",
+    panel: "data-display",
+    test_id: "component-preview-progress",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "radio-group",
+    label: "Radio Group",
+    panel: "forms",
+    test_id: "component-preview-radio-group",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "resizable",
+    label: "Resizable",
+    panel: "layout",
+    test_id: "component-preview-resizable",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "scroll-area",
+    label: "Scroll Area",
+    panel: "layout",
+    test_id: "component-preview-scroll-area",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "select",
+    label: "Select",
+    panel: "forms",
+    test_id: "component-preview-select",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "separator",
+    label: "Separator",
+    panel: "layout",
+    test_id: "component-preview-separator",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "sheet",
+    label: "Sheet",
+    panel: "overlays",
+    test_id: "component-preview-sheet",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "sidebar",
+    label: "Sidebar",
+    panel: "navigation",
+    test_id: "component-preview-sidebar",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "skeleton",
+    label: "Skeleton",
+    panel: "feedback",
+    test_id: "component-preview-skeleton",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "slider",
+    label: "Slider",
+    panel: "forms",
+    test_id: "component-preview-slider",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "sonner",
+    label: "Sonner",
+    panel: "feedback",
+    test_id: "component-preview-sonner",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "spinner",
+    label: "Spinner",
+    panel: "feedback",
+    test_id: "component-preview-spinner",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "switch",
+    label: "Switch",
+    panel: "forms",
+    test_id: "component-preview-switch",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "table",
+    label: "Table",
+    panel: "data-display",
+    test_id: "component-preview-table",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "tabs",
+    label: "Tabs",
+    panel: "navigation",
+    test_id: "component-preview-tabs",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "textarea",
+    label: "Textarea",
+    panel: "forms",
+    test_id: "component-preview-textarea",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "toast",
+    label: "Toast",
+    panel: "feedback",
+    test_id: "component-preview-toast",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "toggle",
+    label: "Toggle",
+    panel: "actions",
+    test_id: "component-preview-toggle",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "toggle-group",
+    label: "Toggle Group",
+    panel: "actions",
+    test_id: "component-preview-toggle-group",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "tooltip",
+    label: "Tooltip",
+    panel: "overlays",
+    test_id: "component-preview-tooltip",
+    coverage_level: "runtime-planned",
+    notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "typography",
+    label: "Typography",
+    panel: "data-display",
+    test_id: "component-preview-typography",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+];
 
 pub fn preview_lines(target: PreviewTarget) -> Vec<PreviewLine> {
   let config = PreviewConfig::for_target(target);
@@ -58,21 +577,26 @@ pub fn preview_lines(target: PreviewTarget) -> Vec<PreviewLine> {
   let chart_series = ChartSeries::new(config.chart_id, config.chart_label, config.chart_points);
   let chart_x = ChartScale::new(config.chart_x_domain, config.chart_x_range);
   let chart_y = ChartScale::new(config.chart_y_domain, config.chart_y_range);
-  let metrics = MessageScrollerMetrics::new(
-    config.scroll_top,
-    config.viewport_height,
-    config.content_height,
-  );
+  let metrics =
+    MessageScrollerMetrics::new(config.scroll_top, config.viewport_height, config.content_height);
   let unread_visible = message_scroller_show_unread_marker(config.scroll_intent, config.unread);
 
   vec![
     PreviewLine {
       label: "button group class",
-      value: button_group_class(config.button_orientation, config.button_attached, config.button_class),
+      value: button_group_class(
+        config.button_orientation,
+        config.button_attached,
+        config.button_class,
+      ),
     },
     PreviewLine {
       label: "input group class",
-      value: input_group_class(config.input_disabled, config.input_invalid, config.input_group_class),
+      value: input_group_class(
+        config.input_disabled,
+        config.input_invalid,
+        config.input_group_class,
+      ),
     },
     PreviewLine {
       label: "input otp helper",
@@ -119,7 +643,11 @@ pub fn preview_lines(target: PreviewTarget) -> Vec<PreviewLine> {
     },
     PreviewLine {
       label: "direction class/attr",
-      value: format!("{}/{}", direction_class(config.direction_class), config.direction.attribute()),
+      value: format!(
+        "{}/{}",
+        direction_class(config.direction_class),
+        config.direction.attribute()
+      ),
     },
     PreviewLine {
       label: "collapsible class",
@@ -129,10 +657,7 @@ pub fn preview_lines(target: PreviewTarget) -> Vec<PreviewLine> {
 }
 
 pub fn preview_smoke_lines(target: PreviewTarget) -> Vec<String> {
-  preview_lines(target)
-    .into_iter()
-    .map(|line| line.render(target))
-    .collect()
+  preview_lines(target).into_iter().map(|line| line.render(target)).collect()
 }
 
 #[component]
@@ -142,18 +667,10 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
     PreviewTarget::Web => "web",
     PreviewTarget::Desktop => "desktop",
   };
-  let primary_button_class = button_class(
-    ButtonVariant::Primary,
-    ButtonSize::Md,
-    UiDensity::Comfortable,
-    "",
-  );
-  let secondary_button_class = button_class(
-    ButtonVariant::Secondary,
-    ButtonSize::Sm,
-    UiDensity::Compact,
-    "",
-  );
+  let primary_button_class =
+    button_class(ButtonVariant::Primary, ButtonSize::Md, UiDensity::Comfortable, "");
+  let secondary_button_class =
+    button_class(ButtonVariant::Secondary, ButtonSize::Sm, UiDensity::Compact, "");
   let form_group_class = input_group_class(false, false, "max-w-sm");
   let otp_class = input_otp_class(false, "max-w-xs");
   let message_group = message_group_class("max-w-2xl");
@@ -372,6 +889,22 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
         section {
           class: "grid gap-3 md:grid-cols-2 xl:grid-cols-3",
           "data-preview-panel": "inventory",
+          section {
+            class: "grid gap-2 md:col-span-2 xl:col-span-3",
+            "aria-label": "Rendered component coverage targets",
+            for target in COMPONENT_PREVIEW_TARGETS {
+              article {
+                key: "{target.test_id}",
+                class: "rounded-md border border-zinc-200 bg-zinc-50 p-3",
+                "data-component-preview": "{target.test_id}",
+                "data-component": "{target.component}",
+                "data-component-panel": "{target.panel}",
+                "data-component-coverage": "{target.coverage_level}",
+                h2 { class: "text-sm font-medium text-zinc-950", "{target.label}" }
+                p { class: "mt-1 text-xs text-zinc-600", "{target.notes}" }
+              }
+            }
+          }
           for state in states {
             article {
               key: "{state.label}",

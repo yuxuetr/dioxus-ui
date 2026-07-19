@@ -16,6 +16,7 @@ const renderedDoc = normalizeWhitespace(readRepoFile("docs/components/rendered-c
 const releaseDoc = normalizeWhitespace(readRepoFile("docs/release.md"));
 const qualityDoc = normalizeWhitespace(readRepoFile("docs/quality-gates.md"));
 const siteDoc = normalizeWhitespace(readRepoFile("docs/site.md"));
+const sharedPreview = readRepoFile("examples/preview-states/src/lib.rs");
 const scripts = packageJson.scripts ?? {};
 const { catalog, catalogCategories } = buildDocsCatalog({ repoRoot });
 const failures = [];
@@ -151,6 +152,21 @@ requireIncludes("docs/site.md", siteDoc, [
   "npm run verify:rendered-component-coverage",
   "stable rendered preview target metadata",
 ]);
+
+requireIncludes("examples/preview-states/src/lib.rs", sharedPreview, [
+  "pub struct ComponentPreviewTarget",
+  "pub const COMPONENT_PREVIEW_TARGETS",
+  '"data-component-preview": "{target.test_id}"',
+]);
+
+for (const record of records) {
+  requireIncludes("examples/preview-states/src/lib.rs", sharedPreview, [
+    `component: "${record.component}"`,
+    `test_id: "${record.test_id}"`,
+    `panel: "${record.panel}"`,
+    `coverage_level: "${record.coverage_level}"`,
+  ]);
+}
 
 if (failures.length > 0) {
   console.error("rendered component coverage verification failed");
