@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M113 Browser Smoke Aggregate
-- Current task: M113.1 Plan browser smoke aggregate
+- Current task: M113.2 Add serial browser smoke aggregate
 
 ## Backup
 
@@ -1863,7 +1863,7 @@
 
 ## M113 Browser Smoke Aggregate
 
-- TODO M113.1 Plan browser smoke aggregate
+- DONE M113.1 Plan browser smoke aggregate
   - Define a local opt-in aggregate for browser-backed Web preview verification commands that must run serially.
   - Keep CI workflow activation, screenshot capture by default, release gate promotion, Desktop WebView screenshots, native Mobile automation, component API changes, and template rewrites out of scope.
   - Decide which package scripts, README, quality gates, release docs, docs-site notes, browser artifact policy, and browser verification docs must stay aligned.
