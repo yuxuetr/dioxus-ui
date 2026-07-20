@@ -9,6 +9,8 @@ This gate protects the current policy:
 
 - normal browser smoke uploads are screenshot PNG files only
 - screenshot artifacts use `dioxus-ui-mobile-browser-preview-*.png`
+- rendered component DOM verification writes no screenshots or traces by
+  default
 - browser profiles, Playwright caches, Rust target directories, and temporary
   preview server output stay outside the normal upload path
 - screenshot outputs stay ignored by Git
@@ -33,6 +35,7 @@ Out of scope:
 - launching Playwright
 - starting `dx serve`
 - creating or uploading artifacts
+- tracing rendered component DOM verification
 - deleting local browser profiles, caches, or screenshots
 - enforcing remote artifact retention settings
 - validating screenshot pixels or PNG metadata

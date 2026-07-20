@@ -1964,6 +1964,24 @@ It remains read-only. It does not start a server, launch a browser, write
 screenshots, update generated docs, change component APIs, edit templates, or
 claim visual parity.
 
+## M110 Browser DOM Component Verification Usage
+
+M110 adds an opt-in browser DOM command:
+
+```bash
+npm run verify:rendered-component-dom
+```
+
+The command starts the Web preview, opens it in Playwright Chromium or an
+explicit `DIOXUS_UI_BROWSER_EXECUTABLE`, and checks every public
+`data-component-preview` target from the rendered coverage manifest. It
+validates DOM existence, visibility, text content, component metadata
+attributes, and non-empty layout boxes.
+
+It is not part of `npm run verify` or `npm run verify:release`. It does not
+write screenshots or traces, assert runtime interactions, update generated
+docs, change component APIs, edit templates, or claim visual parity.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:

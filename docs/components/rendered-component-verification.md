@@ -118,3 +118,5 @@ After the metadata gate and shared preview targets, useful next steps are:
 
 M110 plans the first browser-backed DOM check in
 [Browser DOM Component Verification](browser-dom-component-verification.md).
+The focused command is `npm run verify:rendered-component-dom`; it remains
+opt-in and outside default release gates.

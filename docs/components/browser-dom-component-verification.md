@@ -3,7 +3,7 @@
 This document defines the M110 plan for moving rendered component coverage from
 static metadata to a browser-backed DOM existence and visibility check.
 
-Status: Planned in M110.1.
+Status: Script and package alias implemented in M110.2-M110.3.
 
 ## Problem
 
@@ -73,15 +73,21 @@ The focused command should be:
 npm run verify:rendered-component-dom
 ```
 
-It should stay separate from:
+It stays separate from:
 
 - `npm run verify`
 - `npm run verify:release`
 - `npm run verify:mobile-browser`
 
-M110 can document it as opt-in until browser availability is proven stable in
-local and CI environments. A later milestone can decide whether it belongs in
-release or CI gates.
+It is documented as opt-in until browser availability is proven stable in local
+and CI environments. A later milestone can decide whether it belongs in release
+or CI gates.
+
+If Playwright-managed Chromium is unavailable, run it with a local browser:
+
+```bash
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:rendered-component-dom
+```
 
 ## Documentation Alignment
 

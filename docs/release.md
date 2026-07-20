@@ -356,12 +356,14 @@ Optional browser smoke:
 ```bash
 npx playwright install chromium
 npm run verify:mobile-browser
+npm run verify:rendered-component-dom
 ```
 
 Local external Chrome fallback:
 
 ```bash
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:mobile-browser
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:rendered-component-dom
 ```
 
 Optional local screenshot artifact:
@@ -384,6 +386,12 @@ bound of `390x844`.
 
 This is not part of the release gate yet. It verifies mobile browser rendering
 of the Web preview, not native Mobile behavior.
+
+`npm run verify:rendered-component-dom` is also opt-in and outside release
+gates. It verifies all 64 public `data-component-preview` targets exist,
+remain visible, contain text, and have non-empty bounding boxes in a browser
+DOM. It does not write screenshots or traces, assert interactions, or claim
+visual parity.
 
 For CI setup options and non-blocking workflow policy, see
 `docs/ci-browser-smoke.md` and `docs/ci-browser-workflow-template.md`. Do not

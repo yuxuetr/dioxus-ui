@@ -415,6 +415,13 @@ source. It is read-only and does not start a server, launch a browser, write
 screenshots, update generated docs, change component APIs, edit templates, or
 claim visual parity.
 
+`npm run verify:rendered-component-dom` starts the Web preview and checks every
+rendered coverage target in a real browser DOM. It is opt-in, requires
+Playwright Chromium or `DIOXUS_UI_BROWSER_EXECUTABLE`, and is not part of
+default or release gates. It does not write screenshots or traces, assert
+runtime interactions, update generated docs, change component APIs, edit
+templates, or claim visual parity.
+
 `npm run verify:repo-hygiene` checks that inactive workflow files, generated
 directories such as `node_modules/`, `target/`, `dist/`, and `build/`, and known
 generated artifacts are not committed. It is read-only and reports drift without
@@ -450,12 +457,14 @@ Run only when Playwright Chromium has been installed:
 ```bash
 npx playwright install chromium
 npm run verify:mobile-browser
+npm run verify:rendered-component-dom
 ```
 
 For local machines with a supported Chrome executable, the command also accepts:
 
 ```bash
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:mobile-browser
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:rendered-component-dom
 ```
 
 Optional local screenshot capture:

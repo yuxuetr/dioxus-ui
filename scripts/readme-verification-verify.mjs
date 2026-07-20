@@ -68,6 +68,10 @@ const requiredSnippets = [
     snippet: "npm run verify:rendered-component-coverage",
   },
   {
+    label: "rendered component DOM focused gate",
+    snippet: "npm run verify:rendered-component-dom",
+  },
+  {
     label: "repository hygiene focused gate",
     snippet: "npm run verify:repo-hygiene",
   },

@@ -289,6 +289,7 @@ npm run verify:gitignore
 npm run verify:preview-state-metadata
 npm run verify:mobile-browser-metadata
 npm run verify:rendered-component-coverage
+npm run verify:rendered-component-dom
 npm run verify:examples-metadata
 npm run verify:css-inputs
 npm run verify:rfcs
@@ -656,6 +657,18 @@ and confirms `examples/preview-states` exposes stable
 a server, launch a browser, write screenshots, update generated docs, change
 component APIs, edit templates, or claim visual parity.
 
+Verify rendered component browser DOM targets only:
+
+```bash
+npm run verify:rendered-component-dom
+```
+
+This opt-in Playwright command starts the Web preview and checks every
+`data-component-preview` target from `docs/components/rendered-coverage.json`
+in a real browser DOM. It requires Playwright Chromium or
+`DIOXUS_UI_BROWSER_EXECUTABLE`, does not write screenshots or traces, and does
+not claim visual parity or interaction coverage.
+
 Verify repository hygiene only:
 
 ```bash
@@ -732,11 +745,23 @@ After Chromium is installed, run the opt-in mobile browser smoke:
 npm run verify:mobile-browser
 ```
 
+Run the rendered component DOM verifier the same way:
+
+```bash
+npm run verify:rendered-component-dom
+```
+
 If Playwright-managed Chromium is unavailable but local Chrome is installed,
 use an explicit executable path:
 
 ```bash
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:mobile-browser
+```
+
+For rendered component DOM verification with local Chrome:
+
+```bash
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:rendered-component-dom
 ```
 
 To save an ignored local screenshot after the assertions pass, add:
