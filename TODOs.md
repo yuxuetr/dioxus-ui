@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M119 Release Candidate Handoff Metadata Gate
-- Current task: None
+- Overall: 99%
+- Current milestone: M120 Release Gate Failure Triage Runbook
+- Current task: M120.1 Plan release gate failure triage runbook
 
 ## Backup
 
@@ -2011,6 +2011,28 @@
   - Keep browser review optional and outside default/release browser execution.
 
 - DONE M119.4 Complete release candidate handoff metadata gate milestone
+  - Run docs checks, release docs checks, package script checks, handoff metadata checks, repo hygiene checks, browser artifact policy checks, and diff checks.
+  - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, tags, or CI workflow files are committed.
+  - Update TODO status only after commits and validation.
+
+## M120 Release Gate Failure Triage Runbook
+
+- TODO M120.1 Plan release gate failure triage runbook
+  - Define the smallest manual triage flow for failures inside `npm run verify:release`.
+  - Group failures by Rust workspace, CLI registry/list smoke, metadata gates, docs gates, source-copy fixture, feature checks, browser artifact policy, release warning inventory, handoff metadata, and repository hygiene.
+  - Keep the runbook read-only by default and avoid destructive cleanup, generated artifact commits, browser workflow activation, publishing, tagging, component API changes, or template rewrites.
+
+- TODO M120.2 Add release gate failure triage runbook
+  - Add a Markdown runbook under release docs with failure categories, first commands to rerun, evidence to collect, owner handoff notes, and explicit non-goals.
+  - Reference release docs, quality gates, release candidate handoff checklist, handoff metadata gate, browser review runbook, and publish readiness runbook.
+  - Keep fixes manual and scoped instead of adding automatic repair behavior.
+
+- TODO M120.3 Wire and verify triage runbook discoverability
+  - Link the triage runbook from README, docs index, release docs, quality gates, docs-site notes, release candidate handoff checklist, and handoff metadata docs.
+  - Extend release docs or handoff metadata checks if needed so the triage runbook remains discoverable.
+  - Keep release failure triage outside default browser execution and outside publish automation.
+
+- TODO M120.4 Complete release gate failure triage runbook milestone
   - Run docs checks, release docs checks, package script checks, handoff metadata checks, repo hygiene checks, browser artifact policy checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, tags, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
