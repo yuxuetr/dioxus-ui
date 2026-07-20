@@ -429,6 +429,9 @@ The retention decision in
 local-first: copy command output and PNG metadata into review notes, do not
 commit PNG files, and defer uploads or GitHub release attachments until a
 separate release owner defines that process.
+Use `docs/components/release-screenshot-review-notes-template.md` for a
+copyable review note format that records environment, screenshot metadata,
+observed issues, decision, retention outcome, and cleanup evidence.
 
 For CI setup options and non-blocking workflow policy, see
 `docs/ci-browser-smoke.md` and `docs/ci-browser-workflow-template.md`. Do not

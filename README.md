@@ -838,7 +838,9 @@ and validate PNG signature, byte size, and dimensions against the desktop and
 mobile viewport lower bounds.
 
 For manual release-candidate screenshot review, use the
-[Release Screenshot Review Checklist](docs/components/release-screenshot-review-checklist.md).
+[Release Screenshot Review Checklist](docs/components/release-screenshot-review-checklist.md)
+and copy review evidence into the
+[Release Screenshot Review Notes Template](docs/components/release-screenshot-review-notes-template.md).
 
 That browser smoke starts the Web preview, checks a mobile browser viewport, and
 cleans up the server. It is not part of the release gate and is not part of

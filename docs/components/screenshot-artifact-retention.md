@@ -103,6 +103,8 @@ M116 should add a copyable Markdown review notes template for release-candidate
 screenshot review. The template should be small enough to paste into a pull
 request, issue, local handoff note, or release checklist without requiring a
 separate artifact store.
+The template lives at
+[`release-screenshot-review-notes-template.md`](release-screenshot-review-notes-template.md).
 
 Required sections:
 
@@ -138,6 +140,7 @@ M116 should link the template from:
 - `docs/site.md`
 - `docs/ci-browser-smoke.md`
 - `docs/README.md`
+- `docs/components/README.md`
 
 ## Cleanup Contract
 

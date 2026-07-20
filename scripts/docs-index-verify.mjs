@@ -70,6 +70,7 @@ const requiredLinks = [
       "components/runtime-web-adapter-boundaries.md",
       "components/release-screenshot-review-checklist.md",
       "components/screenshot-artifact-retention.md",
+      "components/release-screenshot-review-notes-template.md",
       "ci-browser-smoke.md",
       "ci-browser-workflow-template.md",
       "rfcs/0001-project-architecture.md",

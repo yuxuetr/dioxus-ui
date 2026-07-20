@@ -7,6 +7,8 @@ Status: Planned in M114.1; checklist added in M114.2.
 
 For the screenshot retention decision that governs this checklist, see
 [`screenshot-artifact-retention.md`](screenshot-artifact-retention.md).
+For copyable review notes, use
+[`release-screenshot-review-notes-template.md`](release-screenshot-review-notes-template.md).
 
 ## Problem
 
@@ -125,19 +127,11 @@ Review the mobile browser screenshot:
 
 Record review notes:
 
-```text
-Release candidate:
-Reviewer:
-Date:
-Browser:
-Commands:
-Web desktop screenshot:
-Web mobile screenshot:
-Mobile browser screenshot:
-Observed issues:
-Decision:
-Follow-up tasks:
-```
+Use the copyable template in
+[`release-screenshot-review-notes-template.md`](release-screenshot-review-notes-template.md)
+and fill in release candidate metadata, browser environment, commands, PNG
+metadata, observed issues, decision, retention outcome, cleanup evidence, and
+follow-up tasks.
 
 Clean up:
 
@@ -211,6 +205,7 @@ M114 should keep these files aligned:
 - `docs/components/README.md`
 - `docs/components/release-screenshot-review-checklist.md`
 - `docs/components/screenshot-artifact-retention.md`
+- `docs/components/release-screenshot-review-notes-template.md`
 - `docs/components/web-preview-screenshot-smoke.md`
 - `docs/components/browser-smoke-aggregate.md`
 - `docs/browser-artifact-policy-metadata.md`

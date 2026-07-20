@@ -17,6 +17,7 @@ const gitignore = readRepoFile(".gitignore");
 const repoHygiene = readRepoFile("scripts/repo-hygiene-verify.mjs");
 const policyDoc = readRepoFile("docs/browser-artifact-policy-metadata.md");
 const retentionDoc = readRepoFile("docs/components/screenshot-artifact-retention.md");
+const reviewNotesTemplate = readRepoFile("docs/components/release-screenshot-review-notes-template.md");
 const activeWorkflowPath = join(repoRoot, ".github/workflows/browser-smoke.yml");
 const failures = [];
 
@@ -139,6 +140,7 @@ const policyDocFragments = [
   "release screenshot review artifacts are local, ignored, and must not be",
   "screenshot retention policy is local-first",
   "normal local verification does not upload artifacts",
+  "release screenshot review notes use a copyable Markdown template",
   "runtime interaction verification writes no screenshots or traces by default",
   "browser profiles, Playwright caches, Rust target directories, and temporary",
   "preview server output stay outside the normal upload path",
@@ -168,6 +170,34 @@ const retentionDocFragments = [
 
 for (const fragment of retentionDocFragments) {
   requireFragment("docs/components/screenshot-artifact-retention.md", retentionDoc, fragment);
+}
+
+const reviewNotesTemplateFragments = [
+  "Release Screenshot Review Notes Template",
+  "Release Candidate",
+  "Environment",
+  "Commands",
+  "Screenshot Metadata",
+  "Web desktop",
+  "Web mobile",
+  "Mobile browser",
+  "Observed Issues",
+  "Decision",
+  "Retention Outcome",
+  "Cleanup Evidence",
+  "Confirmed no staged screenshot PNG files",
+  webScreenshotPattern,
+  screenshotPattern,
+  "no screenshot upload requirement",
+  "no CI workflow activation",
+];
+
+for (const fragment of reviewNotesTemplateFragments) {
+  requireFragment(
+    "docs/components/release-screenshot-review-notes-template.md",
+    reviewNotesTemplate,
+    fragment,
+  );
 }
 
 for (const term of forbiddenArtifactTerms) {

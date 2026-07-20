@@ -103,6 +103,8 @@ and release wiring. It does not launch Playwright, upload artifacts, delete
 local files, enforce remote retention, or validate screenshot pixels.
 For local release-candidate screenshot retention, see
 [`Screenshot Artifact Retention`](components/screenshot-artifact-retention.md).
+For copyable review notes, see the
+[`Release Screenshot Review Notes Template`](components/release-screenshot-review-notes-template.md).
 
 ## Playwright-managed Chromium
 
@@ -171,6 +173,8 @@ Local release-candidate screenshot review remains separate from CI artifact
 upload. The default retention policy treats screenshots as temporary local
 review aids, records command output and PNG metadata in notes, and defers
 internal uploads or GitHub release attachments until that process has an owner.
+When CI screenshots are manually reviewed, copy the command output and PNG
+metadata into the review notes template instead of broadening artifact uploads.
 
 ## Failure Modes
 

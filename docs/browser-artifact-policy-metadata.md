@@ -19,6 +19,8 @@ This gate protects the current policy:
 - the screenshot retention policy is local-first: screenshots are temporary
   review aids by default, command output and PNG metadata belong in review
   notes, and normal local verification does not upload artifacts
+- release screenshot review notes use a copyable Markdown template instead of
+  requiring committed screenshots or broad artifact uploads
 - rendered component DOM verification writes no screenshots or traces by
   default
 - runtime interaction verification writes no screenshots or traces by default
@@ -36,6 +38,7 @@ In scope:
 
 - `docs/ci-browser-smoke.md` artifact guidance
 - `docs/components/screenshot-artifact-retention.md` retention guidance
+- `docs/components/release-screenshot-review-notes-template.md` note guidance
 - `docs/ci-browser-workflow-template.md` upload-artifact configuration
 - `docs/rfcs/0009-ci-browser-workflow-activation.md` artifact policy
 - `.gitignore` screenshot and browser automation patterns

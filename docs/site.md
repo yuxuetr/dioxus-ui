@@ -2082,6 +2082,23 @@ It does not upload artifacts, activate CI workflows, add GitHub release
 attachments, enable screenshots by default, create visual baselines, update
 generated docs, change component APIs, or edit templates.
 
+## M116 Release Screenshot Review Notes Template Usage
+
+M116 adds a copyable release-candidate screenshot review notes template:
+
+```text
+docs/components/release-screenshot-review-notes-template.md
+```
+
+The template records release candidate metadata, browser environment, commands,
+Web desktop screenshot metadata, Web mobile screenshot metadata, mobile browser
+screenshot metadata, observed issues, decision, retention outcome, cleanup
+evidence, and follow-up tasks.
+
+It is a Markdown review aid, not an artifact store. It does not commit
+screenshots, upload artifacts, activate CI workflows, generate docs output,
+create visual baselines, update component APIs, or edit templates.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:
