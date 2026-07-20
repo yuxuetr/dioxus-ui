@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M119 Release Candidate Handoff Metadata Gate
-- Current task: M119.1 Plan release candidate handoff metadata gate
+- Current task: M119.2 Add release candidate handoff metadata verifier
 
 ## Backup
 
@@ -1995,7 +1995,7 @@
 
 ## M119 Release Candidate Handoff Metadata Gate
 
-- TODO M119.1 Plan release candidate handoff metadata gate
+- DONE M119.1 Plan release candidate handoff metadata gate
   - Define a read-only verification gate for the release candidate handoff checklist.
   - Check required checklist sections, command references, publish readiness links, warning inventory links, browser review links, artifact hygiene boundaries, and non-goals.
   - Keep the gate deterministic and offline with no publishing, tagging, artifact creation, screenshot capture, CI activation, or browser launch.
