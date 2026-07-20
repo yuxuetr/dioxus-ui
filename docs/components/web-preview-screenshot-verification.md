@@ -19,11 +19,14 @@ Run the structural prerequisite gate:
 node scripts/web-preview-verify.mjs
 ```
 
-Then use Playwright against:
+Run the repeatable browser smoke gate:
 
-```text
-http://127.0.0.1:45237
+```bash
+npm run verify:web-screenshot-smoke
 ```
+
+The smoke starts the preview itself. It can also capture ignored local
+screenshots when `DIOXUS_UI_WEB_SCREENSHOT=1` is set.
 
 ## Required Viewports
 

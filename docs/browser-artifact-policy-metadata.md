@@ -9,6 +9,9 @@ This gate protects the current policy:
 
 - normal browser smoke uploads are screenshot PNG files only
 - screenshot artifacts use `dioxus-ui-mobile-browser-preview-*.png`
+- Web screenshot smoke artifacts use `dioxus-ui-web-preview-*.png`
+- Web screenshot smoke writes screenshots only when `DIOXUS_UI_WEB_SCREENSHOT=1`
+  is set
 - rendered component DOM verification writes no screenshots or traces by
   default
 - runtime interaction verification writes no screenshots or traces by default
@@ -38,6 +41,7 @@ Out of scope:
 - creating or uploading artifacts
 - tracing rendered component DOM verification
 - tracing runtime interaction verification
+- enabling Web screenshot capture by default
 - deleting local browser profiles, caches, or screenshots
 - enforcing remote artifact retention settings
 - validating screenshot pixels or PNG metadata

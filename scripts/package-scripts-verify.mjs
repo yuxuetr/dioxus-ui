@@ -10,6 +10,7 @@ const scripts = packageJson.scripts ?? {};
 
 const requiredScripts = {
   "verify:web-preview": "node scripts/web-preview-verify.mjs",
+  "verify:web-screenshot-smoke": "node scripts/web-screenshot-smoke.mjs",
   "verify:desktop-preview": "node scripts/desktop-preview-verify.mjs",
   "verify:mobile-web-profile": "node scripts/mobile-web-profile-verify.mjs",
   "verify:mobile-browser": "node scripts/mobile-browser-smoke.mjs",

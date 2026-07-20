@@ -187,6 +187,14 @@ preview structural checks.
 `npm run verify:web-preview` checks rendered Web preview screenshot
 prerequisites without launching a browser.
 
+`npm run verify:web-screenshot-smoke` starts the Web preview and checks
+representative desktop and mobile screenshot targets in a real browser. It is
+opt-in, requires Playwright Chromium or `DIOXUS_UI_BROWSER_EXECUTABLE`, and is
+not part of default or release gates. It writes screenshots only when
+`DIOXUS_UI_WEB_SCREENSHOT=1` is set, validates PNG metadata after capture, and
+does not compare pixels, certify visual parity, update generated docs, change
+component APIs, or edit templates.
+
 `npm run verify:mobile-web-profile` checks source-level Mobile Web profile
 coverage and fallback markers. It is not a native Mobile device or emulator
 gate.
@@ -468,6 +476,7 @@ Run only when Playwright Chromium has been installed:
 npx playwright install chromium
 npm run verify:mobile-browser
 npm run verify:rendered-component-dom
+npm run verify:web-screenshot-smoke
 npm run verify:runtime-interactions
 ```
 
@@ -476,6 +485,7 @@ For local machines with a supported Chrome executable, the command also accepts:
 ```bash
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:mobile-browser
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:rendered-component-dom
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:web-screenshot-smoke
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:runtime-interactions
 ```
 
@@ -483,12 +493,14 @@ Optional local screenshot capture:
 
 ```bash
 DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+DIOXUS_UI_WEB_SCREENSHOT=1 npm run verify:web-screenshot-smoke
 ```
 
 With an external Chrome executable:
 
 ```bash
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" DIOXUS_UI_WEB_SCREENSHOT=1 npm run verify:web-screenshot-smoke
 ```
 
 The screenshot artifact uses the ignored
@@ -501,6 +513,10 @@ This opt-in command starts the rendered Web preview, uses a mobile browser
 viewport, asserts the Mobile Web profile and representative preview panels, and
 cleans up the preview server. It is not part of the release gate and remains
 outside default release gates until CI or local release stability is proven.
+
+The Web screenshot smoke command also remains outside default release gates. It
+checks the rendered Web preview at `1280x900` and `390x844`, and screenshot
+capture stays opt-in through `DIOXUS_UI_WEB_SCREENSHOT=1`.
 
 For CI setup, artifact upload, and non-blocking job policy, see
 `docs/ci-browser-smoke.md` and `docs/ci-browser-workflow-template.md`. This

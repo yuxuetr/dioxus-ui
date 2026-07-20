@@ -40,6 +40,12 @@ const forbiddenTrackedPatterns = [
     },
   },
   {
+    label: "Web preview screenshot artifact",
+    test: (file) => {
+      return /^dioxus-ui-web-preview-.*\.png$/.test(file);
+    },
+  },
+  {
     label: "mobile browser screenshot artifact",
     test: (file) => {
       return /^dioxus-ui-mobile-browser-preview-.*\.png$/.test(file);

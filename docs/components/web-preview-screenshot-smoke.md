@@ -3,7 +3,8 @@
 This document defines the M112 plan for turning the existing Web preview
 screenshot procedure into a focused opt-in browser smoke command.
 
-Status: Planned in M112.1.
+Status: Planned in M112.1; script implemented in M112.2; package alias and
+documentation wiring implemented in M112.3.
 
 ## Problem
 

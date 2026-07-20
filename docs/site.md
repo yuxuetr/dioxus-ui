@@ -2000,6 +2000,27 @@ write screenshots or traces, certify full accessibility, verify native Desktop
 or Mobile behavior, update generated docs, change component APIs, edit
 templates, or claim visual parity.
 
+## M112 Web Preview Screenshot Smoke Usage
+
+M112 adds an opt-in Web screenshot smoke command:
+
+```bash
+npm run verify:web-screenshot-smoke
+```
+
+The command starts the Web preview, checks representative screenshot targets at
+`1280x900` and `390x844`, and validates required panels, chart SVG output,
+fallback rows, overlay content, interaction fixtures, and viewport dimensions.
+
+It writes no screenshots by default. When `DIOXUS_UI_WEB_SCREENSHOT=1` is set,
+it captures ignored `dioxus-ui-web-preview-*.png` files and validates PNG
+signature, byte size, and dimensions before reporting success.
+
+It is not part of `npm run verify` or `npm run verify:release`. It does not
+compare pixels, certify shadcn/ui visual parity, activate CI workflows, verify
+Desktop WebView or native Mobile screenshots, update generated docs, change
+component APIs, or edit templates.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:

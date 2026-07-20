@@ -72,6 +72,10 @@ const requiredSnippets = [
     snippet: "npm run verify:rendered-component-dom",
   },
   {
+    label: "web screenshot smoke focused gate",
+    snippet: "npm run verify:web-screenshot-smoke",
+  },
+  {
     label: "runtime interaction focused gate",
     snippet: "npm run verify:runtime-interactions",
   },

@@ -358,6 +358,7 @@ Optional browser smoke:
 npx playwright install chromium
 npm run verify:mobile-browser
 npm run verify:rendered-component-dom
+npm run verify:web-screenshot-smoke
 npm run verify:runtime-interactions
 ```
 
@@ -366,6 +367,7 @@ Local external Chrome fallback:
 ```bash
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:mobile-browser
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:rendered-component-dom
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:web-screenshot-smoke
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:runtime-interactions
 ```
 
@@ -373,12 +375,14 @@ Optional local screenshot artifact:
 
 ```bash
 DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+DIOXUS_UI_WEB_SCREENSHOT=1 npm run verify:web-screenshot-smoke
 ```
 
 External Chrome plus screenshot artifact:
 
 ```bash
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" DIOXUS_UI_WEB_SCREENSHOT=1 npm run verify:web-screenshot-smoke
 ```
 
 Generated screenshots match the ignored
@@ -401,6 +405,13 @@ It starts the Web preview and checks focused `data-interaction-*` fixtures for
 representative click, keyboard, focus, ARIA, visible text, and `data-state`
 transitions. It does not write screenshots or traces, certify full
 accessibility, verify native Desktop or Mobile behavior, or claim visual parity.
+
+`npm run verify:web-screenshot-smoke` is also opt-in and outside release gates.
+It starts the Web preview and checks desktop and mobile screenshot readiness
+without writing screenshots by default. When `DIOXUS_UI_WEB_SCREENSHOT=1` is
+set, it writes ignored `dioxus-ui-web-preview-*.png` files and validates PNG
+metadata. It does not compare pixels, claim visual parity, or replace manual
+visual review.
 
 For CI setup options and non-blocking workflow policy, see
 `docs/ci-browser-smoke.md` and `docs/ci-browser-workflow-template.md`. Do not

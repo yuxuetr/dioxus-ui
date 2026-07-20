@@ -45,6 +45,7 @@ if (existsSync(activeWorkflowPath)) {
 }
 
 const screenshotPattern = "dioxus-ui-mobile-browser-preview-*.png";
+const webScreenshotPattern = "dioxus-ui-web-preview-*.png";
 const forbiddenArtifactTerms = [
   "browser profiles",
   "Playwright caches",
@@ -104,7 +105,7 @@ for (const fragment of rfcFragments) {
 
 const gitignoreFragments = [
   ".playwright-mcp/",
-  "dioxus-ui-web-preview-*.png",
+  webScreenshotPattern,
   "dioxus-ui-desktop-webview-preview-*.png",
   screenshotPattern,
 ];
@@ -116,6 +117,7 @@ for (const fragment of gitignoreFragments) {
 const repoHygieneFragments = [
   'file === ".github/workflows/browser-smoke.yml"',
   'path: ".github/workflows/browser-smoke.yml"',
+  '/^dioxus-ui-web-preview-.*\\.png$/.test(file)',
   '/^dioxus-ui-mobile-browser-preview-.*\\.png$/.test(file)',
   'file.startsWith("target/")',
   '/^dxui-generated-fixture[./-]/.test(file)',
@@ -128,6 +130,9 @@ for (const fragment of repoHygieneFragments) {
 const policyDocFragments = [
   "normal browser smoke uploads are screenshot PNG files only",
   screenshotPattern,
+  webScreenshotPattern,
+  "Web screenshot smoke writes screenshots only when",
+  "DIOXUS_UI_WEB_SCREENSHOT=1",
   "runtime interaction verification writes no screenshots or traces by default",
   "browser profiles, Playwright caches, Rust target directories, and temporary",
   "preview server output stay outside the normal upload path",
