@@ -360,6 +360,7 @@ npm run verify:mobile-browser
 npm run verify:rendered-component-dom
 npm run verify:web-screenshot-smoke
 npm run verify:runtime-interactions
+npm run verify:browser-local
 ```
 
 Local external Chrome fallback:
@@ -369,6 +370,7 @@ DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Goo
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:rendered-component-dom
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:web-screenshot-smoke
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:runtime-interactions
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:browser-local
 ```
 
 Optional local screenshot artifact:
@@ -412,6 +414,11 @@ without writing screenshots by default. When `DIOXUS_UI_WEB_SCREENSHOT=1` is
 set, it writes ignored `dioxus-ui-web-preview-*.png` files and validates PNG
 metadata. It does not compare pixels, claim visual parity, or replace manual
 visual review.
+
+`npm run verify:browser-local` is also opt-in and outside release gates. It
+runs the browser-backed commands serially so their `dx serve` processes do not
+overlap. It does not enable screenshots by default, activate CI workflows, or
+replace release gates.
 
 For CI setup options and non-blocking workflow policy, see
 `docs/ci-browser-smoke.md` and `docs/ci-browser-workflow-template.md`. Do not

@@ -440,6 +440,13 @@ write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.
 
+`npm run verify:browser-local` runs the opt-in browser-backed checks serially:
+mobile browser smoke, rendered component DOM verification, Web screenshot
+smoke, and runtime interaction verification. It is not part of default or
+release gates. Do not parallelize these Web preview browser commands; each
+command starts and cleans up its own `dx serve` process, and parallel runs can
+produce duplicate preview roots or duplicate component targets.
+
 `npm run verify:repo-hygiene` checks that inactive workflow files, generated
 directories such as `node_modules/`, `target/`, `dist/`, and `build/`, and known
 generated artifacts are not committed. It is read-only and reports drift without
@@ -478,6 +485,7 @@ npm run verify:mobile-browser
 npm run verify:rendered-component-dom
 npm run verify:web-screenshot-smoke
 npm run verify:runtime-interactions
+npm run verify:browser-local
 ```
 
 For local machines with a supported Chrome executable, the command also accepts:
@@ -487,6 +495,7 @@ DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Goo
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:rendered-component-dom
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:web-screenshot-smoke
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:runtime-interactions
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:browser-local
 ```
 
 Optional local screenshot capture:

@@ -133,6 +133,8 @@ const policyDocFragments = [
   webScreenshotPattern,
   "Web screenshot smoke writes screenshots only when",
   "DIOXUS_UI_WEB_SCREENSHOT=1",
+  "local browser smoke aggregate preserves command-specific screenshot",
+  "does not enable screenshots by default",
   "runtime interaction verification writes no screenshots or traces by default",
   "browser profiles, Playwright caches, Rust target directories, and temporary",
   "preview server output stay outside the normal upload path",

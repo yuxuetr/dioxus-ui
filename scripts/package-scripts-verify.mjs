@@ -14,6 +14,7 @@ const requiredScripts = {
   "verify:desktop-preview": "node scripts/desktop-preview-verify.mjs",
   "verify:mobile-web-profile": "node scripts/mobile-web-profile-verify.mjs",
   "verify:mobile-browser": "node scripts/mobile-browser-smoke.mjs",
+  "verify:browser-local": "npm run verify:mobile-browser && npm run verify:rendered-component-dom && npm run verify:web-screenshot-smoke && npm run verify:runtime-interactions",
   "verify:css-inputs": "node scripts/css-input-metadata-verify.mjs",
   "verify:registry": "node scripts/registry-verify.mjs",
   "verify:tailwind-static": "node scripts/tailwind-static-verify.mjs",

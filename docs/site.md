@@ -2021,6 +2021,29 @@ compare pixels, certify shadcn/ui visual parity, activate CI workflows, verify
 Desktop WebView or native Mobile screenshots, update generated docs, change
 component APIs, or edit templates.
 
+## M113 Browser Smoke Aggregate Usage
+
+M113 adds an opt-in local browser smoke aggregate:
+
+```bash
+npm run verify:browser-local
+```
+
+The command runs mobile browser smoke, rendered component DOM verification, Web
+screenshot smoke, and runtime interaction verification in sequence. It exists
+because those browser commands each start `dx serve`; parallel execution can
+produce duplicate preview roots or duplicate component targets.
+
+It accepts the same browser and screenshot environment variables as the
+individual commands, including `DIOXUS_UI_BROWSER_EXECUTABLE`,
+`DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT`, and `DIOXUS_UI_WEB_SCREENSHOT`.
+Screenshots stay disabled unless the screenshot variables are explicitly set.
+
+It is not part of `npm run verify` or `npm run verify:release`. It does not
+activate CI workflows, enable screenshots by default, compare pixels, certify
+visual parity, verify Desktop WebView or native Mobile screenshots, update
+generated docs, change component APIs, or edit templates.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:

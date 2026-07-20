@@ -89,6 +89,10 @@ If Playwright-managed Chromium is unavailable, run it with a local browser:
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:rendered-component-dom
 ```
 
+For a serial local run of all browser-backed preview checks, use
+`npm run verify:browser-local`. Do not parallelize browser preview commands;
+each command starts its own `dx serve` process.
+
 ## Documentation Alignment
 
 M110 should keep these files aligned:

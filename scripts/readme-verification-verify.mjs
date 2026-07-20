@@ -76,6 +76,10 @@ const requiredSnippets = [
     snippet: "npm run verify:web-screenshot-smoke",
   },
   {
+    label: "local browser smoke aggregate",
+    snippet: "npm run verify:browser-local",
+  },
+  {
     label: "runtime interaction focused gate",
     snippet: "npm run verify:runtime-interactions",
   },

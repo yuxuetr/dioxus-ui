@@ -695,6 +695,19 @@ Chromium or `DIOXUS_UI_BROWSER_EXECUTABLE`, does not write screenshots or
 traces, and does not claim full accessibility certification, native Desktop or
 Mobile coverage, or visual parity.
 
+Run all local browser smoke commands serially:
+
+```bash
+npm run verify:browser-local
+```
+
+This opt-in aggregate runs mobile browser smoke, rendered component DOM
+verification, Web screenshot smoke, and runtime interaction verification in
+order. It intentionally runs the browser commands serially because each command
+starts its own Web preview server; do not parallelize these commands. The
+aggregate keeps screenshots disabled by default and stays outside
+`npm run verify` and `npm run verify:release`.
+
 Verify repository hygiene only:
 
 ```bash
@@ -769,6 +782,7 @@ After Chromium is installed, run the opt-in mobile browser smoke:
 
 ```bash
 npm run verify:mobile-browser
+npm run verify:browser-local
 ```
 
 Run the rendered component DOM verifier the same way:
@@ -784,6 +798,7 @@ use an explicit executable path:
 
 ```bash
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:mobile-browser
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:browser-local
 ```
 
 For rendered component DOM verification with local Chrome:

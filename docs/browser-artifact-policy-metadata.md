@@ -12,6 +12,8 @@ This gate protects the current policy:
 - Web screenshot smoke artifacts use `dioxus-ui-web-preview-*.png`
 - Web screenshot smoke writes screenshots only when `DIOXUS_UI_WEB_SCREENSHOT=1`
   is set
+- the local browser smoke aggregate preserves command-specific screenshot
+  opt-ins and does not enable screenshots by default
 - rendered component DOM verification writes no screenshots or traces by
   default
 - runtime interaction verification writes no screenshots or traces by default

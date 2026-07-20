@@ -79,6 +79,10 @@ The M111 implementation covers five generic fixture targets:
 It intentionally verifies representative state transitions instead of every
 public component prop combination.
 
+For a serial local run of all browser-backed preview checks, use
+`npm run verify:browser-local`. Do not parallelize browser preview commands;
+each command starts its own `dx serve` process.
+
 ## Non-goals
 
 - no screenshots by default

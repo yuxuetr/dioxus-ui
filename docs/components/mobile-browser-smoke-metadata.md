@@ -82,3 +82,8 @@ The opt-in browser smoke itself remains separate:
 ```bash
 npm run verify:mobile-browser
 ```
+
+For a serial local run of all browser-backed preview checks, use
+`npm run verify:browser-local`. The aggregate calls this mobile browser smoke
+first, then runs the other browser preview checks in order. Do not parallelize
+browser preview commands; each command starts its own `dx serve` process.

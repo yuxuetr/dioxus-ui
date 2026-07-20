@@ -102,6 +102,10 @@ Both viewports should verify:
 The smoke may reuse the stable selectors from rendered DOM and runtime
 interaction verification, but it should not replace those commands.
 
+For a serial local run of all browser-backed preview checks, use
+`npm run verify:browser-local`. Do not parallelize browser preview commands;
+each command starts its own `dx serve` process.
+
 ## Non-goals
 
 - no screenshots by default

@@ -3,7 +3,8 @@
 This document defines the M113 plan for adding a serial local aggregate for
 browser-backed Web preview verification commands.
 
-Status: Planned in M113.1.
+Status: Planned in M113.1; package alias implemented in M113.2; documentation
+and verifier wiring implemented in M113.3.
 
 ## Problem
 
