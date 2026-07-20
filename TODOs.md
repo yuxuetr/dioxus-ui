@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M116 Release Screenshot Review Notes Template
-- Current task: None
+- Overall: 99%
+- Current milestone: M117 Release Candidate Browser Review Runbook
+- Current task: M117.1 Plan release candidate browser review runbook
 
 ## Backup
 
@@ -1946,6 +1946,28 @@
 
 - DONE M116.4 Complete release screenshot review notes template milestone
   - Run docs checks, browser artifact policy checks, repo hygiene checks, package script checks, and diff checks.
+  - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, or CI workflow files are committed.
+  - Update TODO status only after commits and validation.
+
+## M117 Release Candidate Browser Review Runbook
+
+- TODO M117.1 Plan release candidate browser review runbook
+  - Define the smallest manual release-candidate browser review sequence that combines deterministic release gates, opt-in browser smoke, optional screenshots, review notes, retention policy, and cleanup evidence.
+  - Keep the runbook local-first and repository-safe: no committed screenshots, no uploads, no CI workflow activation, no generated docs, no component API changes, and no source-copy template rewrites.
+  - Decide which existing README, release, quality, CI, site, checklist, notes template, and retention docs should link to the runbook.
+
+- TODO M117.2 Add release candidate browser review runbook
+  - Add a Markdown runbook under component docs with prerequisites, command order, browser executable options, screenshot capture options, review notes handoff, retention cleanup, failure triage, and non-goals.
+  - Keep browser commands opt-in and outside default/release gates.
+  - Reference existing smoke, checklist, notes template, and retention docs instead of duplicating detailed review criteria.
+
+- TODO M117.3 Wire and verify runbook discoverability
+  - Link the runbook from README, docs index, components README, release docs, quality gates, CI browser docs, screenshot review checklist, notes template, retention policy, and docs-site notes.
+  - Extend docs index or browser artifact policy checks if needed so the runbook remains discoverable.
+  - Keep artifact hygiene and screenshot naming expectations aligned.
+
+- TODO M117.4 Complete release candidate browser review runbook milestone
+  - Run docs checks, browser artifact policy checks, repo hygiene checks, package script checks, release docs checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
 
