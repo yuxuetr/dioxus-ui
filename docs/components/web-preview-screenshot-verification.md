@@ -55,4 +55,7 @@ Git.
 This gate verifies the rendered shell and screenshot targets for representative
 states. It does not claim pixel-perfect visual parity with shadcn/ui.
 
+M112 plans the repeatable opt-in command in
+[Web Preview Screenshot Smoke](web-preview-screenshot-smoke.md).
+
 Desktop WebView screenshots remain part of M37.5.

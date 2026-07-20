@@ -78,6 +78,8 @@ For the preview state inventory metadata gate, see the
 [Preview State Inventory Metadata Gate](preview-state-inventory-metadata.md).
 For the Web screenshot verification gate, see the
 [Web Preview Screenshot Verification](web-preview-screenshot-verification.md).
+For the opt-in Web screenshot smoke milestone, see the
+[Web Preview Screenshot Smoke](web-preview-screenshot-smoke.md).
 For Desktop WebView preview follow-through, see
 [Desktop WebView Preview Follow-through](desktop-webview-preview-follow-through.md).
 For the Desktop preview implementation plan, see

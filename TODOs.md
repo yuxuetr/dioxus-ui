@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M111 Runtime Interaction Verification
-- Current task: None
+- Current milestone: M112 Web Preview Screenshot Smoke
+- Current task: M112.1 Plan Web preview screenshot smoke
 
 ## Backup
 
@@ -1837,6 +1837,28 @@
 - DONE M111.5 Complete runtime interaction verification milestone
   - Run interaction verification, rendered DOM verification, rendered coverage checks, Web preview checks, docs checks, package script checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, or template rewrites are committed.
+  - Update TODO status only after commits and validation.
+
+## M112 Web Preview Screenshot Smoke
+
+- TODO M112.1 Plan Web preview screenshot smoke
+  - Define the first opt-in Web screenshot smoke contract for desktop and mobile preview viewports.
+  - Keep pixel diffing, shadcn/ui visual parity claims, CI workflow activation, Desktop WebView screenshots, native Mobile screenshots, component API changes, and template rewrites out of scope.
+  - Decide which screenshot artifact names, environment variables, package scripts, README, quality gates, release docs, docs-site notes, browser artifact policy, and screenshot docs must stay aligned.
+
+- TODO M112.2 Add Web screenshot smoke verifier
+  - Add an opt-in Playwright verifier that starts the Web preview, checks stable preview panels, captures desktop and mobile screenshots only when explicitly enabled, and validates PNG metadata.
+  - Fail when required panels, chart SVG, fallback rows, overlay dialog, interaction fixtures, viewport dimensions, or screenshot metadata are missing.
+  - Keep the command deterministic, clean up the server process, keep screenshots ignored, and avoid visual diff or pixel comparison.
+
+- TODO M112.3 Wire and document Web screenshot smoke
+  - Add package script wiring for the focused Web screenshot smoke command without making it part of default or release gates unless explicitly scoped.
+  - Document setup, browser executable behavior, screenshot opt-in variables, artifact paths, non-goals, and troubleshooting in README, quality gates, release docs, docs-site notes, screenshot docs, and browser artifact policy docs.
+  - Keep repository hygiene aligned so generated Web screenshot artifacts remain ignored and are not committed.
+
+- TODO M112.4 Complete Web screenshot smoke milestone
+  - Run Web screenshot smoke with screenshot capture, rendered DOM verification, runtime interaction verification, rendered coverage checks, Web preview checks, docs checks, package script checks, browser artifact policy checks, repo hygiene checks, and diff checks.
+  - Verify no committed screenshots, traces, generated docs, component API changes, or template rewrites remain after validation.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
