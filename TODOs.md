@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M111 Runtime Interaction Verification
-- Current task: M111.1 Plan runtime interaction verification
+- Current task: M111.2 Add interaction fixture targets
 
 ## Backup
 
@@ -1814,7 +1814,7 @@
 
 ## M111 Runtime Interaction Verification
 
-- TODO M111.1 Plan runtime interaction verification
+- DONE M111.1 Plan runtime interaction verification
   - Define the first browser-backed interaction contract for runtime-sensitive components.
   - Keep visual diffing, screenshot artifacts, full accessibility certification, native Desktop WebView automation, native Mobile automation, component API changes, and template rewrites out of scope.
   - Decide which preview fixtures, package scripts, README, quality gates, release docs, docs-site notes, and runtime verification docs must stay aligned.
