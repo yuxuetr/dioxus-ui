@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M115 Screenshot Artifact Retention Decision
-- Current task: M115.4 Complete screenshot artifact retention milestone
+- Current task: None
 
 ## Backup
 
@@ -1922,7 +1922,7 @@
   - Extend metadata checks if needed so the retention policy remains discoverable without uploading artifacts.
   - Keep repository hygiene aligned with screenshot artifact naming and cleanup expectations.
 
-- TODO M115.4 Complete screenshot artifact retention milestone
+- DONE M115.4 Complete screenshot artifact retention milestone
   - Run docs checks, browser artifact policy checks, repo hygiene checks, package script checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
