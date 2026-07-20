@@ -199,3 +199,44 @@ After M115, useful follow-up work is:
    ever needed.
 3. Revisit Desktop WebView screenshot capture when native window capture is
    repeatable.
+
+## Release Candidate Browser Review Runbook Plan
+
+M117 should add a small manual runbook that connects the existing verification
+and review documents into one release-candidate sequence. The runbook should
+answer one operational question: what should a maintainer run, capture, record,
+and clean up when they want browser-backed confidence before a release
+candidate.
+
+The planned sequence is:
+
+1. Start from a clean enough branch and record `git status --short`.
+2. Run deterministic local and release documentation gates.
+3. Run the serial opt-in browser aggregate with Playwright-managed Chromium or
+   `DIOXUS_UI_BROWSER_EXECUTABLE`.
+4. Enable screenshot capture only after the browser aggregate passes.
+5. Review screenshots with the release screenshot checklist.
+6. Copy command output and PNG metadata into the review notes template.
+7. Apply the local-first retention policy.
+8. End with `npm run verify:repo-hygiene` and `git status --short`.
+
+The runbook should link to:
+
+- `docs/components/browser-smoke-aggregate.md`
+- `docs/components/web-preview-screenshot-smoke.md`
+- `docs/components/release-screenshot-review-checklist.md`
+- `docs/components/release-screenshot-review-notes-template.md`
+- `docs/components/screenshot-artifact-retention.md`
+- `docs/ci-browser-smoke.md`
+- `docs/release.md`
+- `docs/quality-gates.md`
+
+Repository-safe boundaries:
+
+- no committed screenshots
+- no artifact uploads
+- no CI workflow activation
+- no generated docs output
+- no component API changes
+- no source-copy template rewrites
+- no browser smoke promotion into default or release gates
