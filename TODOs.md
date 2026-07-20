@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M119 Release Candidate Handoff Metadata Gate
-- Current task: M119.3 Wire handoff metadata gate into release checks
+- Current task: M119.4 Complete release candidate handoff metadata gate milestone
 
 ## Backup
 
@@ -2005,7 +2005,7 @@
   - Add `npm run verify:release-candidate-handoff`.
   - Verify the checklist, release docs, quality gates, README, docs index, docs-site notes, browser review runbook, and publish readiness runbook remain aligned.
 
-- TODO M119.3 Wire handoff metadata gate into release checks
+- DONE M119.3 Wire handoff metadata gate into release checks
   - Add the focused gate to `npm run verify:release` in the appropriate documentation metadata section.
   - Update release docs, quality gates, README verification summary, package script expectations, and docs-site notes.
   - Keep browser review optional and outside default/release browser execution.
