@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M113 Browser Smoke Aggregate
-- Current task: M113.4 Complete browser smoke aggregate milestone
+- Current task: None
 
 ## Backup
 
@@ -1878,7 +1878,7 @@
   - Extend package script verification so the aggregate stays wired without being promoted into default or release gates.
   - Keep browser artifact policy and repository hygiene aligned with existing screenshot and trace boundaries.
 
-- TODO M113.4 Complete browser smoke aggregate milestone
+- DONE M113.4 Complete browser smoke aggregate milestone
   - Run the serial browser smoke aggregate, package script checks, docs checks, browser artifact policy checks, repo hygiene checks, and diff checks.
   - Verify no committed screenshots, traces, generated docs, component API changes, template rewrites, or CI workflow files remain after validation.
   - Update TODO status only after commits and validation.
