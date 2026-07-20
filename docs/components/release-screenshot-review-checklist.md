@@ -1,9 +1,9 @@
 # Release Screenshot Review Checklist
 
-This document defines the M114 plan for a manual release-candidate screenshot
-review workflow built on the existing opt-in browser smoke commands.
+This document defines the M114 manual release-candidate screenshot review
+workflow built on the existing opt-in browser smoke commands.
 
-Status: Planned in M114.1.
+Status: Planned in M114.1; checklist added in M114.2.
 
 ## Problem
 
@@ -26,7 +26,7 @@ promotion.
 
 ## Decision
 
-M114 should add a manual release screenshot review checklist that:
+M114 adds a manual release screenshot review checklist that:
 
 1. Starts from the existing serial browser smoke aggregate.
 2. Captures Web desktop, Web mobile, and mobile browser screenshots only when
@@ -39,7 +39,7 @@ M114 should add a manual release screenshot review checklist that:
 
 ## Review Inputs
 
-The checklist should use these commands:
+Use these commands to create review inputs:
 
 ```bash
 DIOXUS_UI_WEB_SCREENSHOT=1 npm run verify:web-screenshot-smoke
@@ -53,15 +53,101 @@ DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Goo
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser
 ```
 
-The reviewer may run the serial aggregate before screenshot capture:
+Run the serial aggregate before screenshot capture:
 
 ```bash
 npm run verify:browser-local
 ```
 
+## Checklist
+
+Before capture:
+
+- Confirm the release candidate branch is clean enough for review with
+  `git status --short`.
+- Run `npm run verify:browser-local` serially. Do not run browser preview
+  commands in parallel.
+- Confirm the aggregate reports mobile browser smoke, rendered component DOM,
+  Web screenshot smoke, and runtime interaction verification as passed.
+- Decide whether to use Playwright-managed Chromium or
+  `DIOXUS_UI_BROWSER_EXECUTABLE`.
+- Keep screenshot capture disabled until the selector and interaction checks
+  pass.
+
+Capture review screenshots:
+
+- Run `DIOXUS_UI_WEB_SCREENSHOT=1 npm run verify:web-screenshot-smoke`.
+- Run `DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1 npm run verify:mobile-browser`.
+- When using local Chrome, include the same `DIOXUS_UI_BROWSER_EXECUTABLE`
+  value for both commands.
+- Record the printed screenshot paths.
+- Record the printed PNG metadata, including viewport name, width, height, and
+  byte size.
+
+Review the Web desktop screenshot:
+
+- Confirm the overview and action panels are visible without layout overlap.
+- Confirm form controls, Input Group, Input OTP, labels, invalid state, and
+  disabled state are readable.
+- Confirm message composition, attachments, markers, and scroller status are
+  visually distinct.
+- Confirm the chart title, legend, SVG plot, fallback table, and fallback states
+  are visible.
+- Confirm the overlay-open panel shows the dialog structure without covering
+  unrelated review content.
+- Confirm runtime interaction fixtures are present and their labels fit.
+- Confirm component inventory entries wrap cleanly without clipping.
+- Confirm typography, spacing, borders, focus rings, and contrast look
+  consistent with the current design direction.
+
+Review the Web mobile screenshot:
+
+- Confirm the preview fits the `390x844` viewport without horizontal scrolling.
+- Confirm touch targets have enough visual separation.
+- Confirm long labels wrap instead of clipping.
+- Confirm forms, messages, charts, overlays, and interaction fixtures stay
+  readable in the narrow viewport.
+- Confirm chart fallback rows remain accessible below the chart.
+- Confirm dense inventory content remains scannable.
+- Confirm no sticky, overlay, or dialog content hides unrelated panels.
+
+Review the mobile browser screenshot:
+
+- Confirm the mobile profile panel is visible.
+- Confirm touch-target, hover-alternative, safe-area-owned, reduced-motion, and
+  visible-status markers are readable.
+- Confirm the mobile browser viewport does not introduce unexpected clipping.
+- Confirm mobile screenshot metadata is at least the documented `390x844`
+  viewport lower bound.
+
+Record review notes:
+
+```text
+Release candidate:
+Reviewer:
+Date:
+Browser:
+Commands:
+Web desktop screenshot:
+Web mobile screenshot:
+Mobile browser screenshot:
+Observed issues:
+Decision:
+Follow-up tasks:
+```
+
+Clean up:
+
+- Delete local screenshot files after review unless they are intentionally kept
+  as ignored local artifacts.
+- Do not commit screenshot PNG files.
+- Run `npm run verify:repo-hygiene`.
+- Run `git status --short` and confirm no screenshots, traces, generated docs,
+  component API changes, template rewrites, or CI workflow files are staged.
+
 ## Review Areas
 
-The checklist should cover:
+The review should cover:
 
 - overview and action panels
 - form controls, Input Group, Input OTP, labels, invalid and disabled states
@@ -84,7 +170,7 @@ dioxus-ui-web-preview-*.png
 dioxus-ui-mobile-browser-preview-*.png
 ```
 
-The checklist should end with:
+End each review with:
 
 ```bash
 npm run verify:repo-hygiene
