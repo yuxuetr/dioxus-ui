@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M110 Browser DOM Component Verification
-- Current task: M110.1 Plan browser DOM component verification
+- Current task: M110.2 Add rendered component DOM verifier
 
 ## Backup
 
@@ -1792,7 +1792,7 @@
 
 ## M110 Browser DOM Component Verification
 
-- TODO M110.1 Plan browser DOM component verification
+- DONE M110.1 Plan browser DOM component verification
   - Define the Playwright-backed DOM verification contract for all public rendered component targets.
   - Keep screenshot artifacts, visual diffing, runtime interaction assertions, component API changes, template rewrites, and Desktop native WebView checks out of scope.
   - Decide which package scripts, README, quality gates, release docs, docs-site notes, browser artifact policy, and rendered verification docs must stay aligned.
