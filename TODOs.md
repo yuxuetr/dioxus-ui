@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M111 Runtime Interaction Verification
-- Current task: M111.4 Wire and document interaction verification
+- Current task: M111.5 Complete runtime interaction verification milestone
 
 ## Backup
 
@@ -1829,7 +1829,7 @@
   - Fail when expected click, keyboard, focus, ARIA, or data-state transitions are missing.
   - Keep the command deterministic, clean up the server process, avoid screenshots by default, and do not claim full accessibility or visual parity.
 
-- TODO M111.4 Wire and document interaction verification
+- DONE M111.4 Wire and document interaction verification
   - Add package script wiring for the focused interaction verification command without making it part of default release gates unless explicitly scoped.
   - Document setup, browser executable behavior, non-goals, and troubleshooting in README, quality gates, release docs, docs-site notes, and runtime verification docs.
   - Keep browser artifact policy and repository hygiene aligned so generated screenshots or traces remain ignored if later enabled.
