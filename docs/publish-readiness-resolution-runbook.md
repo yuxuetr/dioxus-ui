@@ -51,3 +51,5 @@ gate and this runbook in the same change. The publish readiness coverage gate
 should continue to prove that every remaining blocker has a focused gate.
 Keep the planned publish order aligned with
 [Publish Order Metadata](publish-order-metadata.md).
+For final release-candidate maintainer handoff before any publish decision, use
+[Release Candidate Handoff Checklist](release-candidate-handoff-checklist.md).

@@ -536,6 +536,8 @@ For copyable manual review evidence, use
 `docs/components/release-screenshot-review-notes-template.md`.
 For the full manual release-candidate browser review sequence, use
 `docs/components/release-candidate-browser-review-runbook.md`.
+For final release-candidate maintainer handoff, use
+`docs/release-candidate-handoff-checklist.md`.
 
 For CI setup, artifact upload, and non-blocking job policy, see
 `docs/ci-browser-smoke.md` and `docs/ci-browser-workflow-template.md`. This

@@ -441,6 +441,9 @@ optional screenshot capture, review notes, retention, and cleanup.
 M118 should add a final handoff checklist for a release candidate after the
 deterministic release gates and optional browser review have completed. The
 checklist should be a maintainer-facing summary, not another automation layer.
+The checklist lives at
+[`release-candidate-handoff-checklist.md`](release-candidate-handoff-checklist.md).
+Repository-root path: `docs/release-candidate-handoff-checklist.md`.
 
 Required handoff evidence:
 

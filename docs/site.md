@@ -2116,6 +2116,22 @@ into default or release gates, enable screenshots by default, upload artifacts,
 activate CI workflows, generate docs output, change component APIs, or edit
 source-copy templates.
 
+## M118 Release Candidate Handoff Checklist Usage
+
+M118 adds the final release-candidate maintainer handoff checklist:
+
+```text
+docs/release-candidate-handoff-checklist.md
+```
+
+The checklist records release gate evidence, optional browser review evidence,
+publish readiness blocker status, release warning inventory status, artifact
+hygiene, unresolved follow-ups, and final repository state.
+
+It is a manual evidence record. It does not publish packages, create Git tags,
+create release artifacts, commit screenshots, upload artifacts, activate CI
+workflows, generate docs output, change component APIs, or rewrite templates.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:

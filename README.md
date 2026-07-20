@@ -162,6 +162,7 @@ format!("bg-{}-500", color)
 - [Workspace Specification](docs/workspace.md)
 - [Component API Specification](docs/component-api.md)
 - [Release and Package Strategy](docs/release.md)
+- [Release Candidate Handoff Checklist](docs/release-candidate-handoff-checklist.md)
 - [Quality Gates](docs/quality-gates.md)
 - [CI Browser Smoke Guide](docs/ci-browser-smoke.md)
 - [CI Browser Workflow Template](docs/ci-browser-workflow-template.md)
@@ -842,6 +843,8 @@ For manual release-candidate screenshot review, use the
 [Release Screenshot Review Checklist](docs/components/release-screenshot-review-checklist.md)
 and copy review evidence into the
 [Release Screenshot Review Notes Template](docs/components/release-screenshot-review-notes-template.md).
+For final maintainer handoff, use the
+[Release Candidate Handoff Checklist](docs/release-candidate-handoff-checklist.md).
 
 That browser smoke starts the Web preview, checks a mobile browser viewport, and
 cleans up the server. It is not part of the release gate and is not part of
