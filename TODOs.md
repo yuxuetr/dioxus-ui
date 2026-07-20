@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: None
-- Current task: None
+- Current milestone: M111 Runtime Interaction Verification
+- Current task: M111.1 Plan runtime interaction verification
 
 ## Backup
 
@@ -1809,6 +1809,33 @@
 
 - DONE M110.4 Complete browser DOM verification milestone
   - Run rendered coverage checks, DOM verification, Web preview checks, docs checks, package script checks, and diff checks.
+  - Verify no screenshots, traces, generated docs, component API changes, or template rewrites are committed.
+  - Update TODO status only after commits and validation.
+
+## M111 Runtime Interaction Verification
+
+- TODO M111.1 Plan runtime interaction verification
+  - Define the first browser-backed interaction contract for runtime-sensitive components.
+  - Keep visual diffing, screenshot artifacts, full accessibility certification, native Desktop WebView automation, native Mobile automation, component API changes, and template rewrites out of scope.
+  - Decide which preview fixtures, package scripts, README, quality gates, release docs, docs-site notes, and runtime verification docs must stay aligned.
+
+- TODO M111.2 Add interaction fixture targets
+  - Add lightweight Web preview targets for representative runtime-sensitive interactions such as disclosure, overlay open state, selection state, and keyboard-visible state.
+  - Preserve existing `data-component-preview`, `data-preview-panel`, and DOM verification targets.
+  - Avoid full prop matrices, provider/domain logic, network state, screenshots, and template changes.
+
+- TODO M111.3 Add browser interaction verifier
+  - Add an opt-in Playwright verifier that starts the Web preview and exercises the interaction fixture targets.
+  - Fail when expected click, keyboard, focus, ARIA, or data-state transitions are missing.
+  - Keep the command deterministic, clean up the server process, avoid screenshots by default, and do not claim full accessibility or visual parity.
+
+- TODO M111.4 Wire and document interaction verification
+  - Add package script wiring for the focused interaction verification command without making it part of default release gates unless explicitly scoped.
+  - Document setup, browser executable behavior, non-goals, and troubleshooting in README, quality gates, release docs, docs-site notes, and runtime verification docs.
+  - Keep browser artifact policy and repository hygiene aligned so generated screenshots or traces remain ignored if later enabled.
+
+- TODO M111.5 Complete runtime interaction verification milestone
+  - Run interaction verification, rendered DOM verification, rendered coverage checks, Web preview checks, docs checks, package script checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, or template rewrites are committed.
   - Update TODO status only after commits and validation.
 
