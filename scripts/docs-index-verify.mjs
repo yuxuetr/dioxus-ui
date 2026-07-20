@@ -68,6 +68,7 @@ const requiredLinks = [
       "components/runtime-desktop-mobile-verification.md",
       "components/runtime-implementation-milestones.md",
       "components/runtime-web-adapter-boundaries.md",
+      "components/release-screenshot-review-checklist.md",
       "ci-browser-smoke.md",
       "ci-browser-workflow-template.md",
       "rfcs/0001-project-architecture.md",

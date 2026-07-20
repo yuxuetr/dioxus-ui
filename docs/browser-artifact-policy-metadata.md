@@ -14,6 +14,8 @@ This gate protects the current policy:
   is set
 - the local browser smoke aggregate preserves command-specific screenshot
   opt-ins and does not enable screenshots by default
+- release screenshot review artifacts are local, ignored, and must not be
+  committed after manual review
 - rendered component DOM verification writes no screenshots or traces by
   default
 - runtime interaction verification writes no screenshots or traces by default

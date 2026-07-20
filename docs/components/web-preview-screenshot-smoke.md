@@ -106,6 +106,9 @@ For a serial local run of all browser-backed preview checks, use
 `npm run verify:browser-local`. Do not parallelize browser preview commands;
 each command starts its own `dx serve` process.
 
+For manual release-candidate screenshot review after capture, use
+[Release Screenshot Review Checklist](release-screenshot-review-checklist.md).
+
 ## Non-goals
 
 - no screenshots by default

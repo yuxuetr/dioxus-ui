@@ -76,6 +76,9 @@ Both variables may be combined when local screenshot artifacts are wanted for a
 manual review pass. Generated PNG files stay ignored by Git and must not be
 committed.
 
+For manual release-candidate screenshot review after capture, use
+[Release Screenshot Review Checklist](release-screenshot-review-checklist.md).
+
 ## Non-goals
 
 - no CI workflow activation

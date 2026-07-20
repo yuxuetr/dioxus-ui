@@ -2044,6 +2044,25 @@ activate CI workflows, enable screenshots by default, compare pixels, certify
 visual parity, verify Desktop WebView or native Mobile screenshots, update
 generated docs, change component APIs, or edit templates.
 
+## M114 Release Screenshot Review Checklist Usage
+
+M114 adds a manual release-candidate screenshot review checklist:
+
+```text
+docs/components/release-screenshot-review-checklist.md
+```
+
+The checklist uses the existing opt-in browser commands to capture Web desktop,
+Web mobile, and mobile browser screenshots, records PNG metadata from command
+output, guides human review across the preview panels, and ends with repository
+hygiene checks.
+
+It is not an automated visual regression system. It does not compare pixels,
+create visual baselines, activate CI workflows, enable screenshots by default,
+promote browser smoke into release gates, verify Desktop WebView or native
+Mobile screenshots, update generated docs, change component APIs, or edit
+templates.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:

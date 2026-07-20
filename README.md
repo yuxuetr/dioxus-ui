@@ -837,6 +837,9 @@ Web preview screenshots use the ignored `dioxus-ui-web-preview-*.png` pattern
 and validate PNG signature, byte size, and dimensions against the desktop and
 mobile viewport lower bounds.
 
+For manual release-candidate screenshot review, use the
+[Release Screenshot Review Checklist](docs/components/release-screenshot-review-checklist.md).
+
 That browser smoke starts the Web preview, checks a mobile browser viewport, and
 cleans up the server. It is not part of the release gate and is not part of
 default release gates.

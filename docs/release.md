@@ -420,6 +420,11 @@ runs the browser-backed commands serially so their `dx serve` processes do not
 overlap. It does not enable screenshots by default, activate CI workflows, or
 replace release gates.
 
+For manual release-candidate screenshot review, use
+`docs/components/release-screenshot-review-checklist.md`. The checklist records
+what to capture, what to inspect, and how to clean local screenshot artifacts
+without turning visual review into an automated release gate.
+
 For CI setup options and non-blocking workflow policy, see
 `docs/ci-browser-smoke.md` and `docs/ci-browser-workflow-template.md`. Do not
 treat browser smoke as a required release gate until a reviewed workflow exists.
