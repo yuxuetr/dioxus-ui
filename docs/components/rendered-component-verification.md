@@ -115,3 +115,6 @@ After the metadata gate and shared preview targets, useful next steps are:
 2. Add Desktop preview structural checks for the same coverage targets.
 3. Add targeted screenshot assertions for chart, form, message, and overlay
    panels only after DOM coverage is deterministic.
+
+M110 plans the first browser-backed DOM check in
+[Browser DOM Component Verification](browser-dom-component-verification.md).

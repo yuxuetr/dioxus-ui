@@ -54,6 +54,8 @@ For the Mobile browser smoke metadata gate, see the
 [Mobile Browser Smoke Metadata Gate](mobile-browser-smoke-metadata.md).
 For browser automation dependency decisions, see the
 [Browser Automation Dependency Strategy](browser-automation-dependency-strategy.md).
+For browser DOM component verification, see the
+[Browser DOM Component Verification](browser-dom-component-verification.md).
 For the Playwright dependency milestone, see the
 [Playwright Dependency Plan](playwright-dependency-plan.md).
 For CI browser smoke setup, see the
