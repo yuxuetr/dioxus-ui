@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M114 Release Screenshot Review Checklist
-- Current task: M114.1 Plan release screenshot review checklist
+- Current task: M114.2 Add release screenshot review checklist
 
 ## Backup
 
@@ -1885,7 +1885,7 @@
 
 ## M114 Release Screenshot Review Checklist
 
-- TODO M114.1 Plan release screenshot review checklist
+- DONE M114.1 Plan release screenshot review checklist
   - Define a manual release-candidate screenshot review workflow built on the existing opt-in browser smoke commands.
   - Keep pixel diffing, automated visual baselines, CI workflow activation, release gate promotion, Desktop WebView screenshots, native Mobile automation, component API changes, and template rewrites out of scope.
   - Decide which review checklist docs, README, quality gates, release docs, docs-site notes, browser artifact policy, and package-script metadata must stay aligned.
