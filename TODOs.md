@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M116 Release Screenshot Review Notes Template
-- Current task: M116.3 Wire and verify review notes template discoverability
+- Current task: M116.4 Complete release screenshot review notes template milestone
 
 ## Backup
 
@@ -1939,7 +1939,7 @@
   - Include Web desktop, Web mobile, mobile browser, command output, PNG metadata, environment, issue list, decision, retention outcome, cleanup evidence, and follow-up fields.
   - Keep screenshot files ignored and uncommitted.
 
-- TODO M116.3 Wire and verify review notes template discoverability
+- DONE M116.3 Wire and verify review notes template discoverability
   - Link the template from the release screenshot review checklist, screenshot artifact retention policy, release docs, quality gates, docs-site notes, CI browser docs, and docs indexes.
   - Extend docs index or artifact policy metadata checks if needed so the template remains discoverable.
   - Keep browser commands opt-in and avoid adding runtime screenshot capture.
