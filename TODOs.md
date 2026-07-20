@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M114 Release Screenshot Review Checklist
-- Current task: M114.2 Add release screenshot review checklist
+- Current task: M114.3 Wire and document screenshot review checklist
 
 ## Backup
 
@@ -1890,7 +1890,7 @@
   - Keep pixel diffing, automated visual baselines, CI workflow activation, release gate promotion, Desktop WebView screenshots, native Mobile automation, component API changes, and template rewrites out of scope.
   - Decide which review checklist docs, README, quality gates, release docs, docs-site notes, browser artifact policy, and package-script metadata must stay aligned.
 
-- TODO M114.2 Add release screenshot review checklist
+- DONE M114.2 Add release screenshot review checklist
   - Add a docs checklist for capturing Web and Mobile browser screenshots, recording metadata, reviewing core panels, and cleaning generated artifacts.
   - Cover form, message, chart, overlay, interaction, mobile profile, component inventory, typography, spacing, overflow, and responsive layout review points.
   - Keep the checklist manual, artifact-light, and independent from default or release gates.
