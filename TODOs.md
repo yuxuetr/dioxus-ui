@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 99%
+- Overall: 100%
 - Current milestone: M120 Release Gate Failure Triage Runbook
-- Current task: M120.4 Complete release gate failure triage runbook milestone
+- Current task: None
 
 ## Backup
 
@@ -2032,7 +2032,7 @@
   - Extend release docs or handoff metadata checks if needed so the triage runbook remains discoverable.
   - Keep release failure triage outside default browser execution and outside publish automation.
 
-- TODO M120.4 Complete release gate failure triage runbook milestone
+- DONE M120.4 Complete release gate failure triage runbook milestone
   - Run docs checks, release docs checks, package script checks, handoff metadata checks, repo hygiene checks, browser artifact policy checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, tags, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
