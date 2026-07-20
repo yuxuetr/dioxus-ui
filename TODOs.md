@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 99%
+- Overall: 100%
 - Current milestone: M119 Release Candidate Handoff Metadata Gate
-- Current task: M119.4 Complete release candidate handoff metadata gate milestone
+- Current task: None
 
 ## Backup
 
@@ -2010,7 +2010,7 @@
   - Update release docs, quality gates, README verification summary, package script expectations, and docs-site notes.
   - Keep browser review optional and outside default/release browser execution.
 
-- TODO M119.4 Complete release candidate handoff metadata gate milestone
+- DONE M119.4 Complete release candidate handoff metadata gate milestone
   - Run docs checks, release docs checks, package script checks, handoff metadata checks, repo hygiene checks, browser artifact policy checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, tags, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
