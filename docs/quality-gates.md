@@ -422,6 +422,16 @@ default or release gates. It does not write screenshots or traces, assert
 runtime interactions, update generated docs, change component APIs, edit
 templates, or claim visual parity.
 
+`npm run verify:runtime-interactions` starts the Web preview and exercises the
+focused `data-interaction-*` fixture targets in a real browser. It is opt-in,
+requires Playwright Chromium or `DIOXUS_UI_BROWSER_EXECUTABLE`, and is not part
+of default or release gates. It checks representative click, keyboard, focus,
+ARIA, visible text, and `data-state` transitions for disclosure, overlay,
+selection, keyboard-visible state, and scroll-status behavior. It does not
+write screenshots or traces, update generated docs, change component APIs, edit
+templates, certify full accessibility, verify native Desktop or Mobile
+behavior, or claim visual parity.
+
 `npm run verify:repo-hygiene` checks that inactive workflow files, generated
 directories such as `node_modules/`, `target/`, `dist/`, and `build/`, and known
 generated artifacts are not committed. It is read-only and reports drift without
@@ -458,6 +468,7 @@ Run only when Playwright Chromium has been installed:
 npx playwright install chromium
 npm run verify:mobile-browser
 npm run verify:rendered-component-dom
+npm run verify:runtime-interactions
 ```
 
 For local machines with a supported Chrome executable, the command also accepts:
@@ -465,6 +476,7 @@ For local machines with a supported Chrome executable, the command also accepts:
 ```bash
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:mobile-browser
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:rendered-component-dom
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:runtime-interactions
 ```
 
 Optional local screenshot capture:

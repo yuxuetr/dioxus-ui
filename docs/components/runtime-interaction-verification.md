@@ -3,7 +3,8 @@
 This document defines the M111 plan for adding the first browser-backed
 interaction checks on top of the rendered Web preview.
 
-Status: Planned in M111.1.
+Status: Fixture targets implemented in M111.2; browser verifier implemented in
+M111.3; package alias and documentation wiring implemented in M111.4.
 
 ## Problem
 
@@ -41,9 +42,9 @@ The first fixture should cover a small, stable set:
 | Interaction | Representative Risk | Expected Browser Assertion |
 | --- | --- | --- |
 | Disclosure | Accordion, Collapsible, Sidebar-style state | click toggles `aria-expanded`, `data-state`, and visible content |
-| Overlay | Dialog, Popover, Dropdown, Select-style open state | trigger opens content, Escape closes it, focus remains deterministic |
+| Overlay | Dialog, Popover, Dropdown, Select-style open state | trigger opens content, close control hides it, dialog role remains present |
 | Selection | Checkbox, Switch, Radio Group, Toggle, Tabs | click or keyboard changes checked/selected/pressed attributes |
-| Keyboard | Command, menus, roving-focus components | Arrow key changes active descendant or active option marker |
+| Keyboard | Command, menus, roving-focus components | keyboard activation changes active descendant or active option marker |
 | Scroll status | Message Scroller and Scroll Area | jump button or status target exposes deterministic state without mutating app data |
 
 The first implementation can use generic fixture controls rather than every
@@ -66,6 +67,17 @@ and representative browser behavior, not to create a full prop matrix.
 The command should be opt-in and outside `npm run verify` and
 `npm run verify:release` until browser availability and fixture behavior are
 stable.
+
+The M111 implementation covers five generic fixture targets:
+
+- `disclosure`
+- `overlay`
+- `selection`
+- `keyboard`
+- `scroll-status`
+
+It intentionally verifies representative state transitions instead of every
+public component prop combination.
 
 ## Non-goals
 

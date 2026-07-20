@@ -72,6 +72,10 @@ const requiredSnippets = [
     snippet: "npm run verify:rendered-component-dom",
   },
   {
+    label: "runtime interaction focused gate",
+    snippet: "npm run verify:runtime-interactions",
+  },
+  {
     label: "repository hygiene focused gate",
     snippet: "npm run verify:repo-hygiene",
   },

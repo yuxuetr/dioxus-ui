@@ -1982,6 +1982,24 @@ It is not part of `npm run verify` or `npm run verify:release`. It does not
 write screenshots or traces, assert runtime interactions, update generated
 docs, change component APIs, edit templates, or claim visual parity.
 
+## M111 Runtime Interaction Verification Usage
+
+M111 adds an opt-in browser interaction command:
+
+```bash
+npm run verify:runtime-interactions
+```
+
+The command starts the Web preview, opens it in Playwright Chromium or an
+explicit `DIOXUS_UI_BROWSER_EXECUTABLE`, and checks focused
+`data-interaction-*` fixture targets for disclosure, overlay, selection,
+keyboard-visible state, and scroll-status behavior.
+
+It is not part of `npm run verify` or `npm run verify:release`. It does not
+write screenshots or traces, certify full accessibility, verify native Desktop
+or Mobile behavior, update generated docs, change component APIs, edit
+templates, or claim visual parity.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:

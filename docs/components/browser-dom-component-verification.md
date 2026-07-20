@@ -118,4 +118,6 @@ After M110, useful follow-up work is:
    stable.
 
 M111 plans the first interaction layer in
-[Runtime Interaction Verification](runtime-interaction-verification.md).
+[Runtime Interaction Verification](runtime-interaction-verification.md). Its
+focused command is `npm run verify:runtime-interactions`, and it stays opt-in
+outside default and release gates.

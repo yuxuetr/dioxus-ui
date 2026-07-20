@@ -669,6 +669,19 @@ in a real browser DOM. It requires Playwright Chromium or
 `DIOXUS_UI_BROWSER_EXECUTABLE`, does not write screenshots or traces, and does
 not claim visual parity or interaction coverage.
 
+Verify runtime interaction fixtures only:
+
+```bash
+npm run verify:runtime-interactions
+```
+
+This opt-in Playwright command starts the Web preview and exercises the
+`data-interaction-*` fixture targets for disclosure, overlay, selection,
+keyboard-visible state, and scroll-status behavior. It requires Playwright
+Chromium or `DIOXUS_UI_BROWSER_EXECUTABLE`, does not write screenshots or
+traces, and does not claim full accessibility certification, native Desktop or
+Mobile coverage, or visual parity.
+
 Verify repository hygiene only:
 
 ```bash
@@ -749,6 +762,7 @@ Run the rendered component DOM verifier the same way:
 
 ```bash
 npm run verify:rendered-component-dom
+npm run verify:runtime-interactions
 ```
 
 If Playwright-managed Chromium is unavailable but local Chrome is installed,
@@ -762,6 +776,7 @@ For rendered component DOM verification with local Chrome:
 
 ```bash
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:rendered-component-dom
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:runtime-interactions
 ```
 
 To save an ignored local screenshot after the assertions pass, add:

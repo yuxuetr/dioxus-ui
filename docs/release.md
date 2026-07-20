@@ -345,6 +345,7 @@ npm run verify:docs-structure
 npm run verify:docs-index
 npm run verify:docs-links
 npm run verify:docs-anchors
+npm run verify:runtime-interactions
 npm run verify:repo-hygiene
 ```
 
@@ -357,6 +358,7 @@ Optional browser smoke:
 npx playwright install chromium
 npm run verify:mobile-browser
 npm run verify:rendered-component-dom
+npm run verify:runtime-interactions
 ```
 
 Local external Chrome fallback:
@@ -364,6 +366,7 @@ Local external Chrome fallback:
 ```bash
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:mobile-browser
 DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:rendered-component-dom
+DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:runtime-interactions
 ```
 
 Optional local screenshot artifact:
@@ -392,6 +395,12 @@ gates. It verifies all 64 public `data-component-preview` targets exist,
 remain visible, contain text, and have non-empty bounding boxes in a browser
 DOM. It does not write screenshots or traces, assert interactions, or claim
 visual parity.
+
+`npm run verify:runtime-interactions` is also opt-in and outside release gates.
+It starts the Web preview and checks focused `data-interaction-*` fixtures for
+representative click, keyboard, focus, ARIA, visible text, and `data-state`
+transitions. It does not write screenshots or traces, certify full
+accessibility, verify native Desktop or Mobile behavior, or claim visual parity.
 
 For CI setup options and non-blocking workflow policy, see
 `docs/ci-browser-smoke.md` and `docs/ci-browser-workflow-template.md`. Do not

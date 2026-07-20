@@ -128,8 +128,10 @@ for (const fragment of repoHygieneFragments) {
 const policyDocFragments = [
   "normal browser smoke uploads are screenshot PNG files only",
   screenshotPattern,
+  "runtime interaction verification writes no screenshots or traces by default",
   "browser profiles, Playwright caches, Rust target directories, and temporary",
   "preview server output stay outside the normal upload path",
+  "tracing runtime interaction verification",
   "enforcing remote artifact retention settings",
   "validating screenshot pixels or PNG metadata",
 ];
