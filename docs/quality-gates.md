@@ -528,6 +528,10 @@ checks the rendered Web preview at `1280x900` and `390x844`, and screenshot
 capture stays opt-in through `DIOXUS_UI_WEB_SCREENSHOT=1`.
 For manual release-candidate screenshot review, see
 `docs/components/release-screenshot-review-checklist.md`.
+For screenshot cleanup and retention, see
+`docs/components/screenshot-artifact-retention.md`; screenshot files are
+temporary local review aids by default and should not be committed or uploaded
+by normal local verification.
 
 For CI setup, artifact upload, and non-blocking job policy, see
 `docs/ci-browser-smoke.md` and `docs/ci-browser-workflow-template.md`. This

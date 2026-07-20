@@ -5,6 +5,9 @@ workflow built on the existing opt-in browser smoke commands.
 
 Status: Planned in M114.1; checklist added in M114.2.
 
+For the screenshot retention decision that governs this checklist, see
+[`screenshot-artifact-retention.md`](screenshot-artifact-retention.md).
+
 ## Problem
 
 The project now has browser-backed preview checks and optional screenshot
@@ -177,6 +180,11 @@ npm run verify:repo-hygiene
 git status --short
 ```
 
+The retention policy remains local-first: screenshots are temporary review aids
+by default, review notes should keep command output and PNG metadata, and
+uploads or GitHub release attachments stay deferred until a release owner
+defines that process.
+
 ## Non-goals
 
 - no pixel-level visual diffing
@@ -202,6 +210,7 @@ M114 should keep these files aligned:
 - `docs/site.md`
 - `docs/components/README.md`
 - `docs/components/release-screenshot-review-checklist.md`
+- `docs/components/screenshot-artifact-retention.md`
 - `docs/components/web-preview-screenshot-smoke.md`
 - `docs/components/browser-smoke-aggregate.md`
 - `docs/browser-artifact-policy-metadata.md`

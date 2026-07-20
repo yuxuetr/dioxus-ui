@@ -2063,6 +2063,25 @@ promote browser smoke into release gates, verify Desktop WebView or native
 Mobile screenshots, update generated docs, change component APIs, or edit
 templates.
 
+## M115 Screenshot Artifact Retention Usage
+
+M115 adds the screenshot retention decision for release-candidate review:
+
+```text
+docs/components/screenshot-artifact-retention.md
+```
+
+The policy keeps screenshots local-first. Screenshot PNG files are temporary
+review aids by default; maintainers should copy command output and PNG metadata
+into review notes, avoid committing screenshots, and delete them before final
+handoff unless intentionally keeping ignored local files.
+
+The policy is referenced by release docs, quality gates, CI browser smoke docs,
+browser artifact policy metadata, and the release screenshot review checklist.
+It does not upload artifacts, activate CI workflows, add GitHub release
+attachments, enable screenshots by default, create visual baselines, update
+generated docs, change component APIs, or edit templates.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:

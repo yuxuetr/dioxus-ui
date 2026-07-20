@@ -424,6 +424,11 @@ For manual release-candidate screenshot review, use
 `docs/components/release-screenshot-review-checklist.md`. The checklist records
 what to capture, what to inspect, and how to clean local screenshot artifacts
 without turning visual review into an automated release gate.
+The retention decision in
+`docs/components/screenshot-artifact-retention.md` keeps screenshots
+local-first: copy command output and PNG metadata into review notes, do not
+commit PNG files, and defer uploads or GitHub release attachments until a
+separate release owner defines that process.
 
 For CI setup options and non-blocking workflow policy, see
 `docs/ci-browser-smoke.md` and `docs/ci-browser-workflow-template.md`. Do not

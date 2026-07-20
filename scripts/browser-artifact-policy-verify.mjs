@@ -16,6 +16,7 @@ const rfc = readRepoFile("docs/rfcs/0009-ci-browser-workflow-activation.md");
 const gitignore = readRepoFile(".gitignore");
 const repoHygiene = readRepoFile("scripts/repo-hygiene-verify.mjs");
 const policyDoc = readRepoFile("docs/browser-artifact-policy-metadata.md");
+const retentionDoc = readRepoFile("docs/components/screenshot-artifact-retention.md");
 const activeWorkflowPath = join(repoRoot, ".github/workflows/browser-smoke.yml");
 const failures = [];
 
@@ -136,6 +137,8 @@ const policyDocFragments = [
   "local browser smoke aggregate preserves command-specific screenshot",
   "does not enable screenshots by default",
   "release screenshot review artifacts are local, ignored, and must not be",
+  "screenshot retention policy is local-first",
+  "normal local verification does not upload artifacts",
   "runtime interaction verification writes no screenshots or traces by default",
   "browser profiles, Playwright caches, Rust target directories, and temporary",
   "preview server output stay outside the normal upload path",
@@ -146,6 +149,25 @@ const policyDocFragments = [
 
 for (const fragment of policyDocFragments) {
   requireFragment("docs/browser-artifact-policy-metadata.md", policyDoc, fragment);
+}
+
+const retentionDocFragments = [
+  "M115 adopts an initial local-first policy",
+  "Screenshots are temporary local review artifacts by default",
+  "Do not commit screenshot PNG files",
+  "Do not upload screenshots as part of normal local verification",
+  "Copy command output and PNG metadata into review notes",
+  "GitHub release attachments and internal review artifact storage remain",
+  "npm run verify:repo-hygiene",
+  "git status --short",
+  webScreenshotPattern,
+  screenshotPattern,
+  "no artifact uploads",
+  "no GitHub release automation",
+];
+
+for (const fragment of retentionDocFragments) {
+  requireFragment("docs/components/screenshot-artifact-retention.md", retentionDoc, fragment);
 }
 
 for (const term of forbiddenArtifactTerms) {

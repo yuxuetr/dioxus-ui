@@ -3,7 +3,8 @@
 This document defines the M115 decision boundary for release-candidate
 screenshot artifacts after manual screenshot review.
 
-Status: Planned in M115.1; initial retention policy added in M115.2.
+Status: Planned in M115.1; initial retention policy added in M115.2; linked
+from release, quality, site, CI, and artifact policy docs in M115.3.
 
 ## Problem
 

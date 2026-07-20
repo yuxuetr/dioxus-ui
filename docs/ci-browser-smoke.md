@@ -101,6 +101,8 @@ This read-only check validates artifact guidance, screenshot upload patterns,
 RFC 0009 artifact policy, `.gitignore` coverage, repository hygiene boundaries,
 and release wiring. It does not launch Playwright, upload artifacts, delete
 local files, enforce remote retention, or validate screenshot pixels.
+For local release-candidate screenshot retention, see
+[`Screenshot Artifact Retention`](components/screenshot-artifact-retention.md).
 
 ## Playwright-managed Chromium
 
@@ -164,6 +166,11 @@ not commit them.
 
 Browser profiles, Playwright caches, screenshots, and temporary preview outputs
 must remain outside Git.
+
+Local release-candidate screenshot review remains separate from CI artifact
+upload. The default retention policy treats screenshots as temporary local
+review aids, records command output and PNG metadata in notes, and defers
+internal uploads or GitHub release attachments until that process has an owner.
 
 ## Failure Modes
 
