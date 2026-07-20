@@ -663,10 +663,22 @@ pub fn preview_smoke_lines(target: PreviewTarget) -> Vec<String> {
 #[component]
 pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let states = preview_lines(target);
+  let mut disclosure_open = use_signal(|| false);
+  let mut overlay_open = use_signal(|| false);
+  let mut selected_option = use_signal(|| "alpha");
+  let mut command_active = use_signal(|| "open-file");
+  let mut scroll_status = use_signal(|| "held");
   let root = match target {
     PreviewTarget::Web => "web",
     PreviewTarget::Desktop => "desktop",
   };
+  let disclosure_state = if disclosure_open() { "open" } else { "closed" };
+  let disclosure_expanded = if disclosure_open() { "true" } else { "false" };
+  let overlay_state = if overlay_open() { "open" } else { "closed" };
+  let overlay_expanded = if overlay_open() { "true" } else { "false" };
+  let selected_option_value = selected_option();
+  let command_active_value = command_active();
+  let scroll_status_value = scroll_status();
   let primary_button_class =
     button_class(ButtonVariant::Primary, ButtonSize::Md, UiDensity::Comfortable, "");
   let secondary_button_class =
@@ -883,6 +895,122 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                   td { class: "border-t border-zinc-200 py-1", "{row.y_label}" }
                 }
               }
+            }
+          }
+        }
+        section {
+          class: "grid gap-4 lg:grid-cols-2",
+          "data-preview-panel": "interactions",
+          "data-interaction-root": "runtime",
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "disclosure",
+            "data-state": "{disclosure_state}",
+            h2 { class: "text-sm font-medium", "Disclosure interaction" }
+            button {
+              class: "{secondary_button_class} mt-3",
+              "aria-expanded": "{disclosure_expanded}",
+              "aria-controls": "interaction-disclosure-content",
+              "data-interaction-control": "disclosure-trigger",
+              onclick: move |_| disclosure_open.toggle(),
+              "Toggle disclosure"
+            }
+            div {
+              id: "interaction-disclosure-content",
+              class: "mt-3 rounded-md bg-zinc-50 p-3 text-sm text-zinc-700",
+              "data-interaction-state": "disclosure-content",
+              hidden: !disclosure_open(),
+              "Disclosure content is visible when open."
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "overlay",
+            "data-state": "{overlay_state}",
+            h2 { class: "text-sm font-medium", "Overlay interaction" }
+            button {
+              class: "{secondary_button_class} mt-3",
+              "aria-expanded": "{overlay_expanded}",
+              "aria-controls": "interaction-overlay-content",
+              "data-interaction-control": "overlay-trigger",
+              onclick: move |_| overlay_open.set(true),
+              "Open overlay"
+            }
+            div {
+              id: "interaction-overlay-content",
+              class: "mt-3 rounded-md border border-zinc-200 bg-white p-3 text-sm shadow-sm",
+              role: "dialog",
+              "aria-label": "Interaction overlay",
+              "data-interaction-state": "overlay-content",
+              hidden: !overlay_open(),
+              p { class: "font-medium", "Interaction overlay" }
+              button {
+                class: "{secondary_button_class} mt-3",
+                "data-interaction-control": "overlay-close",
+                onclick: move |_| overlay_open.set(false),
+                "Close"
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "selection",
+            "data-state": "{selected_option_value}",
+            h2 { class: "text-sm font-medium", "Selection interaction" }
+            div {
+              class: "mt-3 flex gap-2",
+              role: "radiogroup",
+              "aria-label": "Interaction selection",
+              for option in ["alpha", "beta"] {
+                button {
+                  class: "{secondary_button_class}",
+                  role: "radio",
+                  "aria-checked": "{selected_option_value == option}",
+                  "data-interaction-option": "{option}",
+                  onclick: move |_| selected_option.set(option),
+                  "{option}"
+                }
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "keyboard",
+            h2 { class: "text-sm font-medium", "Keyboard-visible state" }
+            div {
+              class: "mt-3 rounded-md border border-zinc-200 p-2",
+              role: "listbox",
+              tabindex: "0",
+              "aria-activedescendant": "interaction-command-{command_active_value}",
+              "data-interaction-control": "keyboard-listbox",
+              for option in ["open-file", "save-file"] {
+                button {
+                  id: "interaction-command-{option}",
+                  class: "{secondary_button_class} mr-2",
+                  role: "option",
+                  "aria-selected": "{command_active_value == option}",
+                  "data-interaction-option": "{option}",
+                  onclick: move |_| command_active.set(option),
+                  "{option}"
+                }
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "scroll-status",
+            "data-state": "{scroll_status_value}",
+            h2 { class: "text-sm font-medium", "Scroll status interaction" }
+            p {
+              class: "mt-3 text-sm text-zinc-600",
+              "data-interaction-state": "scroll-status",
+              "Scroll status: {scroll_status_value}"
+            }
+            button {
+              class: "{secondary_button_class} mt-3",
+              "data-interaction-control": "scroll-jump",
+              onclick: move |_| scroll_status.set("jumped"),
+              "Jump to latest"
             }
           }
         }

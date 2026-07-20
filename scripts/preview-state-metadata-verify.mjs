@@ -40,7 +40,22 @@ const requiredPanels = [
   "message",
   "chart",
   "overlay-open",
+  "interactions",
   "inventory",
+];
+
+const requiredInteractionFragments = [
+  'data-preview-panel": "interactions"',
+  'data-interaction-root": "runtime"',
+  'data-interaction-target": "disclosure"',
+  'data-interaction-target": "overlay"',
+  'data-interaction-target": "selection"',
+  'data-interaction-target": "keyboard"',
+  'data-interaction-target": "scroll-status"',
+  'data-interaction-control": "disclosure-trigger"',
+  'data-interaction-control": "overlay-trigger"',
+  'data-interaction-control": "keyboard-listbox"',
+  'data-interaction-control": "scroll-jump"',
 ];
 
 const requiredCssFragments = [
@@ -77,6 +92,10 @@ for (const state of requiredStateLabels) {
 
 for (const panel of requiredPanels) {
   requireFragment("shared preview panels", sharedPreview, `"data-preview-panel": "${panel}"`);
+}
+
+for (const fragment of requiredInteractionFragments) {
+  requireFragment("shared preview interaction fixtures", sharedPreview, fragment);
 }
 
 for (const fragment of requiredCssFragments) {
