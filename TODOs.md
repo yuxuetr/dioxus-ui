@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M119 Release Candidate Handoff Metadata Gate
-- Current task: M119.2 Add release candidate handoff metadata verifier
+- Current task: M119.3 Wire handoff metadata gate into release checks
 
 ## Backup
 
@@ -2000,7 +2000,7 @@
   - Check required checklist sections, command references, publish readiness links, warning inventory links, browser review links, artifact hygiene boundaries, and non-goals.
   - Keep the gate deterministic and offline with no publishing, tagging, artifact creation, screenshot capture, CI activation, or browser launch.
 
-- TODO M119.2 Add release candidate handoff metadata verifier
+- DONE M119.2 Add release candidate handoff metadata verifier
   - Add `scripts/release-candidate-handoff-verify.mjs`.
   - Add `npm run verify:release-candidate-handoff`.
   - Verify the checklist, release docs, quality gates, README, docs index, docs-site notes, browser review runbook, and publish readiness runbook remain aligned.
