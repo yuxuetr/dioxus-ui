@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M115 Screenshot Artifact Retention Decision
-- Current task: M115.2 Add screenshot artifact retention decision
+- Current task: M115.3 Wire and document retention policy
 
 ## Backup
 
@@ -1912,7 +1912,7 @@
   - Compare attaching screenshots to GitHub releases, storing internal review notes, keeping local ignored artifacts only, and deleting artifacts after review.
   - Keep artifact uploads, GitHub release automation, CI workflow activation, pixel diffing, visual baselines, component API changes, and template rewrites out of scope.
 
-- TODO M115.2 Add screenshot artifact retention decision
+- DONE M115.2 Add screenshot artifact retention decision
   - Document the chosen initial policy for screenshot artifact retention, naming, cleanup, and review note references.
   - Include when screenshots may be attached to release notes, when they should stay local only, and what metadata should be copied into review notes.
   - Keep generated PNG files ignored and uncommitted.
