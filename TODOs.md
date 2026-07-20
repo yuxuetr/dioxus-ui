@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M118 Release Candidate Handoff Checklist
-- Current task: M118.3 Wire and verify handoff checklist discoverability
+- Current task: M118.4 Complete release candidate handoff checklist milestone
 
 ## Backup
 
@@ -1983,7 +1983,7 @@
   - Reference release gates, browser review runbook, screenshot notes template, retention policy, publish readiness blockers, release warning inventory, and repository hygiene.
   - Keep it manual and local-first without publishing, tagging, attaching artifacts, or activating workflows.
 
-- TODO M118.3 Wire and verify handoff checklist discoverability
+- DONE M118.3 Wire and verify handoff checklist discoverability
   - Link the handoff checklist from README, docs index, release docs, quality gates, docs-site notes, browser review runbook, and publish readiness runbook where appropriate.
   - Extend docs index or release documentation checks if needed so the handoff checklist remains discoverable.
   - Keep browser review and artifact upload boundaries aligned.
