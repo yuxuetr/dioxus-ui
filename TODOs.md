@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M114 Release Screenshot Review Checklist
-- Current task: M114.3 Wire and document screenshot review checklist
+- Current task: M114.4 Complete release screenshot review checklist milestone
 
 ## Backup
 
@@ -1895,7 +1895,7 @@
   - Cover form, message, chart, overlay, interaction, mobile profile, component inventory, typography, spacing, overflow, and responsive layout review points.
   - Keep the checklist manual, artifact-light, and independent from default or release gates.
 
-- TODO M114.3 Wire and document screenshot review checklist
+- DONE M114.3 Wire and document screenshot review checklist
   - Link the checklist from README, quality gates, release docs, docs-site notes, component docs index, screenshot smoke docs, and browser smoke aggregate docs.
   - Extend docs verification if needed so the checklist remains discoverable without adding runtime automation.
   - Keep browser artifact policy aligned with review artifact capture and cleanup expectations.
