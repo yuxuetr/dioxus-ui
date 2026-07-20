@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M113 Browser Smoke Aggregate
-- Current task: M113.2 Add serial browser smoke aggregate
+- Current task: M113.3 Wire and document browser smoke aggregate
 
 ## Backup
 
@@ -1868,7 +1868,7 @@
   - Keep CI workflow activation, screenshot capture by default, release gate promotion, Desktop WebView screenshots, native Mobile automation, component API changes, and template rewrites out of scope.
   - Decide which package scripts, README, quality gates, release docs, docs-site notes, browser artifact policy, and browser verification docs must stay aligned.
 
-- TODO M113.2 Add serial browser smoke aggregate
+- DONE M113.2 Add serial browser smoke aggregate
   - Add a focused npm alias that runs rendered component DOM verification, Web screenshot smoke, runtime interaction verification, and mobile browser smoke sequentially.
   - Preserve each command's existing browser executable, screenshot opt-in, server cleanup, and artifact behavior.
   - Avoid parallel execution, generated wrapper artifacts, screenshots by default, CI workflow changes, and release aggregate changes.
