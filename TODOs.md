@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 99%
+- Overall: 100%
 - Current milestone: M117 Release Candidate Browser Review Runbook
-- Current task: M117.4 Complete release candidate browser review runbook milestone
+- Current task: None
 
 ## Backup
 
@@ -1966,7 +1966,7 @@
   - Extend docs index or browser artifact policy checks if needed so the runbook remains discoverable.
   - Keep artifact hygiene and screenshot naming expectations aligned.
 
-- TODO M117.4 Complete release candidate browser review runbook milestone
+- DONE M117.4 Complete release candidate browser review runbook milestone
   - Run docs checks, browser artifact policy checks, repo hygiene checks, package script checks, release docs checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
