@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M118 Release Candidate Handoff Checklist
-- Current task: M118.2 Add release candidate handoff checklist
+- Current task: M118.3 Wire and verify handoff checklist discoverability
 
 ## Backup
 
@@ -1978,7 +1978,7 @@
   - Include release gate evidence, browser review evidence, publish readiness blockers, known warning inventory, artifact hygiene, and unresolved follow-ups.
   - Keep the checklist repository-safe: no committed screenshots, no release artifacts, no generated docs, no CI workflow activation, no component API changes, and no template rewrites.
 
-- TODO M118.2 Add release candidate handoff checklist
+- DONE M118.2 Add release candidate handoff checklist
   - Add a Markdown checklist under release docs for final maintainer handoff.
   - Reference release gates, browser review runbook, screenshot notes template, retention policy, publish readiness blockers, release warning inventory, and repository hygiene.
   - Keep it manual and local-first without publishing, tagging, attaching artifacts, or activating workflows.
