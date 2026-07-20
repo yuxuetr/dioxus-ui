@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M111 Runtime Interaction Verification
-- Current task: M111.2 Add interaction fixture targets
+- Current task: M111.3 Add browser interaction verifier
 
 ## Backup
 
@@ -1819,7 +1819,7 @@
   - Keep visual diffing, screenshot artifacts, full accessibility certification, native Desktop WebView automation, native Mobile automation, component API changes, and template rewrites out of scope.
   - Decide which preview fixtures, package scripts, README, quality gates, release docs, docs-site notes, and runtime verification docs must stay aligned.
 
-- TODO M111.2 Add interaction fixture targets
+- DONE M111.2 Add interaction fixture targets
   - Add lightweight Web preview targets for representative runtime-sensitive interactions such as disclosure, overlay open state, selection state, and keyboard-visible state.
   - Preserve existing `data-component-preview`, `data-preview-panel`, and DOM verification targets.
   - Avoid full prop matrices, provider/domain logic, network state, screenshots, and template changes.
