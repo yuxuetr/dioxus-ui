@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M112 Web Preview Screenshot Smoke
-- Current task: M112.2 Add Web screenshot smoke verifier
+- Current task: M112.3 Wire and document Web screenshot smoke
 
 ## Backup
 
@@ -1846,7 +1846,7 @@
   - Keep pixel diffing, shadcn/ui visual parity claims, CI workflow activation, Desktop WebView screenshots, native Mobile screenshots, component API changes, and template rewrites out of scope.
   - Decide which screenshot artifact names, environment variables, package scripts, README, quality gates, release docs, docs-site notes, browser artifact policy, and screenshot docs must stay aligned.
 
-- TODO M112.2 Add Web screenshot smoke verifier
+- DONE M112.2 Add Web screenshot smoke verifier
   - Add an opt-in Playwright verifier that starts the Web preview, checks stable preview panels, captures desktop and mobile screenshots only when explicitly enabled, and validates PNG metadata.
   - Fail when required panels, chart SVG, fallback rows, overlay dialog, interaction fixtures, viewport dimensions, or screenshot metadata are missing.
   - Keep the command deterministic, clean up the server process, keep screenshots ignored, and avoid visual diff or pixel comparison.
