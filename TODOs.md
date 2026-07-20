@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M112 Web Preview Screenshot Smoke
-- Current task: M112.1 Plan Web preview screenshot smoke
+- Current task: M112.2 Add Web screenshot smoke verifier
 
 ## Backup
 
@@ -1841,7 +1841,7 @@
 
 ## M112 Web Preview Screenshot Smoke
 
-- TODO M112.1 Plan Web preview screenshot smoke
+- DONE M112.1 Plan Web preview screenshot smoke
   - Define the first opt-in Web screenshot smoke contract for desktop and mobile preview viewports.
   - Keep pixel diffing, shadcn/ui visual parity claims, CI workflow activation, Desktop WebView screenshots, native Mobile screenshots, component API changes, and template rewrites out of scope.
   - Decide which screenshot artifact names, environment variables, package scripts, README, quality gates, release docs, docs-site notes, browser artifact policy, and screenshot docs must stay aligned.
