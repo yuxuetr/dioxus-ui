@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 99%
+- Overall: 100%
 - Current milestone: M118 Release Candidate Handoff Checklist
-- Current task: M118.4 Complete release candidate handoff checklist milestone
+- Current task: None
 
 ## Backup
 
@@ -1988,7 +1988,7 @@
   - Extend docs index or release documentation checks if needed so the handoff checklist remains discoverable.
   - Keep browser review and artifact upload boundaries aligned.
 
-- TODO M118.4 Complete release candidate handoff checklist milestone
+- DONE M118.4 Complete release candidate handoff checklist milestone
   - Run docs checks, release docs checks, package script checks, repo hygiene checks, browser artifact policy checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, tags, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
