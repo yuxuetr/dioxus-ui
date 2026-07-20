@@ -3,7 +3,7 @@
 This document defines the M115 decision boundary for release-candidate
 screenshot artifacts after manual screenshot review.
 
-Status: Planned in M115.1.
+Status: Planned in M115.1; initial retention policy added in M115.2.
 
 ## Problem
 
@@ -32,7 +32,7 @@ release artifact requirement.
 
 ## Initial Decision
 
-M115 should document an initial local-first policy:
+M115 adopts an initial local-first policy:
 
 1. Screenshots are temporary local review artifacts by default.
 2. Review notes should record command output and PNG metadata.
@@ -42,6 +42,40 @@ M115 should document an initial local-first policy:
 5. Screenshots must not be committed to Git.
 6. GitHub release attachments and internal review artifact storage remain
    deferred until there is an explicit release owner and retention policy.
+
+## Retention Policy
+
+Default handling:
+
+- Treat screenshots as temporary release-candidate review aids.
+- Do not commit screenshot PNG files.
+- Do not upload screenshots as part of normal local verification.
+- Copy command output and PNG metadata into review notes when evidence is
+  needed.
+- Delete screenshots before final handoff unless the reviewer intentionally
+  keeps them as ignored local files.
+
+Allowed local-only cases:
+
+- Keep ignored screenshots while comparing two local release-candidate runs.
+- Keep ignored screenshots while investigating a visual issue.
+- Keep ignored screenshots long enough to file a follow-up task with metadata.
+
+Deferred attachment cases:
+
+- Internal review note attachments are deferred until the project has a review
+  location, owner, and retention period.
+- GitHub release attachments are deferred until public release evidence is part
+  of the release policy.
+- CI-generated screenshot artifacts are deferred until a non-blocking browser
+  workflow is activated and retention is reviewed.
+
+Required cleanup evidence:
+
+- `npm run verify:repo-hygiene` passes.
+- `git status --short` shows no staged or unstaged screenshot artifacts.
+- Review notes record whether screenshots were deleted or intentionally kept
+  ignored locally.
 
 ## Review Note Metadata
 
@@ -56,7 +90,8 @@ When screenshot capture is used, copy these details into review notes:
 - Web mobile screenshot path and PNG metadata
 - mobile browser screenshot path and PNG metadata
 - observed visual issues
-- decision and follow-up tasks
+- retention decision: deleted, kept ignored locally, or attached outside Git
+- follow-up tasks
 
 The metadata is enough to prove what was reviewed without making PNG files part
 of the source tree.
