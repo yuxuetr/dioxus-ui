@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M114 Release Screenshot Review Checklist
-- Current task: None
+- Current milestone: M115 Screenshot Artifact Retention Decision
+- Current task: M115.1 Plan screenshot artifact retention decision
 
 ## Backup
 
@@ -1903,6 +1903,28 @@
 - DONE M114.4 Complete release screenshot review checklist milestone
   - Run docs checks, package script checks, browser artifact policy checks, repo hygiene checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, template rewrites, or CI workflow files are committed.
+  - Update TODO status only after commits and validation.
+
+## M115 Screenshot Artifact Retention Decision
+
+- TODO M115.1 Plan screenshot artifact retention decision
+  - Define the decision boundary for release-candidate screenshot artifacts after manual review.
+  - Compare attaching screenshots to GitHub releases, storing internal review notes, keeping local ignored artifacts only, and deleting artifacts after review.
+  - Keep artifact uploads, GitHub release automation, CI workflow activation, pixel diffing, visual baselines, component API changes, and template rewrites out of scope.
+
+- TODO M115.2 Add screenshot artifact retention decision
+  - Document the chosen initial policy for screenshot artifact retention, naming, cleanup, and review note references.
+  - Include when screenshots may be attached to release notes, when they should stay local only, and what metadata should be copied into review notes.
+  - Keep generated PNG files ignored and uncommitted.
+
+- TODO M115.3 Wire and document retention policy
+  - Link the retention decision from the release screenshot review checklist, release docs, quality gates, docs-site notes, browser artifact policy docs, and CI browser docs.
+  - Extend metadata checks if needed so the retention policy remains discoverable without uploading artifacts.
+  - Keep repository hygiene aligned with screenshot artifact naming and cleanup expectations.
+
+- TODO M115.4 Complete screenshot artifact retention milestone
+  - Run docs checks, browser artifact policy checks, repo hygiene checks, package script checks, and diff checks.
+  - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules

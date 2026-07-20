@@ -62,6 +62,8 @@ For the serial local browser smoke aggregate, see the
 [Browser Smoke Aggregate](browser-smoke-aggregate.md).
 For release-candidate screenshot review planning, see the
 [Release Screenshot Review Checklist](release-screenshot-review-checklist.md).
+For screenshot artifact retention planning, see the
+[Screenshot Artifact Retention](screenshot-artifact-retention.md).
 For the Playwright dependency milestone, see the
 [Playwright Dependency Plan](playwright-dependency-plan.md).
 For CI browser smoke setup, see the
