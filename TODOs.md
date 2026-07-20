@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M112 Web Preview Screenshot Smoke
-- Current task: M112.4 Complete Web screenshot smoke milestone
+- Current task: None
 
 ## Backup
 
@@ -1856,7 +1856,7 @@
   - Document setup, browser executable behavior, screenshot opt-in variables, artifact paths, non-goals, and troubleshooting in README, quality gates, release docs, docs-site notes, screenshot docs, and browser artifact policy docs.
   - Keep repository hygiene aligned so generated Web screenshot artifacts remain ignored and are not committed.
 
-- TODO M112.4 Complete Web screenshot smoke milestone
+- DONE M112.4 Complete Web screenshot smoke milestone
   - Run Web screenshot smoke with screenshot capture, rendered DOM verification, runtime interaction verification, rendered coverage checks, Web preview checks, docs checks, package script checks, browser artifact policy checks, repo hygiene checks, and diff checks.
   - Verify no committed screenshots, traces, generated docs, component API changes, or template rewrites remain after validation.
   - Update TODO status only after commits and validation.
