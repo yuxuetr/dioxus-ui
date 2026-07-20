@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M115 Screenshot Artifact Retention Decision
-- Current task: M115.3 Wire and document retention policy
+- Current task: M115.4 Complete screenshot artifact retention milestone
 
 ## Backup
 
@@ -1917,7 +1917,7 @@
   - Include when screenshots may be attached to release notes, when they should stay local only, and what metadata should be copied into review notes.
   - Keep generated PNG files ignored and uncommitted.
 
-- TODO M115.3 Wire and document retention policy
+- DONE M115.3 Wire and document retention policy
   - Link the retention decision from the release screenshot review checklist, release docs, quality gates, docs-site notes, browser artifact policy docs, and CI browser docs.
   - Extend metadata checks if needed so the retention policy remains discoverable without uploading artifacts.
   - Keep repository hygiene aligned with screenshot artifact naming and cleanup expectations.
