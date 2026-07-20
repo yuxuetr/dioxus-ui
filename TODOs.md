@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M117 Release Candidate Browser Review Runbook
-- Current task: M117.3 Wire and verify runbook discoverability
+- Current task: M117.4 Complete release candidate browser review runbook milestone
 
 ## Backup
 
@@ -1961,7 +1961,7 @@
   - Keep browser commands opt-in and outside default/release gates.
   - Reference existing smoke, checklist, notes template, and retention docs instead of duplicating detailed review criteria.
 
-- TODO M117.3 Wire and verify runbook discoverability
+- DONE M117.3 Wire and verify runbook discoverability
   - Link the runbook from README, docs index, components README, release docs, quality gates, CI browser docs, screenshot review checklist, notes template, retention policy, and docs-site notes.
   - Extend docs index or browser artifact policy checks if needed so the runbook remains discoverable.
   - Keep artifact hygiene and screenshot naming expectations aligned.
