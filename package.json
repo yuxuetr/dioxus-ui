@@ -57,6 +57,7 @@
     "verify:ci-workflow-template": "node scripts/ci-workflow-template-verify.mjs",
     "verify:browser-artifact-policy": "node scripts/browser-artifact-policy-verify.mjs",
     "verify:release-warning-inventory": "node scripts/release-warning-inventory-verify.mjs",
+    "verify:release-candidate-handoff": "node scripts/release-candidate-handoff-verify.mjs",
     "verify:docs": "npm run verify:docs-catalog && npm run verify:docs-catalog-page && npm run verify:docs-status && npm run verify:docs-structure && npm run verify:docs-routes && npm run verify:docs-source-preview && npm run verify:rfcs && npm run verify:readme && npm run verify:docs-index && npm run verify:docs-links && npm run verify:docs-anchors",
     "verify:examples": "scripts/example-smoke.sh",
     "verify:preview": "npm run verify:web-preview && npm run verify:mobile-web-profile && npm run verify:desktop-preview",

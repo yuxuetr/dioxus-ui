@@ -62,6 +62,7 @@ const requiredScripts = {
   "verify:ci-workflow-template": "node scripts/ci-workflow-template-verify.mjs",
   "verify:browser-artifact-policy": "node scripts/browser-artifact-policy-verify.mjs",
   "verify:release-warning-inventory": "node scripts/release-warning-inventory-verify.mjs",
+  "verify:release-candidate-handoff": "node scripts/release-candidate-handoff-verify.mjs",
 };
 
 const aggregateScriptRequirements = {

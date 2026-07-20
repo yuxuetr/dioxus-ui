@@ -475,6 +475,14 @@ docs, quality gate notes, docs-site notes, and release wiring stay aligned. It
 is read-only and does not run Cargo, parse live compiler output, execute
 `cargo report`, upgrade dependencies, or suppress warnings.
 
+`npm run verify:release-candidate-handoff` checks that the release candidate
+handoff checklist keeps required sections, release gate evidence, optional
+browser review evidence, publish readiness blockers, warning inventory,
+artifact hygiene boundaries, and discoverability links aligned. It is read-only
+and does not run release gates, launch browser automation, capture screenshots,
+create artifacts, create Git tags, publish packages, activate CI workflows,
+generate docs output, change component APIs, or rewrite templates.
+
 ## Mobile Browser Smoke Gate
 
 Run only when Playwright Chromium has been installed:
