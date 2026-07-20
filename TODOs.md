@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M110 Browser DOM Component Verification
-- Current task: M110.3 Wire and document DOM verification
+- Current task: M110.4 Complete browser DOM verification milestone
 
 ## Backup
 
@@ -1802,7 +1802,7 @@
   - Fail when a target is missing, detached, hidden, empty, or has an invalid bounding box.
   - Keep the command deterministic, clean up the server process, avoid screenshots by default, and do not claim visual parity.
 
-- TODO M110.3 Wire and document DOM verification
+- DONE M110.3 Wire and document DOM verification
   - Add package script wiring for the focused DOM verification command without making it part of default release gates unless explicitly scoped.
   - Document setup, browser executable behavior, non-goals, and troubleshooting in README, quality gates, release docs, docs-site notes, and rendered verification docs.
   - Keep browser artifact policy and repository hygiene aligned so generated screenshots or traces remain ignored if later enabled.
