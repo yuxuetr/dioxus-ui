@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M111 Runtime Interaction Verification
-- Current task: M111.3 Add browser interaction verifier
+- Current task: M111.4 Wire and document interaction verification
 
 ## Backup
 
@@ -1824,7 +1824,7 @@
   - Preserve existing `data-component-preview`, `data-preview-panel`, and DOM verification targets.
   - Avoid full prop matrices, provider/domain logic, network state, screenshots, and template changes.
 
-- TODO M111.3 Add browser interaction verifier
+- DONE M111.3 Add browser interaction verifier
   - Add an opt-in Playwright verifier that starts the Web preview and exercises the interaction fixture targets.
   - Fail when expected click, keyboard, focus, ARIA, or data-state transitions are missing.
   - Keep the command deterministic, clean up the server process, avoid screenshots by default, and do not claim full accessibility or visual parity.
