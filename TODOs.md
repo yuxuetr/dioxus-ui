@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M115 Screenshot Artifact Retention Decision
-- Current task: None
+- Overall: 99%
+- Current milestone: M116 Release Screenshot Review Notes Template
+- Current task: M116.1 Plan release screenshot review notes template
 
 ## Backup
 
@@ -1923,6 +1923,28 @@
   - Keep repository hygiene aligned with screenshot artifact naming and cleanup expectations.
 
 - DONE M115.4 Complete screenshot artifact retention milestone
+  - Run docs checks, browser artifact policy checks, repo hygiene checks, package script checks, and diff checks.
+  - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, or CI workflow files are committed.
+  - Update TODO status only after commits and validation.
+
+## M116 Release Screenshot Review Notes Template
+
+- TODO M116.1 Plan release screenshot review notes template
+  - Define the smallest reusable Markdown review notes template for screenshot capture metadata, reviewer decisions, observed issues, and retention outcomes.
+  - Keep the template local-first and repository-safe: no committed PNG files, no uploads, no CI workflow activation, no generated docs, and no visual baseline claims.
+  - Decide which existing release, quality, CI, site, and screenshot retention docs should link to the template.
+
+- TODO M116.2 Add release screenshot review notes template
+  - Add a copyable Markdown template under component docs for release-candidate screenshot review notes.
+  - Include Web desktop, Web mobile, mobile browser, command output, PNG metadata, environment, issue list, decision, retention outcome, cleanup evidence, and follow-up fields.
+  - Keep screenshot files ignored and uncommitted.
+
+- TODO M116.3 Wire and verify review notes template discoverability
+  - Link the template from the release screenshot review checklist, screenshot artifact retention policy, release docs, quality gates, docs-site notes, CI browser docs, and docs indexes.
+  - Extend docs index or artifact policy metadata checks if needed so the template remains discoverable.
+  - Keep browser commands opt-in and avoid adding runtime screenshot capture.
+
+- TODO M116.4 Complete release screenshot review notes template milestone
   - Run docs checks, browser artifact policy checks, repo hygiene checks, package script checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
