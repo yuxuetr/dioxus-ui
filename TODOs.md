@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M117 Release Candidate Browser Review Runbook
-- Current task: M117.1 Plan release candidate browser review runbook
+- Current task: M117.2 Add release candidate browser review runbook
 
 ## Backup
 
@@ -1951,7 +1951,7 @@
 
 ## M117 Release Candidate Browser Review Runbook
 
-- TODO M117.1 Plan release candidate browser review runbook
+- DONE M117.1 Plan release candidate browser review runbook
   - Define the smallest manual release-candidate browser review sequence that combines deterministic release gates, opt-in browser smoke, optional screenshots, review notes, retention policy, and cleanup evidence.
   - Keep the runbook local-first and repository-safe: no committed screenshots, no uploads, no CI workflow activation, no generated docs, no component API changes, and no source-copy template rewrites.
   - Decide which existing README, release, quality, CI, site, checklist, notes template, and retention docs should link to the runbook.
