@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M110 Browser DOM Component Verification
-- Current task: M110.2 Add rendered component DOM verifier
+- Current task: M110.3 Wire and document DOM verification
 
 ## Backup
 
@@ -1797,7 +1797,7 @@
   - Keep screenshot artifacts, visual diffing, runtime interaction assertions, component API changes, template rewrites, and Desktop native WebView checks out of scope.
   - Decide which package scripts, README, quality gates, release docs, docs-site notes, browser artifact policy, and rendered verification docs must stay aligned.
 
-- TODO M110.2 Add rendered component DOM verifier
+- DONE M110.2 Add rendered component DOM verifier
   - Add an opt-in browser verifier that starts the Web preview, visits the local preview route, and checks every `data-component-preview` target from the rendered coverage manifest.
   - Fail when a target is missing, detached, hidden, empty, or has an invalid bounding box.
   - Keep the command deterministic, clean up the server process, avoid screenshots by default, and do not claim visual parity.
