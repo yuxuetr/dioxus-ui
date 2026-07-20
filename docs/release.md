@@ -436,6 +436,48 @@ Use `docs/components/release-candidate-browser-review-runbook.md` for the
 full manual sequence that combines deterministic gates, opt-in browser smoke,
 optional screenshot capture, review notes, retention, and cleanup.
 
+## Release Candidate Handoff Checklist Plan
+
+M118 should add a final handoff checklist for a release candidate after the
+deterministic release gates and optional browser review have completed. The
+checklist should be a maintainer-facing summary, not another automation layer.
+
+Required handoff evidence:
+
+- release candidate identifier and branch or commit
+- `npm run verify:release` result or focused gate results
+- `npm run verify:browser-artifact-policy` result
+- `npm run verify:repo-hygiene` result
+- optional browser review runbook result
+- screenshot review notes location if screenshots were captured
+- screenshot retention outcome
+- publish readiness blocker status
+- release warning inventory status
+- unresolved follow-up tasks
+- final `git status --short` result
+
+The checklist should link to:
+
+- `docs/components/release-candidate-browser-review-runbook.md`
+- `docs/components/release-screenshot-review-notes-template.md`
+- `docs/components/screenshot-artifact-retention.md`
+- `docs/publish-readiness-blockers.md`
+- `docs/publish-readiness-resolution-runbook.md`
+- `docs/release-warning-inventory-metadata.md`
+- `docs/quality-gates.md`
+
+Repository-safe boundaries:
+
+- no package publishing
+- no Git tags
+- no release artifact creation
+- no committed screenshots
+- no artifact uploads
+- no CI workflow activation
+- no generated docs output
+- no component API changes
+- no source-copy template rewrites
+
 For CI setup options and non-blocking workflow policy, see
 `docs/ci-browser-smoke.md` and `docs/ci-browser-workflow-template.md`. Do not
 treat browser smoke as a required release gate until a reviewed workflow exists.
