@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M118 Release Candidate Handoff Checklist
-- Current task: M118.1 Plan release candidate handoff checklist
+- Current task: M118.2 Add release candidate handoff checklist
 
 ## Backup
 
@@ -1973,7 +1973,7 @@
 
 ## M118 Release Candidate Handoff Checklist
 
-- TODO M118.1 Plan release candidate handoff checklist
+- DONE M118.1 Plan release candidate handoff checklist
   - Define the smallest final handoff checklist for a release candidate after deterministic gates and optional browser review.
   - Include release gate evidence, browser review evidence, publish readiness blockers, known warning inventory, artifact hygiene, and unresolved follow-ups.
   - Keep the checklist repository-safe: no committed screenshots, no release artifacts, no generated docs, no CI workflow activation, no component API changes, and no template rewrites.
