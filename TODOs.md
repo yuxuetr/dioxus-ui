@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: None
-- Current task: None
+- Current milestone: M110 Browser DOM Component Verification
+- Current task: M110.1 Plan browser DOM component verification
 
 ## Backup
 
@@ -1788,6 +1788,28 @@
 - DONE M109.5 Complete rendered component verification milestone
   - Run rendered coverage checks, preview metadata checks, Web/Desktop preview checks, docs checks, package script checks, release aggregate, and diff checks.
   - Verify no browser artifacts, screenshots, generated docs, component API changes, or template rewrites are committed.
+  - Update TODO status only after commits and validation.
+
+## M110 Browser DOM Component Verification
+
+- TODO M110.1 Plan browser DOM component verification
+  - Define the Playwright-backed DOM verification contract for all public rendered component targets.
+  - Keep screenshot artifacts, visual diffing, runtime interaction assertions, component API changes, template rewrites, and Desktop native WebView checks out of scope.
+  - Decide which package scripts, README, quality gates, release docs, docs-site notes, browser artifact policy, and rendered verification docs must stay aligned.
+
+- TODO M110.2 Add rendered component DOM verifier
+  - Add an opt-in browser verifier that starts the Web preview, visits the local preview route, and checks every `data-component-preview` target from the rendered coverage manifest.
+  - Fail when a target is missing, detached, hidden, empty, or has an invalid bounding box.
+  - Keep the command deterministic, clean up the server process, avoid screenshots by default, and do not claim visual parity.
+
+- TODO M110.3 Wire and document DOM verification
+  - Add package script wiring for the focused DOM verification command without making it part of default release gates unless explicitly scoped.
+  - Document setup, browser executable behavior, non-goals, and troubleshooting in README, quality gates, release docs, docs-site notes, and rendered verification docs.
+  - Keep browser artifact policy and repository hygiene aligned so generated screenshots or traces remain ignored if later enabled.
+
+- TODO M110.4 Complete browser DOM verification milestone
+  - Run rendered coverage checks, DOM verification, Web preview checks, docs checks, package script checks, and diff checks.
+  - Verify no screenshots, traces, generated docs, component API changes, or template rewrites are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
