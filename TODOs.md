@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M114 Release Screenshot Review Checklist
-- Current task: M114.4 Complete release screenshot review checklist milestone
+- Current task: None
 
 ## Backup
 
@@ -1900,7 +1900,7 @@
   - Extend docs verification if needed so the checklist remains discoverable without adding runtime automation.
   - Keep browser artifact policy aligned with review artifact capture and cleanup expectations.
 
-- TODO M114.4 Complete release screenshot review checklist milestone
+- DONE M114.4 Complete release screenshot review checklist milestone
   - Run docs checks, package script checks, browser artifact policy checks, repo hygiene checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, template rewrites, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
