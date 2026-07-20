@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M112 Web Preview Screenshot Smoke
-- Current task: M112.3 Wire and document Web screenshot smoke
+- Current task: M112.4 Complete Web screenshot smoke milestone
 
 ## Backup
 
@@ -1851,7 +1851,7 @@
   - Fail when required panels, chart SVG, fallback rows, overlay dialog, interaction fixtures, viewport dimensions, or screenshot metadata are missing.
   - Keep the command deterministic, clean up the server process, keep screenshots ignored, and avoid visual diff or pixel comparison.
 
-- TODO M112.3 Wire and document Web screenshot smoke
+- DONE M112.3 Wire and document Web screenshot smoke
   - Add package script wiring for the focused Web screenshot smoke command without making it part of default or release gates unless explicitly scoped.
   - Document setup, browser executable behavior, screenshot opt-in variables, artifact paths, non-goals, and troubleshooting in README, quality gates, release docs, docs-site notes, screenshot docs, and browser artifact policy docs.
   - Keep repository hygiene aligned so generated Web screenshot artifacts remain ignored and are not committed.
