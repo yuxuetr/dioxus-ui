@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M115 Screenshot Artifact Retention Decision
-- Current task: M115.1 Plan screenshot artifact retention decision
+- Current task: M115.2 Add screenshot artifact retention decision
 
 ## Backup
 
@@ -1907,7 +1907,7 @@
 
 ## M115 Screenshot Artifact Retention Decision
 
-- TODO M115.1 Plan screenshot artifact retention decision
+- DONE M115.1 Plan screenshot artifact retention decision
   - Define the decision boundary for release-candidate screenshot artifacts after manual review.
   - Compare attaching screenshots to GitHub releases, storing internal review notes, keeping local ignored artifacts only, and deleting artifacts after review.
   - Keep artifact uploads, GitHub release automation, CI workflow activation, pixel diffing, visual baselines, component API changes, and template rewrites out of scope.
