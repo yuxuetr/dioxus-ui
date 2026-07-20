@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M118 Release Candidate Handoff Checklist
-- Current task: None
+- Overall: 99%
+- Current milestone: M119 Release Candidate Handoff Metadata Gate
+- Current task: M119.1 Plan release candidate handoff metadata gate
 
 ## Backup
 
@@ -1990,6 +1990,28 @@
 
 - DONE M118.4 Complete release candidate handoff checklist milestone
   - Run docs checks, release docs checks, package script checks, repo hygiene checks, browser artifact policy checks, and diff checks.
+  - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, tags, or CI workflow files are committed.
+  - Update TODO status only after commits and validation.
+
+## M119 Release Candidate Handoff Metadata Gate
+
+- TODO M119.1 Plan release candidate handoff metadata gate
+  - Define a read-only verification gate for the release candidate handoff checklist.
+  - Check required checklist sections, command references, publish readiness links, warning inventory links, browser review links, artifact hygiene boundaries, and non-goals.
+  - Keep the gate deterministic and offline with no publishing, tagging, artifact creation, screenshot capture, CI activation, or browser launch.
+
+- TODO M119.2 Add release candidate handoff metadata verifier
+  - Add `scripts/release-candidate-handoff-verify.mjs`.
+  - Add `npm run verify:release-candidate-handoff`.
+  - Verify the checklist, release docs, quality gates, README, docs index, docs-site notes, browser review runbook, and publish readiness runbook remain aligned.
+
+- TODO M119.3 Wire handoff metadata gate into release checks
+  - Add the focused gate to `npm run verify:release` in the appropriate documentation metadata section.
+  - Update release docs, quality gates, README verification summary, package script expectations, and docs-site notes.
+  - Keep browser review optional and outside default/release browser execution.
+
+- TODO M119.4 Complete release candidate handoff metadata gate milestone
+  - Run docs checks, release docs checks, package script checks, handoff metadata checks, repo hygiene checks, browser artifact policy checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, tags, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
 
