@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M113 Browser Smoke Aggregate
-- Current task: None
+- Current milestone: M114 Release Screenshot Review Checklist
+- Current task: M114.1 Plan release screenshot review checklist
 
 ## Backup
 
@@ -1881,6 +1881,28 @@
 - DONE M113.4 Complete browser smoke aggregate milestone
   - Run the serial browser smoke aggregate, package script checks, docs checks, browser artifact policy checks, repo hygiene checks, and diff checks.
   - Verify no committed screenshots, traces, generated docs, component API changes, template rewrites, or CI workflow files remain after validation.
+  - Update TODO status only after commits and validation.
+
+## M114 Release Screenshot Review Checklist
+
+- TODO M114.1 Plan release screenshot review checklist
+  - Define a manual release-candidate screenshot review workflow built on the existing opt-in browser smoke commands.
+  - Keep pixel diffing, automated visual baselines, CI workflow activation, release gate promotion, Desktop WebView screenshots, native Mobile automation, component API changes, and template rewrites out of scope.
+  - Decide which review checklist docs, README, quality gates, release docs, docs-site notes, browser artifact policy, and package-script metadata must stay aligned.
+
+- TODO M114.2 Add release screenshot review checklist
+  - Add a docs checklist for capturing Web and Mobile browser screenshots, recording metadata, reviewing core panels, and cleaning generated artifacts.
+  - Cover form, message, chart, overlay, interaction, mobile profile, component inventory, typography, spacing, overflow, and responsive layout review points.
+  - Keep the checklist manual, artifact-light, and independent from default or release gates.
+
+- TODO M114.3 Wire and document screenshot review checklist
+  - Link the checklist from README, quality gates, release docs, docs-site notes, component docs index, screenshot smoke docs, and browser smoke aggregate docs.
+  - Extend docs verification if needed so the checklist remains discoverable without adding runtime automation.
+  - Keep browser artifact policy aligned with review artifact capture and cleanup expectations.
+
+- TODO M114.4 Complete release screenshot review checklist milestone
+  - Run docs checks, package script checks, browser artifact policy checks, repo hygiene checks, and diff checks.
+  - Verify no screenshots, traces, generated docs, component API changes, template rewrites, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
