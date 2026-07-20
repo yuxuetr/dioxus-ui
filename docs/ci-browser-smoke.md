@@ -105,6 +105,8 @@ For local release-candidate screenshot retention, see
 [`Screenshot Artifact Retention`](components/screenshot-artifact-retention.md).
 For copyable review notes, see the
 [`Release Screenshot Review Notes Template`](components/release-screenshot-review-notes-template.md).
+For the full local release-candidate browser review order, see the
+[`Release Candidate Browser Review Runbook`](components/release-candidate-browser-review-runbook.md).
 
 ## Playwright-managed Chromium
 

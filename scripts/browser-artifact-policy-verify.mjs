@@ -18,6 +18,7 @@ const repoHygiene = readRepoFile("scripts/repo-hygiene-verify.mjs");
 const policyDoc = readRepoFile("docs/browser-artifact-policy-metadata.md");
 const retentionDoc = readRepoFile("docs/components/screenshot-artifact-retention.md");
 const reviewNotesTemplate = readRepoFile("docs/components/release-screenshot-review-notes-template.md");
+const browserReviewRunbook = readRepoFile("docs/components/release-candidate-browser-review-runbook.md");
 const activeWorkflowPath = join(repoRoot, ".github/workflows/browser-smoke.yml");
 const failures = [];
 
@@ -141,6 +142,7 @@ const policyDocFragments = [
   "screenshot retention policy is local-first",
   "normal local verification does not upload artifacts",
   "release screenshot review notes use a copyable Markdown template",
+  "release-candidate browser review runbook keeps browser smoke opt-in",
   "runtime interaction verification writes no screenshots or traces by default",
   "browser profiles, Playwright caches, Rust target directories, and temporary",
   "preview server output stay outside the normal upload path",
@@ -196,6 +198,36 @@ for (const fragment of reviewNotesTemplateFragments) {
   requireFragment(
     "docs/components/release-screenshot-review-notes-template.md",
     reviewNotesTemplate,
+    fragment,
+  );
+}
+
+const browserReviewRunbookFragments = [
+  "Release Candidate Browser Review Runbook",
+  "Deterministic Checks",
+  "Browser Smoke",
+  "Optional Screenshot Capture",
+  "Manual Review",
+  "Review Notes",
+  "Retention And Cleanup",
+  "Failure Triage",
+  "npm run verify:browser-local",
+  "DIOXUS_UI_WEB_SCREENSHOT=1",
+  "DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT=1",
+  "npm run verify:repo-hygiene",
+  "git status --short",
+  webScreenshotPattern,
+  screenshotPattern,
+  "no browser smoke promotion into `npm run verify`",
+  "no browser smoke promotion into `npm run verify:release`",
+  "no screenshot uploads during normal local verification",
+  "no CI workflow activation",
+];
+
+for (const fragment of browserReviewRunbookFragments) {
+  requireFragment(
+    "docs/components/release-candidate-browser-review-runbook.md",
+    browserReviewRunbook,
     fragment,
   );
 }

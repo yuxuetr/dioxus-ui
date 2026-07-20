@@ -66,6 +66,8 @@ For screenshot artifact retention planning, see the
 [Screenshot Artifact Retention](screenshot-artifact-retention.md).
 For copyable release-candidate screenshot review notes, see the
 [Release Screenshot Review Notes Template](release-screenshot-review-notes-template.md).
+For the complete release-candidate browser review sequence, see the
+[Release Candidate Browser Review Runbook](release-candidate-browser-review-runbook.md).
 For the Playwright dependency milestone, see the
 [Playwright Dependency Plan](playwright-dependency-plan.md).
 For CI browser smoke setup, see the

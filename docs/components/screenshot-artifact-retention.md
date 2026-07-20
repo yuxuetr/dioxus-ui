@@ -105,6 +105,8 @@ request, issue, local handoff note, or release checklist without requiring a
 separate artifact store.
 The template lives at
 [`release-screenshot-review-notes-template.md`](release-screenshot-review-notes-template.md).
+The complete release-candidate browser review sequence lives at
+[`release-candidate-browser-review-runbook.md`](release-candidate-browser-review-runbook.md).
 
 Required sections:
 
@@ -134,6 +136,7 @@ Repository-safe boundaries:
 M116 should link the template from:
 
 - `docs/components/release-screenshot-review-checklist.md`
+- `docs/components/release-candidate-browser-review-runbook.md`
 - `docs/components/screenshot-artifact-retention.md`
 - `docs/release.md`
 - `docs/quality-gates.md`

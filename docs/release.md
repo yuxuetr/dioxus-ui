@@ -432,6 +432,9 @@ separate release owner defines that process.
 Use `docs/components/release-screenshot-review-notes-template.md` for a
 copyable review note format that records environment, screenshot metadata,
 observed issues, decision, retention outcome, and cleanup evidence.
+Use `docs/components/release-candidate-browser-review-runbook.md` for the
+full manual sequence that combines deterministic gates, opt-in browser smoke,
+optional screenshot capture, review notes, retention, and cleanup.
 
 For CI setup options and non-blocking workflow policy, see
 `docs/ci-browser-smoke.md` and `docs/ci-browser-workflow-template.md`. Do not

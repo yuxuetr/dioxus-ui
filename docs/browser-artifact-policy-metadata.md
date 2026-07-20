@@ -21,6 +21,8 @@ This gate protects the current policy:
   notes, and normal local verification does not upload artifacts
 - release screenshot review notes use a copyable Markdown template instead of
   requiring committed screenshots or broad artifact uploads
+- the release-candidate browser review runbook keeps browser smoke opt-in and
+  outside default and release gates
 - rendered component DOM verification writes no screenshots or traces by
   default
 - runtime interaction verification writes no screenshots or traces by default
@@ -39,6 +41,7 @@ In scope:
 - `docs/ci-browser-smoke.md` artifact guidance
 - `docs/components/screenshot-artifact-retention.md` retention guidance
 - `docs/components/release-screenshot-review-notes-template.md` note guidance
+- `docs/components/release-candidate-browser-review-runbook.md` runbook guidance
 - `docs/ci-browser-workflow-template.md` upload-artifact configuration
 - `docs/rfcs/0009-ci-browser-workflow-activation.md` artifact policy
 - `.gitignore` screenshot and browser automation patterns

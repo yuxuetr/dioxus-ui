@@ -838,6 +838,7 @@ and validate PNG signature, byte size, and dimensions against the desktop and
 mobile viewport lower bounds.
 
 For manual release-candidate screenshot review, use the
+[Release Candidate Browser Review Runbook](docs/components/release-candidate-browser-review-runbook.md),
 [Release Screenshot Review Checklist](docs/components/release-screenshot-review-checklist.md)
 and copy review evidence into the
 [Release Screenshot Review Notes Template](docs/components/release-screenshot-review-notes-template.md).

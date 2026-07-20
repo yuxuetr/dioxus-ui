@@ -7,6 +7,8 @@ Status: Planned in M114.1; checklist added in M114.2.
 
 For the screenshot retention decision that governs this checklist, see
 [`screenshot-artifact-retention.md`](screenshot-artifact-retention.md).
+For the full release-candidate browser review sequence, see
+[`release-candidate-browser-review-runbook.md`](release-candidate-browser-review-runbook.md).
 For copyable review notes, use
 [`release-screenshot-review-notes-template.md`](release-screenshot-review-notes-template.md).
 
@@ -204,6 +206,7 @@ M114 should keep these files aligned:
 - `docs/site.md`
 - `docs/components/README.md`
 - `docs/components/release-screenshot-review-checklist.md`
+- `docs/components/release-candidate-browser-review-runbook.md`
 - `docs/components/screenshot-artifact-retention.md`
 - `docs/components/release-screenshot-review-notes-template.md`
 - `docs/components/web-preview-screenshot-smoke.md`

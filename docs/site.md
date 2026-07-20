@@ -2099,6 +2099,23 @@ It is a Markdown review aid, not an artifact store. It does not commit
 screenshots, upload artifacts, activate CI workflows, generate docs output,
 create visual baselines, update component APIs, or edit templates.
 
+## M117 Release Candidate Browser Review Runbook Usage
+
+M117 adds a manual release-candidate browser review runbook:
+
+```text
+docs/components/release-candidate-browser-review-runbook.md
+```
+
+The runbook orders deterministic checks, the serial opt-in browser aggregate,
+optional screenshot capture, manual screenshot review, review notes, retention
+cleanup, and failure triage.
+
+It remains local-first and repository-safe. It does not promote browser smoke
+into default or release gates, enable screenshots by default, upload artifacts,
+activate CI workflows, generate docs output, change component APIs, or edit
+source-copy templates.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:

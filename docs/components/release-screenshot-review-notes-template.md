@@ -4,7 +4,9 @@ This template records release-candidate screenshot review evidence without
 committing screenshot files or requiring an artifact upload system.
 
 Use it with the manual checklist in
-[`release-screenshot-review-checklist.md`](release-screenshot-review-checklist.md)
+[`release-screenshot-review-checklist.md`](release-screenshot-review-checklist.md),
+the full browser review runbook in
+[`release-candidate-browser-review-runbook.md`](release-candidate-browser-review-runbook.md),
 and the retention policy in
 [`screenshot-artifact-retention.md`](screenshot-artifact-retention.md).
 

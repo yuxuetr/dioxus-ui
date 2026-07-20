@@ -534,6 +534,8 @@ temporary local review aids by default and should not be committed or uploaded
 by normal local verification.
 For copyable manual review evidence, use
 `docs/components/release-screenshot-review-notes-template.md`.
+For the full manual release-candidate browser review sequence, use
+`docs/components/release-candidate-browser-review-runbook.md`.
 
 For CI setup, artifact upload, and non-blocking job policy, see
 `docs/ci-browser-smoke.md` and `docs/ci-browser-workflow-template.md`. This
