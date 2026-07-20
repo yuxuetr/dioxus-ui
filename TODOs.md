@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M112 Web Preview Screenshot Smoke
-- Current task: None
+- Current milestone: M113 Browser Smoke Aggregate
+- Current task: M113.1 Plan browser smoke aggregate
 
 ## Backup
 
@@ -1859,6 +1859,28 @@
 - DONE M112.4 Complete Web screenshot smoke milestone
   - Run Web screenshot smoke with screenshot capture, rendered DOM verification, runtime interaction verification, rendered coverage checks, Web preview checks, docs checks, package script checks, browser artifact policy checks, repo hygiene checks, and diff checks.
   - Verify no committed screenshots, traces, generated docs, component API changes, or template rewrites remain after validation.
+  - Update TODO status only after commits and validation.
+
+## M113 Browser Smoke Aggregate
+
+- TODO M113.1 Plan browser smoke aggregate
+  - Define a local opt-in aggregate for browser-backed Web preview verification commands that must run serially.
+  - Keep CI workflow activation, screenshot capture by default, release gate promotion, Desktop WebView screenshots, native Mobile automation, component API changes, and template rewrites out of scope.
+  - Decide which package scripts, README, quality gates, release docs, docs-site notes, browser artifact policy, and browser verification docs must stay aligned.
+
+- TODO M113.2 Add serial browser smoke aggregate
+  - Add a focused npm alias that runs rendered component DOM verification, Web screenshot smoke, runtime interaction verification, and mobile browser smoke sequentially.
+  - Preserve each command's existing browser executable, screenshot opt-in, server cleanup, and artifact behavior.
+  - Avoid parallel execution, generated wrapper artifacts, screenshots by default, CI workflow changes, and release aggregate changes.
+
+- TODO M113.3 Wire and document browser smoke aggregate
+  - Document the aggregate command, serial execution requirement, browser executable behavior, screenshot opt-in variables, and non-goals in README, quality gates, release docs, docs-site notes, and browser verification docs.
+  - Extend package script verification so the aggregate stays wired without being promoted into default or release gates.
+  - Keep browser artifact policy and repository hygiene aligned with existing screenshot and trace boundaries.
+
+- TODO M113.4 Complete browser smoke aggregate milestone
+  - Run the serial browser smoke aggregate, package script checks, docs checks, browser artifact policy checks, repo hygiene checks, and diff checks.
+  - Verify no committed screenshots, traces, generated docs, component API changes, template rewrites, or CI workflow files remain after validation.
   - Update TODO status only after commits and validation.
 
 ## Status Rules

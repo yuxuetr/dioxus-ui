@@ -58,6 +58,8 @@ For browser DOM component verification, see the
 [Browser DOM Component Verification](browser-dom-component-verification.md).
 For browser-backed runtime interaction verification, see the
 [Runtime Interaction Verification](runtime-interaction-verification.md).
+For the serial local browser smoke aggregate, see the
+[Browser Smoke Aggregate](browser-smoke-aggregate.md).
 For the Playwright dependency milestone, see the
 [Playwright Dependency Plan](playwright-dependency-plan.md).
 For CI browser smoke setup, see the
