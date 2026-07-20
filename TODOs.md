@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M117 Release Candidate Browser Review Runbook
-- Current task: None
+- Overall: 99%
+- Current milestone: M118 Release Candidate Handoff Checklist
+- Current task: M118.1 Plan release candidate handoff checklist
 
 ## Backup
 
@@ -1969,6 +1969,28 @@
 - DONE M117.4 Complete release candidate browser review runbook milestone
   - Run docs checks, browser artifact policy checks, repo hygiene checks, package script checks, release docs checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, or CI workflow files are committed.
+  - Update TODO status only after commits and validation.
+
+## M118 Release Candidate Handoff Checklist
+
+- TODO M118.1 Plan release candidate handoff checklist
+  - Define the smallest final handoff checklist for a release candidate after deterministic gates and optional browser review.
+  - Include release gate evidence, browser review evidence, publish readiness blockers, known warning inventory, artifact hygiene, and unresolved follow-ups.
+  - Keep the checklist repository-safe: no committed screenshots, no release artifacts, no generated docs, no CI workflow activation, no component API changes, and no template rewrites.
+
+- TODO M118.2 Add release candidate handoff checklist
+  - Add a Markdown checklist under release docs for final maintainer handoff.
+  - Reference release gates, browser review runbook, screenshot notes template, retention policy, publish readiness blockers, release warning inventory, and repository hygiene.
+  - Keep it manual and local-first without publishing, tagging, attaching artifacts, or activating workflows.
+
+- TODO M118.3 Wire and verify handoff checklist discoverability
+  - Link the handoff checklist from README, docs index, release docs, quality gates, docs-site notes, browser review runbook, and publish readiness runbook where appropriate.
+  - Extend docs index or release documentation checks if needed so the handoff checklist remains discoverable.
+  - Keep browser review and artifact upload boundaries aligned.
+
+- TODO M118.4 Complete release candidate handoff checklist milestone
+  - Run docs checks, release docs checks, package script checks, repo hygiene checks, browser artifact policy checks, and diff checks.
+  - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, tags, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
