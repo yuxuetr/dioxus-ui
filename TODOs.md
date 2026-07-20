@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M116 Release Screenshot Review Notes Template
-- Current task: M116.2 Add release screenshot review notes template
+- Current task: M116.3 Wire and verify review notes template discoverability
 
 ## Backup
 
@@ -1934,7 +1934,7 @@
   - Keep the template local-first and repository-safe: no committed PNG files, no uploads, no CI workflow activation, no generated docs, and no visual baseline claims.
   - Decide which existing release, quality, CI, site, and screenshot retention docs should link to the template.
 
-- TODO M116.2 Add release screenshot review notes template
+- DONE M116.2 Add release screenshot review notes template
   - Add a copyable Markdown template under component docs for release-candidate screenshot review notes.
   - Include Web desktop, Web mobile, mobile browser, command output, PNG metadata, environment, issue list, decision, retention outcome, cleanup evidence, and follow-up fields.
   - Keep screenshot files ignored and uncommitted.
