@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 99%
+- Overall: 100%
 - Current milestone: M116 Release Screenshot Review Notes Template
-- Current task: M116.4 Complete release screenshot review notes template milestone
+- Current task: None
 
 ## Backup
 
@@ -1944,7 +1944,7 @@
   - Extend docs index or artifact policy metadata checks if needed so the template remains discoverable.
   - Keep browser commands opt-in and avoid adding runtime screenshot capture.
 
-- TODO M116.4 Complete release screenshot review notes template milestone
+- DONE M116.4 Complete release screenshot review notes template milestone
   - Run docs checks, browser artifact policy checks, repo hygiene checks, package script checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
