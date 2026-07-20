@@ -2156,6 +2156,25 @@ capture screenshots, create artifacts, create Git tags, publish packages,
 activate CI workflows, generate docs output, change component APIs, or rewrite
 templates.
 
+## M120 Release Gate Failure Triage Runbook Usage
+
+M120 adds a manual triage runbook for release aggregate failures:
+
+```text
+docs/release-gate-failure-triage-runbook.md
+```
+
+The runbook groups `npm run verify:release` failures by Rust workspace checks,
+CLI smoke, metadata gates, docs gates, generated fixture smoke, feature checks,
+browser artifact policy, release warning inventory, handoff metadata, and
+repository hygiene. It tells maintainers which focused command to rerun and
+what evidence to copy into handoff notes.
+
+It is not an automatic repair system. It does not delete files, launch
+browsers, capture screenshots, activate workflows, publish packages, create
+Git tags, create release artifacts, generate docs output, change component
+APIs, or rewrite templates.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:

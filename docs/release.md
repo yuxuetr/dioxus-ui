@@ -444,6 +444,9 @@ observed issues, decision, retention outcome, and cleanup evidence.
 Use `docs/components/release-candidate-browser-review-runbook.md` for the
 full manual sequence that combines deterministic gates, opt-in browser smoke,
 optional screenshot capture, review notes, retention, and cleanup.
+Use `docs/release-gate-failure-triage-runbook.md` when a release aggregate
+command fails and the maintainer needs to isolate the first failing focused
+gate without automatic repair behavior.
 
 ## Release Candidate Handoff Checklist Plan
 

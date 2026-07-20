@@ -9,6 +9,7 @@ It is a manual evidence checklist. It does not authorize publishing by itself.
 
 - [Release and Package Strategy](release.md)
 - [Quality Gates](quality-gates.md)
+- [Release Gate Failure Triage Runbook](release-gate-failure-triage-runbook.md)
 - [Release Candidate Browser Review Runbook](components/release-candidate-browser-review-runbook.md)
 - [Release Screenshot Review Notes Template](components/release-screenshot-review-notes-template.md)
 - [Screenshot Artifact Retention](components/screenshot-artifact-retention.md)
@@ -54,6 +55,10 @@ Focused failures:
   - Result:
   - Owner:
   - Follow-up:
+
+Use [Release Gate Failure Triage Runbook](release-gate-failure-triage-runbook.md)
+to isolate the first failing release command before changing code or
+documentation.
 
 ## Optional Browser Review Evidence
 

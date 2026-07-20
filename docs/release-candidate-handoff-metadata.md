@@ -67,6 +67,7 @@ The verifier should keep these documents aligned:
 - `docs/quality-gates.md`
 - `docs/site.md`
 - `docs/release-candidate-handoff-checklist.md`
+- `docs/release-gate-failure-triage-runbook.md`
 - `docs/components/release-candidate-browser-review-runbook.md`
 - `docs/publish-readiness-resolution-runbook.md`
 - `package.json` release wiring
@@ -105,3 +106,5 @@ The verifier should fail when:
   review runbook, or publish readiness runbook no longer link to the checklist
 - `npm run verify:release` stops including
   `npm run verify:release-candidate-handoff`
+- release failure triage guidance stops linking to the handoff checklist or
+  focused release commands

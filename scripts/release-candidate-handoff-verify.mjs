@@ -18,6 +18,7 @@ const docsIndex = readRepoFile("docs/README.md");
 const releaseDocs = readRepoFile("docs/release.md");
 const qualityGates = readRepoFile("docs/quality-gates.md");
 const siteDocs = readRepoFile("docs/site.md");
+const triageRunbook = readRepoFile("docs/release-gate-failure-triage-runbook.md");
 const browserReviewRunbook = readRepoFile("docs/components/release-candidate-browser-review-runbook.md");
 const publishReadinessRunbook = readRepoFile("docs/publish-readiness-resolution-runbook.md");
 const failures = [];
@@ -99,6 +100,7 @@ const metadataFragments = [
   "docs/quality-gates.md",
   "docs/site.md",
   handoffPath,
+  "docs/release-gate-failure-triage-runbook.md",
   "docs/components/release-candidate-browser-review-runbook.md",
   "docs/publish-readiness-resolution-runbook.md",
   "release wiring",
@@ -141,6 +143,16 @@ const discoverabilityTargets = [
     label: "docs/site.md",
     source: siteDocs,
     fragment: handoffPath,
+  },
+  {
+    label: "docs/release-gate-failure-triage-runbook.md",
+    source: triageRunbook,
+    fragment: "release-candidate-handoff-checklist.md",
+  },
+  {
+    label: "docs/release-gate-failure-triage-runbook.md",
+    source: triageRunbook,
+    fragment: "npm run verify:release",
   },
   {
     label: "docs/components/release-candidate-browser-review-runbook.md",
