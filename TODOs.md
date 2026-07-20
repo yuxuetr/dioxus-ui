@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M120 Release Gate Failure Triage Runbook
-- Current task: M120.1 Plan release gate failure triage runbook
+- Current task: M120.2 Add release gate failure triage runbook
 
 ## Backup
 
@@ -2017,7 +2017,7 @@
 
 ## M120 Release Gate Failure Triage Runbook
 
-- TODO M120.1 Plan release gate failure triage runbook
+- DONE M120.1 Plan release gate failure triage runbook
   - Define the smallest manual triage flow for failures inside `npm run verify:release`.
   - Group failures by Rust workspace, CLI registry/list smoke, metadata gates, docs gates, source-copy fixture, feature checks, browser artifact policy, release warning inventory, handoff metadata, and repository hygiene.
   - Keep the runbook read-only by default and avoid destructive cleanup, generated artifact commits, browser workflow activation, publishing, tagging, component API changes, or template rewrites.
