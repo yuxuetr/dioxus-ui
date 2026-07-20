@@ -39,6 +39,10 @@ if (
   failures.push("package.json missing verify:release-candidate-handoff script");
 }
 
+if (!scripts["verify:release"]?.includes("npm run verify:release-candidate-handoff")) {
+  failures.push("package.json verify:release missing release candidate handoff gate");
+}
+
 const checklistFragments = [
   "Release Candidate Handoff Checklist",
   "Related Documents",
@@ -97,12 +101,15 @@ const metadataFragments = [
   handoffPath,
   "docs/components/release-candidate-browser-review-runbook.md",
   "docs/publish-readiness-resolution-runbook.md",
+  "release wiring",
   "run `npm run verify:release`",
+  "execute release aggregate command segments",
   "launch browser automation",
   "capture screenshots",
   "create Git tags",
   "run `cargo publish`",
   "activate CI workflows",
+  "npm run verify:release-candidate-handoff",
 ];
 
 for (const fragment of metadataFragments) {

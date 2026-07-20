@@ -133,6 +133,7 @@ const aggregateScriptRequirements = {
     "npm run verify:ci-workflow-template",
     "npm run verify:browser-artifact-policy",
     "npm run verify:release-warning-inventory",
+    "npm run verify:release-candidate-handoff",
     "npm run verify:repo-hygiene",
   ],
 };

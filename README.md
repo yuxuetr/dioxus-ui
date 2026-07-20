@@ -212,8 +212,9 @@ metadata checks, script metadata checks, feature checks, generated source-copy
 fixture smoke, release docs consistency checks, package script wiring checks,
 and CI browser docs checks. It also checks CI Plan documentation while keeping
 browser installation and screenshots opt-in, verifies browser artifact policy
-metadata, validates the release warning inventory, then checks repository
-hygiene for forbidden generated artifacts and inactive workflow files. It also
+metadata, validates the release warning inventory, validates release candidate
+handoff metadata, then checks repository hygiene for forbidden generated
+artifacts and inactive workflow files. It also
 checks Cargo publish metadata for the planned library and CLI crates without
 packaging or publishing them, then validates the publish readiness blocker
 inventory, release notes readiness metadata, license readiness metadata,
@@ -301,6 +302,7 @@ npm run verify:package-scripts
 npm run verify:ci-workflow-template
 npm run verify:browser-artifact-policy
 npm run verify:release-warning-inventory
+npm run verify:release-candidate-handoff
 npm run verify:repo-hygiene
 ```
 
@@ -771,6 +773,19 @@ This checks the documented `block` `0.1.6` Rust future-incompatibility warning
 inventory, Cargo lock evidence, release docs, quality gate notes, docs-site
 notes, and release wiring. It does not run Cargo, parse live compiler output,
 execute `cargo report`, upgrade dependencies, or suppress warnings.
+
+Verify release candidate handoff metadata only:
+
+```bash
+npm run verify:release-candidate-handoff
+```
+
+This checks the final handoff checklist sections, release gate evidence,
+optional browser review evidence, publish readiness blockers, warning
+inventory, artifact hygiene boundaries, and discoverability links. It does not
+run release gates, launch browser automation, capture screenshots, create
+artifacts, create Git tags, publish packages, activate CI workflows, generate
+docs output, change component APIs, or rewrite templates.
 
 Future browser-rendered Playwright smoke will require an explicit browser
 install:

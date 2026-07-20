@@ -153,6 +153,7 @@ npm run verify:ci-plan
 npm run verify:ci-workflow-template
 npm run verify:browser-artifact-policy
 npm run verify:release-warning-inventory
+npm run verify:release-candidate-handoff
 npm run verify:repo-hygiene
 ```
 
@@ -176,7 +177,8 @@ metadata checks, script metadata checks, gitignore metadata checks, examples
 metadata checks, CSS input metadata checks, `npm run verify`, component feature
 checks, generated fixture smoke, release documentation consistency checks,
 package script wiring checks, and CI browser documentation checks. It also
-checks CI Plan documentation and repository hygiene.
+checks CI Plan documentation, release candidate handoff metadata, and
+repository hygiene.
 
 `npm run verify:smoke` runs rendered preview structural checks and example smoke
 output.

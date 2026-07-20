@@ -2132,6 +2132,30 @@ It is a manual evidence record. It does not publish packages, create Git tags,
 create release artifacts, commit screenshots, upload artifacts, activate CI
 workflows, generate docs output, change component APIs, or rewrite templates.
 
+## M119 Release Candidate Handoff Metadata Gate Usage
+
+M119 adds a focused release candidate handoff metadata command:
+
+```bash
+npm run verify:release-candidate-handoff
+```
+
+The command checks that the final handoff checklist keeps required sections,
+release gate evidence, optional browser review evidence, publish readiness
+blockers, warning inventory, artifact hygiene boundaries, and discoverability
+links aligned.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It remains read-only. It does not run release gates, launch browser automation,
+capture screenshots, create artifacts, create Git tags, publish packages,
+activate CI workflows, generate docs output, change component APIs, or rewrite
+templates.
+
 ## M98 Changelog Metadata Gate Usage
 
 M98 adds a focused changelog metadata command:

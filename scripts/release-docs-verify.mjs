@@ -67,6 +67,14 @@ const requiredSnippets = [
     label: "handoff checklist boundary",
     snippet: "no package publishing",
   },
+  {
+    label: "release candidate handoff focused gate",
+    snippet: "npm run verify:release-candidate-handoff",
+  },
+  {
+    label: "release candidate handoff metadata boundary",
+    snippet: "Release candidate handoff metadata checks are also read-only",
+  },
 ];
 
 const missingSnippets = requiredSnippets.filter(({ snippet }) => {

@@ -69,12 +69,14 @@ The verifier should keep these documents aligned:
 - `docs/release-candidate-handoff-checklist.md`
 - `docs/components/release-candidate-browser-review-runbook.md`
 - `docs/publish-readiness-resolution-runbook.md`
+- `package.json` release wiring
 
 ## Out Of Scope
 
 The gate must not:
 
 - run `npm run verify:release`
+- execute release aggregate command segments
 - launch browser automation
 - run `dx serve`
 - capture screenshots
@@ -101,3 +103,5 @@ The verifier should fail when:
   docs, release artifacts, CI workflow activation, or Git tags
 - README, docs index, release docs, quality gates, docs-site notes, browser
   review runbook, or publish readiness runbook no longer link to the checklist
+- `npm run verify:release` stops including
+  `npm run verify:release-candidate-handoff`

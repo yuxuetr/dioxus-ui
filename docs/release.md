@@ -141,6 +141,7 @@ npm run verify:ci-plan
 npm run verify:ci-workflow-template
 npm run verify:browser-artifact-policy
 npm run verify:release-warning-inventory
+npm run verify:release-candidate-handoff
 npm run verify:repo-hygiene
 ```
 
@@ -284,6 +285,13 @@ Release warning inventory metadata checks are also read-only and validate only
 the documented `block` `0.1.6` Rust future-incompatibility warning inventory,
 Cargo lock evidence, quality gate notes, docs-site notes, and release wiring;
 they do not run Cargo, parse compiler output, upgrade dependencies, or suppress warnings.
+Release candidate handoff metadata checks are also read-only and validate only
+the handoff checklist sections, release gate evidence, optional browser review
+evidence, publish readiness blockers, warning inventory, artifact hygiene
+boundaries, and discoverability links; they do not run release gates, launch
+browser automation, capture screenshots, create artifacts, create Git tags,
+publish packages, activate CI workflows, generate docs output, change component
+APIs, or rewrite templates.
 Repository hygiene checks are read-only and report forbidden committed
 artifacts such as generated directories, screenshots, and inactive workflow
 files without deleting files.
@@ -340,6 +348,7 @@ npm run verify:ci-plan
 npm run verify:ci-workflow-template
 npm run verify:browser-artifact-policy
 npm run verify:release-warning-inventory
+npm run verify:release-candidate-handoff
 npm run verify:docs-status
 npm run verify:docs-structure
 npm run verify:docs-index
