@@ -97,6 +97,48 @@ When screenshot capture is used, copy these details into review notes:
 The metadata is enough to prove what was reviewed without making PNG files part
 of the source tree.
 
+## Review Notes Template Plan
+
+M116 should add a copyable Markdown review notes template for release-candidate
+screenshot review. The template should be small enough to paste into a pull
+request, issue, local handoff note, or release checklist without requiring a
+separate artifact store.
+
+Required sections:
+
+- release candidate metadata
+- reviewer and date
+- browser/runtime environment
+- commands run
+- Web desktop screenshot path and PNG metadata
+- Web mobile screenshot path and PNG metadata
+- mobile browser screenshot path and PNG metadata
+- observed visual issues
+- release decision
+- retention outcome
+- cleanup evidence
+- follow-up tasks
+
+Repository-safe boundaries:
+
+- no committed screenshot PNG files
+- no screenshot uploads during normal local verification
+- no CI workflow activation
+- no GitHub release attachment automation
+- no internal artifact storage integration
+- no generated docs output
+- no visual baseline or pixel diff claim
+
+M116 should link the template from:
+
+- `docs/components/release-screenshot-review-checklist.md`
+- `docs/components/screenshot-artifact-retention.md`
+- `docs/release.md`
+- `docs/quality-gates.md`
+- `docs/site.md`
+- `docs/ci-browser-smoke.md`
+- `docs/README.md`
+
 ## Cleanup Contract
 
 A screenshot review should end with:
