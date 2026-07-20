@@ -116,3 +116,6 @@ After M110, useful follow-up work is:
 2. Add optional screenshot smoke for a small set of panels.
 3. Add CI browser workflow integration only after local browser behavior is
    stable.
+
+M111 plans the first interaction layer in
+[Runtime Interaction Verification](runtime-interaction-verification.md).
