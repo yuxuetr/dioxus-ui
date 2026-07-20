@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M116 Release Screenshot Review Notes Template
-- Current task: M116.1 Plan release screenshot review notes template
+- Current task: M116.2 Add release screenshot review notes template
 
 ## Backup
 
@@ -1929,7 +1929,7 @@
 
 ## M116 Release Screenshot Review Notes Template
 
-- TODO M116.1 Plan release screenshot review notes template
+- DONE M116.1 Plan release screenshot review notes template
   - Define the smallest reusable Markdown review notes template for screenshot capture metadata, reviewer decisions, observed issues, and retention outcomes.
   - Keep the template local-first and repository-safe: no committed PNG files, no uploads, no CI workflow activation, no generated docs, and no visual baseline claims.
   - Decide which existing release, quality, CI, site, and screenshot retention docs should link to the template.
