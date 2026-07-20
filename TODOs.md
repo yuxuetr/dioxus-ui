@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M111 Runtime Interaction Verification
-- Current task: M111.5 Complete runtime interaction verification milestone
+- Current task: None
 
 ## Backup
 
@@ -1834,7 +1834,7 @@
   - Document setup, browser executable behavior, non-goals, and troubleshooting in README, quality gates, release docs, docs-site notes, and runtime verification docs.
   - Keep browser artifact policy and repository hygiene aligned so generated screenshots or traces remain ignored if later enabled.
 
-- TODO M111.5 Complete runtime interaction verification milestone
+- DONE M111.5 Complete runtime interaction verification milestone
   - Run interaction verification, rendered DOM verification, rendered coverage checks, Web preview checks, docs checks, package script checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, or template rewrites are committed.
   - Update TODO status only after commits and validation.
