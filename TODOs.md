@@ -3,8 +3,8 @@
 ## Progress
 
 - Overall: 100%
-- Current milestone: M110 Browser DOM Component Verification
-- Current task: M110.4 Complete browser DOM verification milestone
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -1807,7 +1807,7 @@
   - Document setup, browser executable behavior, non-goals, and troubleshooting in README, quality gates, release docs, docs-site notes, and rendered verification docs.
   - Keep browser artifact policy and repository hygiene aligned so generated screenshots or traces remain ignored if later enabled.
 
-- TODO M110.4 Complete browser DOM verification milestone
+- DONE M110.4 Complete browser DOM verification milestone
   - Run rendered coverage checks, DOM verification, Web preview checks, docs checks, package script checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, or template rewrites are committed.
   - Update TODO status only after commits and validation.
