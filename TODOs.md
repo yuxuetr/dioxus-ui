@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M120 Release Gate Failure Triage Runbook
-- Current task: M120.2 Add release gate failure triage runbook
+- Current task: M120.3 Wire and verify triage runbook discoverability
 
 ## Backup
 
@@ -2022,7 +2022,7 @@
   - Group failures by Rust workspace, CLI registry/list smoke, metadata gates, docs gates, source-copy fixture, feature checks, browser artifact policy, release warning inventory, handoff metadata, and repository hygiene.
   - Keep the runbook read-only by default and avoid destructive cleanup, generated artifact commits, browser workflow activation, publishing, tagging, component API changes, or template rewrites.
 
-- TODO M120.2 Add release gate failure triage runbook
+- DONE M120.2 Add release gate failure triage runbook
   - Add a Markdown runbook under release docs with failure categories, first commands to rerun, evidence to collect, owner handoff notes, and explicit non-goals.
   - Reference release docs, quality gates, release candidate handoff checklist, handoff metadata gate, browser review runbook, and publish readiness runbook.
   - Keep fixes manual and scoped instead of adding automatic repair behavior.
