@@ -4,7 +4,7 @@
 
 - Overall: 100%
 - Current milestone: M113 Browser Smoke Aggregate
-- Current task: M113.3 Wire and document browser smoke aggregate
+- Current task: M113.4 Complete browser smoke aggregate milestone
 
 ## Backup
 
@@ -1873,7 +1873,7 @@
   - Preserve each command's existing browser executable, screenshot opt-in, server cleanup, and artifact behavior.
   - Avoid parallel execution, generated wrapper artifacts, screenshots by default, CI workflow changes, and release aggregate changes.
 
-- TODO M113.3 Wire and document browser smoke aggregate
+- DONE M113.3 Wire and document browser smoke aggregate
   - Document the aggregate command, serial execution requirement, browser executable behavior, screenshot opt-in variables, and non-goals in README, quality gates, release docs, docs-site notes, and browser verification docs.
   - Extend package script verification so the aggregate stays wired without being promoted into default or release gates.
   - Keep browser artifact policy and repository hygiene aligned with existing screenshot and trace boundaries.
