@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M120 Release Gate Failure Triage Runbook
-- Current task: M120.3 Wire and verify triage runbook discoverability
+- Current task: M120.4 Complete release gate failure triage runbook milestone
 
 ## Backup
 
@@ -2027,7 +2027,7 @@
   - Reference release docs, quality gates, release candidate handoff checklist, handoff metadata gate, browser review runbook, and publish readiness runbook.
   - Keep fixes manual and scoped instead of adding automatic repair behavior.
 
-- TODO M120.3 Wire and verify triage runbook discoverability
+- DONE M120.3 Wire and verify triage runbook discoverability
   - Link the triage runbook from README, docs index, release docs, quality gates, docs-site notes, release candidate handoff checklist, and handoff metadata docs.
   - Extend release docs or handoff metadata checks if needed so the triage runbook remains discoverable.
   - Keep release failure triage outside default browser execution and outside publish automation.
