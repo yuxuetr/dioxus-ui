@@ -80,3 +80,17 @@ M121.2 result:
 No screenshots, traces, generated docs output, component API changes,
 source-copy template rewrites, release artifacts, tags, or CI workflow files
 were produced by the release gate.
+
+M121.3 result:
+
+- command:
+  `DIOXUS_UI_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run verify:browser-local`
+- result: passed
+- mobile browser smoke: passed
+- rendered component DOM verification: passed for 64 components
+- web screenshot smoke: passed for 2 viewports
+- runtime interaction verification: passed for 5 fixtures
+- post-run `git status --short`: clean
+- tracked artifact scan: no screenshots, traces, Playwright reports,
+  test-results directories, release artifacts, tags, or CI workflow files
+  were introduced
