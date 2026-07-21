@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M127 Workspace Dependency Publish Readiness Preparation
-- Current task: M127.3 Add workspace dependency local follow-up map
+- Current task: M127.4 Complete workspace dependency publish readiness preparation milestone
 
 ## Backup
 
@@ -2181,7 +2181,7 @@
   - Include safe validation commands without approving or applying dependency metadata changes.
   - Link the checklist from workspace dependency readiness metadata, publish order metadata, first-publish planning docs, release docs, quality gates, README, and docs-site notes.
 
-- TODO M127.3 Add workspace dependency local follow-up map
+- DONE M127.3 Add workspace dependency local follow-up map
   - Map approved dependency strategies to exact local files and gates that would change after approval.
   - Separate local development path dependencies from publishable dependency version metadata.
   - Keep all changes hypothetical unless maintainer input is already committed.
