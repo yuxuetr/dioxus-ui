@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M125 First Publish Readiness Planning
-- Current task: M125.2 Add blocker resolution evidence checklist
+- Current task: M125.3 Add first-publish local implementation map
 
 ## Backup
 
@@ -2132,7 +2132,7 @@
   - Split maintainer decisions from local implementation follow-up for repository identity, license files, API stability, release notes, registry availability, and workspace dependency publish readiness.
   - Keep the plan read-only: no repository URL changes, no license text generation, no crates.io contact, no package archives, no publish commands, no version changes, no tags, and no CI workflow activation.
 
-- TODO M125.2 Add blocker resolution evidence checklist
+- DONE M125.2 Add blocker resolution evidence checklist
   - Add a maintainer-facing checklist that records required evidence before each blocker can move from current to resolved.
   - Include safe local validation commands for each blocker without approving the decision.
   - Link the checklist from publish readiness blockers, resolution runbook, decision matrix, release docs, quality gates, README, and docs-site notes as needed.
