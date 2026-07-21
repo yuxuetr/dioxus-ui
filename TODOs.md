@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 99%
+- Current milestone: M124 CLI Template Embedding Readiness
+- Current task: M124.1 Plan CLI template embedding
 
 ## Backup
 
@@ -2101,6 +2101,28 @@
 - DONE M123.4 Complete API stability surface audit milestone
   - Run docs checks, API stability readiness checks, publish readiness checks, release docs checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
   - Verify no version changes, component API rewrites, template rewrites, package archives, publish commands, tags, screenshots, traces, or CI workflow files are committed.
+  - Update TODO status only after commits and validation.
+
+## M124 CLI Template Embedding Readiness
+
+- TODO M124.1 Plan CLI template embedding
+  - Define the compile-time registry/template embedding strategy for `dioxus-ui-cli`.
+  - Identify code, tests, metadata gates, docs, generated fixture smoke, and release gate updates required to resolve the CLI template packaging blocker.
+  - Keep planning repository-safe: no package archives, no `cargo package`, no `cargo publish`, no install test, no registry contact, and no template rewrites unless required by embedding.
+
+- TODO M124.2 Implement embedded CLI asset catalog
+  - Add a compile-time asset catalog for registry JSON files and template/source-copy assets.
+  - Update `dxui list` and `dxui add` to read embedded registry and asset contents instead of repository paths.
+  - Preserve recursive dependencies, overwrite behavior, `utils` handling, generated target paths, and list ordering.
+
+- TODO M124.3 Update CLI template packaging readiness metadata
+  - Change the focused readiness gate from "blocker remains unresolved" to "embedded template delivery is active".
+  - Update publish blockers, Cargo publish metadata, publish readiness coverage, publish readiness runbook, release docs, quality gates, README, docs-site notes, and decision handoff docs.
+  - Keep other publish blockers unresolved unless separately approved.
+
+- TODO M124.4 Complete CLI template embedding milestone
+  - Run CLI tests, generated fixture smoke, registry checks, docs checks, release docs checks, publish readiness checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
+  - Verify no package archives, publish commands, repository URL changes, license files, version changes, API rewrites, generated release notes, tags, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
