@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M123 API Stability Surface Audit
-- Current task: M123.1 Plan API stability surface audit
+- Current task: M123.2 Add public API surface inventory
 
 ## Backup
 
@@ -2083,7 +2083,7 @@
 
 ## M123 API Stability Surface Audit
 
-- TODO M123.1 Plan API stability surface audit
+- DONE M123.1 Plan API stability surface audit
   - Define a repository-safe audit for public crate exports, component props, primitive helper functions, features, registry entries, and source-copy templates.
   - Classify API surfaces by stability risk without deciding semantic versioning policy or freezing APIs.
   - Keep the plan read-only: no version changes, no API rewrites, no migration guide generation, no packaging, and no publishing.
