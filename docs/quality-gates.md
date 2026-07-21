@@ -354,6 +354,9 @@ copyable maintainer review steps without approving stability by itself.
 [API Stability Decision Preparation Plan](api-stability-decision-preparation-plan.md)
 records the read-only preparation pass before maintainers accept, block, or
 defer the current `0.1.x` API surface.
+[API Stability Decision Record Template](api-stability-decision-record-template.md)
+provides copyable evidence fields for the maintainer decision without approving
+stability by itself.
 
 `npm run verify:cli-template-packaging-readiness` checks that the CLI embeds
 registry and template assets at compile time. It is read-only and does not run

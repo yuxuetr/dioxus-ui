@@ -10,6 +10,7 @@ Use this plan with:
 - [API Stability Surface Audit Plan](api-stability-surface-audit-plan.md)
 - [Public API Surface Inventory](public-api-surface-inventory.md)
 - [API Stability Review Checklist](api-stability-review-checklist.md)
+- [API Stability Decision Record Template](api-stability-decision-record-template.md)
 - [First Publish Readiness Plan](first-publish-readiness-plan.md)
 - [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
 - [First Publish Local Implementation Map](first-publish-local-implementation-map.md)
@@ -44,7 +45,8 @@ Prepare the decision in this order:
    target paths, and docs examples as compatibility surfaces.
 4. Review primitive and core exports for helper names that should remain
    provisional versus acceptable for first publish.
-5. Record the maintainer decision as `approved`, `blocked`, or `deferred`.
+5. Record the maintainer decision as `approved`, `blocked`, or `deferred` with
+   the API stability decision record template.
 6. Only after approval, update blocker metadata and local follow-up files.
 
 ## Decision Outcomes

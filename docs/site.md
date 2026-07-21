@@ -602,6 +602,7 @@ publish blocker:
 
 ```text
 docs/api-stability-decision-preparation-plan.md
+docs/api-stability-decision-record-template.md
 ```
 
 The plan keeps API stability unresolved while maintainers decide whether the
@@ -609,6 +610,10 @@ current `0.1.x` crate-mode APIs are acceptable for first publish or whether a
 focused API stabilization milestone is required. It does not rewrite APIs,
 change versions, generate migration guides, package crates, publish crates,
 create tags, or approve stability.
+
+The decision record template captures accepted, blocked, and deferred outcomes,
+surface review notes, breaking-change policy, migration note expectations, and
+local follow-up owners without resolving the blocker by itself.
 
 Use the individual commands only when isolating a specific failure:
 

@@ -210,6 +210,9 @@ the maintainer review steps to use before changing that blocker state.
 [API Stability Decision Preparation Plan](api-stability-decision-preparation-plan.md)
 defines the repository-safe decision pass for accepting, blocking, or deferring
 the current `0.1.x` API surface.
+[API Stability Decision Record Template](api-stability-decision-record-template.md)
+provides the copyable maintainer record for that decision without resolving the
+blocker by itself.
 CLI template packaging readiness checks are read-only. They validate that the
 CLI embeds registry and template assets at compile time; they do not run
 `cargo package`, run `cargo publish`, install the CLI, contact crates.io,
