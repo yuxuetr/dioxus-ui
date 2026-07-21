@@ -5,6 +5,8 @@ has a project-owned `CHANGELOG.md` structure, so the remaining blocker is not
 changelog ownership. The remaining blocker is release notes readiness.
 The decision preparation plan is tracked in
 [Release Notes Readiness Preparation Plan](release-notes-readiness-preparation-plan.md).
+The maintainer evidence checklist is tracked in
+[Release Notes Evidence Checklist](release-notes-evidence-checklist.md).
 
 ## Expected Shape
 

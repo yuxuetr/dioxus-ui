@@ -192,6 +192,9 @@ contents.
 [Release Notes Readiness Preparation Plan](release-notes-readiness-preparation-plan.md)
 defines the repository-safe decision pass before first-publish release notes
 are written or marked ready.
+[Release Notes Evidence Checklist](release-notes-evidence-checklist.md)
+records included scope, excluded scope, known warnings, owners, and migration
+note evidence before local changelog follow-up.
 License readiness checks are read-only and validate only workspace license
 metadata and missing root `LICENSE-MIT` and `LICENSE-APACHE` files; they do not
 choose license terms, generate license text, change copyright holders, run

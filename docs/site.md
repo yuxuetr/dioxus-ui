@@ -651,6 +651,7 @@ M128 starts the decision preparation pass for first-publish release notes:
 
 ```text
 docs/release-notes-readiness-preparation-plan.md
+docs/release-notes-evidence-checklist.md
 ```
 
 The plan keeps project-owned changelog structure separate from publish-ready
@@ -659,6 +660,10 @@ changes, excluded changes, known warnings, changelog owner, and release owner
 without generating release notes, deriving changes from Git history, running
 git-cliff, creating tags, creating GitHub releases, creating package archives,
 or publishing crates.
+
+The evidence checklist records release owner, changelog owner, included scope,
+excluded scope, known warnings, migration note expectation, and release
+boundary evidence before local changelog follow-up begins.
 
 Use the individual commands only when isolating a specific failure:
 

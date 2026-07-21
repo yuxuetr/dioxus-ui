@@ -333,6 +333,9 @@ from Git history, create tags, publish releases, or decide release contents.
 [Release Notes Readiness Preparation Plan](release-notes-readiness-preparation-plan.md)
 records the read-only decision pass before first-publish release notes are
 written or marked ready.
+[Release Notes Evidence Checklist](release-notes-evidence-checklist.md)
+records release owner, changelog owner, included scope, excluded scope, known
+warnings, and migration note evidence.
 
 `npm run verify:license-readiness` checks workspace license metadata and
 missing root `LICENSE-MIT` and `LICENSE-APACHE` files. It is read-only and

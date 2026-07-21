@@ -7,6 +7,7 @@ or authorize publishing.
 Use this plan with:
 
 - [Release Notes Readiness Metadata](release-notes-readiness-metadata.md)
+- [Release Notes Evidence Checklist](release-notes-evidence-checklist.md)
 - [Changelog Metadata](changelog-metadata.md)
 - [First Publish Readiness Plan](first-publish-readiness-plan.md)
 - [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
@@ -46,7 +47,8 @@ Prepare the decision in this order:
 2. Confirm release notes readiness metadata still describes the blocker as
    unresolved.
 3. Record included and excluded change categories for first publish.
-4. Record known warnings that should appear in release-candidate handoff.
+4. Record known warnings that should appear in release-candidate handoff using
+   the release notes evidence checklist.
 5. Record whether API stability decisions require migration notes.
 6. Only after approval, update changelog/release-note docs and blocker metadata
    together.
