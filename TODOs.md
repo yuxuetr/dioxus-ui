@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M126 API Stability Decision Preparation
-- Current task: M126.4 Complete API stability decision preparation milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2164,7 +2164,7 @@
   - Separate source-copy compatibility follow-up from crate-mode stability follow-up.
   - Keep all changes hypothetical unless a maintainer decision is already committed.
 
-- TODO M126.4 Complete API stability decision preparation milestone
+- DONE M126.4 Complete API stability decision preparation milestone
   - Run docs checks, API stability readiness checks, publish readiness checks, release docs checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
   - Verify no API rewrites, version changes, migration guides, package archives, publish commands, generated release notes, tags, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
