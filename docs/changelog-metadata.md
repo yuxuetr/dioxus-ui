@@ -2,6 +2,8 @@
 
 Project-owned changelog structure is the release note baseline for this
 repository.
+First-publish release note readiness preparation is tracked in
+[Release Notes Readiness Preparation Plan](release-notes-readiness-preparation-plan.md).
 
 M98 defines the read-only contract for the project changelog. The repository
 already has `CHANGELOG.md`, but it must be owned by `dioxus-ui` rather than

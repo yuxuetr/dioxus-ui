@@ -3,6 +3,8 @@
 M99 refines the publish readiness blocker language after M98. The project now
 has a project-owned `CHANGELOG.md` structure, so the remaining blocker is not
 changelog ownership. The remaining blocker is release notes readiness.
+The decision preparation plan is tracked in
+[Release Notes Readiness Preparation Plan](release-notes-readiness-preparation-plan.md).
 
 ## Expected Shape
 

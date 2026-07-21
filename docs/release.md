@@ -189,6 +189,9 @@ project-owned changelog structure exists while publish-ready release notes are
 still unresolved; they do not generate release notes, run git-cliff, derive
 changes from Git history, create tags, publish releases, or decide release
 contents.
+[Release Notes Readiness Preparation Plan](release-notes-readiness-preparation-plan.md)
+defines the repository-safe decision pass before first-publish release notes
+are written or marked ready.
 License readiness checks are read-only and validate only workspace license
 metadata and missing root `LICENSE-MIT` and `LICENSE-APACHE` files; they do not
 choose license terms, generate license text, change copyright holders, run

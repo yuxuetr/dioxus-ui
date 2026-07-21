@@ -645,6 +645,21 @@ The local follow-up map separates local workspace path dependencies from
 publishable dependency version metadata and maps approved, blocked, and
 deferred strategies to local files and gates without applying manifest changes.
 
+## M128 Release Notes Readiness Preparation
+
+M128 starts the decision preparation pass for first-publish release notes:
+
+```text
+docs/release-notes-readiness-preparation-plan.md
+```
+
+The plan keeps project-owned changelog structure separate from publish-ready
+release note completeness. It records the safe order for deciding included
+changes, excluded changes, known warnings, changelog owner, and release owner
+without generating release notes, deriving changes from Git history, running
+git-cliff, creating tags, creating GitHub releases, creating package archives,
+or publishing crates.
+
 Use the individual commands only when isolating a specific failure:
 
 ```bash
