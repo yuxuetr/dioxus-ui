@@ -94,3 +94,17 @@ M121.3 result:
 - tracked artifact scan: no screenshots, traces, Playwright reports,
   test-results directories, release artifacts, tags, or CI workflow files
   were introduced
+
+M121.4 result:
+
+- `npm run verify:docs`: passed
+- `npm run verify:release-docs`: passed
+- `npm run verify:package-scripts`: passed
+- `npm run verify:release-candidate-handoff`: passed
+- `npm run verify:repo-hygiene`: passed for 486 tracked files
+- `npm run verify:browser-artifact-policy`: passed
+- `npm run verify:package-lock`: passed
+- `git diff --check`: passed
+- tracked artifact scan: no matching tracked artifacts
+- `git tag --points-at HEAD`: no tags
+- final `git status --short`: clean
