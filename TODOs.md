@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M128 Release Notes Readiness Preparation
-- Current task: M128.1 Plan release notes readiness preparation
+- Current task: M128.2 Add release notes evidence checklist
 
 ## Backup
 
@@ -2193,7 +2193,7 @@
 
 ## M128 Release Notes Readiness Preparation
 
-- TODO M128.1 Plan release notes readiness preparation
+- DONE M128.1 Plan release notes readiness preparation
   - Define a repository-safe preparation pass for deciding first-publish release note scope and known warning text.
   - Identify review artifacts for `CHANGELOG.md`, release notes readiness metadata, changelog metadata, release docs, and publish blocker updates.
   - Keep the plan read-only: no generated release notes, no Git history derivation, no git-cliff run, no tags, no GitHub release, no package archives, and no publish commands.
