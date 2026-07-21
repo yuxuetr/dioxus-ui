@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 99%
-- Current milestone: M121 Full Release Gate Audit
-- Current task: M121.4 Complete full release gate audit
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2054,7 +2054,7 @@
   - Keep screenshots disabled unless a focused failure requires manual screenshot review.
   - Record browser verification result and any skipped reason.
 
-- TODO M121.4 Complete full release gate audit
+- DONE M121.4 Complete full release gate audit
   - Run final docs checks, release docs checks, package script checks, handoff metadata checks, repo hygiene checks, browser artifact policy checks, package lock checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, tags, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
