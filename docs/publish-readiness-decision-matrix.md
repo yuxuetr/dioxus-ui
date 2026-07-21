@@ -6,6 +6,7 @@ maintainer decisions. It is a handoff aid, not a publish authorization.
 Use it with:
 
 - [Publish Readiness Blockers](publish-readiness-blockers.md)
+- [First Publish Readiness Plan](first-publish-readiness-plan.md)
 - [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
 - [Release Candidate Handoff Checklist](release-candidate-handoff-checklist.md)
 - [Publish Readiness Decision Handoff Plan](publish-readiness-decision-handoff-plan.md)

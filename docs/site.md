@@ -561,6 +561,29 @@ Use the aggregate docs metadata gate for normal local docs checks:
 npm run verify:docs
 ```
 
+## M125 First Publish Readiness Planning
+
+M125 adds:
+
+```text
+docs/first-publish-readiness-plan.md
+```
+
+The plan defines the repository-safe order for resolving remaining first
+publish blockers:
+
+- repository identity
+- root license files
+- pre-1.0 API stability
+- release notes readiness
+- registry availability
+- workspace dependency publish readiness
+
+It keeps maintainer decisions separate from local implementation follow-up and
+does not authorize repository URL changes, license text generation, crates.io
+contact, package archives, publish commands, version changes, tags, screenshots,
+traces, or CI workflow activation.
+
 Use the individual commands only when isolating a specific failure:
 
 ```bash

@@ -4,6 +4,10 @@ M97 defines the read-only contract for known publish blockers. The project now
 has Cargo publish metadata, but metadata completeness is not the same as publish
 readiness.
 
+Use [First Publish Readiness Plan](first-publish-readiness-plan.md) for the
+repository-safe planning cycle before any maintainer-approved blocker
+resolution work starts.
+
 Current blockers:
 
 | Blocker | Evidence | Resolution Owner |
