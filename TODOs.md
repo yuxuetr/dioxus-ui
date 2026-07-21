@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M127 Workspace Dependency Publish Readiness Preparation
-- Current task: M127.2 Add workspace dependency evidence checklist
+- Current task: M127.3 Add workspace dependency local follow-up map
 
 ## Backup
 
@@ -2176,7 +2176,7 @@
   - Identify review artifacts for workspace dependencies, crate manifests, publish order, version policy, and Cargo-supported publish behavior.
   - Keep the plan read-only: no dependency version changes, no manifest rewrites, no `cargo package`, no `cargo publish`, no crates.io contact, and no publish authorization.
 
-- TODO M127.2 Add workspace dependency evidence checklist
+- DONE M127.2 Add workspace dependency evidence checklist
   - Add a maintainer-facing checklist for internal dependency version policy, publish order, package ownership, and crates.io-resolvable dependency evidence.
   - Include safe validation commands without approving or applying dependency metadata changes.
   - Link the checklist from workspace dependency readiness metadata, publish order metadata, first-publish planning docs, release docs, quality gates, README, and docs-site notes.
