@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 99%
-- Current milestone: M122 Publish Readiness Decision Handoff
-- Current task: M122.4 Complete publish readiness handoff milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2076,7 +2076,7 @@
   - Keep it as a planning artifact, not a publish authorization.
   - Include final verification commands without adding new release automation.
 
-- TODO M122.4 Complete publish readiness handoff milestone
+- DONE M122.4 Complete publish readiness handoff milestone
   - Run docs checks, release docs checks, publish readiness checks, package script checks, handoff metadata checks, repo hygiene checks, browser artifact policy checks, package lock checks, and diff checks.
   - Verify no package archives, publish commands, repository URL changes, license text files, generated release notes, tags, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
