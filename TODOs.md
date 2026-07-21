@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M128 Release Notes Readiness Preparation
+- Current task: M128.1 Plan release notes readiness preparation
 
 ## Backup
 
@@ -2189,6 +2189,28 @@
 - DONE M127.4 Complete workspace dependency publish readiness preparation milestone
   - Run docs checks, workspace dependency readiness checks, publish order checks, Cargo workspace checks, Cargo publish metadata checks, publish readiness checks, release docs checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
   - Verify no dependency version changes, manifest rewrites, package archives, publish commands, crates.io contact, generated release notes, tags, screenshots, traces, or CI workflow files are committed.
+  - Update TODO status only after commits and validation.
+
+## M128 Release Notes Readiness Preparation
+
+- TODO M128.1 Plan release notes readiness preparation
+  - Define a repository-safe preparation pass for deciding first-publish release note scope and known warning text.
+  - Identify review artifacts for `CHANGELOG.md`, release notes readiness metadata, changelog metadata, release docs, and publish blocker updates.
+  - Keep the plan read-only: no generated release notes, no Git history derivation, no git-cliff run, no tags, no GitHub release, no package archives, and no publish commands.
+
+- TODO M128.2 Add release notes evidence checklist
+  - Add a maintainer-facing checklist for included changes, excluded changes, known warnings, release owner, and changelog owner.
+  - Include safe validation commands without approving release contents or generating notes.
+  - Link the checklist from release notes readiness metadata, changelog metadata, first-publish planning docs, release docs, quality gates, README, and docs-site notes.
+
+- TODO M128.3 Add release notes local follow-up map
+  - Map approved release note decisions to local files and gates that would change after approval.
+  - Separate changelog structure ownership from publish-ready release note completeness.
+  - Keep all changes hypothetical unless maintainer input is already committed.
+
+- TODO M128.4 Complete release notes readiness preparation milestone
+  - Run docs checks, release notes readiness checks, changelog checks, publish readiness checks, release docs checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
+  - Verify no generated release notes, Git history derivation, git-cliff output, tags, GitHub releases, package archives, publish commands, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
