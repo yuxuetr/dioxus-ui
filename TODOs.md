@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M125 First Publish Readiness Planning
-- Current task: M125.3 Add first-publish local implementation map
+- Current task: M125.4 Complete first publish readiness planning milestone
 
 ## Backup
 
@@ -2137,7 +2137,7 @@
   - Include safe local validation commands for each blocker without approving the decision.
   - Link the checklist from publish readiness blockers, resolution runbook, decision matrix, release docs, quality gates, README, and docs-site notes as needed.
 
-- TODO M125.3 Add first-publish local implementation map
+- DONE M125.3 Add first-publish local implementation map
   - Map each approved maintainer decision to exact local files that would change after approval.
   - Document expected validation gates and rollback considerations for each blocker.
   - Keep local changes hypothetical unless maintainer input is already committed.
