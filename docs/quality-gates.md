@@ -336,6 +336,9 @@ written or marked ready.
 [Release Notes Evidence Checklist](release-notes-evidence-checklist.md)
 records release owner, changelog owner, included scope, excluded scope, known
 warnings, and migration note evidence.
+[Release Notes Local Follow-up Map](release-notes-local-follow-up-map.md)
+maps release-note decisions to local changelog, handoff, and metadata follow-up
+without writing final notes.
 
 `npm run verify:license-readiness` checks workspace license metadata and
 missing root `LICENSE-MIT` and `LICENSE-APACHE` files. It is read-only and

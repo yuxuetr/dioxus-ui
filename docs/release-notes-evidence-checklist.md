@@ -7,6 +7,7 @@ or generate release notes by itself.
 Use this checklist with:
 
 - [Release Notes Readiness Preparation Plan](release-notes-readiness-preparation-plan.md)
+- [Release Notes Local Follow-up Map](release-notes-local-follow-up-map.md)
 - [Release Notes Readiness Metadata](release-notes-readiness-metadata.md)
 - [Changelog Metadata](changelog-metadata.md)
 - [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)

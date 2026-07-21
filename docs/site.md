@@ -652,6 +652,7 @@ M128 starts the decision preparation pass for first-publish release notes:
 ```text
 docs/release-notes-readiness-preparation-plan.md
 docs/release-notes-evidence-checklist.md
+docs/release-notes-local-follow-up-map.md
 ```
 
 The plan keeps project-owned changelog structure separate from publish-ready
@@ -664,6 +665,10 @@ or publishing crates.
 The evidence checklist records release owner, changelog owner, included scope,
 excluded scope, known warnings, migration note expectation, and release
 boundary evidence before local changelog follow-up begins.
+
+The local follow-up map separates changelog structure ownership from
+publish-ready release note completeness and maps approved, blocked, and
+deferred decisions to local files and gates without writing final notes.
 
 Use the individual commands only when isolating a specific failure:
 

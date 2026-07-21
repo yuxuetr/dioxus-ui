@@ -8,6 +8,7 @@ Use this plan with:
 
 - [Release Notes Readiness Metadata](release-notes-readiness-metadata.md)
 - [Release Notes Evidence Checklist](release-notes-evidence-checklist.md)
+- [Release Notes Local Follow-up Map](release-notes-local-follow-up-map.md)
 - [Changelog Metadata](changelog-metadata.md)
 - [First Publish Readiness Plan](first-publish-readiness-plan.md)
 - [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
@@ -51,7 +52,7 @@ Prepare the decision in this order:
    the release notes evidence checklist.
 5. Record whether API stability decisions require migration notes.
 6. Only after approval, update changelog/release-note docs and blocker metadata
-   together.
+   together using the release notes local follow-up map.
 
 ## Decision Outcomes
 

@@ -195,6 +195,9 @@ are written or marked ready.
 [Release Notes Evidence Checklist](release-notes-evidence-checklist.md)
 records included scope, excluded scope, known warnings, owners, and migration
 note evidence before local changelog follow-up.
+[Release Notes Local Follow-up Map](release-notes-local-follow-up-map.md)
+maps approved, blocked, and deferred release-note decisions to local files and
+gates without writing final notes.
 License readiness checks are read-only and validate only workspace license
 metadata and missing root `LICENSE-MIT` and `LICENSE-APACHE` files; they do not
 choose license terms, generate license text, change copyright holders, run

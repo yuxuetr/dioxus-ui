@@ -7,6 +7,8 @@ The decision preparation plan is tracked in
 [Release Notes Readiness Preparation Plan](release-notes-readiness-preparation-plan.md).
 The maintainer evidence checklist is tracked in
 [Release Notes Evidence Checklist](release-notes-evidence-checklist.md).
+The local follow-up map is tracked in
+[Release Notes Local Follow-up Map](release-notes-local-follow-up-map.md).
 
 ## Expected Shape
 
