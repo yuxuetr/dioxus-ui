@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M122 Publish Readiness Decision Handoff
-- Current task: M122.3 Add first-publish maintainer handoff template
+- Current task: M122.4 Complete publish readiness handoff milestone
 
 ## Backup
 
@@ -2071,7 +2071,7 @@
   - Link it from the publish readiness resolution runbook, release candidate handoff checklist, docs index, quality gates, README, and docs-site notes as needed.
   - Preserve existing blocker metadata until a maintainer intentionally resolves a blocker.
 
-- TODO M122.3 Add first-publish maintainer handoff template
+- DONE M122.3 Add first-publish maintainer handoff template
   - Add a copyable checklist for repository identity, license file approval, API stability decision, release notes readiness, CLI template packaging, crates.io ownership, and workspace dependency publish readiness.
   - Keep it as a planning artifact, not a publish authorization.
   - Include final verification commands without adding new release automation.
