@@ -9,6 +9,8 @@ The maintainer decision preparation plan is tracked in
 [API Stability Decision Preparation Plan](api-stability-decision-preparation-plan.md).
 The copyable decision record template is tracked in
 [API Stability Decision Record Template](api-stability-decision-record-template.md).
+The local follow-up map is tracked in
+[API Stability Local Follow-up Map](api-stability-local-follow-up-map.md).
 
 ## Expected Shape
 

@@ -213,6 +213,9 @@ the current `0.1.x` API surface.
 [API Stability Decision Record Template](api-stability-decision-record-template.md)
 provides the copyable maintainer record for that decision without resolving the
 blocker by itself.
+[API Stability Local Follow-up Map](api-stability-local-follow-up-map.md)
+maps approved, blocked, and deferred outcomes to local files and gates without
+applying API changes.
 CLI template packaging readiness checks are read-only. They validate that the
 CLI embeds registry and template assets at compile time; they do not run
 `cargo package`, run `cargo publish`, install the CLI, contact crates.io,

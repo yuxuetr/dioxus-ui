@@ -10,6 +10,7 @@ Related documents:
 - [API Stability Readiness Metadata](api-stability-readiness-metadata.md)
 - [Public API Surface Inventory](public-api-surface-inventory.md)
 - [API Stability Review Checklist](api-stability-review-checklist.md)
+- [API Stability Local Follow-up Map](api-stability-local-follow-up-map.md)
 - [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
 - [First Publish Local Implementation Map](first-publish-local-implementation-map.md)
 

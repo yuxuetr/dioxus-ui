@@ -357,6 +357,9 @@ defer the current `0.1.x` API surface.
 [API Stability Decision Record Template](api-stability-decision-record-template.md)
 provides copyable evidence fields for the maintainer decision without approving
 stability by itself.
+[API Stability Local Follow-up Map](api-stability-local-follow-up-map.md)
+maps API decision outcomes to local follow-up files and gates without applying
+API changes.
 
 `npm run verify:cli-template-packaging-readiness` checks that the CLI embeds
 registry and template assets at compile time. It is read-only and does not run

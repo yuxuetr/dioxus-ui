@@ -603,6 +603,7 @@ publish blocker:
 ```text
 docs/api-stability-decision-preparation-plan.md
 docs/api-stability-decision-record-template.md
+docs/api-stability-local-follow-up-map.md
 ```
 
 The plan keeps API stability unresolved while maintainers decide whether the
@@ -614,6 +615,10 @@ create tags, or approve stability.
 The decision record template captures accepted, blocked, and deferred outcomes,
 surface review notes, breaking-change policy, migration note expectations, and
 local follow-up owners without resolving the blocker by itself.
+
+The local follow-up map separates source-copy compatibility follow-up from
+crate-mode stability follow-up and maps approved, blocked, and deferred
+decisions to local files and gates without applying API changes.
 
 Use the individual commands only when isolating a specific failure:
 

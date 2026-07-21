@@ -11,6 +11,7 @@ Use this plan with:
 - [Public API Surface Inventory](public-api-surface-inventory.md)
 - [API Stability Review Checklist](api-stability-review-checklist.md)
 - [API Stability Decision Record Template](api-stability-decision-record-template.md)
+- [API Stability Local Follow-up Map](api-stability-local-follow-up-map.md)
 - [First Publish Readiness Plan](first-publish-readiness-plan.md)
 - [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
 - [First Publish Local Implementation Map](first-publish-local-implementation-map.md)
@@ -47,7 +48,8 @@ Prepare the decision in this order:
    provisional versus acceptable for first publish.
 5. Record the maintainer decision as `approved`, `blocked`, or `deferred` with
    the API stability decision record template.
-6. Only after approval, update blocker metadata and local follow-up files.
+6. Only after approval, update blocker metadata and local follow-up files using
+   the API stability local follow-up map.
 
 ## Decision Outcomes
 
