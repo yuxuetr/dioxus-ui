@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M122 Publish Readiness Decision Handoff
-- Current task: M122.2 Add publish readiness decision matrix
+- Current task: M122.3 Add first-publish maintainer handoff template
 
 ## Backup
 
@@ -2066,7 +2066,7 @@
   - Map each blocker to concrete evidence, owner input, local follow-up files, and safe validation commands.
   - Keep the plan repository-safe: no publishing, no packaging, no crates.io lookup, no repository URL replacement, no license text generation, no API stabilization decision, and no release notes generation.
 
-- TODO M122.2 Add publish readiness decision matrix
+- DONE M122.2 Add publish readiness decision matrix
   - Add a documentation page that classifies blockers by decision owner, local action, validation command, and exit criteria.
   - Link it from the publish readiness resolution runbook, release candidate handoff checklist, docs index, quality gates, README, and docs-site notes as needed.
   - Preserve existing blocker metadata until a maintainer intentionally resolves a blocker.
