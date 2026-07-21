@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M126 API Stability Decision Preparation
-- Current task: M126.3 Add API stability local follow-up map
+- Current task: M126.4 Complete API stability decision preparation milestone
 
 ## Backup
 
@@ -2159,7 +2159,7 @@
   - Include explicit evidence fields for breaking-change policy, migration note expectations, and first-publish acceptance.
   - Link the template from API stability metadata, public API inventory, review checklist, first-publish planning docs, release docs, quality gates, README, and docs-site notes.
 
-- TODO M126.3 Add API stability local follow-up map
+- DONE M126.3 Add API stability local follow-up map
   - Map each possible maintainer decision to local files and gates that would change after approval.
   - Separate source-copy compatibility follow-up from crate-mode stability follow-up.
   - Keep all changes hypothetical unless a maintainer decision is already committed.
