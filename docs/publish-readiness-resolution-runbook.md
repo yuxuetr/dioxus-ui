@@ -11,6 +11,8 @@ resolution cycle ordered and repository-safe before blocker-specific follow-up
 starts.
 Use [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
 to confirm maintainer evidence before changing blocker state.
+Use [First Publish Local Implementation Map](first-publish-local-implementation-map.md)
+to identify local files, gates, and rollback considerations after approval.
 Use
 [First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md)
 when those decisions need to be copied into release-candidate notes.

@@ -387,6 +387,9 @@ follow-up starts.
 [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
 records the maintainer evidence required before a blocker can move to local
 implementation follow-up.
+[First Publish Local Implementation Map](first-publish-local-implementation-map.md)
+maps approved decisions to local file changes and validation gates without
+applying them.
 [First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md)
 provides copyable decision notes for the same blockers and keeps publish
 authorization separate from local validation.

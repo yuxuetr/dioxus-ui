@@ -9,6 +9,7 @@ Use it with:
 - [First Publish Readiness Plan](first-publish-readiness-plan.md)
 - [Publish Readiness Blockers](publish-readiness-blockers.md)
 - [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
+- [First Publish Local Implementation Map](first-publish-local-implementation-map.md)
 - [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
 - [First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md)
 

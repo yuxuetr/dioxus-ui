@@ -568,6 +568,7 @@ M125 adds:
 ```text
 docs/first-publish-readiness-plan.md
 docs/blocker-resolution-evidence-checklist.md
+docs/first-publish-local-implementation-map.md
 ```
 
 The plan defines the repository-safe order for resolving remaining first
@@ -589,6 +590,10 @@ The blocker resolution evidence checklist records the minimum maintainer
 evidence required before each blocker can move to local implementation
 follow-up. It keeps focused readiness gates attached to each blocker without
 marking any current blocker as resolved.
+
+The local implementation map records expected files, focused gates, common
+follow-up checks, and rollback considerations for approved blocker decisions
+without applying those changes.
 
 Use the individual commands only when isolating a specific failure:
 

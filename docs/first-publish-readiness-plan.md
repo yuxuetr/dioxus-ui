@@ -8,6 +8,7 @@ Use this plan with:
 
 - [Publish Readiness Blockers](publish-readiness-blockers.md)
 - [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
+- [First Publish Local Implementation Map](first-publish-local-implementation-map.md)
 - [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
 - [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
 - [First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md)
@@ -86,6 +87,7 @@ This planning cycle is complete when:
 - every remaining blocker has a maintainer decision boundary
 - every blocker separates required evidence from local implementation follow-up
 - every blocker lists read-only validation commands
+- approved local follow-up files and rollback considerations are mapped
 - resolved CLI template packaging remains separate from current blockers
 - publish readiness docs do not imply publishing is authorized
 - repository hygiene checks prove no package, publish, tag, screenshot, trace,
