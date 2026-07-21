@@ -8,6 +8,7 @@ Use it with:
 
 - [API Stability Surface Audit Plan](api-stability-surface-audit-plan.md)
 - [API Stability Readiness Metadata](api-stability-readiness-metadata.md)
+- [API Stability Review Checklist](api-stability-review-checklist.md)
 - [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
 
 ## Summary

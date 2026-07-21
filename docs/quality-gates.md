@@ -349,6 +349,8 @@ policy, generate migration guides, run `cargo package`, or run `cargo publish`.
 [Public API Surface Inventory](public-api-surface-inventory.md) records the
 current component, primitive, core, feature, registry, and source-copy surfaces
 that need maintainer review before that blocker can be resolved.
+[API Stability Review Checklist](api-stability-review-checklist.md) provides
+copyable maintainer review steps without approving stability by itself.
 
 `npm run verify:cli-template-packaging-readiness` checks that the CLI template
 source is still repository-layout based and that the unresolved packaging

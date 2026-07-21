@@ -205,6 +205,8 @@ policy, generate migration guides, run `cargo package`, or run `cargo publish`.
 The [Public API Surface Inventory](public-api-surface-inventory.md) documents
 the current component, primitive, core, feature, registry, and source-copy
 surfaces for maintainer review without resolving the blocker.
+[API Stability Review Checklist](api-stability-review-checklist.md) provides
+the maintainer review steps to use before changing that blocker state.
 CLI template packaging readiness checks are read-only. They validate that the
 CLI template source is still repository-layout based and that the unresolved
 packaging blocker remains documented; they do not embed templates, package

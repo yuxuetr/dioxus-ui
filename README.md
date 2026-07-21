@@ -512,6 +512,8 @@ decide semantic versioning policy, generate migration guides, run
 `cargo package`, or run `cargo publish`.
 The current API review surface is documented in
 [Public API Surface Inventory](docs/public-api-surface-inventory.md).
+Use [API Stability Review Checklist](docs/api-stability-review-checklist.md)
+for maintainer review before resolving the API stability blocker.
 
 Verify CLI template packaging readiness metadata only:
 

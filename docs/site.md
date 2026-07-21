@@ -1901,12 +1901,30 @@ Use it with:
 
 - [API Stability Readiness Metadata](api-stability-readiness-metadata.md)
 - [API Stability Surface Audit Plan](api-stability-surface-audit-plan.md)
+- [API Stability Review Checklist](api-stability-review-checklist.md)
 - [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
 
 It remains descriptive. It does not freeze APIs, rename components, rewrite
 props, change feature names, change crate versions, generate migration guides,
 run `cargo package`, run `cargo publish`, contact crates.io, create tags, or
 publish artifacts.
+
+## M123 API Stability Review Checklist Usage
+
+M123 adds a maintainer-facing API stability review checklist:
+
+```text
+docs/api-stability-review-checklist.md
+```
+
+The checklist covers component naming, props and variants, class helpers,
+primitive helpers, source-copy compatibility, documentation examples, decision
+outcomes, and safe validation commands.
+
+It remains separate from approval. It does not approve API stability, change
+versions, rename APIs, rewrite props, rewrite templates, generate migration
+guides, run `cargo package`, run `cargo publish`, contact crates.io, create
+tags, or publish artifacts.
 
 ## M107 Publish Order Metadata Gate Usage
 

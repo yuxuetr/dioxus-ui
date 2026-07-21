@@ -10,6 +10,7 @@ Use it with:
 - [Release Candidate Handoff Checklist](release-candidate-handoff-checklist.md)
 - [Publish Readiness Decision Handoff Plan](publish-readiness-decision-handoff-plan.md)
 - [Public API Surface Inventory](public-api-surface-inventory.md)
+- [API Stability Review Checklist](api-stability-review-checklist.md)
 - [First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md)
 
 ## Matrix
