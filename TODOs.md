@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M121 Full Release Gate Audit
-- Current task: M121.3 Run optional browser-local verification
+- Current task: M121.4 Complete full release gate audit
 
 ## Backup
 
@@ -2049,7 +2049,7 @@
   - If it fails, isolate the first failed command with `docs/release-gate-failure-triage-runbook.md`, apply the minimal fix, rerun the focused command, and rerun the release gate as needed.
   - Record known warnings, failures, fixes, and final result.
 
-- TODO M121.3 Run optional browser-local verification
+- DONE M121.3 Run optional browser-local verification
   - Run the browser-local aggregate with `DIOXUS_UI_BROWSER_EXECUTABLE` when local Chrome is available.
   - Keep screenshots disabled unless a focused failure requires manual screenshot review.
   - Record browser verification result and any skipped reason.
