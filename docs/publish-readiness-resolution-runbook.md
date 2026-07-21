@@ -9,6 +9,8 @@ safe validation commands before resolving any blocker.
 Use [First Publish Readiness Plan](first-publish-readiness-plan.md) to keep the
 resolution cycle ordered and repository-safe before blocker-specific follow-up
 starts.
+Use [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
+to confirm maintainer evidence before changing blocker state.
 Use
 [First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md)
 when those decisions need to be copied into release-candidate notes.

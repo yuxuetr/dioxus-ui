@@ -7,6 +7,7 @@ Use it with:
 
 - [Publish Readiness Blockers](publish-readiness-blockers.md)
 - [First Publish Readiness Plan](first-publish-readiness-plan.md)
+- [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
 - [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
 - [Release Candidate Handoff Checklist](release-candidate-handoff-checklist.md)
 - [Publish Readiness Decision Handoff Plan](publish-readiness-decision-handoff-plan.md)

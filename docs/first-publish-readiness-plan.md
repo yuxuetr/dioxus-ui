@@ -7,6 +7,7 @@ authorization.
 Use this plan with:
 
 - [Publish Readiness Blockers](publish-readiness-blockers.md)
+- [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
 - [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
 - [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
 - [First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md)

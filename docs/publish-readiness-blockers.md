@@ -7,6 +7,8 @@ readiness.
 Use [First Publish Readiness Plan](first-publish-readiness-plan.md) for the
 repository-safe planning cycle before any maintainer-approved blocker
 resolution work starts.
+Use [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
+to record the minimum evidence required before local follow-up can begin.
 
 Current blockers:
 

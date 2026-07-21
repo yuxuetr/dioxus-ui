@@ -7,6 +7,7 @@ It is a copyable checklist, not a publish authorization.
 Related source-of-truth documents:
 
 - [Publish Readiness Blockers](publish-readiness-blockers.md)
+- [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
 - [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
 - [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
 - [Release Candidate Handoff Checklist](release-candidate-handoff-checklist.md)

@@ -567,6 +567,7 @@ M125 adds:
 
 ```text
 docs/first-publish-readiness-plan.md
+docs/blocker-resolution-evidence-checklist.md
 ```
 
 The plan defines the repository-safe order for resolving remaining first
@@ -583,6 +584,11 @@ It keeps maintainer decisions separate from local implementation follow-up and
 does not authorize repository URL changes, license text generation, crates.io
 contact, package archives, publish commands, version changes, tags, screenshots,
 traces, or CI workflow activation.
+
+The blocker resolution evidence checklist records the minimum maintainer
+evidence required before each blocker can move to local implementation
+follow-up. It keeps focused readiness gates attached to each blocker without
+marking any current blocker as resolved.
 
 Use the individual commands only when isolating a specific failure:
 

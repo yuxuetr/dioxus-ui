@@ -384,6 +384,9 @@ safe validation commands. It does not resolve blockers or authorize publishing.
 [First Publish Readiness Plan](first-publish-readiness-plan.md) records the
 repository-safe order for resolving remaining blockers before any local
 follow-up starts.
+[Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
+records the maintainer evidence required before a blocker can move to local
+implementation follow-up.
 [First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md)
 provides copyable decision notes for the same blockers and keeps publish
 authorization separate from local validation.

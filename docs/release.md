@@ -235,6 +235,9 @@ safe validation commands before any blocker is resolved.
 [First Publish Readiness Plan](first-publish-readiness-plan.md) defines the
 repository-safe order for resolving those blockers without authorizing package
 or publish commands.
+[Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
+records the minimum maintainer evidence required before blocker-specific local
+follow-up starts.
 Publish order checks are read-only. They validate the planned crate publish
 order; they do not create package archives, run `cargo package`, run
 `cargo publish`, contact crates.io, check registry ownership, inspect
