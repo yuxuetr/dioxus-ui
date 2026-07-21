@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M128 Release Notes Readiness Preparation
-- Current task: M128.4 Complete release notes readiness preparation milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2208,7 +2208,7 @@
   - Separate changelog structure ownership from publish-ready release note completeness.
   - Keep all changes hypothetical unless maintainer input is already committed.
 
-- TODO M128.4 Complete release notes readiness preparation milestone
+- DONE M128.4 Complete release notes readiness preparation milestone
   - Run docs checks, release notes readiness checks, changelog checks, publish readiness checks, release docs checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
   - Verify no generated release notes, Git history derivation, git-cliff output, tags, GitHub releases, package archives, publish commands, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
