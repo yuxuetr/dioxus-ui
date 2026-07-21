@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M121 Full Release Gate Audit
-- Current task: M121.1 Plan full release gate audit
+- Current task: M121.2 Run full release gate
 
 ## Backup
 
@@ -2039,7 +2039,7 @@
 
 ## M121 Full Release Gate Audit
 
-- TODO M121.1 Plan full release gate audit
+- DONE M121.1 Plan full release gate audit
   - Define the audit order for `npm run verify:release`, first-failure triage, optional browser-local verification, and final handoff evidence.
   - Keep the audit repository-safe: no publishing, no tagging, no artifact upload, no screenshot capture by default, no CI workflow activation, no generated docs commits, no component API changes, and no source-copy template rewrites unless a focused failure requires them.
   - Record which documents and commands provide the source of truth for failures and handoff.
