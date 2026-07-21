@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 99%
+- Current milestone: M122 Publish Readiness Decision Handoff
+- Current task: M122.1 Plan publish readiness decision handoff
 
 ## Backup
 
@@ -2057,6 +2057,28 @@
 - DONE M121.4 Complete full release gate audit
   - Run final docs checks, release docs checks, package script checks, handoff metadata checks, repo hygiene checks, browser artifact policy checks, package lock checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, tags, or CI workflow files are committed.
+  - Update TODO status only after commits and validation.
+
+## M122 Publish Readiness Decision Handoff
+
+- TODO M122.1 Plan publish readiness decision handoff
+  - Define which publish readiness blockers require maintainer decisions versus local implementation.
+  - Map each blocker to concrete evidence, owner input, local follow-up files, and safe validation commands.
+  - Keep the plan repository-safe: no publishing, no packaging, no crates.io lookup, no repository URL replacement, no license text generation, no API stabilization decision, and no release notes generation.
+
+- TODO M122.2 Add publish readiness decision matrix
+  - Add a documentation page that classifies blockers by decision owner, local action, validation command, and exit criteria.
+  - Link it from the publish readiness resolution runbook, release candidate handoff checklist, docs index, quality gates, README, and docs-site notes as needed.
+  - Preserve existing blocker metadata until a maintainer intentionally resolves a blocker.
+
+- TODO M122.3 Add first-publish maintainer handoff template
+  - Add a copyable checklist for repository identity, license file approval, API stability decision, release notes readiness, CLI template packaging, crates.io ownership, and workspace dependency publish readiness.
+  - Keep it as a planning artifact, not a publish authorization.
+  - Include final verification commands without adding new release automation.
+
+- TODO M122.4 Complete publish readiness handoff milestone
+  - Run docs checks, release docs checks, publish readiness checks, package script checks, handoff metadata checks, repo hygiene checks, browser artifact policy checks, package lock checks, and diff checks.
+  - Verify no package archives, publish commands, repository URL changes, license text files, generated release notes, tags, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
