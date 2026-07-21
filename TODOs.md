@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M122 Publish Readiness Decision Handoff
-- Current task: M122.1 Plan publish readiness decision handoff
+- Current task: M122.2 Add publish readiness decision matrix
 
 ## Backup
 
@@ -2061,7 +2061,7 @@
 
 ## M122 Publish Readiness Decision Handoff
 
-- TODO M122.1 Plan publish readiness decision handoff
+- DONE M122.1 Plan publish readiness decision handoff
   - Define which publish readiness blockers require maintainer decisions versus local implementation.
   - Map each blocker to concrete evidence, owner input, local follow-up files, and safe validation commands.
   - Keep the plan repository-safe: no publishing, no packaging, no crates.io lookup, no repository URL replacement, no license text generation, no API stabilization decision, and no release notes generation.
