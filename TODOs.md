@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: M120 Release Gate Failure Triage Runbook
-- Current task: None
+- Overall: 99%
+- Current milestone: M121 Full Release Gate Audit
+- Current task: M121.1 Plan full release gate audit
 
 ## Backup
 
@@ -2034,6 +2034,28 @@
 
 - DONE M120.4 Complete release gate failure triage runbook milestone
   - Run docs checks, release docs checks, package script checks, handoff metadata checks, repo hygiene checks, browser artifact policy checks, and diff checks.
+  - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, tags, or CI workflow files are committed.
+  - Update TODO status only after commits and validation.
+
+## M121 Full Release Gate Audit
+
+- TODO M121.1 Plan full release gate audit
+  - Define the audit order for `npm run verify:release`, first-failure triage, optional browser-local verification, and final handoff evidence.
+  - Keep the audit repository-safe: no publishing, no tagging, no artifact upload, no screenshot capture by default, no CI workflow activation, no generated docs commits, no component API changes, and no source-copy template rewrites unless a focused failure requires them.
+  - Record which documents and commands provide the source of truth for failures and handoff.
+
+- TODO M121.2 Run full release gate
+  - Run `npm run verify:release`.
+  - If it fails, isolate the first failed command with `docs/release-gate-failure-triage-runbook.md`, apply the minimal fix, rerun the focused command, and rerun the release gate as needed.
+  - Record known warnings, failures, fixes, and final result.
+
+- TODO M121.3 Run optional browser-local verification
+  - Run the browser-local aggregate with `DIOXUS_UI_BROWSER_EXECUTABLE` when local Chrome is available.
+  - Keep screenshots disabled unless a focused failure requires manual screenshot review.
+  - Record browser verification result and any skipped reason.
+
+- TODO M121.4 Complete full release gate audit
+  - Run final docs checks, release docs checks, package script checks, handoff metadata checks, repo hygiene checks, browser artifact policy checks, package lock checks, and diff checks.
   - Verify no screenshots, traces, generated docs, component API changes, template rewrites, release artifacts, tags, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
 
