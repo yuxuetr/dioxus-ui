@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 99%
-- Current milestone: M124 CLI Template Embedding Readiness
-- Current task: M124.4 Complete CLI template embedding milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2120,7 +2120,7 @@
   - Update publish blockers, Cargo publish metadata, publish readiness coverage, publish readiness runbook, release docs, quality gates, README, docs-site notes, and decision handoff docs.
   - Keep other publish blockers unresolved unless separately approved.
 
-- TODO M124.4 Complete CLI template embedding milestone
+- DONE M124.4 Complete CLI template embedding milestone
   - Run CLI tests, generated fixture smoke, registry checks, docs checks, release docs checks, publish readiness checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
   - Verify no package archives, publish commands, repository URL changes, license files, version changes, API rewrites, generated release notes, tags, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
