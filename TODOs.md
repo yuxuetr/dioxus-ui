@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M126 API Stability Decision Preparation
-- Current task: M126.2 Add API stability decision record template
+- Current task: M126.3 Add API stability local follow-up map
 
 ## Backup
 
@@ -2154,7 +2154,7 @@
   - Identify review artifacts for public component props, feature names, registry slugs, template paths, primitive helpers, and core exports.
   - Keep the plan read-only: no API rewrites, no version changes, no migration guide generation, no package archives, no publish commands, and no stability approval.
 
-- TODO M126.2 Add API stability decision record template
+- DONE M126.2 Add API stability decision record template
   - Add a maintainer-facing decision record that can capture accepted, deferred, and required-change API surfaces.
   - Include explicit evidence fields for breaking-change policy, migration note expectations, and first-publish acceptance.
   - Link the template from API stability metadata, public API inventory, review checklist, first-publish planning docs, release docs, quality gates, README, and docs-site notes.
