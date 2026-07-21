@@ -351,6 +351,9 @@ current component, primitive, core, feature, registry, and source-copy surfaces
 that need maintainer review before that blocker can be resolved.
 [API Stability Review Checklist](api-stability-review-checklist.md) provides
 copyable maintainer review steps without approving stability by itself.
+[API Stability Decision Preparation Plan](api-stability-decision-preparation-plan.md)
+records the read-only preparation pass before maintainers accept, block, or
+defer the current `0.1.x` API surface.
 
 `npm run verify:cli-template-packaging-readiness` checks that the CLI embeds
 registry and template assets at compile time. It is read-only and does not run

@@ -5,6 +5,8 @@ The current audit inventory is tracked in
 [Public API Surface Inventory](public-api-surface-inventory.md).
 The maintainer review checklist is tracked in
 [API Stability Review Checklist](api-stability-review-checklist.md).
+The maintainer decision preparation plan is tracked in
+[API Stability Decision Preparation Plan](api-stability-decision-preparation-plan.md).
 
 ## Expected Shape
 

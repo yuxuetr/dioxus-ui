@@ -595,6 +595,21 @@ The local implementation map records expected files, focused gates, common
 follow-up checks, and rollback considerations for approved blocker decisions
 without applying those changes.
 
+## M126 API Stability Decision Preparation
+
+M126 starts the decision preparation pass for the pre-`1.0` API stability
+publish blocker:
+
+```text
+docs/api-stability-decision-preparation-plan.md
+```
+
+The plan keeps API stability unresolved while maintainers decide whether the
+current `0.1.x` crate-mode APIs are acceptable for first publish or whether a
+focused API stabilization milestone is required. It does not rewrite APIs,
+change versions, generate migration guides, package crates, publish crates,
+create tags, or approve stability.
+
 Use the individual commands only when isolating a specific failure:
 
 ```bash

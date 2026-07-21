@@ -36,7 +36,7 @@ Resolve blockers in maintainer-approved order:
 | --- | --- | --- | --- |
 | 1 | Placeholder repository URL | Final repository owner and canonical URL | Update workspace metadata and readiness docs, then rerun repository identity and publish readiness gates |
 | 2 | Root license files not committed | Exact root license files and copyright holder | Commit approved license files and update license readiness metadata |
-| 3 | Pre-1.0 API stability | Accept `0.1.x` first-publish API policy or require stabilization work | Update API stability metadata, public surface inventory, changelog guidance, and release docs |
+| 3 | Pre-1.0 API stability | Accept `0.1.x` first-publish API policy or require stabilization work using [API Stability Decision Preparation Plan](api-stability-decision-preparation-plan.md) | Update API stability metadata, public surface inventory, changelog guidance, and release docs |
 | 4 | Release notes not publish-ready | First publish release-note scope and known warning text | Update `CHANGELOG.md`, release notes metadata, and release docs |
 | 5 | Registry availability not checked | crates.io names, owners, credentials, and publish order | Update registry availability metadata, publish order metadata, and Cargo publish metadata |
 | 6 | Workspace dependency publish readiness | Internal crate dependency version policy | Update crate manifests, workspace dependency metadata, and publish order metadata |
