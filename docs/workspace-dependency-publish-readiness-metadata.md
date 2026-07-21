@@ -5,6 +5,8 @@ publish readiness. It keeps internal crate dependency versioning explicit
 before any crate packaging or publishing work starts.
 The decision preparation plan is tracked in
 [Workspace Dependency Publish Readiness Preparation Plan](workspace-dependency-publish-readiness-preparation-plan.md).
+The maintainer evidence checklist is tracked in
+[Workspace Dependency Evidence Checklist](workspace-dependency-evidence-checklist.md).
 
 ## Current State
 
@@ -61,6 +63,7 @@ Keep this metadata gate aligned with:
 - [Cargo Publish Metadata](cargo-publish-metadata.md)
 - [Publish Order Metadata](publish-order-metadata.md)
 - [Workspace Dependency Publish Readiness Preparation Plan](workspace-dependency-publish-readiness-preparation-plan.md)
+- [Workspace Dependency Evidence Checklist](workspace-dependency-evidence-checklist.md)
 - [Release and Package Strategy](release.md)
 - [Quality Gates](quality-gates.md)
 - [Documentation Site Plan](site.md)

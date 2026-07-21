@@ -627,6 +627,7 @@ readiness:
 
 ```text
 docs/workspace-dependency-publish-readiness-preparation-plan.md
+docs/workspace-dependency-evidence-checklist.md
 ```
 
 The plan separates local development path dependencies from publish readiness
@@ -634,6 +635,10 @@ requirements, keeps the planned publish order linked to dependency metadata,
 and does not change dependency versions, rewrite manifests, run `cargo package`,
 run `cargo publish`, contact crates.io, inspect credentials, create package
 archives, create tags, or authorize publishing.
+
+The evidence checklist records required maintainer input for publishable crate
+set, publish order, internal dependency graph, version policy, local development
+behavior, and release-owner boundaries before local manifest follow-up begins.
 
 Use the individual commands only when isolating a specific failure:
 

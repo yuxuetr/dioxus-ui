@@ -22,6 +22,8 @@ publish order whenever internal project crate dependencies change.
 Use
 [Workspace Dependency Publish Readiness Preparation Plan](workspace-dependency-publish-readiness-preparation-plan.md)
 before changing dependency metadata.
+Use [Workspace Dependency Evidence Checklist](workspace-dependency-evidence-checklist.md)
+to record the approved dependency evidence before local follow-up.
 
 ## Readiness Contract
 

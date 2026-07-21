@@ -7,6 +7,7 @@ change or publish authorization.
 Use this plan with:
 
 - [Workspace Dependency Publish Readiness Metadata](workspace-dependency-publish-readiness-metadata.md)
+- [Workspace Dependency Evidence Checklist](workspace-dependency-evidence-checklist.md)
 - [Publish Order Metadata](publish-order-metadata.md)
 - [Cargo Publish Metadata](cargo-publish-metadata.md)
 - [First Publish Readiness Plan](first-publish-readiness-plan.md)
@@ -52,7 +53,8 @@ Prepare the decision in this order:
 3. Review whether each internal dependency needs explicit version metadata for
    first publish.
 4. Confirm whether the selected strategy preserves local development behavior.
-5. Record maintainer evidence before changing manifests.
+5. Record maintainer evidence in the workspace dependency evidence checklist
+   before changing manifests.
 6. Only after approval, update dependency metadata and blocker docs together.
 
 ## Decision Outcomes

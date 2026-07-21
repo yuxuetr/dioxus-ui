@@ -417,6 +417,8 @@ release.
 [Workspace Dependency Publish Readiness Preparation Plan](workspace-dependency-publish-readiness-preparation-plan.md)
 records the read-only decision pass before internal dependency version metadata
 changes.
+[Workspace Dependency Evidence Checklist](workspace-dependency-evidence-checklist.md)
+records the maintainer evidence required before local manifest follow-up.
 
 `npm run verify:cargo-lock` checks that committed `Cargo.lock` workspace package
 entries match `cargo metadata --locked --no-deps` workspace members. It is
