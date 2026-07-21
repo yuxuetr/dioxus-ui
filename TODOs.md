@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M126 API Stability Decision Preparation
-- Current task: M126.1 Plan API stability decision preparation
+- Current task: M126.2 Add API stability decision record template
 
 ## Backup
 
@@ -2149,7 +2149,7 @@
 
 ## M126 API Stability Decision Preparation
 
-- TODO M126.1 Plan API stability decision preparation
+- DONE M126.1 Plan API stability decision preparation
   - Define a repository-safe preparation pass for deciding whether current `0.1.x` crate-mode APIs are acceptable for first publish.
   - Identify review artifacts for public component props, feature names, registry slugs, template paths, primitive helpers, and core exports.
   - Keep the plan read-only: no API rewrites, no version changes, no migration guide generation, no package archives, no publish commands, and no stability approval.
