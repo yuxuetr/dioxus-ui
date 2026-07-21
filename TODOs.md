@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M121 Full Release Gate Audit
-- Current task: M121.2 Run full release gate
+- Current task: M121.3 Run optional browser-local verification
 
 ## Backup
 
@@ -2044,7 +2044,7 @@
   - Keep the audit repository-safe: no publishing, no tagging, no artifact upload, no screenshot capture by default, no CI workflow activation, no generated docs commits, no component API changes, and no source-copy template rewrites unless a focused failure requires them.
   - Record which documents and commands provide the source of truth for failures and handoff.
 
-- TODO M121.2 Run full release gate
+- DONE M121.2 Run full release gate
   - Run `npm run verify:release`.
   - If it fails, isolate the first failed command with `docs/release-gate-failure-triage-runbook.md`, apply the minimal fix, rerun the focused command, and rerun the release gate as needed.
   - Record known warnings, failures, fixes, and final result.
