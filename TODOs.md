@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M128 Release Notes Readiness Preparation
-- Current task: M128.2 Add release notes evidence checklist
+- Current task: M128.3 Add release notes local follow-up map
 
 ## Backup
 
@@ -2198,7 +2198,7 @@
   - Identify review artifacts for `CHANGELOG.md`, release notes readiness metadata, changelog metadata, release docs, and publish blocker updates.
   - Keep the plan read-only: no generated release notes, no Git history derivation, no git-cliff run, no tags, no GitHub release, no package archives, and no publish commands.
 
-- TODO M128.2 Add release notes evidence checklist
+- DONE M128.2 Add release notes evidence checklist
   - Add a maintainer-facing checklist for included changes, excluded changes, known warnings, release owner, and changelog owner.
   - Include safe validation commands without approving release contents or generating notes.
   - Link the checklist from release notes readiness metadata, changelog metadata, first-publish planning docs, release docs, quality gates, README, and docs-site notes.
