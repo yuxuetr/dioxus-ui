@@ -376,6 +376,9 @@ versions, contact registries, inspect credentials, run `cargo package`, run
 [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
 maps each blocker to maintainer input, evidence, local follow-up files, and
 safe validation commands. It does not resolve blockers or authorize publishing.
+[First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md)
+provides copyable decision notes for the same blockers and keeps publish
+authorization separate from local validation.
 
 `npm run verify:publish-order` checks the planned crate publish order. It is
 read-only and does not create package archives, run `cargo package`, run

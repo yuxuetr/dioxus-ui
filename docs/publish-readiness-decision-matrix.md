@@ -9,6 +9,7 @@ Use it with:
 - [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
 - [Release Candidate Handoff Checklist](release-candidate-handoff-checklist.md)
 - [Publish Readiness Decision Handoff Plan](publish-readiness-decision-handoff-plan.md)
+- [First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md)
 
 ## Matrix
 

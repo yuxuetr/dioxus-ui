@@ -6,6 +6,9 @@ blockers. It is a planning artifact, not a publish authorization.
 Use [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
 to collect maintainer decisions, required evidence, local follow-up files, and
 safe validation commands before resolving any blocker.
+Use
+[First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md)
+when those decisions need to be copied into release-candidate notes.
 
 ## Resolution Order
 

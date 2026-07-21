@@ -563,6 +563,9 @@ package CLI templates, contact registries, inspect credentials, run
 Use [Publish Readiness Decision Matrix](docs/publish-readiness-decision-matrix.md)
 to record the maintainer decision, evidence, local follow-up files, and focused
 validation commands for each blocker before resolving it.
+Use
+[First Publish Maintainer Handoff Template](docs/first-publish-maintainer-handoff-template.md)
+when those decisions need a copyable release-candidate note.
 
 Verify publish order metadata only:
 

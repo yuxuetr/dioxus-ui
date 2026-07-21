@@ -96,7 +96,9 @@ Use [Publish Readiness Blockers](publish-readiness-blockers.md) and
 for the current source of truth. Use
 [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
 when maintainer decisions need explicit evidence before local follow-up. This
-checklist does not resolve blockers or authorize publishing.
+checklist does not resolve blockers or authorize publishing. For copyable
+decision notes, use
+[First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md).
 
 ## Warning Inventory Evidence
 

@@ -1859,12 +1859,30 @@ Use it with:
 - [Publish Readiness Blockers](publish-readiness-blockers.md)
 - [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
 - [Release Candidate Handoff Checklist](release-candidate-handoff-checklist.md)
+- [First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md)
 
 It remains repository-safe. It does not replace repository URLs, generate
 license text, decide API stability, generate release notes, embed or package
 CLI templates, contact crates.io, inspect credentials, run `cargo package`, run
 `cargo publish`, create package archives, create Git tags, or publish
 artifacts.
+
+## M122 First Publish Handoff Template Usage
+
+M122 adds a copyable maintainer handoff template:
+
+```text
+docs/first-publish-maintainer-handoff-template.md
+```
+
+The template records release-candidate identity, repository identity approval,
+license file approval, API stability policy, release notes scope, CLI template
+packaging strategy, crates.io ownership, workspace dependency publish
+readiness, and final verification commands.
+
+It remains a planning artifact. It does not run `cargo package`, run
+`cargo publish`, contact crates.io, inspect credentials, create package
+archives, create Git tags, publish GitHub releases, or authorize publishing.
 
 ## M107 Publish Order Metadata Gate Usage
 
