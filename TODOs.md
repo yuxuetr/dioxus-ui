@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M123 API Stability Surface Audit
-- Current task: M123.2 Add public API surface inventory
+- Current task: M123.3 Add API stability review checklist
 
 ## Backup
 
@@ -2088,7 +2088,7 @@
   - Classify API surfaces by stability risk without deciding semantic versioning policy or freezing APIs.
   - Keep the plan read-only: no version changes, no API rewrites, no migration guide generation, no packaging, and no publishing.
 
-- TODO M123.2 Add public API surface inventory
+- DONE M123.2 Add public API surface inventory
   - Document current public modules, feature flags, component names, source-copy targets, and primitive helper groups.
   - Mark which surfaces are source-copy user-facing, crate-mode user-facing, internal implementation detail, or publish-blocker follow-up.
   - Link the inventory from API stability metadata, publish readiness matrix, release docs, quality gates, README, and docs index as needed.
