@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M128 Release Notes Readiness Preparation
-- Current task: M128.3 Add release notes local follow-up map
+- Current task: M128.4 Complete release notes readiness preparation milestone
 
 ## Backup
 
@@ -2203,7 +2203,7 @@
   - Include safe validation commands without approving release contents or generating notes.
   - Link the checklist from release notes readiness metadata, changelog metadata, first-publish planning docs, release docs, quality gates, README, and docs-site notes.
 
-- TODO M128.3 Add release notes local follow-up map
+- DONE M128.3 Add release notes local follow-up map
   - Map approved release note decisions to local files and gates that would change after approval.
   - Separate changelog structure ownership from publish-ready release note completeness.
   - Keep all changes hypothetical unless maintainer input is already committed.
