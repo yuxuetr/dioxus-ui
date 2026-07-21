@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M127 Workspace Dependency Publish Readiness Preparation
-- Current task: M127.4 Complete workspace dependency publish readiness preparation milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2186,7 +2186,7 @@
   - Separate local development path dependencies from publishable dependency version metadata.
   - Keep all changes hypothetical unless maintainer input is already committed.
 
-- TODO M127.4 Complete workspace dependency publish readiness preparation milestone
+- DONE M127.4 Complete workspace dependency publish readiness preparation milestone
   - Run docs checks, workspace dependency readiness checks, publish order checks, Cargo workspace checks, Cargo publish metadata checks, publish readiness checks, release docs checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
   - Verify no dependency version changes, manifest rewrites, package archives, publish commands, crates.io contact, generated release notes, tags, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
