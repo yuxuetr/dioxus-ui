@@ -12,9 +12,14 @@ Current blockers:
 | Pre-1.0 API stability | Release docs allow breaking API changes before `1.0` | Maintainers decide crate-mode stability and versioning policy |
 | Release notes not publish-ready | `CHANGELOG.md` has project-owned structure, but release notes have not been maintained as complete publish-ready history | Maintainers define and maintain release notes before publishing |
 | Root license files not committed | `MIT OR Apache-2.0` is declared in workspace metadata, but `LICENSE-MIT` and `LICENSE-APACHE` are not committed | Maintainer commits reviewed root license files before publishing |
-| CLI template packaging strategy | CLI release notes still say templates are read from the repository layout | CLI owner embeds templates or packages them in a stable install location |
 | Registry availability not checked | Cargo publish metadata gate intentionally avoids crates.io lookups | Release owner checks names and ownership during publish preparation |
 | Workspace dependency publish readiness | Path-only internal workspace dependencies do not yet prove crates.io-resolvable dependency metadata | Maintainers add or approve publish-ready internal dependency version metadata |
+
+Resolved publish readiness items:
+
+| Item | Evidence | Verification |
+| --- | --- | --- |
+| CLI template packaging strategy | `dioxus-ui-cli` embeds registry and template assets at compile time | `npm run verify:cli-template-packaging-readiness` |
 
 ## Scope
 
@@ -34,7 +39,7 @@ Out of scope:
 - stabilizing component APIs
 - generating changelogs or release notes
 - generating license text
-- packaging CLI templates
+- changing embedded CLI template delivery
 - changing dependency versions
 
 ## Expected Check
@@ -43,7 +48,7 @@ The verifier should fail when committed blocker metadata drifts. Examples
 include:
 
 - publish metadata docs stop saying the crates are not ready to publish
-- release docs omit the CLI template packaging blocker
+- release docs imply CLI template delivery still depends on repository layout
 - workspace docs omit the placeholder repository URL blocker
 - package scripts stop running the blocker inventory gate during release
 

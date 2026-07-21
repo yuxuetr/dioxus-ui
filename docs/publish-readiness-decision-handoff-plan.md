@@ -22,7 +22,7 @@ not:
 - choose copyright holders
 - decide API stability policy
 - generate final release notes
-- embed or package CLI templates
+- change embedded CLI template delivery
 - contact crates.io
 - inspect credentials
 - run `cargo package`
@@ -40,9 +40,14 @@ not:
 | Root license files not committed | Legal/project ownership decision | Approved `LICENSE-MIT` and `LICENSE-APACHE` text and copyright holder | Commit license files and update license readiness metadata, blocker inventory, release docs, quality gates, README, docs-site notes, and TODO planning |
 | Pre-1.0 API stability | Product/API decision | Whether `0.1.x` APIs are acceptable for first publish or require a stabilization pass | Update API stability metadata, release docs, changelog guidance, quality gates, README, docs-site notes, and TODO planning |
 | Release notes not publish-ready | Release management decision | First publish release notes and historical scope | Update changelog, release notes readiness metadata, release docs, quality gates, README, docs-site notes, and TODO planning |
-| CLI template packaging strategy | Implementation decision | Compile-time embedding or stable install-location package strategy | Implement selected template delivery path and update CLI packaging metadata, blocker inventory, release docs, quality gates, README, docs-site notes, and TODO planning |
 | Registry availability not checked | Registry ownership decision | crates.io names, ownership, credentials, and publish order confirmation | Update registry availability metadata, Cargo publish metadata, publish blockers, release docs, quality gates, README, docs-site notes, and TODO planning |
 | Workspace dependency publish readiness | Packaging/dependency decision | Internal crate dependency version metadata policy for crates.io-resolvable packages | Update crate manifests, workspace dependency metadata, publish order metadata, Cargo publish metadata, release docs, quality gates, README, docs-site notes, and TODO planning |
+
+Resolved items:
+
+| Item | Resolution | Ongoing Verification |
+| --- | --- | --- |
+| CLI template packaging strategy | Compile-time embedded registry and template assets | `npm run verify:cli-template-packaging-readiness` |
 
 ## Safe Local Validation
 
@@ -90,6 +95,7 @@ M122 is complete when:
 - every blocker has a required maintainer input
 - every blocker has local follow-up files listed
 - every blocker has safe validation commands listed
+- resolved items keep their ongoing verification listed
 - the handoff template is linked from the publish readiness runbook
 - final checks pass
 - the worktree is clean

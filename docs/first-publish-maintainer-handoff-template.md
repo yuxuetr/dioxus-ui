@@ -56,11 +56,11 @@ Release notes:
 
 CLI template packaging:
 
-- Selected strategy: compile-time embedding / stable install-location package
+- Selected strategy: compile-time embedding
 - Source-copy behavior reviewed:
 - Install behavior reviewed:
 - Local follow-up owner:
-- Decision state:
+- Verification state:
 
 Registry availability and ownership:
 
@@ -85,7 +85,7 @@ Workspace dependency publish readiness:
 - Root license files committed only if approved.
 - API stability metadata updated if approved.
 - `CHANGELOG.md` and release notes metadata updated if approved.
-- CLI template packaging implementation updated if approved.
+- CLI template packaging readiness verified.
 - Registry availability metadata updated if approved.
 - Workspace dependency metadata updated if approved.
 - Publish blocker inventory reflects only unresolved blockers.

@@ -41,11 +41,6 @@ const mappings = [
     doc: "license-readiness-metadata.md",
   },
   {
-    blocker: "CLI template packaging strategy",
-    gate: "npm run verify:cli-template-packaging-readiness",
-    doc: "cli-template-packaging-readiness-metadata.md",
-  },
-  {
     blocker: "Registry availability not checked",
     gate: "npm run verify:registry-availability-readiness",
     doc: "registry-availability-readiness-metadata.md",
@@ -88,9 +83,18 @@ for (const { blocker, gate, doc } of mappings) {
 }
 
 requireIncludes("docs/publish-readiness-coverage-metadata.md", coverageDoc, [
+  "Resolved readiness items with focused gates",
+  "CLI template packaging strategy",
+  "npm run verify:cli-template-packaging-readiness",
+  "cli-template-packaging-readiness-metadata.md",
+]);
+
+requireIncludes("README.md", readme, ["npm run verify:cli-template-packaging-readiness"]);
+
+requireIncludes("docs/publish-readiness-coverage-metadata.md", coverageDoc, [
   "Publish Readiness Coverage Metadata",
   "every current blocker has a focused readiness gate",
-  "must not resolve blockers, replace repository URLs, stabilize APIs, generate release notes, generate license text, embed or package CLI templates, change dependency versions, contact registries, inspect credentials, run `cargo package`, run `cargo publish`, or create package archives",
+  "must not resolve blockers, replace repository URLs, stabilize APIs, generate release notes, generate license text, change embedded CLI template delivery, change dependency versions, contact registries, inspect credentials, run `cargo package`, run `cargo publish`, or create package archives",
 ]);
 
 requireIncludes("docs/cargo-publish-metadata.md", cargoPublishDoc, [
@@ -99,14 +103,14 @@ requireIncludes("docs/cargo-publish-metadata.md", cargoPublishDoc, [
 
 requireIncludes("docs/release.md", releaseDoc, [
   "Publish readiness coverage checks are read-only",
-  "every current publish blocker has a focused readiness gate",
-  "they do not resolve blockers, replace repository URLs, stabilize APIs, generate release notes, generate license text, embed or package CLI templates, change dependency versions, contact registries, inspect credentials, run `cargo package`, run `cargo publish`, or create package archives",
+  "every current publish blocker has a focused readiness gate and resolved readiness items keep their focused gates",
+  "they do not resolve blockers, replace repository URLs, stabilize APIs, generate release notes, generate license text, change embedded CLI template delivery, change dependency versions, contact registries, inspect credentials, run `cargo package`, run `cargo publish`, or create package archives",
 ]);
 
 requireIncludes("docs/quality-gates.md", qualityDoc, [
   "`npm run verify:publish-readiness-coverage`",
-  "every current publish blocker has a focused readiness gate",
-  "does not resolve blockers, replace repository URLs, stabilize APIs, generate release notes, generate license text, embed or package CLI templates, change dependency versions, contact registries, inspect credentials, run `cargo package`, run `cargo publish`, or create package archives",
+  "every current publish blocker has a focused readiness gate and resolved readiness items keep their focused gates",
+  "does not resolve blockers, replace repository URLs, stabilize APIs, generate release notes, generate license text, change embedded CLI template delivery, change dependency versions, contact registries, inspect credentials, run `cargo package`, run `cargo publish`, or create package archives",
 ]);
 
 requireIncludes("docs/site.md", siteDoc, [

@@ -320,11 +320,11 @@ false` boundaries, and release wiring. It is read-only and does not run
 
 `npm run verify:publish-readiness-blockers` checks the documented placeholder
 repository URL, pre-1.0 API stability, release notes readiness, root license
-file readiness, CLI template packaging, crates.io review, and workspace
-dependency publish readiness blockers. It is read-only and does not replace
-repository URLs, check registries, run `cargo package`, run `cargo publish`,
-stabilize APIs, generate changelogs, generate license text, package CLI
-templates, or change dependency versions.
+file readiness, crates.io review, and workspace dependency publish readiness
+blockers. It is read-only and does not replace repository URLs, check
+registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate
+changelogs, generate license text, change embedded CLI template delivery, or
+change dependency versions.
 
 `npm run verify:release-notes-readiness` checks that project-owned changelog
 structure exists while publish-ready release notes are still unresolved. It is
@@ -352,11 +352,10 @@ that need maintainer review before that blocker can be resolved.
 [API Stability Review Checklist](api-stability-review-checklist.md) provides
 copyable maintainer review steps without approving stability by itself.
 
-`npm run verify:cli-template-packaging-readiness` checks that the CLI template
-source is still repository-layout based and that the unresolved packaging
-blocker remains documented. It is read-only and does not embed templates,
-package templates, change CLI runtime path lookup, run `cargo package`, run
-`cargo publish`, install the CLI, or create package archives.
+`npm run verify:cli-template-packaging-readiness` checks that the CLI embeds
+registry and template assets at compile time. It is read-only and does not run
+`cargo package`, run `cargo publish`, install the CLI, contact crates.io,
+create package archives, or change embedded template contents.
 
 `npm run verify:registry-availability-readiness` checks that the crates.io name
 and ownership review blocker remains documented. It is read-only and does not
@@ -365,18 +364,19 @@ credentials, run `cargo package`, run `cargo publish`, or create package
 archives.
 
 `npm run verify:publish-readiness-coverage` checks that every current publish
-blocker has a focused readiness gate. It is read-only and does not resolve
+blocker has a focused readiness gate and resolved readiness items keep their
+focused gates. It is read-only and does not resolve
 blockers, replace repository URLs, stabilize APIs, generate release notes,
-generate license text, embed or package CLI templates, change dependency
-versions, contact registries, inspect credentials, run `cargo package`, run
-`cargo publish`, or create package archives.
+generate license text, change embedded CLI template delivery, change
+dependency versions, contact registries, inspect credentials, run
+`cargo package`, run `cargo publish`, or create package archives.
 
 `npm run verify:publish-readiness-runbook` checks manual resolution evidence
 for every current publish blocker. It is read-only and does not resolve
 blockers, replace repository URLs, stabilize APIs, generate release notes,
-generate license text, embed or package CLI templates, change dependency
-versions, contact registries, inspect credentials, run `cargo package`, run
-`cargo publish`, or create package archives.
+generate license text, change embedded CLI template delivery, change
+dependency versions, contact registries, inspect credentials, run
+`cargo package`, run `cargo publish`, or create package archives.
 
 [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
 maps each blocker to maintainer input, evidence, local follow-up files, and

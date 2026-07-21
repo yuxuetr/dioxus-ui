@@ -24,7 +24,6 @@ const blockers = [
   "Root license files not committed",
   "Pre-1.0 API stability",
   "Release notes not publish-ready",
-  "CLI template packaging strategy",
   "Registry availability not checked",
   "Workspace dependency publish readiness",
 ];
@@ -69,7 +68,11 @@ requireIncludes("docs/publish-readiness-resolution-runbook.md", runbookDoc, [
   "manual resolution runbook",
   "Manual Evidence Required",
   "Follow-up Updates",
-  "must not resolve blockers, replace repository URLs, stabilize APIs, generate release notes, generate license text, embed or package CLI templates, change dependency versions, contact registries, inspect credentials, run `cargo package`, run `cargo publish`, or create package archives",
+  "Resolved items",
+  "CLI template packaging strategy",
+  "`dioxus-ui-cli` embeds registry and template assets at compile time",
+  "npm run verify:cli-template-packaging-readiness",
+  "must not resolve blockers, replace repository URLs, stabilize APIs, generate release notes, generate license text, change embedded CLI template delivery, change dependency versions, contact registries, inspect credentials, run `cargo package`, run `cargo publish`, or create package archives",
 ]);
 
 requireIncludes("docs/publish-readiness-coverage-metadata.md", coverageDoc, [
@@ -83,13 +86,13 @@ requireIncludes("docs/cargo-publish-metadata.md", cargoPublishDoc, [
 requireIncludes("docs/release.md", releaseDoc, [
   "Publish readiness runbook checks are read-only",
   "manual resolution evidence for every current publish blocker",
-  "they do not resolve blockers, replace repository URLs, stabilize APIs, generate release notes, generate license text, embed or package CLI templates, change dependency versions, contact registries, inspect credentials, run `cargo package`, run `cargo publish`, or create package archives",
+  "they do not resolve blockers, replace repository URLs, stabilize APIs, generate release notes, generate license text, change embedded CLI template delivery, change dependency versions, contact registries, inspect credentials, run `cargo package`, run `cargo publish`, or create package archives",
 ]);
 
 requireIncludes("docs/quality-gates.md", qualityDoc, [
   "`npm run verify:publish-readiness-runbook`",
   "manual resolution evidence for every current publish blocker",
-  "does not resolve blockers, replace repository URLs, stabilize APIs, generate release notes, generate license text, embed or package CLI templates, change dependency versions, contact registries, inspect credentials, run `cargo package`, run `cargo publish`, or create package archives",
+  "does not resolve blockers, replace repository URLs, stabilize APIs, generate release notes, generate license text, change embedded CLI template delivery, change dependency versions, contact registries, inspect credentials, run `cargo package`, run `cargo publish`, or create package archives",
 ]);
 
 requireIncludes("docs/site.md", siteDoc, [

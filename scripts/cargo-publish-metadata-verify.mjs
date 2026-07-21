@@ -167,6 +167,7 @@ const metadataFragments = [
   "shared workspace `readme`, `keywords`, and `categories` metadata",
   "Example and verification crates under `examples/` remain application fixtures",
   "does not claim the crates are ready to publish while the repository URL",
+  "CLI template delivery now uses embedded registry/template assets",
 ];
 
 for (const fragment of metadataFragments) {

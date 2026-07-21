@@ -179,11 +179,11 @@ crate descriptions, shared README/keywords/categories metadata, example
 `cargo publish`, run `cargo package`, contact crates.io, replace repository URLs, or create package archives.
 Publish readiness blocker checks are read-only and validate only the documented
 placeholder repository URL, pre-1.0 API stability, release notes readiness,
-root license file readiness, CLI template packaging, crates.io review, and
-workspace dependency publish readiness blockers; they do not replace
-repository URLs, check registries, run `cargo package`, run `cargo publish`,
-stabilize APIs, generate changelogs, generate license text, package CLI
-templates, or change dependency versions.
+root license file readiness, crates.io review, and workspace dependency
+publish readiness blockers; they do not replace repository URLs, check
+registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate
+changelogs, generate license text, change embedded CLI template delivery, or
+change dependency versions.
 Release notes readiness checks are read-only and validate only that
 project-owned changelog structure exists while publish-ready release notes are
 still unresolved; they do not generate release notes, run git-cliff, derive
@@ -208,27 +208,27 @@ surfaces for maintainer review without resolving the blocker.
 [API Stability Review Checklist](api-stability-review-checklist.md) provides
 the maintainer review steps to use before changing that blocker state.
 CLI template packaging readiness checks are read-only. They validate that the
-CLI template source is still repository-layout based and that the unresolved
-packaging blocker remains documented; they do not embed templates, package
-templates, change CLI runtime path lookup, run `cargo package`, run
-`cargo publish`, install the CLI, or create package archives.
+CLI embeds registry and template assets at compile time; they do not run
+`cargo package`, run `cargo publish`, install the CLI, contact crates.io,
+create package archives, or change embedded template contents.
 Registry availability readiness checks are read-only. They validate that the
 crates.io name and ownership review blocker remains documented; they do not
 contact crates.io, check crate name availability, check ownership, inspect
 credentials, run `cargo package`, run `cargo publish`, or create package
 archives.
 Publish readiness coverage checks are read-only. They validate that every
-current publish blocker has a focused readiness gate; they do not resolve
+current publish blocker has a focused readiness gate and resolved readiness
+items keep their focused gates; they do not resolve
 blockers, replace repository URLs, stabilize APIs, generate release notes,
-generate license text, embed or package CLI templates, change dependency
-versions, contact registries, inspect credentials, run `cargo package`, run
-`cargo publish`, or create package archives.
+generate license text, change embedded CLI template delivery, change
+dependency versions, contact registries, inspect credentials, run
+`cargo package`, run `cargo publish`, or create package archives.
 Publish readiness runbook checks are read-only. They validate manual
 resolution evidence for every current publish blocker; they do not resolve
 blockers, replace repository URLs, stabilize APIs, generate release notes,
-generate license text, embed or package CLI templates, change dependency
-versions, contact registries, inspect credentials, run `cargo package`, run
-`cargo publish`, or create package archives.
+generate license text, change embedded CLI template delivery, change
+dependency versions, contact registries, inspect credentials, run
+`cargo package`, run `cargo publish`, or create package archives.
 The [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
 records required maintainer decisions, evidence, local follow-up files, and
 safe validation commands before any blocker is resolved.
@@ -548,17 +548,17 @@ dxui list
 dxui add <component>
 ```
 
-The CLI currently reads registry and templates from the repository layout. A
-publish-ready CLI should either embed templates at compile time or package them
-in a stable install location.
+The CLI embeds registry and template assets at compile time. Installed CLI
+commands can read component metadata and generated source without relying on the
+repository `registry/` or `templates/` directories at runtime.
 
 Cargo publish metadata is tracked by `npm run verify:cargo-publish-metadata`.
 That check keeps descriptions and shared README/keywords/categories metadata
 reviewable, but it does not replace a later publish-readiness review.
 Known blockers for that review are tracked by
-`npm run verify:publish-readiness-blockers`.
-CLI template packaging remains unresolved until templates are embedded or
-packaged in a stable install location.
+`npm run verify:publish-readiness-blockers`. The resolved CLI template
+packaging strategy remains covered by
+`npm run verify:cli-template-packaging-readiness`.
 
 ## Known Pre-1.0 Limitations
 

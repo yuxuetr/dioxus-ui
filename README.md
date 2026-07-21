@@ -462,10 +462,11 @@ npm run verify:publish-readiness-blockers
 ```
 
 This checks the documented placeholder repository URL, pre-1.0 API stability,
-release notes readiness, root license file readiness, CLI template packaging,
-and crates.io review blockers. It does not replace repository URLs, check
-registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate
-changelogs, generate license text, or package CLI templates.
+release notes readiness, root license file readiness, crates.io review, and
+workspace dependency publish readiness blockers. It does not replace
+repository URLs, check registries, run `cargo package`, run `cargo publish`,
+stabilize APIs, generate changelogs, generate license text, change embedded
+CLI template delivery, or change dependency versions.
 
 Verify release notes readiness metadata only:
 
@@ -521,11 +522,9 @@ Verify CLI template packaging readiness metadata only:
 npm run verify:cli-template-packaging-readiness
 ```
 
-This checks that CLI template source is still repository-layout based and that
-the unresolved template packaging blocker remains documented. It does not
-embed templates, package templates, change CLI runtime path lookup, run
-`cargo package`, run `cargo publish`, install the CLI, or create package
-archives.
+This checks that CLI registry and template assets are embedded at compile time.
+It does not run `cargo package`, run `cargo publish`, install the CLI, contact
+crates.io, create package archives, or change embedded template contents.
 
 Verify registry availability readiness metadata only:
 
@@ -548,7 +547,7 @@ npm run verify:publish-readiness-coverage
 This checks that every current publish blocker has a focused readiness gate,
 metadata doc, README mention, package script, and release wiring. It does not
 resolve blockers, replace repository URLs, stabilize APIs, generate release
-notes, generate license text, embed or package CLI templates, contact
+notes, generate license text, change embedded CLI template delivery, contact
 registries, inspect credentials, run `cargo package`, run `cargo publish`, or
 create package archives.
 
@@ -560,8 +559,8 @@ npm run verify:publish-readiness-runbook
 
 This checks manual resolution evidence and follow-up update targets for every
 current publish blocker. It does not resolve blockers, replace repository
-URLs, stabilize APIs, generate release notes, generate license text, embed or
-package CLI templates, contact registries, inspect credentials, run
+URLs, stabilize APIs, generate release notes, generate license text, change
+embedded CLI template delivery, contact registries, inspect credentials, run
 `cargo package`, run `cargo publish`, or create package archives.
 
 Use [Publish Readiness Decision Matrix](docs/publish-readiness-decision-matrix.md)

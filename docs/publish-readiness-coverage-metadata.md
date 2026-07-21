@@ -14,9 +14,14 @@ must have a focused metadata gate:
 | Pre-1.0 API stability | `npm run verify:api-stability-readiness` | [API Stability Readiness Metadata](api-stability-readiness-metadata.md) |
 | Release notes not publish-ready | `npm run verify:release-notes-readiness` | [Release Notes Readiness Metadata](release-notes-readiness-metadata.md) |
 | Root license files not committed | `npm run verify:license-readiness` | [License Readiness Metadata](license-readiness-metadata.md) |
-| CLI template packaging strategy | `npm run verify:cli-template-packaging-readiness` | [CLI Template Packaging Readiness Metadata](cli-template-packaging-readiness-metadata.md) |
 | Registry availability not checked | `npm run verify:registry-availability-readiness` | [Registry Availability Readiness Metadata](registry-availability-readiness-metadata.md) |
 | Workspace dependency publish readiness | `npm run verify:workspace-dependency-publish-readiness` | [Workspace Dependency Publish Readiness Metadata](workspace-dependency-publish-readiness-metadata.md) |
+
+Resolved readiness items with focused gates:
+
+| Item | Focused Gate | Metadata Doc |
+| --- | --- | --- |
+| CLI template packaging strategy | `npm run verify:cli-template-packaging-readiness` | [CLI Template Packaging Readiness Metadata](cli-template-packaging-readiness-metadata.md) |
 
 ## Readiness Contract
 
@@ -31,9 +36,9 @@ must have a focused metadata gate:
 
 The gate is intentionally read-only. It must not resolve blockers, replace
 repository URLs, stabilize APIs, generate release notes, generate license text,
-embed or package CLI templates, change dependency versions, contact registries,
-inspect credentials, run `cargo package`, run `cargo publish`, or create
-package archives.
+change embedded CLI template delivery, change dependency versions, contact
+registries, inspect credentials, run `cargo package`, run `cargo publish`, or
+create package archives.
 
 ## Resolution Criteria
 

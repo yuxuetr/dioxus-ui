@@ -1430,8 +1430,8 @@ npm run verify:publish-readiness-blockers
 ```
 
 The command checks the documented placeholder repository URL, pre-1.0 API
-stability, release notes readiness, CLI template packaging, and crates.io review
-blockers.
+stability, release notes readiness, root license file readiness, crates.io
+review, and workspace dependency publish readiness blockers.
 
 The check is included in:
 
@@ -1441,14 +1441,15 @@ npm run verify:release
 
 It remains read-only. It does not replace repository URLs, check registries, run
 `cargo package`, run `cargo publish`, stabilize APIs, generate changelogs, or
-package CLI templates.
+change embedded CLI template delivery.
 
 ## M97 Final Result
 
 M97 added `npm run verify:publish-readiness-blockers` and wired it into
 `npm run verify:release`. The gate validates the known placeholder repository
-URL, pre-1.0 API stability, release notes readiness, CLI template packaging,
-and crates.io review blockers.
+URL, pre-1.0 API stability, release notes readiness, root license file
+readiness, crates.io review, and workspace dependency publish readiness
+blockers.
 
 Validation completed:
 
@@ -1653,8 +1654,8 @@ M103 adds a focused CLI template packaging readiness metadata command:
 npm run verify:cli-template-packaging-readiness
 ```
 
-The command checks that CLI template source is still repository-layout based
-and that the unresolved template packaging blocker remains documented.
+The command checks that CLI registry and template assets are embedded at
+compile time.
 
 The check is included in:
 
@@ -1662,16 +1663,15 @@ The check is included in:
 npm run verify:release
 ```
 
-It remains read-only. It does not embed templates, package templates, change
-CLI runtime path lookup, run `cargo package`, run `cargo publish`, install the
-CLI, or create package archives.
+It remains read-only. It does not run `cargo package`, run `cargo publish`,
+install the CLI, contact crates.io, create package archives, or change embedded
+template contents.
 
 ## M103 Final Result
 
 M103 added `npm run verify:cli-template-packaging-readiness` and wired it into
-`npm run verify:release`. The gate validates that CLI template source is still
-repository-layout based and that the unresolved template packaging blocker
-remains documented.
+`npm run verify:release`. The gate validates that CLI registry and template
+assets are embedded at compile time.
 
 Validation completed:
 
@@ -1687,9 +1687,9 @@ CARGO_NET_OFFLINE=true npm run verify:release
 git diff --check
 ```
 
-All commands passed. The check does not embed templates, package templates,
-change CLI runtime path lookup, run `cargo package`, run `cargo publish`,
-install the CLI, or create package archives.
+All commands passed. The check does not run `cargo package`, run
+`cargo publish`, install the CLI, contact crates.io, create package archives,
+or change embedded template contents.
 
 ## M104 Registry Availability Readiness Metadata Gate Usage
 
@@ -1786,8 +1786,8 @@ git diff --check
 ```
 
 All commands passed. The check does not resolve blockers, replace repository
-URLs, stabilize APIs, generate release notes, generate license text, embed or
-package CLI templates, contact registries, inspect credentials, run
+URLs, stabilize APIs, generate release notes, generate license text, change
+embedded CLI template delivery, contact registries, inspect credentials, run
 `cargo package`, run `cargo publish`, or create package archives.
 
 ## M106 Publish Readiness Resolution Runbook Metadata Gate Usage
@@ -1808,9 +1808,9 @@ npm run verify:release
 ```
 
 It remains read-only. It does not resolve blockers, replace repository URLs,
-stabilize APIs, generate release notes, generate license text, embed or package
-CLI templates, contact registries, inspect credentials, run `cargo package`,
-run `cargo publish`, or create package archives.
+stabilize APIs, generate release notes, generate license text, change embedded
+CLI template delivery, contact registries, inspect credentials, run
+`cargo package`, run `cargo publish`, or create package archives.
 
 ## M106 Final Result
 
@@ -1838,8 +1838,8 @@ git diff --check
 ```
 
 All commands passed. The check does not resolve blockers, replace repository
-URLs, stabilize APIs, generate release notes, generate license text, embed or
-package CLI templates, contact registries, inspect credentials, run
+URLs, stabilize APIs, generate release notes, generate license text, change
+embedded CLI template delivery, contact registries, inspect credentials, run
 `cargo package`, run `cargo publish`, or create package archives.
 
 ## M122 Publish Readiness Decision Matrix Usage

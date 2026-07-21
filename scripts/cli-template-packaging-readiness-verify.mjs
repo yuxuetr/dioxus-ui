@@ -10,6 +10,7 @@ const normalizeWhitespace = (text) => text.replace(/\s+/g, " ");
 
 const packageJson = JSON.parse(readText("package.json"));
 const cliSource = readText("crates/dioxus-ui-cli/src/main.rs");
+const cliBuild = readText("crates/dioxus-ui-cli/build.rs");
 const readinessDoc = normalizeWhitespace(readText("docs/cli-template-packaging-readiness-metadata.md"));
 const publishBlockers = readText("docs/publish-readiness-blockers.md");
 const cargoPublishDoc = normalizeWhitespace(readText("docs/cargo-publish-metadata.md"));
@@ -27,6 +28,14 @@ const requireIncludes = (name, text, fragments) => {
   }
 };
 
+const requireAbsent = (name, text, fragments) => {
+  for (const fragment of fragments) {
+    if (text.includes(fragment)) {
+      failures.push(`${name} should not include: ${fragment}`);
+    }
+  }
+};
+
 if (
   scripts["verify:cli-template-packaging-readiness"] !==
   "node scripts/cli-template-packaging-readiness-verify.mjs"
@@ -39,54 +48,60 @@ if (!scripts["verify:release"]?.includes("npm run verify:cli-template-packaging-
 }
 
 requireIncludes("crates/dioxus-ui-cli/src/main.rs", cliSource, [
-  'env!("CARGO_MANIFEST_DIR")',
-  'join("registry")',
-  "workspace.join(&file.source)",
-  "workspace.join(&asset.source)",
-  "fs::read_to_string",
+  'include!(concat!(env!("OUT_DIR"), "/embedded_assets.rs"))',
+  "EMBEDDED_REGISTRY_JSON",
+  "EMBEDDED_ASSETS",
+  "embedded_asset_content",
 ]);
 
-for (const forbidden of ["include_str!", "include_bytes!"]) {
-  if (cliSource.includes(forbidden)) {
-    failures.push(`crates/dioxus-ui-cli/src/main.rs should not use ${forbidden} before packaging readiness is resolved`);
-  }
-}
+requireAbsent("crates/dioxus-ui-cli/src/main.rs", cliSource, [
+  "workspace.join(&file.source)",
+  "workspace.join(&asset.source)",
+  'join("registry")',
+]);
+
+requireIncludes("crates/dioxus-ui-cli/build.rs", cliBuild, [
+  "embedded_assets.rs",
+  "include_str!",
+  "registry_sources",
+  "serde_json::from_str::<Value>",
+]);
 
 requireIncludes("docs/cli-template-packaging-readiness-metadata.md", readinessDoc, [
   "CLI Template Packaging Readiness Metadata",
-  "source-tree template loading",
-  "publish-ready CLI binary",
-  "embed templates at compile time or package templates in a stable install location",
-  "must not embed templates, package templates, change CLI runtime path lookup, run `cargo package`, run `cargo publish`, install the CLI, or create package archives",
+  "compile-time embedded registry and template assets",
+  "no longer require the repository `registry/` and `templates/` directories at runtime",
+  "CLI build script generates embedded registry/template assets",
+  "CLI runtime reads embedded registry/template content",
+  "must not run `cargo package`, run `cargo publish`, install the CLI, contact crates.io, create package archives, or change embedded template contents",
 ]);
 
 requireIncludes("docs/publish-readiness-blockers.md", publishBlockers, [
-  "CLI template packaging strategy",
-  "CLI release notes still say templates are read from the repository layout",
-  "CLI owner embeds templates or packages them in a stable install location",
-  "packaging CLI templates",
+  "Resolved publish readiness items",
+  "`dioxus-ui-cli` embeds registry and template assets at compile time",
+  "npm run verify:cli-template-packaging-readiness",
 ]);
 
 requireIncludes("docs/cargo-publish-metadata.md", cargoPublishDoc, [
-  "CLI template packaging remains unresolved",
+  "CLI template delivery now uses embedded registry/template assets",
 ]);
 
 requireIncludes("docs/release.md", releaseDoc, [
   "CLI template packaging readiness checks are read-only",
-  "CLI template source is still repository-layout based",
-  "they do not embed templates, package templates, change CLI runtime path lookup, run `cargo package`, run `cargo publish`, install the CLI, or create package archives",
+  "CLI embeds registry and template assets at compile time",
+  "they do not run `cargo package`, run `cargo publish`, install the CLI, contact crates.io, create package archives, or change embedded template contents",
 ]);
 
 requireIncludes("docs/quality-gates.md", qualityDoc, [
   "`npm run verify:cli-template-packaging-readiness`",
-  "CLI template source is still repository-layout based",
-  "does not embed templates, package templates, change CLI runtime path lookup, run `cargo package`, run `cargo publish`, install the CLI, or create package archives",
+  "CLI embeds registry and template assets at compile time",
+  "does not run `cargo package`, run `cargo publish`, install the CLI, contact crates.io, create package archives, or change embedded template contents",
 ]);
 
 requireIncludes("docs/site.md", siteDoc, [
   "M103 CLI Template Packaging Readiness Metadata Gate Usage",
   "npm run verify:cli-template-packaging-readiness",
-  "CLI template source is still repository-layout based",
+  "CLI registry and template assets are embedded at compile time",
 ]);
 
 if (failures.length > 0) {

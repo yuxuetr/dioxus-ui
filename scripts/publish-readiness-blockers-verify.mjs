@@ -29,6 +29,18 @@ const requireFragment = (label, source, fragment) => {
   }
 };
 
+const rejectFragment = (label, source, fragment) => {
+  if (source.includes(fragment)) {
+    failures.push(`${label} should not include fragment: ${fragment}`);
+  }
+};
+
+const staleCliBlockerFragment =
+  "| CLI template packaging strategy | " +
+  "CLI release notes still " +
+  "say " +
+  "templates are read from the repository layout |";
+
 const scripts = packageJson.scripts ?? {};
 if (scripts["verify:publish-readiness-blockers"] !== "node scripts/publish-readiness-blockers-verify.mjs") {
   failures.push("package.json missing verify:publish-readiness-blockers script");
@@ -45,9 +57,10 @@ const blockerFragments = [
   "Pre-1.0 API stability",
   "Release notes not publish-ready",
   "Root license files not committed",
-  "CLI template packaging strategy",
   "Registry availability not checked",
   "Workspace dependency publish readiness",
+  "Resolved publish readiness items",
+  "`dioxus-ui-cli` embeds registry and template assets at compile time",
   "https://github.com/your-org/dioxus-ui",
   "does not resolve the blockers",
 ];
@@ -64,7 +77,7 @@ const blockerBoundaryFragments = [
   "stabilizing component APIs",
   "generating changelogs or release notes",
   "generating license text",
-  "packaging CLI templates",
+  "changing embedded CLI template delivery",
   "changing dependency versions",
 ];
 
@@ -72,10 +85,17 @@ for (const fragment of blockerBoundaryFragments) {
   requireFragment("docs/publish-readiness-blockers.md", blockerDoc, fragment);
 }
 
+rejectFragment(
+  "docs/publish-readiness-blockers.md",
+  blockerDoc,
+  staleCliBlockerFragment,
+);
+
 const publishMetadataFragments = [
   "does not claim the crates",
   "repository URL is still a placeholder",
   "APIs remain pre-1.0",
+  "CLI template delivery now uses embedded registry/template assets",
 ];
 
 for (const fragment of publishMetadataFragments) {
@@ -94,9 +114,9 @@ for (const fragment of workspaceFragments) {
 
 const releaseFragments = [
   "Publish readiness blocker checks are read-only",
-  "placeholder repository URL, pre-1.0 API stability, release notes readiness, root license file readiness, CLI template packaging, crates.io review, and workspace dependency publish readiness blockers",
-  "they do not replace repository URLs, check registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate changelogs, generate license text, package CLI templates, or change dependency versions",
-  "publish-ready CLI should either embed templates at compile time or package them",
+  "placeholder repository URL, pre-1.0 API stability, release notes readiness, root license file readiness, crates.io review, and workspace dependency publish readiness blockers",
+  "they do not replace repository URLs, check registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate changelogs, generate license text, change embedded CLI template delivery, or change dependency versions",
+  "CLI embeds registry and template assets at compile time",
 ];
 
 for (const fragment of releaseFragments) {
@@ -105,8 +125,8 @@ for (const fragment of releaseFragments) {
 
 const qualityFragments = [
   "`npm run verify:publish-readiness-blockers`",
-  "placeholder repository URL, pre-1.0 API stability, release notes readiness, root license file readiness, CLI template packaging, crates.io review, and workspace dependency publish readiness blockers",
-  "does not replace repository URLs, check registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate changelogs, generate license text, package CLI templates, or change dependency versions",
+  "placeholder repository URL, pre-1.0 API stability, release notes readiness, root license file readiness, crates.io review, and workspace dependency publish readiness blockers",
+  "does not replace repository URLs, check registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate changelogs, generate license text, change embedded CLI template delivery, or change dependency versions",
 ];
 
 for (const fragment of qualityFragments) {

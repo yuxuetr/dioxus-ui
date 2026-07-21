@@ -1,8 +1,9 @@
 # CLI Template Packaging Readiness Metadata
 
 This document defines the metadata gate for CLI template packaging readiness.
-It keeps the current source-tree template loading model explicit until the CLI
-has a publish-ready packaging strategy.
+The CLI now uses compile-time embedded registry and template assets, so
+`dxui list` and `dxui add <component>` no longer require the repository
+`registry/` and `templates/` directories at runtime.
 
 ## Current State
 
@@ -14,14 +15,16 @@ dxui list
 dxui add <component>
 ```
 
-The implementation currently finds the repository root from
-`CARGO_MANIFEST_DIR`, then reads registry entries from `registry/` and component
-templates from the paths listed in those registry files.
+The implementation generates an embedded asset catalog in
+`crates/dioxus-ui-cli/build.rs` and includes that catalog from
+`crates/dioxus-ui-cli/src/main.rs`. The generated catalog embeds:
 
-That layout is useful for development and local source-copy verification, but
-it is not enough for a publish-ready CLI binary. A publish-ready CLI should
-either embed templates at compile time or package templates in a stable install
-location that works after `cargo install`.
+- all public registry JSON entries except `registry/schema.json`
+- every source-copy file referenced by registry `files` mappings
+- every asset referenced by registry `assets` mappings
+
+The runtime CLI parses embedded registry JSON and writes embedded file content
+to each registry target path.
 
 ## Readiness Contract
 
@@ -29,22 +32,25 @@ location that works after `cargo install`.
 
 - package scripts expose the focused readiness check
 - the release aggregate includes the focused readiness check
-- CLI source still uses repository-layout registry/template reads
-- publish blocker docs still list CLI template packaging as unresolved
-- release, quality gate, Cargo publish metadata, and docs-site notes do not
-  imply the blocker is resolved
+- CLI build script generates embedded registry/template assets
+- CLI runtime reads embedded registry/template content
+- publish blocker docs no longer list CLI template packaging as unresolved
+- release, quality gate, Cargo publish metadata, and docs-site notes describe
+  embedded template delivery
 
-The gate is intentionally read-only. It must not embed templates, package
-templates, change CLI runtime path lookup, run `cargo package`, run
-`cargo publish`, install the CLI, or create package archives.
+The gate is intentionally read-only. It must not run `cargo package`, run
+`cargo publish`, install the CLI, contact crates.io, create package archives,
+or change embedded template contents.
 
 ## Resolution Criteria
 
-This blocker can be removed only after a maintainer chooses and implements a
-publish-ready template delivery strategy. Acceptable outcomes include:
+This blocker is resolved when:
 
-- compile-time embedding of all registry/template assets
-- packaging templates in a stable install location with documented lookup rules
+- CLI tests pass
+- generated fixture smoke passes
+- registry metadata checks pass
+- this focused readiness gate passes
+- publish blocker docs list only the remaining blockers
 
-After that implementation lands, update this metadata gate, publish blocker
-docs, release docs, quality gates, and TODO planning together.
+If the embedded catalog strategy changes later, update this metadata gate,
+publish blocker docs, release docs, quality gates, and TODO planning together.
