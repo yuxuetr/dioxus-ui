@@ -17,4 +17,7 @@ path = "src/main.rs"
 dioxus-ui-core.workspace = true
 serde_json.workspace = true
 
+[build-dependencies]
+serde_json.workspace = true
+
 [dev-dependencies]

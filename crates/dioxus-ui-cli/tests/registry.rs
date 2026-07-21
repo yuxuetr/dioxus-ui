@@ -124,12 +124,14 @@ fn registry_files_match_template_and_module_names() {
       path.display()
     );
     assert_eq!(
-      component.files[0].source, expected_source,
+      component.files[0].source,
+      expected_source,
       "{} source should match component module name",
       path.display()
     );
     assert_eq!(
-      component.files[0].target, expected_target,
+      component.files[0].target,
+      expected_target,
       "{} target should match generated module path",
       path.display()
     );
@@ -148,10 +150,7 @@ fn every_template_file_is_registered() {
     .expect("templates directory should exist")
     .map(|entry| {
       let entry = entry.expect("template entry should be readable");
-      let file_name = entry
-        .file_name()
-        .into_string()
-        .expect("template filename should be utf-8");
+      let file_name = entry.file_name().into_string().expect("template filename should be utf-8");
 
       format!("templates/{file_name}")
     })
@@ -224,10 +223,7 @@ fn load_registry_components(root: &Path) -> Vec<(PathBuf, RegistryComponent)> {
 }
 
 fn public_component_names(components: &[(PathBuf, RegistryComponent)]) -> BTreeSet<String> {
-  public_components(components)
-    .into_iter()
-    .map(|(_, component)| component.name.clone())
-    .collect()
+  public_components(components).into_iter().map(|(_, component)| component.name.clone()).collect()
 }
 
 fn public_components(

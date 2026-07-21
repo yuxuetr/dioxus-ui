@@ -6,6 +6,8 @@ use std::path::{Path, PathBuf};
 
 use dioxus_ui_core::RegistryComponent;
 
+include!(concat!(env!("OUT_DIR"), "/embedded_assets.rs"));
+
 const DEFAULT_CSS: &str = r#"@import "tailwindcss";
 
 @theme {
@@ -85,9 +87,7 @@ fn parse_root(args: &[OsString], command: &str) -> Result<PathBuf, Box<dyn Error
   while index < args.len() {
     match args[index].to_str() {
       Some("--root") => {
-        let value = args
-          .get(index + 1)
-          .ok_or("missing value for --root")?;
+        let value = args.get(index + 1).ok_or("missing value for --root")?;
         root = PathBuf::from(value);
         index += 2;
       }
@@ -108,9 +108,7 @@ fn parse_add_options(args: &[OsString]) -> Result<(String, AddOptions), Box<dyn 
   while index < args.len() {
     match args[index].to_str() {
       Some("--root") => {
-        let value = args
-          .get(index + 1)
-          .ok_or("missing value for --root")?;
+        let value = args.get(index + 1).ok_or("missing value for --root")?;
         root = PathBuf::from(value);
         index += 2;
       }
@@ -191,30 +189,26 @@ fn add_component_recursive(
     add_component_recursive(root, dependency, registry, overwrite, added)?;
   }
 
-  let workspace = workspace_root();
-
   for file in &component.files {
-    let source = workspace.join(&file.source);
     let target = root.join(&file.target);
-    let content = fs::read_to_string(&source)?;
+    let content = embedded_asset_content(&file.source)?;
 
     if let Some(parent) = target.parent() {
       fs::create_dir_all(parent)?;
     }
 
-    write_component_file(&target, &content, overwrite)?;
+    write_component_file(&target, content, overwrite)?;
   }
 
   for asset in &component.assets {
-    let source = workspace.join(&asset.source);
     let target = root.join(&asset.target);
-    let content = fs::read_to_string(&source)?;
+    let content = embedded_asset_content(&asset.source)?;
 
     if let Some(parent) = target.parent() {
       fs::create_dir_all(parent)?;
     }
 
-    write_component_file(&target, &content, overwrite)?;
+    write_component_file(&target, content, overwrite)?;
   }
 
   added.push(component.name.clone());
@@ -234,15 +228,8 @@ fn unknown_component_error(component_name: &str, registry: &[RegistryComponent])
 
 fn update_ui_mod(root: &Path, component_names: &[String]) -> Result<(), Box<dyn Error>> {
   let mod_path = root.join("src").join("components").join("ui").join("mod.rs");
-  let existing = if mod_path.exists() {
-    fs::read_to_string(&mod_path)?
-  } else {
-    String::new()
-  };
-  let mut modules = existing
-    .lines()
-    .filter_map(parse_mod_line)
-    .collect::<Vec<_>>();
+  let existing = if mod_path.exists() { fs::read_to_string(&mod_path)? } else { String::new() };
+  let mut modules = existing.lines().filter_map(parse_mod_line).collect::<Vec<_>>();
 
   for component_name in component_names {
     let module = component_name.replace('-', "_");
@@ -254,10 +241,7 @@ fn update_ui_mod(root: &Path, component_names: &[String]) -> Result<(), Box<dyn 
 
   modules.sort();
 
-  let content = modules
-    .iter()
-    .map(|module| format!("pub mod {module};\n"))
-    .collect::<String>();
+  let content = modules.iter().map(|module| format!("pub mod {module};\n")).collect::<String>();
 
   if let Some(parent) = mod_path.parent() {
     fs::create_dir_all(parent)?;
@@ -269,34 +253,15 @@ fn update_ui_mod(root: &Path, component_names: &[String]) -> Result<(), Box<dyn 
 
 fn parse_mod_line(line: &str) -> Option<String> {
   let line = line.trim();
-  let name = line
-    .strip_prefix("pub mod ")?
-    .strip_suffix(';')?
-    .trim();
+  let name = line.strip_prefix("pub mod ")?.strip_suffix(';')?.trim();
 
-  if name.is_empty() {
-    None
-  } else {
-    Some(name.to_string())
-  }
+  if name.is_empty() { None } else { Some(name.to_string()) }
 }
 
 fn load_registry() -> Result<Vec<RegistryComponent>, Box<dyn Error>> {
-  let registry_dir = workspace_root().join("registry");
   let mut components = Vec::new();
 
-  for entry in fs::read_dir(registry_dir)? {
-    let path = entry?.path();
-
-    if path.file_name().and_then(|name| name.to_str()) == Some("schema.json") {
-      continue;
-    }
-
-    if path.extension().and_then(|extension| extension.to_str()) != Some("json") {
-      continue;
-    }
-
-    let json = fs::read_to_string(path)?;
+  for json in EMBEDDED_REGISTRY_JSON {
     let component = serde_json::from_str::<RegistryComponent>(&json)?;
 
     components.push(component);
@@ -306,12 +271,12 @@ fn load_registry() -> Result<Vec<RegistryComponent>, Box<dyn Error>> {
   Ok(components)
 }
 
-fn workspace_root() -> PathBuf {
-  Path::new(env!("CARGO_MANIFEST_DIR"))
-    .ancestors()
-    .nth(2)
-    .map(Path::to_path_buf)
-    .unwrap_or_else(|| PathBuf::from("."))
+fn embedded_asset_content(source: &str) -> Result<&'static str, Box<dyn Error>> {
+  EMBEDDED_ASSETS
+    .iter()
+    .find(|asset| asset.source == source)
+    .map(|asset| asset.content)
+    .ok_or_else(|| format!("embedded asset `{source}` was not found").into())
 }
 
 fn write_new_file(path: &Path, content: &str) -> Result<(), Box<dyn Error>> {
@@ -452,6 +417,31 @@ mod tests {
     assert!(message.contains("available components:"));
     assert!(message.contains("button"));
     assert!(!message.contains("utils"));
+  }
+
+  #[test]
+  fn registry_sources_are_embedded() {
+    let registry = load_registry().expect("registry should load");
+
+    for component in registry {
+      for file in component.files {
+        assert!(
+          embedded_asset_content(&file.source).is_ok(),
+          "{} should embed {}",
+          component.name,
+          file.source
+        );
+      }
+
+      for asset in component.assets {
+        assert!(
+          embedded_asset_content(&asset.source).is_ok(),
+          "{} should embed {}",
+          component.name,
+          asset.source
+        );
+      }
+    }
   }
 
   #[test]
