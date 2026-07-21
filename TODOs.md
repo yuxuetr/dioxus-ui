@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M125 First Publish Readiness Planning
-- Current task: M125.1 Plan first publish readiness resolution cycle
+- Current task: M125.2 Add blocker resolution evidence checklist
 
 ## Backup
 
@@ -2127,7 +2127,7 @@
 
 ## M125 First Publish Readiness Planning
 
-- TODO M125.1 Plan first publish readiness resolution cycle
+- DONE M125.1 Plan first publish readiness resolution cycle
   - Define a repository-safe plan for resolving the remaining publish blockers in maintainer-approved order.
   - Split maintainer decisions from local implementation follow-up for repository identity, license files, API stability, release notes, registry availability, and workspace dependency publish readiness.
   - Keep the plan read-only: no repository URL changes, no license text generation, no crates.io contact, no package archives, no publish commands, no version changes, no tags, and no CI workflow activation.
