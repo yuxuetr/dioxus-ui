@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M123 API Stability Surface Audit
-- Current task: M123.3 Add API stability review checklist
+- Current task: M123.4 Complete API stability surface audit milestone
 
 ## Backup
 
@@ -2093,7 +2093,7 @@
   - Mark which surfaces are source-copy user-facing, crate-mode user-facing, internal implementation detail, or publish-blocker follow-up.
   - Link the inventory from API stability metadata, publish readiness matrix, release docs, quality gates, README, and docs index as needed.
 
-- TODO M123.3 Add API stability review checklist
+- DONE M123.3 Add API stability review checklist
   - Add a maintainer checklist for reviewing component naming, prop naming, feature names, primitive helpers, registry slugs, and source-copy compatibility before first publish.
   - Include safe validation commands and explicit non-goals.
   - Keep the checklist separate from API stabilization approval.
