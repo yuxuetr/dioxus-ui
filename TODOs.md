@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M124 CLI Template Embedding Readiness
-- Current task: M124.3 Update CLI template packaging readiness metadata
+- Current task: M124.4 Complete CLI template embedding milestone
 
 ## Backup
 
@@ -2115,7 +2115,7 @@
   - Update `dxui list` and `dxui add` to read embedded registry and asset contents instead of repository paths.
   - Preserve recursive dependencies, overwrite behavior, `utils` handling, generated target paths, and list ordering.
 
-- TODO M124.3 Update CLI template packaging readiness metadata
+- DONE M124.3 Update CLI template packaging readiness metadata
   - Change the focused readiness gate from "blocker remains unresolved" to "embedded template delivery is active".
   - Update publish blockers, Cargo publish metadata, publish readiness coverage, publish readiness runbook, release docs, quality gates, README, docs-site notes, and decision handoff docs.
   - Keep other publish blockers unresolved unless separately approved.
