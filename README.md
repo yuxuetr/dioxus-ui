@@ -560,6 +560,10 @@ URLs, stabilize APIs, generate release notes, generate license text, embed or
 package CLI templates, contact registries, inspect credentials, run
 `cargo package`, run `cargo publish`, or create package archives.
 
+Use [Publish Readiness Decision Matrix](docs/publish-readiness-decision-matrix.md)
+to record the maintainer decision, evidence, local follow-up files, and focused
+validation commands for each blocker before resolving it.
+
 Verify publish order metadata only:
 
 ```bash

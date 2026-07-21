@@ -93,8 +93,10 @@ Record current blocker status before any publish decision:
 
 Use [Publish Readiness Blockers](publish-readiness-blockers.md) and
 [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
-for the current source of truth. This checklist does not resolve blockers or
-authorize publishing.
+for the current source of truth. Use
+[Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
+when maintainer decisions need explicit evidence before local follow-up. This
+checklist does not resolve blockers or authorize publishing.
 
 ## Warning Inventory Evidence
 

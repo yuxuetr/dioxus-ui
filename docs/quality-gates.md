@@ -373,6 +373,10 @@ generate license text, embed or package CLI templates, change dependency
 versions, contact registries, inspect credentials, run `cargo package`, run
 `cargo publish`, or create package archives.
 
+[Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
+maps each blocker to maintainer input, evidence, local follow-up files, and
+safe validation commands. It does not resolve blockers or authorize publishing.
+
 `npm run verify:publish-order` checks the planned crate publish order. It is
 read-only and does not create package archives, run `cargo package`, run
 `cargo publish`, contact crates.io, check registry ownership, inspect

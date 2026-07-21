@@ -1842,6 +1842,30 @@ URLs, stabilize APIs, generate release notes, generate license text, embed or
 package CLI templates, contact registries, inspect credentials, run
 `cargo package`, run `cargo publish`, or create package archives.
 
+## M122 Publish Readiness Decision Matrix Usage
+
+M122 adds a maintainer-facing decision matrix:
+
+```text
+docs/publish-readiness-decision-matrix.md
+```
+
+The matrix records required decisions, evidence, local follow-up files, and
+safe validation commands for each current publish readiness blocker. It is a
+handoff aid and does not authorize publishing.
+
+Use it with:
+
+- [Publish Readiness Blockers](publish-readiness-blockers.md)
+- [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
+- [Release Candidate Handoff Checklist](release-candidate-handoff-checklist.md)
+
+It remains repository-safe. It does not replace repository URLs, generate
+license text, decide API stability, generate release notes, embed or package
+CLI templates, contact crates.io, inspect credentials, run `cargo package`, run
+`cargo publish`, create package archives, create Git tags, or publish
+artifacts.
+
 ## M107 Publish Order Metadata Gate Usage
 
 M107 adds a focused publish order metadata command:

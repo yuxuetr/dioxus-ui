@@ -3,6 +3,10 @@
 This document defines the manual resolution runbook for known publish readiness
 blockers. It is a planning artifact, not a publish authorization.
 
+Use [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
+to collect maintainer decisions, required evidence, local follow-up files, and
+safe validation commands before resolving any blocker.
+
 ## Resolution Order
 
 Resolve blockers in this order before any package archive or publish command:

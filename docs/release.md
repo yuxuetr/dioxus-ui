@@ -224,6 +224,9 @@ blockers, replace repository URLs, stabilize APIs, generate release notes,
 generate license text, embed or package CLI templates, change dependency
 versions, contact registries, inspect credentials, run `cargo package`, run
 `cargo publish`, or create package archives.
+The [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
+records required maintainer decisions, evidence, local follow-up files, and
+safe validation commands before any blocker is resolved.
 Publish order checks are read-only. They validate the planned crate publish
 order; they do not create package archives, run `cargo package`, run
 `cargo publish`, contact crates.io, check registry ownership, inspect

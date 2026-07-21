@@ -8,6 +8,8 @@ The repository has already passed the local release gate in
 the current workspace is internally consistent; it does not resolve the
 publish blockers tracked in
 [Publish Readiness Blockers](publish-readiness-blockers.md).
+The detailed maintainer evidence table is tracked in
+[Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md).
 
 ## Decision Boundary
 
