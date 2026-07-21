@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M127 Workspace Dependency Publish Readiness Preparation
-- Current task: M127.1 Plan workspace dependency publish readiness preparation
+- Current task: M127.2 Add workspace dependency evidence checklist
 
 ## Backup
 
@@ -2171,7 +2171,7 @@
 
 ## M127 Workspace Dependency Publish Readiness Preparation
 
-- TODO M127.1 Plan workspace dependency publish readiness preparation
+- DONE M127.1 Plan workspace dependency publish readiness preparation
   - Define a repository-safe preparation pass for deciding the internal crate dependency strategy before first publish.
   - Identify review artifacts for workspace dependencies, crate manifests, publish order, version policy, and Cargo-supported publish behavior.
   - Keep the plan read-only: no dependency version changes, no manifest rewrites, no `cargo package`, no `cargo publish`, no crates.io contact, and no publish authorization.
