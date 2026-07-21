@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M124 CLI Template Embedding Readiness
-- Current task: M124.1 Plan CLI template embedding
+- Current task: M124.2 Implement embedded CLI asset catalog
 
 ## Backup
 
@@ -2105,7 +2105,7 @@
 
 ## M124 CLI Template Embedding Readiness
 
-- TODO M124.1 Plan CLI template embedding
+- DONE M124.1 Plan CLI template embedding
   - Define the compile-time registry/template embedding strategy for `dioxus-ui-cli`.
   - Identify code, tests, metadata gates, docs, generated fixture smoke, and release gate updates required to resolve the CLI template packaging blocker.
   - Keep planning repository-safe: no package archives, no `cargo package`, no `cargo publish`, no install test, no registry contact, and no template rewrites unless required by embedding.
