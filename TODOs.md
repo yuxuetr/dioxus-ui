@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 99%
+- Current milestone: M123 API Stability Surface Audit
+- Current task: M123.1 Plan API stability surface audit
 
 ## Backup
 
@@ -2079,6 +2079,28 @@
 - DONE M122.4 Complete publish readiness handoff milestone
   - Run docs checks, release docs checks, publish readiness checks, package script checks, handoff metadata checks, repo hygiene checks, browser artifact policy checks, package lock checks, and diff checks.
   - Verify no package archives, publish commands, repository URL changes, license text files, generated release notes, tags, screenshots, traces, or CI workflow files are committed.
+  - Update TODO status only after commits and validation.
+
+## M123 API Stability Surface Audit
+
+- TODO M123.1 Plan API stability surface audit
+  - Define a repository-safe audit for public crate exports, component props, primitive helper functions, features, registry entries, and source-copy templates.
+  - Classify API surfaces by stability risk without deciding semantic versioning policy or freezing APIs.
+  - Keep the plan read-only: no version changes, no API rewrites, no migration guide generation, no packaging, and no publishing.
+
+- TODO M123.2 Add public API surface inventory
+  - Document current public modules, feature flags, component names, source-copy targets, and primitive helper groups.
+  - Mark which surfaces are source-copy user-facing, crate-mode user-facing, internal implementation detail, or publish-blocker follow-up.
+  - Link the inventory from API stability metadata, publish readiness matrix, release docs, quality gates, README, and docs index as needed.
+
+- TODO M123.3 Add API stability review checklist
+  - Add a maintainer checklist for reviewing component naming, prop naming, feature names, primitive helpers, registry slugs, and source-copy compatibility before first publish.
+  - Include safe validation commands and explicit non-goals.
+  - Keep the checklist separate from API stabilization approval.
+
+- TODO M123.4 Complete API stability surface audit milestone
+  - Run docs checks, API stability readiness checks, publish readiness checks, release docs checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
+  - Verify no version changes, component API rewrites, template rewrites, package archives, publish commands, tags, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
