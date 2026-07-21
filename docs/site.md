@@ -620,6 +620,21 @@ The local follow-up map separates source-copy compatibility follow-up from
 crate-mode stability follow-up and maps approved, blocked, and deferred
 decisions to local files and gates without applying API changes.
 
+## M127 Workspace Dependency Publish Readiness Preparation
+
+M127 starts the decision preparation pass for workspace dependency publish
+readiness:
+
+```text
+docs/workspace-dependency-publish-readiness-preparation-plan.md
+```
+
+The plan separates local development path dependencies from publish readiness
+requirements, keeps the planned publish order linked to dependency metadata,
+and does not change dependency versions, rewrite manifests, run `cargo package`,
+run `cargo publish`, contact crates.io, inspect credentials, create package
+archives, create tags, or authorize publishing.
+
 Use the individual commands only when isolating a specific failure:
 
 ```bash

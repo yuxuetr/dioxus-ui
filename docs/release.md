@@ -260,6 +260,9 @@ publish readiness work; they do not change dependency versions, run
 `cargo package`, run `cargo publish`, contact crates.io, check registry
 ownership, inspect credentials, create package archives, or authorize a
 release.
+[Workspace Dependency Publish Readiness Preparation Plan](workspace-dependency-publish-readiness-preparation-plan.md)
+defines the repository-safe decision pass before any internal dependency
+version metadata changes.
 Cargo lock metadata checks are also part of the release aggregate, but they
 only compare committed `Cargo.lock` workspace package metadata and Cargo
 metadata output; they do not update the lockfile or contact crates.io.

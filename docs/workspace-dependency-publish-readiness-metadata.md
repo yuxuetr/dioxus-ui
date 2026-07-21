@@ -3,6 +3,8 @@
 This document defines the planned metadata gate for workspace dependency
 publish readiness. It keeps internal crate dependency versioning explicit
 before any crate packaging or publishing work starts.
+The decision preparation plan is tracked in
+[Workspace Dependency Publish Readiness Preparation Plan](workspace-dependency-publish-readiness-preparation-plan.md).
 
 ## Current State
 
@@ -58,6 +60,7 @@ Keep this metadata gate aligned with:
 - [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
 - [Cargo Publish Metadata](cargo-publish-metadata.md)
 - [Publish Order Metadata](publish-order-metadata.md)
+- [Workspace Dependency Publish Readiness Preparation Plan](workspace-dependency-publish-readiness-preparation-plan.md)
 - [Release and Package Strategy](release.md)
 - [Quality Gates](quality-gates.md)
 - [Documentation Site Plan](site.md)

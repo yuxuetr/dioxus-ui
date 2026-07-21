@@ -414,6 +414,9 @@ readiness work. It is read-only and does not change dependency versions, run
 `cargo package`, run `cargo publish`, contact crates.io, check registry
 ownership, inspect credentials, create package archives, or authorize a
 release.
+[Workspace Dependency Publish Readiness Preparation Plan](workspace-dependency-publish-readiness-preparation-plan.md)
+records the read-only decision pass before internal dependency version metadata
+changes.
 
 `npm run verify:cargo-lock` checks that committed `Cargo.lock` workspace package
 entries match `cargo metadata --locked --no-deps` workspace members. It is

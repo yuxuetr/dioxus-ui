@@ -19,6 +19,9 @@ dependencies have crates.io-resolvable version metadata aligned with this
 publish order.
 The workspace dependency publish readiness gate should stay aligned with this
 publish order whenever internal project crate dependencies change.
+Use
+[Workspace Dependency Publish Readiness Preparation Plan](workspace-dependency-publish-readiness-preparation-plan.md)
+before changing dependency metadata.
 
 ## Readiness Contract
 
