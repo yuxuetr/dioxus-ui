@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M127 Workspace Dependency Publish Readiness Preparation
+- Current task: M127.1 Plan workspace dependency publish readiness preparation
 
 ## Backup
 
@@ -2167,6 +2167,28 @@
 - DONE M126.4 Complete API stability decision preparation milestone
   - Run docs checks, API stability readiness checks, publish readiness checks, release docs checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
   - Verify no API rewrites, version changes, migration guides, package archives, publish commands, generated release notes, tags, screenshots, traces, or CI workflow files are committed.
+  - Update TODO status only after commits and validation.
+
+## M127 Workspace Dependency Publish Readiness Preparation
+
+- TODO M127.1 Plan workspace dependency publish readiness preparation
+  - Define a repository-safe preparation pass for deciding the internal crate dependency strategy before first publish.
+  - Identify review artifacts for workspace dependencies, crate manifests, publish order, version policy, and Cargo-supported publish behavior.
+  - Keep the plan read-only: no dependency version changes, no manifest rewrites, no `cargo package`, no `cargo publish`, no crates.io contact, and no publish authorization.
+
+- TODO M127.2 Add workspace dependency evidence checklist
+  - Add a maintainer-facing checklist for internal dependency version policy, publish order, package ownership, and crates.io-resolvable dependency evidence.
+  - Include safe validation commands without approving or applying dependency metadata changes.
+  - Link the checklist from workspace dependency readiness metadata, publish order metadata, first-publish planning docs, release docs, quality gates, README, and docs-site notes.
+
+- TODO M127.3 Add workspace dependency local follow-up map
+  - Map approved dependency strategies to exact local files and gates that would change after approval.
+  - Separate local development path dependencies from publishable dependency version metadata.
+  - Keep all changes hypothetical unless maintainer input is already committed.
+
+- TODO M127.4 Complete workspace dependency publish readiness preparation milestone
+  - Run docs checks, workspace dependency readiness checks, publish order checks, Cargo workspace checks, Cargo publish metadata checks, publish readiness checks, release docs checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
+  - Verify no dependency version changes, manifest rewrites, package archives, publish commands, crates.io contact, generated release notes, tags, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
