@@ -419,6 +419,9 @@ records the read-only decision pass before internal dependency version metadata
 changes.
 [Workspace Dependency Evidence Checklist](workspace-dependency-evidence-checklist.md)
 records the maintainer evidence required before local manifest follow-up.
+[Workspace Dependency Local Follow-up Map](workspace-dependency-local-follow-up-map.md)
+maps approved dependency strategies to manifest, metadata, and gate follow-up
+without applying changes.
 
 `npm run verify:cargo-lock` checks that committed `Cargo.lock` workspace package
 entries match `cargo metadata --locked --no-deps` workspace members. It is

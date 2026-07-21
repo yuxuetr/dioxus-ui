@@ -265,6 +265,9 @@ defines the repository-safe decision pass before any internal dependency
 version metadata changes.
 [Workspace Dependency Evidence Checklist](workspace-dependency-evidence-checklist.md)
 records the maintainer evidence required before dependency metadata follow-up.
+[Workspace Dependency Local Follow-up Map](workspace-dependency-local-follow-up-map.md)
+maps approved dependency strategies to local manifest, metadata, and validation
+follow-up without applying changes.
 Cargo lock metadata checks are also part of the release aggregate, but they
 only compare committed `Cargo.lock` workspace package metadata and Cargo
 metadata output; they do not update the lockfile or contact crates.io.

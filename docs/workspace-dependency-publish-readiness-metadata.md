@@ -7,6 +7,8 @@ The decision preparation plan is tracked in
 [Workspace Dependency Publish Readiness Preparation Plan](workspace-dependency-publish-readiness-preparation-plan.md).
 The maintainer evidence checklist is tracked in
 [Workspace Dependency Evidence Checklist](workspace-dependency-evidence-checklist.md).
+The local follow-up map is tracked in
+[Workspace Dependency Local Follow-up Map](workspace-dependency-local-follow-up-map.md).
 
 ## Current State
 
@@ -64,6 +66,7 @@ Keep this metadata gate aligned with:
 - [Publish Order Metadata](publish-order-metadata.md)
 - [Workspace Dependency Publish Readiness Preparation Plan](workspace-dependency-publish-readiness-preparation-plan.md)
 - [Workspace Dependency Evidence Checklist](workspace-dependency-evidence-checklist.md)
+- [Workspace Dependency Local Follow-up Map](workspace-dependency-local-follow-up-map.md)
 - [Release and Package Strategy](release.md)
 - [Quality Gates](quality-gates.md)
 - [Documentation Site Plan](site.md)

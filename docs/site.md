@@ -628,6 +628,7 @@ readiness:
 ```text
 docs/workspace-dependency-publish-readiness-preparation-plan.md
 docs/workspace-dependency-evidence-checklist.md
+docs/workspace-dependency-local-follow-up-map.md
 ```
 
 The plan separates local development path dependencies from publish readiness
@@ -639,6 +640,10 @@ archives, create tags, or authorize publishing.
 The evidence checklist records required maintainer input for publishable crate
 set, publish order, internal dependency graph, version policy, local development
 behavior, and release-owner boundaries before local manifest follow-up begins.
+
+The local follow-up map separates local workspace path dependencies from
+publishable dependency version metadata and maps approved, blocked, and
+deferred strategies to local files and gates without applying manifest changes.
 
 Use the individual commands only when isolating a specific failure:
 

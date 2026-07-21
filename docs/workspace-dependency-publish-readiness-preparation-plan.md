@@ -8,6 +8,7 @@ Use this plan with:
 
 - [Workspace Dependency Publish Readiness Metadata](workspace-dependency-publish-readiness-metadata.md)
 - [Workspace Dependency Evidence Checklist](workspace-dependency-evidence-checklist.md)
+- [Workspace Dependency Local Follow-up Map](workspace-dependency-local-follow-up-map.md)
 - [Publish Order Metadata](publish-order-metadata.md)
 - [Cargo Publish Metadata](cargo-publish-metadata.md)
 - [First Publish Readiness Plan](first-publish-readiness-plan.md)
@@ -55,7 +56,8 @@ Prepare the decision in this order:
 4. Confirm whether the selected strategy preserves local development behavior.
 5. Record maintainer evidence in the workspace dependency evidence checklist
    before changing manifests.
-6. Only after approval, update dependency metadata and blocker docs together.
+6. Only after approval, update dependency metadata and blocker docs together
+   using the workspace dependency local follow-up map.
 
 ## Decision Outcomes
 

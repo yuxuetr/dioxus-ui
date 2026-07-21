@@ -7,6 +7,7 @@ or apply dependency changes by itself.
 Use this checklist with:
 
 - [Workspace Dependency Publish Readiness Preparation Plan](workspace-dependency-publish-readiness-preparation-plan.md)
+- [Workspace Dependency Local Follow-up Map](workspace-dependency-local-follow-up-map.md)
 - [Workspace Dependency Publish Readiness Metadata](workspace-dependency-publish-readiness-metadata.md)
 - [Publish Order Metadata](publish-order-metadata.md)
 - [Cargo Publish Metadata](cargo-publish-metadata.md)

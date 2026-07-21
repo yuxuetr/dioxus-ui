@@ -24,6 +24,8 @@ Use
 before changing dependency metadata.
 Use [Workspace Dependency Evidence Checklist](workspace-dependency-evidence-checklist.md)
 to record the approved dependency evidence before local follow-up.
+Use [Workspace Dependency Local Follow-up Map](workspace-dependency-local-follow-up-map.md)
+to keep approved manifest changes aligned with publish order.
 
 ## Readiness Contract
 
