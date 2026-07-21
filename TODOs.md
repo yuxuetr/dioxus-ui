@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M126 API Stability Decision Preparation
+- Current task: M126.1 Plan API stability decision preparation
 
 ## Backup
 
@@ -2145,6 +2145,28 @@
 - DONE M125.4 Complete first publish readiness planning milestone
   - Run docs checks, release docs checks, publish readiness checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
   - Verify no package archives, publish commands, repository URL changes, license files, version changes, generated release notes, tags, screenshots, traces, or CI workflow files are committed.
+  - Update TODO status only after commits and validation.
+
+## M126 API Stability Decision Preparation
+
+- TODO M126.1 Plan API stability decision preparation
+  - Define a repository-safe preparation pass for deciding whether current `0.1.x` crate-mode APIs are acceptable for first publish.
+  - Identify review artifacts for public component props, feature names, registry slugs, template paths, primitive helpers, and core exports.
+  - Keep the plan read-only: no API rewrites, no version changes, no migration guide generation, no package archives, no publish commands, and no stability approval.
+
+- TODO M126.2 Add API stability decision record template
+  - Add a maintainer-facing decision record that can capture accepted, deferred, and required-change API surfaces.
+  - Include explicit evidence fields for breaking-change policy, migration note expectations, and first-publish acceptance.
+  - Link the template from API stability metadata, public API inventory, review checklist, first-publish planning docs, release docs, quality gates, README, and docs-site notes.
+
+- TODO M126.3 Add API stability local follow-up map
+  - Map each possible maintainer decision to local files and gates that would change after approval.
+  - Separate source-copy compatibility follow-up from crate-mode stability follow-up.
+  - Keep all changes hypothetical unless a maintainer decision is already committed.
+
+- TODO M126.4 Complete API stability decision preparation milestone
+  - Run docs checks, API stability readiness checks, publish readiness checks, release docs checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
+  - Verify no API rewrites, version changes, migration guides, package archives, publish commands, generated release notes, tags, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
