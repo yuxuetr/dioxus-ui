@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 99%
-- Current milestone: M123 API Stability Surface Audit
-- Current task: M123.4 Complete API stability surface audit milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2098,7 +2098,7 @@
   - Include safe validation commands and explicit non-goals.
   - Keep the checklist separate from API stabilization approval.
 
-- TODO M123.4 Complete API stability surface audit milestone
+- DONE M123.4 Complete API stability surface audit milestone
   - Run docs checks, API stability readiness checks, publish readiness checks, release docs checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
   - Verify no version changes, component API rewrites, template rewrites, package archives, publish commands, tags, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
