@@ -510,6 +510,8 @@ This checks workspace version `0.1.0` and the unresolved pre-`1.0` API
 stability blocker. It does not stabilize component APIs, change crate versions,
 decide semantic versioning policy, generate migration guides, run
 `cargo package`, or run `cargo publish`.
+The current API review surface is documented in
+[Public API Surface Inventory](docs/public-api-surface-inventory.md).
 
 Verify CLI template packaging readiness metadata only:
 

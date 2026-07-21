@@ -1,6 +1,8 @@
 # API Stability Readiness Metadata
 
 M102 defines the read-only contract for API stability readiness. The workspace is still at `0.1.0`, and release docs explicitly allow breaking API changes before `1.0`, so crate-mode APIs are not yet publish-ready stable.
+The current audit inventory is tracked in
+[Public API Surface Inventory](public-api-surface-inventory.md).
 
 ## Expected Shape
 

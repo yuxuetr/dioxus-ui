@@ -1884,6 +1884,30 @@ It remains a planning artifact. It does not run `cargo package`, run
 `cargo publish`, contact crates.io, inspect credentials, create package
 archives, create Git tags, publish GitHub releases, or authorize publishing.
 
+## M123 Public API Surface Inventory Usage
+
+M123 adds a public API surface inventory:
+
+```text
+docs/public-api-surface-inventory.md
+```
+
+The inventory records current styled component modules, component features,
+source-copy templates, registry entries, primitive module groups, and core
+exports that need maintainer review before the API stability blocker can be
+resolved.
+
+Use it with:
+
+- [API Stability Readiness Metadata](api-stability-readiness-metadata.md)
+- [API Stability Surface Audit Plan](api-stability-surface-audit-plan.md)
+- [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
+
+It remains descriptive. It does not freeze APIs, rename components, rewrite
+props, change feature names, change crate versions, generate migration guides,
+run `cargo package`, run `cargo publish`, contact crates.io, create tags, or
+publish artifacts.
+
 ## M107 Publish Order Metadata Gate Usage
 
 M107 adds a focused publish order metadata command:

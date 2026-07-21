@@ -202,6 +202,9 @@ API stability readiness checks are read-only and validate only workspace
 version `0.1.0` and the unresolved pre-`1.0` API stability blocker; they do not
 stabilize component APIs, change crate versions, decide semantic versioning
 policy, generate migration guides, run `cargo package`, or run `cargo publish`.
+The [Public API Surface Inventory](public-api-surface-inventory.md) documents
+the current component, primitive, core, feature, registry, and source-copy
+surfaces for maintainer review without resolving the blocker.
 CLI template packaging readiness checks are read-only. They validate that the
 CLI template source is still repository-layout based and that the unresolved
 packaging blocker remains documented; they do not embed templates, package

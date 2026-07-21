@@ -346,6 +346,9 @@ existence, check crates.io availability, run `cargo package`, or run
 the unresolved pre-`1.0` API stability blocker. It is read-only and does not
 stabilize component APIs, change crate versions, decide semantic versioning
 policy, generate migration guides, run `cargo package`, or run `cargo publish`.
+[Public API Surface Inventory](public-api-surface-inventory.md) records the
+current component, primitive, core, feature, registry, and source-copy surfaces
+that need maintainer review before that blocker can be resolved.
 
 `npm run verify:cli-template-packaging-readiness` checks that the CLI template
 source is still repository-layout based and that the unresolved packaging
