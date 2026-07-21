@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M125 First Publish Readiness Planning
+- Current task: M125.1 Plan first publish readiness resolution cycle
 
 ## Backup
 
@@ -2123,6 +2123,28 @@
 - DONE M124.4 Complete CLI template embedding milestone
   - Run CLI tests, generated fixture smoke, registry checks, docs checks, release docs checks, publish readiness checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
   - Verify no package archives, publish commands, repository URL changes, license files, version changes, API rewrites, generated release notes, tags, screenshots, traces, or CI workflow files are committed.
+  - Update TODO status only after commits and validation.
+
+## M125 First Publish Readiness Planning
+
+- TODO M125.1 Plan first publish readiness resolution cycle
+  - Define a repository-safe plan for resolving the remaining publish blockers in maintainer-approved order.
+  - Split maintainer decisions from local implementation follow-up for repository identity, license files, API stability, release notes, registry availability, and workspace dependency publish readiness.
+  - Keep the plan read-only: no repository URL changes, no license text generation, no crates.io contact, no package archives, no publish commands, no version changes, no tags, and no CI workflow activation.
+
+- TODO M125.2 Add blocker resolution evidence checklist
+  - Add a maintainer-facing checklist that records required evidence before each blocker can move from current to resolved.
+  - Include safe local validation commands for each blocker without approving the decision.
+  - Link the checklist from publish readiness blockers, resolution runbook, decision matrix, release docs, quality gates, README, and docs-site notes as needed.
+
+- TODO M125.3 Add first-publish local implementation map
+  - Map each approved maintainer decision to exact local files that would change after approval.
+  - Document expected validation gates and rollback considerations for each blocker.
+  - Keep local changes hypothetical unless maintainer input is already committed.
+
+- TODO M125.4 Complete first publish readiness planning milestone
+  - Run docs checks, release docs checks, publish readiness checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
+  - Verify no package archives, publish commands, repository URL changes, license files, version changes, generated release notes, tags, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
