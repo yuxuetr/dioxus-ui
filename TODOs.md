@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M125 First Publish Readiness Planning
-- Current task: M125.4 Complete first publish readiness planning milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2142,7 +2142,7 @@
   - Document expected validation gates and rollback considerations for each blocker.
   - Keep local changes hypothetical unless maintainer input is already committed.
 
-- TODO M125.4 Complete first publish readiness planning milestone
+- DONE M125.4 Complete first publish readiness planning milestone
   - Run docs checks, release docs checks, publish readiness checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
   - Verify no package archives, publish commands, repository URL changes, license files, version changes, generated release notes, tags, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
