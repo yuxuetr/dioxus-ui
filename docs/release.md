@@ -202,6 +202,15 @@ License readiness checks are read-only and validate only workspace license
 metadata and missing root `LICENSE-MIT` and `LICENSE-APACHE` files; they do not
 choose license terms, generate license text, change copyright holders, run
 `cargo package`, run `cargo publish`, or contact crates.io.
+[License Decision Preparation Plan](license-decision-preparation-plan.md)
+defines the repository-safe decision pass before maintainers accept, block, or
+defer root license file readiness.
+[License Decision Record Template](license-decision-record-template.md)
+provides copyable license file, copyright holder, expression confirmation, file
+commit approval, and rollback evidence fields.
+[License Local Follow-up Map](license-local-follow-up-map.md) maps license
+decision outcomes to local license file, metadata, and documentation follow-up
+without generating or committing license text by itself.
 Repository identity readiness checks are read-only and validate only that the
 placeholder repository URL remains in workspace metadata; they do not choose a
 repository owner, replace repository metadata, check remote repository

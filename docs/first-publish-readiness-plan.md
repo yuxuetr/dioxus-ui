@@ -14,6 +14,7 @@ Use this plan with:
 - [First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md)
 - [Release Candidate Handoff Checklist](release-candidate-handoff-checklist.md)
 - [Repository Identity Decision Preparation Plan](repository-identity-decision-preparation-plan.md)
+- [License Decision Preparation Plan](license-decision-preparation-plan.md)
 
 ## Current Blockers
 
@@ -36,7 +37,7 @@ Resolve blockers in maintainer-approved order:
 | Step | Blocker | Maintainer Decision | Local Follow-up After Approval |
 | --- | --- | --- | --- |
 | 1 | Placeholder repository URL | Final repository owner and canonical URL using [Repository Identity Decision Preparation Plan](repository-identity-decision-preparation-plan.md) | Update workspace metadata and readiness docs, then rerun repository identity and publish readiness gates |
-| 2 | Root license files not committed | Exact root license files and copyright holder | Commit approved license files and update license readiness metadata |
+| 2 | Root license files not committed | Exact root license files and copyright holder using [License Decision Preparation Plan](license-decision-preparation-plan.md) | Commit approved license files and update license readiness metadata |
 | 3 | Pre-1.0 API stability | Accept `0.1.x` first-publish API policy or require stabilization work using [API Stability Decision Preparation Plan](api-stability-decision-preparation-plan.md) | Update API stability metadata, public surface inventory, changelog guidance, and release docs |
 | 4 | Release notes not publish-ready | First publish release-note scope and known warning text using [Release Notes Readiness Preparation Plan](release-notes-readiness-preparation-plan.md) | Update `CHANGELOG.md`, release notes metadata, and release docs |
 | 5 | Registry availability not checked | crates.io names, owners, credentials, and publish order | Update registry availability metadata, publish order metadata, and Cargo publish metadata |

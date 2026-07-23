@@ -39,9 +39,14 @@ const rootCargo = readText("Cargo.toml");
 const packageJson = JSON.parse(readText("package.json"));
 const publishBlockers = readText("docs/publish-readiness-blockers.md");
 const licenseDoc = readText("docs/license-readiness-metadata.md");
+const preparationPlan = readText("docs/license-decision-preparation-plan.md");
+const decisionTemplate = readText("docs/license-decision-record-template.md");
+const followUpMap = readText("docs/license-local-follow-up-map.md");
 const cargoPublishDoc = normalizeWhitespace(readText("docs/cargo-publish-metadata.md"));
 const releaseDoc = normalizeWhitespace(readText("docs/release.md"));
 const qualityDoc = normalizeWhitespace(readText("docs/quality-gates.md"));
+const readme = normalizeWhitespace(readText("README.md"));
+const docsIndex = readText("docs/README.md");
 const siteDoc = normalizeWhitespace(readText("docs/site.md"));
 const scripts = packageJson.scripts ?? {};
 const failures = [];
@@ -90,7 +95,39 @@ requireIncludes("docs/license-readiness-metadata.md", licenseDoc, [
   "`MIT OR Apache-2.0`",
   "LICENSE-MIT",
   "LICENSE-APACHE",
+  "License Decision Preparation Plan",
+  "License Decision Record Template",
+  "License Local Follow-up Map",
   "without resolving it",
+]);
+
+requireIncludes("docs/license-decision-preparation-plan.md", preparationPlan, [
+  "License Decision Preparation Plan",
+  "`MIT OR Apache-2.0`",
+  "approved `LICENSE-MIT` text",
+  "approved `LICENSE-APACHE` text",
+  "copyright holder text",
+  "M130 must not",
+  "commit `LICENSE-MIT`",
+  "commit `LICENSE-APACHE`",
+]);
+
+requireIncludes("docs/license-decision-record-template.md", decisionTemplate, [
+  "License Decision Record Template",
+  "Workspace license expression accepted",
+  "`LICENSE-MIT` text approved by",
+  "`LICENSE-APACHE` text approved by",
+  "Copyright holder text",
+  "Root license file commit approved",
+  "Decision state: `approved` / `blocked` / `deferred`",
+]);
+
+requireIncludes("docs/license-local-follow-up-map.md", followUpMap, [
+  "License Local Follow-up Map",
+  "Move license readiness out of current blockers only after approved files",
+  "Keep root license files absent",
+  "Workspace license metadata",
+  "does not commit license files without maintainer approval",
 ]);
 
 requireIncludes("docs/publish-readiness-blockers.md", publishBlockers, [
@@ -107,16 +144,35 @@ requireIncludes("docs/release.md", releaseDoc, [
   "License readiness checks are read-only",
   "workspace license metadata and missing root `LICENSE-MIT` and `LICENSE-APACHE` files",
   "they do not choose license terms, generate license text, change copyright holders, run `cargo package`, run `cargo publish`, or contact crates.io",
+  "License Decision Preparation Plan",
+  "License Decision Record Template",
+  "License Local Follow-up Map",
 ]);
 
 requireIncludes("docs/quality-gates.md", qualityDoc, [
   "`npm run verify:license-readiness`",
   "workspace license metadata and missing root `LICENSE-MIT` and `LICENSE-APACHE` files",
   "does not choose license terms, generate license text, change copyright holders, run `cargo package`, run `cargo publish`, or contact crates.io",
+  "License Decision Preparation Plan",
+  "License Decision Record Template",
+  "License Local Follow-up Map",
+]);
+
+requireIncludes("README.md", readme, [
+  "License Decision Preparation Plan",
+  "License Decision Record Template",
+  "License Local Follow-up Map",
+]);
+
+requireIncludes("docs/README.md", docsIndex, [
+  "License Decision Preparation Plan",
+  "License Decision Record Template",
+  "License Local Follow-up Map",
 ]);
 
 requireIncludes("docs/site.md", siteDoc, [
   "M100 License Readiness Metadata Gate Usage",
+  "M130 License Decision Preparation",
   "npm run verify:license-readiness",
   "workspace license metadata and missing root `LICENSE-MIT` and `LICENSE-APACHE` files",
 ]);

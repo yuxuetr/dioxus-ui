@@ -501,6 +501,12 @@ This checks workspace license metadata and missing root `LICENSE-MIT` and
 `LICENSE-APACHE` files. It does not choose license terms, generate license
 text, change copyright holders, run `cargo package`, run `cargo publish`, or
 contact crates.io.
+Use [License Decision Preparation Plan](docs/license-decision-preparation-plan.md)
+for the maintainer decision pass before committing root license files.
+[License Decision Record Template](docs/license-decision-record-template.md)
+captures approved, blocked, and deferred outcomes.
+[License Local Follow-up Map](docs/license-local-follow-up-map.md) maps
+approved license decisions to local file, metadata, and documentation updates.
 
 Verify repository identity readiness metadata only:
 

@@ -1664,6 +1664,41 @@ All commands passed. The check does not choose license terms, generate license
 text, change copyright holders, run `cargo package`, run `cargo publish`, or
 contact crates.io.
 
+## M130 License Decision Preparation
+
+M130 adds the decision preparation pass for first-publish root license files:
+
+- docs/license-decision-preparation-plan.md
+- docs/license-decision-record-template.md
+- docs/license-local-follow-up-map.md
+
+The plan keeps root `LICENSE-MIT` and `LICENSE-APACHE` files unresolved until
+maintainers record reviewed license file text, copyright holder text, license
+expression confirmation, and file commit approval. The local follow-up map
+separates workspace license expression follow-up from root license file
+follow-up without generating or committing license text by itself.
+
+Validation remains read-only:
+
+```bash
+npm run verify:license-readiness
+npm run verify:publish-readiness-blockers
+npm run verify:publish-readiness-coverage
+npm run verify:cargo-publish-metadata
+npm run verify:release-docs
+npm run verify:package-scripts
+npm run verify:docs
+npm run verify:repo-hygiene
+npm run verify:package-lock
+git diff --check
+```
+
+The preparation pass does not choose license terms, generate license text,
+commit root license files, change copyright holders, change workspace license
+metadata, contact crates.io, run `cargo package`, run `cargo publish`, create
+package archives, generate release notes, create tags, or activate CI
+workflows.
+
 ## M101 Repository Identity Readiness Metadata Gate Usage
 
 M101 adds a focused repository identity readiness metadata command:

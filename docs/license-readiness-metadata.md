@@ -4,6 +4,14 @@ M100 defines the read-only contract for license file readiness. The workspace
 already declares `MIT OR Apache-2.0`, but the repository does not yet commit the
 corresponding root license text files.
 
+Use [License Decision Preparation Plan](license-decision-preparation-plan.md)
+for the repository-safe decision pass before committing root license files.
+Use [License Decision Record Template](license-decision-record-template.md)
+to record approved, blocked, or deferred maintainer outcomes.
+Use [License Local Follow-up Map](license-local-follow-up-map.md)
+to map approved decisions to local license file, metadata, and documentation
+updates.
+
 ## Expected Shape
 
 The release metadata should distinguish these states:

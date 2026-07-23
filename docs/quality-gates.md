@@ -344,6 +344,15 @@ without writing final notes.
 missing root `LICENSE-MIT` and `LICENSE-APACHE` files. It is read-only and
 does not choose license terms, generate license text, change copyright holders,
 run `cargo package`, run `cargo publish`, or contact crates.io.
+[License Decision Preparation Plan](license-decision-preparation-plan.md)
+records the read-only preparation pass before maintainers accept, block, or
+defer root license file readiness.
+[License Decision Record Template](license-decision-record-template.md)
+provides copyable evidence fields for the maintainer decision without approving
+license file readiness by itself.
+[License Local Follow-up Map](license-local-follow-up-map.md) maps license
+decision outcomes to local follow-up files and gates without generating or
+committing license text.
 
 `npm run verify:repository-identity-readiness` checks that the placeholder
 repository URL remains in workspace metadata. It is read-only and does not
