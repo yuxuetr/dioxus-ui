@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 99%
-- Current milestone: M130 License Decision Preparation
-- Current task: M130.1 Plan license decision preparation
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2237,22 +2237,22 @@
 
 ## M130 License Decision Preparation
 
-- TODO M130.1 Plan license decision preparation
+- DONE M130.1 Plan license decision preparation
   - Define a repository-safe preparation pass for deciding root license files and copyright holder text before first publish.
   - Identify review artifacts for workspace license metadata, license readiness metadata, publish blockers, Cargo publish metadata, release docs, quality gates, README, and docs-site notes.
   - Keep the plan read-only: no license text generation, no root license file commits, no license expression changes, no copyright holder changes, no package archives, no publish commands, and no crates.io contact.
 
-- TODO M130.2 Add license decision record template
+- DONE M130.2 Add license decision record template
   - Add a maintainer-facing decision record that can capture approved, blocked, and deferred license file outcomes.
   - Include explicit evidence fields for `LICENSE-MIT`, `LICENSE-APACHE`, copyright holder, license expression confirmation, file commit approval, and rollback expectations.
   - Link the template from license readiness metadata, first-publish planning docs, release docs, quality gates, README, and docs-site notes.
 
-- TODO M130.3 Add license local follow-up map
+- DONE M130.3 Add license local follow-up map
   - Map each possible maintainer decision to local files and gates that would change after approval.
   - Separate workspace license expression follow-up from root license file follow-up.
   - Keep all changes hypothetical unless a maintainer decision is already committed.
 
-- TODO M130.4 Complete license decision preparation milestone
+- DONE M130.4 Complete license decision preparation milestone
   - Run docs checks, license readiness checks, publish readiness checks, Cargo publish metadata checks, release docs checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
   - Verify no license files, license text generation, license expression changes, copyright holder changes, package archives, publish commands, crates.io contact, generated release notes, tags, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
