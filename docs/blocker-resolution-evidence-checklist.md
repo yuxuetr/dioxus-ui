@@ -12,6 +12,7 @@ Use it with:
 - [First Publish Local Implementation Map](first-publish-local-implementation-map.md)
 - [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
 - [First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md)
+- [Repository Identity Decision Record Template](repository-identity-decision-record-template.md)
 
 ## Evidence Rules
 
@@ -26,7 +27,7 @@ Use it with:
 
 | Blocker | Required Evidence Before Local Follow-up | Focused Gate |
 | --- | --- | --- |
-| Placeholder repository URL | Final canonical repository URL, repository owner, and confirmation that workspace metadata should use that URL | `npm run verify:repository-identity-readiness` |
+| Placeholder repository URL | Final canonical repository URL, repository owner, remote availability evidence, confirmation that workspace metadata should use that URL, and repository identity decision record | `npm run verify:repository-identity-readiness` |
 | Root license files not committed | Approved `LICENSE-MIT`, approved `LICENSE-APACHE`, copyright holder text, and confirmation that files may be committed | `npm run verify:license-readiness` |
 | Pre-1.0 API stability | Decision to publish `0.1.x` APIs as-is or stabilization worklist, breaking-change policy, migration note expectation, and API stability decision record | `npm run verify:api-stability-readiness` |
 | Release notes not publish-ready | Approved first-publish release notes scope, included changes, excluded changes, known warnings, changelog owner, and release notes evidence checklist | `npm run verify:release-notes-readiness` |

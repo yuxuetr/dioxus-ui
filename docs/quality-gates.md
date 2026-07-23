@@ -350,6 +350,15 @@ repository URL remains in workspace metadata. It is read-only and does not
 choose a repository owner, replace repository metadata, check remote repository
 existence, check crates.io availability, run `cargo package`, or run
 `cargo publish`.
+[Repository Identity Decision Preparation Plan](repository-identity-decision-preparation-plan.md)
+records the read-only preparation pass before maintainers accept, block, or
+defer the canonical repository identity.
+[Repository Identity Decision Record Template](repository-identity-decision-record-template.md)
+provides copyable evidence fields for the maintainer decision without approving
+repository identity by itself.
+[Repository Identity Local Follow-up Map](repository-identity-local-follow-up-map.md)
+maps repository identity outcomes to local follow-up files and gates without
+applying URL changes.
 
 `npm run verify:api-stability-readiness` checks workspace version `0.1.0` and
 the unresolved pre-`1.0` API stability blocker. It is read-only and does not

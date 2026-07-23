@@ -207,6 +207,15 @@ placeholder repository URL remains in workspace metadata; they do not choose a
 repository owner, replace repository metadata, check remote repository
 existence, check crates.io availability, run `cargo package`, or run
 `cargo publish`.
+[Repository Identity Decision Preparation Plan](repository-identity-decision-preparation-plan.md)
+defines the repository-safe decision pass before maintainers accept, block, or
+defer the canonical repository owner and URL.
+[Repository Identity Decision Record Template](repository-identity-decision-record-template.md)
+provides copyable owner, URL, remote availability, metadata approval, and
+rollback evidence fields.
+[Repository Identity Local Follow-up Map](repository-identity-local-follow-up-map.md)
+maps identity decision outcomes to local metadata and documentation follow-up
+without replacing the placeholder URL by itself.
 API stability readiness checks are read-only and validate only workspace
 version `0.1.0` and the unresolved pre-`1.0` API stability blocker; they do not
 stabilize component APIs, change crate versions, decide semantic versioning

@@ -5,6 +5,13 @@ workspace package metadata still uses the placeholder repository URL
 `https://github.com/your-org/dioxus-ui`, so the project is not ready to publish
 until maintainers choose the final repository identity.
 
+Use [Repository Identity Decision Preparation Plan](repository-identity-decision-preparation-plan.md)
+for the repository-safe decision pass before replacing the placeholder URL.
+Use [Repository Identity Decision Record Template](repository-identity-decision-record-template.md)
+to record approved, blocked, or deferred maintainer outcomes.
+Use [Repository Identity Local Follow-up Map](repository-identity-local-follow-up-map.md)
+to map approved decisions to local metadata and documentation updates.
+
 ## Expected Shape
 
 The release metadata should distinguish these states:

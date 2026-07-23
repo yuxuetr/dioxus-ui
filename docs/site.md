@@ -1710,6 +1710,40 @@ All commands passed. The check does not choose a repository owner, replace
 repository metadata, check remote repository existence, check crates.io
 availability, run `cargo package`, or run `cargo publish`.
 
+## M129 Repository Identity Decision Preparation
+
+M129 adds the decision preparation pass for first-publish repository identity:
+
+- docs/repository-identity-decision-preparation-plan.md
+- docs/repository-identity-decision-record-template.md
+- docs/repository-identity-local-follow-up-map.md
+
+The plan keeps the placeholder repository URL unresolved until maintainers
+record the canonical repository owner and URL. The decision template captures
+owner, URL, remote availability, metadata approval, and rollback evidence. The
+local follow-up map separates placeholder metadata follow-up from Cargo
+workspace metadata follow-up without applying URL changes by itself.
+
+Validation remains read-only:
+
+```bash
+npm run verify:repository-identity-readiness
+npm run verify:publish-readiness-blockers
+npm run verify:publish-readiness-coverage
+npm run verify:cargo-publish-metadata
+npm run verify:release-docs
+npm run verify:package-scripts
+npm run verify:docs
+npm run verify:repo-hygiene
+npm run verify:package-lock
+git diff --check
+```
+
+The preparation pass does not choose repository ownership, replace repository
+metadata, check remote repository existence, contact crates.io, run
+`cargo package`, run `cargo publish`, create package archives, change versions,
+generate release notes, create tags, or activate CI workflows.
+
 ## M102 API Stability Readiness Metadata Gate Usage
 
 M102 adds a focused API stability readiness metadata command:

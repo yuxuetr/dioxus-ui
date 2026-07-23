@@ -512,6 +512,12 @@ This checks that the placeholder repository URL remains in workspace metadata.
 It does not choose a repository owner, replace repository metadata, check remote
 repository existence, check crates.io availability, run `cargo package`, or run
 `cargo publish`.
+Use [Repository Identity Decision Preparation Plan](docs/repository-identity-decision-preparation-plan.md)
+for the maintainer decision pass before replacing the placeholder URL.
+[Repository Identity Decision Record Template](docs/repository-identity-decision-record-template.md)
+captures approved, blocked, and deferred outcomes.
+[Repository Identity Local Follow-up Map](docs/repository-identity-local-follow-up-map.md)
+maps approved identity decisions to local metadata and documentation updates.
 
 Verify API stability readiness metadata only:
 
