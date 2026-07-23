@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 99%
-- Current milestone: M129 Repository Identity Decision Preparation
-- Current task: M129.1 Plan repository identity decision preparation
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2215,22 +2215,22 @@
 
 ## M129 Repository Identity Decision Preparation
 
-- TODO M129.1 Plan repository identity decision preparation
+- DONE M129.1 Plan repository identity decision preparation
   - Define a repository-safe preparation pass for deciding the canonical repository owner and URL before first publish.
   - Identify review artifacts for workspace metadata, repository identity metadata, publish blockers, Cargo publish metadata, release docs, quality gates, README, and docs-site notes.
   - Keep the plan read-only: no repository URL replacement, no remote repository lookup, no crates.io contact, no package archives, no publish commands, no version changes, and no CI workflow activation.
 
-- TODO M129.2 Add repository identity decision record template
+- DONE M129.2 Add repository identity decision record template
   - Add a maintainer-facing decision record that can capture approved, blocked, and deferred repository identity outcomes.
   - Include explicit evidence fields for canonical URL, repository owner, remote availability confirmation, metadata update approval, and rollback expectations.
   - Link the template from repository identity metadata, first-publish planning docs, release docs, quality gates, README, and docs-site notes.
 
-- TODO M129.3 Add repository identity local follow-up map
+- DONE M129.3 Add repository identity local follow-up map
   - Map each possible maintainer decision to local files and gates that would change after approval.
   - Separate placeholder metadata follow-up from Cargo workspace metadata follow-up.
   - Keep all changes hypothetical unless a maintainer decision is already committed.
 
-- TODO M129.4 Complete repository identity decision preparation milestone
+- DONE M129.4 Complete repository identity decision preparation milestone
   - Run docs checks, repository identity readiness checks, publish readiness checks, release docs checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
   - Verify no repository URL changes, remote lookups, crates.io contact, package archives, publish commands, version changes, generated release notes, tags, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
