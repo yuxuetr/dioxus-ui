@@ -8,6 +8,7 @@ Use this plan with:
 
 - [Publish Readiness Blockers](publish-readiness-blockers.md)
 - [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
+- [Publish Blocker Resolution Tracker](publish-blocker-resolution-tracker.md)
 - [First Publish Local Implementation Map](first-publish-local-implementation-map.md)
 - [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
 - [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)

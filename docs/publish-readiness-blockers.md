@@ -9,6 +9,9 @@ repository-safe planning cycle before any maintainer-approved blocker
 resolution work starts.
 Use [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
 to record the minimum evidence required before local follow-up can begin.
+Use [Publish Blocker Resolution Tracker](publish-blocker-resolution-tracker.md)
+to track the six current blockers together while evidence and local follow-up
+are prepared.
 
 Current blockers:
 
