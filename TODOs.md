@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 67%
-- Current milestone: M132 First Publish Decision Packet
-- Current task: M132.3 Complete first publish decision packet milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2311,7 +2311,7 @@
   - Include explicit placeholders for blocker state, evidence location, local follow-up owner, rollback owner, and verification commands.
   - Link the packet from the decision matrix, publish blocker tracker, release candidate handoff checklist, maintainer handoff template, README, and docs index.
 
-- TODO M132.3 Complete first publish decision packet milestone
+- DONE M132.3 Complete first publish decision packet milestone
   - Run docs checks, publish readiness blocker checks, coverage checks, runbook checks, release docs checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
   - Verify no repository URL changes, root license files, API rewrites, generated release notes, crates.io contact, dependency version changes, package archives, publish commands, tags, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
