@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 33%
 - Current milestone: M132 First Publish Decision Packet
-- Current task: M132.1 Plan first publish decision packet
+- Current task: M132.2 Add first publish decision packet
 
 ## Backup
 
@@ -2301,7 +2301,7 @@
 
 ## M132 First Publish Decision Packet
 
-- TODO M132.1 Plan first publish decision packet
+- DONE M132.1 Plan first publish decision packet
   - Define a repository-safe maintainer review packet that groups the six current publish blockers and their handoff documents into one copyable decision surface.
   - Link each blocker to required evidence, decision owner, possible decision states, local follow-up boundaries, rollback expectations, and focused gates.
   - Keep the packet read-only: no repository URL changes, no root license files, no API rewrites, no generated release notes, no crates.io contact, no dependency version changes, no package archives, and no publish commands.
