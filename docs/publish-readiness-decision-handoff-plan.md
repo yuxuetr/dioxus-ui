@@ -37,7 +37,7 @@ not:
 | Blocker | Decision Type | Maintainer Input Required | Local Follow-up After Decision |
 | --- | --- | --- | --- |
 | Placeholder repository URL | Identity decision | Final repository owner and URL | Update workspace metadata, repository identity metadata, publish blockers, release docs, quality gates, README, docs-site notes, and TODO planning |
-| Root license files not committed | Legal/project ownership decision | Approved `LICENSE-MIT` and `LICENSE-APACHE` text and copyright holder | Commit license files and update license readiness metadata, blocker inventory, release docs, quality gates, README, docs-site notes, and TODO planning |
+| Root license files not committed | Legal/project ownership decision | Approved `LICENSE` text and copyright holder | Commit license file and update license readiness metadata, blocker inventory, release docs, quality gates, README, docs-site notes, and TODO planning |
 | Pre-1.0 API stability | Product/API decision | Whether `0.1.x` APIs are acceptable for first publish or require a stabilization pass | Update API stability metadata, release docs, changelog guidance, quality gates, README, docs-site notes, and TODO planning |
 | Release notes not publish-ready | Release management decision | First publish release notes and historical scope | Update changelog, release notes readiness metadata, release docs, quality gates, README, docs-site notes, and TODO planning |
 | Registry availability not checked | Registry ownership decision | crates.io names, ownership, credentials, and publish order confirmation | Update registry availability metadata, Cargo publish metadata, publish blockers, release docs, quality gates, README, docs-site notes, and TODO planning |

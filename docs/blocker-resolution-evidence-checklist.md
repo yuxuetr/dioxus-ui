@@ -30,7 +30,7 @@ Use it with:
 | Blocker | Required Evidence Before Local Follow-up | Focused Gate |
 | --- | --- | --- |
 | Placeholder repository URL | Final canonical repository URL, repository owner, remote availability evidence, confirmation that workspace metadata should use that URL, and repository identity decision record | `npm run verify:repository-identity-readiness` |
-| Root license files not committed | Approved `LICENSE-MIT`, approved `LICENSE-APACHE`, copyright holder text, license expression confirmation, confirmation that files may be committed, and license decision record | `npm run verify:license-readiness` |
+| Root license files not committed | Approved `LICENSE`, copyright holder text, license expression confirmation, confirmation that the file may be committed, and license decision record | `npm run verify:license-readiness` |
 | Pre-1.0 API stability | Decision to publish `0.1.x` APIs as-is or stabilization worklist, breaking-change policy, migration note expectation, and API stability decision record | `npm run verify:api-stability-readiness` |
 | Release notes not publish-ready | Approved first-publish release notes scope, included changes, excluded changes, known warnings, changelog owner, and release notes evidence checklist | `npm run verify:release-notes-readiness` |
 | Registry availability not checked | crates.io crate names, owner list, credential readiness, publish order confirmation, and release owner | `npm run verify:registry-availability-readiness` |

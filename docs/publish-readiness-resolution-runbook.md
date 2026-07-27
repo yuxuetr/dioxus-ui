@@ -36,7 +36,7 @@ Resolve blockers in this order before any package archive or publish command:
 | Blocker | Manual Evidence Required | Follow-up Updates |
 | --- | --- | --- |
 | Placeholder repository URL | Final repository owner and URL are chosen and committed in workspace metadata | Update repository identity metadata, publish blockers, Cargo publish metadata, release docs, quality gates, README, and TODO planning |
-| Root license files not committed | Maintainer-reviewed `LICENSE-MIT` and `LICENSE-APACHE` files are committed | Update license readiness metadata, publish blockers, Cargo publish metadata, release docs, quality gates, README, and TODO planning |
+| Root license files not committed | Maintainer-reviewed `LICENSE` file is committed | Update license readiness metadata, publish blockers, Cargo publish metadata, release docs, quality gates, README, and TODO planning |
 | Pre-1.0 API stability | Maintainers decide whether `0.1.x` APIs are acceptable for first publish or define a stabilization/migration policy | Update API stability metadata, release docs, changelog guidance, quality gates, README, and TODO planning |
 | Release notes not publish-ready | Maintainers define complete release notes for the intended first publish using the release notes readiness preparation plan | Update release notes readiness metadata, changelog metadata, release docs, quality gates, README, and TODO planning |
 | Registry availability not checked | Release owner confirms crates.io names, ownership, credentials, and publish order | Update registry availability metadata, publish blockers, Cargo publish metadata, release docs, quality gates, README, and TODO planning |

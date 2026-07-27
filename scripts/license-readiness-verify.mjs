@@ -70,14 +70,19 @@ if (!scripts["verify:release"]?.includes("npm run verify:license-readiness")) {
 const workspacePackage = getSection(rootCargo, "workspace.package");
 if (workspacePackage === null) {
   failures.push("Cargo.toml is missing [workspace.package]");
-} else if (getStringField(workspacePackage, "license") !== "MIT OR Apache-2.0") {
-  failures.push('Cargo.toml [workspace.package] must keep license = "MIT OR Apache-2.0"');
+} else if (getStringField(workspacePackage, "license") !== "MIT") {
+  failures.push('Cargo.toml [workspace.package] must keep license = "MIT"');
 }
 
-for (const fileName of ["LICENSE-MIT", "LICENSE-APACHE"]) {
-  if (existsSync(join(repoRoot, fileName))) {
-    failures.push(`${fileName} is present; update license readiness docs before resolving this blocker`);
-  }
+if (!existsSync(join(repoRoot, "LICENSE"))) {
+  failures.push("LICENSE is missing");
+} else {
+  const licenseText = readText("LICENSE");
+  requireIncludes("LICENSE", licenseText, [
+    "MIT License",
+    "Copyright (c) 2026 yuxuetr",
+    "Permission is hereby granted, free of charge",
+  ]);
 }
 
 for (const crateName of readdirSync(join(repoRoot, "crates"))) {
@@ -92,31 +97,27 @@ for (const crateName of readdirSync(join(repoRoot, "crates"))) {
 
 requireIncludes("docs/license-readiness-metadata.md", licenseDoc, [
   "License Readiness Metadata",
-  "`MIT OR Apache-2.0`",
-  "LICENSE-MIT",
-  "LICENSE-APACHE",
+  "`MIT`",
+  "LICENSE",
   "License Decision Preparation Plan",
   "License Decision Record Template",
   "License Local Follow-up Map",
-  "without resolving it",
+  "after resolution",
 ]);
 
 requireIncludes("docs/license-decision-preparation-plan.md", preparationPlan, [
   "License Decision Preparation Plan",
-  "`MIT OR Apache-2.0`",
-  "approved `LICENSE-MIT` text",
-  "approved `LICENSE-APACHE` text",
+  "`MIT`",
+  "approved `LICENSE` text",
   "copyright holder text",
   "M130 must not",
-  "commit `LICENSE-MIT`",
-  "commit `LICENSE-APACHE`",
+  "generate replacement license text",
 ]);
 
 requireIncludes("docs/license-decision-record-template.md", decisionTemplate, [
   "License Decision Record Template",
   "Workspace license expression accepted",
-  "`LICENSE-MIT` text approved by",
-  "`LICENSE-APACHE` text approved by",
+  "`LICENSE` text approved by",
   "Copyright holder text",
   "Root license file commit approved",
   "Decision state: `approved` / `blocked` / `deferred`",
@@ -132,18 +133,18 @@ requireIncludes("docs/license-local-follow-up-map.md", followUpMap, [
 
 requireIncludes("docs/publish-readiness-blockers.md", publishBlockers, [
   "Root license files not committed",
-  "`MIT OR Apache-2.0` is declared in workspace metadata, but `LICENSE-MIT` and `LICENSE-APACHE` are not committed",
-  "Maintainer commits reviewed root license files before publishing",
+  "`LICENSE` contains reviewed MIT license text",
+  "npm run verify:license-readiness",
 ]);
 
 requireIncludes("docs/cargo-publish-metadata.md", cargoPublishDoc, [
-  "root license files are not yet committed",
+  "root MIT license text is committed",
 ]);
 
 requireIncludes("docs/release.md", releaseDoc, [
   "License readiness checks are read-only",
-  "workspace license metadata and missing root `LICENSE-MIT` and `LICENSE-APACHE` files",
-  "they do not choose license terms, generate license text, change copyright holders, run `cargo package`, run `cargo publish`, or contact crates.io",
+  "workspace MIT license metadata and committed root `LICENSE` file",
+  "they do not choose different license terms, generate replacement license text, change copyright holders, run `cargo package`, run `cargo publish`, or contact crates.io",
   "License Decision Preparation Plan",
   "License Decision Record Template",
   "License Local Follow-up Map",
@@ -151,8 +152,8 @@ requireIncludes("docs/release.md", releaseDoc, [
 
 requireIncludes("docs/quality-gates.md", qualityDoc, [
   "`npm run verify:license-readiness`",
-  "workspace license metadata and missing root `LICENSE-MIT` and `LICENSE-APACHE` files",
-  "does not choose license terms, generate license text, change copyright holders, run `cargo package`, run `cargo publish`, or contact crates.io",
+  "workspace MIT license metadata and committed root `LICENSE` file",
+  "does not choose different license terms, generate replacement license text, change copyright holders, run `cargo package`, run `cargo publish`, or contact crates.io",
   "License Decision Preparation Plan",
   "License Decision Record Template",
   "License Local Follow-up Map",
@@ -174,7 +175,7 @@ requireIncludes("docs/site.md", siteDoc, [
   "M100 License Readiness Metadata Gate Usage",
   "M130 License Decision Preparation",
   "npm run verify:license-readiness",
-  "workspace license metadata and missing root `LICENSE-MIT` and `LICENSE-APACHE` files",
+  "workspace MIT license metadata and committed root `LICENSE` file",
 ]);
 
 if (failures.length > 0) {

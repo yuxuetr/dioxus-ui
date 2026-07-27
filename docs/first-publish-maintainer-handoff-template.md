@@ -36,8 +36,7 @@ Repository identity:
 
 License files:
 
-- `LICENSE-MIT` approved:
-- `LICENSE-APACHE` approved:
+- `LICENSE` approved:
 - Copyright holder approved:
 - Local follow-up owner:
 - Decision state:

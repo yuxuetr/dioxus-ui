@@ -56,8 +56,7 @@ Detailed handoff:
 [License Blocker Handoff](license-blocker-handoff.md)
 
 - Decision state:
-- `LICENSE-MIT` evidence:
-- `LICENSE-APACHE` evidence:
+- `LICENSE` evidence:
 - Copyright holder text:
 - Root license file commit approved: yes / no
 - Local follow-up owner:

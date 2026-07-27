@@ -25,10 +25,8 @@ Related documents:
 ## License Evidence
 
 - Workspace license expression accepted:
-- `LICENSE-MIT` text approved by:
-- `LICENSE-MIT` evidence location:
-- `LICENSE-APACHE` text approved by:
-- `LICENSE-APACHE` evidence location:
+- `LICENSE` text approved by:
+- `LICENSE` evidence location:
 - Copyright holder text:
 - Root license file commit approved: yes / no
 - Crate manifest inheritance accepted: yes / no
@@ -52,8 +50,7 @@ Rationale:
 
 If approved:
 
-- Commit maintainer-approved `LICENSE-MIT`.
-- Commit maintainer-approved `LICENSE-APACHE`.
+- Commit maintainer-approved `LICENSE`.
 - Update license readiness metadata.
 - Update publish readiness blockers.
 - Update Cargo publish metadata.

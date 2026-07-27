@@ -57,7 +57,7 @@ members = [
 [workspace.package]
 version = "0.1.0"
 edition = "2024"
-license = "MIT OR Apache-2.0"
+license = "MIT"
 repository = "https://github.com/yuxuetr/dioxus-ui"
 readme = "README.md"
 keywords = ["dioxus", "ui", "tailwind", "components"]

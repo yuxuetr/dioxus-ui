@@ -1640,8 +1640,8 @@ M100 adds a focused license readiness metadata command:
 npm run verify:license-readiness
 ```
 
-The command checks workspace license metadata and missing root `LICENSE-MIT`
-and `LICENSE-APACHE` files.
+The command checks workspace MIT license metadata and committed root `LICENSE`
+file.
 
 The check is included in:
 
@@ -1649,15 +1649,15 @@ The check is included in:
 npm run verify:release
 ```
 
-It remains read-only. It does not choose license terms, generate license text,
-change copyright holders, run `cargo package`, run `cargo publish`, or contact
-crates.io.
+It remains read-only. It does not choose different license terms, generate
+replacement license text, change copyright holders, run `cargo package`, run
+`cargo publish`, or contact crates.io.
 
 ## M100 Final Result
 
 M100 added `npm run verify:license-readiness` and wired it into
-`npm run verify:release`. The gate validates workspace license metadata and the
-known missing root `LICENSE-MIT` and `LICENSE-APACHE` file blocker.
+`npm run verify:release`. The gate validates workspace MIT license metadata and
+the committed root `LICENSE` file.
 
 Validation completed:
 
@@ -1673,9 +1673,9 @@ CARGO_NET_OFFLINE=true npm run verify:release
 git diff --check
 ```
 
-All commands passed. The check does not choose license terms, generate license
-text, change copyright holders, run `cargo package`, run `cargo publish`, or
-contact crates.io.
+All commands passed. The check does not choose different license terms,
+generate replacement license text, change copyright holders, run
+`cargo package`, run `cargo publish`, or contact crates.io.
 
 ## M130 License Decision Preparation
 
@@ -1685,11 +1685,10 @@ M130 adds the decision preparation pass for first-publish root license files:
 - docs/license-decision-record-template.md
 - docs/license-local-follow-up-map.md
 
-The plan keeps root `LICENSE-MIT` and `LICENSE-APACHE` files unresolved until
-maintainers record reviewed license file text, copyright holder text, license
+The plan records reviewed MIT license text, copyright holder text, license
 expression confirmation, and file commit approval. The local follow-up map
 separates workspace license expression follow-up from root license file
-follow-up without generating or committing license text by itself.
+follow-up without generating replacement license text by itself.
 
 Validation remains read-only:
 

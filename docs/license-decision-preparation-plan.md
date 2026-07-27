@@ -1,8 +1,8 @@
 # License Decision Preparation Plan
 
-This plan prepares the maintainer decision for the missing root license file
-publish blocker. It does not generate license text, commit root license files,
-change license terms, or authorize publishing.
+This plan records the maintainer decision for the resolved MIT license
+readiness item. It does not generate replacement license text, change license
+terms, or authorize publishing.
 
 Use this plan with:
 
@@ -17,16 +17,14 @@ Use this plan with:
 
 ## Decision Question
 
-Maintainers need to decide whether the declared `MIT OR Apache-2.0` workspace
-license expression should be backed by reviewed root license files before first
-publish.
+Maintainers approved the `MIT` workspace license expression and reviewed root
+`LICENSE` text before first publish.
 
 The decision must cover:
 
-- approved `LICENSE-MIT` text
-- approved `LICENSE-APACHE` text
+- approved `LICENSE` text
 - copyright holder text
-- confirmation that `MIT OR Apache-2.0` remains the intended workspace license
+- confirmation that `MIT` remains the intended workspace license
   expression
 - confirmation that root license files may be committed
 - whether crate manifests keep inheriting workspace license metadata
@@ -37,8 +35,8 @@ The decision must cover:
 
 Prepare the decision in this order:
 
-1. Confirm workspace metadata still declares `MIT OR Apache-2.0`.
-2. Confirm root `LICENSE-MIT` and `LICENSE-APACHE` files are still absent.
+1. Confirm workspace metadata still declares `MIT`.
+2. Confirm root `LICENSE` is committed.
 3. Confirm publish blockers, Cargo publish metadata, release docs, quality
    gates, README, and docs-site notes still describe license readiness as
    unresolved.
@@ -51,7 +49,7 @@ Prepare the decision in this order:
 
 | Outcome | Meaning | Local Follow-up |
 | --- | --- | --- |
-| `approved` | Maintainers approve root license files, copyright holder text, and the current workspace license expression for first publish | Commit approved license files and update license readiness metadata, publish blockers, Cargo publish metadata, release docs, quality gates, README, docs-site notes, and TODO planning |
+| `approved` | Maintainers approve root `LICENSE`, copyright holder text, and the current workspace license expression for first publish | Update license readiness metadata, publish blockers, Cargo publish metadata, release docs, quality gates, README, docs-site notes, and TODO planning |
 | `blocked` | License file readiness cannot be decided yet | Keep root license files absent and unresolved blocker metadata, then record the missing evidence |
 | `deferred` | First publish needs a separate legal or ownership milestone first | Create focused TODO planning without generating or committing license files |
 
@@ -60,9 +58,7 @@ Prepare the decision in this order:
 M130 must not:
 
 - choose license terms
-- generate license text
-- commit `LICENSE-MIT`
-- commit `LICENSE-APACHE`
+- generate replacement license text
 - change copyright holders
 - change workspace or crate license metadata
 - run `cargo package`

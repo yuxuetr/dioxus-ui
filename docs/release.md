@@ -198,9 +198,9 @@ note evidence before local changelog follow-up.
 [Release Notes Local Follow-up Map](release-notes-local-follow-up-map.md)
 maps approved, blocked, and deferred release-note decisions to local files and
 gates without writing final notes.
-License readiness checks are read-only and validate only workspace license
-metadata and missing root `LICENSE-MIT` and `LICENSE-APACHE` files; they do not
-choose license terms, generate license text, change copyright holders, run
+License readiness checks are read-only and validate only workspace MIT license
+metadata and committed root `LICENSE` file; they do not choose different
+license terms, generate replacement license text, change copyright holders, run
 `cargo package`, run `cargo publish`, or contact crates.io.
 [License Decision Preparation Plan](license-decision-preparation-plan.md)
 defines the repository-safe decision pass before maintainers accept, block, or

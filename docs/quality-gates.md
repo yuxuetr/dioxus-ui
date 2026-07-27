@@ -340,10 +340,10 @@ warnings, and migration note evidence.
 maps release-note decisions to local changelog, handoff, and metadata follow-up
 without writing final notes.
 
-`npm run verify:license-readiness` checks workspace license metadata and
-missing root `LICENSE-MIT` and `LICENSE-APACHE` files. It is read-only and
-does not choose license terms, generate license text, change copyright holders,
-run `cargo package`, run `cargo publish`, or contact crates.io.
+`npm run verify:license-readiness` checks workspace MIT license metadata and
+committed root `LICENSE` file. It is read-only and does not choose different
+license terms, generate replacement license text, change copyright holders, run
+`cargo package`, run `cargo publish`, or contact crates.io.
 [License Decision Preparation Plan](license-decision-preparation-plan.md)
 records the read-only preparation pass before maintainers accept, block, or
 defer root license file readiness.

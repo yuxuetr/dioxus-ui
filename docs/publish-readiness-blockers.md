@@ -19,7 +19,6 @@ Current blockers:
 | --- | --- | --- |
 | Pre-1.0 API stability | Release docs allow breaking API changes before `1.0` | Maintainers decide crate-mode stability and versioning policy |
 | Release notes not publish-ready | `CHANGELOG.md` has project-owned structure, but release notes have not been maintained as complete publish-ready history | Maintainers define and maintain release notes before publishing |
-| Root license files not committed | `MIT OR Apache-2.0` is declared in workspace metadata, but `LICENSE-MIT` and `LICENSE-APACHE` are not committed | Maintainer commits reviewed root license files before publishing |
 | Registry availability not checked | Cargo publish metadata gate intentionally avoids crates.io lookups | Release owner checks names and ownership during publish preparation |
 | Workspace dependency publish readiness | Path-only internal workspace dependencies do not yet prove crates.io-resolvable dependency metadata | Maintainers add or approve publish-ready internal dependency version metadata |
 
@@ -28,6 +27,7 @@ Resolved publish readiness items:
 | Item | Evidence | Verification |
 | --- | --- | --- |
 | Placeholder repository URL | Workspace metadata uses `https://github.com/yuxuetr/dioxus-ui` | `npm run verify:repository-identity-readiness` |
+| Root license files not committed | `LICENSE` contains reviewed MIT license text | `npm run verify:license-readiness` |
 | CLI template packaging strategy | `dioxus-ui-cli` embeds registry and template assets at compile time | `npm run verify:cli-template-packaging-readiness` |
 
 ## Scope
