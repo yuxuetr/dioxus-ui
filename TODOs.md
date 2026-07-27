@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 38%
 - Current milestone: M131 Publish Blocker Resolution Tracking
-- Current task: M131.3 Prepare root license files blocker handoff
+- Current task: M131.4 Prepare pre-1.0 API stability blocker handoff
 
 ## Backup
 
@@ -2269,7 +2269,7 @@
   - Confirm docs continue to show the placeholder repository URL blocker as unresolved until maintainer approval is committed.
   - Run repository identity, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
 
-- TODO M131.3 Prepare root license files blocker handoff
+- DONE M131.3 Prepare root license files blocker handoff
   - Consolidate license decision inputs, evidence requirements, focused gates, rollback expectations, and local follow-up files.
   - Confirm docs continue to show root `LICENSE-MIT` and `LICENSE-APACHE` files as unresolved until reviewed license files are committed.
   - Run license readiness, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
