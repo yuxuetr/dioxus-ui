@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
+- Overall: 88%
 - Current milestone: M131 Publish Blocker Resolution Tracking
-- Current task: M131.7 Prepare workspace dependency publish readiness blocker handoff
+- Current task: M131.8 Complete publish blocker resolution tracking milestone
 
 ## Backup
 
@@ -2289,7 +2289,7 @@
   - Confirm docs continue to show crates.io registry availability as unresolved until the release owner checks availability and ownership.
   - Run registry availability, publish order, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
 
-- TODO M131.7 Prepare workspace dependency publish readiness blocker handoff
+- DONE M131.7 Prepare workspace dependency publish readiness blocker handoff
   - Consolidate internal dependency version policy inputs, publish-order dependencies, evidence requirements, focused gates, rollback expectations, and local follow-up files.
   - Confirm docs continue to show workspace dependency publish readiness as unresolved until publish-ready internal dependency metadata is approved.
   - Run workspace dependency publish readiness, publish order, Cargo workspace, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
