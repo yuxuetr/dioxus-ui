@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 14%
 - Current milestone: M133 Approved Publish Blocker Resolution
-- Current task: M133.1 Plan approved publish blocker resolution
+- Current task: M133.2 Resolve repository identity blocker
 
 ## Backup
 
@@ -2318,7 +2318,7 @@
 
 ## M133 Approved Publish Blocker Resolution
 
-- TODO M133.1 Plan approved publish blocker resolution
+- DONE M133.1 Plan approved publish blocker resolution
   - Record the new maintainer decisions: canonical repository `https://github.com/yuxuetr/dioxus-ui`, MIT license, current `0.1.x` API acceptable for first publish, and first publish allowed.
   - Split locally resolvable blockers from external crates.io readiness: repository identity, license, API stability, release notes, and workspace dependency metadata can be updated locally; registry availability remains deferred until crates.io evidence exists.
   - Keep the milestone safe: no crates.io contact, no credential inspection, no `cargo package`, no `cargo publish`, no package archives, no tags, and no GitHub releases.
