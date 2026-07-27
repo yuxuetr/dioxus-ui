@@ -11,6 +11,9 @@ Use [Repository Identity Decision Record Template](repository-identity-decision-
 to record approved, blocked, or deferred maintainer outcomes.
 Use [Repository Identity Local Follow-up Map](repository-identity-local-follow-up-map.md)
 to map approved decisions to local metadata and documentation updates.
+Use [Repository Identity Blocker Handoff](repository-identity-blocker-handoff.md)
+for the consolidated first-publish owner, evidence, rollback, and validation
+view.
 
 ## Expected Shape
 

@@ -9,6 +9,7 @@ Use this plan with:
 - [Repository Identity Readiness Metadata](repository-identity-readiness-metadata.md)
 - [Repository Identity Decision Record Template](repository-identity-decision-record-template.md)
 - [Repository Identity Local Follow-up Map](repository-identity-local-follow-up-map.md)
+- [Repository Identity Blocker Handoff](repository-identity-blocker-handoff.md)
 - [First Publish Readiness Plan](first-publish-readiness-plan.md)
 - [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
 - [First Publish Local Implementation Map](first-publish-local-implementation-map.md)

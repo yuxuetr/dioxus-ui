@@ -8,6 +8,7 @@ Use this map with:
 - [Repository Identity Decision Preparation Plan](repository-identity-decision-preparation-plan.md)
 - [Repository Identity Decision Record Template](repository-identity-decision-record-template.md)
 - [Repository Identity Readiness Metadata](repository-identity-readiness-metadata.md)
+- [Repository Identity Blocker Handoff](repository-identity-blocker-handoff.md)
 - [First Publish Readiness Plan](first-publish-readiness-plan.md)
 - [First Publish Local Implementation Map](first-publish-local-implementation-map.md)
 

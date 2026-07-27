@@ -525,6 +525,9 @@ for the maintainer decision pass before replacing the placeholder URL.
 captures approved, blocked, and deferred outcomes.
 [Repository Identity Local Follow-up Map](docs/repository-identity-local-follow-up-map.md)
 maps approved identity decisions to local metadata and documentation updates.
+[Repository Identity Blocker Handoff](docs/repository-identity-blocker-handoff.md)
+consolidates the required owner evidence, rollback expectations, and validation
+commands for the placeholder URL blocker.
 
 Verify API stability readiness metadata only:
 
