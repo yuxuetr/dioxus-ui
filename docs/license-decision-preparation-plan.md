@@ -9,6 +9,7 @@ Use this plan with:
 - [License Readiness Metadata](license-readiness-metadata.md)
 - [License Decision Record Template](license-decision-record-template.md)
 - [License Local Follow-up Map](license-local-follow-up-map.md)
+- [License Blocker Handoff](license-blocker-handoff.md)
 - [First Publish Readiness Plan](first-publish-readiness-plan.md)
 - [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
 - [First Publish Local Implementation Map](first-publish-local-implementation-map.md)

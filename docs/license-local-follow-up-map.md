@@ -8,6 +8,7 @@ Use this map with:
 - [License Decision Preparation Plan](license-decision-preparation-plan.md)
 - [License Decision Record Template](license-decision-record-template.md)
 - [License Readiness Metadata](license-readiness-metadata.md)
+- [License Blocker Handoff](license-blocker-handoff.md)
 - [First Publish Readiness Plan](first-publish-readiness-plan.md)
 - [First Publish Local Implementation Map](first-publish-local-implementation-map.md)
 

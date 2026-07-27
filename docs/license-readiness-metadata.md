@@ -11,6 +11,8 @@ to record approved, blocked, or deferred maintainer outcomes.
 Use [License Local Follow-up Map](license-local-follow-up-map.md)
 to map approved decisions to local license file, metadata, and documentation
 updates.
+Use [License Blocker Handoff](license-blocker-handoff.md) for the consolidated
+first-publish license evidence, rollback, and validation view.
 
 ## Expected Shape
 

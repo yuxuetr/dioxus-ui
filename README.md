@@ -508,6 +508,9 @@ for the maintainer decision pass before committing root license files.
 captures approved, blocked, and deferred outcomes.
 [License Local Follow-up Map](docs/license-local-follow-up-map.md) maps
 approved license decisions to local file, metadata, and documentation updates.
+[License Blocker Handoff](docs/license-blocker-handoff.md) consolidates the
+required license file evidence, rollback expectations, and validation commands
+for the missing root license files blocker.
 
 Verify repository identity readiness metadata only:
 
