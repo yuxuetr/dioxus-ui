@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 13%
 - Current milestone: M131 Publish Blocker Resolution Tracking
-- Current task: M131.1 Plan coordinated publish blocker resolution tracking
+- Current task: M131.2 Prepare placeholder repository URL blocker handoff
 
 ## Backup
 
@@ -2259,7 +2259,7 @@
 
 ## M131 Publish Blocker Resolution Tracking
 
-- TODO M131.1 Plan coordinated publish blocker resolution tracking
+- DONE M131.1 Plan coordinated publish blocker resolution tracking
   - Create a single tracker for the six current publish blockers: placeholder repository URL, root license files, pre-1.0 API stability, release notes readiness, registry availability, and workspace dependency publish readiness.
   - Map each blocker to its existing decision-preparation artifacts, required maintainer evidence, local follow-up files, focused gates, and unresolved status.
   - Keep the tracker repository-safe: no repository URL replacement, no root license file commits, no API stabilization approval, no release-note generation, no crates.io contact, no dependency version changes, no package archives, and no publish commands.
