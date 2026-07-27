@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 29%
+- Overall: 43%
 - Current milestone: M133 Approved Publish Blocker Resolution
-- Current task: M133.3 Resolve MIT license blocker
+- Current task: M133.4 Resolve API stability and release notes blockers
 
 ## Backup
 
@@ -2328,7 +2328,7 @@
   - Update repository identity readiness docs, publish blockers, Cargo publish metadata, release docs, quality gates, README, docs-site notes, decision packet, and focused verifier expectations.
   - Run repository identity, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
 
-- TODO M133.3 Resolve MIT license blocker
+- DONE M133.3 Resolve MIT license blocker
   - Change workspace license metadata to MIT and commit reviewed MIT root license text.
   - Update license readiness docs, publish blockers, Cargo publish metadata, release docs, quality gates, README, docs-site notes, decision packet, and focused verifier expectations.
   - Run license readiness, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
