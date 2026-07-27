@@ -9,6 +9,7 @@ Related source-of-truth documents:
 - [Publish Readiness Blockers](publish-readiness-blockers.md)
 - [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
 - [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
+- [First Publish Decision Packet](first-publish-decision-packet.md)
 - [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
 - [Release Candidate Handoff Checklist](release-candidate-handoff-checklist.md)
 
@@ -21,6 +22,9 @@ Related source-of-truth documents:
 - Decision state: `blocked` / `approved` / `implemented` / `verified` / `deferred`
 
 ## Required Maintainer Decisions
+
+Use [First Publish Decision Packet](first-publish-decision-packet.md) when all
+six blocker decisions should be recorded in one review pass.
 
 Repository identity:
 

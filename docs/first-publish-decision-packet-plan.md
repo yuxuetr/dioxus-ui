@@ -6,6 +6,7 @@ authorization.
 
 Use it with:
 
+- [First Publish Decision Packet](first-publish-decision-packet.md)
 - [Publish Blocker Resolution Tracker](publish-blocker-resolution-tracker.md)
 - [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
 - [First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md)

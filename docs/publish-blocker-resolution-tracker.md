@@ -9,6 +9,7 @@ Use it with:
 - [Publish Readiness Blockers](publish-readiness-blockers.md)
 - [First Publish Readiness Plan](first-publish-readiness-plan.md)
 - [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
+- [First Publish Decision Packet](first-publish-decision-packet.md)
 - [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
 - [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
 - [First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md)

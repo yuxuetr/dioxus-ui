@@ -99,6 +99,8 @@ when maintainer decisions need explicit evidence before local follow-up. This
 checklist does not resolve blockers or authorize publishing. For copyable
 decision notes, use
 [First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md).
+For a single review surface covering all six current blockers, use
+[First Publish Decision Packet](first-publish-decision-packet.md).
 
 ## Warning Inventory Evidence
 

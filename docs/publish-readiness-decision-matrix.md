@@ -12,6 +12,7 @@ Use it with:
 - [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
 - [Release Candidate Handoff Checklist](release-candidate-handoff-checklist.md)
 - [Publish Readiness Decision Handoff Plan](publish-readiness-decision-handoff-plan.md)
+- [First Publish Decision Packet](first-publish-decision-packet.md)
 - [Repository Identity Decision Preparation Plan](repository-identity-decision-preparation-plan.md)
 - [Repository Identity Decision Record Template](repository-identity-decision-record-template.md)
 - [Repository Identity Local Follow-up Map](repository-identity-local-follow-up-map.md)

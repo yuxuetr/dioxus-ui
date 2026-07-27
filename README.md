@@ -609,6 +609,8 @@ validation commands for each blocker before resolving it.
 Use [Publish Blocker Resolution Tracker](docs/publish-blocker-resolution-tracker.md)
 to keep the six current blockers in one shared handoff view while evidence is
 collected and local follow-up remains gated.
+Use [First Publish Decision Packet](docs/first-publish-decision-packet.md) when
+the release owner needs one copyable review surface for all six blockers.
 Use
 [First Publish Maintainer Handoff Template](docs/first-publish-maintainer-handoff-template.md)
 when those decisions need a copyable release-candidate note.
