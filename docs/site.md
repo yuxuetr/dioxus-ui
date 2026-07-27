@@ -670,6 +670,19 @@ The local follow-up map separates changelog structure ownership from
 publish-ready release note completeness and maps approved, blocked, and
 deferred decisions to local files and gates without writing final notes.
 
+## Internal Trial Developer Guide
+
+Internal source-copy trials are documented in:
+
+```text
+docs/internal-trial-developer-guide.md
+```
+
+The guide explains how to run the local CLI with `cargo run -p dioxus-ui-cli`,
+initialize a trial app, add generated components, validate Tailwind CSS v4 input
+styling, collect API/accessibility/runtime feedback, and keep the six publish
+blockers as coordinated release-owner work rather than accidental trial scope.
+
 Use the individual commands only when isolating a specific failure:
 
 ```bash
