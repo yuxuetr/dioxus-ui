@@ -9,6 +9,7 @@ Use this plan with:
 - [Release Notes Readiness Metadata](release-notes-readiness-metadata.md)
 - [Release Notes Evidence Checklist](release-notes-evidence-checklist.md)
 - [Release Notes Local Follow-up Map](release-notes-local-follow-up-map.md)
+- [Release Notes Blocker Handoff](release-notes-blocker-handoff.md)
 - [Changelog Metadata](changelog-metadata.md)
 - [First Publish Readiness Plan](first-publish-readiness-plan.md)
 - [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)

@@ -9,6 +9,8 @@ The maintainer evidence checklist is tracked in
 [Release Notes Evidence Checklist](release-notes-evidence-checklist.md).
 The local follow-up map is tracked in
 [Release Notes Local Follow-up Map](release-notes-local-follow-up-map.md).
+The consolidated first-publish release scope and rollback view is tracked in
+[Release Notes Blocker Handoff](release-notes-blocker-handoff.md).
 
 ## Expected Shape
 
