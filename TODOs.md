@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 63%
+- Overall: 75%
 - Current milestone: M131 Publish Blocker Resolution Tracking
-- Current task: M131.6 Prepare registry availability blocker handoff
+- Current task: M131.7 Prepare workspace dependency publish readiness blocker handoff
 
 ## Backup
 
@@ -2284,7 +2284,7 @@
   - Confirm docs continue to show release notes as not publish-ready until an approved first-publish release note scope is committed.
   - Run release notes readiness, changelog, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
 
-- TODO M131.6 Prepare registry availability blocker handoff
+- DONE M131.6 Prepare registry availability blocker handoff
   - Consolidate planned crate names, owner and credential evidence requirements, publish-order evidence, focused gates, rollback expectations, and local follow-up files.
   - Confirm docs continue to show crates.io registry availability as unresolved until the release owner checks availability and ownership.
   - Run registry availability, publish order, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
