@@ -10,6 +10,7 @@ Related documents:
 - [API Stability Decision Preparation Plan](api-stability-decision-preparation-plan.md)
 - [API Stability Decision Record Template](api-stability-decision-record-template.md)
 - [API Stability Local Follow-up Map](api-stability-local-follow-up-map.md)
+- [API Stability Blocker Handoff](api-stability-blocker-handoff.md)
 - [Public API Surface Inventory](public-api-surface-inventory.md)
 - [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
 

@@ -10,6 +10,7 @@ Use this map with:
 - [API Stability Readiness Metadata](api-stability-readiness-metadata.md)
 - [Public API Surface Inventory](public-api-surface-inventory.md)
 - [API Stability Review Checklist](api-stability-review-checklist.md)
+- [API Stability Blocker Handoff](api-stability-blocker-handoff.md)
 
 ## Outcome Map
 

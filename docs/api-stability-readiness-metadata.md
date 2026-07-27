@@ -11,6 +11,8 @@ The copyable decision record template is tracked in
 [API Stability Decision Record Template](api-stability-decision-record-template.md).
 The local follow-up map is tracked in
 [API Stability Local Follow-up Map](api-stability-local-follow-up-map.md).
+The consolidated first-publish evidence and rollback view is tracked in
+[API Stability Blocker Handoff](api-stability-blocker-handoff.md).
 
 ## Expected Shape
 

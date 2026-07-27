@@ -546,6 +546,9 @@ The current API review surface is documented in
 [Public API Surface Inventory](docs/public-api-surface-inventory.md).
 Use [API Stability Review Checklist](docs/api-stability-review-checklist.md)
 for maintainer review before resolving the API stability blocker.
+[API Stability Blocker Handoff](docs/api-stability-blocker-handoff.md)
+consolidates the public surface review inputs, rollback expectations, and
+validation commands for the pre-`1.0` API stability blocker.
 
 Verify CLI template packaging readiness metadata only:
 

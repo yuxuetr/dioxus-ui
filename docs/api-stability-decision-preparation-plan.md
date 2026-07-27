@@ -12,6 +12,7 @@ Use this plan with:
 - [API Stability Review Checklist](api-stability-review-checklist.md)
 - [API Stability Decision Record Template](api-stability-decision-record-template.md)
 - [API Stability Local Follow-up Map](api-stability-local-follow-up-map.md)
+- [API Stability Blocker Handoff](api-stability-blocker-handoff.md)
 - [First Publish Readiness Plan](first-publish-readiness-plan.md)
 - [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
 - [First Publish Local Implementation Map](first-publish-local-implementation-map.md)
