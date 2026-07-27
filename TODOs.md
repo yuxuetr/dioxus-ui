@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 38%
+- Overall: 50%
 - Current milestone: M131 Publish Blocker Resolution Tracking
-- Current task: M131.4 Prepare pre-1.0 API stability blocker handoff
+- Current task: M131.5 Prepare release notes readiness blocker handoff
 
 ## Backup
 
@@ -2274,7 +2274,7 @@
   - Confirm docs continue to show root `LICENSE-MIT` and `LICENSE-APACHE` files as unresolved until reviewed license files are committed.
   - Run license readiness, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
 
-- TODO M131.4 Prepare pre-1.0 API stability blocker handoff
+- DONE M131.4 Prepare pre-1.0 API stability blocker handoff
   - Consolidate API stability decision inputs, review inventory, evidence requirements, focused gates, rollback expectations, and local follow-up files.
   - Confirm docs continue to show crate-mode API stability as unresolved until maintainer approval or a stabilization worklist is committed.
   - Run API stability readiness, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
