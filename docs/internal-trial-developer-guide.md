@@ -181,13 +181,17 @@ preparation documents before public publish.
 
 ## Publish Blockers And Parallel Work
 
-The six current publish blockers can be prepared in parallel, but they should
-not all be resolved independently without coordination.
+Internal trial can proceed with the approved repository identity and MIT
+license metadata already in place:
+
+- repository identity: `https://github.com/yuxuetr/dioxus-ui`
+- license: MIT with committed root `LICENSE`
+
+The remaining publish-readiness work can be prepared in parallel, but blockers
+should not be resolved independently without coordination.
 
 Safe to work in parallel:
 
-- repository identity evidence
-- license file approval
 - API stability decision record
 - release notes evidence
 - registry availability review
@@ -195,20 +199,35 @@ Safe to work in parallel:
 
 Must be coordinated before removal from blockers:
 
-- repository URL must be final before publish metadata claims readiness
-- license files must be reviewed before committing root license text
 - API stability decision affects release notes and possible migration notes
 - registry availability and workspace dependency strategy affect publish order
 - release notes should reflect final blocker outcomes and known warnings
 
 Recommended sequencing:
 
-1. Collect evidence for all six blockers in parallel.
-2. Resolve repository identity and license files first.
-3. Resolve API stability before final release notes.
-4. Resolve registry availability and workspace dependency strategy together.
+1. Treat repository identity and MIT license as locally resolved readiness
+   items.
+2. Resolve API stability before final release notes.
+3. Resolve workspace dependency publish readiness before any package or publish
+   dry run.
+4. Keep crates.io registry availability deferred until a release owner confirms
+   crate names, owners, credentials, and publish order.
 5. Update publish blockers only after each focused gate and common publish
    readiness checks pass.
 
 Do not run `cargo package`, `cargo publish`, create Git tags, create GitHub
 releases, or contact registries as part of internal trial.
+
+## crates.io Evidence Boundary
+
+Internal trial does not require crates.io access. Formal crates.io publishing
+still requires release-owner evidence for:
+
+- `dioxus-ui-core`
+- `dioxus-ui-primitives`
+- `dioxus-ui`
+- `dioxus-ui-cli`
+
+For each crate, record whether the name is available or already owned, who the
+crate owner or team is, whether credentials are ready, and whether the publish
+order is confirmed as core, primitives, styled crate, then CLI.
