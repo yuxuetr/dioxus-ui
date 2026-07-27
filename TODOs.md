@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M133 Approved Publish Blocker Resolution
+- Current task: M133.1 Plan approved publish blocker resolution
 
 ## Backup
 
@@ -2314,6 +2314,43 @@
 - DONE M132.3 Complete first publish decision packet milestone
   - Run docs checks, publish readiness blocker checks, coverage checks, runbook checks, release docs checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
   - Verify no repository URL changes, root license files, API rewrites, generated release notes, crates.io contact, dependency version changes, package archives, publish commands, tags, screenshots, traces, or CI workflow files are committed.
+  - Update TODO status only after commits and validation.
+
+## M133 Approved Publish Blocker Resolution
+
+- TODO M133.1 Plan approved publish blocker resolution
+  - Record the new maintainer decisions: canonical repository `https://github.com/yuxuetr/dioxus-ui`, MIT license, current `0.1.x` API acceptable for first publish, and first publish allowed.
+  - Split locally resolvable blockers from external crates.io readiness: repository identity, license, API stability, release notes, and workspace dependency metadata can be updated locally; registry availability remains deferred until crates.io evidence exists.
+  - Keep the milestone safe: no crates.io contact, no credential inspection, no `cargo package`, no `cargo publish`, no package archives, no tags, and no GitHub releases.
+
+- TODO M133.2 Resolve repository identity blocker
+  - Replace placeholder repository metadata with `https://github.com/yuxuetr/dioxus-ui`.
+  - Update repository identity readiness docs, publish blockers, Cargo publish metadata, release docs, quality gates, README, docs-site notes, decision packet, and focused verifier expectations.
+  - Run repository identity, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
+
+- TODO M133.3 Resolve MIT license blocker
+  - Change workspace license metadata to MIT and commit reviewed MIT root license text.
+  - Update license readiness docs, publish blockers, Cargo publish metadata, release docs, quality gates, README, docs-site notes, decision packet, and focused verifier expectations.
+  - Run license readiness, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
+
+- TODO M133.4 Resolve API stability and release notes blockers
+  - Record that current `0.1.x` APIs are accepted for first publish with pre-1.0 breaking-change policy.
+  - Record first publish release note scope without generating tags, releases, or git-derived notes.
+  - Update API stability, release notes, changelog, publish blockers, release docs, quality gates, README, docs-site notes, decision packet, and focused verifier expectations.
+
+- TODO M133.5 Resolve workspace dependency publish readiness blocker
+  - Add approved crates.io-resolvable internal dependency version metadata while preserving local path development.
+  - Update workspace dependency metadata, publish order, Cargo publish metadata, publish blockers, release docs, quality gates, README, docs-site notes, decision packet, and focused verifier expectations.
+  - Run workspace dependency publish readiness, publish order, Cargo workspace, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
+
+- TODO M133.6 Defer crates.io registry availability blocker with required evidence
+  - Keep registry availability unresolved unless crates.io names, ownership, credentials, and publish order are confirmed by a release owner.
+  - Document the exact required crates.io evidence and clarify that deferral blocks crates.io publishing but not local release readiness.
+  - Run registry availability, publish order, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
+
+- TODO M133.7 Complete approved publish blocker resolution milestone
+  - Run docs checks, all focused blocker readiness checks, publish readiness coverage, runbook, Cargo publish metadata, publish order, release docs, package script, repo hygiene, package lock, and diff checks.
+  - Verify no crates.io contact, credential inspection, package archives, publish commands, tags, GitHub releases, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
