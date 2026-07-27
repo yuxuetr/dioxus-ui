@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M132 First Publish Decision Packet
+- Current task: M132.1 Plan first publish decision packet
 
 ## Backup
 
@@ -2296,6 +2296,23 @@
 
 - DONE M131.8 Complete publish blocker resolution tracking milestone
   - Run docs checks, all six focused blocker readiness checks, publish readiness coverage, runbook, release docs, package script, repo hygiene, package lock, and diff checks.
+  - Verify no repository URL changes, root license files, API rewrites, generated release notes, crates.io contact, dependency version changes, package archives, publish commands, tags, screenshots, traces, or CI workflow files are committed.
+  - Update TODO status only after commits and validation.
+
+## M132 First Publish Decision Packet
+
+- TODO M132.1 Plan first publish decision packet
+  - Define a repository-safe maintainer review packet that groups the six current publish blockers and their handoff documents into one copyable decision surface.
+  - Link each blocker to required evidence, decision owner, possible decision states, local follow-up boundaries, rollback expectations, and focused gates.
+  - Keep the packet read-only: no repository URL changes, no root license files, no API rewrites, no generated release notes, no crates.io contact, no dependency version changes, no package archives, and no publish commands.
+
+- TODO M132.2 Add first publish decision packet
+  - Add a copyable document for release owners to record all six blocker decisions in one review pass.
+  - Include explicit placeholders for blocker state, evidence location, local follow-up owner, rollback owner, and verification commands.
+  - Link the packet from the decision matrix, publish blocker tracker, release candidate handoff checklist, maintainer handoff template, README, and docs index.
+
+- TODO M132.3 Complete first publish decision packet milestone
+  - Run docs checks, publish readiness blocker checks, coverage checks, runbook checks, release docs checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
   - Verify no repository URL changes, root license files, API rewrites, generated release notes, crates.io contact, dependency version changes, package archives, publish commands, tags, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
 
