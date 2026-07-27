@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M131 Publish Blocker Resolution Tracking
+- Current task: M131.1 Plan coordinated publish blocker resolution tracking
 
 ## Backup
 
@@ -2255,6 +2255,48 @@
 - DONE M130.4 Complete license decision preparation milestone
   - Run docs checks, license readiness checks, publish readiness checks, Cargo publish metadata checks, release docs checks, package script checks, repo hygiene checks, package lock checks, and diff checks.
   - Verify no license files, license text generation, license expression changes, copyright holder changes, package archives, publish commands, crates.io contact, generated release notes, tags, screenshots, traces, or CI workflow files are committed.
+  - Update TODO status only after commits and validation.
+
+## M131 Publish Blocker Resolution Tracking
+
+- TODO M131.1 Plan coordinated publish blocker resolution tracking
+  - Create a single tracker for the six current publish blockers: placeholder repository URL, root license files, pre-1.0 API stability, release notes readiness, registry availability, and workspace dependency publish readiness.
+  - Map each blocker to its existing decision-preparation artifacts, required maintainer evidence, local follow-up files, focused gates, and unresolved status.
+  - Keep the tracker repository-safe: no repository URL replacement, no root license file commits, no API stabilization approval, no release-note generation, no crates.io contact, no dependency version changes, no package archives, and no publish commands.
+
+- TODO M131.2 Prepare placeholder repository URL blocker handoff
+  - Consolidate repository identity decision inputs, evidence requirements, focused gates, rollback expectations, and local follow-up files.
+  - Confirm docs continue to show the placeholder repository URL blocker as unresolved until maintainer approval is committed.
+  - Run repository identity, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
+
+- TODO M131.3 Prepare root license files blocker handoff
+  - Consolidate license decision inputs, evidence requirements, focused gates, rollback expectations, and local follow-up files.
+  - Confirm docs continue to show root `LICENSE-MIT` and `LICENSE-APACHE` files as unresolved until reviewed license files are committed.
+  - Run license readiness, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
+
+- TODO M131.4 Prepare pre-1.0 API stability blocker handoff
+  - Consolidate API stability decision inputs, review inventory, evidence requirements, focused gates, rollback expectations, and local follow-up files.
+  - Confirm docs continue to show crate-mode API stability as unresolved until maintainer approval or a stabilization worklist is committed.
+  - Run API stability readiness, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
+
+- TODO M131.5 Prepare release notes readiness blocker handoff
+  - Consolidate release note scope inputs, evidence requirements, focused gates, rollback expectations, and local follow-up files.
+  - Confirm docs continue to show release notes as not publish-ready until an approved first-publish release note scope is committed.
+  - Run release notes readiness, changelog, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
+
+- TODO M131.6 Prepare registry availability blocker handoff
+  - Consolidate planned crate names, owner and credential evidence requirements, publish-order evidence, focused gates, rollback expectations, and local follow-up files.
+  - Confirm docs continue to show crates.io registry availability as unresolved until the release owner checks availability and ownership.
+  - Run registry availability, publish order, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
+
+- TODO M131.7 Prepare workspace dependency publish readiness blocker handoff
+  - Consolidate internal dependency version policy inputs, publish-order dependencies, evidence requirements, focused gates, rollback expectations, and local follow-up files.
+  - Confirm docs continue to show workspace dependency publish readiness as unresolved until publish-ready internal dependency metadata is approved.
+  - Run workspace dependency publish readiness, publish order, Cargo workspace, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
+
+- TODO M131.8 Complete publish blocker resolution tracking milestone
+  - Run docs checks, all six focused blocker readiness checks, publish readiness coverage, runbook, release docs, package script, repo hygiene, package lock, and diff checks.
+  - Verify no repository URL changes, root license files, API rewrites, generated release notes, crates.io contact, dependency version changes, package archives, publish commands, tags, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
 
 ## Status Rules
