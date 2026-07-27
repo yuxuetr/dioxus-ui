@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 63%
 - Current milestone: M131 Publish Blocker Resolution Tracking
-- Current task: M131.5 Prepare release notes readiness blocker handoff
+- Current task: M131.6 Prepare registry availability blocker handoff
 
 ## Backup
 
@@ -2279,7 +2279,7 @@
   - Confirm docs continue to show crate-mode API stability as unresolved until maintainer approval or a stabilization worklist is committed.
   - Run API stability readiness, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
 
-- TODO M131.5 Prepare release notes readiness blocker handoff
+- DONE M131.5 Prepare release notes readiness blocker handoff
   - Consolidate release note scope inputs, evidence requirements, focused gates, rollback expectations, and local follow-up files.
   - Confirm docs continue to show release notes as not publish-ready until an approved first-publish release note scope is committed.
   - Run release notes readiness, changelog, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
