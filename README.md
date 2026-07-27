@@ -636,6 +636,10 @@ as unresolved publish readiness work. It does not change dependency versions,
 run `cargo package`, run `cargo publish`, contact crates.io, check registry
 ownership, inspect credentials, create package archives, or authorize a
 release.
+Use [Workspace Dependency Blocker Handoff](docs/workspace-dependency-blocker-handoff.md)
+to consolidate internal dependency graph, version policy, local development,
+publish-order, rollback, and validation evidence before resolving the workspace
+dependency publish readiness blocker.
 
 Verify Cargo lockfile metadata only:
 

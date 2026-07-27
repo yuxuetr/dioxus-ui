@@ -9,6 +9,8 @@ The maintainer evidence checklist is tracked in
 [Workspace Dependency Evidence Checklist](workspace-dependency-evidence-checklist.md).
 The local follow-up map is tracked in
 [Workspace Dependency Local Follow-up Map](workspace-dependency-local-follow-up-map.md).
+The consolidated first-publish dependency evidence and rollback view is tracked
+in [Workspace Dependency Blocker Handoff](workspace-dependency-blocker-handoff.md).
 
 ## Current State
 

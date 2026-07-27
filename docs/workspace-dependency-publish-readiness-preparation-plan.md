@@ -9,6 +9,7 @@ Use this plan with:
 - [Workspace Dependency Publish Readiness Metadata](workspace-dependency-publish-readiness-metadata.md)
 - [Workspace Dependency Evidence Checklist](workspace-dependency-evidence-checklist.md)
 - [Workspace Dependency Local Follow-up Map](workspace-dependency-local-follow-up-map.md)
+- [Workspace Dependency Blocker Handoff](workspace-dependency-blocker-handoff.md)
 - [Publish Order Metadata](publish-order-metadata.md)
 - [Cargo Publish Metadata](cargo-publish-metadata.md)
 - [First Publish Readiness Plan](first-publish-readiness-plan.md)

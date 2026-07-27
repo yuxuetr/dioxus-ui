@@ -9,6 +9,7 @@ Use this map with:
 - [Workspace Dependency Publish Readiness Preparation Plan](workspace-dependency-publish-readiness-preparation-plan.md)
 - [Workspace Dependency Evidence Checklist](workspace-dependency-evidence-checklist.md)
 - [Workspace Dependency Publish Readiness Metadata](workspace-dependency-publish-readiness-metadata.md)
+- [Workspace Dependency Blocker Handoff](workspace-dependency-blocker-handoff.md)
 - [Publish Order Metadata](publish-order-metadata.md)
 - [Cargo Publish Metadata](cargo-publish-metadata.md)
 
