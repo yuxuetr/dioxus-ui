@@ -212,10 +212,9 @@ commit approval, and rollback evidence fields.
 decision outcomes to local license file, metadata, and documentation follow-up
 without generating or committing license text by itself.
 Repository identity readiness checks are read-only and validate only that the
-placeholder repository URL remains in workspace metadata; they do not choose a
-repository owner, replace repository metadata, check remote repository
-existence, check crates.io availability, run `cargo package`, or run
-`cargo publish`.
+approved repository URL remains in workspace metadata; they do not choose a
+different repository owner, change repository metadata, check crates.io
+availability, run `cargo package`, or run `cargo publish`.
 [Repository Identity Decision Preparation Plan](repository-identity-decision-preparation-plan.md)
 defines the repository-safe decision pass before maintainers accept, block, or
 defer the canonical repository owner and URL.

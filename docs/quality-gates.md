@@ -355,10 +355,9 @@ decision outcomes to local follow-up files and gates without generating or
 committing license text.
 
 `npm run verify:repository-identity-readiness` checks that the placeholder
-repository URL remains in workspace metadata. It is read-only and does not
-choose a repository owner, replace repository metadata, check remote repository
-existence, check crates.io availability, run `cargo package`, or run
-`cargo publish`.
+approved repository URL remains in workspace metadata. It is read-only and does
+not choose a different repository owner, change repository metadata, check
+crates.io availability, run `cargo package`, or run `cargo publish`.
 [Repository Identity Decision Preparation Plan](repository-identity-decision-preparation-plan.md)
 records the read-only preparation pass before maintainers accept, block, or
 defer the canonical repository identity.

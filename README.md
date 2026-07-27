@@ -521,19 +521,18 @@ Verify repository identity readiness metadata only:
 npm run verify:repository-identity-readiness
 ```
 
-This checks that the placeholder repository URL remains in workspace metadata.
-It does not choose a repository owner, replace repository metadata, check remote
-repository existence, check crates.io availability, run `cargo package`, or run
-`cargo publish`.
+This checks that the approved repository URL remains in workspace metadata. It
+does not choose a different repository owner, change repository metadata, check
+crates.io availability, run `cargo package`, or run `cargo publish`.
 Use [Repository Identity Decision Preparation Plan](docs/repository-identity-decision-preparation-plan.md)
-for the maintainer decision pass before replacing the placeholder URL.
+for the maintainer decision pass that approved the canonical URL.
 [Repository Identity Decision Record Template](docs/repository-identity-decision-record-template.md)
 captures approved, blocked, and deferred outcomes.
 [Repository Identity Local Follow-up Map](docs/repository-identity-local-follow-up-map.md)
 maps approved identity decisions to local metadata and documentation updates.
 [Repository Identity Blocker Handoff](docs/repository-identity-blocker-handoff.md)
 consolidates the required owner evidence, rollback expectations, and validation
-commands for the placeholder URL blocker.
+commands for the repository identity readiness item.
 
 Verify API stability readiness metadata only:
 

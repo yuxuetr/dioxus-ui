@@ -25,7 +25,7 @@ const siteDoc = normalizeWhitespace(readText("docs/site.md"));
 const scripts = packageJson.scripts ?? {};
 const failures = [];
 
-const placeholderRepository = "https://github.com/your-org/dioxus-ui";
+const approvedRepository = "https://github.com/yuxuetr/dioxus-ui";
 
 const requireIncludes = (name, text, fragments) => {
   for (const fragment of fragments) {
@@ -44,23 +44,22 @@ if (!scripts["verify:release"]?.includes("npm run verify:repository-identity-rea
 }
 
 requireIncludes("Cargo.toml", rootCargo, [
-  `repository = "${placeholderRepository}"`,
+  `repository = "${approvedRepository}"`,
 ]);
 
 requireIncludes("docs/repository-identity-readiness-metadata.md", repositoryDoc, [
   "Repository Identity Readiness Metadata",
-  placeholderRepository,
-  "The repository value is intentionally still a placeholder.",
-  "This gate must not replace the URL automatically.",
+  approvedRepository,
+  "The repository value is the approved canonical URL.",
+  "This gate must not change the URL automatically.",
   "Repository Identity Decision Preparation Plan",
   "Repository Identity Decision Record Template",
   "Repository Identity Local Follow-up Map",
-  "without resolving it",
+  "after resolution",
 ]);
 
 requireIncludes("docs/repository-identity-decision-preparation-plan.md", preparationPlan, [
   "Repository Identity Decision Preparation Plan",
-  placeholderRepository,
   "canonical repository owner and URL",
   "remote availability evidence",
   "repository identity local follow-up map",
@@ -87,24 +86,24 @@ requireIncludes("docs/repository-identity-local-follow-up-map.md", followUpMap, 
 
 requireIncludes("docs/publish-readiness-blockers.md", publishBlockers, [
   "Placeholder repository URL",
-  placeholderRepository,
-  "Maintainer updates release identity before publishing",
+  approvedRepository,
+  "npm run verify:repository-identity-readiness",
 ]);
 
 requireIncludes("docs/workspace.md", workspaceDoc, [
-  "The repository URL should be replaced before publishing.",
-  "repository URL remains a placeholder",
-  "Do not replace it as a side effect of metadata verification",
+  "The repository URL has been approved for first publish preparation.",
+  approvedRepository,
+  "Do not change it as a side effect of metadata verification",
 ]);
 
 requireIncludes("docs/cargo-publish-metadata.md", cargoPublishDoc, [
-  "repository URL is still a placeholder",
+  `repository URL is approved as \`${approvedRepository}\``,
 ]);
 
 requireIncludes("docs/release.md", releaseDoc, [
   "Repository identity readiness checks are read-only",
-  "placeholder repository URL remains in workspace metadata",
-  "they do not choose a repository owner, replace repository metadata, check remote repository existence, check crates.io availability, run `cargo package`, or run `cargo publish`",
+  "approved repository URL remains in workspace metadata",
+  "they do not choose a different repository owner, change repository metadata, check crates.io availability, run `cargo package`, or run `cargo publish`",
   "Repository Identity Decision Preparation Plan",
   "Repository Identity Decision Record Template",
   "Repository Identity Local Follow-up Map",
@@ -112,14 +111,15 @@ requireIncludes("docs/release.md", releaseDoc, [
 
 requireIncludes("docs/quality-gates.md", qualityDoc, [
   "`npm run verify:repository-identity-readiness`",
-  "placeholder repository URL remains in workspace metadata",
-  "does not choose a repository owner, replace repository metadata, check remote repository existence, check crates.io availability, run `cargo package`, or run `cargo publish`",
+  "approved repository URL remains in workspace metadata",
+  "does not choose a different repository owner, change repository metadata, check crates.io availability, run `cargo package`, or run `cargo publish`",
   "Repository Identity Decision Preparation Plan",
   "Repository Identity Decision Record Template",
   "Repository Identity Local Follow-up Map",
 ]);
 
 requireIncludes("README.md", readme, [
+  "approved repository URL remains in workspace metadata",
   "Repository Identity Decision Preparation Plan",
   "Repository Identity Decision Record Template",
   "Repository Identity Local Follow-up Map",
@@ -135,7 +135,7 @@ requireIncludes("docs/site.md", siteDoc, [
   "M101 Repository Identity Readiness Metadata Gate Usage",
   "M129 Repository Identity Decision Preparation",
   "npm run verify:repository-identity-readiness",
-  "placeholder repository URL remains in workspace metadata",
+  "approved repository URL remains in workspace metadata",
 ]);
 
 if (failures.length > 0) {

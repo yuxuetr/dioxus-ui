@@ -10,14 +10,13 @@ resolution work starts.
 Use [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
 to record the minimum evidence required before local follow-up can begin.
 Use [Publish Blocker Resolution Tracker](publish-blocker-resolution-tracker.md)
-to track the six current blockers together while evidence and local follow-up
-are prepared.
+to track current blockers together while evidence and local follow-up are
+prepared.
 
 Current blockers:
 
 | Blocker | Evidence | Resolution Owner |
 | --- | --- | --- |
-| Placeholder repository URL | `https://github.com/your-org/dioxus-ui` in workspace package metadata | Maintainer updates release identity before publishing |
 | Pre-1.0 API stability | Release docs allow breaking API changes before `1.0` | Maintainers decide crate-mode stability and versioning policy |
 | Release notes not publish-ready | `CHANGELOG.md` has project-owned structure, but release notes have not been maintained as complete publish-ready history | Maintainers define and maintain release notes before publishing |
 | Root license files not committed | `MIT OR Apache-2.0` is declared in workspace metadata, but `LICENSE-MIT` and `LICENSE-APACHE` are not committed | Maintainer commits reviewed root license files before publishing |
@@ -28,6 +27,7 @@ Resolved publish readiness items:
 
 | Item | Evidence | Verification |
 | --- | --- | --- |
+| Placeholder repository URL | Workspace metadata uses `https://github.com/yuxuetr/dioxus-ui` | `npm run verify:repository-identity-readiness` |
 | CLI template packaging strategy | `dioxus-ui-cli` embeds registry and template assets at compile time | `npm run verify:cli-template-packaging-readiness` |
 
 ## Scope
@@ -35,13 +35,13 @@ Resolved publish readiness items:
 In scope:
 
 - keeping the blocker inventory discoverable
-- checking the placeholder repository URL is still documented as a blocker
+- checking approved repository identity is documented as resolved
 - checking release docs and publish metadata docs do not imply readiness
 - checking package script and release aggregate wiring
 
 Out of scope:
 
-- replacing repository URLs
+- changing repository URLs
 - checking crates.io name availability
 - running `cargo package`
 - running `cargo publish`
@@ -58,7 +58,7 @@ include:
 
 - publish metadata docs stop saying the crates are not ready to publish
 - release docs imply CLI template delivery still depends on repository layout
-- workspace docs omit the placeholder repository URL blocker
+- workspace docs omit the approved repository URL
 - package scripts stop running the blocker inventory gate during release
 
 This gate should keep publish blockers explicit until a maintainer intentionally

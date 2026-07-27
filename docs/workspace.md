@@ -58,7 +58,7 @@ members = [
 version = "0.1.0"
 edition = "2024"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/your-org/dioxus-ui"
+repository = "https://github.com/yuxuetr/dioxus-ui"
 readme = "README.md"
 keywords = ["dioxus", "ui", "tailwind", "components"]
 categories = ["gui", "web-programming"]
@@ -69,19 +69,19 @@ serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 ```
 
-The repository URL should be replaced before publishing.
+The repository URL has been approved for first publish preparation.
 The shared README, keywords, and categories are publish metadata only; they do
-not imply the crates are ready to publish while the repository URL remains a
-placeholder and APIs are still pre-1.0.
+not imply the crates are ready to publish while APIs are still pre-1.0 and
+other publish blockers remain unresolved.
 
 Publishable crate manifests under `crates/` should keep crate-specific
 descriptions and inherit shared workspace publish metadata. Example and
 verification crates should keep `publish = false`.
 
-The placeholder repository URL is also tracked in
-[Publish Readiness Blockers](publish-readiness-blockers.md). Do not replace it
-as a side effect of metadata verification; update it only as part of an explicit
-publish-readiness review.
+The approved repository URL is tracked by
+[Repository Identity Readiness Metadata](repository-identity-readiness-metadata.md).
+Do not change it as a side effect of metadata verification; update it only as
+part of an explicit publish-readiness review.
 
 ## Crate Responsibilities
 

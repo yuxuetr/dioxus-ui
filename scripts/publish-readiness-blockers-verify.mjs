@@ -50,7 +50,7 @@ if (!scripts["verify:release"]?.includes("npm run verify:publish-readiness-block
   failures.push("package.json verify:release missing publish readiness blocker gate");
 }
 
-requireFragment("Cargo.toml", rootCargo, 'repository = "https://github.com/your-org/dioxus-ui"');
+requireFragment("Cargo.toml", rootCargo, 'repository = "https://github.com/yuxuetr/dioxus-ui"');
 
 const blockerFragments = [
   "Placeholder repository URL",
@@ -60,8 +60,8 @@ const blockerFragments = [
   "Registry availability not checked",
   "Workspace dependency publish readiness",
   "Resolved publish readiness items",
+  "https://github.com/yuxuetr/dioxus-ui",
   "`dioxus-ui-cli` embeds registry and template assets at compile time",
-  "https://github.com/your-org/dioxus-ui",
   "does not resolve the blockers",
 ];
 
@@ -70,7 +70,7 @@ for (const fragment of blockerFragments) {
 }
 
 const blockerBoundaryFragments = [
-  "replacing repository URLs",
+  "changing repository URLs",
   "checking crates.io name availability",
   "running `cargo package`",
   "running `cargo publish`",
@@ -93,7 +93,7 @@ rejectFragment(
 
 const publishMetadataFragments = [
   "does not claim the crates",
-  "repository URL is still a placeholder",
+  "repository URL is approved",
   "APIs remain pre-1.0",
   "CLI template delivery now uses embedded registry/template assets",
 ];
@@ -103,8 +103,7 @@ for (const fragment of publishMetadataFragments) {
 }
 
 const workspaceFragments = [
-  "repository URL remains a",
-  "placeholder",
+  "repository URL has been approved",
   "APIs are still pre-1.0",
 ];
 

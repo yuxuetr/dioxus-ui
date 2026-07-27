@@ -1720,7 +1720,7 @@ M101 adds a focused repository identity readiness metadata command:
 npm run verify:repository-identity-readiness
 ```
 
-The command checks that the placeholder repository URL remains in workspace
+The command checks that the approved repository URL remains in workspace
 metadata.
 
 The check is included in:
@@ -1729,7 +1729,7 @@ The check is included in:
 npm run verify:release
 ```
 
-It remains read-only. It does not choose a repository owner, replace repository
+It remains read-only. It does not choose a different repository owner, change repository
 metadata, check remote repository existence, check crates.io availability, run
 `cargo package`, or run `cargo publish`.
 

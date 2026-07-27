@@ -24,8 +24,8 @@ The decision must cover:
 
 - final repository owner
 - canonical repository URL
-- confirmation that the URL should replace
-  `https://github.com/your-org/dioxus-ui`
+- confirmation that the approved URL is
+  `https://github.com/yuxuetr/dioxus-ui`
 - remote availability evidence supplied by the maintainer or release owner
 - whether crate manifests keep inheriting workspace repository metadata
 - release documentation wording after the blocker is resolved

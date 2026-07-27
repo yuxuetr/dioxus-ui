@@ -17,7 +17,7 @@ Use it with:
 | Field | Current Value |
 | --- | --- |
 | Blocker | Placeholder repository URL |
-| Current metadata | `https://github.com/your-org/dioxus-ui` |
+| Current metadata | `https://github.com/yuxuetr/dioxus-ui` |
 | Publish state | Unresolved |
 | Resolution owner | Maintainer or release owner |
 | Focused gate | `npm run verify:repository-identity-readiness` |
