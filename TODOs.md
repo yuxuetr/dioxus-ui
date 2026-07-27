@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 88%
-- Current milestone: M131 Publish Blocker Resolution Tracking
-- Current task: M131.8 Complete publish blocker resolution tracking milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2294,7 +2294,7 @@
   - Confirm docs continue to show workspace dependency publish readiness as unresolved until publish-ready internal dependency metadata is approved.
   - Run workspace dependency publish readiness, publish order, Cargo workspace, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
 
-- TODO M131.8 Complete publish blocker resolution tracking milestone
+- DONE M131.8 Complete publish blocker resolution tracking milestone
   - Run docs checks, all six focused blocker readiness checks, publish readiness coverage, runbook, release docs, package script, repo hygiene, package lock, and diff checks.
   - Verify no repository URL changes, root license files, API rewrites, generated release notes, crates.io contact, dependency version changes, package archives, publish commands, tags, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
