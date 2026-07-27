@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 33%
+- Overall: 67%
 - Current milestone: M132 First Publish Decision Packet
-- Current task: M132.2 Add first publish decision packet
+- Current task: M132.3 Complete first publish decision packet milestone
 
 ## Backup
 
@@ -2306,7 +2306,7 @@
   - Link each blocker to required evidence, decision owner, possible decision states, local follow-up boundaries, rollback expectations, and focused gates.
   - Keep the packet read-only: no repository URL changes, no root license files, no API rewrites, no generated release notes, no crates.io contact, no dependency version changes, no package archives, and no publish commands.
 
-- TODO M132.2 Add first publish decision packet
+- DONE M132.2 Add first publish decision packet
   - Add a copyable document for release owners to record all six blocker decisions in one review pass.
   - Include explicit placeholders for blocker state, evidence location, local follow-up owner, rollback owner, and verification commands.
   - Link the packet from the decision matrix, publish blocker tracker, release candidate handoff checklist, maintainer handoff template, README, and docs index.
