@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 13%
+- Overall: 25%
 - Current milestone: M131 Publish Blocker Resolution Tracking
-- Current task: M131.2 Prepare placeholder repository URL blocker handoff
+- Current task: M131.3 Prepare root license files blocker handoff
 
 ## Backup
 
@@ -2264,7 +2264,7 @@
   - Map each blocker to its existing decision-preparation artifacts, required maintainer evidence, local follow-up files, focused gates, and unresolved status.
   - Keep the tracker repository-safe: no repository URL replacement, no root license file commits, no API stabilization approval, no release-note generation, no crates.io contact, no dependency version changes, no package archives, and no publish commands.
 
-- TODO M131.2 Prepare placeholder repository URL blocker handoff
+- DONE M131.2 Prepare placeholder repository URL blocker handoff
   - Consolidate repository identity decision inputs, evidence requirements, focused gates, rollback expectations, and local follow-up files.
   - Confirm docs continue to show the placeholder repository URL blocker as unresolved until maintainer approval is committed.
   - Run repository identity, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
