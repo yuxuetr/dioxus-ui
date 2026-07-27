@@ -26,6 +26,9 @@ Use [Workspace Dependency Evidence Checklist](workspace-dependency-evidence-chec
 to record the approved dependency evidence before local follow-up.
 Use [Workspace Dependency Local Follow-up Map](workspace-dependency-local-follow-up-map.md)
 to keep approved manifest changes aligned with publish order.
+Use [Registry Availability Blocker Handoff](registry-availability-blocker-handoff.md)
+to record release-owner registry evidence before treating this order as
+externally publishable.
 
 ## Readiness Contract
 

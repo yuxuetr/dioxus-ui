@@ -574,6 +574,9 @@ the unresolved crates.io name and ownership review blocker remains documented.
 It does not contact crates.io, check crate name availability, check ownership,
 inspect credentials, run `cargo package`, run `cargo publish`, or create
 package archives.
+Use [Registry Availability Blocker Handoff](docs/registry-availability-blocker-handoff.md)
+to consolidate crate names, owner, credential, publish-order, rollback, and
+validation evidence before resolving the registry availability blocker.
 
 Verify publish readiness coverage metadata only:
 

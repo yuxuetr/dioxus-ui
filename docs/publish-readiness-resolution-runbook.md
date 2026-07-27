@@ -16,6 +16,9 @@ to identify local files, gates, and rollback considerations after approval.
 Use
 [First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md)
 when those decisions need to be copied into release-candidate notes.
+Use [Registry Availability Blocker Handoff](registry-availability-blocker-handoff.md)
+for the release-owner registry evidence needed before resolving crates.io
+availability.
 
 ## Resolution Order
 

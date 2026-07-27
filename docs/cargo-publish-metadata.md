@@ -15,6 +15,9 @@ dioxus-ui-cli
 
 The planned publish order is tracked in
 [Publish Order Metadata](publish-order-metadata.md).
+Registry name, ownership, credential, and publish-order evidence is tracked in
+[Registry Availability Blocker Handoff](registry-availability-blocker-handoff.md)
+before any publish readiness blocker is resolved.
 
 Example and verification crates under `examples/` remain application fixtures
 and must keep `publish = false`.

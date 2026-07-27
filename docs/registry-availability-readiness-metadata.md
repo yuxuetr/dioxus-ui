@@ -3,6 +3,8 @@
 This document defines the metadata gate for registry availability readiness.
 It keeps the crates.io name and ownership review blocker visible without
 performing external registry checks.
+Use [Registry Availability Blocker Handoff](registry-availability-blocker-handoff.md)
+for the consolidated release-owner evidence, rollback, and validation view.
 
 ## Current State
 
