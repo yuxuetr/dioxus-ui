@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 14%
+- Overall: 29%
 - Current milestone: M133 Approved Publish Blocker Resolution
-- Current task: M133.2 Resolve repository identity blocker
+- Current task: M133.3 Resolve MIT license blocker
 
 ## Backup
 
@@ -2323,7 +2323,7 @@
   - Split locally resolvable blockers from external crates.io readiness: repository identity, license, API stability, release notes, and workspace dependency metadata can be updated locally; registry availability remains deferred until crates.io evidence exists.
   - Keep the milestone safe: no crates.io contact, no credential inspection, no `cargo package`, no `cargo publish`, no package archives, no tags, and no GitHub releases.
 
-- TODO M133.2 Resolve repository identity blocker
+- DONE M133.2 Resolve repository identity blocker
   - Replace placeholder repository metadata with `https://github.com/yuxuetr/dioxus-ui`.
   - Update repository identity readiness docs, publish blockers, Cargo publish metadata, release docs, quality gates, README, docs-site notes, decision packet, and focused verifier expectations.
   - Run repository identity, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
