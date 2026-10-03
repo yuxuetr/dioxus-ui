@@ -21,7 +21,7 @@ Use it with:
 | Blocker | Pre-1.0 API stability |
 | Workspace version | `0.1.0` |
 | Current policy | Breaking API changes remain allowed before `1.0` |
-| Publish state | Unresolved |
+| Publish state | Resolved locally: current `0.1.x` API surface accepted for first publish |
 | Resolution owner | Maintainer or release owner |
 | Focused gate | `npm run verify:api-stability-readiness` |
 

@@ -71,8 +71,9 @@ serde_json = "1"
 
 The repository URL has been approved for first publish preparation.
 The shared README, keywords, and categories are publish metadata only; they do
-not imply the crates are ready to publish while APIs are still pre-1.0 and
-other publish blockers remain unresolved.
+not imply the crates are ready to publish while other publish blockers remain
+unresolved. APIs are still pre-1.0; the current `0.1.x` surface is accepted
+for first publish.
 
 Publishable crate manifests under `crates/` should keep crate-specific
 descriptions and inherit shared workspace publish metadata. Example and

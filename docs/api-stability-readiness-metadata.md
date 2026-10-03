@@ -1,6 +1,9 @@
 # API Stability Readiness Metadata
 
-M102 defines the read-only contract for API stability readiness. The workspace is still at `0.1.0`, and release docs explicitly allow breaking API changes before `1.0`, so crate-mode APIs are not yet publish-ready stable.
+M102 defines the read-only contract for API stability readiness. The workspace
+is at `0.1.0`, and M133 records the maintainer decision that the current
+`0.1.x` API surface is accepted for first publish under a pre-`1.0`
+breaking-change policy.
 The current audit inventory is tracked in
 [Public API Surface Inventory](public-api-surface-inventory.md).
 The maintainer review checklist is tracked in
@@ -14,14 +17,29 @@ The local follow-up map is tracked in
 The consolidated first-publish evidence and rollback view is tracked in
 [API Stability Blocker Handoff](api-stability-blocker-handoff.md).
 
+## Accepted Policy
+
+| Field | Value |
+| --- | --- |
+| Workspace version | `0.1.0` |
+| Decision | Current `0.1.x` API surface is accepted for first publish |
+| Decision source | [Approved Publish Blocker Resolution Plan](approved-publish-blocker-resolution-plan.md) |
+| Patch releases (`0.1.x`) | Must not break public crate-mode APIs |
+| Breaking changes | Allowed before `1.0` only in a minor bump (`0.1` to `0.2`) |
+| Changelog | Every breaking change is documented in `CHANGELOG.md` with a migration note |
+
+Cargo already treats `0.x` minor bumps as incompatible, so `^0.1` consumers do
+not receive `0.2` automatically. Source-copy templates are owned by the
+consuming app after generation and are not covered by this compatibility
+promise.
+
 ## Expected Shape
 
 The release metadata should distinguish these states:
 
 - Crate versions exist and are intentionally pre-`1.0`.
 - Breaking API changes remain allowed before `1.0`.
-- Publish readiness remains blocked until maintainers decide crate-mode
-  stability and versioning policy.
+- The current `0.1.x` API surface is accepted for first publish.
 
 This gate must not freeze APIs or change versions automatically.
 
@@ -30,6 +48,7 @@ This gate must not freeze APIs or change versions automatically.
 In scope:
 
 - pre-`1.0` version metadata
+- accepted first-publish API policy discoverability
 - publish blocker alignment
 - release and quality gate references
 - Cargo publish metadata references
@@ -39,7 +58,6 @@ Out of scope:
 
 - stabilizing component APIs
 - changing crate versions
-- deciding semantic versioning policy
 - generating migration guides
 - running `cargo package`
 - running `cargo publish`
@@ -48,10 +66,11 @@ Out of scope:
 
 The verifier should fail when committed metadata drifts. Examples include:
 
-- workspace version stops matching the documented pre-`1.0` blocker without
+- workspace version stops matching the documented `0.1.x` policy without
   updating release readiness docs
-- publish readiness blockers omit pre-`1.0` API stability
+- publish readiness blockers stop recording the accepted API policy as resolved
 - release docs stop saying breaking changes before `1.0` must be documented
 - package scripts stop running the API stability readiness gate
 
-This gate should keep API stability readiness explicit without resolving it.
+This gate should keep the accepted `0.1.x` API policy explicit after
+resolution.

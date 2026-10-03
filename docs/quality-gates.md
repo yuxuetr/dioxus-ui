@@ -369,12 +369,13 @@ maps repository identity outcomes to local follow-up files and gates without
 applying URL changes.
 
 `npm run verify:api-stability-readiness` checks workspace version `0.1.0` and
-the unresolved pre-`1.0` API stability blocker. It is read-only and does not
-stabilize component APIs, change crate versions, decide semantic versioning
-policy, generate migration guides, run `cargo package`, or run `cargo publish`.
+the accepted `0.1.x` first-publish API policy. It is read-only and does not
+stabilize component APIs, change crate versions, change the pre-`1.0`
+breaking-change policy, generate migration guides, run `cargo package`, or run
+`cargo publish`.
 [Public API Surface Inventory](public-api-surface-inventory.md) records the
-current component, primitive, core, feature, registry, and source-copy surfaces
-that need maintainer review before that blocker can be resolved.
+component, primitive, core, feature, registry, and source-copy surfaces
+accepted for first publish.
 [API Stability Review Checklist](api-stability-review-checklist.md) provides
 copyable maintainer review steps without approving stability by itself.
 [API Stability Decision Preparation Plan](api-stability-decision-preparation-plan.md)

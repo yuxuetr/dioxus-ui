@@ -540,17 +540,18 @@ Verify API stability readiness metadata only:
 npm run verify:api-stability-readiness
 ```
 
-This checks workspace version `0.1.0` and the unresolved pre-`1.0` API
-stability blocker. It does not stabilize component APIs, change crate versions,
-decide semantic versioning policy, generate migration guides, run
-`cargo package`, or run `cargo publish`.
-The current API review surface is documented in
+This checks workspace version `0.1.0` and the accepted `0.1.x` first-publish
+API policy: breaking changes before `1.0` require a minor bump and a
+`CHANGELOG.md` migration note. It does not stabilize component APIs, change
+crate versions, change the pre-`1.0` breaking-change policy, generate migration
+guides, run `cargo package`, or run `cargo publish`.
+The accepted API surface is documented in
 [Public API Surface Inventory](docs/public-api-surface-inventory.md).
-Use [API Stability Review Checklist](docs/api-stability-review-checklist.md)
-for maintainer review before resolving the API stability blocker.
+[API Stability Review Checklist](docs/api-stability-review-checklist.md)
+remains the review checklist for future API changes.
 [API Stability Blocker Handoff](docs/api-stability-blocker-handoff.md)
 consolidates the public surface review inputs, rollback expectations, and
-validation commands for the pre-`1.0` API stability blocker.
+validation commands for the resolved API stability readiness item.
 
 Verify CLI template packaging readiness metadata only:
 

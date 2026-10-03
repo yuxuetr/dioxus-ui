@@ -606,9 +606,10 @@ docs/api-stability-decision-record-template.md
 docs/api-stability-local-follow-up-map.md
 ```
 
-The plan keeps API stability unresolved while maintainers decide whether the
+The plan kept API stability unresolved until maintainers decided whether the
 current `0.1.x` crate-mode APIs are acceptable for first publish or whether a
-focused API stabilization milestone is required. It does not rewrite APIs,
+focused API stabilization milestone is required. M133 records the accepted
+`0.1.x` first-publish API policy. It does not rewrite APIs,
 change versions, generate migration guides, package crates, publish crates,
 create tags, or approve stability.
 
@@ -1799,8 +1800,8 @@ M102 adds a focused API stability readiness metadata command:
 npm run verify:api-stability-readiness
 ```
 
-The command checks workspace version `0.1.0` and the unresolved pre-`1.0` API
-stability blocker.
+The command checks workspace version `0.1.0` and the accepted `0.1.x`
+first-publish API policy.
 
 The check is included in:
 
@@ -1809,14 +1810,14 @@ npm run verify:release
 ```
 
 It remains read-only. It does not stabilize component APIs, change crate
-versions, decide semantic versioning policy, generate migration guides, run
-`cargo package`, or run `cargo publish`.
+versions, change the pre-`1.0` breaking-change policy, generate migration
+guides, run `cargo package`, or run `cargo publish`.
 
 ## M102 Final Result
 
 M102 added `npm run verify:api-stability-readiness` and wired it into
 `npm run verify:release`. The gate validates workspace version `0.1.0` and the
-unresolved pre-`1.0` API stability blocker.
+accepted `0.1.x` first-publish API policy recorded in M133.
 
 Validation completed:
 
@@ -1833,8 +1834,8 @@ git diff --check
 ```
 
 All commands passed. The check does not stabilize component APIs, change crate
-versions, decide semantic versioning policy, generate migration guides, run
-`cargo package`, or run `cargo publish`.
+versions, change the pre-`1.0` breaking-change policy, generate migration
+guides, run `cargo package`, or run `cargo publish`.
 
 ## M103 CLI Template Packaging Readiness Metadata Gate Usage
 

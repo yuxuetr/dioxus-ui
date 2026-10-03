@@ -166,7 +166,8 @@ const metadataFragments = [
   "dioxus-ui-cli",
   "shared workspace `readme`, `keywords`, and `categories` metadata",
   "Example and verification crates under `examples/` remain application fixtures",
-  "does not claim the crates are ready to publish while APIs remain pre-1.0",
+  "does not claim the crates are ready to publish",
+  "current `0.1.x` API surface is accepted for first publish",
   "CLI template delivery now uses embedded registry/template assets",
 ];
 

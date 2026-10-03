@@ -37,7 +37,7 @@ const hasWorkspaceInheritance = (section, field) => {
 
 const packageJson = JSON.parse(readText("package.json"));
 const rootCargo = readText("Cargo.toml");
-const apiDoc = readText("docs/api-stability-readiness-metadata.md");
+const apiDoc = normalizeWhitespace(readText("docs/api-stability-readiness-metadata.md"));
 const publishBlockers = readText("docs/publish-readiness-blockers.md");
 const cargoPublishDoc = normalizeWhitespace(readText("docs/cargo-publish-metadata.md"));
 const releaseDoc = normalizeWhitespace(readText("docs/release.md"));
@@ -45,6 +45,14 @@ const qualityDoc = normalizeWhitespace(readText("docs/quality-gates.md"));
 const siteDoc = normalizeWhitespace(readText("docs/site.md"));
 const scripts = packageJson.scripts ?? {};
 const failures = [];
+
+const requireExcludes = (name, text, fragments) => {
+  for (const fragment of fragments) {
+    if (text.includes(fragment)) {
+      failures.push(`${name} must not include stale wording: ${fragment}`);
+    }
+  }
+};
 
 const requireIncludes = (name, text, fragments) => {
   for (const fragment of fragments) {
@@ -81,39 +89,49 @@ for (const crateName of readdirSync(join(repoRoot, "crates"))) {
 
 requireIncludes("docs/api-stability-readiness-metadata.md", apiDoc, [
   "API Stability Readiness Metadata",
-  "workspace is still at `0.1.0`",
+  "workspace is at `0.1.0`",
+  "current `0.1.x` API surface is accepted for first publish",
+  "Approved Publish Blocker Resolution Plan",
+  "Must not break public crate-mode APIs",
+  "Allowed before `1.0` only in a minor bump (`0.1` to `0.2`)",
+  "documented in `CHANGELOG.md` with a migration note",
   "Breaking API changes remain allowed before `1.0`.",
   "This gate must not freeze APIs or change versions automatically.",
-  "without resolving it",
+  "after resolution",
 ]);
 
 requireIncludes("docs/publish-readiness-blockers.md", publishBlockers, [
   "Pre-1.0 API stability",
-  "Release docs allow breaking API changes before `1.0`",
+  "Current `0.1.x` API surface is accepted for first publish",
+  "npm run verify:api-stability-readiness",
+]);
+
+requireExcludes("docs/publish-readiness-blockers.md", publishBlockers, [
   "Maintainers decide crate-mode stability and versioning policy",
 ]);
 
 requireIncludes("docs/cargo-publish-metadata.md", cargoPublishDoc, [
   "APIs remain pre-1.0",
+  "current `0.1.x` API surface is accepted for first publish",
 ]);
 
 requireIncludes("docs/release.md", releaseDoc, [
   "Before `1.0`, API changes are allowed but should still be documented in the changelog.",
   "API stability readiness checks are read-only",
-  "workspace version `0.1.0` and the unresolved pre-`1.0` API stability blocker",
-  "they do not stabilize component APIs, change crate versions, decide semantic versioning policy, generate migration guides, run `cargo package`, or run `cargo publish`",
+  "workspace version `0.1.0` and the accepted `0.1.x` first-publish API policy",
+  "they do not stabilize component APIs, change crate versions, change the pre-`1.0` breaking-change policy, generate migration guides, run `cargo package`, or run `cargo publish`",
 ]);
 
 requireIncludes("docs/quality-gates.md", qualityDoc, [
   "`npm run verify:api-stability-readiness`",
-  "workspace version `0.1.0` and the unresolved pre-`1.0` API stability blocker",
-  "does not stabilize component APIs, change crate versions, decide semantic versioning policy, generate migration guides, run `cargo package`, or run `cargo publish`",
+  "workspace version `0.1.0` and the accepted `0.1.x` first-publish API policy",
+  "does not stabilize component APIs, change crate versions, change the pre-`1.0` breaking-change policy, generate migration guides, run `cargo package`, or run `cargo publish`",
 ]);
 
 requireIncludes("docs/site.md", siteDoc, [
   "M102 API Stability Readiness Metadata Gate Usage",
   "npm run verify:api-stability-readiness",
-  "workspace version `0.1.0` and the unresolved pre-`1.0` API stability blocker",
+  "workspace version `0.1.0` and the accepted `0.1.x` first-publish API policy",
 ]);
 
 if (failures.length > 0) {

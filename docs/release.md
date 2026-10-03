@@ -225,14 +225,15 @@ rollback evidence fields.
 maps identity decision outcomes to local metadata and documentation follow-up
 without replacing the placeholder URL by itself.
 API stability readiness checks are read-only and validate only workspace
-version `0.1.0` and the unresolved pre-`1.0` API stability blocker; they do not
-stabilize component APIs, change crate versions, decide semantic versioning
-policy, generate migration guides, run `cargo package`, or run `cargo publish`.
+version `0.1.0` and the accepted `0.1.x` first-publish API policy; they do not
+stabilize component APIs, change crate versions, change the pre-`1.0`
+breaking-change policy, generate migration guides, run `cargo package`, or run
+`cargo publish`.
 The [Public API Surface Inventory](public-api-surface-inventory.md) documents
-the current component, primitive, core, feature, registry, and source-copy
-surfaces for maintainer review without resolving the blocker.
+the component, primitive, core, feature, registry, and source-copy surfaces
+accepted for first publish.
 [API Stability Review Checklist](api-stability-review-checklist.md) provides
-the maintainer review steps to use before changing that blocker state.
+the maintainer review steps to use for future API changes.
 [API Stability Decision Preparation Plan](api-stability-decision-preparation-plan.md)
 defines the repository-safe decision pass for accepting, blocking, or deferring
 the current `0.1.x` API surface.
