@@ -15,7 +15,7 @@ const requiredLocalHooks = [
   },
   {
     id: "cargo-deny",
-    entry: "cargo deny check -d",
+    entry: "cargo deny --offline check",
     configFiles: ["deny.toml"],
   },
   {
