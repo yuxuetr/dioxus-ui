@@ -11,7 +11,8 @@ pub enum InputGroupAddonPosition {
 pub const INPUT_GROUP_BASE_CLASS: &str = "flex min-h-10 w-full items-center overflow-hidden rounded-md border border-zinc-200 bg-white text-sm transition-colors focus-within:ring-2 focus-within:ring-blue-600 data-disabled:opacity-50";
 pub const INPUT_GROUP_INVALID_CLASS: &str = "border-red-500 focus-within:ring-red-500";
 pub const INPUT_GROUP_DISABLED_CLASS: &str = "cursor-not-allowed";
-pub const INPUT_GROUP_ADDON_BASE_CLASS: &str = "flex h-full shrink-0 items-center gap-2 bg-zinc-50 px-3 text-sm text-zinc-600";
+pub const INPUT_GROUP_ADDON_BASE_CLASS: &str =
+  "flex h-full shrink-0 items-center gap-2 bg-zinc-50 px-3 text-sm text-zinc-600";
 pub const INPUT_GROUP_ADDON_START_CLASS: &str = "border-r border-zinc-200";
 pub const INPUT_GROUP_ADDON_END_CLASS: &str = "border-l border-zinc-200";
 pub const INPUT_GROUP_CONTROL_BASE_CLASS: &str = "flex min-w-0 flex-1 items-center [&>input]:border-0 [&>input]:bg-transparent [&>input]:shadow-none [&>input]:focus-visible:ring-0";
@@ -43,11 +44,7 @@ pub fn input_group_class(invalid: bool, disabled: bool, class: &str) -> String {
 }
 
 pub fn input_group_addon_class(position: InputGroupAddonPosition, class: &str) -> String {
-  classes([
-    Some(INPUT_GROUP_ADDON_BASE_CLASS),
-    Some(position.class()),
-    Some(class),
-  ])
+  classes([Some(INPUT_GROUP_ADDON_BASE_CLASS), Some(position.class()), Some(class)])
 }
 
 pub fn input_group_control_class(class: &str) -> String {

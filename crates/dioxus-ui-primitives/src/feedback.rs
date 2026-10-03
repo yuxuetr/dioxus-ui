@@ -79,17 +79,11 @@ pub struct ToastQueue {
 
 impl ToastQueue {
   pub fn new(limit: usize) -> Self {
-    Self {
-      items: Vec::new(),
-      limit,
-    }
+    Self { items: Vec::new(), limit }
   }
 
   pub fn with_items(items: Vec<ToastItem>, limit: usize) -> Self {
-    Self {
-      items: toast_queue_limit(items, limit),
-      limit,
-    }
+    Self { items: toast_queue_limit(items, limit), limit }
   }
 
   pub fn push(self, item: ToastItem) -> Self {
@@ -141,19 +135,12 @@ pub fn toast_queue_push(queue: ToastQueue, item: ToastItem) -> ToastQueue {
 
   items.push(item);
 
-  ToastQueue {
-    items: toast_queue_limit(items, queue.limit),
-    limit: queue.limit,
-  }
+  ToastQueue { items: toast_queue_limit(items, queue.limit), limit: queue.limit }
 }
 
 pub fn toast_queue_dismiss(queue: ToastQueue, id: &str) -> ToastQueue {
   ToastQueue {
-    items: queue
-      .items
-      .into_iter()
-      .filter(|item| item.id != id)
-      .collect(),
+    items: queue.items.into_iter().filter(|item| item.id != id).collect(),
     limit: queue.limit,
   }
 }
@@ -165,11 +152,7 @@ pub fn toast_queue_limit(items: Vec<ToastItem>, limit: usize) -> Vec<ToastItem> 
 
   let len = items.len();
 
-  if len <= limit {
-    items
-  } else {
-    items.into_iter().skip(len - limit).collect()
-  }
+  if len <= limit { items } else { items.into_iter().skip(len - limit).collect() }
 }
 
 pub const fn toast_is_expired(elapsed_ms: u64, duration_ms: u64) -> bool {
@@ -182,15 +165,9 @@ mod tests {
 
   #[test]
   fn maps_feedback_attributes() {
-    assert_eq!(
-      toast_placement_attribute(ToastPlacement::TopCenter),
-      "top-center"
-    );
+    assert_eq!(toast_placement_attribute(ToastPlacement::TopCenter), "top-center");
     assert_eq!(toast_variant_attribute(ToastVariant::Warning), "warning");
-    assert_eq!(
-      toast_dismiss_reason_attribute(ToastDismissReason::Timeout),
-      "timeout"
-    );
+    assert_eq!(toast_dismiss_reason_attribute(ToastDismissReason::Timeout), "timeout");
   }
 
   #[test]
@@ -201,11 +178,7 @@ mod tests {
       .push(ToastItem::new("three", "Three"));
 
     assert_eq!(
-      queue
-        .items
-        .iter()
-        .map(|item| item.id.as_str())
-        .collect::<Vec<_>>(),
+      queue.items.iter().map(|item| item.id.as_str()).collect::<Vec<_>>(),
       vec!["two", "three"]
     );
   }

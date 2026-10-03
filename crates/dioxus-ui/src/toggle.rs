@@ -45,12 +45,7 @@ pub fn toggle_class(
   pressed: bool,
   class: &str,
 ) -> String {
-  classes([
-    Some(TOGGLE_BASE_CLASS),
-    Some(variant.class(pressed)),
-    Some(size.class()),
-    Some(class),
-  ])
+  classes([Some(TOGGLE_BASE_CLASS), Some(variant.class(pressed)), Some(size.class()), Some(class)])
 }
 
 #[component]

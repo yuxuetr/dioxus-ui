@@ -533,7 +533,7 @@ mod tests {
     };
 
     assert_eq!(runtime.cancel(&timer_id), TimerRuntimeResult::Cancelled);
-    assert_eq!(runtime.records()[0].cancelled, true);
+    assert!(runtime.records()[0].cancelled);
   }
 
   #[test]

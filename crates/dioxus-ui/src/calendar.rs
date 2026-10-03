@@ -1,19 +1,21 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 pub use dioxus_ui_primitives::{
-  calendar_month_grid, calendar_move_date, calendar_range_state, days_in_month, is_leap_year,
   CalendarDate, CalendarDay as CalendarPrimitiveDay, CalendarKeyMove, CalendarMonth,
-  CalendarMonthGrid, CalendarRangeState, CalendarWeekday,
+  CalendarMonthGrid, CalendarRangeState, CalendarWeekday, calendar_month_grid, calendar_move_date,
+  calendar_range_state, days_in_month, is_leap_year,
 };
 
-pub const CALENDAR_BASE_CLASS: &str = "w-fit rounded-md border border-zinc-200 bg-white p-3 text-zinc-950";
+pub const CALENDAR_BASE_CLASS: &str =
+  "w-fit rounded-md border border-zinc-200 bg-white p-3 text-zinc-950";
 pub const CALENDAR_HEADER_BASE_CLASS: &str = "mb-3 flex items-center justify-between gap-2";
 pub const CALENDAR_CAPTION_BASE_CLASS: &str = "text-sm font-medium";
 pub const CALENDAR_NAV_BASE_CLASS: &str = "flex items-center gap-1";
 pub const CALENDAR_NAV_BUTTON_BASE_CLASS: &str = "inline-flex h-8 w-8 items-center justify-center rounded-md text-sm transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
 pub const CALENDAR_GRID_BASE_CLASS: &str = "grid gap-1";
 pub const CALENDAR_HEAD_BASE_CLASS: &str = "grid grid-cols-7 gap-1";
-pub const CALENDAR_HEAD_CELL_BASE_CLASS: &str = "flex h-8 w-8 items-center justify-center text-xs font-medium text-zinc-500";
+pub const CALENDAR_HEAD_CELL_BASE_CLASS: &str =
+  "flex h-8 w-8 items-center justify-center text-xs font-medium text-zinc-500";
 pub const CALENDAR_BODY_BASE_CLASS: &str = "grid gap-1";
 pub const CALENDAR_ROW_BASE_CLASS: &str = "grid grid-cols-7 gap-1";
 pub const CALENDAR_DAY_BASE_CLASS: &str = "inline-flex h-8 w-8 items-center justify-center rounded-md text-sm transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
@@ -288,14 +290,8 @@ mod tests {
 
   #[test]
   fn calendar_day_class_reflects_states() {
-    let actual = calendar_day_class(
-      true,
-      true,
-      true,
-      false,
-      CalendarRangeState::Single,
-      "font-semibold",
-    );
+    let actual =
+      calendar_day_class(true, true, true, false, CalendarRangeState::Single, "font-semibold");
 
     assert!(actual.contains(CALENDAR_DAY_BASE_CLASS));
     assert!(actual.contains(CALENDAR_DAY_SELECTED_CLASS));
@@ -306,18 +302,12 @@ mod tests {
 
   #[test]
   fn calendar_range_attribute_maps_states() {
-    assert_eq!(
-      calendar_range_attribute(CalendarRangeState::Middle),
-      "middle"
-    );
+    assert_eq!(calendar_range_attribute(CalendarRangeState::Middle), "middle");
   }
 
   #[test]
   fn calendar_primitives_are_reexported() {
     assert_eq!(days_in_month(2024, 2), 29);
-    assert_eq!(
-      CalendarDate::unchecked(2024, 6, 1).weekday(),
-      CalendarWeekday::Saturday
-    );
+    assert_eq!(CalendarDate::unchecked(2024, 6, 1).weekday(), CalendarWeekday::Saturday);
   }
 }

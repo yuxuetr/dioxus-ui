@@ -46,7 +46,8 @@ pub const ATTACHMENT_DONE_CLASS: &str = "border-emerald-200 bg-emerald-50";
 pub const ATTACHMENT_GROUP_BASE_CLASS: &str = "flex gap-2 overflow-x-auto";
 pub const ATTACHMENT_MEDIA_BASE_CLASS: &str = "flex shrink-0 items-center justify-center overflow-hidden rounded-md border border-zinc-200 bg-zinc-50 text-zinc-500";
 pub const ATTACHMENT_MEDIA_ICON_CLASS: &str = "h-10 w-10";
-pub const ATTACHMENT_MEDIA_IMAGE_CLASS: &str = "h-14 w-14 [&>img]:h-full [&>img]:w-full [&>img]:object-cover";
+pub const ATTACHMENT_MEDIA_IMAGE_CLASS: &str =
+  "h-14 w-14 [&>img]:h-full [&>img]:w-full [&>img]:object-cover";
 pub const ATTACHMENT_CONTENT_BASE_CLASS: &str = "grid min-w-0 flex-1 gap-1";
 pub const ATTACHMENT_TITLE_BASE_CLASS: &str = "truncate font-medium text-zinc-950";
 pub const ATTACHMENT_DESCRIPTION_BASE_CLASS: &str = "line-clamp-2 text-xs text-zinc-600";
@@ -146,11 +147,7 @@ pub fn attachment_group_class(class: &str) -> String {
 }
 
 pub fn attachment_media_class(variant: AttachmentMediaVariant, class: &str) -> String {
-  classes([
-    Some(ATTACHMENT_MEDIA_BASE_CLASS),
-    Some(variant.class()),
-    Some(class),
-  ])
+  classes([Some(ATTACHMENT_MEDIA_BASE_CLASS), Some(variant.class()), Some(class)])
 }
 
 pub fn attachment_content_class(class: &str) -> String {

@@ -45,12 +45,7 @@ pub fn slider_thumb_style(percent: f64) -> String {
   format!("left: {percent}%; transform: translateX(-50%);")
 }
 
-pub fn slider_aria_attributes(
-  value: f64,
-  min: f64,
-  max: f64,
-  step: f64,
-) -> SliderAriaAttributes {
+pub fn slider_aria_attributes(value: f64, min: f64, max: f64, step: f64) -> SliderAriaAttributes {
   slider_state(value, min, max, step).aria_attributes()
 }
 
@@ -124,10 +119,7 @@ mod tests {
   #[test]
   fn slider_styles_clamp_percent() {
     assert_eq!(slider_range_style(125.0), "left: 0%; width: 100%;");
-    assert_eq!(
-      slider_thumb_style(-10.0),
-      "left: 0%; transform: translateX(-50%);"
-    );
+    assert_eq!(slider_thumb_style(-10.0), "left: 0%; transform: translateX(-50%);");
   }
 
   #[test]

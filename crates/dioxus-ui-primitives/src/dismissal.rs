@@ -25,17 +25,11 @@ pub struct DismissalDecision {
 
 impl DismissalDecision {
   pub const fn ignored(event: DismissalEvent) -> Self {
-    Self {
-      event,
-      should_dismiss: false,
-    }
+    Self { event, should_dismiss: false }
   }
 
   pub const fn dismissed(event: DismissalEvent) -> Self {
-    Self {
-      event,
-      should_dismiss: true,
-    }
+    Self { event, should_dismiss: true }
   }
 }
 
@@ -90,11 +84,8 @@ mod tests {
 
   #[test]
   fn disabled_paths_return_ignored_decisions() {
-    let behavior = DismissBehavior {
-      escape_key: false,
-      outside_pointer: false,
-      focus_outside: false,
-    };
+    let behavior =
+      DismissBehavior { escape_key: false, outside_pointer: false, focus_outside: false };
 
     assert_eq!(
       behavior.dismissal_decision(DismissalEvent::EscapeKey),

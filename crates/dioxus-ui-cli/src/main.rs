@@ -262,7 +262,7 @@ fn load_registry() -> Result<Vec<RegistryComponent>, Box<dyn Error>> {
   let mut components = Vec::new();
 
   for json in EMBEDDED_REGISTRY_JSON {
-    let component = serde_json::from_str::<RegistryComponent>(&json)?;
+    let component = serde_json::from_str::<RegistryComponent>(json)?;
 
     components.push(component);
   }

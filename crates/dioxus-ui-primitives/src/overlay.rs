@@ -25,27 +25,15 @@ pub struct DismissBehavior {
 
 impl DismissBehavior {
   pub const fn dialog_default() -> Self {
-    Self {
-      escape_key: true,
-      outside_pointer: false,
-      focus_outside: false,
-    }
+    Self { escape_key: true, outside_pointer: false, focus_outside: false }
   }
 
   pub const fn popover_default() -> Self {
-    Self {
-      escape_key: true,
-      outside_pointer: true,
-      focus_outside: true,
-    }
+    Self { escape_key: true, outside_pointer: true, focus_outside: true }
   }
 
   pub const fn tooltip_default() -> Self {
-    Self {
-      escape_key: true,
-      outside_pointer: false,
-      focus_outside: false,
-    }
+    Self { escape_key: true, outside_pointer: false, focus_outside: false }
   }
 }
 

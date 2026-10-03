@@ -2,7 +2,8 @@ use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 pub use dioxus_ui_primitives::DropdownPrimitiveConfig;
 
-pub const MENUBAR_BASE_CLASS: &str = "flex h-10 items-center gap-1 rounded-md border border-zinc-200 bg-white p-1";
+pub const MENUBAR_BASE_CLASS: &str =
+  "flex h-10 items-center gap-1 rounded-md border border-zinc-200 bg-white p-1";
 pub const MENUBAR_MENU_BASE_CLASS: &str = "relative";
 pub const MENUBAR_TRIGGER_BASE_CLASS: &str = "inline-flex h-8 items-center justify-center rounded-sm px-3 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-100 focus:bg-zinc-100 focus:outline-none data-disabled:pointer-events-none data-disabled:opacity-50";
 pub const MENUBAR_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-zinc-200 bg-white p-1 text-zinc-950 shadow-md";
@@ -42,12 +43,7 @@ pub fn menubar_item_class(inset: bool, destructive: bool, class: &str) -> String
   };
   let inset_class = if inset { MENUBAR_ITEM_INSET_CLASS } else { "" };
 
-  classes([
-    Some(MENUBAR_ITEM_BASE_CLASS),
-    Some(variant_class),
-    Some(inset_class),
-    Some(class),
-  ])
+  classes([Some(MENUBAR_ITEM_BASE_CLASS), Some(variant_class), Some(inset_class), Some(class)])
 }
 
 pub fn menubar_separator_class(class: &str) -> String {

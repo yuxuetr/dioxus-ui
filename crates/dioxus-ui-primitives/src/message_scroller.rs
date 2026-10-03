@@ -7,11 +7,7 @@ pub struct MessageScrollerMetrics {
 
 impl MessageScrollerMetrics {
   pub const fn new(scroll_top: f64, viewport_height: f64, content_height: f64) -> Self {
-    Self {
-      scroll_top,
-      viewport_height,
-      content_height,
-    }
+    Self { scroll_top, viewport_height, content_height }
   }
 }
 
@@ -49,10 +45,8 @@ pub fn message_scroller_should_follow(
   metrics: MessageScrollerMetrics,
   threshold: f64,
 ) -> bool {
-  matches!(
-    intent,
-    MessageScrollerIntent::Follow | MessageScrollerIntent::JumpToLatest
-  ) || message_scroller_is_at_bottom(metrics, threshold)
+  matches!(intent, MessageScrollerIntent::Follow | MessageScrollerIntent::JumpToLatest)
+    || message_scroller_is_at_bottom(metrics, threshold)
 }
 
 pub fn message_scroller_show_unread_marker(
@@ -76,10 +70,9 @@ pub fn message_scroller_next_intent(
       }
     }
     MessageScrollerEvent::MessageAppended => {
-      if at_bottom || matches!(
-        intent,
-        MessageScrollerIntent::Follow | MessageScrollerIntent::JumpToLatest
-      ) {
+      if at_bottom
+        || matches!(intent, MessageScrollerIntent::Follow | MessageScrollerIntent::JumpToLatest)
+      {
         MessageScrollerIntent::Follow
       } else {
         MessageScrollerIntent::Hold
@@ -93,11 +86,7 @@ pub fn message_scroller_next_intent(
 }
 
 fn non_negative_finite(value: f64) -> f64 {
-  if value.is_finite() {
-    value.max(0.0)
-  } else {
-    0.0
-  }
+  if value.is_finite() { value.max(0.0) } else { 0.0 }
 }
 
 #[cfg(test)]
@@ -133,46 +122,18 @@ mod tests {
     let away = MessageScrollerMetrics::new(100.0, 300.0, 1200.0);
     let near_bottom = MessageScrollerMetrics::new(895.0, 300.0, 1200.0);
 
-    assert!(message_scroller_should_follow(
-      MessageScrollerIntent::Follow,
-      away,
-      0.0
-    ));
-    assert!(message_scroller_should_follow(
-      MessageScrollerIntent::JumpToLatest,
-      away,
-      0.0
-    ));
-    assert!(!message_scroller_should_follow(
-      MessageScrollerIntent::Hold,
-      away,
-      5.0
-    ));
-    assert!(message_scroller_should_follow(
-      MessageScrollerIntent::Hold,
-      near_bottom,
-      5.0
-    ));
+    assert!(message_scroller_should_follow(MessageScrollerIntent::Follow, away, 0.0));
+    assert!(message_scroller_should_follow(MessageScrollerIntent::JumpToLatest, away, 0.0));
+    assert!(!message_scroller_should_follow(MessageScrollerIntent::Hold, away, 5.0));
+    assert!(message_scroller_should_follow(MessageScrollerIntent::Hold, near_bottom, 5.0));
   }
 
   #[test]
   fn shows_unread_marker_only_when_held_with_appends() {
-    assert!(message_scroller_show_unread_marker(
-      MessageScrollerIntent::Hold,
-      1
-    ));
-    assert!(!message_scroller_show_unread_marker(
-      MessageScrollerIntent::Hold,
-      0
-    ));
-    assert!(!message_scroller_show_unread_marker(
-      MessageScrollerIntent::Follow,
-      3
-    ));
-    assert!(!message_scroller_show_unread_marker(
-      MessageScrollerIntent::JumpToLatest,
-      3
-    ));
+    assert!(message_scroller_show_unread_marker(MessageScrollerIntent::Hold, 1));
+    assert!(!message_scroller_show_unread_marker(MessageScrollerIntent::Hold, 0));
+    assert!(!message_scroller_show_unread_marker(MessageScrollerIntent::Follow, 3));
+    assert!(!message_scroller_show_unread_marker(MessageScrollerIntent::JumpToLatest, 3));
   }
 
   #[test]

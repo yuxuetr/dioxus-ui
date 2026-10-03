@@ -1,12 +1,13 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 pub use dioxus_ui_primitives::{
-  toast_dismiss_reason_attribute, toast_is_expired, toast_placement_attribute,
-  toast_queue_dismiss, toast_queue_limit, toast_queue_push, toast_variant_attribute,
   ToastDismissReason, ToastItem, ToastPlacement, ToastQueue, ToastVariant,
+  toast_dismiss_reason_attribute, toast_is_expired, toast_placement_attribute, toast_queue_dismiss,
+  toast_queue_limit, toast_queue_push, toast_variant_attribute,
 };
 
-pub const TOAST_VIEWPORT_BASE_CLASS: &str = "fixed z-50 flex max-h-screen w-full flex-col gap-2 p-4 sm:max-w-sm";
+pub const TOAST_VIEWPORT_BASE_CLASS: &str =
+  "fixed z-50 flex max-h-screen w-full flex-col gap-2 p-4 sm:max-w-sm";
 pub const TOAST_ROOT_BASE_CLASS: &str = "pointer-events-auto relative grid w-full gap-1 overflow-hidden rounded-md border bg-white p-4 pr-10 text-zinc-950 shadow-lg transition-all data-state-closed:opacity-0 data-state-open:opacity-100";
 pub const TOAST_TITLE_BASE_CLASS: &str = "text-sm font-semibold leading-none tracking-normal";
 pub const TOAST_DESCRIPTION_BASE_CLASS: &str = "text-sm text-zinc-600";
@@ -23,11 +24,7 @@ pub fn toast_viewport_class(placement: ToastPlacement, class: &str) -> String {
     ToastPlacement::BottomRight => "bottom-0 right-0 sm:right-0",
   };
 
-  classes([
-    Some(TOAST_VIEWPORT_BASE_CLASS),
-    Some(placement_class),
-    Some(class),
-  ])
+  classes([Some(TOAST_VIEWPORT_BASE_CLASS), Some(placement_class), Some(class)])
 }
 
 pub fn toast_root_class(variant: ToastVariant, class: &str) -> String {
@@ -40,11 +37,7 @@ pub fn toast_root_class(variant: ToastVariant, class: &str) -> String {
     ToastVariant::Loading => "border-zinc-200 text-zinc-950",
   };
 
-  classes([
-    Some(TOAST_ROOT_BASE_CLASS),
-    Some(variant_class),
-    Some(class),
-  ])
+  classes([Some(TOAST_ROOT_BASE_CLASS), Some(variant_class), Some(class)])
 }
 
 pub fn toast_title_class(class: &str) -> String {
@@ -60,11 +53,7 @@ pub fn toast_description_class(variant: ToastVariant, class: &str) -> String {
     ToastVariant::Error => "text-red-800",
   };
 
-  classes([
-    Some(TOAST_DESCRIPTION_BASE_CLASS),
-    Some(variant_class),
-    Some(class),
-  ])
+  classes([Some(TOAST_DESCRIPTION_BASE_CLASS), Some(variant_class), Some(class)])
 }
 
 pub fn toast_action_class(disabled: bool, class: &str) -> String {
@@ -221,9 +210,8 @@ mod tests {
 
   #[test]
   fn toast_primitives_are_reexported() {
-    let queue = ToastQueue::new(1)
-      .push(ToastItem::new("one", "One"))
-      .push(ToastItem::new("two", "Two"));
+    let queue =
+      ToastQueue::new(1).push(ToastItem::new("one", "One")).push(ToastItem::new("two", "Two"));
 
     assert_eq!(queue.items[0].id, "two");
     assert_eq!(toast_variant_attribute(ToastVariant::Success), "success");

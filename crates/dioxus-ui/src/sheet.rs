@@ -46,11 +46,7 @@ pub fn sheet_overlay_class(class: &str) -> String {
 }
 
 pub fn sheet_content_class(side: SheetSide, class: &str) -> String {
-  classes([
-    Some(SHEET_CONTENT_BASE_CLASS),
-    Some(side.class()),
-    Some(class),
-  ])
+  classes([Some(SHEET_CONTENT_BASE_CLASS), Some(side.class()), Some(class)])
 }
 
 pub fn sheet_header_class(class: &str) -> String {
@@ -74,10 +70,7 @@ pub fn sheet_close_class(class: &str) -> String {
 }
 
 #[component]
-pub fn SheetOverlay(
-  #[props(default)] open: bool,
-  #[props(default)] class: String,
-) -> Element {
+pub fn SheetOverlay(#[props(default)] open: bool, #[props(default)] class: String) -> Element {
   let class = sheet_overlay_class(&class);
 
   rsx! {

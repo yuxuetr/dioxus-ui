@@ -8,19 +8,11 @@ pub struct TypeaheadItem {
 
 impl TypeaheadItem {
   pub fn enabled(id: impl Into<String>, label: impl Into<String>) -> Self {
-    Self {
-      id: id.into(),
-      label: label.into(),
-      disabled: false,
-    }
+    Self { id: id.into(), label: label.into(), disabled: false }
   }
 
   pub fn disabled(id: impl Into<String>, label: impl Into<String>) -> Self {
-    Self {
-      id: id.into(),
-      label: label.into(),
-      disabled: true,
-    }
+    Self { id: id.into(), label: label.into(), disabled: true }
   }
 }
 
@@ -34,11 +26,7 @@ pub struct TypeaheadState {
 
 impl TypeaheadState {
   pub const fn new(timeout_ms: u16) -> Self {
-    Self {
-      buffer: String::new(),
-      timeout_ms,
-      last_input_ms: None,
-    }
+    Self { buffer: String::new(), timeout_ms, last_input_ms: None }
   }
 
   pub fn input(&self, character: char, now_ms: u64) -> Self {
@@ -46,27 +34,15 @@ impl TypeaheadState {
       return self.clone();
     }
 
-    let mut buffer = if self.should_reset(now_ms) {
-      String::new()
-    } else {
-      self.buffer.clone()
-    };
+    let mut buffer = if self.should_reset(now_ms) { String::new() } else { self.buffer.clone() };
 
     buffer.push(character.to_ascii_lowercase());
 
-    Self {
-      buffer,
-      timeout_ms: self.timeout_ms,
-      last_input_ms: Some(now_ms),
-    }
+    Self { buffer, timeout_ms: self.timeout_ms, last_input_ms: Some(now_ms) }
   }
 
   pub fn clear(&self) -> Self {
-    Self {
-      buffer: String::new(),
-      timeout_ms: self.timeout_ms,
-      last_input_ms: None,
-    }
+    Self { buffer: String::new(), timeout_ms: self.timeout_ms, last_input_ms: None }
   }
 
   pub fn match_item<'a>(
@@ -78,7 +54,8 @@ impl TypeaheadState {
   }
 
   fn should_reset(&self, now_ms: u64) -> bool {
-    self.last_input_ms
+    self
+      .last_input_ms
       .map(|last_input_ms| now_ms.saturating_sub(last_input_ms) > u64::from(self.timeout_ms))
       .unwrap_or(true)
   }

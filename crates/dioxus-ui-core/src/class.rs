@@ -34,10 +34,7 @@ mod tests {
       Some("bg-blue-600 text-white"),
     ]);
 
-    assert_eq!(
-      actual,
-      "inline-flex items-center h-10 px-4 bg-blue-600 text-white"
-    );
+    assert_eq!(actual, "inline-flex items-center h-10 px-4 bg-blue-600 text-white");
   }
 
   #[test]

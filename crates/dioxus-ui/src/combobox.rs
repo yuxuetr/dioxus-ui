@@ -18,11 +18,7 @@ pub fn combobox_trigger_class(invalid: bool, class: &str) -> String {
     "focus-visible:ring-blue-600"
   };
 
-  classes([
-    Some(COMBOBOX_TRIGGER_BASE_CLASS),
-    Some(invalid_class),
-    Some(class),
-  ])
+  classes([Some(COMBOBOX_TRIGGER_BASE_CLASS), Some(invalid_class), Some(class)])
 }
 
 pub fn combobox_input_class(class: &str) -> String {
@@ -53,12 +49,7 @@ pub fn combobox_item_class(active: bool, selected: bool, class: &str) -> String 
   let active_class = if active { "bg-zinc-100 text-zinc-950" } else { "" };
   let selected_class = if selected { "bg-zinc-100" } else { "" };
 
-  classes([
-    Some(COMBOBOX_ITEM_BASE_CLASS),
-    Some(active_class),
-    Some(selected_class),
-    Some(class),
-  ])
+  classes([Some(COMBOBOX_ITEM_BASE_CLASS), Some(active_class), Some(selected_class), Some(class)])
 }
 
 pub fn combobox_active_descendant_state(active_id: Option<String>) -> ActiveDescendantState {

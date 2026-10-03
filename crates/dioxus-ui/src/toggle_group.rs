@@ -1,8 +1,6 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
-use dioxus_ui_primitives::{
-  FocusMove, NavigationOrientation, RovingFocusItem, RovingFocusState,
-};
+use dioxus_ui_primitives::{FocusMove, NavigationOrientation, RovingFocusItem, RovingFocusState};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ToggleGroupType {
@@ -20,11 +18,7 @@ pub fn toggle_group_class(orientation: NavigationOrientation, class: &str) -> St
     NavigationOrientation::Horizontal | NavigationOrientation::Both => "flex-row",
   };
 
-  classes([
-    Some(TOGGLE_GROUP_BASE_CLASS),
-    Some(orientation_class),
-    Some(class),
-  ])
+  classes([Some(TOGGLE_GROUP_BASE_CLASS), Some(orientation_class), Some(class)])
 }
 
 pub fn toggle_group_item_class(pressed: bool, class: &str) -> String {
@@ -34,11 +28,7 @@ pub fn toggle_group_item_class(pressed: bool, class: &str) -> String {
     "bg-transparent hover:bg-zinc-100"
   };
 
-  classes([
-    Some(TOGGLE_GROUP_ITEM_BASE_CLASS),
-    Some(pressed_class),
-    Some(class),
-  ])
+  classes([Some(TOGGLE_GROUP_ITEM_BASE_CLASS), Some(pressed_class), Some(class)])
 }
 
 pub fn toggle_group_orientation_attribute(orientation: NavigationOrientation) -> &'static str {
@@ -49,11 +39,7 @@ pub fn toggle_group_orientation_attribute(orientation: NavigationOrientation) ->
 }
 
 pub fn toggle_group_item_tabindex(pressed: bool, disabled: bool) -> i16 {
-  if pressed && !disabled {
-    0
-  } else {
-    -1
-  }
+  if pressed && !disabled { 0 } else { -1 }
 }
 
 pub fn toggle_group_focus_state(
@@ -63,11 +49,7 @@ pub fn toggle_group_focus_state(
 ) -> RovingFocusState {
   let state = RovingFocusState::new(orientation).with_looping(looping);
 
-  if let Some(active_value) = active_value {
-    state.with_active_id(active_value)
-  } else {
-    state
-  }
+  if let Some(active_value) = active_value { state.with_active_id(active_value) } else { state }
 }
 
 pub fn toggle_group_move_value<'a>(
@@ -81,11 +63,7 @@ pub fn toggle_group_move_value<'a>(
 }
 
 pub fn toggle_group_single_selection(current: Option<&str>, toggled_value: &str) -> Option<String> {
-  if current == Some(toggled_value) {
-    None
-  } else {
-    Some(toggled_value.to_string())
-  }
+  if current == Some(toggled_value) { None } else { Some(toggled_value.to_string()) }
 }
 
 pub fn toggle_group_multiple_selection(current: &[String], toggled_value: &str) -> Vec<String> {
@@ -209,17 +187,10 @@ mod tests {
   fn multiple_selection_toggles_membership() {
     let current = vec!["bold".to_string(), "italic".to_string()];
 
-    assert_eq!(
-      toggle_group_multiple_selection(&current, "italic"),
-      vec!["bold".to_string()]
-    );
+    assert_eq!(toggle_group_multiple_selection(&current, "italic"), vec!["bold".to_string()]);
     assert_eq!(
       toggle_group_multiple_selection(&current, "underline"),
-      vec![
-        "bold".to_string(),
-        "italic".to_string(),
-        "underline".to_string()
-      ]
+      vec!["bold".to_string(), "italic".to_string(), "underline".to_string()]
     );
   }
 }

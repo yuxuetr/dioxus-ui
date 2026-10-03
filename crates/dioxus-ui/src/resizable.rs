@@ -1,11 +1,12 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 pub use dioxus_ui_primitives::{
-  layout_orientation_attribute, resizable_clamp, resizable_resize_pair, LayoutOrientation,
-  ResizablePanelState,
+  LayoutOrientation, ResizablePanelState, layout_orientation_attribute, resizable_clamp,
+  resizable_resize_pair,
 };
 
-pub const RESIZABLE_PANEL_GROUP_BASE_CLASS: &str = "flex h-full w-full data-orientation-vertical:flex-col";
+pub const RESIZABLE_PANEL_GROUP_BASE_CLASS: &str =
+  "flex h-full w-full data-orientation-vertical:flex-col";
 pub const RESIZABLE_PANEL_BASE_CLASS: &str = "min-w-0 overflow-hidden";
 pub const RESIZABLE_HANDLE_BASE_CLASS: &str = "relative flex w-px items-center justify-center bg-zinc-200 after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 data-orientation-vertical:h-px data-orientation-vertical:w-full data-orientation-vertical:after:inset-x-0 data-orientation-vertical:after:top-1/2 data-orientation-vertical:after:h-1 data-orientation-vertical:after:w-full data-orientation-vertical:after:-translate-y-1/2 data-disabled:opacity-50";
 
@@ -15,19 +16,11 @@ pub fn resizable_panel_group_class(orientation: LayoutOrientation, class: &str) 
     LayoutOrientation::Vertical => "flex-col",
   };
 
-  classes([
-    Some(RESIZABLE_PANEL_GROUP_BASE_CLASS),
-    Some(orientation_class),
-    Some(class),
-  ])
+  classes([Some(RESIZABLE_PANEL_GROUP_BASE_CLASS), Some(orientation_class), Some(class)])
 }
 
 pub fn resizable_panel_class(collapsed: bool, class: &str) -> String {
-  classes([
-    Some(RESIZABLE_PANEL_BASE_CLASS),
-    collapsed.then_some("hidden"),
-    Some(class),
-  ])
+  classes([Some(RESIZABLE_PANEL_BASE_CLASS), collapsed.then_some("hidden"), Some(class)])
 }
 
 pub fn resizable_handle_class(disabled: bool, class: &str) -> String {

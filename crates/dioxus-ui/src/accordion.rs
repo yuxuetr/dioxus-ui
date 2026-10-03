@@ -10,11 +10,7 @@ pub fn accordion_item_class(class: &str) -> String {
 }
 
 pub fn accordion_trigger_class(open: bool, class: &str) -> String {
-  let open_class = if open {
-    "text-zinc-950"
-  } else {
-    "text-zinc-900"
-  };
+  let open_class = if open { "text-zinc-950" } else { "text-zinc-900" };
 
   classes([Some(ACCORDION_TRIGGER_BASE_CLASS), Some(open_class), Some(class)])
 }

@@ -68,27 +68,21 @@ pub fn render_chart_fixture(reduced_motion: bool) -> ChartFixtureRender {
   let series = vec![revenue_series.clone(), cost_series.clone()];
   let x_domain = chart_series_x_domain(&series);
   let y_domain = include_zero(chart_series_y_domain(&series));
-  let x_scale = ChartScale::new(
-    x_domain,
-    ChartDomain::new(CHART_PADDING, CHART_WIDTH - CHART_PADDING),
-  );
-  let y_scale = ChartScale::new(
-    y_domain,
-    ChartDomain::new(CHART_HEIGHT - CHART_PADDING, CHART_PADDING),
-  );
+  let x_scale =
+    ChartScale::new(x_domain, ChartDomain::new(CHART_PADDING, CHART_WIDTH - CHART_PADDING));
+  let y_scale =
+    ChartScale::new(y_domain, ChartDomain::new(CHART_HEIGHT - CHART_PADDING, CHART_PADDING));
   let fallback_rows = chart_fallback_rows(&series);
   let missing_row_count = fallback_rows.iter().filter(|row| row.missing).count();
-  let view_box = format!("0 0 {} {}", chart_number_label(CHART_WIDTH), chart_number_label(CHART_HEIGHT));
+  let view_box =
+    format!("0 0 {} {}", chart_number_label(CHART_WIDTH), chart_number_label(CHART_HEIGHT));
   let summary = chart_summary(&series);
   let line_path = line_path(&revenue_series, x_scale, y_scale);
   let area_path = area_path(&revenue_series, x_scale, y_scale);
   let bars = bar_rects(&cost_series, x_scale, y_scale);
   let fallback_table = fallback_table_markup(&fallback_rows);
-  let motion_attribute = if reduced_motion {
-    "data-motion=\"reduced\""
-  } else {
-    "data-motion=\"standard\""
-  };
+  let motion_attribute =
+    if reduced_motion { "data-motion=\"reduced\"" } else { "data-motion=\"standard\"" };
   let svg = format!(
     "<figure data-testid=\"runtime-chart-fixture\" class=\"w-full max-w-3xl\" {motion_attribute}>\
 <svg role=\"img\" aria-labelledby=\"runtime-chart-title runtime-chart-description\" \
@@ -118,10 +112,7 @@ viewBox=\"{view_box}\" class=\"h-auto w-full\" preserveAspectRatio=\"xMidYMid me
 fn revenue_series() -> ChartSeries {
   ChartSeries::new(
     "revenue",
-    chart_series_label(
-      &ChartSeries::new("revenue", "Revenue", vec![]),
-      ChartColorToken::Primary,
-    ),
+    chart_series_label(&ChartSeries::new("revenue", "Revenue", vec![]), ChartColorToken::Primary),
     vec![
       ChartPoint::new(0.0, 12.0),
       ChartPoint::new(1.0, 18.0),
@@ -134,10 +125,7 @@ fn revenue_series() -> ChartSeries {
 fn cost_series() -> ChartSeries {
   ChartSeries::new(
     "cost",
-    chart_series_label(
-      &ChartSeries::new("cost", "Cost", vec![]),
-      ChartColorToken::Secondary,
-    ),
+    chart_series_label(&ChartSeries::new("cost", "Cost", vec![]), ChartColorToken::Secondary),
     vec![
       ChartPoint::new(0.0, 8.0),
       ChartPoint::new(1.0, 11.0),
@@ -171,20 +159,14 @@ fn line_path(series: &ChartSeries, x_scale: ChartScale, y_scale: ChartScale) -> 
 fn area_path(series: &ChartSeries, x_scale: ChartScale, y_scale: ChartScale) -> String {
   let line = line_path(series, x_scale, y_scale);
   let last_present = series.points.iter().rev().find_map(|point| {
-    point.y.map(|_| {
-      (
-        chart_number_label(x_scale.scale(point.x)),
-        chart_number_label(y_scale.scale(0.0)),
-      )
-    })
+    point
+      .y
+      .map(|_| (chart_number_label(x_scale.scale(point.x)), chart_number_label(y_scale.scale(0.0))))
   });
   let first_present = series.points.iter().find_map(|point| {
-    point.y.map(|_| {
-      (
-        chart_number_label(x_scale.scale(point.x)),
-        chart_number_label(y_scale.scale(0.0)),
-      )
-    })
+    point
+      .y
+      .map(|_| (chart_number_label(x_scale.scale(point.x)), chart_number_label(y_scale.scale(0.0))))
   });
 
   match (first_present, last_present) {
@@ -239,11 +221,7 @@ fn fallback_table_markup(rows: &[dioxus_ui_primitives::ChartFallbackRow]) -> Str
 }
 
 fn value_from_row(row: &dioxus_ui_primitives::ChartFallbackRow) -> Option<f64> {
-  if row.missing {
-    None
-  } else {
-    row.y_label.parse::<f64>().ok()
-  }
+  if row.missing { None } else { row.y_label.parse::<f64>().ok() }
 }
 
 #[cfg(test)]

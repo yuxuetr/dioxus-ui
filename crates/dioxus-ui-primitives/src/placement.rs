@@ -74,31 +74,18 @@ pub fn compute_overlay_placement(input: OverlayPlacementInput) -> OverlayPlaceme
   let (mut x, mut y) = base_position(input, side);
   let mut shifted = false;
 
-  if matches!(
-    input.collision_strategy,
-    CollisionStrategy::Shift | CollisionStrategy::FlipShift
-  ) {
+  if matches!(input.collision_strategy, CollisionStrategy::Shift | CollisionStrategy::FlipShift) {
     let shifted_position = shift_cross_axis(input, side, x, y);
     shifted = shifted_position != (x, y);
     x = shifted_position.0;
     y = shifted_position.1;
   }
 
-  OverlayPlacement {
-    x,
-    y,
-    side,
-    align: input.align,
-    flipped: side != input.side,
-    shifted,
-  }
+  OverlayPlacement { x, y, side, align: input.align, flipped: side != input.side, shifted }
 }
 
 fn resolved_side(input: OverlayPlacementInput) -> OverlaySide {
-  if !matches!(
-    input.collision_strategy,
-    CollisionStrategy::Flip | CollisionStrategy::FlipShift
-  ) {
+  if !matches!(input.collision_strategy, CollisionStrategy::Flip | CollisionStrategy::FlipShift) {
     return input.side;
   }
 
@@ -106,8 +93,8 @@ fn resolved_side(input: OverlayPlacementInput) -> OverlaySide {
     return input.side;
   };
 
-  let required_space = main_axis_size(input.overlay, input.side)
-    + i32::from(input.offset.main_axis.max(0));
+  let required_space =
+    main_axis_size(input.overlay, input.side) + i32::from(input.offset.main_axis.max(0));
   let preferred_space = available_space(input, input.side);
   let opposite_space = available_space(input, opposite_side);
 
@@ -184,12 +171,7 @@ fn aligned_cross_axis(start: i32, anchor_size: i32, overlay_size: i32, align: Ov
   }
 }
 
-fn shift_cross_axis(
-  input: OverlayPlacementInput,
-  side: OverlaySide,
-  x: i32,
-  y: i32,
-) -> (i32, i32) {
+fn shift_cross_axis(input: OverlayPlacementInput, side: OverlaySide, x: i32, y: i32) -> (i32, i32) {
   let bounds = padded_viewport(input.viewport, input.collision_padding);
 
   match side {
@@ -220,11 +202,7 @@ fn padded_viewport(viewport: OverlayRect, padding: CollisionPadding) -> OverlayR
 }
 
 fn clamp_axis(position: i32, size: i32, min: i32, max: i32) -> i32 {
-  if size >= max - min {
-    min
-  } else {
-    position.clamp(min, max - size)
-  }
+  if size >= max - min { min } else { position.clamp(min, max - size) }
 }
 
 #[cfg(test)]
@@ -233,28 +211,12 @@ mod tests {
 
   fn base_input() -> OverlayPlacementInput {
     OverlayPlacementInput {
-      anchor: OverlayRect {
-        x: 80,
-        y: 80,
-        width: 40,
-        height: 20,
-      },
-      overlay: OverlaySize {
-        width: 60,
-        height: 30,
-      },
-      viewport: OverlayRect {
-        x: 0,
-        y: 0,
-        width: 240,
-        height: 180,
-      },
+      anchor: OverlayRect { x: 80, y: 80, width: 40, height: 20 },
+      overlay: OverlaySize { width: 60, height: 30 },
+      viewport: OverlayRect { x: 0, y: 0, width: 240, height: 180 },
       side: OverlaySide::Bottom,
       align: OverlayAlign::Center,
-      offset: OverlayOffset {
-        main_axis: 8,
-        cross_axis: 0,
-      },
+      offset: OverlayOffset { main_axis: 8, cross_axis: 0 },
       collision_padding: CollisionPadding::default(),
       collision_strategy: CollisionStrategy::None,
     }
@@ -325,12 +287,7 @@ mod tests {
   fn collision_padding_limits_shift_bounds() {
     let mut input = base_input();
     input.anchor.x = 0;
-    input.collision_padding = CollisionPadding {
-      left: 12,
-      right: 16,
-      top: 0,
-      bottom: 0,
-    };
+    input.collision_padding = CollisionPadding { left: 12, right: 16, top: 0, bottom: 0 };
     input.collision_strategy = CollisionStrategy::Shift;
 
     let placement = compute_overlay_placement(input);

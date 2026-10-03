@@ -139,11 +139,7 @@ pub fn bubble_group_class(class: &str) -> String {
 }
 
 pub fn bubble_content_class(variant: BubbleVariant, class: &str) -> String {
-  classes([
-    Some(BUBBLE_CONTENT_BASE_CLASS),
-    Some(variant.class()),
-    Some(class),
-  ])
+  classes([Some(BUBBLE_CONTENT_BASE_CLASS), Some(variant.class()), Some(class)])
 }
 
 pub fn bubble_reactions_class(
@@ -151,12 +147,7 @@ pub fn bubble_reactions_class(
   align: BubbleReactionAlign,
   class: &str,
 ) -> String {
-  classes([
-    Some(BUBBLE_REACTIONS_BASE_CLASS),
-    Some(side.class()),
-    Some(align.class()),
-    Some(class),
-  ])
+  classes([Some(BUBBLE_REACTIONS_BASE_CLASS), Some(side.class()), Some(align.class()), Some(class)])
 }
 
 #[component]

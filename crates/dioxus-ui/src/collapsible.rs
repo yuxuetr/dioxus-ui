@@ -10,39 +10,21 @@ pub const COLLAPSIBLE_CONTENT_OPEN_CLASS: &str = "block";
 pub const COLLAPSIBLE_CONTENT_CLOSED_CLASS: &str = "hidden";
 
 pub fn collapsible_class(disabled: bool, class: &str) -> String {
-  classes([
-    Some(COLLAPSIBLE_BASE_CLASS),
-    disabled.then_some("pointer-events-none"),
-    Some(class),
-  ])
+  classes([Some(COLLAPSIBLE_BASE_CLASS), disabled.then_some("pointer-events-none"), Some(class)])
 }
 
 pub fn collapsible_trigger_class(open: bool, class: &str) -> String {
-  let state_class = if open {
-    COLLAPSIBLE_TRIGGER_OPEN_CLASS
-  } else {
-    COLLAPSIBLE_TRIGGER_CLOSED_CLASS
-  };
+  let state_class =
+    if open { COLLAPSIBLE_TRIGGER_OPEN_CLASS } else { COLLAPSIBLE_TRIGGER_CLOSED_CLASS };
 
-  classes([
-    Some(COLLAPSIBLE_TRIGGER_BASE_CLASS),
-    Some(state_class),
-    Some(class),
-  ])
+  classes([Some(COLLAPSIBLE_TRIGGER_BASE_CLASS), Some(state_class), Some(class)])
 }
 
 pub fn collapsible_content_class(open: bool, class: &str) -> String {
-  let state_class = if open {
-    COLLAPSIBLE_CONTENT_OPEN_CLASS
-  } else {
-    COLLAPSIBLE_CONTENT_CLOSED_CLASS
-  };
+  let state_class =
+    if open { COLLAPSIBLE_CONTENT_OPEN_CLASS } else { COLLAPSIBLE_CONTENT_CLOSED_CLASS };
 
-  classes([
-    Some(COLLAPSIBLE_CONTENT_BASE_CLASS),
-    Some(state_class),
-    Some(class),
-  ])
+  classes([Some(COLLAPSIBLE_CONTENT_BASE_CLASS), Some(state_class), Some(class)])
 }
 
 #[component]

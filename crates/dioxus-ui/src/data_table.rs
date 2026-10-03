@@ -1,19 +1,24 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 pub use dioxus_ui_primitives::{
-  data_table_clamp_page, data_table_is_column_visible, data_table_page_count,
+  DataTableColumnState, DataTablePaginationState, DataTableSelectionState, DataTableSortDirection,
+  DataTableSortState, data_table_clamp_page, data_table_is_column_visible, data_table_page_count,
   data_table_page_window, data_table_toggle_all_rows, data_table_toggle_column,
-  data_table_toggle_row, data_table_toggle_sort, DataTableColumnState,
-  DataTablePaginationState, DataTableSelectionState, DataTableSortDirection, DataTableSortState,
+  data_table_toggle_row, data_table_toggle_sort,
 };
 
 pub const DATA_TABLE_BASE_CLASS: &str = "grid gap-4";
-pub const DATA_TABLE_TOOLBAR_BASE_CLASS: &str = "flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between";
-pub const DATA_TABLE_CONTAINER_BASE_CLASS: &str = "relative w-full overflow-auto rounded-md border border-zinc-200";
-pub const DATA_TABLE_HEADER_CELL_BASE_CLASS: &str = "h-12 px-4 text-left align-middle text-sm font-medium text-zinc-600 data-sort:text-zinc-950";
-pub const DATA_TABLE_ROW_BASE_CLASS: &str = "border-b transition-colors hover:bg-zinc-100 data-selected:bg-zinc-100 data-disabled:opacity-50";
+pub const DATA_TABLE_TOOLBAR_BASE_CLASS: &str =
+  "flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between";
+pub const DATA_TABLE_CONTAINER_BASE_CLASS: &str =
+  "relative w-full overflow-auto rounded-md border border-zinc-200";
+pub const DATA_TABLE_HEADER_CELL_BASE_CLASS: &str =
+  "h-12 px-4 text-left align-middle text-sm font-medium text-zinc-600 data-sort:text-zinc-950";
+pub const DATA_TABLE_ROW_BASE_CLASS: &str =
+  "border-b transition-colors hover:bg-zinc-100 data-selected:bg-zinc-100 data-disabled:opacity-50";
 pub const DATA_TABLE_CELL_BASE_CLASS: &str = "p-4 align-middle text-sm";
-pub const DATA_TABLE_PAGINATION_BASE_CLASS: &str = "flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between";
+pub const DATA_TABLE_PAGINATION_BASE_CLASS: &str =
+  "flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between";
 pub const DATA_TABLE_SELECTED_COUNT_BASE_CLASS: &str = "text-sm text-zinc-600";
 pub const DATA_TABLE_EMPTY_BASE_CLASS: &str = "py-10 text-center text-sm text-zinc-500";
 pub const DATA_TABLE_LOADING_BASE_CLASS: &str = "py-10 text-center text-sm text-zinc-500";
@@ -31,11 +36,7 @@ pub fn data_table_container_class(class: &str) -> String {
 }
 
 pub fn data_table_header_cell_class(sorted: bool, class: &str) -> String {
-  classes([
-    Some(DATA_TABLE_HEADER_CELL_BASE_CLASS),
-    sorted.then_some("text-zinc-950"),
-    Some(class),
-  ])
+  classes([Some(DATA_TABLE_HEADER_CELL_BASE_CLASS), sorted.then_some("text-zinc-950"), Some(class)])
 }
 
 pub fn data_table_row_class(selected: bool, disabled: bool, class: &str) -> String {
@@ -48,11 +49,7 @@ pub fn data_table_row_class(selected: bool, disabled: bool, class: &str) -> Stri
 }
 
 pub fn data_table_cell_class(hidden: bool, class: &str) -> String {
-  classes([
-    Some(DATA_TABLE_CELL_BASE_CLASS),
-    hidden.then_some("hidden"),
-    Some(class),
-  ])
+  classes([Some(DATA_TABLE_CELL_BASE_CLASS), hidden.then_some("hidden"), Some(class)])
 }
 
 pub fn data_table_pagination_class(class: &str) -> String {
@@ -250,10 +247,7 @@ mod tests {
 
   #[test]
   fn data_table_sort_attribute_maps_direction() {
-    assert_eq!(
-      data_table_sort_attribute(Some(DataTableSortDirection::Ascending)),
-      "ascending"
-    );
+    assert_eq!(data_table_sort_attribute(Some(DataTableSortDirection::Ascending)), "ascending");
     assert_eq!(data_table_sort_attribute(None), "none");
   }
 

@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
-pub use dioxus_ui_primitives::{sidebar_toggle, SidebarState};
+pub use dioxus_ui_primitives::{SidebarState, sidebar_toggle};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum SidebarSide {
@@ -11,7 +11,8 @@ pub enum SidebarSide {
 
 pub const SIDEBAR_BASE_CLASS: &str = "flex h-full w-64 flex-col border-zinc-200 bg-white text-zinc-950 transition-[width] data-collapsed:w-14 data-side-left:border-r data-side-right:border-l";
 pub const SIDEBAR_RAIL_BASE_CLASS: &str = "absolute inset-y-0 z-10 hidden w-3 -translate-x-1/2 transition-colors hover:bg-zinc-100 data-collapsed:block";
-pub const SIDEBAR_HEADER_BASE_CLASS: &str = "flex min-h-14 items-center gap-2 border-b border-zinc-200 px-3";
+pub const SIDEBAR_HEADER_BASE_CLASS: &str =
+  "flex min-h-14 items-center gap-2 border-b border-zinc-200 px-3";
 pub const SIDEBAR_CONTENT_BASE_CLASS: &str = "flex-1 overflow-auto p-2";
 pub const SIDEBAR_FOOTER_BASE_CLASS: &str = "border-t border-zinc-200 p-2";
 pub const SIDEBAR_GROUP_BASE_CLASS: &str = "grid gap-1 py-2";
@@ -32,20 +33,11 @@ pub fn sidebar_class(collapsed: bool, side: SidebarSide, class: &str) -> String 
     SidebarSide::Right => "border-l",
   };
 
-  classes([
-    Some(SIDEBAR_BASE_CLASS),
-    Some(side_class),
-    collapsed.then_some("w-14"),
-    Some(class),
-  ])
+  classes([Some(SIDEBAR_BASE_CLASS), Some(side_class), collapsed.then_some("w-14"), Some(class)])
 }
 
 pub fn sidebar_rail_class(collapsed: bool, class: &str) -> String {
-  classes([
-    Some(SIDEBAR_RAIL_BASE_CLASS),
-    collapsed.then_some("block"),
-    Some(class),
-  ])
+  classes([Some(SIDEBAR_RAIL_BASE_CLASS), collapsed.then_some("block"), Some(class)])
 }
 
 pub fn sidebar_header_class(class: &str) -> String {
@@ -101,10 +93,7 @@ pub fn Sidebar(
 }
 
 #[component]
-pub fn SidebarRail(
-  #[props(default)] collapsed: bool,
-  #[props(default)] class: String,
-) -> Element {
+pub fn SidebarRail(#[props(default)] collapsed: bool, #[props(default)] class: String) -> Element {
   let class = sidebar_rail_class(collapsed, &class);
 
   rsx! {
@@ -245,6 +234,6 @@ mod tests {
     let state = SidebarState::new(false).toggled();
 
     assert!(state.collapsed);
-    assert_eq!(sidebar_toggle(state.collapsed), false);
+    assert!(!sidebar_toggle(state.collapsed));
   }
 }

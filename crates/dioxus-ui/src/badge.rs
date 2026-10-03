@@ -21,7 +21,8 @@ impl BadgeVariant {
   }
 }
 
-pub const BADGE_BASE_CLASS: &str = "inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-semibold transition-colors";
+pub const BADGE_BASE_CLASS: &str =
+  "inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-semibold transition-colors";
 
 pub fn badge_class(variant: BadgeVariant, class: &str) -> String {
   classes([Some(BADGE_BASE_CLASS), Some(variant.class()), Some(class)])

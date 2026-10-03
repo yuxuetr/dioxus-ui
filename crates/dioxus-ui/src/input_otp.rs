@@ -1,9 +1,9 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 pub use dioxus_ui_primitives::{
-  otp_apply_paste, otp_apply_paste_filtered, otp_clamp_value, otp_delete_char,
-  otp_insert_char, otp_insert_char_filtered, otp_is_complete, otp_next_index,
-  otp_previous_index, otp_slots, otp_slots_with_disabled, OtpSlotState,
+  OtpSlotState, otp_apply_paste, otp_apply_paste_filtered, otp_clamp_value, otp_delete_char,
+  otp_insert_char, otp_insert_char_filtered, otp_is_complete, otp_next_index, otp_previous_index,
+  otp_slots, otp_slots_with_disabled,
 };
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -34,11 +34,7 @@ impl InputOtpInputMode {
 }
 
 pub fn input_otp_class(disabled: bool, class: &str) -> String {
-  classes([
-    Some(INPUT_OTP_BASE_CLASS),
-    disabled.then_some(INPUT_OTP_DISABLED_CLASS),
-    Some(class),
-  ])
+  classes([Some(INPUT_OTP_BASE_CLASS), disabled.then_some(INPUT_OTP_DISABLED_CLASS), Some(class)])
 }
 
 pub fn input_otp_group_class(class: &str) -> String {

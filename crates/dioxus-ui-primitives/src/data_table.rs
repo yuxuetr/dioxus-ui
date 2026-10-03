@@ -23,17 +23,11 @@ pub struct DataTableSortState {
 
 impl DataTableSortState {
   pub fn ascending(column_id: impl Into<String>) -> Self {
-    Self {
-      column_id: column_id.into(),
-      direction: DataTableSortDirection::Ascending,
-    }
+    Self { column_id: column_id.into(), direction: DataTableSortDirection::Ascending }
   }
 
   pub fn descending(column_id: impl Into<String>) -> Self {
-    Self {
-      column_id: column_id.into(),
-      direction: DataTableSortDirection::Descending,
-    }
+    Self { column_id: column_id.into(), direction: DataTableSortDirection::Descending }
   }
 }
 
@@ -46,11 +40,7 @@ pub struct DataTablePaginationState {
 
 impl DataTablePaginationState {
   pub const fn new(page: usize, page_size: usize, total_items: usize) -> Self {
-    Self {
-      page,
-      page_size,
-      total_items,
-    }
+    Self { page, page_size, total_items }
   }
 
   pub fn page_count(self) -> usize {
@@ -73,9 +63,7 @@ pub struct DataTableSelectionState {
 
 impl DataTableSelectionState {
   pub fn new(selected_ids: Vec<String>) -> Self {
-    Self {
-      selected_ids: sorted_unique(selected_ids),
-    }
+    Self { selected_ids: sorted_unique(selected_ids) }
   }
 
   pub fn toggle_row(&self, row_id: &str) -> Self {
@@ -98,9 +86,7 @@ pub struct DataTableColumnState {
 
 impl DataTableColumnState {
   pub fn new(hidden_ids: Vec<String>) -> Self {
-    Self {
-      hidden_ids: sorted_unique(hidden_ids),
-    }
+    Self { hidden_ids: sorted_unique(hidden_ids) }
   }
 
   pub fn toggle_column(&self, column_id: &str) -> Self {
@@ -144,11 +130,7 @@ pub fn data_table_page_count(total_items: usize, page_size: usize) -> usize {
 pub fn data_table_clamp_page(page: usize, total_items: usize, page_size: usize) -> usize {
   let page_count = data_table_page_count(total_items, page_size);
 
-  if page_count == 0 {
-    0
-  } else {
-    page.min(page_count - 1)
-  }
+  if page_count == 0 { 0 } else { page.min(page_count - 1) }
 }
 
 pub fn data_table_page_window(page: usize, page_size: usize, total_items: usize) -> Range<usize> {
@@ -176,9 +158,8 @@ pub fn data_table_toggle_row(selected_ids: &[String], row_id: &str) -> Vec<Strin
 }
 
 pub fn data_table_toggle_all_rows(selected_ids: &[String], visible_ids: &[String]) -> Vec<String> {
-  let all_visible_selected = visible_ids
-    .iter()
-    .all(|id| selected_ids.iter().any(|selected_id| selected_id == id));
+  let all_visible_selected =
+    visible_ids.iter().all(|id| selected_ids.iter().any(|selected_id| selected_id == id));
 
   let mut next = selected_ids.to_vec();
 
@@ -267,10 +248,7 @@ mod tests {
     let selected = data_table_toggle_all_rows(&selected, &visible);
 
     assert_eq!(selected, vec!["row-1", "row-2", "row-9"]);
-    assert_eq!(
-      data_table_toggle_all_rows(&selected, &visible),
-      vec!["row-9"]
-    );
+    assert_eq!(data_table_toggle_all_rows(&selected, &visible), vec!["row-9"]);
   }
 
   #[test]

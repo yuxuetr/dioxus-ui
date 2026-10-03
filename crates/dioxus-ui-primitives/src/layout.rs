@@ -9,9 +9,7 @@ impl SidebarState {
   }
 
   pub const fn toggled(self) -> Self {
-    Self {
-      collapsed: !self.collapsed,
-    }
+    Self { collapsed: !self.collapsed }
   }
 }
 
@@ -28,12 +26,7 @@ impl ResizablePanelState {
     let (min_size, max_size) = ordered_bounds(min_size, max_size);
     let size = resizable_clamp(size, min_size, max_size);
 
-    Self {
-      size,
-      min_size,
-      max_size,
-      collapsed: false,
-    }
+    Self { size, min_size, max_size, collapsed: false }
   }
 
   pub const fn with_collapsed(mut self, collapsed: bool) -> Self {
@@ -42,10 +35,7 @@ impl ResizablePanelState {
   }
 
   pub fn with_size(self, size: f64) -> Self {
-    Self {
-      size: resizable_clamp(size, self.min_size, self.max_size),
-      ..self
-    }
+    Self { size: resizable_clamp(size, self.min_size, self.max_size), ..self }
   }
 }
 
@@ -73,11 +63,7 @@ pub struct CarouselState {
 
 impl CarouselState {
   pub const fn new(index: usize, item_count: usize) -> Self {
-    Self {
-      index,
-      item_count,
-      looping: false,
-    }
+    Self { index, item_count, looping: false }
   }
 
   pub const fn with_looping(mut self, looping: bool) -> Self {
@@ -86,24 +72,15 @@ impl CarouselState {
   }
 
   pub fn clamped(self) -> Self {
-    Self {
-      index: carousel_clamp_index(self.index, self.item_count),
-      ..self
-    }
+    Self { index: carousel_clamp_index(self.index, self.item_count), ..self }
   }
 
   pub fn next(self) -> Self {
-    Self {
-      index: carousel_next(self.index, self.item_count, self.looping),
-      ..self
-    }
+    Self { index: carousel_next(self.index, self.item_count, self.looping), ..self }
   }
 
   pub fn previous(self) -> Self {
-    Self {
-      index: carousel_previous(self.index, self.item_count, self.looping),
-      ..self
-    }
+    Self { index: carousel_previous(self.index, self.item_count, self.looping), ..self }
   }
 }
 
@@ -128,7 +105,8 @@ pub fn resizable_resize_pair(
   let consumed_delta = first_size - first.size;
   let second_size = resizable_clamp(second.size - consumed_delta, second.min_size, second.max_size);
   let second_consumed_delta = second.size - second_size;
-  let first_size = resizable_clamp(first.size + second_consumed_delta, first.min_size, first.max_size);
+  let first_size =
+    resizable_clamp(first.size + second_consumed_delta, first.min_size, first.max_size);
 
   (first.with_size(first_size), second.with_size(second_size))
 }
@@ -149,11 +127,7 @@ pub fn layout_orientation_attribute(orientation: LayoutOrientation) -> &'static 
 }
 
 pub fn carousel_clamp_index(index: usize, item_count: usize) -> usize {
-  if item_count == 0 {
-    0
-  } else {
-    index.min(item_count - 1)
-  }
+  if item_count == 0 { 0 } else { index.min(item_count - 1) }
 }
 
 pub fn carousel_can_go_next(index: usize, item_count: usize, looping: bool) -> bool {
@@ -200,19 +174,11 @@ fn ordered_bounds(min_size: f64, max_size: f64) -> (f64, f64) {
   let min_size = finite_or_default(min_size, 0.0);
   let max_size = finite_or_default(max_size, min_size);
 
-  if min_size <= max_size {
-    (min_size, max_size)
-  } else {
-    (max_size, min_size)
-  }
+  if min_size <= max_size { (min_size, max_size) } else { (max_size, min_size) }
 }
 
 fn finite_or_default(value: f64, default: f64) -> f64 {
-  if value.is_finite() {
-    value
-  } else {
-    default
-  }
+  if value.is_finite() { value } else { default }
 }
 
 #[cfg(test)]
@@ -224,7 +190,7 @@ mod tests {
     let state = SidebarState::new(false).toggled();
 
     assert!(state.collapsed);
-    assert_eq!(sidebar_toggle(state.collapsed), false);
+    assert!(!sidebar_toggle(state.collapsed));
   }
 
   #[test]
@@ -246,10 +212,7 @@ mod tests {
 
   #[test]
   fn maps_scroll_orientation() {
-    assert_eq!(
-      scroll_area_orientation_attribute(ScrollAreaOrientation::Horizontal),
-      "horizontal"
-    );
+    assert_eq!(scroll_area_orientation_attribute(ScrollAreaOrientation::Horizontal), "horizontal");
   }
 
   #[test]

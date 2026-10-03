@@ -1,6 +1,4 @@
-use crate::{
-  DismissBehavior, FocusReturn, FocusStrategy, OverlayAlign, OverlaySide, PortalTarget,
-};
+use crate::{DismissBehavior, FocusReturn, FocusStrategy, OverlayAlign, OverlaySide, PortalTarget};
 
 /// Initial controlled popover primitive configuration.
 #[derive(Clone, Debug, Eq, PartialEq)]

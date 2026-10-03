@@ -161,30 +161,10 @@ mod tests {
     assert_eq!(
       slots,
       vec![
-        OtpSlotState {
-          index: 0,
-          value: Some('1'),
-          active: false,
-          disabled: false,
-        },
-        OtpSlotState {
-          index: 1,
-          value: Some('2'),
-          active: false,
-          disabled: true,
-        },
-        OtpSlotState {
-          index: 2,
-          value: None,
-          active: true,
-          disabled: false,
-        },
-        OtpSlotState {
-          index: 3,
-          value: None,
-          active: false,
-          disabled: true,
-        },
+        OtpSlotState { index: 0, value: Some('1'), active: false, disabled: false },
+        OtpSlotState { index: 1, value: Some('2'), active: false, disabled: true },
+        OtpSlotState { index: 2, value: None, active: true, disabled: false },
+        OtpSlotState { index: 3, value: None, active: false, disabled: true },
       ]
     );
   }

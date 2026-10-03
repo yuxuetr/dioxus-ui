@@ -1,8 +1,10 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 
-pub const PROGRESS_BASE_CLASS: &str = "relative h-4 w-full overflow-hidden rounded-full bg-zinc-100";
-pub const PROGRESS_INDICATOR_BASE_CLASS: &str = "h-full w-full flex-1 bg-blue-600 transition-transform";
+pub const PROGRESS_BASE_CLASS: &str =
+  "relative h-4 w-full overflow-hidden rounded-full bg-zinc-100";
+pub const PROGRESS_INDICATOR_BASE_CLASS: &str =
+  "h-full w-full flex-1 bg-blue-600 transition-transform";
 
 pub fn progress_class(class: &str) -> String {
   classes([Some(PROGRESS_BASE_CLASS), Some(class)])

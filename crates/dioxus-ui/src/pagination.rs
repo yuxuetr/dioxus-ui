@@ -7,7 +7,8 @@ pub const PAGINATION_ITEM_BASE_CLASS: &str = "";
 pub const PAGINATION_LINK_BASE_CLASS: &str = "inline-flex h-10 min-w-10 items-center justify-center rounded-md px-3 text-sm font-medium transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600";
 pub const PAGINATION_LINK_ACTIVE_CLASS: &str = "border border-zinc-200 bg-white";
 pub const PAGINATION_LINK_DISABLED_CLASS: &str = "pointer-events-none opacity-50";
-pub const PAGINATION_ELLIPSIS_BASE_CLASS: &str = "flex h-10 w-10 items-center justify-center text-sm text-zinc-600";
+pub const PAGINATION_ELLIPSIS_BASE_CLASS: &str =
+  "flex h-10 w-10 items-center justify-center text-sm text-zinc-600";
 
 pub fn pagination_class(class: &str) -> String {
   classes([Some(PAGINATION_BASE_CLASS), Some(class)])

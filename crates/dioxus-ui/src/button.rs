@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui_core::{classes, UiDensity};
+use dioxus_ui_core::{UiDensity, classes};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ButtonVariant {
@@ -94,12 +94,8 @@ mod tests {
 
   #[test]
   fn button_class_includes_variant_size_density_and_user_class() {
-    let actual = button_class(
-      ButtonVariant::Destructive,
-      ButtonSize::Lg,
-      UiDensity::Touch,
-      "w-full",
-    );
+    let actual =
+      button_class(ButtonVariant::Destructive, ButtonSize::Lg, UiDensity::Touch, "w-full");
 
     assert!(actual.contains(BUTTON_BASE_CLASS));
     assert!(actual.contains("bg-red-600 text-white hover:bg-red-700"));
@@ -110,12 +106,7 @@ mod tests {
 
   #[test]
   fn button_class_preserves_static_tailwind_tokens() {
-    let actual = button_class(
-      ButtonVariant::Primary,
-      ButtonSize::Md,
-      UiDensity::Comfortable,
-      "",
-    );
+    let actual = button_class(ButtonVariant::Primary, ButtonSize::Md, UiDensity::Comfortable, "");
 
     assert!(actual.contains("bg-blue-600"));
     assert!(actual.contains("hover:bg-blue-700"));

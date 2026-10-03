@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
-pub use dioxus_ui_primitives::{scroll_area_orientation_attribute, ScrollAreaOrientation};
+pub use dioxus_ui_primitives::{ScrollAreaOrientation, scroll_area_orientation_attribute};
 
 pub const SCROLL_AREA_BASE_CLASS: &str = "relative overflow-hidden";
 pub const SCROLL_AREA_VIEWPORT_BASE_CLASS: &str = "h-full w-full overflow-auto rounded-inherit";
@@ -28,11 +28,7 @@ pub fn scroll_area_scrollbar_class(orientation: ScrollAreaOrientation, class: &s
     ScrollAreaOrientation::Both => "h-full w-2.5 border-l border-l-transparent p-px",
   };
 
-  classes([
-    Some(SCROLL_AREA_SCROLLBAR_BASE_CLASS),
-    Some(orientation_class),
-    Some(class),
-  ])
+  classes([Some(SCROLL_AREA_SCROLLBAR_BASE_CLASS), Some(orientation_class), Some(class)])
 }
 
 pub fn scroll_area_thumb_class(class: &str) -> String {
@@ -139,9 +135,6 @@ mod tests {
 
   #[test]
   fn scroll_area_orientation_helper_is_reexported() {
-    assert_eq!(
-      scroll_area_orientation_attribute(ScrollAreaOrientation::Both),
-      "both"
-    );
+    assert_eq!(scroll_area_orientation_attribute(ScrollAreaOrientation::Both), "both");
   }
 }

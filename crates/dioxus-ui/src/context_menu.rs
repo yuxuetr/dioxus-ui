@@ -30,12 +30,7 @@ pub fn context_menu_item_class(inset: bool, destructive: bool, class: &str) -> S
   };
   let inset_class = if inset { CONTEXT_MENU_ITEM_INSET_CLASS } else { "" };
 
-  classes([
-    Some(CONTEXT_MENU_ITEM_BASE_CLASS),
-    Some(variant_class),
-    Some(inset_class),
-    Some(class),
-  ])
+  classes([Some(CONTEXT_MENU_ITEM_BASE_CLASS), Some(variant_class), Some(inset_class), Some(class)])
 }
 
 pub fn context_menu_separator_class(class: &str) -> String {

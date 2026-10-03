@@ -47,11 +47,7 @@ pub struct CalendarMonth {
 
 impl CalendarMonth {
   pub fn new(year: i32, month: u8) -> Option<Self> {
-    if (1..=12).contains(&month) {
-      Some(Self { year, month })
-    } else {
-      None
-    }
+    if (1..=12).contains(&month) { Some(Self { year, month }) } else { None }
   }
 
   pub const fn unchecked(year: i32, month: u8) -> Self {
@@ -65,10 +61,7 @@ impl CalendarMonth {
   pub fn add_months(self, months: i32) -> Self {
     let date = self.first_day().add_months(months);
 
-    Self {
-      year: date.year,
-      month: date.month,
-    }
+    Self { year: date.year, month: date.month }
   }
 }
 
@@ -249,8 +242,8 @@ fn weekday(date: CalendarDate) -> CalendarWeekday {
   }
 
   let index = (date.month - 1) as usize;
-  let weekday = (year + year / 4 - year / 100 + year / 400 + OFFSETS[index] + date.day as i32)
-    .rem_euclid(7);
+  let weekday =
+    (year + year / 4 - year / 100 + year / 400 + OFFSETS[index] + date.day as i32).rem_euclid(7);
 
   match weekday {
     0 => CalendarWeekday::Sunday,
@@ -314,11 +307,7 @@ fn weekday_offset(first_weekday: CalendarWeekday, weekday: CalendarWeekday) -> u
 }
 
 fn ordered_dates(first: CalendarDate, second: CalendarDate) -> (CalendarDate, CalendarDate) {
-  if first <= second {
-    (first, second)
-  } else {
-    (second, first)
-  }
+  if first <= second { (first, second) } else { (second, first) }
 }
 
 #[cfg(test)]
@@ -327,10 +316,7 @@ mod tests {
 
   #[test]
   fn validates_calendar_dates() {
-    assert_eq!(
-      CalendarDate::new(2024, 2, 29),
-      Some(CalendarDate::unchecked(2024, 2, 29))
-    );
+    assert_eq!(CalendarDate::new(2024, 2, 29), Some(CalendarDate::unchecked(2024, 2, 29)));
     assert_eq!(CalendarDate::new(2023, 2, 29), None);
     assert_eq!(CalendarDate::new(2024, 13, 1), None);
   }
@@ -357,15 +343,7 @@ mod tests {
   #[test]
   fn builds_six_week_month_grid_with_outside_days() {
     let month = CalendarMonth::unchecked(2024, 6);
-    let grid = calendar_month_grid(
-      month,
-      CalendarWeekday::Sunday,
-      None,
-      None,
-      None,
-      None,
-      &[],
-    );
+    let grid = calendar_month_grid(month, CalendarWeekday::Sunday, None, None, None, None, &[]);
 
     assert_eq!(grid.weeks.len(), 6);
     assert_eq!(grid.weeks[0].len(), 7);
@@ -388,26 +366,16 @@ mod tests {
     );
     let days: Vec<CalendarDay> = grid.weeks.into_iter().flatten().collect();
 
-    let today = days
-      .iter()
-      .find(|day| day.date == CalendarDate::unchecked(2024, 6, 10))
-      .copied();
-    let selected = days
-      .iter()
-      .find(|day| day.date == CalendarDate::unchecked(2024, 6, 11))
-      .copied();
-    let range_middle = days
-      .iter()
-      .find(|day| day.date == CalendarDate::unchecked(2024, 6, 13))
-      .copied();
+    let today = days.iter().find(|day| day.date == CalendarDate::unchecked(2024, 6, 10)).copied();
+    let selected =
+      days.iter().find(|day| day.date == CalendarDate::unchecked(2024, 6, 11)).copied();
+    let range_middle =
+      days.iter().find(|day| day.date == CalendarDate::unchecked(2024, 6, 13)).copied();
 
     assert_eq!(today.map(|day| day.today), Some(true));
     assert_eq!(selected.map(|day| day.selected), Some(true));
     assert_eq!(range_middle.map(|day| day.selected), Some(true));
-    assert_eq!(
-      range_middle.map(|day| day.range_state),
-      Some(CalendarRangeState::Middle)
-    );
+    assert_eq!(range_middle.map(|day| day.range_state), Some(CalendarRangeState::Middle));
     assert_eq!(
       days
         .iter()

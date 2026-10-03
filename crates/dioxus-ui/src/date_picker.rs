@@ -13,11 +13,7 @@ pub fn date_picker_trigger_class(invalid: bool, class: &str) -> String {
     "focus-visible:ring-blue-600"
   };
 
-  classes([
-    Some(DATE_PICKER_TRIGGER_BASE_CLASS),
-    Some(invalid_class),
-    Some(class),
-  ])
+  classes([Some(DATE_PICKER_TRIGGER_BASE_CLASS), Some(invalid_class), Some(class)])
 }
 
 pub fn date_picker_value_class(class: &str) -> String {

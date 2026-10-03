@@ -41,10 +41,7 @@ pub fn drawer_close_class(class: &str) -> String {
 }
 
 #[component]
-pub fn DrawerOverlay(
-  #[props(default)] open: bool,
-  #[props(default)] class: String,
-) -> Element {
+pub fn DrawerOverlay(#[props(default)] open: bool, #[props(default)] class: String) -> Element {
   let class = drawer_overlay_class(&class);
 
   rsx! {

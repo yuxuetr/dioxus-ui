@@ -9,11 +9,7 @@ pub const FIELD_ERROR_BASE_CLASS: &str = "text-sm font-medium text-red-600";
 pub const FIELD_GROUP_BASE_CLASS: &str = "grid gap-4";
 
 pub fn field_class(invalid: bool, class: &str) -> String {
-  classes([
-    Some(FIELD_BASE_CLASS),
-    invalid.then_some(FIELD_INVALID_CLASS),
-    Some(class),
-  ])
+  classes([Some(FIELD_BASE_CLASS), invalid.then_some(FIELD_INVALID_CLASS), Some(class)])
 }
 
 pub fn field_label_class(class: &str) -> String {

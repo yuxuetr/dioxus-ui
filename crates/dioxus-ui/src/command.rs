@@ -2,7 +2,8 @@ use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 pub use dioxus_ui_primitives::ActiveDescendantState;
 
-pub const COMMAND_BASE_CLASS: &str = "flex h-full w-full flex-col overflow-hidden rounded-md bg-white text-zinc-950";
+pub const COMMAND_BASE_CLASS: &str =
+  "flex h-full w-full flex-col overflow-hidden rounded-md bg-white text-zinc-950";
 pub const COMMAND_INPUT_BASE_CLASS: &str = "flex h-11 w-full rounded-md bg-transparent px-3 py-2 text-sm outline-none placeholder:text-zinc-500 disabled:cursor-not-allowed disabled:opacity-50";
 pub const COMMAND_LIST_BASE_CLASS: &str = "max-h-80 overflow-y-auto overflow-x-hidden";
 pub const COMMAND_EMPTY_BASE_CLASS: &str = "py-6 text-center text-sm text-zinc-500";
@@ -40,12 +41,7 @@ pub fn command_item_class(active: bool, selected: bool, class: &str) -> String {
   let active_class = if active { "bg-zinc-100 text-zinc-950" } else { "" };
   let selected_class = if selected { "bg-zinc-100" } else { "" };
 
-  classes([
-    Some(COMMAND_ITEM_BASE_CLASS),
-    Some(active_class),
-    Some(selected_class),
-    Some(class),
-  ])
+  classes([Some(COMMAND_ITEM_BASE_CLASS), Some(active_class), Some(selected_class), Some(class)])
 }
 
 pub fn command_separator_class(class: &str) -> String {

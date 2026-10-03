@@ -22,16 +22,8 @@ pub struct ChartSeries {
 }
 
 impl ChartSeries {
-  pub fn new(
-    id: impl Into<String>,
-    label: impl Into<String>,
-    points: Vec<ChartPoint>,
-  ) -> Self {
-    Self {
-      id: id.into(),
-      label: label.into(),
-      points,
-    }
+  pub fn new(id: impl Into<String>, label: impl Into<String>, points: Vec<ChartPoint>) -> Self {
+    Self { id: id.into(), label: label.into(), points }
   }
 }
 
@@ -59,10 +51,7 @@ pub struct ChartScale {
 
 impl ChartScale {
   pub fn new(domain: ChartDomain, range: ChartDomain) -> Self {
-    Self {
-      domain: domain.normalized(),
-      range: range.normalized(),
-    }
+    Self { domain: domain.normalized(), range: range.normalized() }
   }
 
   pub fn scale(self, value: f64) -> f64 {
@@ -107,10 +96,8 @@ pub fn chart_domain(values: &[f64]) -> ChartDomain {
 }
 
 pub fn chart_series_x_domain(series: &[ChartSeries]) -> ChartDomain {
-  let values = series
-    .iter()
-    .flat_map(|series| series.points.iter().map(|point| point.x))
-    .collect::<Vec<_>>();
+  let values =
+    series.iter().flat_map(|series| series.points.iter().map(|point| point.x)).collect::<Vec<_>>();
 
   chart_domain(&values)
 }
@@ -168,23 +155,14 @@ pub fn chart_color_attribute(token: ChartColorToken) -> &'static str {
 pub fn chart_summary(series: &[ChartSeries]) -> String {
   let series_count = series.len();
   let point_count = series.iter().map(|series| series.points.len()).sum::<usize>();
-  let missing_count = series
-    .iter()
-    .flat_map(|series| series.points.iter())
-    .filter(|point| point.y.is_none())
-    .count();
+  let missing_count =
+    series.iter().flat_map(|series| series.points.iter()).filter(|point| point.y.is_none()).count();
 
-  format!(
-    "{series_count} series, {point_count} points, {missing_count} missing values"
-  )
+  format!("{series_count} series, {point_count} points, {missing_count} missing values")
 }
 
 pub fn chart_series_label(series: &ChartSeries, token: ChartColorToken) -> String {
-  format!(
-    "{} ({})",
-    series.label,
-    chart_color_attribute(token)
-  )
+  format!("{} ({})", series.label, chart_color_attribute(token))
 }
 
 pub fn chart_value_label(series_label: &str, x_label: &str, y: Option<f64>) -> String {
@@ -202,10 +180,7 @@ pub fn chart_fallback_rows(series: &[ChartSeries]) -> Vec<ChartFallbackRow> {
         series_id: series.id.clone(),
         series_label: series.label.clone(),
         x_label: chart_number_label(point.x),
-        y_label: point
-          .y
-          .map(chart_number_label)
-          .unwrap_or_else(|| "missing".to_string()),
+        y_label: point.y.map(chart_number_label).unwrap_or_else(|| "missing".to_string()),
         missing: point.y.is_none(),
       })
     })
@@ -213,22 +188,14 @@ pub fn chart_fallback_rows(series: &[ChartSeries]) -> Vec<ChartFallbackRow> {
 }
 
 pub fn chart_number_label(value: f64) -> String {
-  if value.is_finite() {
-    value.to_string()
-  } else {
-    "missing".to_string()
-  }
+  if value.is_finite() { value.to_string() } else { "missing".to_string() }
 }
 
 pub fn chart_domain_normalize(min: f64, max: f64) -> ChartDomain {
   let min = finite_or_default(min, 0.0);
   let max = finite_or_default(max, min);
 
-  if min <= max {
-    ChartDomain::new(min, max)
-  } else {
-    ChartDomain::new(max, min)
-  }
+  if min <= max { ChartDomain::new(min, max) } else { ChartDomain::new(max, min) }
 }
 
 fn midpoint(domain: ChartDomain) -> f64 {
@@ -236,11 +203,7 @@ fn midpoint(domain: ChartDomain) -> f64 {
 }
 
 fn finite_or_default(value: f64, default: f64) -> f64 {
-  if value.is_finite() {
-    value
-  } else {
-    default
-  }
+  if value.is_finite() { value } else { default }
 }
 
 #[cfg(test)]
@@ -282,10 +245,7 @@ mod tests {
   #[test]
   fn normalizes_reversed_or_non_finite_domains() {
     assert_eq!(ChartDomain::new(10.0, 2.0).normalized(), ChartDomain::new(2.0, 10.0));
-    assert_eq!(
-      chart_domain_normalize(f64::NAN, f64::INFINITY),
-      ChartDomain::new(0.0, 0.0)
-    );
+    assert_eq!(chart_domain_normalize(f64::NAN, f64::INFINITY), ChartDomain::new(0.0, 0.0));
   }
 
   #[test]
@@ -312,18 +272,9 @@ mod tests {
   fn creates_color_independent_series_and_value_labels() {
     let series = ChartSeries::new("revenue", "Revenue", vec![]);
 
-    assert_eq!(
-      chart_series_label(&series, ChartColorToken::Primary),
-      "Revenue (primary)"
-    );
-    assert_eq!(
-      chart_value_label("Revenue", "Q1", Some(42.0)),
-      "Revenue at Q1: 42"
-    );
-    assert_eq!(
-      chart_value_label("Revenue", "Q2", None),
-      "Revenue at Q2: missing"
-    );
+    assert_eq!(chart_series_label(&series, ChartColorToken::Primary), "Revenue (primary)");
+    assert_eq!(chart_value_label("Revenue", "Q1", Some(42.0)), "Revenue at Q1: 42");
+    assert_eq!(chart_value_label("Revenue", "Q2", None), "Revenue at Q2: missing");
   }
 
   #[test]

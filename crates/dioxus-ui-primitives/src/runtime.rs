@@ -18,11 +18,7 @@ pub struct FocusRuntimeRequest {
 
 impl FocusRuntimeRequest {
   pub const fn new(strategy: FocusStrategy, return_policy: FocusReturn, modal: bool) -> Self {
-    Self {
-      strategy,
-      return_policy,
-      modal,
-    }
+    Self { strategy, return_policy, modal }
   }
 
   pub const fn modal(strategy: FocusStrategy, return_policy: FocusReturn) -> Self {
@@ -66,17 +62,10 @@ impl FocusRuntimeRequest {
 pub trait FocusRuntime {
   type NodeId;
 
-  fn focus_initial(
-    &self,
-    scope: &Self::NodeId,
-    request: FocusRuntimeRequest,
-  ) -> FocusCommandResult;
+  fn focus_initial(&self, scope: &Self::NodeId, request: FocusRuntimeRequest)
+  -> FocusCommandResult;
 
-  fn trap_focus(
-    &self,
-    scope: &Self::NodeId,
-    request: FocusRuntimeRequest,
-  ) -> FocusCommandResult;
+  fn trap_focus(&self, scope: &Self::NodeId, request: FocusRuntimeRequest) -> FocusCommandResult;
 
   fn restore_focus(
     &self,
@@ -100,11 +89,7 @@ impl FocusRuntime for FocusRuntimeUnsupported {
     FocusCommandResult::Unsupported
   }
 
-  fn trap_focus(
-    &self,
-    _scope: &Self::NodeId,
-    _request: FocusRuntimeRequest,
-  ) -> FocusCommandResult {
+  fn trap_focus(&self, _scope: &Self::NodeId, _request: FocusRuntimeRequest) -> FocusCommandResult {
     FocusCommandResult::Unsupported
   }
 
@@ -307,11 +292,7 @@ impl LiveRegionRuntimeRequest {
     priority: AnnouncementPriority,
     duplicate_policy: DuplicateAnnouncementPolicy,
   ) -> Self {
-    Self {
-      message: message.into(),
-      priority,
-      duplicate_policy,
-    }
+    Self { message: message.into(), priority, duplicate_policy }
   }
 
   pub fn polite(message: impl Into<String>) -> Self {
@@ -345,10 +326,8 @@ impl LiveRegionRuntimeRequest {
   }
 
   pub fn should_suppress_duplicate(&self, previous_message: Option<&str>) -> bool {
-    matches!(
-      self.duplicate_policy,
-      DuplicateAnnouncementPolicy::SuppressConsecutive
-    ) && previous_message == Some(self.message.as_str())
+    matches!(self.duplicate_policy, DuplicateAnnouncementPolicy::SuppressConsecutive)
+      && previous_message == Some(self.message.as_str())
   }
 }
 
@@ -391,12 +370,7 @@ pub struct RuntimeRect {
 
 impl RuntimeRect {
   pub const fn new(x: f64, y: f64, width: f64, height: f64) -> Self {
-    Self {
-      x,
-      y,
-      width,
-      height,
-    }
+    Self { x, y, width, height }
   }
 
   pub fn right(&self) -> f64 {
@@ -441,7 +415,10 @@ pub struct MeasurementRuntimeUnsupported;
 impl MeasurementRuntime for MeasurementRuntimeUnsupported {
   type NodeId = ();
 
-  fn measure(&self, _request: &MeasurementRuntimeRequest<Self::NodeId>) -> MeasurementRuntimeResult {
+  fn measure(
+    &self,
+    _request: &MeasurementRuntimeRequest<Self::NodeId>,
+  ) -> MeasurementRuntimeResult {
     MeasurementRuntimeResult::Unsupported
   }
 }
@@ -575,11 +552,7 @@ pub struct GestureState {
 
 impl GestureState {
   pub const fn new(axis: GestureAxis, distance: f64, velocity: f64) -> Self {
-    Self {
-      axis,
-      distance,
-      velocity,
-    }
+    Self { axis, distance, velocity }
   }
 
   pub const fn horizontal(distance: f64, velocity: f64) -> Self {
@@ -625,16 +598,8 @@ pub struct GestureRuntimeRequest {
 }
 
 impl GestureRuntimeRequest {
-  pub const fn new(
-    state: GestureState,
-    distance_threshold: f64,
-    velocity_threshold: f64,
-  ) -> Self {
-    Self {
-      state,
-      distance_threshold,
-      velocity_threshold,
-    }
+  pub const fn new(state: GestureState, distance_threshold: f64, velocity_threshold: f64) -> Self {
+    Self { state, distance_threshold, velocity_threshold }
   }
 
   pub const fn horizontal(
@@ -643,11 +608,7 @@ impl GestureRuntimeRequest {
     distance_threshold: f64,
     velocity_threshold: f64,
   ) -> Self {
-    Self::new(
-      GestureState::horizontal(distance, velocity),
-      distance_threshold,
-      velocity_threshold,
-    )
+    Self::new(GestureState::horizontal(distance, velocity), distance_threshold, velocity_threshold)
   }
 
   pub const fn vertical(
@@ -656,11 +617,7 @@ impl GestureRuntimeRequest {
     distance_threshold: f64,
     velocity_threshold: f64,
   ) -> Self {
-    Self::new(
-      GestureState::vertical(distance, velocity),
-      distance_threshold,
-      velocity_threshold,
-    )
+    Self::new(GestureState::vertical(distance, velocity), distance_threshold, velocity_threshold)
   }
 
   pub fn resolve_outcome(&self) -> GestureOutcome {
@@ -724,19 +681,11 @@ fn gesture_outcome_from_motion(motion: f64) -> GestureOutcome {
 }
 
 fn finite_threshold(value: f64) -> f64 {
-  if value.is_finite() {
-    value.abs()
-  } else {
-    0.0
-  }
+  if value.is_finite() { value.abs() } else { 0.0 }
 }
 
 fn finite_or_zero(value: f64) -> f64 {
-  if value.is_finite() {
-    value
-  } else {
-    0.0
-  }
+  if value.is_finite() { value } else { 0.0 }
 }
 
 pub fn toast_live_region_request(item: &ToastItem) -> LiveRegionRuntimeRequest {
@@ -799,18 +748,9 @@ mod tests {
     let node = ();
     let request = FocusRuntimeRequest::dialog_default();
 
-    assert_eq!(
-      runtime.focus_initial(&node, request),
-      FocusCommandResult::Unsupported
-    );
-    assert_eq!(
-      runtime.trap_focus(&node, request),
-      FocusCommandResult::Unsupported
-    );
-    assert_eq!(
-      runtime.restore_focus(&node, request),
-      FocusCommandResult::Unsupported
-    );
+    assert_eq!(runtime.focus_initial(&node, request), FocusCommandResult::Unsupported);
+    assert_eq!(runtime.trap_focus(&node, request), FocusCommandResult::Unsupported);
+    assert_eq!(runtime.restore_focus(&node, request), FocusCommandResult::Unsupported);
   }
 
   #[test]
@@ -884,18 +824,9 @@ mod tests {
 
   #[test]
   fn timer_request_covers_deferred_runtime_reasons() {
-    assert_eq!(
-      TimerRuntimeRequest::tooltip_delay(150).reason,
-      TimerReason::TooltipDelay
-    );
-    assert_eq!(
-      TimerRuntimeRequest::hover_card_delay(200).reason,
-      TimerReason::HoverCardDelay
-    );
-    assert_eq!(
-      TimerRuntimeRequest::carousel_autoplay(3000).reason,
-      TimerReason::CarouselAutoplay
-    );
+    assert_eq!(TimerRuntimeRequest::tooltip_delay(150).reason, TimerReason::TooltipDelay);
+    assert_eq!(TimerRuntimeRequest::hover_card_delay(200).reason, TimerReason::HoverCardDelay);
+    assert_eq!(TimerRuntimeRequest::carousel_autoplay(3000).reason, TimerReason::CarouselAutoplay);
   }
 
   #[test]
@@ -903,10 +834,7 @@ mod tests {
     let runtime = TimerRuntimeUnsupported;
     let request = TimerRuntimeRequest::toast_dismiss(5000);
 
-    assert_eq!(
-      runtime.schedule_once(&request),
-      TimerRuntimeResult::Unsupported
-    );
+    assert_eq!(runtime.schedule_once(&request), TimerRuntimeResult::Unsupported);
   }
 
   #[test]
@@ -931,10 +859,7 @@ mod tests {
 
     assert_eq!(request.message, "Saved");
     assert_eq!(request.priority, AnnouncementPriority::Polite);
-    assert_eq!(
-      request.duplicate_policy,
-      DuplicateAnnouncementPolicy::SuppressConsecutive
-    );
+    assert_eq!(request.duplicate_policy, DuplicateAnnouncementPolicy::SuppressConsecutive);
     assert!(!request.is_empty());
   }
 
@@ -943,10 +868,7 @@ mod tests {
     let request = LiveRegionRuntimeRequest::assertive("Failed");
 
     assert_eq!(request.priority, AnnouncementPriority::Assertive);
-    assert_eq!(
-      request.duplicate_policy,
-      DuplicateAnnouncementPolicy::SuppressConsecutive
-    );
+    assert_eq!(request.duplicate_policy, DuplicateAnnouncementPolicy::SuppressConsecutive);
   }
 
   #[test]
@@ -1016,10 +938,7 @@ mod tests {
 
     assert_eq!(request.message, "Upload failed Try again");
     assert_eq!(request.priority, AnnouncementPriority::Assertive);
-    assert_eq!(
-      request.duplicate_policy,
-      DuplicateAnnouncementPolicy::SuppressConsecutive
-    );
+    assert_eq!(request.duplicate_policy, DuplicateAnnouncementPolicy::SuppressConsecutive);
   }
 
   #[test]
@@ -1066,10 +985,7 @@ mod tests {
   fn measurement_result_can_carry_rect_or_missing() {
     let rect = RuntimeRect::new(0.0, 0.0, 100.0, 50.0);
 
-    assert_eq!(
-      MeasurementRuntimeResult::Rect(rect),
-      MeasurementRuntimeResult::Rect(rect)
-    );
+    assert_eq!(MeasurementRuntimeResult::Rect(rect), MeasurementRuntimeResult::Rect(rect));
     assert_eq!(MeasurementRuntimeResult::Missing, MeasurementRuntimeResult::Missing);
   }
 
@@ -1092,10 +1008,7 @@ mod tests {
   fn pointer_delta_reports_primary_axis() {
     let delta = PointerDelta::new(12.0, -4.0);
 
-    assert_eq!(
-      delta.primary_delta(crate::LayoutOrientation::Horizontal),
-      12.0
-    );
+    assert_eq!(delta.primary_delta(crate::LayoutOrientation::Horizontal), 12.0);
     assert_eq!(delta.primary_delta(crate::LayoutOrientation::Vertical), -4.0);
     assert!(!delta.is_zero());
     assert!(PointerDelta::zero().is_zero());
@@ -1116,10 +1029,7 @@ mod tests {
   fn pointer_runtime_result_can_carry_movement() {
     let delta = PointerDelta::new(3.0, 4.0);
 
-    assert_eq!(
-      PointerRuntimeResult::Moved(delta),
-      PointerRuntimeResult::Moved(delta)
-    );
+    assert_eq!(PointerRuntimeResult::Moved(delta), PointerRuntimeResult::Moved(delta));
   }
 
   #[test]
@@ -1150,10 +1060,7 @@ mod tests {
       GestureAxis::from_orientation(crate::LayoutOrientation::Vertical),
       GestureAxis::Vertical
     );
-    assert_eq!(
-      GestureAxis::Horizontal.orientation(),
-      crate::LayoutOrientation::Horizontal
-    );
+    assert_eq!(GestureAxis::Horizontal.orientation(), crate::LayoutOrientation::Horizontal);
   }
 
   #[test]
@@ -1202,10 +1109,7 @@ mod tests {
     let runtime = GestureRuntimeUnsupported;
     let request = GestureRuntimeRequest::horizontal(-48.0, 0.0, 32.0, 500.0);
 
-    assert_eq!(
-      runtime.resolve_gesture(&request),
-      GestureRuntimeResult::Unsupported
-    );
+    assert_eq!(runtime.resolve_gesture(&request), GestureRuntimeResult::Unsupported);
   }
 
   #[test]
@@ -1220,14 +1124,8 @@ mod tests {
   fn carousel_can_apply_gesture_outcome() {
     let state = crate::CarouselState::new(1, 3);
 
-    assert_eq!(
-      carousel_apply_gesture(state, GestureOutcome::CommitNext).index,
-      2
-    );
-    assert_eq!(
-      carousel_apply_gesture(state, GestureOutcome::CommitPrevious).index,
-      0
-    );
+    assert_eq!(carousel_apply_gesture(state, GestureOutcome::CommitNext).index, 2);
+    assert_eq!(carousel_apply_gesture(state, GestureOutcome::CommitPrevious).index, 0);
     assert_eq!(carousel_apply_gesture(state, GestureOutcome::Cancel).index, 1);
   }
 
@@ -1237,11 +1135,8 @@ mod tests {
     let mut config = crate::DialogPrimitiveConfig::controlled(true);
     config.portal_target = PortalTarget::Body;
 
-    let focus_request = FocusRuntimeRequest::from_policy(
-      config.focus_strategy,
-      config.focus_return,
-      true,
-    );
+    let focus_request =
+      FocusRuntimeRequest::from_policy(config.focus_strategy, config.focus_return, true);
     let portal_request = PortalRuntimeRequest::from_policy(config.portal_target, true);
 
     assert!(focus_request.should_focus_initial());
@@ -1257,11 +1152,8 @@ mod tests {
   fn popover_config_maps_to_non_modal_runtime_requests() {
     let config = crate::PopoverPrimitiveConfig::controlled(true);
 
-    let focus_request = FocusRuntimeRequest::from_policy(
-      config.focus_strategy,
-      config.focus_return,
-      false,
-    );
+    let focus_request =
+      FocusRuntimeRequest::from_policy(config.focus_strategy, config.focus_return, false);
     let portal_request = PortalRuntimeRequest::from_policy(config.portal_target, false);
 
     assert!(!focus_request.should_focus_initial());

@@ -15,11 +15,7 @@ pub fn aspect_ratio_style(ratio: f64) -> String {
 }
 
 pub fn aspect_ratio_value(ratio: f64) -> f64 {
-  if ratio.is_finite() && ratio > 0.0 {
-    ratio
-  } else {
-    DEFAULT_ASPECT_RATIO
-  }
+  if ratio.is_finite() && ratio > 0.0 { ratio } else { DEFAULT_ASPECT_RATIO }
 }
 
 #[component]

@@ -26,11 +26,7 @@ pub struct RovingFocusState {
 
 impl RovingFocusState {
   pub fn new(orientation: NavigationOrientation) -> Self {
-    Self {
-      active_id: None,
-      orientation,
-      looping: true,
-    }
+    Self { active_id: None, orientation, looping: true }
   }
 
   pub fn with_active_id(mut self, active_id: impl Into<String>) -> Self {
@@ -62,11 +58,7 @@ impl RovingFocusState {
       .map(ToString::to_string)
       .or_else(|| self.active_id.clone());
 
-    Self {
-      active_id,
-      orientation: self.orientation,
-      looping: self.looping,
-    }
+    Self { active_id, orientation: self.orientation, looping: self.looping }
   }
 }
 
@@ -85,33 +77,20 @@ pub struct RovingFocusItem {
 
 impl RovingFocusItem {
   pub fn enabled(id: impl Into<String>) -> Self {
-    Self {
-      id: id.into(),
-      disabled: false,
-    }
+    Self { id: id.into(), disabled: false }
   }
 
   pub fn disabled(id: impl Into<String>) -> Self {
-    Self {
-      id: id.into(),
-      disabled: true,
-    }
+    Self { id: id.into(), disabled: true }
   }
 }
 
 fn first_enabled(items: &[RovingFocusItem]) -> Option<&str> {
-  items
-    .iter()
-    .find(|item| !item.disabled)
-    .map(|item| item.id.as_str())
+  items.iter().find(|item| !item.disabled).map(|item| item.id.as_str())
 }
 
 fn last_enabled(items: &[RovingFocusItem]) -> Option<&str> {
-  items
-    .iter()
-    .rev()
-    .find(|item| !item.disabled)
-    .map(|item| item.id.as_str())
+  items.iter().rev().find(|item| !item.disabled).map(|item| item.id.as_str())
 }
 
 fn move_by<'a>(
@@ -196,9 +175,7 @@ mod tests {
 
   #[test]
   fn stops_at_boundaries_when_looping_disabled() {
-    let state = RovingFocusState::default()
-      .with_active_id("three")
-      .with_looping(false);
+    let state = RovingFocusState::default().with_active_id("three").with_looping(false);
 
     assert_eq!(state.move_focus(&items(), FocusMove::Next), None);
   }
@@ -212,9 +189,7 @@ mod tests {
 
   #[test]
   fn preserves_active_id_when_no_move_is_available() {
-    let state = RovingFocusState::default()
-      .with_active_id("three")
-      .with_looping(false);
+    let state = RovingFocusState::default().with_active_id("three").with_looping(false);
     let next = state.moved(&items(), FocusMove::Next);
 
     assert_eq!(next.active_id.as_deref(), Some("three"));

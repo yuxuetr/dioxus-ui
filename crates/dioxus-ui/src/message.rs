@@ -55,11 +55,7 @@ pub fn message_avatar_class(class: &str) -> String {
 }
 
 pub fn message_content_class(align: MessageAlign, class: &str) -> String {
-  classes([
-    Some(MESSAGE_CONTENT_BASE_CLASS),
-    Some(align.content_class()),
-    Some(class),
-  ])
+  classes([Some(MESSAGE_CONTENT_BASE_CLASS), Some(align.content_class()), Some(class)])
 }
 
 pub fn message_header_class(class: &str) -> String {

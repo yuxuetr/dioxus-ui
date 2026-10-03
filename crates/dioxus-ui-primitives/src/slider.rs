@@ -14,13 +14,7 @@ impl SliderState {
     let page_step = step * 10.0;
     let value = snap_value(value, min, max, step);
 
-    Self {
-      value,
-      min,
-      max,
-      step,
-      page_step,
-    }
+    Self { value, min, max, step, page_step }
   }
 
   pub fn with_page_step(mut self, page_step: f64) -> Self {
@@ -29,10 +23,7 @@ impl SliderState {
   }
 
   pub fn with_value(self, value: f64) -> Self {
-    Self {
-      value: snap_value(value, self.min, self.max, self.step),
-      ..self
-    }
+    Self { value: snap_value(value, self.min, self.max, self.step), ..self }
   }
 
   pub fn percent(self) -> f64 {
@@ -85,11 +76,7 @@ pub struct SliderAriaAttributes {
 pub fn slider_clamp(value: f64, min: f64, max: f64) -> f64 {
   let (min, max) = ordered_bounds(min, max);
 
-  if value.is_finite() {
-    value.clamp(min, max)
-  } else {
-    min
-  }
+  if value.is_finite() { value.clamp(min, max) } else { min }
 }
 
 pub fn slider_snap(value: f64, min: f64, max: f64, step: f64) -> f64 {
@@ -115,27 +102,15 @@ fn ordered_bounds(min: f64, max: f64) -> (f64, f64) {
   let min = finite_or_default(min, 0.0);
   let max = finite_or_default(max, min);
 
-  if min <= max {
-    (min, max)
-  } else {
-    (max, min)
-  }
+  if min <= max { (min, max) } else { (max, min) }
 }
 
 fn positive_or_default(value: f64, default: f64) -> f64 {
-  if value.is_finite() && value > 0.0 {
-    value
-  } else {
-    default
-  }
+  if value.is_finite() && value > 0.0 { value } else { default }
 }
 
 fn finite_or_default(value: f64, default: f64) -> f64 {
-  if value.is_finite() {
-    value
-  } else {
-    default
-  }
+  if value.is_finite() { value } else { default }
 }
 
 #[cfg(test)]

@@ -31,10 +31,7 @@ pub fn dialog_close_class(class: &str) -> String {
 }
 
 #[component]
-pub fn DialogOverlay(
-  #[props(default)] open: bool,
-  #[props(default)] class: String,
-) -> Element {
+pub fn DialogOverlay(#[props(default)] open: bool, #[props(default)] class: String) -> Element {
   let class = dialog_overlay_class(&class);
 
   rsx! {

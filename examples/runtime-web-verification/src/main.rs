@@ -1,6 +1,7 @@
 mod chart_fixture;
 mod web_runtime;
 
+use chart_fixture::chart_fixture_states;
 use dioxus_ui_primitives::{
   CarouselState, FocusRuntime, FocusRuntimeRequest, FocusRuntimeUnsupported, GestureRuntime,
   GestureRuntimeRequest, GestureRuntimeUnsupported, LiveRegionRuntime, LiveRegionRuntimeRequest,
@@ -9,10 +10,9 @@ use dioxus_ui_primitives::{
   MessageScrollerMetrics, PointerDelta, PointerRuntime, PointerRuntimeRequest,
   PointerRuntimeUnsupported, PortalRuntime, PortalRuntimeRequest, PortalRuntimeUnsupported,
   RuntimeRect, TimerRuntime, TimerRuntimeRequest, TimerRuntimeUnsupported, carousel_apply_gesture,
-  message_scroller_is_at_bottom, message_scroller_next_intent,
-  message_scroller_show_unread_marker, message_scroller_should_follow,
+  message_scroller_is_at_bottom, message_scroller_next_intent, message_scroller_should_follow,
+  message_scroller_show_unread_marker,
 };
-use chart_fixture::chart_fixture_states;
 use web_runtime::{
   WebFocusNode, WebFocusRuntime, WebGestureRuntime, WebLiveRegionRuntime, WebMeasurementNode,
   WebMeasurementRuntime, WebPointerRuntime, WebPortalRuntime, WebTimerRuntime,
@@ -562,9 +562,7 @@ fn message_scroller_panel_states() -> Vec<String> {
     ),
     format!(
       "scroll_hold_position testid={} expected={} result={:?}",
-      SCROLL_COMMAND_CHECKS[1].test_id,
-      SCROLL_COMMAND_CHECKS[1].expected,
-      held_after_scroll
+      SCROLL_COMMAND_CHECKS[1].test_id, SCROLL_COMMAND_CHECKS[1].expected, held_after_scroll
     ),
     format!(
       "scroll_unread_marker testid={} expected={} result={}",
@@ -574,9 +572,7 @@ fn message_scroller_panel_states() -> Vec<String> {
     ),
     format!(
       "scroll_jump_latest testid={} expected={} result={:?}",
-      SCROLL_COMMAND_CHECKS[3].test_id,
-      SCROLL_COMMAND_CHECKS[3].expected,
-      jump_intent
+      SCROLL_COMMAND_CHECKS[3].test_id, SCROLL_COMMAND_CHECKS[3].expected, jump_intent
     ),
     format!(
       "scroll_focus_preserved testid={} expected={} result=pending-browser-assertion",

@@ -1,17 +1,18 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 pub use dioxus_ui_primitives::{
+  ChartColorToken, ChartDomain, ChartFallbackRow, ChartPoint, ChartScale, ChartSeries,
   chart_color_attribute, chart_color_class, chart_domain, chart_domain_normalize,
   chart_fallback_rows, chart_number_label, chart_scale_value, chart_series_label,
   chart_series_x_domain, chart_series_y_domain, chart_summary, chart_value_label,
-  ChartColorToken, ChartDomain, ChartFallbackRow, ChartPoint, ChartScale, ChartSeries,
 };
 
 pub const CHART_BASE_CLASS: &str = "relative w-full text-zinc-950";
 pub const CHART_SVG_BASE_CLASS: &str = "h-auto w-full overflow-visible";
 pub const CHART_TITLE_BASE_CLASS: &str = "text-sm font-medium text-zinc-950";
 pub const CHART_DESCRIPTION_BASE_CLASS: &str = "text-sm text-zinc-600";
-pub const CHART_LEGEND_BASE_CLASS: &str = "mt-3 flex flex-wrap items-center gap-3 text-sm text-zinc-700";
+pub const CHART_LEGEND_BASE_CLASS: &str =
+  "mt-3 flex flex-wrap items-center gap-3 text-sm text-zinc-700";
 pub const CHART_FALLBACK_TABLE_BASE_CLASS: &str = "mt-4 w-full caption-bottom text-sm";
 pub const CHART_TOOLTIP_SLOT_BASE_CLASS: &str = "pointer-events-none absolute z-20 rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-950 shadow-md";
 pub const CHART_LINE_SERIES_BASE_CLASS: &str = "fill-none stroke-current";
@@ -51,35 +52,19 @@ pub fn chart_fallback_table_class(class: &str) -> String {
 }
 
 pub fn chart_tooltip_slot_class(visible: bool, class: &str) -> String {
-  classes([
-    Some(CHART_TOOLTIP_SLOT_BASE_CLASS),
-    (!visible).then_some("hidden"),
-    Some(class),
-  ])
+  classes([Some(CHART_TOOLTIP_SLOT_BASE_CLASS), (!visible).then_some("hidden"), Some(class)])
 }
 
 pub fn chart_line_series_class(color: ChartColorToken, class: &str) -> String {
-  classes([
-    Some(CHART_LINE_SERIES_BASE_CLASS),
-    Some(chart_color_class(color)),
-    Some(class),
-  ])
+  classes([Some(CHART_LINE_SERIES_BASE_CLASS), Some(chart_color_class(color)), Some(class)])
 }
 
 pub fn chart_area_series_class(color: ChartColorToken, class: &str) -> String {
-  classes([
-    Some(CHART_AREA_SERIES_BASE_CLASS),
-    Some(chart_color_class(color)),
-    Some(class),
-  ])
+  classes([Some(CHART_AREA_SERIES_BASE_CLASS), Some(chart_color_class(color)), Some(class)])
 }
 
 pub fn chart_bar_series_class(color: ChartColorToken, class: &str) -> String {
-  classes([
-    Some(CHART_BAR_SERIES_BASE_CLASS),
-    Some(chart_color_class(color)),
-    Some(class),
-  ])
+  classes([Some(CHART_BAR_SERIES_BASE_CLASS), Some(chart_color_class(color)), Some(class)])
 }
 
 pub fn chart_view_box(width: f64, height: f64) -> String {
@@ -116,18 +101,12 @@ pub fn chart_area_path(
   let line = chart_line_path(series, x_scale, y_scale);
   let last_present = series.points.iter().rev().find_map(|point| {
     point.y.map(|_| {
-      (
-        chart_number_label(x_scale.scale(point.x)),
-        chart_number_label(y_scale.scale(baseline)),
-      )
+      (chart_number_label(x_scale.scale(point.x)), chart_number_label(y_scale.scale(baseline)))
     })
   });
   let first_present = series.points.iter().find_map(|point| {
     point.y.map(|_| {
-      (
-        chart_number_label(x_scale.scale(point.x)),
-        chart_number_label(y_scale.scale(baseline)),
-      )
+      (chart_number_label(x_scale.scale(point.x)), chart_number_label(y_scale.scale(baseline)))
     })
   });
 
@@ -168,11 +147,7 @@ pub fn chart_bar_rects(
 }
 
 fn non_negative_finite(value: f64) -> f64 {
-  if value.is_finite() {
-    value.max(0.0)
-  } else {
-    0.0
-  }
+  if value.is_finite() { value.max(0.0) } else { 0.0 }
 }
 
 #[component]
@@ -211,11 +186,7 @@ pub fn ChartSvg(
 }
 
 #[component]
-pub fn ChartTitle(
-  id: String,
-  #[props(default)] class: String,
-  children: Element,
-) -> Element {
+pub fn ChartTitle(id: String, #[props(default)] class: String, children: Element) -> Element {
   let class = chart_title_class(&class);
 
   rsx! {
@@ -228,11 +199,7 @@ pub fn ChartTitle(
 }
 
 #[component]
-pub fn ChartDescription(
-  id: String,
-  #[props(default)] class: String,
-  children: Element,
-) -> Element {
+pub fn ChartDescription(id: String, #[props(default)] class: String, children: Element) -> Element {
   let class = chart_description_class(&class);
 
   rsx! {
@@ -400,11 +367,7 @@ mod tests {
     ChartSeries::new(
       "revenue",
       "Revenue",
-      vec![
-        ChartPoint::new(0.0, 10.0),
-        ChartPoint::missing(1.0),
-        ChartPoint::new(2.0, 30.0),
-      ],
+      vec![ChartPoint::new(0.0, 10.0), ChartPoint::missing(1.0), ChartPoint::new(2.0, 30.0)],
     )
   }
 

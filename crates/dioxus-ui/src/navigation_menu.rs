@@ -2,14 +2,17 @@ use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 pub use dioxus_ui_primitives::PopoverPrimitiveConfig;
 
-pub const NAVIGATION_MENU_BASE_CLASS: &str = "relative z-10 flex max-w-max flex-1 items-center justify-center";
-pub const NAVIGATION_MENU_LIST_BASE_CLASS: &str = "group flex flex-1 list-none items-center justify-center gap-1";
+pub const NAVIGATION_MENU_BASE_CLASS: &str =
+  "relative z-10 flex max-w-max flex-1 items-center justify-center";
+pub const NAVIGATION_MENU_LIST_BASE_CLASS: &str =
+  "group flex flex-1 list-none items-center justify-center gap-1";
 pub const NAVIGATION_MENU_ITEM_BASE_CLASS: &str = "relative";
 pub const NAVIGATION_MENU_TRIGGER_BASE_CLASS: &str = "inline-flex h-10 items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-100 focus:bg-zinc-100 focus:outline-none disabled:pointer-events-none disabled:opacity-50";
 pub const NAVIGATION_MENU_CONTENT_BASE_CLASS: &str = "left-0 top-0 w-full rounded-md border border-zinc-200 bg-white p-4 text-zinc-950 shadow-md md:absolute md:w-auto";
 pub const NAVIGATION_MENU_LINK_BASE_CLASS: &str = "block select-none rounded-md p-3 text-sm leading-none text-zinc-900 no-underline outline-none transition-colors hover:bg-zinc-100 focus:bg-zinc-100 data-active:bg-zinc-100 data-disabled:pointer-events-none data-disabled:opacity-50";
 pub const NAVIGATION_MENU_VIEWPORT_BASE_CLASS: &str = "absolute left-0 top-full flex h-[var(--navigation-menu-viewport-height)] w-full justify-center overflow-hidden rounded-md border border-zinc-200 bg-white text-zinc-950 shadow md:w-[var(--navigation-menu-viewport-width)]";
-pub const NAVIGATION_MENU_INDICATOR_BASE_CLASS: &str = "top-full z-10 flex h-2 items-end justify-center overflow-hidden";
+pub const NAVIGATION_MENU_INDICATOR_BASE_CLASS: &str =
+  "top-full z-10 flex h-2 items-end justify-center overflow-hidden";
 
 pub fn navigation_menu_class(class: &str) -> String {
   classes([Some(NAVIGATION_MENU_BASE_CLASS), Some(class)])
@@ -26,11 +29,7 @@ pub fn navigation_menu_item_class(class: &str) -> String {
 pub fn navigation_menu_trigger_class(open: bool, class: &str) -> String {
   let state_class = if open { "bg-zinc-100" } else { "" };
 
-  classes([
-    Some(NAVIGATION_MENU_TRIGGER_BASE_CLASS),
-    Some(state_class),
-    Some(class),
-  ])
+  classes([Some(NAVIGATION_MENU_TRIGGER_BASE_CLASS), Some(state_class), Some(class)])
 }
 
 pub fn navigation_menu_content_class(class: &str) -> String {
@@ -40,11 +39,7 @@ pub fn navigation_menu_content_class(class: &str) -> String {
 pub fn navigation_menu_link_class(active: bool, class: &str) -> String {
   let state_class = if active { "bg-zinc-100" } else { "" };
 
-  classes([
-    Some(NAVIGATION_MENU_LINK_BASE_CLASS),
-    Some(state_class),
-    Some(class),
-  ])
+  classes([Some(NAVIGATION_MENU_LINK_BASE_CLASS), Some(state_class), Some(class)])
 }
 
 pub fn navigation_menu_viewport_class(class: &str) -> String {
@@ -54,11 +49,7 @@ pub fn navigation_menu_viewport_class(class: &str) -> String {
 pub fn navigation_menu_indicator_class(open: bool, class: &str) -> String {
   let state_class = if open { "opacity-100" } else { "opacity-0" };
 
-  classes([
-    Some(NAVIGATION_MENU_INDICATOR_BASE_CLASS),
-    Some(state_class),
-    Some(class),
-  ])
+  classes([Some(NAVIGATION_MENU_INDICATOR_BASE_CLASS), Some(state_class), Some(class)])
 }
 
 #[component]

@@ -37,11 +37,7 @@ pub fn select_label_class(class: &str) -> String {
 }
 
 pub fn select_item_class(selected: bool, class: &str) -> String {
-  let selected_class = if selected {
-    "bg-zinc-100 text-zinc-950"
-  } else {
-    "text-zinc-900"
-  };
+  let selected_class = if selected { "bg-zinc-100 text-zinc-950" } else { "text-zinc-900" };
 
   classes([Some(SELECT_ITEM_BASE_CLASS), Some(selected_class), Some(class)])
 }

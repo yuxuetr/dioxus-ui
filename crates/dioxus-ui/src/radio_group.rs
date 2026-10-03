@@ -1,8 +1,6 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
-use dioxus_ui_primitives::{
-  FocusMove, NavigationOrientation, RovingFocusItem, RovingFocusState,
-};
+use dioxus_ui_primitives::{FocusMove, NavigationOrientation, RovingFocusItem, RovingFocusState};
 
 pub const RADIO_GROUP_BASE_CLASS: &str = "grid gap-2";
 pub const RADIO_GROUP_ITEM_BASE_CLASS: &str = "inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-zinc-300 bg-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50";
@@ -14,25 +12,14 @@ pub fn radio_group_class(orientation: NavigationOrientation, class: &str) -> Str
     NavigationOrientation::Vertical | NavigationOrientation::Both => "grid-flow-row",
   };
 
-  classes([
-    Some(RADIO_GROUP_BASE_CLASS),
-    Some(orientation_class),
-    Some(class),
-  ])
+  classes([Some(RADIO_GROUP_BASE_CLASS), Some(orientation_class), Some(class)])
 }
 
 pub fn radio_group_item_class(checked: bool, class: &str) -> String {
-  let checked_class = if checked {
-    "border-blue-600 bg-blue-600 text-white"
-  } else {
-    "text-transparent"
-  };
+  let checked_class =
+    if checked { "border-blue-600 bg-blue-600 text-white" } else { "text-transparent" };
 
-  classes([
-    Some(RADIO_GROUP_ITEM_BASE_CLASS),
-    Some(checked_class),
-    Some(class),
-  ])
+  classes([Some(RADIO_GROUP_ITEM_BASE_CLASS), Some(checked_class), Some(class)])
 }
 
 pub fn radio_group_indicator_class(class: &str) -> String {
@@ -47,11 +34,7 @@ pub fn radio_group_orientation_attribute(orientation: NavigationOrientation) -> 
 }
 
 pub fn radio_group_item_tabindex(checked: bool, disabled: bool) -> i16 {
-  if checked && !disabled {
-    0
-  } else {
-    -1
-  }
+  if checked && !disabled { 0 } else { -1 }
 }
 
 pub fn radio_group_focus_state(
@@ -61,11 +44,7 @@ pub fn radio_group_focus_state(
 ) -> RovingFocusState {
   let state = RovingFocusState::new(orientation).with_looping(looping);
 
-  if let Some(value) = value {
-    state.with_active_id(value)
-  } else {
-    state
-  }
+  if let Some(value) = value { state.with_active_id(value) } else { state }
 }
 
 pub fn radio_group_move_value<'a>(

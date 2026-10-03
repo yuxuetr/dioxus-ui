@@ -1,14 +1,15 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 pub use dioxus_ui_primitives::{
-  toast_is_expired as sonner_is_expired, toast_placement_attribute as sonner_placement_attribute,
+  ToastItem as SonnerItem, ToastPlacement as SonnerPlacement, ToastQueue as SonnerQueue,
+  ToastVariant as SonnerVariant, toast_is_expired as sonner_is_expired,
+  toast_placement_attribute as sonner_placement_attribute,
   toast_queue_dismiss as sonner_queue_dismiss, toast_queue_limit as sonner_queue_limit,
   toast_queue_push as sonner_queue_push, toast_variant_attribute as sonner_variant_attribute,
-  ToastItem as SonnerItem, ToastPlacement as SonnerPlacement, ToastQueue as SonnerQueue,
-  ToastVariant as SonnerVariant,
 };
 
-pub const SONNER_VIEWPORT_BASE_CLASS: &str = "fixed z-50 flex max-h-screen w-full flex-col gap-2 p-4 sm:max-w-sm";
+pub const SONNER_VIEWPORT_BASE_CLASS: &str =
+  "fixed z-50 flex max-h-screen w-full flex-col gap-2 p-4 sm:max-w-sm";
 pub const SONNER_TOAST_BASE_CLASS: &str = "pointer-events-auto relative grid w-full grid-cols-[auto_1fr_auto] items-start gap-3 overflow-hidden rounded-md border bg-white p-4 text-zinc-950 shadow-lg transition-all";
 pub const SONNER_ICON_BASE_CLASS: &str = "mt-0.5 h-2.5 w-2.5 rounded-full";
 pub const SONNER_CONTENT_BASE_CLASS: &str = "grid gap-1";
@@ -27,11 +28,7 @@ pub fn sonner_viewport_class(placement: SonnerPlacement, class: &str) -> String 
     SonnerPlacement::BottomRight => "bottom-0 right-0 sm:right-0",
   };
 
-  classes([
-    Some(SONNER_VIEWPORT_BASE_CLASS),
-    Some(placement_class),
-    Some(class),
-  ])
+  classes([Some(SONNER_VIEWPORT_BASE_CLASS), Some(placement_class), Some(class)])
 }
 
 pub fn sonner_toast_class(variant: SonnerVariant, class: &str) -> String {
@@ -44,11 +41,7 @@ pub fn sonner_toast_class(variant: SonnerVariant, class: &str) -> String {
     SonnerVariant::Loading => "border-zinc-200 bg-zinc-50 text-zinc-950",
   };
 
-  classes([
-    Some(SONNER_TOAST_BASE_CLASS),
-    Some(variant_class),
-    Some(class),
-  ])
+  classes([Some(SONNER_TOAST_BASE_CLASS), Some(variant_class), Some(class)])
 }
 
 pub fn sonner_icon_class(variant: SonnerVariant, class: &str) -> String {
@@ -61,11 +54,7 @@ pub fn sonner_icon_class(variant: SonnerVariant, class: &str) -> String {
     SonnerVariant::Loading => "bg-zinc-400 animate-pulse",
   };
 
-  classes([
-    Some(SONNER_ICON_BASE_CLASS),
-    Some(variant_class),
-    Some(class),
-  ])
+  classes([Some(SONNER_ICON_BASE_CLASS), Some(variant_class), Some(class)])
 }
 
 pub fn sonner_content_class(class: &str) -> String {
@@ -85,11 +74,7 @@ pub fn sonner_description_class(variant: SonnerVariant, class: &str) -> String {
     SonnerVariant::Error => "text-red-800",
   };
 
-  classes([
-    Some(SONNER_DESCRIPTION_BASE_CLASS),
-    Some(variant_class),
-    Some(class),
-  ])
+  classes([Some(SONNER_DESCRIPTION_BASE_CLASS), Some(variant_class), Some(class)])
 }
 
 pub fn sonner_action_class(disabled: bool, class: &str) -> String {
@@ -111,9 +96,10 @@ pub fn sonner_close_class(disabled: bool, class: &str) -> String {
 pub fn sonner_live_attribute(variant: SonnerVariant) -> &'static str {
   match variant {
     SonnerVariant::Error | SonnerVariant::Warning => "assertive",
-    SonnerVariant::Default | SonnerVariant::Success | SonnerVariant::Info | SonnerVariant::Loading => {
-      "polite"
-    }
+    SonnerVariant::Default
+    | SonnerVariant::Success
+    | SonnerVariant::Info
+    | SonnerVariant::Loading => "polite",
   }
 }
 
@@ -269,9 +255,8 @@ mod tests {
 
   #[test]
   fn sonner_primitives_are_reexported() {
-    let queue = SonnerQueue::new(1)
-      .push(SonnerItem::new("one", "One"))
-      .push(SonnerItem::new("two", "Two"));
+    let queue =
+      SonnerQueue::new(1).push(SonnerItem::new("one", "One")).push(SonnerItem::new("two", "Two"));
 
     assert_eq!(queue.items[0].id, "two");
     assert_eq!(sonner_variant_attribute(SonnerVariant::Info), "info");
