@@ -125,6 +125,7 @@ npm run verify:license-readiness
 npm run verify:repository-identity-readiness
 npm run verify:api-stability-readiness
 npm run verify:cli-template-packaging-readiness
+npm run verify:package-contents
 npm run verify:registry-availability-readiness
 npm run verify:publish-readiness-coverage
 npm run verify:publish-readiness-runbook
@@ -393,6 +394,12 @@ API changes.
 registry and template assets at compile time. It is read-only and does not run
 `cargo package`, run `cargo publish`, install the CLI, contact crates.io,
 create package archives, or change embedded template contents.
+
+`npm run verify:package-contents` runs `cargo package --list` for each
+publishable crate and checks that every package ships its manifest, README,
+and entry point, and that the CLI package contains every registry entry and template the CLI embeds. It
+lists package contents only; it does not build or compress package archives,
+run `cargo publish`, or contact crates.io.
 
 `npm run verify:registry-availability-readiness` checks that the crates.io name
 and ownership review blocker remains documented as deferred, together with the

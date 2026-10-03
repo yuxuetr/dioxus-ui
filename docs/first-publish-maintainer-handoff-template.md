@@ -106,6 +106,7 @@ npm run verify:license-readiness
 npm run verify:api-stability-readiness
 npm run verify:release-notes-readiness
 npm run verify:cli-template-packaging-readiness
+npm run verify:package-contents
 npm run verify:registry-availability-readiness
 npm run verify:workspace-dependency-publish-readiness
 npm run verify:publish-readiness-blockers

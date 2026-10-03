@@ -1884,6 +1884,29 @@ All commands passed. The check does not run `cargo package`, run
 `cargo publish`, install the CLI, contact crates.io, create package archives,
 or change embedded template contents.
 
+## M134 Package Contents Gate Usage
+
+M134 adds a package contents command:
+
+```bash
+npm run verify:package-contents
+```
+
+The command runs `cargo package --list` for each publishable crate. It fails
+when a package is missing its manifest, README, or entry point, or when the CLI
+package is missing a registry entry or template that `build.rs` embeds. M134
+added it after finding that the CLI build script read registry and template
+assets from the workspace root, outside the CLI package.
+
+The check is included in:
+
+```bash
+npm run verify:release
+```
+
+It lists package contents only. It does not build package archives, run
+`cargo publish`, or contact crates.io.
+
 ## M104 Registry Availability Readiness Metadata Gate Usage
 
 M104 adds a focused registry availability readiness metadata command:
@@ -1970,6 +1993,7 @@ npm run verify:license-readiness
 npm run verify:repository-identity-readiness
 npm run verify:api-stability-readiness
 npm run verify:cli-template-packaging-readiness
+npm run verify:package-contents
 npm run verify:registry-availability-readiness
 npm run verify:package-scripts
 npm run verify:release-docs
@@ -2023,6 +2047,7 @@ npm run verify:license-readiness
 npm run verify:repository-identity-readiness
 npm run verify:api-stability-readiness
 npm run verify:cli-template-packaging-readiness
+npm run verify:package-contents
 npm run verify:registry-availability-readiness
 npm run verify:package-scripts
 npm run verify:release-docs

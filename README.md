@@ -293,6 +293,7 @@ npm run verify:license-readiness
 npm run verify:repository-identity-readiness
 npm run verify:api-stability-readiness
 npm run verify:cli-template-packaging-readiness
+npm run verify:package-contents
 npm run verify:registry-availability-readiness
 npm run verify:publish-readiness-coverage
 npm run verify:publish-readiness-runbook
@@ -562,6 +563,16 @@ npm run verify:cli-template-packaging-readiness
 This checks that CLI registry and template assets are embedded at compile time.
 It does not run `cargo package`, run `cargo publish`, install the CLI, contact
 crates.io, create package archives, or change embedded template contents.
+
+Verify published package contents only:
+
+```bash
+npm run verify:package-contents
+```
+
+This runs `cargo package --list` for each publishable crate and checks that the
+CLI package contains every registry entry and template the CLI embeds. It does
+not build package archives, run `cargo publish`, or contact crates.io.
 
 Verify registry availability readiness metadata only:
 
