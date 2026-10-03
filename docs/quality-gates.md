@@ -395,7 +395,9 @@ registry and template assets at compile time. It is read-only and does not run
 create package archives, or change embedded template contents.
 
 `npm run verify:registry-availability-readiness` checks that the crates.io name
-and ownership review blocker remains documented. It is read-only and does not
+and ownership review blocker remains documented as deferred, together with the
+per-crate evidence a release owner must supply. Deferral blocks crates.io
+publishing but not local release readiness. It is read-only and does not
 contact crates.io, check crate name availability, check ownership, inspect
 credentials, run `cargo package`, run `cargo publish`, or create package
 archives.

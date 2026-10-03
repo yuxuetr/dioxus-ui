@@ -248,8 +248,9 @@ CLI embeds registry and template assets at compile time; they do not run
 `cargo package`, run `cargo publish`, install the CLI, contact crates.io,
 create package archives, or change embedded template contents.
 Registry availability readiness checks are read-only. They validate that the
-crates.io name and ownership review blocker remains documented; they do not
-contact crates.io, check crate name availability, check ownership, inspect
+crates.io name and ownership review blocker remains documented as deferred.
+Deferral blocks crates.io publishing but not local release readiness, and the
+checks themselves stay local; they do not contact crates.io, check crate name availability, check ownership, inspect
 credentials, run `cargo package`, run `cargo publish`, or create package
 archives.
 Publish readiness coverage checks are read-only. They validate that every

@@ -19,6 +19,12 @@ Current blockers:
 | --- | --- | --- |
 | Registry availability not checked | Cargo publish metadata gate intentionally avoids crates.io lookups | Release owner checks names and ownership during publish preparation |
 
+Registry availability is deferred until a release owner supplies the crates.io
+evidence listed in
+[Registry Availability Readiness Metadata](registry-availability-readiness-metadata.md#deferral).
+Deferral blocks crates.io publishing; it does not block local release
+readiness or internal trial.
+
 Resolved publish readiness items:
 
 | Item | Evidence | Verification |

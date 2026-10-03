@@ -31,6 +31,34 @@ workspace and that publish metadata is internally consistent. That does not
 prove the names are available on crates.io, that ownership is configured, or
 that release credentials are ready.
 
+## Deferral
+
+M133 keeps this blocker deferred until a release owner supplies crates.io
+evidence. Deferral blocks crates.io publishing; it does not block local release
+readiness or internal trial.
+
+Required crates.io evidence, recorded by the release owner per crate:
+
+| Crate | Name Evidence | Owners | Publish Position |
+| --- | --- | --- | --- |
+| `dioxus-ui-core` | Available, or already owned by the release owner | crates.io owner list or team | 1 |
+| `dioxus-ui-primitives` | Available, or already owned by the release owner | crates.io owner list or team | 2 |
+| `dioxus-ui` | Available, or already owned by the release owner | crates.io owner list or team | 3 |
+| `dioxus-ui-cli` | Available, or already owned by the release owner | crates.io owner list or team | 4 |
+
+Shared evidence for the whole publish:
+
+- credential readiness confirmed by the release owner, without committing or
+  pasting tokens into the repository
+- publish order confirmation matching
+  [Publish Order Metadata](publish-order-metadata.md)
+- named release owner responsible for the actual publish
+- confirmation that registry checks happened outside the repository-safe local
+  metadata gates
+
+If any crate name is unavailable and not owned by the release owner, the
+blocker stays unresolved and a rename milestone is required before publish.
+
 ## Readiness Contract
 
 `npm run verify:registry-availability-readiness` should confirm that:
@@ -39,6 +67,7 @@ that release credentials are ready.
 - the release aggregate includes the focused readiness check
 - planned publishable crate names remain documented
 - publish blocker docs still list registry availability as unresolved
+- the deferral statement and the per-crate evidence table remain documented
 - release, quality gate, Cargo publish metadata, and docs-site notes do not
   imply crates.io availability has been checked
 

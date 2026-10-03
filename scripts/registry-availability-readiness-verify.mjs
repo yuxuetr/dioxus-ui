@@ -11,7 +11,8 @@ const normalizeWhitespace = (text) => text.replace(/\s+/g, " ");
 const packageJson = JSON.parse(readText("package.json"));
 const rootCargo = readText("Cargo.toml");
 const readinessDoc = normalizeWhitespace(readText("docs/registry-availability-readiness-metadata.md"));
-const publishBlockers = readText("docs/publish-readiness-blockers.md");
+const publishBlockers = normalizeWhitespace(readText("docs/publish-readiness-blockers.md"));
+const registryHandoff = readText("docs/registry-availability-blocker-handoff.md");
 const cargoPublishDoc = normalizeWhitespace(readText("docs/cargo-publish-metadata.md"));
 const releaseDoc = normalizeWhitespace(readText("docs/release.md"));
 const qualityDoc = normalizeWhitespace(readText("docs/quality-gates.md"));
@@ -52,7 +53,10 @@ for (const crateName of plannedCrates) {
       : `crates/${crateName}/Cargo.toml`;
   const manifest = readText(manifestPath);
   requireIncludes(manifestPath, manifest, [`name = "${crateName}"`]);
-  requireIncludes("docs/registry-availability-readiness-metadata.md", readinessDoc, [crateName]);
+  requireIncludes("docs/registry-availability-readiness-metadata.md", readinessDoc, [
+    crateName,
+    `| \`${crateName}\` | Available, or already owned by the release owner |`,
+  ]);
 }
 
 requireIncludes("Cargo.toml", rootCargo, [
@@ -66,6 +70,12 @@ requireIncludes("Cargo.toml", rootCargo, [
 requireIncludes("docs/registry-availability-readiness-metadata.md", readinessDoc, [
   "Registry Availability Readiness Metadata",
   "does not prove the names are available on crates.io",
+  "## Deferral",
+  "Deferral blocks crates.io publishing; it does not block local release readiness or internal trial.",
+  "| Crate | Name Evidence | Owners | Publish Position |",
+  "credential readiness confirmed by the release owner",
+  "named release owner responsible for the actual publish",
+  "a rename milestone is required before publish",
   "must not contact crates.io, check crate name availability, check ownership, inspect credentials, run `cargo package`, run `cargo publish`, or create package archives",
 ]);
 
@@ -74,6 +84,11 @@ requireIncludes("docs/publish-readiness-blockers.md", publishBlockers, [
   "Cargo publish metadata gate intentionally avoids crates.io lookups",
   "Release owner checks names and ownership during publish preparation",
   "checking crates.io name availability",
+  "Deferral blocks crates.io publishing; it does not block local release readiness or internal trial.",
+]);
+
+requireIncludes("docs/registry-availability-blocker-handoff.md", registryHandoff, [
+  "| Publish state | Deferred: blocks crates.io publishing, not local release readiness |",
 ]);
 
 requireIncludes("docs/cargo-publish-metadata.md", cargoPublishDoc, [
@@ -82,12 +97,14 @@ requireIncludes("docs/cargo-publish-metadata.md", cargoPublishDoc, [
 
 requireIncludes("docs/release.md", releaseDoc, [
   "Registry availability readiness checks are read-only",
+  "Deferral blocks crates.io publishing but not local release readiness",
   "crates.io name and ownership review blocker",
   "they do not contact crates.io, check crate name availability, check ownership, inspect credentials, run `cargo package`, run `cargo publish`, or create package archives",
 ]);
 
 requireIncludes("docs/quality-gates.md", qualityDoc, [
   "`npm run verify:registry-availability-readiness`",
+  "Deferral blocks crates.io publishing but not local release readiness",
   "crates.io name and ownership review blocker",
   "does not contact crates.io, check crate name availability, check ownership, inspect credentials, run `cargo package`, run `cargo publish`, or create package archives",
 ]);

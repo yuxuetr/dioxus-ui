@@ -570,7 +570,9 @@ npm run verify:registry-availability-readiness
 ```
 
 This checks that planned publishable crate names remain documented and that
-the unresolved crates.io name and ownership review blocker remains documented.
+the deferred crates.io name and ownership review blocker remains documented
+with the per-crate evidence a release owner must supply. Deferral blocks
+crates.io publishing but not local release readiness.
 It does not contact crates.io, check crate name availability, check ownership,
 inspect credentials, run `cargo package`, run `cargo publish`, or create
 package archives.

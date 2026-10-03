@@ -1893,8 +1893,9 @@ npm run verify:registry-availability-readiness
 ```
 
 The command checks that planned publishable crate names remain documented and
-that the unresolved crates.io name and ownership review blocker remains
-documented.
+that the deferred crates.io name and ownership review blocker remains
+documented. Since M133 it also checks the per-crate evidence table and that
+deferral blocks crates.io publishing but not local release readiness.
 
 The check is included in:
 
