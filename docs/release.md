@@ -621,6 +621,46 @@ Known blockers for that review are tracked by
 packaging strategy remains covered by
 `npm run verify:cli-template-packaging-readiness`.
 
+## First Publish Dry Run
+
+M134 ran `cargo publish --workspace --dry-run` on 2026-10-04 with
+cargo 1.98.1. Cargo packaged and compile-verified every crate from its
+extracted archive, then aborted each upload:
+
+| Crate | Packaged Files | Compressed Size |
+| --- | --- | --- |
+| `dioxus-ui-core` | 7 | 11.8 KiB |
+| `dioxus-ui-primitives` | 26 | 35.0 KiB |
+| `dioxus-ui` | 70 | 66.3 KiB |
+| `dioxus-ui-cli` | 139 | 55.8 KiB |
+
+The only warnings were `aborting upload due to dry run`. Package archives stay
+in the Cargo target directory and are never committed.
+
+`npm run verify:package-contents` keeps the package file lists checked in
+`npm run verify:release`; rerun the dry run before an actual publish because it
+also resolves dependencies against the live crates.io index.
+
+## First Publish Steps
+
+The actual publish is a release-owner action. It requires the crates.io
+evidence in
+[Registry Availability Readiness Metadata](registry-availability-readiness-metadata.md#deferral)
+first.
+
+1. Record the crates.io evidence and mark registry availability resolved.
+2. Rename the `CHANGELOG.md` Unreleased section to `[0.1.0]` with the release
+   date and commit it.
+3. Authenticate with `cargo login`; never commit or paste the token into the
+   repository.
+4. Run `cargo publish --workspace --dry-run` and confirm all four crates
+   verify.
+5. Run `cargo publish --workspace`. Cargo publishes each crate after its
+   dependencies; the dry run uploaded `dioxus-ui-core`, `dioxus-ui-cli`,
+   `dioxus-ui-primitives`, then `dioxus-ui`, which satisfies the same
+   constraints as the publishing order above.
+6. Optionally tag the release commit as `v0.1.0`.
+
 ## Known Pre-1.0 Limitations
 
 - Overlay primitives define state/config contracts but do not implement full

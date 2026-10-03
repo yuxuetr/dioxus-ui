@@ -6,6 +6,8 @@ The CLI now uses compile-time embedded registry and template assets, so
 `registry/` and `templates/` directories at runtime. M134 moved both
 directories into `crates/dioxus-ui-cli/` so the build script reads them from
 `CARGO_MANIFEST_DIR` and `cargo package` ships them with the CLI crate.
+`npm run verify:package-contents` checks the packaged file list, and the M134
+`cargo publish --workspace --dry-run` verified the packaged CLI builds.
 
 ## Current State
 
