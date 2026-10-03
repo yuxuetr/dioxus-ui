@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M134 Packaging Verification Before crates.io
-- Current task: M134.2 Add package contents gate
+- Current task: M134.3 Run workspace publish dry run
 
 ## Backup
 
@@ -2360,7 +2360,7 @@
   - Move `registry/` and `templates/` to `crates/dioxus-ui-cli/`, read them from `CARGO_MANIFEST_DIR`, and update tests, scripts, generated catalog docs, and path references.
   - Run CLI tests, registry, docs catalog, generated fixture smoke, tailwind static, docs, and diff checks.
 
-- TODO M134.2 Add package contents gate
+- DONE M134.2 Add package contents gate
   - Add `npm run verify:package-contents` that runs `cargo package --list` per publishable crate and asserts the CLI package contains every embedded registry and template asset.
   - Wire it into `npm run verify:release` and update package scripts, release docs, quality gates, README, and docs-site notes.
   - Reverse-verify that the gate fails when an embedded asset is outside the package.
