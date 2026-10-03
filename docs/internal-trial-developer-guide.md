@@ -181,39 +181,29 @@ preparation documents before public publish.
 
 ## Publish Blockers And Parallel Work
 
-Internal trial can proceed with the approved repository identity and MIT
-license metadata already in place:
+Internal trial can proceed with every locally resolvable publish readiness item
+in place:
 
 - repository identity: `https://github.com/yuxuetr/dioxus-ui`
 - license: MIT with committed root `LICENSE`
+- API stability: current `0.1.x` API surface accepted for first publish;
+  breaking changes before `1.0` require a minor bump and a `CHANGELOG.md`
+  migration note
+- release notes: first publish scope, excluded scope, and known warnings in the
+  `CHANGELOG.md` Unreleased section
+- workspace dependencies: internal crates declare `version = "0.1.0"`
+  alongside local paths
 
-The remaining publish-readiness work can be prepared in parallel, but blockers
-should not be resolved independently without coordination.
+The only remaining blocker is crates.io registry availability. It stays
+deferred until a release owner confirms crate names, owners, credentials, and
+publish order using the evidence table in
+[Registry Availability Readiness Metadata](registry-availability-readiness-metadata.md#deferral).
+Deferral blocks crates.io publishing; it does not block local release readiness
+or internal trial.
 
-Safe to work in parallel:
-
-- API stability decision record
-- release notes evidence
-- registry availability review
-- workspace dependency strategy review
-
-Must be coordinated before removal from blockers:
-
-- API stability decision affects release notes and possible migration notes
-- registry availability and workspace dependency strategy affect publish order
-- release notes should reflect final blocker outcomes and known warnings
-
-Recommended sequencing:
-
-1. Treat repository identity and MIT license as locally resolved readiness
-   items.
-2. Resolve API stability before final release notes.
-3. Resolve workspace dependency publish readiness before any package or publish
-   dry run.
-4. Keep crates.io registry availability deferred until a release owner confirms
-   crate names, owners, credentials, and publish order.
-5. Update publish blockers only after each focused gate and common publish
-   readiness checks pass.
+When bumping the workspace version, update the internal dependency versions in
+the same change; `npm run verify:workspace-dependency-publish-readiness` fails
+if they drift.
 
 Do not run `cargo package`, `cargo publish`, create Git tags, create GitHub
 releases, or contact registries as part of internal trial.
