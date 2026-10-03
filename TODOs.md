@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 57%
+- Overall: 71%
 - Current milestone: M133 Approved Publish Blocker Resolution
-- Current task: M133.5 Resolve workspace dependency publish readiness blocker
+- Current task: M133.6 Defer crates.io registry availability blocker with required evidence
 
 ## Backup
 
@@ -2338,7 +2338,7 @@
   - Record first publish release note scope without generating tags, releases, or git-derived notes.
   - Update API stability, release notes, changelog, publish blockers, release docs, quality gates, README, docs-site notes, decision packet, and focused verifier expectations.
 
-- TODO M133.5 Resolve workspace dependency publish readiness blocker
+- DONE M133.5 Resolve workspace dependency publish readiness blocker
   - Add approved crates.io-resolvable internal dependency version metadata while preserving local path development.
   - Update workspace dependency metadata, publish order, Cargo publish metadata, publish blockers, release docs, quality gates, README, docs-site notes, decision packet, and focused verifier expectations.
   - Run workspace dependency publish readiness, publish order, Cargo workspace, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
