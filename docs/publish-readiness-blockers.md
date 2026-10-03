@@ -18,7 +18,6 @@ Current blockers:
 | Blocker | Evidence | Resolution Owner |
 | --- | --- | --- |
 | Registry availability not checked | Cargo publish metadata gate intentionally avoids crates.io lookups | Release owner checks names and ownership during publish preparation |
-| Workspace dependency publish readiness | Path-only internal workspace dependencies do not yet prove crates.io-resolvable dependency metadata | Maintainers add or approve publish-ready internal dependency version metadata |
 
 Resolved publish readiness items:
 
@@ -28,6 +27,7 @@ Resolved publish readiness items:
 | Root license files not committed | `LICENSE` contains reviewed MIT license text | `npm run verify:license-readiness` |
 | Pre-1.0 API stability | Current `0.1.x` API surface is accepted for first publish; breaking changes before `1.0` require a minor bump and a changelog migration note | `npm run verify:api-stability-readiness` |
 | Release notes not publish-ready | `CHANGELOG.md` has project-owned structure and its Unreleased section records first publish included scope, excluded scope, and known warnings | `npm run verify:release-notes-readiness` |
+| Workspace dependency publish readiness | Internal workspace dependencies declare `version = "0.1.0"` alongside local paths | `npm run verify:workspace-dependency-publish-readiness` |
 | CLI template packaging strategy | `dioxus-ui-cli` embeds registry and template assets at compile time | `npm run verify:cli-template-packaging-readiness` |
 
 ## Scope

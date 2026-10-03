@@ -436,10 +436,10 @@ read-only and does not create package archives, run `cargo package`, run
 `cargo publish`, contact crates.io, check registry ownership, inspect
 credentials, change dependency versions, or authorize a release.
 
-`npm run verify:workspace-dependency-publish-readiness` checks that path-only
-internal workspace dependencies remain documented as unresolved publish
-readiness work. It is read-only and does not change dependency versions, run
-`cargo package`, run `cargo publish`, contact crates.io, check registry
+`npm run verify:workspace-dependency-publish-readiness` checks that internal
+workspace dependencies declare versions matching the workspace version
+alongside local paths. It is read-only and does not change dependency versions,
+run `cargo package`, run `cargo publish`, contact crates.io, check registry
 ownership, inspect credentials, create package archives, or authorize a
 release.
 [Workspace Dependency Publish Readiness Preparation Plan](workspace-dependency-publish-readiness-preparation-plan.md)

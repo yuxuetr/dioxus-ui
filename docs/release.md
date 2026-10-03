@@ -282,8 +282,8 @@ order; they do not create package archives, run `cargo package`, run
 `cargo publish`, contact crates.io, check registry ownership, inspect
 credentials, change dependency versions, or authorize a release.
 Workspace dependency publish readiness checks are read-only. They validate
-that path-only internal workspace dependencies remain documented as unresolved
-publish readiness work; they do not change dependency versions, run
+that internal workspace dependencies declare versions matching the workspace
+version alongside local paths; they do not change dependency versions, run
 `cargo package`, run `cargo publish`, contact crates.io, check registry
 ownership, inspect credentials, create package archives, or authorize a
 release.

@@ -2174,10 +2174,10 @@ M108 adds a focused workspace dependency publish readiness metadata command:
 npm run verify:workspace-dependency-publish-readiness
 ```
 
-The command checks that path-only internal workspace dependencies remain
-documented as unresolved publish readiness work across blocker docs, coverage
-metadata, the runbook, Cargo publish metadata, publish order metadata, release
-docs, quality gates, and docs-site notes.
+The command checks that internal workspace dependencies declare versions
+matching the workspace version alongside local paths, and that blocker docs,
+coverage metadata, the runbook, Cargo publish metadata, publish order metadata,
+release docs, quality gates, and docs-site notes describe that shape.
 
 The check is included in:
 
@@ -2193,11 +2193,11 @@ release.
 ## M108 Final Result
 
 M108 added `npm run verify:workspace-dependency-publish-readiness` and wired it
-into `npm run verify:release`. The gate validates that path-only internal
-workspace dependencies remain documented as unresolved publish readiness work
-across blocker docs, coverage metadata, the runbook, Cargo publish metadata,
-publish order metadata, release docs, quality gates, README, package scripts,
-and docs-site notes.
+into `npm run verify:release`. Since M133 the gate validates that internal
+workspace dependencies declare versions matching the workspace version
+alongside local paths, consistently across blocker docs, coverage metadata, the
+runbook, Cargo publish metadata, publish order metadata, release docs, quality
+gates, README, package scripts, and docs-site notes.
 
 Validation completed:
 

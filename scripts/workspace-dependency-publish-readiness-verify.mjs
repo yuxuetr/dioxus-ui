@@ -71,6 +71,12 @@ if (!scripts["verify:release"]?.includes("npm run verify:workspace-dependency-pu
   failures.push("package.json verify:release must include npm run verify:workspace-dependency-publish-readiness");
 }
 
+const workspacePackage = getSection(rootCargo, "workspace.package");
+const workspaceVersion = workspacePackage?.match(/^\s*version\s*=\s*"([^"]+)"\s*$/m)?.[1] ?? null;
+if (workspaceVersion === null) {
+  failures.push("Cargo.toml [workspace.package] is missing version");
+}
+
 const workspaceDependencies = getSection(rootCargo, "workspace.dependencies");
 if (workspaceDependencies === null) {
   failures.push("Cargo.toml is missing [workspace.dependencies]");
@@ -86,22 +92,30 @@ if (workspaceDependencies === null) {
       failures.push(`Cargo.toml workspace dependency ${dependencyName} must document the local path`);
     }
 
-    if (/\bversion\s*=/.test(entry)) {
-      failures.push(`Cargo.toml workspace dependency ${dependencyName} unexpectedly has publish-ready version metadata`);
+    // Published crates resolve internal dependencies from crates.io by this
+    // version; it must track the workspace version so path and registry agree.
+    const dependencyVersion = entry.match(/\bversion\s*=\s*"([^"]+)"/)?.[1] ?? null;
+    if (dependencyVersion === null) {
+      failures.push(`Cargo.toml workspace dependency ${dependencyName} is missing crates.io-resolvable version metadata`);
+    } else if (workspaceVersion !== null && dependencyVersion !== workspaceVersion) {
+      failures.push(
+        `Cargo.toml workspace dependency ${dependencyName} version "${dependencyVersion}" must match workspace version "${workspaceVersion}"`,
+      );
     }
   }
 }
 
 requireIncludes("docs/workspace-dependency-publish-readiness-metadata.md", metadataDoc, [
   "Workspace Dependency Publish Readiness Metadata",
-  "path-only internal workspace dependencies",
+  "version = \"0.1.0\", path = \"crates/dioxus-ui-core\"",
   "crates.io-resolvable version metadata",
+  "after resolution",
   "must not change dependency versions, run `cargo package`, run `cargo publish`, contact crates.io, check registry ownership, inspect credentials, create package archives, or authorize a release",
 ]);
 
 requireIncludes("docs/publish-readiness-blockers.md", blockerDoc, [
   "Workspace dependency publish readiness",
-  "Path-only internal workspace dependencies",
+  "Internal workspace dependencies declare `version = \"0.1.0\"` alongside local paths",
 ]);
 
 requireIncludes("docs/publish-readiness-coverage-metadata.md", coverageDoc, [
@@ -116,30 +130,30 @@ requireIncludes("docs/publish-readiness-resolution-runbook.md", runbookDoc, [
 ]);
 
 requireIncludes("docs/cargo-publish-metadata.md", cargoPublishDoc, [
-  "Workspace dependency publish readiness is tracked separately",
+  "internal workspace dependencies declare crates.io-resolvable versions",
 ]);
 
 requireIncludes("docs/publish-order-metadata.md", publishOrderDoc, [
-  "workspace dependency publish readiness",
+  "internal crate dependencies declare crates.io-resolvable version metadata aligned with this publish order",
 ]);
 
 requireIncludes("docs/release.md", releaseDoc, [
   "npm run verify:workspace-dependency-publish-readiness",
   "Workspace dependency publish readiness checks are read-only",
-  "path-only internal workspace dependencies",
+  "internal workspace dependencies declare versions matching the workspace version alongside local paths",
   "they do not change dependency versions, run `cargo package`, run `cargo publish`, contact crates.io, check registry ownership, inspect credentials, create package archives, or authorize a release",
 ]);
 
 requireIncludes("docs/quality-gates.md", qualityDoc, [
   "`npm run verify:workspace-dependency-publish-readiness`",
-  "path-only internal workspace dependencies",
+  "internal workspace dependencies declare versions matching the workspace version alongside local paths",
   "does not change dependency versions, run `cargo package`, run `cargo publish`, contact crates.io, check registry ownership, inspect credentials, create package archives, or authorize a release",
 ]);
 
 requireIncludes("docs/site.md", siteDoc, [
   "M108 Workspace Dependency Publish Readiness Metadata Gate Usage",
   "npm run verify:workspace-dependency-publish-readiness",
-  "path-only internal workspace dependencies",
+  "internal workspace dependencies declare versions matching the workspace version alongside local paths",
 ]);
 
 if (failures.length > 0) {

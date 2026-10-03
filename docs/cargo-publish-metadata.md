@@ -53,17 +53,17 @@ include:
 - release verification stops running the focused metadata gate
 
 This gate should make publish metadata reviewable. It does not claim the crates
-are ready to publish while crates.io registry availability and workspace
-dependency publish readiness remain unresolved. First publish release notes are
-recorded in `CHANGELOG.md`. APIs remain pre-1.0, and the current `0.1.x` API surface is accepted for first publish
+are ready to publish while crates.io registry availability remains unresolved.
+First publish release notes are recorded in `CHANGELOG.md`. APIs remain
+pre-1.0, and the current `0.1.x` API surface is accepted for first publish
 under the pre-`1.0` breaking-change policy. The repository URL is approved as
 `https://github.com/yuxuetr/dioxus-ui`, and root MIT license text is committed
 in `LICENSE`. CLI template delivery now uses embedded registry/template assets
 and is tracked by
 [CLI Template Packaging Readiness Metadata](cli-template-packaging-readiness-metadata.md).
 The crates.io name and ownership review remains unresolved. Workspace
-dependency publish readiness is tracked separately while internal workspace
-dependencies remain path-only.
+dependency publish readiness is resolved: internal workspace dependencies
+declare crates.io-resolvable versions alongside local paths.
 
 Known blockers are tracked separately in
 [Publish Readiness Blockers](publish-readiness-blockers.md). Keep that

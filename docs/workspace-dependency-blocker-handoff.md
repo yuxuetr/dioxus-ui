@@ -19,24 +19,25 @@ Use it with:
 | Field | Current Value |
 | --- | --- |
 | Blocker | Workspace dependency publish readiness |
-| Current dependency shape | Path-only internal workspace dependencies |
-| Publish state | Unresolved |
+| Current dependency shape | Internal workspace dependencies declare `version = "0.1.0"` alongside local paths |
+| Publish state | Resolved locally |
 | Resolution owner | Maintainer or release owner |
 | Focused gates | `npm run verify:workspace-dependency-publish-readiness`, `npm run verify:publish-order`, `npm run verify:cargo-workspace` |
 
 ## Current Internal Dependencies
 
-The workspace currently uses local path dependency entries for project crates:
+The workspace declares project crate dependencies with a local path and a
+version requirement:
 
 ```toml
-dioxus-ui-core = { path = "crates/dioxus-ui-core" }
-dioxus-ui-primitives = { path = "crates/dioxus-ui-primitives" }
-dioxus-ui = { path = "crates/dioxus-ui" }
+dioxus-ui-core = { version = "0.1.0", path = "crates/dioxus-ui-core" }
+dioxus-ui-primitives = { version = "0.1.0", path = "crates/dioxus-ui-primitives" }
+dioxus-ui = { version = "0.1.0", path = "crates/dioxus-ui" }
 ```
 
-This is valid for local development and workspace checks. It is not enough by
-itself to prove that publishable crates can resolve internal dependencies from
-crates.io after dependency crates are published.
+Local development and workspace checks use the path. Packaged crates resolve
+internal dependencies from crates.io by version after dependency crates are
+published.
 
 ## Required Evidence
 

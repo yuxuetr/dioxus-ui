@@ -636,15 +636,15 @@ Verify workspace dependency publish readiness metadata only:
 npm run verify:workspace-dependency-publish-readiness
 ```
 
-This checks that path-only internal workspace dependencies remain documented
-as unresolved publish readiness work. It does not change dependency versions,
+This checks that internal workspace dependencies declare versions matching the
+workspace version alongside local paths. It does not change dependency versions,
 run `cargo package`, run `cargo publish`, contact crates.io, check registry
 ownership, inspect credentials, create package archives, or authorize a
 release.
-Use [Workspace Dependency Blocker Handoff](docs/workspace-dependency-blocker-handoff.md)
-to consolidate internal dependency graph, version policy, local development,
-publish-order, rollback, and validation evidence before resolving the workspace
-dependency publish readiness blocker.
+[Workspace Dependency Blocker Handoff](docs/workspace-dependency-blocker-handoff.md)
+consolidates internal dependency graph, version policy, local development,
+publish-order, rollback, and validation evidence for the resolved workspace
+dependency publish readiness item.
 
 Verify Cargo lockfile metadata only:
 

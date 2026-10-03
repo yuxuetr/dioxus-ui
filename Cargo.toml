@@ -23,9 +23,9 @@ categories = ["gui", "web-programming"]
 
 [workspace.dependencies]
 dioxus = "0.7"
-dioxus-ui-core = { path = "crates/dioxus-ui-core" }
-dioxus-ui-primitives = { path = "crates/dioxus-ui-primitives" }
-dioxus-ui = { path = "crates/dioxus-ui" }
+dioxus-ui-core = { version = "0.1.0", path = "crates/dioxus-ui-core" }
+dioxus-ui-primitives = { version = "0.1.0", path = "crates/dioxus-ui-primitives" }
+dioxus-ui = { version = "0.1.0", path = "crates/dioxus-ui" }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 

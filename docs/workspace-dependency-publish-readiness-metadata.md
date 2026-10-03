@@ -1,8 +1,8 @@
 # Workspace Dependency Publish Readiness Metadata
 
-This document defines the planned metadata gate for workspace dependency
-publish readiness. It keeps internal crate dependency versioning explicit
-before any crate packaging or publishing work starts.
+This document defines the metadata gate for workspace dependency publish
+readiness. It keeps internal crate dependency versioning explicit before any
+crate packaging or publishing work starts.
 The decision preparation plan is tracked in
 [Workspace Dependency Publish Readiness Preparation Plan](workspace-dependency-publish-readiness-preparation-plan.md).
 The maintainer evidence checklist is tracked in
@@ -14,43 +14,37 @@ in [Workspace Dependency Blocker Handoff](workspace-dependency-blocker-handoff.m
 
 ## Current State
 
-The workspace currently defines local crate dependencies with path-only
-workspace dependency entries:
+M133 resolves this item locally. The workspace declares internal crate
+dependencies with both a local path and a version requirement:
 
 ```toml
-dioxus-ui-core = { path = "crates/dioxus-ui-core" }
-dioxus-ui-primitives = { path = "crates/dioxus-ui-primitives" }
-dioxus-ui = { path = "crates/dioxus-ui" }
+dioxus-ui-core = { version = "0.1.0", path = "crates/dioxus-ui-core" }
+dioxus-ui-primitives = { version = "0.1.0", path = "crates/dioxus-ui-primitives" }
+dioxus-ui = { version = "0.1.0", path = "crates/dioxus-ui" }
 ```
 
-That layout is correct for local development, workspace tests, feature checks,
-and source-copy fixture smoke tests. It is not enough by itself to prove that
-publishable crates have crates.io-resolvable dependency metadata.
-The path-only internal workspace dependencies remain an unresolved publish
-readiness item until maintainers review dependency version metadata.
+Cargo uses the path for local development, workspace tests, feature checks,
+and source-copy fixture smoke tests, and strips the path when packaging, so a
+published crate resolves its internal dependencies from crates.io by version.
+This gives publishable crates crates.io-resolvable version metadata once the
+dependency crates are published in the documented publish order.
 
-Before publishing, internal publishable crate dependencies should be reviewed
-and updated so each published crate can resolve its internal dependencies from
-crates.io after dependency crates are published. The expected reviewed shape is
-path dependencies with explicit version requirements aligned with the workspace
-package version, or an equivalent Cargo-supported publish strategy chosen by
-maintainers.
+The version requirement must track `[workspace.package] version`. When the
+workspace version is bumped, these three entries are bumped in the same change.
 
 ## Readiness Contract
 
-The future `npm run verify:workspace-dependency-publish-readiness` gate should
-confirm that:
+`npm run verify:workspace-dependency-publish-readiness` confirms that:
 
 - package scripts expose the focused readiness check
 - the release aggregate includes the focused readiness check
-- Cargo workspace dependency entries for publishable internal crates remain
-  documented
-- publish blocker docs list workspace dependency publish readiness as
-  unresolved while path-only internal dependencies remain
-- publish readiness coverage and runbook docs include the new blocker
+- every internal workspace dependency keeps its local path
+- every internal workspace dependency declares a version equal to the
+  workspace package version
+- publish blocker docs list workspace dependency publish readiness as resolved
+- publish readiness coverage and runbook docs include the item
 - release, quality gate, Cargo publish metadata, publish order metadata, and
-  docs-site notes do not imply dependency versions have been made
-  publish-ready
+  docs-site notes describe the versioned internal dependency shape
 
 The gate should stay read-only. It must not change dependency versions, run
 `cargo package`, run `cargo publish`, contact crates.io, check registry
@@ -80,8 +74,8 @@ resolved, renamed, or replaced with a different publish dependency strategy.
 
 ## Resolution Criteria
 
-This blocker can be removed only after maintainers review and commit a
-publish-ready internal dependency strategy. The review should confirm:
+This blocker was resolved after maintainers approved first publish and the
+versioned internal dependency shape was committed. The review confirmed:
 
 - every publishable crate dependency on another project crate has
   crates.io-resolvable version metadata
@@ -91,7 +85,10 @@ publish-ready internal dependency strategy. The review should confirm:
 - `cargo package` and `cargo publish` remain separate explicit release-owner
   actions, not side effects of metadata verification
 
-After that review is complete, update this metadata gate, publish blocker docs,
-publish readiness coverage, the resolution runbook, Cargo publish metadata,
-publish order metadata, release docs, quality gates, README, docs-site notes,
-and TODO planning together.
+If the dependency strategy changes, update this metadata gate, publish blocker
+docs, publish readiness coverage, the resolution runbook, Cargo publish
+metadata, publish order metadata, release docs, quality gates, README,
+docs-site notes, and TODO planning together.
+
+This gate should keep the versioned internal dependency shape explicit after
+resolution.
