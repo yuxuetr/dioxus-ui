@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M134 Packaging Verification Before crates.io
-- Current task: M134.4 Complete packaging verification milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2370,7 +2370,7 @@
   - Record the dry-run evidence and the exact release-owner publish commands in release readiness docs.
   - Do not run `cargo publish` without `--dry-run`, create tags, or create GitHub releases.
 
-- TODO M134.4 Complete packaging verification milestone
+- DONE M134.4 Complete packaging verification milestone
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and confirm no package archives are committed.
   - Push local commits to `origin/main`.
   - Leave crates.io registry availability deferred; actual publish remains a release-owner action.
