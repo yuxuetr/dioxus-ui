@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 71%
+- Overall: 86%
 - Current milestone: M133 Approved Publish Blocker Resolution
-- Current task: M133.6 Defer crates.io registry availability blocker with required evidence
+- Current task: M133.7 Complete approved publish blocker resolution milestone
 
 ## Backup
 
@@ -2343,7 +2343,7 @@
   - Update workspace dependency metadata, publish order, Cargo publish metadata, publish blockers, release docs, quality gates, README, docs-site notes, decision packet, and focused verifier expectations.
   - Run workspace dependency publish readiness, publish order, Cargo workspace, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
 
-- TODO M133.6 Defer crates.io registry availability blocker with required evidence
+- DONE M133.6 Defer crates.io registry availability blocker with required evidence
   - Keep registry availability unresolved unless crates.io names, ownership, credentials, and publish order are confirmed by a release owner.
   - Document the exact required crates.io evidence and clarify that deferral blocks crates.io publishing but not local release readiness.
   - Run registry availability, publish order, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
