@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M134 Packaging Verification Before crates.io
-- Current task: M134.3 Run workspace publish dry run
+- Current task: M134.4 Complete packaging verification milestone
 
 ## Backup
 
@@ -2365,7 +2365,7 @@
   - Wire it into `npm run verify:release` and update package scripts, release docs, quality gates, README, and docs-site notes.
   - Reverse-verify that the gate fails when an embedded asset is outside the package.
 
-- TODO M134.3 Run workspace publish dry run
+- DONE M134.3 Run workspace publish dry run
   - Run `cargo publish --workspace --dry-run` without uploading to crates.io and fix any packaging or verification failures it reports.
   - Record the dry-run evidence and the exact release-owner publish commands in release readiness docs.
   - Do not run `cargo publish` without `--dry-run`, create tags, or create GitHub releases.
