@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 43%
+- Overall: 57%
 - Current milestone: M133 Approved Publish Blocker Resolution
-- Current task: M133.4 Resolve API stability and release notes blockers
+- Current task: M133.5 Resolve workspace dependency publish readiness blocker
 
 ## Backup
 
@@ -2333,7 +2333,7 @@
   - Update license readiness docs, publish blockers, Cargo publish metadata, release docs, quality gates, README, docs-site notes, decision packet, and focused verifier expectations.
   - Run license readiness, Cargo publish metadata, publish readiness, release docs, docs, package script, repo hygiene, package lock, and diff checks.
 
-- TODO M133.4 Resolve API stability and release notes blockers
+- DONE M133.4 Resolve API stability and release notes blockers
   - Record that current `0.1.x` APIs are accepted for first publish with pre-1.0 breaking-change policy.
   - Record first publish release note scope without generating tags, releases, or git-derived notes.
   - Update API stability, release notes, changelog, publish blockers, release docs, quality gates, README, docs-site notes, decision packet, and focused verifier expectations.
