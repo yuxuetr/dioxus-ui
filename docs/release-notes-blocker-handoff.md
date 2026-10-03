@@ -20,7 +20,7 @@ Use it with:
 | --- | --- |
 | Blocker | Release notes not publish-ready |
 | Current changelog state | Project-owned structure exists |
-| Publish state | Unresolved |
+| Publish state | Resolved locally: first publish scope recorded in `CHANGELOG.md` |
 | Resolution owner | Maintainer or release owner |
 | Focused gates | `npm run verify:release-notes-readiness`, `npm run verify:changelog` |
 

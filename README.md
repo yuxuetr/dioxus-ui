@@ -487,13 +487,13 @@ Verify release notes readiness metadata only:
 npm run verify:release-notes-readiness
 ```
 
-This checks that project-owned changelog structure exists while publish-ready
-release notes are still unresolved. It does not generate release notes, run
-git-cliff, derive changes from Git history, create tags, publish releases, or
-decide release contents.
-Use [Release Notes Blocker Handoff](docs/release-notes-blocker-handoff.md)
-to consolidate first-publish scope, owner, warning, migration-note, rollback,
-and validation evidence before resolving the release notes blocker.
+This checks that project-owned changelog structure exists and the
+`CHANGELOG.md` Unreleased section records first publish included scope,
+excluded scope, and known warnings. It does not generate release notes, run
+git-cliff, derive changes from Git history, create tags, or publish releases.
+[Release Notes Blocker Handoff](docs/release-notes-blocker-handoff.md)
+consolidates first-publish scope, owner, warning, migration-note, rollback,
+and validation evidence for the resolved release notes readiness item.
 
 Verify license readiness metadata only:
 

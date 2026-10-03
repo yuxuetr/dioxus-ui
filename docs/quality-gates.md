@@ -327,12 +327,13 @@ changelogs, generate license text, change embedded CLI template delivery, or
 change dependency versions.
 
 `npm run verify:release-notes-readiness` checks that project-owned changelog
-structure exists while publish-ready release notes are still unresolved. It is
-read-only and does not generate release notes, run git-cliff, derive changes
-from Git history, create tags, publish releases, or decide release contents.
+structure exists and its Unreleased section records first publish included
+scope, excluded scope, and known warnings. It is read-only and does not
+generate release notes, run git-cliff, derive changes from Git history, create
+tags, or publish releases.
 [Release Notes Readiness Preparation Plan](release-notes-readiness-preparation-plan.md)
-records the read-only decision pass before first-publish release notes are
-written or marked ready.
+records the read-only decision pass that preceded the first-publish release
+notes.
 [Release Notes Evidence Checklist](release-notes-evidence-checklist.md)
 records release owner, changelog owner, included scope, excluded scope, known
 warnings, and migration note evidence.

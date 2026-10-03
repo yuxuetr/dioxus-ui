@@ -661,7 +661,8 @@ release note completeness. It records the safe order for deciding included
 changes, excluded changes, known warnings, changelog owner, and release owner
 without generating release notes, deriving changes from Git history, running
 git-cliff, creating tags, creating GitHub releases, creating package archives,
-or publishing crates.
+or publishing crates. M133 records the first publish release note scope in
+`CHANGELOG.md`.
 
 The evidence checklist records release owner, changelog owner, included scope,
 excluded scope, known warnings, migration note expectation, and release
@@ -1596,8 +1597,9 @@ M99 adds a focused release notes readiness metadata command:
 npm run verify:release-notes-readiness
 ```
 
-The command checks that project-owned changelog structure exists while
-publish-ready release notes are still unresolved.
+The command checks that project-owned changelog structure exists and its
+Unreleased section records first publish included scope, excluded scope, and
+known warnings.
 
 The check is included in:
 
@@ -1606,14 +1608,14 @@ npm run verify:release
 ```
 
 It remains read-only. It does not generate release notes, run git-cliff, derive
-changes from Git history, create tags, publish releases, or decide release
-contents.
+changes from Git history, create tags, or publish releases.
 
 ## M99 Final Result
 
 M99 added `npm run verify:release-notes-readiness` and wired it into
-`npm run verify:release`. The gate validates that project-owned changelog
-structure exists while publish-ready release notes remain unresolved.
+`npm run verify:release`. The gate validates project-owned changelog structure
+and, since M133, the first publish release note scope recorded in
+`CHANGELOG.md`.
 
 Validation completed:
 

@@ -185,13 +185,13 @@ registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate
 changelogs, generate license text, change embedded CLI template delivery, or
 change dependency versions.
 Release notes readiness checks are read-only and validate only that
-project-owned changelog structure exists while publish-ready release notes are
-still unresolved; they do not generate release notes, run git-cliff, derive
-changes from Git history, create tags, publish releases, or decide release
-contents.
+project-owned changelog structure exists and its Unreleased section records
+first publish included scope, excluded scope, and known warnings; they do not
+generate release notes, run git-cliff, derive changes from Git history, create
+tags, or publish releases.
 [Release Notes Readiness Preparation Plan](release-notes-readiness-preparation-plan.md)
-defines the repository-safe decision pass before first-publish release notes
-are written or marked ready.
+defines the repository-safe decision pass that preceded the first-publish
+release notes recorded in `CHANGELOG.md`.
 [Release Notes Evidence Checklist](release-notes-evidence-checklist.md)
 records included scope, excluded scope, known warnings, owners, and migration
 note evidence before local changelog follow-up.
