@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M134 Packaging Verification Before crates.io
+- Current task: M134.1 Move CLI registry and templates into the CLI crate
 
 ## Backup
 
@@ -2352,6 +2352,28 @@
   - Run docs checks, all focused blocker readiness checks, publish readiness coverage, runbook, Cargo publish metadata, publish order, release docs, package script, repo hygiene, package lock, and diff checks.
   - Verify no crates.io contact, credential inspection, package archives, publish commands, tags, GitHub releases, screenshots, traces, or CI workflow files are committed.
   - Update TODO status only after commits and validation.
+
+## M134 Packaging Verification Before crates.io
+
+- TODO M134.1 Move CLI registry and templates into the CLI crate
+  - `cargo package -p dioxus-ui-cli --list` shows `registry/` and `templates/` are not packaged because `build.rs` reads them from the workspace root, so the published CLI would fail to build.
+  - Move `registry/` and `templates/` to `crates/dioxus-ui-cli/`, read them from `CARGO_MANIFEST_DIR`, and update tests, scripts, generated catalog docs, and path references.
+  - Run CLI tests, registry, docs catalog, generated fixture smoke, tailwind static, docs, and diff checks.
+
+- TODO M134.2 Add package contents gate
+  - Add `npm run verify:package-contents` that runs `cargo package --list` per publishable crate and asserts the CLI package contains every embedded registry and template asset.
+  - Wire it into `npm run verify:release` and update package scripts, release docs, quality gates, README, and docs-site notes.
+  - Reverse-verify that the gate fails when an embedded asset is outside the package.
+
+- TODO M134.3 Run workspace publish dry run
+  - Run `cargo publish --workspace --dry-run` without uploading to crates.io and fix any packaging or verification failures it reports.
+  - Record the dry-run evidence and the exact release-owner publish commands in release readiness docs.
+  - Do not run `cargo publish` without `--dry-run`, create tags, or create GitHub releases.
+
+- TODO M134.4 Complete packaging verification milestone
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release` and confirm no package archives are committed.
+  - Push local commits to `origin/main`.
+  - Leave crates.io registry availability deferred; actual publish remains a release-owner action.
 
 ## Status Rules
 
