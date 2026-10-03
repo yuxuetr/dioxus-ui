@@ -48,7 +48,6 @@ if (missingSourceFragments.length > 0) {
 const requiredCssFragments = [
   '@import "tailwindcss";',
   "@source \"../../../crates\";",
-  "@source \"../../../templates\";",
   "@source \"../src\";",
   "@source \"../../preview-states/src\";",
 ];

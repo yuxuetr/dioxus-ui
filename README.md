@@ -37,8 +37,8 @@ dioxus-ui/
 │  ├─ dioxus-ui-primitives/   # unstyled logic components
 │  ├─ dioxus-ui/              # styled public components
 │  └─ dioxus-ui-cli/          # dxui init / dxui add
-├─ registry/                  # component metadata used by the CLI
-├─ templates/                 # source templates copied by the CLI
+│     ├─ registry/            # component metadata embedded in the CLI
+│     └─ templates/           # source templates copied by the CLI
 ├─ examples/
 │  ├─ web-demo/
 │  └─ desktop-demo/

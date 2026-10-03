@@ -4,7 +4,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)));
-const registryDir = join(repoRoot, "registry");
+const registryDir = join(repoRoot, "crates/dioxus-ui-cli/registry");
 const slugPattern = /^[a-z][a-z0-9-]*$/;
 const files = readdirSync(registryDir)
   .filter((file) => file.endsWith(".json") && file !== "schema.json")
@@ -55,7 +55,7 @@ const validateMappings = (file, entryName, label, mappings, options = {}) => {
 
     if (!isNonEmptyString(mapping.source)) {
       failures.push(`${prefix}.source must be a non-empty string`);
-    } else if (!existsSync(join(repoRoot, mapping.source))) {
+    } else if (!existsSync(join(repoRoot, "crates/dioxus-ui-cli", mapping.source))) {
       failures.push(`${prefix}.source does not exist: ${mapping.source}`);
     }
 

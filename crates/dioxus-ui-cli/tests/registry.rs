@@ -12,10 +12,14 @@ fn workspace_root() -> PathBuf {
     .to_path_buf()
 }
 
+/// Registry JSON and templates ship inside the CLI crate.
+fn cli_root() -> PathBuf {
+  PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+}
+
 #[test]
 fn registry_entries_are_valid() {
-  let root = workspace_root();
-  let components = load_registry_components(&root);
+  let components = load_registry_components();
 
   assert!(!components.is_empty(), "registry should contain components");
 
@@ -33,7 +37,7 @@ fn registry_entries_are_valid() {
 
     for file in &component.files {
       assert!(
-        root.join(&file.source).is_file(),
+        cli_root().join(&file.source).is_file(),
         "{} references missing template {}",
         path.display(),
         file.source
@@ -60,7 +64,7 @@ fn registry_entries_are_valid() {
 #[test]
 fn public_registry_components_have_docs_pages() {
   let root = workspace_root();
-  let components = load_registry_components(&root);
+  let components = load_registry_components();
 
   for (_, component) in public_components(&components) {
     let docs_page = root.join("docs").join("components").join(format!("{}.md", component.name));
@@ -77,7 +81,7 @@ fn public_registry_components_have_docs_pages() {
 #[test]
 fn component_catalog_matches_public_registry() {
   let root = workspace_root();
-  let components = load_registry_components(&root);
+  let components = load_registry_components();
   let public_registry_names = public_components(&components)
     .into_iter()
     .map(|(_, component)| component.name.as_str())
@@ -95,7 +99,7 @@ fn component_catalog_matches_public_registry() {
 #[test]
 fn public_registry_components_match_crate_features() {
   let root = workspace_root();
-  let components = load_registry_components(&root);
+  let components = load_registry_components();
   let public_registry_names = public_component_names(&components);
   let manifest_path = root.join("crates").join("dioxus-ui").join("Cargo.toml");
   let manifest = fs::read_to_string(&manifest_path).expect("dioxus-ui manifest should be readable");
@@ -109,8 +113,7 @@ fn public_registry_components_match_crate_features() {
 
 #[test]
 fn registry_files_match_template_and_module_names() {
-  let root = workspace_root();
-  let components = load_registry_components(&root);
+  let components = load_registry_components();
 
   for (path, component) in &components {
     let module_name = component_name_to_module(&component.name);
@@ -140,13 +143,12 @@ fn registry_files_match_template_and_module_names() {
 
 #[test]
 fn every_template_file_is_registered() {
-  let root = workspace_root();
-  let components = load_registry_components(&root);
+  let components = load_registry_components();
   let registered_sources = components
     .iter()
     .flat_map(|(_, component)| component.files.iter().map(|file| file.source.as_str()))
     .collect::<BTreeSet<_>>();
-  let template_sources = fs::read_dir(root.join("templates"))
+  let template_sources = fs::read_dir(cli_root().join("templates"))
     .expect("templates directory should exist")
     .map(|entry| {
       let entry = entry.expect("template entry should be readable");
@@ -165,9 +167,8 @@ fn every_template_file_is_registered() {
 
 #[test]
 fn generated_templates_do_not_import_internal_crates() {
-  let root = workspace_root();
-
-  for entry in fs::read_dir(root.join("templates")).expect("templates directory should exist") {
+  for entry in fs::read_dir(cli_root().join("templates")).expect("templates directory should exist")
+  {
     let entry = entry.expect("template entry should be readable");
     let path = entry.path();
     let source = fs::read_to_string(&path).expect("template should be readable");
@@ -183,7 +184,7 @@ fn generated_templates_do_not_import_internal_crates() {
 #[test]
 fn feature_check_script_covers_public_registry_features() {
   let root = workspace_root();
-  let components = load_registry_components(&root);
+  let components = load_registry_components();
   let public_registry_names = public_component_names(&components);
   let script_path = root.join("scripts").join("feature-check.sh");
   let script = fs::read_to_string(&script_path).expect("feature-check script should be readable");
@@ -195,8 +196,8 @@ fn feature_check_script_covers_public_registry_features() {
   );
 }
 
-fn load_registry_components(root: &Path) -> Vec<(PathBuf, RegistryComponent)> {
-  let registry_dir = root.join("registry");
+fn load_registry_components() -> Vec<(PathBuf, RegistryComponent)> {
+  let registry_dir = cli_root().join("registry");
   let entries = fs::read_dir(&registry_dir).expect("registry directory should exist");
   let mut components = Vec::new();
 

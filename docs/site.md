@@ -56,8 +56,8 @@ Overlay previews should also show:
 
 The docs site should derive its catalog from:
 
-- `registry/*.json`
-- `templates/*.rs`
+- `crates/dioxus-ui-cli/registry/*.json`
+- `crates/dioxus-ui-cli/templates/*.rs`
 - public crate features
 - component docs in `docs/components`
 
@@ -73,8 +73,8 @@ Required catalog fields:
 
 | Field | Source | Notes |
 | --- | --- | --- |
-| `name` | `registry/*.json` | Stable CLI/source-copy component id. |
-| `description` | `registry/*.json` | Short catalog summary. |
+| `name` | `crates/dioxus-ui-cli/registry/*.json` | Stable CLI/source-copy component id. |
+| `description` | `crates/dioxus-ui-cli/registry/*.json` | Short catalog summary. |
 | `registry_path` | filesystem | Path to the registry entry. |
 | `template_path` | registry file list | Primary source-copy template path. |
 | `docs_path` | `docs/components/{name}.md` | Component detail markdown page. |
@@ -3641,7 +3641,7 @@ safe defaults for a source-copy component library.
 The check should scan:
 
 - `crates/dioxus-ui/src/**/*.rs`
-- `templates/**/*.rs`
+- `crates/dioxus-ui-cli/templates/**/*.rs`
 - `crates/dioxus-ui-core/src/**/*.rs`
 
 The check should fail on common dynamic utility prefixes followed by

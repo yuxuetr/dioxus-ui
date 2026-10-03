@@ -84,6 +84,10 @@ const componentCategories = {
 
 const categoryLabels = new Map(catalogCategories.map((category) => [category.id, category.label]));
 
+// Registry JSON and templates ship inside the CLI crate; registry `source`
+// paths are relative to it.
+const cliRoot = "crates/dioxus-ui-cli";
+
 function namesFromFiles(repoRoot, dir, extension) {
   return readdirSync(join(repoRoot, dir))
     .filter((file) => file.endsWith(extension))
@@ -124,7 +128,7 @@ function parseLibModules(repoRoot) {
 }
 
 function readRegistryEntry(repoRoot, name) {
-  const registryPath = join(repoRoot, "registry", `${name}.json`);
+  const registryPath = join(repoRoot, cliRoot, "registry", `${name}.json`);
   return JSON.parse(readFileSync(registryPath, "utf8"));
 }
 
@@ -150,15 +154,16 @@ function buildCatalogItems(repoRoot, publicComponentNames) {
     const primaryFile = entry.files?.[0];
     const crateImport = name.replaceAll("-", "_");
     const category = componentCategories[name];
-    const stats = sourceStats(repoRoot, primaryFile?.source);
+    const templatePath = primaryFile ? `${cliRoot}/${primaryFile.source}` : undefined;
+    const stats = sourceStats(repoRoot, templatePath);
 
     return {
       name,
       category,
       category_label: categoryLabels.get(category),
       description: entry.description,
-      registry_path: `registry/${name}.json`,
-      template_path: primaryFile?.source,
+      registry_path: `${cliRoot}/registry/${name}.json`,
+      template_path: templatePath,
       docs_path: `docs/components/${name}.md`,
       markdown_path: `docs/components/${name}.md`,
       docs_route: `/components/${name}`,
@@ -166,7 +171,7 @@ function buildCatalogItems(repoRoot, publicComponentNames) {
       category_route: category ? `/components#${categoryAnchor(category)}` : undefined,
       source_route: `/components/${name}/source`,
       source_preview_route: `/components/${name}/source`,
-      source_preview_path: primaryFile?.source,
+      source_preview_path: templatePath,
       source_preview_target: primaryFile?.target,
       source_preview_language: "rust",
       source_preview_lines: stats.lines,
@@ -186,9 +191,9 @@ function buildCatalogItems(repoRoot, publicComponentNames) {
 export function buildDocsCatalog(options = {}) {
   const repoRoot = options.repoRoot ?? defaultRepoRoot;
   const sourceCopyHelpers = new Set(options.sourceCopyHelpers ?? ["utils"]);
-  const registryNames = namesFromFiles(repoRoot, "registry", ".json")
+  const registryNames = namesFromFiles(repoRoot, `${cliRoot}/registry`, ".json")
     .filter((name) => name !== "schema");
-  const templateNames = namesFromFiles(repoRoot, "templates", ".rs").map(normalize);
+  const templateNames = namesFromFiles(repoRoot, `${cliRoot}/templates`, ".rs").map(normalize);
   const crateModuleNames = namesFromFiles(repoRoot, "crates/dioxus-ui/src", ".rs")
     .filter((name) => name !== "lib")
     .map(normalize);

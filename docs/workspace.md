@@ -28,9 +28,9 @@ dioxus-ui/
 │  │  └─ src/lib.rs
 │  └─ dioxus-ui-cli/
 │     ├─ Cargo.toml
+│     ├─ registry/
+│     ├─ templates/
 │     └─ src/main.rs
-├─ registry/
-├─ templates/
 ├─ examples/
 └─ docs/
 ```
@@ -201,10 +201,14 @@ Example for Button:
 
 ```text
 crates/dioxus-ui/src/button.rs
-registry/button.json
-templates/button.rs
+crates/dioxus-ui-cli/registry/button.json
+crates/dioxus-ui-cli/templates/button.rs
 docs/components/button.md
 ```
+
+Registry and templates live inside the CLI crate so `cargo package` ships them
+with `dioxus-ui-cli`. Registry `source` paths such as `templates/button.rs` are
+relative to the CLI crate root.
 
 The public crate can re-export ergonomic names:
 

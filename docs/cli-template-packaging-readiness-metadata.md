@@ -3,7 +3,9 @@
 This document defines the metadata gate for CLI template packaging readiness.
 The CLI now uses compile-time embedded registry and template assets, so
 `dxui list` and `dxui add <component>` no longer require the repository
-`registry/` and `templates/` directories at runtime.
+`registry/` and `templates/` directories at runtime. M134 moved both
+directories into `crates/dioxus-ui-cli/` so the build script reads them from
+`CARGO_MANIFEST_DIR` and `cargo package` ships them with the CLI crate.
 
 ## Current State
 
@@ -19,7 +21,7 @@ The implementation generates an embedded asset catalog in
 `crates/dioxus-ui-cli/build.rs` and includes that catalog from
 `crates/dioxus-ui-cli/src/main.rs`. The generated catalog embeds:
 
-- all public registry JSON entries except `registry/schema.json`
+- all public registry JSON entries except `crates/dioxus-ui-cli/registry/schema.json`
 - every source-copy file referenced by registry `files` mappings
 - every asset referenced by registry `assets` mappings
 

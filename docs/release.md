@@ -603,8 +603,10 @@ dxui add <component>
 ```
 
 The CLI embeds registry and template assets at compile time. Installed CLI
-commands can read component metadata and generated source without relying on the
-repository `registry/` or `templates/` directories at runtime.
+commands can read component metadata and generated source without relying on
+the `crates/dioxus-ui-cli/registry/` or `crates/dioxus-ui-cli/templates/`
+directories at runtime. Both directories live inside the CLI crate so
+`cargo package` includes them in the published crate.
 
 Cargo publish metadata is tracked by `npm run verify:cargo-publish-metadata`.
 That check keeps descriptions and shared README/keywords/categories metadata

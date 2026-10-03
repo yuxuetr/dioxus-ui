@@ -8,7 +8,15 @@ cd "${repo_root}"
 
 echo "fixture: ${fixture_root}"
 
-if grep -R "dioxus_ui_core\|dioxus_ui_primitives" templates; then
+templates_dir="crates/dioxus-ui-cli/templates"
+
+# grep exits 2 on a missing directory, which `if` would read as "no match".
+if [[ ! -d "${templates_dir}" ]]; then
+  echo "missing templates directory: ${templates_dir}" >&2
+  exit 1
+fi
+
+if grep -R "dioxus_ui_core\|dioxus_ui_primitives" "${templates_dir}"; then
   echo "templates must not import dioxus-ui internal crates" >&2
   exit 1
 fi

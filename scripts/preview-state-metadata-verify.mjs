@@ -61,7 +61,6 @@ const requiredInteractionFragments = [
 const requiredCssFragments = [
   '@import "tailwindcss";',
   '@source "../../../crates";',
-  '@source "../../../templates";',
   '@source "../src";',
   '@source "../../preview-states/src";',
 ];

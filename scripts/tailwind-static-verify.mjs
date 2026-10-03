@@ -7,7 +7,7 @@ const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)));
 const roots = [
   "crates/dioxus-ui/src",
   "crates/dioxus-ui-core/src",
-  "templates",
+  "crates/dioxus-ui-cli/templates",
 ];
 const utilityPrefixes = [
   "bg",

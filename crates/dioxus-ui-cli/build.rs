@@ -7,18 +7,14 @@ use std::path::{Path, PathBuf};
 use serde_json::Value;
 
 fn main() -> Result<(), Box<dyn Error>> {
+  // Assets live inside the crate so `cargo package` ships them with the CLI.
   let manifest_dir = PathBuf::from(env::var("CARGO_MANIFEST_DIR")?);
-  let workspace_root = manifest_dir
-    .ancestors()
-    .nth(2)
-    .map(Path::to_path_buf)
-    .ok_or("failed to resolve workspace root")?;
-  let registry_dir = workspace_root.join("registry");
+  let registry_dir = manifest_dir.join("registry");
   let out_dir = PathBuf::from(env::var("OUT_DIR")?);
   let generated_path = out_dir.join("embedded_assets.rs");
 
   println!("cargo:rerun-if-changed={}", registry_dir.display());
-  println!("cargo:rerun-if-changed={}", workspace_root.join("templates").display());
+  println!("cargo:rerun-if-changed={}", manifest_dir.join("templates").display());
 
   let mut registry_paths = Vec::new();
   let mut asset_sources = BTreeSet::new();
@@ -62,7 +58,7 @@ fn main() -> Result<(), Box<dyn Error>> {
   generated.push_str("const EMBEDDED_ASSETS: &[EmbeddedAsset] = &[\n");
 
   for source in asset_sources {
-    let path = workspace_root.join(&source);
+    let path = manifest_dir.join(&source);
 
     println!("cargo:rerun-if-changed={}", path.display());
 

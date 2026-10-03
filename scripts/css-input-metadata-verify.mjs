@@ -69,7 +69,6 @@ for (const directive of forbiddenTailwindV3Directives) {
 const requiredPreviewFragments = [
   '@import "tailwindcss";',
   '@source "../../../crates";',
-  '@source "../../../templates";',
   '@source "../src";',
   '@source "../../preview-states/src";',
 ];

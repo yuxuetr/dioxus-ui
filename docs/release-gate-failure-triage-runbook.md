@@ -48,7 +48,7 @@ failure proves that work is required.
 | Rendered coverage | `npm run verify:rendered-component-coverage` | component docs catalog and preview inventory | missing public component preview id |
 | Examples metadata | `npm run verify:examples-metadata` | example manifests and examples README | missing example wiring |
 | CSS input metadata | `npm run verify:css-inputs` | Tailwind CSS v4 input files | stale v3 directive or missing source root |
-| Registry metadata | `npm run verify:registry` | `registry/` and `templates/` | invalid source or target path |
+| Registry metadata | `npm run verify:registry` | `crates/dioxus-ui-cli/registry/` and `crates/dioxus-ui-cli/templates/` | invalid source or target path |
 | Tailwind static tokens | `npm run verify:tailwind-static` | Rust source and templates | dynamic utility construction |
 | Default local gate | `npm run verify` | smoke and docs output | nested failing command |
 | Changelog metadata | `npm run verify:changelog` | `CHANGELOG.md` and changelog metadata docs | missing Unreleased or stale link |

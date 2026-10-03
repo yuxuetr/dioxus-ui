@@ -22,7 +22,7 @@ Use it with:
 | Styled component features | 64 | Crate mode | Public Cargo feature names in `crates/dioxus-ui/Cargo.toml`. |
 | Source-copy templates | 65 | Source-copy mode | 64 component templates plus shared `utils.rs`. |
 | Registry entries | 65 | CLI/source-copy mode | 64 component entries plus `utils.json`. |
-| Registry schema | 1 | Tooling metadata | `registry/schema.json` validates registry shape and is not a component. |
+| Registry schema | 1 | Tooling metadata | `crates/dioxus-ui-cli/registry/schema.json` validates registry shape and is not a component. |
 | Primitive modules | 20 | Crate mode/internal behavior | Public helpers and config types in `dioxus-ui-primitives`. |
 | Core crate exports | 4 groups | Crate/tooling mode | `classes`, `UiDensity`, and registry data structs. |
 
