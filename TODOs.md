@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M134 Packaging Verification Before crates.io
-- Current task: M134.1 Move CLI registry and templates into the CLI crate
+- Current task: M134.2 Add package contents gate
 
 ## Backup
 
@@ -2355,7 +2355,7 @@
 
 ## M134 Packaging Verification Before crates.io
 
-- TODO M134.1 Move CLI registry and templates into the CLI crate
+- DONE M134.1 Move CLI registry and templates into the CLI crate
   - `cargo package -p dioxus-ui-cli --list` shows `registry/` and `templates/` are not packaged because `build.rs` reads them from the workspace root, so the published CLI would fail to build.
   - Move `registry/` and `templates/` to `crates/dioxus-ui-cli/`, read them from `CARGO_MANIFEST_DIR`, and update tests, scripts, generated catalog docs, and path references.
   - Run CLI tests, registry, docs catalog, generated fixture smoke, tailwind static, docs, and diff checks.
