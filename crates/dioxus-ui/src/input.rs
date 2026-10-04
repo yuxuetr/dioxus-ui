@@ -13,6 +13,9 @@ pub fn input_class(invalid: bool, class: &str) -> String {
   classes([Some(INPUT_BASE_CLASS), Some(invalid_class), Some(class)])
 }
 
+/// A controlled input. Each `input` event calls `on_value_change` with the new
+/// text; the app passes it back as `value`. Other attributes, such as `id`,
+/// `name`, and `aria-describedby`, are passed to the input.
 #[component]
 pub fn Input(
   #[props(default)] value: String,
@@ -20,6 +23,8 @@ pub fn Input(
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
   #[props(default)] invalid: bool,
+  #[props(default)] on_value_change: Option<EventHandler<String>>,
+  #[props(extends = GlobalAttributes, extends = input)] attributes: Vec<Attribute>,
 ) -> Element {
   let class = input_class(invalid, &class);
 
@@ -30,6 +35,12 @@ pub fn Input(
       placeholder,
       disabled,
       "aria-invalid": invalid.to_string(),
+      oninput: move |event: FormEvent| {
+        if let Some(handler) = on_value_change {
+          handler.call(event.value());
+        }
+      },
+      ..attributes,
     }
   }
 }

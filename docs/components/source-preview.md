@@ -25,7 +25,7 @@ Source preview routes: 64
 | [Badge](badge.md) | /components/badge/source | crates/dioxus-ui-cli/templates/badge.rs | src/components/ui/badge.rs | rust | 44 | 1085 |
 | [Breadcrumb](breadcrumb.md) | /components/breadcrumb/source | crates/dioxus-ui-cli/templates/breadcrumb.rs | src/components/ui/breadcrumb.rs | rust | 141 | 3371 |
 | [Bubble](bubble.md) | /components/bubble/source | crates/dioxus-ui-cli/templates/bubble.rs | src/components/ui/bubble.rs | rust | 224 | 5678 |
-| [Button](button.md) | /components/button/source | crates/dioxus-ui-cli/templates/button.rs | src/components/ui/button.rs | rust | 88 | 2146 |
+| [Button](button.md) | /components/button/source | crates/dioxus-ui-cli/templates/button.rs | src/components/ui/button.rs | rust | 99 | 2661 |
 | [Button Group](button-group.md) | /components/button-group/source | crates/dioxus-ui-cli/templates/button_group.rs | src/components/ui/button_group.rs | rust | 98 | 2862 |
 | [Calendar](calendar.md) | /components/calendar/source | crates/dioxus-ui-cli/templates/calendar.rs | src/components/ui/calendar.rs | rust | 389 | 11474 |
 | [Card](card.md) | /components/card/source | crates/dioxus-ui-cli/templates/card.rs | src/components/ui/card.rs | rust | 106 | 2355 |
@@ -45,7 +45,7 @@ Source preview routes: 64
 | [Empty](empty.md) | /components/empty/source | crates/dioxus-ui-cli/templates/empty.rs | src/components/ui/empty.rs | rust | 106 | 2479 |
 | [Field](field.md) | /components/field/source | crates/dioxus-ui-cli/templates/field.rs | src/components/ui/field.rs | rust | 101 | 2274 |
 | [Hover Card](hover-card.md) | /components/hover-card/source | crates/dioxus-ui-cli/templates/hover_card.rs | src/components/ui/hover_card.rs | rust | 180 | 5421 |
-| [Input](input.md) | /components/input/source | crates/dioxus-ui-cli/templates/input.rs | src/components/ui/input.rs | rust | 36 | 973 |
+| [Input](input.md) | /components/input/source | crates/dioxus-ui-cli/templates/input.rs | src/components/ui/input.rs | rust | 47 | 1510 |
 | [Input Group](input-group.md) | /components/input-group/source | crates/dioxus-ui-cli/templates/input_group.rs | src/components/ui/input_group.rs | rust | 125 | 3603 |
 | [Input Otp](input-otp.md) | /components/input-otp/source | crates/dioxus-ui-cli/templates/input_otp.rs | src/components/ui/input_otp.rs | rust | 321 | 8038 |
 | [Item](item.md) | /components/item/source | crates/dioxus-ui-cli/templates/item.rs | src/components/ui/item.rs | rust | 121 | 2943 |
@@ -74,9 +74,9 @@ Source preview routes: 64
 | [Switch](switch.md) | /components/switch/source | crates/dioxus-ui-cli/templates/switch.rs | src/components/ui/switch.rs | rust | 73 | 2168 |
 | [Table](table.md) | /components/table/source | crates/dioxus-ui-cli/templates/table.rs | src/components/ui/table.rs | rust | 149 | 3419 |
 | [Tabs](tabs.md) | /components/tabs/source | crates/dioxus-ui-cli/templates/tabs.rs | src/components/ui/tabs.rs | rust | 189 | 6499 |
-| [Textarea](textarea.md) | /components/textarea/source | crates/dioxus-ui-cli/templates/textarea.rs | src/components/ui/textarea.rs | rust | 36 | 1003 |
+| [Textarea](textarea.md) | /components/textarea/source | crates/dioxus-ui-cli/templates/textarea.rs | src/components/ui/textarea.rs | rust | 47 | 1549 |
 | [Toast](toast.md) | /components/toast/source | crates/dioxus-ui-cli/templates/toast.rs | src/components/ui/toast.rs | rust | 396 | 10817 |
-| [Toggle](toggle.md) | /components/toggle/source | crates/dioxus-ui-cli/templates/toggle.rs | src/components/ui/toggle.rs | rust | 77 | 1865 |
+| [Toggle](toggle.md) | /components/toggle/source | crates/dioxus-ui-cli/templates/toggle.rs | src/components/ui/toggle.rs | rust | 89 | 2403 |
 | [Toggle Group](toggle-group.md) | /components/toggle-group/source | crates/dioxus-ui-cli/templates/toggle_group.rs | src/components/ui/toggle_group.rs | rust | 297 | 7562 |
 | [Tooltip](tooltip.md) | /components/tooltip/source | crates/dioxus-ui-cli/templates/tooltip.rs | src/components/ui/tooltip.rs | rust | 126 | 3739 |
 | [Typography](typography.md) | /components/typography/source | crates/dioxus-ui-cli/templates/typography.rs | src/components/ui/typography.rs | rust | 103 | 3673 |

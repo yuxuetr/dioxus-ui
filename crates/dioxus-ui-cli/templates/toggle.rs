@@ -53,6 +53,10 @@ pub fn toggle_class(
   ])
 }
 
+/// A controlled toggle button. A click, Enter, or Space calls
+/// `on_pressed_change` with the requested state, `!pressed`; the app passes it
+/// back as `pressed`. Other attributes, such as `aria-label`, are passed to the
+/// button.
 #[component]
 pub fn Toggle(
   #[props(default)] variant: ToggleVariant,
@@ -60,6 +64,8 @@ pub fn Toggle(
   #[props(default)] pressed: bool,
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
+  #[props(default)] on_pressed_change: Option<EventHandler<bool>>,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = toggle_class(variant, size, pressed, &class);
@@ -70,6 +76,12 @@ pub fn Toggle(
       class,
       disabled,
       "aria-pressed": pressed.to_string(),
+      onclick: move |_| {
+        if let Some(handler) = on_pressed_change {
+          handler.call(!pressed);
+        }
+      },
+      ..attributes,
       {children}
     }
   }

@@ -68,6 +68,9 @@ pub fn button_class(
   ])
 }
 
+/// Calls `onclick` on a click, Enter, or Space. Other attributes, such as
+/// `type`, `name`, and `aria-label`, are passed to the button, which keeps the
+/// native `submit` type inside a form unless `r#type` says otherwise.
 #[component]
 pub fn Button(
   #[props(default)] variant: ButtonVariant,
@@ -75,6 +78,8 @@ pub fn Button(
   #[props(default)] density: UiDensity,
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = button_class(variant, size, density, &class);
@@ -83,6 +88,12 @@ pub fn Button(
     button {
       class,
       disabled,
+      onclick: move |event| {
+        if let Some(handler) = onclick {
+          handler.call(event);
+        }
+      },
+      ..attributes,
       {children}
     }
   }

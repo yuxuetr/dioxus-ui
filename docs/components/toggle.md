@@ -22,6 +22,26 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["toggle"] }
 - `ToggleVariant`
 - `toggle_class`
 
+## Change Events
+
+```rust
+let mut bold = use_signal(|| false);
+
+rsx! {
+  Toggle {
+    "aria-label": "Bold",
+    pressed: bold(),
+    on_pressed_change: move |pressed| bold.set(pressed),
+    "B"
+  }
+}
+```
+
+`Toggle` is controlled. A click, Enter, or Space calls `on_pressed_change`
+with the requested state, `!pressed`, and the app passes it back as
+`pressed`. A disabled toggle does not call it. Other attributes, such as
+`aria-label`, are passed to the button.
+
 ## Accessibility Notes
 
 Toggle renders a button with `aria-pressed`. Use it for binary commands where

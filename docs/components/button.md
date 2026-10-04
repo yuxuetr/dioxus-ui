@@ -21,7 +21,21 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
 - `ButtonSize`
 - `button_class`
 
+## Events
+
+```rust
+rsx! {
+  Button { onclick: move |_| save(), "Save" }
+  Button { r#type: "button", "aria-label": "Close", onclick: move |_| close(), "×" }
+}
+```
+
+A click, Enter, or Space calls `onclick` with the mouse event. Other
+attributes, such as `type`, `name`, and `aria-label`, are passed to the
+button. Inside a form the button keeps the native `submit` type; pass
+`r#type: "button"` for a button that should not submit.
+
 ## Accessibility Notes
 
 Use `disabled` for unavailable actions. Icon-only buttons should provide an
-accessible label through the consuming app.
+accessible label, such as `aria-label`, through the consuming app.
