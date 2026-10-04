@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M152 Combobox And Command Result Announcements
-- Current task: M152.3
+- Current task: M152.4
 
 ## Backup
 
@@ -2759,7 +2759,7 @@
   - Add `CommandStatus` and `ComboboxStatus` to the crate sources and templates, with exports and class constants.
   - Update the Command and Combobox docs pages.
 
-- TODO M152.3 Verify announcements in a real browser
+- DONE M152.3 Verify announcements in a real browser
   - Render the status parts in the Web preview's Command and Combobox and extend `npm run verify:runtime-interactions` to assert the status role and polite live attributes, that the text follows the filtered count and the empty state, that the same element stays mounted across query changes, and that the Combobox region stays exposed while the popup is closed.
   - Reverse-verify that the script fails when the region is remounted on each change, when the role or live attribute is removed, or when the Combobox region moves inside the popup.
 
