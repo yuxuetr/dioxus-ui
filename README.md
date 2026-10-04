@@ -218,6 +218,7 @@ format!("bg-{}-500", color)
 - [RFC 0033: Pagination Page Changes](docs/rfcs/0033-pagination-page-changes.md)
 - [RFC 0034: Carousel Slide Changes](docs/rfcs/0034-carousel-slide-changes.md)
 - [RFC 0035: Control Label Overrides](docs/rfcs/0035-control-label-overrides.md)
+- [RFC 0036: Resizable Handle Input](docs/rfcs/0036-resizable-handle-input.md)
 
 ## Verification Shortcuts
 

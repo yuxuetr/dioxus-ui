@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M161 Resizable Handle Input
+- Current task: M161.1 Design resizable handle input
 
 ## Backup
 
@@ -2922,6 +2922,26 @@
 - DONE M160.3 Complete control label overrides milestone
   - Reverse-verify that the SSR tests fail when the helper always returns the default.
   - Update CHANGELOG Unreleased notes and release docs.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M161 Resizable Handle Input
+
+- TODO M161.1 Design resizable handle input
+  - Record that `ResizableHandle` cannot take focus, has no `aria-valuenow`, handles no keys or drags, renders the group orientation as the separator orientation, and that no Resizable part accepts attributes.
+  - Define `value`, `min`, `max`, `step`, and `on_resize` with a percent delta, keys, a pointer script that sends target sizes, the corrected `aria-orientation`, and attribute spreading.
+  - Record what stays out of scope (Enter to collapse, right-to-left groups, pixel limits and persisted layouts, Desktop and Mobile self-test scenarios) with reevaluation conditions.
+
+- TODO M161.2 Implement resizable handle input
+  - Add the handle props, keys, pointer script, ARIA values, and attribute spreading to the crate source and template, with unit tests and the CLI script parity entry.
+  - Update the Resizable docs page.
+
+- TODO M161.3 Verify resizable handles in a real browser
+  - Render a two-panel horizontal group in the Web preview and extend `npm run verify:runtime-interactions` to assert focus, ARIA values and orientation, key resizing within limits, pointer drags that track the pointer and stop at the limit, and passed attributes.
+  - Reverse-verify that the script fails when the key handler is removed, when the pointer script does not start, when it sends per-move deltas, when `aria-orientation` keeps the group orientation, or when attributes are not spread.
+
+- TODO M161.4 Complete resizable milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 
