@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M155 Slider Keyboard And Pointer Input
-- Current task: M155.1
+- Current task: M155.2
 
 ## Backup
 
@@ -2810,7 +2810,7 @@
 
 ## M155 Slider Keyboard And Pointer Input
 
-- TODO M155.1 Design slider keyboard and pointer input
+- DONE M155.1 Design slider keyboard and pointer input
   - Record that `Slider` renders a focusable `role="slider"` with value attributes but handles no key or pointer event and exposes no callback, that `SliderState::moved` and `SliderKeyMove` exist in the primitives crate without a caller, and that the template's `SliderState` lacks key movement.
   - Define `on_value_change: Option<EventHandler<f64>>`; Arrow keys, Page Up, Page Down, Home, and End move through `SliderState::moved` in Rust and prevent page scrolling; a page script turns a pointer press and drag on the root into a snapped value; attributes such as `aria-label` and `aria-valuetext` pass through; a disabled slider ignores both.
   - Record what stays out of scope (right-to-left and vertical sliders, multiple thumbs, Desktop and Mobile self-test scenarios) with reevaluation conditions.
