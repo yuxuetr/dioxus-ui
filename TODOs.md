@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M153 Switch And Checkbox Change Events
-- Current task: M153.2
+- Current task: M153.3
 
 ## Backup
 
@@ -2775,7 +2775,7 @@
   - Define `on_checked_change: Option<EventHandler<bool>>`, called with the requested state on click, Space, or a label click; spread global and element attributes through `#[props(extends = ...)]` so apps can pass `id`, `name`, and `aria-*`; render `data-state` on Switch.
   - Record what stays out of scope (an indeterminate checkbox, a hidden form input for Switch, the same change for Button, Toggle, Input, and Textarea, Desktop and Mobile self-test scenarios) with reevaluation conditions.
 
-- TODO M153.2 Implement switch and checkbox change events
+- DONE M153.2 Implement switch and checkbox change events
   - Add the callback, attribute spreading, and `data-state` to the crate sources and templates, with unit tests where logic is pure.
   - Update the Switch and Checkbox docs pages.
 
