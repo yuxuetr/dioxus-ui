@@ -29,7 +29,7 @@ Source preview routes: 64
 | [Button Group](button-group.md) | /components/button-group/source | crates/dioxus-ui-cli/templates/button_group.rs | src/components/ui/button_group.rs | rust | 98 | 2862 |
 | [Calendar](calendar.md) | /components/calendar/source | crates/dioxus-ui-cli/templates/calendar.rs | src/components/ui/calendar.rs | rust | 389 | 11474 |
 | [Card](card.md) | /components/card/source | crates/dioxus-ui-cli/templates/card.rs | src/components/ui/card.rs | rust | 106 | 2355 |
-| [Carousel](carousel.md) | /components/carousel/source | crates/dioxus-ui-cli/templates/carousel.rs | src/components/ui/carousel.rs | rust | 392 | 10886 |
+| [Carousel](carousel.md) | /components/carousel/source | crates/dioxus-ui-cli/templates/carousel.rs | src/components/ui/carousel.rs | rust | 385 | 10549 |
 | [Chart](chart.md) | /components/chart/source | crates/dioxus-ui-cli/templates/chart.rs | src/components/ui/chart.rs | rust | 633 | 14818 |
 | [Checkbox](checkbox.md) | /components/checkbox/source | crates/dioxus-ui-cli/templates/checkbox.rs | src/components/ui/checkbox.rs | rust | 44 | 1415 |
 | [Collapsible](collapsible.md) | /components/collapsible/source | crates/dioxus-ui-cli/templates/collapsible.rs | src/components/ui/collapsible.rs | rust | 131 | 3689 |
@@ -57,7 +57,7 @@ Source preview routes: 64
 | [Message Scroller](message-scroller.md) | /components/message-scroller/source | crates/dioxus-ui-cli/templates/message_scroller.rs | src/components/ui/message_scroller.rs | rust | 256 | 6962 |
 | [Native Select](native-select.md) | /components/native-select/source | crates/dioxus-ui-cli/templates/native_select.rs | src/components/ui/native_select.rs | rust | 93 | 2501 |
 | [Navigation Menu](navigation-menu.md) | /components/navigation-menu/source | crates/dioxus-ui-cli/templates/navigation_menu.rs | src/components/ui/navigation_menu.rs | rust | 417 | 13844 |
-| [Pagination](pagination.md) | /components/pagination/source | crates/dioxus-ui-cli/templates/pagination.rs | src/components/ui/pagination.rs | rust | 200 | 5320 |
+| [Pagination](pagination.md) | /components/pagination/source | crates/dioxus-ui-cli/templates/pagination.rs | src/components/ui/pagination.rs | rust | 200 | 5396 |
 | [Popover](popover.md) | /components/popover/source | crates/dioxus-ui-cli/templates/popover.rs | src/components/ui/popover.rs | rust | 96 | 2831 |
 | [Progress](progress.md) | /components/progress/source | crates/dioxus-ui-cli/templates/progress.rs | src/components/ui/progress.rs | rust | 49 | 1326 |
 | [Radio Group](radio-group.md) | /components/radio-group/source | crates/dioxus-ui-cli/templates/radio_group.rs | src/components/ui/radio_group.rs | rust | 275 | 7083 |

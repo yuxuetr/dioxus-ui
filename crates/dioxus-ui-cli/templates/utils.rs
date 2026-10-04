@@ -24,6 +24,13 @@ where
   output
 }
 
+/// Keeps a component's default `aria-label` only when the app passed none.
+/// The browser applies the later spread value anyway, but SSR writes both
+/// attributes and an HTML parser keeps the first.
+pub fn default_aria_label(attributes: &[Attribute], label: &'static str) -> Option<&'static str> {
+  (!attributes.iter().any(|attribute| attribute.name == "aria-label")).then_some(label)
+}
+
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum UiDensity {
   Compact,

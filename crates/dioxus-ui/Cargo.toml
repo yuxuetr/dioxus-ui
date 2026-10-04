@@ -80,3 +80,6 @@ tooltip = ["dioxus-ui-primitives/tooltip"]
 dioxus.workspace = true
 dioxus-ui-core.workspace = true
 dioxus-ui-primitives.workspace = true
+
+[dev-dependencies]
+dioxus-ssr = "0.7.9"

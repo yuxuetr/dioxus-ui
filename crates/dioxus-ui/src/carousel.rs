@@ -1,5 +1,7 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
+
+use crate::aria_label::default_aria_label;
 pub use dioxus_ui_primitives::{
   CarouselState, LayoutOrientation as CarouselOrientation, carousel_can_go_next,
   carousel_can_go_previous, carousel_clamp_index, carousel_next, carousel_previous,
@@ -97,13 +99,6 @@ pub fn carousel_item_transform(orientation: CarouselOrientation) -> &'static str
     CarouselOrientation::Horizontal => "translateX(calc(var(--dxui-carousel-index, 0) * -100%))",
     CarouselOrientation::Vertical => "translateY(calc(var(--dxui-carousel-index, 0) * -100%))",
   }
-}
-
-/// Keeps a control's default label only when the app passed none. The
-/// browser applies the later spread value anyway, but SSR writes both
-/// attributes and an HTML parser keeps the first.
-fn default_label(attributes: &[Attribute], label: &'static str) -> Option<&'static str> {
-  (!attributes.iter().any(|attribute| attribute.name == "aria-label")).then_some(label)
 }
 
 #[component]
@@ -211,7 +206,7 @@ pub fn CarouselPrevious(
   children: Element,
 ) -> Element {
   let class = carousel_control_class(disabled, &class);
-  let aria_label = default_label(&attributes, "Previous slide");
+  let aria_label = default_aria_label(&attributes, "Previous slide");
 
   rsx! {
     button {
@@ -239,7 +234,7 @@ pub fn CarouselNext(
   children: Element,
 ) -> Element {
   let class = carousel_control_class(disabled, &class);
-  let aria_label = default_label(&attributes, "Next slide");
+  let aria_label = default_aria_label(&attributes, "Next slide");
 
   rsx! {
     button {
@@ -266,7 +261,7 @@ pub fn CarouselIndicator(
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
 ) -> Element {
   let class = carousel_indicator_class(selected, &class);
-  let aria_label = default_label(&attributes, "Go to slide");
+  let aria_label = default_aria_label(&attributes, "Go to slide");
 
   rsx! {
     button {
@@ -288,6 +283,45 @@ pub fn CarouselIndicator(
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  fn render(app: fn() -> Element) -> String {
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    dioxus_ssr::render(&dom)
+  }
+
+  fn aria_labels(html: &str) -> Vec<&str> {
+    html.split("aria-label=\"").skip(1).filter_map(|rest| rest.split('"').next()).collect()
+  }
+
+  #[test]
+  fn ssr_renders_only_a_passed_aria_label() {
+    fn app() -> Element {
+      rsx! {
+        CarouselPrevious { "aria-label": "Diapositive précédente" }
+        CarouselNext { "aria-label": "Diapositive suivante" }
+        CarouselIndicator { "aria-label": "Show product 1" }
+      }
+    }
+
+    assert_eq!(
+      aria_labels(&render(app)),
+      ["Diapositive précédente", "Diapositive suivante", "Show product 1"]
+    );
+  }
+
+  #[test]
+  fn ssr_renders_the_default_aria_label() {
+    fn app() -> Element {
+      rsx! {
+        CarouselPrevious {}
+        CarouselNext {}
+        CarouselIndicator {}
+      }
+    }
+
+    assert_eq!(aria_labels(&render(app)), ["Previous slide", "Next slide", "Go to slide"]);
+  }
 
   #[test]
   fn carousel_content_class_reflects_orientation() {
@@ -328,14 +362,6 @@ mod tests {
     );
     assert!(carousel_item_transform(CarouselOrientation::Horizontal).starts_with("translateX("));
     assert!(carousel_item_transform(CarouselOrientation::Vertical).starts_with("translateY("));
-  }
-
-  #[test]
-  fn a_passed_aria_label_replaces_the_default() {
-    let passed = vec![Attribute::new("aria-label", "Show product 1", None, false)];
-
-    assert_eq!(default_label(&passed, "Go to slide"), None);
-    assert_eq!(default_label(&[], "Go to slide"), Some("Go to slide"));
   }
 
   #[test]

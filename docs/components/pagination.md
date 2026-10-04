@@ -61,7 +61,9 @@ rsx! {
   native `disabled`, and a disabled anchor drops its `href`, so neither takes
   focus or follows Enter.
 - Global and anchor attributes such as `id`, `title`, and `target` pass
-  through. The English `aria-label` on Previous and Next is fixed.
+  through. A passed `aria-label` replaces the English default on Previous and
+  Next, in the browser and in server-rendered HTML; the visible "Previous" and
+  "Next" text stays English.
 
 ## Accessibility Notes
 

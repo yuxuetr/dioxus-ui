@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use super::utils::classes;
+use super::utils::{classes, default_aria_label};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum CarouselOrientation {
@@ -200,13 +200,6 @@ pub fn carousel_item_transform(orientation: CarouselOrientation) -> &'static str
   }
 }
 
-/// Keeps a control's default label only when the app passed none. The
-/// browser applies the later spread value anyway, but SSR writes both
-/// attributes and an HTML parser keeps the first.
-fn default_label(attributes: &[Attribute], label: &'static str) -> Option<&'static str> {
-  (!attributes.iter().any(|attribute| attribute.name == "aria-label")).then_some(label)
-}
-
 #[component]
 pub fn Carousel(
   #[props(default)] orientation: CarouselOrientation,
@@ -312,7 +305,7 @@ pub fn CarouselPrevious(
   children: Element,
 ) -> Element {
   let class = carousel_control_class(disabled, &class);
-  let aria_label = default_label(&attributes, "Previous slide");
+  let aria_label = default_aria_label(&attributes, "Previous slide");
 
   rsx! {
     button {
@@ -342,7 +335,7 @@ pub fn CarouselNext(
   children: Element,
 ) -> Element {
   let class = carousel_control_class(disabled, &class);
-  let aria_label = default_label(&attributes, "Next slide");
+  let aria_label = default_aria_label(&attributes, "Next slide");
 
   rsx! {
     button {
@@ -371,7 +364,7 @@ pub fn CarouselIndicator(
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
 ) -> Element {
   let class = carousel_indicator_class(selected, &class);
-  let aria_label = default_label(&attributes, "Go to slide");
+  let aria_label = default_aria_label(&attributes, "Go to slide");
 
   rsx! {
     button {

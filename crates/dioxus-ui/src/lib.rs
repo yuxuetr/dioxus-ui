@@ -104,6 +104,9 @@ mod listbox;
 #[cfg(any(feature = "sonner", feature = "toast"))]
 mod dismiss_timer;
 
+#[cfg(any(feature = "carousel", feature = "pagination"))]
+mod aria_label;
+
 #[cfg(any(feature = "hover-card", feature = "tooltip"))]
 mod hover_open;
 

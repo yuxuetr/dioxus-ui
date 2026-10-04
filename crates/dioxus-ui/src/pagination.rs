@@ -1,6 +1,8 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 
+use crate::aria_label::default_aria_label;
+
 pub const PAGINATION_BASE_CLASS: &str = "mx-auto flex w-full justify-center";
 pub const PAGINATION_CONTENT_BASE_CLASS: &str = "flex flex-row items-center gap-1";
 pub const PAGINATION_ITEM_BASE_CLASS: &str = "";
@@ -104,7 +106,7 @@ pub fn PaginationPrevious(
     disabled,
     onclick,
     class,
-    Some("Go to previous page"),
+    default_aria_label(&attributes, "Go to previous page"),
     attributes,
     rsx! { "Previous" },
   )
@@ -126,7 +128,7 @@ pub fn PaginationNext(
     disabled,
     onclick,
     class,
-    Some("Go to next page"),
+    default_aria_label(&attributes, "Go to next page"),
     attributes,
     rsx! { "Next" },
   )
@@ -200,6 +202,40 @@ pub fn PaginationEllipsis(#[props(default)] class: String) -> Element {
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  fn render(app: fn() -> Element) -> String {
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    dioxus_ssr::render(&dom)
+  }
+
+  fn aria_labels(html: &str) -> Vec<&str> {
+    html.split("aria-label=\"").skip(1).filter_map(|rest| rest.split('"').next()).collect()
+  }
+
+  #[test]
+  fn ssr_renders_only_a_passed_aria_label() {
+    fn app() -> Element {
+      rsx! {
+        PaginationPrevious { "aria-label": "Vorherige Seite" }
+        PaginationNext { href: "/2", "aria-label": "Nächste Seite" }
+      }
+    }
+
+    assert_eq!(aria_labels(&render(app)), ["Vorherige Seite", "Nächste Seite"]);
+  }
+
+  #[test]
+  fn ssr_renders_the_default_aria_label() {
+    fn app() -> Element {
+      rsx! {
+        PaginationPrevious {}
+        PaginationNext { href: "/2" }
+      }
+    }
+
+    assert_eq!(aria_labels(&render(app)), ["Go to previous page", "Go to next page"]);
+  }
 
   #[test]
   fn pagination_link_class_reflects_active_and_disabled_states() {
