@@ -616,7 +616,9 @@ const highlight = (option) => {
   if (option) {
     option.dataset.highlighted = "";
     if (isMenu) {
-      option.focus();
+      // The menu may still be in normal flow before placement makes it fixed;
+      // scrolling the page then would move it away from its anchor point.
+      option.focus({ preventScroll: true });
     } else {
       option.scrollIntoView({ block: "nearest" });
       if (anchor) anchor.setAttribute("aria-activedescendant", option.id);
