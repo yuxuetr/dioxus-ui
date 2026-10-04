@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M146 Accordion Interaction
-- Current task: M146.3 Verify accordion behavior in a real browser
+- Current task: M146.4 Complete accordion milestone
 
 ## Backup
 
@@ -2639,7 +2639,7 @@
   - Add an every-item Tab stop mode to the roving group script in the crate and the template `utils.rs`, share the part id builder with Tabs, and wire Accordion in the crate and the template.
   - Add single and multiple open-value helpers and update the Accordion docs page.
 
-- TODO M146.3 Verify accordion behavior in a real browser
+- DONE M146.3 Verify accordion behavior in a real browser
   - Render a real Accordion in the Web preview and extend `npm run verify:runtime-interactions` to assert id links and region names, clicks and Enter toggling, collapsing an open item, arrow movement that skips disabled triggers and wraps, Home and End, focus without toggling, and Tab reaching every enabled trigger.
   - Reverse-verify that the script fails when click reporting, arrow movement, the every-item Tab stop mode, or the id links are removed.
 
