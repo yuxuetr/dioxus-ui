@@ -109,6 +109,52 @@ A 300 ms overall timeout also made it report `timed out` instead of hanging.
 
 ## Mobile Verification
 
+### Mobile Interaction Self-Test
+
+M143 runs the same interaction scenarios in the iOS Simulator
+([RFC 0018](../rfcs/0018-mobile-interaction-verification.md)):
+
+```bash
+npm run verify:mobile-interactions
+```
+
+The command builds `examples/mobile-demo` (`dioxus-ui-mobile-demo`) with
+`dx build --ios`. It uses a booted iPhone simulator, or boots the newest
+iPhone on iOS 26 or older and shuts it down afterwards. It then installs the
+app and launches it with `SIMCTL_CHILD_DIOXUS_UI_MOBILE_SELF_TEST=1`.
+
+The app runs the shared scenario script from `examples/preview-states` (the
+same eight scenarios as Desktop). The command passes only when the console
+prints `mobile interaction verification passed`, because `simctl` does not
+report the app's exit status.
+
+The command uses `DEVELOPER_DIR` when set. When `xcode-select` points at the
+Command Line Tools, it uses `/Applications/Xcode.app` without changing any
+system setting. Set `DIOXUS_UI_IOS_SIMULATOR` to a device name or UDID to
+choose the device.
+
+Dioxus 0.7 apps do not adopt the UIScene lifecycle, and iOS 27 stops them at
+launch (`UIApplicationEvaluateRuntimeIssueForNoSceneLifecycleAdoption`). This
+affects every Dioxus 0.7 iOS app, not only dioxus-ui. To recheck after a
+Dioxus upgrade:
+
+```bash
+DIOXUS_UI_IOS_SIMULATOR="iPhone 18 Pro" npm run verify:mobile-interactions
+```
+
+The command currently fails on iOS 27 with no result line.
+
+Reverse checks on an iOS 26.3 simulator each made the command exit with
+status 1:
+
+- removing dialog focus return
+- removing menubar switching inside a menu
+- running on iOS 27, where the app reports no result
+
+The scenarios use dispatched events, so touch gestures, the software
+keyboard, safe areas, and the visual viewport stay on the manual checklist
+below. Android is not covered: the Rust Android targets are not installed.
+
 Mobile should be treated as a target profile with stricter interaction rules,
 not as a separate component tree.
 
