@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M161 Resizable Handle Input
-- Current task: M161.1 Design resizable handle input
+- Current task: M161.2 Implement resizable handle input
 
 ## Backup
 
@@ -2927,7 +2927,7 @@
 
 ## M161 Resizable Handle Input
 
-- TODO M161.1 Design resizable handle input
+- DONE M161.1 Design resizable handle input
   - Record that `ResizableHandle` cannot take focus, has no `aria-valuenow`, handles no keys or drags, renders the group orientation as the separator orientation, and that no Resizable part accepts attributes.
   - Define `value`, `min`, `max`, `step`, and `on_resize` with a percent delta, keys, a pointer script that sends target sizes, the corrected `aria-orientation`, and attribute spreading.
   - Record what stays out of scope (Enter to collapse, right-to-left groups, pixel limits and persisted layouts, Desktop and Mobile self-test scenarios) with reevaluation conditions.
