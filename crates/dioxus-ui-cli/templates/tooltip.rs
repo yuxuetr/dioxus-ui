@@ -30,9 +30,9 @@ const isOpen = () => content()?.dataset.state === "open";
 const inside = (element, node) => node instanceof Node && !!element && element.contains(node);
 let openTimer = null;
 let closeTimer = null;
-// A press closes the tooltip; hover does not reopen it until the pointer
-// leaves the trigger, and the press's own focus does not open it.
-let suppressed = false;
+// Hover opens only when the pointer enters the trigger, so after a press it
+// stays closed until the pointer leaves and returns. The press's own focus
+// does not open it.
 let pressing = false;
 const clearTimers = () => {
   clearTimeout(openTimer);
@@ -48,7 +48,7 @@ const onPointerOver = (event) => {
   const [target, from] = [event.target, event.relatedTarget];
   if (inside(trigger(), target) && !inside(trigger(), from)) {
     clearTimeout(closeTimer);
-    if (suppressed || isOpen()) return;
+    if (isOpen()) return;
     clearTimeout(openTimer);
     openTimer = setTimeout(() => request(true), delayMs);
   } else if (inside(content(), target) && !inside(content(), from)) {
@@ -61,7 +61,6 @@ const onPointerOut = (event) => {
   const fromTrigger = inside(trigger(), target) && !inside(trigger(), to);
   const fromContent = inside(content(), target) && !inside(content(), to);
   if (!fromTrigger && !fromContent) return;
-  if (fromTrigger) suppressed = false;
   clearTimeout(openTimer);
   if (inside(trigger(), to) || inside(content(), to) || !isOpen()) return;
   clearTimeout(closeTimer);
@@ -70,7 +69,6 @@ const onPointerOut = (event) => {
 const onPointerDown = (event) => {
   if (!inside(trigger(), event.target)) return;
   pressing = true;
-  suppressed = true;
   request(false);
 };
 const onPointerUp = () => {
