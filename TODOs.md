@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M166 Checkbox Indeterminate State
-- Current task: M166.3 Verify the indeterminate state in a real browser
+- Current task: M166.4 Complete checkbox indeterminate milestone
 
 ## Backup
 
@@ -3036,7 +3036,7 @@
   - Add the prop, property sync, requested state, re-sync, and `data-state` to the crate source and template, with unit tests and the CLI script parity entry.
   - Update the Checkbox docs page.
 
-- TODO M166.3 Verify the indeterminate state in a real browser
+- DONE M166.3 Verify the indeterminate state in a real browser
   - Render a select-all checkbox over two items and a checkbox that stays mixed in the Web preview and extend `npm run verify:runtime-interactions` to assert the mixed property and `data-state`, the change from mixed to checked, and the restored property.
   - Reverse-verify that the script fails when the property is not set, when a mixed change requests `!checked`, or when the property is not re-synced after a change.
 
