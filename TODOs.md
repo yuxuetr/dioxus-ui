@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 99%
-- Current milestone: M146 Accordion Interaction
-- Current task: M146.4 Complete accordion milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2643,7 +2643,7 @@
   - Render a real Accordion in the Web preview and extend `npm run verify:runtime-interactions` to assert id links and region names, clicks and Enter toggling, collapsing an open item, arrow movement that skips disabled triggers and wraps, Home and End, focus without toggling, and Tab reaching every enabled trigger.
   - Reverse-verify that the script fails when click reporting, arrow movement, the every-item Tab stop mode, or the id links are removed.
 
-- TODO M146.4 Complete accordion milestone
+- DONE M146.4 Complete accordion milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
