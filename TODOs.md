@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 60%
 - Current milestone: M138 Date Picker and Calendar Keyboard Behavior
-- Current task: M138.3
+- Current task: M138.4
 
 ## Backup
 
@@ -2471,7 +2471,7 @@
   - `CalendarDay` renders roving tabindex when keyboard-managed, maps arrows, Page Up, Page Down (Shift for years), Home, and End to `CalendarKeyMove` through `on_key_move`, calls `on_select` on click, and moves DOM focus when `focused` turns true.
   - `CalendarNavButton` gains `onclick`; mirror `CalendarKeyMove` and `calendar_key_move` into the template, and update the docs page.
 
-- TODO M138.3 Implement Date Picker anchored dialog behavior
+- DONE M138.3 Implement Date Picker anchored dialog behavior
   - `DatePickerTrigger` gains `id` and toggles through `on_open_change`; `DatePickerContent` anchors to the trigger, moves focus to the focused day on open, wraps Tab, restores focus on close, and closes on Escape or outside interaction.
   - The focus scope prefers a `data-dxui-autofocus` element, skips `tabindex="-1"` elements when wrapping, and restores focus only when focus was not moved elsewhere; update templates and docs.
 
