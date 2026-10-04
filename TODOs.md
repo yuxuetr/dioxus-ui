@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M158 Pagination Page Changes
+- Current task: M158.1 Design pagination page changes
 
 ## Backup
 
@@ -2864,6 +2864,26 @@
   - Reverse-verify that the script fails when the callback is removed, when attributes are not spread, when the filter script does not start, or when it does not cut at the length.
 
 - DONE M157.4 Complete Input OTP milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M158 Pagination Page Changes
+
+- TODO M158.1 Design pagination page changes
+  - Record that Pagination controls always render `a href` with no click handler, that Desktop opens anchors in the system browser, and that a disabled control keeps its `href`, stays in the Tab order, and still follows Enter.
+  - Define `onclick: Option<EventHandler<MouseEvent>>` on `PaginationLink`, `PaginationPrevious`, and `PaginationNext`, a button form when `href` is empty, a disabled anchor without `href`, and attribute spreading.
+  - Record what stays out of scope (a page range helper, localized Previous and Next labels, a stateful root with `on_page_change`, Desktop and Mobile self-test scenarios) with reevaluation conditions.
+
+- TODO M158.2 Implement pagination page changes
+  - Add the callback, button form, disabled anchor, and attribute spreading to the crate source and template.
+  - Update the Pagination docs page.
+
+- TODO M158.3 Verify pagination in a real browser
+  - Render a button Pagination and an anchor Pagination in the Web preview and extend `npm run verify:runtime-interactions` to assert that a click, Enter, and Space change the page, that the ends disable Previous and Next, that a disabled anchor has no `href`, cannot take focus, and does not call `onclick`, and that passed attributes render.
+  - Reverse-verify that the script fails when the callback is removed, when an anchor is always rendered, when a disabled anchor keeps `href`, when `onclick` runs while disabled, or when attributes are not spread.
+
+- TODO M158.4 Complete pagination milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.

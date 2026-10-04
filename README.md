@@ -215,6 +215,7 @@ format!("bg-{}-500", color)
 - [RFC 0030: Slider Keyboard And Pointer Input](docs/rfcs/0030-slider-keyboard-and-pointer-input.md)
 - [RFC 0031: Collapsible And Native Select Events](docs/rfcs/0031-collapsible-and-native-select-events.md)
 - [RFC 0032: Input OTP Value Changes](docs/rfcs/0032-input-otp-value-changes.md)
+- [RFC 0033: Pagination Page Changes](docs/rfcs/0033-pagination-page-changes.md)
 
 ## Verification Shortcuts
 

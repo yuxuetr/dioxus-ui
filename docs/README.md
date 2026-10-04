@@ -99,7 +99,8 @@ Read in this order:
 93. [RFC 0030: Slider Keyboard And Pointer Input](rfcs/0030-slider-keyboard-and-pointer-input.md)
 94. [RFC 0031: Collapsible And Native Select Events](rfcs/0031-collapsible-and-native-select-events.md)
 95. [RFC 0032: Input OTP Value Changes](rfcs/0032-input-otp-value-changes.md)
-96. [TODO Plan](../TODOs.md)
+96. [RFC 0033: Pagination Page Changes](rfcs/0033-pagination-page-changes.md)
+97. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
