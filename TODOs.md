@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0% (M136 0/5)
+- Overall: 20% (M136 1/5)
 - Current milestone: M136 Toast and Sonner Runtime Behavior
-- Current task: M136.1 Design toast timer and live region behavior
+- Current task: M136.2 Implement Toast auto-dismiss and dismiss callbacks
 
 ## Backup
 
@@ -2412,7 +2412,7 @@
 
 ## M136 Toast and Sonner Runtime Behavior
 
-- TODO M136.1 Design toast timer and live region behavior
+- DONE M136.1 Design toast timer and live region behavior
   - Record that Toast and Sonner render open state only: no auto-dismiss timer, no hover or focus pause, close and action buttons without handlers, and per-toast live regions inserted together with their content.
   - Define the additive API (`duration_ms`, `on_dismiss` with `ToastDismissReason`), the page-side countdown that pauses while the pointer is over or focus is inside the toast, and a persistent viewport live region.
   - Record Stage 7 Toast and Sonner exit criterion scope and what stays app-owned (queue state, swipe, stacking animation).
