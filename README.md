@@ -782,7 +782,9 @@ the real Tooltip component (top placement, Escape, outside presses ignored),
 real Toast and Sonner components (countdown dismissal, hover pause, dismiss
 reasons, live region viewport), and real Select and Combobox components
 (anchored listbox, arrow and typeahead navigation, selection), and a real
-Date Picker with Calendar (focus entry, day keyboard movement, focus return). It requires Playwright
+Date Picker with Calendar (focus entry, day keyboard movement, focus return),
+and real Dropdown and Context Menu components (menu navigation, activation,
+point placement). It requires Playwright
 Chromium or `DIOXUS_UI_BROWSER_EXECUTABLE`, does not write screenshots or
 traces, and does not claim full accessibility certification, native Desktop or
 Mobile coverage, or visual parity.

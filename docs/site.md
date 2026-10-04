@@ -2304,7 +2304,9 @@ the real Tooltip component (top placement, Escape, outside presses ignored),
 real Toast and Sonner components (countdown dismissal, hover pause, dismiss
 reasons, live region viewport), and real Select and Combobox components
 (anchored listbox, arrow and typeahead navigation, selection), and a real
-Date Picker with Calendar (focus entry, day keyboard movement, focus return).
+Date Picker with Calendar (focus entry, day keyboard movement, focus return),
+and real Dropdown and Context Menu components (menu navigation, activation,
+point placement).
 
 It is not part of `npm run verify` or `npm run verify:release`. It does not
 write screenshots or traces, certify full accessibility, verify native Desktop

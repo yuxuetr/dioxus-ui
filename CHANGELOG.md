@@ -58,6 +58,11 @@ release owner renames it to the released version at publish time.
   clicks through `on_select`. Date Picker content anchors to its trigger,
   enters focus on the focused day, wraps Tab, closes on Escape or outside
   interaction, and returns focus to the trigger.
+- Dropdown and Context Menu keyboard behavior: opening focuses the first
+  item, arrows wrap, Home, End, and typeahead jump, and Enter, Space, or click
+  runs the item's new `onclick`, closes the menu, and returns focus. Context
+  Menu content opens at `anchor_point`, usually the pointer position, with
+  flip and shift.
 
 ### Changed
 
@@ -78,8 +83,8 @@ release owner renames it to the released version at publish time.
 - DOM/WebView scroll commands for Message Scroller.
 - Verified Mobile runtime behavior; Desktop and Mobile coverage remains
   checklist or fixture based.
-- Overlay behavior for Navigation Menu, Context Menu, and Menubar,
-  multi-select, typed date parsing, DOM portal mounting, and scroll lock.
+- Overlay behavior for Navigation Menu and Menubar, submenus, multi-select,
+  typed date parsing, DOM portal mounting, and scroll lock.
 
 ### Known Warnings
 

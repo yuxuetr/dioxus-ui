@@ -671,7 +671,9 @@ first.
   the input-inside-content Combobox layout are not supported. Date Picker and
   Calendar implement anchored placement, focus entry, and day keyboard
   navigation (see RFC 0013); typed date parsing and source-copy date arithmetic
-  are not included. Navigation Menu, Context Menu, and Menubar stay
+  are not included. Dropdown and Context Menu implement menu keyboard
+  navigation and activation, and Context Menu opens at a point (see RFC 0014);
+  submenus are not implemented. Navigation Menu and Menubar stay
   controlled-only, and there is no DOM portal (see RFC 0010).
 - Toast and Sonner dismiss themselves after a countdown that pauses on hover
   and focus, inside persistent live region viewports (see RFC 0011). Screen

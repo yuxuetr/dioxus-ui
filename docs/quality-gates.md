@@ -520,7 +520,9 @@ dismiss reasons, and viewport live regions; and real Select and Combobox
 components: anchored listbox placement, arrow and typeahead navigation, and
 selection with focus kept on the trigger or input; and a real Date Picker
 with Calendar: focus entry, day keyboard movement across months, Tab wrap,
-and focus return. It does not
+and focus return; and real Dropdown and Context Menu components: focus entry,
+wrapping navigation, typeahead, activation with focus return, and point
+placement. It does not
 write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.

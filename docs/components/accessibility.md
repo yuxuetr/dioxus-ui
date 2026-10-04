@@ -88,14 +88,15 @@ Statuses:
 | Alert Dialog | Uses alertdialog role and modal state for confirmation flows. | Implemented |
 | Alert Dialog | Focuses the first focusable element, wraps Tab, restores focus on close, and closes on Escape; browser-verified on Web. | Implemented |
 | Context Menu | Exposes menu, menuitem, menuitemcheckbox, and menuitemradio roles. | Implemented |
-| Context Menu | Needs roving focus, typeahead, anchoring, and nested submenu verification. | Planned |
+| Context Menu | Opens at the pointer, focuses the first item, moves DOM focus with wrapping arrows, Home, End, and typeahead, activates items, and returns focus; browser-verified on Web. | Implemented |
+| Context Menu | Nested submenus are not implemented. | Planned |
 | Dialog | Exposes dialog role and modal state. | Implemented |
 | Dialog | Focuses the first focusable element, wraps Tab, restores focus on close, and closes on Escape or configured overlay click; browser-verified on Web. | Implemented |
 | Drawer | Uses dialog role and modal state for bottom-panel flows. | Implemented |
 | Drawer | Shares the Dialog focus scope and dismissal. | Implemented |
 | Drawer | Needs gesture and drag-to-dismiss verification. | Planned |
 | Dropdown | Anchored placement and Escape or outside dismissal. | Implemented |
-| Dropdown | Needs roving focus and typeahead. | Planned |
+| Dropdown | Focuses the first item, moves DOM focus with wrapping arrows, Home, End, and typeahead, activates items, and returns focus; browser-verified on Web. | Implemented |
 | Hover Card | Provides controlled rich preview content with placement metadata. | Implemented |
 | Hover Card | Needs hover/focus timing and mobile fallback verification. | Planned |
 | Menubar | Exposes menubar, menu, and menu item roles. | Implemented |
@@ -164,7 +165,9 @@ Screen reader announcements themselves are not automated.
 M137 implements Select and Combobox listbox behavior (see
 [RFC 0012](../rfcs/0012-listbox-overlay-behavior.md)). M138 implements Calendar
 keyboard navigation and Date Picker focus behavior (see
-[RFC 0013](../rfcs/0013-date-picker-calendar-keyboard.md)).
+[RFC 0013](../rfcs/0013-date-picker-calendar-keyboard.md)). M139 implements
+Dropdown and Context Menu keyboard behavior (see
+[RFC 0014](../rfcs/0014-menu-keyboard-behavior.md)).
 M24 implements measurement, pointer, and gesture contract types only. Popover,
 Tooltip, Dropdown, Select, menu overlays, Resizable, Carousel, and Chart still
 require renderer-level measurement, pointer, and gesture verification before
