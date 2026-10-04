@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M154 Button, Toggle, Input, And Textarea Events
-- Current task: M154.2
+- Current task: M154.3
 
 ## Backup
 
@@ -2795,7 +2795,7 @@
   - Define `onclick: Option<EventHandler<MouseEvent>>` for Button, `on_pressed_change: Option<EventHandler<bool>>` with the requested state for Toggle, and `on_value_change: Option<EventHandler<String>>` for Input and Textarea; spread global and element attributes through `#[props(extends = ...)]` on all four.
   - Record what stays out of scope (key, focus, and blur callbacks, a Button `type` default other than the native one, uncontrolled inputs, Desktop and Mobile self-test scenarios) with reevaluation conditions.
 
-- TODO M154.2 Implement button, toggle, input, and textarea events
+- DONE M154.2 Implement button, toggle, input, and textarea events
   - Add the callbacks and attribute spreading to the crate sources and templates.
   - Update the Button, Toggle, Input, and Textarea docs pages.
 
