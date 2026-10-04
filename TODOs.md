@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M141 Navigation Menu Interaction Behavior
+- Current task: M141.1 Design navigation menu interaction behavior
 
 ## Backup
 
@@ -2525,6 +2525,26 @@
 
 - DONE M140.4 Complete menubar milestone
   - Update component docs, CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and RFC 0010 out-of-scope status.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M141 Navigation Menu Interaction Behavior
+
+- TODO M141.1 Design navigation menu interaction behavior
+  - Record that Navigation Menu triggers and content render `open` state only, with no click, keyboard, hover, or dismissal handling, and that RFC 0010 deferred it because its content uses CSS layout rather than anchored placement.
+  - Define the disclosure navigation pattern: click and Enter or Space toggle, hover opens after a delay and closes after leaving, Left, Right, Home, and End move between top-level items, ArrowDown enters content, Up and Down move between content links, and Escape, outside presses, and focus leaving the menu close it.
+  - Record what stays out of scope (viewport size measurement, submenus, motion, right-to-left mirroring) with reevaluation conditions.
+
+- TODO M141.2 Implement Navigation Menu interaction
+  - Add a navigation menu script that handles trigger clicks, keyboard movement, hover timing, and dismissal, and reports the item value to open (empty to close) through `NavigationMenu` `on_value_change`.
+  - `NavigationMenuItem` gains `value`; mirror the template, keep the parity test, and update the docs page.
+
+- TODO M141.3 Verify navigation menu behavior in a real browser
+  - Render a real Navigation Menu in the Web preview and extend `npm run verify:runtime-interactions` to assert click toggling, arrow movement, content entry and link movement, Escape with focus return, hover open and close timing, and outside and focus-out dismissal.
+  - Reverse-verify that the script fails when arrow movement, content entry, hover opening, or dismissal is removed.
+
+- TODO M141.4 Complete navigation menu milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and RFC 0010 out-of-scope status.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 
