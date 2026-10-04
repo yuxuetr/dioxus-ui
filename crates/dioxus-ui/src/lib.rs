@@ -604,7 +604,8 @@ pub use resizable::{
   LayoutOrientation, RESIZABLE_HANDLE_BASE_CLASS, RESIZABLE_PANEL_BASE_CLASS,
   RESIZABLE_PANEL_GROUP_BASE_CLASS, ResizableHandle, ResizablePanel, ResizablePanelGroup,
   ResizablePanelState, layout_orientation_attribute, resizable_clamp, resizable_handle_class,
-  resizable_panel_class, resizable_panel_group_class, resizable_panel_style, resizable_resize_pair,
+  resizable_handle_key_delta, resizable_panel_class, resizable_panel_group_class,
+  resizable_panel_style, resizable_resize_pair, resizable_separator_orientation,
 };
 #[cfg(feature = "scroll-area")]
 pub use scroll_area::{

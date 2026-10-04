@@ -61,7 +61,7 @@ Source preview routes: 64
 | [Popover](popover.md) | /components/popover/source | crates/dioxus-ui-cli/templates/popover.rs | src/components/ui/popover.rs | rust | 96 | 2831 |
 | [Progress](progress.md) | /components/progress/source | crates/dioxus-ui-cli/templates/progress.rs | src/components/ui/progress.rs | rust | 49 | 1326 |
 | [Radio Group](radio-group.md) | /components/radio-group/source | crates/dioxus-ui-cli/templates/radio_group.rs | src/components/ui/radio_group.rs | rust | 275 | 7083 |
-| [Resizable](resizable.md) | /components/resizable/source | crates/dioxus-ui-cli/templates/resizable.rs | src/components/ui/resizable.rs | rust | 127 | 3755 |
+| [Resizable](resizable.md) | /components/resizable/source | crates/dioxus-ui-cli/templates/resizable.rs | src/components/ui/resizable.rs | rust | 329 | 11107 |
 | [Scroll Area](scroll-area.md) | /components/scroll-area/source | crates/dioxus-ui-cli/templates/scroll_area.rs | src/components/ui/scroll_area.rs | rust | 141 | 3762 |
 | [Select](select.md) | /components/select/source | crates/dioxus-ui-cli/templates/select.rs | src/components/ui/select.rs | rust | 205 | 6222 |
 | [Separator](separator.md) | /components/separator/source | crates/dioxus-ui-cli/templates/separator.rs | src/components/ui/separator.rs | rust | 51 | 1253 |
