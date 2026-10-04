@@ -82,7 +82,8 @@ Read in this order:
 76. [RFC 0013: Date Picker and Calendar Keyboard Behavior](rfcs/0013-date-picker-calendar-keyboard.md)
 77. [RFC 0014: Menu Keyboard Behavior](rfcs/0014-menu-keyboard-behavior.md)
 78. [RFC 0015: Menubar Keyboard Behavior](rfcs/0015-menubar-keyboard-behavior.md)
-79. [TODO Plan](../TODOs.md)
+79. [RFC 0016: Navigation Menu Interaction Behavior](rfcs/0016-navigation-menu-interaction.md)
+80. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
