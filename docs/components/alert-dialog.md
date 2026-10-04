@@ -81,3 +81,10 @@ should be clearly labeled by the consuming app, and the cancel action should be
 available before committing the destructive operation.
 
 Portal mounting and transitions remain app-owned.
+
+`AlertDialogContent` takes its name from a `AlertDialogTitle` inside it and its description from a
+`AlertDialogDescription`: the parts get generated ids, and the content points
+`aria-labelledby` and `aria-describedby` at the ones that are mounted. A
+passed `aria-label`, `aria-labelledby`, or `aria-describedby` on `AlertDialogContent`
+replaces the generated value, so give a title-less one an `aria-label` (see
+[RFC 0039](../rfcs/0039-dialog-names.md)).

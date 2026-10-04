@@ -4,6 +4,7 @@ pub use dioxus_ui_primitives::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
 
+use crate::dialog_labels::{DialogLabelPart, use_dialog_label_part, use_dialog_labels};
 use crate::modal_focus::use_modal_focus_scope;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -86,15 +87,19 @@ pub fn AlertDialogContent(
   #[props(default)] class: String,
   #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default = DismissBehavior::dialog_default())] dismiss: DismissBehavior,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = alert_dialog_content_class(&class);
+  let (labelledby, describedby) = use_dialog_labels().content_attributes(&attributes);
   let focus_scope = use_modal_focus_scope(open);
 
   rsx! {
     div {
       role: "alertdialog",
       class,
+      "aria-labelledby": labelledby,
+      "aria-describedby": describedby,
       hidden: !open,
       tabindex: "-1",
       "aria-modal": "true",
@@ -106,6 +111,7 @@ pub fn AlertDialogContent(
           handler.call(false);
         }
       },
+      ..attributes,
       {children}
     }
   }
@@ -138,10 +144,12 @@ pub fn AlertDialogFooter(#[props(default)] class: String, children: Element) -> 
 #[component]
 pub fn AlertDialogTitle(#[props(default)] class: String, children: Element) -> Element {
   let class = alert_dialog_title_class(&class);
+  let id = use_dialog_label_part(DialogLabelPart::Title);
 
   rsx! {
     h2 {
       class,
+      id,
       {children}
     }
   }
@@ -150,10 +158,12 @@ pub fn AlertDialogTitle(#[props(default)] class: String, children: Element) -> E
 #[component]
 pub fn AlertDialogDescription(#[props(default)] class: String, children: Element) -> Element {
   let class = alert_dialog_description_class(&class);
+  let id = use_dialog_label_part(DialogLabelPart::Description);
 
   rsx! {
     p {
       class,
+      id,
       {children}
     }
   }

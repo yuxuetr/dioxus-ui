@@ -69,3 +69,10 @@ Simulator by `npm run verify:mobile-interactions`, and an Android emulator by
 Dialogs trap focus, restore focus on close, and dismiss according to the
 configured escape-key and outside-interaction behavior. Always render a
 `DialogTitle`.
+
+`DialogContent` takes its name from a `DialogTitle` inside it and its description from a
+`DialogDescription`: the parts get generated ids, and the content points
+`aria-labelledby` and `aria-describedby` at the ones that are mounted. A
+passed `aria-label`, `aria-labelledby`, or `aria-describedby` on `DialogContent`
+replaces the generated value, so give a title-less one an `aria-label` (see
+[RFC 0039](../rfcs/0039-dialog-names.md)).

@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use super::utils::{AnchoredPlacement, classes, use_anchored_overlay};
+use super::utils::{AnchoredPlacement, classes, use_anchored_overlay, use_dialog_labels, use_dialog_label_part, DialogLabelPart};
 pub use super::utils::{DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
 
 pub const POPOVER_CONTENT_BASE_CLASS: &str = "z-50 w-72 rounded-md border border-zinc-200 bg-white p-4 text-zinc-950 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600";
@@ -36,9 +36,11 @@ pub fn PopoverContent(
   #[props(default = 4)] side_offset: i32,
   #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default = DismissBehavior::popover_default())] dismiss: DismissBehavior,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = popover_content_class(&class);
+  let (labelledby, describedby) = use_dialog_labels().content_attributes(&attributes);
   let anchored = use_anchored_overlay(
     open,
     AnchoredPlacement { anchor_id, anchor_point: None, side, align, side_offset },
@@ -50,9 +52,12 @@ pub fn PopoverContent(
     div {
       role: "dialog",
       class,
+      "aria-labelledby": labelledby,
+      "aria-describedby": describedby,
       hidden: !open,
       "data-state": if open { "open" } else { "closed" },
       "data-dxui-anchored": anchored,
+      ..attributes,
       {children}
     }
   }
@@ -73,10 +78,12 @@ pub fn PopoverHeader(#[props(default)] class: String, children: Element) -> Elem
 #[component]
 pub fn PopoverTitle(#[props(default)] class: String, children: Element) -> Element {
   let class = popover_title_class(&class);
+  let id = use_dialog_label_part(DialogLabelPart::Title);
 
   rsx! {
     h3 {
       class,
+      id,
       {children}
     }
   }
@@ -85,10 +92,12 @@ pub fn PopoverTitle(#[props(default)] class: String, children: Element) -> Eleme
 #[component]
 pub fn PopoverDescription(#[props(default)] class: String, children: Element) -> Element {
   let class = popover_description_class(&class);
+  let id = use_dialog_label_part(DialogLabelPart::Description);
 
   rsx! {
     p {
       class,
+      id,
       {children}
     }
   }

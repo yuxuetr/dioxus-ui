@@ -64,3 +64,10 @@ Simulator by `npm run verify:mobile-interactions`, and an Android emulator by
 
 Use popovers for supplemental interactive content. Configure dismissal behavior
 carefully so keyboard and pointer users can close the surface predictably.
+
+`PopoverContent` takes its name from a `PopoverTitle` inside it and its description from a
+`PopoverDescription`: the parts get generated ids, and the content points
+`aria-labelledby` and `aria-describedby` at the ones that are mounted. A
+passed `aria-label`, `aria-labelledby`, or `aria-describedby` on `PopoverContent`
+replaces the generated value, so give a title-less one an `aria-label` (see
+[RFC 0039](../rfcs/0039-dialog-names.md)).

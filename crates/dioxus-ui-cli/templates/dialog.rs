@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use super::utils::{classes, use_modal_focus_scope};
+use super::utils::{classes, use_modal_focus_scope, use_dialog_labels, use_dialog_label_part, DialogLabelPart};
 pub use super::utils::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
@@ -62,15 +62,19 @@ pub fn DialogContent(
   #[props(default)] class: String,
   #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default = DismissBehavior::dialog_default())] dismiss: DismissBehavior,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = dialog_content_class(&class);
+  let (labelledby, describedby) = use_dialog_labels().content_attributes(&attributes);
   let focus_scope = use_modal_focus_scope(open);
 
   rsx! {
     div {
       role: "dialog",
       class,
+      "aria-labelledby": labelledby,
+      "aria-describedby": describedby,
       hidden: !open,
       tabindex: "-1",
       "aria-modal": "true",
@@ -82,6 +86,7 @@ pub fn DialogContent(
           handler.call(false);
         }
       },
+      ..attributes,
       {children}
     }
   }
@@ -90,10 +95,12 @@ pub fn DialogContent(
 #[component]
 pub fn DialogTitle(#[props(default)] class: String, children: Element) -> Element {
   let class = dialog_title_class(&class);
+  let id = use_dialog_label_part(DialogLabelPart::Title);
 
   rsx! {
     h2 {
       class,
+      id,
       {children}
     }
   }
@@ -102,10 +109,12 @@ pub fn DialogTitle(#[props(default)] class: String, children: Element) -> Elemen
 #[component]
 pub fn DialogDescription(#[props(default)] class: String, children: Element) -> Element {
   let class = dialog_description_class(&class);
+  let id = use_dialog_label_part(DialogLabelPart::Description);
 
   rsx! {
     p {
       class,
+      id,
       {children}
     }
   }

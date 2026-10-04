@@ -4,6 +4,7 @@ pub use dioxus_ui_primitives::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
 
+use crate::dialog_labels::{DialogLabelPart, use_dialog_label_part, use_dialog_labels};
 use crate::modal_focus::use_modal_focus_scope;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -101,15 +102,19 @@ pub fn SheetContent(
   #[props(default)] class: String,
   #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default = DismissBehavior::dialog_default())] dismiss: DismissBehavior,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = sheet_content_class(side, &class);
+  let (labelledby, describedby) = use_dialog_labels().content_attributes(&attributes);
   let focus_scope = use_modal_focus_scope(open);
 
   rsx! {
     div {
       role: "dialog",
       class,
+      "aria-labelledby": labelledby,
+      "aria-describedby": describedby,
       hidden: !open,
       tabindex: "-1",
       "aria-modal": "true",
@@ -122,6 +127,7 @@ pub fn SheetContent(
           handler.call(false);
         }
       },
+      ..attributes,
       {children}
     }
   }
@@ -154,10 +160,12 @@ pub fn SheetFooter(#[props(default)] class: String, children: Element) -> Elemen
 #[component]
 pub fn SheetTitle(#[props(default)] class: String, children: Element) -> Element {
   let class = sheet_title_class(&class);
+  let id = use_dialog_label_part(DialogLabelPart::Title);
 
   rsx! {
     h2 {
       class,
+      id,
       {children}
     }
   }
@@ -166,10 +174,12 @@ pub fn SheetTitle(#[props(default)] class: String, children: Element) -> Element
 #[component]
 pub fn SheetDescription(#[props(default)] class: String, children: Element) -> Element {
   let class = sheet_description_class(&class);
+  let id = use_dialog_label_part(DialogLabelPart::Description);
 
   rsx! {
     p {
       class,
+      id,
       {children}
     }
   }

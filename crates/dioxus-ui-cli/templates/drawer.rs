@@ -1,7 +1,7 @@
 pub use super::utils::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
-use super::utils::{classes, use_modal_focus_scope};
+use super::utils::{classes, use_dialog_label_part, use_dialog_labels, use_modal_focus_scope, DialogLabelPart};
 use dioxus::prelude::*;
 
 pub const DRAWER_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";
@@ -69,15 +69,19 @@ pub fn DrawerContent(
   #[props(default)] class: String,
   #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default = DismissBehavior::dialog_default())] dismiss: DismissBehavior,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = drawer_content_class(&class);
+  let (labelledby, describedby) = use_dialog_labels().content_attributes(&attributes);
   let focus_scope = use_modal_focus_scope(open);
 
   rsx! {
     div {
       role: "dialog",
       class,
+      "aria-labelledby": labelledby,
+      "aria-describedby": describedby,
       hidden: !open,
       tabindex: "-1",
       "aria-modal": "true",
@@ -90,6 +94,7 @@ pub fn DrawerContent(
           handler.call(false);
         }
       },
+      ..attributes,
       {children}
     }
   }
@@ -122,10 +127,12 @@ pub fn DrawerFooter(#[props(default)] class: String, children: Element) -> Eleme
 #[component]
 pub fn DrawerTitle(#[props(default)] class: String, children: Element) -> Element {
   let class = drawer_title_class(&class);
+  let id = use_dialog_label_part(DialogLabelPart::Title);
 
   rsx! {
     h2 {
       class,
+      id,
       {children}
     }
   }
@@ -134,10 +141,12 @@ pub fn DrawerTitle(#[props(default)] class: String, children: Element) -> Elemen
 #[component]
 pub fn DrawerDescription(#[props(default)] class: String, children: Element) -> Element {
   let class = drawer_description_class(&class);
+  let id = use_dialog_label_part(DialogLabelPart::Description);
 
   rsx! {
     p {
       class,
+      id,
       {children}
     }
   }

@@ -89,7 +89,7 @@ const categoryLabels = new Map(catalogCategories.map((category) => [category.id,
 const cliRoot = "crates/dioxus-ui-cli";
 
 // Crate source files that are not public components.
-const internalCrateModules = new Set(["lib", "modal_focus", "anchored_overlay", "dismiss_timer", "listbox", "roving_group", "hover_open", "aria_label"]);
+const internalCrateModules = new Set(["lib", "modal_focus", "anchored_overlay", "dismiss_timer", "listbox", "roving_group", "hover_open", "aria_label", "dialog_labels"]);
 
 function namesFromFiles(repoRoot, dir, extension) {
   return readdirSync(join(repoRoot, dir))

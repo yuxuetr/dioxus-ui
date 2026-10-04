@@ -57,3 +57,10 @@ and Alert Dialog.
 
 Content uses `role="dialog"` and `aria-modal="true"`. Portal mounting,
 touch gestures, and drag-to-dismiss behavior are deferred.
+
+`DrawerContent` takes its name from a `DrawerTitle` inside it and its description from a
+`DrawerDescription`: the parts get generated ids, and the content points
+`aria-labelledby` and `aria-describedby` at the ones that are mounted. A
+passed `aria-label`, `aria-labelledby`, or `aria-describedby` on `DrawerContent`
+replaces the generated value, so give a title-less one an `aria-label` (see
+[RFC 0039](../rfcs/0039-dialog-names.md)).

@@ -79,6 +79,15 @@ pub mod dialog;
 mod modal_focus;
 
 #[cfg(any(
+  feature = "alert-dialog",
+  feature = "dialog",
+  feature = "drawer",
+  feature = "popover",
+  feature = "sheet"
+))]
+mod dialog_labels;
+
+#[cfg(any(
   feature = "combobox",
   feature = "context-menu",
   feature = "date-picker",
