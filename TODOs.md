@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M142 Desktop Interaction Verification
-- Current task: M142.2 Implement the Desktop self-test
+- Current task: M142.3 Reverse-verify the Desktop self-test
 
 ## Backup
 
@@ -2555,7 +2555,7 @@
   - Define an in-app self-test: the Desktop preview runs a scenario script in its own WebView when an environment variable is set, reports results through `document::eval`, and exits with a status code; synthetic events cover script and Rust handler behavior but not native default actions.
   - Record what stays out of scope (Mobile, native key defaults such as Tab movement, CI activation) with reevaluation conditions.
 
-- TODO M142.2 Implement the Desktop self-test
+- DONE M142.2 Implement the Desktop self-test
   - Add the self-test component to the Desktop preview and a scenario script covering each interaction path: modal focus scope, anchored overlay, listbox, menu mode, dismiss timer, calendar focus following, Menubar, and Navigation Menu.
   - Add `npm run verify:desktop-interactions`, which builds and runs the self-test with a timeout and reports the result.
 
