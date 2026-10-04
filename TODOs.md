@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M153 Switch And Checkbox Change Events
-- Current task: M153.1
+- Current task: M153.2
 
 ## Backup
 
@@ -2770,7 +2770,7 @@
 
 ## M153 Switch And Checkbox Change Events
 
-- TODO M153.1 Design switch and checkbox change events
+- DONE M153.1 Design switch and checkbox change events
   - Record that `Switch` and `Checkbox` take a `checked` prop but expose no change callback, so clicking a Switch does nothing, and that neither accepts `id`, `name`, or `aria-*` attributes, so a `Label` cannot name them and the accessibility table still lists Switch as Planned.
   - Define `on_checked_change: Option<EventHandler<bool>>`, called with the requested state on click, Space, or a label click; spread global and element attributes through `#[props(extends = ...)]` so apps can pass `id`, `name`, and `aria-*`; render `data-state` on Switch.
   - Record what stays out of scope (an indeterminate checkbox, a hidden form input for Switch, the same change for Button, Toggle, Input, and Textarea, Desktop and Mobile self-test scenarios) with reevaluation conditions.
