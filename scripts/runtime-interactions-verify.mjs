@@ -389,6 +389,69 @@ async function runBrowserAssertions() {
     await expect(selectContent).toBeHidden();
     await expect(select).toHaveAttribute("data-value", "apple");
 
+    const command = page.locator('[data-interaction-target="command"]');
+    const commandInput = command.getByRole("combobox");
+    const commandList = command.getByRole("listbox");
+    const commandItem = (name) => command.getByRole("option", { name, exact: true });
+    const expectCommandHighlight = async (name) => {
+      const id = await commandItem(name).getAttribute("id");
+      await expect(commandInput).toHaveAttribute("aria-activedescendant", id);
+      await expect(commandItem(name)).toHaveAttribute("data-highlighted", "");
+    };
+    await commandInput.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(commandList).toHaveAttribute("id", /./);
+    await expect(commandInput).toHaveAttribute("aria-controls", (await commandList.getAttribute("id")) ?? "");
+    // The first option starts highlighted.
+    await expectCommandHighlight("Calendar");
+    await commandInput.focus();
+    // Arrows skip the disabled item and stop at the ends.
+    await page.keyboard.press("ArrowDown");
+    await expectCommandHighlight("Search Emoji");
+    await page.keyboard.press("ArrowDown");
+    await expectCommandHighlight("Profile");
+    await page.keyboard.press("End");
+    await expectCommandHighlight("Settings");
+    await page.keyboard.press("ArrowDown");
+    await expectCommandHighlight("Settings");
+    await page.keyboard.press("Home");
+    await expectCommandHighlight("Calendar");
+    await page.keyboard.press("ArrowUp");
+    await expectCommandHighlight("Calendar");
+    // Typing reaches the input, and a query change goes back to the first
+    // match even when the highlighted option still matches.
+    await page.keyboard.press("End");
+    await expectCommandHighlight("Settings");
+    await page.keyboard.type("se ");
+    await expect(commandInput).toHaveValue("se ");
+    await expect(commandItem("Calendar")).toHaveCount(0);
+    await expectCommandHighlight("Search Emoji");
+    await commandInput.fill("set");
+    await expect(commandItem("Search Emoji")).toHaveCount(0);
+    await expectCommandHighlight("Settings");
+    await page.keyboard.press("Enter");
+    await expect(command).toHaveAttribute("data-result", "settings");
+    await expect(commandInput).toBeFocused();
+    // Widening the query also goes back to the first match.
+    await page.keyboard.press("Backspace");
+    await expect(commandInput).toHaveValue("se");
+    await expectCommandHighlight("Search Emoji");
+    // Nothing matches: no highlight, and Enter chooses nothing.
+    await commandInput.fill("zzz");
+    await expect(command.getByText("No results found.")).toBeVisible();
+    await expect(commandInput).not.toHaveAttribute("aria-activedescendant", /./);
+    await page.keyboard.press("Enter");
+    await expect(command).toHaveAttribute("data-result", "settings");
+    // The pointer highlights, and a click chooses while focus stays put.
+    await commandInput.fill("");
+    await expectCommandHighlight("Calendar");
+    await commandItem("Billing").hover();
+    await expectCommandHighlight("Billing");
+    await commandItem("Profile").click();
+    await expect(command).toHaveAttribute("data-result", "profile");
+    await expect(commandInput).toBeFocused();
+    await commandItem("Calculator").click({ force: true });
+    await expect(command).toHaveAttribute("data-result", "profile");
+
     const combobox = page.locator('[data-interaction-target="combobox"]');
     const comboboxInput = page.locator("#interaction-combobox-input");
     const comboboxContent = combobox.locator('[role="listbox"]');
@@ -1173,7 +1236,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (22 fixtures)");
+  console.log("runtime interaction verification passed (23 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

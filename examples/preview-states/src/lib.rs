@@ -5,7 +5,8 @@ use dioxus_ui::{
   Accordion, AccordionContent, AccordionItem, AccordionTrigger, Calendar, CalendarBody,
   CalendarCaption, CalendarDate, CalendarDay, CalendarGrid, CalendarHeader, CalendarMonth,
   CalendarNav, CalendarNavButton, CalendarNavDirection, CalendarRow, CalendarWeekday,
-  ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList, ContextMenuCheckboxItem,
+  ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList, Command, CommandEmpty, CommandGroup,
+  CommandInput, CommandItem, CommandLabel, CommandList, ContextMenuCheckboxItem,
   ContextMenuContent, ContextMenuItem, DatePickerContent, DatePickerTrigger, DatePickerValue,
   DropdownContent, DropdownItem, DropdownSeparator, HoverCard, HoverCardContent,
   HoverCardDescription, HoverCardHeader, HoverCardTitle, HoverCardTrigger, Menubar, MenubarContent,
@@ -15,8 +16,8 @@ use dioxus_ui::{
   SelectValue, SonnerClose, SonnerContent, SonnerTitle, SonnerToast, SonnerVariant, SonnerViewport,
   Tabs, TabsContent, TabsList, TabsTrigger, ToastAction, ToastClose, ToastRoot, ToastTitle,
   ToastViewport, ToggleGroup, ToggleGroupItem, accordion_single_open, calendar_month_grid,
-  calendar_move_date, sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute,
-  toggle_group_single_selection,
+  calendar_move_date, command_matches, sonner_dismiss_reason_attribute,
+  toast_dismiss_reason_attribute, toggle_group_single_selection,
 };
 use dioxus_ui::{
   AlertDialogAction, AlertDialogActionVariant, AlertDialogCancel, AlertDialogContent,
@@ -227,7 +228,7 @@ pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
     panel: "actions",
     test_id: "component-preview-command",
     coverage_level: "controlled",
-    notes: "Controlled rendered state target; mutations remain app-owned.",
+    notes: "Controlled state target; keyboard highlight, filtering resets, and choices are browser-verified in the interaction panel.",
   },
   ComponentPreviewTarget {
     component: "context-menu",
@@ -702,6 +703,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut combobox_open = use_signal(|| false);
   let mut combobox_query = use_signal(String::new);
   let mut combobox_value = use_signal(|| "none".to_string());
+  let mut command_query = use_signal(String::new);
+  let mut command_result = use_signal(|| "none".to_string());
   let mut dropdown_open = use_signal(|| false);
   let mut dropdown_action = use_signal(|| "none");
   let mut menubar_active = use_signal(|| None::<&'static str>);
@@ -1127,6 +1130,48 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                   selected: select_value() == *value,
                   disabled: *disabled,
                   "{label}"
+                }
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "command",
+            "data-result": "{command_result}",
+            h2 { class: "text-sm font-medium", "Command interaction" }
+            Command {
+              class: "mt-3 border border-zinc-200",
+              on_select: move |value: String| command_result.set(value),
+              CommandInput {
+                value: command_query(),
+                placeholder: "Type a command...",
+                oninput: move |event: FormEvent| command_query.set(event.value()),
+              }
+              CommandList {
+                if !INTERACTION_COMMANDS.iter().any(|(_, _, label, _)| command_matches(label, &command_query())) {
+                  CommandEmpty { "No results found." }
+                }
+                for group in ["Suggestions", "Settings"] {
+                  if INTERACTION_COMMANDS
+                    .iter()
+                    .any(|(item_group, _, label, _)| *item_group == group && command_matches(label, &command_query()))
+                  {
+                    CommandGroup { key: "{group}",
+                      CommandLabel { "{group}" }
+                      for (_, value, label, disabled) in INTERACTION_COMMANDS
+                        .iter()
+                        .filter(|(item_group, _, label, _)| *item_group == group && command_matches(label, &command_query()))
+                      {
+                        CommandItem {
+                          key: "{value}",
+                          id: "interaction-command-item-{value}",
+                          value: *value,
+                          disabled: *disabled,
+                          "{label}"
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -1857,6 +1902,16 @@ impl PreviewConfig {
     }
   }
 }
+
+// (group, value, label, disabled)
+const INTERACTION_COMMANDS: [(&str, &str, &str, bool); 6] = [
+  ("Suggestions", "calendar", "Calendar", false),
+  ("Suggestions", "emoji", "Search Emoji", false),
+  ("Suggestions", "calculator", "Calculator", true),
+  ("Settings", "profile", "Profile", false),
+  ("Settings", "billing", "Billing", false),
+  ("Settings", "settings", "Settings", false),
+];
 
 const INTERACTION_FRUITS: &[(&str, &str, bool)] = &[
   ("apple", "Apple", false),

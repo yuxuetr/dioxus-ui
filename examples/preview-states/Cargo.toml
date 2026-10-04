@@ -8,5 +8,5 @@ publish = false
 
 [dependencies]
 dioxus = { workspace = true }
-dioxus-ui = { workspace = true, features = ["accordion", "alert-dialog", "attachment", "bubble", "button", "button-group", "calendar", "chart", "collapsible", "combobox", "context-menu", "date-picker", "dialog", "direction", "dropdown", "hover-card", "input-group", "menubar", "input-otp", "marker", "message", "message-scroller", "navigation-menu", "popover", "radio-group", "select", "sonner", "tabs", "toast", "toggle-group", "tooltip"] }
+dioxus-ui = { workspace = true, features = ["accordion", "alert-dialog", "attachment", "bubble", "button", "button-group", "calendar", "chart", "collapsible", "combobox", "command", "context-menu", "date-picker", "dialog", "direction", "dropdown", "hover-card", "input-group", "menubar", "input-otp", "marker", "message", "message-scroller", "navigation-menu", "popover", "radio-group", "select", "sonner", "tabs", "toast", "toggle-group", "tooltip"] }
 serde_json = { workspace = true }
