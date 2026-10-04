@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 20%
 - Current milestone: M138 Date Picker and Calendar Keyboard Behavior
-- Current task: M138.1
+- Current task: M138.2
 
 ## Backup
 
@@ -2462,7 +2462,7 @@
 
 ## M138 Date Picker and Calendar Keyboard Behavior
 
-- TODO M138.1 Design date picker and calendar keyboard behavior
+- DONE M138.1 Design date picker and calendar keyboard behavior
   - Record that Calendar parts have no click, keyboard, or focus handling, that Date Picker content has no anchor, focus entry, or dismissal, and that RFC 0010 deferred Date Picker until Popover placement was verified.
   - Define the additive API (`CalendarDay` `focused`, `on_select`, `on_key_move`, `CalendarNavButton` `onclick`, `calendar_key_move`, Date Picker trigger `id` and `on_open_change`, content anchoring and dismissal props), roving tabindex with DOM focus following `focused`, and focus entry on the focused day.
   - Record what stays app-owned (visible month, date math in source-copy mode, text parsing, range selection) with reevaluation conditions.
