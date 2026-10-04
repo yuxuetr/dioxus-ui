@@ -26,7 +26,40 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["dialog"] }
 - `dialog_overlay_class`
 - `dialog_content_class`
 
+## Behavior
+
+`open` stays controlled by the app. Pass the same `on_open_change` handler to
+`DialogOverlay`, `DialogContent`, and `DialogClose` to receive close requests:
+
+```rust
+let mut open = use_signal(|| false);
+
+rsx! {
+  DialogOverlay { open: open(), on_open_change: move |next| open.set(next) }
+  DialogContent {
+    open: open(),
+    on_open_change: move |next| open.set(next),
+    DialogTitle { "Rename project" }
+    DialogClose { on_open_change: move |next| open.set(next), "Cancel" }
+  }
+}
+```
+
+- Escape on the content requests close when `dismiss.escape_key` is set.
+- A click on the overlay requests close when `dismiss.outside_pointer` is set.
+  The default `DismissBehavior::dialog_default()` leaves it off.
+- `DialogClose` always requests close.
+- Opening focuses the first focusable element, or the content itself.
+- Tab and Shift+Tab wrap inside the content while it is open.
+- Closing, or removing the content from the tree, restores focus to the element
+  that was focused before opening.
+
+Focus handling runs through `document::eval`, so it works in the Web, Desktop,
+and Mobile renderers. Only the Web renderer is covered by
+`npm run verify:runtime-interactions`.
+
 ## Accessibility Notes
 
-Dialogs should trap focus, restore focus on close, expose a title, and dismiss
-according to the configured escape-key and outside-interaction behavior.
+Dialogs trap focus, restore focus on close, and dismiss according to the
+configured escape-key and outside-interaction behavior. Always render a
+`DialogTitle`.

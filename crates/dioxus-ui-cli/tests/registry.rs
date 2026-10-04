@@ -182,6 +182,29 @@ fn generated_templates_do_not_import_internal_crates() {
 }
 
 #[test]
+fn template_overlay_scripts_match_crate_scripts() {
+  let crate_source =
+    fs::read_to_string(workspace_root().join("crates/dioxus-ui/src/overlay_behavior.rs"))
+      .expect("overlay behavior source should be readable");
+  let template_source = fs::read_to_string(cli_root().join("templates/utils.rs"))
+    .expect("utils template should be readable");
+
+  let name = "MODAL_FOCUS_SCOPE_SCRIPT";
+  assert_eq!(
+    raw_string_const(&template_source, name),
+    raw_string_const(&crate_source, name),
+    "templates/utils.rs {name} should match crates/dioxus-ui/src/overlay_behavior.rs"
+  );
+}
+
+fn raw_string_const<'a>(source: &'a str, name: &str) -> &'a str {
+  let marker = format!("{name}: &str = r#\"");
+  let start = source.find(&marker).unwrap_or_else(|| panic!("missing {name}")) + marker.len();
+  let length = source[start..].find("\"#;").unwrap_or_else(|| panic!("unterminated {name}"));
+  &source[start..start + length]
+}
+
+#[test]
 fn feature_check_script_covers_public_registry_features() {
   let root = workspace_root();
   let components = load_registry_components();

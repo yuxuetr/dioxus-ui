@@ -88,6 +88,9 @@ const categoryLabels = new Map(catalogCategories.map((category) => [category.id,
 // paths are relative to it.
 const cliRoot = "crates/dioxus-ui-cli";
 
+// Crate source files that are not public components.
+const internalCrateModules = new Set(["lib", "overlay_behavior"]);
+
 function namesFromFiles(repoRoot, dir, extension) {
   return readdirSync(join(repoRoot, dir))
     .filter((file) => file.endsWith(extension))
@@ -195,7 +198,7 @@ export function buildDocsCatalog(options = {}) {
     .filter((name) => name !== "schema");
   const templateNames = namesFromFiles(repoRoot, `${cliRoot}/templates`, ".rs").map(normalize);
   const crateModuleNames = namesFromFiles(repoRoot, "crates/dioxus-ui/src", ".rs")
-    .filter((name) => name !== "lib")
+    .filter((name) => !internalCrateModules.has(name))
     .map(normalize);
   const docsNames = namesFromFiles(repoRoot, "docs/components", ".md");
   const featureNames = parseCargoFeatures(repoRoot);

@@ -38,7 +38,7 @@ Source preview routes: 64
 | [Context Menu](context-menu.md) | /components/context-menu/source | crates/dioxus-ui-cli/templates/context_menu.rs | src/components/ui/context_menu.rs | rust | 197 | 4963 |
 | [Data Table](data-table.md) | /components/data-table/source | crates/dioxus-ui-cli/templates/data_table.rs | src/components/ui/data_table.rs | rust | 345 | 8740 |
 | [Date Picker](date-picker.md) | /components/date-picker/source | crates/dioxus-ui-cli/templates/date_picker.rs | src/components/ui/date_picker.rs | rust | 114 | 3315 |
-| [Dialog](dialog.md) | /components/dialog/source | crates/dioxus-ui-cli/templates/dialog.rs | src/components/ui/dialog.rs | rust | 110 | 2840 |
+| [Dialog](dialog.md) | /components/dialog/source | crates/dioxus-ui-cli/templates/dialog.rs | src/components/ui/dialog.rs | rust | 137 | 4085 |
 | [Direction](direction.md) | /components/direction/source | crates/dioxus-ui-cli/templates/direction.rs | src/components/ui/direction.rs | rust | 43 | 787 |
 | [Drawer](drawer.md) | /components/drawer/source | crates/dioxus-ui-cli/templates/drawer.rs | src/components/ui/drawer.rs | rust | 145 | 3647 |
 | [Dropdown](dropdown.md) | /components/dropdown/source | crates/dioxus-ui-cli/templates/dropdown.rs | src/components/ui/dropdown.rs | rust | 111 | 2831 |

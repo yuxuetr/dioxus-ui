@@ -265,6 +265,40 @@ async function runBrowserAssertions() {
     await scrollJump.click();
     await expect(scrollStatus).toHaveAttribute("data-state", "jumped");
     await expect(scrollStatusText).toContainText("jumped");
+
+    const dialog = page.locator('[data-interaction-target="dialog"]');
+    const dialogTrigger = page.locator('[data-interaction-control="dialog-trigger"]');
+    const dialogContent = page.locator('[data-interaction-target="dialog"] [role="dialog"]');
+    const dialogInput = page.locator('[data-interaction-control="dialog-input"]');
+    const dialogClose = dialogContent.getByRole("button", { name: "Cancel" });
+    // The preview serves uncompiled Tailwind input, so the overlay has no
+    // `fixed inset-0` box to hit; dispatch the click on the element instead.
+    const dialogOverlay = page.locator('[data-interaction-target="dialog"] > [data-state]:not([role])');
+    await expect(dialog).toHaveAttribute("data-state", "closed");
+    await expect(dialogContent).toBeHidden();
+    await dialogTrigger.click();
+    await expect(dialogContent).toBeVisible();
+    await expect(dialogInput).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(dialogClose).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(dialogInput).toBeFocused();
+    await page.keyboard.press("Shift+Tab");
+    await expect(dialogClose).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(dialog).toHaveAttribute("data-state", "closed");
+    await expect(dialogContent).toBeHidden();
+    await expect(dialogTrigger).toBeFocused();
+    await dialogTrigger.click();
+    await expect(dialogInput).toBeFocused();
+    await dialogOverlay.dispatchEvent("click");
+    await expect(dialogContent).toBeHidden();
+    await expect(dialogTrigger).toBeFocused();
+    await dialogTrigger.click();
+    await expect(dialogContent).toBeVisible();
+    await dialogClose.click();
+    await expect(dialogContent).toBeHidden();
+    await expect(dialogTrigger).toBeFocused();
   } finally {
     await browser.close();
   }
@@ -275,7 +309,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (5 fixtures)");
+  console.log("runtime interaction verification passed (6 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

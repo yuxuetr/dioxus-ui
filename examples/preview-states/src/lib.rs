@@ -2,6 +2,7 @@ use dioxus::prelude::*;
 use dioxus_ui::{
   AttachmentOrientation, AttachmentSize, AttachmentState, BubbleAlign, ButtonGroupOrientation,
   ButtonSize, ButtonVariant, ChartColorToken, ChartDomain, ChartPoint, ChartScale, ChartSeries,
+  DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogTitle, DismissBehavior,
   MarkerVariant, MessageAlign, MessageScrollerIntent, MessageScrollerMetrics, TextDirection,
   UiDensity, attachment_class, bubble_class, button_class, button_group_class, chart_area_path,
   chart_area_series_class, chart_bar_rects, chart_bar_series_class, chart_class,
@@ -668,6 +669,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut selected_option = use_signal(|| "alpha");
   let mut command_active = use_signal(|| "open-file");
   let mut scroll_status = use_signal(|| "held");
+  let mut dialog_open = use_signal(|| false);
   let root = match target {
     PreviewTarget::Web => "web",
     PreviewTarget::Desktop => "desktop",
@@ -1011,6 +1013,39 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               "data-interaction-control": "scroll-jump",
               onclick: move |_| scroll_status.set("jumped"),
               "Jump to latest"
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "dialog",
+            "data-state": if dialog_open() { "open" } else { "closed" },
+            h2 { class: "text-sm font-medium", "Dialog interaction" }
+            button {
+              class: "{secondary_button_class} mt-3",
+              "data-interaction-control": "dialog-trigger",
+              onclick: move |_| dialog_open.set(true),
+              "Open dialog"
+            }
+            DialogOverlay {
+              open: dialog_open(),
+              on_open_change: move |open| dialog_open.set(open),
+              dismiss: DismissBehavior { outside_pointer: true, ..DismissBehavior::dialog_default() },
+            }
+            DialogContent {
+              open: dialog_open(),
+              on_open_change: move |open| dialog_open.set(open),
+              DialogTitle { "Rename project" }
+              DialogDescription { "Focus stays inside until the dialog closes." }
+              input {
+                class: "rounded-md border border-zinc-200 px-2 py-1 text-sm",
+                "aria-label": "Project name",
+                "data-interaction-control": "dialog-input",
+              }
+              DialogClose {
+                class: "{secondary_button_class}",
+                on_open_change: move |open| dialog_open.set(open),
+                "Cancel"
+              }
             }
           }
         }

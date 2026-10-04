@@ -2296,7 +2296,9 @@ npm run verify:runtime-interactions
 The command starts the Web preview, opens it in Playwright Chromium or an
 explicit `DIOXUS_UI_BROWSER_EXECUTABLE`, and checks focused
 `data-interaction-*` fixture targets for disclosure, overlay, selection,
-keyboard-visible state, and scroll-status behavior.
+keyboard-visible state, and scroll-status behavior, plus the real Dialog
+component: Escape, overlay click, close, initial focus, Tab wrap, and focus
+restore.
 
 It is not part of `npm run verify` or `npm run verify:release`. It does not
 write screenshots or traces, certify full accessibility, verify native Desktop

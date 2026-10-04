@@ -69,6 +69,9 @@ pub mod date_picker;
 #[cfg(feature = "dialog")]
 pub mod dialog;
 
+#[cfg(feature = "dialog")]
+mod overlay_behavior;
+
 #[cfg(feature = "direction")]
 pub mod direction;
 

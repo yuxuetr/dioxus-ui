@@ -8,4 +8,4 @@ publish = false
 
 [dependencies]
 dioxus = { workspace = true }
-dioxus-ui = { workspace = true, features = ["attachment", "bubble", "button", "button-group", "chart", "collapsible", "direction", "input-group", "input-otp", "marker", "message", "message-scroller"] }
+dioxus-ui = { workspace = true, features = ["attachment", "bubble", "button", "button-group", "chart", "collapsible", "dialog", "direction", "input-group", "input-otp", "marker", "message", "message-scroller"] }
