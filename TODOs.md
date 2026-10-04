@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M155 Slider Keyboard And Pointer Input
+- Current task: M155.1
 
 ## Backup
 
@@ -2804,6 +2804,26 @@
   - Reverse-verify that the script fails when a callback is removed, when attributes are not spread, or when Toggle sends the current state instead of the requested one.
 
 - DONE M154.4 Complete events milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M155 Slider Keyboard And Pointer Input
+
+- TODO M155.1 Design slider keyboard and pointer input
+  - Record that `Slider` renders a focusable `role="slider"` with value attributes but handles no key or pointer event and exposes no callback, that `SliderState::moved` and `SliderKeyMove` exist in the primitives crate without a caller, and that the template's `SliderState` lacks key movement.
+  - Define `on_value_change: Option<EventHandler<f64>>`; Arrow keys, Page Up, Page Down, Home, and End move through `SliderState::moved` in Rust and prevent page scrolling; a page script turns a pointer press and drag on the root into a snapped value; attributes such as `aria-label` and `aria-valuetext` pass through; a disabled slider ignores both.
+  - Record what stays out of scope (right-to-left and vertical sliders, multiple thumbs, Desktop and Mobile self-test scenarios) with reevaluation conditions.
+
+- TODO M155.2 Implement slider keyboard and pointer input
+  - Add a key-to-move mapping with unit tests, the callback, the pointer script, and attribute spreading to the crate sources and templates, keeping the template script identical through the CLI parity test.
+  - Update the Slider docs page.
+
+- TODO M155.3 Verify slider input in a real browser
+  - Render a labelled Slider in the Web preview and extend `npm run verify:runtime-interactions` to assert each key's movement and clamping at the ends, that keys do not scroll the page, that a pointer press and drag set snapped values, and that a disabled slider does not change.
+  - Reverse-verify that the script fails when the key mapping swaps directions, when Page keys use the single step, when the pointer script is not started, or when the disabled guard is removed.
+
+- TODO M155.4 Complete slider milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
