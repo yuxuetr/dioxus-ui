@@ -200,6 +200,7 @@ format!("bg-{}-500", color)
 - [RFC 0015: Menubar Keyboard Behavior](docs/rfcs/0015-menubar-keyboard-behavior.md)
 - [RFC 0016: Navigation Menu Interaction Behavior](docs/rfcs/0016-navigation-menu-interaction.md)
 - [RFC 0017: Desktop Interaction Verification](docs/rfcs/0017-desktop-interaction-verification.md)
+- [RFC 0018: Mobile Interaction Verification](docs/rfcs/0018-mobile-interaction-verification.md)
 
 ## Verification Shortcuts
 

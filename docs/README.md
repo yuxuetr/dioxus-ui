@@ -84,7 +84,8 @@ Read in this order:
 78. [RFC 0015: Menubar Keyboard Behavior](rfcs/0015-menubar-keyboard-behavior.md)
 79. [RFC 0016: Navigation Menu Interaction Behavior](rfcs/0016-navigation-menu-interaction.md)
 80. [RFC 0017: Desktop Interaction Verification](rfcs/0017-desktop-interaction-verification.md)
-81. [TODO Plan](../TODOs.md)
+81. [RFC 0018: Mobile Interaction Verification](rfcs/0018-mobile-interaction-verification.md)
+82. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
