@@ -21,10 +21,11 @@ use dioxus_ui::{
   CalendarMonth, CalendarNav, CalendarNavButton, CalendarNavDirection, CalendarRow,
   CalendarWeekday, ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList,
   ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, DatePickerContent,
-  DatePickerTrigger, DatePickerValue, DropdownContent, DropdownItem, DropdownSeparator,
-  SelectContent, SelectItem, SelectTrigger, SelectValue, SonnerClose, SonnerContent, SonnerTitle,
-  SonnerToast, SonnerVariant, SonnerViewport, ToastAction, ToastClose, ToastRoot, ToastTitle,
-  ToastViewport, calendar_month_grid, calendar_move_date, sonner_dismiss_reason_attribute,
+  DatePickerTrigger, DatePickerValue, DropdownContent, DropdownItem, DropdownSeparator, Menubar,
+  MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger, SelectContent, SelectItem,
+  SelectTrigger, SelectValue, SonnerClose, SonnerContent, SonnerTitle, SonnerToast, SonnerVariant,
+  SonnerViewport, ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport,
+  calendar_month_grid, calendar_move_date, sonner_dismiss_reason_attribute,
   toast_dismiss_reason_attribute,
 };
 
@@ -693,6 +694,9 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut combobox_value = use_signal(|| "none".to_string());
   let mut dropdown_open = use_signal(|| false);
   let mut dropdown_action = use_signal(|| "none");
+  let mut menubar_active = use_signal(|| None::<&'static str>);
+  let mut menubar_action = use_signal(|| "none");
+  let menubar_open = move |value: &str| menubar_active() == Some(value);
   let mut context_open = use_signal(|| false);
   let mut context_point = use_signal(|| (0.0, 0.0));
   let mut context_bookmarked = use_signal(|| false);
@@ -1246,6 +1250,71 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 destructive: true,
                 onclick: move |_| dropdown_action.set("delete"),
                 "Delete"
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "menubar",
+            "data-action": "{menubar_action}",
+            h2 { class: "text-sm font-medium", "Menubar interaction" }
+            Menubar {
+              class: "mt-3",
+              on_value_change: move |value: String| {
+                let menus = ["file", "edit", "view"];
+                menubar_active.set(menus.into_iter().find(|menu| *menu == value));
+              },
+              MenubarMenu {
+                value: "file",
+                MenubarTrigger {
+                  id: "interaction-menubar-file",
+                  open: menubar_open("file"),
+                  on_open_change: move |open: bool| menubar_active.set(open.then_some("file")),
+                  "File"
+                }
+                MenubarContent {
+                  open: menubar_open("file"),
+                  anchor_id: "interaction-menubar-file",
+                  on_open_change: move |_| menubar_active.set(None),
+                  MenubarItem { onclick: move |_| menubar_action.set("new"), "New" }
+                  MenubarItem { onclick: move |_| menubar_action.set("open"), "Open" }
+                }
+              }
+              MenubarMenu {
+                value: "edit",
+                MenubarTrigger {
+                  id: "interaction-menubar-edit",
+                  open: menubar_open("edit"),
+                  on_open_change: move |open: bool| menubar_active.set(open.then_some("edit")),
+                  "Edit"
+                }
+                MenubarContent {
+                  open: menubar_open("edit"),
+                  anchor_id: "interaction-menubar-edit",
+                  on_open_change: move |_| menubar_active.set(None),
+                  MenubarItem { onclick: move |_| menubar_action.set("undo"), "Undo" }
+                  MenubarItem { onclick: move |_| menubar_action.set("redo"), "Redo" }
+                }
+              }
+              MenubarMenu {
+                value: "help",
+                MenubarTrigger { id: "interaction-menubar-help", disabled: true, "Help" }
+              }
+              MenubarMenu {
+                value: "view",
+                MenubarTrigger {
+                  id: "interaction-menubar-view",
+                  open: menubar_open("view"),
+                  on_open_change: move |open: bool| menubar_active.set(open.then_some("view")),
+                  "View"
+                }
+                MenubarContent {
+                  open: menubar_open("view"),
+                  anchor_id: "interaction-menubar-view",
+                  on_open_change: move |_| menubar_active.set(None),
+                  MenubarItem { onclick: move |_| menubar_action.set("zoom-in"), "Zoom in" }
+                  MenubarItem { onclick: move |_| menubar_action.set("zoom-out"), "Zoom out" }
+                }
               }
             }
           }

@@ -584,6 +584,87 @@ async function runBrowserAssertions() {
     await expect(dropdown).toHaveAttribute("data-action", "edit");
     await expect(dropdownTrigger).toBeFocused();
 
+    const menubar = page.locator('[data-interaction-target="menubar"]');
+    const menubarTrigger = (value) => page.locator(`#interaction-menubar-${value}`);
+    const menubarMenu = (value) => menubar.locator(`[data-value="${value}"] [role="menu"]`);
+    const menubarItem = (value, name) => menubarMenu(value).getByRole("menuitem", { name, exact: true });
+    // Same readiness signal as expectAnchoredReady, for one menu of several.
+    const expectMenubarOpen = async (value) => {
+      await expect(menubarMenu(value)).toHaveCSS("position", "fixed");
+      for (const other of ["file", "edit", "view"].filter((menu) => menu !== value)) {
+        await expect(menubarMenu(other)).toBeHidden();
+      }
+    };
+    const expectMenubarClosed = async () => {
+      for (const menu of ["file", "edit", "view"]) await expect(menubarMenu(menu)).toBeHidden();
+    };
+    await menubarTrigger("file").evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expectMenubarClosed();
+    await expect(menubarTrigger("file")).toHaveAttribute("tabindex", "0");
+    await expect(menubarTrigger("edit")).toHaveAttribute("tabindex", "-1");
+    await expect(menubarTrigger("view")).toHaveAttribute("tabindex", "-1");
+    await menubarTrigger("file").focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(menubarTrigger("edit")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(menubarTrigger("view")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(menubarTrigger("file")).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expect(menubarTrigger("view")).toBeFocused();
+    await expect(menubarTrigger("view")).toHaveAttribute("tabindex", "0");
+    await expect(menubarTrigger("file")).toHaveAttribute("tabindex", "-1");
+    await page.keyboard.press("Home");
+    await expect(menubarTrigger("file")).toBeFocused();
+    await page.keyboard.press("End");
+    await expect(menubarTrigger("view")).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expect(menubarTrigger("edit")).toBeFocused();
+    await expectMenubarClosed();
+    await page.keyboard.press("ArrowDown");
+    await expectMenubarOpen("edit");
+    await expect(menubarItem("edit", "Undo")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expectMenubarOpen("view");
+    await expect(menubarItem("view", "Zoom in")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expectMenubarOpen("file");
+    await expect(menubarItem("file", "New")).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expectMenubarOpen("view");
+    await page.keyboard.press("Escape");
+    await expectMenubarClosed();
+    await expect(menubarTrigger("view")).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expectMenubarOpen("view");
+    await expect(menubarItem("view", "Zoom in")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("Enter");
+    await expectMenubarClosed();
+    await expect(menubar).toHaveAttribute("data-action", "zoom-out");
+    await expect(menubarTrigger("view")).toBeFocused();
+    await menubarTrigger("file").hover();
+    // Hovering switches menus only while one is open.
+    await page.waitForTimeout(300);
+    await expectMenubarClosed();
+    await menubarTrigger("file").click();
+    await expectMenubarOpen("file");
+    await menubarTrigger("edit").hover();
+    await expectMenubarOpen("edit");
+    await menubarItem("edit", "Redo").click();
+    await expectMenubarClosed();
+    await expect(menubar).toHaveAttribute("data-action", "redo");
+    await expect(menubarTrigger("edit")).toBeFocused();
+    await menubarTrigger("file").click();
+    await expectMenubarOpen("file");
+    await menubarTrigger("file").click();
+    await expectMenubarClosed();
+    await menubarTrigger("file").click();
+    await expectMenubarOpen("file");
+    await page.keyboard.press("Tab");
+    await expectMenubarClosed();
+    await expect(menubar.locator(":focus")).toHaveCount(0);
+
     const contextMenu = page.locator('[data-interaction-target="context-menu"]');
     const contextArea = page.locator('[data-interaction-control="context-area"]');
     const contextContent = contextMenu.locator('[role="menu"]');
@@ -765,7 +846,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (16 fixtures)");
+  console.log("runtime interaction verification passed (17 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
