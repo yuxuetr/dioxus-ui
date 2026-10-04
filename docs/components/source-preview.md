@@ -68,7 +68,7 @@ Source preview routes: 64
 | [Sheet](sheet.md) | /components/sheet/source | crates/dioxus-ui-cli/templates/sheet.rs | src/components/ui/sheet.rs | rust | 198 | 5322 |
 | [Sidebar](sidebar.md) | /components/sidebar/source | crates/dioxus-ui-cli/templates/sidebar.rs | src/components/ui/sidebar.rs | rust | 207 | 5625 |
 | [Skeleton](skeleton.md) | /components/skeleton/source | crates/dioxus-ui-cli/templates/skeleton.rs | src/components/ui/skeleton.rs | rust | 21 | 420 |
-| [Slider](slider.md) | /components/slider/source | crates/dioxus-ui-cli/templates/slider.rs | src/components/ui/slider.rs | rust | 195 | 5108 |
+| [Slider](slider.md) | /components/slider/source | crates/dioxus-ui-cli/templates/slider.rs | src/components/ui/slider.rs | rust | 363 | 11211 |
 | [Sonner](sonner.md) | /components/sonner/source | crates/dioxus-ui-cli/templates/sonner.rs | src/components/ui/sonner.rs | rust | 429 | 11791 |
 | [Spinner](spinner.md) | /components/spinner/source | crates/dioxus-ui-cli/templates/spinner.rs | src/components/ui/spinner.rs | rust | 45 | 958 |
 | [Switch](switch.md) | /components/switch/source | crates/dioxus-ui-cli/templates/switch.rs | src/components/ui/switch.rs | rust | 73 | 2168 |

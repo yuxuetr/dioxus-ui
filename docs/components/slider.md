@@ -21,14 +21,50 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["slider"] }
 - `SliderState`
 - `SliderKeyMove`
 - `slider_state`
+- `slider_key_move`
 - `slider_percent`
 - `slider_range_style`
 - `slider_thumb_style`
 - `slider_aria_attributes`
 
+## Keyboard And Pointer Input
+
+```rust
+let mut volume = use_signal(|| 40.0);
+
+rsx! {
+  Label { id: "volume-label", "Volume" }
+  Slider {
+    "aria-labelledby": "volume-label",
+    value: volume(),
+    on_value_change: move |value| volume.set(value),
+  }
+}
+```
+
+`Slider` is controlled. It calls `on_value_change` with the new snapped value
+when it differs from `value`, and the app passes it back as `value`.
+
+| Input | Change |
+| --- | --- |
+| ArrowRight, ArrowUp | One step up |
+| ArrowLeft, ArrowDown | One step down |
+| PageUp, PageDown | Ten steps up or down |
+| Home, End | Minimum, maximum |
+| Press or drag | The value under the pointer |
+
+Handled keys do not scroll the page. A page script captures the pointer on
+press, so a drag keeps working outside the slider. A disabled slider ignores
+keys and the pointer. `slider_key_move` exposes the key mapping.
+
+Other attributes, such as `aria-label`, `aria-labelledby`, and
+`aria-valuetext`, are passed to the root. The slider always fills left to
+right and is horizontal.
+
 ## Accessibility Notes
 
 Slider renders `role="slider"` with horizontal orientation and ARIA value
-attributes derived from the clamped, stepped value. Keyboard event handling
-should use the exported slider state primitive so Arrow, Home, End, Page Up,
-and Page Down behavior stays consistent.
+attributes derived from the clamped, stepped value. Give it a name with
+`aria-labelledby` or `aria-label`; a `Label` with `for` does not name a
+`div`. Pass `aria-valuetext` when the number alone does not say what the
+value means, such as "40 percent".

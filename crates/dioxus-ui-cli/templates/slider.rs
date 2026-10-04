@@ -1,5 +1,64 @@
+use std::sync::atomic::{AtomicUsize, Ordering};
+
 use dioxus::prelude::*;
 use super::utils::classes;
+
+static NEXT_SLIDER_ID: AtomicUsize = AtomicUsize::new(0);
+
+// Runs for the slider's lifetime. A primary-button press captures the pointer
+// and sends the value under it, and so does each move until release. Bounds
+// and step are read from the root at event time, so prop changes apply
+// without a restart.
+// Keep in sync with `SLIDER_POINTER_SCRIPT` in `dioxus-ui`'s `slider.rs`.
+pub(crate) const SLIDER_POINTER_SCRIPT: &str = r#"
+const scopeId = await dioxus.recv();
+const root = document.querySelector(`[data-dxui-slider="${scopeId}"]`);
+if (!root) return;
+const disabled = () => root.getAttribute("aria-disabled") === "true";
+const valueAt = (clientX) => {
+  const min = Number(root.getAttribute("aria-valuemin"));
+  const max = Number(root.getAttribute("aria-valuemax"));
+  const step = Number(root.dataset.step) || 1;
+  const rect = root.getBoundingClientRect();
+  if (rect.width <= 0 || max <= min) return min;
+  const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+  const value = min + Math.round((ratio * (max - min)) / step) * step;
+  return Math.min(max, Math.max(min, value));
+};
+const send = (event) => {
+  const value = valueAt(event.clientX);
+  if (value !== Number(root.getAttribute("aria-valuenow"))) dioxus.send(value);
+};
+const onPointerDown = (event) => {
+  if (disabled() || event.button !== 0) return;
+  // Keeps the press from selecting text; focus moves explicitly instead.
+  event.preventDefault();
+  root.setPointerCapture(event.pointerId);
+  root.focus();
+  send(event);
+};
+const onPointerMove = (event) => {
+  if (root.hasPointerCapture(event.pointerId)) send(event);
+};
+const onPointerUp = (event) => {
+  if (root.hasPointerCapture(event.pointerId)) root.releasePointerCapture(event.pointerId);
+};
+let finish;
+const ended = new Promise((resolve) => {
+  finish = resolve;
+});
+const observer = new MutationObserver(() => {
+  if (!root.isConnected) finish();
+});
+observer.observe(document.documentElement, { subtree: true, childList: true });
+root.addEventListener("pointerdown", onPointerDown);
+root.addEventListener("pointermove", onPointerMove);
+root.addEventListener("pointerup", onPointerUp);
+root.addEventListener("pointercancel", onPointerUp);
+await ended;
+observer.disconnect();
+"#;
+
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct SliderState {
@@ -7,6 +66,7 @@ pub struct SliderState {
   pub min: f64,
   pub max: f64,
   pub step: f64,
+  pub page_step: f64,
 }
 
 impl SliderState {
@@ -20,7 +80,28 @@ impl SliderState {
       min,
       max,
       step,
+      page_step: step * 10.0,
     }
+  }
+
+  pub fn with_value(self, value: f64) -> Self {
+    Self {
+      value: snap_value(value, self.min, self.max, self.step),
+      ..self
+    }
+  }
+
+  pub fn moved(self, movement: SliderKeyMove) -> Self {
+    let value = match movement {
+      SliderKeyMove::Decrement => self.value - self.step,
+      SliderKeyMove::Increment => self.value + self.step,
+      SliderKeyMove::PageDecrement => self.value - self.page_step,
+      SliderKeyMove::PageIncrement => self.value + self.page_step,
+      SliderKeyMove::Home => self.min,
+      SliderKeyMove::End => self.max,
+    };
+
+    self.with_value(value)
   }
 
   pub fn percent(self) -> f64 {
@@ -38,6 +119,16 @@ impl SliderState {
       aria_valuenow: self.value,
     }
   }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum SliderKeyMove {
+  Decrement,
+  Increment,
+  PageDecrement,
+  PageIncrement,
+  Home,
+  End,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -88,6 +179,20 @@ pub fn slider_thumb_style(percent: f64) -> String {
   let percent = percent.clamp(0.0, 100.0);
 
   format!("left: {percent}%; transform: translateX(-50%);")
+}
+
+/// Maps a `KeyboardEvent.key` name to a slider move, following the WAI-ARIA
+/// slider pattern. Returns `None` for keys the slider leaves alone.
+pub fn slider_key_move(key: &str) -> Option<SliderKeyMove> {
+  match key {
+    "ArrowRight" | "ArrowUp" => Some(SliderKeyMove::Increment),
+    "ArrowLeft" | "ArrowDown" => Some(SliderKeyMove::Decrement),
+    "PageUp" => Some(SliderKeyMove::PageIncrement),
+    "PageDown" => Some(SliderKeyMove::PageDecrement),
+    "Home" => Some(SliderKeyMove::Home),
+    "End" => Some(SliderKeyMove::End),
+    _ => None,
+  }
 }
 
 pub fn slider_aria_attributes(
@@ -144,6 +249,11 @@ fn finite_or_default(value: f64, default: f64) -> f64 {
   }
 }
 
+/// A controlled slider. Arrow, Page Up, Page Down, Home, and End keys and a
+/// pointer press or drag call `on_value_change` with the new snapped value
+/// when it differs from `value`; the app passes it back as `value`. Other
+/// attributes, such as `aria-label` and `aria-valuetext`, are passed to the
+/// root. A disabled slider ignores keys and the pointer.
 #[component]
 pub fn Slider(
   #[props(default)] value: f64,
@@ -155,8 +265,11 @@ pub fn Slider(
   #[props(default)] track_class: String,
   #[props(default)] range_class: String,
   #[props(default)] thumb_class: String,
+  #[props(default)] on_value_change: Option<EventHandler<f64>>,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
 ) -> Element {
   let state = slider_state(value, min, max, step);
+  let scope_id = use_slider_pointer(state, disabled, on_value_change);
   let percent = state.percent();
   let aria = state.aria_attributes();
   let root_class = slider_root_class(&class);
@@ -177,7 +290,26 @@ pub fn Slider(
       "aria-valuemax": aria.aria_valuemax.to_string(),
       "aria-valuenow": aria.aria_valuenow.to_string(),
       "data-value": state.value.to_string(),
+      "data-step": state.step.to_string(),
       "data-disabled": disabled.to_string(),
+      "data-dxui-slider": scope_id,
+      onkeydown: move |event: KeyboardEvent| {
+        if disabled {
+          return;
+        }
+        let Some(movement) = slider_key_move(&event.key().to_string()) else {
+          return;
+        };
+        // Arrow, Page, Home, and End keys would otherwise scroll the page.
+        event.prevent_default();
+        let next = state.moved(movement).value;
+        if next != state.value {
+          if let Some(handler) = on_value_change {
+            handler.call(next);
+          }
+        }
+      },
+      ..attributes,
       div {
         class: track_class,
         div {
@@ -191,4 +323,40 @@ pub fn Slider(
       }
     }
   }
+}
+
+/// Runs the pointer script for the slider's lifetime and returns the value
+/// for the root's `data-dxui-slider` attribute. Values from the script are
+/// snapped against the latest props before reaching `on_value_change`.
+fn use_slider_pointer(
+  state: SliderState,
+  disabled: bool,
+  on_value_change: Option<EventHandler<f64>>,
+) -> String {
+  let scope_id =
+    use_hook(|| format!("dxui-slider-{}", NEXT_SLIDER_ID.fetch_add(1, Ordering::Relaxed)));
+  // The receive loop outlives this render, so it reads the latest props here.
+  let mut latest = use_hook(|| CopyValue::new((state, disabled)));
+  latest.set((state, disabled));
+  let effect_scope_id = scope_id.clone();
+
+  use_effect(move || {
+    let mut eval = document::eval(SLIDER_POINTER_SCRIPT);
+    // A send error means the page already finished the script; nothing to track.
+    let _ = eval.send(effect_scope_id.as_str());
+    spawn(async move {
+      while let Ok(value) = eval.recv::<f64>().await {
+        let (state, disabled) = latest();
+        let next = state.with_value(value).value;
+        if disabled || next == state.value {
+          continue;
+        }
+        if let Some(handler) = on_value_change {
+          handler.call(next);
+        }
+      }
+    });
+  });
+
+  scope_id
 }

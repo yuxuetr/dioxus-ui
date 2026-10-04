@@ -191,6 +191,7 @@ fn template_overlay_scripts_match_crate_scripts() {
     ("crates/dioxus-ui/src/roving_group.rs", "templates/utils.rs", "ROVING_GROUP_SCRIPT"),
     ("crates/dioxus-ui/src/menubar.rs", "templates/menubar.rs", "MENUBAR_SCRIPT"),
     ("crates/dioxus-ui/src/hover_open.rs", "templates/utils.rs", "HOVER_OPEN_SCRIPT"),
+    ("crates/dioxus-ui/src/slider.rs", "templates/slider.rs", "SLIDER_POINTER_SCRIPT"),
     (
       "crates/dioxus-ui/src/navigation_menu.rs",
       "templates/navigation_menu.rs",
