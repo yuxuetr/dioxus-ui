@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M148 Hover Card Hover And Focus Opening
-- Current task: M148.2
+- Current task: M148.3
 
 ## Backup
 
@@ -2675,7 +2675,7 @@
   - Define a `HoverCard` root that reports open requests, a link `HoverCardTrigger`, and a shared hover-open script, moved out of Tooltip, that opens after a hover delay, opens at once on keyboard focus, stays open while the pointer or focus is on the trigger or the card, and closes after a close delay; Hover Card keeps trigger presses open and adds no `aria-describedby`.
   - Record what stays out of scope (skipping delays between adjacent cards, touch, non-link triggers, Desktop and Mobile self-test scenarios) with reevaluation conditions.
 
-- TODO M148.2 Implement hover card hover and focus opening
+- DONE M148.2 Implement hover card hover and focus opening
   - Move the tooltip script into a shared hover-open module in the crate and the template `utils.rs`, keep Tooltip behavior unchanged, and wire `HoverCard`, `HoverCardTrigger`, and `HoverCardContent` in the crate and the template.
   - Update the Hover Card and Tooltip docs pages.
 
