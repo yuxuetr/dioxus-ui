@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M167 Slider Thumb Position And Vertical Orientation
-- Current task: M167.2 Implement slider thumb position and vertical orientation
+- Current task: M167.3 Verify slider thumb position and vertical sliders in a real browser
 
 ## Backup
 
@@ -3052,7 +3052,7 @@
   - Define an absolutely positioned inline thumb style, `orientation` with vertical root, track, range, and thumb styles, `aria-orientation`, and a vertical pointer mapping.
   - Record what stays out of scope (right-to-left sliders, multiple thumbs, inverted sliders, Desktop and Mobile self-test scenarios) with reevaluation conditions.
 
-- TODO M167.2 Implement slider thumb position and vertical orientation
+- DONE M167.2 Implement slider thumb position and vertical orientation
   - Add the thumb position, orientation prop, vertical styles, and pointer mapping to the crate source and template, with unit tests.
   - Update the Slider docs page.
 
