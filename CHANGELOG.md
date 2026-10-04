@@ -167,6 +167,11 @@ release owner renames it to the released version at publish time.
   with `for` or `aria-label` names each radio, a progress bar takes a name and
   `aria-valuetext`, and the Select trigger and Combobox input take
   `aria-describedby`.
+- Dialog names: Dialog, Alert Dialog, Sheet, Drawer, and Popover content point
+  `aria-labelledby` and `aria-describedby` at their mounted title and
+  description through generated ids, take a passed `aria-label` instead, and
+  pass through attributes. The browser verifier also fails on any id reference
+  that matches no element.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.

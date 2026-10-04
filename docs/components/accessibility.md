@@ -92,14 +92,14 @@ Statuses:
 
 | Component | Contract | Status |
 | --- | --- | --- |
-| Alert Dialog | Uses alertdialog role and modal state for confirmation flows. | Implemented |
+| Alert Dialog | Uses alertdialog role and modal state for confirmation flows, named and described by its title and description or a passed `aria-label`; browser-verified on Web. | Implemented |
 | Alert Dialog | Focuses the first focusable element, wraps Tab, restores focus on close, and closes on Escape; browser-verified on Web. | Implemented |
 | Context Menu | Exposes menu, menuitem, menuitemcheckbox, and menuitemradio roles. | Implemented |
 | Context Menu | Opens at the pointer, focuses the first item, moves DOM focus with wrapping arrows, Home, End, and typeahead, activates items, and returns focus; browser-verified on Web. | Implemented |
 | Context Menu | Nested submenus are not implemented. | Planned |
-| Dialog | Exposes dialog role and modal state. | Implemented |
+| Dialog | Exposes dialog role and modal state, named and described by its title and description or a passed `aria-label`; browser-verified on Web. | Implemented |
 | Dialog | Focuses the first focusable element, wraps Tab, restores focus on close, and closes on Escape or configured overlay click; browser-verified on Web. | Implemented |
-| Drawer | Uses dialog role and modal state for bottom-panel flows. | Implemented |
+| Drawer | Uses dialog role and modal state for bottom-panel flows, named and described like Dialog. | Implemented |
 | Drawer | Shares the Dialog focus scope and dismissal. | Implemented |
 | Drawer | Needs gesture and drag-to-dismiss verification. | Planned |
 | Dropdown | Anchored placement and Escape or outside dismissal. | Implemented |
@@ -112,8 +112,8 @@ Statuses:
 | Navigation Menu | Uses navigation structure and link semantics for destinations. | Implemented |
 | Navigation Menu | Follows the disclosure navigation pattern: triggers toggle content on click, keys, or hover, arrows move between top-level items and content links, and Escape returns focus to the trigger, with Left and Right swapped in right-to-left layouts; browser-verified on Web. | Implemented |
 | Navigation Menu | Viewport size measurement and submenus are not implemented. | Planned |
-| Popover | Anchored placement with flip and shift, and Escape or outside dismissal; browser-verified on Web. | Implemented |
-| Sheet | Uses dialog role and modal state for side-panel flows. | Implemented |
+| Popover | Anchored placement with flip and shift, Escape or outside dismissal, and a name from its title or a passed `aria-label`; browser-verified on Web. | Implemented |
+| Sheet | Uses dialog role and modal state for side-panel flows, named and described like Dialog. | Implemented |
 | Sheet | Shares the Dialog focus scope and dismissal. | Implemented |
 | Tooltip | Anchored placement and Escape dismissal; under `Tooltip`, hover opens after a delay, keyboard focus opens at once, the pointer can move onto the content, and the trigger has `aria-describedby` while open; browser-verified on Web. | Implemented |
 | Tooltip | Skipping the delay between adjacent tooltips and touch long press are not implemented. | Planned |

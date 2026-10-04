@@ -198,4 +198,5 @@ M160 to control label overrides
 handle input ([RFC 0036](rfcs/0036-resizable-handle-input.md)), and M162 to
 Sidebar toggle and items
 ([RFC 0037](rfcs/0037-sidebar-toggle-and-items.md)), and M163 to form
-control naming ([RFC 0038](rfcs/0038-form-control-naming.md)).
+control naming ([RFC 0038](rfcs/0038-form-control-naming.md)), and M164 to
+dialog names ([RFC 0039](rfcs/0039-dialog-names.md)).

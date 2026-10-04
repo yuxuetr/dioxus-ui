@@ -693,7 +693,9 @@ first.
   links or buttons with `aria-current` (see RFC 0037); keyboard shortcuts and
   mobile off-canvas behavior are not included. Radio Group, Progress, the Select
   trigger, and the Combobox input pass through naming attributes (see RFC
-  0038); the other parts of those components do not. Date Picker and
+  0038); the other parts of those components do not. Dialog, Alert Dialog,
+  Sheet, Drawer, and Popover content take their names from their titles (see
+  RFC 0039); server-rendered HTML gets the link after hydration. Date Picker and
   Calendar implement anchored placement, focus entry, and day keyboard
   navigation (see RFC 0013); typed date parsing and source-copy date arithmetic
   are not included. Dropdown and Context Menu implement menu keyboard
