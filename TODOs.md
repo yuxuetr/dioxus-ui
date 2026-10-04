@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M163 Form Control Naming
-- Current task: M163.1 Design form control naming
+- Current task: M163.2 Implement form control naming
 
 ## Backup
 
@@ -2967,7 +2967,7 @@
 
 ## M163 Form Control Naming
 
-- TODO M163.1 Design form control naming
+- DONE M163.1 Design form control naming
   - Record that every `RadioGroupItem` has an empty accessible name and accepts no `id` or `aria-*`, that `RadioGroup` and `Progress` cannot be named, and that `SelectTrigger` and `ComboboxInput` cannot take `aria-describedby`.
   - Define attribute spreading on `RadioGroup`, `RadioGroupItem`, `Progress`, `SelectTrigger`, and `ComboboxInput`.
   - Record what stays out of scope (spreading on the remaining parts, a visible label child on radio items, a Progress `aria-valuetext` default, Desktop and Mobile self-test scenarios) with reevaluation conditions.
