@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M138 Date Picker and Calendar Keyboard Behavior
+- Current task: M138.1
 
 ## Backup
 
@@ -2456,6 +2456,30 @@
   - Reverse-verify that the script fails when navigation or typeahead is removed.
 
 - DONE M137.5 Complete listbox milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and RFC 0010 out-of-scope status.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M138 Date Picker and Calendar Keyboard Behavior
+
+- TODO M138.1 Design date picker and calendar keyboard behavior
+  - Record that Calendar parts have no click, keyboard, or focus handling, that Date Picker content has no anchor, focus entry, or dismissal, and that RFC 0010 deferred Date Picker until Popover placement was verified.
+  - Define the additive API (`CalendarDay` `focused`, `on_select`, `on_key_move`, `CalendarNavButton` `onclick`, `calendar_key_move`, Date Picker trigger `id` and `on_open_change`, content anchoring and dismissal props), roving tabindex with DOM focus following `focused`, and focus entry on the focused day.
+  - Record what stays app-owned (visible month, date math in source-copy mode, text parsing, range selection) with reevaluation conditions.
+
+- TODO M138.2 Implement Calendar keyboard and selection hooks
+  - `CalendarDay` renders roving tabindex when keyboard-managed, maps arrows, Page Up, Page Down (Shift for years), Home, and End to `CalendarKeyMove` through `on_key_move`, calls `on_select` on click, and moves DOM focus when `focused` turns true.
+  - `CalendarNavButton` gains `onclick`; mirror `CalendarKeyMove` and `calendar_key_move` into the template, and update the docs page.
+
+- TODO M138.3 Implement Date Picker anchored dialog behavior
+  - `DatePickerTrigger` gains `id` and toggles through `on_open_change`; `DatePickerContent` anchors to the trigger, moves focus to the focused day on open, wraps Tab, restores focus on close, and closes on Escape or outside interaction.
+  - The focus scope prefers a `data-dxui-autofocus` element, skips `tabindex="-1"` elements when wrapping, and restores focus only when focus was not moved elsewhere; update templates and docs.
+
+- TODO M138.4 Verify date picker behavior in a real browser
+  - Render a real Date Picker with a Calendar in the Web preview and extend `npm run verify:runtime-interactions` to assert placement, focus entry on the selected day, arrow, Page, Home, and End movement across months, Tab wrap, Enter and click selection with focus return, Escape, and outside dismissal.
+  - Reverse-verify that the script fails when key mapping, focus following, or focus entry is removed.
+
+- TODO M138.5 Complete date picker milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and RFC 0010 out-of-scope status.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
