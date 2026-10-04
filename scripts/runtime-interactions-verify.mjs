@@ -1344,6 +1344,49 @@ async function runBrowserAssertions() {
     await previousAnchor.click({ force: true });
     await expect(pagination).toHaveAttribute("data-disabled-clicks", "0");
 
+    const carousel = page.locator('[data-interaction-target="carousel"]');
+    const carouselRegion = carousel.getByRole("region", { name: "Featured products", exact: true });
+    const carouselButton = (name) => carousel.getByRole("button", { name, exact: true });
+    const slide = (number) => carousel.getByRole("group", { name: `${number} of 3`, exact: true });
+    // A slide's left edge relative to the 240px viewport.
+    const slideOffset = (number) =>
+      slide(number).evaluate((element) => {
+        const viewport = element.parentElement.parentElement;
+        return Math.round(element.getBoundingClientRect().left - viewport.getBoundingClientRect().left);
+      });
+    await carouselRegion.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(carouselRegion).toHaveAttribute("aria-roledescription", "carousel");
+    await expect(carouselButton("Previous slide")).toBeDisabled();
+    await expect(carouselButton("Previous slide")).toHaveAttribute("title", "Previous product");
+    await expect(carouselButton("Next slide")).toHaveAttribute("title", "Next product");
+    await expect.poll(() => slideOffset(1)).toBe(0);
+    await expect.poll(() => slideOffset(2)).toBe(240);
+    await carouselButton("Next slide").click();
+    await expect(carousel).toHaveAttribute("data-index", "1");
+    await expect.poll(() => slideOffset(2)).toBe(0);
+    await expect.poll(() => slideOffset(1)).toBe(-240);
+    await expect(slide(2)).toHaveAttribute("data-selected", "true");
+    // A passed label replaces the shared default on every indicator.
+    await expect(carouselButton("Go to slide")).toHaveCount(0);
+    await carouselButton("Show product 3").click();
+    await expect(carousel).toHaveAttribute("data-index", "2");
+    await expect(carouselButton("Show product 3")).toHaveAttribute("aria-current", "true");
+    await expect(carouselButton("Next slide")).toBeDisabled();
+    await expect.poll(() => slideOffset(3)).toBe(0);
+    await carouselButton("Previous slide").click();
+    await expect(carousel).toHaveAttribute("data-index", "1");
+    // Arrows step from anywhere inside the region; Down does nothing when
+    // horizontal.
+    await carouselButton("Show product 1").focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(carousel).toHaveAttribute("data-index", "2");
+    await page.keyboard.press("ArrowDown");
+    await expect(carousel).toHaveAttribute("data-index", "2");
+    await page.keyboard.press("ArrowLeft");
+    await page.keyboard.press("ArrowLeft");
+    await expect(carousel).toHaveAttribute("data-index", "0");
+    await expect.poll(() => slideOffset(1)).toBe(0);
+
     const accordion = page.locator('[data-interaction-target="accordion"]');
     const accordionTrigger = (name) => accordion.getByRole("button", { name, exact: true });
     const accordionRegion = (name) => accordion.getByRole("region", { name, exact: true, includeHidden: true });
@@ -1670,7 +1713,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (30 fixtures)");
+  console.log("runtime interaction verification passed (31 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

@@ -42,6 +42,10 @@ use dioxus_ui::{
   NativeSelectOption, Slider, Textarea, Toggle,
 };
 use dioxus_ui::{
+  Carousel, CarouselContent, CarouselIndicator, CarouselItem, CarouselNext, CarouselPrevious,
+  CarouselState, CarouselStep, CarouselViewport, carousel_can_go_next, carousel_can_go_previous,
+};
+use dioxus_ui::{
   InputOtp, InputOtpGroup, InputOtpHiddenInput, InputOtpSlot, Pagination, PaginationContent,
   PaginationItem, PaginationLink, PaginationNext, PaginationPrevious,
 };
@@ -763,6 +767,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut otp_code = use_signal(String::new);
   let mut results_page = use_signal(|| 1);
   let mut disabled_link_clicks = use_signal(|| 0);
+  let mut carousel_state = use_signal(|| CarouselState::new(0, 3));
   let mut accordion_value = use_signal(|| None::<String>);
   let accordion_open = move |value: &str| accordion_value().as_deref() == Some(value);
   let mut context_open = use_signal(|| false);
@@ -1786,6 +1791,60 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 }
                 PaginationItem {
                   PaginationNext { href: "#results-2", target: "_self" }
+                }
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "carousel",
+            "data-index": "{carousel_state().index}",
+            h2 { class: "text-sm font-medium", "Carousel interaction" }
+            // The preview serves uncompiled Tailwind, so the layout the
+            // translate depends on is inline.
+            Carousel {
+              class: "mt-3",
+              "aria-label": "Featured products",
+              on_key_step: move |step| {
+                carousel_state
+                  .set(
+                    match step {
+                      CarouselStep::Previous => carousel_state().previous(),
+                      CarouselStep::Next => carousel_state().next(),
+                    },
+                  )
+              },
+              CarouselViewport { width: "240px", overflow: "hidden",
+                CarouselContent { index: carousel_state().index, display: "flex",
+                  for slide in 0..3_usize {
+                    CarouselItem {
+                      key: "{slide}",
+                      selected: carousel_state().index == slide,
+                      flex: "0 0 100%",
+                      "aria-label": "{slide + 1} of 3",
+                      "Product {slide + 1}"
+                    }
+                  }
+                }
+              }
+              CarouselPrevious {
+                disabled: !carousel_can_go_previous(carousel_state().index, 3, false),
+                title: "Previous product",
+                onclick: move |_| carousel_state.set(carousel_state().previous()),
+                "Previous"
+              }
+              CarouselNext {
+                disabled: !carousel_can_go_next(carousel_state().index, 3, false),
+                title: "Next product",
+                onclick: move |_| carousel_state.set(carousel_state().next()),
+                "Next"
+              }
+              for slide in 0..3_usize {
+                CarouselIndicator {
+                  key: "{slide}",
+                  selected: carousel_state().index == slide,
+                  "aria-label": "Show product {slide + 1}",
+                  onclick: move |_| carousel_state.set(CarouselState::new(slide, 3)),
                 }
               }
             }
