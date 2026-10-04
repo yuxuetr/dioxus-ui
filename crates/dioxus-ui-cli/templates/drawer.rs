@@ -1,8 +1,8 @@
-use dioxus::prelude::*;
-use super::utils::classes;
 pub use super::utils::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
+use super::utils::{classes, use_modal_focus_scope};
+use dioxus::prelude::*;
 
 pub const DRAWER_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";
 pub const DRAWER_CONTENT_BASE_CLASS: &str = "fixed inset-x-0 bottom-0 z-50 grid max-h-[85vh] gap-4 rounded-t-md border border-zinc-200 bg-white p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600";
@@ -44,6 +44,8 @@ pub fn drawer_close_class(class: &str) -> String {
 pub fn DrawerOverlay(
   #[props(default)] open: bool,
   #[props(default)] class: String,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
+  #[props(default = DismissBehavior::dialog_default())] dismiss: DismissBehavior,
 ) -> Element {
   let class = drawer_overlay_class(&class);
 
@@ -52,6 +54,11 @@ pub fn DrawerOverlay(
       class,
       hidden: !open,
       "data-state": if open { "open" } else { "closed" },
+      onclick: move |_| {
+        if let Some(handler) = on_open_change.filter(|_| dismiss.outside_pointer) {
+          handler.call(false);
+        }
+      },
     }
   }
 }
@@ -60,18 +67,29 @@ pub fn DrawerOverlay(
 pub fn DrawerContent(
   #[props(default)] open: bool,
   #[props(default)] class: String,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
+  #[props(default = DismissBehavior::dialog_default())] dismiss: DismissBehavior,
   children: Element,
 ) -> Element {
   let class = drawer_content_class(&class);
+  let focus_scope = use_modal_focus_scope(open);
 
   rsx! {
     div {
       role: "dialog",
       class,
       hidden: !open,
+      tabindex: "-1",
       "aria-modal": "true",
       "data-side": "bottom",
       "data-state": if open { "open" } else { "closed" },
+      "data-dxui-focus-scope": focus_scope,
+      onkeydown: move |event| {
+        let wants_close = event.key() == Key::Escape && dismiss.escape_key;
+        if let Some(handler) = on_open_change.filter(|_| wants_close) {
+          handler.call(false);
+        }
+      },
       {children}
     }
   }
@@ -129,6 +147,7 @@ pub fn DrawerDescription(#[props(default)] class: String, children: Element) -> 
 pub fn DrawerClose(
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   children: Element,
 ) -> Element {
   let class = drawer_close_class(&class);
@@ -138,6 +157,11 @@ pub fn DrawerClose(
       r#type: "button",
       class,
       disabled,
+      onclick: move |_| {
+        if let Some(handler) = on_open_change {
+          handler.call(false);
+        }
+      },
       {children}
     }
   }

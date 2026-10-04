@@ -33,8 +33,25 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["sheet"] }
 The module also re-exports `DialogPrimitiveConfig` for users importing from
 `dioxus_ui::sheet`.
 
+## Behavior
+
+`open` stays controlled by the app. Pass the same `on_open_change` handler to
+`SheetOverlay`, `SheetContent`, and `SheetClose` to receive close requests.
+
+- Escape on the content requests close when `dismiss.escape_key` is set.
+- A click on the overlay requests close when `dismiss.outside_pointer` is set.
+  The default `DismissBehavior::dialog_default()` leaves it off.
+- `SheetClose` always requests close.
+- Opening focuses the first focusable element, or the content itself.
+- Tab and Shift+Tab wrap inside the content while it is open.
+- Closing, or removing the content from the tree, restores focus to the element
+  that was focused before opening.
+
+Sheet shares the Dialog focus scope; the browser smoke covers it through Dialog
+and Alert Dialog.
+
 ## Accessibility Notes
 
-Content uses `role="dialog"` and `aria-modal="true"`. The first implementation
-exposes `data-side` and `data-state` hooks but defers runtime focus trapping,
-portal mounting, and transition orchestration.
+Content uses `role="dialog"` and `aria-modal="true"`. Content
+exposes `data-side` and `data-state` hooks. Portal mounting and transition
+orchestration remain app-owned.

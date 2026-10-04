@@ -34,11 +34,46 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["alert-dial
 The module also re-exports `DialogPrimitiveConfig` for users importing from
 `dioxus_ui::alert_dialog`.
 
+## Behavior
+
+`open` stays controlled by the app. Pass the same `on_open_change` handler to
+`AlertDialogContent`, `AlertDialogCancel`, and `AlertDialogAction`:
+
+```rust
+let mut open = use_signal(|| false);
+
+rsx! {
+  AlertDialogOverlay { open: open() }
+  AlertDialogContent {
+    open: open(),
+    on_open_change: move |next| open.set(next),
+    AlertDialogTitle { "Delete project?" }
+    AlertDialogCancel { on_open_change: move |next| open.set(next), "Cancel" }
+    AlertDialogAction {
+      onclick: move |_| delete_project(),
+      on_open_change: move |next| open.set(next),
+      "Delete"
+    }
+  }
+}
+```
+
+- Escape on the content requests close when `dismiss.escape_key` is set.
+- The overlay never dismisses an alert dialog.
+- `AlertDialogCancel` requests close; `AlertDialogAction` runs `onclick` and
+  then requests close.
+- Opening focuses the first focusable element, or the content itself.
+- Tab and Shift+Tab wrap inside the content while it is open.
+- Closing, or removing the content from the tree, restores focus to the element
+  that was focused before opening.
+
+Render the cancel action before the destructive action so it receives initial
+focus. Only the Web renderer is covered by `npm run verify:runtime-interactions`.
+
 ## Accessibility Notes
 
 Content uses `role="alertdialog"` and `aria-modal="true"`. Destructive actions
 should be clearly labeled by the consuming app, and the cancel action should be
 available before committing the destructive operation.
 
-Focus trapping and automatic focus restoration are still runtime adapter work.
-The primitive config documents the intended focus return and dismissal defaults.
+Portal mounting and transitions remain app-owned.

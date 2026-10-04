@@ -771,8 +771,8 @@ npm run verify:runtime-interactions
 This opt-in Playwright command starts the Web preview and exercises the
 `data-interaction-*` fixture targets for disclosure, overlay, selection,
 keyboard-visible state, and scroll-status behavior, plus the real Dialog
-component: Escape, overlay click, close, initial focus, Tab wrap, and focus
-restore. It requires Playwright
+and Alert Dialog components: Escape, overlay click, close and action buttons,
+initial focus, Tab wrap, and focus restore. It requires Playwright
 Chromium or `DIOXUS_UI_BROWSER_EXECUTABLE`, does not write screenshots or
 traces, and does not claim full accessibility certification, native Desktop or
 Mobile coverage, or visual parity.

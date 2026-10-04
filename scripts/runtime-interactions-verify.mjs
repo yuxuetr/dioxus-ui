@@ -266,6 +266,29 @@ async function runBrowserAssertions() {
     await expect(scrollStatus).toHaveAttribute("data-state", "jumped");
     await expect(scrollStatusText).toContainText("jumped");
 
+    const alertDialog = page.locator('[data-interaction-target="alert-dialog"]');
+    const alertDialogTrigger = page.locator('[data-interaction-control="alert-dialog-trigger"]');
+    const alertDialogContent = alertDialog.locator('[role="alertdialog"]');
+    const alertDialogCancel = alertDialogContent.getByRole("button", { name: "Cancel" });
+    const alertDialogAction = alertDialogContent.getByRole("button", { name: "Delete" });
+    await expect(alertDialogContent).toBeHidden();
+    await alertDialogTrigger.click();
+    await expect(alertDialogCancel).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(alertDialogAction).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(alertDialogCancel).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(alertDialogContent).toBeHidden();
+    await expect(alertDialogTrigger).toBeFocused();
+    await expect(alertDialog).toHaveAttribute("data-result", "pending");
+    await alertDialogTrigger.click();
+    await expect(alertDialogCancel).toBeFocused();
+    await alertDialogAction.click();
+    await expect(alertDialogContent).toBeHidden();
+    await expect(alertDialog).toHaveAttribute("data-result", "confirmed");
+    await expect(alertDialogTrigger).toBeFocused();
+
     const dialog = page.locator('[data-interaction-target="dialog"]');
     const dialogTrigger = page.locator('[data-interaction-control="dialog-trigger"]');
     const dialogContent = page.locator('[data-interaction-target="dialog"] [role="dialog"]');
@@ -309,7 +332,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (6 fixtures)");
+  console.log("runtime interaction verification passed (7 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

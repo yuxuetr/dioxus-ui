@@ -1,17 +1,19 @@
 use dioxus::prelude::*;
 use dioxus_ui::{
-  AttachmentOrientation, AttachmentSize, AttachmentState, BubbleAlign, ButtonGroupOrientation,
-  ButtonSize, ButtonVariant, ChartColorToken, ChartDomain, ChartPoint, ChartScale, ChartSeries,
-  DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogTitle, DismissBehavior,
-  MarkerVariant, MessageAlign, MessageScrollerIntent, MessageScrollerMetrics, TextDirection,
-  UiDensity, attachment_class, bubble_class, button_class, button_group_class, chart_area_path,
-  chart_area_series_class, chart_bar_rects, chart_bar_series_class, chart_class,
-  chart_fallback_rows, chart_line_path, chart_line_series_class, chart_view_box, collapsible_class,
-  direction_class, input_group_class, input_otp_class, marker_class, message_avatar_class,
-  message_class, message_content_class, message_footer_class, message_group_class,
-  message_header_class, message_scroller_class, message_scroller_intent_attribute,
-  message_scroller_is_at_bottom, message_scroller_jump_button_class,
-  message_scroller_show_unread_marker, otp_apply_paste_filtered, otp_slots,
+  AlertDialogAction, AlertDialogActionVariant, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogOverlay, AlertDialogTitle, AttachmentOrientation,
+  AttachmentSize, AttachmentState, BubbleAlign, ButtonGroupOrientation, ButtonSize, ButtonVariant,
+  ChartColorToken, ChartDomain, ChartPoint, ChartScale, ChartSeries, DialogClose, DialogContent,
+  DialogDescription, DialogOverlay, DialogTitle, DismissBehavior, MarkerVariant, MessageAlign,
+  MessageScrollerIntent, MessageScrollerMetrics, TextDirection, UiDensity, attachment_class,
+  bubble_class, button_class, button_group_class, chart_area_path, chart_area_series_class,
+  chart_bar_rects, chart_bar_series_class, chart_class, chart_fallback_rows, chart_line_path,
+  chart_line_series_class, chart_view_box, collapsible_class, direction_class, input_group_class,
+  input_otp_class, marker_class, message_avatar_class, message_class, message_content_class,
+  message_footer_class, message_group_class, message_header_class, message_scroller_class,
+  message_scroller_intent_attribute, message_scroller_is_at_bottom,
+  message_scroller_jump_button_class, message_scroller_show_unread_marker,
+  otp_apply_paste_filtered, otp_slots,
 };
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -670,6 +672,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut command_active = use_signal(|| "open-file");
   let mut scroll_status = use_signal(|| "held");
   let mut dialog_open = use_signal(|| false);
+  let mut alert_dialog_open = use_signal(|| false);
+  let mut alert_dialog_result = use_signal(|| "pending");
   let root = match target {
     PreviewTarget::Web => "web",
     PreviewTarget::Desktop => "desktop",
@@ -1013,6 +1017,33 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               "data-interaction-control": "scroll-jump",
               onclick: move |_| scroll_status.set("jumped"),
               "Jump to latest"
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "alert-dialog",
+            "data-state": if alert_dialog_open() { "open" } else { "closed" },
+            "data-result": "{alert_dialog_result}",
+            h2 { class: "text-sm font-medium", "Alert dialog interaction" }
+            button {
+              class: "{secondary_button_class} mt-3",
+              "data-interaction-control": "alert-dialog-trigger",
+              onclick: move |_| alert_dialog_open.set(true),
+              "Delete project"
+            }
+            AlertDialogOverlay { open: alert_dialog_open() }
+            AlertDialogContent {
+              open: alert_dialog_open(),
+              on_open_change: move |open| alert_dialog_open.set(open),
+              AlertDialogTitle { "Delete project?" }
+              AlertDialogDescription { "This cannot be undone." }
+              AlertDialogCancel { on_open_change: move |open| alert_dialog_open.set(open), "Cancel" }
+              AlertDialogAction {
+                variant: AlertDialogActionVariant::Destructive,
+                onclick: move |_| alert_dialog_result.set("confirmed"),
+                on_open_change: move |open| alert_dialog_open.set(open),
+                "Delete"
+              }
             }
           }
           article {

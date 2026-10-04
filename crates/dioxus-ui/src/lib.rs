@@ -69,7 +69,7 @@ pub mod date_picker;
 #[cfg(feature = "dialog")]
 pub mod dialog;
 
-#[cfg(feature = "dialog")]
+#[cfg(any(feature = "alert-dialog", feature = "dialog", feature = "drawer", feature = "sheet"))]
 mod overlay_behavior;
 
 #[cfg(feature = "direction")]

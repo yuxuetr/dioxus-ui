@@ -4,6 +4,8 @@ pub use dioxus_ui_primitives::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
 
+use crate::overlay_behavior::use_modal_focus_scope;
+
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum AlertDialogActionVariant {
   #[default]
@@ -82,17 +84,28 @@ pub fn AlertDialogOverlay(
 pub fn AlertDialogContent(
   #[props(default)] open: bool,
   #[props(default)] class: String,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
+  #[props(default = DismissBehavior::dialog_default())] dismiss: DismissBehavior,
   children: Element,
 ) -> Element {
   let class = alert_dialog_content_class(&class);
+  let focus_scope = use_modal_focus_scope(open);
 
   rsx! {
     div {
       role: "alertdialog",
       class,
       hidden: !open,
+      tabindex: "-1",
       "aria-modal": "true",
       "data-state": if open { "open" } else { "closed" },
+      "data-dxui-focus-scope": focus_scope,
+      onkeydown: move |event| {
+        let wants_close = event.key() == Key::Escape && dismiss.escape_key;
+        if let Some(handler) = on_open_change.filter(|_| wants_close) {
+          handler.call(false);
+        }
+      },
       {children}
     }
   }
@@ -151,6 +164,8 @@ pub fn AlertDialogAction(
   #[props(default)] variant: AlertDialogActionVariant,
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   children: Element,
 ) -> Element {
   let class = alert_dialog_action_class(variant, &class);
@@ -160,6 +175,14 @@ pub fn AlertDialogAction(
       r#type: "button",
       class,
       disabled,
+      onclick: move |event| {
+        if let Some(handler) = onclick {
+          handler.call(event);
+        }
+        if let Some(handler) = on_open_change {
+          handler.call(false);
+        }
+      },
       {children}
     }
   }
@@ -169,6 +192,7 @@ pub fn AlertDialogAction(
 pub fn AlertDialogCancel(
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   children: Element,
 ) -> Element {
   let class = alert_dialog_cancel_class(&class);
@@ -178,6 +202,11 @@ pub fn AlertDialogCancel(
       r#type: "button",
       class,
       disabled,
+      onclick: move |_| {
+        if let Some(handler) = on_open_change {
+          handler.call(false);
+        }
+      },
       {children}
     }
   }
