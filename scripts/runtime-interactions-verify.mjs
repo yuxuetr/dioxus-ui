@@ -1164,6 +1164,73 @@ async function runBrowserAssertions() {
     await expect(formControls).toHaveAttribute("data-notes", "Line one\nLine two");
     await expect(notes).toHaveValue("Line one\nLine two");
 
+    const sliderFixture = page.locator('[data-interaction-target="slider"]');
+    const volume = sliderFixture.getByRole("slider", { name: "Volume", exact: true });
+    const locked = sliderFixture.getByRole("slider", { name: "Locked", exact: true });
+    const expectVolume = async (value) => {
+      await expect(sliderFixture).toHaveAttribute("data-volume", value);
+      await expect(volume).toHaveAttribute("aria-valuenow", value);
+    };
+    await volume.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(volume).toHaveAttribute("data-step", "5");
+    await expectVolume("40");
+    await volume.focus();
+    const scrollBefore = await page.evaluate(() => window.scrollY);
+    await page.keyboard.press("ArrowRight");
+    await expectVolume("45");
+    await page.keyboard.press("ArrowUp");
+    await expectVolume("50");
+    await page.keyboard.press("ArrowLeft");
+    await expectVolume("45");
+    await page.keyboard.press("ArrowDown");
+    await expectVolume("40");
+    await page.keyboard.press("PageUp");
+    await expectVolume("90");
+    await page.keyboard.press("PageUp");
+    await expectVolume("100");
+    await page.keyboard.press("ArrowRight");
+    await expectVolume("100");
+    await page.keyboard.press("PageDown");
+    await expectVolume("50");
+    await page.keyboard.press("Home");
+    await expectVolume("0");
+    await page.keyboard.press("ArrowDown");
+    await expectVolume("0");
+    await page.keyboard.press("End");
+    await expectVolume("100");
+    // Unprevented, PageUp, PageDown, Home, and End would scroll this long page.
+    if ((await page.evaluate(() => window.scrollY)) !== scrollBefore) {
+      throw new Error("slider: handled keys scrolled the page");
+    }
+    const box = await volume.boundingBox();
+    if (!box) throw new Error("slider: the volume slider has no box");
+    const at = (ratio) => box.x + box.width * ratio;
+    const middle = box.y + box.height / 2;
+    await page.mouse.click(at(0.25), middle);
+    await expectVolume("25");
+    await expect(volume).toBeFocused();
+    await page.mouse.move(at(0.6), middle);
+    await page.mouse.down();
+    await expectVolume("60");
+    await page.mouse.move(at(0.83), middle);
+    await expectVolume("85");
+    // Captured: the drag keeps working past the right edge.
+    await page.mouse.move(box.x + box.width + 40, middle);
+    await expectVolume("100");
+    await page.mouse.up();
+    await page.mouse.move(at(0.1), middle);
+    await expectVolume("100");
+    await expect(locked).toHaveAttribute("aria-disabled", "true");
+    await expect(locked).toHaveAttribute("tabindex", "-1");
+    const lockedBox = await locked.boundingBox();
+    if (!lockedBox) throw new Error("slider: the locked slider has no box");
+    await page.mouse.click(lockedBox.x + lockedBox.width * 0.9, lockedBox.y + lockedBox.height / 2);
+    await locked.focus();
+    await page.keyboard.press("ArrowRight");
+    await page.keyboard.press("End");
+    await expect(locked).toHaveAttribute("aria-valuenow", "30");
+    await expect(sliderFixture).toHaveAttribute("data-locked-changes", "0");
+
     const accordion = page.locator('[data-interaction-target="accordion"]');
     const accordionTrigger = (name) => accordion.getByRole("button", { name, exact: true });
     const accordionRegion = (name) => accordion.getByRole("region", { name, exact: true, includeHidden: true });
@@ -1490,7 +1557,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (26 fixtures)");
+  console.log("runtime interaction verification passed (27 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

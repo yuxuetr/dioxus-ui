@@ -37,7 +37,7 @@ use dioxus_ui::{
   message_scroller_jump_button_class, message_scroller_show_unread_marker,
   otp_apply_paste_filtered, otp_slots,
 };
-use dioxus_ui::{Button, Input, Textarea, Toggle};
+use dioxus_ui::{Button, Input, Slider, Textarea, Toggle};
 pub use self_test::{INTERACTION_SELF_TEST_SCRIPT, InteractionSelfTest};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -749,6 +749,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut bold_pressed = use_signal(|| false);
   let mut email_value = use_signal(String::new);
   let mut notes_value = use_signal(String::new);
+  let mut volume = use_signal(|| 40.0);
+  let mut locked_slider_changes = use_signal(|| 0_u32);
   let mut accordion_value = use_signal(|| None::<String>);
   let accordion_open = move |value: &str| accordion_value().as_deref() == Some(value);
   let mut context_open = use_signal(|| false);
@@ -1631,6 +1633,32 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 value: notes_value(),
                 on_value_change: move |value| notes_value.set(value),
               }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "slider",
+            "data-volume": "{volume}",
+            "data-locked-changes": "{locked_slider_changes}",
+            h2 { class: "text-sm font-medium", "Slider interaction" }
+            Label { id: "interaction-slider-volume-label", "Volume" }
+            // The preview serves uncompiled Tailwind, so the root gets an
+            // explicit height to be a pointer target.
+            Slider {
+              class: "mt-3",
+              style: "height: 20px",
+              "aria-labelledby": "interaction-slider-volume-label",
+              step: 5.0,
+              value: volume(),
+              on_value_change: move |value| volume.set(value),
+            }
+            Slider {
+              class: "mt-3",
+              style: "height: 20px",
+              "aria-label": "Locked",
+              value: 30.0,
+              disabled: true,
+              on_value_change: move |_| locked_slider_changes += 1,
             }
           }
           article {

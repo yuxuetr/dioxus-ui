@@ -247,6 +247,16 @@ than the DOM alone. Removing any callback, not spreading the attributes, or
 sending the current Toggle state instead of the requested one each make the
 verifier fail.
 
+M155 adds a Slider row from
+[RFC 0030](../rfcs/0030-slider-keyboard-and-pointer-input.md). The verifier
+presses every slider key, checks clamping at both ends and that the page did
+not scroll, then clicks and drags with the mouse, including past the right
+edge while the pointer is captured. The preview serves uncompiled Tailwind, so
+the fixture gives each slider an inline height to make it a pointer target. A
+disabled slider must ignore keys and the pointer. Swapping the key directions,
+paging by one step, not preventing the default key action, not starting the
+pointer script, or removing either disabled guard each make the verifier fail.
+
 ## Documentation Alignment
 
 M111 should keep these files aligned:
@@ -273,7 +283,7 @@ After M111, useful follow-up work is:
 
 1. Expand interaction coverage across more runtime-sensitive components. M135
    covers Dialog, Alert Dialog, Popover, and Tooltip; M136 adds Toast and
-   Sonner; M137 adds Select and Combobox; M138 adds Date Picker; M139 adds Dropdown and Context Menu; M140 adds Menubar; M141 adds Navigation Menu; M144 adds Tabs, Radio Group, and Toggle Group; M146 adds Accordion; M147 adds Tooltip hover and focus opening; M148 adds Hover Card; M149 adds Command; M150 adds right-to-left arrow mirroring; M151 adds vertical, manually activated Tabs; M152 adds result announcements to Command and Combobox; M153 adds Switch and Checkbox change events; M154 adds Button, Toggle, Input, and Textarea events.
+   Sonner; M137 adds Select and Combobox; M138 adds Date Picker; M139 adds Dropdown and Context Menu; M140 adds Menubar; M141 adds Navigation Menu; M144 adds Tabs, Radio Group, and Toggle Group; M146 adds Accordion; M147 adds Tooltip hover and focus opening; M148 adds Hover Card; M149 adds Command; M150 adds right-to-left arrow mirroring; M151 adds vertical, manually activated Tabs; M152 adds result announcements to Command and Combobox; M153 adds Switch and Checkbox change events; M154 adds Button, Toggle, Input, and Textarea events; M155 adds Slider keyboard and pointer input.
 2. Add targeted screenshot smoke for a small set of stable panels.
 3. Decide whether any browser command should move into CI after local
    reliability is proven.
