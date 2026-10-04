@@ -53,6 +53,9 @@ use dioxus_ui::{
   LayoutOrientation, ResizableHandle, ResizablePanel, ResizablePanelGroup, ResizablePanelState,
   resizable_resize_pair,
 };
+use dioxus_ui::{
+  Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarItem, SidebarTrigger,
+};
 pub use self_test::{INTERACTION_SELF_TEST_SCRIPT, InteractionSelfTest};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -772,6 +775,9 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut results_page = use_signal(|| 1);
   let mut disabled_link_clicks = use_signal(|| 0);
   let mut carousel_state = use_signal(|| CarouselState::new(0, 3));
+  let mut sidebar_collapsed = use_signal(|| false);
+  let mut sidebar_section = use_signal(|| "inbox");
+  let mut sidebar_disabled_clicks = use_signal(|| 0);
   let mut resizable_panels = use_signal(|| {
     (ResizablePanelState::new(30.0, 20.0, 80.0), ResizablePanelState::new(70.0, 20.0, 80.0))
   });
@@ -1896,6 +1902,53 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 min_size: 20.0,
                 max_size: 80.0,
                 "Editor"
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "sidebar",
+            "data-collapsed": "{sidebar_collapsed}",
+            "data-section": "{sidebar_section}",
+            "data-disabled-clicks": "{sidebar_disabled_clicks}",
+            h2 { class: "text-sm font-medium", "Sidebar interaction" }
+            SidebarTrigger {
+              "aria-controls": "interaction-sidebar",
+              collapsed: sidebar_collapsed(),
+              on_collapsed_change: move |next| sidebar_collapsed.set(next),
+              "Toggle sidebar"
+            }
+            Sidebar {
+              id: "interaction-sidebar",
+              "aria-label": "Workspace",
+              collapsed: sidebar_collapsed(),
+              SidebarContent {
+                SidebarGroup { role: "group", "aria-labelledby": "interaction-sidebar-group",
+                  SidebarGroupLabel { id: "interaction-sidebar-group", "Sections" }
+                  SidebarItem {
+                    active: sidebar_section() == "inbox",
+                    onclick: move |_| sidebar_section.set("inbox"),
+                    "Inbox"
+                  }
+                  SidebarItem {
+                    active: sidebar_section() == "drafts",
+                    onclick: move |_| sidebar_section.set("drafts"),
+                    "Drafts"
+                  }
+                  SidebarItem { href: "#sidebar-settings", title: "Open settings", "Settings" }
+                  SidebarItem {
+                    href: "#sidebar-archive",
+                    disabled: true,
+                    onclick: move |_| sidebar_disabled_clicks += 1,
+                    "Archive"
+                  }
+                  SidebarItem {
+                    disabled: true,
+                    onclick: move |_| sidebar_disabled_clicks += 1,
+                    "Trash"
+                  }
+                  SidebarItem { title: "Help wrapper", "Help" }
+                }
               }
             }
           }

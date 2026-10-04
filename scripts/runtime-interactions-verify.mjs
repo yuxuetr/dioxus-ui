@@ -1404,6 +1404,48 @@ async function runBrowserAssertions() {
     await expect.poll(handleValue).toBeCloseTo(50, 5);
     await page.mouse.up();
     await expect(resizeHandle).toBeFocused();
+
+    const sidebar = page.locator('[data-interaction-target="sidebar"]');
+    const sidebarTrigger = sidebar.getByRole("button", { name: "Toggle sidebar", exact: true });
+    const sidebarLandmark = sidebar.getByRole("complementary", { name: "Workspace", exact: true });
+    const sidebarButton = (name) => sidebar.getByRole("button", { name, exact: true });
+    await sidebarTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(sidebarTrigger).toHaveAttribute("aria-expanded", "true");
+    await expect(sidebarTrigger).toHaveAttribute("aria-controls", "interaction-sidebar");
+    await expect(sidebarLandmark).toHaveAttribute("id", "interaction-sidebar");
+    await sidebarTrigger.click();
+    await expect(sidebar).toHaveAttribute("data-collapsed", "true");
+    await expect(sidebarTrigger).toHaveAttribute("aria-expanded", "false");
+    await expect(sidebarLandmark).toHaveAttribute("data-collapsed", "true");
+    await sidebarTrigger.focus();
+    await page.keyboard.press("Enter");
+    await expect(sidebar).toHaveAttribute("data-collapsed", "false");
+    await expect(sidebar.getByRole("group", { name: "Sections", exact: true })).toHaveCount(1);
+    // Button items change the section and move aria-current.
+    await expect(sidebarButton("Inbox")).toHaveAttribute("aria-current", "page");
+    await sidebarButton("Drafts").click();
+    await expect(sidebar).toHaveAttribute("data-section", "drafts");
+    await expect(sidebarButton("Drafts")).toHaveAttribute("aria-current", "page");
+    await expect(sidebarButton("Inbox")).not.toHaveAttribute("aria-current");
+    await sidebarButton("Inbox").focus();
+    await page.keyboard.press("Space");
+    await expect(sidebar).toHaveAttribute("data-section", "inbox");
+    // Link items keep their href; a disabled item cannot take focus or run
+    // its onclick.
+    const settingsLink = sidebar.getByRole("link", { name: "Settings", exact: true });
+    await expect(settingsLink).toHaveAttribute("href", "#sidebar-settings");
+    await expect(settingsLink).toHaveAttribute("title", "Open settings");
+    const archiveItem = sidebar.locator('[aria-disabled="true"]', { hasText: "Archive" });
+    await expect(archiveItem).not.toHaveAttribute("href");
+    await archiveItem.focus();
+    await expect(archiveItem).not.toBeFocused();
+    // The preview serves uncompiled Tailwind, so pointer-events-none does not
+    // stop this press; the component must ignore it.
+    await archiveItem.click({ force: true });
+    await expect(sidebarButton("Trash")).toBeDisabled();
+    await expect(sidebar).toHaveAttribute("data-disabled-clicks", "0");
+    // An item with neither href nor onclick stays a wrapper.
+    await expect(sidebar.locator('[title="Help wrapper"]')).toHaveJSProperty("tagName", "DIV");
     await expect.poll(() => slideOffset(2)).toBe(240);
     await carouselButton("Next slide").click();
     await expect(carousel).toHaveAttribute("data-index", "1");
@@ -1757,7 +1799,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (32 fixtures)");
+  console.log("runtime interaction verification passed (33 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
