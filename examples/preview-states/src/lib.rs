@@ -2,6 +2,21 @@ use dioxus::prelude::*;
 
 mod self_test;
 use dioxus_ui::{
+  Accordion, AccordionContent, AccordionItem, AccordionTrigger, Calendar, CalendarBody,
+  CalendarCaption, CalendarDate, CalendarDay, CalendarGrid, CalendarHeader, CalendarMonth,
+  CalendarNav, CalendarNavButton, CalendarNavDirection, CalendarRow, CalendarWeekday,
+  ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList, ContextMenuCheckboxItem,
+  ContextMenuContent, ContextMenuItem, DatePickerContent, DatePickerTrigger, DatePickerValue,
+  DropdownContent, DropdownItem, DropdownSeparator, Menubar, MenubarContent, MenubarItem,
+  MenubarMenu, MenubarTrigger, NavigationMenu, NavigationMenuContent, NavigationMenuItem,
+  NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, NavigationOrientation, RadioGroup,
+  RadioGroupItem, SelectContent, SelectItem, SelectTrigger, SelectValue, SonnerClose,
+  SonnerContent, SonnerTitle, SonnerToast, SonnerVariant, SonnerViewport, Tabs, TabsContent,
+  TabsList, TabsTrigger, ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport,
+  ToggleGroup, ToggleGroupItem, accordion_single_open, calendar_month_grid, calendar_move_date,
+  sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute, toggle_group_single_selection,
+};
+use dioxus_ui::{
   AlertDialogAction, AlertDialogActionVariant, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogOverlay, AlertDialogTitle, AttachmentOrientation,
   AttachmentSize, AttachmentState, BubbleAlign, ButtonGroupOrientation, ButtonSize, ButtonVariant,
@@ -17,20 +32,6 @@ use dioxus_ui::{
   message_scroller_intent_attribute, message_scroller_is_at_bottom,
   message_scroller_jump_button_class, message_scroller_show_unread_marker,
   otp_apply_paste_filtered, otp_slots,
-};
-use dioxus_ui::{
-  Calendar, CalendarBody, CalendarCaption, CalendarDate, CalendarDay, CalendarGrid, CalendarHeader,
-  CalendarMonth, CalendarNav, CalendarNavButton, CalendarNavDirection, CalendarRow,
-  CalendarWeekday, ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList,
-  ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, DatePickerContent,
-  DatePickerTrigger, DatePickerValue, DropdownContent, DropdownItem, DropdownSeparator, Menubar,
-  MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger, NavigationMenu, NavigationMenuContent,
-  NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger,
-  NavigationOrientation, RadioGroup, RadioGroupItem, SelectContent, SelectItem, SelectTrigger,
-  SelectValue, SonnerClose, SonnerContent, SonnerTitle, SonnerToast, SonnerVariant, SonnerViewport,
-  Tabs, TabsContent, TabsList, TabsTrigger, ToastAction, ToastClose, ToastRoot, ToastTitle,
-  ToastViewport, ToggleGroup, ToggleGroupItem, calendar_month_grid, calendar_move_date,
-  sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute, toggle_group_single_selection,
 };
 pub use self_test::{INTERACTION_SELF_TEST_SCRIPT, InteractionSelfTest};
 
@@ -80,7 +81,7 @@ pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
     panel: "layout",
     test_id: "component-preview-accordion",
     coverage_level: "controlled",
-    notes: "Controlled rendered state target; mutations remain app-owned.",
+    notes: "Controlled state target; keyboard and click requests are browser-verified in the interaction panel.",
   },
   ComponentPreviewTarget {
     component: "alert",
@@ -712,6 +713,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let radio_checked = move |value: &str| radio_value().as_deref() == Some(value);
   let mut toggle_value = use_signal(|| None::<String>);
   let toggle_pressed = move |value: &str| toggle_value().as_deref() == Some(value);
+  let mut accordion_value = use_signal(|| None::<String>);
+  let accordion_open = move |value: &str| accordion_value().as_deref() == Some(value);
   let mut context_open = use_signal(|| false);
   let mut context_point = use_signal(|| (0.0, 0.0));
   let mut context_bookmarked = use_signal(|| false);
@@ -1431,6 +1434,34 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 "Strike"
               }
               ToggleGroupItem { value: "underline", pressed: toggle_pressed("underline"), "Underline" }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "accordion",
+            "data-value": accordion_value().unwrap_or_else(|| "none".to_string()),
+            h2 { class: "text-sm font-medium", "Accordion interaction" }
+            Accordion {
+              class: "mt-3",
+              on_toggle: move |value: String| {
+                accordion_value.set(accordion_single_open(accordion_value().as_deref(), &value))
+              },
+              AccordionItem { value: "shipping",
+                AccordionTrigger { open: accordion_open("shipping"), "Shipping" }
+                AccordionContent { open: accordion_open("shipping"), "Ships in two days." }
+              }
+              AccordionItem { value: "returns",
+                AccordionTrigger { open: accordion_open("returns"), disabled: true, "Returns" }
+                AccordionContent { open: accordion_open("returns"), "Returns within 30 days." }
+              }
+              AccordionItem { value: "warranty",
+                AccordionTrigger { open: accordion_open("warranty"), "Warranty" }
+                AccordionContent { open: accordion_open("warranty"), "Covered for one year." }
+              }
+              AccordionItem { value: "support",
+                AccordionTrigger { open: accordion_open("support"), "Support" }
+                AccordionContent { open: accordion_open("support"), "Email us any time." }
+              }
             }
           }
           article {

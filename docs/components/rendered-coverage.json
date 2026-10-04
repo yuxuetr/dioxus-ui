@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "records": [
-    { "component": "accordion", "label": "Accordion", "category": "layout", "panel": "layout", "test_id": "component-preview-accordion", "coverage_level": "controlled", "notes": "Controlled rendered state target; mutations remain app-owned." },
+    { "component": "accordion", "label": "Accordion", "category": "layout", "panel": "layout", "test_id": "component-preview-accordion", "coverage_level": "controlled", "notes": "Controlled state target; keyboard and click requests are browser-verified in the interaction panel." },
     { "component": "alert", "label": "Alert", "category": "feedback", "panel": "feedback", "test_id": "component-preview-alert", "coverage_level": "static", "notes": "Rendered markup and class-state coverage target." },
     { "component": "alert-dialog", "label": "Alert Dialog", "category": "overlays", "panel": "overlays", "test_id": "component-preview-alert-dialog", "coverage_level": "runtime-planned", "notes": "Rendered target exists; renderer behavior needs separate runtime verification." },
     { "component": "aspect-ratio", "label": "Aspect Ratio", "category": "layout", "panel": "layout", "test_id": "component-preview-aspect-ratio", "coverage_level": "static", "notes": "Rendered markup and class-state coverage target." },

@@ -847,6 +847,54 @@ async function runBrowserAssertions() {
     await toggle("Bold").click();
     await expect(toggleGroup).toHaveAttribute("data-value", "none");
 
+    const accordion = page.locator('[data-interaction-target="accordion"]');
+    const accordionTrigger = (name) => accordion.getByRole("button", { name, exact: true });
+    const accordionRegion = (name) => accordion.getByRole("region", { name, exact: true, includeHidden: true });
+    await accordionTrigger("Shipping").evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(accordion.getByRole("heading", { name: "Shipping", exact: true })).toHaveCount(1);
+    // Regions are named by their trigger through aria-labelledby.
+    const shippingRegionId = await accordionRegion("Shipping").getAttribute("id");
+    await expect(accordionTrigger("Shipping")).toHaveAttribute("aria-controls", shippingRegionId);
+    await expect(accordionRegion("Shipping")).toBeHidden();
+    // Every enabled trigger is a Tab stop.
+    for (const name of ["Shipping", "Warranty", "Support"]) {
+      await expect(accordionTrigger(name)).not.toHaveAttribute("tabindex", "-1");
+    }
+    await accordionTrigger("Shipping").click();
+    await expect(accordion).toHaveAttribute("data-value", "shipping");
+    await expect(accordionTrigger("Shipping")).toHaveAttribute("aria-expanded", "true");
+    await expect(accordionRegion("Shipping")).toBeVisible();
+    await accordionTrigger("Shipping").click();
+    await expect(accordion).toHaveAttribute("data-value", "none");
+    await expect(accordionRegion("Shipping")).toBeHidden();
+    await accordionTrigger("Shipping").focus();
+    await page.keyboard.press("ArrowDown");
+    await expect(accordionTrigger("Warranty")).toBeFocused();
+    // Focus moves without toggling.
+    await expect(accordion).toHaveAttribute("data-value", "none");
+    await page.keyboard.press("ArrowDown");
+    await expect(accordionTrigger("Support")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(accordionTrigger("Shipping")).toBeFocused();
+    await page.keyboard.press("ArrowUp");
+    await expect(accordionTrigger("Support")).toBeFocused();
+    await page.keyboard.press("Home");
+    await expect(accordionTrigger("Shipping")).toBeFocused();
+    await page.keyboard.press("End");
+    await expect(accordionTrigger("Support")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(accordionTrigger("Support")).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(accordion).toHaveAttribute("data-value", "support");
+    await expect(accordionRegion("Support")).toBeVisible();
+    await page.keyboard.press("Shift+Tab");
+    await expect(accordionTrigger("Warranty")).toBeFocused();
+    await page.keyboard.press("Shift+Tab");
+    await expect(accordionTrigger("Shipping")).toBeFocused();
+    await page.keyboard.press("Space");
+    await expect(accordion).toHaveAttribute("data-value", "shipping");
+    await expect(accordionRegion("Support")).toBeHidden();
+
     const contextMenu = page.locator('[data-interaction-target="context-menu"]');
     const contextArea = page.locator('[data-interaction-control="context-area"]');
     const contextContent = contextMenu.locator('[role="menu"]');
