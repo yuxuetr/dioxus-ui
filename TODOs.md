@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0% (M135 0/7)
+- Current milestone: M135 Overlay Interaction Behavior
+- Current task: M135.1 Design overlay interaction behavior
 
 ## Backup
 
@@ -2374,6 +2374,41 @@
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and confirm no package archives are committed.
   - Push local commits to `origin/main`.
   - Leave crates.io registry availability deferred; actual publish remains a release-owner action.
+
+## M135 Overlay Interaction Behavior
+
+- TODO M135.1 Design overlay interaction behavior
+  - Record that styled overlay parts currently render `open` state only: no Escape, outside-click, focus, trap, restore, or anchored positioning, and the runtime traits only have record-keeping example adapters.
+  - Define the additive API (`on_open_change`, `dismiss`, anchor id, side, align, offset), the `document::eval` focus-scope and measurement approach shared by Web, Desktop, and Mobile renderers, and how source-copy templates stay self-contained.
+  - List excluded overlays (Select, Combobox, Date Picker, Navigation Menu, Context Menu, Menubar, DOM portal) with executable reevaluation conditions.
+
+- TODO M135.2 Implement Dialog modal behavior
+  - Dialog content closes on Escape, overlay closes on pointer when `dismiss.outside_pointer`, and Dialog Close requests close through `on_open_change`.
+  - Opening focuses the first focusable element (or the content), Tab and Shift+Tab wrap inside the content, and closing restores focus to the previously focused element.
+  - Mirror the behavior in the source-copy template and shared utils, update the docs page, and keep existing `open`-only usage working.
+
+- TODO M135.3 Apply modal behavior to Alert Dialog, Sheet, and Drawer
+  - Reuse the Dialog focus scope and dismissal wiring; Alert Dialog keeps outside pointer dismissal disabled.
+  - Update templates, docs pages, and tests for each component.
+
+- TODO M135.4 Implement Popover anchored positioning and dismissal
+  - Measure the anchor, content, and viewport when open, place content with `compute_overlay_placement` (flip and shift), and render it with fixed positioning.
+  - Close on Escape, outside pointer, and focus outside according to `DismissBehavior::popover_default()`.
+  - Mirror placement in the source-copy template without importing internal crates.
+
+- TODO M135.5 Apply anchored positioning to Dropdown, Hover Card, and Tooltip
+  - Reuse Popover measurement and placement; Dropdown dismisses on Escape and outside pointer, Tooltip on Escape only.
+  - Update templates, docs pages, and tests for each component.
+
+- TODO M135.6 Verify overlay behavior in a real browser
+  - Render the real Dialog, Alert Dialog, and Popover components in the Web preview interaction panel.
+  - Extend `npm run verify:runtime-interactions` to assert Escape, overlay click, Tab wrap, focus restore, and in-viewport placement with flip near the viewport edge.
+  - Reverse-verify that the script fails when the behavior is removed.
+
+- TODO M135.7 Complete overlay interaction milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, roadmap Stage 7 status, and component docs to match what is now verified.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 
 ## Status Rules
 
