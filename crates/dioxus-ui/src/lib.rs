@@ -103,7 +103,12 @@ mod listbox;
 #[cfg(any(feature = "sonner", feature = "toast"))]
 mod dismiss_timer;
 
-#[cfg(any(feature = "radio-group", feature = "tabs", feature = "toggle-group"))]
+#[cfg(any(
+  feature = "accordion",
+  feature = "radio-group",
+  feature = "tabs",
+  feature = "toggle-group"
+))]
 mod roving_group;
 
 #[cfg(feature = "direction")]
@@ -210,9 +215,9 @@ pub mod table;
 
 #[cfg(feature = "accordion")]
 pub use accordion::{
-  ACCORDION_CONTENT_BASE_CLASS, ACCORDION_ITEM_BASE_CLASS, ACCORDION_TRIGGER_BASE_CLASS,
+  ACCORDION_CONTENT_BASE_CLASS, ACCORDION_ITEM_BASE_CLASS, ACCORDION_TRIGGER_BASE_CLASS, Accordion,
   AccordionContent, AccordionItem, AccordionTrigger, accordion_content_class, accordion_item_class,
-  accordion_trigger_class,
+  accordion_multiple_open, accordion_single_open, accordion_trigger_class,
 };
 #[cfg(feature = "alert")]
 pub use alert::{

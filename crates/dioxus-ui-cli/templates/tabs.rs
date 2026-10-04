@@ -1,7 +1,7 @@
 use std::sync::atomic::{AtomicUsize, Ordering};
 
 use dioxus::prelude::*;
-use super::utils::{classes, use_roving_group};
+use super::utils::{classes, group_part_id, use_roving_group};
 
 static NEXT_TABS_ID: AtomicUsize = AtomicUsize::new(0);
 
@@ -30,23 +30,6 @@ pub fn tabs_content_class(class: &str) -> String {
 struct TabsContext {
   base_id: String,
   on_value_change: Option<EventHandler<String>>,
-}
-
-/// Builds a trigger or panel id. Characters that are not ASCII letters,
-/// digits, `-`, or `_` become `-` so the id is a valid IDREF.
-fn tabs_part_id(base_id: &str, part: &str, value: &str) -> String {
-  let value: String = value
-    .chars()
-    .map(|character| {
-      if character.is_ascii_alphanumeric() || character == '-' || character == '_' {
-        character
-      } else {
-        '-'
-      }
-    })
-    .collect();
-
-  format!("{base_id}-{part}-{value}")
 }
 
 /// Links each trigger to its panel by id and reports tab requests: a click on
@@ -102,8 +85,8 @@ pub fn TabsTrigger(
 ) -> Element {
   let class = tabs_trigger_class(active, &class);
   let base_id = try_use_context::<TabsContext>().map(|context| context.base_id);
-  let id = base_id.as_deref().map(|base_id| tabs_part_id(base_id, "trigger", &value));
-  let controls = base_id.as_deref().map(|base_id| tabs_part_id(base_id, "content", &value));
+  let id = base_id.as_deref().map(|base_id| group_part_id(base_id, "trigger", &value));
+  let controls = base_id.as_deref().map(|base_id| group_part_id(base_id, "content", &value));
 
   rsx! {
     button {
@@ -130,8 +113,8 @@ pub fn TabsContent(
 ) -> Element {
   let class = tabs_content_class(&class);
   let base_id = try_use_context::<TabsContext>().map(|context| context.base_id);
-  let id = base_id.as_deref().map(|base_id| tabs_part_id(base_id, "content", &value));
-  let labelledby = base_id.as_deref().map(|base_id| tabs_part_id(base_id, "trigger", &value));
+  let id = base_id.as_deref().map(|base_id| group_part_id(base_id, "content", &value));
+  let labelledby = base_id.as_deref().map(|base_id| group_part_id(base_id, "trigger", &value));
 
   rsx! {
     div {

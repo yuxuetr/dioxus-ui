@@ -812,8 +812,10 @@ static NEXT_ROVING_GROUP_ID: AtomicUsize = AtomicUsize::new(0);
 // Runs for the group's lifetime and reads items from the DOM on every event.
 // The root sets `data-dxui-roving-orientation` (horizontal, vertical, or both),
 // `data-dxui-roving-loop`, and `data-dxui-roving-activation` ("focus" when
-// selection follows focus). Sends the `data-value` of a clicked item, and of a
-// newly focused item when selection follows focus.
+// selection follows focus). With `data-dxui-roving-tab-stops="all"` the script
+// leaves `tabindex` alone, so every enabled item stays in the Tab order. Sends
+// the `data-value` of a clicked item, and of a newly focused item when
+// selection follows focus.
 // Keep in sync with `ROVING_GROUP_SCRIPT` in the CLI `utils.rs` template.
 pub const ROVING_GROUP_SCRIPT: &str = r#"
 const scopeId = await dioxus.recv();
@@ -827,12 +829,14 @@ const items = () =>
   );
 const enabledItems = () => items().filter((item) => !item.disabled);
 const followsFocus = () => root.dataset.dxuiRovingActivation === "focus";
+const singleTabStop = () => root.dataset.dxuiRovingTabStops !== "all";
 const selected = (item) =>
   ["aria-selected", "aria-checked", "aria-pressed"].some((name) => item.getAttribute(name) === "true");
 let lastFocused = null;
 // One Tab stop: where selection follows focus, the selected item comes
 // first; otherwise the item that last had focus does.
 const setTabStop = () => {
+  if (!singleTabStop()) return;
   const enabled = enabledItems();
   const chosen = enabled.find(selected);
   const last = enabled.includes(lastFocused) ? lastFocused : null;
@@ -878,6 +882,7 @@ const onClick = (event) => {
 const onFocusIn = (event) => {
   if (!items().includes(event.target)) return;
   lastFocused = event.target;
+  if (!singleTabStop()) return;
   event.target.tabIndex = 0;
   items().forEach((item) => {
     if (item !== event.target) item.tabIndex = -1;
@@ -900,6 +905,23 @@ root.addEventListener("focusin", onFocusIn);
 await ended;
 observer.disconnect();
 "#;
+
+/// Builds a trigger or panel id for a group part. Characters that are not
+/// ASCII letters, digits, `-`, or `_` become `-` so the id is a valid IDREF.
+pub fn group_part_id(base_id: &str, part: &str, value: &str) -> String {
+  let value: String = value
+    .chars()
+    .map(|character| {
+      if character.is_ascii_alphanumeric() || character == '-' || character == '_' {
+        character
+      } else {
+        '-'
+      }
+    })
+    .collect();
+
+  format!("{base_id}-{part}-{value}")
+}
 
 /// Runs the roving group script for the component's lifetime. Clicks, and
 /// focus moves where the root sets `data-dxui-roving-activation="focus"`, call

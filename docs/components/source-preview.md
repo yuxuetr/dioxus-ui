@@ -16,7 +16,7 @@ Source preview routes: 64
 
 | Component | Route | Template | Target | Language | Lines | Bytes |
 | --- | --- | --- | --- | --- | --- | --- |
-| [Accordion](accordion.md) | /components/accordion/source | crates/dioxus-ui-cli/templates/accordion.rs | src/components/ui/accordion.rs | rust | 74 | 1831 |
+| [Accordion](accordion.md) | /components/accordion/source | crates/dioxus-ui-cli/templates/accordion.rs | src/components/ui/accordion.rs | rust | 172 | 5121 |
 | [Alert](alert.md) | /components/alert/source | crates/dioxus-ui-cli/templates/alert.rs | src/components/ui/alert.rs | rust | 84 | 1946 |
 | [Alert Dialog](alert-dialog.md) | /components/alert-dialog/source | crates/dioxus-ui-cli/templates/alert_dialog.rs | src/components/ui/alert_dialog.rs | rust | 211 | 6219 |
 | [Aspect Ratio](aspect-ratio.md) | /components/aspect-ratio/source | crates/dioxus-ui-cli/templates/aspect_ratio.rs | src/components/ui/aspect_ratio.rs | rust | 42 | 878 |
@@ -73,7 +73,7 @@ Source preview routes: 64
 | [Spinner](spinner.md) | /components/spinner/source | crates/dioxus-ui-cli/templates/spinner.rs | src/components/ui/spinner.rs | rust | 45 | 958 |
 | [Switch](switch.md) | /components/switch/source | crates/dioxus-ui-cli/templates/switch.rs | src/components/ui/switch.rs | rust | 49 | 1326 |
 | [Table](table.md) | /components/table/source | crates/dioxus-ui-cli/templates/table.rs | src/components/ui/table.rs | rust | 149 | 3419 |
-| [Tabs](tabs.md) | /components/tabs/source | crates/dioxus-ui-cli/templates/tabs.rs | src/components/ui/tabs.rs | rust | 149 | 4593 |
+| [Tabs](tabs.md) | /components/tabs/source | crates/dioxus-ui-cli/templates/tabs.rs | src/components/ui/tabs.rs | rust | 132 | 4141 |
 | [Textarea](textarea.md) | /components/textarea/source | crates/dioxus-ui-cli/templates/textarea.rs | src/components/ui/textarea.rs | rust | 36 | 1003 |
 | [Toast](toast.md) | /components/toast/source | crates/dioxus-ui-cli/templates/toast.rs | src/components/ui/toast.rs | rust | 396 | 10817 |
 | [Toggle](toggle.md) | /components/toggle/source | crates/dioxus-ui-cli/templates/toggle.rs | src/components/ui/toggle.rs | rust | 77 | 1865 |
