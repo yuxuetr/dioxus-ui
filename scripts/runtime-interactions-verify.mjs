@@ -1307,6 +1307,43 @@ async function runBrowserAssertions() {
     await page.keyboard.press("Backspace");
     await expect(inputOtp).toHaveAttribute("data-code", "12345");
 
+    const pagination = page.locator('[data-interaction-target="pagination"]');
+    const [pageButtons, pageAnchors] = [pagination.getByRole("navigation").nth(0), pagination.getByRole("navigation").nth(1)];
+    const pageButton = (name) => pageButtons.getByRole("button", { name, exact: true });
+    await pageButton("1").evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(pageButton("1")).toHaveAttribute("aria-current", "page");
+    await expect(pageButton("1")).toHaveAttribute("title", "Results page 1");
+    await expect(pageButton("Go to previous page")).toBeDisabled();
+    await pageButton("2").click();
+    await expect(pagination).toHaveAttribute("data-page", "2");
+    await expect(pageButton("2")).toHaveAttribute("aria-current", "page");
+    await expect(pageButton("1")).toHaveAttribute("aria-current", "false");
+    await expect(pageButton("Go to previous page")).toBeEnabled();
+    await pageButton("Go to next page").focus();
+    await page.keyboard.press("Enter");
+    await expect(pagination).toHaveAttribute("data-page", "3");
+    await page.keyboard.press("Space");
+    await expect(pagination).toHaveAttribute("data-page", "4");
+    await pageButton("Go to next page").click();
+    await expect(pagination).toHaveAttribute("data-page", "5");
+    await expect(pageButton("Go to next page")).toBeDisabled();
+    await pageButton("Go to previous page").click();
+    await expect(pagination).toHaveAttribute("data-page", "4");
+    // Anchors with an href still navigate; a disabled one has no href.
+    const nextAnchor = pageAnchors.getByRole("link", { name: "Go to next page", exact: true });
+    await expect(nextAnchor).toHaveAttribute("href", "#results-2");
+    await expect(nextAnchor).toHaveAttribute("target", "_self");
+    await expect(pageAnchors.getByRole("link", { name: "1", exact: true })).toHaveAttribute("aria-current", "page");
+    const previousAnchor = pageAnchors.locator('[aria-label="Go to previous page"]');
+    await expect(previousAnchor).toHaveAttribute("aria-disabled", "true");
+    await expect(previousAnchor).not.toHaveAttribute("href");
+    await previousAnchor.focus();
+    await expect(previousAnchor).not.toBeFocused();
+    // The preview serves uncompiled Tailwind, so pointer-events-none does not
+    // stop this press; the component must ignore it.
+    await previousAnchor.click({ force: true });
+    await expect(pagination).toHaveAttribute("data-disabled-clicks", "0");
+
     const accordion = page.locator('[data-interaction-target="accordion"]');
     const accordionTrigger = (name) => accordion.getByRole("button", { name, exact: true });
     const accordionRegion = (name) => accordion.getByRole("region", { name, exact: true, includeHidden: true });
@@ -1633,7 +1670,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (29 fixtures)");
+  console.log("runtime interaction verification passed (30 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

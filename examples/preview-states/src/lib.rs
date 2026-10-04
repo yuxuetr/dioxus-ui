@@ -41,7 +41,10 @@ use dioxus_ui::{
   Button, Collapsible, CollapsibleContent, CollapsibleTrigger, Input, NativeSelect,
   NativeSelectOption, Slider, Textarea, Toggle,
 };
-use dioxus_ui::{InputOtp, InputOtpGroup, InputOtpHiddenInput, InputOtpSlot};
+use dioxus_ui::{
+  InputOtp, InputOtpGroup, InputOtpHiddenInput, InputOtpSlot, Pagination, PaginationContent,
+  PaginationItem, PaginationLink, PaginationNext, PaginationPrevious,
+};
 pub use self_test::{INTERACTION_SELF_TEST_SCRIPT, InteractionSelfTest};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -758,6 +761,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut details_open = use_signal(|| false);
   let mut size_value = use_signal(|| "md".to_string());
   let mut otp_code = use_signal(String::new);
+  let mut results_page = use_signal(|| 1);
+  let mut disabled_link_clicks = use_signal(|| 0);
   let mut accordion_value = use_signal(|| None::<String>);
   let accordion_open = move |value: &str| accordion_value().as_deref() == Some(value);
   let mut context_open = use_signal(|| false);
@@ -1732,6 +1737,56 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 value: otp_code(),
                 length: 6,
                 on_value_change: move |value| otp_code.set(value),
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "pagination",
+            "data-page": "{results_page}",
+            "data-disabled-clicks": "{disabled_link_clicks}",
+            h2 { class: "text-sm font-medium", "Pagination interaction" }
+            Pagination { class: "mt-3",
+              PaginationContent {
+                PaginationItem {
+                  PaginationPrevious {
+                    disabled: results_page() == 1,
+                    onclick: move |_| results_page -= 1,
+                  }
+                }
+                for number in 1..=5 {
+                  PaginationItem { key: "{number}",
+                    PaginationLink {
+                      active: results_page() == number,
+                      title: "Results page {number}",
+                      onclick: move |_| results_page.set(number),
+                      "{number}"
+                    }
+                  }
+                }
+                PaginationItem {
+                  PaginationNext {
+                    disabled: results_page() == 5,
+                    onclick: move |_| results_page += 1,
+                  }
+                }
+              }
+            }
+            Pagination { class: "mt-3",
+              PaginationContent {
+                PaginationItem {
+                  PaginationPrevious {
+                    href: "#results-0",
+                    disabled: true,
+                    onclick: move |_| disabled_link_clicks += 1,
+                  }
+                }
+                PaginationItem {
+                  PaginationLink { href: "#results-1", active: true, "1" }
+                }
+                PaginationItem {
+                  PaginationNext { href: "#results-2", target: "_self" }
+                }
               }
             }
           }
