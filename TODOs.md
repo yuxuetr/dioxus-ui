@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M162 Sidebar Toggle And Items
-- Current task: M162.4 Complete sidebar milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2960,7 +2960,7 @@
   - Render a trigger and a Sidebar with button, link, disabled, and wrapper items in the Web preview and extend `npm run verify:runtime-interactions` to assert toggling, `aria-controls`, active item changes with `aria-current`, the link `href`, the disabled item, and the wrapper.
   - Reverse-verify that the script fails when the trigger or item callback is removed, when items always render a wrapper, when a disabled item keeps `href` or calls `onclick`, or when attributes are not spread.
 
-- TODO M162.4 Complete sidebar milestone
+- DONE M162.4 Complete sidebar milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
