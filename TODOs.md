@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M154 Button, Toggle, Input, And Textarea Events
-- Current task: M154.3
+- Current task: M154.4
 
 ## Backup
 
@@ -2799,7 +2799,7 @@
   - Add the callbacks and attribute spreading to the crate sources and templates.
   - Update the Button, Toggle, Input, and Textarea docs pages.
 
-- TODO M154.3 Verify events in a real browser
+- DONE M154.3 Verify events in a real browser
   - Render the four components in the Web preview and extend `npm run verify:runtime-interactions` to assert that a Button click and Enter call `onclick`, that Toggle flips `aria-pressed` by click and Space, that typing in a labelled Input and Textarea reaches app state, and that passed attributes such as `type` and `name` render.
   - Reverse-verify that the script fails when a callback is removed, when attributes are not spread, or when Toggle sends the current state instead of the requested one.
 
