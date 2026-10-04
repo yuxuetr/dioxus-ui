@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60% (M136 3/5)
+- Overall: 80% (M136 4/5)
 - Current milestone: M136 Toast and Sonner Runtime Behavior
-- Current task: M136.4 Verify toast behavior in a real browser
+- Current task: M136.5 Complete toast runtime milestone
 
 ## Backup
 
@@ -2426,7 +2426,7 @@
   - Reuse the Toast timer for `SonnerToast`, `SonnerClose`, and `SonnerAction` with the same reasons and defaults.
   - Update the template and docs page.
 
-- TODO M136.4 Verify toast behavior in a real browser
+- DONE M136.4 Verify toast behavior in a real browser
   - Make Toast and Sonner viewports persistent `role="region"` live regions labelled for notifications so additions are announced.
   - Render real Toast and Sonner components in the Web preview and extend `npm run verify:runtime-interactions` to assert timeout dismissal, hover pause, close and action reasons, and live region attributes.
   - Reverse-verify that the script fails when the pause or timer is removed.
