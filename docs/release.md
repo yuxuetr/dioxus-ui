@@ -680,7 +680,8 @@ first.
   (see RFC 0030); right-to-left, vertical, and multi-thumb sliders are not
   included. Collapsible and Native Select report changes through
   `on_open_change` and `on_value_change` (see RFC 0031); multiple selection is
-  not included. Date Picker and
+  not included. Input OTP reports the cleaned code through `on_value_change`
+  (see RFC 0032); editing a slot in the middle is not included. Date Picker and
   Calendar implement anchored placement, focus entry, and day keyboard
   navigation (see RFC 0013); typed date parsing and source-copy date arithmetic
   are not included. Dropdown and Context Menu implement menu keyboard

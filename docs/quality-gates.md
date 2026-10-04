@@ -539,7 +539,8 @@ and Navigation Menu; and vertical, manually activated Tabs; and Combobox and
 Command result status regions; and labelled Switch and Checkbox toggling by
 click, Space, and label; and Button, Toggle, Input, and Textarea events and
 passed attributes; and Slider keys, clamping, pointer press and drag, and
-disabled guards; and Collapsible toggling and Native Select choices. It does
+disabled guards; and Collapsible toggling and Native Select choices; and
+Input OTP typing, filtering, and Backspace after a rejected character. It does
 not
 write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile

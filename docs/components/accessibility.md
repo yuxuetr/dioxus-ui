@@ -36,7 +36,7 @@ Statuses:
 | Checkbox | An indeterminate state is not implemented. | Planned |
 | Input | Supports `aria-invalid` for invalid state; `on_value_change` reports typed text, and `id`, `type`, and `aria-*` pass through so a `Label` can name it; browser-verified on Web. | Implemented |
 | Input Group | Preserves native input semantics while apps own labels, descriptions, and decorative addon handling. | Implemented |
-| Input OTP | Provides visual presentation slots plus a native input strategy; apps own labels, descriptions, paste policy, and keyboard handlers. | Implemented |
+| Input OTP | Provides visual presentation slots over one transparent native input; a press on the slots focuses it, `on_value_change` reports the code cleaned to the input mode and length, and `aria-labelledby` passes through; apps own labels and descriptions; browser-verified on Web. | Implemented |
 | Label | Can be associated with a form control by the app; `id` and other attributes pass through for `aria-labelledby`. | Implemented |
 | Switch | `role="switch"` with `aria-checked` and `data-state`; `on_checked_change` reports click, Space, Enter, and label changes, and `id` and `aria-*` pass through for a name; browser-verified on Web. | Implemented |
 | Switch | A hidden input for native form submission is not implemented. | Planned |

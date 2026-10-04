@@ -188,4 +188,6 @@ Button, Toggle, Input, and Textarea events
 to Slider keyboard and pointer input
 ([RFC 0030](rfcs/0030-slider-keyboard-and-pointer-input.md)), and M156 to
 Collapsible and Native Select events
-([RFC 0031](rfcs/0031-collapsible-and-native-select-events.md)).
+([RFC 0031](rfcs/0031-collapsible-and-native-select-events.md)), and M157 to
+Input OTP value changes
+([RFC 0032](rfcs/0032-input-otp-value-changes.md)).

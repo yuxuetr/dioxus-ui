@@ -137,6 +137,10 @@ release owner renames it to the released version at publish time.
   `on_open_change` with the requested state and `NativeSelect` gains
   `on_value_change`; both, and the other Collapsible parts, pass through
   attributes such as `id`, `name`, and `aria-*`.
+- Input OTP value changes: `InputOtpHiddenInput` gains `on_value_change` with
+  the code cleaned by the new `input_otp_sanitize`, a page script keeps
+  rejected characters out of the native value, and both Input OTP parts pass
+  through attributes such as `aria-labelledby`.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.
@@ -149,6 +153,9 @@ release owner renames it to the released version at publish time.
 ### Changed
 
 - Template changelog history has been removed from the project changelog.
+- `InputOtpHiddenInput` requires a `length` prop, and its class changes from
+  `sr-only` to a transparent overlay over the slots; `InputOtp` gains
+  `relative` so the input must be its child.
 
 ### Fixed
 
