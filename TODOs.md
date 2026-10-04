@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M154 Button, Toggle, Input, And Textarea Events
-- Current task: M154.4
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2803,7 +2803,7 @@
   - Render the four components in the Web preview and extend `npm run verify:runtime-interactions` to assert that a Button click and Enter call `onclick`, that Toggle flips `aria-pressed` by click and Space, that typing in a labelled Input and Textarea reaches app state, and that passed attributes such as `type` and `name` render.
   - Reverse-verify that the script fails when a callback is removed, when attributes are not spread, or when Toggle sends the current state instead of the requested one.
 
-- TODO M154.4 Complete events milestone
+- DONE M154.4 Complete events milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
