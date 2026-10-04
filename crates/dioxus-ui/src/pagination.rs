@@ -78,56 +78,108 @@ pub fn PaginationLink(
   #[props(default)] href: String,
   #[props(default)] active: bool,
   #[props(default)] disabled: bool,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = a)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = pagination_link_class(active, disabled, &class);
 
-  rsx! {
-    a {
-      class,
-      href,
-      "aria-current": if active { "page" } else { "false" },
-      "aria-disabled": disabled.to_string(),
-      {children}
-    }
-  }
+  pagination_control(href, active, disabled, onclick, class, None, attributes, children)
 }
 
 #[component]
 pub fn PaginationPrevious(
   #[props(default)] href: String,
   #[props(default)] disabled: bool,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = a)] attributes: Vec<Attribute>,
 ) -> Element {
   let class = pagination_link_class(false, disabled, &class);
 
-  rsx! {
-    a {
-      class,
-      href,
-      "aria-label": "Go to previous page",
-      "aria-disabled": disabled.to_string(),
-      "Previous"
-    }
-  }
+  pagination_control(
+    href,
+    false,
+    disabled,
+    onclick,
+    class,
+    Some("Go to previous page"),
+    attributes,
+    rsx! { "Previous" },
+  )
 }
 
 #[component]
 pub fn PaginationNext(
   #[props(default)] href: String,
   #[props(default)] disabled: bool,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = a)] attributes: Vec<Attribute>,
 ) -> Element {
   let class = pagination_link_class(false, disabled, &class);
 
-  rsx! {
-    a {
-      class,
-      href,
-      "aria-label": "Go to next page",
-      "aria-disabled": disabled.to_string(),
-      "Next"
+  pagination_control(
+    href,
+    false,
+    disabled,
+    onclick,
+    class,
+    Some("Go to next page"),
+    attributes,
+    rsx! { "Next" },
+  )
+}
+
+/// Renders a button when `href` is empty, so in-app pages work on every
+/// renderer (Desktop opens anchors in the system browser), and an anchor
+/// otherwise. A disabled anchor drops `href`, which takes it out of the Tab
+/// order and stops Enter from following it.
+#[allow(clippy::too_many_arguments)]
+fn pagination_control(
+  href: String,
+  active: bool,
+  disabled: bool,
+  onclick: Option<EventHandler<MouseEvent>>,
+  class: String,
+  aria_label: Option<&'static str>,
+  attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
+  let aria_current = if active { "page" } else { "false" };
+  let onclick = move |event: MouseEvent| {
+    if !disabled && let Some(handler) = onclick {
+      handler.call(event);
+    }
+  };
+
+  if href.is_empty() {
+    rsx! {
+      button {
+        r#type: "button",
+        class,
+        disabled,
+        "aria-label": aria_label,
+        "aria-current": aria_current,
+        onclick,
+        ..attributes,
+        {children}
+      }
+    }
+  } else {
+    rsx! {
+      a {
+        class,
+        href: (!disabled).then_some(href),
+        role: disabled.then_some("link"),
+        "aria-label": aria_label,
+        "aria-current": aria_current,
+        "aria-disabled": disabled.to_string(),
+        onclick,
+        ..attributes,
+        {children}
+      }
     }
   }
 }
