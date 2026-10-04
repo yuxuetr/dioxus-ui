@@ -119,9 +119,11 @@ Statuses:
 | Chart component | Provides SVG `role="img"` composition, title and description references, text legend hooks, and fallback table rendering for line, bar, and area charts. | Implemented |
 | Chart runtime | Cursor exploration, hit testing, keyboard data navigation, animation timing, and external backend accessibility remain app-owned or deferred. | Planned |
 | Toast | Exposes status semantics, variant urgency, close/action native controls, and queue state helpers. | Implemented |
-| Toast | Needs app-level live-region wording, timer scheduling, portal mounting, and focus policy verification. | Planned |
+| Toast | Persistent polite viewport region, countdown that pauses on hover and focus, and dismiss reasons; browser-verified on Web. | Implemented |
+| Toast | Needs app-level announcement wording, portal mounting, and focus policy verification. | Planned |
 | Sonner | Exposes status semantics, decorative variant icons, close/action native controls, and queue state helpers. | Implemented |
-| Sonner | Needs app-level promise orchestration, live-region wording, timer scheduling, portal mounting, and focus policy verification. | Planned |
+| Sonner | Persistent polite viewport region, countdown that pauses on hover and focus, and dismiss reasons; browser-verified on Web. | Implemented |
+| Sonner | Needs app-level promise orchestration, announcement wording, portal mounting, and focus policy verification. | Planned |
 | Carousel | Exposes carousel region, slide group semantics, selected indicator state, and disabled native controls. | Implemented |
 | Carousel | Needs app-level keyboard shortcuts, live announcements, gesture behavior, and autoplay verification. | Planned |
 | Scroll Area | Keeps native scrolling behavior and exposes presentational scrollbar hooks. | Implemented |
@@ -152,9 +154,10 @@ M22 implements focus and portal contract types only. M135 implements modal
 focus and anchored placement in the styled components themselves (see
 [RFC 0010](../rfcs/0010-overlay-interaction-behavior.md)); DOM portal mounting
 remains out of scope.
-M23 implements timer and live-region contract types only. Toast and Sonner still
-require renderer-level timer and live-region verification before announcement
-runtime behavior can be marked stable.
+M23 implements timer and live-region contract types only. M136 implements the
+Toast and Sonner countdown and persistent viewport live regions in the styled
+components (see [RFC 0011](../rfcs/0011-toast-timer-and-live-region.md)).
+Screen reader announcements themselves are not automated.
 M24 implements measurement, pointer, and gesture contract types only. Popover,
 Tooltip, Dropdown, Select, menu overlays, Resizable, Carousel, and Chart still
 require renderer-level measurement, pointer, and gesture verification before

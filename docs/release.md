@@ -669,6 +669,10 @@ first.
   Web renderer is browser-verified. Select, Combobox, Date Picker, Navigation
   Menu, Context Menu, and Menubar stay controlled-only, and there is no DOM
   portal (see RFC 0010).
+- Toast and Sonner dismiss themselves after a countdown that pauses on hover
+  and focus, inside persistent live region viewports (see RFC 0011). Screen
+  reader announcements are not automated, and swipe to dismiss is not
+  implemented.
 - Generated templates include a local `utils.rs` helper module and should not
   require `dioxus-ui-core` or `dioxus-ui-primitives` in source-copy mode.
 - Web has a rendered preview shell and screenshot procedure. Desktop has a

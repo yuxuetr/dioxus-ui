@@ -69,13 +69,13 @@ Source preview routes: 64
 | [Sidebar](sidebar.md) | /components/sidebar/source | crates/dioxus-ui-cli/templates/sidebar.rs | src/components/ui/sidebar.rs | rust | 207 | 5625 |
 | [Skeleton](skeleton.md) | /components/skeleton/source | crates/dioxus-ui-cli/templates/skeleton.rs | src/components/ui/skeleton.rs | rust | 21 | 420 |
 | [Slider](slider.md) | /components/slider/source | crates/dioxus-ui-cli/templates/slider.rs | src/components/ui/slider.rs | rust | 195 | 5108 |
-| [Sonner](sonner.md) | /components/sonner/source | crates/dioxus-ui-cli/templates/sonner.rs | src/components/ui/sonner.rs | rust | 424 | 11591 |
+| [Sonner](sonner.md) | /components/sonner/source | crates/dioxus-ui-cli/templates/sonner.rs | src/components/ui/sonner.rs | rust | 429 | 11791 |
 | [Spinner](spinner.md) | /components/spinner/source | crates/dioxus-ui-cli/templates/spinner.rs | src/components/ui/spinner.rs | rust | 45 | 958 |
 | [Switch](switch.md) | /components/switch/source | crates/dioxus-ui-cli/templates/switch.rs | src/components/ui/switch.rs | rust | 49 | 1326 |
 | [Table](table.md) | /components/table/source | crates/dioxus-ui-cli/templates/table.rs | src/components/ui/table.rs | rust | 149 | 3419 |
 | [Tabs](tabs.md) | /components/tabs/source | crates/dioxus-ui-cli/templates/tabs.rs | src/components/ui/tabs.rs | rust | 81 | 2071 |
 | [Textarea](textarea.md) | /components/textarea/source | crates/dioxus-ui-cli/templates/textarea.rs | src/components/ui/textarea.rs | rust | 36 | 1003 |
-| [Toast](toast.md) | /components/toast/source | crates/dioxus-ui-cli/templates/toast.rs | src/components/ui/toast.rs | rust | 391 | 10617 |
+| [Toast](toast.md) | /components/toast/source | crates/dioxus-ui-cli/templates/toast.rs | src/components/ui/toast.rs | rust | 396 | 10817 |
 | [Toggle](toggle.md) | /components/toggle/source | crates/dioxus-ui-cli/templates/toggle.rs | src/components/ui/toggle.rs | rust | 77 | 1865 |
 | [Toggle Group](toggle-group.md) | /components/toggle-group/source | crates/dioxus-ui-cli/templates/toggle_group.rs | src/components/ui/toggle_group.rs | rust | 282 | 6713 |
 | [Tooltip](tooltip.md) | /components/tooltip/source | crates/dioxus-ui-cli/templates/tooltip.rs | src/components/ui/tooltip.rs | rust | 43 | 1310 |

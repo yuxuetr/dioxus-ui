@@ -41,6 +41,11 @@ release owner renames it to the released version at publish time.
   anchored placement with flip and shift, and close on Escape or outside
   interaction per `dismiss`. Source-copy templates carry the same behavior in
   `utils.rs`.
+- Toast and Sonner dismissal: roots count down `duration_ms` (default `5000`,
+  `0` disables) while the pointer is outside and focus is not inside, then call
+  `on_dismiss(Timeout)`; action and close buttons call `on_dismiss` with
+  `Action` and `Close`. Viewports are persistent polite `Notifications` live
+  regions.
 
 ### Changed
 
