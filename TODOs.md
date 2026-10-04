@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M148 Hover Card Hover And Focus Opening
-- Current task: M148.3
+- Current task: M148.4
 
 ## Backup
 
@@ -2679,7 +2679,7 @@
   - Move the tooltip script into a shared hover-open module in the crate and the template `utils.rs`, keep Tooltip behavior unchanged, and wire `HoverCard`, `HoverCardTrigger`, and `HoverCardContent` in the crate and the template.
   - Update the Hover Card and Tooltip docs pages.
 
-- TODO M148.3 Verify hover card behavior in a real browser
+- DONE M148.3 Verify hover card behavior in a real browser
   - Render a real Hover Card in the Web preview and extend `npm run verify:runtime-interactions` to assert the open delay, the close delay, staying open over the card, trigger presses keeping it open, immediate keyboard focus opening, Tab into the card keeping it open, closing on Escape and outside presses, and no `aria-describedby`, while the tooltip assertions still pass.
   - Reverse-verify that the script fails when the open delay, the close delay, the card focus exemption, the press exemption, or the description exemption is removed.
 
