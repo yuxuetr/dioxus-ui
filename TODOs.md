@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M147 Tooltip Hover And Focus Opening
-- Current task: M147.1 Design tooltip hover and focus opening
+- Current task: M147.2 Implement tooltip hover and focus opening
 
 ## Backup
 
@@ -2650,7 +2650,7 @@
 
 ## M147 Tooltip Hover And Focus Opening
 
-- TODO M147.1 Design tooltip hover and focus opening
+- DONE M147.1 Design tooltip hover and focus opening
   - Record that Tooltip has only a content part: the app wires hover and focus handlers on its own trigger, there is no open delay, moving the pointer onto the content closes it, and the trigger is not linked to the content with `aria-describedby`.
   - Define a `Tooltip` root that reports open requests, a `TooltipTrigger` that links to the content while it is open, and a page script that opens after a hover delay, opens at once on keyboard focus, stays open while the pointer is over the trigger or content, and closes on pointer leave, blur, and trigger presses.
   - Record what stays out of scope (Hover Card timing, skipping the delay between adjacent tooltips, touch long press, Desktop and Mobile self-test scenarios) with reevaluation conditions.
