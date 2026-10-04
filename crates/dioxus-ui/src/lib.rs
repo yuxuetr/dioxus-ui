@@ -281,9 +281,9 @@ pub use calendar::{
   CalendarHeadCell, CalendarHeader, CalendarKeyMove, CalendarMonth, CalendarMonthGrid, CalendarNav,
   CalendarNavButton, CalendarNavDirection, CalendarPrimitiveDay, CalendarRangeState, CalendarRow,
   CalendarWeekday, calendar_caption_class, calendar_class, calendar_day_class, calendar_grid_class,
-  calendar_head_cell_class, calendar_head_class, calendar_header_class, calendar_month_grid,
-  calendar_move_date, calendar_nav_button_class, calendar_nav_class, calendar_range_attribute,
-  calendar_range_state, calendar_row_class, days_in_month, is_leap_year,
+  calendar_head_cell_class, calendar_head_class, calendar_header_class, calendar_key_move,
+  calendar_month_grid, calendar_move_date, calendar_nav_button_class, calendar_nav_class,
+  calendar_range_attribute, calendar_range_state, calendar_row_class, days_in_month, is_leap_year,
 };
 #[cfg(feature = "card")]
 pub use card::{

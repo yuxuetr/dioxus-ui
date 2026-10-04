@@ -1,3 +1,6 @@
+use std::cell::Cell;
+use std::rc::Rc;
+
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 pub use dioxus_ui_primitives::{
@@ -102,6 +105,25 @@ pub fn calendar_day_class(
   ])
 }
 
+/// Maps a key on a focused day to a calendar move: arrows move by a day or a
+/// week, Page Up and Page Down by a month (a year with Shift), and Home and End
+/// to the start and end of the week.
+pub fn calendar_key_move(key: &Key, shift: bool) -> Option<CalendarKeyMove> {
+  match key {
+    Key::ArrowLeft => Some(CalendarKeyMove::PreviousDay),
+    Key::ArrowRight => Some(CalendarKeyMove::NextDay),
+    Key::ArrowUp => Some(CalendarKeyMove::PreviousWeek),
+    Key::ArrowDown => Some(CalendarKeyMove::NextWeek),
+    Key::PageUp if shift => Some(CalendarKeyMove::PreviousYear),
+    Key::PageUp => Some(CalendarKeyMove::PreviousMonth),
+    Key::PageDown if shift => Some(CalendarKeyMove::NextYear),
+    Key::PageDown => Some(CalendarKeyMove::NextMonth),
+    Key::Home => Some(CalendarKeyMove::StartOfWeek),
+    Key::End => Some(CalendarKeyMove::EndOfWeek),
+    _ => None,
+  }
+}
+
 pub fn calendar_range_attribute(range_state: CalendarRangeState) -> &'static str {
   match range_state {
     CalendarRangeState::Outside => "outside",
@@ -164,6 +186,7 @@ pub fn CalendarNav(#[props(default)] class: String, children: Element) -> Elemen
 pub fn CalendarNavButton(
   #[props(default)] direction: CalendarNavDirection,
   #[props(default)] disabled: bool,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
@@ -182,6 +205,11 @@ pub fn CalendarNavButton(
       "data-direction": match direction {
         CalendarNavDirection::Previous => "previous",
         CalendarNavDirection::Next => "next",
+      },
+      onclick: move |event| {
+        if let Some(handler) = onclick {
+          handler.call(event);
+        }
       },
       {children}
     }
@@ -253,6 +281,10 @@ pub fn CalendarRow(#[props(default)] class: String, children: Element) -> Elemen
   }
 }
 
+/// With `on_key_move` the grid is one Tab stop: only the `focused` day has
+/// `tabindex="0"`, and it takes DOM focus when `focused` turns true after
+/// mount. Navigation keys report a `CalendarKeyMove`; the app applies it with
+/// `calendar_move_date` and moves `focused`. Click calls `on_select`.
 #[component]
 pub fn CalendarDay(
   date: CalendarDate,
@@ -261,10 +293,31 @@ pub fn CalendarDay(
   #[props(default)] outside_month: bool,
   #[props(default)] disabled: bool,
   #[props(default)] range_state: CalendarRangeState,
+  #[props(default)] focused: bool,
+  #[props(default)] on_key_move: Option<EventHandler<CalendarKeyMove>>,
+  #[props(default)] on_select: Option<EventHandler<CalendarDate>>,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
   let class = calendar_day_class(selected, today, outside_month, disabled, range_state, &class);
+  let keyboard_managed = on_key_move.is_some();
+  let mut mounted = use_signal(|| None::<Rc<MountedData>>);
+  // Starts with the first `focused` value so a calendar that renders with a
+  // focused day does not steal focus on load.
+  let was_focused = use_hook(|| Rc::new(Cell::new(focused)));
+
+  use_effect(use_reactive(&focused, move |focused| {
+    let previously_focused = was_focused.replace(focused);
+    if !focused || previously_focused {
+      return;
+    }
+    if let Some(element) = mounted.peek().clone() {
+      spawn(async move {
+        // A focus error means the day is hidden or gone; nothing to focus.
+        let _ = element.set_focus(true).await;
+      });
+    }
+  }));
 
   rsx! {
     button {
@@ -272,6 +325,21 @@ pub fn CalendarDay(
       role: "gridcell",
       class,
       disabled,
+      tabindex: keyboard_managed.then_some(if focused { "0" } else { "-1" }),
+      "data-dxui-autofocus": (keyboard_managed && focused).then_some("true"),
+      onmounted: move |event| mounted.set(Some(event.data())),
+      onkeydown: move |event| {
+        let key_move = calendar_key_move(&event.key(), event.modifiers().shift());
+        if let (Some(handler), Some(key_move)) = (on_key_move, key_move) {
+          event.prevent_default();
+          handler.call(key_move);
+        }
+      },
+      onclick: move |_| {
+        if let Some(handler) = on_select {
+          handler.call(date);
+        }
+      },
       "aria-disabled": disabled.to_string(),
       "aria-selected": selected.to_string(),
       "data-date": format!("{:04}-{:02}-{:02}", date.year, date.month, date.day),
@@ -298,6 +366,16 @@ mod tests {
     assert!(actual.contains(CALENDAR_DAY_TODAY_CLASS));
     assert!(actual.contains(CALENDAR_DAY_OUTSIDE_CLASS));
     assert!(actual.ends_with("font-semibold"));
+  }
+
+  #[test]
+  fn calendar_key_move_maps_navigation_keys() {
+    assert_eq!(calendar_key_move(&Key::ArrowLeft, false), Some(CalendarKeyMove::PreviousDay));
+    assert_eq!(calendar_key_move(&Key::ArrowDown, false), Some(CalendarKeyMove::NextWeek));
+    assert_eq!(calendar_key_move(&Key::PageUp, false), Some(CalendarKeyMove::PreviousMonth));
+    assert_eq!(calendar_key_move(&Key::PageDown, true), Some(CalendarKeyMove::NextYear));
+    assert_eq!(calendar_key_move(&Key::End, false), Some(CalendarKeyMove::EndOfWeek));
+    assert_eq!(calendar_key_move(&Key::Enter, false), None);
   }
 
   #[test]
