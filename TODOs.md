@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M167 Slider Thumb Position And Vertical Orientation
-- Current task: M167.1 Design slider thumb position and vertical orientation
+- Current task: M167.2 Implement slider thumb position and vertical orientation
 
 ## Backup
 
@@ -3047,7 +3047,7 @@
 
 ## M167 Slider Thumb Position And Vertical Orientation
 
-- TODO M167.1 Design slider thumb position and vertical orientation
+- DONE M167.1 Design slider thumb position and vertical orientation
   - Record that the thumb style sets `left` on an element nothing positions, so the thumb never moves, and that `Slider` has no vertical orientation.
   - Define an absolutely positioned inline thumb style, `orientation` with vertical root, track, range, and thumb styles, `aria-orientation`, and a vertical pointer mapping.
   - Record what stays out of scope (right-to-left sliders, multiple thumbs, inverted sliders, Desktop and Mobile self-test scenarios) with reevaluation conditions.
