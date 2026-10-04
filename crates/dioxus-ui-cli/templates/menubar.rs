@@ -56,7 +56,10 @@ const onKeyDown = (event) => {
   if (onTrigger) next.focus();
   else open(next);
 };
-const onPointerOver = (event) => {
+// Pointer movement, not pointerover: Chrome also sends pointerover when the
+// layout shifts under a resting cursor, such as while a menu is placed, which
+// would switch back to the menu under the cursor.
+const onPointerMove = (event) => {
   const trigger = event.target instanceof Element ? event.target.closest(triggerSelector) : null;
   if (!trigger || trigger.disabled || !root.contains(trigger)) return;
   const content = menuOf(trigger)?.querySelector('[role="menu"]');
@@ -67,7 +70,7 @@ const onFocusIn = (event) => {
 };
 setTabStop(null);
 root.addEventListener("keydown", onKeyDown);
-root.addEventListener("pointerover", onPointerOver);
+root.addEventListener("pointermove", onPointerMove);
 root.addEventListener("focusin", onFocusIn);
 await new Promise((resolve) => {
   const observer = new MutationObserver(() => {
