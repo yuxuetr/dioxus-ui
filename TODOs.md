@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M159 Carousel Slide Changes
-- Current task: M159.2 Implement carousel slide changes
+- Current task: M159.3 Verify carousel in a real browser
 
 ## Backup
 
@@ -2895,7 +2895,7 @@
   - Define `CarouselContent` `index` with a per-item percentage translate, `onclick` on Previous, Next, and Indicator, `Carousel` `on_key_step` with `CarouselStep`, attribute spreading, and a passed `aria-label` replacing the English default.
   - Record what stays out of scope (hiding off-screen slides, swipe gestures, autoplay, right-to-left mirroring, ignoring arrows typed into fields, Desktop and Mobile self-test scenarios) with reevaluation conditions.
 
-- TODO M159.2 Implement carousel slide changes
+- DONE M159.2 Implement carousel slide changes
   - Add the index translate, callbacks, key step, attribute spreading, and label override to the crate source and template, with unit tests.
   - Update the Carousel docs page.
 
