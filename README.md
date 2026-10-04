@@ -795,8 +795,9 @@ real Dropdown and Context Menu components (menu navigation, activation,
 point placement), a real Menubar (roving triggers, menu switching, focus
 return), a real Navigation Menu (click, keyboard, and hover disclosure,
 dismissal), real Tabs, Radio Group, and Toggle Group components (one Tab
-stop, arrow movement, selection following focus), and a real Accordion
-(toggle reporting, trigger arrow movement, region links). It requires Playwright
+stop, arrow movement, selection following focus), a real Accordion
+(toggle reporting, trigger arrow movement, region links), and Tooltip hover
+and focus opening. It requires Playwright
 Chromium or `DIOXUS_UI_BROWSER_EXECUTABLE`, does not write screenshots or
 traces, and does not claim full accessibility certification, native Desktop or
 Mobile coverage, or visual parity.

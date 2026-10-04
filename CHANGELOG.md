@@ -88,6 +88,12 @@ release owner renames it to the released version at publish time.
   `aria-labelledby`. `accordion_single_open` and `accordion_multiple_open`
   compute the next open values. Breaking: `AccordionItem` now requires
   `value`.
+- Tooltip hover and focus opening: the new `Tooltip` root and
+  `TooltipTrigger` open the tooltip after a hover delay (`delay_ms`, default
+  700 ms) or at once on keyboard focus, keep it open while the pointer moves
+  onto the content, and close it on pointer leave, blur, and trigger presses.
+  Requests reach the app through `Tooltip` `on_open_change`, and the trigger
+  has `aria-describedby` while the tooltip is open.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.

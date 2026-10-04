@@ -112,8 +112,8 @@ Statuses:
 | Popover | Anchored placement with flip and shift, and Escape or outside dismissal; browser-verified on Web. | Implemented |
 | Sheet | Uses dialog role and modal state for side-panel flows. | Implemented |
 | Sheet | Shares the Dialog focus scope and dismissal. | Implemented |
-| Tooltip | Anchored placement and Escape dismissal; browser-verified on Web. | Implemented |
-| Tooltip | Hover and focus opening remain app-owned. | Planned |
+| Tooltip | Anchored placement and Escape dismissal; under `Tooltip`, hover opens after a delay, keyboard focus opens at once, the pointer can move onto the content, and the trigger has `aria-describedby` while open; browser-verified on Web. | Implemented |
+| Tooltip | Skipping the delay between adjacent tooltips and touch long press are not implemented. | Planned |
 
 ## Data And Navigation
 

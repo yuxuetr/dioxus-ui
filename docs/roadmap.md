@@ -168,4 +168,6 @@ Menu disclosure interaction
 Radio Group, and Toggle Group roving focus
 ([RFC 0019](rfcs/0019-roving-group-interaction.md)), and M146 to Accordion
 toggle reporting and trigger movement
-([RFC 0021](rfcs/0021-accordion-interaction.md)).
+([RFC 0021](rfcs/0021-accordion-interaction.md)), and M147 to Tooltip hover
+and focus opening
+([RFC 0022](rfcs/0022-tooltip-hover-and-focus-opening.md)).
