@@ -145,6 +145,12 @@ release owner renames it to the released version at publish time.
   `PaginationNext` gain `onclick`, render a button when `href` is empty, and
   pass through attributes such as `title` and `target`; a disabled anchor
   drops its `href`.
+- Carousel slide changes: `CarouselContent` takes `index` and its items
+  translate to show the selected slide, `CarouselPrevious`, `CarouselNext`, and
+  `CarouselIndicator` gain `onclick`, the `Carousel` root reports arrow keys
+  through `on_key_step` with `CarouselStep`, and every part passes through
+  attributes; a passed `aria-label` replaces the English default on the
+  controls.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.
@@ -162,6 +168,8 @@ release owner renames it to the released version at publish time.
   `relative` so the input must be its child.
 - Pagination controls without an `href` render `button type="button"`
   instead of `a href=""`.
+- Carousel items set the `transform` style and transition it, so slides other
+  than the selected one move out of the viewport.
 
 ### Fixed
 

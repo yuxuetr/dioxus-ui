@@ -137,8 +137,8 @@ Statuses:
 | Sonner | Exposes status semantics, decorative variant icons, close/action native controls, and queue state helpers. | Implemented |
 | Sonner | Persistent polite viewport region, countdown that pauses on hover and focus, and dismiss reasons; browser-verified on Web. | Implemented |
 | Sonner | Needs app-level promise orchestration, announcement wording, portal mounting, and focus policy verification. | Planned |
-| Carousel | Exposes carousel region, slide group semantics, selected indicator state, and disabled native controls. | Implemented |
-| Carousel | Needs app-level keyboard shortcuts, live announcements, gesture behavior, and autoplay verification. | Planned |
+| Carousel | Exposes carousel region, slide group semantics, selected indicator state, and disabled native controls; the content shows the selected index, controls report `onclick`, arrow keys report `on_key_step`, and passed labels name each control; browser-verified on Web. | Implemented |
+| Carousel | Needs off-screen slide hiding, gesture behavior, and autoplay verification. | Planned |
 | Scroll Area | Keeps native scrolling behavior and exposes presentational scrollbar hooks. | Implemented |
 | Resizable | Exposes separator handles with orientation and disabled state. | Implemented |
 | Resizable | Needs app-level keyboard resizing, pointer dragging, and measurement verification. | Planned |
