@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M142 Desktop Interaction Verification
-- Current task: M142.4 Complete desktop verification milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2563,7 +2563,7 @@
   - Confirm the self-test fails when an interaction script path is broken (focus return, listbox selection, menu switching, calendar focus) and when the scenario times out.
   - Keep the command out of `npm run verify:release`, like the browser smoke, because it opens a window and needs a GUI session.
 
-- TODO M142.4 Complete desktop verification milestone
+- DONE M142.4 Complete desktop verification milestone
   - Update the Desktop and Mobile verification strategy, runtime interaction docs, quality gates, Known Pre-1.0 Limitations, and CHANGELOG Unreleased notes.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
