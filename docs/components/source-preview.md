@@ -29,7 +29,7 @@ Source preview routes: 64
 | [Button Group](button-group.md) | /components/button-group/source | crates/dioxus-ui-cli/templates/button_group.rs | src/components/ui/button_group.rs | rust | 98 | 2862 |
 | [Calendar](calendar.md) | /components/calendar/source | crates/dioxus-ui-cli/templates/calendar.rs | src/components/ui/calendar.rs | rust | 389 | 11474 |
 | [Card](card.md) | /components/card/source | crates/dioxus-ui-cli/templates/card.rs | src/components/ui/card.rs | rust | 106 | 2355 |
-| [Carousel](carousel.md) | /components/carousel/source | crates/dioxus-ui-cli/templates/carousel.rs | src/components/ui/carousel.rs | rust | 388 | 10572 |
+| [Carousel](carousel.md) | /components/carousel/source | crates/dioxus-ui-cli/templates/carousel.rs | src/components/ui/carousel.rs | rust | 392 | 10886 |
 | [Chart](chart.md) | /components/chart/source | crates/dioxus-ui-cli/templates/chart.rs | src/components/ui/chart.rs | rust | 633 | 14818 |
 | [Checkbox](checkbox.md) | /components/checkbox/source | crates/dioxus-ui-cli/templates/checkbox.rs | src/components/ui/checkbox.rs | rust | 44 | 1415 |
 | [Collapsible](collapsible.md) | /components/collapsible/source | crates/dioxus-ui-cli/templates/collapsible.rs | src/components/ui/collapsible.rs | rust | 131 | 3689 |
