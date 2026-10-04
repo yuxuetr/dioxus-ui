@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M151 Tabs Manual Activation And Vertical Orientation
-- Current task: M151.3
+- Current task: M151.4
 
 ## Backup
 
@@ -2739,7 +2739,7 @@
   - Add the props and data attributes to the Tabs crate source and template, and the Tab stop rule to the roving group script in the crate and the template `utils.rs`.
   - Update the Tabs docs page.
 
-- TODO M151.3 Verify tabs behavior in a real browser
+- DONE M151.3 Verify tabs behavior in a real browser
   - Render a vertical, manually activated Tabs in the Web preview and extend `npm run verify:runtime-interactions` to assert the orientation attributes and layout, Up and Down movement with Left and Right ignored, focus moving without selecting, Enter, Space, and click selecting, and the Tab stop returning to the selected trigger after focus leaves.
   - Reverse-verify that the script fails when manual tabs select on focus, when the Tab stop stays on the last focused trigger, when the vertical list keeps horizontal keys, or when `aria-orientation` stays horizontal.
 
