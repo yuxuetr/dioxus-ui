@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M143 Mobile Interaction Verification
-- Current task: M143.1 Design mobile interaction verification
+- Current task: M143.2 Implement the Mobile self-test
 
 ## Backup
 
@@ -2570,7 +2570,7 @@
 
 ## M143 Mobile Interaction Verification
 
-- TODO M143.1 Design mobile interaction verification
+- DONE M143.1 Design mobile interaction verification
   - Record that Mobile shares the interaction scripts with Web and Desktop, that no Mobile app exists in the workspace, and that a probe ran the RFC 0017 scenarios in an iOS Simulator build with every scenario passing.
   - Define a Mobile preview app, a scenario script and self-test component shared with Desktop, and a command that builds for the iOS Simulator, installs, launches with the self-test variable, and reads the result from the console.
   - Record what stays out of scope (Android, physical devices, touch gestures, CI activation) with reevaluation conditions.
