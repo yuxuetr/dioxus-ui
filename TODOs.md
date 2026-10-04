@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M155 Slider Keyboard And Pointer Input
-- Current task: M155.2
+- Current task: M155.3
 
 ## Backup
 
@@ -2815,7 +2815,7 @@
   - Define `on_value_change: Option<EventHandler<f64>>`; Arrow keys, Page Up, Page Down, Home, and End move through `SliderState::moved` in Rust and prevent page scrolling; a page script turns a pointer press and drag on the root into a snapped value; attributes such as `aria-label` and `aria-valuetext` pass through; a disabled slider ignores both.
   - Record what stays out of scope (right-to-left and vertical sliders, multiple thumbs, Desktop and Mobile self-test scenarios) with reevaluation conditions.
 
-- TODO M155.2 Implement slider keyboard and pointer input
+- DONE M155.2 Implement slider keyboard and pointer input
   - Add a key-to-move mapping with unit tests, the callback, the pointer script, and attribute spreading to the crate sources and templates, keeping the template script identical through the CLI parity test.
   - Update the Slider docs page.
 
