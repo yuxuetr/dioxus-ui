@@ -528,7 +528,9 @@ Navigation Menu: click toggling, top-level and content arrow movement, hover
 open and close timing, and Escape, outside, and focus-out dismissal; and real
 Tabs, Radio Group, and Toggle Group components: one Tab stop, arrow movement
 past disabled items, selection following focus in Tabs and Radio Group, and
-Tabs trigger and panel id links. It does not
+Tabs trigger and panel id links; and a real Accordion: toggle reporting, Up
+and Down trigger movement with every trigger a Tab stop, and trigger and
+region id links. It does not
 write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.

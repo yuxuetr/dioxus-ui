@@ -166,4 +166,6 @@ roving triggers and menu switching
 Menu disclosure interaction
 ([RFC 0016](rfcs/0016-navigation-menu-interaction.md)), and M144 to Tabs,
 Radio Group, and Toggle Group roving focus
-([RFC 0019](rfcs/0019-roving-group-interaction.md)).
+([RFC 0019](rfcs/0019-roving-group-interaction.md)), and M146 to Accordion
+toggle reporting and trigger movement
+([RFC 0021](rfcs/0021-accordion-interaction.md)).

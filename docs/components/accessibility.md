@@ -44,7 +44,8 @@ Statuses:
 
 | Component | Contract | Status |
 | --- | --- | --- |
-| Accordion | Needs trigger/content ARIA relationships. | Planned |
+| Accordion | Triggers are buttons with `aria-expanded` inside `h3` headings; under `Accordion`, triggers link to `role="region"` content with `aria-controls` and `aria-labelledby`; Up, Down, Home, and End move focus past disabled triggers and every trigger stays a Tab stop; browser-verified on Web. | Implemented |
+| Accordion | An expanded item that cannot collapse, other heading levels, and horizontal accordions are not implemented. | Planned |
 | Calendar | Exposes grid, row, columnheader, gridcell, selected, disabled, today, and range state attributes. | Implemented |
 | Calendar | Keyboard-managed days use roving tabindex, map arrow, Page, Home, and End keys to moves, and follow the focused date with DOM focus; browser-verified on Web inside Date Picker. | Implemented |
 | Calendar | Right-to-left arrow mirroring and disabled date skipping remain app-owned. | Planned |

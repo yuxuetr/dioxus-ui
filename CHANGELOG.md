@@ -81,6 +81,13 @@ release owner renames it to the released version at publish time.
   The new `Tabs` root links triggers and panels with `aria-controls` and
   `aria-labelledby`. Items no longer render `tabindex`; the shared group
   script owns the Tab stop.
+- Accordion interaction: the new `Accordion` root reports toggled items
+  through `on_toggle`, and Up, Down, Home, and End move focus between enabled
+  triggers while every trigger stays in the Tab order. Triggers render inside
+  an `h3` with `aria-controls`, and content renders as a region with
+  `aria-labelledby`. `accordion_single_open` and `accordion_multiple_open`
+  compute the next open values. Breaking: `AccordionItem` now requires
+  `value`.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.

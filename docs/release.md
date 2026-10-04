@@ -679,8 +679,10 @@ first.
   viewport size measurement (see RFC 0016). Tabs, Radio Group, and Toggle
   Group keep one Tab stop and move focus with arrow keys, and Tabs and Radio
   Group select the focused item (see RFC 0019); manual tab activation, vertical
-  tabs, and right-to-left mirroring are not implemented. There is no DOM
-  portal (see RFC 0010).
+  tabs, and right-to-left mirroring are not implemented. Accordion reports
+  toggles and moves focus between triggers with Up and Down (see RFC 0021);
+  an item that cannot collapse is not implemented. There is no DOM portal
+  (see RFC 0010).
 - Toast and Sonner dismiss themselves after a countdown that pauses on hover
   and focus, inside persistent live region viewports (see RFC 0011). Screen
   reader announcements are not automated, and swipe to dismiss is not

@@ -142,7 +142,7 @@ Out of scope, with reevaluation conditions:
 | Manual tab activation | Radix and shadcn/ui default to automatic activation | A consumer needs tabs whose panels are expensive to show |
 | Vertical tabs | `TabsList` has no orientation prop | An orientation prop is added to `TabsList` |
 | Right-to-left arrow mirroring | Left and Right follow visual order only in LTR, as in Menubar | A consumer reports RTL group movement |
-| Accordion | Accordion triggers are each a Tab stop, and its trigger and panel ARIA links are a separate gap | Accordion behavior is designed |
+| Accordion | Accordion triggers are each a Tab stop, and its trigger and panel ARIA links are a separate gap | Accordion behavior is designed (done in M146, see RFC 0021) |
 | Desktop and Mobile self-test scenarios | Desktop and Mobile already run the shared `document::eval` path through eight scenarios; the script uses only focus and click | The script relies on behavior that differs between WebViews |
 
 ## Verification
