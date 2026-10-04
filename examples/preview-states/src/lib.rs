@@ -22,9 +22,10 @@ use dioxus_ui::{
   CalendarWeekday, ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList,
   ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, DatePickerContent,
   DatePickerTrigger, DatePickerValue, DropdownContent, DropdownItem, DropdownSeparator, Menubar,
-  MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger, SelectContent, SelectItem,
-  SelectTrigger, SelectValue, SonnerClose, SonnerContent, SonnerTitle, SonnerToast, SonnerVariant,
-  SonnerViewport, ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport,
+  MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger, NavigationMenu, NavigationMenuContent,
+  NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, SelectContent,
+  SelectItem, SelectTrigger, SelectValue, SonnerClose, SonnerContent, SonnerTitle, SonnerToast,
+  SonnerVariant, SonnerViewport, ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport,
   calendar_month_grid, calendar_move_date, sonner_dismiss_reason_attribute,
   toast_dismiss_reason_attribute,
 };
@@ -697,6 +698,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut menubar_active = use_signal(|| None::<&'static str>);
   let mut menubar_action = use_signal(|| "none");
   let menubar_open = move |value: &str| menubar_active() == Some(value);
+  let mut navigation_active = use_signal(String::new);
+  let navigation_open = move |value: &str| navigation_active() == value;
   let mut context_open = use_signal(|| false);
   let mut context_point = use_signal(|| (0.0, 0.0));
   let mut context_bookmarked = use_signal(|| false);
@@ -1314,6 +1317,44 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                   on_open_change: move |_| menubar_active.set(None),
                   MenubarItem { onclick: move |_| menubar_action.set("zoom-in"), "Zoom in" }
                   MenubarItem { onclick: move |_| menubar_action.set("zoom-out"), "Zoom out" }
+                }
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "navigation-menu",
+            "data-value": "{navigation_active}",
+            h2 { class: "text-sm font-medium", "Navigation menu interaction" }
+            NavigationMenu {
+              class: "mt-3",
+              on_value_change: move |value: String| navigation_active.set(value),
+              NavigationMenuList {
+                NavigationMenuItem {
+                  value: "docs",
+                  NavigationMenuTrigger { open: navigation_open("docs"), "Docs" }
+                  NavigationMenuContent {
+                    open: navigation_open("docs"),
+                    NavigationMenuLink { href: "#navigation-install", "Install" }
+                    NavigationMenuLink { href: "#navigation-theming", disabled: true, "Theming" }
+                    NavigationMenuLink { href: "#navigation-cli", "CLI" }
+                  }
+                }
+                NavigationMenuItem {
+                  NavigationMenuLink { href: "#navigation-blog", "Blog" }
+                }
+                NavigationMenuItem {
+                  value: "archive",
+                  NavigationMenuTrigger { disabled: true, "Archive" }
+                }
+                NavigationMenuItem {
+                  value: "examples",
+                  NavigationMenuTrigger { open: navigation_open("examples"), "Examples" }
+                  NavigationMenuContent {
+                    open: navigation_open("examples"),
+                    NavigationMenuLink { href: "#navigation-dashboard", "Dashboard" }
+                    NavigationMenuLink { href: "#navigation-chat", "Chat" }
+                  }
                 }
               }
             }
