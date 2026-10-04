@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M153 Switch And Checkbox Change Events
+- Current task: M153.1
 
 ## Backup
 
@@ -2764,6 +2764,26 @@
   - Reverse-verify that the script fails when the region is remounted on each change, when the role or live attribute is removed, or when the Combobox region moves inside the popup.
 
 - DONE M152.4 Complete result announcements milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M153 Switch And Checkbox Change Events
+
+- TODO M153.1 Design switch and checkbox change events
+  - Record that `Switch` and `Checkbox` take a `checked` prop but expose no change callback, so clicking a Switch does nothing, and that neither accepts `id`, `name`, or `aria-*` attributes, so a `Label` cannot name them and the accessibility table still lists Switch as Planned.
+  - Define `on_checked_change: Option<EventHandler<bool>>`, called with the requested state on click, Space, or a label click; spread global and element attributes through `#[props(extends = ...)]` so apps can pass `id`, `name`, and `aria-*`; render `data-state` on Switch.
+  - Record what stays out of scope (an indeterminate checkbox, a hidden form input for Switch, the same change for Button, Toggle, Input, and Textarea, Desktop and Mobile self-test scenarios) with reevaluation conditions.
+
+- TODO M153.2 Implement switch and checkbox change events
+  - Add the callback, attribute spreading, and `data-state` to the crate sources and templates, with unit tests where logic is pure.
+  - Update the Switch and Checkbox docs pages.
+
+- TODO M153.3 Verify change events in a real browser
+  - Render a labelled Switch and Checkbox in the Web preview and extend `npm run verify:runtime-interactions` to assert the accessible name from `Label`, that a click, Space, and a label click toggle `aria-checked` or `checked`, that `data-state` follows, and that a disabled control does not change.
+  - Reverse-verify that the script fails when the callback is removed, when attributes are not spread, or when the callback sends the current state instead of the requested one.
+
+- TODO M153.4 Complete switch and checkbox milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
