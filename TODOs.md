@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
-- Current milestone: M137 Select and Combobox Listbox Behavior
-- Current task: M137.5
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2455,7 +2455,7 @@
   - Render real Select and Combobox components in the Web preview and extend `npm run verify:runtime-interactions` to assert placement, arrow navigation that skips disabled options, typeahead, Enter and click selection, focus staying on the trigger or input, filtering, and Escape.
   - Reverse-verify that the script fails when navigation or typeahead is removed.
 
-- TODO M137.5 Complete listbox milestone
+- DONE M137.5 Complete listbox milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and RFC 0010 out-of-scope status.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
