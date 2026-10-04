@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M166 Checkbox Indeterminate State
+- Current task: M166.1 Design checkbox indeterminate state
 
 ## Backup
 
@@ -3021,6 +3021,26 @@
   - Reverse-verify that the script fails when any of the six parts does not spread its attributes.
 
 - DONE M165.4 Complete composite widget names milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and accessibility docs.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M166 Checkbox Indeterminate State
+
+- TODO M166.1 Design checkbox indeterminate state
+  - Record that `Checkbox` has no mixed state, that the native mixed state is a DOM property with no attribute in HTML or Dioxus, and that a click clears it before the app can keep it.
+  - Define `indeterminate` with a property sync through `document::eval`, `data-state`, a requested `true` from the mixed state, and a re-sync after changes.
+  - Record what stays out of scope (restoring an ignored `checked`, mixed Switch and menu items, server-rendered mixed state, Desktop and Mobile self-test scenarios) with reevaluation conditions.
+
+- TODO M166.2 Implement checkbox indeterminate state
+  - Add the prop, property sync, requested state, re-sync, and `data-state` to the crate source and template, with unit tests and the CLI script parity entry.
+  - Update the Checkbox docs page.
+
+- TODO M166.3 Verify the indeterminate state in a real browser
+  - Render a select-all checkbox over two items and a checkbox that stays mixed in the Web preview and extend `npm run verify:runtime-interactions` to assert the mixed property and `data-state`, the change from mixed to checked, and the restored property.
+  - Reverse-verify that the script fails when the property is not set, when a mixed change requests `!checked`, or when the property is not re-synced after a change.
+
+- TODO M166.4 Complete checkbox indeterminate milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and accessibility docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.

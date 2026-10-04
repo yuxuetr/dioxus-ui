@@ -107,7 +107,8 @@ Read in this order:
 101. [RFC 0038: Form Control Naming](rfcs/0038-form-control-naming.md)
 102. [RFC 0039: Dialog Names](rfcs/0039-dialog-names.md)
 103. [RFC 0040: Composite Widget Names](rfcs/0040-composite-widget-names.md)
-104. [TODO Plan](../TODOs.md)
+104. [RFC 0041: Checkbox Indeterminate State](rfcs/0041-checkbox-indeterminate-state.md)
+105. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
