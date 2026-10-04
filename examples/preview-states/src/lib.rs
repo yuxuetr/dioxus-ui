@@ -2,6 +2,7 @@ use dioxus::prelude::*;
 
 mod self_test;
 use dioxus_ui::Progress;
+use dioxus_ui::SliderOrientation;
 use dioxus_ui::{
   Accordion, AccordionContent, AccordionItem, AccordionTrigger, Calendar, CalendarBody,
   CalendarCaption, CalendarDate, CalendarDay, CalendarGrid, CalendarHeader, CalendarMonth,
@@ -772,6 +773,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut email_value = use_signal(String::new);
   let mut notes_value = use_signal(String::new);
   let mut volume = use_signal(|| 40.0);
+  let mut balance = use_signal(|| 50.0);
   let mut locked_slider_changes = use_signal(|| 0_u32);
   let mut details_open = use_signal(|| false);
   let mut size_value = use_signal(|| "md".to_string());
@@ -1744,14 +1746,16 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             class: "rounded-md border border-zinc-200 p-4",
             "data-interaction-target": "slider",
             "data-volume": "{volume}",
+            "data-balance": "{balance}",
             "data-locked-changes": "{locked_slider_changes}",
             h2 { class: "text-sm font-medium", "Slider interaction" }
             Label { id: "interaction-slider-volume-label", "Volume" }
             // The preview serves uncompiled Tailwind, so the root gets an
-            // explicit height to be a pointer target.
+            // explicit size and position to be a pointer target and to place
+            // the thumb.
             Slider {
               class: "mt-3",
-              style: "height: 20px",
+              style: "height: 20px; position: relative",
               "aria-labelledby": "interaction-slider-volume-label",
               step: 5.0,
               value: volume(),
@@ -1764,6 +1768,15 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               value: 30.0,
               disabled: true,
               on_value_change: move |_| locked_slider_changes += 1,
+            }
+            Slider {
+              class: "mt-3",
+              style: "height: 120px; width: 20px; position: relative",
+              "aria-label": "Balance",
+              orientation: SliderOrientation::Vertical,
+              step: 10.0,
+              value: balance(),
+              on_value_change: move |value| balance.set(value),
             }
           }
           article {

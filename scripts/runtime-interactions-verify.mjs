@@ -1250,6 +1250,18 @@ async function runBrowserAssertions() {
     await expectVolume("0");
     await page.keyboard.press("End");
     await expectVolume("100");
+    // The thumb is centered on the value.
+    const thumbCenter = async (slider) => {
+      const thumb = await slider.locator(":scope > span").boundingBox();
+      return { x: thumb.x + thumb.width / 2, y: thumb.y + thumb.height / 2 };
+    };
+    const volumeBox = await volume.boundingBox();
+    await expect.poll(async () => Math.round((await thumbCenter(volume)).x - volumeBox.x)).toBe(Math.round(volumeBox.width));
+    await page.keyboard.press("Home");
+    await expectVolume("0");
+    await expect.poll(async () => Math.round((await thumbCenter(volume)).x - volumeBox.x)).toBe(0);
+    await page.keyboard.press("End");
+    await expectVolume("100");
     // Unprevented, PageUp, PageDown, Home, and End would scroll this long page.
     if ((await page.evaluate(() => window.scrollY)) !== scrollBefore) {
       throw new Error("slider: handled keys scrolled the page");
@@ -1277,6 +1289,18 @@ async function runBrowserAssertions() {
     const lockedBox = await locked.boundingBox();
     if (!lockedBox) throw new Error("slider: the locked slider has no box");
     await page.mouse.click(lockedBox.x + lockedBox.width * 0.9, lockedBox.y + lockedBox.height / 2);
+    // A vertical slider grows from the bottom.
+    const balance = sliderFixture.getByRole("slider", { name: "Balance", exact: true });
+    await expect(balance).toHaveAttribute("aria-orientation", "vertical");
+    const balanceBox = await balance.boundingBox();
+    const thumbFromBottom = async () => Math.round(balanceBox.y + balanceBox.height - (await thumbCenter(balance)).y);
+    await expect.poll(thumbFromBottom).toBe(Math.round(balanceBox.height * 0.5));
+    await page.mouse.click(balanceBox.x + balanceBox.width / 2, balanceBox.y + balanceBox.height * 0.2);
+    await expect(sliderFixture).toHaveAttribute("data-balance", "80");
+    await expect(balance).toBeFocused();
+    await page.keyboard.press("ArrowUp");
+    await expect(sliderFixture).toHaveAttribute("data-balance", "90");
+    await expect.poll(thumbFromBottom).toBe(Math.round(balanceBox.height * 0.9));
     await locked.focus();
     await page.keyboard.press("ArrowRight");
     await page.keyboard.press("End");
