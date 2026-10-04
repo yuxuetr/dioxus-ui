@@ -97,3 +97,7 @@ application commands. Navigation Menu follows the disclosure navigation
 pattern: triggers are buttons with `aria-expanded`, content holds links, and
 no `menu` roles are used. Viewport size measurement, submenus, and motion are
 not implemented (see [RFC 0016](../rfcs/0016-navigation-menu-interaction.md)).
+
+`NavigationMenu` passes through attributes, so give the `nav` landmark an
+`aria-label` when the page has more than one (see [RFC
+0040](../rfcs/0040-composite-widget-names.md)).

@@ -101,3 +101,6 @@ Root uses `role="menubar"`, triggers use `role="menuitem"` with
 The open menu moves DOM focus between items, so screen readers announce each
 item as it receives focus. Submenus and ArrowUp opening on the last item are
 not implemented (see [RFC 0015](../rfcs/0015-menubar-keyboard-behavior.md)).
+
+`Menubar` passes through attributes, so name the menu bar with `aria-label` (see
+[RFC 0040](../rfcs/0040-composite-widget-names.md)).

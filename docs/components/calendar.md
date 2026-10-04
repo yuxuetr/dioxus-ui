@@ -106,3 +106,7 @@ disabled, outside-month, today, and range state are mapped to ARIA and data
 attributes. Keyboard-managed days use roving tabindex and move DOM focus with
 the focused date. Arrow keys follow visual left and right; right-to-left
 mirroring is not implemented.
+
+`CalendarGrid` and `CalendarCaption` pass through attributes, so give the
+caption an `id` and point the grid's `aria-labelledby` at it (see [RFC
+0040](../rfcs/0040-composite-widget-names.md)).

@@ -77,3 +77,6 @@ The list uses `role="tablist"` with `aria-orientation` matching
 `role="tabpanel"`.
 Activation and orientation follow
 [RFC 0026](../rfcs/0026-tabs-manual-activation-and-vertical-orientation.md).
+
+`TabsList` passes through attributes, so name the tab list with `aria-label` or
+`aria-labelledby` (see [RFC 0040](../rfcs/0040-composite-widget-names.md)).

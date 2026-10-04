@@ -247,6 +247,7 @@ pub fn navigation_menu_indicator_class(open: bool, class: &str) -> String {
 pub fn NavigationMenu(
   #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = nav)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = navigation_menu_class(&class);
@@ -272,6 +273,7 @@ pub fn NavigationMenu(
     nav {
       class,
       "data-dxui-navigation-menu": scope_id,
+      ..attributes,
       {children}
     }
   }

@@ -67,3 +67,6 @@ Toggle Group renders `role="group"` and items render buttons with
 `aria-pressed`. Use single mode when only one item can be active, and multiple
 mode when each item is independently toggleable. Arrow keys follow the text
 direction (see [RFC 0025](../rfcs/0025-right-to-left-arrow-mirroring.md)).
+
+`ToggleGroup` passes through attributes, so name the group with `aria-label` or
+`aria-labelledby` (see [RFC 0040](../rfcs/0040-composite-widget-names.md)).

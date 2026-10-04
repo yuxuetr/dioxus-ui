@@ -155,6 +155,7 @@ pub fn menubar_shortcut_class(class: &str) -> String {
 pub fn Menubar(
   #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = menubar_class(&class);
@@ -180,6 +181,7 @@ pub fn Menubar(
       role: "menubar",
       class,
       "data-dxui-menubar": scope_id,
+      ..attributes,
       {children}
     }
   }

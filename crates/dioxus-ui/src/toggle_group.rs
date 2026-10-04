@@ -93,6 +93,7 @@ pub fn ToggleGroup(
   #[props(default = true)] looping: bool,
   #[props(default)] on_toggle: Option<EventHandler<String>>,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = toggle_group_class(orientation, &class);
@@ -118,6 +119,7 @@ pub fn ToggleGroup(
       "data-dxui-roving-group": scope_id,
       "data-dxui-roving-orientation": roving_orientation,
       "data-dxui-roving-loop": looping.to_string(),
+      ..attributes,
       {children}
     }
   }

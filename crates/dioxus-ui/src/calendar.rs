@@ -163,12 +163,17 @@ pub fn CalendarHeader(#[props(default)] class: String, children: Element) -> Ele
 }
 
 #[component]
-pub fn CalendarCaption(#[props(default)] class: String, children: Element) -> Element {
+pub fn CalendarCaption(
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
   let class = calendar_caption_class(&class);
 
   rsx! {
     div {
       class,
+      ..attributes,
       {children}
     }
   }
@@ -221,13 +226,18 @@ pub fn CalendarNavButton(
 }
 
 #[component]
-pub fn CalendarGrid(#[props(default)] class: String, children: Element) -> Element {
+pub fn CalendarGrid(
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
   let class = calendar_grid_class(&class);
 
   rsx! {
     div {
       role: "grid",
       class,
+      ..attributes,
       {children}
     }
   }

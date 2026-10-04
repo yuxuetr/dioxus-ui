@@ -109,7 +109,11 @@ pub fn Tabs(
 /// restores. Left and Right, or Up and Down when vertical, move between
 /// enabled triggers and wrap; Home and End jump to the first and last.
 #[component]
-pub fn TabsList(#[props(default)] class: String, children: Element) -> Element {
+pub fn TabsList(
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
   let class = tabs_list_class(&class);
   let context = try_use_context::<TabsContext>();
   let on_value_change = context.as_ref().and_then(|context| context.on_value_change);
@@ -127,6 +131,7 @@ pub fn TabsList(#[props(default)] class: String, children: Element) -> Element {
       "data-dxui-roving-orientation": orientation.attribute(),
       "data-dxui-roving-loop": "true",
       "data-dxui-roving-activation": activation.roving_attribute(),
+      ..attributes,
       {children}
     }
   }
