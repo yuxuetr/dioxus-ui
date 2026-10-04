@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M151 Tabs Manual Activation And Vertical Orientation
-- Current task: M151.4
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2743,7 +2743,7 @@
   - Render a vertical, manually activated Tabs in the Web preview and extend `npm run verify:runtime-interactions` to assert the orientation attributes and layout, Up and Down movement with Left and Right ignored, focus moving without selecting, Enter, Space, and click selecting, and the Tab stop returning to the selected trigger after focus leaves.
   - Reverse-verify that the script fails when manual tabs select on focus, when the Tab stop stays on the last focused trigger, when the vertical list keeps horizontal keys, or when `aria-orientation` stays horizontal.
 
-- TODO M151.4 Complete tabs milestone
+- DONE M151.4 Complete tabs milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
