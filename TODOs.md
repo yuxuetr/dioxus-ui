@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 40%
 - Current milestone: M138 Date Picker and Calendar Keyboard Behavior
-- Current task: M138.2
+- Current task: M138.3
 
 ## Backup
 
@@ -2467,7 +2467,7 @@
   - Define the additive API (`CalendarDay` `focused`, `on_select`, `on_key_move`, `CalendarNavButton` `onclick`, `calendar_key_move`, Date Picker trigger `id` and `on_open_change`, content anchoring and dismissal props), roving tabindex with DOM focus following `focused`, and focus entry on the focused day.
   - Record what stays app-owned (visible month, date math in source-copy mode, text parsing, range selection) with reevaluation conditions.
 
-- TODO M138.2 Implement Calendar keyboard and selection hooks
+- DONE M138.2 Implement Calendar keyboard and selection hooks
   - `CalendarDay` renders roving tabindex when keyboard-managed, maps arrows, Page Up, Page Down (Shift for years), Home, and End to `CalendarKeyMove` through `on_key_move`, calls `on_select` on click, and moves DOM focus when `focused` turns true.
   - `CalendarNavButton` gains `onclick`; mirror `CalendarKeyMove` and `calendar_key_move` into the template, and update the docs page.
 
