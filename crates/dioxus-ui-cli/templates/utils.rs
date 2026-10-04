@@ -610,11 +610,16 @@ const typing = () => buffer !== "" && performance.now() - bufferedAt <= 500;
 const typeahead = (character) => {
   buffer = typing() ? buffer + character : character;
   bufferedAt = performance.now();
+  // Repeating one letter cycles through its matches; a longer prefix keeps
+  // the current option while it still matches.
+  const repeated = Array.from(buffer).every((letter) => letter === buffer[0]);
+  const query = repeated ? buffer[0] : buffer;
   const list = options();
-  const start = list.indexOf(highlighted) + 1;
+  const current = list.indexOf(highlighted);
+  const start = current < 0 ? 0 : current + (repeated ? 1 : 0);
   for (let offset = 0; offset < list.length; offset += 1) {
     const option = list[(start + offset) % list.length];
-    if (option.textContent.trim().toLowerCase().startsWith(buffer)) return highlight(option);
+    if (option.textContent.trim().toLowerCase().startsWith(query)) return highlight(option);
   }
 };
 const onKeyDown = (event) => {
