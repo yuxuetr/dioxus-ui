@@ -8,7 +8,7 @@ verified.
 Status: Desktop strategy planned in M25.3. M28.1 adds the Desktop runtime smoke
 fixture scaffold. M28.2 defines the Mobile runtime verification checklist.
 M142 adds the Desktop interaction self-test. M143 adds the iOS Simulator
-interaction self-test.
+interaction self-test. M145 adds the Android emulator interaction self-test.
 
 ## Decision
 
@@ -155,9 +155,46 @@ status 1:
 - removing menubar switching inside a menu
 - running on iOS 27, where the app reports no result
 
+### Android Interaction Self-Test
+
+M145 runs the same scenarios in an Android emulator
+([RFC 0020](../rfcs/0020-android-interaction-verification.md)):
+
+```bash
+npm run verify:android-interactions
+```
+
+The command builds `examples/mobile-demo` with
+`dx build --android --target aarch64-linux-android`. It uses a running
+emulator, or boots the first AVD headless and stops it afterwards.
+`DIOXUS_UI_ANDROID_SERIAL` and `DIOXUS_UI_ANDROID_AVD` choose the device.
+
+`am start` passes no environment, so the command sets the
+`debug.dioxus_ui.self_test` system property, which the app reads with
+`getprop`, and clears it after the run. The result line comes from logcat
+(`RustStdoutStderr`).
+
+The SDK comes from `ANDROID_HOME`, the NDK from `ANDROID_NDK_HOME` or the
+newest one in the SDK, and `JAVA_HOME` from the Android Studio JDK when unset.
+Before building, the command reports an NDK whose symbolic links were stored
+as small text files, which makes linking fail with `clang-17: command not
+found`; reinstall the NDK with the Android SDK Manager.
+
+The command passed on an API 36.1 arm64 emulator in about 80 seconds with an
+existing build. Reverse checks each made it exit with status 1:
+
+- removing dialog focus return
+- removing menubar switching inside a menu
+- an app that never reads the request, which reports no result
+- the local NDK install with flattened symbolic links
+
+After the result line, logcat can show `FORTIFY: pthread_mutex_lock called on
+a destroyed mutex` while WebView threads stop during `process::exit`; it does
+not affect the result.
+
 The scenarios use dispatched events, so touch gestures, the software
 keyboard, safe areas, and the visual viewport stay on the manual checklist
-below. Android is not covered: the Rust Android targets are not installed.
+below.
 
 Mobile should be treated as a target profile with stricter interaction rules,
 not as a separate component tree.
