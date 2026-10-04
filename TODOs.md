@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 14% (M135 1/7)
+- Overall: 29% (M135 2/7)
 - Current milestone: M135 Overlay Interaction Behavior
-- Current task: M135.2 Implement Dialog modal behavior
+- Current task: M135.3 Apply modal behavior to Alert Dialog, Sheet, and Drawer
 
 ## Backup
 
@@ -2382,7 +2382,7 @@
   - Define the additive API (`on_open_change`, `dismiss`, anchor id, side, align, offset), the `document::eval` focus-scope and measurement approach shared by Web, Desktop, and Mobile renderers, and how source-copy templates stay self-contained.
   - List excluded overlays (Select, Combobox, Date Picker, Navigation Menu, Context Menu, Menubar, DOM portal) with executable reevaluation conditions.
 
-- TODO M135.2 Implement Dialog modal behavior
+- DONE M135.2 Implement Dialog modal behavior
   - Dialog content closes on Escape, overlay closes on pointer when `dismiss.outside_pointer`, and Dialog Close requests close through `on_open_change`.
   - Opening focuses the first focusable element (or the content), Tab and Shift+Tab wrap inside the content, and closing restores focus to the previously focused element.
   - Mirror the behavior in the source-copy template and shared utils, update the docs page, and keep existing `open`-only usage working.
