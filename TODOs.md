@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M162 Sidebar Toggle And Items
-- Current task: M162.2 Implement sidebar toggle and items
+- Current task: M162.3 Verify sidebar in a real browser
 
 ## Backup
 
@@ -2952,7 +2952,7 @@
   - Define `on_collapsed_change` on the trigger, `href` and `onclick` item forms with `aria-current` and disabled handling, and attribute spreading on the Sidebar parts.
   - Record what stays out of scope (a keyboard shortcut, the rail as a toggle, hiding labels while collapsed, mobile off-canvas behavior, Desktop and Mobile self-test scenarios) with reevaluation conditions.
 
-- TODO M162.2 Implement sidebar toggle and items
+- DONE M162.2 Implement sidebar toggle and items
   - Add the trigger callback, item forms, and attribute spreading to the crate source and template.
   - Update the Sidebar docs page.
 
