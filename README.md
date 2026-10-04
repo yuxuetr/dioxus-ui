@@ -206,6 +206,7 @@ format!("bg-{}-500", color)
 - [RFC 0021: Accordion Interaction](docs/rfcs/0021-accordion-interaction.md)
 - [RFC 0022: Tooltip Hover And Focus Opening](docs/rfcs/0022-tooltip-hover-and-focus-opening.md)
 - [RFC 0023: Hover Card Hover And Focus Opening](docs/rfcs/0023-hover-card-hover-and-focus-opening.md)
+- [RFC 0024: Command Keyboard And Filtering](docs/rfcs/0024-command-keyboard-and-filtering.md)
 
 ## Verification Shortcuts
 
