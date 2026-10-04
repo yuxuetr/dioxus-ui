@@ -97,7 +97,8 @@ Read in this order:
 91. [RFC 0028: Switch And Checkbox Change Events](rfcs/0028-switch-and-checkbox-change-events.md)
 92. [RFC 0029: Button, Toggle, Input, And Textarea Events](rfcs/0029-button-toggle-input-and-textarea-events.md)
 93. [RFC 0030: Slider Keyboard And Pointer Input](rfcs/0030-slider-keyboard-and-pointer-input.md)
-94. [TODO Plan](../TODOs.md)
+94. [RFC 0031: Collapsible And Native Select Events](rfcs/0031-collapsible-and-native-select-events.md)
+95. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
