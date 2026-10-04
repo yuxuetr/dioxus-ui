@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M166 Checkbox Indeterminate State
-- Current task: M166.4 Complete checkbox indeterminate milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -3040,7 +3040,7 @@
   - Render a select-all checkbox over two items and a checkbox that stays mixed in the Web preview and extend `npm run verify:runtime-interactions` to assert the mixed property and `data-state`, the change from mixed to checked, and the restored property.
   - Reverse-verify that the script fails when the property is not set, when a mixed change requests `!checked`, or when the property is not re-synced after a change.
 
-- TODO M166.4 Complete checkbox indeterminate milestone
+- DONE M166.4 Complete checkbox indeterminate milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and accessibility docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
