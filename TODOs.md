@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 43% (M135 3/7)
+- Overall: 57% (M135 4/7)
 - Current milestone: M135 Overlay Interaction Behavior
-- Current task: M135.4 Implement Popover anchored positioning and dismissal
+- Current task: M135.5 Apply anchored positioning to Dropdown, Hover Card, and Tooltip
 
 ## Backup
 
@@ -2391,7 +2391,7 @@
   - Reuse the Dialog focus scope and dismissal wiring; Alert Dialog keeps outside pointer dismissal disabled.
   - Update templates, docs pages, and tests for each component.
 
-- TODO M135.4 Implement Popover anchored positioning and dismissal
+- DONE M135.4 Implement Popover anchored positioning and dismissal
   - Measure the anchor, content, and viewport when open, place content with `compute_overlay_placement` (flip and shift), and render it with fixed positioning.
   - Close on Escape, outside pointer, and focus outside according to `DismissBehavior::popover_default()`.
   - Mirror placement in the source-copy template without importing internal crates.
