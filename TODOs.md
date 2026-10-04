@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M152 Combobox And Command Result Announcements
-- Current task: M152.2
+- Current task: M152.3
 
 ## Backup
 
@@ -2755,7 +2755,7 @@
   - Define `CommandStatus` and `ComboboxStatus` parts: a visually hidden polite status region that stays mounted while the app changes only its text; wording, pluralization, and when to speak stay app-owned, and Combobox's region sits outside the popup so closing it does not hide the region.
   - Record what stays out of scope (built-in wording or a count helper, debouncing, automatic counting in the listbox script, Desktop and Mobile self-test scenarios, screen reader testing) with reevaluation conditions.
 
-- TODO M152.2 Implement combobox and command result announcements
+- DONE M152.2 Implement combobox and command result announcements
   - Add `CommandStatus` and `ComboboxStatus` to the crate sources and templates, with exports and class constants.
   - Update the Command and Combobox docs pages.
 
