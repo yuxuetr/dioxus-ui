@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 67%
-- Current milestone: M160 Control Label Overrides
-- Current task: M160.3 Complete control label overrides milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2919,7 +2919,7 @@
   - Add the shared helper to the crate and the template utilities, use it in Pagination and Carousel, and add SSR unit tests.
   - Update the Pagination docs page.
 
-- TODO M160.3 Complete control label overrides milestone
+- DONE M160.3 Complete control label overrides milestone
   - Reverse-verify that the SSR tests fail when the helper always returns the default.
   - Update CHANGELOG Unreleased notes and release docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
