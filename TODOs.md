@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 80%
 - Current milestone: M139 Dropdown and Context Menu Keyboard Behavior
-- Current task: M139.4
+- Current task: M139.5
 
 ## Backup
 
@@ -2499,7 +2499,7 @@
   - `ContextMenuContent` gains `anchor_point`, `on_open_change`, and `dismiss`; the anchored overlay script places content at a viewport point with flip and shift.
   - Context Menu items gain `onclick` and reuse the menu mode; update templates and docs.
 
-- TODO M139.4 Verify menu behavior in a real browser
+- DONE M139.4 Verify menu behavior in a real browser
   - Render real Dropdown and Context Menu components in the Web preview and extend `npm run verify:runtime-interactions` to assert focus entry, wrapping arrows that skip disabled items, typeahead, activation with close and focus return, Escape, Tab, and point placement.
   - Reverse-verify that the script fails when wrapping, activation, or focus return is removed.
 
