@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 60%
 - Current milestone: M137 Select and Combobox Listbox Behavior
-- Current task: M137.3
+- Current task: M137.4
 
 ## Backup
 
@@ -2447,7 +2447,7 @@
   - `SelectTrigger` toggles through `on_open_change` and opens on ArrowDown or ArrowUp; `SelectContent` anchors to the trigger, highlights the selected or first enabled option, moves with arrows, Home, End, and typeahead, selects on Enter, Space, or click, and closes through `on_open_change`.
   - Mirror the listbox helper into the utils template with a script parity test, and update the docs page.
 
-- TODO M137.3 Implement Combobox listbox behavior
+- DONE M137.3 Implement Combobox listbox behavior
   - `ComboboxInput` gains `id`, `open`, `placeholder`, `oninput`, and `on_open_change`; `ComboboxContent` anchors to the input and reuses the listbox helper without typeahead so typing stays in the input.
   - Highlight resets when filtering removes the highlighted option; update the template and docs page.
 
