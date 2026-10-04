@@ -162,4 +162,6 @@ and Calendar keyboard navigation
 and Context Menu keyboard navigation
 ([RFC 0014](rfcs/0014-menu-keyboard-behavior.md)), and M140 to Menubar
 roving triggers and menu switching
-([RFC 0015](rfcs/0015-menubar-keyboard-behavior.md)).
+([RFC 0015](rfcs/0015-menubar-keyboard-behavior.md)), and M141 to Navigation
+Menu disclosure interaction
+([RFC 0016](rfcs/0016-navigation-menu-interaction.md)).

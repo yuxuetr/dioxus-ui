@@ -103,7 +103,8 @@ Statuses:
 | Menubar | Keeps the triggers one Tab stop with Left, Right, Home, and End movement, opens menus that behave like Dropdown, switches menus with Left, Right, or hover, and returns focus to the open menu's trigger; browser-verified on Web. | Implemented |
 | Menubar | Nested submenus and right-to-left arrow mirroring are not implemented. | Planned |
 | Navigation Menu | Uses navigation structure and link semantics for destinations. | Implemented |
-| Navigation Menu | Needs trigger roving focus and viewport measurement verification. | Planned |
+| Navigation Menu | Follows the disclosure navigation pattern: triggers toggle content on click, keys, or hover, arrows move between top-level items and content links, and Escape returns focus to the trigger; browser-verified on Web. | Implemented |
+| Navigation Menu | Viewport size measurement and submenus are not implemented. | Planned |
 | Popover | Anchored placement with flip and shift, and Escape or outside dismissal; browser-verified on Web. | Implemented |
 | Sheet | Uses dialog role and modal state for side-panel flows. | Implemented |
 | Sheet | Shares the Dialog focus scope and dismissal. | Implemented |
@@ -170,6 +171,8 @@ keyboard navigation and Date Picker focus behavior (see
 Dropdown and Context Menu keyboard behavior (see
 [RFC 0014](../rfcs/0014-menu-keyboard-behavior.md)). M140 implements Menubar
 keyboard behavior (see [RFC 0015](../rfcs/0015-menubar-keyboard-behavior.md)).
+M141 implements Navigation Menu interaction behavior (see
+[RFC 0016](../rfcs/0016-navigation-menu-interaction.md)).
 M24 implements measurement, pointer, and gesture contract types only. Popover,
 Tooltip, Dropdown, Select, menu overlays, Resizable, Carousel, and Chart still
 require renderer-level measurement, pointer, and gesture verification before

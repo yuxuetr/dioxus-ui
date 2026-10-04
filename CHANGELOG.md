@@ -68,6 +68,12 @@ release owner renames it to the released version at publish time.
   behaves like Dropdown; Left and Right inside an open menu, or hovering
   another trigger, switch menus through the new `Menubar` `on_value_change`;
   closing returns focus to the open menu's trigger. Menu items gain `onclick`.
+- Navigation Menu interaction: a click, Enter, or Space toggles content, the
+  mouse resting on a trigger opens it after a delay and leaving closes it,
+  arrows move between top-level items and content links, and Escape, outside
+  presses, focus leaving, or content link clicks close it. Requests reach the
+  app through the new `NavigationMenu` `on_value_change`, and
+  `NavigationMenuItem` gains `value`.
 
 ### Changed
 
@@ -88,7 +94,7 @@ release owner renames it to the released version at publish time.
 - DOM/WebView scroll commands for Message Scroller.
 - Verified Mobile runtime behavior; Desktop and Mobile coverage remains
   checklist or fixture based.
-- Overlay behavior for Navigation Menu, submenus, multi-select,
+- Navigation Menu viewport size measurement, submenus, multi-select,
   typed date parsing, DOM portal mounting, and scroll lock.
 
 ### Known Warnings
