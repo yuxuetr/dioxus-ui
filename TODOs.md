@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M161 Resizable Handle Input
-- Current task: M161.3 Verify resizable handles in a real browser
+- Current task: M161.4 Complete resizable milestone
 
 ## Backup
 
@@ -2936,7 +2936,7 @@
   - Add the handle props, keys, pointer script, ARIA values, and attribute spreading to the crate source and template, with unit tests and the CLI script parity entry.
   - Update the Resizable docs page.
 
-- TODO M161.3 Verify resizable handles in a real browser
+- DONE M161.3 Verify resizable handles in a real browser
   - Render a two-panel horizontal group in the Web preview and extend `npm run verify:runtime-interactions` to assert focus, ARIA values and orientation, key resizing within limits, pointer drags that track the pointer and stop at the limit, and passed attributes.
   - Reverse-verify that the script fails when the key handler is removed, when the pointer script does not start, when it sends per-move deltas, when `aria-orientation` keeps the group orientation, or when attributes are not spread.
 
