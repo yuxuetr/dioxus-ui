@@ -122,6 +122,9 @@ release owner renames it to the released version at publish time.
   `CommandStatus` render a visually hidden polite status region. Keep it
   mounted and change its text, such as "3 results", to announce filtered
   counts; the wording stays with the app.
+- Switch and Checkbox change events: `on_checked_change` receives the
+  requested state, both components pass through `id`, `name`, and `aria-*`
+  attributes so a `Label` can name them, and Switch renders `data-state`.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.

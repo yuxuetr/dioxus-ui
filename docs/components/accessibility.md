@@ -32,12 +32,14 @@ Statuses:
 | --- | --- | --- |
 | Button | Supports disabled state and native button semantics. | Implemented |
 | Button Group | Uses grouped native button composition; apps own labels, pressed state, and toolbar semantics. | Implemented |
-| Checkbox | Uses native checkbox input state. | Implemented |
+| Checkbox | Uses native checkbox input state; `on_checked_change` reports click, Space, and label changes, and `id`, `name`, and `aria-*` pass through; browser-verified on Web. | Implemented |
+| Checkbox | An indeterminate state is not implemented. | Planned |
 | Input | Supports `aria-invalid` for invalid state. | Implemented |
 | Input Group | Preserves native input semantics while apps own labels, descriptions, and decorative addon handling. | Implemented |
 | Input OTP | Provides visual presentation slots plus a native input strategy; apps own labels, descriptions, paste policy, and keyboard handlers. | Implemented |
 | Label | Can be associated with a form control by the app. | Implemented |
-| Switch | Needs explicit switch semantics before stability. | Planned |
+| Switch | `role="switch"` with `aria-checked` and `data-state`; `on_checked_change` reports click, Space, Enter, and label changes, and `id` and `aria-*` pass through for a name; browser-verified on Web. | Implemented |
+| Switch | A hidden input for native form submission is not implemented. | Planned |
 | Textarea | Supports `aria-invalid` for invalid state. | Implemented |
 
 ## Disclosure And Selection

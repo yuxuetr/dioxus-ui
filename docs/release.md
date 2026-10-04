@@ -671,7 +671,9 @@ first.
   the input-inside-content Combobox layout are not supported. Command
   highlights and chooses items from its input (see RFC 0024); fuzzy ranking
   is not implemented. Combobox and Command announce result counts through
-  status parts whose wording the app provides (see RFC 0027). Date Picker and
+  status parts whose wording the app provides (see RFC 0027). Switch and
+  Checkbox report changes through `on_checked_change` (see RFC 0028); an
+  indeterminate checkbox and a form input for Switch are not included. Date Picker and
   Calendar implement anchored placement, focus entry, and day keyboard
   navigation (see RFC 0013); typed date parsing and source-copy date arithmetic
   are not included. Dropdown and Context Menu implement menu keyboard

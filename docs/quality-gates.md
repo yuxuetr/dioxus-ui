@@ -536,7 +536,8 @@ delays, card hover and focus, and presses that keep it open; and Command
 highlight movement, query resets, and choosing from the input; and Left and
 Right swapped under `dir="rtl"` in Tabs, Radio Group, Toggle Group, Menubar,
 and Navigation Menu; and vertical, manually activated Tabs; and Combobox and
-Command result status regions. It does not
+Command result status regions; and labelled Switch and Checkbox toggling by
+click, Space, and label. It does not
 write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.

@@ -180,4 +180,6 @@ right-to-left arrow mirroring
 manual activation and vertical orientation
 ([RFC 0026](rfcs/0026-tabs-manual-activation-and-vertical-orientation.md)), and
 M152 to Combobox and Command result announcements
-([RFC 0027](rfcs/0027-combobox-and-command-result-announcements.md)).
+([RFC 0027](rfcs/0027-combobox-and-command-result-announcements.md)), and M153
+to Switch and Checkbox change events
+([RFC 0028](rfcs/0028-switch-and-checkbox-change-events.md)).
