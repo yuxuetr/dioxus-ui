@@ -184,4 +184,6 @@ M152 to Combobox and Command result announcements
 to Switch and Checkbox change events
 ([RFC 0028](rfcs/0028-switch-and-checkbox-change-events.md)), and M154 to
 Button, Toggle, Input, and Textarea events
-([RFC 0029](rfcs/0029-button-toggle-input-and-textarea-events.md)).
+([RFC 0029](rfcs/0029-button-toggle-input-and-textarea-events.md)), and M155
+to Slider keyboard and pointer input
+([RFC 0030](rfcs/0030-slider-keyboard-and-pointer-input.md)).

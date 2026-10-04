@@ -37,7 +37,7 @@ Statuses:
 | Input | Supports `aria-invalid` for invalid state; `on_value_change` reports typed text, and `id`, `type`, and `aria-*` pass through so a `Label` can name it; browser-verified on Web. | Implemented |
 | Input Group | Preserves native input semantics while apps own labels, descriptions, and decorative addon handling. | Implemented |
 | Input OTP | Provides visual presentation slots plus a native input strategy; apps own labels, descriptions, paste policy, and keyboard handlers. | Implemented |
-| Label | Can be associated with a form control by the app. | Implemented |
+| Label | Can be associated with a form control by the app; `id` and other attributes pass through for `aria-labelledby`. | Implemented |
 | Switch | `role="switch"` with `aria-checked` and `data-state`; `on_checked_change` reports click, Space, Enter, and label changes, and `id` and `aria-*` pass through for a name; browser-verified on Web. | Implemented |
 | Switch | A hidden input for native form submission is not implemented. | Planned |
 | Textarea | Supports `aria-invalid` for invalid state; `on_value_change` reports typed text, and `id` and `aria-*` pass through so a `Label` can name it; browser-verified on Web. | Implemented |
@@ -72,7 +72,8 @@ Statuses:
 
 | Component | Contract | Status |
 | --- | --- | --- |
-| Slider | Uses slider role, horizontal orientation, and value attributes. | Implemented |
+| Slider | Uses slider role, horizontal orientation, and value attributes; Arrow, Page, Home, and End keys and pointer press and drag change the value without scrolling the page, and `aria-*` passes through for a name; browser-verified on Web. | Implemented |
+| Slider | Right-to-left, vertical, and multi-thumb sliders are not implemented. | Planned |
 | Spinner | Uses status semantics and an accessible label. | Implemented |
 | Toggle | Uses button semantics with `aria-pressed`; `on_pressed_change` sends the requested state on click, Enter, and Space, and `aria-*` passes through; browser-verified on Web. | Implemented |
 | Toggle Group | Uses grouped toggle buttons with `aria-pressed`; one Tab stop on the last focused item, arrows move focus past disabled items without pressing, with Left and Right swapped in right-to-left layouts; browser-verified on Web. | Implemented |

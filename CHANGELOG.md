@@ -129,6 +129,10 @@ release owner renames it to the released version at publish time.
   gains `on_pressed_change` with the requested state, and Input and Textarea
   gain `on_value_change`; all four pass through attributes such as `id`,
   `name`, `type`, and `aria-*`.
+- Slider keyboard and pointer input: Arrow, Page Up, Page Down, Home, and
+  End keys and pointer presses and drags change the value through
+  `on_value_change`, and attributes such as `aria-labelledby` pass through.
+  `Label` passes through attributes such as `id`.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.
