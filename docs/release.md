@@ -682,8 +682,9 @@ first.
   tabs, and right-to-left mirroring are not implemented. Accordion reports
   toggles and moves focus between triggers with Up and Down (see RFC 0021);
   an item that cannot collapse is not implemented. Tooltip opens on hover
-  after a delay and on keyboard focus (see RFC 0022); Hover Card timing and
-  touch long press are not implemented. There is no DOM portal (see
+  after a delay and on keyboard focus (see RFC 0022), and Hover Card does the
+  same with a close delay (see RFC 0023); skipping delays between adjacent
+  roots and touch opening are not implemented. There is no DOM portal (see
   RFC 0010).
 - Toast and Sonner dismiss themselves after a countdown that pauses on hover
   and focus, inside persistent live region viewports (see RFC 0011). Screen

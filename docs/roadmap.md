@@ -170,4 +170,6 @@ Radio Group, and Toggle Group roving focus
 toggle reporting and trigger movement
 ([RFC 0021](rfcs/0021-accordion-interaction.md)), and M147 to Tooltip hover
 and focus opening
-([RFC 0022](rfcs/0022-tooltip-hover-and-focus-opening.md)).
+([RFC 0022](rfcs/0022-tooltip-hover-and-focus-opening.md)), and M148 to Hover
+Card hover and focus opening
+([RFC 0023](rfcs/0023-hover-card-hover-and-focus-opening.md)).

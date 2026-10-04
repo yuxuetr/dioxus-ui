@@ -188,7 +188,7 @@ positive motion maps to `CommitPrevious`, and below-threshold motion maps to
 | Component | Contract | Mapping |
 | --- | --- | --- |
 | Popover | measurement | measure trigger/content/viewport, then feed pure placement helpers |
-| Tooltip | measurement | same as Popover; hover and focus opening run in the `Tooltip` page script (RFC 0022) |
+| Tooltip | measurement | same as Popover; hover and focus opening run in the shared hover-open page script (RFC 0022, RFC 0023) |
 | Dropdown | measurement | measure trigger/content/viewport for menu placement |
 | Resizable | pointer | emit pointer deltas, then feed `resizable_resize_pair` |
 | Carousel | gesture | map horizontal swipe outcome to `carousel_next` or `carousel_previous` |

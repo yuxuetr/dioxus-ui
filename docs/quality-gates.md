@@ -530,8 +530,9 @@ Tabs, Radio Group, and Toggle Group components: one Tab stop, arrow movement
 past disabled items, selection following focus in Tabs and Radio Group, and
 Tabs trigger and panel id links; and a real Accordion: toggle reporting, Up
 and Down trigger movement with every trigger a Tab stop, and trigger and
-region id links; and Tooltip hover delay, content hover, keyboard focus
-opening, press closing, and `aria-describedby`. It does not
+region id links; Tooltip hover delay, content hover, keyboard focus
+opening, press closing, and `aria-describedby`; and Hover Card open and close
+delays, card hover and focus, and presses that keep it open. It does not
 write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.

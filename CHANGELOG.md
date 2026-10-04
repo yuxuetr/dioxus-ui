@@ -94,6 +94,13 @@ release owner renames it to the released version at publish time.
   onto the content, and close it on pointer leave, blur, and trigger presses.
   Requests reach the app through `Tooltip` `on_open_change`, and the trigger
   has `aria-describedby` while the tooltip is open.
+- Hover Card hover and focus opening: the new `HoverCard` root and link
+  `HoverCardTrigger` open the card after `open_delay_ms` (default 700 ms) or
+  at once on keyboard focus, keep it open while the pointer or focus is on the
+  trigger or the card, and close it `close_delay_ms` (default 300 ms) after
+  the pointer leaves. Trigger presses keep it open. Tooltip now runs on the
+  same shared hover-open script; Tab away while the pointer rests on a
+  tooltip trigger leaves closing to pointer leave.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.

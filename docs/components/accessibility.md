@@ -101,8 +101,8 @@ Statuses:
 | Drawer | Needs gesture and drag-to-dismiss verification. | Planned |
 | Dropdown | Anchored placement and Escape or outside dismissal. | Implemented |
 | Dropdown | Focuses the first item, moves DOM focus with wrapping arrows, Home, End, and typeahead, activates items, and returns focus; browser-verified on Web. | Implemented |
-| Hover Card | Provides controlled rich preview content with placement metadata. | Implemented |
-| Hover Card | Needs hover/focus timing and mobile fallback verification. | Planned |
+| Hover Card | Provides controlled rich preview content with placement metadata; under `HoverCard`, hover opens after a delay, keyboard focus opens at once, the pointer and focus can move into the card, and it closes after a close delay; browser-verified on Web. | Implemented |
+| Hover Card | Touch opening and a mobile fallback are not implemented; use Popover or Sheet on mobile. | Planned |
 | Menubar | Exposes menubar, menu, and menu item roles. | Implemented |
 | Menubar | Keeps the triggers one Tab stop with Left, Right, Home, and End movement, opens menus that behave like Dropdown, switches menus with Left, Right, or hover, and returns focus to the open menu's trigger; browser-verified on Web. | Implemented |
 | Menubar | Nested submenus and right-to-left arrow mirroring are not implemented. | Planned |
