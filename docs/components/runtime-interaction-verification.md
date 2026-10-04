@@ -228,6 +228,15 @@ verifier fail. A changing `key` outside a list, or `if` and `else` branches
 that both render `CommandStatus` in the same place, kept the same element in
 Dioxus 0.7, so neither counts as a remount.
 
+M153 adds a Switch and Checkbox row from
+[RFC 0028](../rfcs/0028-switch-and-checkbox-change-events.md). The verifier
+finds each control by the name its `Label` or `aria-label` gives it, then
+toggles it with a click, Space, and a label click (and Enter for Switch). A
+native checkbox toggles itself even when nobody handles the event, so the
+verifier also checks the app state the fixture writes to its article.
+Removing either callback, not spreading the attributes, or sending the current
+state instead of the requested one each make the verifier fail.
+
 ## Documentation Alignment
 
 M111 should keep these files aligned:
@@ -254,7 +263,7 @@ After M111, useful follow-up work is:
 
 1. Expand interaction coverage across more runtime-sensitive components. M135
    covers Dialog, Alert Dialog, Popover, and Tooltip; M136 adds Toast and
-   Sonner; M137 adds Select and Combobox; M138 adds Date Picker; M139 adds Dropdown and Context Menu; M140 adds Menubar; M141 adds Navigation Menu; M144 adds Tabs, Radio Group, and Toggle Group; M146 adds Accordion; M147 adds Tooltip hover and focus opening; M148 adds Hover Card; M149 adds Command; M150 adds right-to-left arrow mirroring; M151 adds vertical, manually activated Tabs; M152 adds result announcements to Command and Combobox.
+   Sonner; M137 adds Select and Combobox; M138 adds Date Picker; M139 adds Dropdown and Context Menu; M140 adds Menubar; M141 adds Navigation Menu; M144 adds Tabs, Radio Group, and Toggle Group; M146 adds Accordion; M147 adds Tooltip hover and focus opening; M148 adds Hover Card; M149 adds Command; M150 adds right-to-left arrow mirroring; M151 adds vertical, manually activated Tabs; M152 adds result announcements to Command and Combobox; M153 adds Switch and Checkbox change events.
 2. Add targeted screenshot smoke for a small set of stable panels.
 3. Decide whether any browser command should move into CI after local
    reliability is proven.

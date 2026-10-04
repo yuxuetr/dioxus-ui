@@ -4,20 +4,21 @@ mod self_test;
 use dioxus_ui::{
   Accordion, AccordionContent, AccordionItem, AccordionTrigger, Calendar, CalendarBody,
   CalendarCaption, CalendarDate, CalendarDay, CalendarGrid, CalendarHeader, CalendarMonth,
-  CalendarNav, CalendarNavButton, CalendarNavDirection, CalendarRow, CalendarWeekday,
+  CalendarNav, CalendarNavButton, CalendarNavDirection, CalendarRow, CalendarWeekday, Checkbox,
   ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList, ComboboxStatus, Command,
   CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandLabel, CommandList, CommandStatus,
   ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, DatePickerContent,
   DatePickerTrigger, DatePickerValue, DropdownContent, DropdownItem, DropdownSeparator, HoverCard,
-  HoverCardContent, HoverCardDescription, HoverCardHeader, HoverCardTitle, HoverCardTrigger,
+  HoverCardContent, HoverCardDescription, HoverCardHeader, HoverCardTitle, HoverCardTrigger, Label,
   Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger, NavigationMenu,
   NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList,
   NavigationMenuTrigger, NavigationOrientation, RadioGroup, RadioGroupItem, SelectContent,
   SelectItem, SelectTrigger, SelectValue, SonnerClose, SonnerContent, SonnerTitle, SonnerToast,
-  SonnerVariant, SonnerViewport, Tabs, TabsActivation, TabsContent, TabsList, TabsOrientation,
-  TabsTrigger, ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport, ToggleGroup,
-  ToggleGroupItem, accordion_single_open, calendar_month_grid, calendar_move_date, command_matches,
-  sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute, toggle_group_single_selection,
+  SonnerVariant, SonnerViewport, Switch, Tabs, TabsActivation, TabsContent, TabsList,
+  TabsOrientation, TabsTrigger, ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport,
+  ToggleGroup, ToggleGroupItem, accordion_single_open, calendar_month_grid, calendar_move_date,
+  command_matches, sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute,
+  toggle_group_single_selection,
 };
 use dioxus_ui::{
   AlertDialogAction, AlertDialogActionVariant, AlertDialogCancel, AlertDialogContent,
@@ -740,6 +741,9 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let radio_checked = move |value: &str| radio_value().as_deref() == Some(value);
   let mut toggle_value = use_signal(|| None::<String>);
   let toggle_pressed = move |value: &str| toggle_value().as_deref() == Some(value);
+  let mut wifi_enabled = use_signal(|| false);
+  let mut terms_accepted = use_signal(|| false);
+  let mut disabled_changes = use_signal(|| 0_u32);
   let mut accordion_value = use_signal(|| None::<String>);
   let accordion_open = move |value: &str| accordion_value().as_deref() == Some(value);
   let mut context_open = use_signal(|| false);
@@ -1535,6 +1539,46 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 "Strike"
               }
               ToggleGroupItem { value: "underline", pressed: toggle_pressed("underline"), "Underline" }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "switch",
+            "data-switch": "{wifi_enabled}",
+            "data-checkbox": "{terms_accepted}",
+            "data-disabled-changes": "{disabled_changes}",
+            h2 { class: "text-sm font-medium", "Switch and checkbox interaction" }
+            div { class: "mt-3 flex items-center gap-2",
+              Switch {
+                id: "interaction-switch-wifi",
+                checked: wifi_enabled(),
+                on_checked_change: move |checked| wifi_enabled.set(checked),
+              }
+              Label { r#for: "interaction-switch-wifi", "Wi-Fi" }
+            }
+            div { class: "mt-3 flex items-center gap-2",
+              Switch {
+                "aria-label": "Airplane mode",
+                checked: true,
+                disabled: true,
+                on_checked_change: move |_| disabled_changes += 1,
+              }
+            }
+            div { class: "mt-3 flex items-center gap-2",
+              Checkbox {
+                id: "interaction-checkbox-terms",
+                name: "terms",
+                checked: terms_accepted(),
+                on_checked_change: move |checked| terms_accepted.set(checked),
+              }
+              Label { r#for: "interaction-checkbox-terms", "Accept terms" }
+            }
+            div { class: "mt-3 flex items-center gap-2",
+              Checkbox {
+                "aria-label": "Newsletter",
+                disabled: true,
+                on_checked_change: move |_| disabled_changes += 1,
+              }
             }
           }
           article {

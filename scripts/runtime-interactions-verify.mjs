@@ -1078,6 +1078,50 @@ async function runBrowserAssertions() {
     await expect(menubarTrigger("file")).toBeFocused();
     await expectMenubarClosed();
 
+    const switchFixture = page.locator('[data-interaction-target="switch"]');
+    const wifi = switchFixture.getByRole("switch", { name: "Wi-Fi", exact: true });
+    const airplane = switchFixture.getByRole("switch", { name: "Airplane mode", exact: true });
+    const terms = switchFixture.getByRole("checkbox", { name: "Accept terms", exact: true });
+    const newsletter = switchFixture.getByRole("checkbox", { name: "Newsletter", exact: true });
+    await wifi.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    // The accessible names come from Label for= and aria-label passed through.
+    await expect(wifi).toHaveAttribute("aria-checked", "false");
+    await expect(wifi).toHaveAttribute("data-state", "unchecked");
+    await wifi.click();
+    await expect(switchFixture).toHaveAttribute("data-switch", "true");
+    await expect(wifi).toHaveAttribute("aria-checked", "true");
+    await expect(wifi).toHaveAttribute("data-state", "checked");
+    await expect(wifi.locator("span")).toHaveAttribute("data-state", "checked");
+    await wifi.focus();
+    await page.keyboard.press("Space");
+    await expect(switchFixture).toHaveAttribute("data-switch", "false");
+    await expect(wifi).toHaveAttribute("aria-checked", "false");
+    await page.keyboard.press("Enter");
+    await expect(switchFixture).toHaveAttribute("data-switch", "true");
+    await switchFixture.locator('label[for="interaction-switch-wifi"]').click();
+    await expect(switchFixture).toHaveAttribute("data-switch", "false");
+    await expect(wifi).toHaveAttribute("data-state", "unchecked");
+    await expect(airplane).toBeDisabled();
+    await airplane.click({ force: true });
+    await expect(airplane).toHaveAttribute("aria-checked", "true");
+    // The checkbox box toggles natively, so assert the app state as well.
+    await expect(terms).not.toBeChecked();
+    await expect(terms).toHaveAttribute("name", "terms");
+    await terms.click();
+    await expect(switchFixture).toHaveAttribute("data-checkbox", "true");
+    await expect(terms).toBeChecked();
+    await terms.focus();
+    await page.keyboard.press("Space");
+    await expect(switchFixture).toHaveAttribute("data-checkbox", "false");
+    await expect(terms).not.toBeChecked();
+    await switchFixture.locator('label[for="interaction-checkbox-terms"]').click();
+    await expect(switchFixture).toHaveAttribute("data-checkbox", "true");
+    await expect(terms).toBeChecked();
+    await expect(newsletter).toBeDisabled();
+    await newsletter.click({ force: true });
+    await expect(newsletter).not.toBeChecked();
+    await expect(switchFixture).toHaveAttribute("data-disabled-changes", "0");
+
     const accordion = page.locator('[data-interaction-target="accordion"]');
     const accordionTrigger = (name) => accordion.getByRole("button", { name, exact: true });
     const accordionRegion = (name) => accordion.getByRole("region", { name, exact: true, includeHidden: true });
@@ -1404,7 +1448,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (24 fixtures)");
+  console.log("runtime interaction verification passed (25 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
