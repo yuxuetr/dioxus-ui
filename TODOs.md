@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 57% (M135 4/7)
+- Overall: 71% (M135 5/7)
 - Current milestone: M135 Overlay Interaction Behavior
-- Current task: M135.5 Apply anchored positioning to Dropdown, Hover Card, and Tooltip
+- Current task: M135.6 Verify overlay behavior in a real browser
 
 ## Backup
 
@@ -2396,7 +2396,7 @@
   - Close on Escape, outside pointer, and focus outside according to `DismissBehavior::popover_default()`.
   - Mirror placement in the source-copy template without importing internal crates.
 
-- TODO M135.5 Apply anchored positioning to Dropdown, Hover Card, and Tooltip
+- DONE M135.5 Apply anchored positioning to Dropdown, Hover Card, and Tooltip
   - Reuse Popover measurement and placement; Dropdown dismisses on Escape and outside pointer, Tooltip on Escape only.
   - Update templates, docs pages, and tests for each component.
 
