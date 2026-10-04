@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M147 Tooltip Hover And Focus Opening
-- Current task: M147.3 Verify tooltip behavior in a real browser
+- Current task: M147.4 Complete tooltip milestone
 
 ## Backup
 
@@ -2659,7 +2659,7 @@
   - Add the tooltip script and wire `Tooltip`, `TooltipTrigger`, and `TooltipContent` in the crate and the template, with a CLI parity test for the script.
   - Update the Tooltip docs page.
 
-- TODO M147.3 Verify tooltip behavior in a real browser
+- DONE M147.3 Verify tooltip behavior in a real browser
   - Render the Web preview tooltip with the new parts and extend `npm run verify:runtime-interactions` to assert the hover delay, `aria-describedby`, staying open over the content, closing on pointer leave, immediate keyboard focus opening, closing on blur and Escape, and a trigger press closing it without reopening.
   - Reverse-verify that the script fails when the delay, content hover, focus opening, press closing, or the description link is removed.
 
