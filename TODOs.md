@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 86% (M135 6/7)
-- Current milestone: M135 Overlay Interaction Behavior
-- Current task: M135.7 Complete overlay interaction milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2405,7 +2405,7 @@
   - Extend `npm run verify:runtime-interactions` to assert Escape, overlay click, Tab wrap, focus restore, and in-viewport placement with flip near the viewport edge.
   - Reverse-verify that the script fails when the behavior is removed.
 
-- TODO M135.7 Complete overlay interaction milestone
+- DONE M135.7 Complete overlay interaction milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, roadmap Stage 7 status, and component docs to match what is now verified.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
