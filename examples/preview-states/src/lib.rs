@@ -25,11 +25,12 @@ use dioxus_ui::{
   ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, DatePickerContent,
   DatePickerTrigger, DatePickerValue, DropdownContent, DropdownItem, DropdownSeparator, Menubar,
   MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger, NavigationMenu, NavigationMenuContent,
-  NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, SelectContent,
-  SelectItem, SelectTrigger, SelectValue, SonnerClose, SonnerContent, SonnerTitle, SonnerToast,
-  SonnerVariant, SonnerViewport, ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport,
-  calendar_month_grid, calendar_move_date, sonner_dismiss_reason_attribute,
-  toast_dismiss_reason_attribute,
+  NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger,
+  NavigationOrientation, RadioGroup, RadioGroupItem, SelectContent, SelectItem, SelectTrigger,
+  SelectValue, SonnerClose, SonnerContent, SonnerTitle, SonnerToast, SonnerVariant, SonnerViewport,
+  Tabs, TabsContent, TabsList, TabsTrigger, ToastAction, ToastClose, ToastRoot, ToastTitle,
+  ToastViewport, ToggleGroup, ToggleGroupItem, calendar_month_grid, calendar_move_date,
+  sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute, toggle_group_single_selection,
 };
 pub use self_test::{INTERACTION_SELF_TEST_SCRIPT, InteractionSelfTest};
 
@@ -705,6 +706,12 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let menubar_open = move |value: &str| menubar_active() == Some(value);
   let mut navigation_active = use_signal(String::new);
   let navigation_open = move |value: &str| navigation_active() == value;
+  let mut tabs_value = use_signal(|| "account".to_string());
+  let tab_active = move |value: &str| tabs_value() == value;
+  let mut radio_value = use_signal(|| None::<String>);
+  let radio_checked = move |value: &str| radio_value().as_deref() == Some(value);
+  let mut toggle_value = use_signal(|| None::<String>);
+  let toggle_pressed = move |value: &str| toggle_value().as_deref() == Some(value);
   let mut context_open = use_signal(|| false);
   let mut context_point = use_signal(|| (0.0, 0.0));
   let mut context_bookmarked = use_signal(|| false);
@@ -1363,6 +1370,67 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                   }
                 }
               }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "tabs",
+            "data-value": "{tabs_value}",
+            h2 { class: "text-sm font-medium", "Tabs interaction" }
+            Tabs {
+              class: "mt-3",
+              on_value_change: move |value: String| tabs_value.set(value),
+              TabsList {
+                TabsTrigger { value: "account", active: tab_active("account"), "Account" }
+                TabsTrigger {
+                  value: "password",
+                  active: tab_active("password"),
+                  disabled: true,
+                  "Password"
+                }
+                TabsTrigger { value: "billing", active: tab_active("billing"), "Billing" }
+                TabsTrigger { value: "team", active: tab_active("team"), "Team" }
+              }
+              TabsContent { value: "account", active: tab_active("account"), "Account settings" }
+              TabsContent { value: "password", active: tab_active("password"), "Password settings" }
+              TabsContent { value: "billing", active: tab_active("billing"), "Billing settings" }
+              TabsContent { value: "team", active: tab_active("team"), "Team settings" }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "radio-group",
+            "data-value": radio_value().unwrap_or_else(|| "none".to_string()),
+            h2 { class: "text-sm font-medium", "Radio group interaction" }
+            RadioGroup {
+              class: "mt-3",
+              value: radio_value(),
+              on_value_change: move |value: String| radio_value.set(Some(value)),
+              RadioGroupItem { value: "small", checked: radio_checked("small") }
+              RadioGroupItem { value: "medium", checked: radio_checked("medium"), disabled: true }
+              RadioGroupItem { value: "large", checked: radio_checked("large") }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "toggle-group",
+            "data-value": toggle_value().unwrap_or_else(|| "none".to_string()),
+            h2 { class: "text-sm font-medium", "Toggle group interaction" }
+            ToggleGroup {
+              class: "mt-3",
+              orientation: NavigationOrientation::Horizontal,
+              on_toggle: move |value: String| {
+                toggle_value.set(toggle_group_single_selection(toggle_value().as_deref(), &value))
+              },
+              ToggleGroupItem { value: "bold", pressed: toggle_pressed("bold"), "Bold" }
+              ToggleGroupItem { value: "italic", pressed: toggle_pressed("italic"), "Italic" }
+              ToggleGroupItem {
+                value: "strike",
+                pressed: toggle_pressed("strike"),
+                disabled: true,
+                "Strike"
+              }
+              ToggleGroupItem { value: "underline", pressed: toggle_pressed("underline"), "Underline" }
             }
           }
           article {

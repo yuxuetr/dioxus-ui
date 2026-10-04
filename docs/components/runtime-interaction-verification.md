@@ -118,6 +118,9 @@ controls, so the verifier exercises the shipped overlay behavior from
 | `dropdown` | Dropdown | opening focuses the first item; arrows wrap and skip the disabled item; Home, End, and repeated-letter typeahead move focus; Enter, Space, and click run the item's `onclick`, close, and return focus to the trigger; a disabled item does nothing; Escape and Tab close it |
 | `menubar` | Menubar | the triggers are one Tab stop; Left and Right wrap and skip the disabled trigger, Home and End jump; ArrowDown and Enter open a menu on its first item; Left and Right inside an open menu switch to the adjacent menu; Escape returns focus to the open menu's trigger; hovering a trigger switches menus only while one is open; click runs an item, closes, and returns focus; clicking the open trigger closes it; Tab closes and leaves the bar |
 | `navigation-menu` | Navigation Menu | a click toggles content and a click-closed trigger stays closed under the pointer; Left, Right, Home, and End move between top-level triggers and links, skipping the disabled trigger; Enter and Space toggle; ArrowDown opens content on its first link, ArrowDown wraps and skips the disabled link, and Tab continues in document order; Escape returns focus to the trigger; focus leaving, an outside press, and a content link click close it; hover opens after a delay, switches immediately while open, and closes after leaving |
+| `tabs` | Tabs | the selected trigger is the only Tab stop and names its panel through `aria-controls` and `aria-labelledby`; Left and Right wrap and skip the disabled trigger, Home and End jump, and each move selects the focused tab; Tab moves into the visible panel; a click selects |
+| `radio-group` | Radio Group | with nothing checked the first enabled item is the Tab stop; all four arrows move, wrap, skip the disabled item, and check the focused item; the checked item becomes the Tab stop; a click checks |
+| `toggle-group` | Toggle Group | arrows move focus without pressing, ignore Up and Down in a horizontal group, wrap, and skip the disabled item; Enter and click toggle; the last focused item stays the Tab stop after focus leaves |
 | `context-menu` | Context Menu | a right-click opens the menu at the pointer and a second right-click moves it; the first item takes focus; arrows wrap; Enter toggles the checkbox item and closes; click runs an item; near the viewport bottom the menu flips above the pointer; an outside click closes it |
 
 The Web preview serves the Tailwind input stylesheet without compiling it, so
@@ -169,6 +172,12 @@ arrow movement, content entry, hover opening, the hover open delay, hover
 closing, the click-closed guard, outside dismissal, or focus return on Escape
 each make the verifier fail.
 
+M144 adds the Tabs, Radio Group, and Toggle Group rows from
+[RFC 0019](../rfcs/0019-roving-group-interaction.md). Removing arrow movement,
+selection on focus, click reporting, or the first-enabled Tab stop fallback,
+making Toggle Group select on focus, or making it prefer the pressed item
+over the last focused one each make the verifier fail.
+
 ## Documentation Alignment
 
 M111 should keep these files aligned:
@@ -195,7 +204,7 @@ After M111, useful follow-up work is:
 
 1. Expand interaction coverage across more runtime-sensitive components. M135
    covers Dialog, Alert Dialog, Popover, and Tooltip; M136 adds Toast and
-   Sonner; M137 adds Select and Combobox; M138 adds Date Picker; M139 adds Dropdown and Context Menu; M140 adds Menubar; M141 adds Navigation Menu.
+   Sonner; M137 adds Select and Combobox; M138 adds Date Picker; M139 adds Dropdown and Context Menu; M140 adds Menubar; M141 adds Navigation Menu; M144 adds Tabs, Radio Group, and Toggle Group.
 2. Add targeted screenshot smoke for a small set of stable panels.
 3. Decide whether any browser command should move into CI after local
    reliability is proven.

@@ -745,6 +745,108 @@ async function runBrowserAssertions() {
     await expect(navigationContent("docs")).toBeVisible();
     await expect(navigationContent("docs")).toBeHidden();
 
+    const tabs = page.locator('[data-interaction-target="tabs"]');
+    const tab = (name) => tabs.getByRole("tab", { name, exact: true });
+    const tabPanel = (name) => tabs.getByRole("tabpanel", { name, exact: true });
+    await tab("Account").evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(tab("Account")).toHaveAttribute("tabindex", "0");
+    for (const name of ["Password", "Billing", "Team"]) {
+      await expect(tab(name)).toHaveAttribute("tabindex", "-1");
+    }
+    // Panels are named by their trigger through aria-labelledby.
+    await expect(tabPanel("Account")).toBeVisible();
+    const accountPanelId = await tabPanel("Account").getAttribute("id");
+    await expect(tab("Account")).toHaveAttribute("aria-controls", accountPanelId);
+    await tab("Account").focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(tab("Billing")).toBeFocused();
+    await expect(tabs).toHaveAttribute("data-value", "billing");
+    await expect(tabPanel("Billing")).toBeVisible();
+    await expect(tabs.getByRole("tabpanel")).toHaveCount(1);
+    await page.keyboard.press("ArrowRight");
+    await expect(tab("Team")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(tab("Account")).toBeFocused();
+    await expect(tabs).toHaveAttribute("data-value", "account");
+    await page.keyboard.press("ArrowLeft");
+    await expect(tab("Team")).toBeFocused();
+    await page.keyboard.press("Home");
+    await expect(tab("Account")).toBeFocused();
+    await page.keyboard.press("End");
+    await expect(tab("Team")).toBeFocused();
+    await expect(tabs).toHaveAttribute("data-value", "team");
+    await expect(tab("Team")).toHaveAttribute("tabindex", "0");
+    await expect(tab("Account")).toHaveAttribute("tabindex", "-1");
+    await page.keyboard.press("Tab");
+    await expect(tabPanel("Team")).toBeFocused();
+    await tab("Billing").click();
+    await expect(tabs).toHaveAttribute("data-value", "billing");
+    await expect(tab("Billing")).toHaveAttribute("tabindex", "0");
+
+    const radioGroup = page.locator('[data-interaction-target="radio-group"]');
+    const radio = (value) => radioGroup.locator(`[role="radio"][data-value="${value}"]`);
+    await radio("small").evaluate((element) => element.scrollIntoView({ block: "center" }));
+    // Nothing checked: the first enabled item is the Tab stop.
+    await expect(radio("small")).toHaveAttribute("tabindex", "0");
+    await expect(radio("large")).toHaveAttribute("tabindex", "-1");
+    await radio("small").focus();
+    await page.keyboard.press("ArrowDown");
+    await expect(radio("large")).toBeFocused();
+    await expect(radioGroup).toHaveAttribute("data-value", "large");
+    await expect(radio("large")).toHaveAttribute("aria-checked", "true");
+    await page.keyboard.press("ArrowDown");
+    await expect(radio("small")).toBeFocused();
+    await expect(radioGroup).toHaveAttribute("data-value", "small");
+    await page.keyboard.press("ArrowUp");
+    await expect(radio("large")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(radio("small")).toBeFocused();
+    await expect(radio("small")).toHaveAttribute("tabindex", "0");
+    await expect(radio("large")).toHaveAttribute("tabindex", "-1");
+    await radio("large").click();
+    await expect(radioGroup).toHaveAttribute("data-value", "large");
+    await expect(radio("large")).toHaveAttribute("tabindex", "0");
+
+    const toggleGroup = page.locator('[data-interaction-target="toggle-group"]');
+    const toggle = (name) => toggleGroup.getByRole("button", { name, exact: true });
+    await toggle("Bold").evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(toggle("Bold")).toHaveAttribute("tabindex", "0");
+    await expect(toggle("Italic")).toHaveAttribute("tabindex", "-1");
+    await toggle("Bold").focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(toggle("Italic")).toBeFocused();
+    // Focus moves without pressing.
+    await expect(toggleGroup).toHaveAttribute("data-value", "none");
+    await page.keyboard.press("ArrowDown");
+    await expect(toggle("Italic")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(toggle("Underline")).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(toggleGroup).toHaveAttribute("data-value", "underline");
+    await expect(toggle("Underline")).toHaveAttribute("aria-pressed", "true");
+    await page.keyboard.press("ArrowRight");
+    await expect(toggle("Bold")).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expect(toggle("Underline")).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expect(toggle("Italic")).toBeFocused();
+    // The last focused item stays the Tab stop after focus leaves.
+    await page.keyboard.press("Shift+Tab");
+    await expect(toggleGroup.locator(":focus")).toHaveCount(0);
+    // Checking another radio re-renders the page while focus is outside the
+    // group, so the Tab stop is recomputed.
+    await expect(radio("large")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(radioGroup).toHaveAttribute("data-value", "small");
+    await expect(toggle("Italic")).toHaveAttribute("tabindex", "0");
+    await expect(toggle("Underline")).toHaveAttribute("tabindex", "-1");
+    await page.keyboard.press("Tab");
+    await expect(toggle("Italic")).toBeFocused();
+    await toggle("Bold").click();
+    await expect(toggleGroup).toHaveAttribute("data-value", "bold");
+    await toggle("Bold").click();
+    await expect(toggleGroup).toHaveAttribute("data-value", "none");
+
     const contextMenu = page.locator('[data-interaction-target="context-menu"]');
     const contextArea = page.locator('[data-interaction-control="context-area"]');
     const contextContent = contextMenu.locator('[role="menu"]');
@@ -926,7 +1028,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (18 fixtures)");
+  console.log("runtime interaction verification passed (21 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
