@@ -23,11 +23,16 @@ pub fn native_select_option_class(class: &str) -> String {
   classes([Some(NATIVE_SELECT_OPTION_BASE_CLASS), Some(class)])
 }
 
+/// A change calls `on_value_change` with the chosen option's `value`; the app
+/// marks that option `selected`. Other attributes, such as `id`, `name`, and
+/// `required`, are passed to the select.
 #[component]
 pub fn NativeSelect(
   #[props(default)] invalid: bool,
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
+  #[props(default)] on_value_change: Option<EventHandler<String>>,
+  #[props(extends = GlobalAttributes, extends = select)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = native_select_class(invalid, &class);
@@ -37,6 +42,12 @@ pub fn NativeSelect(
       class,
       disabled,
       "aria-invalid": invalid.to_string(),
+      onchange: move |event: FormEvent| {
+        if let Some(handler) = on_value_change {
+          handler.call(event.value());
+        }
+      },
+      ..attributes,
       {children}
     }
   }

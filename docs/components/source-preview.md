@@ -32,7 +32,7 @@ Source preview routes: 64
 | [Carousel](carousel.md) | /components/carousel/source | crates/dioxus-ui-cli/templates/carousel.rs | src/components/ui/carousel.rs | rust | 295 | 6957 |
 | [Chart](chart.md) | /components/chart/source | crates/dioxus-ui-cli/templates/chart.rs | src/components/ui/chart.rs | rust | 633 | 14818 |
 | [Checkbox](checkbox.md) | /components/checkbox/source | crates/dioxus-ui-cli/templates/checkbox.rs | src/components/ui/checkbox.rs | rust | 44 | 1415 |
-| [Collapsible](collapsible.md) | /components/collapsible/source | crates/dioxus-ui-cli/templates/collapsible.rs | src/components/ui/collapsible.rs | rust | 116 | 3006 |
+| [Collapsible](collapsible.md) | /components/collapsible/source | crates/dioxus-ui-cli/templates/collapsible.rs | src/components/ui/collapsible.rs | rust | 131 | 3689 |
 | [Combobox](combobox.md) | /components/combobox/source | crates/dioxus-ui-cli/templates/combobox.rs | src/components/ui/combobox.rs | rust | 277 | 8556 |
 | [Command](command.md) | /components/command/source | crates/dioxus-ui-cli/templates/command.rs | src/components/ui/command.rs | rust | 287 | 8205 |
 | [Context Menu](context-menu.md) | /components/context-menu/source | crates/dioxus-ui-cli/templates/context_menu.rs | src/components/ui/context_menu.rs | rust | 236 | 6794 |
@@ -55,7 +55,7 @@ Source preview routes: 64
 | [Menubar](menubar.md) | /components/menubar/source | crates/dioxus-ui-cli/templates/menubar.rs | src/components/ui/menubar.rs | rust | 421 | 13425 |
 | [Message](message.md) | /components/message/source | crates/dioxus-ui-cli/templates/message.rs | src/components/ui/message.rs | rust | 153 | 3787 |
 | [Message Scroller](message-scroller.md) | /components/message-scroller/source | crates/dioxus-ui-cli/templates/message_scroller.rs | src/components/ui/message_scroller.rs | rust | 256 | 6962 |
-| [Native Select](native-select.md) | /components/native-select/source | crates/dioxus-ui-cli/templates/native_select.rs | src/components/ui/native_select.rs | rust | 82 | 1981 |
+| [Native Select](native-select.md) | /components/native-select/source | crates/dioxus-ui-cli/templates/native_select.rs | src/components/ui/native_select.rs | rust | 93 | 2501 |
 | [Navigation Menu](navigation-menu.md) | /components/navigation-menu/source | crates/dioxus-ui-cli/templates/navigation_menu.rs | src/components/ui/navigation_menu.rs | rust | 417 | 13844 |
 | [Pagination](pagination.md) | /components/pagination/source | crates/dioxus-ui-cli/templates/pagination.rs | src/components/ui/pagination.rs | rust | 146 | 3638 |
 | [Popover](popover.md) | /components/popover/source | crates/dioxus-ui-cli/templates/popover.rs | src/components/ui/popover.rs | rust | 96 | 2831 |

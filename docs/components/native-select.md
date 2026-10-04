@@ -29,7 +29,7 @@ use dioxus_ui::{NativeSelect, NativeSelectGroup, NativeSelectOption};
 
 ## API Surface
 
-- `NativeSelect { invalid, disabled, class, children }`
+- `NativeSelect { invalid, disabled, class, on_value_change, children }`
 - `NativeSelectGroup { label, class, children }`
 - `NativeSelectOption { value, disabled, selected, class, children }`
 
@@ -38,6 +38,27 @@ Class helpers:
 - `native_select_class(invalid, class)`
 - `native_select_group_class(class)`
 - `native_select_option_class(class)`
+
+## Change Events
+
+```rust
+let mut size = use_signal(|| "md".to_string());
+
+rsx! {
+  Label { r#for: "size", "Size" }
+  NativeSelect {
+    id: "size",
+    name: "size",
+    on_value_change: move |value| size.set(value),
+    NativeSelectOption { value: "sm", selected: size() == "sm", "Small" }
+    NativeSelectOption { value: "md", selected: size() == "md", "Medium" }
+  }
+}
+```
+
+A change calls `on_value_change` with the chosen option's `value`. Mark that
+option `selected` to keep the select controlled. Other attributes, such as
+`id`, `name`, `required`, and `aria-describedby`, are passed to the select.
 
 ## Accessibility Notes
 

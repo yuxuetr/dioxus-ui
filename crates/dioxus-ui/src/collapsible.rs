@@ -32,6 +32,7 @@ pub fn Collapsible(
   #[props(default)] open: bool,
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = collapsible_class(disabled, &class);
@@ -41,17 +42,23 @@ pub fn Collapsible(
       class,
       "data-disabled": disabled.to_string(),
       "data-state": if open { "open" } else { "closed" },
+      ..attributes,
       {children}
     }
   }
 }
 
+/// A click, Enter, or Space calls `on_open_change` with the requested state,
+/// `!open`; the app passes it back as `open` to every part. Other attributes
+/// are passed to the button.
 #[component]
 pub fn CollapsibleTrigger(
   #[props(default)] open: bool,
   #[props(default)] disabled: bool,
   #[props(default)] controls: Option<String>,
   #[props(default)] class: String,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = collapsible_trigger_class(open, &class);
@@ -65,6 +72,12 @@ pub fn CollapsibleTrigger(
       "aria-controls": controls,
       "aria-expanded": open.to_string(),
       "data-state": if open { "open" } else { "closed" },
+      onclick: move |_| {
+        if let Some(handler) = on_open_change {
+          handler.call(!open);
+        }
+      },
+      ..attributes,
       {children}
     }
   }
@@ -76,6 +89,7 @@ pub fn CollapsibleContent(
   #[props(default)] id: Option<String>,
   #[props(default)] force_mount: bool,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   if !open && !force_mount {
@@ -91,6 +105,7 @@ pub fn CollapsibleContent(
       class,
       hidden: !open,
       "data-state": if open { "open" } else { "closed" },
+      ..attributes,
       {children}
     }
   }

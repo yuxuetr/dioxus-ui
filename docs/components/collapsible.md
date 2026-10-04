@@ -24,9 +24,32 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["collapsibl
 - `collapsible_trigger_class`
 - `collapsible_content_class`
 
+## Open Events
+
+```rust
+let mut open = use_signal(|| false);
+
+rsx! {
+  Collapsible { open: open(),
+    CollapsibleTrigger {
+      open: open(),
+      controls: "details",
+      on_open_change: move |next| open.set(next),
+      "Details"
+    }
+    CollapsibleContent { open: open(), id: "details", "More information" }
+  }
+}
+```
+
+A click, Enter, or Space on `CollapsibleTrigger` calls `on_open_change` with
+the requested state, `!open`. Pass the value back as `open` to every part. A
+disabled trigger does not call it. All three parts pass other attributes, such
+as `aria-label` and `data-*`, to their element.
+
 ## Accessibility Notes
 
 `CollapsibleTrigger` renders a native button with `aria-expanded`. Pass matching
 `controls` and content `id` values when the app needs explicit trigger/content
-association. Open state, click handlers, animation timing, and measured-height
-transitions stay app-owned.
+association. Open state, animation timing, and measured-height transitions stay
+app-owned.
