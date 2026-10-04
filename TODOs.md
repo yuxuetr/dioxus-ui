@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M163 Form Control Naming
-- Current task: M163.3 Verify form control naming in a real browser
+- Current task: M163.4 Complete form control naming milestone
 
 ## Backup
 
@@ -2976,7 +2976,7 @@
   - Add attribute spreading to the crate source and template.
   - Update the Radio Group, Progress, Select, and Combobox docs pages.
 
-- TODO M163.3 Verify form control naming in a real browser
+- DONE M163.3 Verify form control naming in a real browser
   - Label the radio group, its items, a progress bar, the Select trigger, and the Combobox input in the Web preview and extend `npm run verify:runtime-interactions` to assert their accessible names and descriptions through role queries.
   - Reverse-verify that the script fails when any of the five parts does not spread its attributes.
 
