@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M146 Accordion Interaction
-- Current task: M146.1 Design accordion interaction
+- Current task: M146.2 Implement accordion interaction
 
 ## Backup
 
@@ -2630,7 +2630,7 @@
 
 ## M146 Accordion Interaction
 
-- TODO M146.1 Design accordion interaction
+- DONE M146.1 Design accordion interaction
   - Record that Accordion renders state only: `AccordionItem` has no value, triggers have no click reporting, no trigger handles arrow keys, triggers have no heading wrapper, and triggers and content are not linked by ids.
   - Define an `Accordion` root that reports toggled items, `AccordionItem` `value`, heading-wrapped triggers with `aria-controls`, region content with `aria-labelledby`, and Up, Down, Home, and End movement between enabled triggers that keeps every trigger in the Tab order, reusing the roving group script.
   - Record what stays out of scope (an expanded item that cannot collapse, horizontal accordions, animation, Desktop and Mobile self-test scenarios) with reevaluation conditions.
