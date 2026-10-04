@@ -63,7 +63,7 @@ npm run verify:desktop-interactions
 ## Mobile Demo
 
 `examples/mobile-demo` (`dioxus-ui-mobile-demo`) renders the shared preview
-with `PreviewTarget::Mobile` for the iOS Simulator:
+with `PreviewTarget::Mobile` for the iOS Simulator and Android:
 
 ```bash
 dx serve --ios --package dioxus-ui-mobile-demo
@@ -78,6 +78,16 @@ npm run verify:mobile-interactions
 ```
 
 Set `DIOXUS_UI_IOS_SIMULATOR` to a device name or UDID to choose the device.
+
+The Android self-test (RFC 0020) builds an arm64 APK, boots the first AVD
+headless when no emulator is running, and reads the result from logcat. It
+needs the Android SDK, NDK, and an AVD:
+
+```bash
+npm run verify:android-interactions
+```
+
+Set `DIOXUS_UI_ANDROID_SERIAL` or `DIOXUS_UI_ANDROID_AVD` to choose the device.
 Dioxus 0.7 apps stop at launch on iOS 27 because they do not adopt the UIScene
 lifecycle.
 

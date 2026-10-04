@@ -803,6 +803,8 @@ Desktop WebView. The Desktop preview runs an in-app self-test of eight
 scenarios and exits with the result (RFC 0017). It opens a window and needs a
 GUI session. `npm run verify:mobile-interactions` runs the same scenarios in an
 iOS Simulator build (RFC 0018) and needs Xcode.
+`npm run verify:android-interactions` runs them in an Android emulator
+(RFC 0020) and needs the Android SDK, NDK, and an AVD.
 
 Run all local browser smoke commands serially:
 

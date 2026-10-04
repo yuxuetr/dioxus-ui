@@ -90,7 +90,7 @@ Out of scope, with reevaluation conditions:
 
 | Item | Reason | Reevaluate when |
 | --- | --- | --- |
-| Android | Rust Android targets are not installed; adding them changes the toolchain | `aarch64-linux-android` is installed and `dx build --android` works locally |
+| Android | Rust Android targets are not installed; adding them changes the toolchain | `aarch64-linux-android` is installed and `dx build --android` works locally (done in M145, see RFC 0020) |
 | Physical devices | Needs signing and a provisioning profile | A release owner provides device signing |
 | Touch gestures, software keyboard, safe areas | Dispatched events do not model touch input or viewport changes; the M28.2 checklist stays manual | A touch automation tool is added |
 | CI activation | Needs a macOS runner with Xcode simulators | Browser and Desktop checks move into CI (RFC 0009) |

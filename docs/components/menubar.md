@@ -89,7 +89,8 @@ rsx! {
 
 The Web renderer is covered by `npm run verify:runtime-interactions` and the
 Desktop renderer by `npm run verify:desktop-interactions`, and the iOS
-Simulator by `npm run verify:mobile-interactions`; Android is not covered.
+Simulator by `npm run verify:mobile-interactions`, and an Android emulator by
+`npm run verify:android-interactions`.
 
 ## Accessibility Notes
 

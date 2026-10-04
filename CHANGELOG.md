@@ -86,6 +86,9 @@ release owner renames it to the released version at publish time.
   result.
 - `npm run verify:mobile-interactions`: the same scenarios in an iOS Simulator
   build of the new `examples/mobile-demo` preview, read from the app console.
+- `npm run verify:android-interactions`: the same scenarios in an Android
+  emulator build of the same preview, requested through a debug system
+  property and read from logcat.
 
 ### Changed
 
@@ -104,8 +107,8 @@ release owner renames it to the released version at publish time.
 - Message markdown parsing, syntax highlighting, citation resolution,
   streaming, and provider integration.
 - DOM/WebView scroll commands for Message Scroller.
-- Android automation, touch gesture verification, and Desktop automation
-  outside macOS; Mobile touch, viewport, and assistive checks remain
+- Physical device automation, touch gesture verification, and Desktop
+  automation outside macOS; Mobile touch, viewport, and assistive checks remain
   checklist based.
 - Navigation Menu viewport size measurement, submenus, multi-select,
   typed date parsing, DOM portal mounting, and scroll lock.

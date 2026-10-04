@@ -699,8 +699,11 @@ first.
 - Mobile has a Web profile structural gate for source-level mobile viewport and
   fallback markers. `npm run verify:mobile-interactions` runs the eight
   interaction scenarios in an iOS Simulator build (see RFC 0018). It needs
-  Xcode and is not part of `npm run verify:release`. Android, physical
-  devices, and touch gestures are not automated.
+  Xcode and is not part of `npm run verify:release`.
+  `npm run verify:android-interactions` runs them in an Android emulator
+  (see RFC 0020); it needs the Android SDK, NDK, and an AVD and is not part of
+  `npm run verify:release` either. Physical devices and touch gestures are not
+  automated.
 - Dioxus 0.7 iOS apps stop at launch on iOS 27, because they do not adopt
   the UIScene lifecycle. This affects every Dioxus 0.7 app; the Mobile
   self-test uses iOS 26 or older by default.

@@ -9,7 +9,9 @@ checks that can be repeated without a native device or emulator. M143 adds
 `npm run verify:mobile-interactions`, which runs the shared interaction
 scenarios in the iOS Simulator (see
 [RFC 0018](../rfcs/0018-mobile-interaction-verification.md)). It covers
-interaction scripts and Rust handlers in the iOS WebView. The touch,
+interaction scripts and Rust handlers in the iOS WebView. M145 adds
+`npm run verify:android-interactions`, which runs them in an Android emulator
+(see [RFC 0020](../rfcs/0020-android-interaction-verification.md)). The touch,
 viewport, safe-area, and assistive checks below stay manual.
 
 ## Decision
