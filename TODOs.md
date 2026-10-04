@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M140 Menubar Keyboard Behavior
-- Current task: M140.4 Complete menubar milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2523,7 +2523,7 @@
   - Render a real Menubar in the Web preview and extend `npm run verify:runtime-interactions` to assert roving focus that skips disabled triggers, opening, adjacent-menu switching, hover switching, activation with close and focus return, Escape, and Tab.
   - Reverse-verify that the script fails when roving, switching, or focus return is removed.
 
-- TODO M140.4 Complete menubar milestone
+- DONE M140.4 Complete menubar milestone
   - Update component docs, CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and RFC 0010 out-of-scope status.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
