@@ -304,10 +304,18 @@ static NEXT_ANCHORED_ID: AtomicUsize = AtomicUsize::new(0);
 // layout change, and reports Escape and outside interactions to Rust.
 // Keep in sync with `ANCHORED_OVERLAY_SCRIPT` in the CLI `utils.rs` template.
 pub const ANCHORED_OVERLAY_SCRIPT: &str = r#"
-const [scopeId, anchorId, preferredSide, align, offset] = await dioxus.recv();
+const [scopeId, anchorId, preferredSide, align, offset, point] = await dioxus.recv();
 const content = document.querySelector(`[data-dxui-anchored="${scopeId}"]`);
 if (!content) return;
 const anchor = anchorId ? document.getElementById(anchorId) : null;
+// Without an anchor element, a viewport point (a context menu's pointer
+// position) acts as a zero-size anchor.
+const anchorRect = () =>
+  anchor
+    ? anchor.getBoundingClientRect()
+    : point
+      ? { left: point[0], top: point[1], right: point[0], bottom: point[1], width: 0, height: 0 }
+      : null;
 const padding = 8;
 const opposite = { top: "bottom", bottom: "top", left: "right", right: "left" };
 const vertical = (side) => side === "top" || side === "bottom";
@@ -316,10 +324,10 @@ const cross = (start, anchorSize, size) =>
 const clamp = (value, size, viewportSize) =>
   Math.min(Math.max(value, padding), Math.max(padding, viewportSize - padding - size));
 const place = () => {
-  if (!anchor || !(preferredSide in opposite)) return;
+  const rect = anchorRect();
+  if (!rect || !(preferredSide in opposite)) return;
   // Fixed positioning can change the content's size, so apply it before measuring.
   Object.assign(content.style, { position: "fixed", margin: "0" });
-  const rect = anchor.getBoundingClientRect();
   const width = content.offsetWidth;
   const height = content.offsetHeight;
   const viewportWidth = document.documentElement.clientWidth;
@@ -380,10 +388,12 @@ document.removeEventListener("keydown", onKeyDown);
 Object.assign(content.style, { position: "", margin: "", left: "", top: "" });
 "#;
 
-/// Where anchored content goes relative to the element with id `anchor_id`.
+/// Where anchored content goes relative to the element with id `anchor_id`, or
+/// to the viewport point `anchor_point` when there is no anchor element.
 #[derive(Clone, Debug, PartialEq)]
 pub struct AnchoredPlacement {
   pub anchor_id: Option<String>,
+  pub anchor_point: Option<(f64, f64)>,
   pub side: OverlaySide,
   pub align: OverlayAlign,
   pub side_offset: i32,
@@ -447,6 +457,7 @@ pub fn use_anchored_overlay(
         side_name(placement.side),
         align_name(placement.align),
         placement.side_offset,
+        placement.anchor_point,
       ));
       spawn(async move {
         while let Ok(message) = eval.recv::<String>().await {

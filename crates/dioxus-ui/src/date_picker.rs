@@ -122,7 +122,7 @@ pub fn DatePickerContent(
   let focus_scope = use_modal_focus_scope(open);
   let anchored = use_anchored_overlay(
     open,
-    AnchoredPlacement { anchor_id, side, align, side_offset },
+    AnchoredPlacement { anchor_id, anchor_point: None, side, align, side_offset },
     dismiss,
     on_open_change,
   );
