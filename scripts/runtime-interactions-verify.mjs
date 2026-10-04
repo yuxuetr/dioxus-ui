@@ -1231,6 +1231,44 @@ async function runBrowserAssertions() {
     await expect(locked).toHaveAttribute("aria-valuenow", "30");
     await expect(sliderFixture).toHaveAttribute("data-locked-changes", "0");
 
+    const collapsibleSelect = page.locator('[data-interaction-target="collapsible-select"]');
+    const details = collapsibleSelect.getByRole("button", { name: "Details", exact: true });
+    const detailsContent = collapsibleSelect.locator("#interaction-collapsible-details");
+    const size = collapsibleSelect.getByLabel("Size", { exact: true });
+    await details.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(details).toHaveAttribute("title", "Show details");
+    await expect(details).toHaveAttribute("aria-controls", "interaction-collapsible-details");
+    await expect(details).toHaveAttribute("aria-expanded", "false");
+    await expect(detailsContent).toHaveCount(0);
+    await details.click();
+    await expect(collapsibleSelect).toHaveAttribute("data-open", "true");
+    await expect(details).toHaveAttribute("aria-expanded", "true");
+    await expect(detailsContent).toHaveText("More information");
+    await expect(collapsibleSelect.getByRole("region", { name: "Details content" })).toBeVisible();
+    await expect(collapsibleSelect.locator('[title="Details section"]')).toHaveAttribute(
+      "data-state",
+      "open",
+    );
+    await details.focus();
+    await page.keyboard.press("Enter");
+    await expect(collapsibleSelect).toHaveAttribute("data-open", "false");
+    await expect(detailsContent).toHaveCount(0);
+    await page.keyboard.press("Space");
+    await expect(collapsibleSelect).toHaveAttribute("data-open", "true");
+    await expect(detailsContent).toBeVisible();
+    await expect(size).toHaveAttribute("name", "size");
+    await expect(size).toHaveValue("md");
+    await size.selectOption("lg");
+    await expect(collapsibleSelect).toHaveAttribute("data-size", "lg");
+    await size.selectOption({ label: "Small" });
+    await expect(collapsibleSelect).toHaveAttribute("data-size", "sm");
+    await expect(size).toHaveValue("sm");
+    // Typeahead on the closed select changes it from the keyboard.
+    await size.focus();
+    await page.keyboard.press("l");
+    await expect(collapsibleSelect).toHaveAttribute("data-size", "lg");
+    await expect(size).toHaveValue("lg");
+
     const accordion = page.locator('[data-interaction-target="accordion"]');
     const accordionTrigger = (name) => accordion.getByRole("button", { name, exact: true });
     const accordionRegion = (name) => accordion.getByRole("region", { name, exact: true, includeHidden: true });
@@ -1557,7 +1595,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (27 fixtures)");
+  console.log("runtime interaction verification passed (28 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

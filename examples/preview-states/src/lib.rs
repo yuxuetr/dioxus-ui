@@ -37,7 +37,10 @@ use dioxus_ui::{
   message_scroller_jump_button_class, message_scroller_show_unread_marker,
   otp_apply_paste_filtered, otp_slots,
 };
-use dioxus_ui::{Button, Input, Slider, Textarea, Toggle};
+use dioxus_ui::{
+  Button, Collapsible, CollapsibleContent, CollapsibleTrigger, Input, NativeSelect,
+  NativeSelectOption, Slider, Textarea, Toggle,
+};
 pub use self_test::{INTERACTION_SELF_TEST_SCRIPT, InteractionSelfTest};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -751,6 +754,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut notes_value = use_signal(String::new);
   let mut volume = use_signal(|| 40.0);
   let mut locked_slider_changes = use_signal(|| 0_u32);
+  let mut details_open = use_signal(|| false);
+  let mut size_value = use_signal(|| "md".to_string());
   let mut accordion_value = use_signal(|| None::<String>);
   let accordion_open = move |value: &str| accordion_value().as_deref() == Some(value);
   let mut context_open = use_signal(|| false);
@@ -1659,6 +1664,41 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               value: 30.0,
               disabled: true,
               on_value_change: move |_| locked_slider_changes += 1,
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "collapsible-select",
+            "data-open": "{details_open}",
+            "data-size": "{size_value}",
+            h2 { class: "text-sm font-medium", "Collapsible and native select interaction" }
+            Collapsible { class: "mt-3", open: details_open(),
+              title: "Details section",
+              CollapsibleTrigger {
+                open: details_open(),
+                controls: "interaction-collapsible-details",
+                title: "Show details",
+                on_open_change: move |open| details_open.set(open),
+                "Details"
+              }
+              CollapsibleContent {
+                open: details_open(),
+                id: "interaction-collapsible-details",
+                role: "region",
+                "aria-label": "Details content",
+                "More information"
+              }
+            }
+            div { class: "mt-3 grid gap-2",
+              Label { r#for: "interaction-native-select-size", "Size" }
+              NativeSelect {
+                id: "interaction-native-select-size",
+                name: "size",
+                on_value_change: move |value| size_value.set(value),
+                NativeSelectOption { value: "sm", selected: size_value() == "sm", "Small" }
+                NativeSelectOption { value: "md", selected: size_value() == "md", "Medium" }
+                NativeSelectOption { value: "lg", selected: size_value() == "lg", "Large" }
+              }
             }
           }
           article {
