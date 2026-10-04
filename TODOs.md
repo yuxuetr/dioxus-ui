@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M156 Collapsible And Native Select Events
-- Current task: M156.2
+- Current task: M156.3
 
 ## Backup
 
@@ -2835,7 +2835,7 @@
   - Define `on_open_change: Option<EventHandler<bool>>` on `CollapsibleTrigger` with the requested state, matching Dialog and Popover, and `on_value_change: Option<EventHandler<String>>` on `NativeSelect`; spread global and element attributes on `Collapsible`, `CollapsibleTrigger`, `CollapsibleContent`, and `NativeSelect`.
   - Record what stays out of scope (a root-level open context that links ids automatically, a `value` prop on Native Select, multiple selection, Desktop and Mobile self-test scenarios) with reevaluation conditions.
 
-- TODO M156.2 Implement collapsible and native select events
+- DONE M156.2 Implement collapsible and native select events
   - Add the callbacks and attribute spreading to the crate sources and templates.
   - Update the Collapsible and Native Select docs pages.
 
