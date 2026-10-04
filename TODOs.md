@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M148 Hover Card Hover And Focus Opening
-- Current task: M148.1
+- Current task: M148.2
 
 ## Backup
 
@@ -2670,7 +2670,7 @@
 
 ## M148 Hover Card Hover And Focus Opening
 
-- TODO M148.1 Design hover card hover and focus opening
+- DONE M148.1 Design hover card hover and focus opening
   - Record that Hover Card has only a content part: the app wires hover and focus handlers on its own trigger, there is no open or close delay, and moving the pointer onto the card closes it.
   - Define a `HoverCard` root that reports open requests, a link `HoverCardTrigger`, and a shared hover-open script, moved out of Tooltip, that opens after a hover delay, opens at once on keyboard focus, stays open while the pointer or focus is on the trigger or the card, and closes after a close delay; Hover Card keeps trigger presses open and adds no `aria-describedby`.
   - Record what stays out of scope (skipping delays between adjacent cards, touch, non-link triggers, Desktop and Mobile self-test scenarios) with reevaluation conditions.
