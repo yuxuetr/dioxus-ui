@@ -47,10 +47,18 @@ const scenarios = [
     focus(trigger);
     trigger.click();
     await waitFor(() => placed(content), "popover is placed with fixed positioning");
-    const triggerBox = trigger.getBoundingClientRect();
-    const contentBox = content.getBoundingClientRect();
-    if (Math.abs(contentBox.top - triggerBox.bottom) > 16 && Math.abs(triggerBox.top - contentBox.bottom) > 16) {
-      throw new Error(`popover is not next to its trigger: ${JSON.stringify({ triggerBox, contentBox })}`);
+    // iOS scrolls the focused trigger into view natively and reports the
+    // scroll a few frames later, so placement is checked once it settles.
+    const nextToTrigger = () => {
+      const triggerBox = trigger.getBoundingClientRect();
+      const contentBox = content.getBoundingClientRect();
+      return Math.abs(contentBox.top - triggerBox.bottom) <= 16 || Math.abs(triggerBox.top - contentBox.bottom) <= 16;
+    };
+    try {
+      await waitFor(nextToTrigger, "popover is next to its trigger");
+    } catch (error) {
+      const boxes = { triggerBox: trigger.getBoundingClientRect(), contentBox: content.getBoundingClientRect() };
+      throw new Error(`${error.message}: ${JSON.stringify(boxes)}`);
     }
     document.body.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true }));
     await waitFor(() => !visible(content), "an outside press closes the popover");
