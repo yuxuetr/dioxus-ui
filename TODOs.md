@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0% (M136 0/5)
+- Current milestone: M136 Toast and Sonner Runtime Behavior
+- Current task: M136.1 Design toast timer and live region behavior
 
 ## Backup
 
@@ -2407,6 +2407,32 @@
 
 - DONE M135.7 Complete overlay interaction milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, roadmap Stage 7 status, and component docs to match what is now verified.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M136 Toast and Sonner Runtime Behavior
+
+- TODO M136.1 Design toast timer and live region behavior
+  - Record that Toast and Sonner render open state only: no auto-dismiss timer, no hover or focus pause, close and action buttons without handlers, and per-toast live regions inserted together with their content.
+  - Define the additive API (`duration_ms`, `on_dismiss` with `ToastDismissReason`), the page-side countdown that pauses while the pointer is over or focus is inside the toast, and a persistent viewport live region.
+  - Record Stage 7 Toast and Sonner exit criterion scope and what stays app-owned (queue state, swipe, stacking animation).
+
+- TODO M136.2 Implement Toast auto-dismiss and dismiss callbacks
+  - `ToastRoot` counts down `duration_ms` while open, pauses on hover and focus within, and calls `on_dismiss(Timeout)`; `0` disables the timer.
+  - `ToastClose` calls `on_dismiss(Close)` and `ToastAction` runs `onclick` then `on_dismiss(Action)`.
+  - Mirror the timer helper into the utils template with a script parity test, and update the docs page.
+
+- TODO M136.3 Apply timer and dismiss callbacks to Sonner
+  - Reuse the Toast timer for `SonnerToast`, `SonnerClose`, and `SonnerAction` with the same reasons and defaults.
+  - Update the template and docs page.
+
+- TODO M136.4 Verify toast behavior in a real browser
+  - Make Toast and Sonner viewports persistent `role="region"` live regions labelled for notifications so additions are announced.
+  - Render real Toast and Sonner components in the Web preview and extend `npm run verify:runtime-interactions` to assert timeout dismissal, hover pause, close and action reasons, and live region attributes.
+  - Reverse-verify that the script fails when the pause or timer is removed.
+
+- TODO M136.5 Complete toast runtime milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, roadmap Stage 7 status, and accessibility docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 
