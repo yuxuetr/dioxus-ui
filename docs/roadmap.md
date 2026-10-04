@@ -178,4 +178,6 @@ Command keyboard and filtering
 right-to-left arrow mirroring
 ([RFC 0025](rfcs/0025-right-to-left-arrow-mirroring.md)), and M151 to Tabs
 manual activation and vertical orientation
-([RFC 0026](rfcs/0026-tabs-manual-activation-and-vertical-orientation.md)).
+([RFC 0026](rfcs/0026-tabs-manual-activation-and-vertical-orientation.md)), and
+M152 to Combobox and Command result announcements
+([RFC 0027](rfcs/0027-combobox-and-command-result-announcements.md)).

@@ -670,7 +670,8 @@ first.
   listbox keyboard navigation and selection (see RFC 0012); multi-select and
   the input-inside-content Combobox layout are not supported. Command
   highlights and chooses items from its input (see RFC 0024); fuzzy ranking
-  and result count announcements are not implemented. Date Picker and
+  is not implemented. Combobox and Command announce result counts through
+  status parts whose wording the app provides (see RFC 0027). Date Picker and
   Calendar implement anchored placement, focus entry, and day keyboard
   navigation (see RFC 0013); typed date parsing and source-copy date arithmetic
   are not included. Dropdown and Context Menu implement menu keyboard

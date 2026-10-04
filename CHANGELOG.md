@@ -118,6 +118,10 @@ release owner renames it to the released version at publish time.
   without selecting; vertical tabs move with Up and Down and render
   `aria-orientation="vertical"` and `data-orientation`. When focus leaves the
   list, the selected trigger becomes the Tab stop again.
+- Combobox and Command result announcements: `ComboboxStatus` and
+  `CommandStatus` render a visually hidden polite status region. Keep it
+  mounted and change its text, such as "3 results", to announce filtered
+  counts; the wording stays with the app.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.

@@ -52,13 +52,15 @@ Statuses:
 | Collapsible | Uses native trigger button with expanded state and optional trigger/content association. | Implemented |
 | Command | Uses combobox, listbox, option, and active descendant semantics. | Implemented |
 | Command | Under `Command`, focus stays in the input, Up, Down, Home, and End move the highlight, a query change returns it to the first match, and Enter or a click chooses; the input controls the list; browser-verified on Web. | Implemented |
-| Command | Fuzzy ranking, looping, Ctrl key bindings, and result count announcements are not implemented. | Planned |
+| Command | `CommandStatus` is a polite status region for result counts; the app gives the wording; browser-verified on Web. | Implemented |
+| Command | Fuzzy ranking, looping, and Ctrl key bindings are not implemented. | Planned |
 | Date Picker | Uses button trigger semantics, dialog content semantics, expanded state, invalid state, and placement data attributes. | Implemented |
 | Date Picker | Content enters focus on the focused Calendar day, wraps Tab, closes on Escape or outside interaction, and returns focus to the trigger; browser-verified on Web. | Implemented |
 | Date Picker | Typed date parsing remains app-owned. | Planned |
 | Combobox | Uses combobox, listbox, option, and active descendant semantics. | Implemented |
 | Combobox | Input keeps focus with `aria-activedescendant`; arrows highlight options, Enter or click chooses, and a filtered-out highlight clears; browser-verified on Web. | Implemented |
-| Combobox | Async loading and result count announcements remain app-owned. | Planned |
+| Combobox | `ComboboxStatus` is a polite status region for result counts, placed outside the popup; the app gives the wording; browser-verified on Web. | Implemented |
+| Combobox | Async loading remains app-owned. | Planned |
 | Native Select | Uses native select, optgroup, and option elements with platform keyboard and form behavior. | Implemented |
 | Radio Group | Uses radiogroup/radio roles and checked state; one Tab stop on the checked or first enabled item, arrows move focus past disabled items and check the focused item, with Left and Right swapped in right-to-left layouts; browser-verified on Web. | Implemented |
 | Tabs | Uses tablist, tab, and tabpanel roles with `aria-controls` and `aria-labelledby` under `Tabs`; one Tab stop on the selected trigger, Left, Right, Home, and End move focus past disabled triggers and select the focused tab, with Left and Right swapped in right-to-left layouts; manual activation selects only on Enter, Space, or click, and vertical tabs use Up and Down with `aria-orientation="vertical"`; leaving the list makes the selected trigger the Tab stop again; browser-verified on Web. | Implemented |
