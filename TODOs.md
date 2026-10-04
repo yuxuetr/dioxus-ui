@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50% (M144: 2/4)
+- Overall: 75% (M144: 3/4)
 - Current milestone: M144 Roving Group Interaction
-- Current task: M144.3 Verify roving group behavior in a real browser
+- Current task: M144.4 Complete roving group milestone
 
 ## Backup
 
@@ -2599,7 +2599,7 @@
   - Add the roving group script and hook to the crate and the template `utils.rs`, keep the parity test, and wire Tabs, Radio Group, and Toggle Group in the crate and the templates.
   - Update the component docs pages.
 
-- TODO M144.3 Verify roving group behavior in a real browser
+- DONE M144.3 Verify roving group behavior in a real browser
   - Render real Tabs, Radio Group, and Toggle Group in the Web preview and extend `npm run verify:runtime-interactions` to assert Tab stops, arrow movement that skips disabled items and wraps, Home and End, selection following focus, clicks, Toggle Group focus without pressing, and Tabs id links with Tab moving into the panel.
   - Reverse-verify that the script fails when the Tab stop, arrow movement, or selection reporting is removed.
 
