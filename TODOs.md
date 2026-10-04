@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M154 Button, Toggle, Input, And Textarea Events
-- Current task: M154.1
+- Current task: M154.2
 
 ## Backup
 
@@ -2790,7 +2790,7 @@
 
 ## M154 Button, Toggle, Input, And Textarea Events
 
-- TODO M154.1 Design button, toggle, input, and textarea events
+- DONE M154.1 Design button, toggle, input, and textarea events
   - Record that `Button`, `Toggle`, `Input`, and `Textarea` expose no event callback and accept no `id`, `name`, `type`, or `aria-*` attributes, so apps style raw elements with the class helpers instead, and a `Label` cannot name an `Input` or `Textarea`.
   - Define `onclick: Option<EventHandler<MouseEvent>>` for Button, `on_pressed_change: Option<EventHandler<bool>>` with the requested state for Toggle, and `on_value_change: Option<EventHandler<String>>` for Input and Textarea; spread global and element attributes through `#[props(extends = ...)]` on all four.
   - Record what stays out of scope (key, focus, and blur callbacks, a Button `type` default other than the native one, uncontrolled inputs, Desktop and Mobile self-test scenarios) with reevaluation conditions.
