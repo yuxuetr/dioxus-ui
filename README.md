@@ -209,6 +209,7 @@ format!("bg-{}-500", color)
 - [RFC 0024: Command Keyboard And Filtering](docs/rfcs/0024-command-keyboard-and-filtering.md)
 - [RFC 0025: Right-To-Left Arrow Mirroring](docs/rfcs/0025-right-to-left-arrow-mirroring.md)
 - [RFC 0026: Tabs Manual Activation And Vertical Orientation](docs/rfcs/0026-tabs-manual-activation-and-vertical-orientation.md)
+- [RFC 0027: Combobox And Command Result Announcements](docs/rfcs/0027-combobox-and-command-result-announcements.md)
 
 ## Verification Shortcuts
 

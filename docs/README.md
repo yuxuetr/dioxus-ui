@@ -93,7 +93,8 @@ Read in this order:
 87. [RFC 0024: Command Keyboard And Filtering](rfcs/0024-command-keyboard-and-filtering.md)
 88. [RFC 0025: Right-To-Left Arrow Mirroring](rfcs/0025-right-to-left-arrow-mirroring.md)
 89. [RFC 0026: Tabs Manual Activation And Vertical Orientation](rfcs/0026-tabs-manual-activation-and-vertical-orientation.md)
-90. [TODO Plan](../TODOs.md)
+90. [RFC 0027: Combobox And Command Result Announcements](rfcs/0027-combobox-and-command-result-announcements.md)
+91. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
