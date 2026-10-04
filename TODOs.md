@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M155 Slider Keyboard And Pointer Input
-- Current task: M155.3
+- Current task: M155.4
 
 ## Backup
 
@@ -2819,7 +2819,7 @@
   - Add a key-to-move mapping with unit tests, the callback, the pointer script, and attribute spreading to the crate sources and templates, keeping the template script identical through the CLI parity test.
   - Update the Slider docs page.
 
-- TODO M155.3 Verify slider input in a real browser
+- DONE M155.3 Verify slider input in a real browser
   - Render a labelled Slider in the Web preview and extend `npm run verify:runtime-interactions` to assert each key's movement and clamping at the ends, that keys do not scroll the page, that a pointer press and drag set snapped values, and that a disabled slider does not change.
   - Reverse-verify that the script fails when the key mapping swaps directions, when Page keys use the single step, when the pointer script is not started, or when the disabled guard is removed.
 
