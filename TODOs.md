@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M158 Pagination Page Changes
-- Current task: M158.4 Complete pagination milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2883,7 +2883,7 @@
   - Render a button Pagination and an anchor Pagination in the Web preview and extend `npm run verify:runtime-interactions` to assert that a click, Enter, and Space change the page, that the ends disable Previous and Next, that a disabled anchor has no `href`, cannot take focus, and does not call `onclick`, and that passed attributes render.
   - Reverse-verify that the script fails when the callback is removed, when an anchor is always rendered, when a disabled anchor keeps `href`, when `onclick` runs while disabled, or when attributes are not spread.
 
-- TODO M158.4 Complete pagination milestone
+- DONE M158.4 Complete pagination milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
