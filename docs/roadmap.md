@@ -172,4 +172,6 @@ toggle reporting and trigger movement
 and focus opening
 ([RFC 0022](rfcs/0022-tooltip-hover-and-focus-opening.md)), and M148 to Hover
 Card hover and focus opening
-([RFC 0023](rfcs/0023-hover-card-hover-and-focus-opening.md)).
+([RFC 0023](rfcs/0023-hover-card-hover-and-focus-opening.md)), and M149 to
+Command keyboard and filtering
+([RFC 0024](rfcs/0024-command-keyboard-and-filtering.md)).

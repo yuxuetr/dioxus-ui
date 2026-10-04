@@ -51,7 +51,8 @@ Statuses:
 | Calendar | Right-to-left arrow mirroring and disabled date skipping remain app-owned. | Planned |
 | Collapsible | Uses native trigger button with expanded state and optional trigger/content association. | Implemented |
 | Command | Uses combobox, listbox, option, and active descendant semantics. | Implemented |
-| Command | Needs keyboard event and filtering integration verification. | Planned |
+| Command | Under `Command`, focus stays in the input, Up, Down, Home, and End move the highlight, a query change returns it to the first match, and Enter or a click chooses; the input controls the list; browser-verified on Web. | Implemented |
+| Command | Fuzzy ranking, looping, Ctrl key bindings, and result count announcements are not implemented. | Planned |
 | Date Picker | Uses button trigger semantics, dialog content semantics, expanded state, invalid state, and placement data attributes. | Implemented |
 | Date Picker | Content enters focus on the focused Calendar day, wraps Tab, closes on Escape or outside interaction, and returns focus to the trigger; browser-verified on Web. | Implemented |
 | Date Picker | Typed date parsing remains app-owned. | Planned |

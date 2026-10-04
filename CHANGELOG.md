@@ -101,6 +101,12 @@ release owner renames it to the released version at publish time.
   the pointer leaves. Trigger presses keep it open. Tooltip now runs on the
   same shared hover-open script; Tab away while the pointer rests on a
   tooltip trigger leaves closing to pointer leave.
+- Command keyboard and filtering: the new `Command` `on_select` reports the
+  chosen item. Focus stays in `CommandInput`, which now takes `placeholder`
+  and `oninput` and controls the list; the first option starts highlighted,
+  Up, Down, Home, and End move the highlight, a query change moves it back to
+  the first match, and Enter or a click chooses. `CommandItem` takes an
+  optional `value`, and `command_matches` filters labels.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.

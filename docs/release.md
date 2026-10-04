@@ -668,7 +668,9 @@ first.
   Hover Card, and Tooltip implement anchored placement and dismissal. Only the
   Web renderer is browser-verified. Select and Combobox implement anchored
   listbox keyboard navigation and selection (see RFC 0012); multi-select and
-  the input-inside-content Combobox layout are not supported. Date Picker and
+  the input-inside-content Combobox layout are not supported. Command
+  highlights and chooses items from its input (see RFC 0024); fuzzy ranking
+  and result count announcements are not implemented. Date Picker and
   Calendar implement anchored placement, focus entry, and day keyboard
   navigation (see RFC 0013); typed date parsing and source-copy date arithmetic
   are not included. Dropdown and Context Menu implement menu keyboard
