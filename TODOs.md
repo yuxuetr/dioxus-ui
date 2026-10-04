@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M165 Composite Widget Names
-- Current task: M165.3 Verify composite widget names in a real browser
+- Current task: M165.4 Complete composite widget names milestone
 
 ## Backup
 
@@ -3016,7 +3016,7 @@
   - Add attribute spreading to the crate source and template.
   - Update the Tabs, Toggle Group, Menubar, Navigation Menu, and Calendar docs pages.
 
-- TODO M165.3 Verify composite widget names in a real browser
+- DONE M165.3 Verify composite widget names in a real browser
   - Name the Tabs, Toggle Group, Menubar, Navigation Menu, and Calendar fixtures in the Web preview and extend `npm run verify:runtime-interactions` to find each by role and name.
   - Reverse-verify that the script fails when any of the six parts does not spread its attributes.
 
