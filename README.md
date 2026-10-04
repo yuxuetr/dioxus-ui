@@ -195,6 +195,7 @@ format!("bg-{}-500", color)
 - [RFC 0010: Overlay Interaction Behavior](docs/rfcs/0010-overlay-interaction-behavior.md)
 - [RFC 0011: Toast Timer and Live Region](docs/rfcs/0011-toast-timer-and-live-region.md)
 - [RFC 0012: Listbox Overlay Behavior](docs/rfcs/0012-listbox-overlay-behavior.md)
+- [RFC 0013: Date Picker and Calendar Keyboard Behavior](docs/rfcs/0013-date-picker-calendar-keyboard.md)
 
 ## Verification Shortcuts
 

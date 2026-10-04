@@ -79,7 +79,8 @@ Read in this order:
 73. [RFC 0010: Overlay Interaction Behavior](rfcs/0010-overlay-interaction-behavior.md)
 74. [RFC 0011: Toast Timer and Live Region](rfcs/0011-toast-timer-and-live-region.md)
 75. [RFC 0012: Listbox Overlay Behavior](rfcs/0012-listbox-overlay-behavior.md)
-76. [TODO Plan](../TODOs.md)
+76. [RFC 0013: Date Picker and Calendar Keyboard Behavior](rfcs/0013-date-picker-calendar-keyboard.md)
+77. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
