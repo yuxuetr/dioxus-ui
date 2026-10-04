@@ -65,8 +65,9 @@ RFC 0010 places it, and a second page script handles the listbox:
    does not pick an option the user never moved to.
 3. ArrowDown and ArrowUp move between enabled options without wrapping. Select
    also handles Home, End, Space, and typeahead: printable characters build a
-   prefix buffer that resets after 500 ms, and the search starts after the
-   highlighted option so repeating a letter cycles through matches.
+   prefix buffer that resets after 500 ms. Repeating one letter searches for
+   that letter after the highlighted option, cycling through matches; a longer
+   prefix keeps the highlighted option while it still matches.
 4. Enter (and Space in Select) chooses the highlighted option. Pointer
    movement highlights an option, and click chooses it. `pointerdown` inside
    the content is prevented so focus stays on the anchor.

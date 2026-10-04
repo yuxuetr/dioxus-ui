@@ -53,11 +53,12 @@ Statuses:
 | Date Picker | Uses button trigger semantics, dialog content semantics, expanded state, invalid state, and placement data attributes. | Implemented |
 | Date Picker | Needs focus entry, focus return, typed parsing, and Calendar keyboard integration verification. | Planned |
 | Combobox | Uses combobox, listbox, option, and active descendant semantics. | Implemented |
-| Combobox | Needs filtering, async loading, and keyboard event integration verification. | Planned |
+| Combobox | Input keeps focus with `aria-activedescendant`; arrows highlight options, Enter or click chooses, and a filtered-out highlight clears; browser-verified on Web. | Implemented |
+| Combobox | Async loading and result count announcements remain app-owned. | Planned |
 | Native Select | Uses native select, optgroup, and option elements with platform keyboard and form behavior. | Implemented |
 | Radio Group | Uses radiogroup/radio roles, checked state, and roving focus helpers. | Implemented |
 | Tabs | Needs tablist, tab, and tabpanel roles. | Planned |
-| Select | Needs listbox semantics and keyboard navigation. | Planned |
+| Select | Uses select-only combobox semantics with listbox content; trigger keeps focus with `aria-activedescendant`; arrows, Home, End, and typeahead move the highlight; Enter, Space, or click chooses; browser-verified on Web. | Implemented |
 
 ## Light Interaction
 
@@ -158,6 +159,8 @@ M23 implements timer and live-region contract types only. M136 implements the
 Toast and Sonner countdown and persistent viewport live regions in the styled
 components (see [RFC 0011](../rfcs/0011-toast-timer-and-live-region.md)).
 Screen reader announcements themselves are not automated.
+M137 implements Select and Combobox listbox behavior (see
+[RFC 0012](../rfcs/0012-listbox-overlay-behavior.md)).
 M24 implements measurement, pointer, and gesture contract types only. Popover,
 Tooltip, Dropdown, Select, menu overlays, Resizable, Carousel, and Chart still
 require renderer-level measurement, pointer, and gesture verification before

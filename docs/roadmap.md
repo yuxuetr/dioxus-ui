@@ -154,4 +154,6 @@ browser smoke. Popover uses fixed positioning instead of a DOM portal by
 decision in [RFC 0010](rfcs/0010-overlay-interaction-behavior.md). M136 meets
 the Toast and Sonner criterion with a paused countdown and persistent viewport
 live regions ([RFC 0011](rfcs/0011-toast-timer-and-live-region.md)), verified
-in the same browser smoke.
+in the same browser smoke. M137 extends the same approach to Select and Combobox
+listbox keyboard navigation and selection
+([RFC 0012](rfcs/0012-listbox-overlay-behavior.md)).

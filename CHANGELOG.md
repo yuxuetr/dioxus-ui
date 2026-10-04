@@ -46,6 +46,12 @@ release owner renames it to the released version at publish time.
   `on_dismiss(Timeout)`; action and close buttons call `on_dismiss` with
   `Action` and `Close`. Viewports are persistent polite `Notifications` live
   regions.
+- Select and Combobox listbox behavior: the Select trigger and Combobox input
+  open anchored listbox content through `on_open_change` and keep focus while
+  `aria-activedescendant` tracks the highlighted option. Arrows skip disabled
+  options, Select adds Home, End, Space, and typeahead, and choosing an option
+  calls `on_value_change` before requesting close. `ComboboxInput` gains
+  `oninput`, `placeholder`, and an `open` prop for `aria-expanded`.
 
 ### Changed
 
@@ -66,8 +72,8 @@ release owner renames it to the released version at publish time.
 - DOM/WebView scroll commands for Message Scroller.
 - Verified Mobile runtime behavior; Desktop and Mobile coverage remains
   checklist or fixture based.
-- Overlay behavior for Select, Combobox, Date Picker, Navigation Menu, Context
-  Menu, and Menubar, DOM portal mounting, and scroll lock.
+- Overlay behavior for Date Picker, Navigation Menu, Context Menu, and
+  Menubar, multi-select, DOM portal mounting, and scroll lock.
 
 ### Known Warnings
 

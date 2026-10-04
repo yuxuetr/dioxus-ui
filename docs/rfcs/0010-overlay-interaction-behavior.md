@@ -117,7 +117,7 @@ Out of scope, with reevaluation conditions:
 
 | Item | Reason | Reevaluate when |
 | --- | --- | --- |
-| Select, Combobox | Need listbox keyboard and typeahead wiring with placement; larger than this milestone | `npm run verify:runtime-interactions` gains a listbox placement fixture |
+| Select, Combobox | Need listbox keyboard and typeahead wiring with placement; larger than this milestone | `npm run verify:runtime-interactions` gains a listbox placement fixture (done in M137, see RFC 0012) |
 | Date Picker | Composes Popover and Calendar; follows Popover once Popover is verified | Popover anchored placement passes the browser smoke |
 | Navigation Menu | Uses viewport-relative CSS layout, not anchored content | A consumer reports Navigation Menu content clipping |
 | Context Menu | Anchors to a pointer position, not an element | `anchor_id` needs a point anchor variant |

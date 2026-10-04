@@ -777,8 +777,9 @@ and Alert Dialog components (Escape, overlay click, close and action buttons,
 initial focus, Tab wrap, focus restore) the real Popover component
 (anchored placement, flip near the viewport edge, Escape, outside click), and
 the real Tooltip component (top placement, Escape, outside presses ignored),
-and real Toast and Sonner components (countdown dismissal, hover pause, dismiss
-reasons, live region viewport). It requires Playwright
+real Toast and Sonner components (countdown dismissal, hover pause, dismiss
+reasons, live region viewport), and real Select and Combobox components
+(anchored listbox, arrow and typeahead navigation, selection). It requires Playwright
 Chromium or `DIOXUS_UI_BROWSER_EXECUTABLE`, does not write screenshots or
 traces, and does not claim full accessibility certification, native Desktop or
 Mobile coverage, or visual parity.
