@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0% (M145: 0/4)
+- Overall: 25% (M145: 1/4)
 - Current milestone: M145 Android Interaction Verification
-- Current task: M145.1 Design Android interaction verification
+- Current task: M145.2 Implement the Android self-test
 
 ## Backup
 
@@ -2610,7 +2610,7 @@
 
 ## M145 Android Interaction Verification
 
-- TODO M145.1 Design Android interaction verification
+- DONE M145.1 Design Android interaction verification
   - Record that the Mobile self-test covers only the iOS Simulator, that the Rust Android target is now installed, and that a probe ran the eight scenarios in an Android emulator (API 36.1) with every scenario passing after building with an NDK copy whose flattened symlinks were restored.
   - Define the request channel (`am start` passes no environment, so the command sets the `debug.dioxus_ui.self_test` system property and the app reads it with `getprop`), the result channel (Rust stdout in logcat under `RustStdoutStderr`), and emulator selection, boot, and shutdown.
   - Record what stays out of scope (physical devices, x86_64 emulators, touch gestures, CI activation, repairing a broken NDK install) with reevaluation conditions.
