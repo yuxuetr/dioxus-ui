@@ -17,9 +17,10 @@ use dioxus_ui::{
   otp_apply_paste_filtered, otp_slots,
 };
 use dioxus_ui::{
-  SonnerClose, SonnerContent, SonnerTitle, SonnerToast, SonnerVariant, SonnerViewport, ToastAction,
-  ToastClose, ToastRoot, ToastTitle, ToastViewport, sonner_dismiss_reason_attribute,
-  toast_dismiss_reason_attribute,
+  ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList, SelectContent, SelectItem,
+  SelectTrigger, SelectValue, SonnerClose, SonnerContent, SonnerTitle, SonnerToast, SonnerVariant,
+  SonnerViewport, ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport,
+  sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute,
 };
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -680,6 +681,11 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut dialog_open = use_signal(|| false);
   let mut alert_dialog_open = use_signal(|| false);
   let mut popover_open = use_signal(|| false);
+  let mut select_open = use_signal(|| false);
+  let mut select_value = use_signal(|| "banana".to_string());
+  let mut combobox_open = use_signal(|| false);
+  let mut combobox_query = use_signal(String::new);
+  let mut combobox_value = use_signal(|| "none".to_string());
   let mut tooltip_open = use_signal(|| false);
   let mut toast_open = use_signal(|| false);
   let mut toast_reason = use_signal(|| "none");
@@ -1054,6 +1060,69 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           }
           article {
             class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "select",
+            "data-value": "{select_value}",
+            h2 { class: "text-sm font-medium", "Select interaction" }
+            SelectTrigger {
+              id: "interaction-select-trigger",
+              class: "mt-3",
+              open: select_open(),
+              on_open_change: move |open| select_open.set(open),
+              SelectValue { "{fruit_label(&select_value())}" }
+            }
+            SelectContent {
+              open: select_open(),
+              anchor_id: "interaction-select-trigger",
+              on_open_change: move |open| select_open.set(open),
+              on_value_change: move |value| select_value.set(value),
+              for (value, label, disabled) in INTERACTION_FRUITS {
+                SelectItem {
+                  key: "{value}",
+                  value: *value,
+                  selected: select_value() == *value,
+                  disabled: *disabled,
+                  "{label}"
+                }
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "combobox",
+            "data-value": "{combobox_value}",
+            h2 { class: "text-sm font-medium", "Combobox interaction" }
+            ComboboxInput {
+              id: "interaction-combobox-input",
+              class: "mt-3 border border-zinc-200",
+              value: combobox_query(),
+              open: combobox_open(),
+              placeholder: "Search fruit",
+              oninput: move |event: FormEvent| {
+                combobox_query.set(event.value());
+                combobox_open.set(true);
+              },
+              on_open_change: move |open| combobox_open.set(open),
+            }
+            ComboboxContent {
+              open: combobox_open(),
+              anchor_id: "interaction-combobox-input",
+              on_open_change: move |open| combobox_open.set(open),
+              on_value_change: move |value: String| {
+                combobox_query.set(fruit_label(&value).to_string());
+                combobox_value.set(value);
+              },
+              ComboboxList {
+                for (value, label, disabled) in INTERACTION_FRUITS
+                  .iter()
+                  .filter(|(_, label, _)| label.to_lowercase().contains(&combobox_query().to_lowercase()))
+                {
+                  ComboboxItem { key: "{value}", value: *value, disabled: *disabled, "{label}" }
+                }
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
             "data-interaction-target": "toast",
             "data-state": if toast_open() { "open" } else { "closed" },
             "data-reason": "{toast_reason}",
@@ -1393,4 +1462,20 @@ impl PreviewConfig {
       },
     }
   }
+}
+
+const INTERACTION_FRUITS: &[(&str, &str, bool)] = &[
+  ("apple", "Apple", false),
+  ("apricot", "Apricot", true),
+  ("banana", "Banana", false),
+  ("blueberry", "Blueberry", false),
+  ("cherry", "Cherry", false),
+];
+
+fn fruit_label(value: &str) -> &'static str {
+  INTERACTION_FRUITS
+    .iter()
+    .find(|(fruit, _, _)| *fruit == value)
+    .map(|(_, label, _)| *label)
+    .unwrap_or("")
 }

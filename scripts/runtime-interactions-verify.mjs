@@ -266,6 +266,10 @@ async function runBrowserAssertions() {
     await expect(scrollStatus).toHaveAttribute("data-state", "jumped");
     await expect(scrollStatusText).toContainText("jumped");
 
+    // Visibility comes from the Rust render; the page scripts attach their
+    // listeners a frame later, once placement has made the content fixed.
+    const expectAnchoredReady = (target) =>
+      expect(target.locator("[data-dxui-anchored]")).toHaveCSS("position", "fixed");
     const popover = page.locator('[data-interaction-target="popover"]');
     const popoverTrigger = page.locator('[data-interaction-control="popover-trigger"]');
     const popoverContent = popover.locator('[role="dialog"]');
@@ -290,7 +294,7 @@ async function runBrowserAssertions() {
     await page.keyboard.press("Escape");
     await expect(popoverContent).toBeHidden();
     await popoverTrigger.click();
-    await expect(popoverContent).toBeVisible();
+    await expectAnchoredReady(popover);
     await page.getByRole("heading", { name: "Disclosure interaction" }).click();
     await expect(popoverContent).toBeHidden();
     await popoverTrigger.evaluate((element) => element.scrollIntoView({ block: "end" }));
@@ -303,6 +307,141 @@ async function runBrowserAssertions() {
     expectInViewport(placed.content, "flipped placement");
     await popoverTrigger.click();
     await expect(popoverContent).toBeHidden();
+
+    const select = page.locator('[data-interaction-target="select"]');
+    const selectTrigger = page.locator("#interaction-select-trigger");
+    const selectContent = select.locator('[role="listbox"]');
+    const selectHighlighted = selectContent.locator("[data-highlighted]");
+    const selectOption = (name) => selectContent.getByRole("option", { name, exact: true });
+    const expectSelectHighlight = async (name) => {
+      await expect(selectHighlighted).toHaveText(name);
+      const id = await selectOption(name).getAttribute("id");
+      await expect(selectTrigger).toHaveAttribute("aria-activedescendant", id);
+    };
+    await selectTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(selectContent).toBeHidden();
+    await selectTrigger.click();
+    await expectAnchoredReady(select);
+    await expect(selectContent).toHaveAttribute("data-side", "bottom");
+    const selectPlaced = { trigger: await selectTrigger.boundingBox(), content: await selectContent.boundingBox() };
+    if (selectPlaced.content.y < selectPlaced.trigger.y + selectPlaced.trigger.height) {
+      throw new Error(`select listbox should sit below its trigger: ${JSON.stringify(selectPlaced)}`);
+    }
+    expectInViewport(selectPlaced.content, "select placement");
+    await expect(selectTrigger).toBeFocused();
+    await expectSelectHighlight("Banana");
+    await page.keyboard.press("ArrowUp");
+    await expectSelectHighlight("Apple");
+    await page.keyboard.press("ArrowUp");
+    await expectSelectHighlight("Apple");
+    await page.keyboard.press("End");
+    await expectSelectHighlight("Cherry");
+    await page.keyboard.press("Home");
+    await expectSelectHighlight("Apple");
+    await page.keyboard.type("bl");
+    await expectSelectHighlight("Blueberry");
+    // Let the typeahead buffer expire so the next letter starts a new search.
+    await page.waitForTimeout(600);
+    await page.keyboard.press("c");
+    await expectSelectHighlight("Cherry");
+    await page.waitForTimeout(600);
+    await page.keyboard.press("b");
+    await expectSelectHighlight("Banana");
+    await page.keyboard.press("b");
+    await expectSelectHighlight("Blueberry");
+    await page.keyboard.press("Enter");
+    await expect(selectContent).toBeHidden();
+    await expect(select).toHaveAttribute("data-value", "blueberry");
+    await expect(selectTrigger).toHaveText("Blueberry");
+    await expect(selectTrigger).toBeFocused();
+    await expect(selectTrigger).not.toHaveAttribute("aria-activedescendant", /./);
+    await page.keyboard.press("ArrowDown");
+    await expectAnchoredReady(select);
+    await expectSelectHighlight("Blueberry");
+    await page.keyboard.press("ArrowDown");
+    await expectSelectHighlight("Cherry");
+    await page.waitForTimeout(600);
+    await page.keyboard.press(" ");
+    await expect(selectContent).toBeHidden();
+    await expect(select).toHaveAttribute("data-value", "cherry");
+    // Space must not also click the trigger and reopen the listbox.
+    await page.waitForTimeout(300);
+    await expect(selectContent).toBeHidden();
+    await selectTrigger.click();
+    await expectAnchoredReady(select);
+    await selectOption("Apple").hover();
+    await expectSelectHighlight("Apple");
+    await selectOption("Apple").click();
+    await expect(selectContent).toBeHidden();
+    await expect(select).toHaveAttribute("data-value", "apple");
+    await expect(selectTrigger).toBeFocused();
+    await selectTrigger.click();
+    await expectAnchoredReady(select);
+    await selectOption("Apricot").dispatchEvent("click");
+    await page.waitForTimeout(300);
+    await expect(selectContent).toBeVisible();
+    await expect(select).toHaveAttribute("data-value", "apple");
+    await page.keyboard.press("Escape");
+    await expect(selectContent).toBeHidden();
+    await selectTrigger.click();
+    await expectAnchoredReady(select);
+    await select.getByRole("heading", { name: "Select interaction" }).click();
+    await expect(selectContent).toBeHidden();
+    await expect(select).toHaveAttribute("data-value", "apple");
+
+    const combobox = page.locator('[data-interaction-target="combobox"]');
+    const comboboxInput = page.locator("#interaction-combobox-input");
+    const comboboxContent = combobox.locator('[role="listbox"]');
+    const comboboxHighlighted = comboboxContent.locator("[data-highlighted]");
+    const comboboxOption = (name) => comboboxContent.getByRole("option", { name, exact: true });
+    await comboboxInput.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(comboboxContent).toBeHidden();
+    await expect(comboboxInput).toHaveAttribute("aria-expanded", "false");
+    await comboboxInput.click();
+    await page.keyboard.type("b");
+    await expectAnchoredReady(combobox);
+    await expect(comboboxInput).toHaveAttribute("aria-expanded", "true");
+    const comboboxPlaced = { input: await comboboxInput.boundingBox(), content: await comboboxContent.boundingBox() };
+    if (comboboxPlaced.content.y < comboboxPlaced.input.y + comboboxPlaced.input.height) {
+      throw new Error(`combobox listbox should sit below its input: ${JSON.stringify(comboboxPlaced)}`);
+    }
+    await expect(comboboxContent.getByRole("option")).toHaveText(["Banana", "Blueberry"]);
+    await expect(comboboxHighlighted).toHaveCount(0);
+    await page.keyboard.press("Enter");
+    await expect(comboboxContent).toBeVisible();
+    await page.keyboard.press("ArrowDown");
+    await expect(comboboxHighlighted).toHaveText("Banana");
+    await page.keyboard.press("ArrowDown");
+    await expect(comboboxHighlighted).toHaveText("Blueberry");
+    await expect(comboboxInput).toHaveAttribute("aria-activedescendant", await comboboxOption("Blueberry").getAttribute("id"));
+    await page.keyboard.press("ArrowDown");
+    await expect(comboboxHighlighted).toHaveText("Blueberry");
+    await page.keyboard.type("l");
+    await expect(comboboxContent.getByRole("option")).toHaveText(["Blueberry"]);
+    await expect(comboboxHighlighted).toHaveText("Blueberry");
+    await page.keyboard.press("Backspace");
+    await page.keyboard.type("a");
+    await expect(comboboxContent.getByRole("option")).toHaveText(["Banana"]);
+    await expect(comboboxHighlighted).toHaveCount(0);
+    await expect(comboboxInput).not.toHaveAttribute("aria-activedescendant", /./);
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("Enter");
+    await expect(comboboxContent).toBeHidden();
+    await expect(combobox).toHaveAttribute("data-value", "banana");
+    await expect(comboboxInput).toHaveValue("Banana");
+    await expect(comboboxInput).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(comboboxContent).toBeVisible();
+    await expectAnchoredReady(combobox);
+    await page.keyboard.press("Escape");
+    await expect(comboboxContent).toBeHidden();
+    await comboboxInput.fill("");
+    await expectAnchoredReady(combobox);
+    await expect(comboboxContent.getByRole("option")).toHaveCount(5);
+    await comboboxOption("Cherry").click();
+    await expect(comboboxContent).toBeHidden();
+    await expect(combobox).toHaveAttribute("data-value", "cherry");
+    await expect(comboboxInput).toBeFocused();
 
     const tooltipTrigger = page.locator('[data-interaction-control="tooltip-trigger"]');
     const tooltipContent = page.locator('[data-interaction-target="tooltip"] [role="tooltip"]');
@@ -437,7 +576,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (11 fixtures)");
+  console.log("runtime interaction verification passed (13 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

@@ -110,6 +110,8 @@ controls, so the verifier exercises the shipped overlay behavior from
 | `tooltip` | Tooltip | anchored content sits above the trigger; an outside press does not close it; Escape does |
 | `toast` | Toast | the viewport is a polite `Notifications` region; the toast closes with reason `timeout` after its countdown, stays open while hovered past its duration, and reports `action` and `close` reasons |
 | `sonner` | Sonner | the viewport is a polite region; a mounted toast unmounts with reason `timeout` and reports `close` |
+| `select` | Select | the listbox sits below the trigger while focus stays on it; the selected option starts highlighted; arrows skip the disabled option without wrapping; Home, End, and typeahead move the highlight; Enter, Space, and click choose and close; a disabled option cannot be chosen; ArrowDown reopens; Escape and an outside click close it |
+| `combobox` | Combobox | typing opens the listbox below the input with no highlight; arrows highlight options; filtering keeps a still-matching highlight and clears a removed one; Enter and click choose, fill the input, and keep focus in it; ArrowDown reopens and Escape closes |
 
 The Web preview serves the Tailwind input stylesheet without compiling it, so
 the Dialog overlay has no `fixed inset-0` box. The verifier dispatches the
@@ -123,6 +125,13 @@ that ignores hover and a countdown that never starts.
 
 M136 adds the Toast and Sonner rows from
 [RFC 0011](../rfcs/0011-toast-timer-and-live-region.md).
+
+M137 adds the Select and Combobox rows from
+[RFC 0012](../rfcs/0012-listbox-overlay-behavior.md). Visibility comes from the
+Rust render while the page scripts attach a frame later, so the verifier waits
+for anchored content to become `position: fixed` before pressing keys or
+clicking outside. Removing arrow navigation, typeahead, disabled option
+skipping, or the filter highlight reset each make the verifier fail.
 
 ## Documentation Alignment
 
@@ -150,7 +159,7 @@ After M111, useful follow-up work is:
 
 1. Expand interaction coverage across more runtime-sensitive components. M135
    covers Dialog, Alert Dialog, Popover, and Tooltip; M136 adds Toast and
-   Sonner.
+   Sonner; M137 adds Select and Combobox.
 2. Add targeted screenshot smoke for a small set of stable panels.
 3. Decide whether any browser command should move into CI after local
    reliability is proven.
