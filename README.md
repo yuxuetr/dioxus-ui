@@ -197,6 +197,7 @@ format!("bg-{}-500", color)
 - [RFC 0012: Listbox Overlay Behavior](docs/rfcs/0012-listbox-overlay-behavior.md)
 - [RFC 0013: Date Picker and Calendar Keyboard Behavior](docs/rfcs/0013-date-picker-calendar-keyboard.md)
 - [RFC 0014: Menu Keyboard Behavior](docs/rfcs/0014-menu-keyboard-behavior.md)
+- [RFC 0015: Menubar Keyboard Behavior](docs/rfcs/0015-menubar-keyboard-behavior.md)
 
 ## Verification Shortcuts
 
