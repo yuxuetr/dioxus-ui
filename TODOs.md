@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M151 Tabs Manual Activation And Vertical Orientation
+- Current task: M151.1
 
 ## Backup
 
@@ -2725,6 +2725,26 @@
 
 - DONE M150.4 Complete right-to-left mirroring milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and accessibility docs.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M151 Tabs Manual Activation And Vertical Orientation
+
+- TODO M151.1 Design tabs manual activation and vertical orientation
+  - Record that Tabs always selects the focused trigger, always renders `aria-orientation="horizontal"` with Left and Right keys, and keeps the last focused trigger as the Tab stop after focus leaves a group that does not select on focus.
+  - Define `Tabs` `activation` (automatic or manual) and `orientation` (horizontal or vertical) props shared with the parts through context: manual activation moves focus without selecting and selects on Enter, Space, or click; vertical orientation uses Up and Down, renders `aria-orientation="vertical"` and `data-orientation`, and lays the list beside the panels; the Tab stop returns to the selected trigger when focus leaves the list.
+  - Record what stays out of scope (orientation or activation props on `TabsList` alone, Desktop and Mobile self-test scenarios) with reevaluation conditions.
+
+- TODO M151.2 Implement tabs manual activation and vertical orientation
+  - Add the props and data attributes to the Tabs crate source and template, and the Tab stop rule to the roving group script in the crate and the template `utils.rs`.
+  - Update the Tabs docs page.
+
+- TODO M151.3 Verify tabs behavior in a real browser
+  - Render a vertical, manually activated Tabs in the Web preview and extend `npm run verify:runtime-interactions` to assert the orientation attributes and layout, Up and Down movement with Left and Right ignored, focus moving without selecting, Enter, Space, and click selecting, and the Tab stop returning to the selected trigger after focus leaves.
+  - Reverse-verify that the script fails when manual tabs select on focus, when the Tab stop stays on the last focused trigger, when the vertical list keeps horizontal keys, or when `aria-orientation` stays horizontal.
+
+- TODO M151.4 Complete tabs milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 
