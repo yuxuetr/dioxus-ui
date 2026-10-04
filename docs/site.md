@@ -2318,7 +2318,8 @@ and Command result status regions, Switch and Checkbox change events,
 Button, Toggle, Input, and Textarea events, Slider keyboard and pointer
 input, Collapsible and Native Select events, Input OTP typing, Pagination
 page changes, Carousel slide changes, Resizable handle input, Sidebar
-toggle and items, form control names, dialog names, and composite widget names.
+toggle and items, form control names, dialog names, composite widget names, and the Checkbox mixed
+state.
 
 It is not part of `npm run verify` or `npm run verify:release`. It does not
 write screenshots or traces, certify full accessibility, verify native Desktop

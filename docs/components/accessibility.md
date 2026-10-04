@@ -33,7 +33,8 @@ Statuses:
 | Button | Supports disabled state and native button semantics; `onclick` fires on click, Enter, and Space, and `type` and `aria-*` pass through; browser-verified on Web. | Implemented |
 | Button Group | Uses grouped native button composition; apps own labels, pressed state, and toolbar semantics. | Implemented |
 | Checkbox | Uses native checkbox input state; `on_checked_change` reports click, Space, and label changes, and `id`, `name`, and `aria-*` pass through; browser-verified on Web. | Implemented |
-| Checkbox | An indeterminate state is not implemented. | Planned |
+| Checkbox | `indeterminate` sets the native mixed state, a change while mixed requests checked, and the state is restored when the app keeps it; browser-verified on Web. | Implemented |
+| Checkbox | The mixed state is set after hydration, not in server-rendered HTML. | Planned |
 | Input | Supports `aria-invalid` for invalid state; `on_value_change` reports typed text, and `id`, `type`, and `aria-*` pass through so a `Label` can name it; browser-verified on Web. | Implemented |
 | Input Group | Preserves native input semantics while apps own labels, descriptions, and decorative addon handling. | Implemented |
 | Input OTP | Provides visual presentation slots over one transparent native input; a press on the slots focuses it, `on_value_change` reports the code cleaned to the input mode and length, and `aria-labelledby` passes through; apps own labels and descriptions; browser-verified on Web. | Implemented |
