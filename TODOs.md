@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M153 Switch And Checkbox Change Events
-- Current task: M153.3
+- Current task: M153.4
 
 ## Backup
 
@@ -2779,7 +2779,7 @@
   - Add the callback, attribute spreading, and `data-state` to the crate sources and templates, with unit tests where logic is pure.
   - Update the Switch and Checkbox docs pages.
 
-- TODO M153.3 Verify change events in a real browser
+- DONE M153.3 Verify change events in a real browser
   - Render a labelled Switch and Checkbox in the Web preview and extend `npm run verify:runtime-interactions` to assert the accessible name from `Label`, that a click, Space, and a label click toggle `aria-checked` or `checked`, that `data-state` follows, and that a disabled control does not change.
   - Reverse-verify that the script fails when the callback is removed, when attributes are not spread, or when the callback sends the current state instead of the requested one.
 
