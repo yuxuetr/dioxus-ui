@@ -322,13 +322,13 @@ pub use card::{
 #[cfg(feature = "carousel")]
 pub use carousel::{
   CAROUSEL_BASE_CLASS, CAROUSEL_CONTENT_BASE_CLASS, CAROUSEL_CONTROL_BASE_CLASS,
-  CAROUSEL_INDICATOR_BASE_CLASS, CAROUSEL_ITEM_BASE_CLASS, CAROUSEL_VIEWPORT_BASE_CLASS, Carousel,
-  CarouselContent, CarouselIndicator, CarouselItem, CarouselNext, CarouselOrientation,
-  CarouselPrevious, CarouselState, CarouselStep, CarouselViewport, carousel_can_go_next,
-  carousel_can_go_previous, carousel_clamp_index, carousel_class, carousel_content_class,
-  carousel_content_style, carousel_control_class, carousel_indicator_class, carousel_item_class,
-  carousel_item_transform, carousel_key_step, carousel_next, carousel_orientation_attribute,
-  carousel_previous, carousel_viewport_class,
+  CAROUSEL_INDEX_PROPERTY, CAROUSEL_INDICATOR_BASE_CLASS, CAROUSEL_ITEM_BASE_CLASS,
+  CAROUSEL_VIEWPORT_BASE_CLASS, Carousel, CarouselContent, CarouselIndicator, CarouselItem,
+  CarouselNext, CarouselOrientation, CarouselPrevious, CarouselState, CarouselStep,
+  CarouselViewport, carousel_can_go_next, carousel_can_go_previous, carousel_clamp_index,
+  carousel_class, carousel_content_class, carousel_control_class, carousel_indicator_class,
+  carousel_item_class, carousel_item_transform, carousel_key_step, carousel_next,
+  carousel_orientation_attribute, carousel_previous, carousel_viewport_class,
 };
 #[cfg(feature = "chart")]
 pub use chart::{

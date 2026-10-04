@@ -72,9 +72,9 @@ rsx! {
 - Each item translates by `index` times its own size, so `basis-1/2` and other
   multi-item views work without measurement. The transition is turned off for
   reduced motion.
-- `CarouselContent` writes the index into its `style` as
-  `--dxui-carousel-index`, so a `style` passed to it is replaced. Items own
-  the `transform` style.
+- `CarouselContent` sets the index as the `--dxui-carousel-index` style
+  property, which merges with a passed `style`. Items own the `transform`
+  style.
 - ArrowLeft and ArrowRight step a horizontal carousel, ArrowUp and ArrowDown a
   vertical one, while focus is anywhere inside the root, including fields in a
   slide.

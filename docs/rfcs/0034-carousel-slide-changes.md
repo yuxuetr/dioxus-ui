@@ -61,8 +61,9 @@ rsx! {
 }
 ```
 
-- `CarouselContent` gains `index: usize` (default `0`) and renders it as the
-  `--dxui-carousel-index` custom property in its `style`.
+- `CarouselContent` gains `index: usize` (default `0`) and sets it as the
+  `--dxui-carousel-index` style property. Dioxus applies a style property
+  with `style.setProperty`, so it merges with a `style` the app passes.
 - `CarouselItem` sets the `transform` style to
   `translateX(calc(var(--dxui-carousel-index, 0) * -100%))`, or `translateY`
   when vertical. A percentage translate is relative to the item itself, so
@@ -109,8 +110,11 @@ Out of scope, with reevaluation conditions:
 
 ## Verification
 
-- Unit tests cover the key mapping for both orientations and the item
-  transform.
+- Unit tests cover the key mapping for both orientations, the item
+  transform, and the label override. The browser applies a spread
+  `aria-label` after the explicit one, so only SSR shows the override: a
+  probe rendered `aria-label="explicit" aria-label="spread"`, and an HTML
+  parser keeps the first.
 - The CLI generated fixture smoke keeps the template compiling.
 - The Web preview renders a labelled three-slide Carousel with indicators,
   and `npm run verify:runtime-interactions` asserts:
@@ -121,5 +125,6 @@ Out of scope, with reevaluation conditions:
   - passed attributes render, and a passed indicator `aria-label` replaces the
     default.
 - Reverse checks: removing the click callbacks, removing the key step, not
-  translating the items, keeping the default label when one is passed, or not
-  spreading the attributes each make the verifier fail.
+  translating the items, or not spreading the attributes each make the
+  verifier fail. Keeping the default label when one is passed makes the unit
+  test fail.

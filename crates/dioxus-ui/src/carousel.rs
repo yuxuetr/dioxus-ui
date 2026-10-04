@@ -86,10 +86,9 @@ pub fn carousel_key_step(key: &str, orientation: CarouselOrientation) -> Option<
   }
 }
 
-/// The content style that carries the selected index to its items.
-pub fn carousel_content_style(index: usize) -> String {
-  format!("--dxui-carousel-index: {index}")
-}
+/// The custom property that carries the selected index from the content to
+/// its items.
+pub const CAROUSEL_INDEX_PROPERTY: &str = "--dxui-carousel-index";
 
 /// A percentage translate is relative to the item itself, so every item
 /// moves by `index` item sizes whatever its basis.
@@ -100,7 +99,9 @@ pub fn carousel_item_transform(orientation: CarouselOrientation) -> &'static str
   }
 }
 
-/// Keeps a control's default label only when the app passed none.
+/// Keeps a control's default label only when the app passed none. The
+/// browser applies the later spread value anyway, but SSR writes both
+/// attributes and an HTML parser keeps the first.
 fn default_label(attributes: &[Attribute], label: &'static str) -> Option<&'static str> {
   (!attributes.iter().any(|attribute| attribute.name == "aria-label")).then_some(label)
 }
@@ -162,11 +163,14 @@ pub fn CarouselContent(
   children: Element,
 ) -> Element {
   let class = carousel_content_class(orientation, &class);
+  // A style property merges with any `style` the app passes, where a `style`
+  // string would replace it.
+  let mut attributes = attributes;
+  attributes.push(Attribute::new(CAROUSEL_INDEX_PROPERTY, index.to_string(), Some("style"), false));
 
   rsx! {
     div {
       class,
-      style: carousel_content_style(index),
       "data-orientation": carousel_orientation_attribute(orientation),
       ..attributes,
       {children}
@@ -319,9 +323,19 @@ mod tests {
 
   #[test]
   fn carousel_items_translate_by_the_content_index() {
-    assert_eq!(carousel_content_style(2), "--dxui-carousel-index: 2");
+    assert!(
+      carousel_item_transform(CarouselOrientation::Horizontal).contains(CAROUSEL_INDEX_PROPERTY)
+    );
     assert!(carousel_item_transform(CarouselOrientation::Horizontal).starts_with("translateX("));
     assert!(carousel_item_transform(CarouselOrientation::Vertical).starts_with("translateY("));
+  }
+
+  #[test]
+  fn a_passed_aria_label_replaces_the_default() {
+    let passed = vec![Attribute::new("aria-label", "Show product 1", None, false)];
+
+    assert_eq!(default_label(&passed, "Go to slide"), None);
+    assert_eq!(default_label(&[], "Go to slide"), Some("Go to slide"));
   }
 
   #[test]

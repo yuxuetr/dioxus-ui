@@ -187,10 +187,9 @@ pub fn carousel_key_step(key: &str, orientation: CarouselOrientation) -> Option<
   }
 }
 
-/// The content style that carries the selected index to its items.
-pub fn carousel_content_style(index: usize) -> String {
-  format!("--dxui-carousel-index: {index}")
-}
+/// The custom property that carries the selected index from the content to
+/// its items.
+pub const CAROUSEL_INDEX_PROPERTY: &str = "--dxui-carousel-index";
 
 /// A percentage translate is relative to the item itself, so every item
 /// moves by `index` item sizes whatever its basis.
@@ -201,7 +200,9 @@ pub fn carousel_item_transform(orientation: CarouselOrientation) -> &'static str
   }
 }
 
-/// Keeps a control's default label only when the app passed none.
+/// Keeps a control's default label only when the app passed none. The
+/// browser applies the later spread value anyway, but SSR writes both
+/// attributes and an HTML parser keeps the first.
 fn default_label(attributes: &[Attribute], label: &'static str) -> Option<&'static str> {
   (!attributes.iter().any(|attribute| attribute.name == "aria-label")).then_some(label)
 }
@@ -263,11 +264,14 @@ pub fn CarouselContent(
   children: Element,
 ) -> Element {
   let class = carousel_content_class(orientation, &class);
+  // A style property merges with any `style` the app passes, where a `style`
+  // string would replace it.
+  let mut attributes = attributes;
+  attributes.push(Attribute::new(CAROUSEL_INDEX_PROPERTY, index.to_string(), Some("style"), false));
 
   rsx! {
     div {
       class,
-      style: carousel_content_style(index),
       "data-orientation": carousel_orientation_attribute(orientation),
       ..attributes,
       {children}
