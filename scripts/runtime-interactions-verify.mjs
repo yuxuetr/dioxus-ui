@@ -942,21 +942,47 @@ async function runBrowserAssertions() {
     await contextMenu.getByRole("heading", { name: "Context menu interaction" }).click();
     await expect(contextContent).toBeHidden();
 
-    const tooltipTrigger = page.locator('[data-interaction-control="tooltip-trigger"]');
-    const tooltipContent = page.locator('[data-interaction-target="tooltip"] [role="tooltip"]');
+    const tooltip = page.locator('[data-interaction-target="tooltip"]');
+    const tooltipTrigger = tooltip.getByRole("button", { name: "Hover for tooltip" });
+    const tooltipContent = tooltip.locator('[role="tooltip"]');
     await tooltipTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
     await expect(tooltipContent).toBeHidden();
-    await tooltipTrigger.focus();
-    await expectAnchoredReady(page.locator('[data-interaction-target="tooltip"]'));
+    await expect(tooltipTrigger).not.toHaveAttribute("aria-describedby", /./);
+    // Hover opens after the 700 ms delay.
+    await tooltipTrigger.hover();
+    await page.waitForTimeout(300);
+    await expect(tooltipContent).toBeHidden();
+    await expectAnchoredReady(tooltip);
     await expect(tooltipContent).toHaveAttribute("data-side", "top");
+    const tooltipContentId = await tooltipContent.getAttribute("id");
+    await expect(tooltipTrigger).toHaveAttribute("aria-describedby", tooltipContentId);
     const tooltipTriggerBox = await tooltipTrigger.boundingBox();
     const tooltipBox = await tooltipContent.boundingBox();
     if (tooltipBox.y + tooltipBox.height > tooltipTriggerBox.y) {
       throw new Error(`tooltip should sit above its trigger: ${JSON.stringify({ tooltipBox, tooltipTriggerBox })}`);
     }
     expectInViewport(tooltipBox, "tooltip placement");
-    // A real click would blur the trigger, which closes the fixture tooltip;
-    // dispatch the press alone to check tooltips ignore outside pointers.
+    // The pointer can cross the gap onto the content without closing it.
+    await page.mouse.move(tooltipBox.x + tooltipBox.width / 2, tooltipBox.y + tooltipBox.height / 2, { steps: 4 });
+    await page.waitForTimeout(300);
+    await expect(tooltipContent).toBeVisible();
+    await page.mouse.move(5, 5);
+    await expect(tooltipContent).toBeHidden();
+    await expect(tooltipTrigger).not.toHaveAttribute("aria-describedby", /./);
+    // A press closes it, and hover does not reopen it while the pointer rests.
+    await tooltipTrigger.hover();
+    await expect(tooltipContent).toBeVisible();
+    await tooltipTrigger.click();
+    await expect(tooltipContent).toBeHidden();
+    await page.waitForTimeout(1000);
+    await expect(tooltipContent).toBeHidden();
+    await page.mouse.move(5, 5);
+    await tooltip.getByRole("heading", { name: "Tooltip interaction" }).click();
+    // Keyboard focus opens it before the hover delay would.
+    await page.keyboard.press("Tab");
+    await expect(tooltipTrigger).toBeFocused();
+    await expect(tooltipContent).toBeVisible({ timeout: 400 });
+    // Tooltips ignore outside presses; dispatch the press alone so focus stays.
     await page.evaluate(() => {
       document.body.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true }));
     });
@@ -964,6 +990,11 @@ async function runBrowserAssertions() {
     await page.waitForTimeout(300);
     await expect(tooltipContent).toBeVisible();
     await page.keyboard.press("Escape");
+    await expect(tooltipContent).toBeHidden();
+    await page.keyboard.press("Shift+Tab");
+    await page.keyboard.press("Tab");
+    await expect(tooltipContent).toBeVisible({ timeout: 400 });
+    await page.keyboard.press("Tab");
     await expect(tooltipContent).toBeHidden();
 
     const toast = page.locator('[data-interaction-target="toast"]');

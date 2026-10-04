@@ -23,9 +23,9 @@ use dioxus_ui::{
   ChartColorToken, ChartDomain, ChartPoint, ChartScale, ChartSeries, DialogClose, DialogContent,
   DialogDescription, DialogOverlay, DialogTitle, DismissBehavior, MarkerVariant, MessageAlign,
   MessageScrollerIntent, MessageScrollerMetrics, PopoverContent, PopoverDescription, PopoverTitle,
-  TextDirection, TooltipContent, UiDensity, attachment_class, bubble_class, button_class,
-  button_group_class, chart_area_path, chart_area_series_class, chart_bar_rects,
-  chart_bar_series_class, chart_class, chart_fallback_rows, chart_line_path,
+  TextDirection, Tooltip, TooltipContent, TooltipTrigger, UiDensity, attachment_class,
+  bubble_class, button_class, button_group_class, chart_area_path, chart_area_series_class,
+  chart_bar_rects, chart_bar_series_class, chart_class, chart_fallback_rows, chart_line_path,
   chart_line_series_class, chart_view_box, collapsible_class, direction_class, input_group_class,
   input_otp_class, marker_class, message_avatar_class, message_class, message_content_class,
   message_footer_class, message_group_class, message_header_class, message_scroller_class,
@@ -1576,24 +1576,10 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-interaction-target": "tooltip",
             "data-state": if tooltip_open() { "open" } else { "closed" },
             h2 { class: "text-sm font-medium", "Tooltip interaction" }
-            button {
-              id: "interaction-tooltip-trigger",
-              class: "{secondary_button_class} mt-3",
-              "aria-describedby": "interaction-tooltip",
-              "data-interaction-control": "tooltip-trigger",
-              onmouseenter: move |_| tooltip_open.set(true),
-              onmouseleave: move |_| tooltip_open.set(false),
-              onfocus: move |_| tooltip_open.set(true),
-              onblur: move |_| tooltip_open.set(false),
-              "Hover for tooltip"
-            }
-            div { id: "interaction-tooltip",
-              TooltipContent {
-                open: tooltip_open(),
-                anchor_id: "interaction-tooltip-trigger",
-                on_open_change: move |open| tooltip_open.set(open),
-                "Saved 2 minutes ago"
-              }
+            Tooltip {
+              on_open_change: move |open| tooltip_open.set(open),
+              TooltipTrigger { class: "{secondary_button_class} mt-3", "Hover for tooltip" }
+              TooltipContent { open: tooltip_open(), "Saved 2 minutes ago" }
             }
           }
           article {

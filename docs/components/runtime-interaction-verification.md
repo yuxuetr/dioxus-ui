@@ -110,7 +110,7 @@ controls, so the verifier exercises the shipped overlay behavior from
 | `dialog` | Dialog | opening focuses the first input; Tab and Shift+Tab wrap; Escape, overlay click, and Close each close it and restore focus to the trigger |
 | `alert-dialog` | Alert Dialog | opening focuses Cancel; Tab wraps; Escape closes without confirming; Action runs its handler, closes, and restores focus |
 | `popover` | Popover | anchored content sits below the trigger inside the viewport; Escape and an outside click close it; near the viewport bottom it flips above the trigger; the trigger still toggles it |
-| `tooltip` | Tooltip | anchored content sits above the trigger; an outside press does not close it; Escape does |
+| `tooltip` | Tooltip | hover opens it after the delay and keyboard focus opens it at once; the trigger has `aria-describedby` only while it is open; content sits above the trigger; the pointer can move onto the content without closing it, and leaving closes it; a trigger press closes it and it stays closed while the pointer rests; blur and Escape close it, and an outside press does not |
 | `toast` | Toast | the viewport is a polite `Notifications` region; the toast closes with reason `timeout` after its countdown, stays open while hovered past its duration, and reports `action` and `close` reasons |
 | `sonner` | Sonner | the viewport is a polite region; a mounted toast unmounts with reason `timeout` and reports `close` |
 | `select` | Select | the listbox sits below the trigger while focus stays on it; the selected option starts highlighted; arrows skip the disabled option without wrapping; Home, End, and typeahead move the highlight; Enter, Space, and click choose and close; a disabled option cannot be chosen; ArrowDown reopens; Escape and an outside click close it |
@@ -185,6 +185,11 @@ M146 adds the Accordion row from
 Up and Down movement, the every-item Tab stop mode, `aria-controls`, or
 `aria-labelledby` each make the verifier fail.
 
+M147 extends the Tooltip row from
+[RFC 0022](../rfcs/0022-tooltip-hover-and-focus-opening.md). Removing the
+hover delay, the content hover grace, keyboard focus opening, press closing,
+or `aria-describedby` each make the verifier fail.
+
 ## Documentation Alignment
 
 M111 should keep these files aligned:
@@ -211,7 +216,7 @@ After M111, useful follow-up work is:
 
 1. Expand interaction coverage across more runtime-sensitive components. M135
    covers Dialog, Alert Dialog, Popover, and Tooltip; M136 adds Toast and
-   Sonner; M137 adds Select and Combobox; M138 adds Date Picker; M139 adds Dropdown and Context Menu; M140 adds Menubar; M141 adds Navigation Menu; M144 adds Tabs, Radio Group, and Toggle Group; M146 adds Accordion.
+   Sonner; M137 adds Select and Combobox; M138 adds Date Picker; M139 adds Dropdown and Context Menu; M140 adds Menubar; M141 adds Navigation Menu; M144 adds Tabs, Radio Group, and Toggle Group; M146 adds Accordion; M147 adds Tooltip hover and focus opening.
 2. Add targeted screenshot smoke for a small set of stable panels.
 3. Decide whether any browser command should move into CI after local
    reliability is proven.
