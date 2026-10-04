@@ -95,7 +95,8 @@ Read in this order:
 89. [RFC 0026: Tabs Manual Activation And Vertical Orientation](rfcs/0026-tabs-manual-activation-and-vertical-orientation.md)
 90. [RFC 0027: Combobox And Command Result Announcements](rfcs/0027-combobox-and-command-result-announcements.md)
 91. [RFC 0028: Switch And Checkbox Change Events](rfcs/0028-switch-and-checkbox-change-events.md)
-92. [TODO Plan](../TODOs.md)
+92. [RFC 0029: Button, Toggle, Input, And Textarea Events](rfcs/0029-button-toggle-input-and-textarea-events.md)
+93. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
