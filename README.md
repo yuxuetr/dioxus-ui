@@ -212,6 +212,7 @@ format!("bg-{}-500", color)
 - [RFC 0027: Combobox And Command Result Announcements](docs/rfcs/0027-combobox-and-command-result-announcements.md)
 - [RFC 0028: Switch And Checkbox Change Events](docs/rfcs/0028-switch-and-checkbox-change-events.md)
 - [RFC 0029: Button, Toggle, Input, And Textarea Events](docs/rfcs/0029-button-toggle-input-and-textarea-events.md)
+- [RFC 0030: Slider Keyboard And Pointer Input](docs/rfcs/0030-slider-keyboard-and-pointer-input.md)
 
 ## Verification Shortcuts
 
