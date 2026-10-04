@@ -52,7 +52,7 @@ Source preview routes: 64
 | [Kbd](kbd.md) | /components/kbd/source | crates/dioxus-ui-cli/templates/kbd.rs | src/components/ui/kbd.rs | rust | 42 | 897 |
 | [Label](label.md) | /components/label/source | crates/dioxus-ui-cli/templates/label.rs | src/components/ui/label.rs | rust | 26 | 537 |
 | [Marker](marker.md) | /components/marker/source | crates/dioxus-ui-cli/templates/marker.rs | src/components/ui/marker.rs | rust | 93 | 2332 |
-| [Menubar](menubar.md) | /components/menubar/source | crates/dioxus-ui-cli/templates/menubar.rs | src/components/ui/menubar.rs | rust | 411 | 12938 |
+| [Menubar](menubar.md) | /components/menubar/source | crates/dioxus-ui-cli/templates/menubar.rs | src/components/ui/menubar.rs | rust | 414 | 13145 |
 | [Message](message.md) | /components/message/source | crates/dioxus-ui-cli/templates/message.rs | src/components/ui/message.rs | rust | 153 | 3787 |
 | [Message Scroller](message-scroller.md) | /components/message-scroller/source | crates/dioxus-ui-cli/templates/message_scroller.rs | src/components/ui/message_scroller.rs | rust | 256 | 6962 |
 | [Native Select](native-select.md) | /components/native-select/source | crates/dioxus-ui-cli/templates/native_select.rs | src/components/ui/native_select.rs | rust | 82 | 1981 |
