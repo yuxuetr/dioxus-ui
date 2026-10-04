@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M140 Menubar Keyboard Behavior
-- Current task: M140.2 Implement Menubar navigation
+- Current task: M140.3 Verify menubar behavior in a real browser
 
 ## Backup
 
@@ -2515,7 +2515,7 @@
   - Define trigger roving focus (one Tab stop, Left, Right, Home, End), opening with ArrowDown, Enter, Space, or click, Left and Right moving to the adjacent menu while one is open, pointer hover switching, and focus return to the open menu's trigger.
   - Record what stays out of scope (submenus, ArrowUp opening on the last item, right-to-left mirroring) with reevaluation conditions.
 
-- TODO M140.2 Implement Menubar navigation
+- DONE M140.2 Implement Menubar navigation
   - Add a menubar script for trigger roving focus, adjacent-menu switching, and hover switching, reporting the next menu's value to Rust.
   - `MenubarTrigger` gains `id` and `on_open_change`; `MenubarContent` reuses the anchored overlay and the listbox menu mode; items gain `onclick`; mirror the template and keep the parity test.
 
