@@ -78,7 +78,8 @@ Read in this order:
 72. [RFC 0009: CI Browser Workflow Activation](rfcs/0009-ci-browser-workflow-activation.md)
 73. [RFC 0010: Overlay Interaction Behavior](rfcs/0010-overlay-interaction-behavior.md)
 74. [RFC 0011: Toast Timer and Live Region](rfcs/0011-toast-timer-and-live-region.md)
-75. [TODO Plan](../TODOs.md)
+75. [RFC 0012: Listbox Overlay Behavior](rfcs/0012-listbox-overlay-behavior.md)
+76. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
