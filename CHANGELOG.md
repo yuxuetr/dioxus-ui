@@ -157,6 +157,11 @@ release owner renames it to the released version at publish time.
   `resizable_resize_pair` applies. The group, panels, and handle pass through
   attributes, and source-copy templates gain `ResizablePanelState` and
   `resizable_resize_pair`.
+- Sidebar toggle and items: `SidebarTrigger` gains `on_collapsed_change` with
+  the requested state, `SidebarItem` renders a link with an `href` or a button
+  with an `onclick` that marks the current page with `aria-current`, a
+  disabled item cannot take focus or call `onclick`, and the Sidebar parts
+  pass through attributes such as `id`, `aria-label`, and `aria-controls`.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.

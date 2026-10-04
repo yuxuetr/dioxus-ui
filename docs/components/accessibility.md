@@ -142,7 +142,7 @@ Statuses:
 | Scroll Area | Keeps native scrolling behavior and exposes presentational scrollbar hooks. | Implemented |
 | Resizable | Handles are focusable window splitters with `aria-valuenow` and a separator-line `aria-orientation`; arrow, Home, and End keys and pointer drags report `on_resize`; browser-verified on Web. | Implemented |
 | Resizable | Needs right-to-left groups and keyboard collapse. | Planned |
-| Sidebar | Exposes collapsed, side, active item, disabled item, trigger expansion, and native navigation composition hooks. | Implemented |
+| Sidebar | Exposes collapsed, side, and trigger expansion; the trigger reports `on_collapsed_change`, link and button items mark the current page with `aria-current`, and a disabled item cannot take focus or be activated; browser-verified on Web. | Implemented |
 | Sidebar | Needs app-level persistence, responsive breakpoint behavior, and keyboard shortcut verification. | Planned |
 
 ## Complex Component Gates

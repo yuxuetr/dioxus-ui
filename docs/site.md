@@ -2317,7 +2317,8 @@ the roving groups and menus, vertical, manually activated Tabs, Combobox
 and Command result status regions, Switch and Checkbox change events,
 Button, Toggle, Input, and Textarea events, Slider keyboard and pointer
 input, Collapsible and Native Select events, Input OTP typing, Pagination
-page changes, Carousel slide changes, and Resizable handle input.
+page changes, Carousel slide changes, Resizable handle input, and Sidebar
+toggle and items.
 
 It is not part of `npm run verify` or `npm run verify:release`. It does not
 write screenshots or traces, certify full accessibility, verify native Desktop

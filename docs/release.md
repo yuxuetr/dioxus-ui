@@ -689,7 +689,9 @@ first.
   English default on Pagination and Carousel controls in the browser and in
   SSR (see RFC 0035). Resizable handles report keyboard and pointer resizes
   through `on_resize` (see RFC 0036); right-to-left groups and keyboard
-  collapse are not included. Date Picker and
+  collapse are not included. Sidebar triggers report toggles and items render
+  links or buttons with `aria-current` (see RFC 0037); keyboard shortcuts and
+  mobile off-canvas behavior are not included. Date Picker and
   Calendar implement anchored placement, focus entry, and day keyboard
   navigation (see RFC 0013); typed date parsing and source-copy date arithmetic
   are not included. Dropdown and Context Menu implement menu keyboard

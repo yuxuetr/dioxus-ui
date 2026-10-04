@@ -195,4 +195,6 @@ page changes ([RFC 0033](rfcs/0033-pagination-page-changes.md)), and M159 to
 Carousel slide changes ([RFC 0034](rfcs/0034-carousel-slide-changes.md)), and
 M160 to control label overrides
 ([RFC 0035](rfcs/0035-control-label-overrides.md)), and M161 to Resizable
-handle input ([RFC 0036](rfcs/0036-resizable-handle-input.md)).
+handle input ([RFC 0036](rfcs/0036-resizable-handle-input.md)), and M162 to
+Sidebar toggle and items
+([RFC 0037](rfcs/0037-sidebar-toggle-and-items.md)).
