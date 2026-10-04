@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M162 Sidebar Toggle And Items
-- Current task: M162.1 Design sidebar toggle and items
+- Current task: M162.2 Implement sidebar toggle and items
 
 ## Backup
 
@@ -2947,7 +2947,7 @@
 
 ## M162 Sidebar Toggle And Items
 
-- TODO M162.1 Design sidebar toggle and items
+- DONE M162.1 Design sidebar toggle and items
   - Record that `SidebarTrigger` has no click handler, that no Sidebar part accepts attributes, that `SidebarItem` is a `div` whose active state is not announced and whose disabled state leaves inner links focusable, and that Desktop opens anchors in the system browser.
   - Define `on_collapsed_change` on the trigger, `href` and `onclick` item forms with `aria-current` and disabled handling, and attribute spreading on the Sidebar parts.
   - Record what stays out of scope (a keyboard shortcut, the rail as a toggle, hiding labels while collapsed, mobile off-canvas behavior, Desktop and Mobile self-test scenarios) with reevaluation conditions.
