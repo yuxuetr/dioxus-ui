@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M142 Desktop Interaction Verification
-- Current task: M142.3 Reverse-verify the Desktop self-test
+- Current task: M142.4 Complete desktop verification milestone
 
 ## Backup
 
@@ -2559,7 +2559,7 @@
   - Add the self-test component to the Desktop preview and a scenario script covering each interaction path: modal focus scope, anchored overlay, listbox, menu mode, dismiss timer, calendar focus following, Menubar, and Navigation Menu.
   - Add `npm run verify:desktop-interactions`, which builds and runs the self-test with a timeout and reports the result.
 
-- TODO M142.3 Reverse-verify the Desktop self-test
+- DONE M142.3 Reverse-verify the Desktop self-test
   - Confirm the self-test fails when an interaction script path is broken (focus return, listbox selection, menu switching, calendar focus) and when the scenario times out.
   - Keep the command out of `npm run verify:release`, like the browser smoke, because it opens a window and needs a GUI session.
 
