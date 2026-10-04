@@ -858,10 +858,12 @@ async function runBrowserAssertions() {
     await expect(radioGroup).toHaveAttribute("data-value", "large");
     await expect(radio("large")).toHaveAttribute("aria-checked", "true");
     await page.keyboard.press("ArrowDown");
+    await expect(radio("x-large")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
     await expect(radio("small")).toBeFocused();
     await expect(radioGroup).toHaveAttribute("data-value", "small");
     await page.keyboard.press("ArrowUp");
-    await expect(radio("large")).toBeFocused();
+    await expect(radio("x-large")).toBeFocused();
     await page.keyboard.press("ArrowRight");
     await expect(radio("small")).toBeFocused();
     await expect(radio("small")).toHaveAttribute("tabindex", "0");
@@ -900,7 +902,7 @@ async function runBrowserAssertions() {
     // group, so the Tab stop is recomputed.
     await expect(radio("large")).toBeFocused();
     await page.keyboard.press("ArrowDown");
-    await expect(radioGroup).toHaveAttribute("data-value", "small");
+    await expect(radioGroup).toHaveAttribute("data-value", "x-large");
     await expect(toggle("Italic")).toHaveAttribute("tabindex", "0");
     await expect(toggle("Underline")).toHaveAttribute("tabindex", "-1");
     await page.keyboard.press("Tab");
@@ -909,6 +911,87 @@ async function runBrowserAssertions() {
     await expect(toggleGroup).toHaveAttribute("data-value", "bold");
     await toggle("Bold").click();
     await expect(toggleGroup).toHaveAttribute("data-value", "none");
+
+    // Right to left: ArrowLeft moves to the next item and ArrowRight to the
+    // previous one. Up and Down keep their meaning.
+    const setDirection = (target, value) =>
+      target.evaluate((element, dir) => {
+        if (dir) element.setAttribute("dir", dir);
+        else element.removeAttribute("dir");
+      }, value);
+    const rtlTargets = [tabs, radioGroup, toggleGroup, menubar, navigation];
+    for (const target of rtlTargets) await setDirection(target, "rtl");
+    await tab("Billing").evaluate((element) => element.scrollIntoView({ block: "center" }));
+    const billingBox = await tab("Billing").boundingBox();
+    const teamBox = await tab("Team").boundingBox();
+    if (!(teamBox.x < billingBox.x)) throw new Error("rtl tabs should lay out the next tab on the left");
+    await tab("Billing").focus();
+    await page.keyboard.press("ArrowLeft");
+    await expect(tab("Team")).toBeFocused();
+    await expect(tabs).toHaveAttribute("data-value", "team");
+    await page.keyboard.press("ArrowRight");
+    await expect(tab("Billing")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(tab("Account")).toBeFocused();
+    await expect(tabs).toHaveAttribute("data-value", "account");
+    await radio("x-large").focus();
+    await page.keyboard.press("ArrowLeft");
+    await expect(radio("small")).toBeFocused();
+    await expect(radioGroup).toHaveAttribute("data-value", "small");
+    await page.keyboard.press("ArrowRight");
+    await expect(radio("x-large")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(radio("large")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(radio("x-large")).toBeFocused();
+    await page.keyboard.press("ArrowUp");
+    await expect(radio("large")).toBeFocused();
+    await expect(radioGroup).toHaveAttribute("data-value", "large");
+    await toggle("Bold").focus();
+    await page.keyboard.press("ArrowLeft");
+    await expect(toggle("Italic")).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expect(toggle("Underline")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(toggle("Italic")).toBeFocused();
+    await expect(toggleGroup).toHaveAttribute("data-value", "none");
+    await menubarTrigger("file").focus();
+    await page.keyboard.press("ArrowLeft");
+    await expect(menubarTrigger("edit")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(menubarTrigger("file")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(menubarTrigger("view")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expectMenubarOpen("view");
+    await expect(menubarItem("view", "Zoom in")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(menubarItem("view", "Zoom out")).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expectMenubarOpen("file");
+    await page.keyboard.press("ArrowRight");
+    await expectMenubarOpen("view");
+    await page.keyboard.press("Escape");
+    await expectMenubarClosed();
+    await expect(menubarTrigger("view")).toBeFocused();
+    await navigationTrigger("Docs").focus();
+    await page.keyboard.press("ArrowLeft");
+    await expect(navigationLink("Blog")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(navigationTrigger("Docs")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(navigationTrigger("Examples")).toBeFocused();
+    // Removing dir restores left-to-right keys.
+    for (const target of rtlTargets) await setDirection(target, null);
+    await page.keyboard.press("ArrowRight");
+    await expect(navigationTrigger("Docs")).toBeFocused();
+    await tab("Account").focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(tab("Billing")).toBeFocused();
+    await menubarTrigger("view").focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(menubarTrigger("file")).toBeFocused();
+    await expectMenubarClosed();
 
     const accordion = page.locator('[data-interaction-target="accordion"]');
     const accordionTrigger = (name) => accordion.getByRole("button", { name, exact: true });

@@ -1460,6 +1460,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               RadioGroupItem { value: "small", checked: radio_checked("small") }
               RadioGroupItem { value: "medium", checked: radio_checked("medium"), disabled: true }
               RadioGroupItem { value: "large", checked: radio_checked("large") }
+              RadioGroupItem { value: "x-large", checked: radio_checked("x-large") }
             }
           }
           article {
