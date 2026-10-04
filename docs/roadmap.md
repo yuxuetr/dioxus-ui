@@ -160,4 +160,6 @@ listbox keyboard navigation and selection
 and Calendar keyboard navigation
 ([RFC 0013](rfcs/0013-date-picker-calendar-keyboard.md)), and M139 to Dropdown
 and Context Menu keyboard navigation
-([RFC 0014](rfcs/0014-menu-keyboard-behavior.md)).
+([RFC 0014](rfcs/0014-menu-keyboard-behavior.md)), and M140 to Menubar
+roving triggers and menu switching
+([RFC 0015](rfcs/0015-menubar-keyboard-behavior.md)).

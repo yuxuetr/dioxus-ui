@@ -522,7 +522,8 @@ selection with focus kept on the trigger or input; and a real Date Picker
 with Calendar: focus entry, day keyboard movement across months, Tab wrap,
 and focus return; and real Dropdown and Context Menu components: focus entry,
 wrapping navigation, typeahead, activation with focus return, and point
-placement. It does not
+placement; and a real Menubar: roving trigger focus, Left and Right and hover
+menu switching, and focus return to the open menu's trigger. It does not
 write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.

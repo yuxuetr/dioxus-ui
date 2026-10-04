@@ -121,7 +121,7 @@ Out of scope, with reevaluation conditions:
 | Date Picker | Composes Popover and Calendar; follows Popover once Popover is verified | Popover anchored placement passes the browser smoke (done in M138, see RFC 0013) |
 | Navigation Menu | Uses viewport-relative CSS layout, not anchored content | A consumer reports Navigation Menu content clipping |
 | Context Menu | Anchors to a pointer position, not an element | `anchor_id` needs a point anchor variant (done in M139, see RFC 0014) |
-| Menubar | Needs cross-menu roving focus | Menubar keyboard navigation fixture exists |
+| Menubar | Needs cross-menu roving focus | Menubar keyboard navigation fixture exists (done in M140, see RFC 0015) |
 | DOM portal | `position: fixed` placement escapes overflow clipping without moving nodes | Fixed content is clipped by a transformed ancestor in a reported case |
 | Scroll lock | Not required for focus containment | A consumer reports background scroll behind an open modal |
 

@@ -63,6 +63,11 @@ release owner renames it to the released version at publish time.
   runs the item's new `onclick`, closes the menu, and returns focus. Context
   Menu content opens at `anchor_point`, usually the pointer position, with
   flip and shift.
+- Menubar keyboard behavior: the triggers form one Tab stop with Left, Right,
+  Home, and End movement; ArrowDown, Enter, Space, or click opens a menu that
+  behaves like Dropdown; Left and Right inside an open menu, or hovering
+  another trigger, switch menus through the new `Menubar` `on_value_change`;
+  closing returns focus to the open menu's trigger. Menu items gain `onclick`.
 
 ### Changed
 
@@ -83,7 +88,7 @@ release owner renames it to the released version at publish time.
 - DOM/WebView scroll commands for Message Scroller.
 - Verified Mobile runtime behavior; Desktop and Mobile coverage remains
   checklist or fixture based.
-- Overlay behavior for Navigation Menu and Menubar, submenus, multi-select,
+- Overlay behavior for Navigation Menu, submenus, multi-select,
   typed date parsing, DOM portal mounting, and scroll lock.
 
 ### Known Warnings

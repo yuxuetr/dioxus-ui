@@ -114,6 +114,7 @@ controls, so the verifier exercises the shipped overlay behavior from
 | `combobox` | Combobox | typing opens the listbox below the input with no highlight; arrows highlight options; filtering keeps a still-matching highlight and clears a removed one; Enter and click choose, fill the input, and keep focus in it; ArrowDown reopens and Escape closes |
 | `date-picker` | Date Picker with Calendar | content sits below the trigger; opening focuses the selected day, the only `tabindex="0"` day; arrows, Home, End, Page Up, Page Down, and Shift+Page keys move focus across months with days keyed by date; Tab wraps between the month buttons and the focused day; Enter and click choose a date, close, and return focus to the trigger; Escape returns focus too; an outside click closes it and keeps focus on a clicked control |
 | `dropdown` | Dropdown | opening focuses the first item; arrows wrap and skip the disabled item; Home, End, and repeated-letter typeahead move focus; Enter, Space, and click run the item's `onclick`, close, and return focus to the trigger; a disabled item does nothing; Escape and Tab close it |
+| `menubar` | Menubar | the triggers are one Tab stop; Left and Right wrap and skip the disabled trigger, Home and End jump; ArrowDown and Enter open a menu on its first item; Left and Right inside an open menu switch to the adjacent menu; Escape returns focus to the open menu's trigger; hovering a trigger switches menus only while one is open; click runs an item, closes, and returns focus; clicking the open trigger closes it; Tab closes and leaves the bar |
 | `context-menu` | Context Menu | a right-click opens the menu at the pointer and a second right-click moves it; the first item takes focus; arrows wrap; Enter toggles the checkbox item and closes; click runs an item; near the viewport bottom the menu flips above the pointer; an outside click closes it |
 
 The Web preview serves the Tailwind input stylesheet without compiling it, so
@@ -150,6 +151,15 @@ the verifier fail. The flip check also caught menu items being focused while
 the menu was still in normal flow, which scrolled the page away from the
 pointer; items are now focused without scrolling.
 
+M140 adds the Menubar row from
+[RFC 0015](../rfcs/0015-menubar-keyboard-behavior.md). Removing trigger roving,
+Left and Right switching inside a menu, hover switching, or focus return to the
+anchor each make the verifier fail. The switching check also caught Chrome
+sending `pointerover` when an opening menu shifted the layout under a resting
+cursor, which switched back to the menu under the cursor; hover switching now
+listens for pointer movement, and reverting to `pointerover` fails the
+verifier.
+
 ## Documentation Alignment
 
 M111 should keep these files aligned:
@@ -176,7 +186,7 @@ After M111, useful follow-up work is:
 
 1. Expand interaction coverage across more runtime-sensitive components. M135
    covers Dialog, Alert Dialog, Popover, and Tooltip; M136 adds Toast and
-   Sonner; M137 adds Select and Combobox; M138 adds Date Picker; M139 adds Dropdown and Context Menu.
+   Sonner; M137 adds Select and Combobox; M138 adds Date Picker; M139 adds Dropdown and Context Menu; M140 adds Menubar.
 2. Add targeted screenshot smoke for a small set of stable panels.
 3. Decide whether any browser command should move into CI after local
    reliability is proven.

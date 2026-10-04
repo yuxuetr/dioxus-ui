@@ -100,7 +100,8 @@ Statuses:
 | Hover Card | Provides controlled rich preview content with placement metadata. | Implemented |
 | Hover Card | Needs hover/focus timing and mobile fallback verification. | Planned |
 | Menubar | Exposes menubar, menu, and menu item roles. | Implemented |
-| Menubar | Needs roving focus, typeahead, and nested submenu verification. | Planned |
+| Menubar | Keeps the triggers one Tab stop with Left, Right, Home, and End movement, opens menus that behave like Dropdown, switches menus with Left, Right, or hover, and returns focus to the open menu's trigger; browser-verified on Web. | Implemented |
+| Menubar | Nested submenus and right-to-left arrow mirroring are not implemented. | Planned |
 | Navigation Menu | Uses navigation structure and link semantics for destinations. | Implemented |
 | Navigation Menu | Needs trigger roving focus and viewport measurement verification. | Planned |
 | Popover | Anchored placement with flip and shift, and Escape or outside dismissal; browser-verified on Web. | Implemented |
@@ -167,7 +168,8 @@ M137 implements Select and Combobox listbox behavior (see
 keyboard navigation and Date Picker focus behavior (see
 [RFC 0013](../rfcs/0013-date-picker-calendar-keyboard.md)). M139 implements
 Dropdown and Context Menu keyboard behavior (see
-[RFC 0014](../rfcs/0014-menu-keyboard-behavior.md)).
+[RFC 0014](../rfcs/0014-menu-keyboard-behavior.md)). M140 implements Menubar
+keyboard behavior (see [RFC 0015](../rfcs/0015-menubar-keyboard-behavior.md)).
 M24 implements measurement, pointer, and gesture contract types only. Popover,
 Tooltip, Dropdown, Select, menu overlays, Resizable, Carousel, and Chart still
 require renderer-level measurement, pointer, and gesture verification before
