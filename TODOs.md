@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M149 Command Keyboard And Filtering
-- Current task: M149.2
+- Current task: M149.3
 
 ## Backup
 
@@ -2695,7 +2695,7 @@
   - Define a `Command` root that reports chosen items, an input that reports typed text and controls the list, item values, and a command mode for the listbox script that highlights the first option, moves with Up, Down, Home, and End, resets to the first match when the query changes, and chooses with Enter or click while focus stays in the input; filtering stays app-owned with a matching helper.
   - Record what stays out of scope (fuzzy ranking, looping, Ctrl key bindings, a command dialog, result count announcements, Desktop and Mobile self-test scenarios) with reevaluation conditions.
 
-- TODO M149.2 Implement command keyboard and filtering
+- DONE M149.2 Implement command keyboard and filtering
   - Add the command mode to the listbox script in the crate and the template `utils.rs`, and wire `Command`, `CommandInput`, `CommandList`, and `CommandItem` in the crate and the template.
   - Add the matching helper and update the Command docs page.
 
