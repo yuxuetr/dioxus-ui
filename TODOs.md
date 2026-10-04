@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40% (M136 2/5)
+- Overall: 60% (M136 3/5)
 - Current milestone: M136 Toast and Sonner Runtime Behavior
-- Current task: M136.3 Apply timer and dismiss callbacks to Sonner
+- Current task: M136.4 Verify toast behavior in a real browser
 
 ## Backup
 
@@ -2422,7 +2422,7 @@
   - `ToastClose` calls `on_dismiss(Close)` and `ToastAction` runs `onclick` then `on_dismiss(Action)`.
   - Mirror the timer helper into the utils template with a script parity test, and update the docs page.
 
-- TODO M136.3 Apply timer and dismiss callbacks to Sonner
+- DONE M136.3 Apply timer and dismiss callbacks to Sonner
   - Reuse the Toast timer for `SonnerToast`, `SonnerClose`, and `SonnerAction` with the same reasons and defaults.
   - Update the template and docs page.
 
