@@ -204,6 +204,7 @@ format!("bg-{}-500", color)
 - [RFC 0019: Roving Group Interaction](docs/rfcs/0019-roving-group-interaction.md)
 - [RFC 0020: Android Interaction Verification](docs/rfcs/0020-android-interaction-verification.md)
 - [RFC 0021: Accordion Interaction](docs/rfcs/0021-accordion-interaction.md)
+- [RFC 0022: Tooltip Hover And Focus Opening](docs/rfcs/0022-tooltip-hover-and-focus-opening.md)
 
 ## Verification Shortcuts
 

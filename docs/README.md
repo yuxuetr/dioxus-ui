@@ -88,7 +88,8 @@ Read in this order:
 82. [RFC 0019: Roving Group Interaction](rfcs/0019-roving-group-interaction.md)
 83. [RFC 0020: Android Interaction Verification](rfcs/0020-android-interaction-verification.md)
 84. [RFC 0021: Accordion Interaction](rfcs/0021-accordion-interaction.md)
-85. [TODO Plan](../TODOs.md)
+85. [RFC 0022: Tooltip Hover And Focus Opening](rfcs/0022-tooltip-hover-and-focus-opening.md)
+86. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
