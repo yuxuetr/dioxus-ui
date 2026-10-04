@@ -75,9 +75,10 @@ Behavior defaults:
 - focus return to trigger
 - initial focus strategy stays `FirstFocusable`
 
-The first implementation will expose styled parts only. Full DOM focus trapping
-and automatic trigger wiring remain deferred until the portal/focus runtime
-adapters are implemented.
+M135 adds Escape and overlay dismissal, initial focus, Tab wrap, and focus
+restore through `on_open_change` and a shared focus scope (see
+[RFC 0010](../rfcs/0010-overlay-interaction-behavior.md)). Trigger wiring stays
+with the app.
 
 ## Sheet
 

@@ -34,6 +34,13 @@ release owner renames it to the released version at publish time.
   installs.
 - Component registry entries, source-copy templates, and docs pages for every
   public component.
+- Overlay interaction behavior: Dialog, Alert Dialog, Sheet, and Drawer close
+  on Escape and (when configured) overlay click through `on_open_change`, focus
+  their first focusable element on open, wrap Tab, and restore focus on close.
+  Popover, Dropdown, Hover Card, and Tooltip accept `anchor_id` for fixed
+  anchored placement with flip and shift, and close on Escape or outside
+  interaction per `dismiss`. Source-copy templates carry the same behavior in
+  `utils.rs`.
 
 ### Changed
 
@@ -54,6 +61,8 @@ release owner renames it to the released version at publish time.
 - DOM/WebView scroll commands for Message Scroller.
 - Verified Mobile runtime behavior; Desktop and Mobile coverage remains
   checklist or fixture based.
+- Overlay behavior for Select, Combobox, Date Picker, Navigation Menu, Context
+  Menu, and Menubar, DOM portal mounting, and scroll lock.
 
 ### Known Warnings
 

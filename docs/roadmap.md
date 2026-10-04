@@ -147,3 +147,9 @@ Exit criteria:
 - Dialog or Alert Dialog verifies modal focus behavior
 - Popover verifies non-modal portal and measurement behavior
 - Toast or Sonner verifies timer and live-region behavior
+
+Status: M135 meets the Dialog and Alert Dialog modal focus criterion and the
+Popover measurement criterion in the styled components, verified in the Web
+browser smoke. Popover uses fixed positioning instead of a DOM portal by
+decision in [RFC 0010](rfcs/0010-overlay-interaction-behavior.md). The Toast
+and Sonner criterion remains open.

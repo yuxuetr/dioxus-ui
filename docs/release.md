@@ -663,8 +663,12 @@ first.
 
 ## Known Pre-1.0 Limitations
 
-- Overlay primitives define state/config contracts but do not implement full
-  focus trap, DOM portal, or positioning engines yet.
+- Dialog, Alert Dialog, Sheet, and Drawer implement Escape and overlay
+  dismissal, initial focus, Tab wrap, and focus restore; Popover, Dropdown,
+  Hover Card, and Tooltip implement anchored placement and dismissal. Only the
+  Web renderer is browser-verified. Select, Combobox, Date Picker, Navigation
+  Menu, Context Menu, and Menubar stay controlled-only, and there is no DOM
+  portal (see RFC 0010).
 - Generated templates include a local `utils.rs` helper module and should not
   require `dioxus-ui-core` or `dioxus-ui-primitives` in source-copy mode.
 - Web has a rendered preview shell and screenshot procedure. Desktop has a

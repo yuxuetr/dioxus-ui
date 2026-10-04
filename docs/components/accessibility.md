@@ -83,24 +83,27 @@ Statuses:
 | Component | Contract | Status |
 | --- | --- | --- |
 | Alert Dialog | Uses alertdialog role and modal state for confirmation flows. | Implemented |
-| Alert Dialog | Needs focus trap and focus return verification. | Planned |
+| Alert Dialog | Focuses the first focusable element, wraps Tab, restores focus on close, and closes on Escape; browser-verified on Web. | Implemented |
 | Context Menu | Exposes menu, menuitem, menuitemcheckbox, and menuitemradio roles. | Implemented |
 | Context Menu | Needs roving focus, typeahead, anchoring, and nested submenu verification. | Planned |
 | Dialog | Exposes dialog role and modal state. | Implemented |
-| Dialog | Needs focus trap and focus return verification. | Planned |
+| Dialog | Focuses the first focusable element, wraps Tab, restores focus on close, and closes on Escape or configured overlay click; browser-verified on Web. | Implemented |
 | Drawer | Uses dialog role and modal state for bottom-panel flows. | Implemented |
-| Drawer | Needs focus trap, focus return, and gesture verification. | Planned |
-| Dropdown | Needs menu roles, roving focus, and typeahead. | Planned |
+| Drawer | Shares the Dialog focus scope and dismissal. | Implemented |
+| Drawer | Needs gesture and drag-to-dismiss verification. | Planned |
+| Dropdown | Anchored placement and Escape or outside dismissal. | Implemented |
+| Dropdown | Needs roving focus and typeahead. | Planned |
 | Hover Card | Provides controlled rich preview content with placement metadata. | Implemented |
 | Hover Card | Needs hover/focus timing and mobile fallback verification. | Planned |
 | Menubar | Exposes menubar, menu, and menu item roles. | Implemented |
 | Menubar | Needs roving focus, typeahead, and nested submenu verification. | Planned |
 | Navigation Menu | Uses navigation structure and link semantics for destinations. | Implemented |
 | Navigation Menu | Needs trigger roving focus and viewport measurement verification. | Planned |
-| Popover | Needs dismissal and focus behavior verification. | Planned |
+| Popover | Anchored placement with flip and shift, and Escape or outside dismissal; browser-verified on Web. | Implemented |
 | Sheet | Uses dialog role and modal state for side-panel flows. | Implemented |
-| Sheet | Needs focus trap and focus return verification. | Planned |
-| Tooltip | Should be discoverable by hover and focus. | Planned |
+| Sheet | Shares the Dialog focus scope and dismissal. | Implemented |
+| Tooltip | Anchored placement and Escape dismissal; browser-verified on Web. | Implemented |
+| Tooltip | Hover and focus opening remain app-owned. | Planned |
 
 ## Data And Navigation
 
@@ -145,9 +148,10 @@ Runtime adapter planning is tracked in:
 - [Input OTP API Plan](input-otp-plan.md)
 - [Message and AI-style API Plan](message-ai-plan.md)
 
-M22 implements focus and portal contract types only. Components still require
-renderer-level verification before planned focus trap, focus return, and portal
-contracts can be marked stable.
+M22 implements focus and portal contract types only. M135 implements modal
+focus and anchored placement in the styled components themselves (see
+[RFC 0010](../rfcs/0010-overlay-interaction-behavior.md)); DOM portal mounting
+remains out of scope.
 M23 implements timer and live-region contract types only. Toast and Sonner still
 require renderer-level timer and live-region verification before announcement
 runtime behavior can be marked stable.
