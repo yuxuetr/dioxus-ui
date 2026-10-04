@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M161 Resizable Handle Input
-- Current task: M161.2 Implement resizable handle input
+- Current task: M161.3 Verify resizable handles in a real browser
 
 ## Backup
 
@@ -2932,7 +2932,7 @@
   - Define `value`, `min`, `max`, `step`, and `on_resize` with a percent delta, keys, a pointer script that sends target sizes, the corrected `aria-orientation`, and attribute spreading.
   - Record what stays out of scope (Enter to collapse, right-to-left groups, pixel limits and persisted layouts, Desktop and Mobile self-test scenarios) with reevaluation conditions.
 
-- TODO M161.2 Implement resizable handle input
+- DONE M161.2 Implement resizable handle input
   - Add the handle props, keys, pointer script, ARIA values, and attribute spreading to the crate source and template, with unit tests and the CLI script parity entry.
   - Update the Resizable docs page.
 
