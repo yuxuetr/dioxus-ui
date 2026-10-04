@@ -49,10 +49,14 @@ rsx! {
 - A click on the overlay requests close when `dismiss.outside_pointer` is set.
   The default `DismissBehavior::dialog_default()` leaves it off.
 - `DialogClose` always requests close.
-- Opening focuses the first focusable element, or the content itself.
-- Tab and Shift+Tab wrap inside the content while it is open.
+- Opening focuses the element marked `data-dxui-autofocus`, such as a
+  keyboard-managed Calendar day, otherwise the first focusable element, or the
+  content itself.
+- Tab and Shift+Tab wrap inside the content while it is open, skipping
+  `tabindex="-1"` elements.
 - Closing, or removing the content from the tree, restores focus to the element
-  that was focused before opening.
+  that was focused before opening, unless focus had already moved to a control
+  outside the content.
 
 Focus handling runs through `document::eval`, so it works in the Web, Desktop,
 and Mobile renderers. Only the Web renderer is covered by

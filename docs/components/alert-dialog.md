@@ -62,10 +62,14 @@ rsx! {
 - The overlay never dismisses an alert dialog.
 - `AlertDialogCancel` requests close; `AlertDialogAction` runs `onclick` and
   then requests close.
-- Opening focuses the first focusable element, or the content itself.
-- Tab and Shift+Tab wrap inside the content while it is open.
+- Opening focuses the element marked `data-dxui-autofocus`, such as a
+  keyboard-managed Calendar day, otherwise the first focusable element, or the
+  content itself.
+- Tab and Shift+Tab wrap inside the content while it is open, skipping
+  `tabindex="-1"` elements.
 - Closing, or removing the content from the tree, restores focus to the element
-  that was focused before opening.
+  that was focused before opening, unless focus had already moved to a control
+  outside the content.
 
 Render the cancel action before the destructive action so it receives initial
 focus. Only the Web renderer is covered by `npm run verify:runtime-interactions`.

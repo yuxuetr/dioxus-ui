@@ -12,7 +12,9 @@ const scope = document.querySelector('[data-dxui-focus-scope="__SCOPE_ID__"]');
 if (!scope) return;
 const previous = document.activeElement;
 const selector = 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]), [contenteditable="true"]';
-const focusables = () => Array.from(scope.querySelectorAll(selector)).filter((el) => el.getClientRects().length > 0);
+// Roving grids keep inactive items at tabindex -1; they are not Tab stops.
+const focusables = () =>
+  Array.from(scope.querySelectorAll(selector)).filter((el) => el.tabIndex >= 0 && el.getClientRects().length > 0);
 const onKeyDown = (event) => {
   if (event.key !== "Tab") return;
   const items = focusables();
@@ -35,7 +37,7 @@ const onKeyDown = (event) => {
 await new Promise((resolve) => requestAnimationFrame(resolve));
 if (!scope.isConnected || scope.hidden) return;
 scope.addEventListener("keydown", onKeyDown);
-(focusables()[0] ?? scope).focus();
+(scope.querySelector("[data-dxui-autofocus]") ?? focusables()[0] ?? scope).focus();
 await new Promise((resolve) => {
   const observer = new MutationObserver(() => {
     if (!scope.isConnected || scope.hidden) {
@@ -46,7 +48,12 @@ await new Promise((resolve) => {
   observer.observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ["hidden"] });
 });
 scope.removeEventListener("keydown", onKeyDown);
-if (previous instanceof HTMLElement && previous.isConnected) previous.focus();
+// Focus still inside the hidden scope, or already blurred to the body, goes
+// back; focus anywhere else was moved on purpose, such as by an outside click,
+// and stays there.
+const active = document.activeElement;
+const focusLeft = active !== null && active !== document.body && !scope.contains(active);
+if (!focusLeft && previous instanceof HTMLElement && previous.isConnected) previous.focus();
 "#;
 
 pub(crate) fn modal_focus_scope_script(scope_id: &str) -> String {
