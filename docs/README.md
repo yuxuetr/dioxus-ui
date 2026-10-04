@@ -87,7 +87,8 @@ Read in this order:
 81. [RFC 0018: Mobile Interaction Verification](rfcs/0018-mobile-interaction-verification.md)
 82. [RFC 0019: Roving Group Interaction](rfcs/0019-roving-group-interaction.md)
 83. [RFC 0020: Android Interaction Verification](rfcs/0020-android-interaction-verification.md)
-84. [TODO Plan](../TODOs.md)
+84. [RFC 0021: Accordion Interaction](rfcs/0021-accordion-interaction.md)
+85. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 

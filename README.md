@@ -203,6 +203,7 @@ format!("bg-{}-500", color)
 - [RFC 0018: Mobile Interaction Verification](docs/rfcs/0018-mobile-interaction-verification.md)
 - [RFC 0019: Roving Group Interaction](docs/rfcs/0019-roving-group-interaction.md)
 - [RFC 0020: Android Interaction Verification](docs/rfcs/0020-android-interaction-verification.md)
+- [RFC 0021: Accordion Interaction](docs/rfcs/0021-accordion-interaction.md)
 
 ## Verification Shortcuts
 
