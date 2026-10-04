@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M161 Resizable Handle Input
-- Current task: M161.4 Complete resizable milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2940,7 +2940,7 @@
   - Render a two-panel horizontal group in the Web preview and extend `npm run verify:runtime-interactions` to assert focus, ARIA values and orientation, key resizing within limits, pointer drags that track the pointer and stop at the limit, and passed attributes.
   - Reverse-verify that the script fails when the key handler is removed, when the pointer script does not start, when it sends per-move deltas, when `aria-orientation` keeps the group orientation, or when attributes are not spread.
 
-- TODO M161.4 Complete resizable milestone
+- DONE M161.4 Complete resizable milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
