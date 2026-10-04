@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M164 Dialog Names
-- Current task: M164.4 Complete dialog names milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -3000,7 +3000,7 @@
   - Extend `npm run verify:runtime-interactions` to find the Dialog, Alert Dialog, and Popover fixtures by role with their title as the name and their description, and a Popover with a passed `aria-label`.
   - Reverse-verify that the script fails when the title id is not rendered, when `aria-labelledby` ignores whether a title is mounted, when a passed `aria-label` is ignored, or when content attributes are not spread.
 
-- TODO M164.4 Complete dialog names milestone
+- DONE M164.4 Complete dialog names milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and accessibility docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
