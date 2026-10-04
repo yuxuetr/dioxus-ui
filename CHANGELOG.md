@@ -112,6 +112,12 @@ release owner renames it to the released version at publish time.
   inside `Direction` or any `dir="rtl"` ancestor ArrowLeft moves to the next
   item and ArrowRight to the previous one. Up, Down, Home, and End are
   unchanged.
+- Tabs manual activation and vertical orientation: `Tabs` takes `activation`
+  (`TabsActivation::Automatic` or `Manual`) and `orientation`
+  (`TabsOrientation::Horizontal` or `Vertical`). Manual tabs move focus
+  without selecting; vertical tabs move with Up and Down and render
+  `aria-orientation="vertical"` and `data-orientation`. When focus leaves the
+  list, the selected trigger becomes the Tab stop again.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.

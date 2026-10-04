@@ -61,8 +61,7 @@ Statuses:
 | Combobox | Async loading and result count announcements remain app-owned. | Planned |
 | Native Select | Uses native select, optgroup, and option elements with platform keyboard and form behavior. | Implemented |
 | Radio Group | Uses radiogroup/radio roles and checked state; one Tab stop on the checked or first enabled item, arrows move focus past disabled items and check the focused item, with Left and Right swapped in right-to-left layouts; browser-verified on Web. | Implemented |
-| Tabs | Uses tablist, tab, and tabpanel roles with `aria-controls` and `aria-labelledby` under `Tabs`; one Tab stop on the selected trigger, Left, Right, Home, and End move focus past disabled triggers and select the focused tab, with Left and Right swapped in right-to-left layouts; browser-verified on Web. | Implemented |
-| Tabs | Manual activation and vertical tabs are not implemented. | Planned |
+| Tabs | Uses tablist, tab, and tabpanel roles with `aria-controls` and `aria-labelledby` under `Tabs`; one Tab stop on the selected trigger, Left, Right, Home, and End move focus past disabled triggers and select the focused tab, with Left and Right swapped in right-to-left layouts; manual activation selects only on Enter, Space, or click, and vertical tabs use Up and Down with `aria-orientation="vertical"`; leaving the list makes the selected trigger the Tab stop again; browser-verified on Web. | Implemented |
 | Select | Uses select-only combobox semantics with listbox content; trigger keeps focus with `aria-activedescendant`; arrows, Home, End, and typeahead move the highlight; Enter, Space, or click chooses; browser-verified on Web. | Implemented |
 
 ## Light Interaction

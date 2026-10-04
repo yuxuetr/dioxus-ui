@@ -535,7 +535,7 @@ opening, press closing, and `aria-describedby`; and Hover Card open and close
 delays, card hover and focus, and presses that keep it open; and Command
 highlight movement, query resets, and choosing from the input; and Left and
 Right swapped under `dir="rtl"` in Tabs, Radio Group, Toggle Group, Menubar,
-and Navigation Menu. It does not
+and Navigation Menu; and vertical, manually activated Tabs. It does not
 write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.

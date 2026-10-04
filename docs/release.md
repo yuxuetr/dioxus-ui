@@ -680,8 +680,8 @@ first.
   implements click, keyboard, and hover disclosure with dismissal, but not
   viewport size measurement (see RFC 0016). Tabs, Radio Group, and Toggle
   Group keep one Tab stop and move focus with arrow keys, and Tabs and Radio
-  Group select the focused item (see RFC 0019); manual tab activation and
-  vertical tabs are not implemented. These groups, Menubar, and Navigation
+  Group select the focused item (see RFC 0019); Tabs also supports manual
+  activation and a vertical orientation (see RFC 0026). These groups, Menubar, and Navigation
   Menu swap Left and Right in right-to-left layouts (see RFC 0025); Calendar
   grid keys do not. Accordion reports
   toggles and moves focus between triggers with Up and Down (see RFC 0021);

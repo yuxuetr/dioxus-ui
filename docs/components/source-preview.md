@@ -73,7 +73,7 @@ Source preview routes: 64
 | [Spinner](spinner.md) | /components/spinner/source | crates/dioxus-ui-cli/templates/spinner.rs | src/components/ui/spinner.rs | rust | 45 | 958 |
 | [Switch](switch.md) | /components/switch/source | crates/dioxus-ui-cli/templates/switch.rs | src/components/ui/switch.rs | rust | 49 | 1326 |
 | [Table](table.md) | /components/table/source | crates/dioxus-ui-cli/templates/table.rs | src/components/ui/table.rs | rust | 149 | 3419 |
-| [Tabs](tabs.md) | /components/tabs/source | crates/dioxus-ui-cli/templates/tabs.rs | src/components/ui/tabs.rs | rust | 132 | 4141 |
+| [Tabs](tabs.md) | /components/tabs/source | crates/dioxus-ui-cli/templates/tabs.rs | src/components/ui/tabs.rs | rust | 189 | 6499 |
 | [Textarea](textarea.md) | /components/textarea/source | crates/dioxus-ui-cli/templates/textarea.rs | src/components/ui/textarea.rs | rust | 36 | 1003 |
 | [Toast](toast.md) | /components/toast/source | crates/dioxus-ui-cli/templates/toast.rs | src/components/ui/toast.rs | rust | 396 | 10817 |
 | [Toggle](toggle.md) | /components/toggle/source | crates/dioxus-ui-cli/templates/toggle.rs | src/components/ui/toggle.rs | rust | 77 | 1865 |

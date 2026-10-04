@@ -802,8 +802,8 @@ dismissal), real Tabs, Radio Group, and Toggle Group components (one Tab
 stop, arrow movement, selection following focus), a real Accordion
 (toggle reporting, trigger arrow movement, region links), Tooltip and
 Hover Card hover and focus opening, a real Command (highlight movement,
-query resets, choosing from the input), and right-to-left arrow mirroring in
-the roving groups and menus. It requires Playwright
+query resets, choosing from the input), right-to-left arrow mirroring in
+the roving groups and menus, and vertical, manually activated Tabs. It requires Playwright
 Chromium or `DIOXUS_UI_BROWSER_EXECUTABLE`, does not write screenshots or
 traces, and does not claim full accessibility certification, native Desktop or
 Mobile coverage, or visual parity.

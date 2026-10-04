@@ -176,4 +176,6 @@ Card hover and focus opening
 Command keyboard and filtering
 ([RFC 0024](rfcs/0024-command-keyboard-and-filtering.md)), and M150 to
 right-to-left arrow mirroring
-([RFC 0025](rfcs/0025-right-to-left-arrow-mirroring.md)).
+([RFC 0025](rfcs/0025-right-to-left-arrow-mirroring.md)), and M151 to Tabs
+manual activation and vertical orientation
+([RFC 0026](rfcs/0026-tabs-manual-activation-and-vertical-orientation.md)).
