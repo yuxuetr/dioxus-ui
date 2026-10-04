@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M159 Carousel Slide Changes
-- Current task: M159.4 Complete carousel milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2903,7 +2903,7 @@
   - Render a labelled three-slide Carousel with indicators in the Web preview and extend `npm run verify:runtime-interactions` to assert that Next, Previous, indicators, and arrow keys change the index, that the selected slide lines up with the viewport, that the ends disable the controls, and that passed attributes and labels render.
   - Reverse-verify that the script fails when the click callbacks are removed, when the key step is removed, when items are not translated, when the default label is kept over a passed one, or when attributes are not spread.
 
-- TODO M159.4 Complete carousel milestone
+- DONE M159.4 Complete carousel milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
