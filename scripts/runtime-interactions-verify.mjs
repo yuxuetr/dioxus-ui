@@ -269,10 +269,10 @@ async function runBrowserAssertions() {
     // Visibility comes from the Rust render; the page scripts attach their
     // listeners a frame later, once placement has made the content fixed.
     const expectAnchoredReady = (target) =>
-      expect(target.locator("[data-dxui-anchored]")).toHaveCSS("position", "fixed");
+      expect(target.locator("[data-dxui-anchored]").first()).toHaveCSS("position", "fixed");
     const popover = page.locator('[data-interaction-target="popover"]');
     const popoverTrigger = page.locator('[data-interaction-control="popover-trigger"]');
-    const popoverContent = popover.locator('[role="dialog"]');
+    const popoverContent = popover.locator('[role="dialog"]:not([data-interaction-control])');
     const boxes = async () => ({
       trigger: await popoverTrigger.boundingBox(),
       content: await popoverContent.boundingBox(),
@@ -286,6 +286,15 @@ async function runBrowserAssertions() {
     await popoverTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
     await popoverTrigger.click();
     await expect(popoverContent).toHaveAttribute("data-side", "bottom");
+    // Without a title or description the content points at neither.
+    const plainPopover = popover.locator('[data-interaction-control="plain-popover"]');
+    await expect(plainPopover).not.toHaveAttribute("aria-labelledby");
+    await expect(plainPopover).not.toHaveAttribute("aria-describedby");
+    // The content is named by its title and described by its description.
+    await expect(popoverContent).toHaveAccessibleName("Dimensions");
+    await expect(popoverContent).toHaveAccessibleDescription(
+      "Placed below the trigger, or above it near the viewport bottom.",
+    );
     let placed = await boxes();
     if (placed.content.y < placed.trigger.y + placed.trigger.height) {
       throw new Error(`popover should sit below its trigger: ${JSON.stringify(placed)}`);
@@ -1755,6 +1764,11 @@ async function runBrowserAssertions() {
     const alertDialogAction = alertDialogContent.getByRole("button", { name: "Delete" });
     await expect(alertDialogContent).toBeHidden();
     await alertDialogTrigger.click();
+    // A passed aria-label replaces the title as the name; the description
+    // still describes it.
+    await expect(alertDialogContent).toHaveAccessibleName("Confirm deletion");
+    await expect(alertDialogContent).not.toHaveAttribute("aria-labelledby");
+    await expect(alertDialogContent).toHaveAccessibleDescription("This cannot be undone.");
     await expect(alertDialogCancel).toBeFocused();
     await page.keyboard.press("Tab");
     await expect(alertDialogAction).toBeFocused();
@@ -1782,6 +1796,22 @@ async function runBrowserAssertions() {
     await expect(dialog).toHaveAttribute("data-state", "closed");
     await expect(dialogContent).toBeHidden();
     await dialogTrigger.click();
+    await expect(dialogContent).toHaveAccessibleName("Rename project");
+    await expect(dialogContent).toHaveAccessibleDescription("Focus stays inside until the dialog closes.");
+    // Every id reference on the page, hidden content included, resolves.
+    const danglingReferences = await page.evaluate(() =>
+      [...document.querySelectorAll("[aria-labelledby], [aria-describedby], [aria-controls]")].flatMap((element) =>
+        ["aria-labelledby", "aria-describedby", "aria-controls"].flatMap((name) =>
+          (element.getAttribute(name) ?? "")
+            .split(/\s+/)
+            .filter((id) => id && !document.getElementById(id))
+            .map((id) => `${name}=${id}`),
+        ),
+      ),
+    );
+    if (danglingReferences.length > 0) {
+      throw new Error(`id references point at missing elements: ${danglingReferences.join(", ")}`);
+    }
     await expect(dialogContent).toBeVisible();
     await expect(dialogInput).toBeFocused();
     await page.keyboard.press("Tab");

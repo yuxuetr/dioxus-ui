@@ -1169,6 +1169,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               PopoverTitle { "Dimensions" }
               PopoverDescription { "Placed below the trigger, or above it near the viewport bottom." }
             }
+            PopoverContent { "data-interaction-control": "plain-popover", "Plain popover" }
           }
           article {
             class: "rounded-md border border-zinc-200 p-4",
@@ -2175,6 +2176,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             AlertDialogContent {
               open: alert_dialog_open(),
               on_open_change: move |open| alert_dialog_open.set(open),
+              "aria-label": "Confirm deletion",
               AlertDialogTitle { "Delete project?" }
               AlertDialogDescription { "This cannot be undone." }
               AlertDialogCancel { on_open_change: move |open| alert_dialog_open.set(open), "Cancel" }

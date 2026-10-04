@@ -59,6 +59,7 @@ Out of scope, with reevaluation conditions:
 | Hover Card and Date Picker content names | Hover Card content is supplementary and opens on hover; Date Picker content holds a labelled calendar grid | A consumer reports an unnamed Hover Card or Date Picker |
 | Attribute spreading on titles, descriptions, headers, and footers | A passed `id` on a title would break the generated link | A consumer needs to style or identify one |
 | A warning for a dialog without a title | Dioxus has no development-only warning channel the components use | A consumer ships an unnamed dialog |
+| Names in server-rendered HTML before hydration | Title and description parts register in an effect, which SSR does not run, so the first HTML has no `aria-labelledby`; dialogs normally open on the client | A consumer server-renders an open dialog |
 | Browser fixtures for Sheet and Drawer | They call the same hook and render the same parts as Dialog; the generated fixture smoke compiles their templates | Their content diverges from Dialog |
 
 ## Verification
@@ -68,6 +69,10 @@ Out of scope, with reevaluation conditions:
   Dialog, and Popover fixtures are found by role with their title as the name
   and their description as the accessible description, and that a Popover
   given `aria-label` uses it over its title.
-- Reverse checks: not rendering the title id, rendering `aria-labelledby`
-  without a mounted title, ignoring a passed `aria-label`, or not spreading the
-  content attributes each make the verifier fail.
+- A closed Popover with neither part renders neither attribute, and a
+  page-wide check fails on any `aria-labelledby`, `aria-describedby`, or
+  `aria-controls` id that matches no element.
+- Reverse checks: not rendering the title id, rendering `aria-labelledby` or
+  `aria-describedby` without the part mounted, ignoring a passed
+  `aria-label`, or not spreading the content attributes each make the
+  verifier fail.
