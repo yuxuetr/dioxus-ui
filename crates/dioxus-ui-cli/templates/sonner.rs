@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use super::utils::classes;
+use super::utils::{classes, use_dismiss_timer};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum SonnerPlacement {
@@ -94,6 +94,23 @@ pub fn sonner_placement_attribute(placement: SonnerPlacement) -> &'static str {
     SonnerPlacement::BottomLeft => "bottom-left",
     SonnerPlacement::BottomCenter => "bottom-center",
     SonnerPlacement::BottomRight => "bottom-right",
+  }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum SonnerDismissReason {
+  Action,
+  Close,
+  Timeout,
+  Programmatic,
+}
+
+pub fn sonner_dismiss_reason_attribute(reason: SonnerDismissReason) -> &'static str {
+  match reason {
+    SonnerDismissReason::Action => "action",
+    SonnerDismissReason::Close => "close",
+    SonnerDismissReason::Timeout => "timeout",
+    SonnerDismissReason::Programmatic => "programmatic",
   }
 }
 
@@ -269,20 +286,29 @@ pub fn SonnerViewport(
   }
 }
 
+/// Calls `on_dismiss(Timeout)` after `duration_ms` of open time, pausing while
+/// the pointer is over the toast or focus is inside it. `0` disables the timer.
 #[component]
 pub fn SonnerToast(
   #[props(default = SonnerVariant::Default)] variant: SonnerVariant,
+  #[props(default = true)] open: bool,
   #[props(default)] class: String,
+  #[props(default = 5000)] duration_ms: u64,
+  #[props(default)] on_dismiss: Option<EventHandler<SonnerDismissReason>>,
   children: Element,
 ) -> Element {
   let class = sonner_toast_class(variant, &class);
+  let dismiss_timer = use_dismiss_timer(open, duration_ms, on_dismiss, SonnerDismissReason::Timeout);
 
   rsx! {
     div {
       role: "status",
       class,
+      hidden: !open,
       "aria-live": sonner_live_attribute(variant),
+      "data-state": if open { "open" } else { "closed" },
       "data-variant": sonner_variant_attribute(variant),
+      "data-dxui-dismiss-timer": dismiss_timer,
       {children}
     }
   }
@@ -347,6 +373,8 @@ pub fn SonnerDescription(
 pub fn SonnerAction(
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
+  #[props(default)] on_dismiss: Option<EventHandler<SonnerDismissReason>>,
   children: Element,
 ) -> Element {
   let class = sonner_action_class(disabled, &class);
@@ -356,6 +384,14 @@ pub fn SonnerAction(
       r#type: "button",
       class,
       disabled,
+      onclick: move |event| {
+        if let Some(handler) = onclick {
+          handler.call(event);
+        }
+        if let Some(handler) = on_dismiss {
+          handler.call(SonnerDismissReason::Action);
+        }
+      },
       {children}
     }
   }
@@ -365,6 +401,7 @@ pub fn SonnerAction(
 pub fn SonnerClose(
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
+  #[props(default)] on_dismiss: Option<EventHandler<SonnerDismissReason>>,
   children: Element,
 ) -> Element {
   let class = sonner_close_class(disabled, &class);
@@ -375,6 +412,11 @@ pub fn SonnerClose(
       class,
       disabled,
       "aria-label": "Close notification",
+      onclick: move |_| {
+        if let Some(handler) = on_dismiss {
+          handler.call(SonnerDismissReason::Close);
+        }
+      },
       {children}
     }
   }

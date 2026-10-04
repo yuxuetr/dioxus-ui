@@ -1,8 +1,8 @@
 # Sonner
 
-Sonner provides opinionated toast notification parts and pure queue helpers. It
-does not own timers, promise orchestration, portal mounting, focus movement, or
-live-region runtime.
+Sonner provides opinionated toast notification parts and pure queue helpers.
+Each toast dismisses itself after a countdown that pauses on hover and focus.
+It does not own promise orchestration, portal mounting, or focus movement.
 
 ## Source Copy
 
@@ -33,10 +33,29 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["sonner"] }
 - `sonner_queue_push`
 - `sonner_queue_dismiss`
 - `sonner_is_expired`
+- `SonnerDismissReason`
+- `sonner_dismiss_reason_attribute`
+
+## Behavior
+
+The app owns the queue and renders one `SonnerToast` per item. Pass the same
+`on_dismiss` handler to `SonnerToast`, `SonnerAction`, and `SonnerClose`; it
+receives a `SonnerDismissReason`, usually followed by `sonner_queue_dismiss`.
+
+- `SonnerToast` calls `on_dismiss(Timeout)` after `duration_ms` (default
+  `5000`) of open time, pausing while the pointer is over the toast or focus is
+  inside it. `0` disables the countdown, which suits loading toasts.
+- `open` defaults to `true`; set it to `false` to hide a toast without
+  unmounting it.
+- `SonnerAction` runs `onclick`, then calls `on_dismiss(Action)`.
+- `SonnerClose` calls `on_dismiss(Close)`.
+
+Sonner shares the Toast countdown script; only the Web renderer is covered by
+`npm run verify:runtime-interactions`.
 
 ## Accessibility Notes
 
 The toast root exposes status semantics and `aria-live` based on variant
-urgency. Variant icons are decorative. Apps own announcement wording, timer
-scheduling, promise state, portal placement, escape-key behavior, and focus
-policy.
+urgency. Variant icons are decorative. The countdown pauses on hover and focus
+so the message stays readable. Apps own announcement wording, promise state,
+portal placement, escape-key behavior, and focus policy.

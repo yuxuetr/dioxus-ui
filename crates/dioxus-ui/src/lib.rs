@@ -614,12 +614,12 @@ pub use sonner::{
   SONNER_ACTION_BASE_CLASS, SONNER_CLOSE_BASE_CLASS, SONNER_CONTENT_BASE_CLASS,
   SONNER_DESCRIPTION_BASE_CLASS, SONNER_ICON_BASE_CLASS, SONNER_TITLE_BASE_CLASS,
   SONNER_TOAST_BASE_CLASS, SONNER_VIEWPORT_BASE_CLASS, SonnerAction, SonnerClose, SonnerContent,
-  SonnerDescription, SonnerIcon, SonnerItem, SonnerPlacement, SonnerQueue, SonnerTitle,
-  SonnerToast, SonnerVariant, SonnerViewport, sonner_action_class, sonner_close_class,
-  sonner_content_class, sonner_description_class, sonner_icon_class, sonner_is_expired,
-  sonner_live_attribute, sonner_placement_attribute, sonner_queue_dismiss, sonner_queue_limit,
-  sonner_queue_push, sonner_title_class, sonner_toast_class, sonner_variant_attribute,
-  sonner_viewport_class,
+  SonnerDescription, SonnerDismissReason, SonnerIcon, SonnerItem, SonnerPlacement, SonnerQueue,
+  SonnerTitle, SonnerToast, SonnerVariant, SonnerViewport, sonner_action_class, sonner_close_class,
+  sonner_content_class, sonner_description_class, sonner_dismiss_reason_attribute,
+  sonner_icon_class, sonner_is_expired, sonner_live_attribute, sonner_placement_attribute,
+  sonner_queue_dismiss, sonner_queue_limit, sonner_queue_push, sonner_title_class,
+  sonner_toast_class, sonner_variant_attribute, sonner_viewport_class,
 };
 #[cfg(feature = "spinner")]
 pub use spinner::{SPINNER_BASE_CLASS, Spinner, SpinnerSize, spinner_class};
