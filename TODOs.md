@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M157 Input OTP Value Changes
-- Current task: M157.4 Complete Input OTP milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2863,7 +2863,7 @@
   - Render a labelled six-digit Input OTP in the Web preview and extend `npm run verify:runtime-interactions` to assert that a press focuses the input, that typed and inserted text reaches app state cleaned and cut at the length, that Backspace after a rejected letter removes the last digit, and that passed attributes render.
   - Reverse-verify that the script fails when the callback is removed, when attributes are not spread, when the filter script does not start, or when it does not cut at the length.
 
-- TODO M157.4 Complete Input OTP milestone
+- DONE M157.4 Complete Input OTP milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
