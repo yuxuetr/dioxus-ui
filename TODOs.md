@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 99%
+- Current milestone: M146 Accordion Interaction
+- Current task: M146.1 Design accordion interaction
 
 ## Backup
 
@@ -2626,6 +2626,26 @@
 - DONE M145.4 Complete Android verification milestone
   - Update the Desktop and Mobile verification strategy, the Mobile checklist, component docs, quality gates, Known Pre-1.0 Limitations, and CHANGELOG Unreleased notes.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop, iOS, and Android self-tests.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M146 Accordion Interaction
+
+- TODO M146.1 Design accordion interaction
+  - Record that Accordion renders state only: `AccordionItem` has no value, triggers have no click reporting, no trigger handles arrow keys, triggers have no heading wrapper, and triggers and content are not linked by ids.
+  - Define an `Accordion` root that reports toggled items, `AccordionItem` `value`, heading-wrapped triggers with `aria-controls`, region content with `aria-labelledby`, and Up, Down, Home, and End movement between enabled triggers that keeps every trigger in the Tab order, reusing the roving group script.
+  - Record what stays out of scope (an expanded item that cannot collapse, horizontal accordions, animation, Desktop and Mobile self-test scenarios) with reevaluation conditions.
+
+- TODO M146.2 Implement accordion interaction
+  - Add an every-item Tab stop mode to the roving group script in the crate and the template `utils.rs`, share the part id builder with Tabs, and wire Accordion in the crate and the template.
+  - Add single and multiple open-value helpers and update the Accordion docs page.
+
+- TODO M146.3 Verify accordion behavior in a real browser
+  - Render a real Accordion in the Web preview and extend `npm run verify:runtime-interactions` to assert id links and region names, clicks and Enter toggling, collapsing an open item, arrow movement that skips disabled triggers and wraps, Home and End, focus without toggling, and Tab reaching every enabled trigger.
+  - Reverse-verify that the script fails when click reporting, arrow movement, the every-item Tab stop mode, or the id links are removed.
+
+- TODO M146.4 Complete accordion milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 
 ## Status Rules
