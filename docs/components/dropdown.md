@@ -46,8 +46,9 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["dropdown"]
   first and last item; typing a prefix focuses the next matching item.
 - Enter, Space, or a click on an enabled item calls the item's `onclick` and
   then requests close. Disabled items do not call `onclick`.
-- Closing returns focus to the element focused before opening, usually the
-  trigger, unless focus already moved to another control. Tab moves focus out
+- Closing returns focus to the `anchor_id` element, or without one to the
+  element focused before opening, unless focus already moved to another
+  control. Tab moves focus out
   of the menu, which closes it.
 
 Only the Web renderer is covered by `npm run verify:runtime-interactions`.

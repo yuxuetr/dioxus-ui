@@ -145,10 +145,13 @@ listbox.removeEventListener("click", onClick);
 highlight(null);
 if (isMenu) {
   // Focus still inside the hidden menu, or blurred to the body, goes back to
-  // where it was before opening; focus moved to another control stays there.
+  // the anchor (a menubar may have switched menus since this one opened), or
+  // without one to where it was before opening; focus moved to another
+  // control stays there.
   const active = document.activeElement;
   const focusLeft = active !== null && active !== document.body && !listbox.contains(active);
-  if (!focusLeft && previous instanceof HTMLElement && previous.isConnected) previous.focus();
+  const returnTo = anchor || previous;
+  if (!focusLeft && returnTo instanceof HTMLElement && returnTo.isConnected) returnTo.focus();
 }
 "#;
 
@@ -165,7 +168,7 @@ pub(crate) enum ListboxMode {
   /// Menu: focuses the first item, moves DOM focus with wrapping arrows, Home,
   /// End, and typeahead, activates items by clicking them, and returns focus
   /// on close.
-  #[cfg(any(feature = "context-menu", feature = "dropdown"))]
+  #[cfg(any(feature = "context-menu", feature = "dropdown", feature = "menubar"))]
   Menu,
 }
 
@@ -176,7 +179,7 @@ impl ListboxMode {
       Self::Select => "select",
       #[cfg(feature = "combobox")]
       Self::Combobox => "combobox",
-      #[cfg(any(feature = "context-menu", feature = "dropdown"))]
+      #[cfg(any(feature = "context-menu", feature = "dropdown", feature = "menubar"))]
       Self::Menu => "menu",
     }
   }
@@ -189,7 +192,7 @@ impl ListboxMode {
       Self::Select => true,
       #[cfg(feature = "combobox")]
       Self::Combobox => true,
-      #[cfg(any(feature = "context-menu", feature = "dropdown"))]
+      #[cfg(any(feature = "context-menu", feature = "dropdown", feature = "menubar"))]
       Self::Menu => false,
     }
   }

@@ -41,9 +41,9 @@ pub fn dropdown_separator_class(class: &str) -> String {
 
 /// Opening focuses the first enabled item. Arrows move focus with wrapping,
 /// Home, End, and typeahead jump, and activating an item requests close and
-/// returns focus to where it was before opening. With `anchor_id` the menu is
-/// placed next to that element. Escape and outside interactions request close
-/// per `dismiss`.
+/// returns focus to the `anchor_id` element, or without one to where it was
+/// before opening. With `anchor_id` the menu is placed next to that element.
+/// Escape and outside interactions request close per `dismiss`.
 #[component]
 pub fn DropdownContent(
   #[props(default)] open: bool,

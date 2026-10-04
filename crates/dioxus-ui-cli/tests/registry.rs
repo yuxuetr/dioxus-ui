@@ -183,21 +183,21 @@ fn generated_templates_do_not_import_internal_crates() {
 
 #[test]
 fn template_overlay_scripts_match_crate_scripts() {
-  let template_source = fs::read_to_string(cli_root().join("templates/utils.rs"))
-    .expect("utils template should be readable");
-
-  for (crate_file, name) in [
-    ("crates/dioxus-ui/src/modal_focus.rs", "MODAL_FOCUS_SCOPE_SCRIPT"),
-    ("crates/dioxus-ui/src/anchored_overlay.rs", "ANCHORED_OVERLAY_SCRIPT"),
-    ("crates/dioxus-ui/src/dismiss_timer.rs", "DISMISS_TIMER_SCRIPT"),
-    ("crates/dioxus-ui/src/listbox.rs", "LISTBOX_SCRIPT"),
+  for (crate_file, template_file, name) in [
+    ("crates/dioxus-ui/src/modal_focus.rs", "templates/utils.rs", "MODAL_FOCUS_SCOPE_SCRIPT"),
+    ("crates/dioxus-ui/src/anchored_overlay.rs", "templates/utils.rs", "ANCHORED_OVERLAY_SCRIPT"),
+    ("crates/dioxus-ui/src/dismiss_timer.rs", "templates/utils.rs", "DISMISS_TIMER_SCRIPT"),
+    ("crates/dioxus-ui/src/listbox.rs", "templates/utils.rs", "LISTBOX_SCRIPT"),
+    ("crates/dioxus-ui/src/menubar.rs", "templates/menubar.rs", "MENUBAR_SCRIPT"),
   ] {
     let crate_source = fs::read_to_string(workspace_root().join(crate_file))
       .unwrap_or_else(|error| panic!("{crate_file} should be readable: {error}"));
+    let template_source = fs::read_to_string(cli_root().join(template_file))
+      .unwrap_or_else(|error| panic!("{template_file} should be readable: {error}"));
     assert_eq!(
       raw_string_const(&template_source, name),
       raw_string_const(&crate_source, name),
-      "templates/utils.rs {name} should match {crate_file}"
+      "{template_file} {name} should match {crate_file}"
     );
   }
 }

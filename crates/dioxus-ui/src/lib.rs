@@ -84,6 +84,7 @@ mod modal_focus;
   feature = "date-picker",
   feature = "dropdown",
   feature = "hover-card",
+  feature = "menubar",
   feature = "popover",
   feature = "select",
   feature = "tooltip"
@@ -94,6 +95,7 @@ mod anchored_overlay;
   feature = "combobox",
   feature = "context-menu",
   feature = "dropdown",
+  feature = "menubar",
   feature = "select"
 ))]
 mod listbox;
@@ -499,12 +501,13 @@ pub use marker::{
 };
 #[cfg(feature = "menubar")]
 pub use menubar::{
-  DropdownPrimitiveConfig as MenubarPrimitiveConfig, MENUBAR_BASE_CLASS,
-  MENUBAR_CONTENT_BASE_CLASS, MENUBAR_ITEM_BASE_CLASS, MENUBAR_ITEM_INSET_CLASS,
-  MENUBAR_LABEL_BASE_CLASS, MENUBAR_MENU_BASE_CLASS, MENUBAR_SEPARATOR_BASE_CLASS,
-  MENUBAR_SHORTCUT_BASE_CLASS, MENUBAR_TRIGGER_BASE_CLASS, Menubar, MenubarCheckboxItem,
-  MenubarContent, MenubarItem, MenubarLabel, MenubarMenu, MenubarRadioGroup, MenubarRadioItem,
-  MenubarSeparator, MenubarShortcut, MenubarTrigger, menubar_class, menubar_content_class,
+  DismissBehavior as MenubarDismissBehavior, DropdownPrimitiveConfig as MenubarPrimitiveConfig,
+  MENUBAR_BASE_CLASS, MENUBAR_CONTENT_BASE_CLASS, MENUBAR_ITEM_BASE_CLASS,
+  MENUBAR_ITEM_INSET_CLASS, MENUBAR_LABEL_BASE_CLASS, MENUBAR_MENU_BASE_CLASS,
+  MENUBAR_SEPARATOR_BASE_CLASS, MENUBAR_SHORTCUT_BASE_CLASS, MENUBAR_TRIGGER_BASE_CLASS, Menubar,
+  MenubarCheckboxItem, MenubarContent, MenubarItem, MenubarLabel, MenubarMenu, MenubarRadioGroup,
+  MenubarRadioItem, MenubarSeparator, MenubarShortcut, MenubarTrigger,
+  OverlayAlign as MenubarAlign, OverlaySide as MenubarSide, menubar_class, menubar_content_class,
   menubar_item_class, menubar_label_class, menubar_menu_class, menubar_separator_class,
   menubar_shortcut_class, menubar_trigger_class,
 };
