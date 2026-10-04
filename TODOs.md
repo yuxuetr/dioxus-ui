@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M163 Form Control Naming
-- Current task: M163.4 Complete form control naming milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2980,7 +2980,7 @@
   - Label the radio group, its items, a progress bar, the Select trigger, and the Combobox input in the Web preview and extend `npm run verify:runtime-interactions` to assert their accessible names and descriptions through role queries.
   - Reverse-verify that the script fails when any of the five parts does not spread its attributes.
 
-- TODO M163.4 Complete form control naming milestone
+- DONE M163.4 Complete form control naming milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
