@@ -174,6 +174,9 @@ release owner renames it to the released version at publish time.
 ### Fixed
 
 - Stale template repository links are no longer part of the changelog.
+- A passed `aria-label` on `PaginationPrevious` and `PaginationNext` replaces
+  the English default in server-rendered HTML too, where both attributes were
+  written and the default won.
 
 ### Excluded From First Publish
 

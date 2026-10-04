@@ -192,4 +192,6 @@ Collapsible and Native Select events
 Input OTP value changes
 ([RFC 0032](rfcs/0032-input-otp-value-changes.md)), and M158 to Pagination
 page changes ([RFC 0033](rfcs/0033-pagination-page-changes.md)), and M159 to
-Carousel slide changes ([RFC 0034](rfcs/0034-carousel-slide-changes.md)).
+Carousel slide changes ([RFC 0034](rfcs/0034-carousel-slide-changes.md)), and
+M160 to control label overrides
+([RFC 0035](rfcs/0035-control-label-overrides.md)).

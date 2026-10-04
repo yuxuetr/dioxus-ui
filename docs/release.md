@@ -685,7 +685,9 @@ first.
   controls report clicks through `onclick` and render buttons without an
   `href` (see RFC 0033); a page range helper is not included. Carousel shows
   the selected index and reports clicks and arrow keys (see RFC 0034); swipe
-  gestures and autoplay are not included. Date Picker and
+  gestures and autoplay are not included. A passed `aria-label` replaces the
+  English default on Pagination and Carousel controls in the browser and in
+  SSR (see RFC 0035). Date Picker and
   Calendar implement anchored placement, focus entry, and day keyboard
   navigation (see RFC 0013); typed date parsing and source-copy date arithmetic
   are not included. Dropdown and Context Menu implement menu keyboard
