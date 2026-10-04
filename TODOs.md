@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20% (M136 1/5)
+- Overall: 40% (M136 2/5)
 - Current milestone: M136 Toast and Sonner Runtime Behavior
-- Current task: M136.2 Implement Toast auto-dismiss and dismiss callbacks
+- Current task: M136.3 Apply timer and dismiss callbacks to Sonner
 
 ## Backup
 
@@ -2417,7 +2417,7 @@
   - Define the additive API (`duration_ms`, `on_dismiss` with `ToastDismissReason`), the page-side countdown that pauses while the pointer is over or focus is inside the toast, and a persistent viewport live region.
   - Record Stage 7 Toast and Sonner exit criterion scope and what stays app-owned (queue state, swipe, stacking animation).
 
-- TODO M136.2 Implement Toast auto-dismiss and dismiss callbacks
+- DONE M136.2 Implement Toast auto-dismiss and dismiss callbacks
   - `ToastRoot` counts down `duration_ms` while open, pauses on hover and focus within, and calls `on_dismiss(Timeout)`; `0` disables the timer.
   - `ToastClose` calls `on_dismiss(Close)` and `ToastAction` runs `onclick` then `on_dismiss(Action)`.
   - Mirror the timer helper into the utils template with a script parity test, and update the docs page.
