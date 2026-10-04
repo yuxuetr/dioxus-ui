@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M156 Collapsible And Native Select Events
+- Current task: M156.1
 
 ## Backup
 
@@ -2824,6 +2824,26 @@
   - Reverse-verify that the script fails when the key mapping swaps directions, when Page keys use the single step, when the pointer script is not started, or when the disabled guard is removed.
 
 - DONE M155.4 Complete slider milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M156 Collapsible And Native Select Events
+
+- TODO M156.1 Design collapsible and native select events
+  - Record that `CollapsibleTrigger` renders a button with `aria-expanded` but no click callback, that `NativeSelect` reports no change, and that neither accepts `id`, `name`, or `aria-*`, so a `Label` cannot name a Native Select.
+  - Define `on_open_change: Option<EventHandler<bool>>` on `CollapsibleTrigger` with the requested state, matching Dialog and Popover, and `on_value_change: Option<EventHandler<String>>` on `NativeSelect`; spread global and element attributes on `Collapsible`, `CollapsibleTrigger`, `CollapsibleContent`, and `NativeSelect`.
+  - Record what stays out of scope (a root-level open context that links ids automatically, a `value` prop on Native Select, multiple selection, Desktop and Mobile self-test scenarios) with reevaluation conditions.
+
+- TODO M156.2 Implement collapsible and native select events
+  - Add the callbacks and attribute spreading to the crate sources and templates.
+  - Update the Collapsible and Native Select docs pages.
+
+- TODO M156.3 Verify events in a real browser
+  - Render a Collapsible and a labelled Native Select in the Web preview and extend `npm run verify:runtime-interactions` to assert that a click, Enter, and Space toggle `aria-expanded` and the content, that choosing an option by mouse and keyboard reaches app state, and that passed attributes render.
+  - Reverse-verify that the script fails when a callback is removed, when attributes are not spread, or when the trigger sends the current state instead of the requested one.
+
+- TODO M156.4 Complete collapsible and native select milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
