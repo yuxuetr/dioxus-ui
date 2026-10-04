@@ -106,7 +106,8 @@ Read in this order:
 100. [RFC 0037: Sidebar Toggle And Items](rfcs/0037-sidebar-toggle-and-items.md)
 101. [RFC 0038: Form Control Naming](rfcs/0038-form-control-naming.md)
 102. [RFC 0039: Dialog Names](rfcs/0039-dialog-names.md)
-103. [TODO Plan](../TODOs.md)
+103. [RFC 0040: Composite Widget Names](rfcs/0040-composite-widget-names.md)
+104. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 

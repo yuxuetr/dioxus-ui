@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M165 Composite Widget Names
+- Current task: M165.1 Design composite widget names
 
 ## Backup
 
@@ -3001,6 +3001,26 @@
   - Reverse-verify that the script fails when the title id is not rendered, when `aria-labelledby` ignores whether a title is mounted, when a passed `aria-label` is ignored, or when content attributes are not spread.
 
 - DONE M164.4 Complete dialog names milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and accessibility docs.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M165 Composite Widget Names
+
+- TODO M165.1 Design composite widget names
+  - Record that the tab list, toggle group, menu bar, and calendar grid roles render without a name or a way to pass one, that the Navigation Menu landmark is unnamed, and that the calendar caption cannot take an `id`.
+  - Define attribute spreading on `TabsList`, `ToggleGroup`, `Menubar`, `NavigationMenu`, `CalendarGrid`, and `CalendarCaption`.
+  - Record what stays out of scope (automatic caption linking, spreading on the remaining parts, Desktop and Mobile self-test scenarios) with reevaluation conditions.
+
+- TODO M165.2 Implement composite widget names
+  - Add attribute spreading to the crate source and template.
+  - Update the Tabs, Toggle Group, Menubar, Navigation Menu, and Calendar docs pages.
+
+- TODO M165.3 Verify composite widget names in a real browser
+  - Name the Tabs, Toggle Group, Menubar, Navigation Menu, and Calendar fixtures in the Web preview and extend `npm run verify:runtime-interactions` to find each by role and name.
+  - Reverse-verify that the script fails when any of the six parts does not spread its attributes.
+
+- TODO M165.4 Complete composite widget names milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and accessibility docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
