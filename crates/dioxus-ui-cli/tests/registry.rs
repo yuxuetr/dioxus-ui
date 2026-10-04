@@ -188,6 +188,7 @@ fn template_overlay_scripts_match_crate_scripts() {
     ("crates/dioxus-ui/src/anchored_overlay.rs", "templates/utils.rs", "ANCHORED_OVERLAY_SCRIPT"),
     ("crates/dioxus-ui/src/dismiss_timer.rs", "templates/utils.rs", "DISMISS_TIMER_SCRIPT"),
     ("crates/dioxus-ui/src/listbox.rs", "templates/utils.rs", "LISTBOX_SCRIPT"),
+    ("crates/dioxus-ui/src/roving_group.rs", "templates/utils.rs", "ROVING_GROUP_SCRIPT"),
     ("crates/dioxus-ui/src/menubar.rs", "templates/menubar.rs", "MENUBAR_SCRIPT"),
     (
       "crates/dioxus-ui/src/navigation_menu.rs",

@@ -60,7 +60,7 @@ Source preview routes: 64
 | [Pagination](pagination.md) | /components/pagination/source | crates/dioxus-ui-cli/templates/pagination.rs | src/components/ui/pagination.rs | rust | 146 | 3638 |
 | [Popover](popover.md) | /components/popover/source | crates/dioxus-ui-cli/templates/popover.rs | src/components/ui/popover.rs | rust | 96 | 2831 |
 | [Progress](progress.md) | /components/progress/source | crates/dioxus-ui-cli/templates/progress.rs | src/components/ui/progress.rs | rust | 49 | 1326 |
-| [Radio Group](radio-group.md) | /components/radio-group/source | crates/dioxus-ui-cli/templates/radio_group.rs | src/components/ui/radio_group.rs | rust | 260 | 6243 |
+| [Radio Group](radio-group.md) | /components/radio-group/source | crates/dioxus-ui-cli/templates/radio_group.rs | src/components/ui/radio_group.rs | rust | 275 | 7083 |
 | [Resizable](resizable.md) | /components/resizable/source | crates/dioxus-ui-cli/templates/resizable.rs | src/components/ui/resizable.rs | rust | 127 | 3755 |
 | [Scroll Area](scroll-area.md) | /components/scroll-area/source | crates/dioxus-ui-cli/templates/scroll_area.rs | src/components/ui/scroll_area.rs | rust | 141 | 3762 |
 | [Select](select.md) | /components/select/source | crates/dioxus-ui-cli/templates/select.rs | src/components/ui/select.rs | rust | 205 | 6222 |
@@ -73,10 +73,10 @@ Source preview routes: 64
 | [Spinner](spinner.md) | /components/spinner/source | crates/dioxus-ui-cli/templates/spinner.rs | src/components/ui/spinner.rs | rust | 45 | 958 |
 | [Switch](switch.md) | /components/switch/source | crates/dioxus-ui-cli/templates/switch.rs | src/components/ui/switch.rs | rust | 49 | 1326 |
 | [Table](table.md) | /components/table/source | crates/dioxus-ui-cli/templates/table.rs | src/components/ui/table.rs | rust | 149 | 3419 |
-| [Tabs](tabs.md) | /components/tabs/source | crates/dioxus-ui-cli/templates/tabs.rs | src/components/ui/tabs.rs | rust | 81 | 2071 |
+| [Tabs](tabs.md) | /components/tabs/source | crates/dioxus-ui-cli/templates/tabs.rs | src/components/ui/tabs.rs | rust | 149 | 4593 |
 | [Textarea](textarea.md) | /components/textarea/source | crates/dioxus-ui-cli/templates/textarea.rs | src/components/ui/textarea.rs | rust | 36 | 1003 |
 | [Toast](toast.md) | /components/toast/source | crates/dioxus-ui-cli/templates/toast.rs | src/components/ui/toast.rs | rust | 396 | 10817 |
 | [Toggle](toggle.md) | /components/toggle/source | crates/dioxus-ui-cli/templates/toggle.rs | src/components/ui/toggle.rs | rust | 77 | 1865 |
-| [Toggle Group](toggle-group.md) | /components/toggle-group/source | crates/dioxus-ui-cli/templates/toggle_group.rs | src/components/ui/toggle_group.rs | rust | 282 | 6713 |
+| [Toggle Group](toggle-group.md) | /components/toggle-group/source | crates/dioxus-ui-cli/templates/toggle_group.rs | src/components/ui/toggle_group.rs | rust | 297 | 7562 |
 | [Tooltip](tooltip.md) | /components/tooltip/source | crates/dioxus-ui-cli/templates/tooltip.rs | src/components/ui/tooltip.rs | rust | 43 | 1330 |
 | [Typography](typography.md) | /components/typography/source | crates/dioxus-ui-cli/templates/typography.rs | src/components/ui/typography.rs | rust | 103 | 3673 |

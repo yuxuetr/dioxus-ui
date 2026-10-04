@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use super::utils::classes;
+use super::utils::{classes, use_roving_group};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum NavigationOrientation {
@@ -207,15 +207,27 @@ pub fn radio_group_move_value<'a>(
   radio_group_focus_state(orientation, looping, value).move_focus(items, focus_move)
 }
 
+/// Keeps one Tab stop on the checked item, or the first enabled item when
+/// none is checked. Arrow keys for `orientation` move between enabled items,
+/// wrapping when `looping`, and Home and End jump to the first and last. A
+/// click, or an arrow, Home, or End key that moves focus to another item,
+/// calls `on_value_change` with that item's `value`.
 #[component]
 pub fn RadioGroup(
   #[props(default)] value: Option<String>,
   #[props(default)] orientation: NavigationOrientation,
   #[props(default = true)] looping: bool,
+  #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
   let class = radio_group_class(orientation, &class);
+  let scope_id = use_roving_group(on_value_change);
+  let roving_orientation = match orientation {
+    NavigationOrientation::Horizontal => "horizontal",
+    NavigationOrientation::Vertical => "vertical",
+    NavigationOrientation::Both => "both",
+  };
   let orientation = radio_group_orientation_attribute(orientation);
 
   rsx! {
@@ -225,6 +237,10 @@ pub fn RadioGroup(
       "aria-orientation": orientation,
       "data-value": value.unwrap_or_default(),
       "data-looping": looping.to_string(),
+      "data-dxui-roving-group": scope_id,
+      "data-dxui-roving-orientation": roving_orientation,
+      "data-dxui-roving-loop": looping.to_string(),
+      "data-dxui-roving-activation": "focus",
       {children}
     }
   }
@@ -239,7 +255,6 @@ pub fn RadioGroupItem(
 ) -> Element {
   let class = radio_group_item_class(checked, &class);
   let indicator_class = radio_group_indicator_class("");
-  let tabindex = radio_group_item_tabindex(checked, disabled).to_string();
 
   rsx! {
     button {
@@ -247,9 +262,9 @@ pub fn RadioGroupItem(
       role: "radio",
       class,
       disabled,
-      tabindex,
       "aria-checked": checked.to_string(),
       "data-value": value,
+      "data-dxui-roving-item": "",
       span {
         class: indicator_class,
         "aria-hidden": "true",

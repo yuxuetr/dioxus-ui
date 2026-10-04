@@ -1,6 +1,6 @@
 # Tabs
 
-Tabs provides controlled styled list, trigger, and content parts.
+Tabs provides controlled styled root, list, trigger, and content parts.
 
 ## Source Copy
 
@@ -16,6 +16,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["tabs"] }
 
 ## API Surface
 
+- `Tabs`
 - `TabsList`
 - `TabsTrigger`
 - `TabsContent`
@@ -23,7 +24,42 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["tabs"] }
 - `tabs_trigger_class`
 - `tabs_content_class`
 
+## Behavior
+
+The selected tab stays controlled by the app. Keep its value, pass `active` to
+each trigger and panel, and handle `Tabs` `on_value_change`:
+
+```rust
+let mut tab = use_signal(|| "account".to_string());
+
+rsx! {
+  Tabs {
+    on_value_change: move |value: String| tab.set(value),
+    TabsList {
+      TabsTrigger { value: "account", active: tab() == "account", "Account" }
+      TabsTrigger { value: "billing", active: tab() == "billing", "Billing" }
+    }
+    TabsContent { value: "account", active: tab() == "account", "Account settings" }
+    TabsContent { value: "billing", active: tab() == "billing", "Billing settings" }
+  }
+}
+```
+
+- The triggers form one Tab stop on the selected trigger. Tab from it moves
+  into the visible panel, which has `tabindex="0"`.
+- Left and Right move focus between enabled triggers and wrap; Home and End
+  jump to the first and last. Moving focus calls `on_value_change` with the
+  focused trigger's value (automatic activation).
+- A click, Enter, or Space on a trigger calls `on_value_change` with its value.
+- `Tabs` links each trigger to its panel with `aria-controls` and
+  `aria-labelledby`. Without `Tabs`, the parts keep keyboard movement but
+  report nothing and render no ids.
+
+The Web renderer is covered by `npm run verify:runtime-interactions`.
+
 ## Accessibility Notes
 
-Tabs should expose tablist, tab, and tabpanel roles once full ARIA wiring is
-added. Keep active state controlled and make keyboard activation predictable.
+The list uses `role="tablist"` with `aria-orientation="horizontal"`, triggers
+use `role="tab"` with `aria-selected`, and panels use `role="tabpanel"`.
+Manual activation, vertical tabs, and right-to-left arrow mirroring are not
+implemented (see [RFC 0019](../rfcs/0019-roving-group-interaction.md)).

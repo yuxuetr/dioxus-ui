@@ -103,6 +103,9 @@ mod listbox;
 #[cfg(any(feature = "sonner", feature = "toast"))]
 mod dismiss_timer;
 
+#[cfg(any(feature = "radio-group", feature = "tabs", feature = "toggle-group"))]
+mod roving_group;
+
 #[cfg(feature = "direction")]
 pub mod direction;
 
@@ -694,8 +697,8 @@ pub use table::{
 };
 #[cfg(feature = "tabs")]
 pub use tabs::{
-  TABS_CONTENT_BASE_CLASS, TABS_LIST_BASE_CLASS, TABS_TRIGGER_BASE_CLASS, TabsContent, TabsList,
-  TabsTrigger, tabs_content_class, tabs_list_class, tabs_trigger_class,
+  TABS_CONTENT_BASE_CLASS, TABS_LIST_BASE_CLASS, TABS_TRIGGER_BASE_CLASS, Tabs, TabsContent,
+  TabsList, TabsTrigger, tabs_content_class, tabs_list_class, tabs_trigger_class,
 };
 #[cfg(feature = "toast")]
 pub use toast::{

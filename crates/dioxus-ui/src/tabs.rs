@@ -1,5 +1,11 @@
+use std::sync::atomic::{AtomicUsize, Ordering};
+
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
+
+use crate::roving_group::use_roving_group;
+
+static NEXT_TABS_ID: AtomicUsize = AtomicUsize::new(0);
 
 pub const TABS_LIST_BASE_CLASS: &str =
   "inline-flex h-10 items-center justify-center rounded-md bg-zinc-100 p-1 text-zinc-600";
@@ -22,14 +28,67 @@ pub fn tabs_content_class(class: &str) -> String {
   classes([Some(TABS_CONTENT_BASE_CLASS), Some(class)])
 }
 
+#[derive(Clone, PartialEq)]
+struct TabsContext {
+  base_id: String,
+  on_value_change: Option<EventHandler<String>>,
+}
+
+/// Builds a trigger or panel id. Characters that are not ASCII letters,
+/// digits, `-`, or `_` become `-` so the id is a valid IDREF.
+fn tabs_part_id(base_id: &str, part: &str, value: &str) -> String {
+  let value: String = value
+    .chars()
+    .map(|character| {
+      if character.is_ascii_alphanumeric() || character == '-' || character == '_' {
+        character
+      } else {
+        '-'
+      }
+    })
+    .collect();
+
+  format!("{base_id}-{part}-{value}")
+}
+
+/// Links each trigger to its panel by id and reports tab requests: a click on
+/// a trigger, or an arrow, Home, or End key that moves focus to another
+/// trigger, calls `on_value_change` with that trigger's `value`.
+#[component]
+pub fn Tabs(
+  #[props(default)] on_value_change: Option<EventHandler<String>>,
+  #[props(default)] class: String,
+  children: Element,
+) -> Element {
+  let base_id = use_hook(|| format!("dxui-tabs-{}", NEXT_TABS_ID.fetch_add(1, Ordering::Relaxed)));
+  use_context_provider(|| TabsContext { base_id, on_value_change });
+
+  rsx! {
+    div {
+      class,
+      {children}
+    }
+  }
+}
+
+/// Keeps one Tab stop on the selected trigger. Left and Right move between
+/// enabled triggers and wrap; Home and End jump to the first and last.
 #[component]
 pub fn TabsList(#[props(default)] class: String, children: Element) -> Element {
   let class = tabs_list_class(&class);
+  let on_value_change =
+    try_use_context::<TabsContext>().and_then(|context| context.on_value_change);
+  let scope_id = use_roving_group(on_value_change);
 
   rsx! {
     div {
       role: "tablist",
       class,
+      "aria-orientation": "horizontal",
+      "data-dxui-roving-group": scope_id,
+      "data-dxui-roving-orientation": "horizontal",
+      "data-dxui-roving-loop": "true",
+      "data-dxui-roving-activation": "focus",
       {children}
     }
   }
@@ -44,15 +103,21 @@ pub fn TabsTrigger(
   children: Element,
 ) -> Element {
   let class = tabs_trigger_class(active, &class);
+  let base_id = try_use_context::<TabsContext>().map(|context| context.base_id);
+  let id = base_id.as_deref().map(|base_id| tabs_part_id(base_id, "trigger", &value));
+  let controls = base_id.as_deref().map(|base_id| tabs_part_id(base_id, "content", &value));
 
   rsx! {
     button {
       r#type: "button",
       role: "tab",
+      id,
       class,
       disabled,
       "aria-selected": active.to_string(),
+      "aria-controls": controls,
       "data-value": value,
+      "data-dxui-roving-item": "",
       {children}
     }
   }
@@ -66,12 +131,18 @@ pub fn TabsContent(
   children: Element,
 ) -> Element {
   let class = tabs_content_class(&class);
+  let base_id = try_use_context::<TabsContext>().map(|context| context.base_id);
+  let id = base_id.as_deref().map(|base_id| tabs_part_id(base_id, "content", &value));
+  let labelledby = base_id.as_deref().map(|base_id| tabs_part_id(base_id, "trigger", &value));
 
   rsx! {
     div {
       role: "tabpanel",
+      id,
       class,
+      tabindex: "0",
       hidden: !active,
+      "aria-labelledby": labelledby,
       "data-value": value,
       {children}
     }
@@ -89,6 +160,22 @@ mod tests {
     assert!(actual.contains(TABS_TRIGGER_BASE_CLASS));
     assert!(actual.contains("bg-white text-zinc-950 shadow-sm"));
     assert!(actual.ends_with("min-w-24"));
+  }
+
+  #[test]
+  fn tabs_part_id_keeps_valid_characters() {
+    assert_eq!(
+      tabs_part_id("dxui-tabs-0", "trigger", "billing_v2-a"),
+      "dxui-tabs-0-trigger-billing_v2-a"
+    );
+  }
+
+  #[test]
+  fn tabs_part_id_replaces_invalid_characters() {
+    assert_eq!(
+      tabs_part_id("dxui-tabs-0", "content", "team settings/é"),
+      "dxui-tabs-0-content-team-settings--"
+    );
   }
 
   #[test]

@@ -2,6 +2,8 @@ use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 use dioxus_ui_primitives::{FocusMove, NavigationOrientation, RovingFocusItem, RovingFocusState};
 
+use crate::roving_group::use_roving_group;
+
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ToggleGroupType {
   #[default]
@@ -78,15 +80,28 @@ pub fn toggle_group_multiple_selection(current: &[String], toggled_value: &str) 
   next
 }
 
+/// Keeps one Tab stop on the item that last had focus, or the first pressed
+/// or enabled item. Arrow keys for `orientation` move focus between enabled
+/// items without pressing them, wrapping when `looping`, and Home and End jump
+/// to the first and last. A click calls `on_toggle` with the item's `value`;
+/// `toggle_group_single_selection` and `toggle_group_multiple_selection`
+/// compute the next selection from it.
 #[component]
 pub fn ToggleGroup(
   #[props(default)] selection_type: ToggleGroupType,
   #[props(default)] orientation: NavigationOrientation,
   #[props(default = true)] looping: bool,
+  #[props(default)] on_toggle: Option<EventHandler<String>>,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
   let class = toggle_group_class(orientation, &class);
+  let scope_id = use_roving_group(on_toggle);
+  let roving_orientation = match orientation {
+    NavigationOrientation::Horizontal => "horizontal",
+    NavigationOrientation::Vertical => "vertical",
+    NavigationOrientation::Both => "both",
+  };
   let orientation = toggle_group_orientation_attribute(orientation);
   let selection_type = match selection_type {
     ToggleGroupType::Single => "single",
@@ -100,6 +115,9 @@ pub fn ToggleGroup(
       "aria-orientation": orientation,
       "data-type": selection_type,
       "data-looping": looping.to_string(),
+      "data-dxui-roving-group": scope_id,
+      "data-dxui-roving-orientation": roving_orientation,
+      "data-dxui-roving-loop": looping.to_string(),
       {children}
     }
   }
@@ -114,16 +132,15 @@ pub fn ToggleGroupItem(
   children: Element,
 ) -> Element {
   let class = toggle_group_item_class(pressed, &class);
-  let tabindex = toggle_group_item_tabindex(pressed, disabled).to_string();
 
   rsx! {
     button {
       r#type: "button",
       class,
       disabled,
-      tabindex,
       "aria-pressed": pressed.to_string(),
       "data-value": value,
+      "data-dxui-roving-item": "",
       {children}
     }
   }

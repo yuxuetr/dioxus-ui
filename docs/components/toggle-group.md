@@ -29,9 +29,39 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["toggle-gro
 - `RovingFocusItem`
 - `FocusMove`
 
+## Behavior
+
+The pressed items stay controlled by the app. Pass `pressed` to each item and
+handle `on_toggle`, which receives the toggled item's value:
+
+```rust
+let mut align = use_signal(|| Some("left".to_string()));
+
+rsx! {
+  ToggleGroup {
+    on_toggle: move |value: String| {
+      align.set(toggle_group_single_selection(align().as_deref(), &value))
+    },
+    ToggleGroupItem { value: "left", pressed: align().as_deref() == Some("left"), "Left" }
+    ToggleGroupItem { value: "right", pressed: align().as_deref() == Some("right"), "Right" }
+  }
+}
+```
+
+- The items form one Tab stop: the item that last had focus, or the first
+  pressed item, or the first enabled item.
+- Arrow keys for `orientation` move focus between enabled items without
+  pressing them, wrapping when `looping` is on; the default `Both` accepts all
+  four arrows. Home and End jump to the first and last.
+- A click, Enter, or Space on an item calls `on_toggle` with its value. Use
+  `toggle_group_single_selection` or `toggle_group_multiple_selection` to
+  compute the next selection.
+
+The Web renderer is covered by `npm run verify:runtime-interactions`.
+
 ## Accessibility Notes
 
-Toggle Group items render buttons with `aria-pressed`. Use single mode when
-only one item can be active, and multiple mode when each item is independently
-toggleable. Use the roving focus helpers to keep arrow-key movement consistent
-across enabled items.
+Toggle Group renders `role="group"` and items render buttons with
+`aria-pressed`. Use single mode when only one item can be active, and multiple
+mode when each item is independently toggleable. Right-to-left arrow mirroring
+is not implemented (see [RFC 0019](../rfcs/0019-roving-group-interaction.md)).
