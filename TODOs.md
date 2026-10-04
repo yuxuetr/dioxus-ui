@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M155 Slider Keyboard And Pointer Input
-- Current task: M155.4
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2823,7 +2823,7 @@
   - Render a labelled Slider in the Web preview and extend `npm run verify:runtime-interactions` to assert each key's movement and clamping at the ends, that keys do not scroll the page, that a pointer press and drag set snapped values, and that a disabled slider does not change.
   - Reverse-verify that the script fails when the key mapping swaps directions, when Page keys use the single step, when the pointer script is not started, or when the disabled guard is removed.
 
-- TODO M155.4 Complete slider milestone
+- DONE M155.4 Complete slider milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
