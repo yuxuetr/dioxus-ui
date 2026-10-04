@@ -17,9 +17,12 @@ use dioxus_ui::{
   otp_apply_paste_filtered, otp_slots,
 };
 use dioxus_ui::{
-  ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList, SelectContent, SelectItem,
-  SelectTrigger, SelectValue, SonnerClose, SonnerContent, SonnerTitle, SonnerToast, SonnerVariant,
-  SonnerViewport, ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport,
+  Calendar, CalendarBody, CalendarCaption, CalendarDate, CalendarDay, CalendarGrid, CalendarHeader,
+  CalendarMonth, CalendarNav, CalendarNavButton, CalendarNavDirection, CalendarRow,
+  CalendarWeekday, ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList, DatePickerContent,
+  DatePickerTrigger, DatePickerValue, SelectContent, SelectItem, SelectTrigger, SelectValue,
+  SonnerClose, SonnerContent, SonnerTitle, SonnerToast, SonnerVariant, SonnerViewport, ToastAction,
+  ToastClose, ToastRoot, ToastTitle, ToastViewport, calendar_month_grid, calendar_move_date,
   sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute,
 };
 
@@ -686,6 +689,14 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut combobox_open = use_signal(|| false);
   let mut combobox_query = use_signal(String::new);
   let mut combobox_value = use_signal(|| "none".to_string());
+  let mut date_open = use_signal(|| false);
+  let mut date_month = use_signal(|| CalendarMonth::unchecked(2026, 10));
+  let mut date_focused = use_signal(|| CalendarDate::unchecked(2026, 10, 15));
+  let mut date_selected = use_signal(|| CalendarDate::unchecked(2026, 10, 15));
+  let mut move_date_focus = move |date: CalendarDate| {
+    date_focused.set(date);
+    date_month.set(CalendarMonth::unchecked(date.year, date.month));
+  };
   let mut tooltip_open = use_signal(|| false);
   let mut toast_open = use_signal(|| false);
   let mut toast_reason = use_signal(|| "none");
@@ -1123,6 +1134,83 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           }
           article {
             class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "date-picker",
+            "data-value": "{iso_date(date_selected())}",
+            h2 { class: "text-sm font-medium", "Date picker interaction" }
+            DatePickerTrigger {
+              id: "interaction-date-trigger",
+              class: "mt-3",
+              open: date_open(),
+              on_open_change: move |open| {
+                if open {
+                  move_date_focus(date_selected());
+                }
+                date_open.set(open);
+              },
+              DatePickerValue { "{iso_date(date_selected())}" }
+            }
+            DatePickerContent {
+              open: date_open(),
+              anchor_id: "interaction-date-trigger",
+              on_open_change: move |open| date_open.set(open),
+              Calendar {
+                CalendarHeader {
+                  CalendarCaption { "{date_month().year}-{date_month().month:02}" }
+                  CalendarNav {
+                    CalendarNavButton {
+                      direction: CalendarNavDirection::Previous,
+                      onclick: move |_| date_month.set(date_month().add_months(-1)),
+                      "<"
+                    }
+                    CalendarNavButton {
+                      direction: CalendarNavDirection::Next,
+                      onclick: move |_| date_month.set(date_month().add_months(1)),
+                      ">"
+                    }
+                  }
+                }
+                CalendarGrid {
+                  CalendarBody {
+                    for week in calendar_month_grid(
+                        date_month(),
+                        CalendarWeekday::Sunday,
+                        None,
+                        Some(date_selected()),
+                        None,
+                        None,
+                        &[],
+                      )
+                      .weeks
+                    {
+                      CalendarRow {
+                        for day in week {
+                          CalendarDay {
+                            key: "{iso_date(day.date)}",
+                            date: day.date,
+                            selected: day.selected,
+                            outside_month: day.outside_month,
+                            focused: day.date == date_focused(),
+                            on_key_move: move |key_move| {
+                              move_date_focus(
+                                calendar_move_date(date_focused(), key_move, CalendarWeekday::Sunday),
+                              );
+                            },
+                            on_select: move |date| {
+                              date_selected.set(date);
+                              date_open.set(false);
+                            },
+                            "{day.date.day}"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
             "data-interaction-target": "toast",
             "data-state": if toast_open() { "open" } else { "closed" },
             "data-reason": "{toast_reason}",
@@ -1478,4 +1566,8 @@ fn fruit_label(value: &str) -> &'static str {
     .find(|(fruit, _, _)| *fruit == value)
     .map(|(_, label, _)| *label)
     .unwrap_or("")
+}
+
+fn iso_date(date: CalendarDate) -> String {
+  format!("{:04}-{:02}-{:02}", date.year, date.month, date.day)
 }

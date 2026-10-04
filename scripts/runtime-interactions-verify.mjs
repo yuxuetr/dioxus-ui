@@ -443,11 +443,91 @@ async function runBrowserAssertions() {
     await expect(combobox).toHaveAttribute("data-value", "cherry");
     await expect(comboboxInput).toBeFocused();
 
+    const datePicker = page.locator('[data-interaction-target="date-picker"]');
+    const dateTrigger = page.locator("#interaction-date-trigger");
+    const dateContent = datePicker.locator('[role="dialog"]');
+    const dateCaption = dateContent.locator("div").filter({ hasText: /^\d{4}-\d{2}$/ });
+    const dateDay = (date) => dateContent.locator(`[data-date="${date}"]`);
+    const expectDateFocus = async (date, caption) => {
+      await expect(dateDay(date)).toBeFocused();
+      await expect(dateDay(date)).toHaveAttribute("tabindex", "0");
+      if (caption) await expect(dateCaption).toHaveText(caption);
+    };
+    await dateTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(dateContent).toBeHidden();
+    await dateTrigger.click();
+    await expectAnchoredReady(datePicker);
+    await expect(dateContent).toHaveAttribute("data-side", "bottom");
+    const datePlaced = { trigger: await dateTrigger.boundingBox(), content: await dateContent.boundingBox() };
+    if (datePlaced.content.y < datePlaced.trigger.y + datePlaced.trigger.height) {
+      throw new Error(`date picker should sit below its trigger: ${JSON.stringify(datePlaced)}`);
+    }
+    expectInViewport(datePlaced.content, "date picker placement");
+    await expectDateFocus("2026-10-15", "2026-10");
+    await expect(dateContent.locator('[role="gridcell"][tabindex="0"]')).toHaveCount(1);
+    await page.keyboard.press("ArrowRight");
+    await expectDateFocus("2026-10-16");
+    await page.keyboard.press("ArrowDown");
+    await expectDateFocus("2026-10-23");
+    await page.keyboard.press("End");
+    await expectDateFocus("2026-10-24");
+    await page.keyboard.press("Home");
+    await expectDateFocus("2026-10-18");
+    await page.keyboard.press("ArrowUp");
+    await expectDateFocus("2026-10-11");
+    await page.keyboard.press("ArrowLeft");
+    await expectDateFocus("2026-10-10");
+    await page.keyboard.press("PageDown");
+    await expectDateFocus("2026-11-10", "2026-11");
+    await page.keyboard.press("Shift+PageUp");
+    await expectDateFocus("2025-11-10", "2025-11");
+    await page.keyboard.press("Shift+PageDown");
+    await expectDateFocus("2026-11-10", "2026-11");
+    await page.keyboard.press("PageUp");
+    await expectDateFocus("2026-10-10", "2026-10");
+    await page.keyboard.press("Tab");
+    await expect(dateContent.getByRole("button", { name: "Go to previous month" })).toBeFocused();
+    await page.keyboard.press("Shift+Tab");
+    await expectDateFocus("2026-10-10");
+    await page.keyboard.press("Enter");
+    await expect(dateContent).toBeHidden();
+    await expect(datePicker).toHaveAttribute("data-value", "2026-10-10");
+    await expect(dateTrigger).toHaveText("2026-10-10");
+    await expect(dateTrigger).toBeFocused();
+    await dateTrigger.click();
+    await expectAnchoredReady(datePicker);
+    await expectDateFocus("2026-10-10", "2026-10");
+    await page.keyboard.press("Escape");
+    await expect(dateContent).toBeHidden();
+    await expect(dateTrigger).toBeFocused();
+    await dateTrigger.click();
+    await expectAnchoredReady(datePicker);
+    await dateContent.getByRole("button", { name: "Go to next month" }).click();
+    await expect(dateCaption).toHaveText("2026-11");
+    await dateDay("2026-11-03").click();
+    await expect(dateContent).toBeHidden();
+    await expect(datePicker).toHaveAttribute("data-value", "2026-11-03");
+    await expect(dateTrigger).toBeFocused();
+    await dateTrigger.click();
+    await expectAnchoredReady(datePicker);
+    // The browser blurs to the body for a press on non-focusable content, as
+    // it would for any outside click, so only the close is asserted here.
+    await datePicker.getByRole("heading", { name: "Date picker interaction" }).click();
+    await expect(dateContent).toBeHidden();
+    await dateTrigger.click();
+    await expectAnchoredReady(datePicker);
+    // An outside click that focuses another control keeps that focus.
+    await page.locator("#interaction-combobox-input").click();
+    await expect(dateContent).toBeHidden();
+    await expect(page.locator("#interaction-combobox-input")).toBeFocused();
+    await expect(datePicker).toHaveAttribute("data-value", "2026-11-03");
+
     const tooltipTrigger = page.locator('[data-interaction-control="tooltip-trigger"]');
     const tooltipContent = page.locator('[data-interaction-target="tooltip"] [role="tooltip"]');
     await tooltipTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
     await expect(tooltipContent).toBeHidden();
     await tooltipTrigger.focus();
+    await expectAnchoredReady(page.locator('[data-interaction-target="tooltip"]'));
     await expect(tooltipContent).toHaveAttribute("data-side", "top");
     const tooltipTriggerBox = await tooltipTrigger.boundingBox();
     const tooltipBox = await tooltipContent.boundingBox();
@@ -576,7 +656,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (13 fixtures)");
+  console.log("runtime interaction verification passed (14 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
