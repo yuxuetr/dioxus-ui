@@ -96,6 +96,28 @@ each command starts its own `dx serve` process.
 - no provider/domain behavior such as uploads, charts backed by external
   libraries, markdown parsing, async data, or network state
 
+## M135 Component Overlay Fixtures
+
+M135 adds fixtures that render real `dioxus-ui` components instead of generic
+controls, so the verifier exercises the shipped overlay behavior from
+[RFC 0010](../rfcs/0010-overlay-interaction-behavior.md):
+
+| Target | Component | Browser Assertion |
+| --- | --- | --- |
+| `dialog` | Dialog | opening focuses the first input; Tab and Shift+Tab wrap; Escape, overlay click, and Close each close it and restore focus to the trigger |
+| `alert-dialog` | Alert Dialog | opening focuses Cancel; Tab wraps; Escape closes without confirming; Action runs its handler, closes, and restores focus |
+| `popover` | Popover | anchored content sits below the trigger inside the viewport; Escape and an outside click close it; near the viewport bottom it flips above the trigger; the trigger still toggles it |
+| `tooltip` | Tooltip | anchored content sits above the trigger; an outside press does not close it; Escape does |
+
+The Web preview serves the Tailwind input stylesheet without compiling it, so
+the Dialog overlay has no `fixed inset-0` box. The verifier dispatches the
+overlay click on the element instead of clicking a screen position. Placement
+uses inline fixed coordinates and does not depend on Tailwind.
+
+Reverse checks run during M135: removing the Tab wrap listener, ignoring
+Escape in Dialog content, disabling the flip, and giving Tooltip the popover
+dismissal default each make the verifier fail.
+
 ## Documentation Alignment
 
 M111 should keep these files aligned:
@@ -120,7 +142,8 @@ adapter graduation.
 
 After M111, useful follow-up work is:
 
-1. Expand interaction coverage across more runtime-sensitive components.
+1. Expand interaction coverage across more runtime-sensitive components. M135
+   covers Dialog, Alert Dialog, Popover, and Tooltip.
 2. Add targeted screenshot smoke for a small set of stable panels.
 3. Decide whether any browser command should move into CI after local
    reliability is proven.

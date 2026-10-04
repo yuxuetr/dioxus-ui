@@ -512,7 +512,10 @@ focused `data-interaction-*` fixture targets in a real browser. It is opt-in,
 requires Playwright Chromium or `DIOXUS_UI_BROWSER_EXECUTABLE`, and is not part
 of default or release gates. It checks representative click, keyboard, focus,
 ARIA, visible text, and `data-state` transitions for disclosure, overlay,
-selection, keyboard-visible state, and scroll-status behavior. It does not
+selection, keyboard-visible state, and scroll-status behavior, plus real
+Dialog, Alert Dialog, Popover, and Tooltip components: Escape and outside
+dismissal, initial focus, Tab wrap, focus restore, and anchored placement with
+flip. It does not
 write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.
