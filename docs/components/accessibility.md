@@ -64,7 +64,7 @@ Statuses:
 | Combobox | `ComboboxStatus` is a polite status region for result counts, placed outside the popup; the app gives the wording; browser-verified on Web. | Implemented |
 | Combobox | Async loading remains app-owned. | Planned |
 | Native Select | Uses native select, optgroup, and option elements with platform keyboard and form behavior; `on_value_change` reports the chosen value, and `id`, `name`, and `aria-*` pass through so a `Label` can name it; browser-verified on Web. | Implemented |
-| Radio Group | Uses radiogroup/radio roles and checked state; one Tab stop on the checked or first enabled item, arrows move focus past disabled items and check the focused item, with Left and Right swapped in right-to-left layouts; browser-verified on Web. | Implemented |
+| Radio Group | Uses radiogroup/radio roles and checked state; one Tab stop on the checked or first enabled item, arrows move focus past disabled items and check the focused item, with Left and Right swapped in right-to-left layouts; the group and items take `aria-label`, `aria-labelledby`, or an `id` for a `Label`; browser-verified on Web. | Implemented |
 | Tabs | Uses tablist, tab, and tabpanel roles with `aria-controls` and `aria-labelledby` under `Tabs`; one Tab stop on the selected trigger, Left, Right, Home, and End move focus past disabled triggers and select the focused tab, with Left and Right swapped in right-to-left layouts; manual activation selects only on Enter, Space, or click, and vertical tabs use Up and Down with `aria-orientation="vertical"`; leaving the list makes the selected trigger the Tab stop again; browser-verified on Web. | Implemented |
 | Select | Uses select-only combobox semantics with listbox content; trigger keeps focus with `aria-activedescendant`; arrows, Home, End, and typeahead move the highlight; Enter, Space, or click chooses; browser-verified on Web. | Implemented |
 
@@ -123,7 +123,7 @@ Statuses:
 | Component | Contract | Status |
 | --- | --- | --- |
 | Pagination | Uses navigation region and current-page state; controls without an `href` are buttons that report `onclick`, and a disabled control cannot take focus or be activated; browser-verified on Web. | Implemented |
-| Progress | Uses progressbar value attributes. | Implemented |
+| Progress | Uses progressbar value attributes and takes a name and `aria-valuetext` through passed attributes; browser-verified on Web. | Implemented |
 | Table | Uses semantic table elements. | Implemented |
 | Data Table | Exposes sorted header state, selected row state, hidden cells, loading status, and empty state composition. | Implemented |
 | Data Table | Needs app-level filtering, async loading, keyboard shortcuts, and virtualization verification. | Planned |

@@ -162,6 +162,11 @@ release owner renames it to the released version at publish time.
   with an `onclick` that marks the current page with `aria-current`, a
   disabled item cannot take focus or call `onclick`, and the Sidebar parts
   pass through attributes such as `id`, `aria-label`, and `aria-controls`.
+- Form control naming: `RadioGroup`, `RadioGroupItem`, `Progress`,
+  `SelectTrigger`, and `ComboboxInput` pass through attributes, so a `Label`
+  with `for` or `aria-label` names each radio, a progress bar takes a name and
+  `aria-valuetext`, and the Select trigger and Combobox input take
+  `aria-describedby`.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.
