@@ -115,7 +115,7 @@ Out of scope, with reevaluation conditions:
 
 | Item | Reason | Reevaluate when |
 | --- | --- | --- |
-| Hover Card hover and focus timing | Hover Card needs a longer close delay and different focus rules; sharing one script now would design for a second consumer that is not built | Hover Card opening is designed; the script then moves to a shared module |
+| Hover Card hover and focus timing (done in M148, see RFC 0023) | Hover Card needs a longer close delay and different focus rules; sharing one script now would design for a second consumer that is not built | Hover Card opening is designed; the script then moves to a shared module |
 | Skipping the delay between adjacent tooltips | Needs a provider shared across tooltips | A consumer reports slow toolbar tooltips |
 | Touch long press | Touch pointers are ignored; mobile apps show the text another way | Mobile tooltip behavior is designed |
 | A trigger other than a `button` | Dioxus has no `asChild`; the app can still wire its own element without `Tooltip` | A consumer needs a tooltip on a link or input |
