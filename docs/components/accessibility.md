@@ -60,10 +60,9 @@ Statuses:
 | Combobox | Input keeps focus with `aria-activedescendant`; arrows highlight options, Enter or click chooses, and a filtered-out highlight clears; browser-verified on Web. | Implemented |
 | Combobox | Async loading and result count announcements remain app-owned. | Planned |
 | Native Select | Uses native select, optgroup, and option elements with platform keyboard and form behavior. | Implemented |
-| Radio Group | Uses radiogroup/radio roles and checked state; one Tab stop on the checked or first enabled item, arrows move focus past disabled items and check the focused item; browser-verified on Web. | Implemented |
-| Radio Group | Right-to-left arrow mirroring is not implemented. | Planned |
-| Tabs | Uses tablist, tab, and tabpanel roles with `aria-controls` and `aria-labelledby` under `Tabs`; one Tab stop on the selected trigger, Left, Right, Home, and End move focus past disabled triggers and select the focused tab; browser-verified on Web. | Implemented |
-| Tabs | Manual activation, vertical tabs, and right-to-left arrow mirroring are not implemented. | Planned |
+| Radio Group | Uses radiogroup/radio roles and checked state; one Tab stop on the checked or first enabled item, arrows move focus past disabled items and check the focused item, with Left and Right swapped in right-to-left layouts; browser-verified on Web. | Implemented |
+| Tabs | Uses tablist, tab, and tabpanel roles with `aria-controls` and `aria-labelledby` under `Tabs`; one Tab stop on the selected trigger, Left, Right, Home, and End move focus past disabled triggers and select the focused tab, with Left and Right swapped in right-to-left layouts; browser-verified on Web. | Implemented |
+| Tabs | Manual activation and vertical tabs are not implemented. | Planned |
 | Select | Uses select-only combobox semantics with listbox content; trigger keeps focus with `aria-activedescendant`; arrows, Home, End, and typeahead move the highlight; Enter, Space, or click chooses; browser-verified on Web. | Implemented |
 
 ## Light Interaction
@@ -73,8 +72,7 @@ Statuses:
 | Slider | Uses slider role, horizontal orientation, and value attributes. | Implemented |
 | Spinner | Uses status semantics and an accessible label. | Implemented |
 | Toggle | Uses button semantics with `aria-pressed`. | Implemented |
-| Toggle Group | Uses grouped toggle buttons with `aria-pressed`; one Tab stop on the last focused item, arrows move focus past disabled items without pressing; browser-verified on Web. | Implemented |
-| Toggle Group | Right-to-left arrow mirroring is not implemented. | Planned |
+| Toggle Group | Uses grouped toggle buttons with `aria-pressed`; one Tab stop on the last focused item, arrows move focus past disabled items without pressing, with Left and Right swapped in right-to-left layouts; browser-verified on Web. | Implemented |
 
 ## Message Components
 
@@ -105,10 +103,10 @@ Statuses:
 | Hover Card | Provides controlled rich preview content with placement metadata; under `HoverCard`, hover opens after a delay, keyboard focus opens at once, the pointer and focus can move into the card, and it closes after a close delay; browser-verified on Web. | Implemented |
 | Hover Card | Touch opening and a mobile fallback are not implemented; use Popover or Sheet on mobile. | Planned |
 | Menubar | Exposes menubar, menu, and menu item roles. | Implemented |
-| Menubar | Keeps the triggers one Tab stop with Left, Right, Home, and End movement, opens menus that behave like Dropdown, switches menus with Left, Right, or hover, and returns focus to the open menu's trigger; browser-verified on Web. | Implemented |
-| Menubar | Nested submenus and right-to-left arrow mirroring are not implemented. | Planned |
+| Menubar | Keeps the triggers one Tab stop with Left, Right, Home, and End movement, opens menus that behave like Dropdown, switches menus with Left, Right, or hover, and returns focus to the open menu's trigger, with Left and Right swapped in right-to-left layouts; browser-verified on Web. | Implemented |
+| Menubar | Nested submenus are not implemented. | Planned |
 | Navigation Menu | Uses navigation structure and link semantics for destinations. | Implemented |
-| Navigation Menu | Follows the disclosure navigation pattern: triggers toggle content on click, keys, or hover, arrows move between top-level items and content links, and Escape returns focus to the trigger; browser-verified on Web. | Implemented |
+| Navigation Menu | Follows the disclosure navigation pattern: triggers toggle content on click, keys, or hover, arrows move between top-level items and content links, and Escape returns focus to the trigger, with Left and Right swapped in right-to-left layouts; browser-verified on Web. | Implemented |
 | Navigation Menu | Viewport size measurement and submenus are not implemented. | Planned |
 | Popover | Anchored placement with flip and shift, and Escape or outside dismissal; browser-verified on Web. | Implemented |
 | Sheet | Uses dialog role and modal state for side-panel flows. | Implemented |

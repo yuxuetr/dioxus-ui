@@ -2311,8 +2311,9 @@ return), a real Navigation Menu (click, keyboard, and hover disclosure,
 dismissal), real Tabs, Radio Group, and Toggle Group components (one Tab
 stop, arrow movement, selection following focus), a real Accordion
 (toggle reporting, trigger arrow movement, region links), Tooltip and
-Hover Card hover and focus opening, and a real Command (highlight movement,
-query resets, choosing from the input).
+Hover Card hover and focus opening, a real Command (highlight movement,
+query resets, choosing from the input), and right-to-left arrow mirroring in
+the roving groups and menus.
 
 It is not part of `npm run verify` or `npm run verify:release`. It does not
 write screenshots or traces, certify full accessibility, verify native Desktop

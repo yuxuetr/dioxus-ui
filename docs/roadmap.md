@@ -174,4 +174,6 @@ and focus opening
 Card hover and focus opening
 ([RFC 0023](rfcs/0023-hover-card-hover-and-focus-opening.md)), and M149 to
 Command keyboard and filtering
-([RFC 0024](rfcs/0024-command-keyboard-and-filtering.md)).
+([RFC 0024](rfcs/0024-command-keyboard-and-filtering.md)), and M150 to
+right-to-left arrow mirroring
+([RFC 0025](rfcs/0025-right-to-left-arrow-mirroring.md)).

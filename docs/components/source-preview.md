@@ -52,11 +52,11 @@ Source preview routes: 64
 | [Kbd](kbd.md) | /components/kbd/source | crates/dioxus-ui-cli/templates/kbd.rs | src/components/ui/kbd.rs | rust | 42 | 897 |
 | [Label](label.md) | /components/label/source | crates/dioxus-ui-cli/templates/label.rs | src/components/ui/label.rs | rust | 26 | 537 |
 | [Marker](marker.md) | /components/marker/source | crates/dioxus-ui-cli/templates/marker.rs | src/components/ui/marker.rs | rust | 93 | 2332 |
-| [Menubar](menubar.md) | /components/menubar/source | crates/dioxus-ui-cli/templates/menubar.rs | src/components/ui/menubar.rs | rust | 414 | 13145 |
+| [Menubar](menubar.md) | /components/menubar/source | crates/dioxus-ui-cli/templates/menubar.rs | src/components/ui/menubar.rs | rust | 421 | 13425 |
 | [Message](message.md) | /components/message/source | crates/dioxus-ui-cli/templates/message.rs | src/components/ui/message.rs | rust | 153 | 3787 |
 | [Message Scroller](message-scroller.md) | /components/message-scroller/source | crates/dioxus-ui-cli/templates/message_scroller.rs | src/components/ui/message_scroller.rs | rust | 256 | 6962 |
 | [Native Select](native-select.md) | /components/native-select/source | crates/dioxus-ui-cli/templates/native_select.rs | src/components/ui/native_select.rs | rust | 82 | 1981 |
-| [Navigation Menu](navigation-menu.md) | /components/navigation-menu/source | crates/dioxus-ui-cli/templates/navigation_menu.rs | src/components/ui/navigation_menu.rs | rust | 410 | 13564 |
+| [Navigation Menu](navigation-menu.md) | /components/navigation-menu/source | crates/dioxus-ui-cli/templates/navigation_menu.rs | src/components/ui/navigation_menu.rs | rust | 417 | 13844 |
 | [Pagination](pagination.md) | /components/pagination/source | crates/dioxus-ui-cli/templates/pagination.rs | src/components/ui/pagination.rs | rust | 146 | 3638 |
 | [Popover](popover.md) | /components/popover/source | crates/dioxus-ui-cli/templates/popover.rs | src/components/ui/popover.rs | rust | 96 | 2831 |
 | [Progress](progress.md) | /components/progress/source | crates/dioxus-ui-cli/templates/progress.rs | src/components/ui/progress.rs | rust | 49 | 1326 |

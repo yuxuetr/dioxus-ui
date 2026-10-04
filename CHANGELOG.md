@@ -107,6 +107,11 @@ release owner renames it to the released version at publish time.
   Up, Down, Home, and End move the highlight, a query change moves it back to
   the first match, and Enter or a click chooses. `CommandItem` takes an
   optional `value`, and `command_matches` filters labels.
+- Right-to-left arrow mirroring: Tabs, Radio Group, Toggle Group, Menubar, and
+  Navigation Menu read the computed text direction on each key press, so
+  inside `Direction` or any `dir="rtl"` ancestor ArrowLeft moves to the next
+  item and ArrowRight to the previous one. Up, Down, Home, and End are
+  unchanged.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.
