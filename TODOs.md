@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M150 Right-To-Left Arrow Mirroring
-- Current task: M150.3
+- Current task: M150.4
 
 ## Backup
 
@@ -2719,7 +2719,7 @@
   - Mirror Left and Right in the roving group, Menubar, and Navigation Menu scripts in the crate and the matching templates.
   - Update the Tabs, Radio Group, Toggle Group, Menubar, Navigation Menu, and Direction docs pages.
 
-- TODO M150.3 Verify mirroring in a real browser
+- DONE M150.3 Verify mirroring in a real browser
   - Extend `npm run verify:runtime-interactions` to switch the Tabs, Radio Group, Toggle Group, Menubar, and Navigation Menu fixtures to right-to-left and assert that ArrowLeft moves to the next item and ArrowRight to the previous one, that Up and Down in a menu are unchanged, and that left-to-right behavior is restored afterwards.
   - Reverse-verify that the script fails when mirroring is removed from each script, or when it also swaps Up and Down.
 
