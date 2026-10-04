@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80% (M136 4/5)
-- Current milestone: M136 Toast and Sonner Runtime Behavior
-- Current task: M136.5 Complete toast runtime milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2431,7 +2431,7 @@
   - Render real Toast and Sonner components in the Web preview and extend `npm run verify:runtime-interactions` to assert timeout dismissal, hover pause, close and action reasons, and live region attributes.
   - Reverse-verify that the script fails when the pause or timer is removed.
 
-- TODO M136.5 Complete toast runtime milestone
+- DONE M136.5 Complete toast runtime milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, roadmap Stage 7 status, and accessibility docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
