@@ -112,11 +112,11 @@ controls, so the verifier exercises the shipped overlay behavior from
 | `popover` | Popover | anchored content sits below the trigger inside the viewport; Escape and an outside click close it; near the viewport bottom it flips above the trigger; the trigger still toggles it |
 | `tooltip` | Tooltip | hover opens it after the delay and keyboard focus opens it at once; the trigger has `aria-describedby` only while it is open; content sits above the trigger; the pointer can move onto the content without closing it, and leaving closes it; a trigger press closes it and it stays closed while the pointer rests; blur and Escape close it, and an outside press does not |
 | `hover-card` | Hover Card | hover opens it after the delay and keyboard focus opens it at once; the trigger never has `aria-describedby`; content sits below the trigger; the pointer can move onto the card, and leaving closes it after the close delay; a trigger press keeps it open, and so does a press on the card's text afterwards; Tab into the card keeps it open and Tab out closes it; Escape and an outside press close it |
-| `command` | Command | the input controls the list; the first option starts highlighted; arrows skip the disabled item and stop at the ends; Home and End; typed text, including a space, reaches the input; narrowing and widening the query moves the highlight back to the first match; nothing matching leaves no active descendant and Enter chooses nothing; the pointer highlights; Enter and click choose while focus stays in the input |
+| `command` | Command | the input controls the list; the first option starts highlighted; arrows skip the disabled item and stop at the ends; Home and End; typed text, including a space, reaches the input; narrowing and widening the query moves the highlight back to the first match; nothing matching leaves no active descendant and Enter chooses nothing; the pointer highlights; Enter and click choose while focus stays in the input; `CommandStatus` is a polite, atomic status region whose text follows the match count and says "No results", and the same element stays mounted across query changes |
 | `toast` | Toast | the viewport is a polite `Notifications` region; the toast closes with reason `timeout` after its countdown, stays open while hovered past its duration, and reports `action` and `close` reasons |
 | `sonner` | Sonner | the viewport is a polite region; a mounted toast unmounts with reason `timeout` and reports `close` |
 | `select` | Select | the listbox sits below the trigger while focus stays on it; the selected option starts highlighted; arrows skip the disabled option without wrapping; Home, End, and typeahead move the highlight; Enter, Space, and click choose and close; a disabled option cannot be chosen; ArrowDown reopens; Escape and an outside click close it |
-| `combobox` | Combobox | typing opens the listbox below the input with no highlight; arrows highlight options; filtering keeps a still-matching highlight and clears a removed one; Enter and click choose, fill the input, and keep focus in it; ArrowDown reopens and Escape closes |
+| `combobox` | Combobox | typing opens the listbox below the input with no highlight; arrows highlight options; filtering keeps a still-matching highlight and clears a removed one; Enter and click choose, fill the input, and keep focus in it; ArrowDown reopens and Escape closes; `ComboboxStatus` sits outside the popup, stays exposed and mounted while it is closed, and its text follows the match count while open |
 | `date-picker` | Date Picker with Calendar | content sits below the trigger; opening focuses the selected day, the only `tabindex="0"` day; arrows, Home, End, Page Up, Page Down, and Shift+Page keys move focus across months with days keyed by date; Tab wraps between the month buttons and the focused day; Enter and click choose a date, close, and return focus to the trigger; Escape returns focus too; an outside click closes it and keeps focus on a clicked control |
 | `dropdown` | Dropdown | opening focuses the first item; arrows wrap and skip the disabled item; Home, End, and repeated-letter typeahead move focus; Enter, Space, and click run the item's `onclick`, close, and return focus to the trigger; a disabled item does nothing; Escape and Tab close it |
 | `menubar` | Menubar | the triggers are one Tab stop; Left and Right wrap and skip the disabled trigger, Home and End jump; ArrowDown and Enter open a menu on its first item; Left and Right inside an open menu switch to the adjacent menu; with `dir="rtl"` ArrowLeft moves to and opens the next menu and ArrowRight the previous one, while Up and Down inside a menu are unchanged; Escape returns focus to the open menu's trigger; hovering a trigger switches menus only while one is open; click runs an item, closes, and returns focus; clicking the open trigger closes it; Tab closes and leaves the bar |
@@ -218,6 +218,16 @@ make the verifier fail. The preview serves `preview.css` without running
 Tailwind, so the vertical layout is checked through `data-orientation`, not
 measured.
 
+M152 extends the Command and Combobox rows from
+[RFC 0027](../rfcs/0027-combobox-and-command-result-announcements.md). The
+verifier tags each status element with a script property and checks it is
+still there after the query changes. Rendering the region only when it has
+text, recreating it by swapping its parent element, removing `role="status"`
+or `aria-live`, or moving the Combobox region inside the popup each make the
+verifier fail. A changing `key` outside a list, or `if` and `else` branches
+that both render `CommandStatus` in the same place, kept the same element in
+Dioxus 0.7, so neither counts as a remount.
+
 ## Documentation Alignment
 
 M111 should keep these files aligned:
@@ -244,7 +254,7 @@ After M111, useful follow-up work is:
 
 1. Expand interaction coverage across more runtime-sensitive components. M135
    covers Dialog, Alert Dialog, Popover, and Tooltip; M136 adds Toast and
-   Sonner; M137 adds Select and Combobox; M138 adds Date Picker; M139 adds Dropdown and Context Menu; M140 adds Menubar; M141 adds Navigation Menu; M144 adds Tabs, Radio Group, and Toggle Group; M146 adds Accordion; M147 adds Tooltip hover and focus opening; M148 adds Hover Card; M149 adds Command; M150 adds right-to-left arrow mirroring; M151 adds vertical, manually activated Tabs.
+   Sonner; M137 adds Select and Combobox; M138 adds Date Picker; M139 adds Dropdown and Context Menu; M140 adds Menubar; M141 adds Navigation Menu; M144 adds Tabs, Radio Group, and Toggle Group; M146 adds Accordion; M147 adds Tooltip hover and focus opening; M148 adds Hover Card; M149 adds Command; M150 adds right-to-left arrow mirroring; M151 adds vertical, manually activated Tabs; M152 adds result announcements to Command and Combobox.
 2. Add targeted screenshot smoke for a small set of stable panels.
 3. Decide whether any browser command should move into CI after local
    reliability is proven.

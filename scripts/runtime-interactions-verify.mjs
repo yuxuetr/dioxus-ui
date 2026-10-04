@@ -401,6 +401,14 @@ async function runBrowserAssertions() {
     await commandInput.evaluate((element) => element.scrollIntoView({ block: "center" }));
     await expect(commandList).toHaveAttribute("id", /./);
     await expect(commandInput).toHaveAttribute("aria-controls", (await commandList.getAttribute("id")) ?? "");
+    // The status region stays mounted, so its text changes are announced.
+    const commandStatus = command.getByRole("status");
+    await expect(commandStatus).toHaveAttribute("aria-live", "polite");
+    await expect(commandStatus).toHaveAttribute("aria-atomic", "true");
+    await expect(commandStatus).toHaveText("");
+    await commandStatus.evaluate((element) => {
+      element.dxuiMountProbe = true;
+    });
     // The first option starts highlighted.
     await expectCommandHighlight("Calendar");
     await commandInput.focus();
@@ -424,9 +432,11 @@ async function runBrowserAssertions() {
     await page.keyboard.type("se ");
     await expect(commandInput).toHaveValue("se ");
     await expect(commandItem("Calendar")).toHaveCount(0);
+    await expect(commandStatus).toHaveText("2 results");
     await expectCommandHighlight("Search Emoji");
     await commandInput.fill("set");
     await expect(commandItem("Search Emoji")).toHaveCount(0);
+    await expect(commandStatus).toHaveText("1 result");
     await expectCommandHighlight("Settings");
     await page.keyboard.press("Enter");
     await expect(command).toHaveAttribute("data-result", "settings");
@@ -438,12 +448,17 @@ async function runBrowserAssertions() {
     // Nothing matches: no highlight, and Enter chooses nothing.
     await commandInput.fill("zzz");
     await expect(command.getByText("No results found.")).toBeVisible();
+    await expect(commandStatus).toHaveText("No results");
     await expect(commandInput).not.toHaveAttribute("aria-activedescendant", /./);
     await page.keyboard.press("Enter");
     await expect(command).toHaveAttribute("data-result", "settings");
     // The pointer highlights, and a click chooses while focus stays put.
     await commandInput.fill("");
     await expectCommandHighlight("Calendar");
+    await expect(commandStatus).toHaveText("");
+    if (!(await commandStatus.evaluate((element) => element.dxuiMountProbe === true))) {
+      throw new Error("command status region should stay mounted across query changes");
+    }
     await commandItem("Billing").hover();
     await expectCommandHighlight("Billing");
     await commandItem("Profile").click();
@@ -460,6 +475,13 @@ async function runBrowserAssertions() {
     await comboboxInput.evaluate((element) => element.scrollIntoView({ block: "center" }));
     await expect(comboboxContent).toBeHidden();
     await expect(comboboxInput).toHaveAttribute("aria-expanded", "false");
+    // The status region sits outside the hidden popup and stays mounted.
+    const comboboxStatus = combobox.getByRole("status");
+    await expect(comboboxStatus).toHaveAttribute("aria-live", "polite");
+    await expect(comboboxStatus).toHaveText("");
+    await comboboxStatus.evaluate((element) => {
+      element.dxuiMountProbe = true;
+    });
     await comboboxInput.click();
     await page.keyboard.type("b");
     await expectAnchoredReady(combobox);
@@ -469,6 +491,7 @@ async function runBrowserAssertions() {
       throw new Error(`combobox listbox should sit below its input: ${JSON.stringify(comboboxPlaced)}`);
     }
     await expect(comboboxContent.getByRole("option")).toHaveText(["Banana", "Blueberry"]);
+    await expect(comboboxStatus).toHaveText("2 results");
     await expect(comboboxHighlighted).toHaveCount(0);
     await page.keyboard.press("Enter");
     await expect(comboboxContent).toBeVisible();
@@ -481,6 +504,7 @@ async function runBrowserAssertions() {
     await expect(comboboxHighlighted).toHaveText("Blueberry");
     await page.keyboard.type("l");
     await expect(comboboxContent.getByRole("option")).toHaveText(["Blueberry"]);
+    await expect(comboboxStatus).toHaveText("1 result");
     await expect(comboboxHighlighted).toHaveText("Blueberry");
     await page.keyboard.press("Backspace");
     await page.keyboard.type("a");
@@ -493,18 +517,26 @@ async function runBrowserAssertions() {
     await expect(combobox).toHaveAttribute("data-value", "banana");
     await expect(comboboxInput).toHaveValue("Banana");
     await expect(comboboxInput).toBeFocused();
+    await expect(comboboxStatus).toHaveText("");
     await page.keyboard.press("ArrowDown");
     await expect(comboboxContent).toBeVisible();
     await expectAnchoredReady(combobox);
     await page.keyboard.press("Escape");
     await expect(comboboxContent).toBeHidden();
+    await comboboxInput.fill("zzz");
+    await expect(comboboxStatus).toHaveText("No results");
     await comboboxInput.fill("");
     await expectAnchoredReady(combobox);
     await expect(comboboxContent.getByRole("option")).toHaveCount(5);
+    await expect(comboboxStatus).toHaveText("5 results");
     await comboboxOption("Cherry").click();
     await expect(comboboxContent).toBeHidden();
     await expect(combobox).toHaveAttribute("data-value", "cherry");
     await expect(comboboxInput).toBeFocused();
+    await expect(comboboxStatus).toHaveText("");
+    if (!(await comboboxStatus.evaluate((element) => element.dxuiMountProbe === true))) {
+      throw new Error("combobox status region should stay mounted across query changes");
+    }
 
     const datePicker = page.locator('[data-interaction-target="date-picker"]');
     const dateTrigger = page.locator("#interaction-date-trigger");

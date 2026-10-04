@@ -5,18 +5,18 @@ use dioxus_ui::{
   Accordion, AccordionContent, AccordionItem, AccordionTrigger, Calendar, CalendarBody,
   CalendarCaption, CalendarDate, CalendarDay, CalendarGrid, CalendarHeader, CalendarMonth,
   CalendarNav, CalendarNavButton, CalendarNavDirection, CalendarRow, CalendarWeekday,
-  ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList, Command, CommandEmpty, CommandGroup,
-  CommandInput, CommandItem, CommandLabel, CommandList, ContextMenuCheckboxItem,
-  ContextMenuContent, ContextMenuItem, DatePickerContent, DatePickerTrigger, DatePickerValue,
-  DropdownContent, DropdownItem, DropdownSeparator, HoverCard, HoverCardContent,
-  HoverCardDescription, HoverCardHeader, HoverCardTitle, HoverCardTrigger, Menubar, MenubarContent,
-  MenubarItem, MenubarMenu, MenubarTrigger, NavigationMenu, NavigationMenuContent,
-  NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger,
-  NavigationOrientation, RadioGroup, RadioGroupItem, SelectContent, SelectItem, SelectTrigger,
-  SelectValue, SonnerClose, SonnerContent, SonnerTitle, SonnerToast, SonnerVariant, SonnerViewport,
-  Tabs, TabsActivation, TabsContent, TabsList, TabsOrientation, TabsTrigger, ToastAction,
-  ToastClose, ToastRoot, ToastTitle, ToastViewport, ToggleGroup, ToggleGroupItem,
-  accordion_single_open, calendar_month_grid, calendar_move_date, command_matches,
+  ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList, ComboboxStatus, Command,
+  CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandLabel, CommandList, CommandStatus,
+  ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, DatePickerContent,
+  DatePickerTrigger, DatePickerValue, DropdownContent, DropdownItem, DropdownSeparator, HoverCard,
+  HoverCardContent, HoverCardDescription, HoverCardHeader, HoverCardTitle, HoverCardTrigger,
+  Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger, NavigationMenu,
+  NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList,
+  NavigationMenuTrigger, NavigationOrientation, RadioGroup, RadioGroupItem, SelectContent,
+  SelectItem, SelectTrigger, SelectValue, SonnerClose, SonnerContent, SonnerTitle, SonnerToast,
+  SonnerVariant, SonnerViewport, Tabs, TabsActivation, TabsContent, TabsList, TabsOrientation,
+  TabsTrigger, ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport, ToggleGroup,
+  ToggleGroupItem, accordion_single_open, calendar_month_grid, calendar_move_date, command_matches,
   sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute, toggle_group_single_selection,
 };
 use dioxus_ui::{
@@ -705,6 +705,26 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut combobox_value = use_signal(|| "none".to_string());
   let mut command_query = use_signal(String::new);
   let mut command_result = use_signal(|| "none".to_string());
+  let command_status = if command_query().trim().is_empty() {
+    String::new()
+  } else {
+    result_count_text(
+      INTERACTION_COMMANDS
+        .iter()
+        .filter(|(_, _, label, _)| command_matches(label, &command_query()))
+        .count(),
+    )
+  };
+  let combobox_status = if combobox_open() {
+    result_count_text(
+      INTERACTION_FRUITS
+        .iter()
+        .filter(|(_, label, _)| label.to_lowercase().contains(&combobox_query().to_lowercase()))
+        .count(),
+    )
+  } else {
+    String::new()
+  };
   let mut dropdown_open = use_signal(|| false);
   let mut dropdown_action = use_signal(|| "none");
   let mut menubar_active = use_signal(|| None::<&'static str>);
@@ -1149,6 +1169,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 placeholder: "Type a command...",
                 oninput: move |event: FormEvent| command_query.set(event.value()),
               }
+              CommandStatus { "{command_status}" }
               CommandList {
                 if !INTERACTION_COMMANDS.iter().any(|(_, _, label, _)| command_matches(label, &command_query())) {
                   CommandEmpty { "No results found." }
@@ -1195,6 +1216,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               },
               on_open_change: move |open| combobox_open.set(open),
             }
+            ComboboxStatus { "{combobox_status}" }
             ComboboxContent {
               open: combobox_open(),
               anchor_id: "interaction-combobox-input",
@@ -1951,6 +1973,14 @@ const INTERACTION_FRUITS: &[(&str, &str, bool)] = &[
   ("blueberry", "Blueberry", false),
   ("cherry", "Cherry", false),
 ];
+
+fn result_count_text(count: usize) -> String {
+  match count {
+    0 => "No results".to_string(),
+    1 => "1 result".to_string(),
+    count => format!("{count} results"),
+  }
+}
 
 fn fruit_label(value: &str) -> &'static str {
   INTERACTION_FRUITS
