@@ -1376,6 +1376,7 @@ dependencies = [
  "dioxus",
  "dioxus-ui",
  "dioxus-ui-preview-states",
+ "serde_json",
 ]
 
 [[package]]

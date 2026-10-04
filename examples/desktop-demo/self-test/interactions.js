@@ -1,0 +1,185 @@
+// Desktop interaction self-test (RFC 0017). Runs inside the Desktop preview's
+// own WebView through `document::eval` and sends one result:
+// `{ ok, passed, error }`. Dispatched events are untrusted, so browser default
+// actions (Tab movement, Enter clicking a button) do not run; the scenarios
+// exercise the interaction scripts and Rust handlers instead.
+const overallTimeoutMs = 60000;
+const stepTimeoutMs = 3000;
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const $ = (selector) => document.querySelector(selector);
+const describe = (element) => (element ? element.outerHTML.slice(0, 120) : String(element));
+const waitFor = async (check, label) => {
+  const start = performance.now();
+  while (performance.now() - start < stepTimeoutMs) {
+    if (check()) return;
+    await sleep(20);
+  }
+  throw new Error(`${label} (focused: ${describe(document.activeElement)})`);
+};
+const focused = (element, label) => waitFor(() => element !== null && document.activeElement === element, label);
+const key = (target, name, init = {}) =>
+  target.dispatchEvent(new KeyboardEvent("keydown", { key: name, bubbles: true, cancelable: true, ...init }));
+const pressFocused = (name, init) => key(document.activeElement, name, init);
+const visible = (element) => element !== null && !element.hidden;
+const placed = (element) => visible(element) && getComputedStyle(element).position === "fixed";
+const focus = (element) => {
+  element.scrollIntoView({ block: "center" });
+  element.focus();
+};
+
+const scenarios = [
+  ["dialog", async () => {
+    const root = $('[data-interaction-target="dialog"]');
+    const trigger = root.querySelector('[data-interaction-control="dialog-trigger"]');
+    const content = root.querySelector('[role="dialog"]');
+    focus(trigger);
+    trigger.click();
+    await focused(root.querySelector('[data-interaction-control="dialog-input"]'), "dialog focuses its first field");
+    pressFocused("Escape");
+    await waitFor(() => !visible(content), "Escape closes the dialog");
+    await focused(trigger, "dialog returns focus to its trigger");
+  }],
+  ["popover", async () => {
+    const root = $('[data-interaction-target="popover"]');
+    const trigger = $("#interaction-popover-trigger");
+    const content = root.querySelector("[data-dxui-anchored]");
+    focus(trigger);
+    trigger.click();
+    await waitFor(() => placed(content), "popover is placed with fixed positioning");
+    const triggerBox = trigger.getBoundingClientRect();
+    const contentBox = content.getBoundingClientRect();
+    if (Math.abs(contentBox.top - triggerBox.bottom) > 16 && Math.abs(triggerBox.top - contentBox.bottom) > 16) {
+      throw new Error(`popover is not next to its trigger: ${JSON.stringify({ triggerBox, contentBox })}`);
+    }
+    document.body.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true }));
+    await waitFor(() => !visible(content), "an outside press closes the popover");
+  }],
+  ["select", async () => {
+    const root = $('[data-interaction-target="select"]');
+    const trigger = $("#interaction-select-trigger");
+    const listbox = root.querySelector('[role="listbox"]');
+    const highlighted = () => document.getElementById(trigger.getAttribute("aria-activedescendant") || "");
+    focus(trigger);
+    key(trigger, "ArrowDown");
+    await waitFor(() => placed(listbox), "ArrowDown on the trigger opens the listbox");
+    await waitFor(() => highlighted()?.dataset.value === "banana", "the selected option starts highlighted");
+    key(trigger, "ArrowDown");
+    await waitFor(() => highlighted()?.dataset.value === "blueberry", "ArrowDown highlights the next option");
+    key(trigger, "Enter");
+    await waitFor(() => !visible(listbox), "Enter closes the listbox");
+    await waitFor(() => root.dataset.value === "blueberry", "Enter selects the highlighted option");
+    await focused(trigger, "focus stays on the select trigger");
+  }],
+  ["dropdown", async () => {
+    const root = $('[data-interaction-target="dropdown"]');
+    const trigger = $("#interaction-dropdown-trigger");
+    const menu = root.querySelector('[role="menu"]');
+    const item = (name) => Array.from(menu.querySelectorAll('[role="menuitem"]')).find((element) => element.textContent === name);
+    focus(trigger);
+    trigger.click();
+    await focused(item("Edit"), "opening focuses the first item");
+    pressFocused("ArrowUp");
+    await focused(item("Delete"), "ArrowUp wraps to the last item");
+    pressFocused("ArrowUp");
+    await focused(item("Duplicate"), "ArrowUp skips the disabled item");
+    pressFocused("Enter");
+    await waitFor(() => !visible(menu), "Enter closes the menu");
+    await waitFor(() => root.dataset.action === "duplicate", "Enter runs the item's onclick");
+    await focused(trigger, "the menu returns focus to its trigger");
+  }],
+  ["toast", async () => {
+    const root = $('[data-interaction-target="toast"]');
+    const trigger = root.querySelector('[data-interaction-control="toast-trigger"]');
+    const status = root.querySelector('[role="status"]');
+    focus(trigger);
+    trigger.click();
+    await waitFor(() => visible(status), "the toast opens");
+    // Move focus away so the focus pause does not hold the countdown.
+    trigger.blur();
+    const start = performance.now();
+    while (visible(status) && performance.now() - start < 5000) await sleep(50);
+    if (visible(status)) throw new Error("the toast countdown does not dismiss it");
+    await waitFor(() => root.dataset.reason === "timeout", "the toast reports a timeout dismissal");
+  }],
+  ["date-picker", async () => {
+    const root = $('[data-interaction-target="date-picker"]');
+    const trigger = $("#interaction-date-trigger");
+    const content = root.querySelector('[role="dialog"]');
+    const day = (date) => content.querySelector(`[data-date="${date}"]`);
+    const start = root.dataset.value;
+    const [year, month, date] = start.split("-").map(Number);
+    const next = new Date(Date.UTC(year, month - 1, date + 1));
+    const nextIso = next.toISOString().slice(0, 10);
+    const later = new Date(Date.UTC(next.getUTCFullYear(), next.getUTCMonth() + 1, next.getUTCDate()));
+    const laterIso = later.toISOString().slice(0, 10);
+    focus(trigger);
+    trigger.click();
+    await waitFor(() => placed(content), "the date picker is placed");
+    await focused(day(start), "opening focuses the selected day");
+    pressFocused("ArrowRight");
+    await waitFor(() => day(nextIso) !== null, `the next day ${nextIso} is rendered`);
+    await focused(day(nextIso), "ArrowRight moves focus to the next day");
+    pressFocused("PageDown");
+    await waitFor(() => day(laterIso) !== null, `the next month renders ${laterIso}`);
+    await focused(day(laterIso), "PageDown moves focus into the next month");
+    pressFocused("Escape");
+    await waitFor(() => !visible(content), "Escape closes the date picker");
+    await focused(trigger, "the date picker returns focus to its trigger");
+  }],
+  ["menubar", async () => {
+    const trigger = (value) => $(`#interaction-menubar-${value}`);
+    const menu = (value) => $(`[data-interaction-target="menubar"] [data-value="${value}"] [role="menu"]`);
+    const firstItem = (value) => menu(value).querySelector('[role="menuitem"]');
+    await waitFor(() => trigger("file").tabIndex === 0 && trigger("edit").tabIndex === -1, "the triggers form one Tab stop");
+    focus(trigger("file"));
+    pressFocused("ArrowRight");
+    await focused(trigger("edit"), "ArrowRight moves to the next trigger");
+    pressFocused("ArrowDown");
+    await waitFor(() => placed(menu("edit")), "ArrowDown opens the menu");
+    await focused(firstItem("edit"), "the open menu focuses its first item");
+    pressFocused("ArrowRight");
+    await waitFor(() => placed(menu("view")) && !visible(menu("edit")), "ArrowRight switches to the adjacent menu past the disabled trigger");
+    await focused(firstItem("view"), "the switched menu focuses its first item");
+    pressFocused("Escape");
+    await waitFor(() => !visible(menu("view")), "Escape closes the menu");
+    await focused(trigger("view"), "Escape returns focus to the open menu's trigger");
+  }],
+  ["navigation-menu", async () => {
+    const root = $('[data-interaction-target="navigation-menu"]');
+    const trigger = Array.from(root.querySelectorAll("button")).find((element) => element.textContent === "Docs");
+    const content = root.querySelector('[data-value="docs"] [data-dxui-navigation-content]');
+    focus(trigger);
+    trigger.click();
+    await waitFor(() => visible(content), "a click opens the content");
+    trigger.click();
+    await waitFor(() => !visible(content), "a second click closes the content");
+    key(trigger, "ArrowDown");
+    await waitFor(() => visible(content), "ArrowDown opens the content");
+    await focused(content.querySelector("a"), "ArrowDown focuses the first link");
+    pressFocused("Escape");
+    await waitFor(() => !visible(content), "Escape closes the content");
+    await focused(trigger, "Escape returns focus to the trigger");
+  }],
+];
+
+const run = async () => {
+  const passed = [];
+  for (const [name, scenario] of scenarios) {
+    try {
+      await scenario();
+    } catch (error) {
+      return { ok: false, passed, error: `${name}: ${error instanceof Error ? error.message : error}` };
+    }
+    passed.push(name);
+  }
+  return { ok: true, passed, error: null };
+};
+const timeout = sleep(overallTimeoutMs).then(() => ({
+  ok: false,
+  passed: [],
+  error: `timed out after ${overallTimeoutMs} ms`,
+}));
+// Let the preview mount and its interaction scripts attach first.
+await waitFor(() => document.querySelector("[data-dxui-navigation-menu]") !== null, "the preview mounts");
+await sleep(500);
+dioxus.send(await Promise.race([run(), timeout]));
