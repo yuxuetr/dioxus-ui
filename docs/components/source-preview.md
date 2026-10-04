@@ -31,7 +31,7 @@ Source preview routes: 64
 | [Card](card.md) | /components/card/source | crates/dioxus-ui-cli/templates/card.rs | src/components/ui/card.rs | rust | 106 | 2355 |
 | [Carousel](carousel.md) | /components/carousel/source | crates/dioxus-ui-cli/templates/carousel.rs | src/components/ui/carousel.rs | rust | 385 | 10549 |
 | [Chart](chart.md) | /components/chart/source | crates/dioxus-ui-cli/templates/chart.rs | src/components/ui/chart.rs | rust | 633 | 14818 |
-| [Checkbox](checkbox.md) | /components/checkbox/source | crates/dioxus-ui-cli/templates/checkbox.rs | src/components/ui/checkbox.rs | rust | 44 | 1415 |
+| [Checkbox](checkbox.md) | /components/checkbox/source | crates/dioxus-ui-cli/templates/checkbox.rs | src/components/ui/checkbox.rs | rust | 98 | 3422 |
 | [Collapsible](collapsible.md) | /components/collapsible/source | crates/dioxus-ui-cli/templates/collapsible.rs | src/components/ui/collapsible.rs | rust | 131 | 3689 |
 | [Combobox](combobox.md) | /components/combobox/source | crates/dioxus-ui-cli/templates/combobox.rs | src/components/ui/combobox.rs | rust | 279 | 8660 |
 | [Command](command.md) | /components/command/source | crates/dioxus-ui-cli/templates/command.rs | src/components/ui/command.rs | rust | 287 | 8205 |
@@ -61,7 +61,7 @@ Source preview routes: 64
 | [Popover](popover.md) | /components/popover/source | crates/dioxus-ui-cli/templates/popover.rs | src/components/ui/popover.rs | rust | 105 | 3297 |
 | [Progress](progress.md) | /components/progress/source | crates/dioxus-ui-cli/templates/progress.rs | src/components/ui/progress.rs | rust | 51 | 1428 |
 | [Radio Group](radio-group.md) | /components/radio-group/source | crates/dioxus-ui-cli/templates/radio_group.rs | src/components/ui/radio_group.rs | rust | 279 | 7290 |
-| [Resizable](resizable.md) | /components/resizable/source | crates/dioxus-ui-cli/templates/resizable.rs | src/components/ui/resizable.rs | rust | 329 | 11107 |
+| [Resizable](resizable.md) | /components/resizable/source | crates/dioxus-ui-cli/templates/resizable.rs | src/components/ui/resizable.rs | rust | 329 | 11104 |
 | [Scroll Area](scroll-area.md) | /components/scroll-area/source | crates/dioxus-ui-cli/templates/scroll_area.rs | src/components/ui/scroll_area.rs | rust | 141 | 3762 |
 | [Select](select.md) | /components/select/source | crates/dioxus-ui-cli/templates/select.rs | src/components/ui/select.rs | rust | 207 | 6327 |
 | [Separator](separator.md) | /components/separator/source | crates/dioxus-ui-cli/templates/separator.rs | src/components/ui/separator.rs | rust | 51 | 1253 |

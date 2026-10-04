@@ -359,7 +359,9 @@ pub use chart::{
   chart_tooltip_slot_class, chart_value_label, chart_view_box,
 };
 #[cfg(feature = "checkbox")]
-pub use checkbox::{CHECKBOX_BASE_CLASS, Checkbox, checkbox_class};
+pub use checkbox::{
+  CHECKBOX_BASE_CLASS, Checkbox, checkbox_class, checkbox_requested_state, checkbox_state,
+};
 #[cfg(feature = "collapsible")]
 pub use collapsible::{
   COLLAPSIBLE_BASE_CLASS, COLLAPSIBLE_CONTENT_BASE_CLASS, COLLAPSIBLE_CONTENT_CLOSED_CLASS,

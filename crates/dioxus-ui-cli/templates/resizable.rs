@@ -82,7 +82,7 @@ static NEXT_RESIZABLE_HANDLE_ID: AtomicUsize = AtomicUsize::new(0);
 // target size of the panel before the handle, from the pointer offset over the
 // group (the handle's parent) size along `data-orientation`. Sending targets
 // instead of per-move deltas keeps the edge under the pointer after a limit.
-// Keep in sync with `RESIZABLE_HANDLE_SCRIPT` in the CLI `resizable.rs` template.
+// Keep in sync with `RESIZABLE_HANDLE_SCRIPT` in `dioxus-ui`'s `resizable.rs`.
 pub(crate) const RESIZABLE_HANDLE_SCRIPT: &str = r#"
 const scopeId = await dioxus.recv();
 const handle = document.querySelector(`[data-dxui-resizable-handle="${scopeId}"]`);

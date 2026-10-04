@@ -41,7 +41,32 @@ rsx! {
 it back as `checked`. A disabled checkbox does not call it.
 
 Other attributes, such as `id`, `name`, `value`, and `aria-describedby`, are
-passed to the input. An indeterminate state is not supported yet.
+passed to the input.
+
+## Indeterminate State
+
+```rust
+let mut items = use_signal(|| [true, false]);
+let all = items().iter().all(|item| *item);
+let some = items().iter().any(|item| *item);
+
+rsx! {
+  Checkbox {
+    "aria-label": "Select all",
+    checked: all,
+    indeterminate: some && !all,
+    on_checked_change: move |checked| items.set([checked, checked]),
+  }
+}
+```
+
+`indeterminate` sets the input's native `indeterminate` property, which
+browsers announce as a mixed checkbox, and renders
+`data-state="indeterminate"`. A change while mixed requests `true`. A click
+clears the property in the browser; when the app keeps the checkbox mixed,
+the component sets it again after the next render. The property is set in the
+browser, so server-rendered HTML shows the checkbox unchecked until it
+hydrates (see [RFC 0041](../rfcs/0041-checkbox-indeterminate-state.md)).
 
 ## Accessibility Notes
 
