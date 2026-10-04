@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75% (M145: 3/4)
-- Current milestone: M145 Android Interaction Verification
-- Current task: M145.4 Complete Android verification milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2623,7 +2623,7 @@
   - Confirm the command fails when an interaction path is broken, when the app reports no result, and when the NDK has flattened symlinks.
   - Keep the command out of `npm run verify:release` because it needs the Android SDK, NDK, and an emulator.
 
-- TODO M145.4 Complete Android verification milestone
+- DONE M145.4 Complete Android verification milestone
   - Update the Desktop and Mobile verification strategy, the Mobile checklist, component docs, quality gates, Known Pre-1.0 Limitations, and CHANGELOG Unreleased notes.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop, iOS, and Android self-tests.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
