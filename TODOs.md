@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25% (M144: 1/4)
+- Overall: 50% (M144: 2/4)
 - Current milestone: M144 Roving Group Interaction
-- Current task: M144.2 Implement roving group interaction
+- Current task: M144.3 Verify roving group behavior in a real browser
 
 ## Backup
 
@@ -2595,7 +2595,7 @@
   - Define one shared roving group script: one Tab stop per group, arrow keys by orientation with optional wrapping, Home and End, disabled items skipped, selection following focus for Tabs and Radio Group, focus only for Toggle Group, and clicks reported to Rust.
   - Define the Rust API (`Tabs` root with `on_value_change` and trigger and panel ids, `RadioGroup` `on_value_change`, `ToggleGroup` `on_toggle`) and record what stays out of scope (manual tab activation, vertical tabs, right-to-left mirroring, Desktop and Mobile self-test scenarios) with reevaluation conditions.
 
-- TODO M144.2 Implement roving group interaction
+- DONE M144.2 Implement roving group interaction
   - Add the roving group script and hook to the crate and the template `utils.rs`, keep the parity test, and wire Tabs, Radio Group, and Toggle Group in the crate and the templates.
   - Update the component docs pages.
 
