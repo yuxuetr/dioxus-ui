@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M158 Pagination Page Changes
-- Current task: M158.2 Implement pagination page changes
+- Current task: M158.3 Verify pagination in a real browser
 
 ## Backup
 
@@ -2875,7 +2875,7 @@
   - Define `onclick: Option<EventHandler<MouseEvent>>` on `PaginationLink`, `PaginationPrevious`, and `PaginationNext`, a button form when `href` is empty, a disabled anchor without `href`, and attribute spreading.
   - Record what stays out of scope (a page range helper, localized Previous and Next labels, a stateful root with `on_page_change`, Desktop and Mobile self-test scenarios) with reevaluation conditions.
 
-- TODO M158.2 Implement pagination page changes
+- DONE M158.2 Implement pagination page changes
   - Add the callback, button form, disabled anchor, and attribute spreading to the crate source and template.
   - Update the Pagination docs page.
 
