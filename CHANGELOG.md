@@ -172,6 +172,10 @@ release owner renames it to the released version at publish time.
   description through generated ids, take a passed `aria-label` instead, and
   pass through attributes. The browser verifier also fails on any id reference
   that matches no element.
+- Composite widget names: `TabsList`, `ToggleGroup`, `Menubar`,
+  `NavigationMenu`, `CalendarGrid`, and `CalendarCaption` pass through
+  attributes, so the widgets take an `aria-label` and a calendar grid can
+  point `aria-labelledby` at its caption.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.

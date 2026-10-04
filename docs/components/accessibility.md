@@ -48,7 +48,7 @@ Statuses:
 | --- | --- | --- |
 | Accordion | Triggers are buttons with `aria-expanded` inside `h3` headings; under `Accordion`, triggers link to `role="region"` content with `aria-controls` and `aria-labelledby`; Up, Down, Home, and End move focus past disabled triggers and every trigger stays a Tab stop; browser-verified on Web. | Implemented |
 | Accordion | An expanded item that cannot collapse, other heading levels, and horizontal accordions are not implemented. | Planned |
-| Calendar | Exposes grid, row, columnheader, gridcell, selected, disabled, today, and range state attributes. | Implemented |
+| Calendar | Exposes grid, row, columnheader, gridcell, selected, disabled, today, and range state attributes; the grid takes `aria-labelledby` pointing at a caption `id`; browser-verified on Web. | Implemented |
 | Calendar | Keyboard-managed days use roving tabindex, map arrow, Page, Home, and End keys to moves, and follow the focused date with DOM focus; browser-verified on Web inside Date Picker. | Implemented |
 | Calendar | Right-to-left arrow mirroring and disabled date skipping remain app-owned. | Planned |
 | Collapsible | Uses native trigger button with expanded state and optional trigger/content association; `on_open_change` sends the requested state on click, Enter, and Space, and every part passes attributes through; browser-verified on Web. | Implemented |
@@ -65,7 +65,7 @@ Statuses:
 | Combobox | Async loading remains app-owned. | Planned |
 | Native Select | Uses native select, optgroup, and option elements with platform keyboard and form behavior; `on_value_change` reports the chosen value, and `id`, `name`, and `aria-*` pass through so a `Label` can name it; browser-verified on Web. | Implemented |
 | Radio Group | Uses radiogroup/radio roles and checked state; one Tab stop on the checked or first enabled item, arrows move focus past disabled items and check the focused item, with Left and Right swapped in right-to-left layouts; the group and items take `aria-label`, `aria-labelledby`, or an `id` for a `Label`; browser-verified on Web. | Implemented |
-| Tabs | Uses tablist, tab, and tabpanel roles with `aria-controls` and `aria-labelledby` under `Tabs`; one Tab stop on the selected trigger, Left, Right, Home, and End move focus past disabled triggers and select the focused tab, with Left and Right swapped in right-to-left layouts; manual activation selects only on Enter, Space, or click, and vertical tabs use Up and Down with `aria-orientation="vertical"`; leaving the list makes the selected trigger the Tab stop again; browser-verified on Web. | Implemented |
+| Tabs | Uses tablist, tab, and tabpanel roles with `aria-controls` and `aria-labelledby` under `Tabs`; one Tab stop on the selected trigger, Left, Right, Home, and End move focus past disabled triggers and select the focused tab, with Left and Right swapped in right-to-left layouts; manual activation selects only on Enter, Space, or click, and vertical tabs use Up and Down with `aria-orientation="vertical"`; leaving the list makes the selected trigger the Tab stop again; the tab list takes a passed `aria-label`; browser-verified on Web. | Implemented |
 | Select | Uses select-only combobox semantics with listbox content; trigger keeps focus with `aria-activedescendant`; arrows, Home, End, and typeahead move the highlight; Enter, Space, or click chooses; browser-verified on Web. | Implemented |
 
 ## Light Interaction
@@ -76,7 +76,7 @@ Statuses:
 | Slider | Right-to-left, vertical, and multi-thumb sliders are not implemented. | Planned |
 | Spinner | Uses status semantics and an accessible label. | Implemented |
 | Toggle | Uses button semantics with `aria-pressed`; `on_pressed_change` sends the requested state on click, Enter, and Space, and `aria-*` passes through; browser-verified on Web. | Implemented |
-| Toggle Group | Uses grouped toggle buttons with `aria-pressed`; one Tab stop on the last focused item, arrows move focus past disabled items without pressing, with Left and Right swapped in right-to-left layouts; browser-verified on Web. | Implemented |
+| Toggle Group | Uses grouped toggle buttons with `aria-pressed`; one Tab stop on the last focused item, arrows move focus past disabled items without pressing, with Left and Right swapped in right-to-left layouts; the group takes a passed `aria-label`; browser-verified on Web. | Implemented |
 
 ## Message Components
 
@@ -106,10 +106,10 @@ Statuses:
 | Dropdown | Focuses the first item, moves DOM focus with wrapping arrows, Home, End, and typeahead, activates items, and returns focus; browser-verified on Web. | Implemented |
 | Hover Card | Provides controlled rich preview content with placement metadata; under `HoverCard`, hover opens after a delay, keyboard focus opens at once, the pointer and focus can move into the card, and it closes after a close delay; browser-verified on Web. | Implemented |
 | Hover Card | Touch opening and a mobile fallback are not implemented; use Popover or Sheet on mobile. | Planned |
-| Menubar | Exposes menubar, menu, and menu item roles. | Implemented |
+| Menubar | Exposes menubar, menu, and menu item roles; the menu bar takes a passed `aria-label`; browser-verified on Web. | Implemented |
 | Menubar | Keeps the triggers one Tab stop with Left, Right, Home, and End movement, opens menus that behave like Dropdown, switches menus with Left, Right, or hover, and returns focus to the open menu's trigger, with Left and Right swapped in right-to-left layouts; browser-verified on Web. | Implemented |
 | Menubar | Nested submenus are not implemented. | Planned |
-| Navigation Menu | Uses navigation structure and link semantics for destinations. | Implemented |
+| Navigation Menu | Uses navigation structure and link semantics for destinations; the landmark takes a passed `aria-label`; browser-verified on Web. | Implemented |
 | Navigation Menu | Follows the disclosure navigation pattern: triggers toggle content on click, keys, or hover, arrows move between top-level items and content links, and Escape returns focus to the trigger, with Left and Right swapped in right-to-left layouts; browser-verified on Web. | Implemented |
 | Navigation Menu | Viewport size measurement and submenus are not implemented. | Planned |
 | Popover | Anchored placement with flip and shift, Escape or outside dismissal, and a name from its title or a passed `aria-label`; browser-verified on Web. | Implemented |
