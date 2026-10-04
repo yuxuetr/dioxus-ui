@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M141 Navigation Menu Interaction Behavior
-- Current task: M141.2 Implement Navigation Menu interaction
+- Current task: M141.3 Verify navigation menu behavior in a real browser
 
 ## Backup
 
@@ -2535,7 +2535,7 @@
   - Define the disclosure navigation pattern: click and Enter or Space toggle, hover opens after a delay and closes after leaving, Left, Right, Home, and End move between top-level items, ArrowDown enters content, Up and Down move between content links, and Escape, outside presses, and focus leaving the menu close it.
   - Record what stays out of scope (viewport size measurement, submenus, motion, right-to-left mirroring) with reevaluation conditions.
 
-- TODO M141.2 Implement Navigation Menu interaction
+- DONE M141.2 Implement Navigation Menu interaction
   - Add a navigation menu script that handles trigger clicks, keyboard movement, hover timing, and dismissal, and reports the item value to open (empty to close) through `NavigationMenu` `on_value_change`.
   - `NavigationMenuItem` gains `value`; mirror the template, keep the parity test, and update the docs page.
 
