@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M150 Right-To-Left Arrow Mirroring
+- Current task: M150.1
 
 ## Backup
 
@@ -2705,6 +2705,26 @@
 
 - DONE M149.4 Complete command milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M150 Right-To-Left Arrow Mirroring
+
+- TODO M150.1 Design right-to-left arrow mirroring
+  - Record that the roving group script (Tabs, Radio Group, Toggle Group), the Menubar script, and the Navigation Menu script map ArrowRight to the next item and ArrowLeft to the previous one regardless of text direction, so in a right-to-left layout the keys move focus away from the pressed direction.
+  - Define mirroring from the root's computed `direction`, read on each key press, so `Direction`, a `dir` attribute on any ancestor, or CSS all apply without a new prop; only Left and Right swap, while Up, Down, Home, and End keep their meaning.
+  - Record what stays out of scope (Calendar grid keys, vertical orientation changes, a direction prop or context, Desktop and Mobile self-test scenarios) with reevaluation conditions.
+
+- TODO M150.2 Implement right-to-left arrow mirroring
+  - Mirror Left and Right in the roving group, Menubar, and Navigation Menu scripts in the crate and the matching templates.
+  - Update the Tabs, Radio Group, Toggle Group, Menubar, Navigation Menu, and Direction docs pages.
+
+- TODO M150.3 Verify mirroring in a real browser
+  - Extend `npm run verify:runtime-interactions` to switch the Tabs, Radio Group, Toggle Group, Menubar, and Navigation Menu fixtures to right-to-left and assert that ArrowLeft moves to the next item and ArrowRight to the previous one, that Up and Down in a menu are unchanged, and that left-to-right behavior is restored afterwards.
+  - Reverse-verify that the script fails when mirroring is removed from each script, or when it also swaps Up and Down.
+
+- TODO M150.4 Complete right-to-left mirroring milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and accessibility docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 
