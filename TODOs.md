@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M157 Input OTP Value Changes
-- Current task: M157.3 Verify Input OTP typing in a real browser
+- Current task: M157.4 Complete Input OTP milestone
 
 ## Backup
 
@@ -2859,7 +2859,7 @@
   - Add the callback, sanitize helper, overlay classes, filter script, and attribute spreading to the crate source and template, with unit tests and the CLI script parity entry.
   - Update the Input OTP docs page.
 
-- TODO M157.3 Verify Input OTP typing in a real browser
+- DONE M157.3 Verify Input OTP typing in a real browser
   - Render a labelled six-digit Input OTP in the Web preview and extend `npm run verify:runtime-interactions` to assert that a press focuses the input, that typed and inserted text reaches app state cleaned and cut at the length, that Backspace after a rejected letter removes the last digit, and that passed attributes render.
   - Reverse-verify that the script fails when the callback is removed, when attributes are not spread, when the filter script does not start, or when it does not cut at the length.
 
