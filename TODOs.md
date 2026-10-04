@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 29% (M135 2/7)
+- Overall: 43% (M135 3/7)
 - Current milestone: M135 Overlay Interaction Behavior
-- Current task: M135.3 Apply modal behavior to Alert Dialog, Sheet, and Drawer
+- Current task: M135.4 Implement Popover anchored positioning and dismissal
 
 ## Backup
 
@@ -2387,7 +2387,7 @@
   - Opening focuses the first focusable element (or the content), Tab and Shift+Tab wrap inside the content, and closing restores focus to the previously focused element.
   - Mirror the behavior in the source-copy template and shared utils, update the docs page, and keep existing `open`-only usage working.
 
-- TODO M135.3 Apply modal behavior to Alert Dialog, Sheet, and Drawer
+- DONE M135.3 Apply modal behavior to Alert Dialog, Sheet, and Drawer
   - Reuse the Dialog focus scope and dismissal wiring; Alert Dialog keeps outside pointer dismissal disabled.
   - Update templates, docs pages, and tests for each component.
 
