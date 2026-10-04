@@ -5,15 +5,15 @@ use dioxus_ui::{
   AttachmentSize, AttachmentState, BubbleAlign, ButtonGroupOrientation, ButtonSize, ButtonVariant,
   ChartColorToken, ChartDomain, ChartPoint, ChartScale, ChartSeries, DialogClose, DialogContent,
   DialogDescription, DialogOverlay, DialogTitle, DismissBehavior, MarkerVariant, MessageAlign,
-  MessageScrollerIntent, MessageScrollerMetrics, TextDirection, UiDensity, attachment_class,
-  bubble_class, button_class, button_group_class, chart_area_path, chart_area_series_class,
-  chart_bar_rects, chart_bar_series_class, chart_class, chart_fallback_rows, chart_line_path,
-  chart_line_series_class, chart_view_box, collapsible_class, direction_class, input_group_class,
-  input_otp_class, marker_class, message_avatar_class, message_class, message_content_class,
-  message_footer_class, message_group_class, message_header_class, message_scroller_class,
-  message_scroller_intent_attribute, message_scroller_is_at_bottom,
-  message_scroller_jump_button_class, message_scroller_show_unread_marker,
-  otp_apply_paste_filtered, otp_slots,
+  MessageScrollerIntent, MessageScrollerMetrics, PopoverContent, PopoverDescription, PopoverTitle,
+  TextDirection, UiDensity, attachment_class, bubble_class, button_class, button_group_class,
+  chart_area_path, chart_area_series_class, chart_bar_rects, chart_bar_series_class, chart_class,
+  chart_fallback_rows, chart_line_path, chart_line_series_class, chart_view_box, collapsible_class,
+  direction_class, input_group_class, input_otp_class, marker_class, message_avatar_class,
+  message_class, message_content_class, message_footer_class, message_group_class,
+  message_header_class, message_scroller_class, message_scroller_intent_attribute,
+  message_scroller_is_at_bottom, message_scroller_jump_button_class,
+  message_scroller_show_unread_marker, otp_apply_paste_filtered, otp_slots,
 };
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -673,6 +673,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut scroll_status = use_signal(|| "held");
   let mut dialog_open = use_signal(|| false);
   let mut alert_dialog_open = use_signal(|| false);
+  let mut popover_open = use_signal(|| false);
   let mut alert_dialog_result = use_signal(|| "pending");
   let root = match target {
     PreviewTarget::Web => "web",
@@ -1017,6 +1018,27 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               "data-interaction-control": "scroll-jump",
               onclick: move |_| scroll_status.set("jumped"),
               "Jump to latest"
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "popover",
+            "data-state": if popover_open() { "open" } else { "closed" },
+            h2 { class: "text-sm font-medium", "Popover interaction" }
+            button {
+              id: "interaction-popover-trigger",
+              class: "{secondary_button_class} mt-3",
+              "aria-expanded": if popover_open() { "true" } else { "false" },
+              "data-interaction-control": "popover-trigger",
+              onclick: move |_| popover_open.toggle(),
+              "Toggle popover"
+            }
+            PopoverContent {
+              open: popover_open(),
+              anchor_id: "interaction-popover-trigger",
+              on_open_change: move |open| popover_open.set(open),
+              PopoverTitle { "Dimensions" }
+              PopoverDescription { "Placed below the trigger, or above it near the viewport bottom." }
             }
           }
           article {

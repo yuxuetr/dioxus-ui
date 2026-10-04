@@ -70,7 +70,10 @@ pub mod date_picker;
 pub mod dialog;
 
 #[cfg(any(feature = "alert-dialog", feature = "dialog", feature = "drawer", feature = "sheet"))]
-mod overlay_behavior;
+mod modal_focus;
+
+#[cfg(feature = "popover")]
+mod anchored_overlay;
 
 #[cfg(feature = "direction")]
 pub mod direction;

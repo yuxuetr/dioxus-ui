@@ -4,7 +4,7 @@ pub use dioxus_ui_primitives::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
 
-use crate::overlay_behavior::use_modal_focus_scope;
+use crate::modal_focus::use_modal_focus_scope;
 
 pub const DIALOG_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";
 pub const DIALOG_CONTENT_BASE_CLASS: &str = "fixed left-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 rounded-md border border-zinc-200 bg-white p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600";

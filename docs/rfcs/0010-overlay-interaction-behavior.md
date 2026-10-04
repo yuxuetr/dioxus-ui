@@ -68,20 +68,26 @@ path for all three.
 ### Anchored Positioning
 
 Floating content gains `anchor_id: Option<String>`, `side`, `align`, and
-`side_offset` props. When open and anchored, a measurement script reports the
-anchor rect, content size, and viewport size on open, resize, and scroll. Rust
-feeds those values to `compute_overlay_placement` with `FlipShift` collision
-handling and renders the content with `position: fixed` coordinates. The same
-script reports outside pointer and outside focus events, which Rust filters
-through `DismissBehavior`.
+`side_offset` props. When open and anchored, a page script measures the anchor,
+content, and viewport on open, resize, and scroll, and writes `position: fixed`
+coordinates onto the content. It applies the rules of
+`compute_overlay_placement` with `FlipShift` collision handling and an 8 pixel
+collision padding: flip to the opposite side when the preferred side lacks room
+and the opposite side has at least as much, then clamp the cross axis inside
+the padded viewport.
+
+Placement runs in the page rather than in Rust because a Rust round trip per
+layout change adds an IPC hop on Desktop and Mobile, and because source-copy
+templates would otherwise need a copy of the whole placement engine. The same
+script reports Escape, outside pointer, and outside focus events, which Rust
+filters through `DismissBehavior`.
 
 Without `anchor_id` the content renders exactly as in `0.1.0`.
 
 ### Source-Copy Templates
 
-Templates cannot import internal crates. The focus-scope script, measurement
-script, and a copy of the placement function live in the shared `utils.rs`
-template, which every generated component already depends on. The registry
+Templates cannot import internal crates. The focus-scope script, the anchored
+overlay script, and their hooks live in the shared `utils.rs` template, which every generated component already depends on. The registry
 dependency graph does not change.
 
 ### Runtime Traits
@@ -121,8 +127,8 @@ Out of scope, with reevaluation conditions:
 
 ## Verification
 
-- Unit tests cover dismissal decisions and placement inputs built from
-  measurement messages.
+- Unit tests cover dismissal decisions for script messages, and a CLI test
+  keeps the template scripts identical to the crate scripts.
 - The Web preview renders real Dialog, Alert Dialog, and Popover components,
   and `npm run verify:runtime-interactions` asserts Escape, overlay click, Tab
   wrap, focus restore, and in-viewport placement with flip.

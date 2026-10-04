@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
-use super::utils::classes;
-pub use super::utils::{OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
+use super::utils::{AnchoredPlacement, classes, use_anchored_overlay};
+pub use super::utils::{DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
 
 pub const POPOVER_CONTENT_BASE_CLASS: &str = "z-50 w-72 rounded-md border border-zinc-200 bg-white p-4 text-zinc-950 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600";
 pub const POPOVER_HEADER_BASE_CLASS: &str = "grid gap-1";
@@ -23,13 +23,28 @@ pub fn popover_description_class(class: &str) -> String {
   classes([Some(POPOVER_DESCRIPTION_BASE_CLASS), Some(class)])
 }
 
+/// Non-modal content. With `anchor_id` it is placed next to that element with
+/// fixed positioning, flipping and shifting to stay in the viewport. Escape and
+/// outside interactions request close through `on_open_change` per `dismiss`.
 #[component]
 pub fn PopoverContent(
   #[props(default)] open: bool,
   #[props(default)] class: String,
+  #[props(default)] anchor_id: Option<String>,
+  #[props(default = OverlaySide::Bottom)] side: OverlaySide,
+  #[props(default)] align: OverlayAlign,
+  #[props(default = 4)] side_offset: i32,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
+  #[props(default = DismissBehavior::popover_default())] dismiss: DismissBehavior,
   children: Element,
 ) -> Element {
   let class = popover_content_class(&class);
+  let anchored = use_anchored_overlay(
+    open,
+    AnchoredPlacement { anchor_id, side, align, side_offset },
+    dismiss,
+    on_open_change,
+  );
 
   rsx! {
     div {
@@ -37,6 +52,7 @@ pub fn PopoverContent(
       class,
       hidden: !open,
       "data-state": if open { "open" } else { "closed" },
+      "data-dxui-anchored": anchored,
       {children}
     }
   }

@@ -4,7 +4,7 @@ pub use dioxus_ui_primitives::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
 
-use crate::overlay_behavior::use_modal_focus_scope;
+use crate::modal_focus::use_modal_focus_scope;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum AlertDialogActionVariant {

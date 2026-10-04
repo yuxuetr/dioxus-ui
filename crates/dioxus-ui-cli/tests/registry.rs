@@ -183,18 +183,21 @@ fn generated_templates_do_not_import_internal_crates() {
 
 #[test]
 fn template_overlay_scripts_match_crate_scripts() {
-  let crate_source =
-    fs::read_to_string(workspace_root().join("crates/dioxus-ui/src/overlay_behavior.rs"))
-      .expect("overlay behavior source should be readable");
   let template_source = fs::read_to_string(cli_root().join("templates/utils.rs"))
     .expect("utils template should be readable");
 
-  let name = "MODAL_FOCUS_SCOPE_SCRIPT";
-  assert_eq!(
-    raw_string_const(&template_source, name),
-    raw_string_const(&crate_source, name),
-    "templates/utils.rs {name} should match crates/dioxus-ui/src/overlay_behavior.rs"
-  );
+  for (crate_file, name) in [
+    ("crates/dioxus-ui/src/modal_focus.rs", "MODAL_FOCUS_SCOPE_SCRIPT"),
+    ("crates/dioxus-ui/src/anchored_overlay.rs", "ANCHORED_OVERLAY_SCRIPT"),
+  ] {
+    let crate_source = fs::read_to_string(workspace_root().join(crate_file))
+      .unwrap_or_else(|error| panic!("{crate_file} should be readable: {error}"));
+    assert_eq!(
+      raw_string_const(&template_source, name),
+      raw_string_const(&crate_source, name),
+      "templates/utils.rs {name} should match {crate_file}"
+    );
+  }
 }
 
 fn raw_string_const<'a>(source: &'a str, name: &str) -> &'a str {

@@ -266,6 +266,44 @@ async function runBrowserAssertions() {
     await expect(scrollStatus).toHaveAttribute("data-state", "jumped");
     await expect(scrollStatusText).toContainText("jumped");
 
+    const popover = page.locator('[data-interaction-target="popover"]');
+    const popoverTrigger = page.locator('[data-interaction-control="popover-trigger"]');
+    const popoverContent = popover.locator('[role="dialog"]');
+    const boxes = async () => ({
+      trigger: await popoverTrigger.boundingBox(),
+      content: await popoverContent.boundingBox(),
+    });
+    const expectInViewport = (box, label) => {
+      if (box.x < 0 || box.y < 0 || box.x + box.width > viewport.width || box.y + box.height > viewport.height) {
+        throw new Error(`${label}: popover content ${JSON.stringify(box)} is outside the viewport`);
+      }
+    };
+    await expect(popoverContent).toBeHidden();
+    await popoverTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await popoverTrigger.click();
+    await expect(popoverContent).toHaveAttribute("data-side", "bottom");
+    let placed = await boxes();
+    if (placed.content.y < placed.trigger.y + placed.trigger.height) {
+      throw new Error(`popover should sit below its trigger: ${JSON.stringify(placed)}`);
+    }
+    expectInViewport(placed.content, "bottom placement");
+    await page.keyboard.press("Escape");
+    await expect(popoverContent).toBeHidden();
+    await popoverTrigger.click();
+    await expect(popoverContent).toBeVisible();
+    await page.getByRole("heading", { name: "Disclosure interaction" }).click();
+    await expect(popoverContent).toBeHidden();
+    await popoverTrigger.evaluate((element) => element.scrollIntoView({ block: "end" }));
+    await popoverTrigger.click();
+    await expect(popoverContent).toHaveAttribute("data-side", "top");
+    placed = await boxes();
+    if (placed.content.y + placed.content.height > placed.trigger.y) {
+      throw new Error(`popover should flip above its trigger: ${JSON.stringify(placed)}`);
+    }
+    expectInViewport(placed.content, "flipped placement");
+    await popoverTrigger.click();
+    await expect(popoverContent).toBeHidden();
+
     const alertDialog = page.locator('[data-interaction-target="alert-dialog"]');
     const alertDialogTrigger = page.locator('[data-interaction-control="alert-dialog-trigger"]');
     const alertDialogContent = alertDialog.locator('[role="alertdialog"]');
@@ -332,7 +370,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (7 fixtures)");
+  console.log("runtime interaction verification passed (8 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
