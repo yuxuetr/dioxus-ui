@@ -189,6 +189,11 @@ fn template_overlay_scripts_match_crate_scripts() {
     ("crates/dioxus-ui/src/dismiss_timer.rs", "templates/utils.rs", "DISMISS_TIMER_SCRIPT"),
     ("crates/dioxus-ui/src/listbox.rs", "templates/utils.rs", "LISTBOX_SCRIPT"),
     ("crates/dioxus-ui/src/menubar.rs", "templates/menubar.rs", "MENUBAR_SCRIPT"),
+    (
+      "crates/dioxus-ui/src/navigation_menu.rs",
+      "templates/navigation_menu.rs",
+      "NAVIGATION_MENU_SCRIPT",
+    ),
   ] {
     let crate_source = fs::read_to_string(workspace_root().join(crate_file))
       .unwrap_or_else(|error| panic!("{crate_file} should be readable: {error}"));
