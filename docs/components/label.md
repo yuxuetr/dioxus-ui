@@ -22,4 +22,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["label"] }
 ## Accessibility Notes
 
 Associate labels with their target control using `for` or equivalent Dioxus
-attributes. Avoid using label styling for unrelated helper text.
+attributes. Controls that are not labelable elements, such as `Slider`, take
+`aria-labelledby` instead; give the label an `id`, which `Label` passes
+through with other attributes. Avoid using label styling for unrelated helper
+text.
