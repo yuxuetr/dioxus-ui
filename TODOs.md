@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M167 Slider Thumb Position And Vertical Orientation
-- Current task: M167.3 Verify slider thumb position and vertical sliders in a real browser
+- Current task: M167.4 Complete slider milestone
 
 ## Backup
 
@@ -3056,7 +3056,7 @@
   - Add the thumb position, orientation prop, vertical styles, and pointer mapping to the crate source and template, with unit tests.
   - Update the Slider docs page.
 
-- TODO M167.3 Verify slider thumb position and vertical sliders in a real browser
+- DONE M167.3 Verify slider thumb position and vertical sliders in a real browser
   - Extend `npm run verify:runtime-interactions` to assert that the horizontal thumb follows the value and that a vertical slider in the Web preview has a vertical orientation, places its thumb from the bottom, and changes value by pointer and ArrowUp.
   - Reverse-verify that the script fails when the thumb is not positioned, when the vertical pointer uses `clientX`, or when `aria-orientation` stays horizontal.
 
