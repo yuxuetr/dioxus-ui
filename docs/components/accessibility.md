@@ -122,7 +122,7 @@ Statuses:
 
 | Component | Contract | Status |
 | --- | --- | --- |
-| Pagination | Uses navigation region and current-page state. | Implemented |
+| Pagination | Uses navigation region and current-page state; controls without an `href` are buttons that report `onclick`, and a disabled control cannot take focus or be activated; browser-verified on Web. | Implemented |
 | Progress | Uses progressbar value attributes. | Implemented |
 | Table | Uses semantic table elements. | Implemented |
 | Data Table | Exposes sorted header state, selected row state, hidden cells, loading status, and empty state composition. | Implemented |

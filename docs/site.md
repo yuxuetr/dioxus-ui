@@ -2316,7 +2316,8 @@ query resets, choosing from the input), right-to-left arrow mirroring in
 the roving groups and menus, vertical, manually activated Tabs, Combobox
 and Command result status regions, Switch and Checkbox change events,
 Button, Toggle, Input, and Textarea events, Slider keyboard and pointer
-input, Collapsible and Native Select events, and Input OTP typing.
+input, Collapsible and Native Select events, Input OTP typing, and
+Pagination page changes.
 
 It is not part of `npm run verify` or `npm run verify:release`. It does not
 write screenshots or traces, certify full accessibility, verify native Desktop

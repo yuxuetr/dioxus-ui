@@ -141,6 +141,10 @@ release owner renames it to the released version at publish time.
   the code cleaned by the new `input_otp_sanitize`, a page script keeps
   rejected characters out of the native value, and both Input OTP parts pass
   through attributes such as `aria-labelledby`.
+- Pagination page changes: `PaginationLink`, `PaginationPrevious`, and
+  `PaginationNext` gain `onclick`, render a button when `href` is empty, and
+  pass through attributes such as `title` and `target`; a disabled anchor
+  drops its `href`.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.
@@ -156,6 +160,8 @@ release owner renames it to the released version at publish time.
 - `InputOtpHiddenInput` requires a `length` prop, and its class changes from
   `sr-only` to a transparent overlay over the slots; `InputOtp` gains
   `relative` so the input must be its child.
+- Pagination controls without an `href` render `button type="button"`
+  instead of `a href=""`.
 
 ### Fixed
 

@@ -190,4 +190,5 @@ to Slider keyboard and pointer input
 Collapsible and Native Select events
 ([RFC 0031](rfcs/0031-collapsible-and-native-select-events.md)), and M157 to
 Input OTP value changes
-([RFC 0032](rfcs/0032-input-otp-value-changes.md)).
+([RFC 0032](rfcs/0032-input-otp-value-changes.md)), and M158 to Pagination
+page changes ([RFC 0033](rfcs/0033-pagination-page-changes.md)).
