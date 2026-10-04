@@ -8,7 +8,7 @@ pub use dioxus_ui_primitives::{
 pub const CAROUSEL_BASE_CLASS: &str = "relative";
 pub const CAROUSEL_VIEWPORT_BASE_CLASS: &str = "overflow-hidden";
 pub const CAROUSEL_CONTENT_BASE_CLASS: &str = "flex data-orientation-horizontal:-ml-4 data-orientation-vertical:-mt-4 data-orientation-vertical:flex-col";
-pub const CAROUSEL_ITEM_BASE_CLASS: &str = "min-w-0 shrink-0 grow-0 basis-full data-orientation-horizontal:pl-4 data-orientation-vertical:pt-4";
+pub const CAROUSEL_ITEM_BASE_CLASS: &str = "min-w-0 shrink-0 grow-0 basis-full transition-transform duration-300 motion-reduce:transition-none data-orientation-horizontal:pl-4 data-orientation-vertical:pt-4";
 pub const CAROUSEL_CONTROL_BASE_CLASS: &str = "inline-flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 bg-white text-sm shadow-sm transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
 pub const CAROUSEL_INDICATOR_BASE_CLASS: &str =
   "h-2 w-2 rounded-full bg-zinc-300 transition-colors data-selected:bg-zinc-950";
@@ -67,10 +67,50 @@ pub fn carousel_indicator_class(selected: bool, class: &str) -> String {
   classes([Some(CAROUSEL_INDICATOR_BASE_CLASS), selected.then_some("bg-zinc-950"), Some(class)])
 }
 
+/// A slide step requested from the keyboard.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum CarouselStep {
+  Previous,
+  Next,
+}
+
+/// Maps an arrow key to a step along the carousel's orientation.
+pub fn carousel_key_step(key: &str, orientation: CarouselOrientation) -> Option<CarouselStep> {
+  match (orientation, key) {
+    (CarouselOrientation::Horizontal, "ArrowLeft") | (CarouselOrientation::Vertical, "ArrowUp") => {
+      Some(CarouselStep::Previous)
+    }
+    (CarouselOrientation::Horizontal, "ArrowRight")
+    | (CarouselOrientation::Vertical, "ArrowDown") => Some(CarouselStep::Next),
+    _ => None,
+  }
+}
+
+/// The content style that carries the selected index to its items.
+pub fn carousel_content_style(index: usize) -> String {
+  format!("--dxui-carousel-index: {index}")
+}
+
+/// A percentage translate is relative to the item itself, so every item
+/// moves by `index` item sizes whatever its basis.
+pub fn carousel_item_transform(orientation: CarouselOrientation) -> &'static str {
+  match orientation {
+    CarouselOrientation::Horizontal => "translateX(calc(var(--dxui-carousel-index, 0) * -100%))",
+    CarouselOrientation::Vertical => "translateY(calc(var(--dxui-carousel-index, 0) * -100%))",
+  }
+}
+
+/// Keeps a control's default label only when the app passed none.
+fn default_label(attributes: &[Attribute], label: &'static str) -> Option<&'static str> {
+  (!attributes.iter().any(|attribute| attribute.name == "aria-label")).then_some(label)
+}
+
 #[component]
 pub fn Carousel(
   #[props(default)] orientation: CarouselOrientation,
+  #[props(default)] on_key_step: Option<EventHandler<CarouselStep>>,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = carousel_class(&class);
@@ -81,18 +121,33 @@ pub fn Carousel(
       class,
       "aria-roledescription": "carousel",
       "data-orientation": carousel_orientation_attribute(orientation),
+      onkeydown: move |event: KeyboardEvent| {
+        if let Some(step) = carousel_key_step(&event.key().to_string(), orientation) {
+          // Up and Down would otherwise scroll the page.
+          event.prevent_default();
+          if let Some(handler) = on_key_step {
+            handler.call(step);
+          }
+        }
+      },
+      ..attributes,
       {children}
     }
   }
 }
 
 #[component]
-pub fn CarouselViewport(#[props(default)] class: String, children: Element) -> Element {
+pub fn CarouselViewport(
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
   let class = carousel_viewport_class(&class);
 
   rsx! {
     div {
       class,
+      ..attributes,
       {children}
     }
   }
@@ -101,7 +156,9 @@ pub fn CarouselViewport(#[props(default)] class: String, children: Element) -> E
 #[component]
 pub fn CarouselContent(
   #[props(default)] orientation: CarouselOrientation,
+  #[props(default)] index: usize,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = carousel_content_class(orientation, &class);
@@ -109,7 +166,9 @@ pub fn CarouselContent(
   rsx! {
     div {
       class,
+      style: carousel_content_style(index),
       "data-orientation": carousel_orientation_attribute(orientation),
+      ..attributes,
       {children}
     }
   }
@@ -120,6 +179,7 @@ pub fn CarouselItem(
   #[props(default)] orientation: CarouselOrientation,
   #[props(default)] selected: bool,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = carousel_item_class(orientation, selected, &class);
@@ -128,9 +188,11 @@ pub fn CarouselItem(
     div {
       role: "group",
       class,
+      transform: carousel_item_transform(orientation),
       "aria-roledescription": "slide",
       "data-orientation": carousel_orientation_attribute(orientation),
       "data-selected": selected.to_string(),
+      ..attributes,
       {children}
     }
   }
@@ -139,17 +201,26 @@ pub fn CarouselItem(
 #[component]
 pub fn CarouselPrevious(
   #[props(default)] disabled: bool,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = carousel_control_class(disabled, &class);
+  let aria_label = default_label(&attributes, "Previous slide");
 
   rsx! {
     button {
       r#type: "button",
       class,
       disabled,
-      "aria-label": "Previous slide",
+      "aria-label": aria_label,
+      onclick: move |event| {
+        if !disabled && let Some(handler) = onclick {
+          handler.call(event);
+        }
+      },
+      ..attributes,
       {children}
     }
   }
@@ -158,17 +229,26 @@ pub fn CarouselPrevious(
 #[component]
 pub fn CarouselNext(
   #[props(default)] disabled: bool,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = carousel_control_class(disabled, &class);
+  let aria_label = default_label(&attributes, "Next slide");
 
   rsx! {
     button {
       r#type: "button",
       class,
       disabled,
-      "aria-label": "Next slide",
+      "aria-label": aria_label,
+      onclick: move |event| {
+        if !disabled && let Some(handler) = onclick {
+          handler.call(event);
+        }
+      },
+      ..attributes,
       {children}
     }
   }
@@ -177,17 +257,26 @@ pub fn CarouselNext(
 #[component]
 pub fn CarouselIndicator(
   #[props(default)] selected: bool,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
 ) -> Element {
   let class = carousel_indicator_class(selected, &class);
+  let aria_label = default_label(&attributes, "Go to slide");
 
   rsx! {
     button {
       r#type: "button",
       class,
       "aria-current": selected.to_string(),
-      "aria-label": "Go to slide",
+      "aria-label": aria_label,
       "data-selected": selected.to_string(),
+      onclick: move |event| {
+        if let Some(handler) = onclick {
+          handler.call(event);
+        }
+      },
+      ..attributes,
     }
   }
 }
@@ -213,6 +302,26 @@ mod tests {
     assert!(actual.contains("pl-4"));
     assert!(actual.contains("data-selected"));
     assert!(actual.ends_with("basis-1/2"));
+  }
+
+  #[test]
+  fn carousel_key_step_follows_orientation() {
+    let horizontal = CarouselOrientation::Horizontal;
+    let vertical = CarouselOrientation::Vertical;
+
+    assert_eq!(carousel_key_step("ArrowLeft", horizontal), Some(CarouselStep::Previous));
+    assert_eq!(carousel_key_step("ArrowRight", horizontal), Some(CarouselStep::Next));
+    assert_eq!(carousel_key_step("ArrowDown", horizontal), None);
+    assert_eq!(carousel_key_step("ArrowUp", vertical), Some(CarouselStep::Previous));
+    assert_eq!(carousel_key_step("ArrowDown", vertical), Some(CarouselStep::Next));
+    assert_eq!(carousel_key_step("ArrowRight", vertical), None);
+  }
+
+  #[test]
+  fn carousel_items_translate_by_the_content_index() {
+    assert_eq!(carousel_content_style(2), "--dxui-carousel-index: 2");
+    assert!(carousel_item_transform(CarouselOrientation::Horizontal).starts_with("translateX("));
+    assert!(carousel_item_transform(CarouselOrientation::Vertical).starts_with("translateY("));
   }
 
   #[test]
