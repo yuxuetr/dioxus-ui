@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M152 Combobox And Command Result Announcements
-- Current task: M152.4
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2763,7 +2763,7 @@
   - Render the status parts in the Web preview's Command and Combobox and extend `npm run verify:runtime-interactions` to assert the status role and polite live attributes, that the text follows the filtered count and the empty state, that the same element stays mounted across query changes, and that the Combobox region stays exposed while the popup is closed.
   - Reverse-verify that the script fails when the region is remounted on each change, when the role or live attribute is removed, or when the Combobox region moves inside the popup.
 
-- TODO M152.4 Complete result announcements milestone
+- DONE M152.4 Complete result announcements milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
