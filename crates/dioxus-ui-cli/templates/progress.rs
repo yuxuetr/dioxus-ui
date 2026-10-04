@@ -26,6 +26,7 @@ pub fn Progress(
   #[props(default = 100.0)] max: f32,
   #[props(default)] class: String,
   #[props(default)] indicator_class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
 ) -> Element {
   let class = progress_class(&class);
   let indicator_class = progress_indicator_class(&indicator_class);
@@ -39,6 +40,7 @@ pub fn Progress(
       "aria-valuemin": "0",
       "aria-valuemax": max.to_string(),
       "aria-valuenow": value.clamp(0.0, max).to_string(),
+      ..attributes,
       div {
         class: indicator_class,
         style: "transform: {transform};",

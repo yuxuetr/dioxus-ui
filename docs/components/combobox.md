@@ -119,3 +119,7 @@ use option semantics. The input keeps focus and references the highlighted
 option through `aria-activedescendant`. `ComboboxStatus` announces the text
 the app gives it; the wording and when to speak stay with the app (see
 [RFC 0027](../rfcs/0027-combobox-and-command-result-announcements.md)). Async loading is owned by the consuming app.
+
+`ComboboxInput` passes through attributes such as `name`, `aria-labelledby`,
+and `aria-describedby` (see
+[RFC 0038](../rfcs/0038-form-control-naming.md)).

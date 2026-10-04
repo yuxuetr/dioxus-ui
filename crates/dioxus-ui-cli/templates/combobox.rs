@@ -104,6 +104,7 @@ pub fn ComboboxInput(
   #[props(default)] oninput: Option<EventHandler<FormEvent>>,
   #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = input)] attributes: Vec<Attribute>,
 ) -> Element {
   let class = combobox_input_class(&class);
   let active_descendant = active_id.unwrap_or_default();
@@ -132,6 +133,7 @@ pub fn ComboboxInput(
           handler.call(true);
         }
       },
+      ..attributes,
     }
   }
 }

@@ -71,6 +71,7 @@ pub fn RadioGroup(
   #[props(default = true)] looping: bool,
   #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = radio_group_class(orientation, &class);
@@ -93,6 +94,7 @@ pub fn RadioGroup(
       "data-dxui-roving-orientation": roving_orientation,
       "data-dxui-roving-loop": looping.to_string(),
       "data-dxui-roving-activation": "focus",
+      ..attributes,
       {children}
     }
   }
@@ -104,6 +106,7 @@ pub fn RadioGroupItem(
   #[props(default)] checked: bool,
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
 ) -> Element {
   let class = radio_group_item_class(checked, &class);
   let indicator_class = radio_group_indicator_class("");
@@ -117,6 +120,7 @@ pub fn RadioGroupItem(
       "aria-checked": checked.to_string(),
       "data-value": value,
       "data-dxui-roving-item": "",
+      ..attributes,
       span {
         class: indicator_class,
         "aria-hidden": "true",

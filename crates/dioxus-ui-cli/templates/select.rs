@@ -60,6 +60,7 @@ pub fn SelectTrigger(
   #[props(default)] disabled: bool,
   #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = select_trigger_class(invalid, &class);
@@ -86,6 +87,7 @@ pub fn SelectTrigger(
           handler.call(true);
         }
       },
+      ..attributes,
       {children}
     }
   }

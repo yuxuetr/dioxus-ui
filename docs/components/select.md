@@ -84,3 +84,7 @@ Simulator by `npm run verify:mobile-interactions`, and an Android emulator by
 The trigger uses select-only combobox semantics with `aria-haspopup="listbox"`
 and `aria-activedescendant`; content uses listbox and option semantics. Apps
 provide a visible or programmatic label for the trigger.
+
+`SelectTrigger` passes through attributes such as `aria-labelledby` and
+`aria-describedby` for a field description or error (see
+[RFC 0038](../rfcs/0038-form-control-naming.md)).

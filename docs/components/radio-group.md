@@ -63,3 +63,17 @@ render their own items.
 Radio Group renders `role="radiogroup"` and items render `role="radio"` with
 `aria-checked`. Arrow keys follow the text direction (see
 [RFC 0025](../rfcs/0025-right-to-left-arrow-mirroring.md)).
+
+Items have no text of their own, so name each one. `RadioGroup` and
+`RadioGroupItem` pass through attributes such as `id`, `aria-label`, and
+`aria-labelledby` (see [RFC 0038](../rfcs/0038-form-control-naming.md)):
+
+```rust
+rsx! {
+  Label { id: "size-label", "Size" }
+  RadioGroup { "aria-labelledby": "size-label", value: size(), on_value_change: move |value| size.set(Some(value)),
+    RadioGroupItem { id: "size-small", value: "small", checked: size().as_deref() == Some("small") }
+    Label { r#for: "size-small", "Small" }
+  }
+}
+```
