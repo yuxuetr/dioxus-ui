@@ -89,6 +89,7 @@ pub fn Sidebar(
   #[props(default)] collapsed: bool,
   #[props(default)] side: SidebarSide,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = aside)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = sidebar_class(collapsed, side, &class);
@@ -98,16 +99,14 @@ pub fn Sidebar(
       class,
       "data-collapsed": collapsed.to_string(),
       "data-side": sidebar_side_attribute(side),
+      ..attributes,
       {children}
     }
   }
 }
 
 #[component]
-pub fn SidebarRail(
-  #[props(default)] collapsed: bool,
-  #[props(default)] class: String,
-) -> Element {
+pub fn SidebarRail(#[props(default)] collapsed: bool, #[props(default)] class: String) -> Element {
   let class = sidebar_rail_class(collapsed, &class);
 
   rsx! {
@@ -120,66 +119,152 @@ pub fn SidebarRail(
 }
 
 #[component]
-pub fn SidebarHeader(#[props(default)] class: String, children: Element) -> Element {
-  let class = sidebar_header_class(&class);
-
-  rsx! {
-    div { class, {children} }
-  }
-}
-
-#[component]
-pub fn SidebarContent(#[props(default)] class: String, children: Element) -> Element {
-  let class = sidebar_content_class(&class);
-
-  rsx! {
-    div { class, {children} }
-  }
-}
-
-#[component]
-pub fn SidebarFooter(#[props(default)] class: String, children: Element) -> Element {
-  let class = sidebar_footer_class(&class);
-
-  rsx! {
-    div { class, {children} }
-  }
-}
-
-#[component]
-pub fn SidebarGroup(#[props(default)] class: String, children: Element) -> Element {
-  let class = sidebar_group_class(&class);
-
-  rsx! {
-    div { class, {children} }
-  }
-}
-
-#[component]
-pub fn SidebarGroupLabel(#[props(default)] class: String, children: Element) -> Element {
-  let class = sidebar_group_label_class(&class);
-
-  rsx! {
-    div { class, {children} }
-  }
-}
-
-#[component]
-pub fn SidebarItem(
-  #[props(default)] active: bool,
-  #[props(default)] disabled: bool,
+pub fn SidebarHeader(
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
-  let class = sidebar_item_class(active, disabled, &class);
+  let class = sidebar_header_class(&class);
 
   rsx! {
     div {
       class,
-      "aria-disabled": disabled.to_string(),
-      "data-active": active.to_string(),
-      "data-disabled": disabled.to_string(),
+      ..attributes,
       {children}
+    }
+  }
+}
+
+#[component]
+pub fn SidebarContent(
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
+  let class = sidebar_content_class(&class);
+
+  rsx! {
+    div {
+      class,
+      ..attributes,
+      {children}
+    }
+  }
+}
+
+#[component]
+pub fn SidebarFooter(
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
+  let class = sidebar_footer_class(&class);
+
+  rsx! {
+    div {
+      class,
+      ..attributes,
+      {children}
+    }
+  }
+}
+
+#[component]
+pub fn SidebarGroup(
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
+  let class = sidebar_group_class(&class);
+
+  rsx! {
+    div {
+      class,
+      ..attributes,
+      {children}
+    }
+  }
+}
+
+#[component]
+pub fn SidebarGroupLabel(
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
+  let class = sidebar_group_label_class(&class);
+
+  rsx! {
+    div {
+      class,
+      ..attributes,
+      {children}
+    }
+  }
+}
+
+/// Renders a link with an `href`, a button with an `onclick`, and otherwise a
+/// wrapper for a link or button the app renders inside.
+#[component]
+pub fn SidebarItem(
+  #[props(default)] active: bool,
+  #[props(default)] disabled: bool,
+  #[props(default)] href: String,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = a)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
+  let class = sidebar_item_class(active, disabled, &class);
+  let aria_current = active.then_some("page");
+  let has_onclick = onclick.is_some();
+  let onclick = move |event: MouseEvent| {
+    if !disabled {
+      if let Some(handler) = onclick {
+        handler.call(event);
+      }
+    }
+  };
+
+  if !href.is_empty() {
+    rsx! {
+      a {
+        class,
+        href: (!disabled).then_some(href),
+        role: disabled.then_some("link"),
+        "aria-current": aria_current,
+        "aria-disabled": disabled.to_string(),
+        "data-active": active.to_string(),
+        "data-disabled": disabled.to_string(),
+        onclick,
+        ..attributes,
+        {children}
+      }
+    }
+  } else if has_onclick {
+    rsx! {
+      button {
+        r#type: "button",
+        class,
+        disabled,
+        "aria-current": aria_current,
+        "data-active": active.to_string(),
+        "data-disabled": disabled.to_string(),
+        onclick,
+        ..attributes,
+        {children}
+      }
+    }
+  } else {
+    rsx! {
+      div {
+        class,
+        "aria-disabled": disabled.to_string(),
+        "data-active": active.to_string(),
+        "data-disabled": disabled.to_string(),
+        ..attributes,
+        {children}
+      }
     }
   }
 }
@@ -188,7 +273,9 @@ pub fn SidebarItem(
 pub fn SidebarTrigger(
   #[props(default)] collapsed: bool,
   #[props(default)] disabled: bool,
+  #[props(default)] on_collapsed_change: Option<EventHandler<bool>>,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = sidebar_trigger_class(&class);
@@ -200,6 +287,14 @@ pub fn SidebarTrigger(
       disabled,
       "aria-expanded": (!collapsed).to_string(),
       "data-collapsed": collapsed.to_string(),
+      onclick: move |_| {
+        if !disabled {
+          if let Some(handler) = on_collapsed_change {
+            handler.call(!collapsed);
+          }
+        }
+      },
+      ..attributes,
       {children}
     }
   }
