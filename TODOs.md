@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M143 Mobile Interaction Verification
+- Current task: M143.1 Design mobile interaction verification
 
 ## Backup
 
@@ -2566,6 +2566,26 @@
 - DONE M142.4 Complete desktop verification milestone
   - Update the Desktop and Mobile verification strategy, runtime interaction docs, quality gates, Known Pre-1.0 Limitations, and CHANGELOG Unreleased notes.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M143 Mobile Interaction Verification
+
+- TODO M143.1 Design mobile interaction verification
+  - Record that Mobile shares the interaction scripts with Web and Desktop, that no Mobile app exists in the workspace, and that a probe ran the RFC 0017 scenarios in an iOS Simulator build with every scenario passing.
+  - Define a Mobile preview app, a scenario script and self-test component shared with Desktop, and a command that builds for the iOS Simulator, installs, launches with the self-test variable, and reads the result from the console.
+  - Record what stays out of scope (Android, physical devices, touch gestures, CI activation) with reevaluation conditions.
+
+- TODO M143.2 Implement the Mobile self-test
+  - Move the scenario script and self-test component into `preview-states` so Desktop and Mobile run the same scenarios, and add `PreviewTarget::Mobile`.
+  - Add `examples/mobile-demo` and `npm run verify:mobile-interactions`, which selects an iPhone simulator, boots it when needed, and reports the self-test result.
+
+- TODO M143.3 Reverse-verify the Mobile self-test
+  - Confirm the command fails when an interaction path is broken and when the app does not report a result.
+  - Keep the command out of `npm run verify:release` because it needs Xcode and a simulator.
+
+- TODO M143.4 Complete mobile verification milestone
+  - Update the Desktop and Mobile verification strategy, the Mobile checklist, component docs, quality gates, Known Pre-1.0 Limitations, and CHANGELOG Unreleased notes.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop and Mobile self-tests.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 
 ## Status Rules
