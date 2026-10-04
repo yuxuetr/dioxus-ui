@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M159 Carousel Slide Changes
-- Current task: M159.3 Verify carousel in a real browser
+- Current task: M159.4 Complete carousel milestone
 
 ## Backup
 
@@ -2899,7 +2899,7 @@
   - Add the index translate, callbacks, key step, attribute spreading, and label override to the crate source and template, with unit tests.
   - Update the Carousel docs page.
 
-- TODO M159.3 Verify carousel in a real browser
+- DONE M159.3 Verify carousel in a real browser
   - Render a labelled three-slide Carousel with indicators in the Web preview and extend `npm run verify:runtime-interactions` to assert that Next, Previous, indicators, and arrow keys change the index, that the selected slide lines up with the viewport, that the ends disable the controls, and that passed attributes and labels render.
   - Reverse-verify that the script fails when the click callbacks are removed, when the key step is removed, when items are not translated, when the default label is kept over a passed one, or when attributes are not spread.
 
