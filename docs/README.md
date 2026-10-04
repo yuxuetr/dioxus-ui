@@ -101,7 +101,8 @@ Read in this order:
 95. [RFC 0032: Input OTP Value Changes](rfcs/0032-input-otp-value-changes.md)
 96. [RFC 0033: Pagination Page Changes](rfcs/0033-pagination-page-changes.md)
 97. [RFC 0034: Carousel Slide Changes](rfcs/0034-carousel-slide-changes.md)
-98. [TODO Plan](../TODOs.md)
+98. [RFC 0035: Control Label Overrides](rfcs/0035-control-label-overrides.md)
+99. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 

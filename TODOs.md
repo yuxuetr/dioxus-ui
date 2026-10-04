@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M160 Control Label Overrides
+- Current task: M160.1 Design control label overrides
 
 ## Backup
 
@@ -2905,6 +2905,23 @@
 
 - DONE M159.4 Complete carousel milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M160 Control Label Overrides
+
+- TODO M160.1 Design control label overrides
+  - Record the SSR probe showing that Pagination Previous and Next render two `aria-label` attributes when one is passed, that an HTML parser keeps the English default while the browser keeps the passed label, and that no test renders HTML.
+  - Define a shared `default_aria_label` helper used by Pagination Previous and Next and Carousel, and `dioxus-ssr` as a dev-dependency for rendered HTML tests.
+  - Record what stays out of scope (localized visible text, other duplicated explicit attributes, a Pagination root that accepts attributes) with reevaluation conditions.
+
+- TODO M160.2 Implement control label overrides
+  - Add the shared helper to the crate and the template utilities, use it in Pagination and Carousel, and add SSR unit tests.
+  - Update the Pagination docs page.
+
+- TODO M160.3 Complete control label overrides milestone
+  - Reverse-verify that the SSR tests fail when the helper always returns the default.
+  - Update CHANGELOG Unreleased notes and release docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 
