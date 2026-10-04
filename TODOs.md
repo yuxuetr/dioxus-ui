@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M140 Menubar Keyboard Behavior
+- Current task: M140.1 Design menubar keyboard behavior
 
 ## Backup
 
@@ -2505,6 +2505,26 @@
 
 - DONE M139.5 Complete menu milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and RFC 0010 out-of-scope status.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M140 Menubar Keyboard Behavior
+
+- TODO M140.1 Design menubar keyboard behavior
+  - Record that Menubar triggers and content render `open` state only, with no placement, dismissal, focus handling, or cross-menu movement, and that RFC 0010 deferred Menubar until cross-menu roving focus existed.
+  - Define trigger roving focus (one Tab stop, Left, Right, Home, End), opening with ArrowDown, Enter, Space, or click, Left and Right moving to the adjacent menu while one is open, pointer hover switching, and focus return to the open menu's trigger.
+  - Record what stays out of scope (submenus, ArrowUp opening on the last item, right-to-left mirroring) with reevaluation conditions.
+
+- TODO M140.2 Implement Menubar navigation
+  - Add a menubar script for trigger roving focus, adjacent-menu switching, and hover switching, reporting the next menu's value to Rust.
+  - `MenubarTrigger` gains `id` and `on_open_change`; `MenubarContent` reuses the anchored overlay and the listbox menu mode; items gain `onclick`; mirror the template and keep the parity test.
+
+- TODO M140.3 Verify menubar behavior in a real browser
+  - Render a real Menubar in the Web preview and extend `npm run verify:runtime-interactions` to assert roving focus that skips disabled triggers, opening, adjacent-menu switching, hover switching, activation with close and focus return, Escape, and Tab.
+  - Reverse-verify that the script fails when roving, switching, or focus return is removed.
+
+- TODO M140.4 Complete menubar milestone
+  - Update component docs, CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and RFC 0010 out-of-scope status.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 
