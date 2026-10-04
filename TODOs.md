@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M163 Form Control Naming
-- Current task: M163.2 Implement form control naming
+- Current task: M163.3 Verify form control naming in a real browser
 
 ## Backup
 
@@ -2972,7 +2972,7 @@
   - Define attribute spreading on `RadioGroup`, `RadioGroupItem`, `Progress`, `SelectTrigger`, and `ComboboxInput`.
   - Record what stays out of scope (spreading on the remaining parts, a visible label child on radio items, a Progress `aria-valuetext` default, Desktop and Mobile self-test scenarios) with reevaluation conditions.
 
-- TODO M163.2 Implement form control naming
+- DONE M163.2 Implement form control naming
   - Add attribute spreading to the crate source and template.
   - Update the Radio Group, Progress, Select, and Combobox docs pages.
 
