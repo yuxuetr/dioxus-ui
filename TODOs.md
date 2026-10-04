@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75% (M144: 3/4)
-- Current milestone: M144 Roving Group Interaction
-- Current task: M144.4 Complete roving group milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2603,7 +2603,7 @@
   - Render real Tabs, Radio Group, and Toggle Group in the Web preview and extend `npm run verify:runtime-interactions` to assert Tab stops, arrow movement that skips disabled items and wraps, Home and End, selection following focus, clicks, Toggle Group focus without pressing, and Tabs id links with Tab moving into the panel.
   - Reverse-verify that the script fails when the Tab stop, arrow movement, or selection reporting is removed.
 
-- TODO M144.4 Complete roving group milestone
+- DONE M144.4 Complete roving group milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
