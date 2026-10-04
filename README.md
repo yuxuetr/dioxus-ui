@@ -210,6 +210,7 @@ format!("bg-{}-500", color)
 - [RFC 0025: Right-To-Left Arrow Mirroring](docs/rfcs/0025-right-to-left-arrow-mirroring.md)
 - [RFC 0026: Tabs Manual Activation And Vertical Orientation](docs/rfcs/0026-tabs-manual-activation-and-vertical-orientation.md)
 - [RFC 0027: Combobox And Command Result Announcements](docs/rfcs/0027-combobox-and-command-result-announcements.md)
+- [RFC 0028: Switch And Checkbox Change Events](docs/rfcs/0028-switch-and-checkbox-change-events.md)
 
 ## Verification Shortcuts
 

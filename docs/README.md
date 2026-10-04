@@ -94,7 +94,8 @@ Read in this order:
 88. [RFC 0025: Right-To-Left Arrow Mirroring](rfcs/0025-right-to-left-arrow-mirroring.md)
 89. [RFC 0026: Tabs Manual Activation And Vertical Orientation](rfcs/0026-tabs-manual-activation-and-vertical-orientation.md)
 90. [RFC 0027: Combobox And Command Result Announcements](rfcs/0027-combobox-and-command-result-announcements.md)
-91. [TODO Plan](../TODOs.md)
+91. [RFC 0028: Switch And Checkbox Change Events](rfcs/0028-switch-and-checkbox-change-events.md)
+92. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
