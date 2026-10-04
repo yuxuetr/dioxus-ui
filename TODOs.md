@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M141 Navigation Menu Interaction Behavior
-- Current task: M141.1 Design navigation menu interaction behavior
+- Current task: M141.2 Implement Navigation Menu interaction
 
 ## Backup
 
@@ -2530,7 +2530,7 @@
 
 ## M141 Navigation Menu Interaction Behavior
 
-- TODO M141.1 Design navigation menu interaction behavior
+- DONE M141.1 Design navigation menu interaction behavior
   - Record that Navigation Menu triggers and content render `open` state only, with no click, keyboard, hover, or dismissal handling, and that RFC 0010 deferred it because its content uses CSS layout rather than anchored placement.
   - Define the disclosure navigation pattern: click and Enter or Space toggle, hover opens after a delay and closes after leaving, Left, Right, Home, and End move between top-level items, ArrowDown enters content, Up and Down move between content links, and Escape, outside presses, and focus leaving the menu close it.
   - Record what stays out of scope (viewport size measurement, submenus, motion, right-to-left mirroring) with reevaluation conditions.
