@@ -72,7 +72,7 @@ pub mod dialog;
 #[cfg(any(feature = "alert-dialog", feature = "dialog", feature = "drawer", feature = "sheet"))]
 mod modal_focus;
 
-#[cfg(feature = "popover")]
+#[cfg(any(feature = "dropdown", feature = "hover-card", feature = "popover", feature = "tooltip"))]
 mod anchored_overlay;
 
 #[cfg(feature = "direction")]
@@ -397,9 +397,11 @@ pub use drawer::{
 #[cfg(feature = "dropdown")]
 pub use dropdown::{
   DROPDOWN_CONTENT_BASE_CLASS, DROPDOWN_GROUP_BASE_CLASS, DROPDOWN_ITEM_BASE_CLASS,
-  DROPDOWN_LABEL_BASE_CLASS, DROPDOWN_SEPARATOR_BASE_CLASS, DropdownContent, DropdownGroup,
-  DropdownItem, DropdownLabel, DropdownPrimitiveConfig, DropdownSeparator, dropdown_content_class,
-  dropdown_group_class, dropdown_item_class, dropdown_label_class, dropdown_separator_class,
+  DROPDOWN_LABEL_BASE_CLASS, DROPDOWN_SEPARATOR_BASE_CLASS,
+  DismissBehavior as DropdownDismissBehavior, DropdownContent, DropdownGroup, DropdownItem,
+  DropdownLabel, DropdownPrimitiveConfig, DropdownSeparator, OverlayAlign as DropdownAlign,
+  OverlaySide as DropdownSide, dropdown_content_class, dropdown_group_class, dropdown_item_class,
+  dropdown_label_class, dropdown_separator_class,
 };
 #[cfg(feature = "empty")]
 pub use empty::{
@@ -417,9 +419,10 @@ pub use field::{
 };
 #[cfg(feature = "hover-card")]
 pub use hover_card::{
-  HOVER_CARD_CONTENT_BASE_CLASS, HOVER_CARD_DESCRIPTION_BASE_CLASS, HOVER_CARD_HEADER_BASE_CLASS,
-  HOVER_CARD_TITLE_BASE_CLASS, HoverCardContent, HoverCardDescription, HoverCardHeader,
-  HoverCardTitle, OverlayAlign as HoverCardAlign, OverlaySide as HoverCardSide,
+  DismissBehavior as HoverCardDismissBehavior, HOVER_CARD_CONTENT_BASE_CLASS,
+  HOVER_CARD_DESCRIPTION_BASE_CLASS, HOVER_CARD_HEADER_BASE_CLASS, HOVER_CARD_TITLE_BASE_CLASS,
+  HoverCardContent, HoverCardDescription, HoverCardHeader, HoverCardTitle,
+  OverlayAlign as HoverCardAlign, OverlaySide as HoverCardSide,
   PopoverPrimitiveConfig as HoverCardPrimitiveConfig, hover_card_align_attribute,
   hover_card_content_class, hover_card_description_class, hover_card_header_class,
   hover_card_side_attribute, hover_card_title_class,
@@ -528,10 +531,10 @@ pub use pagination::{
 };
 #[cfg(feature = "popover")]
 pub use popover::{
-  OverlayAlign, OverlaySide, POPOVER_CONTENT_BASE_CLASS, POPOVER_DESCRIPTION_BASE_CLASS,
-  POPOVER_HEADER_BASE_CLASS, POPOVER_TITLE_BASE_CLASS, PopoverContent, PopoverDescription,
-  PopoverHeader, PopoverPrimitiveConfig, PopoverTitle, popover_content_class,
-  popover_description_class, popover_header_class, popover_title_class,
+  DismissBehavior as PopoverDismissBehavior, OverlayAlign, OverlaySide, POPOVER_CONTENT_BASE_CLASS,
+  POPOVER_DESCRIPTION_BASE_CLASS, POPOVER_HEADER_BASE_CLASS, POPOVER_TITLE_BASE_CLASS,
+  PopoverContent, PopoverDescription, PopoverHeader, PopoverPrimitiveConfig, PopoverTitle,
+  popover_content_class, popover_description_class, popover_header_class, popover_title_class,
 };
 #[cfg(feature = "progress")]
 pub use progress::{
@@ -680,7 +683,9 @@ pub use toggle_group::{
 };
 #[cfg(feature = "tooltip")]
 pub use tooltip::{
-  TOOLTIP_CONTENT_BASE_CLASS, TooltipContent, TooltipPrimitiveConfig, tooltip_content_class,
+  DismissBehavior as TooltipDismissBehavior, OverlayAlign as TooltipAlign,
+  OverlaySide as TooltipSide, TOOLTIP_CONTENT_BASE_CLASS, TooltipContent, TooltipPrimitiveConfig,
+  tooltip_content_class,
 };
 #[cfg(feature = "typography")]
 pub use typography::{

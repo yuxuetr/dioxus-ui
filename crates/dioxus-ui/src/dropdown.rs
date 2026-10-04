@@ -1,6 +1,10 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
-pub use dioxus_ui_primitives::DropdownPrimitiveConfig;
+pub use dioxus_ui_primitives::{
+  DismissBehavior, DropdownPrimitiveConfig, OverlayAlign, OverlaySide,
+};
+
+use crate::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
 
 pub const DROPDOWN_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-zinc-200 bg-white p-1 text-zinc-950 shadow-md";
 pub const DROPDOWN_GROUP_BASE_CLASS: &str = "p-1";
@@ -38,9 +42,21 @@ pub fn dropdown_separator_class(class: &str) -> String {
 pub fn DropdownContent(
   #[props(default)] open: bool,
   #[props(default)] class: String,
+  #[props(default)] anchor_id: Option<String>,
+  #[props(default = OverlaySide::Bottom)] side: OverlaySide,
+  #[props(default = OverlayAlign::End)] align: OverlayAlign,
+  #[props(default = 4)] side_offset: i32,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
+  #[props(default = DismissBehavior::popover_default())] dismiss: DismissBehavior,
   children: Element,
 ) -> Element {
   let class = dropdown_content_class(&class);
+  let anchored = use_anchored_overlay(
+    open,
+    AnchoredPlacement { anchor_id, side, align, side_offset },
+    dismiss,
+    on_open_change,
+  );
 
   rsx! {
     div {
@@ -48,6 +64,7 @@ pub fn DropdownContent(
       class,
       hidden: !open,
       "data-state": if open { "open" } else { "closed" },
+      "data-dxui-anchored": anchored,
       {children}
     }
   }

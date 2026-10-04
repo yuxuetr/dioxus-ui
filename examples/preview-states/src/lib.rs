@@ -6,14 +6,15 @@ use dioxus_ui::{
   ChartColorToken, ChartDomain, ChartPoint, ChartScale, ChartSeries, DialogClose, DialogContent,
   DialogDescription, DialogOverlay, DialogTitle, DismissBehavior, MarkerVariant, MessageAlign,
   MessageScrollerIntent, MessageScrollerMetrics, PopoverContent, PopoverDescription, PopoverTitle,
-  TextDirection, UiDensity, attachment_class, bubble_class, button_class, button_group_class,
-  chart_area_path, chart_area_series_class, chart_bar_rects, chart_bar_series_class, chart_class,
-  chart_fallback_rows, chart_line_path, chart_line_series_class, chart_view_box, collapsible_class,
-  direction_class, input_group_class, input_otp_class, marker_class, message_avatar_class,
-  message_class, message_content_class, message_footer_class, message_group_class,
-  message_header_class, message_scroller_class, message_scroller_intent_attribute,
-  message_scroller_is_at_bottom, message_scroller_jump_button_class,
-  message_scroller_show_unread_marker, otp_apply_paste_filtered, otp_slots,
+  TextDirection, TooltipContent, UiDensity, attachment_class, bubble_class, button_class,
+  button_group_class, chart_area_path, chart_area_series_class, chart_bar_rects,
+  chart_bar_series_class, chart_class, chart_fallback_rows, chart_line_path,
+  chart_line_series_class, chart_view_box, collapsible_class, direction_class, input_group_class,
+  input_otp_class, marker_class, message_avatar_class, message_class, message_content_class,
+  message_footer_class, message_group_class, message_header_class, message_scroller_class,
+  message_scroller_intent_attribute, message_scroller_is_at_bottom,
+  message_scroller_jump_button_class, message_scroller_show_unread_marker,
+  otp_apply_paste_filtered, otp_slots,
 };
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -674,6 +675,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut dialog_open = use_signal(|| false);
   let mut alert_dialog_open = use_signal(|| false);
   let mut popover_open = use_signal(|| false);
+  let mut tooltip_open = use_signal(|| false);
   let mut alert_dialog_result = use_signal(|| "pending");
   let root = match target {
     PreviewTarget::Web => "web",
@@ -1039,6 +1041,31 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               on_open_change: move |open| popover_open.set(open),
               PopoverTitle { "Dimensions" }
               PopoverDescription { "Placed below the trigger, or above it near the viewport bottom." }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "tooltip",
+            "data-state": if tooltip_open() { "open" } else { "closed" },
+            h2 { class: "text-sm font-medium", "Tooltip interaction" }
+            button {
+              id: "interaction-tooltip-trigger",
+              class: "{secondary_button_class} mt-3",
+              "aria-describedby": "interaction-tooltip",
+              "data-interaction-control": "tooltip-trigger",
+              onmouseenter: move |_| tooltip_open.set(true),
+              onmouseleave: move |_| tooltip_open.set(false),
+              onfocus: move |_| tooltip_open.set(true),
+              onblur: move |_| tooltip_open.set(false),
+              "Hover for tooltip"
+            }
+            div { id: "interaction-tooltip",
+              TooltipContent {
+                open: tooltip_open(),
+                anchor_id: "interaction-tooltip-trigger",
+                on_open_change: move |open| tooltip_open.set(open),
+                "Saved 2 minutes ago"
+              }
             }
           }
           article {

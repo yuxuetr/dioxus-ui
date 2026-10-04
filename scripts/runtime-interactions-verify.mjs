@@ -304,6 +304,29 @@ async function runBrowserAssertions() {
     await popoverTrigger.click();
     await expect(popoverContent).toBeHidden();
 
+    const tooltipTrigger = page.locator('[data-interaction-control="tooltip-trigger"]');
+    const tooltipContent = page.locator('[data-interaction-target="tooltip"] [role="tooltip"]');
+    await tooltipTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(tooltipContent).toBeHidden();
+    await tooltipTrigger.focus();
+    await expect(tooltipContent).toHaveAttribute("data-side", "top");
+    const tooltipTriggerBox = await tooltipTrigger.boundingBox();
+    const tooltipBox = await tooltipContent.boundingBox();
+    if (tooltipBox.y + tooltipBox.height > tooltipTriggerBox.y) {
+      throw new Error(`tooltip should sit above its trigger: ${JSON.stringify({ tooltipBox, tooltipTriggerBox })}`);
+    }
+    expectInViewport(tooltipBox, "tooltip placement");
+    // A real click would blur the trigger, which closes the fixture tooltip;
+    // dispatch the press alone to check tooltips ignore outside pointers.
+    await page.evaluate(() => {
+      document.body.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true }));
+    });
+    // Dismissal is asynchronous, so give a wrongly sent close time to land.
+    await page.waitForTimeout(300);
+    await expect(tooltipContent).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(tooltipContent).toBeHidden();
+
     const alertDialog = page.locator('[data-interaction-target="alert-dialog"]');
     const alertDialogTrigger = page.locator('[data-interaction-control="alert-dialog-trigger"]');
     const alertDialogContent = alertDialog.locator('[role="alertdialog"]');
@@ -370,7 +393,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (8 fixtures)");
+  console.log("runtime interaction verification passed (9 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
