@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M150 Right-To-Left Arrow Mirroring
-- Current task: M150.4
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2723,7 +2723,7 @@
   - Extend `npm run verify:runtime-interactions` to switch the Tabs, Radio Group, Toggle Group, Menubar, and Navigation Menu fixtures to right-to-left and assert that ArrowLeft moves to the next item and ArrowRight to the previous one, that Up and Down in a menu are unchanged, and that left-to-right behavior is restored afterwards.
   - Reverse-verify that the script fails when mirroring is removed from each script, or when it also swaps Up and Down.
 
-- TODO M150.4 Complete right-to-left mirroring milestone
+- DONE M150.4 Complete right-to-left mirroring milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and accessibility docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
