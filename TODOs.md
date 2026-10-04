@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M149 Command Keyboard And Filtering
+- Current task: M149.1
 
 ## Backup
 
@@ -2684,6 +2684,26 @@
   - Reverse-verify that the script fails when the open delay, the close delay, the card focus exemption, the press exemption, or the description exemption is removed.
 
 - DONE M148.4 Complete hover card milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M149 Command Keyboard And Filtering
+
+- TODO M149.1 Design command keyboard and filtering
+  - Record that Command renders state only: `CommandInput` has no input handler, no part handles arrow keys or Enter, items have no value to report, and the input is not linked to the list.
+  - Define a `Command` root that reports chosen items, an input that reports typed text and controls the list, item values, and a command mode for the listbox script that highlights the first option, moves with Up, Down, Home, and End, resets to the first match when the query changes, and chooses with Enter or click while focus stays in the input; filtering stays app-owned with a matching helper.
+  - Record what stays out of scope (fuzzy ranking, looping, Ctrl key bindings, a command dialog, result count announcements, Desktop and Mobile self-test scenarios) with reevaluation conditions.
+
+- TODO M149.2 Implement command keyboard and filtering
+  - Add the command mode to the listbox script in the crate and the template `utils.rs`, and wire `Command`, `CommandInput`, `CommandList`, and `CommandItem` in the crate and the template.
+  - Add the matching helper and update the Command docs page.
+
+- TODO M149.3 Verify command behavior in a real browser
+  - Render a real Command in the Web preview and extend `npm run verify:runtime-interactions` to assert the input and list link, the first highlight, arrow movement that skips disabled items without looping, Home and End, typed text reaching the input, the highlight resetting when the query changes, the empty state, pointer highlight, and choosing with Enter and click while focus stays in the input.
+  - Reverse-verify that the script fails when Home and End, the reset on query change, the first highlight, or the input link are removed, or when typeahead is turned on.
+
+- TODO M149.4 Complete command milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
