@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M139 Dropdown and Context Menu Keyboard Behavior
+- Current task: M139.1
 
 ## Backup
 
@@ -2480,6 +2480,30 @@
   - Reverse-verify that the script fails when key mapping, focus following, or focus entry is removed.
 
 - DONE M138.5 Complete date picker milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and RFC 0010 out-of-scope status.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M139 Dropdown and Context Menu Keyboard Behavior
+
+- TODO M139.1 Design menu keyboard behavior
+  - Record that Dropdown items have no focus, keyboard, or activation handling, that Context Menu content has no placement or dismissal, and that RFC 0010 deferred Context Menu until a point anchor existed.
+  - Define the menu mode of the listbox script (DOM focus on items, wrapping arrows, Home, End, typeahead, Enter and Space activation, close and focus return), item `onclick` props, and a point anchor for Context Menu.
+  - Record what stays out of scope (submenus, Menubar cross-menu navigation, checkbox and radio state) with reevaluation conditions.
+
+- TODO M139.2 Implement Dropdown menu navigation
+  - Opening focuses the first enabled item; arrows wrap, Home, End, and typeahead move focus; Enter, Space, or click activates the item through its `onclick`, closes the menu, and returns focus to the element focused before opening.
+  - Extend the listbox script and template with the menu mode, keep the parity test, and update the docs page.
+
+- TODO M139.3 Implement Context Menu point anchoring and navigation
+  - `ContextMenuContent` gains `anchor_point`, `on_open_change`, and `dismiss`; the anchored overlay script places content at a viewport point with flip and shift.
+  - Context Menu items gain `onclick` and reuse the menu mode; update templates and docs.
+
+- TODO M139.4 Verify menu behavior in a real browser
+  - Render real Dropdown and Context Menu components in the Web preview and extend `npm run verify:runtime-interactions` to assert focus entry, wrapping arrows that skip disabled items, typeahead, activation with close and focus return, Escape, Tab, and point placement.
+  - Reverse-verify that the script fails when wrapping, activation, or focus return is removed.
+
+- TODO M139.5 Complete menu milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and RFC 0010 out-of-scope status.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
