@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M165 Composite Widget Names
-- Current task: M165.2 Implement composite widget names
+- Current task: M165.3 Verify composite widget names in a real browser
 
 ## Backup
 
@@ -3012,7 +3012,7 @@
   - Define attribute spreading on `TabsList`, `ToggleGroup`, `Menubar`, `NavigationMenu`, `CalendarGrid`, and `CalendarCaption`.
   - Record what stays out of scope (automatic caption linking, spreading on the remaining parts, Desktop and Mobile self-test scenarios) with reevaluation conditions.
 
-- TODO M165.2 Implement composite widget names
+- DONE M165.2 Implement composite widget names
   - Add attribute spreading to the crate source and template.
   - Update the Tabs, Toggle Group, Menubar, Navigation Menu, and Calendar docs pages.
 
