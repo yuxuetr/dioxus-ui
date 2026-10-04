@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M143 Mobile Interaction Verification
-- Current task: M143.4 Complete mobile verification milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2583,7 +2583,7 @@
   - Confirm the command fails when an interaction path is broken and when the app does not report a result.
   - Keep the command out of `npm run verify:release` because it needs Xcode and a simulator.
 
-- TODO M143.4 Complete mobile verification milestone
+- DONE M143.4 Complete mobile verification milestone
   - Update the Desktop and Mobile verification strategy, the Mobile checklist, component docs, quality gates, Known Pre-1.0 Limitations, and CHANGELOG Unreleased notes.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop and Mobile self-tests.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
