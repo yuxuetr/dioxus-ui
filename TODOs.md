@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M159 Carousel Slide Changes
+- Current task: M159.1 Design carousel slide changes
 
 ## Backup
 
@@ -2884,6 +2884,26 @@
   - Reverse-verify that the script fails when the callback is removed, when an anchor is always rendered, when a disabled anchor keeps `href`, when `onclick` runs while disabled, or when attributes are not spread.
 
 - DONE M158.4 Complete pagination milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M159 Carousel Slide Changes
+
+- TODO M159.1 Design carousel slide changes
+  - Record that nothing translates Carousel content so the first slide always shows, that Previous, Next, and indicators have no click handler, that the root handles no keys, that every indicator has the same `aria-label`, and that no part accepts attributes.
+  - Define `CarouselContent` `index` with a per-item percentage translate, `onclick` on Previous, Next, and Indicator, `Carousel` `on_key_step` with `CarouselStep`, attribute spreading, and a passed `aria-label` replacing the English default.
+  - Record what stays out of scope (hiding off-screen slides, swipe gestures, autoplay, right-to-left mirroring, ignoring arrows typed into fields, Desktop and Mobile self-test scenarios) with reevaluation conditions.
+
+- TODO M159.2 Implement carousel slide changes
+  - Add the index translate, callbacks, key step, attribute spreading, and label override to the crate source and template, with unit tests.
+  - Update the Carousel docs page.
+
+- TODO M159.3 Verify carousel in a real browser
+  - Render a labelled three-slide Carousel with indicators in the Web preview and extend `npm run verify:runtime-interactions` to assert that Next, Previous, indicators, and arrow keys change the index, that the selected slide lines up with the viewport, that the ends disable the controls, and that passed attributes and labels render.
+  - Reverse-verify that the script fails when the click callbacks are removed, when the key step is removed, when items are not translated, when the default label is kept over a passed one, or when attributes are not spread.
+
+- TODO M159.4 Complete carousel milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.

@@ -100,7 +100,8 @@ Read in this order:
 94. [RFC 0031: Collapsible And Native Select Events](rfcs/0031-collapsible-and-native-select-events.md)
 95. [RFC 0032: Input OTP Value Changes](rfcs/0032-input-otp-value-changes.md)
 96. [RFC 0033: Pagination Page Changes](rfcs/0033-pagination-page-changes.md)
-97. [TODO Plan](../TODOs.md)
+97. [RFC 0034: Carousel Slide Changes](rfcs/0034-carousel-slide-changes.md)
+98. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
