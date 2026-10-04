@@ -41,6 +41,7 @@ use dioxus_ui::{
   Button, Collapsible, CollapsibleContent, CollapsibleTrigger, Input, NativeSelect,
   NativeSelectOption, Slider, Textarea, Toggle,
 };
+use dioxus_ui::{InputOtp, InputOtpGroup, InputOtpHiddenInput, InputOtpSlot};
 pub use self_test::{INTERACTION_SELF_TEST_SCRIPT, InteractionSelfTest};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -756,6 +757,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut locked_slider_changes = use_signal(|| 0_u32);
   let mut details_open = use_signal(|| false);
   let mut size_value = use_signal(|| "md".to_string());
+  let mut otp_code = use_signal(String::new);
   let mut accordion_value = use_signal(|| None::<String>);
   let accordion_open = move |value: &str| accordion_value().as_deref() == Some(value);
   let mut context_open = use_signal(|| false);
@@ -1698,6 +1700,38 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 NativeSelectOption { value: "sm", selected: size_value() == "sm", "Small" }
                 NativeSelectOption { value: "md", selected: size_value() == "md", "Medium" }
                 NativeSelectOption { value: "lg", selected: size_value() == "lg", "Large" }
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "input-otp",
+            "data-code": "{otp_code}",
+            h2 { class: "text-sm font-medium", "Input OTP interaction" }
+            Label { id: "interaction-otp-label", "Verification code" }
+            // The preview serves uncompiled Tailwind, so the overlay input and
+            // its root get explicit layout styles.
+            InputOtp {
+              class: "mt-3",
+              style: "position: relative; min-height: 40px",
+              title: "Verification code slots",
+              InputOtpGroup {
+                for slot in otp_slots(&otp_code(), 6, otp_code().chars().count().min(5)) {
+                  InputOtpSlot {
+                    key: "{slot.index}",
+                    index: slot.index,
+                    value: slot.value,
+                    active: slot.active,
+                  }
+                }
+              }
+              InputOtpHiddenInput {
+                style: "position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0",
+                "aria-labelledby": "interaction-otp-label",
+                name: "code",
+                value: otp_code(),
+                length: 6,
+                on_value_change: move |value| otp_code.set(value),
               }
             }
           }

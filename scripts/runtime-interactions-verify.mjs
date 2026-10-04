@@ -1269,6 +1269,44 @@ async function runBrowserAssertions() {
     await expect(collapsibleSelect).toHaveAttribute("data-size", "lg");
     await expect(size).toHaveValue("lg");
 
+    const inputOtp = page.locator('[data-interaction-target="input-otp"]');
+    const otpInput = inputOtp.getByRole("textbox", { name: "Verification code", exact: true });
+    const otpSlot = (index) => inputOtp.locator(`[data-index="${index}"]`);
+    await otpInput.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(otpInput).toHaveAttribute("name", "code");
+    await expect(otpInput).toHaveAttribute("inputmode", "numeric");
+    await expect(otpInput).toHaveAttribute("autocomplete", "one-time-code");
+    const otpRoot = inputOtp.locator('[title="Verification code slots"]');
+    await expect(otpRoot).toHaveAttribute("role", "group");
+    // A press over the slots lands on the overlay input.
+    await otpRoot.click();
+    await expect(otpInput).toBeFocused();
+    await page.keyboard.type("12");
+    await expect(inputOtp).toHaveAttribute("data-code", "12");
+    await expect(otpSlot(0)).toHaveText("1");
+    await expect(otpSlot(1)).toHaveText("2");
+    await expect(otpSlot(2)).toHaveAttribute("data-active", "true");
+    // A rejected letter leaves no hidden character for Backspace to remove.
+    await page.keyboard.type("a");
+    await expect(inputOtp).toHaveAttribute("data-code", "12");
+    await expect(otpInput).toHaveValue("12");
+    await page.keyboard.press("Backspace");
+    await expect(inputOtp).toHaveAttribute("data-code", "1");
+    await expect(otpInput).toHaveValue("1");
+    await page.keyboard.press("Backspace");
+    await expect(inputOtp).toHaveAttribute("data-code", "");
+    // Inserted text, as a paste or autofill delivers it, drops separators
+    // and is cut at the length.
+    await page.keyboard.insertText("123-4567");
+    await expect(inputOtp).toHaveAttribute("data-code", "123456");
+    await expect(otpInput).toHaveValue("123456");
+    await expect(otpSlot(5)).toHaveText("6");
+    // A full code takes no more characters.
+    await page.keyboard.type("9");
+    await expect(otpInput).toHaveValue("123456");
+    await page.keyboard.press("Backspace");
+    await expect(inputOtp).toHaveAttribute("data-code", "12345");
+
     const accordion = page.locator('[data-interaction-target="accordion"]');
     const accordionTrigger = (name) => accordion.getByRole("button", { name, exact: true });
     const accordionRegion = (name) => accordion.getByRole("region", { name, exact: true, includeHidden: true });
@@ -1595,7 +1633,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (28 fixtures)");
+  console.log("runtime interaction verification passed (29 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
