@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 80%
 - Current milestone: M137 Select and Combobox Listbox Behavior
-- Current task: M137.4
+- Current task: M137.5
 
 ## Backup
 
@@ -2451,7 +2451,7 @@
   - `ComboboxInput` gains `id`, `open`, `placeholder`, `oninput`, and `on_open_change`; `ComboboxContent` anchors to the input and reuses the listbox helper without typeahead so typing stays in the input.
   - Highlight resets when filtering removes the highlighted option; update the template and docs page.
 
-- TODO M137.4 Verify listbox behavior in a real browser
+- DONE M137.4 Verify listbox behavior in a real browser
   - Render real Select and Combobox components in the Web preview and extend `npm run verify:runtime-interactions` to assert placement, arrow navigation that skips disabled options, typeahead, Enter and click selection, focus staying on the trigger or input, filtering, and Escape.
   - Reverse-verify that the script fails when navigation or typeahead is removed.
 
