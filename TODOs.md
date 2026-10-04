@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M164 Dialog Names
+- Current task: M164.1 Design dialog names
 
 ## Backup
 
@@ -2982,6 +2982,26 @@
 
 - DONE M163.4 Complete form control naming milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M164 Dialog Names
+
+- TODO M164.1 Design dialog names
+  - Record that Dialog, Alert Dialog, Sheet, Drawer, and Popover content render a dialog role with no `aria-labelledby` or `aria-describedby`, that their titles and descriptions have no ids, and that no content part accepts attributes.
+  - Define a shared `use_dialog_labels` hook with generated title and description ids, content attributes only for mounted parts, passed labels that replace the generated ones, and attribute spreading on content parts.
+  - Record what stays out of scope (Hover Card and Date Picker names, spreading on titles and other parts, a missing-title warning, Sheet and Drawer browser fixtures) with reevaluation conditions.
+
+- TODO M164.2 Implement dialog names
+  - Add the shared hook to the crate and the template utilities, and use it in the five components' content, title, and description parts with attribute spreading on content.
+  - Update the five docs pages.
+
+- TODO M164.3 Verify dialog names in a real browser
+  - Extend `npm run verify:runtime-interactions` to find the Dialog, Alert Dialog, and Popover fixtures by role with their title as the name and their description, and a Popover with a passed `aria-label`.
+  - Reverse-verify that the script fails when the title id is not rendered, when `aria-labelledby` ignores whether a title is mounted, when a passed `aria-label` is ignored, or when content attributes are not spread.
+
+- TODO M164.4 Complete dialog names milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and accessibility docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 

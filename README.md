@@ -221,6 +221,7 @@ format!("bg-{}-500", color)
 - [RFC 0036: Resizable Handle Input](docs/rfcs/0036-resizable-handle-input.md)
 - [RFC 0037: Sidebar Toggle And Items](docs/rfcs/0037-sidebar-toggle-and-items.md)
 - [RFC 0038: Form Control Naming](docs/rfcs/0038-form-control-naming.md)
+- [RFC 0039: Dialog Names](docs/rfcs/0039-dialog-names.md)
 
 ## Verification Shortcuts
 
