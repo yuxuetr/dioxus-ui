@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 40%
 - Current milestone: M137 Select and Combobox Listbox Behavior
-- Current task: M137.2
+- Current task: M137.3
 
 ## Backup
 
@@ -2443,7 +2443,7 @@
   - Define the additive API (`on_open_change`, `on_value_change`, trigger and input `id`, content anchoring props), the page-side listbox script that tracks the highlighted option with `aria-activedescendant`, and the Select-only typeahead.
   - Record what stays out of scope (multi-select, async loading, the input-inside-content Combobox layout) with reevaluation conditions.
 
-- TODO M137.2 Implement Select listbox behavior
+- DONE M137.2 Implement Select listbox behavior
   - `SelectTrigger` toggles through `on_open_change` and opens on ArrowDown or ArrowUp; `SelectContent` anchors to the trigger, highlights the selected or first enabled option, moves with arrows, Home, End, and typeahead, selects on Enter, Space, or click, and closes through `on_open_change`.
   - Mirror the listbox helper into the utils template with a script parity test, and update the docs page.
 
