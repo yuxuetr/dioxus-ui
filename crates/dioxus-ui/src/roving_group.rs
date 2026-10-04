@@ -7,7 +7,8 @@ static NEXT_ROVING_GROUP_ID: AtomicUsize = AtomicUsize::new(0);
 // Runs for the group's lifetime and reads items from the DOM on every event.
 // The root sets `data-dxui-roving-orientation` (horizontal, vertical, or both),
 // `data-dxui-roving-loop`, and `data-dxui-roving-activation` ("focus" when
-// selection follows focus). With `data-dxui-roving-tab-stops="all"` the script
+// selection follows focus, "manual" when items carry a selection that does
+// not). With `data-dxui-roving-tab-stops="all"` the script
 // leaves `tabindex` alone, so every enabled item stays in the Tab order. Sends
 // the `data-value` of a clicked item, and of a newly focused item when
 // selection follows focus.
@@ -24,18 +25,19 @@ const items = () =>
   );
 const enabledItems = () => items().filter((item) => !item.disabled);
 const followsFocus = () => root.dataset.dxuiRovingActivation === "focus";
+const hasSelection = () => ["focus", "manual"].includes(root.dataset.dxuiRovingActivation);
 const singleTabStop = () => root.dataset.dxuiRovingTabStops !== "all";
 const selected = (item) =>
   ["aria-selected", "aria-checked", "aria-pressed"].some((name) => item.getAttribute(name) === "true");
 let lastFocused = null;
-// One Tab stop: where selection follows focus, the selected item comes
+// One Tab stop: where items carry a selection, the selected item comes
 // first; otherwise the item that last had focus does.
 const setTabStop = () => {
   if (!singleTabStop()) return;
   const enabled = enabledItems();
   const chosen = enabled.find(selected);
   const last = enabled.includes(lastFocused) ? lastFocused : null;
-  const stop = (followsFocus() ? chosen || last : last || chosen) || enabled[0];
+  const stop = (hasSelection() ? chosen || last : last || chosen) || enabled[0];
   items().forEach((item) => {
     item.tabIndex = item === stop ? 0 : -1;
   });
@@ -90,6 +92,11 @@ const onFocusIn = (event) => {
     if (item !== event.target) item.tabIndex = -1;
   });
 };
+// Leaving the group moves the Tab stop back to its preferred item. The
+// browser has already picked the next focus target.
+const onFocusOut = (event) => {
+  if (items().includes(event.target) && !items().includes(event.relatedTarget)) setTabStop();
+};
 let finish;
 const ended = new Promise((resolve) => {
   finish = resolve;
@@ -104,6 +111,7 @@ observer.observe(document.documentElement, { subtree: true, childList: true, att
 root.addEventListener("keydown", onKeyDown);
 root.addEventListener("click", onClick);
 root.addEventListener("focusin", onFocusIn);
+root.addEventListener("focusout", onFocusOut);
 await ended;
 observer.disconnect();
 "#;

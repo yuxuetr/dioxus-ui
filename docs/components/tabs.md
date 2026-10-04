@@ -20,6 +20,9 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["tabs"] }
 - `TabsList`
 - `TabsTrigger`
 - `TabsContent`
+- `TabsActivation`
+- `TabsOrientation`
+- `tabs_class`
 - `tabs_list_class`
 - `tabs_trigger_class`
 - `tabs_content_class`
@@ -50,7 +53,15 @@ rsx! {
 - Left and Right move focus between enabled triggers and wrap; Home and End
   jump to the first and last. Moving focus calls `on_value_change` with the
   focused trigger's value (automatic activation).
-- In a right-to-left layout, ArrowLeft moves to the next trigger and
+- With `activation: TabsActivation::Manual`, keys only move focus, and Enter,
+  Space, or a click selects.
+- With `orientation: TabsOrientation::Vertical`, Up and Down move focus
+  instead of Left and Right, the list renders `aria-orientation="vertical"`,
+  and the root, list, and panels render `data-orientation="vertical"` so the
+  list sits beside the panels.
+- When focus leaves the list, the selected trigger becomes the Tab stop
+  again, so Shift+Tab back into the list lands on it.
+- In a right-to-left horizontal list, ArrowLeft moves to the next trigger and
   ArrowRight to the previous one.
 - A click, Enter, or Space on a trigger calls `on_value_change` with its value.
 - `Tabs` links each trigger to its panel with `aria-controls` and
@@ -61,7 +72,8 @@ The Web renderer is covered by `npm run verify:runtime-interactions`.
 
 ## Accessibility Notes
 
-The list uses `role="tablist"` with `aria-orientation="horizontal"`, triggers
-use `role="tab"` with `aria-selected`, and panels use `role="tabpanel"`.
-Manual activation and vertical tabs are not implemented (see
-[RFC 0019](../rfcs/0019-roving-group-interaction.md)).
+The list uses `role="tablist"` with `aria-orientation` matching
+`orientation`, triggers use `role="tab"` with `aria-selected`, and panels use
+`role="tabpanel"`.
+Activation and orientation follow
+[RFC 0026](../rfcs/0026-tabs-manual-activation-and-vertical-orientation.md).

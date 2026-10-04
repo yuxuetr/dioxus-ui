@@ -707,8 +707,9 @@ pub use table::{
 };
 #[cfg(feature = "tabs")]
 pub use tabs::{
-  TABS_CONTENT_BASE_CLASS, TABS_LIST_BASE_CLASS, TABS_TRIGGER_BASE_CLASS, Tabs, TabsContent,
-  TabsList, TabsTrigger, tabs_content_class, tabs_list_class, tabs_trigger_class,
+  TABS_BASE_CLASS, TABS_CONTENT_BASE_CLASS, TABS_LIST_BASE_CLASS, TABS_TRIGGER_BASE_CLASS, Tabs,
+  TabsActivation, TabsContent, TabsList, TabsOrientation, TabsTrigger, tabs_class,
+  tabs_content_class, tabs_list_class, tabs_trigger_class,
 };
 #[cfg(feature = "toast")]
 pub use toast::{
