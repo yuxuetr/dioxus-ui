@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M166 Checkbox Indeterminate State
-- Current task: M166.2 Implement checkbox indeterminate state
+- Current task: M166.3 Verify the indeterminate state in a real browser
 
 ## Backup
 
@@ -3032,7 +3032,7 @@
   - Define `indeterminate` with a property sync through `document::eval`, `data-state`, a requested `true` from the mixed state, and a re-sync after changes.
   - Record what stays out of scope (restoring an ignored `checked`, mixed Switch and menu items, server-rendered mixed state, Desktop and Mobile self-test scenarios) with reevaluation conditions.
 
-- TODO M166.2 Implement checkbox indeterminate state
+- DONE M166.2 Implement checkbox indeterminate state
   - Add the prop, property sync, requested state, re-sync, and `data-state` to the crate source and template, with unit tests and the CLI script parity entry.
   - Update the Checkbox docs page.
 
