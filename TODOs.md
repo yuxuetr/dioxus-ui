@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M143 Mobile Interaction Verification
-- Current task: M143.2 Implement the Mobile self-test
+- Current task: M143.3 Reverse-verify the Mobile self-test
 
 ## Backup
 
@@ -2575,7 +2575,7 @@
   - Define a Mobile preview app, a scenario script and self-test component shared with Desktop, and a command that builds for the iOS Simulator, installs, launches with the self-test variable, and reads the result from the console.
   - Record what stays out of scope (Android, physical devices, touch gestures, CI activation) with reevaluation conditions.
 
-- TODO M143.2 Implement the Mobile self-test
+- DONE M143.2 Implement the Mobile self-test
   - Move the scenario script and self-test component into `preview-states` so Desktop and Mobile run the same scenarios, and add `PreviewTarget::Mobile`.
   - Add `examples/mobile-demo` and `npm run verify:mobile-interactions`, which selects an iPhone simulator, boots it when needed, and reports the self-test result.
 
