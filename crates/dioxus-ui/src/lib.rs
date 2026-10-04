@@ -73,6 +73,7 @@ pub mod dialog;
 mod modal_focus;
 
 #[cfg(any(
+  feature = "combobox",
   feature = "dropdown",
   feature = "hover-card",
   feature = "popover",
@@ -81,7 +82,7 @@ mod modal_focus;
 ))]
 mod anchored_overlay;
 
-#[cfg(feature = "select")]
+#[cfg(any(feature = "combobox", feature = "select"))]
 mod listbox;
 
 #[cfg(any(feature = "sonner", feature = "toast"))]
@@ -333,9 +334,11 @@ pub use combobox::{
   COMBOBOX_ITEM_BASE_CLASS, COMBOBOX_LIST_BASE_CLASS, COMBOBOX_TRIGGER_BASE_CLASS,
   COMBOBOX_VALUE_BASE_CLASS, ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxInput,
   ComboboxItem, ComboboxList, ComboboxTrigger, ComboboxValue,
-  PopoverPrimitiveConfig as ComboboxPrimitiveConfig, combobox_active_descendant_state,
-  combobox_content_class, combobox_empty_class, combobox_group_class, combobox_input_class,
-  combobox_item_class, combobox_list_class, combobox_trigger_class, combobox_value_class,
+  DismissBehavior as ComboboxDismissBehavior, OverlayAlign as ComboboxAlign,
+  OverlaySide as ComboboxSide, PopoverPrimitiveConfig as ComboboxPrimitiveConfig,
+  combobox_active_descendant_state, combobox_content_class, combobox_empty_class,
+  combobox_group_class, combobox_input_class, combobox_item_class, combobox_list_class,
+  combobox_trigger_class, combobox_value_class,
 };
 #[cfg(feature = "command")]
 pub use command::{

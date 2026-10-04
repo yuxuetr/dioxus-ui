@@ -125,6 +125,9 @@ pub(crate) enum ListboxMode {
   /// typeahead.
   #[cfg(feature = "select")]
   Select,
+  /// Combobox: starts without a highlight and leaves typing to the input.
+  #[cfg(feature = "combobox")]
+  Combobox,
 }
 
 impl ListboxMode {
@@ -132,6 +135,8 @@ impl ListboxMode {
     match self {
       #[cfg(feature = "select")]
       Self::Select => "select",
+      #[cfg(feature = "combobox")]
+      Self::Combobox => "combobox",
     }
   }
 }

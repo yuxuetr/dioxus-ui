@@ -682,12 +682,15 @@ pub enum ListboxMode {
   /// Select: starts on the selected option, handles Home, End, Space, and
   /// typeahead.
   Select,
+  /// Combobox: starts without a highlight and leaves typing to the input.
+  Combobox,
 }
 
 impl ListboxMode {
   fn name(self) -> &'static str {
     match self {
           Self::Select => "select",
+      Self::Combobox => "combobox",
     }
   }
 }
