@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M156 Collapsible And Native Select Events
-- Current task: M156.3
+- Current task: M156.4
 
 ## Backup
 
@@ -2839,7 +2839,7 @@
   - Add the callbacks and attribute spreading to the crate sources and templates.
   - Update the Collapsible and Native Select docs pages.
 
-- TODO M156.3 Verify events in a real browser
+- DONE M156.3 Verify events in a real browser
   - Render a Collapsible and a labelled Native Select in the Web preview and extend `npm run verify:runtime-interactions` to assert that a click, Enter, and Space toggle `aria-expanded` and the content, that choosing an option by mouse and keyboard reaches app state, and that passed attributes render.
   - Reverse-verify that the script fails when a callback is removed, when attributes are not spread, or when the trigger sends the current state instead of the requested one.
 
