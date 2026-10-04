@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M142 Desktop Interaction Verification
+- Current task: M142.1 Design desktop interaction verification
 
 ## Backup
 
@@ -2546,6 +2546,26 @@
 - DONE M141.4 Complete navigation menu milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and RFC 0010 out-of-scope status.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M142 Desktop Interaction Verification
+
+- TODO M142.1 Design desktop interaction verification
+  - Record that Desktop shares every interaction script with Web through `document::eval`, that the Desktop preview renders the same interaction fixtures, and that no automated check runs them in the Desktop WebView because WKWebView has no WebDriver.
+  - Define an in-app self-test: the Desktop preview runs a scenario script in its own WebView when an environment variable is set, reports results through `document::eval`, and exits with a status code; synthetic events cover script and Rust handler behavior but not native default actions.
+  - Record what stays out of scope (Mobile, native key defaults such as Tab movement, CI activation) with reevaluation conditions.
+
+- TODO M142.2 Implement the Desktop self-test
+  - Add the self-test component to the Desktop preview and a scenario script covering each interaction path: modal focus scope, anchored overlay, listbox, menu mode, dismiss timer, calendar focus following, Menubar, and Navigation Menu.
+  - Add `npm run verify:desktop-interactions`, which builds and runs the self-test with a timeout and reports the result.
+
+- TODO M142.3 Reverse-verify the Desktop self-test
+  - Confirm the self-test fails when an interaction script path is broken (focus return, listbox selection, menu switching, calendar focus) and when the scenario times out.
+  - Keep the command out of `npm run verify:release`, like the browser smoke, because it opens a window and needs a GUI session.
+
+- TODO M142.4 Complete desktop verification milestone
+  - Update the Desktop and Mobile verification strategy, runtime interaction docs, quality gates, Known Pre-1.0 Limitations, and CHANGELOG Unreleased notes.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 
 ## Status Rules
