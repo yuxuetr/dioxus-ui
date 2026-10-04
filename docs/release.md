@@ -678,7 +678,9 @@ first.
   `on_pressed_change`, and `on_value_change` (see RFC 0029); key, focus, and
   blur callbacks are not included. Slider responds to keys and the pointer
   (see RFC 0030); right-to-left, vertical, and multi-thumb sliders are not
-  included. Date Picker and
+  included. Collapsible and Native Select report changes through
+  `on_open_change` and `on_value_change` (see RFC 0031); multiple selection is
+  not included. Date Picker and
   Calendar implement anchored placement, focus entry, and day keyboard
   navigation (see RFC 0013); typed date parsing and source-copy date arithmetic
   are not included. Dropdown and Context Menu implement menu keyboard

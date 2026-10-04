@@ -133,6 +133,10 @@ release owner renames it to the released version at publish time.
   End keys and pointer presses and drags change the value through
   `on_value_change`, and attributes such as `aria-labelledby` pass through.
   `Label` passes through attributes such as `id`.
+- Collapsible and Native Select events: `CollapsibleTrigger` gains
+  `on_open_change` with the requested state and `NativeSelect` gains
+  `on_value_change`; both, and the other Collapsible parts, pass through
+  attributes such as `id`, `name`, and `aria-*`.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.

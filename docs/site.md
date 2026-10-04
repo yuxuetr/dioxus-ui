@@ -2315,8 +2315,8 @@ Hover Card hover and focus opening, a real Command (highlight movement,
 query resets, choosing from the input), right-to-left arrow mirroring in
 the roving groups and menus, vertical, manually activated Tabs, Combobox
 and Command result status regions, Switch and Checkbox change events,
-Button, Toggle, Input, and Textarea events, and Slider keyboard and pointer
-input.
+Button, Toggle, Input, and Textarea events, Slider keyboard and pointer
+input, and Collapsible and Native Select events.
 
 It is not part of `npm run verify` or `npm run verify:release`. It does not
 write screenshots or traces, certify full accessibility, verify native Desktop

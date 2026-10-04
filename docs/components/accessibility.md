@@ -51,7 +51,7 @@ Statuses:
 | Calendar | Exposes grid, row, columnheader, gridcell, selected, disabled, today, and range state attributes. | Implemented |
 | Calendar | Keyboard-managed days use roving tabindex, map arrow, Page, Home, and End keys to moves, and follow the focused date with DOM focus; browser-verified on Web inside Date Picker. | Implemented |
 | Calendar | Right-to-left arrow mirroring and disabled date skipping remain app-owned. | Planned |
-| Collapsible | Uses native trigger button with expanded state and optional trigger/content association. | Implemented |
+| Collapsible | Uses native trigger button with expanded state and optional trigger/content association; `on_open_change` sends the requested state on click, Enter, and Space, and every part passes attributes through; browser-verified on Web. | Implemented |
 | Command | Uses combobox, listbox, option, and active descendant semantics. | Implemented |
 | Command | Under `Command`, focus stays in the input, Up, Down, Home, and End move the highlight, a query change returns it to the first match, and Enter or a click chooses; the input controls the list; browser-verified on Web. | Implemented |
 | Command | `CommandStatus` is a polite status region for result counts; the app gives the wording; browser-verified on Web. | Implemented |
@@ -63,7 +63,7 @@ Statuses:
 | Combobox | Input keeps focus with `aria-activedescendant`; arrows highlight options, Enter or click chooses, and a filtered-out highlight clears; browser-verified on Web. | Implemented |
 | Combobox | `ComboboxStatus` is a polite status region for result counts, placed outside the popup; the app gives the wording; browser-verified on Web. | Implemented |
 | Combobox | Async loading remains app-owned. | Planned |
-| Native Select | Uses native select, optgroup, and option elements with platform keyboard and form behavior. | Implemented |
+| Native Select | Uses native select, optgroup, and option elements with platform keyboard and form behavior; `on_value_change` reports the chosen value, and `id`, `name`, and `aria-*` pass through so a `Label` can name it; browser-verified on Web. | Implemented |
 | Radio Group | Uses radiogroup/radio roles and checked state; one Tab stop on the checked or first enabled item, arrows move focus past disabled items and check the focused item, with Left and Right swapped in right-to-left layouts; browser-verified on Web. | Implemented |
 | Tabs | Uses tablist, tab, and tabpanel roles with `aria-controls` and `aria-labelledby` under `Tabs`; one Tab stop on the selected trigger, Left, Right, Home, and End move focus past disabled triggers and select the focused tab, with Left and Right swapped in right-to-left layouts; manual activation selects only on Enter, Space, or click, and vertical tabs use Up and Down with `aria-orientation="vertical"`; leaving the list makes the selected trigger the Tab stop again; browser-verified on Web. | Implemented |
 | Select | Uses select-only combobox semantics with listbox content; trigger keeps focus with `aria-activedescendant`; arrows, Home, End, and typeahead move the highlight; Enter, Space, or click chooses; browser-verified on Web. | Implemented |

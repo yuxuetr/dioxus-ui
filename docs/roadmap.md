@@ -186,4 +186,6 @@ to Switch and Checkbox change events
 Button, Toggle, Input, and Textarea events
 ([RFC 0029](rfcs/0029-button-toggle-input-and-textarea-events.md)), and M155
 to Slider keyboard and pointer input
-([RFC 0030](rfcs/0030-slider-keyboard-and-pointer-input.md)).
+([RFC 0030](rfcs/0030-slider-keyboard-and-pointer-input.md)), and M156 to
+Collapsible and Native Select events
+([RFC 0031](rfcs/0031-collapsible-and-native-select-events.md)).
