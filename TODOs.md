@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M162 Sidebar Toggle And Items
-- Current task: M162.3 Verify sidebar in a real browser
+- Current task: M162.4 Complete sidebar milestone
 
 ## Backup
 
@@ -2956,7 +2956,7 @@
   - Add the trigger callback, item forms, and attribute spreading to the crate source and template.
   - Update the Sidebar docs page.
 
-- TODO M162.3 Verify sidebar in a real browser
+- DONE M162.3 Verify sidebar in a real browser
   - Render a trigger and a Sidebar with button, link, disabled, and wrapper items in the Web preview and extend `npm run verify:runtime-interactions` to assert toggling, `aria-controls`, active item changes with `aria-current`, the link `href`, the disabled item, and the wrapper.
   - Reverse-verify that the script fails when the trigger or item callback is removed, when items always render a wrapper, when a disabled item keeps `href` or calls `onclick`, or when attributes are not spread.
 
