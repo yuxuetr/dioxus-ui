@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 80%
 - Current milestone: M138 Date Picker and Calendar Keyboard Behavior
-- Current task: M138.4
+- Current task: M138.5
 
 ## Backup
 
@@ -2475,7 +2475,7 @@
   - `DatePickerTrigger` gains `id` and toggles through `on_open_change`; `DatePickerContent` anchors to the trigger, moves focus to the focused day on open, wraps Tab, restores focus on close, and closes on Escape or outside interaction.
   - The focus scope prefers a `data-dxui-autofocus` element, skips `tabindex="-1"` elements when wrapping, and restores focus only when focus was not moved elsewhere; update templates and docs.
 
-- TODO M138.4 Verify date picker behavior in a real browser
+- DONE M138.4 Verify date picker behavior in a real browser
   - Render a real Date Picker with a Calendar in the Web preview and extend `npm run verify:runtime-interactions` to assert placement, focus entry on the selected day, arrow, Page, Home, and End movement across months, Tab wrap, Enter and click selection with focus return, Escape, and outside dismissal.
   - Reverse-verify that the script fails when key mapping, focus following, or focus entry is removed.
 
