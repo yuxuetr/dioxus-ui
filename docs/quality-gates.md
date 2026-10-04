@@ -546,6 +546,14 @@ simulator on iOS 26 or older when none is running, and passes only when the
 app console reports success. It needs Xcode and is not part of default or
 release gates.
 
+`npm run verify:android-interactions` runs the same scenarios in an Android
+emulator build of `examples/mobile-demo` (RFC 0020). It boots the first AVD
+headless when no emulator is running, requests the self-test through the
+`debug.dioxus_ui.self_test` system property, and passes only when logcat
+reports success. It reports an NDK install whose symbolic links were stored as
+text files before building. It needs the Android SDK, NDK, and an AVD and is
+not part of default or release gates.
+
 `npm run verify:browser-local` runs the opt-in browser-backed checks serially:
 mobile browser smoke, rendered component DOM verification, Web screenshot
 smoke, and runtime interaction verification. It is not part of default or

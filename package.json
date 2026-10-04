@@ -9,6 +9,7 @@
     "verify:desktop-preview": "node scripts/desktop-preview-verify.mjs",
     "verify:desktop-interactions": "node scripts/desktop-interactions-verify.mjs",
     "verify:mobile-interactions": "node scripts/mobile-interactions-verify.mjs",
+    "verify:android-interactions": "node scripts/android-interactions-verify.mjs",
     "verify:mobile-web-profile": "node scripts/mobile-web-profile-verify.mjs",
     "verify:mobile-browser": "node scripts/mobile-browser-smoke.mjs",
     "verify:browser-local": "npm run verify:mobile-browser && npm run verify:rendered-component-dom && npm run verify:web-screenshot-smoke && npm run verify:runtime-interactions",
