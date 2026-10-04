@@ -49,6 +49,10 @@ use dioxus_ui::{
   InputOtp, InputOtpGroup, InputOtpHiddenInput, InputOtpSlot, Pagination, PaginationContent,
   PaginationItem, PaginationLink, PaginationNext, PaginationPrevious,
 };
+use dioxus_ui::{
+  LayoutOrientation, ResizableHandle, ResizablePanel, ResizablePanelGroup, ResizablePanelState,
+  resizable_resize_pair,
+};
 pub use self_test::{INTERACTION_SELF_TEST_SCRIPT, InteractionSelfTest};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -768,6 +772,9 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut results_page = use_signal(|| 1);
   let mut disabled_link_clicks = use_signal(|| 0);
   let mut carousel_state = use_signal(|| CarouselState::new(0, 3));
+  let mut resizable_panels = use_signal(|| {
+    (ResizablePanelState::new(30.0, 20.0, 80.0), ResizablePanelState::new(70.0, 20.0, 80.0))
+  });
   let mut accordion_value = use_signal(|| None::<String>);
   let accordion_open = move |value: &str| accordion_value().as_deref() == Some(value);
   let mut context_open = use_signal(|| false);
@@ -1846,6 +1853,49 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                   "aria-label": "Show product {slide + 1}",
                   onclick: move |_| carousel_state.set(CarouselState::new(slide, 3)),
                 }
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "resizable",
+            "data-sizes": "{resizable_panels().0.size}-{resizable_panels().1.size}",
+            h2 { class: "text-sm font-medium", "Resizable interaction" }
+            // The preview serves uncompiled Tailwind, so the group layout and
+            // the handle width are inline.
+            ResizablePanelGroup {
+              class: "mt-3",
+              orientation: LayoutOrientation::Horizontal,
+              display: "flex",
+              width: "300px",
+              height: "80px",
+              ResizablePanel {
+                id: "interaction-resizable-files",
+                size: resizable_panels().0.size,
+                min_size: 20.0,
+                max_size: 80.0,
+                "Files"
+              }
+              ResizableHandle {
+                orientation: LayoutOrientation::Horizontal,
+                "aria-controls": "interaction-resizable-files",
+                "aria-label": "Resize files",
+                width: "8px",
+                flex_shrink: "0",
+                background: "#d4d4d8",
+                value: resizable_panels().0.size,
+                min: 20.0,
+                max: 80.0,
+                on_resize: move |delta| {
+                  let (first, second) = resizable_panels();
+                  resizable_panels.set(resizable_resize_pair(first, second, delta));
+                },
+              }
+              ResizablePanel {
+                size: resizable_panels().1.size,
+                min_size: 20.0,
+                max_size: 80.0,
+                "Editor"
               }
             }
           }

@@ -1360,6 +1360,50 @@ async function runBrowserAssertions() {
     await expect(carouselButton("Previous slide")).toHaveAttribute("title", "Previous product");
     await expect(carouselButton("Next slide")).toHaveAttribute("title", "Next product");
     await expect.poll(() => slideOffset(1)).toBe(0);
+
+    const resizable = page.locator('[data-interaction-target="resizable"]');
+    const resizeHandle = resizable.getByRole("separator", { name: "Resize files", exact: true });
+    const handleValue = async () => Number(await resizeHandle.getAttribute("aria-valuenow"));
+    await resizeHandle.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    // ARIA orients a separator by its line, which is vertical between
+    // side-by-side panels.
+    await expect(resizeHandle).toHaveAttribute("aria-orientation", "vertical");
+    await expect(resizeHandle).toHaveAttribute("aria-valuenow", "30");
+    await expect(resizeHandle).toHaveAttribute("aria-valuemin", "20");
+    await expect(resizeHandle).toHaveAttribute("aria-valuemax", "80");
+    await expect(resizeHandle).toHaveAttribute("aria-controls", "interaction-resizable-files");
+    await expect(resizable.locator("#interaction-resizable-files")).toHaveText("Files");
+    await resizeHandle.focus();
+    await expect(resizeHandle).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(resizable).toHaveAttribute("data-sizes", "40-60");
+    await page.keyboard.press("ArrowLeft");
+    await page.keyboard.press("ArrowLeft");
+    await expect(resizable).toHaveAttribute("data-sizes", "20-80");
+    // The minimum stops the resize.
+    await page.keyboard.press("ArrowLeft");
+    await expect(resizable).toHaveAttribute("data-sizes", "20-80");
+    await page.keyboard.press("End");
+    await expect(resizable).toHaveAttribute("data-sizes", "80-20");
+    await page.keyboard.press("Home");
+    await expect(resizable).toHaveAttribute("data-sizes", "20-80");
+    await page.keyboard.press("ArrowRight");
+    await expect(resizeHandle).toHaveAttribute("aria-valuenow", "30");
+    // A drag over the 300px group moves the edge with the pointer: 30px is 10%.
+    const handleBox = await resizeHandle.boundingBox();
+    const [startX, startY] = [handleBox.x + handleBox.width / 2, handleBox.y + handleBox.height / 2];
+    await page.mouse.move(startX, startY);
+    await page.mouse.down();
+    await page.mouse.move(startX + 30, startY, { steps: 3 });
+    await expect.poll(handleValue).toBeCloseTo(40, 5);
+    // Past the maximum the resize stops; coming back puts the edge under the
+    // pointer again instead of carrying the overshoot.
+    await page.mouse.move(startX + 300, startY, { steps: 3 });
+    await expect.poll(handleValue).toBeCloseTo(80, 5);
+    await page.mouse.move(startX + 60, startY, { steps: 3 });
+    await expect.poll(handleValue).toBeCloseTo(50, 5);
+    await page.mouse.up();
+    await expect(resizeHandle).toBeFocused();
     await expect.poll(() => slideOffset(2)).toBe(240);
     await carouselButton("Next slide").click();
     await expect(carousel).toHaveAttribute("data-index", "1");
@@ -1713,7 +1757,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (31 fixtures)");
+  console.log("runtime interaction verification passed (32 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
