@@ -51,7 +51,9 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["dropdown"]
   control. Tab moves focus out
   of the menu, which closes it.
 
-Only the Web renderer is covered by `npm run verify:runtime-interactions`.
+The Web renderer is covered by `npm run verify:runtime-interactions` and the
+Desktop renderer by `npm run verify:desktop-interactions`; Mobile is not
+covered by an automated check.
 
 ## Accessibility Notes
 

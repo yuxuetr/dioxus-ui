@@ -688,6 +688,11 @@ first.
   rendered preview shell and structural gate, but Desktop WebView screenshot
   capture is currently unsupported because the native preview window is not
   repeatable in local probes.
+- Desktop interaction behavior is checked by `npm run verify:desktop-interactions`,
+  an in-app self-test of eight interaction paths in the Desktop WebView (see
+  RFC 0017). It needs a GUI session, runs locally on macOS only, and is not
+  part of `npm run verify:release`. It does not exercise native default
+  actions such as Tab movement.
 - Mobile has a Web profile structural gate for source-level mobile viewport and
   fallback markers, but no native device or emulator gate yet.
 - Mobile browser smoke is documented as infeasible for release gates until

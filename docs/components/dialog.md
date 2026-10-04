@@ -59,8 +59,9 @@ rsx! {
   outside the content.
 
 Focus handling runs through `document::eval`, so it works in the Web, Desktop,
-and Mobile renderers. Only the Web renderer is covered by
-`npm run verify:runtime-interactions`.
+and Mobile renderers. The Web renderer is covered by `npm run verify:runtime-interactions` and the
+Desktop renderer by `npm run verify:desktop-interactions`; Mobile is not
+covered by an automated check.
 
 ## Accessibility Notes
 

@@ -7,6 +7,7 @@ verified.
 
 Status: Desktop strategy planned in M25.3. M28.1 adds the Desktop runtime smoke
 fixture scaffold. M28.2 defines the Mobile runtime verification checklist.
+M142 adds the Desktop interaction self-test.
 
 ## Decision
 

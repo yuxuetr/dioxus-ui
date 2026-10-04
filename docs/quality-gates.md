@@ -530,6 +530,13 @@ write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.
 
+`npm run verify:desktop-interactions` builds the Desktop preview and runs its
+in-app self-test (RFC 0017). Eight scenarios cover the dialog focus scope,
+anchored overlay, listbox, menu mode, toast timer, calendar focus following,
+Menubar, and Navigation Menu inside the Desktop WebView. The command exits
+with the self-test status. It opens a window, needs a GUI session, and is not
+part of default or release gates.
+
 `npm run verify:browser-local` runs the opt-in browser-backed checks serially:
 mobile browser smoke, rendered component DOM verification, Web screenshot
 smoke, and runtime interaction verification. It is not part of default or

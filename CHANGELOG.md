@@ -74,6 +74,9 @@ release owner renames it to the released version at publish time.
   presses, focus leaving, or content link clicks close it. Requests reach the
   app through the new `NavigationMenu` `on_value_change`, and
   `NavigationMenuItem` gains `value`.
+- `npm run verify:desktop-interactions`: an in-app self-test that runs eight
+  interaction scenarios in the Desktop preview's WebView and exits with the
+  result.
 
 ### Changed
 
@@ -92,8 +95,8 @@ release owner renames it to the released version at publish time.
 - Message markdown parsing, syntax highlighting, citation resolution,
   streaming, and provider integration.
 - DOM/WebView scroll commands for Message Scroller.
-- Verified Mobile runtime behavior; Desktop and Mobile coverage remains
-  checklist or fixture based.
+- Verified Mobile runtime behavior and Desktop automation outside macOS;
+  Mobile coverage remains checklist based.
 - Navigation Menu viewport size measurement, submenus, multi-select,
   typed date parsing, DOM portal mounting, and scroll lock.
 

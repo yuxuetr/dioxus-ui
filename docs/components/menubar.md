@@ -87,7 +87,9 @@ rsx! {
 - Closing returns focus to the open menu's trigger, unless focus already
   moved to another control. Tab moves focus out of the menu, which closes it.
 
-Only the Web renderer is covered by `npm run verify:runtime-interactions`.
+The Web renderer is covered by `npm run verify:runtime-interactions` and the
+Desktop renderer by `npm run verify:desktop-interactions`; Mobile is not
+covered by an automated check.
 
 ## Accessibility Notes
 

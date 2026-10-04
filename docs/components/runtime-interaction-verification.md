@@ -89,7 +89,8 @@ each command starts its own `dx serve` process.
 - no visual diffing or shadcn/ui visual parity claims
 - no full accessibility certification
 - no complete overlay focus trap certification
-- no native Desktop WebView automation
+- no native Desktop WebView automation in this command; the Desktop WebView
+  runs `npm run verify:desktop-interactions` (M142, RFC 0017)
 - no native Mobile automation
 - no component API changes
 - no generated source-copy template rewrites

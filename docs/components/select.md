@@ -74,7 +74,9 @@ rsx! {
   `DismissBehavior::popover_default()`).
 - Without `anchor_id`, content renders in place with no keyboard handling.
 
-Only the Web renderer is covered by `npm run verify:runtime-interactions`.
+The Web renderer is covered by `npm run verify:runtime-interactions` and the
+Desktop renderer by `npm run verify:desktop-interactions`; Mobile is not
+covered by an automated check.
 
 ## Accessibility Notes
 

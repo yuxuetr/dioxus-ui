@@ -794,6 +794,11 @@ Chromium or `DIOXUS_UI_BROWSER_EXECUTABLE`, does not write screenshots or
 traces, and does not claim full accessibility certification, native Desktop or
 Mobile coverage, or visual parity.
 
+`npm run verify:desktop-interactions` runs the same kinds of interactions in the
+Desktop WebView. The Desktop preview runs an in-app self-test of eight
+scenarios and exits with the result (RFC 0017). It opens a window and needs a
+GUI session.
+
 Run all local browser smoke commands serially:
 
 ```bash
