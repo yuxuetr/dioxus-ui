@@ -220,6 +220,7 @@ format!("bg-{}-500", color)
 - [RFC 0035: Control Label Overrides](docs/rfcs/0035-control-label-overrides.md)
 - [RFC 0036: Resizable Handle Input](docs/rfcs/0036-resizable-handle-input.md)
 - [RFC 0037: Sidebar Toggle And Items](docs/rfcs/0037-sidebar-toggle-and-items.md)
+- [RFC 0038: Form Control Naming](docs/rfcs/0038-form-control-naming.md)
 
 ## Verification Shortcuts
 

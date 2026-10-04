@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M163 Form Control Naming
+- Current task: M163.1 Design form control naming
 
 ## Backup
 
@@ -2961,6 +2961,26 @@
   - Reverse-verify that the script fails when the trigger or item callback is removed, when items always render a wrapper, when a disabled item keeps `href` or calls `onclick`, or when attributes are not spread.
 
 - DONE M162.4 Complete sidebar milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M163 Form Control Naming
+
+- TODO M163.1 Design form control naming
+  - Record that every `RadioGroupItem` has an empty accessible name and accepts no `id` or `aria-*`, that `RadioGroup` and `Progress` cannot be named, and that `SelectTrigger` and `ComboboxInput` cannot take `aria-describedby`.
+  - Define attribute spreading on `RadioGroup`, `RadioGroupItem`, `Progress`, `SelectTrigger`, and `ComboboxInput`.
+  - Record what stays out of scope (spreading on the remaining parts, a visible label child on radio items, a Progress `aria-valuetext` default, Desktop and Mobile self-test scenarios) with reevaluation conditions.
+
+- TODO M163.2 Implement form control naming
+  - Add attribute spreading to the crate source and template.
+  - Update the Radio Group, Progress, Select, and Combobox docs pages.
+
+- TODO M163.3 Verify form control naming in a real browser
+  - Label the radio group, its items, a progress bar, the Select trigger, and the Combobox input in the Web preview and extend `npm run verify:runtime-interactions` to assert their accessible names and descriptions through role queries.
+  - Reverse-verify that the script fails when any of the five parts does not spread its attributes.
+
+- TODO M163.4 Complete form control naming milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.

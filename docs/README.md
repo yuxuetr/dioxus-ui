@@ -104,7 +104,8 @@ Read in this order:
 98. [RFC 0035: Control Label Overrides](rfcs/0035-control-label-overrides.md)
 99. [RFC 0036: Resizable Handle Input](rfcs/0036-resizable-handle-input.md)
 100. [RFC 0037: Sidebar Toggle And Items](rfcs/0037-sidebar-toggle-and-items.md)
-101. [TODO Plan](../TODOs.md)
+101. [RFC 0038: Form Control Naming](rfcs/0038-form-control-naming.md)
+102. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
