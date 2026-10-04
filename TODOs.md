@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M165 Composite Widget Names
-- Current task: M165.4 Complete composite widget names milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -3020,7 +3020,7 @@
   - Name the Tabs, Toggle Group, Menubar, Navigation Menu, and Calendar fixtures in the Web preview and extend `npm run verify:runtime-interactions` to find each by role and name.
   - Reverse-verify that the script fails when any of the six parts does not spread its attributes.
 
-- TODO M165.4 Complete composite widget names milestone
+- DONE M165.4 Complete composite widget names milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and accessibility docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
