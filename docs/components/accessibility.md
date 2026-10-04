@@ -30,17 +30,17 @@ Statuses:
 
 | Component | Contract | Status |
 | --- | --- | --- |
-| Button | Supports disabled state and native button semantics. | Implemented |
+| Button | Supports disabled state and native button semantics; `onclick` fires on click, Enter, and Space, and `type` and `aria-*` pass through; browser-verified on Web. | Implemented |
 | Button Group | Uses grouped native button composition; apps own labels, pressed state, and toolbar semantics. | Implemented |
 | Checkbox | Uses native checkbox input state; `on_checked_change` reports click, Space, and label changes, and `id`, `name`, and `aria-*` pass through; browser-verified on Web. | Implemented |
 | Checkbox | An indeterminate state is not implemented. | Planned |
-| Input | Supports `aria-invalid` for invalid state. | Implemented |
+| Input | Supports `aria-invalid` for invalid state; `on_value_change` reports typed text, and `id`, `type`, and `aria-*` pass through so a `Label` can name it; browser-verified on Web. | Implemented |
 | Input Group | Preserves native input semantics while apps own labels, descriptions, and decorative addon handling. | Implemented |
 | Input OTP | Provides visual presentation slots plus a native input strategy; apps own labels, descriptions, paste policy, and keyboard handlers. | Implemented |
 | Label | Can be associated with a form control by the app. | Implemented |
 | Switch | `role="switch"` with `aria-checked` and `data-state`; `on_checked_change` reports click, Space, Enter, and label changes, and `id` and `aria-*` pass through for a name; browser-verified on Web. | Implemented |
 | Switch | A hidden input for native form submission is not implemented. | Planned |
-| Textarea | Supports `aria-invalid` for invalid state. | Implemented |
+| Textarea | Supports `aria-invalid` for invalid state; `on_value_change` reports typed text, and `id` and `aria-*` pass through so a `Label` can name it; browser-verified on Web. | Implemented |
 
 ## Disclosure And Selection
 
@@ -74,7 +74,7 @@ Statuses:
 | --- | --- | --- |
 | Slider | Uses slider role, horizontal orientation, and value attributes. | Implemented |
 | Spinner | Uses status semantics and an accessible label. | Implemented |
-| Toggle | Uses button semantics with `aria-pressed`. | Implemented |
+| Toggle | Uses button semantics with `aria-pressed`; `on_pressed_change` sends the requested state on click, Enter, and Space, and `aria-*` passes through; browser-verified on Web. | Implemented |
 | Toggle Group | Uses grouped toggle buttons with `aria-pressed`; one Tab stop on the last focused item, arrows move focus past disabled items without pressing, with Left and Right swapped in right-to-left layouts; browser-verified on Web. | Implemented |
 
 ## Message Components

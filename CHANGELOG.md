@@ -125,6 +125,10 @@ release owner renames it to the released version at publish time.
 - Switch and Checkbox change events: `on_checked_change` receives the
   requested state, both components pass through `id`, `name`, and `aria-*`
   attributes so a `Label` can name them, and Switch renders `data-state`.
+- Button, Toggle, Input, and Textarea events: Button gains `onclick`, Toggle
+  gains `on_pressed_change` with the requested state, and Input and Textarea
+  gain `on_value_change`; all four pass through attributes such as `id`,
+  `name`, `type`, and `aria-*`.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.

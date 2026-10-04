@@ -2314,7 +2314,8 @@ stop, arrow movement, selection following focus), a real Accordion
 Hover Card hover and focus opening, a real Command (highlight movement,
 query resets, choosing from the input), right-to-left arrow mirroring in
 the roving groups and menus, vertical, manually activated Tabs, Combobox
-and Command result status regions, and Switch and Checkbox change events.
+and Command result status regions, Switch and Checkbox change events, and
+Button, Toggle, Input, and Textarea events.
 
 It is not part of `npm run verify` or `npm run verify:release`. It does not
 write screenshots or traces, certify full accessibility, verify native Desktop

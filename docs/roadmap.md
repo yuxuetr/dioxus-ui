@@ -182,4 +182,6 @@ manual activation and vertical orientation
 M152 to Combobox and Command result announcements
 ([RFC 0027](rfcs/0027-combobox-and-command-result-announcements.md)), and M153
 to Switch and Checkbox change events
-([RFC 0028](rfcs/0028-switch-and-checkbox-change-events.md)).
+([RFC 0028](rfcs/0028-switch-and-checkbox-change-events.md)), and M154 to
+Button, Toggle, Input, and Textarea events
+([RFC 0029](rfcs/0029-button-toggle-input-and-textarea-events.md)).

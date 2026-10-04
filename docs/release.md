@@ -673,7 +673,10 @@ first.
   is not implemented. Combobox and Command announce result counts through
   status parts whose wording the app provides (see RFC 0027). Switch and
   Checkbox report changes through `on_checked_change` (see RFC 0028); an
-  indeterminate checkbox and a form input for Switch are not included. Date Picker and
+  indeterminate checkbox and a form input for Switch are not included. Button,
+  Toggle, Input, and Textarea report events through `onclick`,
+  `on_pressed_change`, and `on_value_change` (see RFC 0029); key, focus, and
+  blur callbacks are not included. Date Picker and
   Calendar implement anchored placement, focus entry, and day keyboard
   navigation (see RFC 0013); typed date parsing and source-copy date arithmetic
   are not included. Dropdown and Context Menu implement menu keyboard
