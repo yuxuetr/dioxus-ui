@@ -7,6 +7,7 @@ members = [
   "crates/dioxus-ui-cli",
   "examples/web-demo",
   "examples/desktop-demo",
+  "examples/mobile-demo",
   "examples/preview-states",
   "examples/runtime-web-verification",
   "examples/runtime-desktop-verification",

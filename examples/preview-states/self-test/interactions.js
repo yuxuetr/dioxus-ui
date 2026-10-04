@@ -1,5 +1,6 @@
-// Desktop interaction self-test (RFC 0017). Runs inside the Desktop preview's
-// own WebView through `document::eval` and sends one result:
+// Interaction self-test for the Desktop and Mobile previews (RFC 0017,
+// RFC 0018). Runs inside the app's own WebView through `document::eval` and
+// sends one result:
 // `{ ok, passed, error }`. Dispatched events are untrusted, so browser default
 // actions (Tab movement, Enter clicking a button) do not run; the scenarios
 // exercise the interaction scripts and Rust handlers instead.

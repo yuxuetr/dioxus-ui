@@ -1,4 +1,6 @@
 use dioxus::prelude::*;
+
+mod self_test;
 use dioxus_ui::{
   AlertDialogAction, AlertDialogActionVariant, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogOverlay, AlertDialogTitle, AttachmentOrientation,
@@ -29,11 +31,13 @@ use dioxus_ui::{
   calendar_month_grid, calendar_move_date, sonner_dismiss_reason_attribute,
   toast_dismiss_reason_attribute,
 };
+pub use self_test::{INTERACTION_SELF_TEST_SCRIPT, InteractionSelfTest};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum PreviewTarget {
   Web,
   Desktop,
+  Mobile,
 }
 
 impl PreviewTarget {
@@ -41,6 +45,7 @@ impl PreviewTarget {
     match self {
       Self::Web => "web",
       Self::Desktop => "desktop",
+      Self::Mobile => "mobile",
     }
   }
 }
@@ -721,6 +726,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let root = match target {
     PreviewTarget::Web => "web",
     PreviewTarget::Desktop => "desktop",
+    PreviewTarget::Mobile => "mobile",
   };
   let disclosure_state = if disclosure_open() { "open" } else { "closed" };
   let disclosure_expanded = if disclosure_open() { "true" } else { "false" };
@@ -1685,7 +1691,8 @@ impl PreviewConfig {
         collapsible_open: false,
         collapsible_class: "max-w-sm",
       },
-      PreviewTarget::Desktop => Self {
+      // Mobile reuses the Desktop states: both render in a native WebView shell.
+      PreviewTarget::Desktop | PreviewTarget::Mobile => Self {
         button_orientation: ButtonGroupOrientation::Vertical,
         button_attached: false,
         button_class: "items-start",

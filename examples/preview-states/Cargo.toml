@@ -9,3 +9,4 @@ publish = false
 [dependencies]
 dioxus = { workspace = true }
 dioxus-ui = { workspace = true, features = ["alert-dialog", "attachment", "bubble", "button", "button-group", "calendar", "chart", "collapsible", "combobox", "context-menu", "date-picker", "dialog", "direction", "dropdown", "input-group", "menubar", "input-otp", "marker", "message", "message-scroller", "navigation-menu", "popover", "select", "sonner", "toast", "tooltip"] }
+serde_json = { workspace = true }

@@ -54,6 +54,33 @@ Structural Desktop preview gate:
 node scripts/desktop-preview-verify.mjs
 ```
 
+Desktop interaction self-test (RFC 0017), which opens a window:
+
+```bash
+npm run verify:desktop-interactions
+```
+
+## Mobile Demo
+
+`examples/mobile-demo` (`dioxus-ui-mobile-demo`) renders the shared preview
+with `PreviewTarget::Mobile` for the iOS Simulator:
+
+```bash
+dx serve --ios --package dioxus-ui-mobile-demo
+```
+
+The interaction self-test (RFC 0018) builds for the simulator, boots an iPhone
+simulator on iOS 26 or older when none is running, and reads the result from
+the app's console. It needs Xcode:
+
+```bash
+npm run verify:mobile-interactions
+```
+
+Set `DIOXUS_UI_IOS_SIMULATOR` to a device name or UDID to choose the device.
+Dioxus 0.7 apps stop at launch on iOS 27 because they do not adopt the UIScene
+lifecycle.
+
 ## Preview State Metadata
 
 ```bash

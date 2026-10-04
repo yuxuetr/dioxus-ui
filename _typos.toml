@@ -1,4 +1,7 @@
 [default.extend-words]
+# Simulator device identifier, as named by `xcrun simctl`.
+udid = "udid"
+UDID = "UDID"
 
 [files]
 extend-exclude = ["CHANGELOG.md", "notebooks/*"]

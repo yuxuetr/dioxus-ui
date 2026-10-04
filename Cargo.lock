@@ -1376,7 +1376,14 @@ dependencies = [
  "dioxus",
  "dioxus-ui",
  "dioxus-ui-preview-states",
- "serde_json",
+]
+
+[[package]]
+name = "dioxus-ui-mobile-demo"
+version = "0.1.0"
+dependencies = [
+ "dioxus",
+ "dioxus-ui-preview-states",
 ]
 
 [[package]]
@@ -1385,6 +1392,7 @@ version = "0.1.0"
 dependencies = [
  "dioxus",
  "dioxus-ui",
+ "serde_json",
 ]
 
 [[package]]
