@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 71% (M135 5/7)
+- Overall: 86% (M135 6/7)
 - Current milestone: M135 Overlay Interaction Behavior
-- Current task: M135.6 Verify overlay behavior in a real browser
+- Current task: M135.7 Complete overlay interaction milestone
 
 ## Backup
 
@@ -2400,7 +2400,7 @@
   - Reuse Popover measurement and placement; Dropdown dismisses on Escape and outside pointer, Tooltip on Escape only.
   - Update templates, docs pages, and tests for each component.
 
-- TODO M135.6 Verify overlay behavior in a real browser
+- DONE M135.6 Verify overlay behavior in a real browser
   - Render the real Dialog, Alert Dialog, and Popover components in the Web preview interaction panel.
   - Extend `npm run verify:runtime-interactions` to assert Escape, overlay click, Tab wrap, focus restore, and in-viewport placement with flip near the viewport edge.
   - Reverse-verify that the script fails when the behavior is removed.
