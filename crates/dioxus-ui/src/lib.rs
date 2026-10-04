@@ -72,8 +72,17 @@ pub mod dialog;
 #[cfg(any(feature = "alert-dialog", feature = "dialog", feature = "drawer", feature = "sheet"))]
 mod modal_focus;
 
-#[cfg(any(feature = "dropdown", feature = "hover-card", feature = "popover", feature = "tooltip"))]
+#[cfg(any(
+  feature = "dropdown",
+  feature = "hover-card",
+  feature = "popover",
+  feature = "select",
+  feature = "tooltip"
+))]
 mod anchored_overlay;
+
+#[cfg(feature = "select")]
+mod listbox;
 
 #[cfg(any(feature = "sonner", feature = "toast"))]
 mod dismiss_timer;
@@ -569,6 +578,7 @@ pub use scroll_area::{
 };
 #[cfg(feature = "select")]
 pub use select::{
+  DismissBehavior as SelectDismissBehavior, OverlayAlign as SelectAlign, OverlaySide as SelectSide,
   SELECT_CONTENT_BASE_CLASS, SELECT_GROUP_BASE_CLASS, SELECT_ITEM_BASE_CLASS,
   SELECT_LABEL_BASE_CLASS, SELECT_SEPARATOR_BASE_CLASS, SELECT_TRIGGER_BASE_CLASS,
   SELECT_VALUE_BASE_CLASS, SelectContent, SelectGroup, SelectItem, SelectLabel,

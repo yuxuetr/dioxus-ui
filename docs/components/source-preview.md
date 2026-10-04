@@ -63,7 +63,7 @@ Source preview routes: 64
 | [Radio Group](radio-group.md) | /components/radio-group/source | crates/dioxus-ui-cli/templates/radio_group.rs | src/components/ui/radio_group.rs | rust | 260 | 6243 |
 | [Resizable](resizable.md) | /components/resizable/source | crates/dioxus-ui-cli/templates/resizable.rs | src/components/ui/resizable.rs | rust | 127 | 3755 |
 | [Scroll Area](scroll-area.md) | /components/scroll-area/source | crates/dioxus-ui-cli/templates/scroll_area.rs | src/components/ui/scroll_area.rs | rust | 141 | 3762 |
-| [Select](select.md) | /components/select/source | crates/dioxus-ui-cli/templates/select.rs | src/components/ui/select.rs | rust | 165 | 4265 |
+| [Select](select.md) | /components/select/source | crates/dioxus-ui-cli/templates/select.rs | src/components/ui/select.rs | rust | 205 | 6202 |
 | [Separator](separator.md) | /components/separator/source | crates/dioxus-ui-cli/templates/separator.rs | src/components/ui/separator.rs | rust | 51 | 1253 |
 | [Sheet](sheet.md) | /components/sheet/source | crates/dioxus-ui-cli/templates/sheet.rs | src/components/ui/sheet.rs | rust | 198 | 5322 |
 | [Sidebar](sidebar.md) | /components/sidebar/source | crates/dioxus-ui-cli/templates/sidebar.rs | src/components/ui/sidebar.rs | rust | 207 | 5625 |
