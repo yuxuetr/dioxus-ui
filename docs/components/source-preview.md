@@ -78,5 +78,5 @@ Source preview routes: 64
 | [Toast](toast.md) | /components/toast/source | crates/dioxus-ui-cli/templates/toast.rs | src/components/ui/toast.rs | rust | 396 | 10817 |
 | [Toggle](toggle.md) | /components/toggle/source | crates/dioxus-ui-cli/templates/toggle.rs | src/components/ui/toggle.rs | rust | 77 | 1865 |
 | [Toggle Group](toggle-group.md) | /components/toggle-group/source | crates/dioxus-ui-cli/templates/toggle_group.rs | src/components/ui/toggle_group.rs | rust | 297 | 7562 |
-| [Tooltip](tooltip.md) | /components/tooltip/source | crates/dioxus-ui-cli/templates/tooltip.rs | src/components/ui/tooltip.rs | rust | 231 | 7867 |
+| [Tooltip](tooltip.md) | /components/tooltip/source | crates/dioxus-ui-cli/templates/tooltip.rs | src/components/ui/tooltip.rs | rust | 229 | 7802 |
 | [Typography](typography.md) | /components/typography/source | crates/dioxus-ui-cli/templates/typography.rs | src/components/ui/typography.rs | rust | 103 | 3673 |
