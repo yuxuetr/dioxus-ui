@@ -15,18 +15,22 @@ const scopeId = await dioxus.recv();
 const root = document.querySelector(`[data-dxui-slider="${scopeId}"]`);
 if (!root) return;
 const disabled = () => root.getAttribute("aria-disabled") === "true";
-const valueAt = (clientX) => {
+const valueAt = (event) => {
   const min = Number(root.getAttribute("aria-valuemin"));
   const max = Number(root.getAttribute("aria-valuemax"));
   const step = Number(root.dataset.step) || 1;
   const rect = root.getBoundingClientRect();
-  if (rect.width <= 0 || max <= min) return min;
-  const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+  // A vertical slider grows from the bottom.
+  const vertical = root.dataset.orientation === "vertical";
+  const size = vertical ? rect.height : rect.width;
+  if (size <= 0 || max <= min) return min;
+  const offset = vertical ? rect.bottom - event.clientY : event.clientX - rect.left;
+  const ratio = Math.min(1, Math.max(0, offset / size));
   const value = min + Math.round((ratio * (max - min)) / step) * step;
   return Math.min(max, Math.max(min, value));
 };
 const send = (event) => {
-  const value = valueAt(event.clientX);
+  const value = valueAt(event);
   if (value !== Number(root.getAttribute("aria-valuenow"))) dioxus.send(value);
 };
 const onPointerDown = (event) => {
@@ -169,16 +173,57 @@ pub fn slider_percent(value: f64, min: f64, max: f64, step: f64) -> f64 {
   slider_state(value, min, max, step).percent()
 }
 
-pub fn slider_range_style(percent: f64) -> String {
-  let percent = percent.clamp(0.0, 100.0);
-
-  format!("left: 0%; width: {percent}%;")
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub enum SliderOrientation {
+  #[default]
+  Horizontal,
+  Vertical,
 }
 
-pub fn slider_thumb_style(percent: f64) -> String {
+impl SliderOrientation {
+  pub fn attribute(self) -> &'static str {
+    match self {
+      Self::Horizontal => "horizontal",
+      Self::Vertical => "vertical",
+    }
+  }
+}
+
+pub fn slider_range_style(orientation: SliderOrientation, percent: f64) -> String {
   let percent = percent.clamp(0.0, 100.0);
 
-  format!("left: {percent}%; transform: translateX(-50%);")
+  match orientation {
+    SliderOrientation::Horizontal => format!("left: 0%; width: {percent}%;"),
+    SliderOrientation::Vertical => format!("bottom: 0%; height: {percent}%;"),
+  }
+}
+
+/// Centers the thumb on the value along the root. The position is inline so
+/// it does not depend on compiled Tailwind classes.
+pub fn slider_thumb_style(orientation: SliderOrientation, percent: f64) -> String {
+  let percent = percent.clamp(0.0, 100.0);
+
+  match orientation {
+    SliderOrientation::Horizontal => {
+      format!("position: absolute; left: {percent}%; top: 50%; transform: translate(-50%, -50%);")
+    }
+    SliderOrientation::Vertical => {
+      format!("position: absolute; bottom: {percent}%; left: 50%; transform: translate(-50%, 50%);")
+    }
+  }
+}
+
+/// Classes that size a vertical slider's root, track, and range along its
+/// height.
+fn slider_orientation_classes(
+  orientation: SliderOrientation,
+) -> (Option<&'static str>, Option<&'static str>, Option<&'static str>) {
+  match orientation {
+    SliderOrientation::Horizontal => (None, None, None),
+    SliderOrientation::Vertical => {
+      (Some("h-full w-auto flex-col"), Some("h-full w-2"), Some("w-full"))
+    }
+  }
 }
 
 /// Maps a `KeyboardEvent.key` name to a slider move, following the WAI-ARIA
@@ -260,6 +305,7 @@ pub fn Slider(
   #[props(default = 0.0)] min: f64,
   #[props(default = 100.0)] max: f64,
   #[props(default = 1.0)] step: f64,
+  #[props(default)] orientation: SliderOrientation,
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
   #[props(default)] track_class: String,
@@ -272,12 +318,14 @@ pub fn Slider(
   let scope_id = use_slider_pointer(state, disabled, on_value_change);
   let percent = state.percent();
   let aria = state.aria_attributes();
-  let root_class = slider_root_class(&class);
-  let track_class = slider_track_class(&track_class);
-  let range_class = slider_range_class(&range_class);
+  let (root_orientation, track_orientation, range_orientation) =
+    slider_orientation_classes(orientation);
+  let root_class = slider_root_class(&classes([root_orientation, Some(class.as_str())]));
+  let track_class = slider_track_class(&classes([track_orientation, Some(track_class.as_str())]));
+  let range_class = slider_range_class(&classes([range_orientation, Some(range_class.as_str())]));
   let thumb_class = slider_thumb_class(&thumb_class);
-  let range_style = slider_range_style(percent);
-  let thumb_style = slider_thumb_style(percent);
+  let range_style = slider_range_style(orientation, percent);
+  let thumb_style = slider_thumb_style(orientation, percent);
 
   rsx! {
     div {
@@ -285,7 +333,8 @@ pub fn Slider(
       class: root_class,
       tabindex: if disabled { "-1" } else { "0" },
       "aria-disabled": disabled.to_string(),
-      "aria-orientation": "horizontal",
+      "aria-orientation": orientation.attribute(),
+      "data-orientation": orientation.attribute(),
       "aria-valuemin": aria.aria_valuemin.to_string(),
       "aria-valuemax": aria.aria_valuemax.to_string(),
       "aria-valuenow": aria.aria_valuenow.to_string(),

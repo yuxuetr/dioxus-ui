@@ -12,9 +12,9 @@ use dioxus_ui::{
   MessageScrollerMetrics, NavigationMenuPrimitiveConfig, NavigationOrientation,
   PopoverPrimitiveConfig, ResizablePanelState, RovingFocusItem, ScrollAreaOrientation,
   SelectPrimitiveConfig, SeparatorOrientation, SheetPrimitiveConfig, SheetSide, SidebarSide,
-  SidebarState, SonnerItem, SonnerPlacement, SonnerQueue, SonnerVariant, SpinnerSize,
-  TextDirection, ToastItem, ToastPlacement, ToastQueue, ToastVariant, ToggleSize, ToggleVariant,
-  TooltipPrimitiveConfig, UiDensity, accordion_content_class, accordion_item_class,
+  SidebarState, SliderOrientation, SonnerItem, SonnerPlacement, SonnerQueue, SonnerVariant,
+  SpinnerSize, TextDirection, ToastItem, ToastPlacement, ToastQueue, ToastVariant, ToggleSize,
+  ToggleVariant, TooltipPrimitiveConfig, UiDensity, accordion_content_class, accordion_item_class,
   accordion_trigger_class, alert_class, alert_description_class, alert_dialog_action_class,
   alert_dialog_content_class, alert_dialog_overlay_class, alert_title_class, aspect_ratio_style,
   attachment_action_class, attachment_actions_class, attachment_class, attachment_content_class,
@@ -396,8 +396,14 @@ fn main() {
   println!("dioxus-ui desktop demo slider class: {}", slider_root_class("mt-2"));
   println!("dioxus-ui desktop demo slider track class: {}", slider_track_class("h-1.5"));
   println!("dioxus-ui desktop demo slider percent: {}", slider_percent(3.0, 0.0, 4.0, 1.0));
-  println!("dioxus-ui desktop demo slider range style: {}", slider_range_style(75.0));
-  println!("dioxus-ui desktop demo slider thumb style: {}", slider_thumb_style(75.0));
+  println!(
+    "dioxus-ui desktop demo slider range style: {}",
+    slider_range_style(SliderOrientation::Horizontal, 75.0)
+  );
+  println!(
+    "dioxus-ui desktop demo slider thumb style: {}",
+    slider_thumb_style(SliderOrientation::Horizontal, 75.0)
+  );
   println!(
     "dioxus-ui desktop demo radio group class: {}",
     radio_group_class(NavigationOrientation::Vertical, "gap-2")
