@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M162 Sidebar Toggle And Items
+- Current task: M162.1 Design sidebar toggle and items
 
 ## Backup
 
@@ -2941,6 +2941,26 @@
   - Reverse-verify that the script fails when the key handler is removed, when the pointer script does not start, when it sends per-move deltas, when `aria-orientation` keeps the group orientation, or when attributes are not spread.
 
 - DONE M161.4 Complete resizable milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M162 Sidebar Toggle And Items
+
+- TODO M162.1 Design sidebar toggle and items
+  - Record that `SidebarTrigger` has no click handler, that no Sidebar part accepts attributes, that `SidebarItem` is a `div` whose active state is not announced and whose disabled state leaves inner links focusable, and that Desktop opens anchors in the system browser.
+  - Define `on_collapsed_change` on the trigger, `href` and `onclick` item forms with `aria-current` and disabled handling, and attribute spreading on the Sidebar parts.
+  - Record what stays out of scope (a keyboard shortcut, the rail as a toggle, hiding labels while collapsed, mobile off-canvas behavior, Desktop and Mobile self-test scenarios) with reevaluation conditions.
+
+- TODO M162.2 Implement sidebar toggle and items
+  - Add the trigger callback, item forms, and attribute spreading to the crate source and template.
+  - Update the Sidebar docs page.
+
+- TODO M162.3 Verify sidebar in a real browser
+  - Render a trigger and a Sidebar with button, link, disabled, and wrapper items in the Web preview and extend `npm run verify:runtime-interactions` to assert toggling, `aria-controls`, active item changes with `aria-current`, the link `href`, the disabled item, and the wrapper.
+  - Reverse-verify that the script fails when the trigger or item callback is removed, when items always render a wrapper, when a disabled item keeps `href` or calls `onclick`, or when attributes are not spread.
+
+- TODO M162.4 Complete sidebar milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.

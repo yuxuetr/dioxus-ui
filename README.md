@@ -219,6 +219,7 @@ format!("bg-{}-500", color)
 - [RFC 0034: Carousel Slide Changes](docs/rfcs/0034-carousel-slide-changes.md)
 - [RFC 0035: Control Label Overrides](docs/rfcs/0035-control-label-overrides.md)
 - [RFC 0036: Resizable Handle Input](docs/rfcs/0036-resizable-handle-input.md)
+- [RFC 0037: Sidebar Toggle And Items](docs/rfcs/0037-sidebar-toggle-and-items.md)
 
 ## Verification Shortcuts
 
