@@ -85,7 +85,8 @@ Read in this order:
 79. [RFC 0016: Navigation Menu Interaction Behavior](rfcs/0016-navigation-menu-interaction.md)
 80. [RFC 0017: Desktop Interaction Verification](rfcs/0017-desktop-interaction-verification.md)
 81. [RFC 0018: Mobile Interaction Verification](rfcs/0018-mobile-interaction-verification.md)
-82. [TODO Plan](../TODOs.md)
+82. [RFC 0019: Roving Group Interaction](rfcs/0019-roving-group-interaction.md)
+83. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
