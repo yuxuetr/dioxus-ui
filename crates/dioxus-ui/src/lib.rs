@@ -89,7 +89,12 @@ mod modal_focus;
 ))]
 mod anchored_overlay;
 
-#[cfg(any(feature = "combobox", feature = "select"))]
+#[cfg(any(
+  feature = "combobox",
+  feature = "context-menu",
+  feature = "dropdown",
+  feature = "select"
+))]
 mod listbox;
 
 #[cfg(any(feature = "sonner", feature = "toast"))]

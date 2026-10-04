@@ -41,7 +41,7 @@ Source preview routes: 64
 | [Dialog](dialog.md) | /components/dialog/source | crates/dioxus-ui-cli/templates/dialog.rs | src/components/ui/dialog.rs | rust | 137 | 4085 |
 | [Direction](direction.md) | /components/direction/source | crates/dioxus-ui-cli/templates/direction.rs | src/components/ui/direction.rs | rust | 43 | 787 |
 | [Drawer](drawer.md) | /components/drawer/source | crates/dioxus-ui-cli/templates/drawer.rs | src/components/ui/drawer.rs | rust | 169 | 4657 |
-| [Dropdown](dropdown.md) | /components/dropdown/source | crates/dioxus-ui-cli/templates/dropdown.rs | src/components/ui/dropdown.rs | rust | 124 | 3466 |
+| [Dropdown](dropdown.md) | /components/dropdown/source | crates/dioxus-ui-cli/templates/dropdown.rs | src/components/ui/dropdown.rs | rust | 139 | 4251 |
 | [Empty](empty.md) | /components/empty/source | crates/dioxus-ui-cli/templates/empty.rs | src/components/ui/empty.rs | rust | 106 | 2479 |
 | [Field](field.md) | /components/field/source | crates/dioxus-ui-cli/templates/field.rs | src/components/ui/field.rs | rust | 101 | 2274 |
 | [Hover Card](hover-card.md) | /components/hover-card/source | crates/dioxus-ui-cli/templates/hover_card.rs | src/components/ui/hover_card.rs | rust | 113 | 3202 |

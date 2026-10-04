@@ -41,9 +41,19 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["dropdown"]
 - Escape, a pointer press outside the content and anchor, and focus moving
   outside request close per `dismiss` (default
   `DismissBehavior::popover_default()`).
-- Item roving focus and arrow-key navigation remain app-owned.
+- Opening focuses the first enabled item. ArrowDown and ArrowUp move focus
+  and wrap at the ends, skipping disabled items; Home and End jump to the
+  first and last item; typing a prefix focuses the next matching item.
+- Enter, Space, or a click on an enabled item calls the item's `onclick` and
+  then requests close. Disabled items do not call `onclick`.
+- Closing returns focus to the element focused before opening, usually the
+  trigger, unless focus already moved to another control. Tab moves focus out
+  of the menu, which closes it.
+
+Only the Web renderer is covered by `npm run verify:runtime-interactions`.
 
 ## Accessibility Notes
 
-Dropdown menus need roving focus, keyboard navigation, escape dismissal, and
-clear disabled or destructive item states.
+Content uses menu semantics and items use menuitem semantics. The menu moves
+DOM focus between items, so screen readers announce each item as it receives
+focus. Destructive items need text that names the action, not only color.
