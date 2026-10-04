@@ -192,6 +192,7 @@ format!("bg-{}-500", color)
 - [RFC 0007: Keyboard Navigation Primitives](docs/rfcs/0007-keyboard-navigation-primitives.md)
 - [RFC 0008: Overlay Positioning and Portals](docs/rfcs/0008-overlay-positioning-and-portals.md)
 - [RFC 0009: CI Browser Workflow Activation](docs/rfcs/0009-ci-browser-workflow-activation.md)
+- [RFC 0010: Overlay Interaction Behavior](docs/rfcs/0010-overlay-interaction-behavior.md)
 
 ## Verification Shortcuts
 

@@ -76,7 +76,8 @@ Read in this order:
 70. [RFC 0007: Keyboard Navigation Primitives](rfcs/0007-keyboard-navigation-primitives.md)
 71. [RFC 0008: Overlay Positioning and Portals](rfcs/0008-overlay-positioning-and-portals.md)
 72. [RFC 0009: CI Browser Workflow Activation](rfcs/0009-ci-browser-workflow-activation.md)
-73. [TODO Plan](../TODOs.md)
+73. [RFC 0010: Overlay Interaction Behavior](rfcs/0010-overlay-interaction-behavior.md)
+74. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
