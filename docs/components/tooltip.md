@@ -44,8 +44,9 @@ rsx! {
   focus on the trigger requests open at once.
 - The tooltip stays open while the pointer moves from the trigger onto the
   content. Leaving both requests close after a 100 ms grace period.
-- Blur and a press on the trigger request close. After a press, hover does not
-  reopen the tooltip until the pointer leaves the trigger.
+- Blur requests close unless the pointer is over the trigger or content; then
+  pointer leave closes it. A press on the trigger requests close, and hover
+  does not reopen the tooltip until the pointer leaves the trigger.
 - Touch pointers do not open the tooltip.
 - While open, the trigger has `aria-describedby` pointing to the content.
 - Inside `Tooltip`, the content anchors to `TooltipTrigger` and uses the root's
@@ -67,4 +68,6 @@ The Web renderer is covered by `npm run verify:runtime-interactions`.
 Tooltips open on hover and keyboard focus. Do not put essential interactive
 content inside a tooltip. Skipping the delay between adjacent tooltips, touch
 long press, and triggers other than buttons are not implemented (see
-[RFC 0022](../rfcs/0022-tooltip-hover-and-focus-opening.md)).
+[RFC 0022](../rfcs/0022-tooltip-hover-and-focus-opening.md)). Tooltip and
+Hover Card share one hover-open script
+([RFC 0023](../rfcs/0023-hover-card-hover-and-focus-opening.md)).

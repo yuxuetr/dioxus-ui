@@ -89,7 +89,7 @@ a hover card belongs to the tooltip.
 | Pointer enters the content | Cancel a pending close | Same |
 | Pointer leaves the trigger or content | Close after 100 ms unless the pointer enters the other one | Close after `close_delay_ms` |
 | Keyboard focus on the trigger | Open at once | Same |
-| Focus leaves the trigger and content | Close at once | Same |
+| Focus leaves the trigger and content | Close at once, unless the pointer is over them | Same |
 | Focus moves between the trigger and content | Stay open | Same |
 | Pointer press on the trigger | Close; stay closed while the pointer rests | Stay open |
 | `aria-describedby` on the trigger | While open | Never |
@@ -98,6 +98,10 @@ a hover card belongs to the tooltip.
 
 - Moving focus between the trigger and content is new for both. Tooltip
   content has nothing focusable, so Tooltip behavior does not change.
+- While the pointer is over the trigger or content, blur leaves closing to
+  pointer leave. Without this, pressing the card's text after focusing the
+  trigger moves focus to the body and closes the card under the pointer. For
+  Tooltip, this changes only Tab away while the pointer rests on the trigger.
 - The card is not named in the trigger's description. Its content is rich
   and often long, and Radix leaves the trigger without ARIA links.
 - Touch pointers are ignored for hover in both, as before.
@@ -133,7 +137,8 @@ Out of scope, with reevaluation conditions:
   - the card stays closed during the open delay and then opens;
   - the card stays open while the pointer crosses onto it, stays open for
     part of the close delay after the pointer leaves, and then closes;
-  - a press on the trigger keeps it open;
+  - a press on the trigger keeps it open, and a press on the card's text
+    after that keeps it open;
   - keyboard focus opens it, and Tab into the card keeps it open;
   - Escape and outside presses close it;
   - the trigger never has `aria-describedby`;

@@ -5,6 +5,7 @@ pub use dioxus_ui_primitives::{
 };
 
 use crate::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
+use crate::hover_open::{HoverOpenOptions, use_hover_open};
 
 pub const HOVER_CARD_CONTENT_BASE_CLASS: &str = "z-50 w-80 rounded-md border border-zinc-200 bg-white p-4 text-zinc-950 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600";
 pub const HOVER_CARD_HEADER_BASE_CLASS: &str = "grid gap-1";
@@ -45,6 +46,74 @@ pub fn hover_card_align_attribute(align: OverlayAlign) -> &'static str {
   }
 }
 
+#[derive(Clone, PartialEq)]
+struct HoverCardContext {
+  base_id: String,
+  on_open_change: Option<EventHandler<bool>>,
+}
+
+impl HoverCardContext {
+  fn trigger_id(&self) -> String {
+    format!("{}-trigger", self.base_id)
+  }
+}
+
+/// Opens the card after `open_delay_ms` of hover, or at once on keyboard
+/// focus, and keeps it open while the pointer or focus is on the trigger or
+/// the card. It closes `close_delay_ms` after the pointer leaves both, or when
+/// focus leaves both. Trigger presses keep it open. Requests reach the app
+/// through `on_open_change`; the delays are read when the root mounts.
+#[component]
+pub fn HoverCard(
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
+  #[props(default = 700)] open_delay_ms: u32,
+  #[props(default = 300)] close_delay_ms: u32,
+  children: Element,
+) -> Element {
+  let base_id = use_hover_open(
+    on_open_change,
+    HoverOpenOptions {
+      open_delay_ms,
+      close_delay_ms,
+      close_on_press: false,
+      describe_trigger: false,
+    },
+  );
+  use_context_provider(|| HoverCardContext { base_id: base_id.clone(), on_open_change });
+
+  rsx! {
+    div {
+      style: "display: contents",
+      "data-dxui-hover-open": base_id,
+      {children}
+    }
+  }
+}
+
+/// A link that opens the card. Use it inside `HoverCard`.
+#[component]
+pub fn HoverCardTrigger(
+  href: String,
+  #[props(default)] class: String,
+  children: Element,
+) -> Element {
+  let id = try_use_context::<HoverCardContext>().map(|context| context.trigger_id());
+  let is_part = id.is_some().then_some("");
+
+  rsx! {
+    a {
+      href,
+      id,
+      class,
+      "data-dxui-hover-trigger": is_part,
+      {children}
+    }
+  }
+}
+
+/// Inside `HoverCard`, the content anchors to `HoverCardTrigger` and uses the
+/// root's `on_open_change` for dismissal unless `anchor_id` or
+/// `on_open_change` is set.
 #[component]
 pub fn HoverCardContent(
   #[props(default)] open: bool,
@@ -58,6 +127,11 @@ pub fn HoverCardContent(
   children: Element,
 ) -> Element {
   let class = hover_card_content_class(&class);
+  let context = try_use_context::<HoverCardContext>();
+  let is_part = context.is_some().then_some("");
+  let anchor_id = anchor_id.or_else(|| context.as_ref().map(HoverCardContext::trigger_id));
+  let on_open_change =
+    on_open_change.or_else(|| context.as_ref().and_then(|context| context.on_open_change));
   let anchored = use_anchored_overlay(
     open,
     AnchoredPlacement { anchor_id, anchor_point: None, side, align, side_offset },
@@ -74,6 +148,7 @@ pub fn HoverCardContent(
       "data-side": hover_card_side_attribute(side),
       "data-state": if open { "open" } else { "closed" },
       "data-dxui-anchored": anchored,
+      "data-dxui-hover-content": is_part,
       {children}
     }
   }
@@ -136,6 +211,13 @@ mod tests {
     assert_eq!(hover_card_align_attribute(OverlayAlign::Start), "start");
     assert_eq!(hover_card_align_attribute(OverlayAlign::Center), "center");
     assert_eq!(hover_card_align_attribute(OverlayAlign::End), "end");
+  }
+
+  #[test]
+  fn hover_card_trigger_id_uses_the_root_id() {
+    let context = HoverCardContext { base_id: "dxui-hover-2".to_string(), on_open_change: None };
+
+    assert_eq!(context.trigger_id(), "dxui-hover-2-trigger");
   }
 
   #[test]

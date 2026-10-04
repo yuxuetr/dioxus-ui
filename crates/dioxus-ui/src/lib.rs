@@ -103,6 +103,9 @@ mod listbox;
 #[cfg(any(feature = "sonner", feature = "toast"))]
 mod dismiss_timer;
 
+#[cfg(any(feature = "hover-card", feature = "tooltip"))]
+mod hover_open;
+
 #[cfg(any(
   feature = "accordion",
   feature = "radio-group",
@@ -462,8 +465,8 @@ pub use field::{
 pub use hover_card::{
   DismissBehavior as HoverCardDismissBehavior, HOVER_CARD_CONTENT_BASE_CLASS,
   HOVER_CARD_DESCRIPTION_BASE_CLASS, HOVER_CARD_HEADER_BASE_CLASS, HOVER_CARD_TITLE_BASE_CLASS,
-  HoverCardContent, HoverCardDescription, HoverCardHeader, HoverCardTitle,
-  OverlayAlign as HoverCardAlign, OverlaySide as HoverCardSide,
+  HoverCard, HoverCardContent, HoverCardDescription, HoverCardHeader, HoverCardTitle,
+  HoverCardTrigger, OverlayAlign as HoverCardAlign, OverlaySide as HoverCardSide,
   PopoverPrimitiveConfig as HoverCardPrimitiveConfig, hover_card_align_attribute,
   hover_card_content_class, hover_card_description_class, hover_card_header_class,
   hover_card_side_attribute, hover_card_title_class,
