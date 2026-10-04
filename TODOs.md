@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M150 Right-To-Left Arrow Mirroring
-- Current task: M150.1
+- Current task: M150.2
 
 ## Backup
 
@@ -2710,7 +2710,7 @@
 
 ## M150 Right-To-Left Arrow Mirroring
 
-- TODO M150.1 Design right-to-left arrow mirroring
+- DONE M150.1 Design right-to-left arrow mirroring
   - Record that the roving group script (Tabs, Radio Group, Toggle Group), the Menubar script, and the Navigation Menu script map ArrowRight to the next item and ArrowLeft to the previous one regardless of text direction, so in a right-to-left layout the keys move focus away from the pressed direction.
   - Define mirroring from the root's computed `direction`, read on each key press, so `Direction`, a `dir` attribute on any ancestor, or CSS all apply without a new prop; only Left and Right swap, while Up, Down, Home, and End keep their meaning.
   - Record what stays out of scope (Calendar grid keys, vertical orientation changes, a direction prop or context, Desktop and Mobile self-test scenarios) with reevaluation conditions.
