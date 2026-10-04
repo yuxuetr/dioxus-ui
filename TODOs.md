@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M142 Desktop Interaction Verification
-- Current task: M142.1 Design desktop interaction verification
+- Current task: M142.2 Implement the Desktop self-test
 
 ## Backup
 
@@ -2550,7 +2550,7 @@
 
 ## M142 Desktop Interaction Verification
 
-- TODO M142.1 Design desktop interaction verification
+- DONE M142.1 Design desktop interaction verification
   - Record that Desktop shares every interaction script with Web through `document::eval`, that the Desktop preview renders the same interaction fixtures, and that no automated check runs them in the Desktop WebView because WKWebView has no WebDriver.
   - Define an in-app self-test: the Desktop preview runs a scenario script in its own WebView when an environment variable is set, reports results through `document::eval`, and exits with a status code; synthetic events cover script and Rust handler behavior but not native default actions.
   - Record what stays out of scope (Mobile, native key defaults such as Tab movement, CI activation) with reevaluation conditions.
