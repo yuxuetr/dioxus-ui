@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M165 Composite Widget Names
-- Current task: M165.1 Design composite widget names
+- Current task: M165.2 Implement composite widget names
 
 ## Backup
 
@@ -3007,7 +3007,7 @@
 
 ## M165 Composite Widget Names
 
-- TODO M165.1 Design composite widget names
+- DONE M165.1 Design composite widget names
   - Record that the tab list, toggle group, menu bar, and calendar grid roles render without a name or a way to pass one, that the Navigation Menu landmark is unnamed, and that the calendar caption cannot take an `id`.
   - Define attribute spreading on `TabsList`, `ToggleGroup`, `Menubar`, `NavigationMenu`, `CalendarGrid`, and `CalendarCaption`.
   - Record what stays out of scope (automatic caption linking, spreading on the remaining parts, Desktop and Mobile self-test scenarios) with reevaluation conditions.
