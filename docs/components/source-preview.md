@@ -27,7 +27,7 @@ Source preview routes: 64
 | [Bubble](bubble.md) | /components/bubble/source | crates/dioxus-ui-cli/templates/bubble.rs | src/components/ui/bubble.rs | rust | 224 | 5678 |
 | [Button](button.md) | /components/button/source | crates/dioxus-ui-cli/templates/button.rs | src/components/ui/button.rs | rust | 88 | 2146 |
 | [Button Group](button-group.md) | /components/button-group/source | crates/dioxus-ui-cli/templates/button_group.rs | src/components/ui/button_group.rs | rust | 98 | 2862 |
-| [Calendar](calendar.md) | /components/calendar/source | crates/dioxus-ui-cli/templates/calendar.rs | src/components/ui/calendar.rs | rust | 384 | 11074 |
+| [Calendar](calendar.md) | /components/calendar/source | crates/dioxus-ui-cli/templates/calendar.rs | src/components/ui/calendar.rs | rust | 389 | 11474 |
 | [Card](card.md) | /components/card/source | crates/dioxus-ui-cli/templates/card.rs | src/components/ui/card.rs | rust | 106 | 2355 |
 | [Carousel](carousel.md) | /components/carousel/source | crates/dioxus-ui-cli/templates/carousel.rs | src/components/ui/carousel.rs | rust | 295 | 6957 |
 | [Chart](chart.md) | /components/chart/source | crates/dioxus-ui-cli/templates/chart.rs | src/components/ui/chart.rs | rust | 633 | 14818 |

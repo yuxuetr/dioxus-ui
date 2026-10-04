@@ -1,5 +1,5 @@
-use std::cell::Cell;
 use std::rc::Rc;
+use std::sync::atomic::{AtomicBool, Ordering};
 
 use dioxus::prelude::*;
 use super::utils::classes;
@@ -134,6 +134,10 @@ pub fn calendar_day_class(
     Some(class),
   ])
 }
+
+// Set when a day handles a navigation key, and taken by the day that becomes
+// focused next, whether Dioxus reuses its element or mounts a new one.
+static CALENDAR_FOCUS_PENDING: AtomicBool = AtomicBool::new(false);
 
 /// Maps a key on a focused day to a calendar move: arrows move by a day or a
 /// week, Page Up and Page Down by a month (a year with Shift), and Home and End
@@ -312,9 +316,9 @@ pub fn CalendarRow(#[props(default)] class: String, children: Element) -> Elemen
 }
 
 /// With `on_key_move` the grid is one Tab stop: only the `focused` day has
-/// `tabindex="0"`, and it takes DOM focus when `focused` turns true after
-/// mount. Navigation keys report a `CalendarKeyMove`; the app applies it with
-/// `calendar_move_date` and moves `focused`. Click calls `on_select`.
+/// `tabindex="0"`. Navigation keys report a `CalendarKeyMove`; the app applies
+/// it with `calendar_move_date` and moves `focused`, and the newly focused day
+/// takes DOM focus. Click calls `on_select`.
 #[component]
 pub fn CalendarDay(
   date: CalendarDate,
@@ -332,13 +336,13 @@ pub fn CalendarDay(
   let class = calendar_day_class(selected, today, outside_month, disabled, range_state, &class);
   let keyboard_managed = on_key_move.is_some();
   let mut mounted = use_signal(|| None::<Rc<MountedData>>);
-  // Starts with the first `focused` value so a calendar that renders with a
-  // focused day does not steal focus on load.
-  let was_focused = use_hook(|| Rc::new(Cell::new(focused)));
 
-  use_effect(use_reactive(&focused, move |focused| {
-    let previously_focused = was_focused.replace(focused);
-    if !focused || previously_focused {
+  // Runs on mount (after `onmounted`) and whenever this element shows another
+  // focused date, so it covers days that Dioxus reuses and days keyed by date
+  // that mount when the month changes. Only a pending key move moves focus,
+  // so rendering or app-driven changes to `focused` never steal it.
+  use_effect(use_reactive((&focused, &date), move |(focused, _)| {
+    if !focused || !CALENDAR_FOCUS_PENDING.swap(false, Ordering::Relaxed) {
       return;
     }
     if let Some(element) = mounted.peek().clone() {
@@ -362,6 +366,7 @@ pub fn CalendarDay(
         let key_move = calendar_key_move(&event.key(), event.modifiers().shift());
         if let (Some(handler), Some(key_move)) = (on_key_move, key_move) {
           event.prevent_default();
+          CALENDAR_FOCUS_PENDING.store(true, Ordering::Relaxed);
           handler.call(key_move);
         }
       },

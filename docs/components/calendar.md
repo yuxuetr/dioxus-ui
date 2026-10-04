@@ -87,8 +87,10 @@ rsx! {
 - ArrowLeft and ArrowRight move by a day, ArrowUp and ArrowDown by a week,
   Page Up and Page Down by a month (a year with Shift), and Home and End to the
   start and end of the week. `calendar_key_move` exposes the mapping.
-- When `focused` turns true after mount, that day takes DOM focus. A day that
-  renders focused on first render does not take focus.
+- After a navigation key, the day that becomes `focused` takes DOM focus,
+  whether Dioxus reuses its element or mounts a new one (days keyed by date).
+  Changing `focused` from app code without a key press does not move focus,
+  so a calendar never steals focus on render.
 - Click, Enter, and Space call `on_select` with the day's date.
 - `CalendarNavButton` accepts `onclick` for month navigation.
 - Source-copy templates include `CalendarKeyMove` and `calendar_key_move` but

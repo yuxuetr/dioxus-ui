@@ -35,10 +35,12 @@ the app. Calendar parts gain optional props:
 - `CalendarDay`:
   - `focused: bool`. When `on_key_move` is set, the focused day gets
     `tabindex="0"` and the others `tabindex="-1"`, so the grid is one Tab stop
-    (roving tabindex). When `focused` turns true after mount, the day takes
-    DOM focus through `MountedData::set_focus`, so moving the focused date with
-    the keyboard moves focus without page JavaScript. It does not take focus on
-    first render, so an always-visible calendar does not steal focus on load.
+    (roving tabindex). After a day handles a navigation key, the day that
+    becomes focused takes DOM focus through `MountedData::set_focus`, so
+    moving the focused date with the keyboard moves focus without page
+    JavaScript. This works whether Dioxus reuses the day element or mounts a
+    new one for days keyed by date. Changing `focused` without a key press
+    does not move focus, so an always-visible calendar never steals focus.
   - `on_key_move: Option<EventHandler<CalendarKeyMove>>`. ArrowLeft and
     ArrowRight move by a day, ArrowUp and ArrowDown by a week, Page Up and Page
     Down by a month (by a year with Shift), and Home and End to the start and
