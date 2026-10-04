@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M164 Dialog Names
-- Current task: M164.1 Design dialog names
+- Current task: M164.2 Implement dialog names
 
 ## Backup
 
@@ -2987,7 +2987,7 @@
 
 ## M164 Dialog Names
 
-- TODO M164.1 Design dialog names
+- DONE M164.1 Design dialog names
   - Record that Dialog, Alert Dialog, Sheet, Drawer, and Popover content render a dialog role with no `aria-labelledby` or `aria-describedby`, that their titles and descriptions have no ids, and that no content part accepts attributes.
   - Define a shared `use_dialog_labels` hook with generated title and description ids, content attributes only for mounted parts, passed labels that replace the generated ones, and attribute spreading on content parts.
   - Record what stays out of scope (Hover Card and Date Picker names, spreading on titles and other parts, a missing-title warning, Sheet and Drawer browser fixtures) with reevaluation conditions.
