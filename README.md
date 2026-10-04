@@ -205,6 +205,7 @@ format!("bg-{}-500", color)
 - [RFC 0020: Android Interaction Verification](docs/rfcs/0020-android-interaction-verification.md)
 - [RFC 0021: Accordion Interaction](docs/rfcs/0021-accordion-interaction.md)
 - [RFC 0022: Tooltip Hover And Focus Opening](docs/rfcs/0022-tooltip-hover-and-focus-opening.md)
+- [RFC 0023: Hover Card Hover And Focus Opening](docs/rfcs/0023-hover-card-hover-and-focus-opening.md)
 
 ## Verification Shortcuts
 
