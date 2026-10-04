@@ -542,7 +542,7 @@ passed attributes; and Slider keys, clamping, pointer press and drag, and
 disabled guards; and Collapsible toggling and Native Select choices; and
 Input OTP typing, filtering, and Backspace after a rejected character; and
 Pagination page changes and disabled anchors; and Carousel slide changes and
-arrow keys. It does not
+arrow keys; and Resizable handle keys and drags. It does not
 write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.

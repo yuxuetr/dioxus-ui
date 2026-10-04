@@ -817,7 +817,7 @@ the roving groups and menus, vertical, manually activated Tabs, Combobox
 and Command result status regions, Switch and Checkbox change events,
 Button, Toggle, Input, and Textarea events, Slider keyboard and pointer
 input, Collapsible and Native Select events, Input OTP typing, Pagination
-page changes, and Carousel slide changes. It requires Playwright
+page changes, Carousel slide changes, and Resizable handle input. It requires Playwright
 Chromium or `DIOXUS_UI_BROWSER_EXECUTABLE`, does not write screenshots or
 traces, and does not claim full accessibility certification, native Desktop or
 Mobile coverage, or visual parity.

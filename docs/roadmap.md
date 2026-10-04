@@ -194,4 +194,5 @@ Input OTP value changes
 page changes ([RFC 0033](rfcs/0033-pagination-page-changes.md)), and M159 to
 Carousel slide changes ([RFC 0034](rfcs/0034-carousel-slide-changes.md)), and
 M160 to control label overrides
-([RFC 0035](rfcs/0035-control-label-overrides.md)).
+([RFC 0035](rfcs/0035-control-label-overrides.md)), and M161 to Resizable
+handle input ([RFC 0036](rfcs/0036-resizable-handle-input.md)).

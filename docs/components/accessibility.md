@@ -140,8 +140,8 @@ Statuses:
 | Carousel | Exposes carousel region, slide group semantics, selected indicator state, and disabled native controls; the content shows the selected index, controls report `onclick`, arrow keys report `on_key_step`, and passed labels name each control; browser-verified on Web. | Implemented |
 | Carousel | Needs off-screen slide hiding, gesture behavior, and autoplay verification. | Planned |
 | Scroll Area | Keeps native scrolling behavior and exposes presentational scrollbar hooks. | Implemented |
-| Resizable | Exposes separator handles with orientation and disabled state. | Implemented |
-| Resizable | Needs app-level keyboard resizing, pointer dragging, and measurement verification. | Planned |
+| Resizable | Handles are focusable window splitters with `aria-valuenow` and a separator-line `aria-orientation`; arrow, Home, and End keys and pointer drags report `on_resize`; browser-verified on Web. | Implemented |
+| Resizable | Needs right-to-left groups and keyboard collapse. | Planned |
 | Sidebar | Exposes collapsed, side, active item, disabled item, trigger expansion, and native navigation composition hooks. | Implemented |
 | Sidebar | Needs app-level persistence, responsive breakpoint behavior, and keyboard shortcut verification. | Planned |
 

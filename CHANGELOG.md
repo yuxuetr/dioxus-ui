@@ -151,6 +151,12 @@ release owner renames it to the released version at publish time.
   through `on_key_step` with `CarouselStep`, and every part passes through
   attributes; a passed `aria-label` replaces the English default on the
   controls.
+- Resizable handle input: `ResizableHandle` takes `value`, `min`, `max`, and
+  `step`, becomes a Tab stop with `aria-valuenow`, and reports arrow, Home,
+  and End keys and pointer drags as a percent delta through `on_resize`, which
+  `resizable_resize_pair` applies. The group, panels, and handle pass through
+  attributes, and source-copy templates gain `ResizablePanelState` and
+  `resizable_resize_pair`.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.
@@ -170,6 +176,8 @@ release owner renames it to the released version at publish time.
   instead of `a href=""`.
 - Carousel items set the `transform` style and transition it, so slides other
   than the selected one move out of the viewport.
+- `ResizableHandle` renders `aria-orientation` for the separator line, so it
+  is `vertical` in a horizontal group, where it repeated the group orientation.
 
 ### Fixed
 
