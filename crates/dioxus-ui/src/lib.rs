@@ -727,8 +727,8 @@ pub use toggle_group::{
 #[cfg(feature = "tooltip")]
 pub use tooltip::{
   DismissBehavior as TooltipDismissBehavior, OverlayAlign as TooltipAlign,
-  OverlaySide as TooltipSide, TOOLTIP_CONTENT_BASE_CLASS, TooltipContent, TooltipPrimitiveConfig,
-  tooltip_content_class,
+  OverlaySide as TooltipSide, TOOLTIP_CONTENT_BASE_CLASS, Tooltip, TooltipContent,
+  TooltipPrimitiveConfig, TooltipTrigger, tooltip_content_class,
 };
 #[cfg(feature = "typography")]
 pub use typography::{
