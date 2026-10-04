@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M158 Pagination Page Changes
-- Current task: M158.1 Design pagination page changes
+- Current task: M158.2 Implement pagination page changes
 
 ## Backup
 
@@ -2870,7 +2870,7 @@
 
 ## M158 Pagination Page Changes
 
-- TODO M158.1 Design pagination page changes
+- DONE M158.1 Design pagination page changes
   - Record that Pagination controls always render `a href` with no click handler, that Desktop opens anchors in the system browser, and that a disabled control keeps its `href`, stays in the Tab order, and still follows Enter.
   - Define `onclick: Option<EventHandler<MouseEvent>>` on `PaginationLink`, `PaginationPrevious`, and `PaginationNext`, a button form when `href` is empty, a disabled anchor without `href`, and attribute spreading.
   - Record what stays out of scope (a page range helper, localized Previous and Next labels, a stateful root with `on_page_change`, Desktop and Mobile self-test scenarios) with reevaluation conditions.
