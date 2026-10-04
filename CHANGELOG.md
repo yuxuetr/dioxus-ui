@@ -74,6 +74,13 @@ release owner renames it to the released version at publish time.
   presses, focus leaving, or content link clicks close it. Requests reach the
   app through the new `NavigationMenu` `on_value_change`, and
   `NavigationMenuItem` gains `value`.
+- Tabs, Radio Group, and Toggle Group keyboard behavior: each group is one
+  Tab stop, and arrows, Home, and End move focus past disabled items. Tabs
+  and Radio Group select the focused item and report clicks through the new
+  `on_value_change`; Toggle Group reports clicks through the new `on_toggle`.
+  The new `Tabs` root links triggers and panels with `aria-controls` and
+  `aria-labelledby`. Items no longer render `tabindex`; the shared group
+  script owns the Tab stop.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.

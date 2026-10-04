@@ -164,4 +164,6 @@ and Context Menu keyboard navigation
 roving triggers and menu switching
 ([RFC 0015](rfcs/0015-menubar-keyboard-behavior.md)), and M141 to Navigation
 Menu disclosure interaction
-([RFC 0016](rfcs/0016-navigation-menu-interaction.md)).
+([RFC 0016](rfcs/0016-navigation-menu-interaction.md)), and M144 to Tabs,
+Radio Group, and Toggle Group roving focus
+([RFC 0019](rfcs/0019-roving-group-interaction.md)).

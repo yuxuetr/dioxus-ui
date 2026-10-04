@@ -525,7 +525,10 @@ wrapping navigation, typeahead, activation with focus return, and point
 placement; and a real Menubar: roving trigger focus, Left and Right and hover
 menu switching, and focus return to the open menu's trigger; and a real
 Navigation Menu: click toggling, top-level and content arrow movement, hover
-open and close timing, and Escape, outside, and focus-out dismissal. It does not
+open and close timing, and Escape, outside, and focus-out dismissal; and real
+Tabs, Radio Group, and Toggle Group components: one Tab stop, arrow movement
+past disabled items, selection following focus in Tabs and Radio Group, and
+Tabs trigger and panel id links. It does not
 write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.

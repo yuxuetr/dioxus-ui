@@ -2307,8 +2307,9 @@ reasons, live region viewport), and real Select and Combobox components
 Date Picker with Calendar (focus entry, day keyboard movement, focus return),
 real Dropdown and Context Menu components (menu navigation, activation,
 point placement), a real Menubar (roving triggers, menu switching, focus
-return), and a real Navigation Menu (click, keyboard, and hover disclosure,
-dismissal).
+return), a real Navigation Menu (click, keyboard, and hover disclosure,
+dismissal), and real Tabs, Radio Group, and Toggle Group components (one Tab
+stop, arrow movement, selection following focus).
 
 It is not part of `npm run verify` or `npm run verify:release`. It does not
 write screenshots or traces, certify full accessibility, verify native Desktop

@@ -58,8 +58,10 @@ Statuses:
 | Combobox | Input keeps focus with `aria-activedescendant`; arrows highlight options, Enter or click chooses, and a filtered-out highlight clears; browser-verified on Web. | Implemented |
 | Combobox | Async loading and result count announcements remain app-owned. | Planned |
 | Native Select | Uses native select, optgroup, and option elements with platform keyboard and form behavior. | Implemented |
-| Radio Group | Uses radiogroup/radio roles, checked state, and roving focus helpers. | Implemented |
-| Tabs | Needs tablist, tab, and tabpanel roles. | Planned |
+| Radio Group | Uses radiogroup/radio roles and checked state; one Tab stop on the checked or first enabled item, arrows move focus past disabled items and check the focused item; browser-verified on Web. | Implemented |
+| Radio Group | Right-to-left arrow mirroring is not implemented. | Planned |
+| Tabs | Uses tablist, tab, and tabpanel roles with `aria-controls` and `aria-labelledby` under `Tabs`; one Tab stop on the selected trigger, Left, Right, Home, and End move focus past disabled triggers and select the focused tab; browser-verified on Web. | Implemented |
+| Tabs | Manual activation, vertical tabs, and right-to-left arrow mirroring are not implemented. | Planned |
 | Select | Uses select-only combobox semantics with listbox content; trigger keeps focus with `aria-activedescendant`; arrows, Home, End, and typeahead move the highlight; Enter, Space, or click chooses; browser-verified on Web. | Implemented |
 
 ## Light Interaction
@@ -69,7 +71,8 @@ Statuses:
 | Slider | Uses slider role, horizontal orientation, and value attributes. | Implemented |
 | Spinner | Uses status semantics and an accessible label. | Implemented |
 | Toggle | Uses button semantics with `aria-pressed`. | Implemented |
-| Toggle Group | Uses grouped toggle buttons with roving focus helpers. | Implemented |
+| Toggle Group | Uses grouped toggle buttons with `aria-pressed`; one Tab stop on the last focused item, arrows move focus past disabled items without pressing; browser-verified on Web. | Implemented |
+| Toggle Group | Right-to-left arrow mirroring is not implemented. | Planned |
 
 ## Message Components
 

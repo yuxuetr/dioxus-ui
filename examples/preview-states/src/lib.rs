@@ -432,7 +432,7 @@ pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
     panel: "forms",
     test_id: "component-preview-radio-group",
     coverage_level: "controlled",
-    notes: "Controlled rendered state target; mutations remain app-owned.",
+    notes: "Controlled state target; keyboard and click requests are browser-verified in the interaction panel.",
   },
   ComponentPreviewTarget {
     component: "resizable",
@@ -536,7 +536,7 @@ pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
     panel: "navigation",
     test_id: "component-preview-tabs",
     coverage_level: "controlled",
-    notes: "Controlled rendered state target; mutations remain app-owned.",
+    notes: "Controlled state target; keyboard and click requests are browser-verified in the interaction panel.",
   },
   ComponentPreviewTarget {
     component: "textarea",
@@ -568,7 +568,7 @@ pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
     panel: "actions",
     test_id: "component-preview-toggle-group",
     coverage_level: "controlled",
-    notes: "Controlled rendered state target; mutations remain app-owned.",
+    notes: "Controlled state target; keyboard and click requests are browser-verified in the interaction panel.",
   },
   ComponentPreviewTarget {
     component: "tooltip",
