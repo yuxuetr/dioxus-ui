@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 20%
 - Current milestone: M139 Dropdown and Context Menu Keyboard Behavior
-- Current task: M139.1
+- Current task: M139.2
 
 ## Backup
 
@@ -2486,7 +2486,7 @@
 
 ## M139 Dropdown and Context Menu Keyboard Behavior
 
-- TODO M139.1 Design menu keyboard behavior
+- DONE M139.1 Design menu keyboard behavior
   - Record that Dropdown items have no focus, keyboard, or activation handling, that Context Menu content has no placement or dismissal, and that RFC 0010 deferred Context Menu until a point anchor existed.
   - Define the menu mode of the listbox script (DOM focus on items, wrapping arrows, Home, End, typeahead, Enter and Space activation, close and focus return), item `onclick` props, and a point anchor for Context Menu.
   - Record what stays out of scope (submenus, Menubar cross-menu navigation, checkbox and radio state) with reevaluation conditions.
