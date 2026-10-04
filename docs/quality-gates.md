@@ -518,7 +518,9 @@ dismissal, initial focus, Tab wrap, focus restore, and anchored placement with
 flip; and real Toast and Sonner components: countdown dismissal, hover pause,
 dismiss reasons, and viewport live regions; and real Select and Combobox
 components: anchored listbox placement, arrow and typeahead navigation, and
-selection with focus kept on the trigger or input. It does not
+selection with focus kept on the trigger or input; and a real Date Picker
+with Calendar: focus entry, day keyboard movement across months, Tab wrap,
+and focus return. It does not
 write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.

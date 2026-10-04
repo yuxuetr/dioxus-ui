@@ -46,12 +46,14 @@ Statuses:
 | --- | --- | --- |
 | Accordion | Needs trigger/content ARIA relationships. | Planned |
 | Calendar | Exposes grid, row, columnheader, gridcell, selected, disabled, today, and range state attributes. | Implemented |
-| Calendar | Needs keyboard event and DOM focus integration verification. | Planned |
+| Calendar | Keyboard-managed days use roving tabindex, map arrow, Page, Home, and End keys to moves, and follow the focused date with DOM focus; browser-verified on Web inside Date Picker. | Implemented |
+| Calendar | Right-to-left arrow mirroring and disabled date skipping remain app-owned. | Planned |
 | Collapsible | Uses native trigger button with expanded state and optional trigger/content association. | Implemented |
 | Command | Uses combobox, listbox, option, and active descendant semantics. | Implemented |
 | Command | Needs keyboard event and filtering integration verification. | Planned |
 | Date Picker | Uses button trigger semantics, dialog content semantics, expanded state, invalid state, and placement data attributes. | Implemented |
-| Date Picker | Needs focus entry, focus return, typed parsing, and Calendar keyboard integration verification. | Planned |
+| Date Picker | Content enters focus on the focused Calendar day, wraps Tab, closes on Escape or outside interaction, and returns focus to the trigger; browser-verified on Web. | Implemented |
+| Date Picker | Typed date parsing remains app-owned. | Planned |
 | Combobox | Uses combobox, listbox, option, and active descendant semantics. | Implemented |
 | Combobox | Input keeps focus with `aria-activedescendant`; arrows highlight options, Enter or click chooses, and a filtered-out highlight clears; browser-verified on Web. | Implemented |
 | Combobox | Async loading and result count announcements remain app-owned. | Planned |
@@ -160,7 +162,9 @@ Toast and Sonner countdown and persistent viewport live regions in the styled
 components (see [RFC 0011](../rfcs/0011-toast-timer-and-live-region.md)).
 Screen reader announcements themselves are not automated.
 M137 implements Select and Combobox listbox behavior (see
-[RFC 0012](../rfcs/0012-listbox-overlay-behavior.md)).
+[RFC 0012](../rfcs/0012-listbox-overlay-behavior.md)). M138 implements Calendar
+keyboard navigation and Date Picker focus behavior (see
+[RFC 0013](../rfcs/0013-date-picker-calendar-keyboard.md)).
 M24 implements measurement, pointer, and gesture contract types only. Popover,
 Tooltip, Dropdown, Select, menu overlays, Resizable, Carousel, and Chart still
 require renderer-level measurement, pointer, and gesture verification before

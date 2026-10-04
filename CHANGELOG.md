@@ -52,6 +52,12 @@ release owner renames it to the released version at publish time.
   options, Select adds Home, End, Space, and typeahead, and choosing an option
   calls `on_value_change` before requesting close. `ComboboxInput` gains
   `oninput`, `placeholder`, and an `open` prop for `aria-expanded`.
+- Calendar and Date Picker keyboard behavior: keyboard-managed Calendar days
+  use roving tabindex, report arrow, Page Up, Page Down, Home, and End moves
+  through `on_key_move`, follow the focused date with DOM focus, and report
+  clicks through `on_select`. Date Picker content anchors to its trigger,
+  enters focus on the focused day, wraps Tab, closes on Escape or outside
+  interaction, and returns focus to the trigger.
 
 ### Changed
 
@@ -72,8 +78,8 @@ release owner renames it to the released version at publish time.
 - DOM/WebView scroll commands for Message Scroller.
 - Verified Mobile runtime behavior; Desktop and Mobile coverage remains
   checklist or fixture based.
-- Overlay behavior for Date Picker, Navigation Menu, Context Menu, and
-  Menubar, multi-select, DOM portal mounting, and scroll lock.
+- Overlay behavior for Navigation Menu, Context Menu, and Menubar,
+  multi-select, typed date parsing, DOM portal mounting, and scroll lock.
 
 ### Known Warnings
 

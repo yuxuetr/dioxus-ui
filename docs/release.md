@@ -668,9 +668,11 @@ first.
   Hover Card, and Tooltip implement anchored placement and dismissal. Only the
   Web renderer is browser-verified. Select and Combobox implement anchored
   listbox keyboard navigation and selection (see RFC 0012); multi-select and
-  the input-inside-content Combobox layout are not supported. Date Picker,
-  Navigation Menu, Context Menu, and Menubar stay controlled-only, and there is
-  no DOM portal (see RFC 0010).
+  the input-inside-content Combobox layout are not supported. Date Picker and
+  Calendar implement anchored placement, focus entry, and day keyboard
+  navigation (see RFC 0013); typed date parsing and source-copy date arithmetic
+  are not included. Navigation Menu, Context Menu, and Menubar stay
+  controlled-only, and there is no DOM portal (see RFC 0010).
 - Toast and Sonner dismiss themselves after a countdown that pauses on hover
   and focus, inside persistent live region viewports (see RFC 0011). Screen
   reader announcements are not automated, and swipe to dismiss is not
