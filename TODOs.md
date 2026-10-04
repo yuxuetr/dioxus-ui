@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M156 Collapsible And Native Select Events
-- Current task: M156.4
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2843,7 +2843,7 @@
   - Render a Collapsible and a labelled Native Select in the Web preview and extend `npm run verify:runtime-interactions` to assert that a click, Enter, and Space toggle `aria-expanded` and the content, that choosing an option by mouse and keyboard reaches app state, and that passed attributes render.
   - Reverse-verify that the script fails when a callback is removed, when attributes are not spread, or when the trigger sends the current state instead of the requested one.
 
-- TODO M156.4 Complete collapsible and native select milestone
+- DONE M156.4 Complete collapsible and native select milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
