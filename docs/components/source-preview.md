@@ -31,7 +31,7 @@ Source preview routes: 64
 | [Card](card.md) | /components/card/source | crates/dioxus-ui-cli/templates/card.rs | src/components/ui/card.rs | rust | 106 | 2355 |
 | [Carousel](carousel.md) | /components/carousel/source | crates/dioxus-ui-cli/templates/carousel.rs | src/components/ui/carousel.rs | rust | 295 | 6957 |
 | [Chart](chart.md) | /components/chart/source | crates/dioxus-ui-cli/templates/chart.rs | src/components/ui/chart.rs | rust | 633 | 14818 |
-| [Checkbox](checkbox.md) | /components/checkbox/source | crates/dioxus-ui-cli/templates/checkbox.rs | src/components/ui/checkbox.rs | rust | 33 | 893 |
+| [Checkbox](checkbox.md) | /components/checkbox/source | crates/dioxus-ui-cli/templates/checkbox.rs | src/components/ui/checkbox.rs | rust | 44 | 1415 |
 | [Collapsible](collapsible.md) | /components/collapsible/source | crates/dioxus-ui-cli/templates/collapsible.rs | src/components/ui/collapsible.rs | rust | 116 | 3006 |
 | [Combobox](combobox.md) | /components/combobox/source | crates/dioxus-ui-cli/templates/combobox.rs | src/components/ui/combobox.rs | rust | 277 | 8556 |
 | [Command](command.md) | /components/command/source | crates/dioxus-ui-cli/templates/command.rs | src/components/ui/command.rs | rust | 287 | 8205 |
@@ -71,7 +71,7 @@ Source preview routes: 64
 | [Slider](slider.md) | /components/slider/source | crates/dioxus-ui-cli/templates/slider.rs | src/components/ui/slider.rs | rust | 195 | 5108 |
 | [Sonner](sonner.md) | /components/sonner/source | crates/dioxus-ui-cli/templates/sonner.rs | src/components/ui/sonner.rs | rust | 429 | 11791 |
 | [Spinner](spinner.md) | /components/spinner/source | crates/dioxus-ui-cli/templates/spinner.rs | src/components/ui/spinner.rs | rust | 45 | 958 |
-| [Switch](switch.md) | /components/switch/source | crates/dioxus-ui-cli/templates/switch.rs | src/components/ui/switch.rs | rust | 49 | 1326 |
+| [Switch](switch.md) | /components/switch/source | crates/dioxus-ui-cli/templates/switch.rs | src/components/ui/switch.rs | rust | 73 | 2168 |
 | [Table](table.md) | /components/table/source | crates/dioxus-ui-cli/templates/table.rs | src/components/ui/table.rs | rust | 149 | 3419 |
 | [Tabs](tabs.md) | /components/tabs/source | crates/dioxus-ui-cli/templates/tabs.rs | src/components/ui/tabs.rs | rust | 189 | 6499 |
 | [Textarea](textarea.md) | /components/textarea/source | crates/dioxus-ui-cli/templates/textarea.rs | src/components/ui/textarea.rs | rust | 36 | 1003 |

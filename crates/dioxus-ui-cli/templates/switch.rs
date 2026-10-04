@@ -24,14 +24,30 @@ pub fn switch_thumb_class(checked: bool) -> String {
   classes([Some(SWITCH_THUMB_BASE_CLASS), Some(checked_class)])
 }
 
+/// Renders `data-state` for `data-[state=checked]:` style variants.
+pub fn switch_state(checked: bool) -> &'static str {
+  if checked {
+    "checked"
+  } else {
+    "unchecked"
+  }
+}
+
+/// A controlled switch. A click, Space, Enter, or a click on its `Label` calls
+/// `on_checked_change` with the requested state, `!checked`; the app passes it
+/// back as `checked`. Other attributes, such as `id` and `aria-label`, are
+/// passed to the button.
 #[component]
 pub fn Switch(
   #[props(default)] checked: bool,
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
+  #[props(default)] on_checked_change: Option<EventHandler<bool>>,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
 ) -> Element {
   let class = switch_class(checked, &class);
   let thumb_class = switch_thumb_class(checked);
+  let state = switch_state(checked);
 
   rsx! {
     button {
@@ -40,8 +56,16 @@ pub fn Switch(
       class,
       disabled,
       "aria-checked": checked.to_string(),
+      "data-state": state,
+      onclick: move |_| {
+        if let Some(handler) = on_checked_change {
+          handler.call(!checked);
+        }
+      },
+      ..attributes,
       span {
         class: thumb_class,
+        "data-state": state,
       }
     }
   }

@@ -694,7 +694,8 @@ pub mod typography;
 pub use dioxus_ui_core::UiDensity;
 #[cfg(feature = "switch")]
 pub use switch::{
-  SWITCH_BASE_CLASS, SWITCH_THUMB_BASE_CLASS, Switch, switch_class, switch_thumb_class,
+  SWITCH_BASE_CLASS, SWITCH_THUMB_BASE_CLASS, Switch, switch_class, switch_state,
+  switch_thumb_class,
 };
 #[cfg(feature = "table")]
 pub use table::{

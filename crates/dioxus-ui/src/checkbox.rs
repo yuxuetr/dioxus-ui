@@ -10,11 +10,16 @@ pub fn checkbox_class(checked: bool, class: &str) -> String {
   classes([Some(CHECKBOX_BASE_CLASS), Some(checked_class), Some(class)])
 }
 
+/// A controlled native checkbox. A change calls `on_checked_change` with the
+/// requested state, `!checked`; the app passes it back as `checked`. Other
+/// attributes, such as `id` and `name`, are passed to the input.
 #[component]
 pub fn Checkbox(
   #[props(default)] checked: bool,
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
+  #[props(default)] on_checked_change: Option<EventHandler<bool>>,
+  #[props(extends = GlobalAttributes, extends = input)] attributes: Vec<Attribute>,
 ) -> Element {
   let class = checkbox_class(checked, &class);
 
@@ -24,6 +29,12 @@ pub fn Checkbox(
       class,
       checked,
       disabled,
+      onchange: move |_| {
+        if let Some(handler) = on_checked_change {
+          handler.call(!checked);
+        }
+      },
+      ..attributes,
     }
   }
 }
