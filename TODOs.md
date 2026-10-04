@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0% (M144: 0/4)
+- Overall: 25% (M144: 1/4)
 - Current milestone: M144 Roving Group Interaction
-- Current task: M144.1 Design roving group interaction
+- Current task: M144.2 Implement roving group interaction
 
 ## Backup
 
@@ -2590,7 +2590,7 @@
 
 ## M144 Roving Group Interaction
 
-- TODO M144.1 Design roving group interaction
+- DONE M144.1 Design roving group interaction
   - Record that Tabs, Radio Group, and Toggle Group render state only: Tabs triggers have no click handler, no item handles arrow keys, Radio Group and Toggle Group leave every item out of the Tab order when nothing is selected, and Tabs triggers and panels are not linked by ids.
   - Define one shared roving group script: one Tab stop per group, arrow keys by orientation with optional wrapping, Home and End, disabled items skipped, selection following focus for Tabs and Radio Group, focus only for Toggle Group, and clicks reported to Rust.
   - Define the Rust API (`Tabs` root with `on_value_change` and trigger and panel ids, `RadioGroup` `on_value_change`, `ToggleGroup` `on_toggle`) and record what stays out of scope (manual tab activation, vertical tabs, right-to-left mirroring, Desktop and Mobile self-test scenarios) with reevaluation conditions.
