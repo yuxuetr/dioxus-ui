@@ -37,6 +37,7 @@ use dioxus_ui::{
   message_scroller_jump_button_class, message_scroller_show_unread_marker,
   otp_apply_paste_filtered, otp_slots,
 };
+use dioxus_ui::{Button, Input, Textarea, Toggle};
 pub use self_test::{INTERACTION_SELF_TEST_SCRIPT, InteractionSelfTest};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -744,6 +745,10 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut wifi_enabled = use_signal(|| false);
   let mut terms_accepted = use_signal(|| false);
   let mut disabled_changes = use_signal(|| 0_u32);
+  let mut button_clicks = use_signal(|| 0_u32);
+  let mut bold_pressed = use_signal(|| false);
+  let mut email_value = use_signal(String::new);
+  let mut notes_value = use_signal(String::new);
   let mut accordion_value = use_signal(|| None::<String>);
   let accordion_open = move |value: &str| accordion_value().as_deref() == Some(value);
   let mut context_open = use_signal(|| false);
@@ -1578,6 +1583,53 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 "aria-label": "Newsletter",
                 disabled: true,
                 on_checked_change: move |_| disabled_changes += 1,
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "form-controls",
+            "data-clicks": "{button_clicks}",
+            "data-bold": "{bold_pressed}",
+            "data-email": "{email_value}",
+            "data-notes": "{notes_value}",
+            h2 { class: "text-sm font-medium", "Form control interaction" }
+            div { class: "mt-3 flex items-center gap-2",
+              Button {
+                r#type: "button",
+                name: "save",
+                onclick: move |_| button_clicks += 1,
+                "Save"
+              }
+              Button {
+                r#type: "button",
+                disabled: true,
+                onclick: move |_| button_clicks += 1,
+                "Archive"
+              }
+              Toggle {
+                "aria-label": "Bold",
+                pressed: bold_pressed(),
+                on_pressed_change: move |pressed| bold_pressed.set(pressed),
+                "B"
+              }
+            }
+            div { class: "mt-3 grid gap-2",
+              Label { r#for: "interaction-input-email", "Email" }
+              Input {
+                id: "interaction-input-email",
+                r#type: "email",
+                name: "email",
+                value: email_value(),
+                on_value_change: move |value| email_value.set(value),
+              }
+              Label { r#for: "interaction-textarea-notes", "Notes" }
+              Textarea {
+                id: "interaction-textarea-notes",
+                name: "notes",
+                rows: "3",
+                value: notes_value(),
+                on_value_change: move |value| notes_value.set(value),
               }
             }
           }

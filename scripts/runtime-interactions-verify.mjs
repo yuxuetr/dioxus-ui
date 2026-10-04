@@ -1122,6 +1122,48 @@ async function runBrowserAssertions() {
     await expect(newsletter).not.toBeChecked();
     await expect(switchFixture).toHaveAttribute("data-disabled-changes", "0");
 
+    const formControls = page.locator('[data-interaction-target="form-controls"]');
+    const save = formControls.getByRole("button", { name: "Save", exact: true });
+    const archive = formControls.getByRole("button", { name: "Archive", exact: true });
+    const bold = formControls.getByRole("button", { name: "Bold", exact: true });
+    const email = formControls.getByLabel("Email", { exact: true });
+    const notes = formControls.getByLabel("Notes", { exact: true });
+    await save.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    // Attributes passed to the components reach the rendered elements.
+    await expect(save).toHaveAttribute("type", "button");
+    await expect(save).toHaveAttribute("name", "save");
+    await save.click();
+    await expect(formControls).toHaveAttribute("data-clicks", "1");
+    await save.focus();
+    await page.keyboard.press("Enter");
+    await expect(formControls).toHaveAttribute("data-clicks", "2");
+    await page.keyboard.press("Space");
+    await expect(formControls).toHaveAttribute("data-clicks", "3");
+    await expect(archive).toBeDisabled();
+    await archive.click({ force: true });
+    await expect(formControls).toHaveAttribute("data-clicks", "3");
+    await expect(bold).toHaveAttribute("aria-pressed", "false");
+    await bold.click();
+    await expect(formControls).toHaveAttribute("data-bold", "true");
+    await expect(bold).toHaveAttribute("aria-pressed", "true");
+    await bold.focus();
+    await page.keyboard.press("Space");
+    await expect(formControls).toHaveAttribute("data-bold", "false");
+    await expect(bold).toHaveAttribute("aria-pressed", "false");
+    await expect(email).toHaveAttribute("type", "email");
+    await expect(email).toHaveAttribute("name", "email");
+    await email.pressSequentially("ada@example.com");
+    await expect(formControls).toHaveAttribute("data-email", "ada@example.com");
+    await expect(email).toHaveValue("ada@example.com");
+    await email.press("Backspace");
+    await expect(formControls).toHaveAttribute("data-email", "ada@example.co");
+    await expect(notes).toHaveAttribute("rows", "3");
+    await notes.pressSequentially("Line one");
+    await notes.press("Enter");
+    await notes.pressSequentially("Line two");
+    await expect(formControls).toHaveAttribute("data-notes", "Line one\nLine two");
+    await expect(notes).toHaveValue("Line one\nLine two");
+
     const accordion = page.locator('[data-interaction-target="accordion"]');
     const accordionTrigger = (name) => accordion.getByRole("button", { name, exact: true });
     const accordionRegion = (name) => accordion.getByRole("region", { name, exact: true, includeHidden: true });
@@ -1448,7 +1490,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (25 fixtures)");
+  console.log("runtime interaction verification passed (26 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
