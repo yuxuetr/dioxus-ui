@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 60%
 - Current milestone: M139 Dropdown and Context Menu Keyboard Behavior
-- Current task: M139.3
+- Current task: M139.4
 
 ## Backup
 
@@ -2495,7 +2495,7 @@
   - Opening focuses the first enabled item; arrows wrap, Home, End, and typeahead move focus; Enter, Space, or click activates the item through its `onclick`, closes the menu, and returns focus to the element focused before opening.
   - Extend the listbox script and template with the menu mode, keep the parity test, and update the docs page.
 
-- TODO M139.3 Implement Context Menu point anchoring and navigation
+- DONE M139.3 Implement Context Menu point anchoring and navigation
   - `ContextMenuContent` gains `anchor_point`, `on_open_change`, and `dismiss`; the anchored overlay script places content at a viewport point with flip and shift.
   - Context Menu items gain `onclick` and reuse the menu mode; update templates and docs.
 
