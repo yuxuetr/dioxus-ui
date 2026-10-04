@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M148 Hover Card Hover And Focus Opening
-- Current task: M148.4
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2683,7 +2683,7 @@
   - Render a real Hover Card in the Web preview and extend `npm run verify:runtime-interactions` to assert the open delay, the close delay, staying open over the card, trigger presses keeping it open, immediate keyboard focus opening, Tab into the card keeping it open, closing on Escape and outside presses, and no `aria-describedby`, while the tooltip assertions still pass.
   - Reverse-verify that the script fails when the open delay, the close delay, the card focus exemption, the press exemption, or the description exemption is removed.
 
-- TODO M148.4 Complete hover card milestone
+- DONE M148.4 Complete hover card milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
