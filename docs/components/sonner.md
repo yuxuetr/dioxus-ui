@@ -55,6 +55,10 @@ Sonner shares the Toast countdown script; only the Web renderer is covered by
 
 ## Accessibility Notes
 
+`SonnerViewport` is a persistent `role="region"` labelled `Notifications` with
+`aria-live="polite"`. Render it once and add toasts inside it, so assistive
+technology announces additions to a region it already tracks.
+
 The toast root exposes status semantics and `aria-live` based on variant
 urgency. Variant icons are decorative. The countdown pauses on hover and focus
 so the message stays readable. Apps own announcement wording, promise state,

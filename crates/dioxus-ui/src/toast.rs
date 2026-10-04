@@ -83,6 +83,8 @@ pub fn toast_live_attribute(variant: ToastVariant) -> &'static str {
   }
 }
 
+/// Persistent live region; render it once and add toasts inside it so
+/// assistive technology announces them.
 #[component]
 pub fn ToastViewport(
   #[props(default)] placement: ToastPlacement,
@@ -93,7 +95,10 @@ pub fn ToastViewport(
 
   rsx! {
     div {
+      role: "region",
       class,
+      "aria-label": "Notifications",
+      "aria-live": "polite",
       "data-placement": toast_placement_attribute(placement),
       {children}
     }

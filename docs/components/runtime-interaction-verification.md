@@ -108,6 +108,8 @@ controls, so the verifier exercises the shipped overlay behavior from
 | `alert-dialog` | Alert Dialog | opening focuses Cancel; Tab wraps; Escape closes without confirming; Action runs its handler, closes, and restores focus |
 | `popover` | Popover | anchored content sits below the trigger inside the viewport; Escape and an outside click close it; near the viewport bottom it flips above the trigger; the trigger still toggles it |
 | `tooltip` | Tooltip | anchored content sits above the trigger; an outside press does not close it; Escape does |
+| `toast` | Toast | the viewport is a polite `Notifications` region; the toast closes with reason `timeout` after its countdown, stays open while hovered past its duration, and reports `action` and `close` reasons |
+| `sonner` | Sonner | the viewport is a polite region; a mounted toast unmounts with reason `timeout` and reports `close` |
 
 The Web preview serves the Tailwind input stylesheet without compiling it, so
 the Dialog overlay has no `fixed inset-0` box. The verifier dispatches the
@@ -116,7 +118,11 @@ uses inline fixed coordinates and does not depend on Tailwind.
 
 Reverse checks run during M135: removing the Tab wrap listener, ignoring
 Escape in Dialog content, disabling the flip, and giving Tooltip the popover
-dismissal default each make the verifier fail.
+dismissal default each make the verifier fail. M136 adds two more: a countdown
+that ignores hover and a countdown that never starts.
+
+M136 adds the Toast and Sonner rows from
+[RFC 0011](../rfcs/0011-toast-timer-and-live-region.md).
 
 ## Documentation Alignment
 
@@ -143,7 +149,8 @@ adapter graduation.
 After M111, useful follow-up work is:
 
 1. Expand interaction coverage across more runtime-sensitive components. M135
-   covers Dialog, Alert Dialog, Popover, and Tooltip.
+   covers Dialog, Alert Dialog, Popover, and Tooltip; M136 adds Toast and
+   Sonner.
 2. Add targeted screenshot smoke for a small set of stable panels.
 3. Decide whether any browser command should move into CI after local
    reliability is proven.

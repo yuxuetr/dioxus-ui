@@ -66,6 +66,10 @@ and Mobile renderers. Only the Web renderer is covered by
 
 ## Accessibility Notes
 
+`ToastViewport` is a persistent `role="region"` labelled `Notifications` with
+`aria-live="polite"`. Render it once and add toasts inside it, so assistive
+technology announces additions to a region it already tracks.
+
 The root exposes status semantics and `aria-live` based on variant urgency.
 Close and action controls are native buttons. The countdown pauses on hover and
 focus so the message stays readable. Apps own announcement wording, portal

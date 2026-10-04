@@ -331,6 +331,9 @@ async function runBrowserAssertions() {
     const toastTrigger = page.locator('[data-interaction-control="toast-trigger"]');
     const toastRoot = toast.locator('[role="status"]');
     await toastTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    const toastViewport = toast.locator('[role="region"]');
+    await expect(toastViewport).toHaveAttribute("aria-live", "polite");
+    await expect(toastViewport).toHaveAttribute("aria-label", "Notifications");
     await expect(toastRoot).toBeHidden();
     await toastTrigger.click();
     await expect(toastRoot).toBeVisible();
@@ -351,6 +354,22 @@ async function runBrowserAssertions() {
     await toastRoot.getByRole("button", { name: "Close notification" }).click();
     await expect(toastRoot).toBeHidden();
     await expect(toast).toHaveAttribute("data-reason", "close");
+
+    const sonner = page.locator('[data-interaction-target="sonner"]');
+    const sonnerTrigger = page.locator('[data-interaction-control="sonner-trigger"]');
+    const sonnerViewport = sonner.locator('[role="region"]');
+    const sonnerToast = sonner.locator('[role="status"]');
+    await sonnerTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(sonnerViewport).toHaveAttribute("aria-live", "polite");
+    await expect(sonnerToast).toHaveCount(0);
+    await sonnerTrigger.click();
+    await expect(sonnerToast).toHaveAttribute("aria-live", "polite");
+    await expect(sonnerToast).toHaveCount(0, { timeout: 5000 });
+    await expect(sonner).toHaveAttribute("data-reason", "timeout");
+    await sonnerTrigger.click();
+    await sonnerToast.getByRole("button", { name: "Close notification" }).click();
+    await expect(sonnerToast).toHaveCount(0);
+    await expect(sonner).toHaveAttribute("data-reason", "close");
 
     const alertDialog = page.locator('[data-interaction-target="alert-dialog"]');
     const alertDialogTrigger = page.locator('[data-interaction-control="alert-dialog-trigger"]');
@@ -418,7 +437,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (10 fixtures)");
+  console.log("runtime interaction verification passed (11 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

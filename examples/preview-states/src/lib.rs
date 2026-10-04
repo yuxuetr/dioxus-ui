@@ -17,7 +17,9 @@ use dioxus_ui::{
   otp_apply_paste_filtered, otp_slots,
 };
 use dioxus_ui::{
-  ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport, toast_dismiss_reason_attribute,
+  SonnerClose, SonnerContent, SonnerTitle, SonnerToast, SonnerVariant, SonnerViewport, ToastAction,
+  ToastClose, ToastRoot, ToastTitle, ToastViewport, sonner_dismiss_reason_attribute,
+  toast_dismiss_reason_attribute,
 };
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -681,6 +683,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut tooltip_open = use_signal(|| false);
   let mut toast_open = use_signal(|| false);
   let mut toast_reason = use_signal(|| "none");
+  let mut sonner_open = use_signal(|| false);
+  let mut sonner_reason = use_signal(|| "none");
   let mut alert_dialog_result = use_signal(|| "pending");
   let root = match target {
     PreviewTarget::Web => "web",
@@ -1082,6 +1086,40 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                     toast_open.set(false);
                   },
                   "Close"
+                }
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "sonner",
+            "data-reason": "{sonner_reason}",
+            h2 { class: "text-sm font-medium", "Sonner interaction" }
+            button {
+              class: "{secondary_button_class} mt-3",
+              "data-interaction-control": "sonner-trigger",
+              onclick: move |_| sonner_open.set(true),
+              "Show sonner"
+            }
+            SonnerViewport {
+              if sonner_open() {
+                SonnerToast {
+                  variant: SonnerVariant::Success,
+                  duration_ms: 1500,
+                  on_dismiss: move |reason| {
+                    sonner_reason.set(sonner_dismiss_reason_attribute(reason));
+                    sonner_open.set(false);
+                  },
+                  SonnerContent {
+                    SonnerTitle { "Event created" }
+                  }
+                  SonnerClose {
+                    on_dismiss: move |reason| {
+                      sonner_reason.set(sonner_dismiss_reason_attribute(reason));
+                      sonner_open.set(false);
+                    },
+                    "Close"
+                  }
                 }
               }
             }

@@ -515,7 +515,8 @@ ARIA, visible text, and `data-state` transitions for disclosure, overlay,
 selection, keyboard-visible state, and scroll-status behavior, plus real
 Dialog, Alert Dialog, Popover, and Tooltip components: Escape and outside
 dismissal, initial focus, Tab wrap, focus restore, and anchored placement with
-flip. It does not
+flip; and real Toast and Sonner components: countdown dismissal, hover pause,
+dismiss reasons, and viewport live regions. It does not
 write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.

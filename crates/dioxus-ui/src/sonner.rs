@@ -106,6 +106,8 @@ pub fn sonner_live_attribute(variant: SonnerVariant) -> &'static str {
   }
 }
 
+/// Persistent live region; render it once and add toasts inside it so
+/// assistive technology announces them.
 #[component]
 pub fn SonnerViewport(
   #[props(default)] placement: SonnerPlacement,
@@ -116,7 +118,10 @@ pub fn SonnerViewport(
 
   rsx! {
     div {
+      role: "region",
       class,
+      "aria-label": "Notifications",
+      "aria-live": "polite",
       "data-placement": sonner_placement_attribute(placement),
       {children}
     }
