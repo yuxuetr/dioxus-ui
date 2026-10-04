@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0% (M135 0/7)
+- Overall: 14% (M135 1/7)
 - Current milestone: M135 Overlay Interaction Behavior
-- Current task: M135.1 Design overlay interaction behavior
+- Current task: M135.2 Implement Dialog modal behavior
 
 ## Backup
 
@@ -2377,7 +2377,7 @@
 
 ## M135 Overlay Interaction Behavior
 
-- TODO M135.1 Design overlay interaction behavior
+- DONE M135.1 Design overlay interaction behavior
   - Record that styled overlay parts currently render `open` state only: no Escape, outside-click, focus, trap, restore, or anchored positioning, and the runtime traits only have record-keeping example adapters.
   - Define the additive API (`on_open_change`, `dismiss`, anchor id, side, align, offset), the `document::eval` focus-scope and measurement approach shared by Web, Desktop, and Mobile renderers, and how source-copy templates stay self-contained.
   - List excluded overlays (Select, Combobox, Date Picker, Navigation Menu, Context Menu, Menubar, DOM portal) with executable reevaluation conditions.
