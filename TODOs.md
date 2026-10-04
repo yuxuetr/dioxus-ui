@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 33%
+- Overall: 67%
 - Current milestone: M160 Control Label Overrides
-- Current task: M160.2 Implement control label overrides
+- Current task: M160.3 Complete control label overrides milestone
 
 ## Backup
 
@@ -2915,7 +2915,7 @@
   - Define a shared `default_aria_label` helper used by Pagination Previous and Next and Carousel, and `dioxus-ssr` as a dev-dependency for rendered HTML tests.
   - Record what stays out of scope (localized visible text, other duplicated explicit attributes, a Pagination root that accepts attributes) with reevaluation conditions.
 
-- TODO M160.2 Implement control label overrides
+- DONE M160.2 Implement control label overrides
   - Add the shared helper to the crate and the template utilities, use it in Pagination and Carousel, and add SSR unit tests.
   - Update the Pagination docs page.
 
