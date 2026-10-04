@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M166 Checkbox Indeterminate State
-- Current task: M166.1 Design checkbox indeterminate state
+- Current task: M166.2 Implement checkbox indeterminate state
 
 ## Backup
 
@@ -3027,7 +3027,7 @@
 
 ## M166 Checkbox Indeterminate State
 
-- TODO M166.1 Design checkbox indeterminate state
+- DONE M166.1 Design checkbox indeterminate state
   - Record that `Checkbox` has no mixed state, that the native mixed state is a DOM property with no attribute in HTML or Dioxus, and that a click clears it before the app can keep it.
   - Define `indeterminate` with a property sync through `document::eval`, `data-state`, a requested `true` from the mixed state, and a re-sync after changes.
   - Record what stays out of scope (restoring an ignored `checked`, mixed Switch and menu items, server-rendered mixed state, Desktop and Mobile self-test scenarios) with reevaluation conditions.
