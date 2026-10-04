@@ -108,7 +108,8 @@ Read in this order:
 102. [RFC 0039: Dialog Names](rfcs/0039-dialog-names.md)
 103. [RFC 0040: Composite Widget Names](rfcs/0040-composite-widget-names.md)
 104. [RFC 0041: Checkbox Indeterminate State](rfcs/0041-checkbox-indeterminate-state.md)
-105. [TODO Plan](../TODOs.md)
+105. [RFC 0042: Slider Thumb Position And Vertical Orientation](rfcs/0042-slider-thumb-position-and-vertical-orientation.md)
+106. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 

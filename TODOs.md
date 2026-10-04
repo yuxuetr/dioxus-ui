@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M167 Slider Thumb Position And Vertical Orientation
+- Current task: M167.1 Design slider thumb position and vertical orientation
 
 ## Backup
 
@@ -3041,6 +3041,26 @@
   - Reverse-verify that the script fails when the property is not set, when a mixed change requests `!checked`, or when the property is not re-synced after a change.
 
 - DONE M166.4 Complete checkbox indeterminate milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and accessibility docs.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M167 Slider Thumb Position And Vertical Orientation
+
+- TODO M167.1 Design slider thumb position and vertical orientation
+  - Record that the thumb style sets `left` on an element nothing positions, so the thumb never moves, and that `Slider` has no vertical orientation.
+  - Define an absolutely positioned inline thumb style, `orientation` with vertical root, track, range, and thumb styles, `aria-orientation`, and a vertical pointer mapping.
+  - Record what stays out of scope (right-to-left sliders, multiple thumbs, inverted sliders, Desktop and Mobile self-test scenarios) with reevaluation conditions.
+
+- TODO M167.2 Implement slider thumb position and vertical orientation
+  - Add the thumb position, orientation prop, vertical styles, and pointer mapping to the crate source and template, with unit tests.
+  - Update the Slider docs page.
+
+- TODO M167.3 Verify slider thumb position and vertical sliders in a real browser
+  - Extend `npm run verify:runtime-interactions` to assert that the horizontal thumb follows the value and that a vertical slider in the Web preview has a vertical orientation, places its thumb from the bottom, and changes value by pointer and ArrowUp.
+  - Reverse-verify that the script fails when the thumb is not positioned, when the vertical pointer uses `clientX`, or when `aria-orientation` stays horizontal.
+
+- TODO M167.4 Complete slider milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and accessibility docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
