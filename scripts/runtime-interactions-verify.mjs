@@ -1151,6 +1151,28 @@ async function runBrowserAssertions() {
     await newsletter.click({ force: true });
     await expect(newsletter).not.toBeChecked();
     await expect(switchFixture).toHaveAttribute("data-disabled-changes", "0");
+    // A partial selection makes Select all mixed through the native property.
+    const mixedCheckbox = (name) => switchFixture.getByRole("checkbox", { name, exact: true });
+    const isIndeterminate = (name) => mixedCheckbox(name).evaluate((element) => element.indeterminate);
+    await expect.poll(() => isIndeterminate("Select all")).toBe(true);
+    await expect(mixedCheckbox("Select all")).toHaveAttribute("data-state", "indeterminate");
+    // A change while mixed requests checked.
+    await mixedCheckbox("Select all").click();
+    await expect(switchFixture).toHaveAttribute("data-mixed-items", "true-true");
+    await expect.poll(() => isIndeterminate("Select all")).toBe(false);
+    await expect(mixedCheckbox("Select all")).toBeChecked();
+    await expect(mixedCheckbox("Select all")).toHaveAttribute("data-state", "checked");
+    await mixedCheckbox("Item two").click();
+    await expect(switchFixture).toHaveAttribute("data-mixed-items", "true-false");
+    await expect.poll(() => isIndeterminate("Select all")).toBe(true);
+    // The browser clears the property on click; the component restores it
+    // when the app keeps the checkbox mixed.
+    await expect.poll(() => isIndeterminate("Stays mixed")).toBe(true);
+    await mixedCheckbox("Stays mixed").click();
+    await expect(switchFixture).toHaveAttribute("data-stays-mixed-changes", "1");
+    // Mixed requests checked even when `checked` is already true.
+    await expect(switchFixture).toHaveAttribute("data-stays-mixed-request", "Some(true)");
+    await expect.poll(() => isIndeterminate("Stays mixed")).toBe(true);
 
     const formControls = page.locator('[data-interaction-target="form-controls"]');
     const save = formControls.getByRole("button", { name: "Save", exact: true });

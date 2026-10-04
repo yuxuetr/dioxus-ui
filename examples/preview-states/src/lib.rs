@@ -764,6 +764,9 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut wifi_enabled = use_signal(|| false);
   let mut terms_accepted = use_signal(|| false);
   let mut disabled_changes = use_signal(|| 0_u32);
+  let mut mixed_items = use_signal(|| [true, false]);
+  let mut stays_mixed_changes = use_signal(|| 0_u32);
+  let mut stays_mixed_request = use_signal(|| None::<bool>);
   let mut button_clicks = use_signal(|| 0_u32);
   let mut bold_pressed = use_signal(|| false);
   let mut email_value = use_signal(String::new);
@@ -1625,6 +1628,9 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-switch": "{wifi_enabled}",
             "data-checkbox": "{terms_accepted}",
             "data-disabled-changes": "{disabled_changes}",
+            "data-mixed-items": "{mixed_items()[0]}-{mixed_items()[1]}",
+            "data-stays-mixed-changes": "{stays_mixed_changes}",
+            "data-stays-mixed-request": "{stays_mixed_request():?}",
             h2 { class: "text-sm font-medium", "Switch and checkbox interaction" }
             div { class: "mt-3 flex items-center gap-2",
               Switch {
@@ -1656,6 +1662,34 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 "aria-label": "Newsletter",
                 disabled: true,
                 on_checked_change: move |_| disabled_changes += 1,
+              }
+            }
+            div { class: "mt-3 flex items-center gap-2",
+              Checkbox {
+                "aria-label": "Select all",
+                checked: mixed_items().iter().all(|item| *item),
+                indeterminate: mixed_items().iter().any(|item| *item)
+                  && !mixed_items().iter().all(|item| *item),
+                on_checked_change: move |checked| mixed_items.set([checked, checked]),
+              }
+              Checkbox {
+                "aria-label": "Item one",
+                checked: mixed_items()[0],
+                on_checked_change: move |checked| mixed_items.with_mut(|items| items[0] = checked),
+              }
+              Checkbox {
+                "aria-label": "Item two",
+                checked: mixed_items()[1],
+                on_checked_change: move |checked| mixed_items.with_mut(|items| items[1] = checked),
+              }
+              Checkbox {
+                "aria-label": "Stays mixed",
+                checked: true,
+                indeterminate: true,
+                on_checked_change: move |checked| {
+                  stays_mixed_changes += 1;
+                  stays_mixed_request.set(Some(checked));
+                },
               }
             }
           }
