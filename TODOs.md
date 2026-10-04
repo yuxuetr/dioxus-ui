@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M140 Menubar Keyboard Behavior
-- Current task: M140.3 Verify menubar behavior in a real browser
+- Current task: M140.4 Complete menubar milestone
 
 ## Backup
 
@@ -2519,7 +2519,7 @@
   - Add a menubar script for trigger roving focus, adjacent-menu switching, and hover switching, reporting the next menu's value to Rust.
   - `MenubarTrigger` gains `id` and `on_open_change`; `MenubarContent` reuses the anchored overlay and the listbox menu mode; items gain `onclick`; mirror the template and keep the parity test.
 
-- TODO M140.3 Verify menubar behavior in a real browser
+- DONE M140.3 Verify menubar behavior in a real browser
   - Render a real Menubar in the Web preview and extend `npm run verify:runtime-interactions` to assert roving focus that skips disabled triggers, opening, adjacent-menu switching, hover switching, activation with close and focus return, Escape, and Tab.
   - Reverse-verify that the script fails when roving, switching, or focus return is removed.
 
