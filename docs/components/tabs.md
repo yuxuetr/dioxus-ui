@@ -50,6 +50,8 @@ rsx! {
 - Left and Right move focus between enabled triggers and wrap; Home and End
   jump to the first and last. Moving focus calls `on_value_change` with the
   focused trigger's value (automatic activation).
+- In a right-to-left layout, ArrowLeft moves to the next trigger and
+  ArrowRight to the previous one.
 - A click, Enter, or Space on a trigger calls `on_value_change` with its value.
 - `Tabs` links each trigger to its panel with `aria-controls` and
   `aria-labelledby`. Without `Tabs`, the parts keep keyboard movement but
@@ -61,5 +63,5 @@ The Web renderer is covered by `npm run verify:runtime-interactions`.
 
 The list uses `role="tablist"` with `aria-orientation="horizontal"`, triggers
 use `role="tab"` with `aria-selected`, and panels use `role="tabpanel"`.
-Manual activation, vertical tabs, and right-to-left arrow mirroring are not
-implemented (see [RFC 0019](../rfcs/0019-roving-group-interaction.md)).
+Manual activation and vertical tabs are not implemented (see
+[RFC 0019](../rfcs/0019-roving-group-interaction.md)).

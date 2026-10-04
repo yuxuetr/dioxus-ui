@@ -50,6 +50,8 @@ rsx! {
   `looping` is on; the default `Both` accepts all four arrows. Home and End
   jump to the first and last. Moving focus calls `on_value_change` with the
   focused item's value.
+- In a right-to-left layout, ArrowLeft moves to the next item and ArrowRight
+  to the previous one. Up and Down do not change.
 - A click or Space on an item calls `on_value_change` with its value.
 
 The Web renderer is covered by `npm run verify:runtime-interactions`.
@@ -59,5 +61,5 @@ render their own items.
 ## Accessibility Notes
 
 Radio Group renders `role="radiogroup"` and items render `role="radio"` with
-`aria-checked`. Right-to-left arrow mirroring is not implemented (see
-[RFC 0019](../rfcs/0019-roving-group-interaction.md)).
+`aria-checked`. Arrow keys follow the text direction (see
+[RFC 0025](../rfcs/0025-right-to-left-arrow-mirroring.md)).

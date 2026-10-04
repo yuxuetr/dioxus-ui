@@ -84,6 +84,8 @@ rsx! {
 - While a menu is open, Left and Right call `on_value_change` with the
   adjacent menu's value, and moving the pointer over another enabled trigger
   calls it with that trigger's menu value.
+- In a right-to-left layout, ArrowLeft moves to the next trigger or menu and
+  ArrowRight to the previous one.
 - Closing returns focus to the open menu's trigger, unless focus already
   moved to another control. Tab moves focus out of the menu, which closes it.
 
@@ -97,6 +99,5 @@ Simulator by `npm run verify:mobile-interactions`, and an Android emulator by
 Root uses `role="menubar"`, triggers use `role="menuitem"` with
 `aria-haspopup="menu"` and `aria-expanded`, and content uses `role="menu"`.
 The open menu moves DOM focus between items, so screen readers announce each
-item as it receives focus. Submenus, ArrowUp opening on the last item, and
-right-to-left arrow mirroring are not implemented (see
-[RFC 0015](../rfcs/0015-menubar-keyboard-behavior.md)).
+item as it receives focus. Submenus and ArrowUp opening on the last item are
+not implemented (see [RFC 0015](../rfcs/0015-menubar-keyboard-behavior.md)).

@@ -46,6 +46,13 @@ const open = (trigger) => {
   const menu = menuOf(trigger);
   if (menu) dioxus.send(menu.dataset.value || "");
 };
+// In a right-to-left layout, ArrowLeft points at the next item.
+const visualKey = (key) => {
+  if (getComputedStyle(root).direction !== "rtl") return key;
+  if (key === "ArrowLeft") return "ArrowRight";
+  if (key === "ArrowRight") return "ArrowLeft";
+  return key;
+};
 const onKeyDown = (event) => {
   if (event.defaultPrevented || !(event.target instanceof Element)) return;
   const menu = menuOf(event.target);
@@ -55,7 +62,7 @@ const onKeyDown = (event) => {
   // Inside an open menu only Left and Right leave it; the menu itself
   // handles the other keys.
   if (!onTrigger && event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
-  const next = step(trigger, event.key);
+  const next = step(trigger, visualKey(event.key));
   if (!next || next === trigger) return;
   event.preventDefault();
   if (onTrigger) next.focus();

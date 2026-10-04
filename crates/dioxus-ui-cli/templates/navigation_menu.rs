@@ -52,6 +52,13 @@ const focusFirstLink = (item) => {
   const first = content ? linksOf(content)[0] : null;
   if (first) first.focus();
 };
+// In a right-to-left layout, ArrowLeft points at the next item.
+const visualKey = (key) => {
+  if (getComputedStyle(root).direction !== "rtl") return key;
+  if (key === "ArrowLeft") return "ArrowRight";
+  if (key === "ArrowRight") return "ArrowLeft";
+  return key;
+};
 const onKeyDown = (event) => {
   if (event.defaultPrevented || !(event.target instanceof Element)) return;
   const target = event.target;
@@ -71,7 +78,7 @@ const onKeyDown = (event) => {
     }
     return;
   } else {
-    next = step(topLevel(), target, event.key, "ArrowRight", "ArrowLeft");
+    next = step(topLevel(), target, visualKey(event.key), "ArrowRight", "ArrowLeft");
   }
   if (next) {
     event.preventDefault();

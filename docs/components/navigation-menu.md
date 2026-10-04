@@ -73,6 +73,8 @@ rsx! {
 - Left and Right move focus between top-level triggers and links and wrap;
   Home and End jump to the first and last. Disabled triggers and links with
   `disabled` are skipped.
+- In a right-to-left layout, ArrowLeft moves to the next top-level item and
+  ArrowRight to the previous one.
 - ArrowDown on a trigger focuses the first link of its content, opening it
   first when closed. Inside content, ArrowDown and ArrowUp move between links
   and wrap; Home and End jump to the first and last link.
@@ -93,6 +95,5 @@ Simulator by `npm run verify:mobile-interactions`, and an Android emulator by
 Use Navigation Menu for navigation destinations. Use Menubar or Context Menu for
 application commands. Navigation Menu follows the disclosure navigation
 pattern: triggers are buttons with `aria-expanded`, content holds links, and
-no `menu` roles are used. Viewport size measurement, submenus, motion, and
-right-to-left arrow mirroring are not implemented (see
-[RFC 0016](../rfcs/0016-navigation-menu-interaction.md)).
+no `menu` roles are used. Viewport size measurement, submenus, and motion are
+not implemented (see [RFC 0016](../rfcs/0016-navigation-menu-interaction.md)).

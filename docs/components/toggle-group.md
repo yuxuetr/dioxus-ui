@@ -53,6 +53,8 @@ rsx! {
 - Arrow keys for `orientation` move focus between enabled items without
   pressing them, wrapping when `looping` is on; the default `Both` accepts all
   four arrows. Home and End jump to the first and last.
+- In a right-to-left layout, ArrowLeft moves to the next item and ArrowRight
+  to the previous one. Up and Down do not change.
 - A click, Enter, or Space on an item calls `on_toggle` with its value. Use
   `toggle_group_single_selection` or `toggle_group_multiple_selection` to
   compute the next selection.
@@ -63,5 +65,5 @@ The Web renderer is covered by `npm run verify:runtime-interactions`.
 
 Toggle Group renders `role="group"` and items render buttons with
 `aria-pressed`. Use single mode when only one item can be active, and multiple
-mode when each item is independently toggleable. Right-to-left arrow mirroring
-is not implemented (see [RFC 0019](../rfcs/0019-roving-group-interaction.md)).
+mode when each item is independently toggleable. Arrow keys follow the text
+direction (see [RFC 0025](../rfcs/0025-right-to-left-arrow-mirroring.md)).

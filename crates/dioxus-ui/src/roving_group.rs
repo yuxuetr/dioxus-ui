@@ -60,10 +60,17 @@ const step = (item, key) => {
   if (key === "End") return enabled[last];
   return null;
 };
+// In a right-to-left layout, ArrowLeft points at the next item.
+const visualKey = (key) => {
+  if (getComputedStyle(root).direction !== "rtl") return key;
+  if (key === "ArrowLeft") return "ArrowRight";
+  if (key === "ArrowRight") return "ArrowLeft";
+  return key;
+};
 const onKeyDown = (event) => {
   if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey) return;
   if (!items().includes(event.target)) return;
-  const next = step(event.target, event.key);
+  const next = step(event.target, visualKey(event.key));
   if (!next) return;
   event.preventDefault();
   if (next === event.target) return;
