@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0% (M145: 0/4)
+- Current milestone: M145 Android Interaction Verification
+- Current task: M145.1 Design Android interaction verification
 
 ## Backup
 
@@ -2606,6 +2606,26 @@
 - DONE M144.4 Complete roving group milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M145 Android Interaction Verification
+
+- TODO M145.1 Design Android interaction verification
+  - Record that the Mobile self-test covers only the iOS Simulator, that the Rust Android target is now installed, and that a probe ran the eight scenarios in an Android emulator (API 36.1) with every scenario passing after building with an NDK copy whose flattened symlinks were restored.
+  - Define the request channel (`am start` passes no environment, so the command sets the `debug.dioxus_ui.self_test` system property and the app reads it with `getprop`), the result channel (Rust stdout in logcat under `RustStdoutStderr`), and emulator selection, boot, and shutdown.
+  - Record what stays out of scope (physical devices, x86_64 emulators, touch gestures, CI activation, repairing a broken NDK install) with reevaluation conditions.
+
+- TODO M145.2 Implement the Android self-test
+  - Read the self-test request from the system property in `examples/mobile-demo` on Android.
+  - Add `npm run verify:android-interactions`, which builds the APK with `dx build --android`, selects or boots an emulator, installs, sets the property, launches, reads the result from logcat, and clears the property; it reports a broken NDK install before building.
+
+- TODO M145.3 Reverse-verify the Android self-test
+  - Confirm the command fails when an interaction path is broken, when the app reports no result, and when the NDK has flattened symlinks.
+  - Keep the command out of `npm run verify:release` because it needs the Android SDK, NDK, and an emulator.
+
+- TODO M145.4 Complete Android verification milestone
+  - Update the Desktop and Mobile verification strategy, the Mobile checklist, component docs, quality gates, Known Pre-1.0 Limitations, and CHANGELOG Unreleased notes.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop, iOS, and Android self-tests.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 
 ## Status Rules
