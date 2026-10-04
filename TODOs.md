@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25% (M145: 1/4)
+- Overall: 50% (M145: 2/4)
 - Current milestone: M145 Android Interaction Verification
-- Current task: M145.2 Implement the Android self-test
+- Current task: M145.3 Reverse-verify the Android self-test
 
 ## Backup
 
@@ -2615,7 +2615,7 @@
   - Define the request channel (`am start` passes no environment, so the command sets the `debug.dioxus_ui.self_test` system property and the app reads it with `getprop`), the result channel (Rust stdout in logcat under `RustStdoutStderr`), and emulator selection, boot, and shutdown.
   - Record what stays out of scope (physical devices, x86_64 emulators, touch gestures, CI activation, repairing a broken NDK install) with reevaluation conditions.
 
-- TODO M145.2 Implement the Android self-test
+- DONE M145.2 Implement the Android self-test
   - Read the self-test request from the system property in `examples/mobile-demo` on Android.
   - Add `npm run verify:android-interactions`, which builds the APK with `dx build --android`, selects or boots an emulator, installs, sets the property, launches, reads the result from logcat, and clears the property; it reports a broken NDK install before building.
 
