@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M151 Tabs Manual Activation And Vertical Orientation
-- Current task: M151.1
+- Current task: M151.2
 
 ## Backup
 
@@ -2730,7 +2730,7 @@
 
 ## M151 Tabs Manual Activation And Vertical Orientation
 
-- TODO M151.1 Design tabs manual activation and vertical orientation
+- DONE M151.1 Design tabs manual activation and vertical orientation
   - Record that Tabs always selects the focused trigger, always renders `aria-orientation="horizontal"` with Left and Right keys, and keeps the last focused trigger as the Tab stop after focus leaves a group that does not select on focus.
   - Define `Tabs` `activation` (automatic or manual) and `orientation` (horizontal or vertical) props shared with the parts through context: manual activation moves focus without selecting and selects on Enter, Space, or click; vertical orientation uses Up and Down, renders `aria-orientation="vertical"` and `data-orientation`, and lays the list beside the panels; the Tab stop returns to the selected trigger when focus leaves the list.
   - Record what stays out of scope (orientation or activation props on `TabsList` alone, Desktop and Mobile self-test scenarios) with reevaluation conditions.
