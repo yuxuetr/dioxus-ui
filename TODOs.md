@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 20%
 - Current milestone: M137 Select and Combobox Listbox Behavior
-- Current task: M137.1
+- Current task: M137.2
 
 ## Backup
 
@@ -2438,7 +2438,7 @@
 
 ## M137 Select and Combobox Listbox Behavior
 
-- TODO M137.1 Design listbox overlay behavior
+- DONE M137.1 Design listbox overlay behavior
   - Record that Select and Combobox render open state only: no trigger toggle, no anchored placement, no keyboard navigation, no typeahead, no option selection callback, and a hardcoded `aria-expanded` on the Combobox input.
   - Define the additive API (`on_open_change`, `on_value_change`, trigger and input `id`, content anchoring props), the page-side listbox script that tracks the highlighted option with `aria-activedescendant`, and the Select-only typeahead.
   - Record what stays out of scope (multi-select, async loading, the input-inside-content Combobox layout) with reevaluation conditions.
