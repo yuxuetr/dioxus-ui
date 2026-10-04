@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M156 Collapsible And Native Select Events
-- Current task: M156.1
+- Current task: M156.2
 
 ## Backup
 
@@ -2830,7 +2830,7 @@
 
 ## M156 Collapsible And Native Select Events
 
-- TODO M156.1 Design collapsible and native select events
+- DONE M156.1 Design collapsible and native select events
   - Record that `CollapsibleTrigger` renders a button with `aria-expanded` but no click callback, that `NativeSelect` reports no change, and that neither accepts `id`, `name`, or `aria-*`, so a `Label` cannot name a Native Select.
   - Define `on_open_change: Option<EventHandler<bool>>` on `CollapsibleTrigger` with the requested state, matching Dialog and Popover, and `on_value_change: Option<EventHandler<String>>` on `NativeSelect`; spread global and element attributes on `Collapsible`, `CollapsibleTrigger`, `CollapsibleContent`, and `NativeSelect`.
   - Record what stays out of scope (a root-level open context that links ids automatically, a `value` prop on Native Select, multiple selection, Desktop and Mobile self-test scenarios) with reevaluation conditions.
