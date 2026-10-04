@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M147 Tooltip Hover And Focus Opening
-- Current task: M147.2 Implement tooltip hover and focus opening
+- Current task: M147.3 Verify tooltip behavior in a real browser
 
 ## Backup
 
@@ -2655,7 +2655,7 @@
   - Define a `Tooltip` root that reports open requests, a `TooltipTrigger` that links to the content while it is open, and a page script that opens after a hover delay, opens at once on keyboard focus, stays open while the pointer is over the trigger or content, and closes on pointer leave, blur, and trigger presses.
   - Record what stays out of scope (Hover Card timing, skipping the delay between adjacent tooltips, touch long press, Desktop and Mobile self-test scenarios) with reevaluation conditions.
 
-- TODO M147.2 Implement tooltip hover and focus opening
+- DONE M147.2 Implement tooltip hover and focus opening
   - Add the tooltip script and wire `Tooltip`, `TooltipTrigger`, and `TooltipContent` in the crate and the template, with a CLI parity test for the script.
   - Update the Tooltip docs page.
 
