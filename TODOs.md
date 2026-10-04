@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
-- Current milestone: M138 Date Picker and Calendar Keyboard Behavior
-- Current task: M138.5
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2479,7 +2479,7 @@
   - Render a real Date Picker with a Calendar in the Web preview and extend `npm run verify:runtime-interactions` to assert placement, focus entry on the selected day, arrow, Page, Home, and End movement across months, Tab wrap, Enter and click selection with focus return, Escape, and outside dismissal.
   - Reverse-verify that the script fails when key mapping, focus following, or focus entry is removed.
 
-- TODO M138.5 Complete date picker milestone
+- DONE M138.5 Complete date picker milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and RFC 0010 out-of-scope status.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
