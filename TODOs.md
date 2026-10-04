@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M140 Menubar Keyboard Behavior
-- Current task: M140.1 Design menubar keyboard behavior
+- Current task: M140.2 Implement Menubar navigation
 
 ## Backup
 
@@ -2510,7 +2510,7 @@
 
 ## M140 Menubar Keyboard Behavior
 
-- TODO M140.1 Design menubar keyboard behavior
+- DONE M140.1 Design menubar keyboard behavior
   - Record that Menubar triggers and content render `open` state only, with no placement, dismissal, focus handling, or cross-menu movement, and that RFC 0010 deferred Menubar until cross-menu roving focus existed.
   - Define trigger roving focus (one Tab stop, Left, Right, Home, End), opening with ArrowDown, Enter, Space, or click, Left and Right moving to the adjacent menu while one is open, pointer hover switching, and focus return to the open menu's trigger.
   - Record what stays out of scope (submenus, ArrowUp opening on the last item, right-to-left mirroring) with reevaluation conditions.
