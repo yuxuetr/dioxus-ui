@@ -47,7 +47,7 @@ Source preview routes: 64
 | [Hover Card](hover-card.md) | /components/hover-card/source | crates/dioxus-ui-cli/templates/hover_card.rs | src/components/ui/hover_card.rs | rust | 180 | 5421 |
 | [Input](input.md) | /components/input/source | crates/dioxus-ui-cli/templates/input.rs | src/components/ui/input.rs | rust | 47 | 1510 |
 | [Input Group](input-group.md) | /components/input-group/source | crates/dioxus-ui-cli/templates/input_group.rs | src/components/ui/input_group.rs | rust | 125 | 3603 |
-| [Input Otp](input-otp.md) | /components/input-otp/source | crates/dioxus-ui-cli/templates/input_otp.rs | src/components/ui/input_otp.rs | rust | 321 | 8038 |
+| [Input Otp](input-otp.md) | /components/input-otp/source | crates/dioxus-ui-cli/templates/input_otp.rs | src/components/ui/input_otp.rs | rust | 407 | 11303 |
 | [Item](item.md) | /components/item/source | crates/dioxus-ui-cli/templates/item.rs | src/components/ui/item.rs | rust | 121 | 2943 |
 | [Kbd](kbd.md) | /components/kbd/source | crates/dioxus-ui-cli/templates/kbd.rs | src/components/ui/kbd.rs | rust | 42 | 897 |
 | [Label](label.md) | /components/label/source | crates/dioxus-ui-cli/templates/label.rs | src/components/ui/label.rs | rust | 30 | 741 |

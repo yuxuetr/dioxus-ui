@@ -35,6 +35,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["input-otp"
 - `otp_next_index`
 - `otp_previous_index`
 - `otp_clamp_value`
+- `input_otp_sanitize`
 - `input_otp_class`
 - `input_otp_group_class`
 - `input_otp_slot_class`
@@ -42,28 +43,63 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["input-otp"
 - `input_otp_separator_class`
 - `input_otp_hidden_input_class`
 
+## Value Changes
+
+`InputOtpHiddenInput` holds the whole code. It takes the code `length` and
+calls `on_value_change` with the cleaned code when it changes:
+
+```rust
+let mut code = use_signal(String::new);
+
+rsx! {
+  Label { id: "code-label", "Verification code" }
+  InputOtp {
+    InputOtpGroup {
+      for slot in otp_slots(&code(), 6, code().chars().count().min(5)) {
+        InputOtpSlot { key: "{slot.index}", index: slot.index, value: slot.value, active: slot.active }
+      }
+    }
+    InputOtpHiddenInput {
+      "aria-labelledby": "code-label",
+      value: code(),
+      length: 6,
+      on_value_change: move |value| code.set(value),
+    }
+  }
+}
+```
+
+- `input_otp_sanitize` keeps the characters the input mode allows, up to
+  `length`. Numeric keeps ASCII digits and Text keeps letters and digits, so
+  a pasted `123-456` becomes `123456`.
+- Typing appends, Backspace removes the last character, and a paste or
+  platform autofill inserts the code. Editing a slot in the middle is not
+  supported.
+- The input stays controlled: pass the received code back as `value`. The
+  slots mirror it, and the app picks the active slot.
+- A page script filters the native value before Dioxus reads it, so a
+  rejected character never stays in the input for Backspace to remove.
+- A disabled input fires no event.
+
 ## Accessibility Notes
 
 Input OTP should be paired with a visible `Label` and app-owned description or
-error text when needed. `InputOtpHiddenInput` renders a native text input with
-`inputmode` and optional `autocomplete="one-time-code"` so forms, screen
-readers, and mobile OTP keyboards have a real control.
+error text when needed. Name the input with `aria-labelledby` or `id` and a
+`Label`; both parts pass through global attributes. `InputOtpHiddenInput`
+renders a native text input with `inputmode` and optional
+`autocomplete="one-time-code"` so forms, screen readers, and mobile OTP
+keyboards have a real control.
 
-Visual slots are presentation mirrors of the controlled value. Keep validation,
-submission, resend timers, paste policy, and keyboard event handlers in the
-application.
+The input covers the slots with zero opacity, so a press anywhere on them
+focuses it. Render it inside `InputOtp`, whose root is `relative`. Visual
+slots are presentation mirrors of the controlled value. Keep validation,
+submission, and resend timers in the application.
 
-## Keyboard And Paste
+## Pure Helpers
 
-The component exposes pure helpers for deterministic value updates:
-
-- `otp_insert_char_filtered` for typed character policies
-- `otp_delete_char` for Backspace/Delete behavior
-- `otp_apply_paste_filtered` for paste distribution and overflow handling
-- `otp_next_index` and `otp_previous_index` for app-owned focus movement
-
-The component does not install Dioxus keyboard handlers. Apps wire events to
-their controlled value and focus policy.
+`otp_insert_char_filtered`, `otp_delete_char`, `otp_apply_paste_filtered`,
+`otp_next_index`, and `otp_previous_index` remain for apps that build their
+own per-slot inputs.
 
 ## Mobile Notes
 
