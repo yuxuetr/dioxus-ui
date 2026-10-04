@@ -1305,7 +1305,9 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               on_open_change: move |open| date_open.set(open),
               Calendar {
                 CalendarHeader {
-                  CalendarCaption { "{date_month().year}-{date_month().month:02}" }
+                  CalendarCaption { id: "interaction-date-caption",
+                    "{date_month().year}-{date_month().month:02}"
+                  }
                   CalendarNav {
                     CalendarNavButton {
                       direction: CalendarNavDirection::Previous,
@@ -1319,7 +1321,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                     }
                   }
                 }
-                CalendarGrid {
+                CalendarGrid { "aria-labelledby": "interaction-date-caption",
                   CalendarBody {
                     for week in calendar_month_grid(
                         date_month(),
@@ -1398,6 +1400,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             h2 { class: "text-sm font-medium", "Menubar interaction" }
             Menubar {
               class: "mt-3",
+              "aria-label": "Editor",
               on_value_change: move |value: String| {
                 let menus = ["file", "edit", "view"];
                 menubar_active.set(menus.into_iter().find(|menu| *menu == value));
@@ -1463,6 +1466,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             h2 { class: "text-sm font-medium", "Navigation menu interaction" }
             NavigationMenu {
               class: "mt-3",
+              "aria-label": "Product",
               on_value_change: move |value: String| navigation_active.set(value),
               NavigationMenuList {
                 NavigationMenuItem {
@@ -1502,7 +1506,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             Tabs {
               class: "mt-3",
               on_value_change: move |value: String| tabs_value.set(value),
-              TabsList {
+              TabsList { "aria-label": "Account settings",
                 TabsTrigger { value: "account", active: tab_active("account"), "Account" }
                 TabsTrigger {
                   value: "password",
@@ -1599,6 +1603,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             h2 { class: "text-sm font-medium", "Toggle group interaction" }
             ToggleGroup {
               class: "mt-3",
+              "aria-label": "Text style",
               orientation: NavigationOrientation::Horizontal,
               on_toggle: move |value: String| {
                 toggle_value.set(toggle_group_single_selection(toggle_value().as_deref(), &value))

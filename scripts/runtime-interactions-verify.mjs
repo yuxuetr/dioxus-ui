@@ -554,6 +554,8 @@ async function runBrowserAssertions() {
     }
 
     const datePicker = page.locator('[data-interaction-target="date-picker"]');
+    // The grid is named by its caption, the year and month.
+    await expect(datePicker.getByRole("grid", { name: /^\d{4}-\d{2}$/, includeHidden: true })).toHaveCount(1);
     const dateTrigger = page.locator("#interaction-date-trigger");
     const dateContent = datePicker.locator('[role="dialog"]');
     const dateCaption = dateContent.locator("div").filter({ hasText: /^\d{4}-\d{2}$/ });
@@ -695,6 +697,7 @@ async function runBrowserAssertions() {
     await expect(dropdownTrigger).toBeFocused();
 
     const menubar = page.locator('[data-interaction-target="menubar"]');
+    await expect(menubar.getByRole("menubar", { name: "Editor", exact: true })).toHaveCount(1);
     const menubarTrigger = (value) => page.locator(`#interaction-menubar-${value}`);
     const menubarMenu = (value) => menubar.locator(`[data-value="${value}"] [role="menu"]`);
     const menubarItem = (value, name) => menubarMenu(value).getByRole("menuitem", { name, exact: true });
@@ -776,6 +779,7 @@ async function runBrowserAssertions() {
     await expect(menubar.locator(":focus")).toHaveCount(0);
 
     const navigation = page.locator('[data-interaction-target="navigation-menu"]');
+    await expect(navigation.getByRole("navigation", { name: "Product", exact: true })).toHaveCount(1);
     const navigationTrigger = (name) => navigation.getByRole("button", { name, exact: true });
     const navigationContent = (value) =>
       navigation.locator(`[data-value="${value}"] [data-dxui-navigation-content]`);
@@ -856,6 +860,7 @@ async function runBrowserAssertions() {
     await expect(navigationContent("docs")).toBeHidden();
 
     const tabs = page.locator('[data-interaction-target="tabs"]');
+    await expect(tabs.getByRole("tablist", { name: "Account settings", exact: true })).toHaveCount(1);
     const tab = (name) => tabs.getByRole("tab", { name, exact: true });
     const tabPanel = (name) => tabs.getByRole("tabpanel", { name, exact: true });
     await tab("Account").evaluate((element) => element.scrollIntoView({ block: "center" }));
@@ -982,6 +987,7 @@ async function runBrowserAssertions() {
     await expect(radio("large")).toHaveAttribute("tabindex", "0");
 
     const toggleGroup = page.locator('[data-interaction-target="toggle-group"]');
+    await expect(toggleGroup.getByRole("group", { name: "Text style", exact: true })).toHaveCount(1);
     const toggle = (name) => toggleGroup.getByRole("button", { name, exact: true });
     await toggle("Bold").evaluate((element) => element.scrollIntoView({ block: "center" }));
     await expect(toggle("Bold")).toHaveAttribute("tabindex", "0");
