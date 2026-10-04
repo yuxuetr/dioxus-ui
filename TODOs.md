@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M150 Right-To-Left Arrow Mirroring
-- Current task: M150.2
+- Current task: M150.3
 
 ## Backup
 
@@ -2715,7 +2715,7 @@
   - Define mirroring from the root's computed `direction`, read on each key press, so `Direction`, a `dir` attribute on any ancestor, or CSS all apply without a new prop; only Left and Right swap, while Up, Down, Home, and End keep their meaning.
   - Record what stays out of scope (Calendar grid keys, vertical orientation changes, a direction prop or context, Desktop and Mobile self-test scenarios) with reevaluation conditions.
 
-- TODO M150.2 Implement right-to-left arrow mirroring
+- DONE M150.2 Implement right-to-left arrow mirroring
   - Mirror Left and Right in the roving group, Menubar, and Navigation Menu scripts in the crate and the matching templates.
   - Update the Tabs, Radio Group, Toggle Group, Menubar, Navigation Menu, and Direction docs pages.
 
