@@ -327,6 +327,31 @@ async function runBrowserAssertions() {
     await page.keyboard.press("Escape");
     await expect(tooltipContent).toBeHidden();
 
+    const toast = page.locator('[data-interaction-target="toast"]');
+    const toastTrigger = page.locator('[data-interaction-control="toast-trigger"]');
+    const toastRoot = toast.locator('[role="status"]');
+    await toastTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(toastRoot).toBeHidden();
+    await toastTrigger.click();
+    await expect(toastRoot).toBeVisible();
+    await expect(toastRoot).toBeHidden({ timeout: 5000 });
+    await expect(toast).toHaveAttribute("data-reason", "timeout");
+    await toastTrigger.click();
+    await expect(toastRoot).toHaveAttribute("data-timer", "running");
+    await toastRoot.hover();
+    await page.waitForTimeout(2500);
+    await expect(toastRoot).toBeVisible();
+    await toastTrigger.hover();
+    await expect(toastRoot).toBeHidden({ timeout: 5000 });
+    await toastTrigger.click();
+    await toastRoot.getByRole("button", { name: "Undo" }).click();
+    await expect(toastRoot).toBeHidden();
+    await expect(toast).toHaveAttribute("data-reason", "action");
+    await toastTrigger.click();
+    await toastRoot.getByRole("button", { name: "Close notification" }).click();
+    await expect(toastRoot).toBeHidden();
+    await expect(toast).toHaveAttribute("data-reason", "close");
+
     const alertDialog = page.locator('[data-interaction-target="alert-dialog"]');
     const alertDialogTrigger = page.locator('[data-interaction-control="alert-dialog-trigger"]');
     const alertDialogContent = alertDialog.locator('[role="alertdialog"]');
@@ -393,7 +418,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (9 fixtures)");
+  console.log("runtime interaction verification passed (10 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

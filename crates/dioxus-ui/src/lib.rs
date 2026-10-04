@@ -75,6 +75,9 @@ mod modal_focus;
 #[cfg(any(feature = "dropdown", feature = "hover-card", feature = "popover", feature = "tooltip"))]
 mod anchored_overlay;
 
+#[cfg(any(feature = "sonner", feature = "toast"))]
+mod dismiss_timer;
+
 #[cfg(feature = "direction")]
 pub mod direction;
 

@@ -16,6 +16,9 @@ use dioxus_ui::{
   message_scroller_jump_button_class, message_scroller_show_unread_marker,
   otp_apply_paste_filtered, otp_slots,
 };
+use dioxus_ui::{
+  ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport, toast_dismiss_reason_attribute,
+};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum PreviewTarget {
@@ -676,6 +679,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut alert_dialog_open = use_signal(|| false);
   let mut popover_open = use_signal(|| false);
   let mut tooltip_open = use_signal(|| false);
+  let mut toast_open = use_signal(|| false);
+  let mut toast_reason = use_signal(|| "none");
   let mut alert_dialog_result = use_signal(|| "pending");
   let root = match target {
     PreviewTarget::Web => "web",
@@ -1041,6 +1046,44 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               on_open_change: move |open| popover_open.set(open),
               PopoverTitle { "Dimensions" }
               PopoverDescription { "Placed below the trigger, or above it near the viewport bottom." }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "toast",
+            "data-state": if toast_open() { "open" } else { "closed" },
+            "data-reason": "{toast_reason}",
+            h2 { class: "text-sm font-medium", "Toast interaction" }
+            button {
+              class: "{secondary_button_class} mt-3",
+              "data-interaction-control": "toast-trigger",
+              onclick: move |_| toast_open.set(true),
+              "Show toast"
+            }
+            ToastViewport {
+              ToastRoot {
+                open: toast_open(),
+                duration_ms: 1500,
+                on_dismiss: move |reason| {
+                  toast_reason.set(toast_dismiss_reason_attribute(reason));
+                  toast_open.set(false);
+                },
+                ToastTitle { "Changes saved" }
+                ToastAction {
+                  on_dismiss: move |reason| {
+                    toast_reason.set(toast_dismiss_reason_attribute(reason));
+                    toast_open.set(false);
+                  },
+                  "Undo"
+                }
+                ToastClose {
+                  on_dismiss: move |reason| {
+                    toast_reason.set(toast_dismiss_reason_attribute(reason));
+                    toast_open.set(false);
+                  },
+                  "Close"
+                }
+              }
             }
           }
           article {

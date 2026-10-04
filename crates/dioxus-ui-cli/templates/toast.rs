@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use super::utils::classes;
+use super::utils::{classes, use_dismiss_timer};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum ToastPlacement {
@@ -280,14 +280,19 @@ pub fn ToastViewport(
   }
 }
 
+/// Calls `on_dismiss(Timeout)` after `duration_ms` of open time, pausing while
+/// the pointer is over the toast or focus is inside it. `0` disables the timer.
 #[component]
 pub fn ToastRoot(
   #[props(default = ToastVariant::Default)] variant: ToastVariant,
   #[props(default = true)] open: bool,
   #[props(default)] class: String,
+  #[props(default = 5000)] duration_ms: u64,
+  #[props(default)] on_dismiss: Option<EventHandler<ToastDismissReason>>,
   children: Element,
 ) -> Element {
   let class = toast_root_class(variant, &class);
+  let dismiss_timer = use_dismiss_timer(open, duration_ms, on_dismiss, ToastDismissReason::Timeout);
 
   rsx! {
     div {
@@ -297,6 +302,7 @@ pub fn ToastRoot(
       "aria-live": toast_live_attribute(variant),
       "data-state": if open { "open" } else { "closed" },
       "data-variant": toast_variant_attribute(variant),
+      "data-dxui-dismiss-timer": dismiss_timer,
       {children}
     }
   }
@@ -334,6 +340,8 @@ pub fn ToastDescription(
 pub fn ToastAction(
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
+  #[props(default)] on_dismiss: Option<EventHandler<ToastDismissReason>>,
   children: Element,
 ) -> Element {
   let class = toast_action_class(disabled, &class);
@@ -343,6 +351,14 @@ pub fn ToastAction(
       r#type: "button",
       class,
       disabled,
+      onclick: move |event| {
+        if let Some(handler) = onclick {
+          handler.call(event);
+        }
+        if let Some(handler) = on_dismiss {
+          handler.call(ToastDismissReason::Action);
+        }
+      },
       {children}
     }
   }
@@ -352,6 +368,7 @@ pub fn ToastAction(
 pub fn ToastClose(
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
+  #[props(default)] on_dismiss: Option<EventHandler<ToastDismissReason>>,
   children: Element,
 ) -> Element {
   let class = toast_close_class(disabled, &class);
@@ -362,6 +379,11 @@ pub fn ToastClose(
       class,
       disabled,
       "aria-label": "Close notification",
+      onclick: move |_| {
+        if let Some(handler) = on_dismiss {
+          handler.call(ToastDismissReason::Close);
+        }
+      },
       {children}
     }
   }

@@ -189,6 +189,7 @@ fn template_overlay_scripts_match_crate_scripts() {
   for (crate_file, name) in [
     ("crates/dioxus-ui/src/modal_focus.rs", "MODAL_FOCUS_SCOPE_SCRIPT"),
     ("crates/dioxus-ui/src/anchored_overlay.rs", "ANCHORED_OVERLAY_SCRIPT"),
+    ("crates/dioxus-ui/src/dismiss_timer.rs", "DISMISS_TIMER_SCRIPT"),
   ] {
     let crate_source = fs::read_to_string(workspace_root().join(crate_file))
       .unwrap_or_else(|error| panic!("{crate_file} should be readable: {error}"));
