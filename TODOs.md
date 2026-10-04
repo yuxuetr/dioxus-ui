@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M143 Mobile Interaction Verification
-- Current task: M143.3 Reverse-verify the Mobile self-test
+- Current task: M143.4 Complete mobile verification milestone
 
 ## Backup
 
@@ -2579,7 +2579,7 @@
   - Move the scenario script and self-test component into `preview-states` so Desktop and Mobile run the same scenarios, and add `PreviewTarget::Mobile`.
   - Add `examples/mobile-demo` and `npm run verify:mobile-interactions`, which selects an iPhone simulator, boots it when needed, and reports the self-test result.
 
-- TODO M143.3 Reverse-verify the Mobile self-test
+- DONE M143.3 Reverse-verify the Mobile self-test
   - Confirm the command fails when an interaction path is broken and when the app does not report a result.
   - Keep the command out of `npm run verify:release` because it needs Xcode and a simulator.
 
