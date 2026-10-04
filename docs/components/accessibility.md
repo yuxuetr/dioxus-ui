@@ -73,8 +73,8 @@ Statuses:
 
 | Component | Contract | Status |
 | --- | --- | --- |
-| Slider | Uses slider role, horizontal orientation, and value attributes; Arrow, Page, Home, and End keys and pointer press and drag change the value without scrolling the page, and `aria-*` passes through for a name; browser-verified on Web. | Implemented |
-| Slider | Right-to-left, vertical, and multi-thumb sliders are not implemented. | Planned |
+| Slider | Uses slider role, horizontal or vertical orientation, and value attributes, with the thumb centered on the value; Arrow, Page, Home, and End keys and pointer press and drag change the value without scrolling the page, and `aria-*` passes through for a name; browser-verified on Web. | Implemented |
+| Slider | Right-to-left and multi-thumb sliders are not implemented. | Planned |
 | Spinner | Uses status semantics and an accessible label. | Implemented |
 | Toggle | Uses button semantics with `aria-pressed`; `on_pressed_change` sends the requested state on click, Enter, and Space, and `aria-*` passes through; browser-verified on Web. | Implemented |
 | Toggle Group | Uses grouped toggle buttons with `aria-pressed`; one Tab stop on the last focused item, arrows move focus past disabled items without pressing, with Left and Right swapped in right-to-left layouts; the group takes a passed `aria-label`; browser-verified on Web. | Implemented |

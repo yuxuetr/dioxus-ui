@@ -698,7 +698,9 @@ first.
   RFC 0039); server-rendered HTML gets the link after hydration. Tab lists,
   toggle groups, menu bars, navigation menus, and calendar grids take names
   through passed attributes (see RFC 0040). Checkbox has a native mixed state
-  (see RFC 0041); it is set after hydration. Date Picker and
+  (see RFC 0041); it is set after hydration. Slider places its thumb on the
+  value and supports a vertical orientation (see RFC 0042); right-to-left and
+  multi-thumb sliders are not included. Date Picker and
   Calendar implement anchored placement, focus entry, and day keyboard
   navigation (see RFC 0013); typed date parsing and source-copy date arithmetic
   are not included. Dropdown and Context Menu implement menu keyboard

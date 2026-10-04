@@ -202,4 +202,6 @@ control naming ([RFC 0038](rfcs/0038-form-control-naming.md)), and M164 to
 dialog names ([RFC 0039](rfcs/0039-dialog-names.md)), and M165 to composite
 widget names ([RFC 0040](rfcs/0040-composite-widget-names.md)), and M166 to
 the Checkbox indeterminate state
-([RFC 0041](rfcs/0041-checkbox-indeterminate-state.md)).
+([RFC 0041](rfcs/0041-checkbox-indeterminate-state.md)), and M167 to Slider
+thumb position and vertical orientation
+([RFC 0042](rfcs/0042-slider-thumb-position-and-vertical-orientation.md)).

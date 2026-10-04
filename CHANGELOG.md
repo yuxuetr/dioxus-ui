@@ -180,6 +180,9 @@ release owner renames it to the released version at publish time.
   the native mixed state and `data-state="indeterminate"`; a change while
   mixed requests `true`, and the component restores the mixed state when the
   app keeps it after a click.
+- Vertical sliders: `Slider` gains `orientation` with `SliderOrientation`; a
+  vertical slider fills from the bottom, maps the pointer along its height,
+  and renders `aria-orientation="vertical"`.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.
@@ -201,10 +204,13 @@ release owner renames it to the released version at publish time.
   than the selected one move out of the viewport.
 - `ResizableHandle` renders `aria-orientation` for the separator line, so it
   is `vertical` in a horizontal group, where it repeated the group orientation.
+- `slider_range_style` and `slider_thumb_style` take a `SliderOrientation`.
 
 ### Fixed
 
 - Stale template repository links are no longer part of the changelog.
+- The Slider thumb follows the value; it was never positioned, so it sat at
+  the end of the root for every value.
 - A passed `aria-label` on `PaginationPrevious` and `PaginationNext` replaces
   the English default in server-rendered HTML too, where both attributes were
   written and the default won.

@@ -18,6 +18,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["slider"] }
 ## API Surface
 
 - `Slider`
+- `SliderOrientation`
 - `SliderState`
 - `SliderKeyMove`
 - `slider_state`
