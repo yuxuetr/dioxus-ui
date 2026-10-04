@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 40%
 - Current milestone: M139 Dropdown and Context Menu Keyboard Behavior
-- Current task: M139.2
+- Current task: M139.3
 
 ## Backup
 
@@ -2491,7 +2491,7 @@
   - Define the menu mode of the listbox script (DOM focus on items, wrapping arrows, Home, End, typeahead, Enter and Space activation, close and focus return), item `onclick` props, and a point anchor for Context Menu.
   - Record what stays out of scope (submenus, Menubar cross-menu navigation, checkbox and radio state) with reevaluation conditions.
 
-- TODO M139.2 Implement Dropdown menu navigation
+- DONE M139.2 Implement Dropdown menu navigation
   - Opening focuses the first enabled item; arrows wrap, Home, End, and typeahead move focus; Enter, Space, or click activates the item through its `onclick`, closes the menu, and returns focus to the element focused before opening.
   - Extend the listbox script and template with the menu mode, keep the parity test, and update the docs page.
 
