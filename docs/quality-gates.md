@@ -537,6 +537,12 @@ Menubar, and Navigation Menu inside the Desktop WebView. The command exits
 with the self-test status. It opens a window, needs a GUI session, and is not
 part of default or release gates.
 
+`npm run verify:mobile-interactions` runs the same scenarios in an iOS
+Simulator build of `examples/mobile-demo` (RFC 0018). It boots an iPhone
+simulator on iOS 26 or older when none is running, and passes only when the
+app console reports success. It needs Xcode and is not part of default or
+release gates.
+
 `npm run verify:browser-local` runs the opt-in browser-backed checks serially:
 mobile browser smoke, rendered component DOM verification, Web screenshot
 smoke, and runtime interaction verification. It is not part of default or

@@ -91,7 +91,8 @@ each command starts its own `dx serve` process.
 - no complete overlay focus trap certification
 - no native Desktop WebView automation in this command; the Desktop WebView
   runs `npm run verify:desktop-interactions` (M142, RFC 0017)
-- no native Mobile automation
+- no native Mobile automation in this command; the iOS Simulator runs
+  `npm run verify:mobile-interactions` (M143, RFC 0018)
 - no component API changes
 - no generated source-copy template rewrites
 - no provider/domain behavior such as uploads, charts backed by external

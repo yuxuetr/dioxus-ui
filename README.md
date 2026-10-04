@@ -798,7 +798,8 @@ Mobile coverage, or visual parity.
 `npm run verify:desktop-interactions` runs the same kinds of interactions in the
 Desktop WebView. The Desktop preview runs an in-app self-test of eight
 scenarios and exits with the result (RFC 0017). It opens a window and needs a
-GUI session.
+GUI session. `npm run verify:mobile-interactions` runs the same scenarios in an
+iOS Simulator build (RFC 0018) and needs Xcode.
 
 Run all local browser smoke commands serially:
 

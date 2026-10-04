@@ -694,7 +694,13 @@ first.
   part of `npm run verify:release`. It does not exercise native default
   actions such as Tab movement.
 - Mobile has a Web profile structural gate for source-level mobile viewport and
-  fallback markers, but no native device or emulator gate yet.
+  fallback markers. `npm run verify:mobile-interactions` runs the eight
+  interaction scenarios in an iOS Simulator build (see RFC 0018). It needs
+  Xcode and is not part of `npm run verify:release`. Android, physical
+  devices, and touch gestures are not automated.
+- Dioxus 0.7 iOS apps stop at launch on iOS 27, because they do not adopt
+  the UIScene lifecycle. This affects every Dioxus 0.7 app; the Mobile
+  self-test uses iOS 26 or older by default.
 - Mobile browser smoke is documented as infeasible for release gates until
   browser automation dependencies are made portable.
 - The release aggregate currently reports the known `block` `0.1.6` Rust

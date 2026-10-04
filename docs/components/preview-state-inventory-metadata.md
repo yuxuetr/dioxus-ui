@@ -21,8 +21,9 @@ launching browsers, compiling Tailwind output, or scoring visual parity.
 
 The preview state inventory metadata gate should verify:
 
-- `examples/preview-states/src/lib.rs` exposes both `PreviewTarget::Web` and
-  `PreviewTarget::Desktop`.
+- `examples/preview-states/src/lib.rs` exposes `PreviewTarget::Web` and
+  `PreviewTarget::Desktop`. M143 adds `PreviewTarget::Mobile` for the iOS
+  Simulator preview in `examples/mobile-demo`.
 - `PreviewSurface` remains the shared rendered preview entry point.
 - Web and Desktop preview binaries call `PreviewSurface` with the matching
   target.

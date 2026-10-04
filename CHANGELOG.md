@@ -77,6 +77,8 @@ release owner renames it to the released version at publish time.
 - `npm run verify:desktop-interactions`: an in-app self-test that runs eight
   interaction scenarios in the Desktop preview's WebView and exits with the
   result.
+- `npm run verify:mobile-interactions`: the same scenarios in an iOS Simulator
+  build of the new `examples/mobile-demo` preview, read from the app console.
 
 ### Changed
 
@@ -95,8 +97,9 @@ release owner renames it to the released version at publish time.
 - Message markdown parsing, syntax highlighting, citation resolution,
   streaming, and provider integration.
 - DOM/WebView scroll commands for Message Scroller.
-- Verified Mobile runtime behavior and Desktop automation outside macOS;
-  Mobile coverage remains checklist based.
+- Android automation, touch gesture verification, and Desktop automation
+  outside macOS; Mobile touch, viewport, and assistive checks remain
+  checklist based.
 - Navigation Menu viewport size measurement, submenus, multi-select,
   typed date parsing, DOM portal mounting, and scroll lock.
 
