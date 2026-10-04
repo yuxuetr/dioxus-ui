@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M157 Input OTP Value Changes
-- Current task: M157.2 Implement Input OTP value changes
+- Current task: M157.3 Verify Input OTP typing in a real browser
 
 ## Backup
 
@@ -2855,7 +2855,7 @@
   - Define a required `length`, `on_value_change: Option<EventHandler<String>>` with the cleaned code, `input_otp_sanitize`, an overlay class for the input, a page script that filters the native value before Dioxus reads it, and attribute spreading on `InputOtp` and `InputOtpHiddenInput`.
   - Record what stays out of scope (editing a slot in the middle, a focus-aware active slot, `on_complete`, custom character policies, Desktop and Mobile self-test scenarios) with reevaluation conditions.
 
-- TODO M157.2 Implement Input OTP value changes
+- DONE M157.2 Implement Input OTP value changes
   - Add the callback, sanitize helper, overlay classes, filter script, and attribute spreading to the crate source and template, with unit tests and the CLI script parity entry.
   - Update the Input OTP docs page.
 
