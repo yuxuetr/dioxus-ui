@@ -4,7 +4,7 @@
 
 - Overall: 99%
 - Current milestone: M146 Accordion Interaction
-- Current task: M146.2 Implement accordion interaction
+- Current task: M146.3 Verify accordion behavior in a real browser
 
 ## Backup
 
@@ -2635,7 +2635,7 @@
   - Define an `Accordion` root that reports toggled items, `AccordionItem` `value`, heading-wrapped triggers with `aria-controls`, region content with `aria-labelledby`, and Up, Down, Home, and End movement between enabled triggers that keeps every trigger in the Tab order, reusing the roving group script.
   - Record what stays out of scope (an expanded item that cannot collapse, horizontal accordions, animation, Desktop and Mobile self-test scenarios) with reevaluation conditions.
 
-- TODO M146.2 Implement accordion interaction
+- DONE M146.2 Implement accordion interaction
   - Add an every-item Tab stop mode to the roving group script in the crate and the template `utils.rs`, share the part id builder with Tabs, and wire Accordion in the crate and the template.
   - Add single and multiple open-value helpers and update the Accordion docs page.
 
