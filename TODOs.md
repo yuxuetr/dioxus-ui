@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M137 Select and Combobox Listbox Behavior
+- Current task: M137.1
 
 ## Backup
 
@@ -2433,6 +2433,30 @@
 
 - DONE M136.5 Complete toast runtime milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, roadmap Stage 7 status, and accessibility docs.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M137 Select and Combobox Listbox Behavior
+
+- TODO M137.1 Design listbox overlay behavior
+  - Record that Select and Combobox render open state only: no trigger toggle, no anchored placement, no keyboard navigation, no typeahead, no option selection callback, and a hardcoded `aria-expanded` on the Combobox input.
+  - Define the additive API (`on_open_change`, `on_value_change`, trigger and input `id`, content anchoring props), the page-side listbox script that tracks the highlighted option with `aria-activedescendant`, and the Select-only typeahead.
+  - Record what stays out of scope (multi-select, async loading, the input-inside-content Combobox layout) with reevaluation conditions.
+
+- TODO M137.2 Implement Select listbox behavior
+  - `SelectTrigger` toggles through `on_open_change` and opens on ArrowDown or ArrowUp; `SelectContent` anchors to the trigger, highlights the selected or first enabled option, moves with arrows, Home, End, and typeahead, selects on Enter, Space, or click, and closes through `on_open_change`.
+  - Mirror the listbox helper into the utils template with a script parity test, and update the docs page.
+
+- TODO M137.3 Implement Combobox listbox behavior
+  - `ComboboxInput` gains `id`, `open`, `placeholder`, `oninput`, and `on_open_change`; `ComboboxContent` anchors to the input and reuses the listbox helper without typeahead so typing stays in the input.
+  - Highlight resets when filtering removes the highlighted option; update the template and docs page.
+
+- TODO M137.4 Verify listbox behavior in a real browser
+  - Render real Select and Combobox components in the Web preview and extend `npm run verify:runtime-interactions` to assert placement, arrow navigation that skips disabled options, typeahead, Enter and click selection, focus staying on the trigger or input, filtering, and Escape.
+  - Reverse-verify that the script fails when navigation or typeahead is removed.
+
+- TODO M137.5 Complete listbox milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and RFC 0010 out-of-scope status.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 
