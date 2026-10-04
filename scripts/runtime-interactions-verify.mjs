@@ -997,6 +997,72 @@ async function runBrowserAssertions() {
     await page.keyboard.press("Tab");
     await expect(tooltipContent).toBeHidden();
 
+    const hoverCard = page.locator('[data-interaction-target="hover-card"]');
+    const hoverCardTrigger = hoverCard.getByRole("link", { name: "@dioxus" });
+    const hoverCardContent = hoverCard.locator('[role="dialog"]');
+    const hoverCardHeading = hoverCard.getByRole("heading", { name: "Hover card interaction" });
+    await hoverCardTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    // The tooltip check ends with Tab onto this trigger; move focus away first.
+    await expect(hoverCardTrigger).toBeFocused();
+    await hoverCardHeading.click();
+    await expect(hoverCardContent).toBeHidden();
+    await page.mouse.move(5, 5);
+    // Hover opens after the 700 ms delay.
+    await hoverCardTrigger.hover();
+    await page.waitForTimeout(300);
+    await expect(hoverCardContent).toBeHidden();
+    await expectAnchoredReady(hoverCard);
+    await expect(hoverCardContent).toHaveAttribute("data-side", "bottom");
+    // The card is not named in the trigger's description.
+    await expect(hoverCardTrigger).not.toHaveAttribute("aria-describedby", /./);
+    // The pointer can cross the gap onto the card.
+    const hoverCardBox = await hoverCardContent.boundingBox();
+    await page.mouse.move(hoverCardBox.x + 20, hoverCardBox.y + 20, { steps: 4 });
+    await page.waitForTimeout(400);
+    await expect(hoverCardContent).toBeVisible();
+    // Leaving closes it after the 300 ms close delay.
+    await page.mouse.move(5, 5);
+    await page.waitForTimeout(150);
+    await expect(hoverCardContent).toBeVisible();
+    await expect(hoverCardContent).toBeHidden();
+    // A press on the trigger keeps it open, and so does a press on the card's
+    // text after it, which moves focus off the trigger.
+    await hoverCardTrigger.hover();
+    await expect(hoverCardContent).toBeVisible();
+    await hoverCardTrigger.click();
+    await expect(hoverCardTrigger).toBeFocused();
+    await page.waitForTimeout(400);
+    await expect(hoverCardContent).toBeVisible();
+    await hoverCard.getByText("Fullstack app framework for Rust.").click();
+    await expect(hoverCardTrigger).not.toBeFocused();
+    await page.waitForTimeout(400);
+    await expect(hoverCardContent).toBeVisible();
+    await expect(hoverCardTrigger).not.toHaveAttribute("aria-describedby", /./);
+    // An outside press closes it; dispatch the press alone so the pointer stays.
+    await page.evaluate(() => {
+      document.body.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true }));
+    });
+    await expect(hoverCardContent).toBeHidden();
+    await page.mouse.move(5, 5);
+    // Keyboard focus opens it, and Tab into the card keeps it open.
+    await hoverCardHeading.click();
+    await page.keyboard.press("Tab");
+    await expect(hoverCardTrigger).toBeFocused();
+    await expect(hoverCardContent).toBeVisible({ timeout: 400 });
+    await page.keyboard.press("Tab");
+    await expect(hoverCard.getByRole("link", { name: "View profile" })).toBeFocused();
+    await page.waitForTimeout(300);
+    await expect(hoverCardContent).toBeVisible();
+    await page.keyboard.press("Tab");
+    await expect(hoverCardContent).toBeHidden();
+    await hoverCardHeading.click();
+    await page.keyboard.press("Tab");
+    await expect(hoverCardContent).toBeVisible({ timeout: 400 });
+    // Escape is handled once the card is placed.
+    await expectAnchoredReady(hoverCard);
+    await page.keyboard.press("Escape");
+    await expect(hoverCardContent).toBeHidden();
+
     const toast = page.locator('[data-interaction-target="toast"]');
     const toastTrigger = page.locator('[data-interaction-control="toast-trigger"]');
     const toastRoot = toast.locator('[role="status"]');
@@ -1107,7 +1173,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (21 fixtures)");
+  console.log("runtime interaction verification passed (22 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

@@ -7,14 +7,16 @@ use dioxus_ui::{
   CalendarNav, CalendarNavButton, CalendarNavDirection, CalendarRow, CalendarWeekday,
   ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList, ContextMenuCheckboxItem,
   ContextMenuContent, ContextMenuItem, DatePickerContent, DatePickerTrigger, DatePickerValue,
-  DropdownContent, DropdownItem, DropdownSeparator, Menubar, MenubarContent, MenubarItem,
-  MenubarMenu, MenubarTrigger, NavigationMenu, NavigationMenuContent, NavigationMenuItem,
-  NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, NavigationOrientation, RadioGroup,
-  RadioGroupItem, SelectContent, SelectItem, SelectTrigger, SelectValue, SonnerClose,
-  SonnerContent, SonnerTitle, SonnerToast, SonnerVariant, SonnerViewport, Tabs, TabsContent,
-  TabsList, TabsTrigger, ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport,
-  ToggleGroup, ToggleGroupItem, accordion_single_open, calendar_month_grid, calendar_move_date,
-  sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute, toggle_group_single_selection,
+  DropdownContent, DropdownItem, DropdownSeparator, HoverCard, HoverCardContent,
+  HoverCardDescription, HoverCardHeader, HoverCardTitle, HoverCardTrigger, Menubar, MenubarContent,
+  MenubarItem, MenubarMenu, MenubarTrigger, NavigationMenu, NavigationMenuContent,
+  NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger,
+  NavigationOrientation, RadioGroup, RadioGroupItem, SelectContent, SelectItem, SelectTrigger,
+  SelectValue, SonnerClose, SonnerContent, SonnerTitle, SonnerToast, SonnerVariant, SonnerViewport,
+  Tabs, TabsContent, TabsList, TabsTrigger, ToastAction, ToastClose, ToastRoot, ToastTitle,
+  ToastViewport, ToggleGroup, ToggleGroupItem, accordion_single_open, calendar_month_grid,
+  calendar_move_date, sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute,
+  toggle_group_single_selection,
 };
 use dioxus_ui::{
   AlertDialogAction, AlertDialogActionVariant, AlertDialogCancel, AlertDialogContent,
@@ -728,6 +730,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
     date_month.set(CalendarMonth::unchecked(date.year, date.month));
   };
   let mut tooltip_open = use_signal(|| false);
+  let mut hover_card_open = use_signal(|| false);
   let mut toast_open = use_signal(|| false);
   let mut toast_reason = use_signal(|| "none");
   let mut sonner_open = use_signal(|| false);
@@ -1580,6 +1583,32 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               on_open_change: move |open| tooltip_open.set(open),
               TooltipTrigger { class: "{secondary_button_class} mt-3", "Hover for tooltip" }
               TooltipContent { open: tooltip_open(), "Saved 2 minutes ago" }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "hover-card",
+            "data-state": if hover_card_open() { "open" } else { "closed" },
+            h2 { class: "text-sm font-medium", "Hover card interaction" }
+            HoverCard {
+              on_open_change: move |open| hover_card_open.set(open),
+              HoverCardTrigger {
+                href: "#hover-card-dioxus",
+                class: "mt-3 inline-block text-sm font-medium underline",
+                "@dioxus"
+              }
+              HoverCardContent {
+                open: hover_card_open(),
+                HoverCardHeader {
+                  HoverCardTitle { "Dioxus" }
+                  HoverCardDescription { "Fullstack app framework for Rust." }
+                }
+                a {
+                  class: "mt-2 inline-block text-sm underline",
+                  href: "#hover-card-profile",
+                  "View profile"
+                }
+              }
             }
           }
           article {
