@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50% (M145: 2/4)
+- Overall: 75% (M145: 3/4)
 - Current milestone: M145 Android Interaction Verification
-- Current task: M145.3 Reverse-verify the Android self-test
+- Current task: M145.4 Complete Android verification milestone
 
 ## Backup
 
@@ -2619,7 +2619,7 @@
   - Read the self-test request from the system property in `examples/mobile-demo` on Android.
   - Add `npm run verify:android-interactions`, which builds the APK with `dx build --android`, selects or boots an emulator, installs, sets the property, launches, reads the result from logcat, and clears the property; it reports a broken NDK install before building.
 
-- TODO M145.3 Reverse-verify the Android self-test
+- DONE M145.3 Reverse-verify the Android self-test
   - Confirm the command fails when an interaction path is broken, when the app reports no result, and when the NDK has flattened symlinks.
   - Keep the command out of `npm run verify:release` because it needs the Android SDK, NDK, and an emulator.
 
