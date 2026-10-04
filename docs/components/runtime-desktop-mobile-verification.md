@@ -62,6 +62,50 @@ Desktop support should graduate one runtime family at a time. Focus and portal
 can be verified before gestures; gestures should wait until pointer capture is
 stable.
 
+### Desktop Interaction Self-Test
+
+M142 adds an automated Desktop interaction check
+([RFC 0017](../rfcs/0017-desktop-interaction-verification.md)):
+
+```bash
+npm run verify:desktop-interactions
+```
+
+The command builds the Desktop preview (`dioxus-ui-desktop-demo`, binary
+`preview`) and runs it with `DIOXUS_UI_DESKTOP_SELF_TEST=1`. The app runs
+`examples/desktop-demo/self-test/interactions.js` in its own WebView, prints
+`desktop interaction verification passed (8 scenarios: ...)` or the failing
+scenario, and exits with that status. WKWebView has no WebDriver endpoint, so
+the scenarios drive the shared interaction fixtures from inside the page:
+
+| Scenario | Path exercised |
+| --- | --- |
+| `dialog` | modal focus scope: focus entry, Escape, focus return |
+| `popover` | anchored overlay: fixed placement next to the trigger, outside press |
+| `select` | Rust ArrowDown handler, listbox highlight, Enter selection |
+| `dropdown` | menu mode: focus entry, wrapping, disabled skip, activation, focus return |
+| `toast` | dismiss timer countdown and timeout reason |
+| `date-picker` | calendar focus following through `MountedData::set_focus`, across a keyed month change |
+| `menubar` | trigger roving, menu switching past a disabled trigger, focus return |
+| `navigation-menu` | click toggle, ArrowDown content entry, Escape focus return |
+
+Dispatched events are untrusted, so Tab movement and Enter clicking a button
+are not exercised on Desktop; the Web browser smoke covers those browser
+defaults. The command opens a window and needs a GUI session, so it is not
+part of `npm run verify` or `npm run verify:release`. Do not move the mouse
+over the window while it runs: real pointer movement reaches the hover-driven
+scripts.
+
+Reverse checks on macOS each made the command exit with status 1. Each one
+removed one behavior and was then restored:
+
+- dialog focus return
+- listbox selection reporting
+- menubar switching inside a menu
+- the calendar `set_focus` call
+
+A 300 ms overall timeout also made it report `timed out` instead of hanging.
+
 ## Mobile Verification
 
 Mobile should be treated as a target profile with stricter interaction rules,
