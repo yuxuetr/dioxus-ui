@@ -1,6 +1,7 @@
 use dioxus::prelude::*;
 
 mod self_test;
+use dioxus_ui::Progress;
 use dioxus_ui::{
   Accordion, AccordionContent, AccordionItem, AccordionTrigger, Calendar, CalendarBody,
   CalendarCaption, CalendarDate, CalendarDay, CalendarGrid, CalendarHeader, CalendarMonth,
@@ -1177,10 +1178,12 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             SelectTrigger {
               id: "interaction-select-trigger",
               class: "mt-3",
+              "aria-describedby": "interaction-select-hint",
               open: select_open(),
               on_open_change: move |open| select_open.set(open),
               SelectValue { "{fruit_label(&select_value())}" }
             }
+            p { id: "interaction-select-hint", class: "text-xs", "Pick one fruit." }
             SelectContent {
               open: select_open(),
               anchor_id: "interaction-select-trigger",
@@ -1248,6 +1251,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             ComboboxInput {
               id: "interaction-combobox-input",
               class: "mt-3 border border-zinc-200",
+              "aria-label": "Fruit",
+              "aria-describedby": "interaction-select-hint",
               value: combobox_query(),
               open: combobox_open(),
               placeholder: "Search fruit",
@@ -1549,11 +1554,41 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             RadioGroup {
               class: "mt-3",
               value: radio_value(),
+              "aria-label": "Size",
               on_value_change: move |value: String| radio_value.set(Some(value)),
-              RadioGroupItem { value: "small", checked: radio_checked("small") }
-              RadioGroupItem { value: "medium", checked: radio_checked("medium"), disabled: true }
-              RadioGroupItem { value: "large", checked: radio_checked("large") }
-              RadioGroupItem { value: "x-large", checked: radio_checked("x-large") }
+              RadioGroupItem {
+                id: "interaction-radio-small",
+                value: "small",
+                checked: radio_checked("small"),
+              }
+              Label { r#for: "interaction-radio-small", "Small" }
+              RadioGroupItem {
+                value: "medium",
+                "aria-label": "Medium",
+                checked: radio_checked("medium"),
+                disabled: true,
+              }
+              RadioGroupItem {
+                value: "large",
+                "aria-label": "Large",
+                checked: radio_checked("large"),
+              }
+              RadioGroupItem {
+                value: "x-large",
+                "aria-label": "Extra large",
+                checked: radio_checked("x-large"),
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "progress",
+            h2 { id: "interaction-progress-label", class: "text-sm font-medium", "Upload" }
+            Progress {
+              class: "mt-3",
+              value: 60.0,
+              "aria-labelledby": "interaction-progress-label",
+              "aria-valuetext": "3 of 5 files",
             }
           }
           article {

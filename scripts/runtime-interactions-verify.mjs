@@ -310,6 +310,7 @@ async function runBrowserAssertions() {
 
     const select = page.locator('[data-interaction-target="select"]');
     const selectTrigger = page.locator("#interaction-select-trigger");
+    await expect(selectTrigger).toHaveAccessibleDescription("Pick one fruit.");
     const selectContent = select.locator('[role="listbox"]');
     const selectHighlighted = selectContent.locator("[data-highlighted]");
     const selectOption = (name) => selectContent.getByRole("option", { name, exact: true });
@@ -469,6 +470,11 @@ async function runBrowserAssertions() {
 
     const combobox = page.locator('[data-interaction-target="combobox"]');
     const comboboxInput = page.locator("#interaction-combobox-input");
+    await expect(combobox.getByRole("combobox", { name: "Fruit", exact: true })).toHaveAttribute(
+      "id",
+      "interaction-combobox-input",
+    );
+    await expect(comboboxInput).toHaveAccessibleDescription("Pick one fruit.");
     const comboboxContent = combobox.locator('[role="listbox"]');
     const comboboxHighlighted = comboboxContent.locator("[data-highlighted]");
     const comboboxOption = (name) => comboboxContent.getByRole("option", { name, exact: true });
@@ -934,6 +940,15 @@ async function runBrowserAssertions() {
     const radioGroup = page.locator('[data-interaction-target="radio-group"]');
     const radio = (value) => radioGroup.locator(`[role="radio"][data-value="${value}"]`);
     await radio("small").evaluate((element) => element.scrollIntoView({ block: "center" }));
+    // The group and every item have a name: Small through a Label, the rest
+    // through aria-label.
+    await expect(radioGroup.getByRole("radiogroup", { name: "Size", exact: true })).toHaveCount(1);
+    for (const [name, value] of [["Small", "small"], ["Medium", "medium"], ["Large", "large"], ["Extra large", "x-large"]]) {
+      await expect(radioGroup.getByRole("radio", { name, exact: true })).toHaveAttribute("data-value", value);
+    }
+    const progressBar = page.locator('[data-interaction-target="progress"]').getByRole("progressbar", { name: "Upload", exact: true });
+    await expect(progressBar).toHaveAttribute("aria-valuenow", "60");
+    await expect(progressBar).toHaveAttribute("aria-valuetext", "3 of 5 files");
     // Nothing checked: the first enabled item is the Tab stop.
     await expect(radio("small")).toHaveAttribute("tabindex", "0");
     await expect(radio("large")).toHaveAttribute("tabindex", "-1");
@@ -1799,7 +1814,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (33 fixtures)");
+  console.log("runtime interaction verification passed (34 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
