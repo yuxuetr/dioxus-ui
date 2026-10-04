@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M167 Slider Thumb Position And Vertical Orientation
-- Current task: M167.4 Complete slider milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -3060,7 +3060,7 @@
   - Extend `npm run verify:runtime-interactions` to assert that the horizontal thumb follows the value and that a vertical slider in the Web preview has a vertical orientation, places its thumb from the bottom, and changes value by pointer and ArrowUp.
   - Reverse-verify that the script fails when the thumb is not positioned, when the vertical pointer uses `clientX`, or when `aria-orientation` stays horizontal.
 
-- TODO M167.4 Complete slider milestone
+- DONE M167.4 Complete slider milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and accessibility docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
