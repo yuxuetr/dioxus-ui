@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M159 Carousel Slide Changes
-- Current task: M159.1 Design carousel slide changes
+- Current task: M159.2 Implement carousel slide changes
 
 ## Backup
 
@@ -2890,7 +2890,7 @@
 
 ## M159 Carousel Slide Changes
 
-- TODO M159.1 Design carousel slide changes
+- DONE M159.1 Design carousel slide changes
   - Record that nothing translates Carousel content so the first slide always shows, that Previous, Next, and indicators have no click handler, that the root handles no keys, that every indicator has the same `aria-label`, and that no part accepts attributes.
   - Define `CarouselContent` `index` with a per-item percentage translate, `onclick` on Previous, Next, and Indicator, `Carousel` `on_key_step` with `CarouselStep`, attribute spreading, and a passed `aria-label` replacing the English default.
   - Record what stays out of scope (hiding off-screen slides, swipe gestures, autoplay, right-to-left mirroring, ignoring arrows typed into fields, Desktop and Mobile self-test scenarios) with reevaluation conditions.
