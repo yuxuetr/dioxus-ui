@@ -93,6 +93,7 @@ mod anchored_overlay;
 
 #[cfg(any(
   feature = "combobox",
+  feature = "command",
   feature = "context-menu",
   feature = "dropdown",
   feature = "menubar",
@@ -374,7 +375,8 @@ pub use command::{
   CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandLabel, CommandList,
   CommandSeparator, CommandShortcut, command_active_descendant_state, command_class,
   command_empty_class, command_group_class, command_input_class, command_item_class,
-  command_label_class, command_list_class, command_separator_class, command_shortcut_class,
+  command_label_class, command_list_class, command_matches, command_separator_class,
+  command_shortcut_class,
 };
 #[cfg(feature = "context-menu")]
 pub use context_menu::{

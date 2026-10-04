@@ -1,8 +1,8 @@
 # Command
 
-Command provides controlled command palette and searchable action list parts. It
-exposes active descendant semantics but leaves filtering and keyboard event
-wiring to the consuming app.
+Command provides command palette and searchable action list parts. Focus stays
+in the input while arrow keys move the highlight, and Enter or a click chooses
+an item. Filtering stays with the app.
 
 ## Source Copy
 
@@ -31,10 +31,59 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["command"] 
 - `command_class`
 - `command_input_class`
 - `command_item_class`
+- `command_matches`
 - `command_active_descendant_state`
+
+## Behavior
+
+The query and the chosen item stay with the app. Keep the query, filter the
+items you render, and handle `Command` `on_select`:
+
+```rust
+let mut query = use_signal(String::new);
+let items = [("calendar", "Calendar"), ("settings", "Settings")];
+
+rsx! {
+  Command {
+    on_select: move |value: String| run(&value),
+    CommandInput {
+      value: query(),
+      placeholder: "Type a command...",
+      oninput: move |event: FormEvent| query.set(event.value()),
+    }
+    CommandList {
+      for (value, label) in items.into_iter().filter(|(_, label)| command_matches(label, &query())) {
+        CommandItem { key: "{value}", id: "command-{value}", value, "{label}" }
+      }
+    }
+  }
+}
+```
+
+- The selected option, or else the first enabled option, starts highlighted.
+  The input's `aria-activedescendant` names it and the item has
+  `data-highlighted`.
+- ArrowDown and ArrowUp move to the next or previous enabled option and stop
+  at the ends. Home and End highlight the first and last enabled option.
+- Typing, including Space, goes to the input. When the query changes, the
+  highlight goes back to the first enabled option of the re-rendered list.
+- Enter or a click on an option calls `on_select` with its `value`, or its
+  `id` without one. Focus stays in the input. Disabled items are skipped and
+  cannot be chosen.
+- Moving the pointer over an option highlights it.
+- When nothing matches, render `CommandEmpty`; the input then has no
+  `aria-activedescendant` and Enter does nothing.
+- `command_matches(label, query)` is true when the trimmed query is empty or
+  the label contains it, ignoring case.
+- Inside `Command`, the input has an id and `aria-controls` naming the list.
+- Without `Command`, the parts render state only and the app wires keys
+  itself with `active_id`, `active`, and `selected`.
+
+The Web renderer is covered by `npm run verify:runtime-interactions`.
 
 ## Accessibility Notes
 
 Input uses combobox semantics, list uses listbox semantics, and items use option
-semantics. Runtime filtering, keyboard navigation, and command execution are
-owned by the consuming app in this phase.
+semantics. Fuzzy ranking, looping, Ctrl key bindings, and result count
+announcements are not implemented (see
+[RFC 0024](../rfcs/0024-command-keyboard-and-filtering.md)).

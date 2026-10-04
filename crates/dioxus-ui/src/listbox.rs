@@ -6,7 +6,7 @@ use dioxus::prelude::*;
 
 static NEXT_LISTBOX_ID: AtomicUsize = AtomicUsize::new(0);
 
-// Select and Combobox keep focus on the anchor (trigger or input) and track
+// Select, Combobox, and Command keep focus on the anchor (trigger or input) and track
 // the highlighted option through `aria-activedescendant`; menus move DOM focus
 // to the highlighted item instead. Items are read from the DOM on every key so
 // items re-rendered while filtering are picked up. Sends the chosen item's
@@ -20,6 +20,10 @@ const anchor = anchorId ? document.getElementById(anchorId) : null;
 const previous = document.activeElement;
 const isMenu = mode === "menu";
 const jumps = mode !== "combobox";
+// Space and typeahead are for modes where no input takes the typing.
+const searchesByKey = mode === "select" || isMenu;
+// Command goes back to the first option when the query changes.
+const resetsOnInput = mode === "command";
 const itemSelector = isMenu
   ? '[role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"]'
   : '[role="option"]';
@@ -98,9 +102,9 @@ const onKeyDown = (event) => {
     highlight(list[last] || null);
   } else if (event.key === "Enter" && highlighted) {
     activate(highlighted);
-  } else if (jumps && event.key === " " && highlighted && !typing()) {
+  } else if (searchesByKey && event.key === " " && highlighted && !typing()) {
     activate(highlighted);
-  } else if (jumps && event.key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey) {
+  } else if (searchesByKey && event.key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey) {
     typeahead(event.key.toLowerCase());
   } else {
     handled = false;
@@ -120,25 +124,39 @@ const onPointerMove = (event) => {
 const onPointerDown = (event) => event.preventDefault();
 const onClick = (event) => choose(optionFrom(event.target));
 const keySource = isMenu ? listbox : anchor;
+// Resets at once, and again on the next DOM change, which is the app's
+// re-render of the filtered list.
+let resetPending = false;
+const onInput = () => {
+  resetPending = true;
+  highlight(initial());
+};
 let finish;
 const ended = new Promise((resolve) => {
   finish = resolve;
 });
 const observer = new MutationObserver(() => {
   if (!listbox.isConnected || listbox.hidden) return finish();
-  if (highlighted && !options().includes(highlighted)) highlight(initial());
+  if (resetPending) {
+    resetPending = false;
+    highlight(initial());
+  } else if (highlighted && !options().includes(highlighted)) {
+    highlight(initial());
+  }
 });
 await new Promise((resolve) => requestAnimationFrame(resolve));
 if (!listbox.isConnected || listbox.hidden) return;
 highlight(initial());
 observer.observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ["hidden", "data-disabled", "aria-disabled"] });
 if (keySource) keySource.addEventListener("keydown", onKeyDown);
+if (resetsOnInput && anchor) anchor.addEventListener("input", onInput);
 listbox.addEventListener("pointermove", onPointerMove);
 listbox.addEventListener("pointerdown", onPointerDown);
 listbox.addEventListener("click", onClick);
 await ended;
 observer.disconnect();
 if (keySource) keySource.removeEventListener("keydown", onKeyDown);
+if (resetsOnInput && anchor) anchor.removeEventListener("input", onInput);
 listbox.removeEventListener("pointermove", onPointerMove);
 listbox.removeEventListener("pointerdown", onPointerDown);
 listbox.removeEventListener("click", onClick);
@@ -165,6 +183,10 @@ pub(crate) enum ListboxMode {
   /// Combobox: starts without a highlight and leaves typing to the input.
   #[cfg(feature = "combobox")]
   Combobox,
+  /// Command: like Select for Home and End, but leaves typing to the input
+  /// and goes back to the first option when the query changes.
+  #[cfg(feature = "command")]
+  Command,
   /// Menu: focuses the first item, moves DOM focus with wrapping arrows, Home,
   /// End, and typeahead, activates items by clicking them, and returns focus
   /// on close.
@@ -179,12 +201,14 @@ impl ListboxMode {
       Self::Select => "select",
       #[cfg(feature = "combobox")]
       Self::Combobox => "combobox",
+      #[cfg(feature = "command")]
+      Self::Command => "command",
       #[cfg(any(feature = "context-menu", feature = "dropdown", feature = "menubar"))]
       Self::Menu => "menu",
     }
   }
 
-  /// Select and Combobox read keys from their anchor; menus read them from
+  /// Select, Combobox, and Command read keys from their anchor; menus read them from
   /// the focused item and also run without an anchor.
   fn needs_anchor(self) -> bool {
     match self {
@@ -192,6 +216,8 @@ impl ListboxMode {
       Self::Select => true,
       #[cfg(feature = "combobox")]
       Self::Combobox => true,
+      #[cfg(feature = "command")]
+      Self::Command => true,
       #[cfg(any(feature = "context-menu", feature = "dropdown", feature = "menubar"))]
       Self::Menu => false,
     }

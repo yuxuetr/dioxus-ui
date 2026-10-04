@@ -1,5 +1,9 @@
+use std::sync::atomic::{AtomicUsize, Ordering};
+
 use dioxus::prelude::*;
-use super::utils::classes;
+use super::utils::{ListboxMode, classes, use_listbox};
+
+static NEXT_COMMAND_ID: AtomicUsize = AtomicUsize::new(0);
 
 pub const COMMAND_BASE_CLASS: &str = "flex h-full w-full flex-col overflow-hidden rounded-md bg-white text-zinc-950";
 pub const COMMAND_INPUT_BASE_CLASS: &str = "flex h-11 w-full rounded-md bg-transparent px-3 py-2 text-sm outline-none placeholder:text-zinc-500 disabled:cursor-not-allowed disabled:opacity-50";
@@ -7,7 +11,7 @@ pub const COMMAND_LIST_BASE_CLASS: &str = "max-h-80 overflow-y-auto overflow-x-h
 pub const COMMAND_EMPTY_BASE_CLASS: &str = "py-6 text-center text-sm text-zinc-500";
 pub const COMMAND_GROUP_BASE_CLASS: &str = "overflow-hidden p-1 text-zinc-950";
 pub const COMMAND_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-zinc-500";
-pub const COMMAND_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-active:bg-zinc-100 data-active:text-zinc-950 data-disabled:pointer-events-none data-disabled:opacity-50 data-selected:bg-zinc-100";
+pub const COMMAND_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-active:bg-zinc-100 data-active:text-zinc-950 data-highlighted:bg-zinc-100 data-highlighted:text-zinc-950 data-disabled:pointer-events-none data-disabled:opacity-50 data-selected:bg-zinc-100";
 pub const COMMAND_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-zinc-200";
 pub const COMMAND_SHORTCUT_BASE_CLASS: &str = "ml-auto text-xs tracking-normal text-zinc-500";
 
@@ -55,37 +59,89 @@ pub fn command_shortcut_class(class: &str) -> String {
   classes([Some(COMMAND_SHORTCUT_BASE_CLASS), Some(class)])
 }
 
+/// Returns true when the trimmed `query` is empty or `label` contains it,
+/// ignoring case.
+pub fn command_matches(label: &str, query: &str) -> bool {
+  let query = query.trim();
+
+  query.is_empty() || label.to_lowercase().contains(&query.to_lowercase())
+}
+
+#[derive(Clone, PartialEq)]
+struct CommandContext {
+  base_id: String,
+}
+
+impl CommandContext {
+  fn input_id(&self) -> String {
+    format!("{}-input", self.base_id)
+  }
+
+  fn list_id(&self) -> String {
+    format!("{}-list", self.base_id)
+  }
+}
+
+/// Keeps focus in `CommandInput` and highlights options from there: the first
+/// option starts highlighted, Up, Down, Home, and End move the highlight, and
+/// a query change moves it back to the first option. Enter or a click on an
+/// option calls `on_select` with its value.
 #[component]
-pub fn Command(#[props(default)] class: String, children: Element) -> Element {
+pub fn Command(
+  #[props(default)] on_select: Option<EventHandler<String>>,
+  #[props(default)] class: String,
+  children: Element,
+) -> Element {
   let class = command_class(&class);
+  let base_id =
+    use_hook(|| format!("dxui-command-{}", NEXT_COMMAND_ID.fetch_add(1, Ordering::Relaxed)));
+  let context = use_context_provider(|| CommandContext { base_id });
+  let listbox = use_listbox(true, Some(context.input_id()), ListboxMode::Command, on_select, None);
 
   rsx! {
     div {
       class,
+      "data-dxui-listbox": listbox,
       {children}
     }
   }
 }
 
+/// Typed text reaches the app through `oninput`; the app filters the items it
+/// renders, for example with `command_matches`.
 #[component]
 pub fn CommandInput(
   #[props(default)] value: String,
+  #[props(default)] placeholder: String,
   #[props(default)] active_id: Option<String>,
   #[props(default)] disabled: bool,
+  #[props(default)] oninput: Option<EventHandler<FormEvent>>,
   #[props(default)] class: String,
 ) -> Element {
   let class = command_input_class(&class);
   let active_descendant = active_id.unwrap_or_default();
+  let context = try_use_context::<CommandContext>();
+  let id = context.as_ref().map(CommandContext::input_id);
+  let controls = context.as_ref().map(CommandContext::list_id);
 
   rsx! {
     input {
       role: "combobox",
+      id,
       class,
       value,
+      placeholder,
       disabled,
+      autocomplete: "off",
       "aria-activedescendant": active_descendant,
       "aria-autocomplete": "list",
+      "aria-controls": controls,
       "aria-expanded": "true",
+      oninput: move |event| {
+        if let Some(handler) = oninput {
+          handler.call(event);
+        }
+      },
     }
   }
 }
@@ -98,10 +154,12 @@ pub fn CommandList(
 ) -> Element {
   let class = command_list_class(&class);
   let active_descendant = active_id.unwrap_or_default();
+  let id = try_use_context::<CommandContext>().map(|context| context.list_id());
 
   rsx! {
     div {
       role: "listbox",
+      id,
       class,
       "aria-activedescendant": active_descendant,
       {children}
@@ -146,9 +204,16 @@ pub fn CommandLabel(#[props(default)] class: String, children: Element) -> Eleme
   }
 }
 
+/// Returns the value an item reports when chosen: `value`, or else its `id`.
+fn command_item_value(id: &str, value: Option<String>) -> String {
+  value.unwrap_or_else(|| id.to_string())
+}
+
+/// Reports `value`, or its `id` without one, when chosen inside `Command`.
 #[component]
 pub fn CommandItem(
   id: String,
+  #[props(default)] value: Option<String>,
   #[props(default)] active: bool,
   #[props(default)] selected: bool,
   #[props(default)] disabled: bool,
@@ -156,6 +221,7 @@ pub fn CommandItem(
   children: Element,
 ) -> Element {
   let class = command_item_class(active, selected, &class);
+  let value = command_item_value(&id, value);
 
   rsx! {
     div {
@@ -167,6 +233,7 @@ pub fn CommandItem(
       "data-active": active.to_string(),
       "data-disabled": disabled.to_string(),
       "data-selected": selected.to_string(),
+      "data-value": value,
       {children}
     }
   }
