@@ -14,10 +14,10 @@ use dioxus_ui::{
   NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger,
   NavigationOrientation, RadioGroup, RadioGroupItem, SelectContent, SelectItem, SelectTrigger,
   SelectValue, SonnerClose, SonnerContent, SonnerTitle, SonnerToast, SonnerVariant, SonnerViewport,
-  Tabs, TabsContent, TabsList, TabsTrigger, ToastAction, ToastClose, ToastRoot, ToastTitle,
-  ToastViewport, ToggleGroup, ToggleGroupItem, accordion_single_open, calendar_month_grid,
-  calendar_move_date, command_matches, sonner_dismiss_reason_attribute,
-  toast_dismiss_reason_attribute, toggle_group_single_selection,
+  Tabs, TabsActivation, TabsContent, TabsList, TabsOrientation, TabsTrigger, ToastAction,
+  ToastClose, ToastRoot, ToastTitle, ToastViewport, ToggleGroup, ToggleGroupItem,
+  accordion_single_open, calendar_month_grid, calendar_move_date, command_matches,
+  sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute, toggle_group_single_selection,
 };
 use dioxus_ui::{
   AlertDialogAction, AlertDialogActionVariant, AlertDialogCancel, AlertDialogContent,
@@ -714,6 +714,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let navigation_open = move |value: &str| navigation_active() == value;
   let mut tabs_value = use_signal(|| "account".to_string());
   let tab_active = move |value: &str| tabs_value() == value;
+  let mut settings_tab = use_signal(|| "general".to_string());
+  let settings_tab_active = move |value: &str| settings_tab() == value;
   let mut radio_value = use_signal(|| None::<String>);
   let radio_checked = move |value: &str| radio_value().as_deref() == Some(value);
   let mut toggle_value = use_signal(|| None::<String>);
@@ -1446,6 +1448,34 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               TabsContent { value: "password", active: tab_active("password"), "Password settings" }
               TabsContent { value: "billing", active: tab_active("billing"), "Billing settings" }
               TabsContent { value: "team", active: tab_active("team"), "Team settings" }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "tabs-vertical",
+            "data-value": "{settings_tab}",
+            h2 { class: "text-sm font-medium", "Vertical tabs interaction" }
+            Tabs {
+              class: "mt-3",
+              activation: TabsActivation::Manual,
+              orientation: TabsOrientation::Vertical,
+              on_value_change: move |value: String| settings_tab.set(value),
+              TabsList {
+                TabsTrigger { value: "general", active: settings_tab_active("general"), "General" }
+                TabsTrigger { value: "security", active: settings_tab_active("security"), "Security" }
+                TabsTrigger {
+                  value: "notifications",
+                  active: settings_tab_active("notifications"),
+                  "Notifications"
+                }
+              }
+              TabsContent { value: "general", active: settings_tab_active("general"), "General settings" }
+              TabsContent { value: "security", active: settings_tab_active("security"), "Security settings" }
+              TabsContent {
+                value: "notifications",
+                active: settings_tab_active("notifications"),
+                "Notification settings"
+              }
             }
           }
           article {

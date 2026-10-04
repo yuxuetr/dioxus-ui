@@ -122,6 +122,7 @@ controls, so the verifier exercises the shipped overlay behavior from
 | `menubar` | Menubar | the triggers are one Tab stop; Left and Right wrap and skip the disabled trigger, Home and End jump; ArrowDown and Enter open a menu on its first item; Left and Right inside an open menu switch to the adjacent menu; with `dir="rtl"` ArrowLeft moves to and opens the next menu and ArrowRight the previous one, while Up and Down inside a menu are unchanged; Escape returns focus to the open menu's trigger; hovering a trigger switches menus only while one is open; click runs an item, closes, and returns focus; clicking the open trigger closes it; Tab closes and leaves the bar |
 | `navigation-menu` | Navigation Menu | a click toggles content and a click-closed trigger stays closed under the pointer; Left, Right, Home, and End move between top-level triggers and links, skipping the disabled trigger, with Left and Right swapped under `dir="rtl"`; Enter and Space toggle; ArrowDown opens content on its first link, ArrowDown wraps and skips the disabled link, and Tab continues in document order; Escape returns focus to the trigger; focus leaving, an outside press, and a content link click close it; hover opens after a delay, switches immediately while open, and closes after leaving |
 | `tabs` | Tabs | the selected trigger is the only Tab stop and names its panel through `aria-controls` and `aria-labelledby`; Left and Right wrap and skip the disabled trigger, Home and End jump, and each move selects the focused tab; with `dir="rtl"` the next tab sits on the left and ArrowLeft moves to it; removing `dir` restores the keys; Tab moves into the visible panel; a click selects |
+| `tabs-vertical` | Tabs, vertical with manual activation | the list has `aria-orientation="vertical"` and the root, list, and panels `data-orientation="vertical"`; Up and Down move, wrap, and leave the selection alone, Left and Right do nothing, Home and End jump; Enter, Space, and click select; Tab from an unselected trigger reaches the selected panel and Shift+Tab returns to the selected trigger |
 | `radio-group` | Radio Group | with nothing checked the first enabled item is the Tab stop; all four arrows move, wrap, skip the disabled item, and check the focused item; with `dir="rtl"` Left and Right swap while Up and Down do not; the checked item becomes the Tab stop; a click checks |
 | `toggle-group` | Toggle Group | arrows move focus without pressing, ignore Up and Down in a horizontal group, wrap, and skip the disabled item; Left and Right swap under `dir="rtl"`; Enter and click toggle; the last focused item stays the Tab stop after focus leaves |
 | `accordion` | Accordion | each trigger sits in a heading and names its region through `aria-controls` and `aria-labelledby`; every enabled trigger is a Tab stop; click, Enter, and Space toggle, and toggling the open item closes it; Up and Down move focus without toggling, wrap, and skip the disabled trigger, Home and End jump, and Left and Right do nothing |
@@ -208,6 +209,15 @@ enabled item so that wrapping next and previous land on different items.
 Removing the swap from the roving group, Menubar, or Navigation Menu script,
 or also swapping Up and Down, each make the verifier fail.
 
+M151 adds the vertical Tabs row from
+[RFC 0026](../rfcs/0026-tabs-manual-activation-and-vertical-orientation.md).
+Selecting on focus in manual mode, removing the Tab stop reset when focus
+leaves, preferring the last focused trigger in manual mode, keeping
+horizontal keys on the vertical list, or a horizontal `aria-orientation` each
+make the verifier fail. The preview serves `preview.css` without running
+Tailwind, so the vertical layout is checked through `data-orientation`, not
+measured.
+
 ## Documentation Alignment
 
 M111 should keep these files aligned:
@@ -234,7 +244,7 @@ After M111, useful follow-up work is:
 
 1. Expand interaction coverage across more runtime-sensitive components. M135
    covers Dialog, Alert Dialog, Popover, and Tooltip; M136 adds Toast and
-   Sonner; M137 adds Select and Combobox; M138 adds Date Picker; M139 adds Dropdown and Context Menu; M140 adds Menubar; M141 adds Navigation Menu; M144 adds Tabs, Radio Group, and Toggle Group; M146 adds Accordion; M147 adds Tooltip hover and focus opening; M148 adds Hover Card; M149 adds Command; M150 adds right-to-left arrow mirroring.
+   Sonner; M137 adds Select and Combobox; M138 adds Date Picker; M139 adds Dropdown and Context Menu; M140 adds Menubar; M141 adds Navigation Menu; M144 adds Tabs, Radio Group, and Toggle Group; M146 adds Accordion; M147 adds Tooltip hover and focus opening; M148 adds Hover Card; M149 adds Command; M150 adds right-to-left arrow mirroring; M151 adds vertical, manually activated Tabs.
 2. Add targeted screenshot smoke for a small set of stable panels.
 3. Decide whether any browser command should move into CI after local
    reliability is proven.

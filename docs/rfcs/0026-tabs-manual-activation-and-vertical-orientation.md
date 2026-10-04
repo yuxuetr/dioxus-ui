@@ -108,6 +108,7 @@ Out of scope, with reevaluation conditions:
 | Item | Reason | Reevaluate when |
 | --- | --- | --- |
 | Props on `TabsList` alone | Radix and shadcn put them on the root, and the panels need the orientation too | A consumer renders `TabsList` without `Tabs` and needs vertical keys |
+| Measuring the vertical layout in the browser | The Web preview serves `preview.css` without running Tailwind, so no utility classes apply there | The preview harness compiles Tailwind |
 | Desktop and Mobile self-test scenarios | The roving group script already runs in the WebViews for other groups | The script relies on behavior that differs between WebViews |
 
 ## Verification
@@ -117,7 +118,8 @@ Out of scope, with reevaluation conditions:
   script.
 - The Web preview renders a vertical, manually activated Tabs, and
   `npm run verify:runtime-interactions` asserts:
-  - `aria-orientation="vertical"` and the list laid out beside the panels;
+  - `aria-orientation="vertical"` and `data-orientation="vertical"` on the
+    root, list, and panels;
   - Up and Down move focus and Left and Right do not;
   - moving focus does not select;
   - Enter, Space, and a click select;

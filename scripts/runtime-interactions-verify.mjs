@@ -846,6 +846,59 @@ async function runBrowserAssertions() {
     await expect(tabs).toHaveAttribute("data-value", "billing");
     await expect(tab("Billing")).toHaveAttribute("tabindex", "0");
 
+    const verticalTabs = page.locator('[data-interaction-target="tabs-vertical"]');
+    const verticalList = verticalTabs.getByRole("tablist");
+    const verticalTab = (name) => verticalTabs.getByRole("tab", { name, exact: true });
+    const verticalPanel = (name) => verticalTabs.getByRole("tabpanel", { name, exact: true });
+    await verticalTab("General").evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(verticalList).toHaveAttribute("aria-orientation", "vertical");
+    // The preview serves uncompiled Tailwind, so the layout classes are keyed
+    // off data-orientation rather than measured.
+    await expect(verticalTabs.locator("[data-orientation]").first()).toHaveAttribute(
+      "data-orientation",
+      "vertical",
+    );
+    await expect(verticalList).toHaveAttribute("data-orientation", "vertical");
+    await expect(verticalPanel("General")).toHaveAttribute("data-orientation", "vertical");
+    await expect(verticalTab("General")).toHaveAttribute("tabindex", "0");
+    await verticalTab("General").focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(verticalTab("General")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(verticalTab("Security")).toBeFocused();
+    // Manual activation: focus moves without selecting.
+    await expect(verticalTabs).toHaveAttribute("data-value", "general");
+    await expect(verticalPanel("General")).toBeVisible();
+    await page.keyboard.press("ArrowDown");
+    await expect(verticalTab("Notifications")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(verticalTab("General")).toBeFocused();
+    await page.keyboard.press("ArrowUp");
+    await expect(verticalTab("Notifications")).toBeFocused();
+    await page.keyboard.press("Home");
+    await expect(verticalTab("General")).toBeFocused();
+    await page.keyboard.press("End");
+    await expect(verticalTab("Notifications")).toBeFocused();
+    await expect(verticalTabs).toHaveAttribute("data-value", "general");
+    await page.keyboard.press("Enter");
+    await expect(verticalTabs).toHaveAttribute("data-value", "notifications");
+    await expect(verticalPanel("Notifications")).toBeVisible();
+    await page.keyboard.press("ArrowUp");
+    await expect(verticalTab("Security")).toBeFocused();
+    await page.keyboard.press("Space");
+    await expect(verticalTabs).toHaveAttribute("data-value", "security");
+    await page.keyboard.press("ArrowUp");
+    await expect(verticalTab("General")).toBeFocused();
+    // Leaving from an unselected trigger makes the selected one the Tab stop.
+    await page.keyboard.press("Tab");
+    await expect(verticalPanel("Security")).toBeFocused();
+    await expect(verticalTab("Security")).toHaveAttribute("tabindex", "0");
+    await expect(verticalTab("General")).toHaveAttribute("tabindex", "-1");
+    await page.keyboard.press("Shift+Tab");
+    await expect(verticalTab("Security")).toBeFocused();
+    await verticalTab("General").click();
+    await expect(verticalTabs).toHaveAttribute("data-value", "general");
+
     const radioGroup = page.locator('[data-interaction-target="radio-group"]');
     const radio = (value) => radioGroup.locator(`[role="radio"][data-value="${value}"]`);
     await radio("small").evaluate((element) => element.scrollIntoView({ block: "center" }));
@@ -1319,7 +1372,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (23 fixtures)");
+  console.log("runtime interaction verification passed (24 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
