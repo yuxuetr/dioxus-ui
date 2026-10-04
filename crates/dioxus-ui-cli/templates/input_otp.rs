@@ -1,5 +1,42 @@
+use std::sync::atomic::{AtomicUsize, Ordering};
+
 use dioxus::prelude::*;
 use super::utils::classes;
+
+static NEXT_INPUT_OTP_ID: AtomicUsize = AtomicUsize::new(0);
+
+// Keep in sync with `INPUT_OTP_FILTER_SCRIPT` in the `dioxus-ui` crate.
+// Runs for the input's lifetime. Its listener on the input itself runs before
+// the delegated Dioxus handler, so it can drop rejected characters from the
+// native value first. Without it the input would keep characters the app
+// never saw, and Backspace would remove those instead of the last digit.
+const INPUT_OTP_FILTER_SCRIPT: &str = r#"
+const scopeId = await dioxus.recv();
+const input = document.querySelector(`[data-dxui-otp-input="${scopeId}"]`);
+if (!input) return;
+// Mirrors `InputOtpInputMode::allows`.
+const allowed = { numeric: /[0-9]/, text: /[\p{Alphabetic}\p{N}]/u };
+const onInput = () => {
+  const pattern = allowed[input.inputMode] || allowed.text;
+  const length = Number(input.dataset.length) || 0;
+  const next = Array.from(input.value)
+    .filter((ch) => pattern.test(ch))
+    .slice(0, length)
+    .join("");
+  if (next !== input.value) input.value = next;
+};
+let finish;
+const ended = new Promise((resolve) => {
+  finish = resolve;
+});
+const observer = new MutationObserver(() => {
+  if (!input.isConnected) finish();
+});
+observer.observe(document.documentElement, { subtree: true, childList: true });
+input.addEventListener("input", onInput);
+await ended;
+observer.disconnect();
+"#;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct OtpSlotState {
@@ -15,7 +52,7 @@ pub enum InputOtpInputMode {
   Text,
 }
 
-pub const INPUT_OTP_BASE_CLASS: &str = "flex items-center gap-2";
+pub const INPUT_OTP_BASE_CLASS: &str = "relative flex items-center gap-2";
 pub const INPUT_OTP_DISABLED_CLASS: &str = "opacity-50";
 pub const INPUT_OTP_GROUP_BASE_CLASS: &str = "flex items-center gap-1";
 pub const INPUT_OTP_SLOT_BASE_CLASS: &str = "relative flex h-10 w-10 items-center justify-center rounded-md border border-zinc-200 bg-white text-sm font-medium text-zinc-950 transition-colors";
@@ -24,7 +61,8 @@ pub const INPUT_OTP_SLOT_INVALID_CLASS: &str = "border-red-500 ring-2 ring-red-5
 pub const INPUT_OTP_SLOT_DISABLED_CLASS: &str = "cursor-not-allowed bg-zinc-50 text-zinc-400";
 pub const INPUT_OTP_SLOT_EMPTY_CLASS: &str = "text-zinc-400";
 pub const INPUT_OTP_SEPARATOR_BASE_CLASS: &str = "flex items-center px-1 text-zinc-400";
-pub const INPUT_OTP_HIDDEN_INPUT_BASE_CLASS: &str = "sr-only";
+pub const INPUT_OTP_HIDDEN_INPUT_BASE_CLASS: &str =
+  "absolute inset-0 h-full w-full cursor-text opacity-0 disabled:cursor-not-allowed";
 
 impl InputOtpInputMode {
   pub const fn attribute(self) -> &'static str {
@@ -33,6 +71,20 @@ impl InputOtpInputMode {
       Self::Text => "text",
     }
   }
+
+  /// Numeric codes keep ASCII digits; text codes keep letters and digits.
+  pub fn allows(self, ch: char) -> bool {
+    match self {
+      Self::Numeric => ch.is_ascii_digit(),
+      Self::Text => ch.is_alphanumeric(),
+    }
+  }
+}
+
+/// Keeps the characters `input_mode` allows, up to `length` of them, so typed
+/// or pasted text such as `"123-456"` becomes a code.
+pub fn input_otp_sanitize(value: &str, length: usize, input_mode: InputOtpInputMode) -> String {
+  value.chars().filter(|ch| input_mode.allows(*ch)).take(length).collect()
 }
 
 pub fn otp_slots(value: &str, length: usize, active_index: usize) -> Vec<OtpSlotState> {
@@ -218,6 +270,7 @@ pub fn InputOtp(
   #[props(default)] disabled: bool,
   #[props(default)] invalid: bool,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = input_otp_class(disabled, &class);
@@ -230,6 +283,7 @@ pub fn InputOtp(
       "aria-invalid": invalid.to_string(),
       "data-disabled": disabled.to_string(),
       "data-invalid": invalid.to_string(),
+      ..attributes,
       {children}
     }
   }
@@ -295,15 +349,20 @@ pub fn InputOtpSeparator(
 #[component]
 pub fn InputOtpHiddenInput(
   value: String,
+  length: usize,
+  #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(default)] name: Option<String>,
   #[props(default = InputOtpInputMode::Numeric)] input_mode: InputOtpInputMode,
   #[props(default = Some(String::from("one-time-code")))] autocomplete: Option<String>,
   #[props(default)] disabled: bool,
   #[props(default)] invalid: bool,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = input)] attributes: Vec<Attribute>,
 ) -> Element {
   let class = input_otp_hidden_input_class(&class);
   let inputmode = input_mode.attribute();
+  let current = value.clone();
+  let scope_id = use_input_otp_filter();
 
   rsx! {
     input {
@@ -315,6 +374,33 @@ pub fn InputOtpHiddenInput(
       autocomplete,
       disabled,
       "aria-invalid": invalid.to_string(),
+      "data-length": length.to_string(),
+      "data-dxui-otp-input": scope_id,
+      oninput: move |event: FormEvent| {
+        let next = input_otp_sanitize(&event.value(), length, input_mode);
+        if next != current {
+          if let Some(handler) = on_value_change {
+            handler.call(next);
+          }
+        }
+      },
+      ..attributes,
     }
   }
+}
+
+/// Runs the filter script for the input's lifetime and returns the value for
+/// its `data-dxui-otp-input` attribute.
+fn use_input_otp_filter() -> String {
+  let scope_id =
+    use_hook(|| format!("dxui-otp-{}", NEXT_INPUT_OTP_ID.fetch_add(1, Ordering::Relaxed)));
+  let effect_scope_id = scope_id.clone();
+
+  use_effect(move || {
+    let eval = document::eval(INPUT_OTP_FILTER_SCRIPT);
+    // A send error means the page already finished the script; nothing to track.
+    let _ = eval.send(effect_scope_id.as_str());
+  });
+
+  scope_id
 }

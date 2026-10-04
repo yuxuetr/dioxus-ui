@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M157 Input OTP Value Changes
-- Current task: M157.1 Design Input OTP value changes
+- Current task: M157.2 Implement Input OTP value changes
 
 ## Backup
 
@@ -2850,7 +2850,7 @@
 
 ## M157 Input OTP Value Changes
 
-- TODO M157.1 Design Input OTP value changes
+- DONE M157.1 Design Input OTP value changes
   - Record that `InputOtpHiddenInput` handles no events, that `sr-only` keeps pointer users from focusing it, that neither part accepts `id` or `aria-*`, and that a Web preview probe showed a Rust-only filter leaves rejected characters in the native value for Backspace to remove.
   - Define a required `length`, `on_value_change: Option<EventHandler<String>>` with the cleaned code, `input_otp_sanitize`, an overlay class for the input, a page script that filters the native value before Dioxus reads it, and attribute spreading on `InputOtp` and `InputOtpHiddenInput`.
   - Record what stays out of scope (editing a slot in the middle, a focus-aware active slot, `on_complete`, custom character policies, Desktop and Mobile self-test scenarios) with reevaluation conditions.
