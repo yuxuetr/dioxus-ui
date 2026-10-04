@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M154 Button, Toggle, Input, And Textarea Events
+- Current task: M154.1
 
 ## Backup
 
@@ -2784,6 +2784,26 @@
   - Reverse-verify that the script fails when the callback is removed, when attributes are not spread, or when the callback sends the current state instead of the requested one.
 
 - DONE M153.4 Complete switch and checkbox milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M154 Button, Toggle, Input, And Textarea Events
+
+- TODO M154.1 Design button, toggle, input, and textarea events
+  - Record that `Button`, `Toggle`, `Input`, and `Textarea` expose no event callback and accept no `id`, `name`, `type`, or `aria-*` attributes, so apps style raw elements with the class helpers instead, and a `Label` cannot name an `Input` or `Textarea`.
+  - Define `onclick: Option<EventHandler<MouseEvent>>` for Button, `on_pressed_change: Option<EventHandler<bool>>` with the requested state for Toggle, and `on_value_change: Option<EventHandler<String>>` for Input and Textarea; spread global and element attributes through `#[props(extends = ...)]` on all four.
+  - Record what stays out of scope (key, focus, and blur callbacks, a Button `type` default other than the native one, uncontrolled inputs, Desktop and Mobile self-test scenarios) with reevaluation conditions.
+
+- TODO M154.2 Implement button, toggle, input, and textarea events
+  - Add the callbacks and attribute spreading to the crate sources and templates.
+  - Update the Button, Toggle, Input, and Textarea docs pages.
+
+- TODO M154.3 Verify events in a real browser
+  - Render the four components in the Web preview and extend `npm run verify:runtime-interactions` to assert that a Button click and Enter call `onclick`, that Toggle flips `aria-pressed` by click and Space, that typing in a labelled Input and Textarea reaches app state, and that passed attributes such as `type` and `name` render.
+  - Reverse-verify that the script fails when a callback is removed, when attributes are not spread, or when Toggle sends the current state instead of the requested one.
+
+- TODO M154.4 Complete events milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
