@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
-- Current milestone: M139 Dropdown and Context Menu Keyboard Behavior
-- Current task: M139.5
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -2503,7 +2503,7 @@
   - Render real Dropdown and Context Menu components in the Web preview and extend `npm run verify:runtime-interactions` to assert focus entry, wrapping arrows that skip disabled items, typeahead, activation with close and focus return, Escape, Tab, and point placement.
   - Reverse-verify that the script fails when wrapping, activation, or focus return is removed.
 
-- TODO M139.5 Complete menu milestone
+- DONE M139.5 Complete menu milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and RFC 0010 out-of-scope status.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
