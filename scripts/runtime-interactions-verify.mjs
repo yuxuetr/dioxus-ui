@@ -522,6 +522,115 @@ async function runBrowserAssertions() {
     await expect(page.locator("#interaction-combobox-input")).toBeFocused();
     await expect(datePicker).toHaveAttribute("data-value", "2026-11-03");
 
+    const dropdown = page.locator('[data-interaction-target="dropdown"]');
+    const dropdownTrigger = page.locator("#interaction-dropdown-trigger");
+    const dropdownMenu = dropdown.locator('[role="menu"]');
+    const dropdownItem = (name) => dropdownMenu.getByRole("menuitem", { name, exact: true });
+    const openDropdown = async () => {
+      await dropdownTrigger.click();
+      await expectAnchoredReady(dropdown);
+    };
+    await dropdownTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(dropdownMenu).toBeHidden();
+    await openDropdown();
+    await expect(dropdownItem("Edit")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(dropdownItem("Duplicate")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(dropdownItem("Delete")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(dropdownItem("Edit")).toBeFocused();
+    await page.keyboard.press("ArrowUp");
+    await expect(dropdownItem("Delete")).toBeFocused();
+    await page.keyboard.press("Home");
+    await expect(dropdownItem("Edit")).toBeFocused();
+    await page.keyboard.press("End");
+    await expect(dropdownItem("Delete")).toBeFocused();
+    await page.keyboard.press("Home");
+    await page.keyboard.press("d");
+    await expect(dropdownItem("Duplicate")).toBeFocused();
+    await page.keyboard.press("d");
+    await expect(dropdownItem("Delete")).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(dropdownMenu).toBeHidden();
+    await expect(dropdown).toHaveAttribute("data-action", "delete");
+    await expect(dropdownTrigger).toBeFocused();
+    await openDropdown();
+    await page.keyboard.press("ArrowDown");
+    await page.waitForTimeout(600);
+    await page.keyboard.press(" ");
+    await expect(dropdownMenu).toBeHidden();
+    await expect(dropdown).toHaveAttribute("data-action", "duplicate");
+    await expect(dropdownTrigger).toBeFocused();
+    // Space must not also click the trigger once focus returns to it.
+    await page.waitForTimeout(300);
+    await expect(dropdownMenu).toBeHidden();
+    await openDropdown();
+    await dropdownItem("Archive").dispatchEvent("click");
+    await page.waitForTimeout(300);
+    await expect(dropdownMenu).toBeVisible();
+    await expect(dropdown).toHaveAttribute("data-action", "duplicate");
+    await page.keyboard.press("Escape");
+    await expect(dropdownMenu).toBeHidden();
+    await expect(dropdownTrigger).toBeFocused();
+    await openDropdown();
+    await page.keyboard.press("Tab");
+    await expect(dropdownMenu).toBeHidden();
+    await openDropdown();
+    await dropdownItem("Edit").hover();
+    await expect(dropdownItem("Edit")).toBeFocused();
+    await dropdownItem("Edit").click();
+    await expect(dropdownMenu).toBeHidden();
+    await expect(dropdown).toHaveAttribute("data-action", "edit");
+    await expect(dropdownTrigger).toBeFocused();
+
+    const contextMenu = page.locator('[data-interaction-target="context-menu"]');
+    const contextArea = page.locator('[data-interaction-control="context-area"]');
+    const contextContent = contextMenu.locator('[role="menu"]');
+    const contextItem = (name) => contextContent.locator('[role^="menuitem"]', { hasText: name });
+    const openContextMenu = async (position) => {
+      await contextArea.click({ button: "right", position });
+      await expectAnchoredReady(contextMenu);
+    };
+    await contextArea.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(contextContent).toBeHidden();
+    await openContextMenu({ x: 40, y: 30 });
+    const areaBox = await contextArea.boundingBox();
+    let contextBox = await contextContent.boundingBox();
+    if (Math.abs(contextBox.x - (areaBox.x + 40)) > 1 || Math.abs(contextBox.y - (areaBox.y + 30)) > 1) {
+      throw new Error(`context menu should open at the pointer: ${JSON.stringify({ areaBox, contextBox })}`);
+    }
+    await expect(contextItem("Back")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(contextItem("Bookmark")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(contextItem("Back")).toBeFocused();
+    await page.keyboard.press("ArrowUp");
+    await page.keyboard.press("Enter");
+    await expect(contextContent).toBeHidden();
+    await expect(contextMenu).toHaveAttribute("data-bookmarked", "true");
+    await openContextMenu({ x: 120, y: 60 });
+    contextBox = await contextContent.boundingBox();
+    if (Math.abs(contextBox.x - (areaBox.x + 120)) > 1) {
+      throw new Error(`context menu should follow the new pointer: ${JSON.stringify({ areaBox, contextBox })}`);
+    }
+    await page.keyboard.press("Escape");
+    await expect(contextContent).toBeHidden();
+    await openContextMenu({ x: 40, y: 30 });
+    await contextItem("Back").click();
+    await expect(contextContent).toBeHidden();
+    await expect(contextMenu).toHaveAttribute("data-action", "back");
+    await contextArea.evaluate((element) => element.scrollIntoView({ block: "end" }));
+    await openContextMenu({ x: 40, y: 90 });
+    const flippedArea = await contextArea.boundingBox();
+    contextBox = await contextContent.boundingBox();
+    if (contextBox.y + contextBox.height > flippedArea.y + 90 + 1) {
+      throw new Error(`context menu should flip above the pointer: ${JSON.stringify({ flippedArea, contextBox })}`);
+    }
+    expectInViewport(contextBox, "context menu flip");
+    await contextMenu.getByRole("heading", { name: "Context menu interaction" }).click();
+    await expect(contextContent).toBeHidden();
+
     const tooltipTrigger = page.locator('[data-interaction-control="tooltip-trigger"]');
     const tooltipContent = page.locator('[data-interaction-target="tooltip"] [role="tooltip"]');
     await tooltipTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
@@ -656,7 +765,7 @@ try {
   startServer();
   await waitForPreview();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (14 fixtures)");
+  console.log("runtime interaction verification passed (16 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

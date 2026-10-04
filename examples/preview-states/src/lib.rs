@@ -19,11 +19,13 @@ use dioxus_ui::{
 use dioxus_ui::{
   Calendar, CalendarBody, CalendarCaption, CalendarDate, CalendarDay, CalendarGrid, CalendarHeader,
   CalendarMonth, CalendarNav, CalendarNavButton, CalendarNavDirection, CalendarRow,
-  CalendarWeekday, ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList, DatePickerContent,
-  DatePickerTrigger, DatePickerValue, SelectContent, SelectItem, SelectTrigger, SelectValue,
-  SonnerClose, SonnerContent, SonnerTitle, SonnerToast, SonnerVariant, SonnerViewport, ToastAction,
-  ToastClose, ToastRoot, ToastTitle, ToastViewport, calendar_month_grid, calendar_move_date,
-  sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute,
+  CalendarWeekday, ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList,
+  ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, DatePickerContent,
+  DatePickerTrigger, DatePickerValue, DropdownContent, DropdownItem, DropdownSeparator,
+  SelectContent, SelectItem, SelectTrigger, SelectValue, SonnerClose, SonnerContent, SonnerTitle,
+  SonnerToast, SonnerVariant, SonnerViewport, ToastAction, ToastClose, ToastRoot, ToastTitle,
+  ToastViewport, calendar_month_grid, calendar_move_date, sonner_dismiss_reason_attribute,
+  toast_dismiss_reason_attribute,
 };
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -689,6 +691,12 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut combobox_open = use_signal(|| false);
   let mut combobox_query = use_signal(String::new);
   let mut combobox_value = use_signal(|| "none".to_string());
+  let mut dropdown_open = use_signal(|| false);
+  let mut dropdown_action = use_signal(|| "none");
+  let mut context_open = use_signal(|| false);
+  let mut context_point = use_signal(|| (0.0, 0.0));
+  let mut context_bookmarked = use_signal(|| false);
+  let mut context_action = use_signal(|| "none");
   let mut date_open = use_signal(|| false);
   let mut date_month = use_signal(|| CalendarMonth::unchecked(2026, 10));
   let mut date_focused = use_signal(|| CalendarDate::unchecked(2026, 10, 15));
@@ -1206,6 +1214,73 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                     }
                   }
                 }
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "dropdown",
+            "data-action": "{dropdown_action}",
+            h2 { class: "text-sm font-medium", "Dropdown interaction" }
+            button {
+              id: "interaction-dropdown-trigger",
+              class: "{secondary_button_class} mt-3",
+              "aria-haspopup": "menu",
+              "aria-expanded": if dropdown_open() { "true" } else { "false" },
+              onclick: move |_| dropdown_open.toggle(),
+              "Actions"
+            }
+            DropdownContent {
+              open: dropdown_open(),
+              anchor_id: "interaction-dropdown-trigger",
+              on_open_change: move |open| dropdown_open.set(open),
+              DropdownItem { onclick: move |_| dropdown_action.set("edit"), "Edit" }
+              DropdownItem { onclick: move |_| dropdown_action.set("duplicate"), "Duplicate" }
+              DropdownItem {
+                disabled: true,
+                onclick: move |_| dropdown_action.set("archive"),
+                "Archive"
+              }
+              DropdownSeparator {}
+              DropdownItem {
+                destructive: true,
+                onclick: move |_| dropdown_action.set("delete"),
+                "Delete"
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-zinc-200 p-4",
+            "data-interaction-target": "context-menu",
+            "data-action": "{context_action}",
+            "data-bookmarked": "{context_bookmarked}",
+            h2 { class: "text-sm font-medium", "Context menu interaction" }
+            div {
+              // Inline size: the preview serves uncompiled Tailwind input.
+              style: "height: 96px; margin-top: 12px; border: 1px dashed #a1a1aa;",
+              "data-interaction-control": "context-area",
+              oncontextmenu: move |event| {
+                event.prevent_default();
+                let position = event.client_coordinates();
+                context_point.set((position.x, position.y));
+                context_open.set(true);
+              },
+              "Right-click here"
+            }
+            ContextMenuContent {
+              open: context_open(),
+              anchor_point: context_point(),
+              on_open_change: move |open| context_open.set(open),
+              ContextMenuItem { onclick: move |_| context_action.set("back"), "Back" }
+              ContextMenuCheckboxItem {
+                checked: context_bookmarked(),
+                onclick: move |_| context_bookmarked.toggle(),
+                "Bookmark"
+              }
+              ContextMenuItem {
+                disabled: true,
+                onclick: move |_| context_action.set("forward"),
+                "Forward"
               }
             }
           }

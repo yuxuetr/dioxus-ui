@@ -113,6 +113,8 @@ controls, so the verifier exercises the shipped overlay behavior from
 | `select` | Select | the listbox sits below the trigger while focus stays on it; the selected option starts highlighted; arrows skip the disabled option without wrapping; Home, End, and typeahead move the highlight; Enter, Space, and click choose and close; a disabled option cannot be chosen; ArrowDown reopens; Escape and an outside click close it |
 | `combobox` | Combobox | typing opens the listbox below the input with no highlight; arrows highlight options; filtering keeps a still-matching highlight and clears a removed one; Enter and click choose, fill the input, and keep focus in it; ArrowDown reopens and Escape closes |
 | `date-picker` | Date Picker with Calendar | content sits below the trigger; opening focuses the selected day, the only `tabindex="0"` day; arrows, Home, End, Page Up, Page Down, and Shift+Page keys move focus across months with days keyed by date; Tab wraps between the month buttons and the focused day; Enter and click choose a date, close, and return focus to the trigger; Escape returns focus too; an outside click closes it and keeps focus on a clicked control |
+| `dropdown` | Dropdown | opening focuses the first item; arrows wrap and skip the disabled item; Home, End, and repeated-letter typeahead move focus; Enter, Space, and click run the item's `onclick`, close, and return focus to the trigger; a disabled item does nothing; Escape and Tab close it |
+| `context-menu` | Context Menu | a right-click opens the menu at the pointer and a second right-click moves it; the first item takes focus; arrows wrap; Enter toggles the checkbox item and closes; click runs an item; near the viewport bottom the menu flips above the pointer; an outside click closes it |
 
 The Web preview serves the Tailwind input stylesheet without compiling it, so
 the Dialog overlay has no `fixed inset-0` box. The verifier dispatches the
@@ -141,6 +143,13 @@ mapping, the focus move after a key, focus entry on the focused day, or the
 non-focusable content outside the picker leaves focus on the body, as the
 browser does for any outside click, so only the close is asserted there.
 
+M139 adds the Dropdown and Context Menu rows from
+[RFC 0014](../rfcs/0014-menu-keyboard-behavior.md). Removing menu wrapping,
+item activation on Enter, focus return on close, or the point anchor each make
+the verifier fail. The flip check also caught menu items being focused while
+the menu was still in normal flow, which scrolled the page away from the
+pointer; items are now focused without scrolling.
+
 ## Documentation Alignment
 
 M111 should keep these files aligned:
@@ -167,7 +176,7 @@ After M111, useful follow-up work is:
 
 1. Expand interaction coverage across more runtime-sensitive components. M135
    covers Dialog, Alert Dialog, Popover, and Tooltip; M136 adds Toast and
-   Sonner; M137 adds Select and Combobox; M138 adds Date Picker.
+   Sonner; M137 adds Select and Combobox; M138 adds Date Picker; M139 adds Dropdown and Context Menu.
 2. Add targeted screenshot smoke for a small set of stable panels.
 3. Decide whether any browser command should move into CI after local
    reliability is proven.
