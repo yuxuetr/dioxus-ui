@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M164 Dialog Names
-- Current task: M164.2 Implement dialog names
+- Current task: M164.3 Verify dialog names in a real browser
 
 ## Backup
 
@@ -2992,7 +2992,7 @@
   - Define a shared `use_dialog_labels` hook with generated title and description ids, content attributes only for mounted parts, passed labels that replace the generated ones, and attribute spreading on content parts.
   - Record what stays out of scope (Hover Card and Date Picker names, spreading on titles and other parts, a missing-title warning, Sheet and Drawer browser fixtures) with reevaluation conditions.
 
-- TODO M164.2 Implement dialog names
+- DONE M164.2 Implement dialog names
   - Add the shared hook to the crate and the template utilities, and use it in the five components' content, title, and description parts with attribute spreading on content.
   - Update the five docs pages.
 
