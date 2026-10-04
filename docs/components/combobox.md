@@ -22,6 +22,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["combobox"]
 - `ComboboxContent`
 - `ComboboxList`
 - `ComboboxEmpty`
+- `ComboboxStatus`
 - `ComboboxGroup`
 - `ComboboxValue`
 - `ComboboxItem`
@@ -86,11 +87,35 @@ rsx! {
   `DismissBehavior::popover_default()`).
 - Without `anchor_id`, content renders in place with no keyboard handling.
 
+To announce how many options match, render `ComboboxStatus` next to the
+input, outside `ComboboxContent`, which is hidden while closed. Keep it
+mounted and change only its text; an empty text says nothing:
+
+```rust
+let matches = fruits.iter().filter(|fruit| fruit.to_lowercase().contains(&query().to_lowercase())).count();
+
+rsx! {
+  ComboboxInput { /* ... */ }
+  ComboboxStatus {
+    if !open() { "" }
+    else if matches == 0 { "No results" }
+    else if matches == 1 { "1 result" }
+    else { "{matches} results" }
+  }
+  ComboboxContent { /* ... */ }
+}
+```
+
+`ComboboxStatus` renders a visually hidden `role="status"` region with
+`aria-live="polite"` and `aria-atomic="true"`. Rendering it conditionally
+recreates the element, and its first text is then not announced.
+
 Only the Web renderer is covered by `npm run verify:runtime-interactions`.
 
 ## Accessibility Notes
 
 Trigger and input use combobox semantics, list uses listbox semantics, and items
 use option semantics. The input keeps focus and references the highlighted
-option through `aria-activedescendant`. Async loading and announcing result
-counts are owned by the consuming app.
+option through `aria-activedescendant`. `ComboboxStatus` announces the text
+the app gives it; the wording and when to speak stay with the app (see
+[RFC 0027](../rfcs/0027-combobox-and-command-result-announcements.md)). Async loading is owned by the consuming app.

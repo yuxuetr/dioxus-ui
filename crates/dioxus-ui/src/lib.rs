@@ -358,25 +358,25 @@ pub use collapsible::{
 pub use combobox::{
   ActiveDescendantState as ComboboxActiveDescendantState, COMBOBOX_CONTENT_BASE_CLASS,
   COMBOBOX_EMPTY_BASE_CLASS, COMBOBOX_GROUP_BASE_CLASS, COMBOBOX_INPUT_BASE_CLASS,
-  COMBOBOX_ITEM_BASE_CLASS, COMBOBOX_LIST_BASE_CLASS, COMBOBOX_TRIGGER_BASE_CLASS,
-  COMBOBOX_VALUE_BASE_CLASS, ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxInput,
-  ComboboxItem, ComboboxList, ComboboxTrigger, ComboboxValue,
-  DismissBehavior as ComboboxDismissBehavior, OverlayAlign as ComboboxAlign,
+  COMBOBOX_ITEM_BASE_CLASS, COMBOBOX_LIST_BASE_CLASS, COMBOBOX_STATUS_BASE_CLASS,
+  COMBOBOX_TRIGGER_BASE_CLASS, COMBOBOX_VALUE_BASE_CLASS, ComboboxContent, ComboboxEmpty,
+  ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxList, ComboboxStatus, ComboboxTrigger,
+  ComboboxValue, DismissBehavior as ComboboxDismissBehavior, OverlayAlign as ComboboxAlign,
   OverlaySide as ComboboxSide, PopoverPrimitiveConfig as ComboboxPrimitiveConfig,
   combobox_active_descendant_state, combobox_content_class, combobox_empty_class,
   combobox_group_class, combobox_input_class, combobox_item_class, combobox_list_class,
-  combobox_trigger_class, combobox_value_class,
+  combobox_status_class, combobox_trigger_class, combobox_value_class,
 };
 #[cfg(feature = "command")]
 pub use command::{
   ActiveDescendantState, COMMAND_BASE_CLASS, COMMAND_EMPTY_BASE_CLASS, COMMAND_GROUP_BASE_CLASS,
   COMMAND_INPUT_BASE_CLASS, COMMAND_ITEM_BASE_CLASS, COMMAND_LABEL_BASE_CLASS,
-  COMMAND_LIST_BASE_CLASS, COMMAND_SEPARATOR_BASE_CLASS, COMMAND_SHORTCUT_BASE_CLASS, Command,
-  CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandLabel, CommandList,
-  CommandSeparator, CommandShortcut, command_active_descendant_state, command_class,
-  command_empty_class, command_group_class, command_input_class, command_item_class,
-  command_label_class, command_list_class, command_matches, command_separator_class,
-  command_shortcut_class,
+  COMMAND_LIST_BASE_CLASS, COMMAND_SEPARATOR_BASE_CLASS, COMMAND_SHORTCUT_BASE_CLASS,
+  COMMAND_STATUS_BASE_CLASS, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem,
+  CommandLabel, CommandList, CommandSeparator, CommandShortcut, CommandStatus,
+  command_active_descendant_state, command_class, command_empty_class, command_group_class,
+  command_input_class, command_item_class, command_label_class, command_list_class,
+  command_matches, command_separator_class, command_shortcut_class, command_status_class,
 };
 #[cfg(feature = "context-menu")]
 pub use context_menu::{

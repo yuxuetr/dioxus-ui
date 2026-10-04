@@ -13,6 +13,7 @@ pub const COMMAND_BASE_CLASS: &str =
 pub const COMMAND_INPUT_BASE_CLASS: &str = "flex h-11 w-full rounded-md bg-transparent px-3 py-2 text-sm outline-none placeholder:text-zinc-500 disabled:cursor-not-allowed disabled:opacity-50";
 pub const COMMAND_LIST_BASE_CLASS: &str = "max-h-80 overflow-y-auto overflow-x-hidden";
 pub const COMMAND_EMPTY_BASE_CLASS: &str = "py-6 text-center text-sm text-zinc-500";
+pub const COMMAND_STATUS_BASE_CLASS: &str = "sr-only";
 pub const COMMAND_GROUP_BASE_CLASS: &str = "overflow-hidden p-1 text-zinc-950";
 pub const COMMAND_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-zinc-500";
 pub const COMMAND_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-active:bg-zinc-100 data-active:text-zinc-950 data-highlighted:bg-zinc-100 data-highlighted:text-zinc-950 data-disabled:pointer-events-none data-disabled:opacity-50 data-selected:bg-zinc-100";
@@ -33,6 +34,10 @@ pub fn command_list_class(class: &str) -> String {
 
 pub fn command_empty_class(class: &str) -> String {
   classes([Some(COMMAND_EMPTY_BASE_CLASS), Some(class)])
+}
+
+pub fn command_status_class(class: &str) -> String {
+  classes([Some(COMMAND_STATUS_BASE_CLASS), Some(class)])
 }
 
 pub fn command_group_class(class: &str) -> String {
@@ -177,6 +182,23 @@ pub fn CommandEmpty(#[props(default)] class: String, children: Element) -> Eleme
   rsx! {
     div {
       class,
+      {children}
+    }
+  }
+}
+
+/// A visually hidden polite status region for result announcements. Keep it
+/// mounted and change only its children; an empty text says nothing.
+#[component]
+pub fn CommandStatus(#[props(default)] class: String, children: Element) -> Element {
+  let class = command_status_class(&class);
+
+  rsx! {
+    div {
+      role: "status",
+      class,
+      "aria-live": "polite",
+      "aria-atomic": "true",
       {children}
     }
   }

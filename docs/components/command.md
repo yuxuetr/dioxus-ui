@@ -22,6 +22,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["command"] 
 - `CommandInput`
 - `CommandList`
 - `CommandEmpty`
+- `CommandStatus`
 - `CommandGroup`
 - `CommandLabel`
 - `CommandItem`
@@ -79,11 +80,31 @@ rsx! {
 - Without `Command`, the parts render state only and the app wires keys
   itself with `active_id`, `active`, and `selected`.
 
+To announce how many items match, render `CommandStatus` every time and
+change only its text; an empty text says nothing:
+
+```rust
+let matches = items.iter().filter(|(_, label)| command_matches(label, &query())).count();
+
+rsx! {
+  CommandStatus {
+    if query().is_empty() { "" }
+    else if matches == 0 { "No results" }
+    else if matches == 1 { "1 result" }
+    else { "{matches} results" }
+  }
+}
+```
+
+`CommandStatus` renders a visually hidden `role="status"` region with
+`aria-live="polite"` and `aria-atomic="true"`. `CommandEmpty` is usually
+rendered only when nothing matches, so it is not announced on its own.
+
 The Web renderer is covered by `npm run verify:runtime-interactions`.
 
 ## Accessibility Notes
 
 Input uses combobox semantics, list uses listbox semantics, and items use option
-semantics. Fuzzy ranking, looping, Ctrl key bindings, and result count
-announcements are not implemented (see
-[RFC 0024](../rfcs/0024-command-keyboard-and-filtering.md)).
+semantics. `CommandStatus` announces the text the app gives it (see
+[RFC 0027](../rfcs/0027-combobox-and-command-result-announcements.md)). Fuzzy ranking, looping, and Ctrl key bindings are not
+implemented (see [RFC 0024](../rfcs/0024-command-keyboard-and-filtering.md)).

@@ -12,6 +12,7 @@ pub const COMBOBOX_INPUT_BASE_CLASS: &str = "flex h-10 w-full rounded-md bg-tran
 pub const COMBOBOX_CONTENT_BASE_CLASS: &str = "z-50 max-h-96 min-w-32 overflow-hidden rounded-md border border-zinc-200 bg-white p-1 text-zinc-950 shadow-md";
 pub const COMBOBOX_LIST_BASE_CLASS: &str = "max-h-80 overflow-y-auto overflow-x-hidden";
 pub const COMBOBOX_EMPTY_BASE_CLASS: &str = "py-6 text-center text-sm text-zinc-500";
+pub const COMBOBOX_STATUS_BASE_CLASS: &str = "sr-only";
 pub const COMBOBOX_GROUP_BASE_CLASS: &str = "overflow-hidden p-1 text-zinc-950";
 pub const COMBOBOX_VALUE_BASE_CLASS: &str = "truncate";
 pub const COMBOBOX_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-active:bg-zinc-100 data-active:text-zinc-950 data-highlighted:bg-zinc-100 data-highlighted:text-zinc-950 data-disabled:pointer-events-none data-disabled:opacity-50 data-selected:bg-zinc-100";
@@ -40,6 +41,10 @@ pub fn combobox_list_class(class: &str) -> String {
 
 pub fn combobox_empty_class(class: &str) -> String {
   classes([Some(COMBOBOX_EMPTY_BASE_CLASS), Some(class)])
+}
+
+pub fn combobox_status_class(class: &str) -> String {
+  classes([Some(COMBOBOX_STATUS_BASE_CLASS), Some(class)])
 }
 
 pub fn combobox_group_class(class: &str) -> String {
@@ -196,6 +201,24 @@ pub fn ComboboxEmpty(#[props(default)] class: String, children: Element) -> Elem
   rsx! {
     div {
       class,
+      {children}
+    }
+  }
+}
+
+/// A visually hidden polite status region for result announcements. Keep it
+/// mounted and change only its children; an empty text says nothing.
+/// Place it outside `ComboboxContent`, which is hidden while closed.
+#[component]
+pub fn ComboboxStatus(#[props(default)] class: String, children: Element) -> Element {
+  let class = combobox_status_class(&class);
+
+  rsx! {
+    div {
+      role: "status",
+      class,
+      "aria-live": "polite",
+      "aria-atomic": "true",
       {children}
     }
   }
