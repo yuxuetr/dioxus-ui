@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 99%
+- Current milestone: M147 Tooltip Hover And Focus Opening
+- Current task: M147.1 Design tooltip hover and focus opening
 
 ## Backup
 
@@ -2644,6 +2644,26 @@
   - Reverse-verify that the script fails when click reporting, arrow movement, the every-item Tab stop mode, or the id links are removed.
 
 - DONE M146.4 Complete accordion milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M147 Tooltip Hover And Focus Opening
+
+- TODO M147.1 Design tooltip hover and focus opening
+  - Record that Tooltip has only a content part: the app wires hover and focus handlers on its own trigger, there is no open delay, moving the pointer onto the content closes it, and the trigger is not linked to the content with `aria-describedby`.
+  - Define a `Tooltip` root that reports open requests, a `TooltipTrigger` that links to the content while it is open, and a page script that opens after a hover delay, opens at once on keyboard focus, stays open while the pointer is over the trigger or content, and closes on pointer leave, blur, and trigger presses.
+  - Record what stays out of scope (Hover Card timing, skipping the delay between adjacent tooltips, touch long press, Desktop and Mobile self-test scenarios) with reevaluation conditions.
+
+- TODO M147.2 Implement tooltip hover and focus opening
+  - Add the tooltip script and wire `Tooltip`, `TooltipTrigger`, and `TooltipContent` in the crate and the template, with a CLI parity test for the script.
+  - Update the Tooltip docs page.
+
+- TODO M147.3 Verify tooltip behavior in a real browser
+  - Render the Web preview tooltip with the new parts and extend `npm run verify:runtime-interactions` to assert the hover delay, `aria-describedby`, staying open over the content, closing on pointer leave, immediate keyboard focus opening, closing on blur and Escape, and a trigger press closing it without reopening.
+  - Reverse-verify that the script fails when the delay, content hover, focus opening, press closing, or the description link is removed.
+
+- TODO M147.4 Complete tooltip milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, accessibility docs, and preview coverage metadata.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
