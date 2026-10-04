@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M149 Command Keyboard And Filtering
-- Current task: M149.3
+- Current task: M149.4
 
 ## Backup
 
@@ -2699,7 +2699,7 @@
   - Add the command mode to the listbox script in the crate and the template `utils.rs`, and wire `Command`, `CommandInput`, `CommandList`, and `CommandItem` in the crate and the template.
   - Add the matching helper and update the Command docs page.
 
-- TODO M149.3 Verify command behavior in a real browser
+- DONE M149.3 Verify command behavior in a real browser
   - Render a real Command in the Web preview and extend `npm run verify:runtime-interactions` to assert the input and list link, the first highlight, arrow movement that skips disabled items without looping, Home and End, typed text reaching the input, the highlight resetting when the query changes, the empty state, pointer highlight, and choosing with Enter and click while focus stays in the input.
   - Reverse-verify that the script fails when Home and End, the reset on query change, the first highlight, or the input link are removed, or when typeahead is turned on.
 
