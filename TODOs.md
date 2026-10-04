@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M149 Command Keyboard And Filtering
-- Current task: M149.1
+- Current task: M149.2
 
 ## Backup
 
@@ -2690,7 +2690,7 @@
 
 ## M149 Command Keyboard And Filtering
 
-- TODO M149.1 Design command keyboard and filtering
+- DONE M149.1 Design command keyboard and filtering
   - Record that Command renders state only: `CommandInput` has no input handler, no part handles arrow keys or Enter, items have no value to report, and the input is not linked to the list.
   - Define a `Command` root that reports chosen items, an input that reports typed text and controls the list, item values, and a command mode for the listbox script that highlights the first option, moves with Up, Down, Home, and End, resets to the first match when the query changes, and chooses with Enter or click while focus stays in the input; filtering stays app-owned with a matching helper.
   - Record what stays out of scope (fuzzy ranking, looping, Ctrl key bindings, a command dialog, result count announcements, Desktop and Mobile self-test scenarios) with reevaluation conditions.
