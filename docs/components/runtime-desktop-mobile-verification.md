@@ -143,7 +143,10 @@ Dioxus upgrade:
 DIOXUS_UI_IOS_SIMULATOR="iPhone 18 Pro" npm run verify:mobile-interactions
 ```
 
-The command currently fails on iOS 27 with no result line.
+The command currently fails on iOS 27 with no result line. macOS also shows
+a crash report for `dioxus-ui-mobile-demo` (`EXC_BREAKPOINT` in
+`UIApplicationEvaluateRuntimeIssueForNoSceneLifecycleAdoption`), which is
+expected until Dioxus adopts the UIScene lifecycle.
 
 Reverse checks on an iOS 26.3 simulator each made the command exit with
 status 1:
