@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M141 Navigation Menu Interaction Behavior
-- Current task: M141.3 Verify navigation menu behavior in a real browser
+- Current task: M141.4 Complete navigation menu milestone
 
 ## Backup
 
@@ -2539,7 +2539,7 @@
   - Add a navigation menu script that handles trigger clicks, keyboard movement, hover timing, and dismissal, and reports the item value to open (empty to close) through `NavigationMenu` `on_value_change`.
   - `NavigationMenuItem` gains `value`; mirror the template, keep the parity test, and update the docs page.
 
-- TODO M141.3 Verify navigation menu behavior in a real browser
+- DONE M141.3 Verify navigation menu behavior in a real browser
   - Render a real Navigation Menu in the Web preview and extend `npm run verify:runtime-interactions` to assert click toggling, arrow movement, content entry and link movement, Escape with focus return, hover open and close timing, and outside and focus-out dismissal.
   - Reverse-verify that the script fails when arrow movement, content entry, hover opening, or dismissal is removed.
 
