@@ -1,6 +1,11 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
-pub use dioxus_ui_primitives::{OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
+pub use dioxus_ui_primitives::{
+  DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig,
+};
+
+use crate::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
+use crate::modal_focus::use_modal_focus_scope;
 
 pub const DATE_PICKER_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-950 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50";
 pub const DATE_PICKER_VALUE_BASE_CLASS: &str = "truncate text-left data-placeholder:text-zinc-500";
@@ -42,11 +47,15 @@ pub fn date_picker_align_attribute(align: OverlayAlign) -> &'static str {
   }
 }
 
+/// Click requests `!open` through `on_open_change`. Pass `id` as the content's
+/// `anchor_id`.
 #[component]
 pub fn DatePickerTrigger(
+  #[props(default)] id: Option<String>,
   #[props(default)] open: bool,
   #[props(default)] invalid: bool,
   #[props(default)] disabled: bool,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
@@ -55,8 +64,14 @@ pub fn DatePickerTrigger(
   rsx! {
     button {
       r#type: "button",
+      id,
       class,
       disabled,
+      onclick: move |_| {
+        if let Some(handler) = on_open_change {
+          handler.call(!open);
+        }
+      },
       "aria-expanded": open.to_string(),
       "aria-haspopup": "dialog",
       "aria-invalid": invalid.to_string(),
@@ -85,21 +100,41 @@ pub fn DatePickerValue(
   }
 }
 
+/// With `anchor_id` (the trigger's `id`) the content is placed next to the
+/// trigger, flipping and shifting to stay in the viewport. Opening moves focus
+/// to the element marked `data-dxui-autofocus` (a keyboard-managed Calendar's
+/// focused day) or the first focusable element, Tab wraps inside, and closing
+/// returns focus to the trigger. Escape and outside interactions request close
+/// per `dismiss`.
 #[component]
 pub fn DatePickerContent(
   #[props(default)] open: bool,
   #[props(default = OverlaySide::Bottom)] side: OverlaySide,
   #[props(default = OverlayAlign::Center)] align: OverlayAlign,
+  #[props(default)] anchor_id: Option<String>,
+  #[props(default = 4)] side_offset: i32,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
+  #[props(default = DismissBehavior::popover_default())] dismiss: DismissBehavior,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
   let class = date_picker_content_class(&class);
+  let focus_scope = use_modal_focus_scope(open);
+  let anchored = use_anchored_overlay(
+    open,
+    AnchoredPlacement { anchor_id, side, align, side_offset },
+    dismiss,
+    on_open_change,
+  );
 
   rsx! {
     div {
       role: "dialog",
       class,
+      tabindex: "-1",
       hidden: !open,
+      "data-dxui-anchored": anchored,
+      "data-dxui-focus-scope": focus_scope,
       "data-align": date_picker_align_attribute(align),
       "data-side": date_picker_side_attribute(side),
       "data-state": if open { "open" } else { "closed" },

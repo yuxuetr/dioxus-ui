@@ -1,8 +1,8 @@
 # Date Picker
 
-Date Picker provides controlled trigger, value, and popover content parts for
-composing a Calendar inside an overlay. It does not parse text input, format
-dates, or own selected state in the first implementation.
+Date Picker provides controlled trigger, value, and anchored dialog content
+parts for composing a Calendar inside an overlay. It does not parse text input,
+format dates, or own selected state.
 
 ## Source Copy
 
@@ -29,10 +29,11 @@ use dioxus_ui::{DatePickerContent, DatePickerTrigger, DatePickerValue};
 
 ## API Surface
 
-- `DatePickerTrigger { open, invalid, disabled, class, children }`
+- `DatePickerTrigger { id, open, invalid, disabled, on_open_change, class, children }`
 - `DatePickerValue { placeholder, class, children }`
-- `DatePickerContent { open, side, align, class, children }`
+- `DatePickerContent { open, side, align, anchor_id, side_offset, on_open_change, dismiss, class, children }`
 - `DatePickerPrimitiveConfig`
+- `DatePickerDismissBehavior`, `DatePickerSide`, `DatePickerAlign`
 
 Class helpers:
 
@@ -40,12 +41,55 @@ Class helpers:
 - `date_picker_value_class(class)`
 - `date_picker_content_class(class)`
 
+## Behavior
+
+`open`, the selected date, the focused date, and the visible month stay
+controlled by the app. Give the trigger an `id`, pass it as `anchor_id`, and
+make the Calendar keyboard-managed (see [Calendar](calendar.md#keyboard-behavior)):
+
+```rust
+let mut open = use_signal(|| false);
+
+rsx! {
+  DatePickerTrigger {
+    id: "due-date-trigger",
+    open: open(),
+    on_open_change: move |next| open.set(next),
+    DatePickerValue { "{label}" }
+  }
+  DatePickerContent {
+    open: open(),
+    anchor_id: "due-date-trigger",
+    on_open_change: move |next| open.set(next),
+    Calendar {
+      // CalendarDay { focused, on_key_move, on_select: move |date| {
+      //   selected.set(Some(date));
+      //   open.set(false);
+      // }, ... }
+    }
+  }
+}
+```
+
+- Clicking the trigger requests `!open`.
+- With `anchor_id`, content is placed on `side` (default `Bottom`) with `align`
+  (default `Center`) and `side_offset` (default `4`), flipping and shifting like
+  Popover.
+- Opening moves focus to the Calendar's focused day (marked
+  `data-dxui-autofocus`), or to the first focusable element. Tab and Shift+Tab
+  wrap inside the content.
+- Escape and outside interactions request close per `dismiss` (default
+  `DismissBehavior::popover_default()`). Closing returns focus to the trigger
+  unless an outside click already moved focus to another control.
+- Choosing a date is app code: store it in `on_select` and request close.
+
+Only the Web renderer is covered by `npm run verify:runtime-interactions`.
+
 ## Accessibility Notes
 
 The trigger uses button semantics with `aria-haspopup="dialog"` and controlled
-expanded/invalid state. Content uses dialog semantics and popover placement data
-attributes. Calendar keyboard movement, focus entry, and date parsing remain
-app-owned until runtime focus adapters are implemented.
+expanded/invalid state. Content uses dialog semantics with focus entry, Tab
+containment, and focus return. Typed date parsing remains app-owned.
 
 Use native date inputs when platform-native mobile behavior is the priority.
 Use Calendar directly for always-visible date grids. Use Date Picker when a

@@ -69,11 +69,18 @@ pub mod date_picker;
 #[cfg(feature = "dialog")]
 pub mod dialog;
 
-#[cfg(any(feature = "alert-dialog", feature = "dialog", feature = "drawer", feature = "sheet"))]
+#[cfg(any(
+  feature = "alert-dialog",
+  feature = "date-picker",
+  feature = "dialog",
+  feature = "drawer",
+  feature = "sheet"
+))]
 mod modal_focus;
 
 #[cfg(any(
   feature = "combobox",
+  feature = "date-picker",
   feature = "dropdown",
   feature = "hover-card",
   feature = "popover",
@@ -379,7 +386,8 @@ pub use data_table::{
 #[cfg(feature = "date-picker")]
 pub use date_picker::{
   DATE_PICKER_CONTENT_BASE_CLASS, DATE_PICKER_TRIGGER_BASE_CLASS, DATE_PICKER_VALUE_BASE_CLASS,
-  DatePickerContent, DatePickerTrigger, DatePickerValue, OverlayAlign as DatePickerAlign,
+  DatePickerContent, DatePickerTrigger, DatePickerValue,
+  DismissBehavior as DatePickerDismissBehavior, OverlayAlign as DatePickerAlign,
   OverlaySide as DatePickerSide, PopoverPrimitiveConfig as DatePickerPrimitiveConfig,
   date_picker_align_attribute, date_picker_content_class, date_picker_side_attribute,
   date_picker_trigger_class, date_picker_value_class,
