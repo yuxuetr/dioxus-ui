@@ -227,3 +227,27 @@ compiled preview stylesheet
 preview theme toggle ([RFC 0050](rfcs/0050-preview-theme-toggle.md)), and
 M176 to M178 to the semantic color tokens, the component migration, and the
 token-only dark theme ([RFC 0051](rfcs/0051-semantic-color-tokens.md)).
+
+## Stage 8: 0.2.0 Themes and Components
+
+Goal: close the gaps against shadcn/ui and daisyUI after the 0.1.0 publish.
+
+Deliverables:
+
+- theme presets switched at runtime with `data-theme`, added by `dxui theme`
+- Success, Warning, and Info variants for Alert and Badge
+- the daisyUI components with no counterpart here: Stat, Timeline, Steps,
+  Indicator, Status, Radial Progress, Countdown, Diff, Rating, Number Input,
+  Tags Input, File Input, Swap, Dock, and FAB
+- multi-select, Navigation Menu submenus, typed date input, and pie charts
+  from the 0.1.0 excluded scope
+
+Exit criteria:
+
+- every preset passes the contrast gate and the site audit
+- every new component has a template, registry entry, docs page, site
+  example, and tests
+- 0.2.0 release notes list each breaking enum addition with a migration note
+
+Status: M187 deploys the component site to
+<https://yuxuetr.github.io/dioxus-ui/>; the plan is tracked in `TODOs.md`.
