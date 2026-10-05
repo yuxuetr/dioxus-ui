@@ -784,6 +784,10 @@ scheduled or release CI is the conservative default:
 scripts/feature-check.sh
 ```
 
+`.github/workflows/ci.yml` runs this plan on GitHub Actions: the default set,
+with `cargo fmt --check` and Clippy, on each pull request, and
+`npm run verify:release` on each push to `main`.
+
 Browser smoke remains opt-in and should follow the policy in
 `docs/ci-browser-smoke.md` and `docs/ci-browser-workflow-template.md`.
 
