@@ -233,6 +233,30 @@ function lowContrastText() {
   return failures;
 }
 
+// The preview header toggle switches the page to the opt-in dark theme and
+// back (RFC 0050).
+async function expectThemeToggle(page) {
+  const toggle = page.locator("#preview-theme-toggle");
+  const main = page.locator('[data-preview-root="web"]');
+  const surface = () =>
+    main.evaluate((element) => {
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+      context.fillStyle = getComputedStyle(element).backgroundColor;
+      context.fillRect(0, 0, 1, 1);
+      return Math.max(...context.getImageData(0, 0, 1, 1).data.slice(0, 3));
+    });
+  for (const dark of [true, false]) {
+    await toggle.click();
+    await expect(toggle).toHaveAttribute("aria-pressed", String(dark));
+    await expect(main).toHaveCSS("color-scheme", dark ? "dark" : "normal");
+    const channel = await surface();
+    if (dark ? channel > 40 : channel < 240) {
+      throw new Error(`theme toggle: the page surface should be ${dark ? "dark" : "light"}, got channel ${channel}`);
+    }
+  }
+}
+
 // Text must stay readable in the light theme and under the opt-in `.dark`
 // block, which must turn white surfaces dark.
 async function expectReadableText(page, label) {
@@ -378,6 +402,7 @@ async function runBrowserAssertions() {
     await expect(page.locator(".sr-only").first()).toHaveCSS("position", "absolute");
     await expectNoUtilityConflicts(page, "initial render");
     await expectReadableText(page, "initial render");
+    await expectThemeToggle(page);
 
     const disclosure = page.locator('[data-interaction-target="disclosure"]');
     const disclosureTrigger = page.locator('[data-interaction-control="disclosure-trigger"]');

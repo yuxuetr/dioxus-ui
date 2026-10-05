@@ -774,6 +774,10 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut stays_mixed_request = use_signal(|| None::<bool>);
   let mut button_clicks = use_signal(|| 0_u32);
   let mut bold_pressed = use_signal(|| false);
+  // The previews start light; the header toggle shows the opt-in `.dark`
+  // theme (RFC 0050).
+  let mut dark_theme = use_signal(|| false);
+  let theme_class = if dark_theme() { "dark " } else { "" };
   let mut email_value = use_signal(String::new);
   let mut notes_value = use_signal(String::new);
   let mut volume = use_signal(|| 40.0);
@@ -865,14 +869,22 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   rsx! {
     document::Stylesheet { href: PREVIEW_CSS }
     main {
-      class: "min-h-screen bg-white text-zinc-950",
+      class: "{theme_class}min-h-screen bg-white text-zinc-950",
       "data-preview-root": "{root}",
       section {
         class: "mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 py-8",
         "data-preview-panel": "overview",
         header {
           class: "flex flex-col gap-2 border-b border-zinc-200 pb-4",
-          h1 { class: "text-2xl font-semibold", "{title}" }
+          div { class: "flex flex-wrap items-center justify-between gap-3",
+            h1 { class: "text-2xl font-semibold", "{title}" }
+            Toggle {
+              id: "preview-theme-toggle",
+              pressed: dark_theme(),
+              on_pressed_change: move |pressed| dark_theme.set(pressed),
+              "Dark theme"
+            }
+          }
           p {
             class: "max-w-3xl text-sm text-zinc-600",
             "Rendered preview shell for representative component states. This is a component preview surface, not a landing page."
