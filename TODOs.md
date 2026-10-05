@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 65%
 - Current milestone: M179 Component Site Shell
-- Current task: M179.2 Build the site shell
+- Current task: M179.3 Verify the site in the browser
 
 ## Backup
 
@@ -75,7 +75,7 @@
   - Define the routes (home, getting started, theming, one page per component), the sidebar catalog from the existing catalog categories and registry metadata, and the light and dark theme toggle.
   - Define how examples and their source are shown (one Rust file per example, rendered live and shown with `include_str!`), how install commands come from the registry, how the site gets compiled Tailwind, and what stays out of scope (hosting, search, a theme editor) in an RFC.
 
-- TODO M179.2 Build the site shell
+- DONE M179.2 Build the site shell
   - Add the crate, the layout, the sidebar catalog, routing, the home, getting started, and theming pages, and the theme toggle.
   - Add the site's compiled stylesheet with a drift gate like `npm run verify:preview-css`.
 
