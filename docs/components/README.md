@@ -185,6 +185,7 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["button
 | [Slider](slider.md) | `dxui add slider` | `slider` | Primitive-backed styled part |
 | [Sonner](sonner.md) | `dxui add sonner` | `sonner` | Opinionated notification parts |
 | [Spinner](spinner.md) | `dxui add spinner` | `spinner` | Styled |
+| [Stat](stat.md) | `dxui add stat` | `stat` | Statistic definition list parts |
 | [Switch](switch.md) | `dxui add switch` | `switch` | Controlled styled part |
 | [Table](table.md) | `dxui add table` | `table` | Styled parts |
 | [Tabs](tabs.md) | `dxui add tabs` | `tabs` | Controlled styled parts |

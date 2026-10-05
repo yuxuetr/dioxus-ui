@@ -714,6 +714,9 @@ pub mod tooltip;
 pub mod typography;
 
 pub use dioxus_shadcn_core::UiDensity;
+#[cfg(feature = "stat")]
+pub mod stat;
+
 #[cfg(feature = "switch")]
 pub use switch::{
   SWITCH_BASE_CLASS, SWITCH_THUMB_BASE_CLASS, Switch, switch_class, switch_state,
@@ -768,4 +771,12 @@ pub use typography::{
   TypographyLead, TypographyMuted, TypographyP, TypographyProse, typography_blockquote_class,
   typography_h1_class, typography_h2_class, typography_h3_class, typography_inline_code_class,
   typography_lead_class, typography_muted_class, typography_p_class, typography_prose_class,
+};
+
+#[cfg(feature = "stat")]
+pub use stat::{
+  STAT_BASE_CLASS, STAT_DESCRIPTION_BASE_CLASS, STAT_FIGURE_BASE_CLASS, STAT_GROUP_BASE_CLASS,
+  STAT_TITLE_BASE_CLASS, STAT_VALUE_BASE_CLASS, Stat, StatDescription, StatFigure, StatGroup,
+  StatGroupOrientation, StatTitle, StatValue, stat_class, stat_description_class,
+  stat_figure_class, stat_group_class, stat_title_class, stat_value_class,
 };

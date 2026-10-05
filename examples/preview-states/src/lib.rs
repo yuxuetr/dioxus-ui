@@ -545,6 +545,14 @@ pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
     notes: "Rendered markup and class-state coverage target.",
   },
   ComponentPreviewTarget {
+    component: "stat",
+    label: "Stat",
+    panel: "data-display",
+    test_id: "component-preview-stat",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
     component: "switch",
     label: "Switch",
     panel: "forms",

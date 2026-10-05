@@ -1,0 +1,14 @@
+{
+  "name": "stat",
+  "description": "Styled statistic group with title, value, description, and figure.",
+  "files": [
+    {
+      "source": "templates/stat.rs",
+      "target": "src/components/ui/stat.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

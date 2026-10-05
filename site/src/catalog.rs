@@ -362,6 +362,12 @@ pub const CATEGORIES: &[Category] = &[
         feature: "progress",
       },
       Component {
+        slug: "stat",
+        title: "Stat",
+        description: "Styled statistic group with title, value, description, and figure.",
+        feature: "stat",
+      },
+      Component {
         slug: "table",
         title: "Table",
         description: "Table component with styled table parts.",

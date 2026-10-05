@@ -80,6 +80,7 @@ const componentCategories = {
   "toggle-group": "actions",
   tooltip: "overlays",
   typography: "data-display",
+  stat: "data-display",
 };
 
 const categoryLabels = new Map(catalogCategories.map((category) => [category.id, category.label]));

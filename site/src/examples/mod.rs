@@ -77,6 +77,7 @@ examples! {
   avatar_basic => "avatar", "Image and fallback";
   badge_variants => "badge", "Variants";
   badge_status => "badge", "Status";
+  stat_revenue => "stat", "Revenue";
   chart_revenue => "chart", "Area and line";
   data_table_users => "data-table", "Filter, sort, and select";
   empty_projects => "empty", "No projects";

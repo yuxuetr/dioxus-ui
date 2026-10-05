@@ -24,6 +24,7 @@ Statuses:
 | Kbd | Uses native `kbd` semantics for keyboard hints. | Implemented |
 | Separator | Supports decorative and semantic separator usage. | Implemented |
 | Skeleton | Hidden from assistive technology by default. | Implemented |
+| Stat | Uses a definition list so each value is read with its title. | Implemented |
 | Typography | Uses native text elements; consuming apps own heading hierarchy and landmark placement. | Implemented |
 
 ## Form Basics

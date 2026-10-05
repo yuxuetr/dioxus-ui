@@ -13,14 +13,14 @@ parity.
 
 ## Summary
 
-- Public components: 64
-- Registry entries: 65
+- Public components: 65
+- Registry entries: 66
 - Source-copy helpers: utils
-- Templates: 65
-- Crate modules: 64
-- Crate features: 64
-- Component docs pages: 64
-- Complete local wiring: 64
+- Templates: 66
+- Crate modules: 65
+- Crate features: 65
+- Component docs pages: 65
+- Complete local wiring: 65
 - Incomplete local wiring: 0
 
 ## Category Counts
@@ -32,7 +32,7 @@ parity.
 | Overlays | 11 |
 | Navigation | 5 |
 | Layout | 10 |
-| Data Display | 8 |
+| Data Display | 9 |
 | Feedback | 5 |
 | Messaging | 5 |
 
@@ -52,6 +52,7 @@ parity.
 | Data Table | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Empty | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Progress | Data Display | yes | yes | yes | yes | yes | yes | yes |
+| Stat | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Table | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Typography | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Alert | Feedback | yes | yes | yes | yes | yes | yes | yes |
@@ -121,6 +122,7 @@ parity.
 | Data Table | Data Display | [docs](data-table.md) | `dxui add data-table` | `data-table` | `crates/dioxus-shadcn-cli/templates/data_table.rs` | `src/components/ui/data_table.rs` |
 | Empty | Data Display | [docs](empty.md) | `dxui add empty` | `empty` | `crates/dioxus-shadcn-cli/templates/empty.rs` | `src/components/ui/empty.rs` |
 | Progress | Data Display | [docs](progress.md) | `dxui add progress` | `progress` | `crates/dioxus-shadcn-cli/templates/progress.rs` | `src/components/ui/progress.rs` |
+| Stat | Data Display | [docs](stat.md) | `dxui add stat` | `stat` | `crates/dioxus-shadcn-cli/templates/stat.rs` | `src/components/ui/stat.rs` |
 | Table | Data Display | [docs](table.md) | `dxui add table` | `table` | `crates/dioxus-shadcn-cli/templates/table.rs` | `src/components/ui/table.rs` |
 | Typography | Data Display | [docs](typography.md) | `dxui add typography` | `typography` | `crates/dioxus-shadcn-cli/templates/typography.rs` | `src/components/ui/typography.rs` |
 | Alert | Feedback | [docs](alert.md) | `dxui add alert` | `alert` | `crates/dioxus-shadcn-cli/templates/alert.rs` | `src/components/ui/alert.rs` |
