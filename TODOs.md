@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
-- Current milestone: M182 Automated Accessibility Audit
-- Current task: M182.5
+- Overall: 100%
+- Current milestone: none (M182 complete)
+- Current task: none
 
 ## Backup
 
@@ -42,10 +42,11 @@
   - Add `axe-core` as a dev dependency, run it from `npm run verify:site` and `npm run verify:runtime-interactions`, and reverse-verify that a reintroduced finding fails each check.
   - Done: the audit also caught the preview's hand-built scrolling message list, which now has a Tab stop and a region name. Reverse checks: `aria-orientation` on `ToggleGroup` fails the runtime check; a viewport without `tabindex` and an `h5` `AlertTitle` fail the site check.
 
-- TODO M182.5 Complete the accessibility audit milestone
+- DONE M182.5 Complete the accessibility audit milestone
   - Update CHANGELOG, the affected component docs, quality gates, and the docs index.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, `npm run verify:runtime-interactions`, `npm run verify:site`, and the Desktop self-test.
   - Push local commits to `origin/main`.
+  - Done: release gate, runtime check (35 fixtures), site check (67 routes, 65 examples), and the Desktop self-test (10 scenarios) pass.
 
 ## Status Rules
 
