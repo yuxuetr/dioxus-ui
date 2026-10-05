@@ -1,0 +1,36 @@
+use dioxus::prelude::*;
+use dioxus_ui::{
+  Button, ButtonVariant, DropdownContent, DropdownGroup, DropdownItem, DropdownLabel,
+  DropdownSeparator,
+};
+
+#[component]
+pub fn Demo() -> Element {
+  let mut open = use_signal(|| false);
+  let mut action = use_signal(|| "none");
+
+  rsx! {
+    Button {
+      id: "dropdown-actions-trigger",
+      variant: ButtonVariant::Outline,
+      "aria-haspopup": "menu",
+      "aria-expanded": "{open}",
+      onclick: move |_| open.toggle(),
+      "Actions"
+    }
+    p { class: "mt-3 text-sm text-muted-foreground", "Last action: {action}" }
+    DropdownContent {
+      open: open(),
+      anchor_id: "dropdown-actions-trigger",
+      on_open_change: move |next| open.set(next),
+      DropdownGroup {
+        DropdownLabel { "Project" }
+        DropdownItem { onclick: move |_| action.set("edit"), "Edit" }
+        DropdownItem { onclick: move |_| action.set("duplicate"), "Duplicate" }
+        DropdownItem { disabled: true, "Archive" }
+      }
+      DropdownSeparator {}
+      DropdownItem { destructive: true, onclick: move |_| action.set("delete"), "Delete" }
+    }
+  }
+}

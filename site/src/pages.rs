@@ -241,7 +241,7 @@ fn ExampleCard(index: usize) -> Element {
           value: "preview",
           active: on_preview,
           class: "rounded-md border border-border p-6",
-          ExampleRender { index }
+          div { "data-site-example-preview": "", ExampleRender { index } }
         }
         TabsContent { value: "code", active: !on_preview,
           pre { class: "{CODE_BLOCK} max-h-[32rem]", "data-site-example-source": "",

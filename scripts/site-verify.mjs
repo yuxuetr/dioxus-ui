@@ -63,7 +63,9 @@ async function expectExamples(page, route) {
   }
   for (const title of expected) {
     const section = page.locator(`main [data-site-example="${title}"]`);
-    const preview = section.getByRole("tabpanel");
+    // Scope to the card's own tabs; an example may render tabs of its own.
+    const tabs = section.getByRole("tablist", { name: `${title} example`, exact: true });
+    const preview = section.locator("[data-site-example-preview]");
     await expect(preview).toBeVisible();
     const drawn = await preview.evaluate((element) =>
       [...element.querySelectorAll("*")].some((child) => child.getBoundingClientRect().width > 0),
@@ -71,14 +73,14 @@ async function expectExamples(page, route) {
     if (!drawn) {
       throw new Error(`${route.path}: the ${title} example renders nothing`);
     }
-    await section.getByRole("tab", { name: "Code" }).click();
+    await tabs.getByRole("tab", { name: "Code" }).click();
     const source = section.locator("[data-site-example-source]");
     await expect(source).toBeVisible();
     if (!(await source.textContent())?.includes("fn Demo()")) {
       throw new Error(`${route.path}: the ${title} example has no source`);
     }
     await expectReadable(page, `${route.path} ${title} source`);
-    await section.getByRole("tab", { name: "Preview" }).click();
+    await tabs.getByRole("tab", { name: "Preview" }).click();
     await expect(preview).toBeVisible();
   }
 }
