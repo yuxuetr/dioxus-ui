@@ -24,6 +24,9 @@ const examples = [...examplesSource.matchAll(/^\s*(\w+) => "([a-z-]+)", "([^"]+)
   title: match[3],
 }));
 const unknownExamples = examples.filter((example) => !routes.some((route) => route.slug === example.slug));
+const componentsWithoutExamples = routes
+  .filter((route) => route.slug && !examples.some((example) => example.slug === route.slug))
+  .map((route) => route.slug);
 
 async function visit(page, path) {
   await page.goto(`${server.url}${path}`, { waitUntil: "domcontentloaded", timeout: 30000 });
@@ -88,6 +91,9 @@ async function expectExamples(page, route) {
 async function run() {
   if (unknownExamples.length > 0) {
     throw new Error(`examples for components outside the catalog: ${unknownExamples.map((example) => example.module).join(", ")}`);
+  }
+  if (componentsWithoutExamples.length > 0) {
+    throw new Error(`catalog components without examples: ${componentsWithoutExamples.join(", ")}`);
   }
   const browser = await launchBrowser("scripts/site-verify.mjs");
   try {

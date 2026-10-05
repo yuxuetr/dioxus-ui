@@ -596,7 +596,8 @@ error, a route that renders the not found page or the wrong component, text
 below the WCAG AA contrast minimum in the light or dark theme, or a sideways
 scroll at 375px. Each component page must render exactly the examples
 `site/src/examples/mod.rs` lists for it, each with a drawn preview and a Code
-tab whose source defines the rendered `Demo`. It also checks that unknown
+tab whose source defines the rendered `Demo`. Every catalog component must have at
+least one example, and no example may name a component outside the catalog. It also checks that unknown
 routes render the not found page,
 that the header toggle switches the theme, and that the catalog menu opens and
 navigates below `md`. It needs Playwright Chromium and is not part of the

@@ -98,16 +98,24 @@ export function serveDioxusWeb({ packageName, bin, port }) {
 }
 
 // Adds or removes the opt-in `dark` class on the root element and waits for
-// the components' color transitions to settle.
+// the components' color transitions to settle. A transition can be cancelled
+// and restarted mid-way, so it waits until no transition is running.
 export async function setDarkTheme(page, dark) {
   await page.evaluate(async (dark) => {
-    document.documentElement.classList.toggle("dark", dark);
-    await Promise.all(
+    const frame = () => new Promise((resolve) => requestAnimationFrame(resolve));
+    const running = () =>
       document
         .getAnimations()
-        .filter((animation) => animation instanceof CSSTransition)
-        .map((animation) => animation.finished.catch(() => {})),
-    );
+        .filter((animation) => animation instanceof CSSTransition && animation.playState === "running");
+    document.documentElement.classList.toggle("dark", dark);
+    for (let attempt = 0; attempt < 20; attempt += 1) {
+      await frame();
+      const transitions = running();
+      if (transitions.length === 0) {
+        return;
+      }
+      await Promise.all(transitions.map((animation) => animation.finished.catch(() => {})));
+    }
   }, dark);
 }
 
