@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
+- Overall: 85%
 - Current milestone: M180 Component Pages
-- Current task: M180.2 Add actions and forms examples
+- Current task: M180.3 Add overlays and navigation examples
 
 ## Backup
 
@@ -94,7 +94,7 @@
   - Show the description, the `dxui add` command and crate feature, live examples with a preview and source tab, and links to the API and accessibility notes.
   - Fail the site check when a catalog component has no page or an example has no source.
 
-- TODO M180.2 Add actions and forms examples
+- DONE M180.2 Add actions and forms examples
   - Add examples for every component in the Actions and Forms categories, covering their main variants and states.
 
 - TODO M180.3 Add overlays and navigation examples
