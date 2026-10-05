@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0.2.0 plan, 2 of 8 milestones complete
-- Current milestone: M189 Status Variants
-- Current task: M189.1
+- Overall: 0.2.0 plan, 3 of 8 milestones complete
+- Current milestone: M190 Display Components
+- Current task: M190.1
 
 ## Backup
 
@@ -52,8 +52,9 @@
 
 ## M189 Status Variants
 
-- TODO M189.1 Success, Warning, and Info variants for Alert and Badge
+- DONE M189.1 Success, Warning, and Info variants for Alert and Badge
   - Crate and templates, SSR tests, docs, site examples, contrast in every preset.
+  - Done: RFC 0058. White text measured 3.08:1 on light success, so three status foreground tokens were added; solid status badges, tinted status alerts (`bg-card` moved from the base class into the Default and Destructive variants). The site audits the new examples in both themes and all 33 presets.
 
 ## M190 Display Components
 
