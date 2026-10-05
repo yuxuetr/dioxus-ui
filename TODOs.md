@@ -4,7 +4,7 @@
 
 - Overall: 0.2.0 plan, 4 of 8 milestones complete
 - Current milestone: M191 Input Components
-- Current task: M191.1
+- Current task: M191.2
 
 ## Backup
 
@@ -75,7 +75,8 @@
 
 ## M191 Input Components
 
-- TODO M191.1 Rating
+- DONE M191.1 Rating
+  - Done: RFC 0060 for all of M191; native radio stars with a runtime check for arrow keys, clicks, and fill.
 - TODO M191.2 Number Input
 - TODO M191.3 Tags Input
 - TODO M191.4 File Input
