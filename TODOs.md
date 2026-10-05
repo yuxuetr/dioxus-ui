@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 95%
-- Current milestone: M180 Component Pages
-- Current task: M180.5 Complete the component pages
+- Overall: 100%
+- Current milestone: none (M176 to M180 complete)
+- Current task: none
 
 ## Backup
 
@@ -103,7 +103,7 @@
 - DONE M180.4 Add layout, data display, feedback, and messaging examples
   - Add examples for every remaining component.
 
-- TODO M180.5 Complete the component pages
+- DONE M180.5 Complete the component pages
   - Update CHANGELOG, README, and site docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the site browser check.
   - Push local commits to `origin/main`.
