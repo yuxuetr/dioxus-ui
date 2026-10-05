@@ -1,8 +1,9 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Badge, BadgeVariant};
+use dioxus_ui::{Badge, BadgeVariant, Tabs, TabsContent, TabsList, TabsTrigger};
 
 use crate::Route;
 use crate::catalog::{CATEGORIES, Component};
+use crate::examples::EXAMPLES;
 
 const H1: &str = "text-3xl font-bold tracking-normal";
 const H2: &str = "mt-10 border-b border-border pb-2 text-xl font-semibold";
@@ -11,6 +12,7 @@ const P: &str = "mt-4 leading-7";
 const CODE_BLOCK: &str =
   "mt-4 overflow-x-auto rounded-md border border-border bg-muted p-4 font-mono text-sm";
 const INLINE_CODE: &str = "rounded bg-muted px-1.5 py-0.5 font-mono text-sm";
+const DOCS_URL: &str = concat!(env!("CARGO_PKG_REPOSITORY"), "/blob/main/docs/components");
 
 fn find_component(slug: &str) -> Option<(&'static str, &'static Component)> {
   CATEGORIES.iter().find_map(|category| {
@@ -177,6 +179,8 @@ pub fn ComponentPage(slug: String) -> Element {
     return rsx! { NotFoundContent { path: format!("/components/{slug}") } };
   };
 
+  let has_examples = EXAMPLES.iter().any(|example| example.slug == component.slug);
+
   rsx! {
     article { "data-site-page": "component", "data-component": component.slug,
       p { class: "text-sm text-muted-foreground", "{category}" }
@@ -189,7 +193,72 @@ pub fn ComponentPage(slug: String) -> Element {
       CodeBlock {
         code: format!("dioxus-ui = {{ version = \"0.1\", features = [\"{}\"] }}", component.feature)
       }
+      if has_examples {
+        h2 { class: H2, "Examples" }
+        for (index, example) in EXAMPLES.iter().enumerate().filter(|(_, example)| example.slug == component.slug) {
+          ExampleCard { key: "{component.slug}-{example.title}", index }
+        }
+      }
+      h2 { class: H2, "Reference" }
+      ul { class: "mt-4 grid gap-2 text-sm",
+        li {
+          a {
+            class: "font-medium underline underline-offset-4",
+            href: "{DOCS_URL}/{component.slug}.md#api-surface",
+            "API surface and behavior"
+          }
+        }
+        li {
+          a {
+            class: "font-medium underline underline-offset-4",
+            href: "{DOCS_URL}/{component.slug}.md#accessibility-notes",
+            "Accessibility notes"
+          }
+        }
+      }
     }
+  }
+}
+
+/// One example: its live preview, or its source on the Code tab.
+#[component]
+fn ExampleCard(index: usize) -> Element {
+  let mut tab = use_signal(|| "preview".to_string());
+  let Some(example) = EXAMPLES.get(index) else {
+    return rsx! {};
+  };
+  let on_preview = tab() == "preview";
+
+  rsx! {
+    section { class: "mt-6", "data-site-example": example.title,
+      h3 { class: "font-semibold", "{example.title}" }
+      Tabs { class: "mt-3", on_value_change: move |value: String| tab.set(value),
+        TabsList { "aria-label": "{example.title} example",
+          TabsTrigger { value: "preview", active: on_preview, "Preview" }
+          TabsTrigger { value: "code", active: !on_preview, "Code" }
+        }
+        TabsContent {
+          value: "preview",
+          active: on_preview,
+          class: "rounded-md border border-border p-6",
+          ExampleRender { index }
+        }
+        TabsContent { value: "code", active: !on_preview,
+          pre { class: "{CODE_BLOCK} max-h-[32rem]", "data-site-example-source": "",
+            code { "{example.source}" }
+          }
+        }
+      }
+    }
+  }
+}
+
+/// Renders an example in its own scope, so its hooks belong to it.
+#[component]
+fn ExampleRender(index: usize) -> Element {
+  match EXAMPLES.get(index) {
+    Some(example) => (example.render)(),
+    None => rsx! {},
   }
 }
 

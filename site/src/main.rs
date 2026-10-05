@@ -2,6 +2,7 @@
 //! page, and the setup and theming guides, built on the published components.
 
 mod catalog;
+mod examples;
 mod pages;
 
 use dioxus::prelude::*;

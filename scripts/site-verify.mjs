@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { readFileSync } from "node:fs";
 import { expect } from "@playwright/test";
 import { buildDocsCatalog } from "./docs-catalog-builder.mjs";
 import { launchBrowser, lowContrastText, serveDioxusWeb, setDarkTheme } from "./browser-check-support.mjs";
@@ -15,6 +16,14 @@ const routes = [
   ...buildDocsCatalog().catalog.map((item) => ({ path: `/components/${item.slug}`, page: "component", slug: item.slug })),
 ];
 const missingRoutes = ["/no-such-page", "/components/no-such-component"];
+// The examples each page should show, from the site's example list.
+const examplesSource = readFileSync(new URL("../site/src/examples/mod.rs", import.meta.url), "utf8");
+const examples = [...examplesSource.matchAll(/^\s*(\w+) => "([a-z-]+)", "([^"]+)";$/gm)].map((match) => ({
+  module: match[1],
+  slug: match[2],
+  title: match[3],
+}));
+const unknownExamples = examples.filter((example) => !routes.some((route) => route.slug === example.slug));
 
 async function visit(page, path) {
   await page.goto(`${server.url}${path}`, { waitUntil: "domcontentloaded", timeout: 30000 });
@@ -43,7 +52,41 @@ async function expectNoSidewaysScroll(page, label) {
   }
 }
 
+// Every listed example renders a preview, and its Code tab shows the source
+// that defines the rendered `Demo`.
+async function expectExamples(page, route) {
+  const expected = examples.filter((example) => example.slug === route.slug).map((example) => example.title);
+  const sections = page.locator("main [data-site-example]");
+  const rendered = await sections.evaluateAll((elements) => elements.map((element) => element.dataset.siteExample));
+  if (JSON.stringify(rendered) !== JSON.stringify(expected)) {
+    throw new Error(`${route.path}: expected examples ${JSON.stringify(expected)}, got ${JSON.stringify(rendered)}`);
+  }
+  for (const title of expected) {
+    const section = page.locator(`main [data-site-example="${title}"]`);
+    const preview = section.getByRole("tabpanel");
+    await expect(preview).toBeVisible();
+    const drawn = await preview.evaluate((element) =>
+      [...element.querySelectorAll("*")].some((child) => child.getBoundingClientRect().width > 0),
+    );
+    if (!drawn) {
+      throw new Error(`${route.path}: the ${title} example renders nothing`);
+    }
+    await section.getByRole("tab", { name: "Code" }).click();
+    const source = section.locator("[data-site-example-source]");
+    await expect(source).toBeVisible();
+    if (!(await source.textContent())?.includes("fn Demo()")) {
+      throw new Error(`${route.path}: the ${title} example has no source`);
+    }
+    await expectReadable(page, `${route.path} ${title} source`);
+    await section.getByRole("tab", { name: "Preview" }).click();
+    await expect(preview).toBeVisible();
+  }
+}
+
 async function run() {
+  if (unknownExamples.length > 0) {
+    throw new Error(`examples for components outside the catalog: ${unknownExamples.map((example) => example.module).join(", ")}`);
+  }
   const browser = await launchBrowser("scripts/site-verify.mjs");
   try {
     const page = await (await browser.newContext({ viewport })).newPage();
@@ -63,6 +106,9 @@ async function run() {
       }
       if (route.slug && (await article.getAttribute("data-component")) !== route.slug) {
         throw new Error(`${route.path}: the page does not show ${route.slug}`);
+      }
+      if (route.slug) {
+        await expectExamples(page, route);
       }
       await expectReadable(page, route.path);
       await expectNoSidewaysScroll(page, route.path);
@@ -105,7 +151,7 @@ async function run() {
 try {
   await server.ready();
   await run();
-  console.log(`site verification passed (${routes.length} routes)`);
+  console.log(`site verification passed (${routes.length} routes, ${examples.length} examples)`);
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
