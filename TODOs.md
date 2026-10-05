@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 45%
 - Current milestone: M178 Token-only Dark Theme And Palette Gate
-- Current task: M178.1 Move the dark theme onto the tokens
+- Current task: M178.2 Gate palette colors in component classes
 
 ## Backup
 
@@ -54,7 +54,7 @@
 
 ## M178 Token-only Dark Theme And Palette Gate
 
-- TODO M178.1 Move the dark theme onto the tokens
+- DONE M178.1 Move the dark theme onto the tokens
   - Remove the RFC 0047 palette remap from the CLI and preview stylesheets; `.dark` redefines only the tokens, so app palette classes keep their colors.
   - Keep the light and dark contrast checks passing, and replace the `bg-white` dark-surface probe with a token surface probe.
   - Mark RFC 0047 as superseded where its palette remap is replaced.
