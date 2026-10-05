@@ -318,6 +318,7 @@ only.
 - [RFC 0056: Published Crate Names](docs/rfcs/0056-published-crate-names.md)
 - [RFC 0057: Theme Presets](docs/rfcs/0057-theme-presets.md)
 - [RFC 0058: Status Variants](docs/rfcs/0058-status-variants.md)
+- [RFC 0059: Display Components](docs/rfcs/0059-display-components.md)
 
 ## Verification Shortcuts
 

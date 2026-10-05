@@ -126,7 +126,8 @@ Read in this order:
 119. [RFC 0056: Published Crate Names](rfcs/0056-published-crate-names.md)
 120. [RFC 0057: Theme Presets](rfcs/0057-theme-presets.md)
 121. [RFC 0058: Status Variants](rfcs/0058-status-variants.md)
-122. [TODO Plan](../TODOs.md)
+122. [RFC 0059: Display Components](rfcs/0059-display-components.md)
+123. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
