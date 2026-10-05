@@ -13,14 +13,14 @@ parity.
 
 ## Summary
 
-- Public components: 69
-- Registry entries: 70
+- Public components: 70
+- Registry entries: 71
 - Source-copy helpers: utils
-- Templates: 70
-- Crate modules: 69
-- Crate features: 69
-- Component docs pages: 69
-- Complete local wiring: 69
+- Templates: 71
+- Crate modules: 70
+- Crate features: 70
+- Component docs pages: 70
+- Complete local wiring: 70
 - Incomplete local wiring: 0
 
 ## Category Counts
@@ -32,7 +32,7 @@ parity.
 | Overlays | 11 |
 | Navigation | 6 |
 | Layout | 11 |
-| Data Display | 10 |
+| Data Display | 11 |
 | Feedback | 6 |
 | Messaging | 5 |
 
@@ -52,6 +52,7 @@ parity.
 | Data Table | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Empty | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Progress | Data Display | yes | yes | yes | yes | yes | yes | yes |
+| Radial Progress | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Stat | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Table | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Timeline | Data Display | yes | yes | yes | yes | yes | yes | yes |
@@ -126,6 +127,7 @@ parity.
 | Data Table | Data Display | [docs](data-table.md) | `dxui add data-table` | `data-table` | `crates/dioxus-shadcn-cli/templates/data_table.rs` | `src/components/ui/data_table.rs` |
 | Empty | Data Display | [docs](empty.md) | `dxui add empty` | `empty` | `crates/dioxus-shadcn-cli/templates/empty.rs` | `src/components/ui/empty.rs` |
 | Progress | Data Display | [docs](progress.md) | `dxui add progress` | `progress` | `crates/dioxus-shadcn-cli/templates/progress.rs` | `src/components/ui/progress.rs` |
+| Radial Progress | Data Display | [docs](radial-progress.md) | `dxui add radial-progress` | `radial-progress` | `crates/dioxus-shadcn-cli/templates/radial_progress.rs` | `src/components/ui/radial_progress.rs` |
 | Stat | Data Display | [docs](stat.md) | `dxui add stat` | `stat` | `crates/dioxus-shadcn-cli/templates/stat.rs` | `src/components/ui/stat.rs` |
 | Table | Data Display | [docs](table.md) | `dxui add table` | `table` | `crates/dioxus-shadcn-cli/templates/table.rs` | `src/components/ui/table.rs` |
 | Timeline | Data Display | [docs](timeline.md) | `dxui add timeline` | `timeline` | `crates/dioxus-shadcn-cli/templates/timeline.rs` | `src/components/ui/timeline.rs` |

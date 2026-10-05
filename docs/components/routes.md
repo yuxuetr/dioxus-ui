@@ -11,7 +11,7 @@ It does not create rendered routes, router code, screenshots, or generated JSON.
 For source preview route metadata, see the
 [Source Preview Manifest](source-preview.md).
 
-Component routes: 69
+Component routes: 70
 Category routes: 8
 
 ## Top-level Routes
@@ -85,6 +85,7 @@ Category routes: 8
 | [Pagination](pagination.md) | /components/pagination | docs/components/pagination.md | /components#category-navigation | /components/pagination/source |
 | [Popover](popover.md) | /components/popover | docs/components/popover.md | /components#category-overlays | /components/popover/source |
 | [Progress](progress.md) | /components/progress | docs/components/progress.md | /components#category-data-display | /components/progress/source |
+| [Radial Progress](radial-progress.md) | /components/radial-progress | docs/components/radial-progress.md | /components#category-data-display | /components/radial-progress/source |
 | [Radio Group](radio-group.md) | /components/radio-group | docs/components/radio-group.md | /components#category-forms | /components/radio-group/source |
 | [Resizable](resizable.md) | /components/resizable | docs/components/resizable.md | /components#category-layout | /components/resizable/source |
 | [Scroll Area](scroll-area.md) | /components/scroll-area | docs/components/scroll-area.md | /components#category-layout | /components/scroll-area/source |

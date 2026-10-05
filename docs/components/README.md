@@ -175,6 +175,7 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["button
 | [Pagination](pagination.md) | `dxui add pagination` | `pagination` | Styled parts |
 | [Popover](popover.md) | `dxui add popover` | `popover` | Primitive config + styled parts |
 | [Progress](progress.md) | `dxui add progress` | `progress` | Styled |
+| [Radial Progress](radial-progress.md) | `dxui add radial-progress` | `radial-progress` | Circular progressbar |
 | [Radio Group](radio-group.md) | `dxui add radio-group` | `radio-group` | Primitive-backed styled parts |
 | [Resizable](resizable.md) | `dxui add resizable` | `resizable` | Controlled resizable panel parts |
 | [Select](select.md) | `dxui add select` | `select` | Primitive config + styled parts |

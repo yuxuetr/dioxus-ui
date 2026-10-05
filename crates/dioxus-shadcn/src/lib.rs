@@ -714,6 +714,9 @@ pub mod tooltip;
 pub mod typography;
 
 pub use dioxus_shadcn_core::UiDensity;
+#[cfg(feature = "radial-progress")]
+pub mod radial_progress;
+
 #[cfg(feature = "status")]
 pub mod status;
 
@@ -816,3 +819,10 @@ pub use indicator::{
 
 #[cfg(feature = "status")]
 pub use status::{STATUS_BASE_CLASS, Status, StatusSize, StatusVariant, status_class};
+
+#[cfg(feature = "radial-progress")]
+pub use radial_progress::{
+  RADIAL_PROGRESS_BASE_CLASS, RADIAL_PROGRESS_DEFAULT_LABEL_CLASS, RADIAL_PROGRESS_INDICATOR_CLASS,
+  RADIAL_PROGRESS_SLOT_CLASS, RADIAL_PROGRESS_TRACK_CLASS, RadialProgress, RadialProgressSize,
+  radial_progress_class, radial_progress_geometry, radial_progress_value,
+};

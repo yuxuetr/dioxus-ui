@@ -374,6 +374,12 @@ pub const CATEGORIES: &[Category] = &[
         feature: "progress",
       },
       Component {
+        slug: "radial-progress",
+        title: "Radial Progress",
+        description: "Styled circular progress bar with a centered label.",
+        feature: "radial-progress",
+      },
+      Component {
         slug: "stat",
         title: "Stat",
         description: "Styled statistic group with title, value, description, and figure.",

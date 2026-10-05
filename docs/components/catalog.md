@@ -10,7 +10,7 @@ The catalog is derived from registry entries, templates, component docs,
 crate features, and crate modules. It intentionally does not include visual
 preview routes, screenshot artifacts, or generated JSON metadata.
 
-Public components: 69
+Public components: 70
 
 ## Groups
 
@@ -85,6 +85,7 @@ Public components: 69
 - [Data Table](data-table.md): Controlled Data Table composition parts and state helpers.
 - [Empty](empty.md): Empty-state layout composition parts.
 - [Progress](progress.md): Progress component with accessible value semantics.
+- [Radial Progress](radial-progress.md): Styled circular progress bar with a centered label.
 - [Stat](stat.md): Styled statistic group with title, value, description, and figure.
 - [Table](table.md): Table component with styled table parts.
 - [Timeline](timeline.md): Styled ordered timeline with time, marker, and content parts.
@@ -156,6 +157,7 @@ Public components: 69
 | [Pagination](pagination.md) | Pagination component with link, item, and ellipsis parts. | `dxui add pagination` | `pagination` | `crates/dioxus-shadcn-cli/templates/pagination.rs` | `src/components/ui/pagination.rs` |
 | [Popover](popover.md) | Popover content components backed by primitive configuration types. | `dxui add popover` | `popover` | `crates/dioxus-shadcn-cli/templates/popover.rs` | `src/components/ui/popover.rs` |
 | [Progress](progress.md) | Progress component with accessible value semantics. | `dxui add progress` | `progress` | `crates/dioxus-shadcn-cli/templates/progress.rs` | `src/components/ui/progress.rs` |
+| [Radial Progress](radial-progress.md) | Styled circular progress bar with a centered label. | `dxui add radial-progress` | `radial-progress` | `crates/dioxus-shadcn-cli/templates/radial_progress.rs` | `src/components/ui/radial_progress.rs` |
 | [Radio Group](radio-group.md) | Radio Group component for single-choice grouped selection. | `dxui add radio-group` | `radio-group` | `crates/dioxus-shadcn-cli/templates/radio_group.rs` | `src/components/ui/radio_group.rs` |
 | [Resizable](resizable.md) | Controlled resizable panel group, panel, and handle parts. | `dxui add resizable` | `resizable` | `crates/dioxus-shadcn-cli/templates/resizable.rs` | `src/components/ui/resizable.rs` |
 | [Scroll Area](scroll-area.md) | Native scroll area wrapper with styled viewport and scrollbar parts. | `dxui add scroll-area` | `scroll-area` | `crates/dioxus-shadcn-cli/templates/scroll_area.rs` | `src/components/ui/scroll_area.rs` |

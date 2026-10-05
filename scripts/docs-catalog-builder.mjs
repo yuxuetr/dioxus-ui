@@ -80,6 +80,7 @@ const componentCategories = {
   "toggle-group": "actions",
   tooltip: "overlays",
   typography: "data-display",
+  "radial-progress": "data-display",
   status: "feedback",
   indicator: "layout",
   steps: "navigation",

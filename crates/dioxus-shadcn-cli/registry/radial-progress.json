@@ -1,0 +1,14 @@
+{
+  "name": "radial-progress",
+  "description": "Styled circular progress bar with a centered label.",
+  "files": [
+    {
+      "source": "templates/radial_progress.rs",
+      "target": "src/components/ui/radial_progress.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}
