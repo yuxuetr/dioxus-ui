@@ -587,9 +587,10 @@ with the Checkbox tick switching to its dark stroke under `.dark`; and a 375px
 layout with no sideways scroll and no element outside its fixture card; and
 action part callbacks and `FieldLabel` `for`; and no axe-core violation of the
 WCAG 2.1 A and AA and best-practice rules at the first render, an open Dialog,
-and after the interactions in both themes, with `landmark-unique` disabled
-because the preview repeats landmark components
-([RFC 0054](rfcs/0054-automated-accessibility-audit.md)). It does not
+each open overlay, menu, and popup, and after the interactions in both themes,
+with `landmark-unique` disabled because the preview repeats landmark components
+([RFC 0054](rfcs/0054-automated-accessibility-audit.md),
+[RFC 0055](rfcs/0055-open-state-accessibility-audit.md)). It does not
 write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.

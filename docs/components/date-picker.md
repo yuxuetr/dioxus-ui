@@ -92,7 +92,9 @@ Simulator by `npm run verify:mobile-interactions`, and an Android emulator by
 
 The trigger uses button semantics with `aria-haspopup="dialog"` and controlled
 expanded/invalid state. Content uses dialog semantics with focus entry, Tab
-containment, and focus return. Typed date parsing remains app-owned.
+containment, and focus return, and with an `anchor_id` takes the trigger's
+name through `aria-labelledby` (see [RFC 0055](../rfcs/0055-open-state-accessibility-audit.md)).
+Typed date parsing remains app-owned.
 
 Use native date inputs when platform-native mobile behavior is the priority.
 Use Calendar directly for always-visible date grids. Use Date Picker when a

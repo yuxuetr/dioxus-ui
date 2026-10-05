@@ -86,6 +86,12 @@ The trigger uses select-only combobox semantics with `aria-haspopup="listbox"`
 and `aria-activedescendant`; content uses listbox and option semantics. Apps
 provide a visible or programmatic label for the trigger.
 
+With the trigger's `id` as the content's `anchor_id`, the listbox renders
+`id="{anchor_id}-content"` and takes the trigger's name through
+`aria-labelledby`, and the trigger points `aria-controls` at it; a passed
+`aria-controls` replaces the derived one. Disabled items set `aria-disabled`
+(see [RFC 0055](../rfcs/0055-open-state-accessibility-audit.md)).
+
 `SelectTrigger` passes through attributes such as `aria-labelledby` and
 `aria-describedby` for a field description or error (see
 [RFC 0038](../rfcs/0038-form-control-naming.md)).

@@ -455,6 +455,14 @@ best-practice rules in both themes and fails on any violation, with
 `landmark-unique` disabled because the preview repeats landmark components.
 Restoring `aria-orientation` on `ToggleGroup` makes it fail.
 
+M183 runs the same audit in both themes while each overlay, menu, and popup
+fixture is open: Popover, Select, Combobox, Date Picker, Dropdown, Menubar,
+Navigation Menu, Context Menu, Tooltip, Hover Card, Toast, Sonner, Alert
+Dialog, and the overlay fixture
+([RFC 0055](../rfcs/0055-open-state-accessibility-audit.md)). Restoring the
+Hover Card dialog role, or dropping `aria-disabled` from `SelectItem`, makes it
+fail.
+
 ## Documentation Alignment
 
 M111 should keep these files aligned:
@@ -481,7 +489,7 @@ After M111, useful follow-up work is:
 
 1. Expand interaction coverage across more runtime-sensitive components. M135
    covers Dialog, Alert Dialog, Popover, and Tooltip; M136 adds Toast and
-   Sonner; M137 adds Select and Combobox; M138 adds Date Picker; M139 adds Dropdown and Context Menu; M140 adds Menubar; M141 adds Navigation Menu; M144 adds Tabs, Radio Group, and Toggle Group; M146 adds Accordion; M147 adds Tooltip hover and focus opening; M148 adds Hover Card; M149 adds Command; M150 adds right-to-left arrow mirroring; M151 adds vertical, manually activated Tabs; M152 adds result announcements to Command and Combobox; M153 adds Switch and Checkbox change events; M154 adds Button, Toggle, Input, and Textarea events; M155 adds Slider keyboard and pointer input; M156 adds Collapsible and Native Select events; M157 adds Input OTP value changes; M158 adds Pagination page changes; M159 adds Carousel slide changes; M161 adds Resizable handle input; M162 adds Sidebar toggle and items; M163 adds form control naming; M164 adds dialog names; M165 adds composite widget names; M166 adds the Checkbox indeterminate state; M167 adds Slider thumb position and vertical orientation; M172 adds text contrast in the light and dark themes; M173 adds the phone-width layout; M175 adds the preview theme toggle; M181 adds action part callbacks and `FieldLabel` `for`; M182 adds the axe-core audit.
+   Sonner; M137 adds Select and Combobox; M138 adds Date Picker; M139 adds Dropdown and Context Menu; M140 adds Menubar; M141 adds Navigation Menu; M144 adds Tabs, Radio Group, and Toggle Group; M146 adds Accordion; M147 adds Tooltip hover and focus opening; M148 adds Hover Card; M149 adds Command; M150 adds right-to-left arrow mirroring; M151 adds vertical, manually activated Tabs; M152 adds result announcements to Command and Combobox; M153 adds Switch and Checkbox change events; M154 adds Button, Toggle, Input, and Textarea events; M155 adds Slider keyboard and pointer input; M156 adds Collapsible and Native Select events; M157 adds Input OTP value changes; M158 adds Pagination page changes; M159 adds Carousel slide changes; M161 adds Resizable handle input; M162 adds Sidebar toggle and items; M163 adds form control naming; M164 adds dialog names; M165 adds composite widget names; M166 adds the Checkbox indeterminate state; M167 adds Slider thumb position and vertical orientation; M172 adds text contrast in the light and dark themes; M173 adds the phone-width layout; M175 adds the preview theme toggle; M181 adds action part callbacks and `FieldLabel` `for`; M182 adds the axe-core audit; M183 audits open overlays.
 2. Add targeted screenshot smoke for a small set of stable panels.
 3. Decide whether any browser command should move into CI after local
    reliability is proven.

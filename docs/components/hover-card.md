@@ -79,7 +79,8 @@ The Web renderer is covered by `npm run verify:runtime-interactions`.
 ## Accessibility Notes
 
 The card is a preview for sighted pointer and keyboard users; the trigger has
-no ARIA link to it. Mobile behavior should not rely on hover; use tap/click
+no ARIA link to it, and the content renders no role, as in the Radix Hover
+Card (see [RFC 0055](../rfcs/0055-open-state-accessibility-audit.md)). Mobile behavior should not rely on hover; use tap/click
 disclosure or prefer Popover/Sheet for critical actions. Skipping the delay
 between adjacent cards, touch opening, and triggers other than links are not
 implemented (see

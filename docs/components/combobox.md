@@ -121,6 +121,11 @@ option through `aria-activedescendant`. `ComboboxStatus` announces the text
 the app gives it; the wording and when to speak stay with the app (see
 [RFC 0027](../rfcs/0027-combobox-and-command-result-announcements.md)). Async loading is owned by the consuming app.
 
+With the input's `id` as the content's `anchor_id`, `ComboboxList` renders
+`id="{anchor_id}-list"` and takes the input's name through `aria-labelledby`,
+and `ComboboxInput` points `aria-controls` at it; a passed `aria-controls`
+replaces the derived one (see [RFC 0055](../rfcs/0055-open-state-accessibility-audit.md)).
+
 `ComboboxInput` passes through attributes such as `name`, `aria-labelledby`,
 and `aria-describedby` (see
 [RFC 0038](../rfcs/0038-form-control-naming.md)).

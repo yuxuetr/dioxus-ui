@@ -23,6 +23,7 @@ and the Hover Card, and ran the same audit in both themes:
 | `aria-input-field-name` (serious) | open `SelectContent` | the `listbox` has no name and takes no attributes, so an app cannot give it one |
 | `aria-required-attr` (critical) | open `SelectTrigger` | an expanded `role="combobox"` needs `aria-controls`, and the content has no `id` to point at |
 | `color-contrast` (serious) | disabled `SelectItem`, `DropdownItem` | they set `data-disabled` but not `aria-disabled`, so assistive technology does not hear that they are disabled and axe does not exempt their faded text |
+| `aria-input-field-name`, `aria-required-attr` | open `ComboboxList`, `ComboboxInput` | the same gap as Select; the probe never opened the Combobox, and the runtime audit found it |
 | `aria-dialog-name` (serious) | open `DatePickerContent` | a `role="dialog"` with no name and no attributes |
 | `aria-dialog-name` (serious) | open `HoverCardContent` | a `role="dialog"` with no name |
 
@@ -41,7 +42,18 @@ Combobox items already set `aria-disabled`.
 - `SelectTrigger` with an `id` renders `aria-controls="{id}-content"`.
 
 No new prop is needed, and a Select without ids renders neither attribute, as
-before.
+before. A passed `aria-controls` replaces the derived one; the shared
+`default_attribute` helper now takes any value type for this.
+
+### Combobox
+
+The listbox is `ComboboxList`, inside `ComboboxContent`, so the content passes
+its `anchor_id` to the list through context:
+
+- `ComboboxList` inside content with an `anchor_id` renders
+  `id="{anchor_id}-list"` and `aria-labelledby="{anchor_id}"`.
+- `ComboboxInput` with an `id` renders `aria-controls="{id}-list"`, unless
+  one is passed. `ComboboxTrigger` keeps taking `aria-controls` from the app.
 
 ### Disabled items
 
@@ -81,8 +93,9 @@ Out of scope, with reevaluation conditions:
 
 ## Verification
 
-- SSR tests: `SelectTrigger` renders `aria-controls`, `SelectContent` renders
-  the matching `id` and `aria-labelledby`, disabled `SelectItem` and
+- SSR tests: `SelectTrigger` and `ComboboxInput` render `aria-controls`,
+  `SelectContent` and `ComboboxList` render the matching `id` and
+  `aria-labelledby`, a passed `aria-controls` replaces the derived one, disabled `SelectItem` and
   `DropdownItem` render `aria-disabled="true"`, `DatePickerContent` renders
   `aria-labelledby`, and `HoverCardContent` renders no `role`.
 - The runtime check keeps its Select, Dropdown, DatePicker, and Hover Card

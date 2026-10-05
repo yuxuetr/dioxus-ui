@@ -61,3 +61,5 @@ Simulator by `npm run verify:mobile-interactions`, and an Android emulator by
 Content uses menu semantics and items use menuitem semantics. The menu moves
 DOM focus between items, so screen readers announce each item as it receives
 focus. Destructive items need text that names the action, not only color.
+Disabled items set `aria-disabled` next to `data-disabled` (see
+[RFC 0055](../rfcs/0055-open-state-accessibility-audit.md)).

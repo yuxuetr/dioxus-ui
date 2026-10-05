@@ -233,8 +233,9 @@ release owner renames it to the released version at publish time.
   `target`.
 - An axe-core audit (WCAG 2.1 A and AA and best practices) in
   `npm run verify:site`, on every route in both themes, and in
-  `npm run verify:runtime-interactions`, where it checks contrast. `axe-core`
-  is a new dev dependency.
+  `npm run verify:runtime-interactions`, where it checks contrast and while
+  each overlay, menu, and popup fixture is open. `axe-core` is a new dev
+  dependency.
 
 ### Changed
 
@@ -244,7 +245,9 @@ release owner renames it to the released version at publish time.
 - `ScrollAreaViewport` and `MessageScrollerViewport` are Tab stops with a
   focus ring and pass through attributes, so keyboard users can scroll them.
 - The source-copy `utils` helper `default_aria_label` is now
-  `default_attribute(attributes, name, value)`.
+  `default_attribute(attributes, name, value)`, generic over the value.
+- `HoverCardContent` renders no `role`, as in the Radix Hover Card; it was an
+  unnamed `role="dialog"`.
 - Breaking: component classes use the shadcn/ui semantic color tokens
   (`bg-primary`, `text-muted-foreground`, `border-input`, `ring-ring`, and so
   on) instead of fixed Tailwind palette colors, in the crate and the copied
@@ -303,6 +306,14 @@ release owner renames it to the released version at publish time.
   `role="group"`, which does not support it. `ToggleGroup` reports its
   orientation as `data-orientation`.
 - The site and the previews set `lang="en"` on the document.
+- The Select and Combobox listboxes take their trigger or input's name and
+  an id derived from `anchor_id` (`{anchor_id}-content`, `{anchor_id}-list`),
+  which the trigger and input point `aria-controls` at; an expanded combobox
+  without `aria-controls` is invalid ARIA.
+- Disabled `SelectItem` and `DropdownItem` set `aria-disabled`; assistive
+  technology did not hear that they were disabled.
+- `DatePickerContent` takes its trigger's name through `aria-labelledby`; the
+  dialog had no name.
 - The Slider thumb follows the value; it was never positioned, so it sat at
   the end of the root for every value.
 - A passed `aria-label` on `PaginationPrevious` and `PaginationNext` replaces
