@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0.2.0 plan, 4 of 8 milestones complete
-- Current milestone: M191 Input Components
-- Current task: M191 docs
+- Overall: 0.2.0 plan, 5 of 8 milestones complete
+- Current milestone: M192 Mobile Navigation
+- Current task: M192.1
 
 ## Backup
 
