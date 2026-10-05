@@ -18,10 +18,10 @@ Use it with:
 
 | Surface | Count | User-facing Mode | Notes |
 | --- | ---: | --- | --- |
-| Styled component crate modules | 77 | Crate mode | Feature-gated modules under `crates/dioxus-shadcn/src`. |
-| Styled component features | 77 | Crate mode | Public Cargo feature names in `crates/dioxus-shadcn/Cargo.toml`. |
-| Source-copy templates | 78 | Source-copy mode | 77 component templates plus shared `utils.rs`. |
-| Registry entries | 78 | CLI/source-copy mode | 77 component entries plus `utils.json`. |
+| Styled component crate modules | 79 | Crate mode | Feature-gated modules under `crates/dioxus-shadcn/src`. |
+| Styled component features | 79 | Crate mode | Public Cargo feature names in `crates/dioxus-shadcn/Cargo.toml`. |
+| Source-copy templates | 80 | Source-copy mode | 79 component templates plus shared `utils.rs`. |
+| Registry entries | 80 | CLI/source-copy mode | 79 component entries plus `utils.json`. |
 | Registry schema | 1 | Tooling metadata | `crates/dioxus-shadcn-cli/registry/schema.json` validates registry shape and is not a component. |
 | Primitive modules | 20 | Crate mode/internal behavior | Public helpers and config types in `dioxus-shadcn-primitives`. |
 | Core crate exports | 4 groups | Crate/tooling mode | `classes`, `UiDensity`, and registry data structs. |
@@ -57,9 +57,11 @@ date-picker
 dialog
 diff
 direction
+dock
 drawer
 dropdown
 empty
+fab
 field
 file-input
 hover-card
@@ -144,9 +146,11 @@ date_picker
 dialog
 diff
 direction
+dock
 drawer
 dropdown
 empty
+fab
 field
 file_input
 hover_card

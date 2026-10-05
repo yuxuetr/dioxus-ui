@@ -68,7 +68,7 @@ Styled public components for direct dependency use.
 
 Contents:
 
-- the 77 components listed in [the catalog](components/catalog.md)
+- the 79 components listed in [the catalog](components/catalog.md)
 - one Cargo feature per component
 - re-exports from primitives when useful
 

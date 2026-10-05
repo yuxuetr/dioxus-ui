@@ -7,7 +7,7 @@
 - a CLI that copies component source into user projects
 - a packaged crate for users who prefer dependency-based usage
 
-It ships 77 components, the `dxui` CLI, and a
+It ships 79 components, the `dxui` CLI, and a
 [component site](https://yuxuetr.github.io/dioxus-ui/). Version 0.1.0 is
 on crates.io as [`dioxus-shadcn`](https://crates.io/crates/dioxus-shadcn) and
 [`dioxus-shadcn-cli`](https://crates.io/crates/dioxus-shadcn-cli).
@@ -180,7 +180,7 @@ use dioxus_shadcn::{Button, DialogContent, DialogTitle, Input};
 
 ## Component Scope
 
-The 77 components are listed in
+The 79 components are listed in
 [docs/components/catalog.md](docs/components/catalog.md) and by `dxui list`.
 Known pre-1.0 limitations are in
 [docs/release.md](docs/release.md#known-pre-10-limitations).
