@@ -22,6 +22,19 @@ component has none, a page does not render its listed examples, an example
 draws nothing, or its Code tab lacks the source. Pages also link to the API
 and accessibility sections of the Markdown component docs.
 
+## M188 Theme Presets
+
+Since M188 the header has a theme menu next to the dark toggle: it sets
+`data-theme` on the site root to any of the 33 presets
+([RFC 0057](rfcs/0057-theme-presets.md)), and the toggle turns off while a
+preset is chosen, since each preset brings its own color scheme. The Theming
+page shows every preset as a card themed by its own preset, with swatches and
+its `dxui theme add` command. `npm run site:catalog` also writes
+`site/src/themes.rs` and `site/assets/themes.css` from
+`crates/dioxus-shadcn-cli/themes/`, and `npm run verify:site` chooses every
+preset through the menu on four pages and runs the contrast check and
+axe-core in each.
+
 ## Deployment
 
 Every push to `main` deploys the site to

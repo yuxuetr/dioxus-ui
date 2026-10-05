@@ -168,6 +168,41 @@ pub fn Theming() -> Element {
         code: ":root {\n  --primary: oklch(0.546 0.245 262.881);\n  --primary-foreground: oklch(0.985 0 0);\n  --ring: oklch(0.546 0.245 262.881);\n}\n\n.dark {\n  --primary: oklch(0.623 0.214 259.815);\n  --ring: oklch(0.623 0.214 259.815);\n}"
           .to_string()
       }
+      h2 { class: H2, "Theme presets" }
+      p { class: P,
+        "The CLI ships 33 presets ported from daisyUI, with every text color checked against WCAG AA. "
+        code { class: INLINE_CODE, "dxui theme add" }
+        " appends them to the stylesheet; each is one "
+        code { class: INLINE_CODE, "[data-theme]" }
+        " rule, so setting the attribute themes that element's subtree. The theme menu in this site's header does the same."
+      }
+      CodeBlock {
+        code: "dxui theme add nord dracula\n\n// main.rs\ndiv { \"data-theme\": \"nord\", class: \"min-h-screen bg-background text-foreground\", App {} }"
+          .to_string()
+      }
+      ul { class: "mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3", "data-site-presets": "",
+        for theme in crate::themes::THEMES {
+          li {
+            key: "{theme.name}",
+            "data-theme": theme.name,
+            class: "rounded-lg border border-border bg-background p-4 text-foreground",
+            div { class: "flex items-baseline justify-between gap-2",
+              h3 { class: "font-semibold", "{theme.title}" }
+              span { class: "text-xs text-muted-foreground", if theme.dark { "dark" } else { "light" } }
+            }
+            div { class: "mt-3 flex gap-1", "aria-hidden": "true",
+              for swatch in ["bg-primary", "bg-secondary", "bg-chart-3", "bg-muted", "bg-destructive", "bg-success", "bg-warning", "bg-info"] {
+                span { key: "{swatch}", class: "h-6 flex-1 rounded-sm border border-border {swatch}" }
+              }
+            }
+            div { class: "mt-3 flex items-center gap-2",
+              span { class: "rounded-md bg-primary px-2 py-1 text-xs font-medium text-primary-foreground", "Primary" }
+              span { class: "rounded-md bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground", "Secondary" }
+            }
+            code { class: "mt-3 block text-xs text-muted-foreground", "dxui theme add {theme.name}" }
+          }
+        }
+      }
       h2 { class: H2, "Dark theme" }
       p { class: P,
         "The dark theme is opt-in. Add the "

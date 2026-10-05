@@ -4,10 +4,12 @@
 mod catalog;
 mod examples;
 mod pages;
+mod themes;
 
 use dioxus::prelude::*;
 use dioxus_shadcn::{
-  Button, ButtonSize, ButtonVariant, SheetContent, SheetOverlay, SheetSide, SheetTitle, Toggle,
+  Button, ButtonSize, ButtonVariant, NativeSelect, NativeSelectGroup, NativeSelectOption,
+  SheetContent, SheetOverlay, SheetSide, SheetTitle, Toggle,
 };
 use pages::{ComponentPage, GettingStarted, Home, NotFound, Theming};
 
@@ -49,15 +51,21 @@ fn App() -> Element {
 }
 
 /// The header, the catalog sidebar, and the routed page. The site starts in
-/// the light theme; the header toggle adds the opt-in `dark` class.
+/// the light theme; the header toggle adds the opt-in `dark` class, and the
+/// theme menu sets `data-theme` to a preset (RFC 0057), which brings its own
+/// color scheme, so the toggle is off while a preset is chosen.
 #[component]
 fn Shell() -> Element {
   let mut dark_theme = use_signal(|| false);
+  let mut preset = use_signal(String::new);
   let mut menu_open = use_signal(|| false);
-  let theme_class = if dark_theme() { "dark " } else { "" };
+  let theme_class = if dark_theme() && preset().is_empty() { "dark " } else { "" };
 
   rsx! {
-    div { class: "{theme_class}min-h-screen bg-background text-foreground", "data-site-root": "",
+    div {
+      class: "{theme_class}min-h-screen bg-background text-foreground",
+      "data-site-root": "",
+      "data-theme": preset(),
       header { class: "sticky top-0 z-40 border-b border-border bg-background",
         div { class: "mx-auto flex h-14 max-w-6xl items-center gap-3 px-4",
           Button {
@@ -78,10 +86,30 @@ fn Shell() -> Element {
             }
             Link { class: "hover:text-foreground", to: Route::Theming {}, "Theming" }
           }
-          div { class: "ml-auto",
+          div { class: "ml-auto flex items-center gap-2",
+            NativeSelect {
+              id: "site-theme-preset",
+              class: "h-8 w-32",
+              "aria-label": "Theme",
+              on_value_change: move |value| preset.set(value),
+              NativeSelectOption { value: "", selected: preset().is_empty(), "Default" }
+              for (label, dark) in [("Light presets", false), ("Dark presets", true)] {
+                NativeSelectGroup { key: "{label}", label,
+                  for theme in themes::THEMES.iter().filter(|theme| theme.dark == dark) {
+                    NativeSelectOption {
+                      key: "{theme.name}",
+                      value: theme.name,
+                      selected: preset() == theme.name,
+                      "{theme.title}"
+                    }
+                  }
+                }
+              }
+            }
             Toggle {
               id: "site-theme-toggle",
-              pressed: dark_theme(),
+              pressed: dark_theme() && preset().is_empty(),
+              disabled: !preset().is_empty(),
               on_pressed_change: move |pressed| dark_theme.set(pressed),
               "Dark theme"
             }

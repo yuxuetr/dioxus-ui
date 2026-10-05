@@ -209,8 +209,10 @@ format!("bg-{}-500", color)
 `site/` is a Dioxus Web app that browses the catalog in the manner of the
 shadcn/ui site: a sidebar grouped by category, a page per component with its
 install commands and live examples (each with a Preview and a Code tab
-showing the file that runs), installation and theming guides, and a dark
-theme toggle ([RFC 0052](docs/rfcs/0052-component-site.md)). To add an
+showing the file that runs), installation and theming guides, a dark
+theme toggle, and a menu of the theme presets
+([RFC 0052](docs/rfcs/0052-component-site.md),
+[RFC 0057](docs/rfcs/0057-theme-presets.md)). To add an
 example, put a file with a `Demo` component under `site/src/examples/` and
 list it in `site/src/examples/mod.rs`. Run it locally with:
 
@@ -219,7 +221,7 @@ dx serve --package dioxus-ui-site
 ```
 
 After changing classes the site uses, run `npm run css:site`; after changing
-the registry or catalog, run `npm run site:catalog`. The release gate fails
+the registry, catalog, or theme presets, run `npm run site:catalog`. The release gate fails
 when either generated file is stale, and `npm run verify:site` checks every
 route in a browser.
 

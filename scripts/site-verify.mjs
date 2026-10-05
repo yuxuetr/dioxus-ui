@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { expect } from "@playwright/test";
 import { buildDocsCatalog } from "./docs-catalog-builder.mjs";
 import {
@@ -12,7 +12,9 @@ import {
 
 // Visits every component site route (RFC 0052) and fails on a console error,
 // a route that renders the not found page, low text contrast or an axe-core
-// violation (RFC 0054) in either theme, or a sideways scroll at 375px.
+// violation (RFC 0054) in either theme, or a sideways scroll at 375px. Every
+// theme preset (RFC 0057) gets the same contrast and axe-core checks on the
+// pages in `presetPages`, chosen through the header theme menu.
 const server = serveDioxusWeb({ packageName: "dioxus-ui-site", port: 45241 });
 const viewport = { width: 1280, height: 900 };
 const routes = [
@@ -22,6 +24,12 @@ const routes = [
   ...buildDocsCatalog().catalog.map((item) => ({ path: `/components/${item.slug}`, page: "component", slug: item.slug })),
 ];
 const missingRoutes = ["/no-such-page", "/components/no-such-component"];
+const presets = readdirSync(new URL("../crates/dioxus-shadcn-cli/themes/", import.meta.url))
+  .filter((file) => file.endsWith(".css"))
+  .map((file) => file.replace(/\.css$/, ""))
+  .sort();
+// Pages with the most token pairs: the variants, status colors, and muted text.
+const presetPages = ["/", "/components/button", "/components/alert", "/components/tabs"];
 // The examples each page should show, from the site's example list.
 const examplesSource = readFileSync(new URL("../site/src/examples/mod.rs", import.meta.url), "utf8");
 const examples = [...examplesSource.matchAll(/^\s*(\w+) => "([a-z-]+)", "([^"]+)";$/gm)].map((match) => ({
@@ -55,6 +63,17 @@ async function expectReadable(page, label, { audit = false } = {}) {
     }
   }
   await setDarkTheme(page, false);
+}
+
+// Waits for the color transitions a theme change starts.
+async function settle(page) {
+  await page.evaluate(async () => {
+    const frame = () => new Promise((resolve) => requestAnimationFrame(resolve));
+    await frame();
+    const running = document.getAnimations().filter((animation) => animation instanceof CSSTransition);
+    await Promise.all(running.map((animation) => animation.finished.catch(() => {})));
+    await frame();
+  });
 }
 
 async function expectNoSidewaysScroll(page, label) {
@@ -151,6 +170,32 @@ async function run() {
       await expect(root).toHaveCSS("color-scheme", dark ? "dark" : "normal");
     }
 
+    // The theme menu sets each preset on the site root, which brings its own
+    // color scheme and turns the dark toggle off, and every preset stays
+    // readable and passes axe-core.
+    const themeMenu = page.getByRole("combobox", { name: "Theme", exact: true });
+    for (const path of presetPages) {
+      await visit(page, path);
+      for (const preset of presets) {
+        await themeMenu.selectOption(preset);
+        await expect(root).toHaveAttribute("data-theme", preset);
+        await expect(toggle).toBeDisabled();
+        await settle(page);
+        const label = `${path} (${preset} preset)`;
+        const failures = await page.evaluate(lowContrastText);
+        if (failures.length > 0) {
+          throw new Error(`${label}: low contrast text: ${failures.slice(0, 5).join("; ")}`);
+        }
+        const violations = await accessibilityViolations(page);
+        if (violations.length > 0) {
+          throw new Error(`${label}: accessibility violations: ${violations.join("; ")}`);
+        }
+      }
+      await themeMenu.selectOption("");
+      await expect(root).toHaveAttribute("data-theme", "");
+      await expect(toggle).toBeEnabled();
+    }
+
     // Below md the catalog opens from the header menu.
     await page.setViewportSize({ width: 375, height: 800 });
     await page.getByRole("button", { name: "Open the component menu" }).click();
@@ -170,7 +215,9 @@ async function run() {
 try {
   await server.ready();
   await run();
-  console.log(`site verification passed (${routes.length} routes, ${examples.length} examples)`);
+  console.log(
+    `site verification passed (${routes.length} routes, ${examples.length} examples, ${presets.length} presets on ${presetPages.length} pages)`,
+  );
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

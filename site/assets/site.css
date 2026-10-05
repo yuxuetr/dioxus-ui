@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* The theme presets (RFC 0057), for the header theme menu. */
+@import "./themes.css";
 
 @source "../src";
 @source "../../crates/dioxus-shadcn/src";
