@@ -1,0 +1,14 @@
+{
+  "name": "indicator",
+  "description": "Styled corner indicator wrapper and placed item.",
+  "files": [
+    {
+      "source": "templates/indicator.rs",
+      "target": "src/components/ui/indicator.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

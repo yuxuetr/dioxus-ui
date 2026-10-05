@@ -302,6 +302,12 @@ pub const CATEGORIES: &[Category] = &[
         feature: "direction",
       },
       Component {
+        slug: "indicator",
+        title: "Indicator",
+        description: "Styled corner indicator wrapper and placed item.",
+        feature: "indicator",
+      },
+      Component {
         slug: "item",
         title: "Item",
         description: "Generic list item composition parts.",
@@ -420,6 +426,12 @@ pub const CATEGORIES: &[Category] = &[
         title: "Spinner",
         description: "Spinner component for loading status feedback.",
         feature: "spinner",
+      },
+      Component {
+        slug: "status",
+        title: "Status",
+        description: "Styled status dot with an optional accessible label.",
+        feature: "status",
       },
       Component {
         slug: "toast",

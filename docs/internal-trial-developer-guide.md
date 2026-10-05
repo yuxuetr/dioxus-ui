@@ -7,7 +7,7 @@ commercial release.
 Use this guide with:
 
 - [Component Catalog](components/catalog.md)
-- [Component Status](components/status.md)
+- [Component Status](components/component-status.md)
 - [Quality Gates](quality-gates.md)
 - [Publish Readiness Blockers](publish-readiness-blockers.md)
 

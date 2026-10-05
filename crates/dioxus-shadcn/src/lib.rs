@@ -714,6 +714,12 @@ pub mod tooltip;
 pub mod typography;
 
 pub use dioxus_shadcn_core::UiDensity;
+#[cfg(feature = "status")]
+pub mod status;
+
+#[cfg(feature = "indicator")]
+pub mod indicator;
+
 #[cfg(feature = "steps")]
 pub mod steps;
 
@@ -801,3 +807,12 @@ pub use steps::{
   STEPS_BASE_CLASS, Step, StepStatus, Steps, StepsOrientation, step_class, step_indicator_class,
   step_label_class, step_track_class, steps_class,
 };
+
+#[cfg(feature = "indicator")]
+pub use indicator::{
+  INDICATOR_BASE_CLASS, INDICATOR_ITEM_BASE_CLASS, Indicator, IndicatorItem, IndicatorPlacement,
+  indicator_class, indicator_item_class,
+};
+
+#[cfg(feature = "status")]
+pub use status::{STATUS_BASE_CLASS, Status, StatusSize, StatusVariant, status_class};

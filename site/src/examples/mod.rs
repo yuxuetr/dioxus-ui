@@ -80,6 +80,8 @@ examples! {
   stat_revenue => "stat", "Revenue";
   timeline_release => "timeline", "Release history";
   steps_checkout => "steps", "Checkout";
+  indicator_counts => "indicator", "Counts and presence";
+  status_presence => "status", "Service health";
   chart_revenue => "chart", "Area and line";
   data_table_users => "data-table", "Filter, sort, and select";
   empty_projects => "empty", "No projects";

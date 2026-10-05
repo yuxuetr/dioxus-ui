@@ -10,7 +10,7 @@ The manifest defines template metadata for future source preview routes.
 It does not embed full template source, syntax highlighting, rendered routes,
 screenshots, or generated JSON.
 
-Source preview routes: 67
+Source preview routes: 69
 
 ## Source Preview Routes
 
@@ -45,6 +45,7 @@ Source preview routes: 67
 | [Empty](empty.md) | /components/empty/source | crates/dioxus-shadcn-cli/templates/empty.rs | src/components/ui/empty.rs | rust | 106 | 2495 |
 | [Field](field.md) | /components/field/source | crates/dioxus-shadcn-cli/templates/field.rs | src/components/ui/field.rs | rust | 110 | 2591 |
 | [Hover Card](hover-card.md) | /components/hover-card/source | crates/dioxus-shadcn-cli/templates/hover_card.rs | src/components/ui/hover_card.rs | rust | 185 | 5524 |
+| [Indicator](indicator.md) | /components/indicator/source | crates/dioxus-shadcn-cli/templates/indicator.rs | src/components/ui/indicator.rs | rust | 66 | 2042 |
 | [Input](input.md) | /components/input/source | crates/dioxus-shadcn-cli/templates/input.rs | src/components/ui/input.rs | rust | 47 | 1524 |
 | [Input Group](input-group.md) | /components/input-group/source | crates/dioxus-shadcn-cli/templates/input_group.rs | src/components/ui/input_group.rs | rust | 133 | 3920 |
 | [Input OTP](input-otp.md) | /components/input-otp/source | crates/dioxus-shadcn-cli/templates/input_otp.rs | src/components/ui/input_otp.rs | rust | 412 | 11385 |
@@ -72,6 +73,7 @@ Source preview routes: 67
 | [Sonner](sonner.md) | /components/sonner/source | crates/dioxus-shadcn-cli/templates/sonner.rs | src/components/ui/sonner.rs | rust | 429 | 11895 |
 | [Spinner](spinner.md) | /components/spinner/source | crates/dioxus-shadcn-cli/templates/spinner.rs | src/components/ui/spinner.rs | rust | 45 | 958 |
 | [Stat](stat.md) | /components/stat/source | crates/dioxus-shadcn-cli/templates/stat.rs | src/components/ui/stat.rs | rust | 137 | 3801 |
+| [Status](status.md) | /components/status/source | crates/dioxus-shadcn-cli/templates/status.rs | src/components/ui/status.rs | rust | 71 | 1785 |
 | [Steps](steps.md) | /components/steps/source | crates/dioxus-shadcn-cli/templates/steps.rs | src/components/ui/steps.rs | rust | 136 | 5029 |
 | [Switch](switch.md) | /components/switch/source | crates/dioxus-shadcn-cli/templates/switch.rs | src/components/ui/switch.rs | rust | 73 | 2165 |
 | [Table](table.md) | /components/table/source | crates/dioxus-shadcn-cli/templates/table.rs | src/components/ui/table.rs | rust | 149 | 3429 |

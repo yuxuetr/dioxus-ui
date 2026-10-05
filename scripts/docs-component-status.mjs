@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { buildDocsCatalog } from "./docs-catalog-builder.mjs";
 
 const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)));
-const statusPath = join(repoRoot, "docs/components/status.md");
+const statusPath = join(repoRoot, "docs/components/component-status.md");
 
 const sortByCategoryThenName = (left, right) => {
   if (left.category_label === right.category_label) {

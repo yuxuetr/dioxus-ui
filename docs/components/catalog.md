@@ -10,7 +10,7 @@ The catalog is derived from registry entries, templates, component docs,
 crate features, and crate modules. It intentionally does not include visual
 preview routes, screenshot artifacts, or generated JSON metadata.
 
-Public components: 67
+Public components: 69
 
 ## Groups
 
@@ -71,6 +71,7 @@ Public components: 67
 - [Carousel](carousel.md): Controlled carousel composition parts and index helpers.
 - [Collapsible](collapsible.md): Collapsible component for controlled disclosure content.
 - [Direction](direction.md): Direction component for scoped native ltr/rtl text direction.
+- [Indicator](indicator.md): Styled corner indicator wrapper and placed item.
 - [Item](item.md): Generic list item composition parts.
 - [Resizable](resizable.md): Controlled resizable panel group, panel, and handle parts.
 - [Scroll Area](scroll-area.md): Native scroll area wrapper with styled viewport and scrollbar parts.
@@ -95,6 +96,7 @@ Public components: 67
 - [Skeleton](skeleton.md): Skeleton component for loading placeholders.
 - [Sonner](sonner.md): Opinionated toast notification parts and queue helpers.
 - [Spinner](spinner.md): Spinner component for loading status feedback.
+- [Status](status.md): Styled status dot with an optional accessible label.
 - [Toast](toast.md): Controlled toast notification parts and queue helpers.
 
 ### Messaging
@@ -138,6 +140,7 @@ Public components: 67
 | [Empty](empty.md) | Empty-state layout composition parts. | `dxui add empty` | `empty` | `crates/dioxus-shadcn-cli/templates/empty.rs` | `src/components/ui/empty.rs` |
 | [Field](field.md) | Form field layout composition parts. | `dxui add field` | `field` | `crates/dioxus-shadcn-cli/templates/field.rs` | `src/components/ui/field.rs` |
 | [Hover Card](hover-card.md) | Controlled rich preview content backed by popover primitive configuration. | `dxui add hover-card` | `hover-card` | `crates/dioxus-shadcn-cli/templates/hover_card.rs` | `src/components/ui/hover_card.rs` |
+| [Indicator](indicator.md) | Styled corner indicator wrapper and placed item. | `dxui add indicator` | `indicator` | `crates/dioxus-shadcn-cli/templates/indicator.rs` | `src/components/ui/indicator.rs` |
 | [Input](input.md) | Input component with disabled and invalid states. | `dxui add input` | `input` | `crates/dioxus-shadcn-cli/templates/input.rs` | `src/components/ui/input.rs` |
 | [Input Group](input-group.md) | Input Group component for addons, controls, and actions around inputs. | `dxui add input-group` | `input-group` | `crates/dioxus-shadcn-cli/templates/input_group.rs` | `src/components/ui/input_group.rs` |
 | [Input OTP](input-otp.md) | Input OTP component with controlled visual slots and native input support. | `dxui add input-otp` | `input-otp` | `crates/dioxus-shadcn-cli/templates/input_otp.rs` | `src/components/ui/input_otp.rs` |
@@ -165,6 +168,7 @@ Public components: 67
 | [Sonner](sonner.md) | Opinionated toast notification parts and queue helpers. | `dxui add sonner` | `sonner` | `crates/dioxus-shadcn-cli/templates/sonner.rs` | `src/components/ui/sonner.rs` |
 | [Spinner](spinner.md) | Spinner component for loading status feedback. | `dxui add spinner` | `spinner` | `crates/dioxus-shadcn-cli/templates/spinner.rs` | `src/components/ui/spinner.rs` |
 | [Stat](stat.md) | Styled statistic group with title, value, description, and figure. | `dxui add stat` | `stat` | `crates/dioxus-shadcn-cli/templates/stat.rs` | `src/components/ui/stat.rs` |
+| [Status](status.md) | Styled status dot with an optional accessible label. | `dxui add status` | `status` | `crates/dioxus-shadcn-cli/templates/status.rs` | `src/components/ui/status.rs` |
 | [Steps](steps.md) | Styled numbered steps with complete, current, and upcoming states. | `dxui add steps` | `steps` | `crates/dioxus-shadcn-cli/templates/steps.rs` | `src/components/ui/steps.rs` |
 | [Switch](switch.md) | Switch component with checked and disabled states. | `dxui add switch` | `switch` | `crates/dioxus-shadcn-cli/templates/switch.rs` | `src/components/ui/switch.rs` |
 | [Table](table.md) | Table component with styled table parts. | `dxui add table` | `table` | `crates/dioxus-shadcn-cli/templates/table.rs` | `src/components/ui/table.rs` |

@@ -11,7 +11,7 @@ It does not create rendered routes, router code, screenshots, or generated JSON.
 For source preview route metadata, see the
 [Source Preview Manifest](source-preview.md).
 
-Component routes: 67
+Component routes: 69
 Category routes: 8
 
 ## Top-level Routes
@@ -69,6 +69,7 @@ Category routes: 8
 | [Empty](empty.md) | /components/empty | docs/components/empty.md | /components#category-data-display | /components/empty/source |
 | [Field](field.md) | /components/field | docs/components/field.md | /components#category-forms | /components/field/source |
 | [Hover Card](hover-card.md) | /components/hover-card | docs/components/hover-card.md | /components#category-overlays | /components/hover-card/source |
+| [Indicator](indicator.md) | /components/indicator | docs/components/indicator.md | /components#category-layout | /components/indicator/source |
 | [Input](input.md) | /components/input | docs/components/input.md | /components#category-forms | /components/input/source |
 | [Input Group](input-group.md) | /components/input-group | docs/components/input-group.md | /components#category-forms | /components/input-group/source |
 | [Input OTP](input-otp.md) | /components/input-otp | docs/components/input-otp.md | /components#category-forms | /components/input-otp/source |
@@ -96,6 +97,7 @@ Category routes: 8
 | [Sonner](sonner.md) | /components/sonner | docs/components/sonner.md | /components#category-feedback | /components/sonner/source |
 | [Spinner](spinner.md) | /components/spinner | docs/components/spinner.md | /components#category-feedback | /components/spinner/source |
 | [Stat](stat.md) | /components/stat | docs/components/stat.md | /components#category-data-display | /components/stat/source |
+| [Status](status.md) | /components/status | docs/components/status.md | /components#category-feedback | /components/status/source |
 | [Steps](steps.md) | /components/steps | docs/components/steps.md | /components#category-navigation | /components/steps/source |
 | [Switch](switch.md) | /components/switch | docs/components/switch.md | /components#category-forms | /components/switch/source |
 | [Table](table.md) | /components/table | docs/components/table.md | /components#category-data-display | /components/table/source |

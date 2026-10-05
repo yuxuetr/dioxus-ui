@@ -403,7 +403,7 @@ npm run verify:docs-anchors
 This builds the catalog in memory from registry entries, templates, component
 docs, crate features, and crate modules. The page check also verifies
 `docs/components/catalog.md` matches the shared catalog builder output. The
-status check verifies `docs/components/status.md` matches the local component
+status check verifies `docs/components/component-status.md` matches the local component
 implementation surface. The structure check verifies public component docs keep
 the required title, install, API, and accessibility sections. The route check
 verifies site route metadata. The source preview check verifies template

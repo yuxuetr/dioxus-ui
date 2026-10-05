@@ -240,7 +240,7 @@ metadata. It must not write generated catalog artifacts.
 `docs/components/catalog.md` matches the Markdown rendered from the shared
 catalog builder, including grouped sections and the full flat index.
 
-`npm run verify:docs-status` checks that `docs/components/status.md` matches
+`npm run verify:docs-status` checks that `docs/components/component-status.md` matches
 the local implementation status derived from registry entries, templates, docs,
 crate features, crate modules, source preview metadata, and source-copy targets.
 It verifies wiring coverage, not live upstream shadcn/ui parity or runtime

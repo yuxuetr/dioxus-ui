@@ -20,11 +20,13 @@ Statuses:
 | Card | Does not add implicit landmark or interactive semantics. | Implemented |
 | Empty | Does not add implicit alert or status semantics; text and actions remain app-owned. | Implemented |
 | Field | Exposes invalid and disabled state attributes while apps own control association and validation semantics. | Implemented |
+| Indicator | Adds no semantics; the placed content, such as a count badge, carries the text. | Implemented |
 | Item | Exposes selected and disabled state attributes while apps own collection roles and actions. | Implemented |
 | Kbd | Uses native `kbd` semantics for keyboard hints. | Implemented |
 | Separator | Supports decorative and semantic separator usage. | Implemented |
 | Skeleton | Hidden from assistive technology by default. | Implemented |
 | Stat | Uses a definition list so each value is read with its title. | Implemented |
+| Status | Renders an image named by its label, or hides itself when nearby text states the status. | Implemented |
 | Steps | Uses an ordered list, aria-current on the current step, and hidden text for completed steps. | Implemented |
 | Timeline | Uses an ordered list with time elements; markers are hidden from assistive technology. | Implemented |
 | Typography | Uses native text elements; consuming apps own heading hierarchy and landmark placement. | Implemented |

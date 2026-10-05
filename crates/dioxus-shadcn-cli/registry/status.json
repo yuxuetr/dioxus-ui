@@ -1,0 +1,14 @@
+{
+  "name": "status",
+  "description": "Styled status dot with an optional accessible label.",
+  "files": [
+    {
+      "source": "templates/status.rs",
+      "target": "src/components/ui/status.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

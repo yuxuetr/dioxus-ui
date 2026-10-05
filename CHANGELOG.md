@@ -19,7 +19,7 @@ for commit messages.
   `--success-foreground`, `--warning-foreground`, and `--info-foreground`
   tokens ([RFC 0058](docs/rfcs/0058-status-variants.md)).
 - Display components ported from daisyUI
-  ([RFC 0059](docs/rfcs/0059-display-components.md)): Stat, Timeline, and Steps.
+  ([RFC 0059](docs/rfcs/0059-display-components.md)): Stat, Timeline, Steps, Indicator, and Status.
 
 ### Changed
 

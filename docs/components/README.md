@@ -107,7 +107,7 @@ For accessibility expectations, see the
 
 For the generated static component index, see the
 [Component Catalog](catalog.md). For the local implementation status snapshot,
-see [Component Status](status.md). For future docs runtime route metadata, see
+see [Component Status](component-status.md). For future docs runtime route metadata, see
 the [Docs Route Manifest](routes.md). For source preview route metadata, see
 the [Source Preview Manifest](source-preview.md). For rendered component
 coverage planning, see
@@ -159,6 +159,7 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["button
 | [Empty](empty.md) | `dxui add empty` | `empty` | Empty-state composition parts |
 | [Field](field.md) | `dxui add field` | `field` | Form field composition parts |
 | [Hover Card](hover-card.md) | `dxui add hover-card` | `hover-card` | Popover-backed preview content |
+| [Indicator](indicator.md) | `dxui add indicator` | `indicator` | Corner placement parts |
 | [Input](input.md) | `dxui add input` | `input` | Styled |
 | [Input Group](input-group.md) | `dxui add input-group` | `input-group` | Grouped input composition parts |
 | [Input OTP](input-otp.md) | `dxui add input-otp` | `input-otp` | Controlled one-time-code slots |
@@ -186,6 +187,7 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["button
 | [Sonner](sonner.md) | `dxui add sonner` | `sonner` | Opinionated notification parts |
 | [Spinner](spinner.md) | `dxui add spinner` | `spinner` | Styled |
 | [Stat](stat.md) | `dxui add stat` | `stat` | Statistic definition list parts |
+| [Status](status.md) | `dxui add status` | `status` | Labelled or decorative status dot |
 | [Steps](steps.md) | `dxui add steps` | `steps` | Numbered process step parts |
 | [Switch](switch.md) | `dxui add switch` | `switch` | Controlled styled part |
 | [Table](table.md) | `dxui add table` | `table` | Styled parts |
