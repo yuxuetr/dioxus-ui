@@ -2,7 +2,7 @@
 /* Ported from the daisyUI abyss theme (https://daisyui.com), MIT License,
    Copyright (c) 2020 Pouya Saadeghi. Mapped to the dioxus-shadcn tokens by
    RFC 0057.
-   Adjusted for WCAG AA: destructive-foreground. */
+   Adjusted for WCAG AA: destructive, destructive-foreground. */
 [data-theme="abyss"] {
   color-scheme: dark;
   --radius: 0.5rem;
@@ -20,8 +20,8 @@
   --muted-foreground: oklch(0.608 0.078 124.635);
   --accent: oklch(0.15 0.08 209);
   --accent-foreground: oklch(0.9 0.076 70.697);
-  --destructive: oklch(0.65 0.199 24.22);
-  --destructive-foreground: oklch(0.216 0.159 24.22);
+  --destructive: oklch(0.657 0.195 24.22);
+  --destructive-foreground: oklch(0.221 0.163 24.22);
   --success: oklch(0.79 0.209 151.711);
   --warning: oklch(0.848 0.196 84.62);
   --info: oklch(0.74 0.16 232.661);

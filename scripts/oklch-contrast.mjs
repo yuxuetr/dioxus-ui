@@ -32,15 +32,18 @@ const linearSrgb = ([lightness, chroma, hue]) => {
 const encode = (channel) => (channel <= 0.0031308 ? 12.92 * channel : 1.055 * channel ** (1 / 2.4) - 0.055);
 const decode = (channel) => (channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4);
 
+// Browsers paint 8-bit sRGB, so contrast is measured on the quantized color.
+const quantize = (encoded) => Math.round(encoded * 255) / 255;
+
 // Relative luminance of a color, or of `overlay` at `alpha` over `color`,
-// blended in gamma-encoded sRGB as browsers do.
+// blended in gamma-encoded 8-bit sRGB as browsers paint it.
 export const luminance = (color, overlay = null, alpha = 0) => {
-  let channels = linearSrgb(color);
+  let encoded = linearSrgb(color).map((channel) => quantize(encode(channel)));
   if (overlay !== null) {
-    const top = linearSrgb(overlay);
-    channels = channels.map((channel, index) => decode(encode(top[index]) * alpha + encode(channel) * (1 - alpha)));
+    const top = linearSrgb(overlay).map((channel) => quantize(encode(channel)));
+    encoded = encoded.map((channel, index) => quantize(top[index] * alpha + channel * (1 - alpha)));
   }
-  const [red, green, blue] = channels;
+  const [red, green, blue] = encoded.map(decode);
   return 0.2126 * red + 0.7152 * green + 0.0722 * blue;
 };
 
