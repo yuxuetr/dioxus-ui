@@ -7,6 +7,7 @@ const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)));
 const roots = [
   "crates/dioxus-ui/src",
   "crates/dioxus-ui-core/src",
+  "crates/dioxus-ui-primitives/src",
   "crates/dioxus-ui-cli/templates",
 ];
 const utilityPrefixes = [
@@ -59,6 +60,16 @@ const dynamicTokenPattern = new RegExp(
 // the listbox's `data-highlighted`, may use the bare form.
 const presenceDataAttributes = new Set(["highlighted"]);
 const bareDataVariantPattern = /(?:^|[\s"])((?:[a-z-]+:)*data-([a-z-]+)):/g;
+// Components color through the RFC 0051 semantic tokens, so a theme that
+// redefines the tokens restyles them. Palette colors are allowed only where
+// shadcn/ui keeps them too.
+const paletteColors =
+  "white|black|slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose";
+const paletteUtilityPattern = new RegExp(
+  `(?:^|[\\s"':])!?((?:bg|text|border(?:-[xytrblse])?|ring(?:-offset)?|outline|divide|fill|stroke|from|via|to|accent|caret|decoration|shadow)-(?:${paletteColors})(?:-\\d{2,3})?(?:/\\d+)?)!?(?=$|[\\s"'])`,
+  "g",
+);
+const allowedPaletteUtilities = new Set(["bg-black/50"]);
 
 const rustFiles = [];
 
@@ -85,8 +96,18 @@ for (const file of rustFiles.sort()) {
   const source = readFileSync(file, "utf8");
   const relativePath = relative(repoRoot, file);
   const lines = source.split("\n");
+  // Tests may pass app palette classes through `class`.
+  const testStart = lines.findIndex((line) => line.startsWith("#[cfg(test)]"));
 
   for (const [index, line] of lines.entries()) {
+    if (testStart < 0 || index < testStart) {
+      for (const match of line.matchAll(paletteUtilityPattern)) {
+        if (!allowedPaletteUtilities.has(match[1])) {
+          failures.push(`${relativePath}:${index + 1}: palette color "${match[1]}"; use an RFC 0051 token`);
+        }
+      }
+    }
+
     dynamicTokenPattern.lastIndex = 0;
     const matches = [...line.matchAll(dynamicTokenPattern)];
     for (const match of matches) {

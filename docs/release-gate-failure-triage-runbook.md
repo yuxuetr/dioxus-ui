@@ -49,7 +49,7 @@ failure proves that work is required.
 | Examples metadata | `npm run verify:examples-metadata` | example manifests and examples README | missing example wiring |
 | CSS input metadata | `npm run verify:css-inputs` | Tailwind CSS v4 input files | stale v3 directive or missing source root |
 | Registry metadata | `npm run verify:registry` | `crates/dioxus-ui-cli/registry/` and `crates/dioxus-ui-cli/templates/` | invalid source or target path |
-| Tailwind static tokens | `npm run verify:tailwind-static` | Rust source and templates | dynamic utility construction, bare data variants |
+| Tailwind static tokens | `npm run verify:tailwind-static` | Rust source and templates | dynamic utility construction, bare data variants, palette colors outside the RFC 0051 tokens |
 | Tailwind utility conflicts | `npm run verify:tailwind-conflicts` | Rust source and templates | a base class and a state class setting the same property |
 | Preview stylesheet drift | `npm run verify:preview-css` | `examples/preview-states/assets/preview.generated.css` | a class changed without `npm run css:preview` |
 | Default local gate | `npm run verify` | smoke and docs output | nested failing command |

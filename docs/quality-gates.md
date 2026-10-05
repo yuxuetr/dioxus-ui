@@ -299,8 +299,11 @@ well-formed asset mappings. It is read-only and does not execute CLI commands,
 compile Rust crates, or replace CLI registry tests.
 
 `npm run verify:tailwind-static` checks shipped Rust source and source-copy
-templates for dynamic Tailwind utility token interpolation and for bare data
-variants such as `data-disabled:`, which match any attribute value. It is
+templates for dynamic Tailwind utility token interpolation, for bare data
+variants such as `data-disabled:`, which match any attribute value, and, since
+M178, for Tailwind palette color utilities such as `bg-blue-600` outside test
+modules; components use the RFC 0051 semantic tokens, and only the
+`bg-black/50` modal overlay keeps a palette color. It is
 read-only and does not compile Tailwind CSS, validate user-provided classes, or
 assert visual parity.
 
