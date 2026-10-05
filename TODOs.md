@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 20%
 - Current milestone: M183 Open State Accessibility Audit
-- Current task: M183.1
+- Current task: M183.2
 
 ## Backup
 
@@ -24,9 +24,10 @@
 
 ## M183 Open State Accessibility Audit
 
-- TODO M183.1 Design the open state audit
+- DONE M183.1 Design the open state audit
   - Decide each fix from the evidence (how the Select listbox and the DatePicker dialog get a name, the trigger to content link, and the Hover Card role), and where the runtime check audits open states.
   - Record the decisions, the WebKit audit status, and reevaluation conditions in an RFC.
+  - Done: RFC 0055. The Select listbox and the DatePicker dialog take their trigger's name through ids derived from `anchor_id`; WebKit audits stay out until a WebKit-only defect is reported.
 
 - TODO M183.2 Fix the Select and menu item findings
   - Link the Select trigger and listbox and name the listbox; set `aria-disabled` on disabled `SelectItem` and `DropdownItem`; in the crate and the templates, with tests.
