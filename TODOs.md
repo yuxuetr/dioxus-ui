@@ -4,7 +4,7 @@
 
 - Overall: 0.2.0 plan, 5 of 8 milestones complete
 - Current milestone: M192 Mobile Navigation
-- Current task: M192.2
+- Current task: M192 docs
 
 ## Backup
 
@@ -90,7 +90,8 @@
 
 - DONE M192.1 Dock
   - Done: RFC 0061 for M192; safe-area `nav` with link or button items and `aria-current`, a phone-frame site example.
-- TODO M192.2 FAB and Speed Dial
+- DONE M192.2 FAB and Speed Dial
+  - Done: plain button or speed dial by whether `on_open_change` is set; runtime check for open, Escape focus return, and actions. The `aria-controls` gate required the hidden container to stay rendered.
 
 ## M193 Completing Existing Components
 
