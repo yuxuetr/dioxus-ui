@@ -13,14 +13,14 @@ parity.
 
 ## Summary
 
-- Public components: 71
-- Registry entries: 72
+- Public components: 72
+- Registry entries: 73
 - Source-copy helpers: utils
-- Templates: 72
-- Crate modules: 71
-- Crate features: 71
-- Component docs pages: 71
-- Complete local wiring: 71
+- Templates: 73
+- Crate modules: 72
+- Crate features: 72
+- Component docs pages: 72
+- Complete local wiring: 72
 - Incomplete local wiring: 0
 
 ## Category Counts
@@ -32,7 +32,7 @@ parity.
 | Overlays | 11 |
 | Navigation | 6 |
 | Layout | 11 |
-| Data Display | 12 |
+| Data Display | 13 |
 | Feedback | 6 |
 | Messaging | 5 |
 
@@ -51,6 +51,7 @@ parity.
 | Chart | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Countdown | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Data Table | Data Display | yes | yes | yes | yes | yes | yes | yes |
+| Diff | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Empty | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Progress | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Radial Progress | Data Display | yes | yes | yes | yes | yes | yes | yes |
@@ -127,6 +128,7 @@ parity.
 | Chart | Data Display | [docs](chart.md) | `dxui add chart` | `chart` | `crates/dioxus-shadcn-cli/templates/chart.rs` | `src/components/ui/chart.rs` |
 | Countdown | Data Display | [docs](countdown.md) | `dxui add countdown` | `countdown` | `crates/dioxus-shadcn-cli/templates/countdown.rs` | `src/components/ui/countdown.rs` |
 | Data Table | Data Display | [docs](data-table.md) | `dxui add data-table` | `data-table` | `crates/dioxus-shadcn-cli/templates/data_table.rs` | `src/components/ui/data_table.rs` |
+| Diff | Data Display | [docs](diff.md) | `dxui add diff` | `diff` | `crates/dioxus-shadcn-cli/templates/diff.rs` | `src/components/ui/diff.rs` |
 | Empty | Data Display | [docs](empty.md) | `dxui add empty` | `empty` | `crates/dioxus-shadcn-cli/templates/empty.rs` | `src/components/ui/empty.rs` |
 | Progress | Data Display | [docs](progress.md) | `dxui add progress` | `progress` | `crates/dioxus-shadcn-cli/templates/progress.rs` | `src/components/ui/progress.rs` |
 | Radial Progress | Data Display | [docs](radial-progress.md) | `dxui add radial-progress` | `radial-progress` | `crates/dioxus-shadcn-cli/templates/radial_progress.rs` | `src/components/ui/radial_progress.rs` |

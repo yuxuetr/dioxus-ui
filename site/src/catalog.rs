@@ -368,6 +368,12 @@ pub const CATEGORIES: &[Category] = &[
         feature: "data-table",
       },
       Component {
+        slug: "diff",
+        title: "Diff",
+        description: "Styled before-and-after comparison with a keyboard-accessible divider.",
+        feature: "diff",
+      },
+      Component {
         slug: "empty",
         title: "Empty",
         description: "Empty-state layout composition parts.",

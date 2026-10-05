@@ -84,6 +84,7 @@ examples! {
   status_presence => "status", "Service health";
   radial_progress_usage => "radial-progress", "Sizes and labels";
   countdown_sale => "countdown", "Sale timer";
+  diff_compare => "diff", "Design comparison";
   chart_revenue => "chart", "Area and line";
   data_table_users => "data-table", "Filter, sort, and select";
   empty_projects => "empty", "No projects";

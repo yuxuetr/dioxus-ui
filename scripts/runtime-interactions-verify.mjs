@@ -1290,6 +1290,25 @@ async function runBrowserAssertions() {
     await expect(formControls).toHaveAttribute("data-notes", "Line one\nLine two");
     await expect(notes).toHaveValue("Line one\nLine two");
 
+    // Diff moves its divider through a native range input: the arrow keys
+    // step it, the app state follows, and the after layer's clip and the
+    // divider read the new position (RFC 0059).
+    const diffFixture = page.locator('[data-interaction-target="diff"]');
+    const diffRange = diffFixture.getByRole("slider", { name: "Comparison position", exact: true });
+    await expect(diffRange).toHaveValue("50");
+    await diffRange.focus();
+    for (let press = 0; press < 3; press += 1) {
+      await diffRange.press("ArrowRight");
+    }
+    await expect(diffFixture).toHaveAttribute("data-position", "53");
+    await expect(diffRange).toHaveValue("53");
+    const diffAfter = diffFixture.getByText("After", { exact: true });
+    await expect(diffAfter).toHaveCSS("clip-path", "inset(0px 0px 0px 53%)");
+    await diffRange.press("Home");
+    await expect(diffFixture).toHaveAttribute("data-position", "0");
+    const diffBox = await diffRange.boundingBox();
+    await page.mouse.click(diffBox.x + diffBox.width * 0.75, diffBox.y + diffBox.height / 2);
+    await expect.poll(async () => Number(await diffFixture.getAttribute("data-position"))).toBeGreaterThan(70);
     const sliderFixture = page.locator('[data-interaction-target="slider"]');
     const volume = sliderFixture.getByRole("slider", { name: "Volume", exact: true });
     const locked = sliderFixture.getByRole("slider", { name: "Locked", exact: true });
@@ -2014,7 +2033,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (35 fixtures)");
+  console.log("runtime interaction verification passed (36 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

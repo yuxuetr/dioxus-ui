@@ -10,7 +10,7 @@ The catalog is derived from registry entries, templates, component docs,
 crate features, and crate modules. It intentionally does not include visual
 preview routes, screenshot artifacts, or generated JSON metadata.
 
-Public components: 71
+Public components: 72
 
 ## Groups
 
@@ -84,6 +84,7 @@ Public components: 71
 - [Chart](chart.md): Source-copy friendly SVG chart composition parts.
 - [Countdown](countdown.md): Styled countdown timer for app-owned remaining seconds.
 - [Data Table](data-table.md): Controlled Data Table composition parts and state helpers.
+- [Diff](diff.md): Styled before-and-after comparison with a keyboard-accessible divider.
 - [Empty](empty.md): Empty-state layout composition parts.
 - [Progress](progress.md): Progress component with accessible value semantics.
 - [Radial Progress](radial-progress.md): Styled circular progress bar with a centered label.
@@ -137,6 +138,7 @@ Public components: 71
 | [Data Table](data-table.md) | Controlled Data Table composition parts and state helpers. | `dxui add data-table` | `data-table` | `crates/dioxus-shadcn-cli/templates/data_table.rs` | `src/components/ui/data_table.rs` |
 | [Date Picker](date-picker.md) | Date Picker trigger, value, and popover content parts for composing Calendar. | `dxui add date-picker` | `date-picker` | `crates/dioxus-shadcn-cli/templates/date_picker.rs` | `src/components/ui/date_picker.rs` |
 | [Dialog](dialog.md) | Dialog overlay components backed by primitive configuration types. | `dxui add dialog` | `dialog` | `crates/dioxus-shadcn-cli/templates/dialog.rs` | `src/components/ui/dialog.rs` |
+| [Diff](diff.md) | Styled before-and-after comparison with a keyboard-accessible divider. | `dxui add diff` | `diff` | `crates/dioxus-shadcn-cli/templates/diff.rs` | `src/components/ui/diff.rs` |
 | [Direction](direction.md) | Direction component for scoped native ltr/rtl text direction. | `dxui add direction` | `direction` | `crates/dioxus-shadcn-cli/templates/direction.rs` | `src/components/ui/direction.rs` |
 | [Drawer](drawer.md) | Mobile-oriented bottom drawer components backed by dialog primitive configuration. | `dxui add drawer` | `drawer` | `crates/dioxus-shadcn-cli/templates/drawer.rs` | `src/components/ui/drawer.rs` |
 | [Dropdown](dropdown.md) | Dropdown menu components backed by primitive configuration types. | `dxui add dropdown` | `dropdown` | `crates/dioxus-shadcn-cli/templates/dropdown.rs` | `src/components/ui/dropdown.rs` |

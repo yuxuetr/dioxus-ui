@@ -154,6 +154,7 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["button
 | [Data Table](data-table.md) | `dxui add data-table` | `data-table` | Controlled data table parts |
 | [Date Picker](date-picker.md) | `dxui add date-picker` | `date-picker` | Calendar popover composition parts |
 | [Dialog](dialog.md) | `dxui add dialog` | `dialog` | Primitive config + styled parts |
+| [Diff](diff.md) | `dxui add diff` | `diff` | Before-and-after comparison parts |
 | [Direction](direction.md) | `dxui add direction` | `direction` | Scoped native text direction |
 | [Drawer](drawer.md) | `dxui add drawer` | `drawer` | Dialog-backed bottom drawer |
 | [Dropdown](dropdown.md) | `dxui add dropdown` | `dropdown` | Primitive config + styled parts |

@@ -1,0 +1,14 @@
+{
+  "name": "diff",
+  "description": "Styled before-and-after comparison with a keyboard-accessible divider.",
+  "files": [
+    {
+      "source": "templates/diff.rs",
+      "target": "src/components/ui/diff.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

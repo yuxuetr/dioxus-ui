@@ -714,6 +714,9 @@ pub mod tooltip;
 pub mod typography;
 
 pub use dioxus_shadcn_core::UiDensity;
+#[cfg(feature = "diff")]
+pub mod diff;
+
 #[cfg(feature = "countdown")]
 pub mod countdown;
 
@@ -834,4 +837,10 @@ pub use radial_progress::{
 pub use countdown::{
   COUNTDOWN_BASE_CLASS, COUNTDOWN_SEPARATOR_CLASS, Countdown, CountdownParts, countdown_class,
   countdown_parts, countdown_segments,
+};
+
+#[cfg(feature = "diff")]
+pub use diff::{
+  DIFF_AFTER_CLASS, DIFF_BASE_CLASS, DIFF_DIVIDER_CLASS, DIFF_HANDLE_CLASS, DIFF_INPUT_CLASS,
+  DIFF_LAYER_CLASS, Diff, DiffAfter, DiffBefore, diff_class, diff_layer_class, diff_position,
 };

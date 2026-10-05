@@ -19,6 +19,7 @@ Statuses:
 | Breadcrumb | Uses navigation and ordered-list semantics, with current page state on links or page text. | Implemented |
 | Card | Does not add implicit landmark or interactive semantics. | Implemented |
 | Countdown | Uses the timer role, which does not announce every tick. | Implemented |
+| Diff | Moves the divider with a named native range input, so pointer, keyboard, and assistive technology all work. | Implemented |
 | Empty | Does not add implicit alert or status semantics; text and actions remain app-owned. | Implemented |
 | Field | Exposes invalid and disabled state attributes while apps own control association and validation semantics. | Implemented |
 | Indicator | Adds no semantics; the placed content, such as a count badge, carries the text. | Implemented |

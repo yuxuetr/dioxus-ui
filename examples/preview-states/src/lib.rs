@@ -51,6 +51,7 @@ use dioxus_shadcn::{
   Carousel, CarouselContent, CarouselIndicator, CarouselItem, CarouselNext, CarouselPrevious,
   CarouselState, CarouselStep, CarouselViewport, carousel_can_go_next, carousel_can_go_previous,
 };
+use dioxus_shadcn::{Diff, DiffAfter, DiffBefore};
 use dioxus_shadcn::{
   InputOtp, InputOtpGroup, InputOtpHiddenInput, InputOtpSlot, Pagination, PaginationContent,
   PaginationItem, PaginationLink, PaginationNext, PaginationPrevious,
@@ -295,6 +296,14 @@ pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
     test_id: "component-preview-dialog",
     coverage_level: "runtime-planned",
     notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
+  },
+  ComponentPreviewTarget {
+    component: "diff",
+    label: "Diff",
+    panel: "data-display",
+    test_id: "component-preview-diff",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
   },
   ComponentPreviewTarget {
     component: "direction",
@@ -847,6 +856,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut notes_value = use_signal(String::new);
   let mut volume = use_signal(|| 40.0);
   let mut balance = use_signal(|| 50.0);
+  let mut diff_position = use_signal(|| 50.0);
   let mut locked_slider_changes = use_signal(|| 0_u32);
   let mut details_open = use_signal(|| false);
   let mut size_value = use_signal(|| "md".to_string());
@@ -1862,6 +1872,19 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 value: balance(),
                 on_value_change: move |value| balance.set(value),
               }
+            }
+          }
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "diff",
+            "data-position": "{diff_position}",
+            h2 { class: "text-sm font-medium", "Diff interaction" }
+            Diff {
+              class: "mt-3 h-24",
+              position: diff_position(),
+              on_position_change: move |value| diff_position.set(value),
+              DiffBefore { class: "grid place-items-center bg-muted text-sm", "Before" }
+              DiffAfter { class: "grid place-items-center bg-primary text-sm text-primary-foreground", "After" }
             }
           }
           article {
