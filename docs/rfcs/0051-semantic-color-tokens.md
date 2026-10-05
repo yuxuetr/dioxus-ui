@@ -148,6 +148,10 @@ element, which breaks `peer-*` styling on a sibling Label. An app that sets
 `--primary-foreground` to a color far from white or zinc-900 overrides the
 marks through `class`; reevaluate when an app reports that.
 
+Theme presets made that case real, and M188 replaced the backgrounds with a
+masked `::before` filled with `--primary-foreground`, which needs no wrapper
+([RFC 0057](0057-theme-presets.md)).
+
 ### Stylesheet setup
 
 - The CLI default `assets/dioxus-shadcn.css` gets the `:root`, `.dark`, and

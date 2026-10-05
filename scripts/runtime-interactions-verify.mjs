@@ -1184,18 +1184,37 @@ async function runBrowserAssertions() {
     await expect(switchFixture).toHaveAttribute("data-checkbox", "true");
     await expect(terms).toBeChecked();
     // The checkbox draws its own box: no native control, the primary fill,
-    // and a tick that only the checked state has.
-    const backgroundImage = (locator) => locator.evaluate((element) => getComputedStyle(element).backgroundImage);
+    // and a `::before` masked to a tick that only the checked state shows,
+    // filled with --primary-foreground so it follows any theme (RFC 0057).
+    const mark = (locator) =>
+      locator.evaluate((element) => {
+        const style = getComputedStyle(element, "::before");
+        return { opacity: style.opacity, color: style.backgroundColor, mask: style.maskImage, width: style.width };
+      });
+    const primaryForeground = () =>
+      page.evaluate(() => {
+        const probe = document.createElement("div");
+        probe.style.backgroundColor = "var(--primary-foreground)";
+        document.body.append(probe);
+        const color = getComputedStyle(probe).backgroundColor;
+        probe.remove();
+        return color;
+      });
     await expect(terms).toHaveCSS("appearance", "none");
     await expect(terms).toHaveCSS("background-color", await utilityBackgroundColor(page, "bg-primary"));
-    const tick = await backgroundImage(terms);
-    expect(tick).toContain("data:image/svg+xml");
-    // The tick cannot read --primary-foreground, so the dark theme swaps in a
-    // dark stroke for the near-white dark primary (RFC 0051).
-    await page.evaluate(() => document.documentElement.classList.add("dark"));
-    expect(await backgroundImage(terms)).toContain("18181b");
-    await page.evaluate(() => document.documentElement.classList.remove("dark"));
-    await expect(newsletter).toHaveCSS("background-image", "none");
+    const tick = await mark(terms);
+    expect(tick.opacity).toBe("1");
+    expect(tick.mask).toContain("data:image/svg+xml");
+    expect(tick.width).not.toBe("0px");
+    expect(tick.color).toBe(await primaryForeground());
+    for (const dark of [true, false]) {
+      await page.evaluate((on) => document.documentElement.classList.toggle("dark", on), dark);
+      expect((await mark(terms)).color).toBe(await primaryForeground());
+    }
+    await page.evaluate(() => document.documentElement.style.setProperty("--primary-foreground", "rgb(1, 2, 3)"));
+    expect((await mark(terms)).color).toBe("rgb(1, 2, 3)");
+    await page.evaluate(() => document.documentElement.style.removeProperty("--primary-foreground"));
+    expect((await mark(newsletter)).opacity).toBe("0");
     await expect(newsletter).toBeDisabled();
     await newsletter.click({ force: true });
     await expect(newsletter).not.toBeChecked();
@@ -1207,9 +1226,10 @@ async function runBrowserAssertions() {
     await expect(mixedCheckbox("Select all")).toHaveAttribute("data-state", "indeterminate");
     // Mixed draws a dash on the primary fill, not the tick.
     await expect(mixedCheckbox("Select all")).toHaveCSS("background-color", await utilityBackgroundColor(page, "bg-primary"));
-    const dash = await backgroundImage(mixedCheckbox("Select all"));
-    expect(dash).toContain("data:image/svg+xml");
-    expect(dash).not.toBe(tick);
+    const dash = await mark(mixedCheckbox("Select all"));
+    expect(dash.opacity).toBe("1");
+    expect(dash.mask).toContain("data:image/svg+xml");
+    expect(dash.mask).not.toBe(tick.mask);
     // A change while mixed requests checked.
     await mixedCheckbox("Select all").click();
     await expect(switchFixture).toHaveAttribute("data-mixed-items", "true-true");

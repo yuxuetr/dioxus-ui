@@ -21,6 +21,9 @@ for commit messages.
 - `ButtonVariant::Link` uses `text-foreground decoration-primary` instead of
   `text-primary`, so link buttons stay readable in presets whose primary color
   is light. The default theme looks the same.
+- Checkbox draws its tick and dash as a masked `::before` filled with
+  `--primary-foreground` instead of white and dark data URI backgrounds, so
+  the marks follow any theme. Checkbox no longer uses the `dark:` variant.
 
 ### Fixed
 

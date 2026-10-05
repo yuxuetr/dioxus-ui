@@ -70,9 +70,11 @@ browser, so server-rendered HTML exposes the checkbox as unchecked until it
 hydrates (see [RFC 0041](../rfcs/0041-checkbox-indeterminate-state.md)).
 
 The input draws its own box with `appearance-none`: the checked state shows a
-tick and the mixed state a dash, both on the blue fill. The marks are keyed
+tick and the mixed state a dash, both on the primary fill. The marks are keyed
 off `data-state`, so server-rendered HTML already shows them (see
-[RFC 0045](../rfcs/0045-drawn-checkbox.md)).
+[RFC 0045](../rfcs/0045-drawn-checkbox.md)). Each mark is a `::before` masked
+to its shape and filled with `--primary-foreground`, so it follows the dark
+theme and every theme preset ([RFC 0057](../rfcs/0057-theme-presets.md)).
 
 ## Accessibility Notes
 

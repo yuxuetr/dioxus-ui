@@ -1118,12 +1118,6 @@
   .bg-zinc-900 {
     background-color: var(--color-zinc-900);
   }
-  .bg-center {
-    background-position: center;
-  }
-  .bg-no-repeat {
-    background-repeat: no-repeat;
-  }
   .fill-current {
     fill: currentcolor;
   }
@@ -1487,6 +1481,15 @@
   .placeholder\:text-muted-foreground::placeholder {
     color: var(--muted-foreground);
   }
+  .before\:block::before {
+    content: var(--tw-content);
+    display: block;
+  }
+  .before\:size-full::before {
+    content: var(--tw-content);
+    width: 100%;
+    height: 100%;
+  }
   .before\:h-px::before {
     content: var(--tw-content);
     height: 1px;
@@ -1498,6 +1501,18 @@
   .before\:bg-border::before {
     content: var(--tw-content);
     background-color: var(--border);
+  }
+  .before\:bg-primary-foreground::before {
+    content: var(--tw-content);
+    background-color: var(--primary-foreground);
+  }
+  .before\:opacity-0::before {
+    content: var(--tw-content);
+    opacity: 0%;
+  }
+  .before\:\[mask\:url\(data\:image\/svg\+xml\,\%3Csvg\%20xmlns\=\%27http\:\/\/www\.w3\.org\/2000\/svg\%27\%20viewBox\=\%270\%200\%2016\%2016\%27\%20fill\=\%27none\%27\%20stroke\=\%27black\%27\%20stroke-width\=\%272\.5\%27\%20stroke-linecap\=\%27round\%27\%20stroke-linejoin\=\%27round\%27\%3E\%3Cpath\%20d\=\%27M3\.5\%208\.5l3\%203\%206-7\%27\/\%3E\%3C\/svg\%3E\)_center\/100\%_no-repeat\]::before {
+    content: var(--tw-content);
+    mask: url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27black%27%20stroke-width=%272.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M3.5%208.5l3%203%206-7%27/%3E%3C/svg%3E) center/100% no-repeat;
   }
   .after\:absolute::after {
     content: var(--tw-content);
@@ -1765,8 +1780,9 @@
   .data-\[sort\=descending\]\:text-foreground[data-sort="descending"] {
     color: var(--foreground);
   }
-  .data-\[state\=checked\]\:bg-\[url\(data\:image\/svg\+xml\,\%3Csvg\%20xmlns\=\%27http\:\/\/www\.w3\.org\/2000\/svg\%27\%20viewBox\=\%270\%200\%2016\%2016\%27\%20fill\=\%27none\%27\%20stroke\=\%27white\%27\%20stroke-width\=\%272\.5\%27\%20stroke-linecap\=\%27round\%27\%20stroke-linejoin\=\%27round\%27\%3E\%3Cpath\%20d\=\%27M3\.5\%208\.5l3\%203\%206-7\%27\/\%3E\%3C\/svg\%3E\)\][data-state="checked"] {
-    background-image: url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27white%27%20stroke-width=%272.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M3.5%208.5l3%203%206-7%27/%3E%3C/svg%3E);
+  .data-\[state\=checked\]\:before\:opacity-100[data-state="checked"]::before {
+    content: var(--tw-content);
+    opacity: 100%;
   }
   .data-\[state\=closed\]\:opacity-0[data-state="closed"] {
     opacity: 0%;
@@ -1777,8 +1793,13 @@
   .data-\[state\=indeterminate\]\:bg-primary[data-state="indeterminate"] {
     background-color: var(--primary);
   }
-  .data-\[state\=indeterminate\]\:bg-\[url\(data\:image\/svg\+xml\,\%3Csvg\%20xmlns\=\%27http\:\/\/www\.w3\.org\/2000\/svg\%27\%20viewBox\=\%270\%200\%2016\%2016\%27\%20fill\=\%27none\%27\%20stroke\=\%27white\%27\%20stroke-width\=\%272\.5\%27\%20stroke-linecap\=\%27round\%27\%20stroke-linejoin\=\%27round\%27\%3E\%3Cpath\%20d\=\%27M4\%208h8\%27\/\%3E\%3C\/svg\%3E\)\][data-state="indeterminate"] {
-    background-image: url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27white%27%20stroke-width=%272.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M4%208h8%27/%3E%3C/svg%3E);
+  .data-\[state\=indeterminate\]\:before\:\[mask-image\:url\(data\:image\/svg\+xml\,\%3Csvg\%20xmlns\=\%27http\:\/\/www\.w3\.org\/2000\/svg\%27\%20viewBox\=\%270\%200\%2016\%2016\%27\%20fill\=\%27none\%27\%20stroke\=\%27black\%27\%20stroke-width\=\%272\.5\%27\%20stroke-linecap\=\%27round\%27\%20stroke-linejoin\=\%27round\%27\%3E\%3Cpath\%20d\=\%27M4\%208h8\%27\/\%3E\%3C\/svg\%3E\)\][data-state="indeterminate"]::before {
+    content: var(--tw-content);
+    mask-image: url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27black%27%20stroke-width=%272.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M4%208h8%27/%3E%3C/svg%3E);
+  }
+  .data-\[state\=indeterminate\]\:before\:opacity-100[data-state="indeterminate"]::before {
+    content: var(--tw-content);
+    opacity: 100%;
   }
   .data-\[state\=open\]\:opacity-100[data-state="open"] {
     opacity: 100%;
@@ -1843,12 +1864,6 @@
     .md\:w-auto {
       width: auto;
     }
-  }
-  .dark\:data-\[state\=checked\]\:bg-\[url\(data\:image\/svg\+xml\,\%3Csvg\%20xmlns\=\%27http\:\/\/www\.w3\.org\/2000\/svg\%27\%20viewBox\=\%270\%200\%2016\%2016\%27\%20fill\=\%27none\%27\%20stroke\=\%27\%2318181b\%27\%20stroke-width\=\%272\.5\%27\%20stroke-linecap\=\%27round\%27\%20stroke-linejoin\=\%27round\%27\%3E\%3Cpath\%20d\=\%27M3\.5\%208\.5l3\%203\%206-7\%27\/\%3E\%3C\/svg\%3E\)\]:is(.dark *)[data-state="checked"] {
-    background-image: url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27%2318181b%27%20stroke-width=%272.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M3.5%208.5l3%203%206-7%27/%3E%3C/svg%3E);
-  }
-  .dark\:data-\[state\=indeterminate\]\:bg-\[url\(data\:image\/svg\+xml\,\%3Csvg\%20xmlns\=\%27http\:\/\/www\.w3\.org\/2000\/svg\%27\%20viewBox\=\%270\%200\%2016\%2016\%27\%20fill\=\%27none\%27\%20stroke\=\%27\%2318181b\%27\%20stroke-width\=\%272\.5\%27\%20stroke-linecap\=\%27round\%27\%20stroke-linejoin\=\%27round\%27\%3E\%3Cpath\%20d\=\%27M4\%208h8\%27\/\%3E\%3C\/svg\%3E\)\]:is(.dark *)[data-state="indeterminate"] {
-    background-image: url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27%2318181b%27%20stroke-width=%272.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M4%208h8%27/%3E%3C/svg%3E);
   }
   .\[\&_tr\]\:border-b tr {
     border-bottom-style: var(--tw-border-style);

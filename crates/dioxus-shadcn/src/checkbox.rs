@@ -15,9 +15,10 @@ const input = document.querySelector(`[data-dxui-checkbox="${scopeId}"]`);
 if (input) input.indeterminate = indeterminate;
 "#;
 
-// The input draws its own box, so `appearance-none` drops the native control
-// and the checked and mixed marks are background images keyed off `data-state`.
-pub const CHECKBOX_BASE_CLASS: &str = "inline-flex h-4 w-4 shrink-0 appearance-none items-center justify-center rounded border bg-center bg-no-repeat transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=indeterminate]:border-primary data-[state=indeterminate]:bg-primary data-[state=checked]:bg-[url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27white%27%20stroke-width=%272.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M3.5%208.5l3%203%206-7%27/%3E%3C/svg%3E)] dark:data-[state=checked]:bg-[url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27%2318181b%27%20stroke-width=%272.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M3.5%208.5l3%203%206-7%27/%3E%3C/svg%3E)] data-[state=indeterminate]:bg-[url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27white%27%20stroke-width=%272.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M4%208h8%27/%3E%3C/svg%3E)] dark:data-[state=indeterminate]:bg-[url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27%2318181b%27%20stroke-width=%272.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M4%208h8%27/%3E%3C/svg%3E)]";
+// The input draws its own box, so `appearance-none` drops the native control.
+// The checked and mixed marks are a `::before` masked to the mark's shape and
+// filled with `--primary-foreground`, so they follow any theme (RFC 0057).
+pub const CHECKBOX_BASE_CLASS: &str = "inline-flex h-4 w-4 shrink-0 appearance-none items-center justify-center rounded border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=indeterminate]:border-primary data-[state=indeterminate]:bg-primary before:block before:size-full before:bg-primary-foreground before:opacity-0 before:[mask:url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27black%27%20stroke-width=%272.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M3.5%208.5l3%203%206-7%27/%3E%3C/svg%3E)_center/100%_no-repeat] data-[state=checked]:before:opacity-100 data-[state=indeterminate]:before:opacity-100 data-[state=indeterminate]:before:[mask-image:url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27black%27%20stroke-width=%272.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M4%208h8%27/%3E%3C/svg%3E)]";
 
 pub fn checkbox_class(checked: bool, class: &str) -> String {
   let checked_class = if checked {
@@ -120,5 +121,12 @@ mod tests {
     assert!(actual.contains(CHECKBOX_BASE_CLASS));
     assert!(actual.contains("border-primary bg-primary text-primary-foreground"));
     assert!(actual.ends_with("mt-1"));
+  }
+
+  #[test]
+  fn checkbox_marks_follow_the_primary_foreground_token() {
+    assert!(CHECKBOX_BASE_CLASS.contains("before:bg-primary-foreground"));
+    assert!(CHECKBOX_BASE_CLASS.contains("data-[state=checked]:before:opacity-100"));
+    assert!(!CHECKBOX_BASE_CLASS.contains("dark:"));
   }
 }
