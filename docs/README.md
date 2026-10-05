@@ -130,7 +130,8 @@ Read in this order:
 123. [RFC 0060: Input Components](rfcs/0060-input-components.md)
 124. [RFC 0061: Mobile Navigation](rfcs/0061-mobile-navigation.md)
 125. [RFC 0062: Multi-Select](rfcs/0062-multi-select.md)
-126. [TODO Plan](../TODOs.md)
+126. [RFC 0063: Navigation Menu Submenus](rfcs/0063-navigation-menu-submenus.md)
+127. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 

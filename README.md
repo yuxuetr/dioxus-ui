@@ -322,6 +322,7 @@ only.
 - [RFC 0060: Input Components](docs/rfcs/0060-input-components.md)
 - [RFC 0061: Mobile Navigation](docs/rfcs/0061-mobile-navigation.md)
 - [RFC 0062: Multi-Select](docs/rfcs/0062-multi-select.md)
+- [RFC 0063: Navigation Menu Submenus](docs/rfcs/0063-navigation-menu-submenus.md)
 
 ## Verification Shortcuts
 
