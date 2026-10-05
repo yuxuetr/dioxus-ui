@@ -4,7 +4,7 @@
 
 - Overall: 0.2.0 plan, 7 of 8 milestones complete
 - Current milestone: M194 0.2.0 Release
-- Current task: M194.1
+- Current task: M194.2 (waiting for the release owner)
 
 ## Backup
 
@@ -106,8 +106,9 @@
 
 ## M194 0.2.0 Release
 
-- TODO M194.1 Prepare 0.2.0
+- DONE M194.1 Prepare 0.2.0
   - CHANGELOG with migration notes, workspace and internal dependency versions bumped, release gate and publish dry run pass.
+  - Done: `[0.2.0]` section with Added, Changed, Migration, and Fixed; versions and install snippets at 0.2; the API stability and dependency verifiers now derive the version from `Cargo.toml`. Release gate passes; `cargo publish --workspace --dry-run` packages and verifies all four crates (crates.io still at 0.1.0).
 - TODO M194.2 Publish 0.2.0
   - Only after the release owner confirms.
 
