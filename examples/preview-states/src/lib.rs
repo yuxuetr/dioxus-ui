@@ -319,6 +319,14 @@ pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
     notes: "Rendered markup and class-state coverage target.",
   },
   ComponentPreviewTarget {
+    component: "dock",
+    label: "Dock",
+    panel: "navigation",
+    test_id: "component-preview-dock",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
     component: "drawer",
     label: "Drawer",
     panel: "overlays",

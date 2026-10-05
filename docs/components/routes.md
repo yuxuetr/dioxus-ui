@@ -11,7 +11,7 @@ It does not create rendered routes, router code, screenshots, or generated JSON.
 For source preview route metadata, see the
 [Source Preview Manifest](source-preview.md).
 
-Component routes: 77
+Component routes: 78
 Category routes: 8
 
 ## Top-level Routes
@@ -66,6 +66,7 @@ Category routes: 8
 | [Dialog](dialog.md) | /components/dialog | docs/components/dialog.md | /components#category-overlays | /components/dialog/source |
 | [Diff](diff.md) | /components/diff | docs/components/diff.md | /components#category-data-display | /components/diff/source |
 | [Direction](direction.md) | /components/direction | docs/components/direction.md | /components#category-layout | /components/direction/source |
+| [Dock](dock.md) | /components/dock | docs/components/dock.md | /components#category-navigation | /components/dock/source |
 | [Drawer](drawer.md) | /components/drawer | docs/components/drawer.md | /components#category-overlays | /components/drawer/source |
 | [Dropdown](dropdown.md) | /components/dropdown | docs/components/dropdown.md | /components#category-overlays | /components/dropdown/source |
 | [Empty](empty.md) | /components/empty | docs/components/empty.md | /components#category-data-display | /components/empty/source |

@@ -1,0 +1,14 @@
+{
+  "name": "dock",
+  "description": "Styled bottom navigation bar of links or buttons.",
+  "files": [
+    {
+      "source": "templates/dock.rs",
+      "target": "src/components/ui/dock.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

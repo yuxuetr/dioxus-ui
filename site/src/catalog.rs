@@ -260,6 +260,12 @@ pub const CATEGORIES: &[Category] = &[
         feature: "breadcrumb",
       },
       Component {
+        slug: "dock",
+        title: "Dock",
+        description: "Styled bottom navigation bar of links or buttons.",
+        feature: "dock",
+      },
+      Component {
         slug: "navigation-menu",
         title: "Navigation Menu",
         description: "Controlled navigation menu parts with navigation semantics.",

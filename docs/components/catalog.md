@@ -10,7 +10,7 @@ The catalog is derived from registry entries, templates, component docs,
 crate features, and crate modules. It intentionally does not include visual
 preview routes, screenshot artifacts, or generated JSON metadata.
 
-Public components: 77
+Public components: 78
 
 ## Groups
 
@@ -62,6 +62,7 @@ Public components: 77
 ### Navigation
 
 - [Breadcrumb](breadcrumb.md): Semantic breadcrumb navigation composition parts.
+- [Dock](dock.md): Styled bottom navigation bar of links or buttons.
 - [Navigation Menu](navigation-menu.md): Controlled navigation menu parts with navigation semantics.
 - [Pagination](pagination.md): Pagination component with link, item, and ellipsis parts.
 - [Sidebar](sidebar.md): Controlled sidebar shell and navigation composition parts.
@@ -145,6 +146,7 @@ Public components: 77
 | [Dialog](dialog.md) | Dialog overlay components backed by primitive configuration types. | `dxui add dialog` | `dialog` | `crates/dioxus-shadcn-cli/templates/dialog.rs` | `src/components/ui/dialog.rs` |
 | [Diff](diff.md) | Styled before-and-after comparison with a keyboard-accessible divider. | `dxui add diff` | `diff` | `crates/dioxus-shadcn-cli/templates/diff.rs` | `src/components/ui/diff.rs` |
 | [Direction](direction.md) | Direction component for scoped native ltr/rtl text direction. | `dxui add direction` | `direction` | `crates/dioxus-shadcn-cli/templates/direction.rs` | `src/components/ui/direction.rs` |
+| [Dock](dock.md) | Styled bottom navigation bar of links or buttons. | `dxui add dock` | `dock` | `crates/dioxus-shadcn-cli/templates/dock.rs` | `src/components/ui/dock.rs` |
 | [Drawer](drawer.md) | Mobile-oriented bottom drawer components backed by dialog primitive configuration. | `dxui add drawer` | `drawer` | `crates/dioxus-shadcn-cli/templates/drawer.rs` | `src/components/ui/drawer.rs` |
 | [Dropdown](dropdown.md) | Dropdown menu components backed by primitive configuration types. | `dxui add dropdown` | `dropdown` | `crates/dioxus-shadcn-cli/templates/dropdown.rs` | `src/components/ui/dropdown.rs` |
 | [Empty](empty.md) | Empty-state layout composition parts. | `dxui add empty` | `empty` | `crates/dioxus-shadcn-cli/templates/empty.rs` | `src/components/ui/empty.rs` |

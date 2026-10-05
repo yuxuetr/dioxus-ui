@@ -10,7 +10,7 @@ The manifest defines template metadata for future source preview routes.
 It does not embed full template source, syntax highlighting, rendered routes,
 screenshots, or generated JSON.
 
-Source preview routes: 77
+Source preview routes: 78
 
 ## Source Preview Routes
 
@@ -42,6 +42,7 @@ Source preview routes: 77
 | [Dialog](dialog.md) | /components/dialog/source | crates/dioxus-shadcn-cli/templates/dialog.rs | src/components/ui/dialog.rs | rust | 146 | 4556 |
 | [Diff](diff.md) | /components/diff/source | crates/dioxus-shadcn-cli/templates/diff.rs | src/components/ui/diff.rs | rust | 96 | 3638 |
 | [Direction](direction.md) | /components/direction/source | crates/dioxus-shadcn-cli/templates/direction.rs | src/components/ui/direction.rs | rust | 43 | 787 |
+| [Dock](dock.md) | /components/dock/source | crates/dioxus-shadcn-cli/templates/dock.rs | src/components/ui/dock.rs | rust | 84 | 3186 |
 | [Drawer](drawer.md) | /components/drawer/source | crates/dioxus-shadcn-cli/templates/drawer.rs | src/components/ui/drawer.rs | rust | 178 | 5128 |
 | [Dropdown](dropdown.md) | /components/dropdown/source | crates/dioxus-shadcn-cli/templates/dropdown.rs | src/components/ui/dropdown.rs | rust | 140 | 4344 |
 | [Empty](empty.md) | /components/empty/source | crates/dioxus-shadcn-cli/templates/empty.rs | src/components/ui/empty.rs | rust | 106 | 2495 |

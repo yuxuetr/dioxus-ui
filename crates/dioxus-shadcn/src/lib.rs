@@ -714,6 +714,9 @@ pub mod tooltip;
 pub mod typography;
 
 pub use dioxus_shadcn_core::UiDensity;
+#[cfg(feature = "dock")]
+pub mod dock;
+
 #[cfg(feature = "swap")]
 pub mod swap;
 
@@ -885,4 +888,11 @@ pub use file_input::{FILE_INPUT_BASE_CLASS, FileInput, file_input_class};
 #[cfg(feature = "swap")]
 pub use swap::{
   SWAP_BASE_CLASS, SWAP_LAYER_BASE_CLASS, Swap, SwapEffect, swap_class, swap_layer_class,
+};
+
+#[cfg(feature = "dock")]
+pub use dock::{
+  DOCK_BASE_CLASS, DOCK_FIXED_CLASS, DOCK_ITEM_ACTIVE_CLASS, DOCK_ITEM_BASE_CLASS,
+  DOCK_ITEM_INACTIVE_CLASS, DOCK_LABEL_CLASS, DOCK_STATIC_CLASS, Dock, DockItem, DockLabel,
+  dock_class, dock_item_class, dock_label_class,
 };

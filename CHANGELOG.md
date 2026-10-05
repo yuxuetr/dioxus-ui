@@ -22,6 +22,7 @@ for commit messages.
   ([RFC 0059](docs/rfcs/0059-display-components.md)): Stat, Timeline, Steps, Indicator, Status, Radial Progress, Countdown, and Diff.
 - Input components ([RFC 0060](docs/rfcs/0060-input-components.md)): Rating, Number
   Input, Tags Input, File Input, and Swap.
+- Mobile navigation ([RFC 0061](docs/rfcs/0061-mobile-navigation.md)): Dock.
 
 ### Changed
 

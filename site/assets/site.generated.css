@@ -1084,6 +1084,9 @@
   .rounded-sm {
     border-radius: calc(var(--radius) - 4px);
   }
+  .rounded-xl {
+    border-radius: calc(var(--radius) + 4px);
+  }
   .rounded-t-md {
     border-top-left-radius: calc(var(--radius) - 2px);
     border-top-right-radius: calc(var(--radius) - 2px);
@@ -1426,6 +1429,9 @@
   }
   .pb-8 {
     padding-bottom: calc(var(--spacing) * 8);
+  }
+  .pb-\[env\(safe-area-inset-bottom\)\] {
+    padding-bottom: env(safe-area-inset-bottom);
   }
   .pl-4 {
     padding-left: calc(var(--spacing) * 4);
@@ -1970,6 +1976,10 @@
     content: var(--tw-content);
     inset-block: 0px;
   }
+  .after\:top-0::after {
+    content: var(--tw-content);
+    top: 0px;
+  }
   .after\:left-1\/2::after {
     content: var(--tw-content);
     left: calc(1 / 2 * 100%);
@@ -1986,6 +1996,10 @@
     content: var(--tw-content);
     width: var(--spacing);
   }
+  .after\:w-8::after {
+    content: var(--tw-content);
+    width: calc(var(--spacing) * 8);
+  }
   .after\:w-px::after {
     content: var(--tw-content);
     width: 1px;
@@ -1999,6 +2013,10 @@
     --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
+  .after\:rounded-full::after {
+    content: var(--tw-content);
+    border-radius: calc(infinity * 1px);
+  }
   .after\:bg-border::after {
     content: var(--tw-content);
     background-color: var(--border);
@@ -2006,6 +2024,14 @@
   .after\:bg-primary::after {
     content: var(--tw-content);
     background-color: var(--primary);
+  }
+  .after\:opacity-0::after {
+    content: var(--tw-content);
+    opacity: 0%;
+  }
+  .after\:opacity-100::after {
+    content: var(--tw-content);
+    opacity: 100%;
   }
   .group-last\/item\:after\:invisible:is(:where(.group\/item):last-child *)::after {
     content: var(--tw-content);
@@ -2417,6 +2443,10 @@
   }
   .\[\&_circle\:last-of-type\]\:stroke-success circle:last-of-type {
     stroke: var(--success);
+  }
+  .\[\&_svg\]\:size-5 svg {
+    width: calc(var(--spacing) * 5);
+    height: calc(var(--spacing) * 5);
   }
   .\[\&_tr\]\:border-b tr {
     border-bottom-style: var(--tw-border-style);

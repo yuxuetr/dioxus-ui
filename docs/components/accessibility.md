@@ -20,6 +20,7 @@ Statuses:
 | Card | Does not add implicit landmark or interactive semantics. | Implemented |
 | Countdown | Uses the timer role, which does not announce every tick. | Implemented |
 | Diff | Moves the divider with a named native range input, so pointer, keyboard, and assistive technology all work. | Implemented |
+| Dock | Uses a nav landmark with links or buttons and aria-current on the active item. | Implemented |
 | Empty | Does not add implicit alert or status semantics; text and actions remain app-owned. | Implemented |
 | Field | Exposes invalid and disabled state attributes while apps own control association and validation semantics. | Implemented |
 | File Input | Uses the native file input, so its button, file name, and keyboard access come from the browser. | Implemented |
