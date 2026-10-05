@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M169 Tailwind Utility Conflicts
+- Current task: M169.1 Design Tailwind utility conflict fixes
 
 ## Backup
 
@@ -3080,6 +3080,25 @@
   - Reverse-verify that the script fails with the bare `data-disabled:` variant, with Navigation Menu content at `top-0`, and without the compiled stylesheet.
 
 - DONE M168.4 Complete compiled Tailwind milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and quality gate docs.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M169 Tailwind Utility Conflicts
+
+- TODO M169.1 Design Tailwind utility conflict fixes
+  - Record that class functions join base classes with state classes that set the same property, and that Tailwind orders utilities in the stylesheet, so a base `border-zinc-200` beats an invalid `border-red-500`, a checked `border-blue-600`, and variant colors, and the vertical Slider's `w-full` beats `w-auto`.
+  - Define moving each contested utility out of the base class into every branch, a static conflict check over class functions, a rendered conflict check in the browser verifier, and the important modifier for user overrides.
+  - Record what stays out of scope (merging user classes, the native Checkbox appearance, conflicts between two state classes) with reevaluation conditions.
+
+- TODO M169.2 Remove conflicting utilities from class functions
+  - Move contested utilities out of base classes in the crate source and templates, size the vertical Slider root, and add `npm run verify:tailwind-conflicts` to the release gate.
+
+- TODO M169.3 Verify rendered class lists in a real browser
+  - Make `npm run verify:runtime-interactions` fail on conflicting utilities in any rendered class list before and after the interactions, switch fixture overrides to the important modifier, and measure the Radio Group checked border and the vertical Slider width.
+  - Reverse-verify that the checks fail with the base invalid border restored, without the important modifier on a fixture override, with the base Radio border restored, and with a full-width vertical Slider.
+
+- TODO M169.4 Complete Tailwind utility conflict milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and quality gate docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.

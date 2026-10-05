@@ -226,6 +226,7 @@ format!("bg-{}-500", color)
 - [RFC 0041: Checkbox Indeterminate State](docs/rfcs/0041-checkbox-indeterminate-state.md)
 - [RFC 0042: Slider Thumb Position And Vertical Orientation](docs/rfcs/0042-slider-thumb-position-and-vertical-orientation.md)
 - [RFC 0043: Compiled Tailwind Browser Checks](docs/rfcs/0043-compiled-tailwind-browser-checks.md)
+- [RFC 0044: Tailwind Utility Conflicts](docs/rfcs/0044-tailwind-utility-conflicts.md)
 
 ## Verification Shortcuts
 

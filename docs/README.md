@@ -110,7 +110,8 @@ Read in this order:
 104. [RFC 0041: Checkbox Indeterminate State](rfcs/0041-checkbox-indeterminate-state.md)
 105. [RFC 0042: Slider Thumb Position And Vertical Orientation](rfcs/0042-slider-thumb-position-and-vertical-orientation.md)
 106. [RFC 0043: Compiled Tailwind Browser Checks](rfcs/0043-compiled-tailwind-browser-checks.md)
-107. [TODO Plan](../TODOs.md)
+107. [RFC 0044: Tailwind Utility Conflicts](rfcs/0044-tailwind-utility-conflicts.md)
+108. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
