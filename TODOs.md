@@ -4,7 +4,7 @@
 
 - Overall: 0.2.0 plan, 3 of 8 milestones complete
 - Current milestone: M190 Display Components
-- Current task: M190.7
+- Current task: M190 docs
 
 ## Backup
 
@@ -70,7 +70,8 @@
   - Done: SVG progressbar ring with clamped value, default percentage label replaced by children; checked in a screenshot.
 - DONE M190.6 Countdown
   - Done: language-neutral `D:HH:MM:SS` timer with `countdown_parts` for labelled layouts; the site example's clock was checked ticking in a browser.
-- TODO M190.7 Diff
+- DONE M190.7 Diff
+  - Done: range-input driven comparison with a runtime fixture (arrow keys, clip, click), reverse-verified with a handler that does not fire.
 
 ## M191 Input Components
 
