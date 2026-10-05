@@ -120,7 +120,8 @@ Read in this order:
 114. [RFC 0051: Semantic Color Tokens](rfcs/0051-semantic-color-tokens.md)
 115. [RFC 0052: Component Site](rfcs/0052-component-site.md)
 116. [RFC 0053: Interactive Part Callbacks](rfcs/0053-interactive-part-callbacks.md)
-117. [TODO Plan](../TODOs.md)
+117. [RFC 0054: Automated Accessibility Audit](rfcs/0054-automated-accessibility-audit.md)
+118. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 

@@ -308,6 +308,7 @@ route in a browser.
 - [RFC 0051: Semantic Color Tokens](docs/rfcs/0051-semantic-color-tokens.md)
 - [RFC 0052: Component Site](docs/rfcs/0052-component-site.md)
 - [RFC 0053: Interactive Part Callbacks](docs/rfcs/0053-interactive-part-callbacks.md)
+- [RFC 0054: Automated Accessibility Audit](docs/rfcs/0054-automated-accessibility-audit.md)
 
 ## Verification Shortcuts
 
