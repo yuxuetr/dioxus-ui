@@ -125,7 +125,8 @@ Read in this order:
 118. [RFC 0055: Open State Accessibility Audit](rfcs/0055-open-state-accessibility-audit.md)
 119. [RFC 0056: Published Crate Names](rfcs/0056-published-crate-names.md)
 120. [RFC 0057: Theme Presets](rfcs/0057-theme-presets.md)
-121. [TODO Plan](../TODOs.md)
+121. [RFC 0058: Status Variants](rfcs/0058-status-variants.md)
+122. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
