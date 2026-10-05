@@ -231,10 +231,20 @@ release owner renames it to the released version at publish time.
   `FieldLabel` gains `r#for`, and `FieldLabel`, `BreadcrumbLink`, and
   `HoverCardTrigger` pass through attributes such as `id`, `title`, and
   `target`.
+- An axe-core audit (WCAG 2.1 A and AA and best practices) in
+  `npm run verify:site`, on every route in both themes, and in
+  `npm run verify:runtime-interactions`, where it checks contrast. `axe-core`
+  is a new dev dependency.
 
 ### Changed
 
 - Template changelog history has been removed from the project changelog.
+- `AlertTitle` renders a `div` instead of an `h5`, as in shadcn/ui v4; an
+  `h5` skipped heading levels on most pages.
+- `ScrollAreaViewport` and `MessageScrollerViewport` are Tab stops with a
+  focus ring and pass through attributes, so keyboard users can scroll them.
+- The source-copy `utils` helper `default_aria_label` is now
+  `default_attribute(attributes, name, value)`.
 - Breaking: component classes use the shadcn/ui semantic color tokens
   (`bg-primary`, `text-muted-foreground`, `border-input`, `ring-ring`, and so
   on) instead of fixed Tailwind palette colors, in the crate and the copied
@@ -289,6 +299,10 @@ release owner renames it to the released version at publish time.
   did not name or focus it.
 - `MessageScrollerJumpButton` renders `type="button"`; inside a form it
   submitted the form.
+- `ButtonGroup` and `ToggleGroup` no longer put `aria-orientation` on
+  `role="group"`, which does not support it. `ToggleGroup` reports its
+  orientation as `data-orientation`.
+- The site and the previews set `lang="en"` on the document.
 - The Slider thumb follows the value; it was never positioned, so it sat at
   the end of the root for every value.
 - A passed `aria-label` on `PaginationPrevious` and `PaginationNext` replaces

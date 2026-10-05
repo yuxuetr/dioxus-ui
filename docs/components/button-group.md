@@ -28,4 +28,6 @@ Button Group renders a `role="group"` wrapper and native button items. Pass
 `aria_label` when the group needs an accessible name. Apps own icon-only
 accessible names, command behavior, pressed state, and any toolbar or
 roving-focus semantics. `ButtonGroupItem` takes `onclick`, and other button
-attributes, such as `aria-pressed` and `aria-label`, pass through.
+attributes, such as `aria-pressed` and `aria-label`, pass through. The group
+reports its orientation as `data-orientation` only, since `role="group"` does
+not support `aria-orientation`.

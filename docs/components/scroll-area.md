@@ -28,7 +28,11 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["scroll-are
 
 ## Accessibility Notes
 
-The viewport keeps native scrolling behavior. Styled scrollbar parts are
-presentational hooks and are hidden from assistive technology. Apps remain
+The viewport keeps native scrolling behavior and is a Tab stop
+(`tabindex="0"`) with a focus ring, so keyboard users can scroll it; WebKit
+never makes scrollers focusable on its own. Name it with `role: "region"` and
+`aria-label`, or pass `tabindex: "-1"` when its content already has a
+focusable element. Styled scrollbar parts are presentational hooks and are
+hidden from assistive technology. Apps remain
 responsible for focus management, scroll restoration, and platform-specific
 scrollbar behavior.

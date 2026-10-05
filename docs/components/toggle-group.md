@@ -70,3 +70,5 @@ direction (see [RFC 0025](../rfcs/0025-right-to-left-arrow-mirroring.md)).
 
 `ToggleGroup` passes through attributes, so name the group with `aria-label` or
 `aria-labelledby` (see [RFC 0040](../rfcs/0040-composite-widget-names.md)).
+The group reports its orientation as `data-orientation` only, since
+`role="group"` does not support `aria-orientation`.

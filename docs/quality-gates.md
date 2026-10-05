@@ -584,7 +584,12 @@ position and vertical sliders, all with compiled Tailwind and no conflicting
 utilities in any rendered class list; and text contrast of at least WCAG AA
 in the light and opt-in dark themes, measured on the RFC 0051 token colors,
 with the Checkbox tick switching to its dark stroke under `.dark`; and a 375px
-layout with no sideways scroll and no element outside its fixture card. It does not
+layout with no sideways scroll and no element outside its fixture card; and
+action part callbacks and `FieldLabel` `for`; and no axe-core violation of the
+WCAG 2.1 A and AA and best-practice rules at the first render, an open Dialog,
+and after the interactions in both themes, with `landmark-unique` disabled
+because the preview repeats landmark components
+([RFC 0054](rfcs/0054-automated-accessibility-audit.md)). It does not
 write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.
@@ -593,7 +598,9 @@ behavior, or claim visual parity.
 [RFC 0052](rfcs/0052-component-site.md)) and visits the home, installation,
 and theming pages and every catalog component page. It fails on a console
 error, a route that renders the not found page or the wrong component, text
-below the WCAG AA contrast minimum in the light or dark theme, or a sideways
+below the WCAG AA contrast minimum in the light or dark theme, an axe-core
+violation of the WCAG 2.1 A and AA and best-practice rules in either theme
+([RFC 0054](rfcs/0054-automated-accessibility-audit.md)), or a sideways
 scroll at 375px. Each component page must render exactly the examples
 `site/src/examples/mod.rs` lists for it, each with a drawn preview and a Code
 tab whose source defines the rendered `Demo`. Every catalog component must have at
