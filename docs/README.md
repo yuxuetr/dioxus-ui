@@ -118,7 +118,8 @@ Read in this order:
 112. [RFC 0049: Compiled Preview Stylesheet](rfcs/0049-compiled-preview-stylesheet.md)
 113. [RFC 0050: Preview Theme Toggle](rfcs/0050-preview-theme-toggle.md)
 114. [RFC 0051: Semantic Color Tokens](rfcs/0051-semantic-color-tokens.md)
-115. [TODO Plan](../TODOs.md)
+115. [RFC 0052: Component Site](rfcs/0052-component-site.md)
+116. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
