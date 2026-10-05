@@ -720,6 +720,11 @@ const PREVIEW_CSS: Asset = asset!("/assets/preview.generated.css");
 #[component]
 pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let states = preview_lines(target);
+  // dx's page template has no `lang`, which assistive technology needs to
+  // pick a voice; the preview text is English.
+  use_effect(|| {
+    document::eval("document.documentElement.lang = 'en';");
+  });
   let mut disclosure_open = use_signal(|| false);
   let mut overlay_open = use_signal(|| false);
   let mut selected_option = use_signal(|| "alpha");
@@ -1145,6 +1150,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               class: "mt-3 rounded-md border border-border p-2",
               role: "listbox",
               tabindex: "0",
+              "aria-label": "Commands",
               "aria-activedescendant": "interaction-command-{command_active_value}",
               "data-interaction-control": "keyboard-listbox",
               for option in ["open-file", "save-file"] {
@@ -1207,6 +1213,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             SelectTrigger {
               id: "interaction-select-trigger",
               class: "mt-3",
+              "aria-label": "Fruit",
               "aria-describedby": "interaction-select-hint",
               open: select_open(),
               on_open_change: move |open| select_open.set(open),

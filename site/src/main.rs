@@ -35,6 +35,12 @@ fn main() {
 
 #[component]
 fn App() -> Element {
+  // dx's page template has no `lang`, which assistive technology needs to
+  // pick a voice; the site is English.
+  use_effect(|| {
+    document::eval("document.documentElement.lang = 'en';");
+  });
+
   rsx! {
     document::Title { "dioxus-ui" }
     document::Stylesheet { href: SITE_CSS }
