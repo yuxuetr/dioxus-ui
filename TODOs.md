@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M175 Preview Theme Toggle
-- Current task: M175.4 Complete the preview theme toggle milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -3218,7 +3218,7 @@
   - Run the Desktop self-test, and the iOS and Android self-tests where available.
   - Reverse-verify that the scenario fails when the toggle does not add the `dark` class.
 
-- TODO M175.4 Complete the preview theme toggle milestone
+- DONE M175.4 Complete the preview theme toggle milestone
   - Update CHANGELOG Unreleased notes and quality gate docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
