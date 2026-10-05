@@ -307,6 +307,7 @@ route in a browser.
 - [RFC 0050: Preview Theme Toggle](docs/rfcs/0050-preview-theme-toggle.md)
 - [RFC 0051: Semantic Color Tokens](docs/rfcs/0051-semantic-color-tokens.md)
 - [RFC 0052: Component Site](docs/rfcs/0052-component-site.md)
+- [RFC 0053: Interactive Part Callbacks](docs/rfcs/0053-interactive-part-callbacks.md)
 
 ## Verification Shortcuts
 

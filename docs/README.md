@@ -119,7 +119,8 @@ Read in this order:
 113. [RFC 0050: Preview Theme Toggle](rfcs/0050-preview-theme-toggle.md)
 114. [RFC 0051: Semantic Color Tokens](rfcs/0051-semantic-color-tokens.md)
 115. [RFC 0052: Component Site](rfcs/0052-component-site.md)
-116. [TODO Plan](../TODOs.md)
+116. [RFC 0053: Interactive Part Callbacks](rfcs/0053-interactive-part-callbacks.md)
+117. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 

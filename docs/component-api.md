@@ -187,9 +187,20 @@ where Tailwind ordering allows it.
 
 ## Attribute Forwarding
 
-Components should expose common HTML attributes only when Dioxus supports them
-cleanly in typed props. The project should avoid designing a custom generic
-attribute bag before a concrete need appears.
+A component or part that renders a native interactive element (a button,
+link, label, or form control) the app acts on directly takes:
+
+- the element's event callback as an explicit prop, such as
+  `onclick: Option<EventHandler<MouseEvent>>`, because Dioxus 0.7.9
+  `#[props(extends = ...)]` forwards attributes but not event listeners;
+- `attributes: Vec<Attribute>` extending `GlobalAttributes` and the element,
+  spread after the component's explicit attributes so its own state and ARIA
+  attributes keep their values.
+
+A part whose click already reports through a component callback, such as
+`on_open_change` or `on_value_change`, and a static wrapper add these only
+when a consumer needs them. See RFC 0028 to RFC 0036 and
+[RFC 0053](rfcs/0053-interactive-part-callbacks.md).
 
 For source-copy templates, users can edit the generated component if they need
 additional attributes.
