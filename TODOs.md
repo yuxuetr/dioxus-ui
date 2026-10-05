@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 5%
 - Current milestone: M176 Semantic Color Tokens
-- Current task: M176.1 Design the semantic color tokens
+- Current task: M176.2 Add the token stylesheet
 
 ## Backup
 
@@ -17,7 +17,7 @@
 
 ## M176 Semantic Color Tokens
 
-- TODO M176.1 Design the semantic color tokens
+- DONE M176.1 Design the semantic color tokens
   - Inventory the palette utilities in the crate and the templates (about 630 crate and 540 template uses of zinc, blue, red, white, green, amber, emerald, and black) and how each one is used: surfaces, text, borders, checked and selected fills, focus rings, destructive actions, and status variants.
   - Adopt the shadcn/ui token set and its v4 CSS layout: `:root` and `.dark` define `--background`, `--foreground`, `--card`, `--popover`, `--primary`, `--secondary`, `--muted`, `--accent`, `--destructive`, `--border`, `--input`, `--ring`, `--chart-1` to `--chart-5`, the `--sidebar-*` group, and `--radius`, and `@theme inline` maps them to Tailwind colors.
   - Write the palette-to-token mapping table, including where the current blue checked states and focus rings become `primary` and `ring` as in shadcn/ui, and whether toast, sonner, and attachment status variants keep palette colors or get extra tokens.
