@@ -212,6 +212,13 @@ release owner renames it to the released version at publish time.
   `--warning`, and `--info`, and maps them to Tailwind colors with
   `@theme inline`, so `bg-primary` and similar classes work in app code. The
   `dark` class also drives app `dark:` utilities through `@custom-variant`.
+- A component site in `site/` (`dioxus-ui-site`, not published): a Dioxus Web
+  app with the catalog sidebar, a page per component with its install
+  commands, installation and theming guides, and a dark theme toggle. Run it
+  with `dx serve --package dioxus-ui-site`. `npm run verify:site-css` and
+  `npm run verify:site-catalog` keep its compiled stylesheet and catalog data
+  fresh in the release gate, and `npm run verify:site` checks every route in
+  a browser.
 - `npm run verify:tailwind-static` fails when a component or template class
   uses a Tailwind palette color instead of a semantic token, except the
   `bg-black/50` modal overlay.

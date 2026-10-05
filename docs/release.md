@@ -488,6 +488,13 @@ representative click, keyboard, focus, ARIA, visible text, and `data-state`
 transitions. It does not write screenshots or traces, certify full
 accessibility, verify native Desktop or Mobile behavior, or claim visual parity.
 
+`npm run verify:site` is opt-in and outside release gates too. It serves the
+component site and checks every route for console errors, the right page,
+text contrast in both themes, and a 375px layout (see RFC 0052). The release
+gate runs `npm run verify:site-css` and `npm run verify:site-catalog`, which
+need no browser. The site is not deployed; hosting is a release-owner
+decision.
+
 `npm run verify:web-screenshot-smoke` is also opt-in and outside release gates.
 It starts the Web preview and checks desktop and mobile screenshot readiness
 without writing screenshots by default. When `DIOXUS_UI_WEB_SCREENSHOT=1` is

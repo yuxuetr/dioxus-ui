@@ -125,6 +125,12 @@ Exit criteria:
 - each component has API docs, examples, and accessibility notes
 - generated source and crate-mode examples stay in sync
 
+Status: M179 adds the component site shell
+([RFC 0052](rfcs/0052-component-site.md)): routes for every catalog component,
+the catalog sidebar, the installation and theming guides, and the theme
+toggle, checked in a browser by `npm run verify:site`. M180 adds the live
+examples and their source.
+
 ## Stage 7: Runtime Adapters
 
 Goal: add optional renderer-aware behavior without making controlled styled

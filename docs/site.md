@@ -1,5 +1,17 @@
 # Documentation Site Plan
 
+## M179 Component Site Shell
+
+Since M179 the repository has a rendered site next to the Markdown docs:
+`site/`, a Dioxus Web app with the router
+([RFC 0052](rfcs/0052-component-site.md)). It renders the catalog sidebar
+from `site/src/catalog.rs`, generated from the same docs catalog builder as
+`components/catalog.md` and `components/routes.md`, and serves `/`,
+`/docs/getting-started`, `/docs/theming`, and `/components/{slug}` for every
+catalog component. Run it with `dx serve --package dioxus-ui-site`;
+`npm run verify:site` checks every route in a browser. The Markdown docs stay
+the reference; the site links to them rather than rendering them.
+
 ## Current Site Shape
 
 The documentation site is currently Markdown-first:

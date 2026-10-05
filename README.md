@@ -42,6 +42,7 @@ dioxus-ui/
 ├─ examples/
 │  ├─ web-demo/
 │  └─ desktop-demo/
+├─ site/                      # component site (dx serve --package dioxus-ui-site)
 └─ docs/
    └─ rfcs/
 ```
@@ -206,6 +207,22 @@ Avoid this:
 ```rust
 format!("bg-{}-500", color)
 ```
+
+## Component Site
+
+`site/` is a Dioxus Web app that browses the catalog in the manner of the
+shadcn/ui site: a sidebar grouped by category, a page per component with its
+install commands, installation and theming guides, and a dark theme toggle
+([RFC 0052](docs/rfcs/0052-component-site.md)). Run it locally with:
+
+```bash
+dx serve --package dioxus-ui-site
+```
+
+After changing classes the site uses, run `npm run css:site`; after changing
+the registry or catalog, run `npm run site:catalog`. The release gate fails
+when either generated file is stale, and `npm run verify:site` checks every
+route in a browser.
 
 ## Documentation
 
@@ -1032,6 +1049,7 @@ Run the rendered component DOM verifier the same way:
 npm run verify:rendered-component-dom
 npm run verify:web-screenshot-smoke
 npm run verify:runtime-interactions
+npm run verify:site
 ```
 
 If Playwright-managed Chromium is unavailable but local Chrome is installed,
