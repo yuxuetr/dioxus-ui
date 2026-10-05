@@ -183,7 +183,7 @@ release owner renames it to the released version at publish time.
 - Vertical sliders: `Slider` gains `orientation` with `SliderOrientation`; a
   vertical slider fills from the bottom, maps the pointer along its height,
   and renders `aria-orientation="vertical"`.
-- `npm run verify:desktop-interactions`: an in-app self-test that runs nine
+- `npm run verify:desktop-interactions`: an in-app self-test that runs ten
   scenarios in the Desktop preview's WebView and exits with the
   result.
 - `npm run verify:mobile-interactions`: the same scenarios in an iOS Simulator
@@ -202,7 +202,11 @@ release owner renames it to the released version at publish time.
   `npm run verify:preview-css`, part of the release gate, fails when it is
   stale. Manual previews were unstyled: they linked the uncompiled Tailwind
   input, or no stylesheet on Mobile. The Desktop, iOS, and Android self-tests
-  start with a `stylesheet` scenario and report nine scenarios.
+  start with a `stylesheet` scenario.
+- The Web, Desktop, and Mobile previews have a "Dark theme" toggle in their
+  header that adds the `dark` class to the preview root. The browser check
+  and a `theme` scenario in the Desktop, iOS, and Android self-tests press
+  it; the self-tests now report ten scenarios.
 
 ### Changed
 

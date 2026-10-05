@@ -216,4 +216,5 @@ opt-in dark theme ([RFC 0047](rfcs/0047-opt-in-dark-theme.md)), and M173
 to the phone-width preview layout
 ([RFC 0048](rfcs/0048-phone-width-preview-layout.md)), and M174 to the
 compiled preview stylesheet
-([RFC 0049](rfcs/0049-compiled-preview-stylesheet.md)).
+([RFC 0049](rfcs/0049-compiled-preview-stylesheet.md)), and M175 to the
+preview theme toggle ([RFC 0050](rfcs/0050-preview-theme-toggle.md)).

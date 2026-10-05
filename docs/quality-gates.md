@@ -573,9 +573,9 @@ templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.
 
 `npm run verify:desktop-interactions` builds the Desktop preview and runs its
-in-app self-test (RFC 0017). Nine scenarios cover the compiled preview
-stylesheet (RFC 0049), the dialog focus scope,
-anchored overlay, listbox, menu mode, toast timer, calendar focus following,
+in-app self-test (RFC 0017). Ten scenarios cover the compiled preview
+stylesheet (RFC 0049), the preview theme toggle (RFC 0050), the dialog focus
+scope, anchored overlay, listbox, menu mode, toast timer, calendar focus following,
 Menubar, and Navigation Menu inside the Desktop WebView. The command exits
 with the self-test status. It opens a window, needs a GUI session, and is not
 part of default or release gates.

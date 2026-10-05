@@ -104,7 +104,9 @@ preference instead, wrap the block in `@media (prefers-color-scheme: dark)`
 and change its selector to `:root`. Crate-mode apps copy the block from
 `examples/web-demo/assets/preview.css`, which `npm run verify:css-inputs`
 keeps identical to the generated one;
-[RFC 0047](docs/rfcs/0047-opt-in-dark-theme.md) explains the mapping.
+[RFC 0047](docs/rfcs/0047-opt-in-dark-theme.md) explains the mapping. The
+Web, Desktop, and Mobile previews have a "Dark theme" toggle in their header
+that shows the components under the block.
 
 ### Crate Mode
 
@@ -872,13 +874,13 @@ input, Collapsible and Native Select events, Input OTP typing, Pagination
 page changes, Carousel slide changes, Resizable handle input, Sidebar
 toggle and items, form control names, dialog names, composite widget names, the Checkbox mixed
 state and drawn marks, Select and Combobox list widths, and Slider thumb position and vertical sliders, all with compiled
-Tailwind, no conflicting utilities in any rendered class list, readable text contrast in the light and opt-in dark themes, and a 375px layout with no sideways scroll. It requires Playwright
+Tailwind, no conflicting utilities in any rendered class list, readable text contrast in the light and opt-in dark themes, the preview theme toggle, and a 375px layout with no sideways scroll. It requires Playwright
 Chromium or `DIOXUS_UI_BROWSER_EXECUTABLE`, does not write screenshots or
 traces, and does not claim full accessibility certification, native Desktop or
 Mobile coverage, or visual parity.
 
 `npm run verify:desktop-interactions` runs the same kinds of interactions in the
-Desktop WebView. The Desktop preview runs an in-app self-test of nine
+Desktop WebView. The Desktop preview runs an in-app self-test of ten
 scenarios and exits with the result (RFC 0017). It opens a window and needs a
 GUI session. `npm run verify:mobile-interactions` runs the same scenarios in an
 iOS Simulator build (RFC 0018) and needs Xcode.
