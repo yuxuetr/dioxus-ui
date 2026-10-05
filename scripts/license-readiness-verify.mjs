@@ -85,7 +85,10 @@ if (!existsSync(join(repoRoot, "LICENSE"))) {
   ]);
 }
 
-for (const crateName of readdirSync(join(repoRoot, "crates"))) {
+const crateNames = readdirSync(join(repoRoot, "crates"), { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name);
+for (const crateName of crateNames) {
   const manifest = readText(`crates/${crateName}/Cargo.toml`);
   const packageSection = getSection(manifest, "package");
   if (packageSection === null) {

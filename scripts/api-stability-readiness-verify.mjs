@@ -77,7 +77,10 @@ if (workspacePackage === null) {
   failures.push('Cargo.toml [workspace.package] must keep version = "0.1.0" until API readiness docs are updated');
 }
 
-for (const crateName of readdirSync(join(repoRoot, "crates"))) {
+const crateNames = readdirSync(join(repoRoot, "crates"), { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name);
+for (const crateName of crateNames) {
   const manifest = readText(`crates/${crateName}/Cargo.toml`);
   const packageSection = getSection(manifest, "package");
   if (packageSection === null) {
