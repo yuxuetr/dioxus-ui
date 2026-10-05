@@ -714,6 +714,9 @@ pub mod tooltip;
 pub mod typography;
 
 pub use dioxus_shadcn_core::UiDensity;
+#[cfg(feature = "file-input")]
+pub mod file_input;
+
 #[cfg(feature = "tags-input")]
 pub mod tags_input;
 
@@ -872,3 +875,6 @@ pub use tags_input::{
   TAGS_INPUT_TAG_CLASS, TagsInput, tags_input_add, tags_input_class, tags_input_commit,
   tags_input_remove,
 };
+
+#[cfg(feature = "file-input")]
+pub use file_input::{FILE_INPUT_BASE_CLASS, FileInput, file_input_class};

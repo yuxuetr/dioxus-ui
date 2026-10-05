@@ -10,7 +10,7 @@ The manifest defines template metadata for future source preview routes.
 It does not embed full template source, syntax highlighting, rendered routes,
 screenshots, or generated JSON.
 
-Source preview routes: 75
+Source preview routes: 76
 
 ## Source Preview Routes
 
@@ -46,6 +46,7 @@ Source preview routes: 75
 | [Dropdown](dropdown.md) | /components/dropdown/source | crates/dioxus-shadcn-cli/templates/dropdown.rs | src/components/ui/dropdown.rs | rust | 140 | 4344 |
 | [Empty](empty.md) | /components/empty/source | crates/dioxus-shadcn-cli/templates/empty.rs | src/components/ui/empty.rs | rust | 106 | 2495 |
 | [Field](field.md) | /components/field/source | crates/dioxus-shadcn-cli/templates/field.rs | src/components/ui/field.rs | rust | 110 | 2591 |
+| [File Input](file-input.md) | /components/file-input/source | crates/dioxus-shadcn-cli/templates/file_input.rs | src/components/ui/file_input.rs | rust | 45 | 1739 |
 | [Hover Card](hover-card.md) | /components/hover-card/source | crates/dioxus-shadcn-cli/templates/hover_card.rs | src/components/ui/hover_card.rs | rust | 185 | 5524 |
 | [Indicator](indicator.md) | /components/indicator/source | crates/dioxus-shadcn-cli/templates/indicator.rs | src/components/ui/indicator.rs | rust | 66 | 2042 |
 | [Input](input.md) | /components/input/source | crates/dioxus-shadcn-cli/templates/input.rs | src/components/ui/input.rs | rust | 47 | 1524 |

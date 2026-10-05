@@ -1,0 +1,14 @@
+{
+  "name": "file-input",
+  "description": "Styled native file input that passes the change event through.",
+  "files": [
+    {
+      "source": "templates/file_input.rs",
+      "target": "src/components/ui/file_input.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

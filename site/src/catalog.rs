@@ -86,6 +86,12 @@ pub const CATEGORIES: &[Category] = &[
         feature: "field",
       },
       Component {
+        slug: "file-input",
+        title: "File Input",
+        description: "Styled native file input that passes the change event through.",
+        feature: "file-input",
+      },
+      Component {
         slug: "input",
         title: "Input",
         description: "Input component with disabled and invalid states.",

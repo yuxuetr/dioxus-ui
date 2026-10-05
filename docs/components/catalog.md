@@ -10,7 +10,7 @@ The catalog is derived from registry entries, templates, component docs,
 crate features, and crate modules. It intentionally does not include visual
 preview routes, screenshot artifacts, or generated JSON metadata.
 
-Public components: 75
+Public components: 76
 
 ## Groups
 
@@ -29,6 +29,7 @@ Public components: 75
 - [Checkbox](checkbox.md): Checkbox component with checked and disabled states.
 - [Date Picker](date-picker.md): Date Picker trigger, value, and popover content parts for composing Calendar.
 - [Field](field.md): Form field layout composition parts.
+- [File Input](file-input.md): Styled native file input that passes the change event through.
 - [Input](input.md): Input component with disabled and invalid states.
 - [Input Group](input-group.md): Input Group component for addons, controls, and actions around inputs.
 - [Input OTP](input-otp.md): Input OTP component with controlled visual slots and native input support.
@@ -147,6 +148,7 @@ Public components: 75
 | [Dropdown](dropdown.md) | Dropdown menu components backed by primitive configuration types. | `dxui add dropdown` | `dropdown` | `crates/dioxus-shadcn-cli/templates/dropdown.rs` | `src/components/ui/dropdown.rs` |
 | [Empty](empty.md) | Empty-state layout composition parts. | `dxui add empty` | `empty` | `crates/dioxus-shadcn-cli/templates/empty.rs` | `src/components/ui/empty.rs` |
 | [Field](field.md) | Form field layout composition parts. | `dxui add field` | `field` | `crates/dioxus-shadcn-cli/templates/field.rs` | `src/components/ui/field.rs` |
+| [File Input](file-input.md) | Styled native file input that passes the change event through. | `dxui add file-input` | `file-input` | `crates/dioxus-shadcn-cli/templates/file_input.rs` | `src/components/ui/file_input.rs` |
 | [Hover Card](hover-card.md) | Controlled rich preview content backed by popover primitive configuration. | `dxui add hover-card` | `hover-card` | `crates/dioxus-shadcn-cli/templates/hover_card.rs` | `src/components/ui/hover_card.rs` |
 | [Indicator](indicator.md) | Styled corner indicator wrapper and placed item. | `dxui add indicator` | `indicator` | `crates/dioxus-shadcn-cli/templates/indicator.rs` | `src/components/ui/indicator.rs` |
 | [Input](input.md) | Input component with disabled and invalid states. | `dxui add input` | `input` | `crates/dioxus-shadcn-cli/templates/input.rs` | `src/components/ui/input.rs` |

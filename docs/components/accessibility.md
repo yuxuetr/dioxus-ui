@@ -22,6 +22,7 @@ Statuses:
 | Diff | Moves the divider with a named native range input, so pointer, keyboard, and assistive technology all work. | Implemented |
 | Empty | Does not add implicit alert or status semantics; text and actions remain app-owned. | Implemented |
 | Field | Exposes invalid and disabled state attributes while apps own control association and validation semantics. | Implemented |
+| File Input | Uses the native file input, so its button, file name, and keyboard access come from the browser. | Implemented |
 | Indicator | Adds no semantics; the placed content, such as a count badge, carries the text. | Implemented |
 | Item | Exposes selected and disabled state attributes while apps own collection roles and actions. | Implemented |
 | Kbd | Uses native `kbd` semantics for keyboard hints. | Implemented |

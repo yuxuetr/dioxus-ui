@@ -13,14 +13,14 @@ parity.
 
 ## Summary
 
-- Public components: 75
-- Registry entries: 76
+- Public components: 76
+- Registry entries: 77
 - Source-copy helpers: utils
-- Templates: 76
-- Crate modules: 75
-- Crate features: 75
-- Component docs pages: 75
-- Complete local wiring: 75
+- Templates: 77
+- Crate modules: 76
+- Crate features: 76
+- Component docs pages: 76
+- Complete local wiring: 76
 - Incomplete local wiring: 0
 
 ## Category Counts
@@ -28,7 +28,7 @@ parity.
 | Category | Components |
 | --- | ---: |
 | Actions | 6 |
-| Forms | 17 |
+| Forms | 18 |
 | Overlays | 11 |
 | Navigation | 6 |
 | Layout | 11 |
@@ -69,6 +69,7 @@ parity.
 | Checkbox | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Date Picker | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Field | Forms | yes | yes | yes | yes | yes | yes | yes |
+| File Input | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Input | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Input Group | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Input OTP | Forms | yes | yes | yes | yes | yes | yes | yes |
@@ -149,6 +150,7 @@ parity.
 | Checkbox | Forms | [docs](checkbox.md) | `dxui add checkbox` | `checkbox` | `crates/dioxus-shadcn-cli/templates/checkbox.rs` | `src/components/ui/checkbox.rs` |
 | Date Picker | Forms | [docs](date-picker.md) | `dxui add date-picker` | `date-picker` | `crates/dioxus-shadcn-cli/templates/date_picker.rs` | `src/components/ui/date_picker.rs` |
 | Field | Forms | [docs](field.md) | `dxui add field` | `field` | `crates/dioxus-shadcn-cli/templates/field.rs` | `src/components/ui/field.rs` |
+| File Input | Forms | [docs](file-input.md) | `dxui add file-input` | `file-input` | `crates/dioxus-shadcn-cli/templates/file_input.rs` | `src/components/ui/file_input.rs` |
 | Input | Forms | [docs](input.md) | `dxui add input` | `input` | `crates/dioxus-shadcn-cli/templates/input.rs` | `src/components/ui/input.rs` |
 | Input Group | Forms | [docs](input-group.md) | `dxui add input-group` | `input-group` | `crates/dioxus-shadcn-cli/templates/input_group.rs` | `src/components/ui/input_group.rs` |
 | Input OTP | Forms | [docs](input-otp.md) | `dxui add input-otp` | `input-otp` | `crates/dioxus-shadcn-cli/templates/input_otp.rs` | `src/components/ui/input_otp.rs` |

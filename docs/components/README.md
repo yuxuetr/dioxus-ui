@@ -160,6 +160,7 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["button
 | [Dropdown](dropdown.md) | `dxui add dropdown` | `dropdown` | Primitive config + styled parts |
 | [Empty](empty.md) | `dxui add empty` | `empty` | Empty-state composition parts |
 | [Field](field.md) | `dxui add field` | `field` | Form field composition parts |
+| [File Input](file-input.md) | `dxui add file-input` | `file-input` | Styled native file input |
 | [Hover Card](hover-card.md) | `dxui add hover-card` | `hover-card` | Popover-backed preview content |
 | [Indicator](indicator.md) | `dxui add indicator` | `indicator` | Corner placement parts |
 | [Input](input.md) | `dxui add input` | `input` | Styled |

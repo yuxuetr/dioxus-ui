@@ -80,6 +80,7 @@ features=(
   rating
   number-input
   tags-input
+  file-input
 )
 
 for feature in "${features[@]}"; do

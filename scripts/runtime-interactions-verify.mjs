@@ -1371,6 +1371,14 @@ async function runBrowserAssertions() {
     await tagsFixture.getByRole("button", { name: "Remove rust", exact: true }).click();
     await expect(tagsFixture).toHaveAttribute("data-tags", "ui");
     await expect(tagsFixture.getByRole("listitem")).toHaveCount(1);
+    // File Input passes the change event, whose files the app reads
+    // (RFC 0060).
+    const fileFixture = page.locator('[data-interaction-target="file-input"]');
+    await fileFixture.getByLabel("Attachments", { exact: true }).setInputFiles([
+      { name: "notes.txt", mimeType: "text/plain", buffer: Buffer.from("notes") },
+      { name: "plan.md", mimeType: "text/markdown", buffer: Buffer.from("# plan") },
+    ]);
+    await expect(fileFixture).toHaveAttribute("data-files", "notes.txt|plan.md");
     const sliderFixture = page.locator('[data-interaction-target="slider"]');
     const volume = sliderFixture.getByRole("slider", { name: "Volume", exact: true });
     const locked = sliderFixture.getByRole("slider", { name: "Locked", exact: true });
@@ -2095,7 +2103,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (39 fixtures)");
+  console.log("runtime interaction verification passed (40 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
