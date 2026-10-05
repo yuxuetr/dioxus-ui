@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M168 Compiled Tailwind Browser Checks
-- Current task: M168.4 Complete compiled Tailwind milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -3079,7 +3079,7 @@
   - Make `npm run verify:runtime-interactions` answer the preview stylesheet with compiled Tailwind, remove inline layout workarounds from the interaction fixtures, and replace checks that worked around missing CSS with measured ones.
   - Reverse-verify that the script fails with the bare `data-disabled:` variant, with Navigation Menu content at `top-0`, and without the compiled stylesheet.
 
-- TODO M168.4 Complete compiled Tailwind milestone
+- DONE M168.4 Complete compiled Tailwind milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and quality gate docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
