@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 70%
-- Current milestone: M179 Component Site Shell
-- Current task: M179.4 Complete the component site shell
+- Overall: 75%
+- Current milestone: M180 Component Pages
+- Current task: M180.1 Build the component page template
 
 ## Backup
 
@@ -83,7 +83,7 @@
   - Add a browser check that visits every route and fails on a console error, a missing page, low text contrast in either theme, or a sideways scroll at 375px.
   - Reverse-verify it with a broken route and a low-contrast class.
 
-- TODO M179.4 Complete the component site shell
+- DONE M179.4 Complete the component site shell
   - Update README, docs index, quality gate, release, and roadmap docs, including how to run the site locally.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the site browser check.
   - Push local commits to `origin/main`.
