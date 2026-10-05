@@ -59,6 +59,24 @@ async function expectThemeToggle(page) {
   }
 }
 
+// The preview shows several instances of one landmark component, such as the
+// Toast and Sonner viewports, which an app renders one of.
+async function expectNoViolations(page, label) {
+  const violations = await accessibilityViolations(page, { disabledRules: ["landmark-unique"] });
+  if (violations.length > 0) {
+    throw new Error(`${label}: accessibility violations: ${violations.join("; ")}`);
+  }
+}
+
+// Audits an open overlay, menu, or popup in both themes.
+async function expectAccessibleOpen(page, label) {
+  for (const theme of ["light", "dark"]) {
+    await setDarkTheme(page, theme === "dark");
+    await expectNoViolations(page, `${label} (${theme} theme)`);
+  }
+  await setDarkTheme(page, false);
+}
+
 // Text must stay readable in the light theme and under the opt-in `.dark`
 // block, which must turn white surfaces dark.
 async function expectReadableText(page, label) {
@@ -85,12 +103,7 @@ async function expectReadableText(page, label) {
     if (failures.length > 0) {
       throw new Error(`${label} (${theme} theme): low contrast text: ${failures.join("; ")}`);
     }
-    // The preview shows several instances of one landmark component, such as
-    // the Toast and Sonner viewports, which an app renders one of.
-    const violations = await accessibilityViolations(page, { disabledRules: ["landmark-unique"] });
-    if (violations.length > 0) {
-      throw new Error(`${label} (${theme} theme): accessibility violations: ${violations.join("; ")}`);
-    }
+    await expectNoViolations(page, `${label} (${theme} theme)`);
   }
   await setDarkTheme(page, false);
 }
@@ -210,6 +223,7 @@ async function runBrowserAssertions() {
     await expect(overlayTrigger).toHaveAttribute("aria-expanded", "true");
     await expect(overlayContent).toBeVisible();
     await expect(overlayContent).toHaveAttribute("role", "dialog");
+    await expectAccessibleOpen(page, "open overlay");
     await overlayClose.click();
     await expect(overlay).toHaveAttribute("data-state", "closed");
     await expect(overlayContent).toBeHidden();
@@ -305,6 +319,7 @@ async function runBrowserAssertions() {
       throw new Error(`popover should sit below its trigger: ${JSON.stringify(placed)}`);
     }
     expectInViewport(placed.content, "bottom placement");
+    await expectAccessibleOpen(page, "open popover");
     await page.keyboard.press("Escape");
     await expect(popoverContent).toBeHidden();
     await popoverTrigger.click();
@@ -337,6 +352,7 @@ async function runBrowserAssertions() {
     await expect(selectContent).toBeHidden();
     await selectTrigger.click();
     await expectAnchoredReady(select);
+    await expectAccessibleOpen(page, "open select");
     await expect(selectContent).toHaveAttribute("data-side", "bottom");
     const selectPlaced = { trigger: await selectTrigger.boundingBox(), content: await selectContent.boundingBox() };
     if (selectPlaced.content.y < selectPlaced.trigger.y + selectPlaced.trigger.height) {
@@ -508,6 +524,7 @@ async function runBrowserAssertions() {
     await page.keyboard.type("b");
     await expectAnchoredReady(combobox);
     await expect(comboboxInput).toHaveAttribute("aria-expanded", "true");
+    await expectAccessibleOpen(page, "open combobox");
     const comboboxPlaced = { input: await comboboxInput.boundingBox(), content: await comboboxContent.boundingBox() };
     if (comboboxPlaced.content.y < comboboxPlaced.input.y + comboboxPlaced.input.height) {
       throw new Error(`combobox listbox should sit below its input: ${JSON.stringify(comboboxPlaced)}`);
@@ -582,6 +599,7 @@ async function runBrowserAssertions() {
     await expect(dateContent).toBeHidden();
     await dateTrigger.click();
     await expectAnchoredReady(datePicker);
+    await expectAccessibleOpen(page, "open date picker");
     await expect(dateContent).toHaveAttribute("data-side", "bottom");
     const datePlaced = { trigger: await dateTrigger.boundingBox(), content: await dateContent.boundingBox() };
     if (datePlaced.content.y < datePlaced.trigger.y + datePlaced.trigger.height) {
@@ -658,6 +676,7 @@ async function runBrowserAssertions() {
     await dropdownTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
     await expect(dropdownMenu).toBeHidden();
     await openDropdown();
+    await expectAccessibleOpen(page, "open dropdown");
     await expect(dropdownItem("Edit")).toBeFocused();
     await page.keyboard.press("ArrowDown");
     await expect(dropdownItem("Duplicate")).toBeFocused();
@@ -755,6 +774,7 @@ async function runBrowserAssertions() {
     await expect(menubarItem("view", "Zoom in")).toBeFocused();
     await page.keyboard.press("ArrowRight");
     await expectMenubarOpen("file");
+    await expectAccessibleOpen(page, "open menubar");
     await expect(menubarItem("file", "New")).toBeFocused();
     await page.keyboard.press("ArrowLeft");
     await expectMenubarOpen("view");
@@ -803,6 +823,7 @@ async function runBrowserAssertions() {
     await navigationTrigger("Docs").click();
     await expect(navigationContent("docs")).toBeVisible();
     await expect(navigationTrigger("Docs")).toHaveAttribute("aria-expanded", "true");
+    await expectAccessibleOpen(page, "open navigation menu");
     await navigationTrigger("Docs").click();
     await expect(navigationContent("docs")).toBeHidden();
     // A trigger closed by a click stays closed while the pointer stays on it.
@@ -1651,6 +1672,7 @@ async function runBrowserAssertions() {
     await contextArea.evaluate((element) => element.scrollIntoView({ block: "center" }));
     await expect(contextContent).toBeHidden();
     await openContextMenu({ x: 40, y: 30 });
+    await expectAccessibleOpen(page, "open context menu");
     const areaBox = await contextArea.boundingBox();
     let contextBox = await contextContent.boundingBox();
     if (Math.abs(contextBox.x - (areaBox.x + 40)) > 1 || Math.abs(contextBox.y - (areaBox.y + 30)) > 1) {
@@ -1699,6 +1721,7 @@ async function runBrowserAssertions() {
     await expect(tooltipContent).toBeHidden();
     await expectAnchoredReady(tooltip);
     await expect(tooltipContent).toHaveAttribute("data-side", "top");
+    await expectAccessibleOpen(page, "open tooltip");
     const tooltipContentId = await tooltipContent.getAttribute("id");
     await expect(tooltipTrigger).toHaveAttribute("aria-describedby", tooltipContentId);
     const tooltipTriggerBox = await tooltipTrigger.boundingBox();
@@ -1758,6 +1781,7 @@ async function runBrowserAssertions() {
     await expect(hoverCardContent).toBeHidden();
     await expectAnchoredReady(hoverCard);
     await expect(hoverCardContent).toHaveAttribute("data-side", "bottom");
+    await expectAccessibleOpen(page, "open hover card");
     // The card is not named in the trigger's description.
     await expect(hoverCardTrigger).not.toHaveAttribute("aria-describedby", /./);
     // The pointer can cross the gap onto the card.
@@ -1825,6 +1849,7 @@ async function runBrowserAssertions() {
     await toastRoot.hover();
     await page.waitForTimeout(2500);
     await expect(toastRoot).toBeVisible();
+    await expectAccessibleOpen(page, "open toast");
     await toastTrigger.hover();
     await expect(toastRoot).toBeHidden({ timeout: 5000 });
     await toastTrigger.click();
@@ -1845,6 +1870,7 @@ async function runBrowserAssertions() {
     await expect(sonnerToast).toHaveCount(0);
     await sonnerTrigger.click();
     await expect(sonnerToast).toHaveAttribute("aria-live", "polite");
+    await expectAccessibleOpen(page, "open sonner");
     await expect(sonnerToast).toHaveCount(0, { timeout: 5000 });
     await expect(sonner).toHaveAttribute("data-reason", "timeout");
     await sonnerTrigger.click();
@@ -1864,6 +1890,7 @@ async function runBrowserAssertions() {
     await expect(alertDialogContent).toHaveAccessibleName("Confirm deletion");
     await expect(alertDialogContent).not.toHaveAttribute("aria-labelledby");
     await expect(alertDialogContent).toHaveAccessibleDescription("This cannot be undone.");
+    await expectAccessibleOpen(page, "open alert dialog");
     await expect(alertDialogCancel).toBeFocused();
     await page.keyboard.press("Tab");
     await expect(alertDialogAction).toBeFocused();
