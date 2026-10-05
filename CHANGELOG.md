@@ -192,10 +192,9 @@ release owner renames it to the released version at publish time.
   emulator build of the same preview, requested through a debug system
   property and read from logcat.
 - An opt-in dark theme: `dxui init` writes a `.dark` block into
-  `assets/dioxus-ui.css` that redefines the white, zinc, blue, red, green,
-  amber, and emerald palette variables. Adding the `dark` class to an
-  ancestor turns it on without changing component classes. The block applies
-  to app classes under `.dark` too.
+  `assets/dioxus-ui.css` that redefines the semantic color tokens. Adding the
+  `dark` class to an ancestor turns it on without changing component
+  classes; app palette classes keep their colors under `.dark`.
 - `npm run css:preview` regenerates
   `examples/preview-states/assets/preview.generated.css`, compiled Tailwind
   that `PreviewSurface` links for the Web, Desktop, and Mobile previews, and
@@ -213,6 +212,9 @@ release owner renames it to the released version at publish time.
   `--warning`, and `--info`, and maps them to Tailwind colors with
   `@theme inline`, so `bg-primary` and similar classes work in app code. The
   `dark` class also drives app `dark:` utilities through `@custom-variant`.
+- `npm run verify:tailwind-static` fails when a component or template class
+  uses a Tailwind palette color instead of a semantic token, except the
+  `bg-black/50` modal overlay.
 
 ### Changed
 

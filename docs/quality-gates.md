@@ -219,8 +219,9 @@ rewrite documentation.
 `npm run verify:css-inputs` checks that CLI default CSS and rendered preview CSS
 inputs keep Tailwind CSS v4 syntax, the RFC 0051 semantic color token blocks,
 required preview `@source` roots, everything the CLI stylesheet holds after its
-import (the token blocks and the opt-in `.dark` theme) copied verbatim into
-each preview input, and no Tailwind CSS v3 directives. It is read-only and
+import (the light and dark token blocks) copied verbatim into each preview
+input, no redefined Tailwind palette variables, and no Tailwind CSS v3
+directives. It is read-only and
 does not compile Tailwind, inspect generated CSS output, launch previews, or
 assert visual parity.
 

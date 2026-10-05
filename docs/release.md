@@ -714,8 +714,9 @@ first.
   semantic color tokens (see RFC 0051), which crate-mode apps must define;
   the Checkbox marks follow the default light and dark
   `--primary-foreground` only. The dark theme is an opt-in `.dark`
-  class (see RFC 0047); a system-preference default is not included, and the
-  block also remaps app palette classes under `.dark`. Pagination content wraps in narrow containers (see
+  class that redefines only the tokens (see RFC 0047 and RFC 0051); a
+  system-preference default is not included, and app palette classes do not
+  follow it. Pagination content wraps in narrow containers (see
   RFC 0048); a Pagination that drops pages to fit is not included. The
   previews link a committed compiled stylesheet (see RFC 0049) that must be
   regenerated with `npm run css:preview` after class changes; dioxus-ui

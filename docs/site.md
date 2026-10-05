@@ -3589,6 +3589,8 @@ The check should validate:
   `@tailwind base`, `@tailwind components`, or `@tailwind utilities`
 - since M172, the preview CSS inputs carry the CLI default `.dark` theme block
   verbatim ([RFC 0047](rfcs/0047-opt-in-dark-theme.md))
+- since M178, the `.dark` block redefines only the tokens, and the check fails
+  when the CLI default CSS redefines a Tailwind palette variable
 - since M176, the CLI default CSS defines the shadcn/ui semantic color tokens
   in `:root`, `.dark`, and `@theme inline`, and the preview CSS inputs carry
   everything after the import verbatim

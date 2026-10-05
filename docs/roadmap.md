@@ -218,5 +218,5 @@ to the phone-width preview layout
 compiled preview stylesheet
 ([RFC 0049](rfcs/0049-compiled-preview-stylesheet.md)), and M175 to the
 preview theme toggle ([RFC 0050](rfcs/0050-preview-theme-toggle.md)), and
-M176 and M177 to the semantic color tokens and the component migration
-([RFC 0051](rfcs/0051-semantic-color-tokens.md)).
+M176 to M178 to the semantic color tokens, the component migration, and the
+token-only dark theme ([RFC 0051](rfcs/0051-semantic-color-tokens.md)).
