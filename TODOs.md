@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M170 Drawn Checkbox
-- Current task: M170.2 Implement the drawn checkbox
+- Current task: M170.3 Verify the drawn checkbox in a real browser
 
 ## Backup
 
@@ -3110,7 +3110,7 @@
   - Define `appearance-none` with tick and dash background images keyed off `data-state`, and the blue fill for the mixed state.
   - Record what stays out of scope (custom mark colors, a Checkbox wrapper element, forced-colors styling) with reevaluation conditions.
 
-- TODO M170.2 Implement the drawn checkbox
+- DONE M170.2 Implement the drawn checkbox
   - Add the appearance, marks, and mixed fill to the crate source and template, and update the Checkbox docs page.
 
 - TODO M170.3 Verify the drawn checkbox in a real browser
