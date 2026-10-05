@@ -279,6 +279,45 @@ async function expectReadableText(page, label) {
   });
 }
 
+// At phone width the page must not scroll sideways, and no element may extend
+// outside its fixture card unless an ancestor inside the card clips it.
+async function expectPhoneWidthLayout(page, label) {
+  await page.setViewportSize({ width: 375, height: 800 });
+  const failures = await page.evaluate(() => {
+    const root = document.documentElement;
+    const problems = [];
+    if (root.scrollWidth > root.clientWidth) {
+      problems.push(`page is ${root.scrollWidth}px wide in a ${root.clientWidth}px viewport`);
+    }
+    const clipped = (element, card) => {
+      for (let node = element.parentElement; node && node !== card; node = node.parentElement) {
+        if (getComputedStyle(node).overflowX !== "visible") {
+          return true;
+        }
+      }
+      return false;
+    };
+    for (const card of document.querySelectorAll("main article")) {
+      const bounds = card.getBoundingClientRect();
+      for (const element of card.querySelectorAll("*")) {
+        const rect = element.getBoundingClientRect();
+        const outside = rect.left < bounds.left - 1 || rect.right > bounds.right + 1;
+        if (rect.width > 0 && rect.height > 0 && outside && getComputedStyle(element).position !== "fixed") {
+          if (!clipped(element, card)) {
+            const name = card.querySelector("h2")?.textContent ?? card.tagName;
+            problems.push(`${element.tagName} "${element.textContent.trim().slice(0, 30)}" outside the ${name} card`);
+          }
+        }
+      }
+    }
+    return problems;
+  });
+  await page.setViewportSize(viewport);
+  if (failures.length > 0) {
+    throw new Error(`${label} at 375px: ${failures.slice(0, 10).join("; ")}`);
+  }
+}
+
 // The border color a lone utility renders, to compare a state against.
 function utilityBorderColor(page, utility) {
   return page.evaluate((className) => {
@@ -2082,6 +2121,7 @@ async function runBrowserAssertions() {
     await expect(dialogTrigger).toBeFocused();
     await expectNoUtilityConflicts(page, "after interactions");
     await expectReadableText(page, "after interactions");
+    await expectPhoneWidthLayout(page, "after interactions");
   } finally {
     await browser.close();
   }

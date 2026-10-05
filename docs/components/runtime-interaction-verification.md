@@ -422,6 +422,14 @@ pure end-for-end scale inversion, which leaves muted text at 4.12:1, a
 stylesheet without the block, or a block without the white remap each make
 the verifier fail.
 
+M173 adds a phone-width check from
+[RFC 0048](../rfcs/0048-phone-width-preview-layout.md). After the
+interactions, the verifier resizes the page to 375px and fails when the page
+scrolls sideways or an element extends outside its fixture card without a
+clipping ancestor inside the card. Removing `grid-cols-1` from a preview
+grid, which makes the page 2379px wide, or the Pagination wrap, which pushes
+Previous past the card's left edge, each make the verifier fail.
+
 ## Documentation Alignment
 
 M111 should keep these files aligned:
@@ -448,7 +456,7 @@ After M111, useful follow-up work is:
 
 1. Expand interaction coverage across more runtime-sensitive components. M135
    covers Dialog, Alert Dialog, Popover, and Tooltip; M136 adds Toast and
-   Sonner; M137 adds Select and Combobox; M138 adds Date Picker; M139 adds Dropdown and Context Menu; M140 adds Menubar; M141 adds Navigation Menu; M144 adds Tabs, Radio Group, and Toggle Group; M146 adds Accordion; M147 adds Tooltip hover and focus opening; M148 adds Hover Card; M149 adds Command; M150 adds right-to-left arrow mirroring; M151 adds vertical, manually activated Tabs; M152 adds result announcements to Command and Combobox; M153 adds Switch and Checkbox change events; M154 adds Button, Toggle, Input, and Textarea events; M155 adds Slider keyboard and pointer input; M156 adds Collapsible and Native Select events; M157 adds Input OTP value changes; M158 adds Pagination page changes; M159 adds Carousel slide changes; M161 adds Resizable handle input; M162 adds Sidebar toggle and items; M163 adds form control naming; M164 adds dialog names; M165 adds composite widget names; M166 adds the Checkbox indeterminate state; M167 adds Slider thumb position and vertical orientation; M172 adds text contrast in the light and dark themes.
+   Sonner; M137 adds Select and Combobox; M138 adds Date Picker; M139 adds Dropdown and Context Menu; M140 adds Menubar; M141 adds Navigation Menu; M144 adds Tabs, Radio Group, and Toggle Group; M146 adds Accordion; M147 adds Tooltip hover and focus opening; M148 adds Hover Card; M149 adds Command; M150 adds right-to-left arrow mirroring; M151 adds vertical, manually activated Tabs; M152 adds result announcements to Command and Combobox; M153 adds Switch and Checkbox change events; M154 adds Button, Toggle, Input, and Textarea events; M155 adds Slider keyboard and pointer input; M156 adds Collapsible and Native Select events; M157 adds Input OTP value changes; M158 adds Pagination page changes; M159 adds Carousel slide changes; M161 adds Resizable handle input; M162 adds Sidebar toggle and items; M163 adds form control naming; M164 adds dialog names; M165 adds composite widget names; M166 adds the Checkbox indeterminate state; M167 adds Slider thumb position and vertical orientation; M172 adds text contrast in the light and dark themes; M173 adds the phone-width layout.
 2. Add targeted screenshot smoke for a small set of stable panels.
 3. Decide whether any browser command should move into CI after local
    reliability is proven.
