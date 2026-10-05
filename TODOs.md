@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0.2.0 plan, 3 of 8 milestones complete
-- Current milestone: M190 Display Components
-- Current task: M190 docs
+- Overall: 0.2.0 plan, 4 of 8 milestones complete
+- Current milestone: M191 Input Components
+- Current task: M191.1
 
 ## Backup
 
