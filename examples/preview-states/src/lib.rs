@@ -925,6 +925,11 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut chosen_files = use_signal(String::new);
   let mut menu_swapped = use_signal(|| false);
   let mut fab_open = use_signal(|| false);
+  let mut fruits_open = use_signal(|| false);
+  let mut fruits = use_signal(Vec::<String>::new);
+  let mut tag_query = use_signal(String::new);
+  let mut tag_open = use_signal(|| false);
+  let mut tag_values = use_signal(Vec::<String>::new);
   let mut fab_action = use_signal(String::new);
   let mut locked_slider_changes = use_signal(|| 0_u32);
   let mut details_open = use_signal(|| false);
@@ -1377,6 +1382,50 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           }
           article {
             class: "rounded-md border border-border p-4",
+            "data-interaction-target": "multi-select",
+            "data-values": "{fruits().join(\"|\")}",
+            h2 { class: "text-sm font-medium", "Multi-select interaction" }
+            SelectTrigger {
+              id: "interaction-multi-select-trigger",
+              class: "mt-3",
+              "aria-label": "Fruits",
+              open: fruits_open(),
+              on_open_change: move |open| fruits_open.set(open),
+              SelectValue {
+                if fruits().is_empty() {
+                  "Pick fruits"
+                } else {
+                  "{fruits().len()} selected"
+                }
+              }
+            }
+            SelectContent {
+              open: fruits_open(),
+              multiple: true,
+              anchor_id: "interaction-multi-select-trigger",
+              on_open_change: move |open| fruits_open.set(open),
+              on_value_change: move |value: String| {
+                let mut next = fruits();
+                if let Some(index) = next.iter().position(|fruit| *fruit == value) {
+                  next.remove(index);
+                } else {
+                  next.push(value);
+                }
+                fruits.set(next);
+              },
+              for (value, label, disabled) in INTERACTION_FRUITS {
+                SelectItem {
+                  key: "{value}",
+                  value: *value,
+                  selected: fruits().iter().any(|fruit| fruit == value),
+                  disabled: *disabled,
+                  "{label}"
+                }
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "command",
             "data-result": "{command_result}",
             h2 { class: "text-sm font-medium", "Command interaction" }
@@ -1452,6 +1501,50 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                   .filter(|(_, label, _)| label.to_lowercase().contains(&combobox_query().to_lowercase()))
                 {
                   ComboboxItem { key: "{value}", value: *value, disabled: *disabled, "{label}" }
+                }
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "multi-combobox",
+            "data-values": "{tag_values().join(\"|\")}",
+            h2 { class: "text-sm font-medium", "Multi-combobox interaction" }
+            ComboboxInput {
+              id: "interaction-multi-combobox-input",
+              class: "mt-3 border border-border",
+              "aria-label": "Fruit tags",
+              value: tag_query(),
+              open: tag_open(),
+              oninput: move |event: FormEvent| {
+                tag_query.set(event.value());
+                tag_open.set(true);
+              },
+              on_open_change: move |open| tag_open.set(open),
+            }
+            ComboboxContent {
+              open: tag_open(),
+              multiple: true,
+              anchor_id: "interaction-multi-combobox-input",
+              on_open_change: move |open| tag_open.set(open),
+              on_value_change: move |value: String| {
+                let mut next = tag_values();
+                if let Some(index) = next.iter().position(|tag| *tag == value) {
+                  next.remove(index);
+                } else {
+                  next.push(value);
+                }
+                tag_values.set(next);
+              },
+              ComboboxList {
+                for (value, label, disabled) in INTERACTION_FRUITS {
+                  ComboboxItem {
+                    key: "{value}",
+                    value: *value,
+                    disabled: *disabled,
+                    selected: tag_values().iter().any(|tag| tag == value),
+                    "{label}"
+                  }
                 }
               }
             }

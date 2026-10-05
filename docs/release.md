@@ -685,8 +685,9 @@ and the `dioxus-shadcn` crate from crates.io.
   dismissal, initial focus, Tab wrap, and focus restore; Popover, Dropdown,
   Hover Card, and Tooltip implement anchored placement and dismissal. Only the
   Web renderer is browser-verified. Select and Combobox implement anchored
-  listbox keyboard navigation and selection (see RFC 0012); multi-select and
-  the input-inside-content Combobox layout are not supported. Command
+  listbox keyboard navigation and selection (see RFC 0012) and multiple
+  selection (see RFC 0062); the input-inside-content Combobox layout is not
+  supported. Command
   highlights and chooses items from its input (see RFC 0024); fuzzy ranking
   is not implemented. Combobox and Command announce result counts through
   status parts whose wording the app provides (see RFC 0027). Switch and

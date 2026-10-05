@@ -24,12 +24,17 @@ for commit messages.
   Input, Tags Input, File Input, and Swap.
 - Mobile navigation ([RFC 0061](docs/rfcs/0061-mobile-navigation.md)): Dock and
   Fab.
+- `multiple` on `SelectContent` and `ComboboxContent`
+  ([RFC 0062](docs/rfcs/0062-multi-select.md)): a choice keeps the listbox
+  open, which is `aria-multiselectable`.
 
 ### Changed
 
 - `ButtonVariant::Link` uses `text-foreground decoration-primary` instead of
   `text-primary`, so link buttons stay readable in presets whose primary color
   is light. The default theme looks the same.
+- Selected Select and Combobox options show a check mark instead of the
+  accent background, which now marks only the highlighted option.
 - Checkbox draws its tick and dash as a masked `::before` filled with
   `--primary-foreground` instead of white and dark data URI backgrounds, so
   the marks follow any theme. Checkbox no longer uses the `dark:` variant.

@@ -114,6 +114,13 @@ recreates the element, and its first text is then not announced.
 
 Only the Web renderer is covered by `npm run verify:runtime-interactions`.
 
+### Multiple selection
+
+`multiple` on `ComboboxContent` keeps the list open after a choice and sets
+`aria-multiselectable="true"` on `ComboboxList`; the app toggles the value in
+its set, as with Select, and decides whether to clear the query. Selected
+options show a check mark (see [RFC 0062](../rfcs/0062-multi-select.md)).
+
 ## Accessibility Notes
 
 Trigger and input use combobox semantics, list uses listbox semantics, and items

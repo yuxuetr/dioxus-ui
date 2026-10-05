@@ -13,7 +13,10 @@ pub const SELECT_VALUE_BASE_CLASS: &str = "truncate";
 pub const SELECT_CONTENT_BASE_CLASS: &str = "z-50 max-h-96 min-w-[max(8rem,var(--dxui-anchor-width,0px))] overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
 pub const SELECT_GROUP_BASE_CLASS: &str = "p-1";
 pub const SELECT_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-muted-foreground";
-pub const SELECT_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent data-highlighted:bg-accent data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
+// A selected option shows a check mark at the inline end, so it stays
+// distinct from the highlighted one, which takes the accent background
+// (RFC 0062).
+pub const SELECT_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm text-foreground outline-none transition-colors focus:bg-accent data-highlighted:bg-accent data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 pe-8 after:absolute after:end-2 after:size-4 after:bg-current after:[mask:url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27black%27%20stroke-width=%272%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M3.5%208.5l3%203%206-7%27/%3E%3C/svg%3E)_center/contain_no-repeat]";
 pub const SELECT_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-border";
 
 pub fn select_trigger_class(invalid: bool, class: &str) -> String {
@@ -43,8 +46,7 @@ pub fn select_label_class(class: &str) -> String {
 }
 
 pub fn select_item_class(selected: bool, class: &str) -> String {
-  let selected_class =
-    if selected { "bg-accent text-accent-foreground" } else { "text-foreground" };
+  let selected_class = if selected { "after:opacity-100" } else { "after:opacity-0" };
 
   classes([Some(SELECT_ITEM_BASE_CLASS), Some(selected_class), Some(class)])
 }
@@ -117,7 +119,9 @@ pub fn SelectValue(#[props(default)] class: String, children: Element) -> Elemen
 /// highlighted option, and Enter, Space, or click choose it through
 /// `on_value_change` before requesting close. Escape and outside interactions
 /// request close per `dismiss`. The listbox takes the trigger's name, and its
-/// `id` is the trigger's `aria-controls` value, `{anchor_id}-content`.
+/// `id` is the trigger's `aria-controls` value, `{anchor_id}-content`. With
+/// `multiple` a choice keeps the listbox open and the app toggles the value
+/// in its set.
 #[component]
 pub fn SelectContent(
   #[props(default)] open: bool,
@@ -129,13 +133,17 @@ pub fn SelectContent(
   #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(default = DismissBehavior::popover_default())] dismiss: DismissBehavior,
+  #[props(default)] multiple: bool,
   children: Element,
 ) -> Element {
   let class = select_content_class(&class);
   let id = anchor_id.as_ref().map(|anchor_id| format!("{anchor_id}-content"));
   let labelledby = anchor_id.clone();
+  // With `multiple` a choice leaves the listbox open; Escape and outside
+  // interactions still close it through the anchored overlay.
+  let closes_on_choice = if multiple { None } else { on_open_change };
   let listbox =
-    use_listbox(open, anchor_id.clone(), ListboxMode::Select, on_value_change, on_open_change);
+    use_listbox(open, anchor_id.clone(), ListboxMode::Select, on_value_change, closes_on_choice);
   let anchored = use_anchored_overlay(
     open,
     AnchoredPlacement { anchor_id, anchor_point: None, side, align, side_offset },
@@ -149,6 +157,7 @@ pub fn SelectContent(
       id,
       class,
       "aria-labelledby": labelledby,
+      "aria-multiselectable": multiple.then_some("true"),
       hidden: !open,
       "data-state": if open { "open" } else { "closed" },
       "data-dxui-anchored": anchored,
@@ -260,6 +269,24 @@ mod tests {
 
     assert!(!html.contains("aria-controls"));
     assert!(!html.contains("aria-labelledby"));
+  }
+
+  #[test]
+  fn ssr_multiple_listbox_is_multiselectable_with_checked_options() {
+    fn app() -> Element {
+      rsx! {
+        SelectContent { open: true, anchor_id: "langs", multiple: true,
+          SelectItem { value: "rust", selected: true, "Rust" }
+          SelectItem { value: "go", "Go" }
+        }
+      }
+    }
+    let html = render(app);
+
+    assert!(html.contains("aria-multiselectable=\"true\""));
+    assert_eq!(html.matches("after:opacity-100").count(), 1);
+    assert_eq!(html.matches("after:opacity-0").count(), 1);
+    assert!(!select_item_class(true, "").contains("bg-accent text-accent-foreground"));
   }
 
   #[test]

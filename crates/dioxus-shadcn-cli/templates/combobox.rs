@@ -12,7 +12,7 @@ pub const COMBOBOX_EMPTY_BASE_CLASS: &str = "py-6 text-center text-sm text-muted
 pub const COMBOBOX_STATUS_BASE_CLASS: &str = "sr-only";
 pub const COMBOBOX_GROUP_BASE_CLASS: &str = "overflow-hidden p-1 text-foreground";
 pub const COMBOBOX_VALUE_BASE_CLASS: &str = "truncate";
-pub const COMBOBOX_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[active=true]:bg-accent data-[active=true]:text-accent-foreground data-highlighted:bg-accent data-highlighted:text-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-accent";
+pub const COMBOBOX_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[active=true]:bg-accent data-[active=true]:text-accent-foreground data-highlighted:bg-accent data-highlighted:text-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 pe-8 after:absolute after:end-2 after:size-4 after:bg-current after:[mask:url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27black%27%20stroke-width=%272%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M3.5%208.5l3%203%206-7%27/%3E%3C/svg%3E)_center/contain_no-repeat]";
 
 pub fn combobox_trigger_class(invalid: bool, class: &str) -> String {
   let invalid_class = if invalid {
@@ -166,12 +166,16 @@ pub fn ComboboxContent(
   #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(default = DismissBehavior::popover_default())] dismiss: DismissBehavior,
+  #[props(default)] multiple: bool,
   children: Element,
 ) -> Element {
   let class = combobox_content_class(&class);
-  use_context_provider(|| ComboboxAnchor(anchor_id.clone()));
+  use_context_provider(|| ComboboxContext { anchor_id: anchor_id.clone(), multiple });
+  // With `multiple` a choice leaves the list open; Escape and outside
+  // interactions still close it through the anchored overlay.
+  let closes_on_choice = if multiple { None } else { on_open_change };
   let listbox =
-    use_listbox(open, anchor_id.clone(), ListboxMode::Combobox, on_value_change, on_open_change);
+    use_listbox(open, anchor_id.clone(), ListboxMode::Combobox, on_value_change, closes_on_choice);
   let anchored = use_anchored_overlay(
     open,
     AnchoredPlacement { anchor_id, anchor_point: None, side, align, side_offset },
@@ -191,9 +195,13 @@ pub fn ComboboxContent(
   }
 }
 
-/// The content's `anchor_id`, which names its list and derives the list's `id`.
+/// The content's `anchor_id`, which names its list and derives the list's
+/// `id`, and whether the list takes several values.
 #[derive(Clone, PartialEq)]
-struct ComboboxAnchor(Option<String>);
+struct ComboboxContext {
+  anchor_id: Option<String>,
+  multiple: bool,
+}
 
 /// Inside `ComboboxContent` with an `anchor_id`, the listbox takes the input's
 /// name, and its `id` is the input's `aria-controls` value, `{anchor_id}-list`.
@@ -205,7 +213,9 @@ pub fn ComboboxList(
 ) -> Element {
   let class = combobox_list_class(&class);
   let active_descendant = active_id.unwrap_or_default();
-  let anchor_id = try_use_context::<ComboboxAnchor>().and_then(|anchor| anchor.0);
+  let context = try_use_context::<ComboboxContext>();
+  let multiple = context.as_ref().is_some_and(|context| context.multiple);
+  let anchor_id = context.and_then(|context| context.anchor_id);
   let id = anchor_id.as_ref().map(|anchor_id| format!("{anchor_id}-list"));
 
   rsx! {
@@ -214,6 +224,7 @@ pub fn ComboboxList(
       id,
       class,
       "aria-labelledby": anchor_id,
+      "aria-multiselectable": multiple.then_some("true"),
       "aria-activedescendant": active_descendant,
       {children}
     }

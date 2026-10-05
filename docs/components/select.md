@@ -74,6 +74,39 @@ rsx! {
 - Escape and outside interactions request close per `dismiss` (default
   `DismissBehavior::popover_default()`).
 - Without `anchor_id`, content renders in place with no keyboard handling.
+- The selected option shows a check mark at the inline end; the highlighted
+  one takes the accent background.
+
+### Multiple selection
+
+With `multiple`, a choice calls `on_value_change` and the listbox stays open,
+and it sets `aria-multiselectable="true"`. The app toggles the value in its
+set and writes the trigger text:
+
+```rust
+let mut values = use_signal(Vec::<String>::new);
+
+rsx! {
+  SelectContent {
+    open: open(),
+    multiple: true,
+    anchor_id: "langs-trigger",
+    on_open_change: move |next| open.set(next),
+    on_value_change: move |value: String| {
+      let mut next = values();
+      match next.iter().position(|item| *item == value) {
+        Some(index) => { next.remove(index); }
+        None => next.push(value),
+      }
+      values.set(next);
+    },
+    // SelectItem { selected: values().contains(...), ... }
+  }
+}
+```
+
+Escape and outside interactions still close it (see
+[RFC 0062](../rfcs/0062-multi-select.md)).
 
 The Web renderer is covered by `npm run verify:runtime-interactions` and the
 Desktop renderer by `npm run verify:desktop-interactions`, and the iOS

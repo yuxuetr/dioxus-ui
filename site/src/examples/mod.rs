@@ -45,6 +45,7 @@ examples! {
   native_select_basic => "native-select", "Groups";
   radio_group_basic => "radio-group", "Plan picker";
   select_basic => "select", "Select";
+  select_multiple => "select", "Multiple";
   slider_basic => "slider", "Orientation and states";
   switch_basic => "switch", "States";
   textarea_basic => "textarea", "Character count";

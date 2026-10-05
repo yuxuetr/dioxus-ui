@@ -1414,6 +1414,46 @@ async function runBrowserAssertions() {
     await fabFixture.getByRole("button", { name: "Note", exact: true }).click();
     await expect(fabFixture).toHaveAttribute("data-action", "note");
     await expect(fabFixture).toHaveAttribute("data-open", "false");
+    // A multiple Select stays open across choices, reports each value, checks
+    // each chosen option, and still closes on Escape (RFC 0062).
+    const multiFixture = page.locator('[data-interaction-target="multi-select"]');
+    const multiTrigger = multiFixture.getByRole("combobox", { name: "Fruits", exact: true });
+    const multiList = page.locator("#interaction-multi-select-trigger-content");
+    await multiTrigger.click();
+    await expect(multiList).toBeVisible();
+    await expect(multiList).toHaveAttribute("aria-multiselectable", "true");
+    await multiTrigger.press("Enter");
+    await expect(multiFixture).toHaveAttribute("data-values", "apple");
+    await expect(multiList).toBeVisible();
+    await multiTrigger.press("ArrowDown");
+    await multiTrigger.press("Enter");
+    await expect(multiFixture).toHaveAttribute("data-values", "apple|banana");
+    await multiList.getByRole("option", { name: "Cherry", exact: true }).click();
+    await expect(multiFixture).toHaveAttribute("data-values", "apple|banana|cherry");
+    await expect(multiList.locator('[aria-selected="true"]')).toHaveCount(3);
+    await expect(multiList.getByRole("option", { name: "Banana", exact: true })).toHaveClass(/after:opacity-100/);
+    await expectAccessibleOpen(page, "open multi-select");
+    // The click left the highlight on Cherry; Home goes back to Apple.
+    await multiTrigger.press("Home");
+    await multiTrigger.press("Enter");
+    await expect(multiFixture).toHaveAttribute("data-values", "banana|cherry");
+    await multiTrigger.press("Escape");
+    await expect(multiList).toBeHidden();
+    await expect(multiTrigger).toContainText("2 selected");
+    // A multiple Combobox stays open after each click (RFC 0062).
+    const tagFixture = page.locator('[data-interaction-target="multi-combobox"]');
+    const tagInput = tagFixture.getByRole("combobox", { name: "Fruit tags", exact: true });
+    const tagList = page.locator("#interaction-multi-combobox-input-list");
+    await tagInput.click();
+    await tagInput.press("ArrowDown");
+    await expect(tagList).toBeVisible();
+    await expect(tagList).toHaveAttribute("aria-multiselectable", "true");
+    await tagList.getByRole("option", { name: "Banana", exact: true }).click();
+    await tagList.getByRole("option", { name: "Cherry", exact: true }).click();
+    await expect(tagFixture).toHaveAttribute("data-values", "banana|cherry");
+    await expect(tagList).toBeVisible();
+    await tagInput.press("Escape");
+    await expect(tagList).toBeHidden();
     const sliderFixture = page.locator('[data-interaction-target="slider"]');
     const volume = sliderFixture.getByRole("slider", { name: "Volume", exact: true });
     const locked = sliderFixture.getByRole("slider", { name: "Locked", exact: true });
@@ -2138,7 +2178,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (42 fixtures)");
+  console.log("runtime interaction verification passed (44 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
