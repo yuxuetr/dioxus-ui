@@ -11,6 +11,7 @@ members = [
   "examples/preview-states",
   "examples/runtime-web-verification",
   "examples/runtime-desktop-verification",
+  "site",
 ]
 
 [workspace.package]

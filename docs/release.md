@@ -132,6 +132,8 @@ npm run verify:registry
 npm run verify:tailwind-static
 npm run verify:tailwind-conflicts
 npm run verify:preview-css
+npm run verify:site-css
+npm run verify:site-catalog
 npm run verify
 npm run verify:changelog
 scripts/feature-check.sh

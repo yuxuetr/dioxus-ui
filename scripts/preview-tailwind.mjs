@@ -28,12 +28,30 @@ export async function compilePreviewCss(
   return compiler.build(scanner.scan());
 }
 
-// The compiled stylesheet PreviewSurface links for the Web, Desktop, and
-// Mobile previews (RFC 0049). Ends with a newline like other committed files.
-export const generatedPreviewCssPath = join(repoRoot, "examples/preview-states/assets/preview.generated.css");
+// Committed compiled stylesheets: the one PreviewSurface links for the Web,
+// Desktop, and Mobile previews (RFC 0049) and the component site's
+// (RFC 0052). Each ends with a newline like other committed files.
+export const compiledStylesheets = {
+  preview: {
+    input: join(repoRoot, "examples/web-demo/assets/preview.css"),
+    output: join(repoRoot, "examples/preview-states/assets/preview.generated.css"),
+  },
+  site: {
+    input: join(repoRoot, "site/assets/site.css"),
+    output: join(repoRoot, "site/assets/site.generated.css"),
+  },
+};
 
-export async function renderGeneratedPreviewCss() {
-  const css = await compilePreviewCss();
+export function compiledStylesheet(name = "preview") {
+  const stylesheet = compiledStylesheets[name];
+  if (!stylesheet) {
+    throw new Error(`unknown stylesheet "${name}"; expected one of ${Object.keys(compiledStylesheets).join(", ")}`);
+  }
+  return stylesheet;
+}
+
+export async function renderCompiledStylesheet(name = "preview") {
+  const css = await compilePreviewCss(compiledStylesheet(name).input);
   return css.endsWith("\n") ? css : `${css}\n`;
 }
 

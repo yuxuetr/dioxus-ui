@@ -90,6 +90,17 @@ if (/--color-(?:white|black|zinc|blue|red|green|amber|emerald)-?\d*:/.test(cliBo
   failures.push("crates/dioxus-ui-cli/src/main.rs DEFAULT_CSS must not redefine Tailwind palette variables");
 }
 
+// The component site (RFC 0052) carries the same body, so it renders the
+// stylesheet `dxui init` generates.
+const siteCssLabel = "site/assets/site.css";
+const siteCss = readRepoFile(siteCssLabel);
+if (cliBody && !siteCss.includes(cliBody)) {
+  failures.push(`${siteCssLabel} token blocks differ from the CLI DEFAULT_CSS`);
+}
+for (const fragment of ['@import "tailwindcss";', '@source "../src";', '@source "../../crates/dioxus-ui/src";']) {
+  assertIncludes({ label: siteCssLabel, source: siteCss, fragment });
+}
+
 for (const { label, source } of previewCssInputs) {
   if (cliBody && !source.includes(cliBody)) {
     failures.push(`${label} token blocks differ from the CLI DEFAULT_CSS`);
@@ -110,5 +121,5 @@ if (failures.length > 0) {
   }
   process.exitCode = 1;
 } else {
-  console.log(`CSS input metadata verification passed (${previewCssInputs.length} preview inputs)`);
+  console.log(`CSS input metadata verification passed (${previewCssInputs.length} preview inputs and the site input)`);
 }

@@ -144,6 +144,8 @@ npm run verify:registry
 npm run verify:tailwind-static
 npm run verify:tailwind-conflicts
 npm run verify:preview-css
+npm run verify:site-css
+npm run verify:site-catalog
 npm run verify
 npm run verify:changelog
 scripts/feature-check.sh
@@ -320,6 +322,15 @@ when `examples/preview-states/assets/preview.generated.css`, which every
 preview target links, differs from the result (see
 [RFC 0049](rfcs/0049-compiled-preview-stylesheet.md)). Run
 `npm run css:preview` to regenerate it after a class change.
+
+`npm run verify:site-css` does the same for the component site
+(see [RFC 0052](rfcs/0052-component-site.md)): it fails when
+`site/assets/site.generated.css` differs from a fresh compile of
+`site/assets/site.css`. Run `npm run css:site` to regenerate it.
+`npm run verify:site-catalog` fails when `site/src/catalog.rs`, the site's
+sidebar and page data, differs from what the docs catalog builder produces;
+run `npm run site:catalog` to regenerate it. Both are read-only and do not
+build or serve the site.
 
 `npm run verify:package-scripts` checks that `package.json` still exposes the
 required verification aliases, that aggregate aliases reference the expected
