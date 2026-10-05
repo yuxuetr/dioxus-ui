@@ -1,0 +1,44 @@
+/* dxui theme: dracula */
+/* Ported from the daisyUI dracula theme (https://daisyui.com), MIT License,
+   Copyright (c) 2020 Pouya Saadeghi. Mapped to the dioxus-shadcn tokens by
+   RFC 0057.
+   Adjusted for WCAG AA: destructive. */
+[data-theme="dracula"] {
+  color-scheme: dark;
+  --radius: 1rem;
+  --background: oklch(0.288 0.022 277.508);
+  --foreground: oklch(0.977 0.007 106.545);
+  --card: oklch(0.288 0.022 277.508);
+  --card-foreground: oklch(0.977 0.007 106.545);
+  --popover: oklch(0.288 0.022 277.508);
+  --popover-foreground: oklch(0.977 0.007 106.545);
+  --primary: oklch(0.755 0.183 346.812);
+  --primary-foreground: oklch(0.151 0.036 346.812);
+  --secondary: oklch(0.742 0.148 301.883);
+  --secondary-foreground: oklch(0.148 0.029 301.883);
+  --muted: oklch(0.268 0.02 277.508);
+  --muted-foreground: oklch(0.694 0.012 277.508);
+  --accent: oklch(0.268 0.02 277.508);
+  --accent-foreground: oklch(0.977 0.007 106.545);
+  --destructive: oklch(0.72 0.181 24.43);
+  --destructive-foreground: oklch(0.136 0.041 24.43);
+  --success: oklch(0.871 0.219 148.024);
+  --warning: oklch(0.955 0.134 112.757);
+  --info: oklch(0.883 0.093 212.846);
+  --border: oklch(0.248 0.019 277.508);
+  --input: oklch(0.248 0.019 277.508);
+  --ring: oklch(0.755 0.183 346.812);
+  --chart-1: oklch(0.755 0.183 346.812);
+  --chart-2: oklch(0.742 0.148 301.883);
+  --chart-3: oklch(0.834 0.124 66.558);
+  --chart-4: oklch(0.883 0.093 212.846);
+  --chart-5: oklch(0.871 0.219 148.024);
+  --sidebar: oklch(0.268 0.02 277.508);
+  --sidebar-foreground: oklch(0.977 0.007 106.545);
+  --sidebar-primary: oklch(0.755 0.183 346.812);
+  --sidebar-primary-foreground: oklch(0.151 0.036 346.812);
+  --sidebar-accent: oklch(0.268 0.02 277.508);
+  --sidebar-accent-foreground: oklch(0.977 0.007 106.545);
+  --sidebar-border: oklch(0.248 0.019 277.508);
+  --sidebar-ring: oklch(0.755 0.183 346.812);
+}

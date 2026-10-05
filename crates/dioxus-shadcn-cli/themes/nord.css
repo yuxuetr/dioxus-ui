@@ -1,0 +1,44 @@
+/* dxui theme: nord */
+/* Ported from the daisyUI nord theme (https://daisyui.com), MIT License,
+   Copyright (c) 2020 Pouya Saadeghi. Mapped to the dioxus-shadcn tokens by
+   RFC 0057.
+   Adjusted for WCAG AA: destructive, destructive-foreground. */
+[data-theme="nord"] {
+  color-scheme: light;
+  --radius: 0.5rem;
+  --background: oklch(0.951 0.007 260.731);
+  --foreground: oklch(0.324 0.022 264.182);
+  --card: oklch(0.951 0.007 260.731);
+  --card-foreground: oklch(0.324 0.022 264.182);
+  --popover: oklch(0.951 0.007 260.731);
+  --popover-foreground: oklch(0.324 0.022 264.182);
+  --primary: oklch(0.594 0.077 254.027);
+  --primary-foreground: oklch(0.119 0.015 254.027);
+  --secondary: oklch(0.697 0.059 248.687);
+  --secondary-foreground: oklch(0.139 0.011 248.687);
+  --muted: oklch(0.933 0.01 261.788);
+  --muted-foreground: oklch(0.519 0.018 264.182);
+  --accent: oklch(0.933 0.01 261.788);
+  --accent-foreground: oklch(0.324 0.022 264.182);
+  --destructive: oklch(0.509 0.101 15.341);
+  --destructive-foreground: oklch(0.912 0.002 15.341);
+  --success: oklch(0.768 0.074 131.063);
+  --warning: oklch(0.855 0.089 84.093);
+  --info: oklch(0.692 0.062 332.664);
+  --border: oklch(0.899 0.016 262.749);
+  --input: oklch(0.899 0.016 262.749);
+  --ring: oklch(0.594 0.077 254.027);
+  --chart-1: oklch(0.594 0.077 254.027);
+  --chart-2: oklch(0.697 0.059 248.687);
+  --chart-3: oklch(0.775 0.062 217.469);
+  --chart-4: oklch(0.692 0.062 332.664);
+  --chart-5: oklch(0.768 0.074 131.063);
+  --sidebar: oklch(0.933 0.01 261.788);
+  --sidebar-foreground: oklch(0.324 0.022 264.182);
+  --sidebar-primary: oklch(0.594 0.077 254.027);
+  --sidebar-primary-foreground: oklch(0.119 0.015 254.027);
+  --sidebar-accent: oklch(0.933 0.01 261.788);
+  --sidebar-accent-foreground: oklch(0.324 0.022 264.182);
+  --sidebar-border: oklch(0.899 0.016 262.749);
+  --sidebar-ring: oklch(0.594 0.077 254.027);
+}

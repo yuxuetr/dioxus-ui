@@ -1,0 +1,44 @@
+/* dxui theme: cupcake */
+/* Ported from the daisyUI cupcake theme (https://daisyui.com), MIT License,
+   Copyright (c) 2020 Pouya Saadeghi. Mapped to the dioxus-shadcn tokens by
+   RFC 0057.
+   Adjusted for WCAG AA: destructive, destructive-foreground. */
+[data-theme="cupcake"] {
+  color-scheme: light;
+  --radius: 1rem;
+  --background: oklch(0.978 0.004 56.375);
+  --foreground: oklch(0.236 0.066 313.189);
+  --card: oklch(0.978 0.004 56.375);
+  --card-foreground: oklch(0.236 0.066 313.189);
+  --popover: oklch(0.978 0.004 56.375);
+  --popover-foreground: oklch(0.236 0.066 313.189);
+  --primary: oklch(0.85 0.138 181.071);
+  --primary-foreground: oklch(0.43 0.078 188.216);
+  --secondary: oklch(0.89 0.061 343.231);
+  --secondary-foreground: oklch(0.45 0.187 3.815);
+  --muted: oklch(0.94 0.007 61.449);
+  --muted-foreground: oklch(0.517 0.042 313.189);
+  --accent: oklch(0.94 0.007 61.449);
+  --accent-foreground: oklch(0.236 0.066 313.189);
+  --destructive: oklch(0.538 0.207 16.439);
+  --destructive-foreground: oklch(0.927 0.01 12.094);
+  --success: oklch(0.69 0.17 162.48);
+  --warning: oklch(0.79 0.184 86.047);
+  --info: oklch(0.68 0.169 237.323);
+  --border: oklch(0.916 0.006 53.44);
+  --input: oklch(0.916 0.006 53.44);
+  --ring: oklch(0.85 0.138 181.071);
+  --chart-1: oklch(0.85 0.138 181.071);
+  --chart-2: oklch(0.89 0.061 343.231);
+  --chart-3: oklch(0.9 0.076 70.697);
+  --chart-4: oklch(0.68 0.169 237.323);
+  --chart-5: oklch(0.69 0.17 162.48);
+  --sidebar: oklch(0.94 0.007 61.449);
+  --sidebar-foreground: oklch(0.236 0.066 313.189);
+  --sidebar-primary: oklch(0.85 0.138 181.071);
+  --sidebar-primary-foreground: oklch(0.43 0.078 188.216);
+  --sidebar-accent: oklch(0.94 0.007 61.449);
+  --sidebar-accent-foreground: oklch(0.236 0.066 313.189);
+  --sidebar-border: oklch(0.916 0.006 53.44);
+  --sidebar-ring: oklch(0.85 0.138 181.071);
+}

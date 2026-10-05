@@ -1,0 +1,44 @@
+/* dxui theme: bumblebee */
+/* Ported from the daisyUI bumblebee theme (https://daisyui.com), MIT License,
+   Copyright (c) 2020 Pouya Saadeghi. Mapped to the dioxus-shadcn tokens by
+   RFC 0057.
+   Adjusted for WCAG AA: secondary-foreground, destructive, destructive-foreground. */
+[data-theme="bumblebee"] {
+  color-scheme: light;
+  --radius: 1rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0 0);
+  --primary: oklch(0.85 0.199 91.936);
+  --primary-foreground: oklch(0.42 0.095 57.708);
+  --secondary: oklch(0.75 0.183 55.934);
+  --secondary-foreground: oklch(0.376 0.116 38.172);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.508 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.2 0 0);
+  --destructive: oklch(0.546 0.149 22.216);
+  --destructive-foreground: oklch(0.951 0.011 25.723);
+  --success: oklch(0.76 0.177 163.223);
+  --warning: oklch(0.82 0.189 84.429);
+  --info: oklch(0.74 0.16 232.661);
+  --border: oklch(0.92 0 0);
+  --input: oklch(0.92 0 0);
+  --ring: oklch(0.85 0.199 91.936);
+  --chart-1: oklch(0.85 0.199 91.936);
+  --chart-2: oklch(0.75 0.183 55.934);
+  --chart-3: oklch(0 0 0);
+  --chart-4: oklch(0.74 0.16 232.661);
+  --chart-5: oklch(0.76 0.177 163.223);
+  --sidebar: oklch(0.97 0 0);
+  --sidebar-foreground: oklch(0.2 0 0);
+  --sidebar-primary: oklch(0.85 0.199 91.936);
+  --sidebar-primary-foreground: oklch(0.42 0.095 57.708);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.2 0 0);
+  --sidebar-border: oklch(0.92 0 0);
+  --sidebar-ring: oklch(0.85 0.199 91.936);
+}

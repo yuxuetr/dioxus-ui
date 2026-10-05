@@ -147,6 +147,16 @@ class. To follow the system preference instead, wrap the `.dark` blocks in
 The Web, Desktop, and Mobile previews have a "Dark theme" toggle in their
 header that shows the components under the block.
 
+For other palettes, `dxui theme add <name>...` appends theme presets ported
+from daisyUI, and `dxui theme list` prints all 33 with their color scheme
+([RFC 0057](docs/rfcs/0057-theme-presets.md)). A preset is one
+`[data-theme="<name>"]` rule, so setting the attribute themes that element's
+subtree, and dark presets set `color-scheme: dark` without the `dark` class:
+
+```rust
+div { "data-theme": "nord", class: "min-h-screen bg-background text-foreground", App {} }
+```
+
 Crate-mode apps get the same stylesheet by running `dxui init`, which writes
 only `assets/dioxus-shadcn.css` and an empty `src/components/ui/mod.rs`. They
 also add an `@source` line for the crate's source after the import, since

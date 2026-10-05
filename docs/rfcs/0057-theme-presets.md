@@ -76,13 +76,24 @@ step, at most 40%, that keeps 4.5:1 on `muted` and on `background`.
 
 ### Contrast adjustment
 
-For each pair that `scripts/theme-presets.mjs` emits (foreground on
-background, card, popover, muted, accent, and sidebar; primary, secondary,
-destructive, and sidebar primary on their foregrounds), a foreground below
-4.5:1 keeps its hue and chroma and moves its OKLCH lightness away from the
-background in 0.01 steps until it passes. Black or white always reaches
-4.58:1 on any color, so the loop always ends. The generated file lists the
-adjusted tokens in its header comment.
+The gate checks the text pairs components render: foreground on background,
+muted, card, popover, accent, and sidebar; muted foreground on muted and
+background; primary, secondary, destructive, and sidebar primary under their
+foregrounds; and destructive text on background, card, popover, and on
+`bg-destructive/10` over the popover, as focused destructive menu items draw
+it. A foreground below 4.5:1 is mixed in OKLCH toward black or white,
+whichever contrasts more with its background, in 2% steps, keeping its hue,
+until every pair it is in passes. Black or white always reaches 4.58:1 on any
+color, so the loop always ends; mixing, unlike moving lightness alone, also
+works for saturated colors that leave the sRGB gamut near black or white.
+The check runs on the rounded values the file stores. The generated file
+lists the adjusted tokens in its header comment: 22 of the 33 presets, mostly
+`destructive`, since daisyUI's error colors are light.
+
+The gate also covers the default theme, and found that shadcn/ui's light
+`--destructive` reaches only 3.99:1 on the focused menu highlight; M188
+lowers its lightness from 0.577 to 0.532 (see
+[RFC 0051](0051-semantic-color-tokens.md)).
 
 `npm run verify:theme-presets` recomputes the ratios from the committed files
 and fails below 4.5:1, so a hand edit cannot regress a preset.
@@ -105,6 +116,14 @@ daisyUI commit `9adbeaa25981` (2026-10-05).
   skips a preset already present, so running it twice changes nothing. It
   fails without touching the file when a name is unknown or the stylesheet is
   missing.
+
+### Link buttons
+
+Button's `Link` variant drew `text-primary` on the page background. Light
+daisyUI primaries, such as `cupcake` teal at 1.5:1, cannot be text there, and
+darkening them would change every preset's buttons. The variant uses
+`text-foreground` with a `decoration-primary` underline instead, which looks
+the same in the default theme, whose primary is the foreground color.
 
 ### Checkbox check mark
 

@@ -161,6 +161,7 @@ where
     Some("init") => init_command(&args[1..]),
     Some("add") => add_command(&args[1..]),
     Some("list") => list_command(),
+    Some("theme") => theme_command(&args[1..]),
     Some("help") | Some("--help") | Some("-h") | None => {
       print_help();
       Ok(())
@@ -195,6 +196,112 @@ fn list_command() -> Result<(), Box<dyn Error>> {
   }
 
   Ok(())
+}
+
+fn theme_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
+  match args.first().and_then(|arg| arg.to_str()) {
+    Some("list") => {
+      for (name, css) in EMBEDDED_THEMES {
+        println!("{name} ({})", theme_scheme(css));
+      }
+      Ok(())
+    }
+    Some("add") => {
+      let (names, root) = parse_theme_add_options(&args[1..])?;
+      let added = add_themes(&root, &names)?;
+      if added.is_empty() {
+        println!("themes already present in {}", stylesheet_path(&root).display());
+      } else {
+        println!("added themes {} to {}", added.join(", "), stylesheet_path(&root).display());
+      }
+      Ok(())
+    }
+    Some(subcommand) => {
+      Err(format!("unknown theme subcommand `{subcommand}`; use `list` or `add`").into())
+    }
+    None => Err("missing theme subcommand; use `list` or `add`".into()),
+  }
+}
+
+fn parse_theme_add_options(args: &[OsString]) -> Result<(Vec<String>, PathBuf), Box<dyn Error>> {
+  let mut names = Vec::new();
+  let mut root = env::current_dir()?;
+  let mut index = 0;
+
+  while index < args.len() {
+    match args[index].to_str() {
+      Some("--root") => {
+        let value = args.get(index + 1).ok_or("missing value for --root")?;
+        root = PathBuf::from(value);
+        index += 2;
+      }
+      Some(flag) if flag.starts_with('-') => {
+        return Err(format!("unknown theme add option `{flag}`").into());
+      }
+      Some(value) => {
+        names.push(value.to_string());
+        index += 1;
+      }
+      None => return Err("theme add argument is not valid UTF-8".into()),
+    }
+  }
+
+  if names.is_empty() {
+    return Err("missing theme name; run `dxui theme list` for the presets".into());
+  }
+
+  Ok((names, root))
+}
+
+fn theme_scheme(css: &str) -> &'static str {
+  if css.contains("color-scheme: dark;") { "dark" } else { "light" }
+}
+
+fn stylesheet_path(root: &Path) -> PathBuf {
+  root.join("assets").join("dioxus-shadcn.css")
+}
+
+/// Appends each preset not already in the stylesheet, after its marker check,
+/// and returns the names it added. Unknown names fail before any write.
+fn add_themes(root: &Path, names: &[String]) -> Result<Vec<String>, Box<dyn Error>> {
+  let mut presets = Vec::new();
+  for name in names {
+    let preset = EMBEDDED_THEMES
+      .iter()
+      .find(|(preset_name, _)| preset_name == name)
+      .map(|(_, css)| *css)
+      .ok_or_else(|| unknown_theme_error(name))?;
+    presets.push((name, preset));
+  }
+
+  let path = stylesheet_path(root);
+  let mut css = fs::read_to_string(&path)
+    .map_err(|error| format!("cannot read {}: {error}; run `dxui init` first", path.display()))?;
+  let mut added = Vec::new();
+
+  for (name, preset) in presets {
+    if css.contains(&format!("/* dxui theme: {name} */")) {
+      continue;
+    }
+    if !css.is_empty() && !css.ends_with('\n') {
+      css.push('\n');
+    }
+    css.push('\n');
+    css.push_str(preset);
+    added.push(name.clone());
+  }
+
+  if !added.is_empty() {
+    fs::write(&path, css)?;
+  }
+
+  Ok(added)
+}
+
+fn unknown_theme_error(name: &str) -> String {
+  let available = EMBEDDED_THEMES.iter().map(|(name, _)| *name).collect::<Vec<_>>().join(", ");
+
+  format!("unknown theme `{name}`. available themes: {available}")
 }
 
 fn parse_root(args: &[OsString], command: &str) -> Result<PathBuf, Box<dyn Error>> {
@@ -416,7 +523,7 @@ fn write_component_file(path: &Path, content: &str, overwrite: bool) -> Result<(
 
 fn print_help() {
   println!(
-    "dxui\n\nUsage:\n  dxui init [--root <path>]\n  dxui add <component> [--root <path>] [--overwrite]\n  dxui list\n\nCommands:\n  init    Prepare a Dioxus project for dioxus-shadcn generated components\n  add     Copy a component template into a project\n  list    List available registry components"
+    "dxui\n\nUsage:\n  dxui init [--root <path>]\n  dxui add <component> [--root <path>] [--overwrite]\n  dxui list\n  dxui theme list\n  dxui theme add <theme>... [--root <path>]\n\nCommands:\n  init    Prepare a Dioxus project for dioxus-shadcn generated components\n  add     Copy a component template into a project\n  list    List available registry components\n  theme   List theme presets, or add them to assets/dioxus-shadcn.css"
   );
 }
 
@@ -452,6 +559,59 @@ mod tests {
     assert!(css.contains("@theme inline {\n"));
     assert!(css.contains("--color-primary: var(--primary);"));
     assert!(root.join("src").join("components").join("ui").join("mod.rs").is_file());
+  }
+
+  #[test]
+  fn add_themes_appends_each_preset_once() {
+    let root = temp_project();
+    init_project(&root).expect("init should succeed");
+
+    let added =
+      add_themes(&root, &["cupcake".to_string(), "dracula".to_string(), "cupcake".to_string()])
+        .expect("adding themes should succeed");
+    assert_eq!(added, ["cupcake", "dracula"]);
+
+    let css = fs::read_to_string(stylesheet_path(&root)).expect("css should be readable");
+    assert!(css.starts_with(DEFAULT_CSS));
+    assert_eq!(css.matches("/* dxui theme: cupcake */").count(), 1);
+    assert!(css.contains("[data-theme=\"dracula\"] {\n  color-scheme: dark;"));
+
+    let added =
+      add_themes(&root, &["cupcake".to_string()]).expect("repeating a theme should succeed");
+    assert!(added.is_empty());
+    assert_eq!(fs::read_to_string(stylesheet_path(&root)).expect("css should be readable"), css);
+  }
+
+  #[test]
+  fn add_themes_rejects_unknown_names_without_writing() {
+    let root = temp_project();
+    init_project(&root).expect("init should succeed");
+
+    let error = add_themes(&root, &["cupcake".to_string(), "no-such-theme".to_string()])
+      .expect_err("an unknown theme should fail");
+    assert!(error.to_string().contains("unknown theme `no-such-theme`"));
+    assert!(error.to_string().contains("cupcake"));
+    assert_eq!(
+      fs::read_to_string(stylesheet_path(&root)).expect("css should be readable"),
+      DEFAULT_CSS
+    );
+  }
+
+  #[test]
+  fn add_themes_needs_the_stylesheet() {
+    let error = add_themes(&temp_project(), &["cupcake".to_string()])
+      .expect_err("a missing stylesheet should fail");
+    assert!(error.to_string().contains("run `dxui init` first"));
+  }
+
+  #[test]
+  fn embedded_themes_report_their_scheme() {
+    assert_eq!(EMBEDDED_THEMES.len(), 33);
+    let scheme = |name: &str| {
+      EMBEDDED_THEMES.iter().find(|(preset, _)| *preset == name).map(|(_, css)| theme_scheme(css))
+    };
+    assert_eq!(scheme("cupcake"), Some("light"));
+    assert_eq!(scheme("dracula"), Some("dark"));
   }
 
   #[test]

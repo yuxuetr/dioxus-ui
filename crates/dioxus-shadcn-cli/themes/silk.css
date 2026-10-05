@@ -1,0 +1,44 @@
+/* dxui theme: silk */
+/* Ported from the daisyUI silk theme (https://daisyui.com), MIT License,
+   Copyright (c) 2020 Pouya Saadeghi. Mapped to the dioxus-shadcn tokens by
+   RFC 0057.
+   Adjusted for WCAG AA: destructive, destructive-foreground. */
+[data-theme="silk"] {
+  color-scheme: light;
+  --radius: 1rem;
+  --background: oklch(0.97 0.004 67.78);
+  --foreground: oklch(0.4 0.008 61.42);
+  --card: oklch(0.97 0.004 67.78);
+  --card-foreground: oklch(0.4 0.008 61.42);
+  --popover: oklch(0.97 0.004 67.78);
+  --popover-foreground: oklch(0.4 0.008 61.42);
+  --primary: oklch(0.233 0.025 284.3);
+  --primary-foreground: oklch(0.942 0.251 117.44);
+  --secondary: oklch(0.233 0.025 284.3);
+  --secondary-foreground: oklch(0.739 0.213 50.94);
+  --muted: oklch(0.95 0.008 61.42);
+  --muted-foreground: oklch(0.532 0.008 61.42);
+  --accent: oklch(0.95 0.008 61.42);
+  --accent-foreground: oklch(0.4 0.008 61.42);
+  --destructive: oklch(0.526 0.127 22.37);
+  --destructive-foreground: oklch(0.922 0.022 22.37);
+  --success: oklch(0.839 0.09 136.87);
+  --warning: oklch(0.839 0.108 80);
+  --info: oklch(0.804 0.115 241.68);
+  --border: oklch(0.9 0.008 61.42);
+  --input: oklch(0.9 0.008 61.42);
+  --ring: oklch(0.233 0.025 284.3);
+  --chart-1: oklch(0.233 0.025 284.3);
+  --chart-2: oklch(0.233 0.025 284.3);
+  --chart-3: oklch(0.233 0.025 284.3);
+  --chart-4: oklch(0.804 0.115 241.68);
+  --chart-5: oklch(0.839 0.09 136.87);
+  --sidebar: oklch(0.95 0.008 61.42);
+  --sidebar-foreground: oklch(0.4 0.008 61.42);
+  --sidebar-primary: oklch(0.233 0.025 284.3);
+  --sidebar-primary-foreground: oklch(0.942 0.251 117.44);
+  --sidebar-accent: oklch(0.95 0.008 61.42);
+  --sidebar-accent-foreground: oklch(0.4 0.008 61.42);
+  --sidebar-border: oklch(0.9 0.008 61.42);
+  --sidebar-ring: oklch(0.233 0.025 284.3);
+}

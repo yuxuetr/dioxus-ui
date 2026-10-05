@@ -1,0 +1,44 @@
+/* dxui theme: abyss */
+/* Ported from the daisyUI abyss theme (https://daisyui.com), MIT License,
+   Copyright (c) 2020 Pouya Saadeghi. Mapped to the dioxus-shadcn tokens by
+   RFC 0057.
+   Adjusted for WCAG AA: destructive-foreground. */
+[data-theme="abyss"] {
+  color-scheme: dark;
+  --radius: 0.5rem;
+  --background: oklch(0.2 0.08 209);
+  --foreground: oklch(0.9 0.076 70.697);
+  --card: oklch(0.2 0.08 209);
+  --card-foreground: oklch(0.9 0.076 70.697);
+  --popover: oklch(0.2 0.08 209);
+  --popover-foreground: oklch(0.9 0.076 70.697);
+  --primary: oklch(0.92 0.265 125);
+  --primary-foreground: oklch(0.5 0.265 125);
+  --secondary: oklch(0.833 0.076 298.3);
+  --secondary-foreground: oklch(0.433 0.076 298.3);
+  --muted: oklch(0.15 0.08 209);
+  --muted-foreground: oklch(0.608 0.078 124.635);
+  --accent: oklch(0.15 0.08 209);
+  --accent-foreground: oklch(0.9 0.076 70.697);
+  --destructive: oklch(0.65 0.199 24.22);
+  --destructive-foreground: oklch(0.216 0.159 24.22);
+  --success: oklch(0.79 0.209 151.711);
+  --warning: oklch(0.848 0.196 84.62);
+  --info: oklch(0.74 0.16 232.661);
+  --border: oklch(0.1 0.08 209);
+  --input: oklch(0.1 0.08 209);
+  --ring: oklch(0.92 0.265 125);
+  --chart-1: oklch(0.92 0.265 125);
+  --chart-2: oklch(0.833 0.076 298.3);
+  --chart-3: oklch(0.43 0 0);
+  --chart-4: oklch(0.74 0.16 232.661);
+  --chart-5: oklch(0.79 0.209 151.711);
+  --sidebar: oklch(0.15 0.08 209);
+  --sidebar-foreground: oklch(0.9 0.076 70.697);
+  --sidebar-primary: oklch(0.92 0.265 125);
+  --sidebar-primary-foreground: oklch(0.5 0.265 125);
+  --sidebar-accent: oklch(0.15 0.08 209);
+  --sidebar-accent-foreground: oklch(0.9 0.076 70.697);
+  --sidebar-border: oklch(0.1 0.08 209);
+  --sidebar-ring: oklch(0.92 0.265 125);
+}

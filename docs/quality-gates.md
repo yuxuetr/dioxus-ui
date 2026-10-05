@@ -146,6 +146,7 @@ npm run verify:tailwind-conflicts
 npm run verify:preview-css
 npm run verify:site-css
 npm run verify:site-catalog
+npm run verify:theme-presets
 npm run verify
 npm run verify:changelog
 scripts/feature-check.sh
@@ -331,6 +332,14 @@ preview target links, differs from the result (see
 sidebar and page data, differs from what the docs catalog builder produces;
 run `npm run site:catalog` to regenerate it. Both are read-only and do not
 build or serve the site.
+
+`npm run verify:theme-presets` checks the theme presets in
+`crates/dioxus-shadcn-cli/themes/` and the default theme
+([RFC 0057](rfcs/0057-theme-presets.md)): each preset sets exactly the default
+theme's tokens under its `/* dxui theme: <name> */` marker and
+`[data-theme="<name>"]` rule and keeps daisyUI's MIT notice, and every text
+pair components render meets 4.5:1, computed from the OKLCH values. Run
+`npm run theme:presets <daisyui themes dir>` to regenerate the presets.
 
 `npm run verify:package-scripts` checks that `package.json` still exposes the
 required verification aliases, that aggregate aliases reference the expected

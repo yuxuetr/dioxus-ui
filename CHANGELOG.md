@@ -8,6 +8,14 @@ for commit messages.
 
 ## [Unreleased]
 
+### Added
+
+- Theme presets ([RFC 0057](docs/rfcs/0057-theme-presets.md)): 33 daisyUI
+  themes mapped to the dioxus-shadcn tokens and scoped by
+  `[data-theme="<name>"]`, with foregrounds adjusted to WCAG AA.
+  `dxui theme list` prints them and `dxui theme add <name>...` appends them to
+  `assets/dioxus-shadcn.css`.
+
 ### Fixed
 
 - The light theme's `--destructive` token has lightness 0.532 instead of

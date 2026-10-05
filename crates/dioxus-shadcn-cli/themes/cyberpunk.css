@@ -1,0 +1,44 @@
+/* dxui theme: cyberpunk */
+/* Ported from the daisyUI cyberpunk theme (https://daisyui.com), MIT License,
+   Copyright (c) 2020 Pouya Saadeghi. Mapped to the dioxus-shadcn tokens by
+   RFC 0057.
+   Adjusted for WCAG AA: destructive, destructive-foreground. */
+[data-theme="cyberpunk"] {
+  color-scheme: light;
+  --radius: 0rem;
+  --background: oklch(0.945 0.179 104.32);
+  --foreground: oklch(0 0 0);
+  --card: oklch(0.945 0.179 104.32);
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(0.945 0.179 104.32);
+  --popover-foreground: oklch(0 0 0);
+  --primary: oklch(0.742 0.209 6.35);
+  --primary-foreground: oklch(0.148 0.041 6.35);
+  --secondary: oklch(0.833 0.184 204.72);
+  --secondary-foreground: oklch(0.167 0.036 204.72);
+  --muted: oklch(0.915 0.179 104.32);
+  --muted-foreground: oklch(0.366 0.072 104.32);
+  --accent: oklch(0.915 0.179 104.32);
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.517 0.159 22.18);
+  --destructive-foreground: oklch(0.92 0 0);
+  --success: oklch(0.648 0.15 160);
+  --warning: oklch(0.847 0.199 83.87);
+  --info: oklch(0.721 0.191 231.6);
+  --border: oklch(0.855 0.179 104.32);
+  --input: oklch(0.855 0.179 104.32);
+  --ring: oklch(0.742 0.209 6.35);
+  --chart-1: oklch(0.742 0.209 6.35);
+  --chart-2: oklch(0.833 0.184 204.72);
+  --chart-3: oklch(0.719 0.217 310.43);
+  --chart-4: oklch(0.721 0.191 231.6);
+  --chart-5: oklch(0.648 0.15 160);
+  --sidebar: oklch(0.915 0.179 104.32);
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-primary: oklch(0.742 0.209 6.35);
+  --sidebar-primary-foreground: oklch(0.148 0.041 6.35);
+  --sidebar-accent: oklch(0.915 0.179 104.32);
+  --sidebar-accent-foreground: oklch(0 0 0);
+  --sidebar-border: oklch(0.855 0.179 104.32);
+  --sidebar-ring: oklch(0.742 0.209 6.35);
+}

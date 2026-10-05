@@ -1,0 +1,43 @@
+/* dxui theme: halloween */
+/* Ported from the daisyUI halloween theme (https://daisyui.com), MIT License,
+   Copyright (c) 2020 Pouya Saadeghi. Mapped to the dioxus-shadcn tokens by
+   RFC 0057. */
+[data-theme="halloween"] {
+  color-scheme: dark;
+  --radius: 1rem;
+  --background: oklch(0.21 0.006 56.043);
+  --foreground: oklch(0.85 0 0);
+  --card: oklch(0.21 0.006 56.043);
+  --card-foreground: oklch(0.85 0 0);
+  --popover: oklch(0.21 0.006 56.043);
+  --popover-foreground: oklch(0.85 0 0);
+  --primary: oklch(0.775 0.204 60.62);
+  --primary-foreground: oklch(0.197 0.004 196.779);
+  --secondary: oklch(0.46 0.248 305.03);
+  --secondary-foreground: oklch(0.892 0.049 305.03);
+  --muted: oklch(0.14 0.004 49.25);
+  --muted-foreground: oklch(0.601 0.001 49.25);
+  --accent: oklch(0.14 0.004 49.25);
+  --accent-foreground: oklch(0.85 0 0);
+  --destructive: oklch(0.657 0.199 27.33);
+  --destructive-foreground: oklch(0.131 0.039 27.33);
+  --success: oklch(0.627 0.169 149.213);
+  --warning: oklch(0.666 0.157 58.318);
+  --info: oklch(0.546 0.215 262.88);
+  --border: oklch(0 0 0);
+  --input: oklch(0 0 0);
+  --ring: oklch(0.775 0.204 60.62);
+  --chart-1: oklch(0.775 0.204 60.62);
+  --chart-2: oklch(0.46 0.248 305.03);
+  --chart-3: oklch(0.648 0.223 136.073);
+  --chart-4: oklch(0.546 0.215 262.88);
+  --chart-5: oklch(0.627 0.169 149.213);
+  --sidebar: oklch(0.14 0.004 49.25);
+  --sidebar-foreground: oklch(0.85 0 0);
+  --sidebar-primary: oklch(0.775 0.204 60.62);
+  --sidebar-primary-foreground: oklch(0.197 0.004 196.779);
+  --sidebar-accent: oklch(0.14 0.004 49.25);
+  --sidebar-accent-foreground: oklch(0.85 0 0);
+  --sidebar-border: oklch(0 0 0);
+  --sidebar-ring: oklch(0.775 0.204 60.62);
+}

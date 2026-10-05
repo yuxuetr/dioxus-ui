@@ -82,6 +82,10 @@ and the rest) and maps them to Tailwind colors, so `bg-primary` and
 in `:root` and `.dark`. Add the `dark` class to a top-level element for the
 dark theme.
 
+`dxui theme list` prints 33 presets ported from daisyUI, such as `cupcake`,
+`nord`, and `dracula`. `dxui theme add nord dracula` appends them to the
+stylesheet; set `data-theme="nord"` on any element to theme its subtree.
+
 ## Components
 
 Accordion, Alert, Alert Dialog, Aspect Ratio, Attachment, Avatar, Badge,

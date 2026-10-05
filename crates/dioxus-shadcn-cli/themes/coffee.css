@@ -1,0 +1,43 @@
+/* dxui theme: coffee */
+/* Ported from the daisyUI coffee theme (https://daisyui.com), MIT License,
+   Copyright (c) 2020 Pouya Saadeghi. Mapped to the dioxus-shadcn tokens by
+   RFC 0057. */
+[data-theme="coffee"] {
+  color-scheme: dark;
+  --radius: 1rem;
+  --background: oklch(0.24 0.023 329.708);
+  --foreground: oklch(0.724 0.092 79.129);
+  --card: oklch(0.24 0.023 329.708);
+  --card-foreground: oklch(0.724 0.092 79.129);
+  --popover: oklch(0.24 0.023 329.708);
+  --popover-foreground: oklch(0.724 0.092 79.129);
+  --primary: oklch(0.72 0.123 62.756);
+  --primary-foreground: oklch(0.144 0.024 62.756);
+  --secondary: oklch(0.345 0.029 199.194);
+  --secondary-foreground: oklch(0.869 0.005 199.194);
+  --muted: oklch(0.21 0.021 329.708);
+  --muted-foreground: oklch(0.626 0.079 58.339);
+  --accent: oklch(0.21 0.021 329.708);
+  --accent-foreground: oklch(0.724 0.092 79.129);
+  --destructive: oklch(0.773 0.128 31.871);
+  --destructive-foreground: oklch(0.155 0.025 31.871);
+  --success: oklch(0.747 0.072 131.116);
+  --warning: oklch(0.882 0.14 87.722);
+  --info: oklch(0.795 0.063 184.558);
+  --border: oklch(0.16 0.019 329.708);
+  --input: oklch(0.16 0.019 329.708);
+  --ring: oklch(0.72 0.123 62.756);
+  --chart-1: oklch(0.72 0.123 62.756);
+  --chart-2: oklch(0.345 0.029 199.194);
+  --chart-3: oklch(0.426 0.074 224.389);
+  --chart-4: oklch(0.795 0.063 184.558);
+  --chart-5: oklch(0.747 0.072 131.116);
+  --sidebar: oklch(0.21 0.021 329.708);
+  --sidebar-foreground: oklch(0.724 0.092 79.129);
+  --sidebar-primary: oklch(0.72 0.123 62.756);
+  --sidebar-primary-foreground: oklch(0.144 0.024 62.756);
+  --sidebar-accent: oklch(0.21 0.021 329.708);
+  --sidebar-accent-foreground: oklch(0.724 0.092 79.129);
+  --sidebar-border: oklch(0.16 0.019 329.708);
+  --sidebar-ring: oklch(0.72 0.123 62.756);
+}

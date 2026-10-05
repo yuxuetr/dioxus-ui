@@ -72,6 +72,33 @@ fn main() -> Result<(), Box<dyn Error>> {
     generated.push_str("  },\n");
   }
 
+  generated.push_str("];\n\n");
+
+  // Theme presets (RFC 0057), one file per preset, named by its file stem.
+  let themes_dir = manifest_dir.join("themes");
+  println!("cargo:rerun-if-changed={}", themes_dir.display());
+
+  let mut theme_paths = Vec::new();
+  for entry in fs::read_dir(&themes_dir)? {
+    let path = entry?.path();
+    if path.extension().and_then(|extension| extension.to_str()) == Some("css") {
+      theme_paths.push(path);
+    }
+  }
+  theme_paths.sort();
+
+  generated.push_str("const EMBEDDED_THEMES: &[(&str, &str)] = &[\n");
+  for path in theme_paths {
+    let name = path
+      .file_stem()
+      .and_then(|stem| stem.to_str())
+      .ok_or("theme preset file name is not valid UTF-8")?;
+    generated.push_str("  (\"");
+    generated.push_str(name);
+    generated.push_str("\", include_str!(\"");
+    generated.push_str(&escape_rust_string(&path));
+    generated.push_str("\")),\n");
+  }
   generated.push_str("];\n");
 
   fs::write(generated_path, generated)?;
