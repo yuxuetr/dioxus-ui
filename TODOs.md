@@ -4,7 +4,7 @@
 
 - Overall: 0.2.0 plan, 6 of 8 milestones complete
 - Current milestone: M193 Completing Existing Components
-- Current task: M193.2
+- Current task: M193.3
 
 ## Backup
 
@@ -97,7 +97,8 @@
 
 - DONE M193.1 Multi-select for Select and Combobox
   - Done: RFC 0062; `multiple` withholds the listbox close handler, so the listbox code is unchanged. Selected options show check marks (a visible change for single selection too, noted in the CHANGELOG). Web runtime fixtures for both; the Desktop self-test still passes.
-- TODO M193.2 Navigation Menu submenus
+- DONE M193.2 Navigation Menu submenus
+  - Done: RFC 0063; ownership-scoped script and a vertical orientation whose contents pair by value (absolute panels would overflow the outer popover). Runtime fixture covers click, hover, arrows, and Escape; the original fixture and the Desktop scenario still pass.
 - TODO M193.3 Typed date input for Date Picker
 - TODO M193.4 Pie and donut charts
 
