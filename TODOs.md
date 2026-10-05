@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M170 Drawn Checkbox
-- Current task: M170.4 Complete drawn checkbox milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -3117,7 +3117,7 @@
   - Extend `npm run verify:runtime-interactions` to assert no native appearance, the blue fill and a tick when checked, no mark when unchecked, and a different mark on the blue fill when mixed.
   - Reverse-verify that the script fails without `appearance-none`, without the tick, or without the dash.
 
-- TODO M170.4 Complete drawn checkbox milestone
+- DONE M170.4 Complete drawn checkbox milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and accessibility docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
