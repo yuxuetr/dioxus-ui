@@ -164,6 +164,121 @@ async function expectNoUtilityConflicts(page, label) {
   }
 }
 
+// Lists visible text whose color falls below the WCAG AA contrast minimum
+// against its composited background: 4.5:1, or 3:1 for large text. Disabled
+// and faded elements are exempt. Runs in the page.
+function lowContrastText() {
+  const canvas = document.createElement("canvas");
+  canvas.width = 1;
+  canvas.height = 1;
+  const context = canvas.getContext("2d", { willReadFrequently: true });
+  // The canvas converts oklch and color-mix values to sRGB.
+  const rgba = (color) => {
+    context.clearRect(0, 0, 1, 1);
+    context.fillStyle = color;
+    context.fillRect(0, 0, 1, 1);
+    const [red, green, blue, alpha] = context.getImageData(0, 0, 1, 1).data;
+    return [red, green, blue, alpha / 255];
+  };
+  const over = (top, bottom) => [0, 1, 2].map((i) => top[i] * top[3] + bottom[i] * (1 - top[3])).concat(1);
+  const luminance = (color) => {
+    const [red, green, blue] = color.slice(0, 3).map((channel) => {
+      const value = channel / 255;
+      return value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+    });
+    return 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+  };
+  const backgroundOf = (element) => {
+    const layers = [];
+    for (let node = element; node; node = node.parentElement) {
+      const layer = rgba(getComputedStyle(node).backgroundColor);
+      if (layer[3] > 0) {
+        layers.push(layer);
+      }
+      if (layer[3] === 1) {
+        break;
+      }
+    }
+    return layers.reverse().reduce((below, layer) => over(layer, below), [255, 255, 255, 1]);
+  };
+  const failures = [];
+  for (const element of document.querySelectorAll("body *")) {
+    const hasText = [...element.childNodes].some((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+    const rect = element.getBoundingClientRect();
+    const style = getComputedStyle(element);
+    if (!hasText || rect.width <= 1 || rect.height <= 1 || style.visibility === "hidden") {
+      continue;
+    }
+    if (element.closest("[disabled], [aria-disabled='true'], [data-disabled='true']")) {
+      continue;
+    }
+    let faded = false;
+    for (let node = element; node; node = node.parentElement) {
+      faded ||= Number(getComputedStyle(node).opacity) < 1;
+    }
+    if (faded) {
+      continue;
+    }
+    const background = backgroundOf(element);
+    const [lighter, darker] = [luminance(over(rgba(style.color), background)), luminance(background)].sort(
+      (a, b) => b - a,
+    );
+    const ratio = (lighter + 0.05) / (darker + 0.05);
+    const size = Number.parseFloat(style.fontSize);
+    const minimum = size >= 24 || (size >= 18.66 && Number(style.fontWeight) >= 700) ? 3 : 4.5;
+    if (ratio < minimum) {
+      failures.push(`"${element.textContent.trim().slice(0, 40)}" ${ratio.toFixed(2)}:1 (${element.className})`);
+    }
+  }
+  return failures;
+}
+
+// Text must stay readable in the light theme and under the opt-in `.dark`
+// block, which must turn white surfaces dark.
+async function expectReadableText(page, label) {
+  for (const theme of ["light", "dark"]) {
+    // Components use transition-colors, so wait for the theme switch to settle.
+    await page.evaluate(async (dark) => {
+      document.documentElement.classList.toggle("dark", dark);
+      await Promise.all(
+        document
+          .getAnimations()
+          .filter((animation) => animation instanceof CSSTransition)
+          .map((animation) => animation.finished.catch(() => {})),
+      );
+    }, theme === "dark");
+    if (theme === "dark") {
+      const surface = await page.evaluate(() => {
+        const probe = document.createElement("div");
+        probe.className = "bg-white";
+        document.body.append(probe);
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+        context.fillStyle = getComputedStyle(probe).backgroundColor;
+        context.fillRect(0, 0, 1, 1);
+        probe.remove();
+        return Math.max(...context.getImageData(0, 0, 1, 1).data.slice(0, 3));
+      });
+      if (surface > 40) {
+        throw new Error(`${label}: bg-white under .dark should be a dark surface, got channel ${surface}`);
+      }
+    }
+    const failures = await page.evaluate(lowContrastText);
+    if (failures.length > 0) {
+      throw new Error(`${label} (${theme} theme): low contrast text: ${failures.join("; ")}`);
+    }
+  }
+  await page.evaluate(async () => {
+    document.documentElement.classList.remove("dark");
+    await Promise.all(
+        document
+          .getAnimations()
+          .filter((animation) => animation instanceof CSSTransition)
+          .map((animation) => animation.finished.catch(() => {})),
+      );
+  });
+}
+
 // The border color a lone utility renders, to compare a state against.
 function utilityBorderColor(page, utility) {
   return page.evaluate((className) => {
@@ -223,6 +338,7 @@ async function runBrowserAssertions() {
     await expect(root).toHaveCount(1);
     await expect(page.locator(".sr-only").first()).toHaveCSS("position", "absolute");
     await expectNoUtilityConflicts(page, "initial render");
+    await expectReadableText(page, "initial render");
 
     const disclosure = page.locator('[data-interaction-target="disclosure"]');
     const disclosureTrigger = page.locator('[data-interaction-control="disclosure-trigger"]');
@@ -1960,10 +2076,12 @@ async function runBrowserAssertions() {
     await expect(dialogTrigger).toBeFocused();
     await dialogTrigger.click();
     await expect(dialogContent).toBeVisible();
+    await expectReadableText(page, "open dialog");
     await dialogClose.click();
     await expect(dialogContent).toBeHidden();
     await expect(dialogTrigger).toBeFocused();
     await expectNoUtilityConflicts(page, "after interactions");
+    await expectReadableText(page, "after interactions");
   } finally {
     await browser.close();
   }
