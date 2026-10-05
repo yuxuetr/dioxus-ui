@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 40%
 - Current milestone: M183 Open State Accessibility Audit
-- Current task: M183.2
+- Current task: M183.3
 
 ## Backup
 
@@ -29,8 +29,9 @@
   - Record the decisions, the WebKit audit status, and reevaluation conditions in an RFC.
   - Done: RFC 0055. The Select listbox and the DatePicker dialog take their trigger's name through ids derived from `anchor_id`; WebKit audits stay out until a WebKit-only defect is reported.
 
-- TODO M183.2 Fix the Select and menu item findings
+- DONE M183.2 Fix the Select and menu item findings
   - Link the Select trigger and listbox and name the listbox; set `aria-disabled` on disabled `SelectItem` and `DropdownItem`; in the crate and the templates, with tests.
+  - Done: `SelectContent` renders `id="{anchor_id}-content"` and `aria-labelledby="{anchor_id}"`, and `SelectTrigger` points `aria-controls` at it; a Select without ids renders neither.
 
 - TODO M183.3 Fix the DatePicker and Hover Card findings
   - Name the DatePicker dialog and drop the Hover Card dialog role; in the crate and the templates, with tests.
