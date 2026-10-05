@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M171 Listbox Width Follows Trigger
-- Current task: M171.2 Implement listbox width
+- Current task: M171.3 Verify listbox width in a real browser
 
 ## Backup
 
@@ -3129,7 +3129,7 @@
   - Define an anchor width custom property set by the anchoring script and a Select and Combobox minimum width of the larger of 8rem and the anchor width.
   - Record what stays out of scope (a maximum width, other anchored content, Desktop and Mobile scenarios) with reevaluation conditions.
 
-- TODO M171.2 Implement listbox width
+- DONE M171.2 Implement listbox width
   - Set and clear `--dxui-anchor-width` in the anchoring script of the crate and the template, and use it in the Select and Combobox content classes.
 
 - TODO M171.3 Verify listbox width in a real browser
