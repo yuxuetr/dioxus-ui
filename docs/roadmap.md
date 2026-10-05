@@ -217,4 +217,6 @@ to the phone-width preview layout
 ([RFC 0048](rfcs/0048-phone-width-preview-layout.md)), and M174 to the
 compiled preview stylesheet
 ([RFC 0049](rfcs/0049-compiled-preview-stylesheet.md)), and M175 to the
-preview theme toggle ([RFC 0050](rfcs/0050-preview-theme-toggle.md)).
+preview theme toggle ([RFC 0050](rfcs/0050-preview-theme-toggle.md)), and
+M176 to the semantic color token stylesheet
+([RFC 0051](rfcs/0051-semantic-color-tokens.md)).

@@ -3589,6 +3589,10 @@ The check should validate:
   `@tailwind base`, `@tailwind components`, or `@tailwind utilities`
 - since M172, the preview CSS inputs carry the CLI default `.dark` theme block
   verbatim ([RFC 0047](rfcs/0047-opt-in-dark-theme.md))
+- since M176, the CLI default CSS defines the shadcn/ui semantic color tokens
+  in `:root`, `.dark`, and `@theme inline`, and the preview CSS inputs carry
+  everything after the import verbatim
+  ([RFC 0051](rfcs/0051-semantic-color-tokens.md))
 - since M174, the compiled stylesheet the previews link is checked separately
   by `npm run verify:preview-css`
   ([RFC 0049](rfcs/0049-compiled-preview-stylesheet.md))

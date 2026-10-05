@@ -710,10 +710,11 @@ first.
   draws its box and marks (see RFC 0045); the marks are white images, so
   custom mark colors and forced-colors marks are not included. Select and
   Combobox lists are at least as wide as their trigger (see RFC 0046); other
-  anchored content sizes to its content. The dark theme is an opt-in `.dark`
-  block of palette variables (see RFC 0047); semantic color tokens and a
-  system-preference default are not included, and the block also remaps app
-  classes under `.dark`. Pagination content wraps in narrow containers (see
+  anchored content sizes to its content. The generated stylesheet defines the
+  shadcn/ui semantic color tokens (see RFC 0051), but components still use
+  palette classes until their migration. The dark theme is an opt-in `.dark`
+  class (see RFC 0047); a system-preference default is not included, and the
+  block also remaps app palette classes under `.dark`. Pagination content wraps in narrow containers (see
   RFC 0048); a Pagination that drops pages to fit is not included. The
   previews link a committed compiled stylesheet (see RFC 0049) that must be
   regenerated with `npm run css:preview` after class changes; dioxus-ui

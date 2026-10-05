@@ -207,10 +207,19 @@ release owner renames it to the released version at publish time.
   header that adds the `dark` class to the preview root. The browser check
   and a `theme` scenario in the Desktop, iOS, and Android self-tests press
   it; the self-tests now report ten scenarios.
+- shadcn/ui semantic color tokens: `dxui init` writes `--background`,
+  `--primary`, `--muted-foreground`, and the rest of the shadcn/ui v4 token
+  set in `:root` and `.dark`, plus `--destructive-foreground`, `--success`,
+  `--warning`, and `--info`, and maps them to Tailwind colors with
+  `@theme inline`, so `bg-primary` and similar classes work in app code. The
+  `dark` class also drives app `dark:` utilities through `@custom-variant`.
 
 ### Changed
 
 - Template changelog history has been removed from the project changelog.
+- The generated stylesheet drops the unused `--dxui-background` and
+  `--dxui-foreground` variables; `bg-background` and `text-foreground` now
+  read the `--background` and `--foreground` tokens.
 - `InputOtpHiddenInput` requires a `length` prop, and its class changes from
   `sr-only` to a transparent overlay over the slots; `InputOtp` gains
   `relative` so the input must be its child.

@@ -81,32 +81,67 @@ a precompiled full Tailwind output:
 ```css
 @import "tailwindcss";
 
-@theme {
-  --color-background: var(--dxui-background);
-  --color-foreground: var(--dxui-foreground);
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.141 0.005 285.823);
+  --primary: oklch(0.21 0.006 285.885);
+  --primary-foreground: oklch(0.985 0 0);
+  /* ...the rest of the token set */
+}
+
+.dark {
+  color-scheme: dark;
+  --background: oklch(0.141 0.005 285.823);
+  /* ... */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-primary: var(--primary);
+  /* ... */
 }
 ```
 
 The user's Dioxus app build should produce the final CSS after scanning the app
 source and generated component files.
 
-The generated stylesheet also holds an opt-in dark theme: a `.dark` block
-that redefines the white, zinc, blue, red, green, amber, and emerald palette
-variables. Add the class to the app's top-level element to turn it on:
+The stylesheet defines the shadcn/ui semantic color tokens in the shadcn/ui
+v4 layout ([RFC 0051](docs/rfcs/0051-semantic-color-tokens.md)):
+`--background`, `--foreground`, `--card`, `--popover`, `--primary`,
+`--secondary`, `--muted`, `--accent`, `--destructive`, each with a
+`-foreground` pair where text sits on it, plus `--border`, `--input`,
+`--ring`, `--chart-1` to `--chart-5`, the `--sidebar-*` group, and
+`--radius`. On top of shadcn/ui it adds `--destructive-foreground` and the
+`--success`, `--warning`, and `--info` status colors. `@theme inline` turns
+each token into a Tailwind color, so `bg-primary` and `text-muted-foreground`
+work in app code too. To rebrand, redefine a token in `:root` and `.dark`,
+for example a blue `--primary` and `--ring`. Components move onto the tokens
+in M177; until then they still use palette classes.
+
+The generated stylesheet also holds an opt-in dark theme. Add the `dark` class
+to the app's top-level element to turn it on:
 
 ```rust
-div { class: "dark min-h-screen bg-white text-zinc-950", App {} }
+div { class: "dark min-h-screen bg-background text-foreground", App {} }
 ```
 
-The block remaps those colors for everything under `.dark`, your own classes
-included, so white text over an image turns dark there. To follow the system
-preference instead, wrap the block in `@media (prefers-color-scheme: dark)`
-and change its selector to `:root`. Crate-mode apps copy the block from
+`.dark` redefines the tokens and, until every component uses them, also remaps
+the white, zinc, blue, red, green, amber, and emerald palette variables for
+everything under it, your own classes included, so white text over an image
+turns dark there ([RFC 0047](docs/rfcs/0047-opt-in-dark-theme.md)). The
+`@custom-variant` line makes an app's own `dark:` utilities follow the same
+class. To follow the system preference instead, wrap the `.dark` blocks in
+`@media (prefers-color-scheme: dark)` and change their selector to `:root`.
+The Web, Desktop, and Mobile previews have a "Dark theme" toggle in their
+header that shows the components under the block.
+
+Crate-mode apps get the same stylesheet by running `dxui init`, which writes
+only `assets/dioxus-ui.css` and an empty `src/components/ui/mod.rs`, or by
+copying everything after the import from
 `examples/web-demo/assets/preview.css`, which `npm run verify:css-inputs`
-keeps identical to the generated one;
-[RFC 0047](docs/rfcs/0047-opt-in-dark-theme.md) explains the mapping. The
-Web, Desktop, and Mobile previews have a "Dark theme" toggle in their header
-that shows the components under the block.
+keeps identical to the generated one.
 
 ### Crate Mode
 
