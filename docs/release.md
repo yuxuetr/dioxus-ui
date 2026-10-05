@@ -702,9 +702,11 @@ first.
   (see RFC 0041); it is set after hydration. Slider places its thumb on the
   value and supports a vertical orientation (see RFC 0042); right-to-left and
   multi-thumb sliders are not included. Browser checks run with compiled
-  Tailwind and data variants match attribute values (see RFC 0043); utilities
-  that conflict inside one composed class list, and compiled CSS in the
-  Desktop and Mobile self-tests, are not covered. Date Picker and
+  Tailwind and data variants match attribute values (see RFC 0043); compiled
+  CSS in the Desktop and Mobile self-tests is not covered. Class functions do
+  not join conflicting utilities (see RFC 0044); a user class that sets a
+  property the component sets needs Tailwind's important modifier, and the
+  native Checkbox ignores its border and background classes. Date Picker and
   Calendar implement anchored placement, focus entry, and day keyboard
   navigation (see RFC 0013); typed date parsing and source-copy date arithmetic
   are not included. Dropdown and Context Menu implement menu keyboard

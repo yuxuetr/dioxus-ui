@@ -209,6 +209,14 @@ release owner renames it to the released version at publish time.
   the Tailwind Node API and runs every check with compiled Tailwind; the
   repository gains the `tailwindcss`, `@tailwindcss/node`, and
   `@tailwindcss/oxide` dev dependencies.
+- Base class constants no longer hold utilities that a state replaces, such
+  as `border-zinc-200` in `INPUT_BASE_CLASS` or `w-full` in
+  `SLIDER_ROOT_BASE_CLASS`; the class functions add them for the default
+  state. Input OTP slots show the invalid border instead of the active one
+  when both apply.
+- `npm run verify:tailwind-conflicts` joins the release gate, and
+  `npm run verify:runtime-interactions` fails on conflicting utilities in
+  any rendered class list.
 
 ### Fixed
 
@@ -224,6 +232,12 @@ release owner renames it to the released version at publish time.
   `data-orientation-vertical:` never matched, so orientation, state, and side
   styles never applied.
 - Navigation Menu content opens below its trigger instead of covering it.
+- Class functions no longer join a base utility with a state utility for the
+  same property. Compiled Tailwind ordered them by name, so invalid fields
+  and checked Radio Group items kept their gray border, Toast, Sonner,
+  Alert, and Attachment variants kept the default colors, the collapsed
+  Sidebar width relied on a data variant, and the vertical Slider stayed full
+  width. A vertical Slider root is now `w-5`.
 
 ### Excluded From First Publish
 

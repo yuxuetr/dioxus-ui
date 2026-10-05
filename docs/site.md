@@ -2320,7 +2320,7 @@ input, Collapsible and Native Select events, Input OTP typing, Pagination
 page changes, Carousel slide changes, Resizable handle input, Sidebar
 toggle and items, form control names, dialog names, composite widget names, the Checkbox mixed
 state, and Slider thumb position and vertical sliders, all with compiled
-Tailwind.
+Tailwind and no conflicting utilities in any rendered class list.
 
 It is not part of `npm run verify` or `npm run verify:release`. It does not
 write screenshots or traces, certify full accessibility, verify native Desktop

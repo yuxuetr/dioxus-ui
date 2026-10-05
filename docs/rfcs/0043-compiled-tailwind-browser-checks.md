@@ -75,7 +75,7 @@ Out of scope, with reevaluation conditions:
 
 | Item | Reason | Reevaluate when |
 | --- | --- | --- |
-| Utilities that conflict inside one composed class list, such as the vertical Slider's `w-full` with `w-auto` | Needs a per-element conflict check and fixes across components | M169 |
+| Utilities that conflict inside one composed class list, such as the vertical Slider's `w-full` with `w-auto` | Needs a per-element conflict check and fixes across components | Addressed in M169 ([RFC 0044](0044-tailwind-utility-conflicts.md)) |
 | Compiled CSS in the Desktop and Mobile self-tests | Their scenarios assert behavior, not layout | A WebView layout bug is reported |
 | A compiled stylesheet served by `dx serve` for manual previews | `dx` downloads Tailwind from GitHub at build time, which the offline release gate cannot rely on | `dx` can use a local Tailwind binary |
 

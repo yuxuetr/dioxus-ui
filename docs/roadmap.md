@@ -206,4 +206,6 @@ the Checkbox indeterminate state
 thumb position and vertical orientation
 ([RFC 0042](rfcs/0042-slider-thumb-position-and-vertical-orientation.md)),
 and M168 to compiled Tailwind browser checks
-([RFC 0043](rfcs/0043-compiled-tailwind-browser-checks.md)).
+([RFC 0043](rfcs/0043-compiled-tailwind-browser-checks.md)), and M169 to
+Tailwind utility conflicts
+([RFC 0044](rfcs/0044-tailwind-utility-conflicts.md)).
