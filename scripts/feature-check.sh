@@ -85,4 +85,9 @@ cargo check -q -p dioxus-ui --no-default-features --features "combobox,context-m
 echo "checking all dioxus-ui features"
 cargo check -q -p dioxus-ui --all-features
 
+# The Mobile demo depends on the preview states alone, so the workspace
+# build's feature unification would hide a feature they use but do not enable.
+echo "checking preview states with their own features"
+cargo check -q -p dioxus-ui-preview-states
+
 echo "feature checks passed"
