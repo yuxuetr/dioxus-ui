@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
-- Current milestone: M183 Open State Accessibility Audit
-- Current task: M183.5
+- Overall: 100%
+- Current milestone: none (M183 complete)
+- Current task: none
 
 ## Backup
 
@@ -41,10 +41,11 @@
   - Run the audit while each overlay, menu, and popup fixture is open, and reverse-verify that a reintroduced finding fails the check.
   - Done: 14 open states are audited. The audit also caught an unnamed, unlinked Combobox list that the probe missed, fixed the same way as Select. Reverse checks: the Hover Card dialog role and a `SelectItem` without `aria-disabled` each fail the check.
 
-- TODO M183.5 Complete the open state audit milestone
+- DONE M183.5 Complete the open state audit milestone
   - Update CHANGELOG, the affected component docs, and the docs index.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, `npm run verify:runtime-interactions`, `npm run verify:site`, and the Desktop self-test.
   - Push local commits to `origin/main`.
+  - Done: release gate, runtime check (35 fixtures, 14 open states audited), site check (67 routes, 65 examples), and the Desktop self-test (10 scenarios) pass.
 
 ## Status Rules
 
