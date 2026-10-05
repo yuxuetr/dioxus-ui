@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
-- Current milestone: M186 First Publish
-- Current task: M186.2
+- Overall: 100%
+- Current milestone: none (M186 complete)
+- Current task: none
 
 ## Backup
 
@@ -25,8 +25,9 @@
   - Change `CardTitle` in the crate and the template, with an SSR test, and update the Card docs and CHANGELOG.
   - Done: release gate, site check, and runtime check pass.
 
-- TODO M186.2 Publish 0.1.0
+- DONE M186.2 Publish 0.1.0
   - With a clean tree matching `origin/main`, rerun the publish dry run, run `cargo publish --workspace`, tag `v0.1.0`, and record the release in the docs.
+  - Done: published on 2026-10-05 after the release owner verified the crates.io email (the first attempt was refused before any upload). `cargo install dioxus-shadcn-cli` and a fresh app against the published crates both work.
 
 ## Status Rules
 
