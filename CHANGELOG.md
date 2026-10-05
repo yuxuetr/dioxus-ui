@@ -242,6 +242,9 @@ release owner renames it to the released version at publish time.
   ignored the border and background classes, and draws a tick when checked
   and a dash on the blue fill when mixed, keyed off `data-state` so
   server-rendered HTML shows them.
+- Open Select and Combobox lists are at least as wide as their trigger or
+  input; they sized to their options, so a full-width trigger opened a narrow
+  list. The anchoring script sets `--dxui-anchor-width` on anchored content.
 
 ### Excluded From First Publish
 

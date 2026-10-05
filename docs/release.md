@@ -707,7 +707,9 @@ first.
   not join conflicting utilities (see RFC 0044); a user class that sets a
   property the component sets needs Tailwind's important modifier. Checkbox
   draws its box and marks (see RFC 0045); the marks are white images, so
-  custom mark colors and forced-colors marks are not included. Date Picker and
+  custom mark colors and forced-colors marks are not included. Select and
+  Combobox lists are at least as wide as their trigger (see RFC 0046); other
+  anchored content sizes to its content. Date Picker and
   Calendar implement anchored placement, focus entry, and day keyboard
   navigation (see RFC 0013); typed date parsing and source-copy date arithmetic
   are not included. Dropdown and Context Menu implement menu keyboard
