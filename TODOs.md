@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 90%
+- Overall: 95%
 - Current milestone: M180 Component Pages
-- Current task: M180.4 Add layout, data display, feedback, and messaging examples
+- Current task: M180.5 Complete the component pages
 
 ## Backup
 
@@ -100,7 +100,7 @@
 - DONE M180.3 Add overlays and navigation examples
   - Add examples for every component in the Overlays and Navigation categories.
 
-- TODO M180.4 Add layout, data display, feedback, and messaging examples
+- DONE M180.4 Add layout, data display, feedback, and messaging examples
   - Add examples for every remaining component.
 
 - TODO M180.5 Complete the component pages
