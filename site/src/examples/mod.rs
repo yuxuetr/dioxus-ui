@@ -91,6 +91,7 @@ examples! {
   file_input_upload => "file-input", "Documents";
   swap_icons => "swap", "Icons and text";
   dock_phone => "dock", "Phone tabs";
+  fab_speed_dial => "fab", "Speed dial";
   chart_revenue => "chart", "Area and line";
   data_table_users => "data-table", "Filter, sort, and select";
   empty_projects => "empty", "No projects";

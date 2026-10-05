@@ -1,0 +1,14 @@
+{
+  "name": "fab",
+  "description": "Styled floating action button with an optional speed dial.",
+  "files": [
+    {
+      "source": "templates/fab.rs",
+      "target": "src/components/ui/fab.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

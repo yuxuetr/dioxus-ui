@@ -1394,6 +1394,26 @@ async function runBrowserAssertions() {
     await expect(swapLayer("on")).toHaveCSS("opacity", "1");
     await swapButton.click();
     await expect(swapFixture).toHaveAttribute("data-active", "false");
+    // The Fab speed dial opens and closes from its trigger, renders its
+    // actions only while open, closes on Escape with focus back on the
+    // trigger, and runs an action (RFC 0061).
+    const fabFixture = page.locator('[data-interaction-target="fab"]');
+    const fabTrigger = fabFixture.getByRole("button", { name: "Create", exact: true });
+    const photo = fabFixture.getByRole("button", { name: "Photo", exact: true });
+    await expect(fabTrigger).toHaveAttribute("aria-expanded", "false");
+    await expect(photo).toHaveCount(0);
+    await fabTrigger.click();
+    await expect(fabTrigger).toHaveAttribute("aria-expanded", "true");
+    await expect(photo).toBeVisible();
+    await expectAccessibleOpen(page, "open fab");
+    await photo.focus();
+    await page.keyboard.press("Escape");
+    await expect(fabFixture).toHaveAttribute("data-open", "false");
+    await expect(fabTrigger).toBeFocused();
+    await fabTrigger.press("Enter");
+    await fabFixture.getByRole("button", { name: "Note", exact: true }).click();
+    await expect(fabFixture).toHaveAttribute("data-action", "note");
+    await expect(fabFixture).toHaveAttribute("data-open", "false");
     const sliderFixture = page.locator('[data-interaction-target="slider"]');
     const volume = sliderFixture.getByRole("slider", { name: "Volume", exact: true });
     const locked = sliderFixture.getByRole("slider", { name: "Locked", exact: true });
@@ -2118,7 +2138,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (41 fixtures)");
+  console.log("runtime interaction verification passed (42 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

@@ -56,6 +56,7 @@ use dioxus_shadcn::{
   CarouselState, CarouselStep, CarouselViewport, carousel_can_go_next, carousel_can_go_previous,
 };
 use dioxus_shadcn::{Diff, DiffAfter, DiffBefore};
+use dioxus_shadcn::{Fab, FabAction};
 use dioxus_shadcn::{
   InputOtp, InputOtpGroup, InputOtpHiddenInput, InputOtpSlot, Pagination, PaginationContent,
   PaginationItem, PaginationLink, PaginationNext, PaginationPrevious,
@@ -349,6 +350,14 @@ pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
     test_id: "component-preview-empty",
     coverage_level: "static",
     notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
+    component: "fab",
+    label: "Fab",
+    panel: "actions",
+    test_id: "component-preview-fab",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
   },
   ComponentPreviewTarget {
     component: "field",
@@ -915,6 +924,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut topics = use_signal(Vec::<String>::new);
   let mut chosen_files = use_signal(String::new);
   let mut menu_swapped = use_signal(|| false);
+  let mut fab_open = use_signal(|| false);
+  let mut fab_action = use_signal(String::new);
   let mut locked_slider_changes = use_signal(|| 0_u32);
   let mut details_open = use_signal(|| false);
   let mut size_value = use_signal(|| "md".to_string());
@@ -2012,6 +2023,37 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               on_active_change: move |active| menu_swapped.set(active),
               on: rsx! { span { "data-swap-layer": "on", "×" } },
               off: rsx! { span { "data-swap-layer": "off", "≡" } },
+            }
+          }
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "fab",
+            "data-open": "{fab_open}",
+            "data-action": "{fab_action}",
+            h2 { class: "text-sm font-medium", "Fab interaction" }
+            Fab {
+              class: "mt-3 w-fit",
+              fixed: false,
+              "aria-label": "Create",
+              open: fab_open(),
+              on_open_change: move |open| fab_open.set(open),
+              icon: rsx! { "+" },
+              FabAction {
+                label: "Photo",
+                onclick: move |_| {
+                  fab_action.set("photo".to_string());
+                  fab_open.set(false);
+                },
+                "P"
+              }
+              FabAction {
+                label: "Note",
+                onclick: move |_| {
+                  fab_action.set("note".to_string());
+                  fab_open.set(false);
+                },
+                "N"
+              }
             }
           }
           article {

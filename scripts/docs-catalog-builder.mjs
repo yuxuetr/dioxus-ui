@@ -80,6 +80,7 @@ const componentCategories = {
   "toggle-group": "actions",
   tooltip: "overlays",
   typography: "data-display",
+  fab: "actions",
   dock: "navigation",
   swap: "actions",
   "file-input": "forms",

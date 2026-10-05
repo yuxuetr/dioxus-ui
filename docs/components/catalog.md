@@ -10,7 +10,7 @@ The catalog is derived from registry entries, templates, component docs,
 crate features, and crate modules. It intentionally does not include visual
 preview routes, screenshot artifacts, or generated JSON metadata.
 
-Public components: 78
+Public components: 79
 
 ## Groups
 
@@ -19,6 +19,7 @@ Public components: 78
 - [Button](button.md): Button component with variants, sizes, and density-aware spacing.
 - [Button Group](button-group.md): Button Group component for grouped command buttons.
 - [Command](command.md): Controlled command palette parts with active descendant semantics.
+- [Fab](fab.md): Styled floating action button with an optional speed dial.
 - [Kbd](kbd.md): Styled keyboard shortcut hint.
 - [Swap](swap.md): Styled toggle button that swaps between two elements.
 - [Toggle](toggle.md): Toggle component for controlled pressed button states.
@@ -150,6 +151,7 @@ Public components: 78
 | [Drawer](drawer.md) | Mobile-oriented bottom drawer components backed by dialog primitive configuration. | `dxui add drawer` | `drawer` | `crates/dioxus-shadcn-cli/templates/drawer.rs` | `src/components/ui/drawer.rs` |
 | [Dropdown](dropdown.md) | Dropdown menu components backed by primitive configuration types. | `dxui add dropdown` | `dropdown` | `crates/dioxus-shadcn-cli/templates/dropdown.rs` | `src/components/ui/dropdown.rs` |
 | [Empty](empty.md) | Empty-state layout composition parts. | `dxui add empty` | `empty` | `crates/dioxus-shadcn-cli/templates/empty.rs` | `src/components/ui/empty.rs` |
+| [Fab](fab.md) | Styled floating action button with an optional speed dial. | `dxui add fab` | `fab` | `crates/dioxus-shadcn-cli/templates/fab.rs` | `src/components/ui/fab.rs` |
 | [Field](field.md) | Form field layout composition parts. | `dxui add field` | `field` | `crates/dioxus-shadcn-cli/templates/field.rs` | `src/components/ui/field.rs` |
 | [File Input](file-input.md) | Styled native file input that passes the change event through. | `dxui add file-input` | `file-input` | `crates/dioxus-shadcn-cli/templates/file_input.rs` | `src/components/ui/file_input.rs` |
 | [Hover Card](hover-card.md) | Controlled rich preview content backed by popover primitive configuration. | `dxui add hover-card` | `hover-card` | `crates/dioxus-shadcn-cli/templates/hover_card.rs` | `src/components/ui/hover_card.rs` |

@@ -714,6 +714,9 @@ pub mod tooltip;
 pub mod typography;
 
 pub use dioxus_shadcn_core::UiDensity;
+#[cfg(feature = "fab")]
+pub mod fab;
+
 #[cfg(feature = "dock")]
 pub mod dock;
 
@@ -895,4 +898,11 @@ pub use dock::{
   DOCK_BASE_CLASS, DOCK_FIXED_CLASS, DOCK_ITEM_ACTIVE_CLASS, DOCK_ITEM_BASE_CLASS,
   DOCK_ITEM_INACTIVE_CLASS, DOCK_LABEL_CLASS, DOCK_STATIC_CLASS, Dock, DockItem, DockLabel,
   dock_class, dock_item_class, dock_label_class,
+};
+
+#[cfg(feature = "fab")]
+pub use fab::{
+  FAB_ACTION_CLASS, FAB_ACTION_ICON_CLASS, FAB_ACTION_LABEL_CLASS, FAB_ACTIONS_CLASS,
+  FAB_BASE_CLASS, FAB_FIXED_CLASS, FAB_STATIC_CLASS, FAB_TRIGGER_CLASS, Fab, FabAction,
+  fab_action_class, fab_class,
 };

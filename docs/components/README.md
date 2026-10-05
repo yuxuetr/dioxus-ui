@@ -160,6 +160,7 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["button
 | [Drawer](drawer.md) | `dxui add drawer` | `drawer` | Dialog-backed bottom drawer |
 | [Dropdown](dropdown.md) | `dxui add dropdown` | `dropdown` | Primitive config + styled parts |
 | [Empty](empty.md) | `dxui add empty` | `empty` | Empty-state composition parts |
+| [Fab](fab.md) | `dxui add fab` | `fab` | Floating action button and speed dial |
 | [Field](field.md) | `dxui add field` | `field` | Form field composition parts |
 | [File Input](file-input.md) | `dxui add file-input` | `file-input` | Styled native file input |
 | [Hover Card](hover-card.md) | `dxui add hover-card` | `hover-card` | Popover-backed preview content |

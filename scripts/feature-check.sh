@@ -83,6 +83,7 @@ features=(
   file-input
   swap
   dock
+  fab
 )
 
 for feature in "${features[@]}"; do

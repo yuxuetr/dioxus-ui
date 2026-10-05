@@ -13,21 +13,21 @@ parity.
 
 ## Summary
 
-- Public components: 78
-- Registry entries: 79
+- Public components: 79
+- Registry entries: 80
 - Source-copy helpers: utils
-- Templates: 79
-- Crate modules: 78
-- Crate features: 78
-- Component docs pages: 78
-- Complete local wiring: 78
+- Templates: 80
+- Crate modules: 79
+- Crate features: 79
+- Component docs pages: 79
+- Complete local wiring: 79
 - Incomplete local wiring: 0
 
 ## Category Counts
 
 | Category | Components |
 | --- | ---: |
-| Actions | 7 |
+| Actions | 8 |
 | Forms | 18 |
 | Overlays | 11 |
 | Navigation | 7 |
@@ -43,6 +43,7 @@ parity.
 | Button | Actions | yes | yes | yes | yes | yes | yes | yes |
 | Button Group | Actions | yes | yes | yes | yes | yes | yes | yes |
 | Command | Actions | yes | yes | yes | yes | yes | yes | yes |
+| Fab | Actions | yes | yes | yes | yes | yes | yes | yes |
 | Kbd | Actions | yes | yes | yes | yes | yes | yes | yes |
 | Swap | Actions | yes | yes | yes | yes | yes | yes | yes |
 | Toggle | Actions | yes | yes | yes | yes | yes | yes | yes |
@@ -126,6 +127,7 @@ parity.
 | Button | Actions | [docs](button.md) | `dxui add button` | `button` | `crates/dioxus-shadcn-cli/templates/button.rs` | `src/components/ui/button.rs` |
 | Button Group | Actions | [docs](button-group.md) | `dxui add button-group` | `button-group` | `crates/dioxus-shadcn-cli/templates/button_group.rs` | `src/components/ui/button_group.rs` |
 | Command | Actions | [docs](command.md) | `dxui add command` | `command` | `crates/dioxus-shadcn-cli/templates/command.rs` | `src/components/ui/command.rs` |
+| Fab | Actions | [docs](fab.md) | `dxui add fab` | `fab` | `crates/dioxus-shadcn-cli/templates/fab.rs` | `src/components/ui/fab.rs` |
 | Kbd | Actions | [docs](kbd.md) | `dxui add kbd` | `kbd` | `crates/dioxus-shadcn-cli/templates/kbd.rs` | `src/components/ui/kbd.rs` |
 | Swap | Actions | [docs](swap.md) | `dxui add swap` | `swap` | `crates/dioxus-shadcn-cli/templates/swap.rs` | `src/components/ui/swap.rs` |
 | Toggle | Actions | [docs](toggle.md) | `dxui add toggle` | `toggle` | `crates/dioxus-shadcn-cli/templates/toggle.rs` | `src/components/ui/toggle.rs` |

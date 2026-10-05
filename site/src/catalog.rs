@@ -38,6 +38,12 @@ pub const CATEGORIES: &[Category] = &[
         feature: "command",
       },
       Component {
+        slug: "fab",
+        title: "Fab",
+        description: "Styled floating action button with an optional speed dial.",
+        feature: "fab",
+      },
+      Component {
         slug: "kbd",
         title: "Kbd",
         description: "Styled keyboard shortcut hint.",
