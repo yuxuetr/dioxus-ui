@@ -383,6 +383,18 @@ layout styles. Serving the uncompiled stylesheet, the bare `data-disabled:`
 variant, which disables every enabled Select option, or Navigation Menu
 content at `top-0`, which covers its trigger, each make the verifier fail.
 
+M169 adds rendered conflict checks from
+[RFC 0044](../rfcs/0044-tailwind-utility-conflicts.md). After the first
+render and again after the interactions, the verifier reads every class list
+on the page and fails when two utilities set the same property under the
+same variant. It also checks that the checked Radio Group item has the
+border color a lone `border-blue-600` renders and an unchecked item the
+`border-zinc-300` color, and that the vertical Balance slider is at most
+20px wide. Fixture overrides of a property a component sets use the important
+modifier, such as `bg-blue-100!`. A fixture override without it, the base
+Radio Group border restored, or a full-width vertical Slider each make the
+verifier fail.
+
 ## Documentation Alignment
 
 M111 should keep these files aligned:

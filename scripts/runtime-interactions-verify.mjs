@@ -4,7 +4,7 @@ import { once } from "node:events";
 import { spawn } from "node:child_process";
 import { existsSync } from "node:fs";
 import { chromium, expect } from "@playwright/test";
-import { compilePreviewCss } from "./preview-tailwind.mjs";
+import { compilePreviewCss, utilityConflicts } from "./preview-tailwind.mjs";
 
 const repoRoot = new URL("..", import.meta.url).pathname;
 const host = "127.0.0.1";
@@ -152,6 +152,30 @@ async function expectFocused(page, selector, label) {
   }
 }
 
+// Every rendered class list must leave one utility per property, or the
+// stylesheet order rather than the component state decides the style.
+async function expectNoUtilityConflicts(page, label) {
+  const classLists = await page.evaluate(() =>
+    [...document.querySelectorAll("[class]")].map((element) => element.getAttribute("class")),
+  );
+  const conflicts = await utilityConflicts(classLists);
+  if (conflicts.length > 0) {
+    throw new Error(`${label}: conflicting Tailwind utilities: ${conflicts.join(", ")}`);
+  }
+}
+
+// The border color a lone utility renders, to compare a state against.
+function utilityBorderColor(page, utility) {
+  return page.evaluate((className) => {
+    const probe = document.createElement("div");
+    probe.className = `border ${className}`;
+    document.body.append(probe);
+    const color = getComputedStyle(probe).borderTopColor;
+    probe.remove();
+    return color;
+  }, utility);
+}
+
 async function runBrowserAssertions() {
   let browser;
 
@@ -186,6 +210,7 @@ async function runBrowserAssertions() {
     const root = page.locator('[data-interaction-root="runtime"]');
     await expect(root).toHaveCount(1);
     await expect(page.locator(".sr-only").first()).toHaveCSS("position", "absolute");
+    await expectNoUtilityConflicts(page, "initial render");
 
     const disclosure = page.locator('[data-interaction-target="disclosure"]');
     const disclosureTrigger = page.locator('[data-interaction-control="disclosure-trigger"]');
@@ -992,6 +1017,9 @@ async function runBrowserAssertions() {
     await radio("large").click();
     await expect(radioGroup).toHaveAttribute("data-value", "large");
     await expect(radio("large")).toHaveAttribute("tabindex", "0");
+    // The checked border replaces the unchecked one.
+    await expect(radio("large")).toHaveCSS("border-top-color", await utilityBorderColor(page, "border-blue-600"));
+    await expect(radio("small")).toHaveCSS("border-top-color", await utilityBorderColor(page, "border-zinc-300"));
 
     const toggleGroup = page.locator('[data-interaction-target="toggle-group"]');
     await expect(toggleGroup.getByRole("group", { name: "Text style", exact: true })).toHaveCount(1);
@@ -1300,6 +1328,9 @@ async function runBrowserAssertions() {
     const balance = sliderFixture.getByRole("slider", { name: "Balance", exact: true });
     await expect(balance).toHaveAttribute("aria-orientation", "vertical");
     const balanceBox = await balance.boundingBox();
+    // The vertical root shrinks to its track instead of the full width.
+    expect(balanceBox.width).toBeLessThanOrEqual(20);
+    expect(balanceBox.height).toBe(128);
     const thumbFromBottom = async () => Math.round(balanceBox.y + balanceBox.height - (await thumbCenter(balance)).y);
     await expect.poll(thumbFromBottom).toBe(Math.round(balanceBox.height * 0.5));
     await page.mouse.click(balanceBox.x + balanceBox.width / 2, balanceBox.y + balanceBox.height * 0.2);
@@ -1899,6 +1930,7 @@ async function runBrowserAssertions() {
     await dialogClose.click();
     await expect(dialogContent).toBeHidden();
     await expect(dialogTrigger).toBeFocused();
+    await expectNoUtilityConflicts(page, "after interactions");
   } finally {
     await browser.close();
   }

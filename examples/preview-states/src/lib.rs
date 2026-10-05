@@ -838,8 +838,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
     "max-w-md",
   );
   let bubble = bubble_class(BubbleAlign::Start, "rounded-xl bg-zinc-100 p-3");
-  let marker = marker_class(MarkerVariant::Border, "text-blue-700");
-  let scroller = message_scroller_class(MessageScrollerIntent::Hold, "h-64 overflow-auto");
+  let marker = marker_class(MarkerVariant::Border, "text-blue-700!");
+  let scroller = message_scroller_class(MessageScrollerIntent::Hold, "h-64 overflow-auto!");
   let chart_series = ChartSeries::new(
     "revenue",
     "Revenue",
@@ -890,12 +890,12 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           div {
             class: "rounded-md bg-zinc-50 p-3 text-sm",
             "data-mobile-profile": "touch-targets",
-            button { class: "{primary_button_class} min-h-11 w-full", "Touch target" }
+            button { class: "{primary_button_class} min-h-11! w-full", "Touch target" }
           }
           div {
             class: "rounded-md bg-zinc-50 p-3 text-sm",
             "data-mobile-profile": "hover-alternative",
-            button { class: "{secondary_button_class} min-h-11 w-full", "Tap or focus" }
+            button { class: "{secondary_button_class} min-h-11! w-full", "Tap or focus" }
           }
           div {
             class: "rounded-md bg-zinc-50 p-3 text-sm",
@@ -966,7 +966,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               class: "{message_group}",
               div {
                 class: "{user_message}",
-                div { class: "{message_avatar_class(\"bg-blue-100\")}", "U" }
+                div { class: "{message_avatar_class(\"bg-blue-100!\")}", "U" }
                 div {
                   class: "{user_content}",
                   div { class: "{message_header_class(\"\")}", "User - just now" }
@@ -976,7 +976,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               }
               div {
                 class: "{assistant_message}",
-                div { class: "{message_avatar_class(\"bg-zinc-200\")}", "A" }
+                div { class: "{message_avatar_class(\"bg-zinc-200!\")}", "A" }
                 div {
                   class: "{assistant_content}",
                   div { class: "{message_header_class(\"\")}", "Assistant - preview" }
@@ -1920,13 +1920,13 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 disabled: !carousel_can_go_previous(carousel_state().index, 3, false),
                 title: "Previous product",
                 onclick: move |_| carousel_state.set(carousel_state().previous()),
-                "Previous"
+                "‹"
               }
               CarouselNext {
                 disabled: !carousel_can_go_next(carousel_state().index, 3, false),
                 title: "Next product",
                 onclick: move |_| carousel_state.set(carousel_state().next()),
-                "Next"
+                "›"
               }
               for slide in 0..3_usize {
                 CarouselIndicator {
@@ -2248,7 +2248,6 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 "data-interaction-control": "dialog-input",
               }
               DialogClose {
-                class: "{secondary_button_class}",
                 on_open_change: move |open| dialog_open.set(open),
                 "Cancel"
               }
@@ -2368,7 +2367,7 @@ impl PreviewConfig {
         bottom_threshold: 24.0,
         jump_button_class: "rounded-full",
         marker_variant: MarkerVariant::Border,
-        marker_class: "text-blue-700",
+        marker_class: "text-blue-700!",
         chart_id: "revenue",
         chart_label: "Revenue",
         chart_points: vec![
@@ -2417,7 +2416,7 @@ impl PreviewConfig {
         bottom_threshold: 16.0,
         jump_button_class: "text-red-700",
         marker_variant: MarkerVariant::Separator,
-        marker_class: "text-red-700",
+        marker_class: "text-red-700!",
         chart_id: "cost",
         chart_label: "Cost",
         chart_points: vec![
