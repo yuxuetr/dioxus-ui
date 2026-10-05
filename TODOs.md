@@ -4,7 +4,7 @@
 
 - Overall: 0.2.0 plan, 3 of 8 milestones complete
 - Current milestone: M190 Display Components
-- Current task: M190.6
+- Current task: M190.7
 
 ## Backup
 
@@ -68,7 +68,8 @@
   - Done: logical-placement Indicator and a labelled-or-hidden Status dot. `docs/components/status.md` clashed with the generated status page, which moved to `component-status.md`.
 - DONE M190.5 Radial Progress
   - Done: SVG progressbar ring with clamped value, default percentage label replaced by children; checked in a screenshot.
-- TODO M190.6 Countdown
+- DONE M190.6 Countdown
+  - Done: language-neutral `D:HH:MM:SS` timer with `countdown_parts` for labelled layouts; the site example's clock was checked ticking in a browser.
 - TODO M190.7 Diff
 
 ## M191 Input Components
