@@ -73,7 +73,19 @@ const requiredPreviewFragments = [
   '@source "../../preview-states/src";',
 ];
 
+// The previews carry the CLI's opt-in dark theme block verbatim, so browser
+// checks exercise the theme `dxui init` generates.
+const darkThemeStart = cliSource.indexOf("/* Opt-in dark theme");
+const darkThemeBlock =
+  darkThemeStart < 0 ? "" : cliSource.slice(darkThemeStart, cliSource.indexOf("\n}\n", darkThemeStart) + 3);
+if (!darkThemeBlock.includes(".dark {")) {
+  failures.push("crates/dioxus-ui-cli/src/main.rs DEFAULT_CSS missing the opt-in dark theme block");
+}
+
 for (const { label, source } of previewCssInputs) {
+  if (darkThemeBlock && !source.includes(darkThemeBlock)) {
+    failures.push(`${label} dark theme block differs from the CLI DEFAULT_CSS block`);
+  }
   for (const fragment of requiredPreviewFragments) {
     assertIncludes({ label, source, fragment });
   }
