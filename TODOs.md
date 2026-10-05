@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M171 Listbox Width Follows Trigger
-- Current task: M171.3 Verify listbox width in a real browser
+- Current task: M171.4 Complete listbox width milestone
 
 ## Backup
 
@@ -3132,7 +3132,7 @@
 - DONE M171.2 Implement listbox width
   - Set and clear `--dxui-anchor-width` in the anchoring script of the crate and the template, and use it in the Select and Combobox content classes.
 
-- TODO M171.3 Verify listbox width in a real browser
+- DONE M171.3 Verify listbox width in a real browser
   - Extend `npm run verify:runtime-interactions` to assert that the open Select and Combobox lists are at least as wide as their trigger and input.
   - Reverse-verify that the script fails without the custom property or with the previous `min-w-32`.
 
