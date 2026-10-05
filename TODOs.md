@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
-- Current milestone: M185 Release Notes Finalization
-- Current task: M185.2
+- Overall: 100%
+- Current milestone: none (M185 complete)
+- Current task: none
 
 ## Backup
 
@@ -26,8 +26,9 @@
   - Add a short user guide as the packages' README: the crates, source-copy and crate-mode setup (including the crate `@source` line), the theme, the components, and status; compile its examples.
   - Done: `crates/README.md` is the workspace `readme`. Both setups compile from a scratch app, and Tailwind generates the component classes only with the crate `@source` line. The packaged README dropped the core crate archive from 16 KiB to 5 KiB.
 
-- TODO M185.2 Name the 0.1.0 release in the changelog
+- DONE M185.2 Name the 0.1.0 release in the changelog
   - Rename `[Unreleased]` to `[0.1.0]` with the release date, keep the gates passing, rerun the publish dry run, and push.
+  - Done: `[0.1.0] - 2026-10-05` under an empty `[Unreleased]`. The release gate first failed because two gates read `crates/README.md` as a crate; they now list directories only. The dry run packages and verifies all four crates.
 
 ## Status Rules
 
