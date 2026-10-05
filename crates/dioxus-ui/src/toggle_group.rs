@@ -12,7 +12,7 @@ pub enum ToggleGroupType {
 }
 
 pub const TOGGLE_GROUP_BASE_CLASS: &str = "inline-flex gap-1";
-pub const TOGGLE_GROUP_ITEM_BASE_CLASS: &str = "inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
+pub const TOGGLE_GROUP_ITEM_BASE_CLASS: &str = "inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
 pub fn toggle_group_class(orientation: NavigationOrientation, class: &str) -> String {
   let orientation_class = match orientation {
@@ -24,11 +24,8 @@ pub fn toggle_group_class(orientation: NavigationOrientation, class: &str) -> St
 }
 
 pub fn toggle_group_item_class(pressed: bool, class: &str) -> String {
-  let pressed_class = if pressed {
-    "bg-zinc-900 text-white hover:bg-zinc-800"
-  } else {
-    "bg-transparent hover:bg-zinc-100"
-  };
+  let pressed_class =
+    if pressed { "bg-accent text-accent-foreground" } else { "bg-transparent hover:bg-accent" };
 
   classes([Some(TOGGLE_GROUP_ITEM_BASE_CLASS), Some(pressed_class), Some(class)])
 }
@@ -165,7 +162,7 @@ mod tests {
     let actual = toggle_group_item_class(true, "min-w-10");
 
     assert!(actual.contains(TOGGLE_GROUP_ITEM_BASE_CLASS));
-    assert!(actual.contains("bg-zinc-900 text-white hover:bg-zinc-800"));
+    assert!(actual.contains("bg-accent text-accent-foreground"));
     assert!(actual.ends_with("min-w-10"));
   }
 

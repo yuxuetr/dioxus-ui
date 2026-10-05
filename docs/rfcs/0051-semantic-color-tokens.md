@@ -131,11 +131,14 @@ Blue stops being the brand color: checked states and the primary Button turn
 near-black in the light theme and near-white in the dark theme, as in
 shadcn/ui. An app restores a blue brand by setting `--primary` and `--ring`.
 
-The Checkbox marks cannot stay data-URI backgrounds, because a data URI
-cannot read a CSS variable and the white stroke disappears on the
-near-white dark-theme primary. M177.1 draws the marks as an inline SVG over
-the input with `text-primary-foreground`, keeping the native input for focus,
-forms, and `indeterminate`.
+The Checkbox marks stay data-URI backgrounds (RFC 0045), but a data URI
+cannot read a CSS variable, and the white stroke disappears on the
+near-white dark-theme primary. The marks therefore get a `dark:` twin with a
+zinc-900 stroke, the dark `--primary-foreground`. Drawing the marks as an
+inline SVG over the input would follow the token, but needs a wrapper
+element, which breaks `peer-*` styling on a sibling Label. An app that sets
+`--primary-foreground` to a color far from white or zinc-900 overrides the
+marks through `class`; reevaluate when an app reports that.
 
 ### Stylesheet setup
 

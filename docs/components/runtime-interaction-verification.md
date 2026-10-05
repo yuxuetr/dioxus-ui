@@ -388,7 +388,7 @@ M169 adds rendered conflict checks from
 render and again after the interactions, the verifier reads every class list
 on the page and fails when two utilities set the same property under the
 same variant. It also checks that the checked Radio Group item has the
-border color a lone `border-blue-600` renders and an unchecked item the
+border color a lone `border-blue-600` renders (`border-primary` since M177) and an unchecked item the
 `border-zinc-300` color, and that the vertical Balance slider is at most
 20px wide. Fixture overrides of a property a component sets use the important
 modifier, such as `bg-blue-100!`. A fixture override without it, the base
@@ -398,7 +398,7 @@ verifier fail.
 M170 adds drawn Checkbox checks from
 [RFC 0045](../rfcs/0045-drawn-checkbox.md). The verifier checks that a
 checked Checkbox has `appearance: none`, the color a lone `bg-blue-600`
-renders, and an SVG background image, that an unchecked one has no
+renders (`bg-primary` since M177), and an SVG background image, that an unchecked one has no
 background image, and that the mixed Select all checkbox has the blue fill
 and an SVG mark different from the tick. Keeping the native appearance, or
 removing the tick or the dash, each make the verifier fail.

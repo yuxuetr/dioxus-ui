@@ -15,12 +15,12 @@ pub enum ButtonVariant {
 impl ButtonVariant {
   pub const fn class(self) -> &'static str {
     match self {
-      Self::Primary => "bg-blue-600 text-white hover:bg-blue-700",
-      Self::Secondary => "bg-zinc-100 text-zinc-900 hover:bg-zinc-200",
-      Self::Destructive => "bg-red-600 text-white hover:bg-red-700",
-      Self::Outline => "border border-zinc-200 bg-white hover:bg-zinc-100",
-      Self::Ghost => "bg-transparent hover:bg-zinc-100",
-      Self::Link => "bg-transparent text-blue-600 underline-offset-4 hover:underline",
+      Self::Primary => "bg-primary text-primary-foreground hover:bg-primary/90",
+      Self::Secondary => "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+      Self::Destructive => "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+      Self::Outline => "border border-input bg-background hover:bg-accent",
+      Self::Ghost => "bg-transparent hover:bg-accent",
+      Self::Link => "bg-transparent text-primary underline-offset-4 hover:underline",
     }
   }
 }
@@ -109,7 +109,7 @@ mod tests {
       button_class(ButtonVariant::Destructive, ButtonSize::Lg, UiDensity::Touch, "w-full");
 
     assert!(actual.contains(BUTTON_BASE_CLASS));
-    assert!(actual.contains("bg-red-600 text-white hover:bg-red-700"));
+    assert!(actual.contains("bg-destructive text-destructive-foreground hover:bg-destructive/90"));
     assert!(actual.contains("h-12 px-6 text-base"));
     assert!(actual.contains("min-h-12"));
     assert!(actual.ends_with("w-full"));
@@ -119,8 +119,8 @@ mod tests {
   fn button_class_preserves_static_tailwind_tokens() {
     let actual = button_class(ButtonVariant::Primary, ButtonSize::Md, UiDensity::Comfortable, "");
 
-    assert!(actual.contains("bg-blue-600"));
-    assert!(actual.contains("hover:bg-blue-700"));
+    assert!(actual.contains("bg-primary"));
+    assert!(actual.contains("hover:bg-primary/90"));
     assert!(!actual.contains("{}"));
   }
 }

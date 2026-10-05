@@ -1107,14 +1107,23 @@
   .border-blue-200 {
     border-color: var(--color-blue-200);
   }
-  .border-blue-600 {
-    border-color: var(--color-blue-600);
+  .border-border {
+    border-color: var(--border);
+  }
+  .border-destructive {
+    border-color: var(--destructive);
   }
   .border-emerald-200 {
     border-color: var(--color-emerald-200);
   }
   .border-green-200 {
     border-color: var(--color-green-200);
+  }
+  .border-input {
+    border-color: var(--input);
+  }
+  .border-primary {
+    border-color: var(--primary);
   }
   .border-red-200 {
     border-color: var(--color-red-200);
@@ -1124,6 +1133,9 @@
   }
   .border-red-500 {
     border-color: var(--color-red-500);
+  }
+  .border-ring {
+    border-color: var(--ring);
   }
   .border-transparent {
     border-color: transparent;
@@ -1146,11 +1158,17 @@
   .border-l-transparent {
     border-left-color: transparent;
   }
+  .bg-accent {
+    background-color: var(--accent);
+  }
   .bg-amber-50 {
     background-color: var(--color-amber-50);
   }
   .bg-amber-500 {
     background-color: var(--color-amber-500);
+  }
+  .bg-background {
+    background-color: var(--background);
   }
   .bg-black\/50 {
     background-color: color-mix(in srgb, #000 50%, transparent);
@@ -1170,6 +1188,12 @@
   .bg-blue-600 {
     background-color: var(--color-blue-600);
   }
+  .bg-border {
+    background-color: var(--border);
+  }
+  .bg-destructive {
+    background-color: var(--destructive);
+  }
   .bg-emerald-50 {
     background-color: var(--color-emerald-50);
   }
@@ -1179,6 +1203,15 @@
   .bg-green-600 {
     background-color: var(--color-green-600);
   }
+  .bg-input {
+    background-color: var(--input);
+  }
+  .bg-muted {
+    background-color: var(--muted);
+  }
+  .bg-popover {
+    background-color: var(--popover);
+  }
   .bg-primary {
     background-color: var(--primary);
   }
@@ -1187,6 +1220,9 @@
   }
   .bg-red-600 {
     background-color: var(--color-red-600);
+  }
+  .bg-secondary {
+    background-color: var(--secondary);
   }
   .bg-transparent {
     background-color: transparent;
@@ -1424,6 +1460,9 @@
   .whitespace-nowrap {
     white-space: nowrap;
   }
+  .text-accent-foreground {
+    color: var(--accent-foreground);
+  }
   .text-amber-600 {
     color: var(--color-amber-600);
   }
@@ -1448,6 +1487,15 @@
   .text-blue-950 {
     color: var(--color-blue-950);
   }
+  .text-destructive {
+    color: var(--destructive);
+  }
+  .text-destructive-foreground {
+    color: var(--destructive-foreground);
+  }
+  .text-foreground {
+    color: var(--foreground);
+  }
   .text-green-600 {
     color: var(--color-green-600);
   }
@@ -1456,6 +1504,18 @@
   }
   .text-green-950 {
     color: var(--color-green-950);
+  }
+  .text-muted-foreground {
+    color: var(--muted-foreground);
+  }
+  .text-popover-foreground {
+    color: var(--popover-foreground);
+  }
+  .text-primary {
+    color: var(--primary);
+  }
+  .text-primary-foreground {
+    color: var(--primary-foreground);
   }
   .text-red-500 {
     color: var(--color-red-500);
@@ -1477,6 +1537,9 @@
   }
   .text-red-950 {
     color: var(--color-red-950);
+  }
+  .text-secondary-foreground {
+    color: var(--secondary-foreground);
   }
   .text-transparent {
     color: transparent;
@@ -1568,11 +1631,11 @@
     --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
-  .ring-blue-600 {
-    --tw-ring-color: var(--color-blue-600);
+  .ring-destructive {
+    --tw-ring-color: var(--destructive);
   }
-  .ring-red-500 {
-    --tw-ring-color: var(--color-red-500);
+  .ring-ring {
+    --tw-ring-color: var(--ring);
   }
   .outline {
     outline-style: var(--tw-outline-style);
@@ -1623,6 +1686,9 @@
   }
   .peer-disabled\:opacity-70:is(:where(.peer):disabled ~ *) {
     opacity: 70%;
+  }
+  .placeholder\:text-muted-foreground::placeholder {
+    color: var(--muted-foreground);
   }
   .placeholder\:text-zinc-500::placeholder {
     color: var(--color-zinc-500);
@@ -1676,33 +1742,54 @@
     --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
-  .focus-within\:ring-blue-600:focus-within {
-    --tw-ring-color: var(--color-blue-600);
+  .focus-within\:ring-destructive:focus-within {
+    --tw-ring-color: var(--destructive);
   }
-  .focus-within\:ring-red-500:focus-within {
-    --tw-ring-color: var(--color-red-500);
+  .focus-within\:ring-ring:focus-within {
+    --tw-ring-color: var(--ring);
   }
   @media (hover: hover) {
+    .hover\:bg-accent:hover {
+      background-color: var(--accent);
+    }
     .hover\:bg-blue-200:hover {
       background-color: var(--color-blue-200);
     }
     .hover\:bg-blue-700:hover {
       background-color: var(--color-blue-700);
     }
+    .hover\:bg-destructive\/90:hover {
+      background-color: var(--destructive);
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:bg-destructive\/90:hover {
+        background-color: color-mix(in oklab, var(--destructive) 90%, transparent);
+      }
+    }
+    .hover\:bg-primary\/90:hover {
+      background-color: var(--primary);
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:bg-primary\/90:hover {
+        background-color: color-mix(in oklab, var(--primary) 90%, transparent);
+      }
+    }
     .hover\:bg-red-700:hover {
       background-color: var(--color-red-700);
+    }
+    .hover\:bg-secondary\/80:hover {
+      background-color: var(--secondary);
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:bg-secondary\/80:hover {
+        background-color: color-mix(in oklab, var(--secondary) 80%, transparent);
+      }
     }
     .hover\:bg-zinc-50:hover {
       background-color: var(--color-zinc-50);
     }
     .hover\:bg-zinc-100:hover {
       background-color: var(--color-zinc-100);
-    }
-    .hover\:bg-zinc-200:hover {
-      background-color: var(--color-zinc-200);
-    }
-    .hover\:bg-zinc-800:hover {
-      background-color: var(--color-zinc-800);
     }
     .hover\:text-zinc-700:hover {
       color: var(--color-zinc-700);
@@ -1716,6 +1803,9 @@
     .hover\:opacity-100:hover {
       opacity: 100%;
     }
+  }
+  .focus\:bg-accent:focus {
+    background-color: var(--accent);
   }
   .focus\:bg-red-50:focus {
     background-color: var(--color-red-50);
@@ -1737,8 +1827,14 @@
   .focus-visible\:ring-blue-600:focus-visible {
     --tw-ring-color: var(--color-blue-600);
   }
+  .focus-visible\:ring-destructive:focus-visible {
+    --tw-ring-color: var(--destructive);
+  }
   .focus-visible\:ring-red-500:focus-visible {
     --tw-ring-color: var(--color-red-500);
+  }
+  .focus-visible\:ring-ring:focus-visible {
+    --tw-ring-color: var(--ring);
   }
   .focus-visible\:outline-none:focus-visible {
     --tw-outline-style: none;
@@ -1753,14 +1849,26 @@
   .disabled\:opacity-50:disabled {
     opacity: 50%;
   }
+  .data-highlighted\:bg-accent[data-highlighted] {
+    background-color: var(--accent);
+  }
   .data-highlighted\:bg-zinc-100[data-highlighted] {
     background-color: var(--color-zinc-100);
+  }
+  .data-highlighted\:text-accent-foreground[data-highlighted] {
+    color: var(--accent-foreground);
   }
   .data-highlighted\:text-zinc-950[data-highlighted] {
     color: var(--color-zinc-950);
   }
+  .data-\[active\=true\]\:bg-accent[data-active="true"] {
+    background-color: var(--accent);
+  }
   .data-\[active\=true\]\:bg-zinc-100[data-active="true"] {
     background-color: var(--color-zinc-100);
+  }
+  .data-\[active\=true\]\:text-accent-foreground[data-active="true"] {
+    color: var(--accent-foreground);
   }
   .data-\[active\=true\]\:text-zinc-950[data-active="true"] {
     color: var(--color-zinc-950);
@@ -1774,8 +1882,8 @@
   .data-\[disabled\=true\]\:opacity-50[data-disabled="true"] {
     opacity: 50%;
   }
-  .data-\[invalid\=true\]\:text-red-600[data-invalid="true"] {
-    color: var(--color-red-600);
+  .data-\[invalid\=true\]\:text-destructive[data-invalid="true"] {
+    color: var(--destructive);
   }
   .data-\[orientation\=horizontal\]\:-ml-4[data-orientation="horizontal"] {
     margin-left: calc(var(--spacing) * -4);
@@ -1855,6 +1963,9 @@
   .data-\[placeholder\=true\]\:text-zinc-500[data-placeholder="true"] {
     color: var(--color-zinc-500);
   }
+  .data-\[selected\=true\]\:bg-accent[data-selected="true"] {
+    background-color: var(--accent);
+  }
   .data-\[selected\=true\]\:bg-zinc-100[data-selected="true"] {
     background-color: var(--color-zinc-100);
   }
@@ -1878,11 +1989,11 @@
   .data-\[state\=closed\]\:opacity-0[data-state="closed"] {
     opacity: 0%;
   }
-  .data-\[state\=indeterminate\]\:border-blue-600[data-state="indeterminate"] {
-    border-color: var(--color-blue-600);
+  .data-\[state\=indeterminate\]\:border-primary[data-state="indeterminate"] {
+    border-color: var(--primary);
   }
-  .data-\[state\=indeterminate\]\:bg-blue-600[data-state="indeterminate"] {
-    background-color: var(--color-blue-600);
+  .data-\[state\=indeterminate\]\:bg-primary[data-state="indeterminate"] {
+    background-color: var(--primary);
   }
   .data-\[state\=indeterminate\]\:bg-\[url\(data\:image\/svg\+xml\,\%3Csvg\%20xmlns\=\%27http\:\/\/www\.w3\.org\/2000\/svg\%27\%20viewBox\=\%270\%200\%2016\%2016\%27\%20fill\=\%27none\%27\%20stroke\=\%27white\%27\%20stroke-width\=\%272\.5\%27\%20stroke-linecap\=\%27round\%27\%20stroke-linejoin\=\%27round\%27\%3E\%3Cpath\%20d\=\%27M4\%208h8\%27\/\%3E\%3C\/svg\%3E\)\][data-state="indeterminate"] {
     background-image: url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27white%27%20stroke-width=%272.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M4%208h8%27/%3E%3C/svg%3E);
@@ -1969,6 +2080,12 @@
     .xl\:grid-cols-3 {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
+  }
+  .dark\:data-\[state\=checked\]\:bg-\[url\(data\:image\/svg\+xml\,\%3Csvg\%20xmlns\=\%27http\:\/\/www\.w3\.org\/2000\/svg\%27\%20viewBox\=\%270\%200\%2016\%2016\%27\%20fill\=\%27none\%27\%20stroke\=\%27\%2318181b\%27\%20stroke-width\=\%272\.5\%27\%20stroke-linecap\=\%27round\%27\%20stroke-linejoin\=\%27round\%27\%3E\%3Cpath\%20d\=\%27M3\.5\%208\.5l3\%203\%206-7\%27\/\%3E\%3C\/svg\%3E\)\]:is(.dark *)[data-state="checked"] {
+    background-image: url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27%2318181b%27%20stroke-width=%272.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M3.5%208.5l3%203%206-7%27/%3E%3C/svg%3E);
+  }
+  .dark\:data-\[state\=indeterminate\]\:bg-\[url\(data\:image\/svg\+xml\,\%3Csvg\%20xmlns\=\%27http\:\/\/www\.w3\.org\/2000\/svg\%27\%20viewBox\=\%270\%200\%2016\%2016\%27\%20fill\=\%27none\%27\%20stroke\=\%27\%2318181b\%27\%20stroke-width\=\%272\.5\%27\%20stroke-linecap\=\%27round\%27\%20stroke-linejoin\=\%27round\%27\%3E\%3Cpath\%20d\=\%27M4\%208h8\%27\/\%3E\%3C\/svg\%3E\)\]:is(.dark *)[data-state="indeterminate"] {
+    background-image: url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27%2318181b%27%20stroke-width=%272.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M4%208h8%27/%3E%3C/svg%3E);
   }
   .\[\&_tr\]\:border-b tr {
     border-bottom-style: var(--tw-border-style);

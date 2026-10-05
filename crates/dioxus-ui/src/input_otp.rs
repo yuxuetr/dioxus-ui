@@ -54,11 +54,11 @@ pub const INPUT_OTP_BASE_CLASS: &str = "relative flex items-center gap-2";
 pub const INPUT_OTP_DISABLED_CLASS: &str = "opacity-50";
 pub const INPUT_OTP_GROUP_BASE_CLASS: &str = "flex items-center gap-1";
 pub const INPUT_OTP_SLOT_BASE_CLASS: &str = "relative flex h-10 w-10 items-center justify-center rounded-md border text-sm font-medium transition-colors";
-pub const INPUT_OTP_SLOT_ACTIVE_CLASS: &str = "border-blue-600 ring-2 ring-blue-600";
-pub const INPUT_OTP_SLOT_INVALID_CLASS: &str = "border-red-500 ring-2 ring-red-500";
-pub const INPUT_OTP_SLOT_DISABLED_CLASS: &str = "cursor-not-allowed bg-zinc-50 text-zinc-400";
-pub const INPUT_OTP_SLOT_EMPTY_CLASS: &str = "text-zinc-400";
-pub const INPUT_OTP_SEPARATOR_BASE_CLASS: &str = "flex items-center px-1 text-zinc-400";
+pub const INPUT_OTP_SLOT_ACTIVE_CLASS: &str = "border-ring ring-2 ring-ring";
+pub const INPUT_OTP_SLOT_INVALID_CLASS: &str = "border-destructive ring-2 ring-destructive";
+pub const INPUT_OTP_SLOT_DISABLED_CLASS: &str = "cursor-not-allowed bg-muted text-muted-foreground";
+pub const INPUT_OTP_SLOT_EMPTY_CLASS: &str = "text-muted-foreground";
+pub const INPUT_OTP_SEPARATOR_BASE_CLASS: &str = "flex items-center px-1 text-muted-foreground";
 pub const INPUT_OTP_HIDDEN_INPUT_BASE_CLASS: &str =
   "absolute inset-0 h-full w-full cursor-text opacity-0 disabled:cursor-not-allowed";
 
@@ -101,9 +101,9 @@ pub fn input_otp_slot_class(active: bool, invalid: bool, disabled: bool, class: 
     } else if active {
       INPUT_OTP_SLOT_ACTIVE_CLASS
     } else {
-      "border-zinc-200"
+      "border-input"
     }),
-    Some(if disabled { INPUT_OTP_SLOT_DISABLED_CLASS } else { "bg-white text-zinc-950" }),
+    Some(if disabled { INPUT_OTP_SLOT_DISABLED_CLASS } else { "bg-background text-foreground" }),
     Some(class),
   ])
 }
@@ -282,7 +282,7 @@ mod tests {
     assert!(actual.contains(INPUT_OTP_SLOT_DISABLED_CLASS));
     assert!(actual.ends_with("h-12"));
     assert!(input_otp_slot_class(true, false, false, "").contains(INPUT_OTP_SLOT_ACTIVE_CLASS));
-    assert!(input_otp_slot_class(false, false, false, "").contains("border-zinc-200 bg-white"));
+    assert!(input_otp_slot_class(false, false, false, "").contains("border-input bg-background"));
   }
 
   #[test]

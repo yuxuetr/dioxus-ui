@@ -1218,8 +1218,8 @@ async function runBrowserAssertions() {
     await expect(radioGroup).toHaveAttribute("data-value", "large");
     await expect(radio("large")).toHaveAttribute("tabindex", "0");
     // The checked border replaces the unchecked one.
-    await expect(radio("large")).toHaveCSS("border-top-color", await utilityBorderColor(page, "border-blue-600"));
-    await expect(radio("small")).toHaveCSS("border-top-color", await utilityBorderColor(page, "border-zinc-300"));
+    await expect(radio("large")).toHaveCSS("border-top-color", await utilityBorderColor(page, "border-primary"));
+    await expect(radio("small")).toHaveCSS("border-top-color", await utilityBorderColor(page, "border-input"));
 
     const toggleGroup = page.locator('[data-interaction-target="toggle-group"]');
     await expect(toggleGroup.getByRole("group", { name: "Text style", exact: true })).toHaveCount(1);
@@ -1382,13 +1382,18 @@ async function runBrowserAssertions() {
     await switchFixture.locator('label[for="interaction-checkbox-terms"]').click();
     await expect(switchFixture).toHaveAttribute("data-checkbox", "true");
     await expect(terms).toBeChecked();
-    // The checkbox draws its own box: no native control, the blue fill, and a
-    // tick that only the checked state has.
+    // The checkbox draws its own box: no native control, the primary fill,
+    // and a tick that only the checked state has.
     const backgroundImage = (locator) => locator.evaluate((element) => getComputedStyle(element).backgroundImage);
     await expect(terms).toHaveCSS("appearance", "none");
-    await expect(terms).toHaveCSS("background-color", await utilityBackgroundColor(page, "bg-blue-600"));
+    await expect(terms).toHaveCSS("background-color", await utilityBackgroundColor(page, "bg-primary"));
     const tick = await backgroundImage(terms);
     expect(tick).toContain("data:image/svg+xml");
+    // The tick cannot read --primary-foreground, so the dark theme swaps in a
+    // dark stroke for the near-white dark primary (RFC 0051).
+    await page.evaluate(() => document.documentElement.classList.add("dark"));
+    expect(await backgroundImage(terms)).toContain("18181b");
+    await page.evaluate(() => document.documentElement.classList.remove("dark"));
     await expect(newsletter).toHaveCSS("background-image", "none");
     await expect(newsletter).toBeDisabled();
     await newsletter.click({ force: true });
@@ -1399,8 +1404,8 @@ async function runBrowserAssertions() {
     const isIndeterminate = (name) => mixedCheckbox(name).evaluate((element) => element.indeterminate);
     await expect.poll(() => isIndeterminate("Select all")).toBe(true);
     await expect(mixedCheckbox("Select all")).toHaveAttribute("data-state", "indeterminate");
-    // Mixed draws a dash on the blue fill, not the tick.
-    await expect(mixedCheckbox("Select all")).toHaveCSS("background-color", await utilityBackgroundColor(page, "bg-blue-600"));
+    // Mixed draws a dash on the primary fill, not the tick.
+    await expect(mixedCheckbox("Select all")).toHaveCSS("background-color", await utilityBackgroundColor(page, "bg-primary"));
     const dash = await backgroundImage(mixedCheckbox("Select all"));
     expect(dash).toContain("data:image/svg+xml");
     expect(dash).not.toBe(tick);

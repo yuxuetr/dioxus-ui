@@ -14,12 +14,12 @@ pub enum ButtonVariant {
 impl ButtonVariant {
   pub const fn class(self) -> &'static str {
     match self {
-      Self::Primary => "bg-blue-600 text-white hover:bg-blue-700",
-      Self::Secondary => "bg-zinc-100 text-zinc-900 hover:bg-zinc-200",
-      Self::Destructive => "bg-red-600 text-white hover:bg-red-700",
-      Self::Outline => "border border-zinc-200 bg-white hover:bg-zinc-100",
-      Self::Ghost => "bg-transparent hover:bg-zinc-100",
-      Self::Link => "bg-transparent text-blue-600 underline-offset-4 hover:underline",
+      Self::Primary => "bg-primary text-primary-foreground hover:bg-primary/90",
+      Self::Secondary => "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+      Self::Destructive => "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+      Self::Outline => "border border-input bg-background hover:bg-accent",
+      Self::Ghost => "bg-transparent hover:bg-accent",
+      Self::Link => "bg-transparent text-primary underline-offset-4 hover:underline",
     }
   }
 }

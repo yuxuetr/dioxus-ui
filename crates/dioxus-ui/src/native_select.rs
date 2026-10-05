@@ -1,15 +1,15 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 
-pub const NATIVE_SELECT_BASE_CLASS: &str = "h-10 w-full rounded-md border bg-white px-3 py-2 text-sm text-zinc-950 transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
-pub const NATIVE_SELECT_GROUP_BASE_CLASS: &str = "text-sm font-medium text-zinc-900";
-pub const NATIVE_SELECT_OPTION_BASE_CLASS: &str = "text-sm text-zinc-950";
+pub const NATIVE_SELECT_BASE_CLASS: &str = "h-10 w-full rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
+pub const NATIVE_SELECT_GROUP_BASE_CLASS: &str = "text-sm font-medium text-foreground";
+pub const NATIVE_SELECT_OPTION_BASE_CLASS: &str = "text-sm text-foreground";
 
 pub fn native_select_class(invalid: bool, class: &str) -> String {
   let invalid_class = if invalid {
-    "border-red-500 focus-visible:ring-red-500"
+    "border-destructive focus-visible:ring-destructive"
   } else {
-    "border-zinc-200 focus-visible:ring-blue-600"
+    "border-input focus-visible:ring-ring"
   };
 
   classes([Some(NATIVE_SELECT_BASE_CLASS), Some(invalid_class), Some(class)])
@@ -100,7 +100,7 @@ mod tests {
     let actual = native_select_class(true, "w-48");
 
     assert!(actual.contains(NATIVE_SELECT_BASE_CLASS));
-    assert!(actual.contains("border-red-500 focus-visible:ring-red-500"));
+    assert!(actual.contains("border-destructive focus-visible:ring-destructive"));
     assert!(actual.ends_with("w-48"));
   }
 

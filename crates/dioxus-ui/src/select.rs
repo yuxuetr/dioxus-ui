@@ -5,19 +5,19 @@ pub use dioxus_ui_primitives::{DismissBehavior, OverlayAlign, OverlaySide, Selec
 use crate::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
 use crate::listbox::{ListboxMode, use_listbox};
 
-pub const SELECT_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-white px-3 py-2 text-sm text-zinc-950 transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
+pub const SELECT_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
 pub const SELECT_VALUE_BASE_CLASS: &str = "truncate";
-pub const SELECT_CONTENT_BASE_CLASS: &str = "z-50 max-h-96 min-w-[max(8rem,var(--dxui-anchor-width,0px))] overflow-hidden rounded-md border border-zinc-200 bg-white p-1 text-zinc-950 shadow-md";
+pub const SELECT_CONTENT_BASE_CLASS: &str = "z-50 max-h-96 min-w-[max(8rem,var(--dxui-anchor-width,0px))] overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
 pub const SELECT_GROUP_BASE_CLASS: &str = "p-1";
-pub const SELECT_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-zinc-500";
-pub const SELECT_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-zinc-100 data-highlighted:bg-zinc-100 data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
-pub const SELECT_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-zinc-200";
+pub const SELECT_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-muted-foreground";
+pub const SELECT_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent data-highlighted:bg-accent data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
+pub const SELECT_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-border";
 
 pub fn select_trigger_class(invalid: bool, class: &str) -> String {
   let invalid_class = if invalid {
-    "border-red-500 focus-visible:ring-red-500"
+    "border-destructive focus-visible:ring-destructive"
   } else {
-    "border-zinc-200 focus-visible:ring-blue-600"
+    "border-input focus-visible:ring-ring"
   };
 
   classes([Some(SELECT_TRIGGER_BASE_CLASS), Some(invalid_class), Some(class)])
@@ -40,7 +40,8 @@ pub fn select_label_class(class: &str) -> String {
 }
 
 pub fn select_item_class(selected: bool, class: &str) -> String {
-  let selected_class = if selected { "bg-zinc-100 text-zinc-950" } else { "text-zinc-900" };
+  let selected_class =
+    if selected { "bg-accent text-accent-foreground" } else { "text-foreground" };
 
   classes([Some(SELECT_ITEM_BASE_CLASS), Some(selected_class), Some(class)])
 }
@@ -213,7 +214,7 @@ mod tests {
     let actual = select_trigger_class(true, "w-44");
 
     assert!(actual.contains(SELECT_TRIGGER_BASE_CLASS));
-    assert!(actual.contains("border-red-500 focus-visible:ring-red-500"));
+    assert!(actual.contains("border-destructive focus-visible:ring-destructive"));
     assert!(actual.ends_with("w-44"));
   }
 

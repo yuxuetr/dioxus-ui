@@ -145,9 +145,9 @@ pub struct SliderAriaAttributes {
 pub const SLIDER_ROOT_BASE_CLASS: &str =
   "relative flex touch-none select-none items-center disabled:opacity-50";
 pub const SLIDER_TRACK_BASE_CLASS: &str =
-  "relative grow overflow-hidden rounded-full bg-zinc-100";
-pub const SLIDER_RANGE_BASE_CLASS: &str = "absolute rounded-full bg-blue-600";
-pub const SLIDER_THUMB_BASE_CLASS: &str = "block h-5 w-5 rounded-full border-2 border-blue-600 bg-white shadow transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
+  "relative grow overflow-hidden rounded-full bg-muted";
+pub const SLIDER_RANGE_BASE_CLASS: &str = "absolute rounded-full bg-primary";
+pub const SLIDER_THUMB_BASE_CLASS: &str = "block h-5 w-5 rounded-full border-2 border-primary bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
 pub fn slider_root_class(class: &str) -> String {
   classes([Some(SLIDER_ROOT_BASE_CLASS), Some(class)])

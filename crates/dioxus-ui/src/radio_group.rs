@@ -5,8 +5,8 @@ use dioxus_ui_primitives::{FocusMove, NavigationOrientation, RovingFocusItem, Ro
 use crate::roving_group::use_roving_group;
 
 pub const RADIO_GROUP_BASE_CLASS: &str = "grid gap-2";
-pub const RADIO_GROUP_ITEM_BASE_CLASS: &str = "inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50";
-pub const RADIO_GROUP_INDICATOR_BASE_CLASS: &str = "h-2 w-2 rounded-full bg-white";
+pub const RADIO_GROUP_ITEM_BASE_CLASS: &str = "inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50";
+pub const RADIO_GROUP_INDICATOR_BASE_CLASS: &str = "h-2 w-2 rounded-full bg-background";
 
 pub fn radio_group_class(orientation: NavigationOrientation, class: &str) -> String {
   let orientation_class = match orientation {
@@ -19,9 +19,9 @@ pub fn radio_group_class(orientation: NavigationOrientation, class: &str) -> Str
 
 pub fn radio_group_item_class(checked: bool, class: &str) -> String {
   let checked_class = if checked {
-    "border-blue-600 bg-blue-600 text-white"
+    "border-primary bg-primary text-primary-foreground"
   } else {
-    "border-zinc-300 bg-white text-transparent"
+    "border-input bg-background text-transparent"
   };
 
   classes([Some(RADIO_GROUP_ITEM_BASE_CLASS), Some(checked_class), Some(class)])
@@ -149,7 +149,7 @@ mod tests {
     let actual = radio_group_item_class(true, "mt-1");
 
     assert!(actual.contains(RADIO_GROUP_ITEM_BASE_CLASS));
-    assert!(actual.contains("border-blue-600 bg-blue-600 text-white"));
+    assert!(actual.contains("border-primary bg-primary text-primary-foreground"));
     assert!(actual.ends_with("mt-1"));
   }
 

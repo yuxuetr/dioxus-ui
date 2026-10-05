@@ -1,13 +1,13 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 
-pub const INPUT_BASE_CLASS: &str = "flex h-10 w-full rounded-md border bg-white px-3 py-2 text-sm transition-colors placeholder:text-zinc-500 focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
+pub const INPUT_BASE_CLASS: &str = "flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
 
 pub fn input_class(invalid: bool, class: &str) -> String {
   let invalid_class = if invalid {
-    "border-red-500 focus-visible:ring-red-500"
+    "border-destructive focus-visible:ring-destructive"
   } else {
-    "border-zinc-200 focus-visible:ring-blue-600"
+    "border-input focus-visible:ring-ring"
   };
 
   classes([Some(INPUT_BASE_CLASS), Some(invalid_class), Some(class)])
@@ -54,7 +54,7 @@ mod tests {
     let actual = input_class(true, "w-64");
 
     assert!(actual.contains(INPUT_BASE_CLASS));
-    assert!(actual.contains("border-red-500 focus-visible:ring-red-500"));
+    assert!(actual.contains("border-destructive focus-visible:ring-destructive"));
     assert!(actual.ends_with("w-64"));
   }
 }

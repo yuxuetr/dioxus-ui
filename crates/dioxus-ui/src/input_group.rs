@@ -8,15 +8,15 @@ pub enum InputGroupAddonPosition {
   End,
 }
 
-pub const INPUT_GROUP_BASE_CLASS: &str = "flex min-h-10 w-full items-center overflow-hidden rounded-md border bg-white text-sm transition-colors focus-within:ring-2 data-[disabled=true]:opacity-50";
-pub const INPUT_GROUP_INVALID_CLASS: &str = "border-red-500 focus-within:ring-red-500";
+pub const INPUT_GROUP_BASE_CLASS: &str = "flex min-h-10 w-full items-center overflow-hidden rounded-md border bg-background text-sm transition-colors focus-within:ring-2 data-[disabled=true]:opacity-50";
+pub const INPUT_GROUP_INVALID_CLASS: &str = "border-destructive focus-within:ring-destructive";
 pub const INPUT_GROUP_DISABLED_CLASS: &str = "cursor-not-allowed";
 pub const INPUT_GROUP_ADDON_BASE_CLASS: &str =
-  "flex h-full shrink-0 items-center gap-2 bg-zinc-50 px-3 text-sm text-zinc-600";
-pub const INPUT_GROUP_ADDON_START_CLASS: &str = "border-r border-zinc-200";
-pub const INPUT_GROUP_ADDON_END_CLASS: &str = "border-l border-zinc-200";
+  "flex h-full shrink-0 items-center gap-2 bg-muted px-3 text-sm text-muted-foreground";
+pub const INPUT_GROUP_ADDON_START_CLASS: &str = "border-r border-input";
+pub const INPUT_GROUP_ADDON_END_CLASS: &str = "border-l border-input";
 pub const INPUT_GROUP_CONTROL_BASE_CLASS: &str = "flex min-w-0 flex-1 items-center [&>input]:border-0 [&>input]:bg-transparent [&>input]:shadow-none [&>input]:focus-visible:ring-0";
-pub const INPUT_GROUP_ACTION_BASE_CLASS: &str = "inline-flex h-full shrink-0 items-center justify-center px-3 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
+pub const INPUT_GROUP_ACTION_BASE_CLASS: &str = "inline-flex h-full shrink-0 items-center justify-center px-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
 impl InputGroupAddonPosition {
   pub const fn class(self) -> &'static str {
@@ -37,11 +37,7 @@ impl InputGroupAddonPosition {
 pub fn input_group_class(invalid: bool, disabled: bool, class: &str) -> String {
   classes([
     Some(INPUT_GROUP_BASE_CLASS),
-    Some(if invalid {
-      INPUT_GROUP_INVALID_CLASS
-    } else {
-      "border-zinc-200 focus-within:ring-blue-600"
-    }),
+    Some(if invalid { INPUT_GROUP_INVALID_CLASS } else { "border-input focus-within:ring-ring" }),
     disabled.then_some(INPUT_GROUP_DISABLED_CLASS),
     Some(class),
   ])
@@ -150,11 +146,11 @@ mod tests {
 
   #[test]
   fn input_group_action_class_preserves_static_tailwind_tokens() {
-    let actual = input_group_action_class("text-blue-600");
+    let actual = input_group_action_class("text-primary");
 
     assert!(actual.contains(INPUT_GROUP_ACTION_BASE_CLASS));
-    assert!(actual.contains("focus-visible:ring-blue-600"));
-    assert!(actual.ends_with("text-blue-600"));
+    assert!(actual.contains("focus-visible:ring-ring"));
+    assert!(actual.ends_with("text-primary"));
     assert!(!actual.contains("{}"));
   }
 }

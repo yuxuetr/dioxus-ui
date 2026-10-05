@@ -11,7 +11,7 @@ pub const BUTTON_GROUP_BASE_CLASS: &str = "inline-flex items-stretch";
 pub const BUTTON_GROUP_GAP_CLASS: &str = "gap-1";
 pub const BUTTON_GROUP_ATTACHED_HORIZONTAL_CLASS: &str = "gap-0 [&>button:not(:first-child)]:rounded-l-none [&>button:not(:first-child)]:border-l-0 [&>button:not(:last-child)]:rounded-r-none";
 pub const BUTTON_GROUP_ATTACHED_VERTICAL_CLASS: &str = "gap-0 [&>button:not(:first-child)]:rounded-t-none [&>button:not(:first-child)]:border-t-0 [&>button:not(:last-child)]:rounded-b-none";
-pub const BUTTON_GROUP_ITEM_BASE_CLASS: &str = "inline-flex items-center justify-center rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm font-medium transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
+pub const BUTTON_GROUP_ITEM_BASE_CLASS: &str = "inline-flex items-center justify-center rounded-md border border-input bg-background px-3 py-2 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
 impl ButtonGroupOrientation {
   pub const fn class(self) -> &'static str {

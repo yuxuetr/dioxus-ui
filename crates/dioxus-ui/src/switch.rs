@@ -1,12 +1,12 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 
-pub const SWITCH_BASE_CLASS: &str = "inline-flex h-6 w-11 shrink-0 items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50";
+pub const SWITCH_BASE_CLASS: &str = "inline-flex h-6 w-11 shrink-0 items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50";
 pub const SWITCH_THUMB_BASE_CLASS: &str =
-  "pointer-events-none block h-5 w-5 rounded-full bg-white shadow transition-transform";
+  "pointer-events-none block h-5 w-5 rounded-full bg-background shadow transition-transform";
 
 pub fn switch_class(checked: bool, class: &str) -> String {
-  let checked_class = if checked { "bg-blue-600" } else { "bg-zinc-200" };
+  let checked_class = if checked { "bg-primary" } else { "bg-input" };
 
   classes([Some(SWITCH_BASE_CLASS), Some(checked_class), Some(class)])
 }
@@ -69,7 +69,7 @@ mod tests {
     let actual = switch_class(true, "data-demo");
 
     assert!(actual.contains(SWITCH_BASE_CLASS));
-    assert!(actual.contains("bg-blue-600"));
+    assert!(actual.contains("bg-primary"));
     assert!(actual.ends_with("data-demo"));
   }
 

@@ -11,10 +11,10 @@ pub enum ToggleVariant {
 impl ToggleVariant {
   pub const fn class(self, pressed: bool) -> &'static str {
     match (self, pressed) {
-      (Self::Default, true) => "bg-zinc-900 text-white hover:bg-zinc-800",
-      (Self::Default, false) => "bg-transparent hover:bg-zinc-100",
-      (Self::Outline, true) => "border border-blue-600 bg-blue-50 text-blue-700",
-      (Self::Outline, false) => "border border-zinc-200 bg-white hover:bg-zinc-100",
+      (Self::Default, true) => "bg-accent text-accent-foreground",
+      (Self::Default, false) => "bg-transparent hover:bg-accent",
+      (Self::Outline, true) => "border border-input bg-accent text-accent-foreground",
+      (Self::Outline, false) => "border border-input bg-background hover:bg-accent",
     }
   }
 }
@@ -37,7 +37,7 @@ impl ToggleSize {
   }
 }
 
-pub const TOGGLE_BASE_CLASS: &str = "inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
+pub const TOGGLE_BASE_CLASS: &str = "inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
 pub fn toggle_class(
   variant: ToggleVariant,
