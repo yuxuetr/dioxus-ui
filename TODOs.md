@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 50%
 - Current milestone: M186 First Publish
-- Current task: M186.1
+- Current task: M186.2
 
 ## Backup
 
@@ -21,8 +21,9 @@
 
 ## M186 First Publish
 
-- TODO M186.1 Render CardTitle as a div
+- DONE M186.1 Render CardTitle as a div
   - Change `CardTitle` in the crate and the template, with an SSR test, and update the Card docs and CHANGELOG.
+  - Done: release gate, site check, and runtime check pass.
 
 - TODO M186.2 Publish 0.1.0
   - With a clean tree matching `origin/main`, rerun the publish dry run, run `cargo publish --workspace`, tag `v0.1.0`, and record the release in the docs.
