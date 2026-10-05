@@ -260,5 +260,5 @@ Input, Tags Input, File Input, and Swap
 ([RFC 0061](rfcs/0061-mobile-navigation.md)), and M193 multi-select,
 Navigation Menu submenus, typed dates, and pie charts
 ([RFC 0062](rfcs/0062-multi-select.md) to
-[RFC 0065](rfcs/0065-pie-and-donut-charts.md)). M194 prepares 0.2.0; the plan
-is tracked in `TODOs.md`.
+[RFC 0065](rfcs/0065-pie-and-donut-charts.md)). M194 publishes 0.2.0 on 2026-10-05
+(tag `v0.2.0`).

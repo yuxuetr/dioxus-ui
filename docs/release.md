@@ -13,7 +13,7 @@ changelog migration note.
 
 ## Package Set
 
-Published crates (0.1.0 on crates.io since 2026-10-05):
+Published crates (0.1.0 and 0.2.0 on crates.io since 2026-10-05):
 
 ```text
 dioxus-shadcn-core
@@ -678,6 +678,16 @@ first.
 After publishing, `cargo install dioxus-shadcn-cli` installed a `dxui` that
 lists all 64 components, and a fresh app built with both a copied component
 and the `dioxus-shadcn` crate from crates.io.
+
+## 0.2.0 Publish
+
+The release owner confirmed 0.2.0 on 2026-10-05, published with the same
+steps and tagged `v0.2.0`: the version bump and `[0.2.0]` notes landed first
+with the release gate and dry run passing, then `cargo publish --workspace`
+uploaded the four crates in dependency order. The published `dxui` lists 79
+components and 33 theme presets, and a fresh app built against
+`dioxus-shadcn` 0.2 from crates.io with copied Tags Input and Date Picker
+templates and an added `nord` preset.
 
 ## Known Pre-1.0 Limitations
 
