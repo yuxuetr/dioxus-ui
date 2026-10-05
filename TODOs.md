@@ -4,7 +4,7 @@
 
 - Overall: 0.2.0 plan, 1 of 8 milestones complete
 - Current milestone: M188 Theme Presets
-- Current task: M188.1
+- Current task: M188.2
 
 ## Backup
 
@@ -37,8 +37,9 @@
 
 ## M188 Theme Presets
 
-- TODO M188.1 Design theme presets
+- DONE M188.1 Design theme presets
   - RFC 0057: a preset is a token set scoped by `[data-theme="name"]`, with `color-scheme`; the daisyUI-to-token mapping; which presets ship; the CLI surface.
+  - Done: RFC 0057. Measured 18 of 35 daisyUI themes below AA, so foregrounds are adjusted; 33 presets ship (not `light` and `dark`); Checkbox moves its check mark to a mask.
 - TODO M188.2 Ship preset data and `dxui theme`
   - Preset files embedded in the CLI; `dxui theme list` and `dxui theme add <name>` append a preset to `assets/dioxus-shadcn.css`, idempotently. CLI tests.
 - TODO M188.3 Gate preset contrast
