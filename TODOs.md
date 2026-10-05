@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M175 Preview Theme Toggle
-- Current task: M175.3 Verify the toggle in the Desktop and Mobile WebViews
+- Current task: M175.4 Complete the preview theme toggle milestone
 
 ## Backup
 
@@ -3213,7 +3213,7 @@
   - Make `npm run verify:runtime-interactions` press the toggle and check the dark and light surfaces.
   - Reverse-verify that a toggle without the `dark` class fails the browser check.
 
-- TODO M175.3 Verify the toggle in the Desktop and Mobile WebViews
+- DONE M175.3 Verify the toggle in the Desktop and Mobile WebViews
   - Add a `theme` scenario after `stylesheet` to the in-app self-test.
   - Run the Desktop self-test, and the iOS and Android self-tests where available.
   - Reverse-verify that the scenario fails when the toggle does not add the `dark` class.
