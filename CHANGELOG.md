@@ -217,6 +217,22 @@ release owner renames it to the released version at publish time.
 ### Changed
 
 - Template changelog history has been removed from the project changelog.
+- Breaking: component classes use the shadcn/ui semantic color tokens
+  (`bg-primary`, `text-muted-foreground`, `border-input`, `ring-ring`, and so
+  on) instead of fixed Tailwind palette colors, in the crate and the copied
+  templates ([RFC 0051](docs/rfcs/0051-semantic-color-tokens.md)). Checked
+  states, the primary Button, and focus rings follow `--primary` and `--ring`,
+  so they turn from blue to near-black, as in shadcn/ui; Toggle and Toggle
+  Group pressed states use `accent`. Toast and Sonner states show in the
+  border and the Sonner dot on an opaque popover surface.
+  - Migration for crate-mode apps: the stylesheet must define the tokens, or
+    the components lose their colors. Run `dxui init` to write
+    `assets/dioxus-ui.css`, or copy everything after the import from
+    `examples/web-demo/assets/preview.css` into your Tailwind input. To keep
+    a blue brand, set `--primary` and `--ring` in `:root` and `.dark`.
+  - Migration for source-copy apps: copied components keep their palette
+    classes until you add them again with `dxui add --overwrite`, which also
+    needs the token stylesheet.
 - `accordion_trigger_class` and `collapsible_trigger_class` take only the
   user class, and `COLLAPSIBLE_TRIGGER_OPEN_CLASS` and
   `COLLAPSIBLE_TRIGGER_CLOSED_CLASS` are removed: open and closed triggers

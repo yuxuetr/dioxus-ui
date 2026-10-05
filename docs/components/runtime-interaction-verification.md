@@ -467,3 +467,11 @@ After M111, useful follow-up work is:
 2. Add targeted screenshot smoke for a small set of stable panels.
 3. Decide whether any browser command should move into CI after local
    reliability is proven.
+
+M177 moves the components onto the semantic color tokens from
+[RFC 0051](../rfcs/0051-semantic-color-tokens.md). The Radio Group and
+Checkbox color checks compare against `border-primary`, `border-input`, and
+`bg-primary`, and the verifier checks that the Checkbox tick switches to the
+dark stroke under `.dark`, because a data-URI mark cannot read
+`--primary-foreground`. Removing the dark tick makes the verifier fail. The
+contrast checks in both themes now measure token colors.
