@@ -85,6 +85,7 @@ examples! {
   radial_progress_usage => "radial-progress", "Sizes and labels";
   countdown_sale => "countdown", "Sale timer";
   diff_compare => "diff", "Design comparison";
+  rating_review => "rating", "Review";
   chart_revenue => "chart", "Area and line";
   data_table_users => "data-table", "Filter, sort, and select";
   empty_projects => "empty", "No projects";

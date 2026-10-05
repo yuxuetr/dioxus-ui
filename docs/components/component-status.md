@@ -13,14 +13,14 @@ parity.
 
 ## Summary
 
-- Public components: 72
-- Registry entries: 73
+- Public components: 73
+- Registry entries: 74
 - Source-copy helpers: utils
-- Templates: 73
-- Crate modules: 72
-- Crate features: 72
-- Component docs pages: 72
-- Complete local wiring: 72
+- Templates: 74
+- Crate modules: 73
+- Crate features: 73
+- Component docs pages: 73
+- Complete local wiring: 73
 - Incomplete local wiring: 0
 
 ## Category Counts
@@ -28,7 +28,7 @@ parity.
 | Category | Components |
 | --- | ---: |
 | Actions | 6 |
-| Forms | 14 |
+| Forms | 15 |
 | Overlays | 11 |
 | Navigation | 6 |
 | Layout | 11 |
@@ -75,6 +75,7 @@ parity.
 | Label | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Native Select | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Radio Group | Forms | yes | yes | yes | yes | yes | yes | yes |
+| Rating | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Select | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Slider | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Switch | Forms | yes | yes | yes | yes | yes | yes | yes |
@@ -152,6 +153,7 @@ parity.
 | Label | Forms | [docs](label.md) | `dxui add label` | `label` | `crates/dioxus-shadcn-cli/templates/label.rs` | `src/components/ui/label.rs` |
 | Native Select | Forms | [docs](native-select.md) | `dxui add native-select` | `native-select` | `crates/dioxus-shadcn-cli/templates/native_select.rs` | `src/components/ui/native_select.rs` |
 | Radio Group | Forms | [docs](radio-group.md) | `dxui add radio-group` | `radio-group` | `crates/dioxus-shadcn-cli/templates/radio_group.rs` | `src/components/ui/radio_group.rs` |
+| Rating | Forms | [docs](rating.md) | `dxui add rating` | `rating` | `crates/dioxus-shadcn-cli/templates/rating.rs` | `src/components/ui/rating.rs` |
 | Select | Forms | [docs](select.md) | `dxui add select` | `select` | `crates/dioxus-shadcn-cli/templates/select.rs` | `src/components/ui/select.rs` |
 | Slider | Forms | [docs](slider.md) | `dxui add slider` | `slider` | `crates/dioxus-shadcn-cli/templates/slider.rs` | `src/components/ui/slider.rs` |
 | Switch | Forms | [docs](switch.md) | `dxui add switch` | `switch` | `crates/dioxus-shadcn-cli/templates/switch.rs` | `src/components/ui/switch.rs` |

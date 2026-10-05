@@ -10,7 +10,7 @@ The catalog is derived from registry entries, templates, component docs,
 crate features, and crate modules. It intentionally does not include visual
 preview routes, screenshot artifacts, or generated JSON metadata.
 
-Public components: 72
+Public components: 73
 
 ## Groups
 
@@ -35,6 +35,7 @@ Public components: 72
 - [Label](label.md): Label component for associating text with form controls.
 - [Native Select](native-select.md): Styled native select, optgroup, and option components.
 - [Radio Group](radio-group.md): Radio Group component for single-choice grouped selection.
+- [Rating](rating.md): Styled star rating built on a native radio group.
 - [Select](select.md): Select components backed by primitive configuration types.
 - [Slider](slider.md): Slider component for controlled horizontal numeric values.
 - [Switch](switch.md): Switch component with checked and disabled states.
@@ -163,6 +164,7 @@ Public components: 72
 | [Progress](progress.md) | Progress component with accessible value semantics. | `dxui add progress` | `progress` | `crates/dioxus-shadcn-cli/templates/progress.rs` | `src/components/ui/progress.rs` |
 | [Radial Progress](radial-progress.md) | Styled circular progress bar with a centered label. | `dxui add radial-progress` | `radial-progress` | `crates/dioxus-shadcn-cli/templates/radial_progress.rs` | `src/components/ui/radial_progress.rs` |
 | [Radio Group](radio-group.md) | Radio Group component for single-choice grouped selection. | `dxui add radio-group` | `radio-group` | `crates/dioxus-shadcn-cli/templates/radio_group.rs` | `src/components/ui/radio_group.rs` |
+| [Rating](rating.md) | Styled star rating built on a native radio group. | `dxui add rating` | `rating` | `crates/dioxus-shadcn-cli/templates/rating.rs` | `src/components/ui/rating.rs` |
 | [Resizable](resizable.md) | Controlled resizable panel group, panel, and handle parts. | `dxui add resizable` | `resizable` | `crates/dioxus-shadcn-cli/templates/resizable.rs` | `src/components/ui/resizable.rs` |
 | [Scroll Area](scroll-area.md) | Native scroll area wrapper with styled viewport and scrollbar parts. | `dxui add scroll-area` | `scroll-area` | `crates/dioxus-shadcn-cli/templates/scroll_area.rs` | `src/components/ui/scroll_area.rs` |
 | [Select](select.md) | Select components backed by primitive configuration types. | `dxui add select` | `select` | `crates/dioxus-shadcn-cli/templates/select.rs` | `src/components/ui/select.rs` |

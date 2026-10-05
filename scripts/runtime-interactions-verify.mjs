@@ -1309,6 +1309,21 @@ async function runBrowserAssertions() {
     const diffBox = await diffRange.boundingBox();
     await page.mouse.click(diffBox.x + diffBox.width * 0.75, diffBox.y + diffBox.height / 2);
     await expect.poll(async () => Number(await diffFixture.getAttribute("data-position"))).toBeGreaterThan(70);
+    // Rating is a native radio group: the arrow keys move the value, a click
+    // sets it, and the stars up to the value are filled (RFC 0060).
+    const ratingFixture = page.locator('[data-interaction-target="rating"]');
+    const ratingGroup = ratingFixture.getByRole("radiogroup", { name: "Product rating", exact: true });
+    const star = (n) => ratingGroup.getByRole("radio", { name: `${n} of 5`, exact: true });
+    await expect(star(3)).toBeChecked();
+    await star(3).focus();
+    await star(3).press("ArrowRight");
+    await expect(ratingFixture).toHaveAttribute("data-rating", "4");
+    await expect(star(4)).toBeChecked();
+    await expect(star(4)).toHaveAttribute("data-filled", "true");
+    await expect(star(5)).toHaveAttribute("data-filled", "false");
+    await star(2).click();
+    await expect(ratingFixture).toHaveAttribute("data-rating", "2");
+    await expect(star(3)).toHaveAttribute("data-filled", "false");
     const sliderFixture = page.locator('[data-interaction-target="slider"]');
     const volume = sliderFixture.getByRole("slider", { name: "Volume", exact: true });
     const locked = sliderFixture.getByRole("slider", { name: "Locked", exact: true });
@@ -2033,7 +2048,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (36 fixtures)");
+  console.log("runtime interaction verification passed (37 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

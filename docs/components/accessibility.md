@@ -26,6 +26,7 @@ Statuses:
 | Item | Exposes selected and disabled state attributes while apps own collection roles and actions. | Implemented |
 | Kbd | Uses native `kbd` semantics for keyboard hints. | Implemented |
 | Radial Progress | Uses progressbar semantics with value attributes; the ring is hidden from assistive technology. | Implemented |
+| Rating | Uses a named radio group, so arrow keys and form values work natively. | Implemented |
 | Separator | Supports decorative and semantic separator usage. | Implemented |
 | Skeleton | Hidden from assistive technology by default. | Implemented |
 | Stat | Uses a definition list so each value is read with its title. | Implemented |

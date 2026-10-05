@@ -77,6 +77,7 @@ features=(
   radial-progress
   countdown
   diff
+  rating
 )
 
 for feature in "${features[@]}"; do

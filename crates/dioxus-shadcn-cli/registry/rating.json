@@ -1,0 +1,14 @@
+{
+  "name": "rating",
+  "description": "Styled star rating built on a native radio group.",
+  "files": [
+    {
+      "source": "templates/rating.rs",
+      "target": "src/components/ui/rating.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

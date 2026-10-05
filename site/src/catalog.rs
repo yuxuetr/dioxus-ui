@@ -122,6 +122,12 @@ pub const CATEGORIES: &[Category] = &[
         feature: "radio-group",
       },
       Component {
+        slug: "rating",
+        title: "Rating",
+        description: "Styled star rating built on a native radio group.",
+        feature: "rating",
+      },
+      Component {
         slug: "select",
         title: "Select",
         description: "Select components backed by primitive configuration types.",

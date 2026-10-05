@@ -714,6 +714,9 @@ pub mod tooltip;
 pub mod typography;
 
 pub use dioxus_shadcn_core::UiDensity;
+#[cfg(feature = "rating")]
+pub mod rating;
+
 #[cfg(feature = "diff")]
 pub mod diff;
 
@@ -843,4 +846,9 @@ pub use countdown::{
 pub use diff::{
   DIFF_AFTER_CLASS, DIFF_BASE_CLASS, DIFF_DIVIDER_CLASS, DIFF_HANDLE_CLASS, DIFF_INPUT_CLASS,
   DIFF_LAYER_CLASS, Diff, DiffAfter, DiffBefore, diff_class, diff_layer_class, diff_position,
+};
+
+#[cfg(feature = "rating")]
+pub use rating::{
+  RATING_BASE_CLASS, RATING_STAR_CLASS, RATING_STAR_WRAPPER_CLASS, Rating, rating_class,
 };

@@ -10,7 +10,7 @@ The manifest defines template metadata for future source preview routes.
 It does not embed full template source, syntax highlighting, rendered routes,
 screenshots, or generated JSON.
 
-Source preview routes: 72
+Source preview routes: 73
 
 ## Source Preview Routes
 
@@ -65,6 +65,7 @@ Source preview routes: 72
 | [Progress](progress.md) | /components/progress/source | crates/dioxus-shadcn-cli/templates/progress.rs | src/components/ui/progress.rs | rust | 51 | 1424 |
 | [Radial Progress](radial-progress.md) | /components/radial-progress/source | crates/dioxus-shadcn-cli/templates/radial_progress.rs | src/components/ui/radial_progress.rs | rust | 111 | 3523 |
 | [Radio Group](radio-group.md) | /components/radio-group/source | crates/dioxus-shadcn-cli/templates/radio_group.rs | src/components/ui/radio_group.rs | rust | 279 | 7304 |
+| [Rating](rating.md) | /components/rating/source | crates/dioxus-shadcn-cli/templates/rating.rs | src/components/ui/rating.rs | rust | 61 | 2553 |
 | [Resizable](resizable.md) | /components/resizable/source | crates/dioxus-shadcn-cli/templates/resizable.rs | src/components/ui/resizable.rs | rust | 329 | 11127 |
 | [Scroll Area](scroll-area.md) | /components/scroll-area/source | crates/dioxus-shadcn-cli/templates/scroll_area.rs | src/components/ui/scroll_area.rs | rust | 148 | 4075 |
 | [Select](select.md) | /components/select/source | crates/dioxus-shadcn-cli/templates/select.rs | src/components/ui/select.rs | rust | 218 | 6886 |
