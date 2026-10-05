@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 80%
 - Current milestone: M184 First Publish Preparation
-- Current task: M184.3
+- Current task: M184.5
 
 ## Backup
 
@@ -30,11 +30,13 @@
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser checks.
   - Done: 339 files rewritten and the four crate directories moved; the release gate, runtime check, site check, and Desktop self-test pass.
 
-- TODO M184.3 Run the release gate in CI
+- DONE M184.3 Run the release gate in CI
   - Add a GitHub Actions workflow that runs the release gate on push and pull request, push it, and confirm the first run passes.
+  - Done: `.github/workflows/ci.yml` runs the default CI set with rustfmt and Clippy on pull requests and `npm run verify:release` on pushes to `main`. The first run failed on missing Linux WebView libraries; after installing them the release gate passed in 8 minutes.
 
-- TODO M184.4 Dry-run the publish
+- DONE M184.4 Dry-run the publish
   - Run a publish dry run for each crate in publish order, fix what it finds, and record the publish commands for the release owner.
+  - Done: `cargo publish --workspace --dry-run` packages and verifies all four crates. The packages had no `LICENSE`, so each crate now links the root file under a license gate. The registry availability blocker is resolved with the 2026-10-05 evidence, and `docs/release.md` keeps the publish steps.
 
 - TODO M184.5 Complete the first publish preparation milestone
   - Update CHANGELOG and the release docs, and push local commits to `origin/main`.
