@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
-- Current milestone: M184 First Publish Preparation
-- Current task: M184.5
+- Overall: 100%
+- Current milestone: none (M184 complete)
+- Current task: none
 
 ## Backup
 
@@ -38,9 +38,10 @@
   - Run a publish dry run for each crate in publish order, fix what it finds, and record the publish commands for the release owner.
   - Done: `cargo publish --workspace --dry-run` packages and verifies all four crates. The packages had no `LICENSE`, so each crate now links the root file under a license gate. The registry availability blocker is resolved with the 2026-10-05 evidence, and `docs/release.md` keeps the publish steps.
 
-- TODO M184.5 Complete the first publish preparation milestone
+- DONE M184.5 Complete the first publish preparation milestone
   - Update CHANGELOG and the release docs, and push local commits to `origin/main`.
   - The real `cargo publish` stays with the release owner.
+  - Done: the release gate passes locally and in CI; iOS and Android self-tests pass after the preview feature fix.
 
 ## Status Rules
 
