@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
-- Current milestone: M178 Token-only Dark Theme And Palette Gate
-- Current task: M178.3 Complete the token-only dark theme
+- Overall: 55%
+- Current milestone: M179 Component Site Shell
+- Current task: M179.1 Design the component site
 
 ## Backup
 
@@ -63,7 +63,7 @@
   - Add a verifier that fails when crate or template class strings use palette color utilities outside the exceptions the RFC allows, and add it to the release gate.
   - Reverse-verify that a reintroduced palette color in a component fails it.
 
-- TODO M178.3 Complete the token-only dark theme
+- DONE M178.3 Complete the token-only dark theme
   - Update CHANGELOG, README, quality gate, release, roadmap, and site docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`.
