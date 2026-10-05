@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M174 Compiled Preview Stylesheet
-- Current task: M174.2 Implement the compiled preview stylesheet
+- Current task: M174.3 Verify the stylesheet in the Desktop and Mobile WebViews
 
 ## Backup
 
@@ -3187,7 +3187,7 @@
   - Define a generated compiled stylesheet linked by `PreviewSurface`, a regeneration script, a drift gate, and a stylesheet scenario in the self-test.
   - Record what stays out of scope (dx's Tailwind integration, compiled CSS for library users) with reevaluation conditions.
 
-- TODO M174.2 Implement the compiled preview stylesheet
+- DONE M174.2 Implement the compiled preview stylesheet
   - Add `npm run css:preview`, commit `examples/preview-states/assets/preview.generated.css`, link it from `PreviewSurface`, and drop the Web and Desktop links to the uncompiled input.
   - Add `npm run verify:preview-css` to the release gate.
 
