@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 10%
-- Current milestone: M176 Semantic Color Tokens
-- Current task: M176.3 Complete the semantic color token foundation
+- Overall: 15%
+- Current milestone: M177 Component Token Migration
+- Current task: M177.1 Migrate actions and forms
 
 ## Backup
 
@@ -28,7 +28,7 @@
   - Keep the RFC 0047 palette remap until the components are migrated, so the dark theme keeps working in between.
   - Extend `npm run verify:css-inputs` to fail when the preview token blocks drift from the CLI blocks, and reverse-verify it.
 
-- TODO M176.3 Complete the semantic color token foundation
+- DONE M176.3 Complete the semantic color token foundation
   - Update the theming docs with the token list and the crate-mode setup.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser interaction smoke.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
