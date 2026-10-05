@@ -403,6 +403,13 @@ background image, and that the mixed Select all checkbox has the blue fill
 and an SVG mark different from the tick. Keeping the native appearance, or
 removing the tick or the dash, each make the verifier fail.
 
+M171 adds list width checks from
+[RFC 0046](../rfcs/0046-listbox-width-follows-trigger.md). The verifier
+checks that the open Select list is at least as wide as its trigger and the
+open Combobox panel at least as wide as its input. Not setting
+`--dxui-anchor-width`, or keeping `min-w-32` on either list, each make the
+verifier fail.
+
 ## Documentation Alignment
 
 M111 should keep these files aligned:

@@ -383,6 +383,8 @@ async function runBrowserAssertions() {
       throw new Error(`select listbox should sit below its trigger: ${JSON.stringify(selectPlaced)}`);
     }
     expectInViewport(selectPlaced.content, "select placement");
+    // The list is at least as wide as its trigger.
+    expect(selectPlaced.content.width, `select list width ${JSON.stringify(selectPlaced)}`).toBeGreaterThanOrEqual(Math.floor(selectPlaced.trigger.width));
     await expect(selectTrigger).toBeFocused();
     await expectSelectHighlight("Banana");
     await page.keyboard.press("ArrowUp");
@@ -550,6 +552,12 @@ async function runBrowserAssertions() {
     if (comboboxPlaced.content.y < comboboxPlaced.input.y + comboboxPlaced.input.height) {
       throw new Error(`combobox listbox should sit below its input: ${JSON.stringify(comboboxPlaced)}`);
     }
+    // The anchored container, which holds the list inside its padding, is at
+    // least as wide as the input.
+    const comboboxPanel = await combobox.locator("[data-dxui-anchored]").boundingBox();
+    expect(comboboxPanel.width, `combobox panel width ${JSON.stringify({ ...comboboxPlaced, comboboxPanel })}`).toBeGreaterThanOrEqual(
+      Math.floor(comboboxPlaced.input.width),
+    );
     await expect(comboboxContent.getByRole("option")).toHaveText(["Banana", "Blueberry"]);
     await expect(comboboxStatus).toHaveText("2 results");
     await expect(comboboxHighlighted).toHaveCount(0);
