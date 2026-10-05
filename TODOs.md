@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0.2.0 plan, 1 of 8 milestones complete
-- Current milestone: M188 Theme Presets
-- Current task: M188.4
+- Overall: 0.2.0 plan, 2 of 8 milestones complete
+- Current milestone: M189 Status Variants
+- Current task: M189.1
 
 ## Backup
 
@@ -46,8 +46,9 @@
 - DONE M188.3 Gate preset contrast
   - Every preset's foreground and background pairs meet WCAG AA, computed from the OKLCH values; reverse-verified with a failing preset.
   - Done: `npm run verify:theme-presets` in the release gate, red for a lowered foreground and a missing token. It also covers the default theme and found focused destructive menu items at 3.99:1; the light `--destructive` lightness went from 0.577 to 0.532.
-- TODO M188.4 Theme picker on the site
+- DONE M188.4 Theme picker on the site
   - The site switches presets at runtime, the Theming page lists them with swatches, and `npm run verify:site` audits each preset.
+  - Done: header theme menu and a Theming page gallery; `verify:site` audits 33 presets on four pages, reverse-verified with a weakened preset. The site's canvas measured nine presets at 4.48 to 4.49:1, so the contrast math now quantizes to 8-bit sRGB and matches the canvas exactly.
 
 ## M189 Status Variants
 
