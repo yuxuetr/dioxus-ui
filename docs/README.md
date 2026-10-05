@@ -111,7 +111,8 @@ Read in this order:
 105. [RFC 0042: Slider Thumb Position And Vertical Orientation](rfcs/0042-slider-thumb-position-and-vertical-orientation.md)
 106. [RFC 0043: Compiled Tailwind Browser Checks](rfcs/0043-compiled-tailwind-browser-checks.md)
 107. [RFC 0044: Tailwind Utility Conflicts](rfcs/0044-tailwind-utility-conflicts.md)
-108. [TODO Plan](../TODOs.md)
+108. [RFC 0045: Drawn Checkbox](rfcs/0045-drawn-checkbox.md)
+109. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 

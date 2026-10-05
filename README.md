@@ -227,6 +227,7 @@ format!("bg-{}-500", color)
 - [RFC 0042: Slider Thumb Position And Vertical Orientation](docs/rfcs/0042-slider-thumb-position-and-vertical-orientation.md)
 - [RFC 0043: Compiled Tailwind Browser Checks](docs/rfcs/0043-compiled-tailwind-browser-checks.md)
 - [RFC 0044: Tailwind Utility Conflicts](docs/rfcs/0044-tailwind-utility-conflicts.md)
+- [RFC 0045: Drawn Checkbox](docs/rfcs/0045-drawn-checkbox.md)
 
 ## Verification Shortcuts
 

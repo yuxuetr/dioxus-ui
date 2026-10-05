@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M170 Drawn Checkbox
+- Current task: M170.1 Design the drawn checkbox
 
 ## Backup
 
@@ -3100,6 +3100,25 @@
 
 - DONE M169.4 Complete Tailwind utility conflict milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and quality gate docs.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M170 Drawn Checkbox
+
+- TODO M170.1 Design the drawn checkbox
+  - Record that `Checkbox` renders a native checkbox, so Chrome ignores its border and background classes and the mixed state has no themed look.
+  - Define `appearance-none` with tick and dash background images keyed off `data-state`, and the blue fill for the mixed state.
+  - Record what stays out of scope (custom mark colors, a Checkbox wrapper element, forced-colors styling) with reevaluation conditions.
+
+- TODO M170.2 Implement the drawn checkbox
+  - Add the appearance, marks, and mixed fill to the crate source and template, and update the Checkbox docs page.
+
+- TODO M170.3 Verify the drawn checkbox in a real browser
+  - Extend `npm run verify:runtime-interactions` to assert no native appearance, the blue fill and a tick when checked, no mark when unchecked, and a different mark on the blue fill when mixed.
+  - Reverse-verify that the script fails without `appearance-none`, without the tick, or without the dash.
+
+- TODO M170.4 Complete drawn checkbox milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and accessibility docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 
