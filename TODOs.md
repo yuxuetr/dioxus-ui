@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M174 Compiled Preview Stylesheet
-- Current task: M174.3 Verify the stylesheet in the Desktop and Mobile WebViews
+- Current task: M174.4 Complete the compiled preview stylesheet milestone
 
 ## Backup
 
@@ -3191,7 +3191,7 @@
   - Add `npm run css:preview`, commit `examples/preview-states/assets/preview.generated.css`, link it from `PreviewSurface`, and drop the Web and Desktop links to the uncompiled input.
   - Add `npm run verify:preview-css` to the release gate.
 
-- TODO M174.3 Verify the stylesheet in the Desktop and Mobile WebViews
+- DONE M174.3 Verify the stylesheet in the Desktop and Mobile WebViews
   - Add a first `stylesheet` scenario to the in-app self-test that waits for an `sr-only` element to be absolutely positioned.
   - Run the Desktop self-test, and the iOS and Android self-tests where available.
   - Reverse-verify that the scenario fails without the stylesheet link and that the drift gate fails on a stale file.
