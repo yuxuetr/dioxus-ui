@@ -134,6 +134,7 @@ npm run verify:tailwind-conflicts
 npm run verify:preview-css
 npm run verify:site-css
 npm run verify:site-catalog
+npm run verify:theme-presets
 npm run verify
 npm run verify:changelog
 scripts/feature-check.sh
