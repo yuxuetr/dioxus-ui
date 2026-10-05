@@ -40,6 +40,10 @@ use dioxus_ui::{
   otp_apply_paste_filtered, otp_slots,
 };
 use dioxus_ui::{
+  AttachmentAction, AttachmentTrigger, ButtonGroup, ButtonGroupItem, ComboboxTrigger, InputGroup,
+  InputGroupAction, InputGroupControl, MessageScrollerJumpButton,
+};
+use dioxus_ui::{
   Button, Collapsible, CollapsibleContent, CollapsibleTrigger, Input, NativeSelect,
   NativeSelectOption, Slider, Textarea, Toggle,
 };
@@ -788,6 +792,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut otp_code = use_signal(String::new);
   let mut results_page = use_signal(|| 1);
   let mut disabled_link_clicks = use_signal(|| 0);
+  let mut last_part_action = use_signal(String::new);
+  let mut part_form_submits = use_signal(|| 0);
   let mut carousel_state = use_signal(|| CarouselState::new(0, 3));
   let mut sidebar_collapsed = use_signal(|| false);
   let mut sidebar_section = use_signal(|| "inbox");
@@ -2267,6 +2273,57 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               DialogClose {
                 on_open_change: move |open| dialog_open.set(open),
                 "Cancel"
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "action-parts",
+            "data-last-action": "{last_part_action}",
+            "data-submits": "{part_form_submits}",
+            h2 { class: "text-sm font-medium", "Action part interaction" }
+            div { class: "mt-3 flex flex-wrap items-center gap-3",
+              ButtonGroup { aria_label: "Formatting",
+                ButtonGroupItem { onclick: move |_| last_part_action.set("button-group".to_string()), "Bold" }
+                ButtonGroupItem {
+                  disabled: true,
+                  onclick: move |_| last_part_action.set("disabled".to_string()),
+                  "Italic"
+                }
+              }
+              InputGroup { class: "max-w-56",
+                InputGroupControl {
+                  input { class: "h-10 w-full px-3 outline-none", "aria-label": "Part search" }
+                }
+                InputGroupAction { onclick: move |_| last_part_action.set("input-group".to_string()), "Clear" }
+              }
+              AttachmentTrigger { onclick: move |_| last_part_action.set("attachment-trigger".to_string()), "Attach" }
+              AttachmentAction { onclick: move |_| last_part_action.set("attachment-action".to_string()), "Remove" }
+              ComboboxTrigger {
+                class: "max-w-48",
+                "aria-label": "Fruit",
+                onclick: move |_| last_part_action.set("combobox".to_string()),
+                "Pick a fruit"
+              }
+              Tooltip {
+                TooltipTrigger {
+                  class: secondary_button_class.clone(),
+                  onclick: move |_| last_part_action.set("tooltip".to_string()),
+                  "Copy link"
+                }
+                TooltipContent { open: false, "Copied" }
+              }
+              // A jump button inside a form must not submit it.
+              form {
+                onsubmit: move |event| {
+                  event.prevent_default();
+                  part_form_submits += 1;
+                },
+                MessageScrollerJumpButton {
+                  visible: true,
+                  onclick: move |_| last_part_action.set("jump".to_string()),
+                  "Jump to latest"
+                }
               }
             }
           }

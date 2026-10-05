@@ -64,6 +64,8 @@ pub fn Tooltip(
 pub fn TooltipTrigger(
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let id = try_use_context::<TooltipContext>().map(|context| context.trigger_id());
@@ -76,6 +78,12 @@ pub fn TooltipTrigger(
       class,
       disabled,
       "data-dxui-hover-trigger": is_part,
+      onclick: move |event| {
+        if let Some(handler) = onclick {
+          handler.call(event);
+        }
+      },
+      ..attributes,
       {children}
     }
   }

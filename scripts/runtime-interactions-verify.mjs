@@ -1917,6 +1917,29 @@ async function runBrowserAssertions() {
     await dialogClose.click();
     await expect(dialogContent).toBeHidden();
     await expect(dialogTrigger).toBeFocused();
+    // Action parts run the app's onclick (RFC 0053).
+    const actionParts = page.locator('[data-interaction-target="action-parts"]');
+    const actionPart = (name) => actionParts.getByRole(name === "Fruit" ? "combobox" : "button", { name, exact: true });
+    for (const [name, action] of [
+      ["Bold", "button-group"],
+      ["Clear", "input-group"],
+      ["Attach", "attachment-trigger"],
+      ["Remove", "attachment-action"],
+      ["Fruit", "combobox"],
+      ["Copy link", "tooltip"],
+      ["Jump to latest", "jump"],
+    ]) {
+      await actionPart(name).click();
+      await expect(actionParts).toHaveAttribute("data-last-action", action);
+    }
+    // The jump button is a plain button, so its form was never submitted.
+    await expect(actionPart("Jump to latest")).toHaveAttribute("type", "button");
+    await expect(actionParts).toHaveAttribute("data-submits", "0");
+    // A press on a disabled part does not call onclick.
+    await expect(actionPart("Italic")).toBeDisabled();
+    await actionPart("Italic").click({ force: true });
+    await expect(actionParts).toHaveAttribute("data-last-action", "jump");
+
     await expectNoUtilityConflicts(page, "after interactions");
     await expectReadableText(page, "after interactions");
     await expectPhoneWidthLayout(page, "after interactions");
@@ -1928,7 +1951,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (34 fixtures)");
+  console.log("runtime interaction verification passed (35 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

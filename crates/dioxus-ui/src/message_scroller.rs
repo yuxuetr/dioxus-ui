@@ -139,6 +139,8 @@ pub fn MessageScrollerUnreadMarker(
 pub fn MessageScrollerJumpButton(
   #[props(default)] visible: bool,
   #[props(default)] class: String,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = message_scroller_jump_button_class(visible, &class);
@@ -146,7 +148,14 @@ pub fn MessageScrollerJumpButton(
   rsx! {
     button {
       class,
+      r#type: "button",
       "data-visible": visible.to_string(),
+      onclick: move |event| {
+        if let Some(handler) = onclick {
+          handler.call(event);
+        }
+      },
+      ..attributes,
       {children}
     }
   }
@@ -155,6 +164,23 @@ pub fn MessageScrollerJumpButton(
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  fn render(app: fn() -> Element) -> String {
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    dioxus_ssr::render(&dom)
+  }
+
+  #[test]
+  fn ssr_jump_button_is_a_plain_button_with_passed_attributes() {
+    fn app() -> Element {
+      rsx! { MessageScrollerJumpButton { visible: true, "aria-label": "Jump to latest", "v" } }
+    }
+    let html = render(app);
+
+    assert!(html.contains(r#"type="button""#));
+    assert!(html.contains(r#"aria-label="Jump to latest""#));
+  }
 
   #[test]
   fn message_scroller_class_reflects_intent() {

@@ -277,6 +277,8 @@ pub fn AttachmentActions(#[props(default)] class: String, children: Element) -> 
 pub fn AttachmentAction(
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = attachment_action_class(&class);
@@ -286,6 +288,12 @@ pub fn AttachmentAction(
       r#type: "button",
       class,
       disabled,
+      onclick: move |event| {
+        if let Some(handler) = onclick {
+          handler.call(event);
+        }
+      },
+      ..attributes,
       {children}
     }
   }
@@ -295,6 +303,8 @@ pub fn AttachmentAction(
 pub fn AttachmentTrigger(
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = attachment_trigger_class(&class);
@@ -304,6 +314,12 @@ pub fn AttachmentTrigger(
       r#type: "button",
       class,
       disabled,
+      onclick: move |event| {
+        if let Some(handler) = onclick {
+          handler.call(event);
+        }
+      },
+      ..attributes,
       {children}
     }
   }
@@ -312,6 +328,26 @@ pub fn AttachmentTrigger(
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  fn render(app: fn() -> Element) -> String {
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    dioxus_ssr::render(&dom)
+  }
+
+  #[test]
+  fn ssr_action_and_trigger_render_passed_attributes() {
+    fn app() -> Element {
+      rsx! {
+        AttachmentAction { "aria-label": "Remove report.pdf", "Remove" }
+        AttachmentTrigger { id: "attach", "Attach" }
+      }
+    }
+    let html = render(app);
+
+    assert!(html.contains(r#"aria-label="Remove report.pdf""#));
+    assert!(html.contains(r#"id="attach""#));
+  }
 
   #[test]
   fn attachment_class_reflects_state_size_and_orientation() {

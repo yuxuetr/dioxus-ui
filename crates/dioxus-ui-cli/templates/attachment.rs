@@ -275,6 +275,8 @@ pub fn AttachmentActions(#[props(default)] class: String, children: Element) -> 
 pub fn AttachmentAction(
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = attachment_action_class(&class);
@@ -284,6 +286,12 @@ pub fn AttachmentAction(
       r#type: "button",
       class,
       disabled,
+      onclick: move |event| {
+        if let Some(handler) = onclick {
+          handler.call(event);
+        }
+      },
+      ..attributes,
       {children}
     }
   }
@@ -293,6 +301,8 @@ pub fn AttachmentAction(
 pub fn AttachmentTrigger(
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = attachment_trigger_class(&class);
@@ -302,6 +312,12 @@ pub fn AttachmentTrigger(
       r#type: "button",
       class,
       disabled,
+      onclick: move |event| {
+        if let Some(handler) = onclick {
+          handler.call(event);
+        }
+      },
+      ..attributes,
       {children}
     }
   }

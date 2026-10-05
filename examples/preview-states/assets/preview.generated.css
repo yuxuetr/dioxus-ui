@@ -713,6 +713,9 @@
   .max-w-48 {
     max-width: calc(var(--spacing) * 48);
   }
+  .max-w-56 {
+    max-width: calc(var(--spacing) * 56);
+  }
   .max-w-full {
     max-width: 100%;
   }

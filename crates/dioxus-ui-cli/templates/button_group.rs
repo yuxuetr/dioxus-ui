@@ -82,6 +82,8 @@ pub fn ButtonGroup(
 pub fn ButtonGroupItem(
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = button_group_item_class(&class);
@@ -91,6 +93,12 @@ pub fn ButtonGroupItem(
       r#type: "button",
       class,
       disabled,
+      onclick: move |event| {
+        if let Some(handler) = onclick {
+          handler.call(event);
+        }
+      },
+      ..attributes,
       {children}
     }
   }

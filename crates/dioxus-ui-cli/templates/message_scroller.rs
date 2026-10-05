@@ -241,6 +241,8 @@ pub fn MessageScrollerUnreadMarker(
 pub fn MessageScrollerJumpButton(
   #[props(default)] visible: bool,
   #[props(default)] class: String,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = message_scroller_jump_button_class(visible, &class);
@@ -248,7 +250,14 @@ pub fn MessageScrollerJumpButton(
   rsx! {
     button {
       class,
+      r#type: "button",
       "data-visible": visible.to_string(),
+      onclick: move |event| {
+        if let Some(handler) = onclick {
+          handler.call(event);
+        }
+      },
+      ..attributes,
       {children}
     }
   }

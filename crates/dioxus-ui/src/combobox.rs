@@ -72,6 +72,8 @@ pub fn ComboboxTrigger(
   #[props(default)] invalid: bool,
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = combobox_trigger_class(invalid, &class);
@@ -85,6 +87,12 @@ pub fn ComboboxTrigger(
       "aria-expanded": open.to_string(),
       "aria-invalid": invalid.to_string(),
       "data-state": if open { "open" } else { "closed" },
+      onclick: move |event| {
+        if let Some(handler) = onclick {
+          handler.call(event);
+        }
+      },
+      ..attributes,
       {children}
     }
   }
@@ -280,6 +288,25 @@ pub fn ComboboxItem(
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  fn render(app: fn() -> Element) -> String {
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    dioxus_ssr::render(&dom)
+  }
+
+  #[test]
+  fn ssr_trigger_renders_passed_attributes_and_keeps_its_state() {
+    fn app() -> Element {
+      rsx! { ComboboxTrigger { id: "fruit", "aria-controls": "fruit-list", "Pick" } }
+    }
+    let html = render(app);
+
+    assert!(html.contains(r#"id="fruit""#));
+    assert!(html.contains(r#"aria-controls="fruit-list""#));
+    assert!(html.contains(r#"aria-expanded="false""#));
+    assert!(html.contains(r#"role="combobox""#));
+  }
 
   #[test]
   fn combobox_trigger_class_reflects_invalid_state() {

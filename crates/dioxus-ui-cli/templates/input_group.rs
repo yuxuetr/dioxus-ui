@@ -109,6 +109,8 @@ pub fn InputGroupControl(#[props(default)] class: String, children: Element) -> 
 pub fn InputGroupAction(
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = input_group_action_class(&class);
@@ -118,6 +120,12 @@ pub fn InputGroupAction(
       r#type: "button",
       class,
       disabled,
+      onclick: move |event| {
+        if let Some(handler) = onclick {
+          handler.call(event);
+        }
+      },
+      ..attributes,
       {children}
     }
   }
