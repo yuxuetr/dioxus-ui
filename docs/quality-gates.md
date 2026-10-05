@@ -559,7 +559,8 @@ and calendar grid names; and the Checkbox mixed state and drawn marks; and
 Select and Combobox list widths; and the Slider thumb
 position and vertical sliders, all with compiled Tailwind and no conflicting
 utilities in any rendered class list; and text contrast of at least WCAG AA
-in the light and opt-in dark themes. It does not
+in the light and opt-in dark themes; and a 375px layout with no sideways
+scroll and no element outside its fixture card. It does not
 write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.

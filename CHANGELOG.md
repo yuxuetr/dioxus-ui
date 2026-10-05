@@ -250,6 +250,10 @@ release owner renames it to the released version at publish time.
 - Open Select and Combobox lists are at least as wide as their trigger or
   input; they sized to their options, so a full-width trigger opened a narrow
   list. The anchoring script sets `--dxui-anchor-width` on anchored content.
+- Pagination content wraps onto centered lines when its links do not fit;
+  at phone width the centered row overflowed both edges of its container and
+  put Previous out of reach. The shared preview page no longer scrolls
+  sideways at 375px in the Web and Mobile previews.
 
 ### Excluded From First Publish
 

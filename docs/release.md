@@ -712,7 +712,8 @@ first.
   anchored content sizes to its content. The dark theme is an opt-in `.dark`
   block of palette variables (see RFC 0047); semantic color tokens and a
   system-preference default are not included, and the block also remaps app
-  classes under `.dark`. Date Picker and
+  classes under `.dark`. Pagination content wraps in narrow containers (see
+  RFC 0048); a Pagination that drops pages to fit is not included. Date Picker and
   Calendar implement anchored placement, focus entry, and day keyboard
   navigation (see RFC 0013); typed date parsing and source-copy date arithmetic
   are not included. Dropdown and Context Menu implement menu keyboard

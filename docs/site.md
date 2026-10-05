@@ -2320,7 +2320,7 @@ input, Collapsible and Native Select events, Input OTP typing, Pagination
 page changes, Carousel slide changes, Resizable handle input, Sidebar
 toggle and items, form control names, dialog names, composite widget names, the Checkbox mixed
 state and drawn marks, Select and Combobox list widths, and Slider thumb position and vertical sliders, all with compiled
-Tailwind, no conflicting utilities in any rendered class list, and readable text contrast in the light and opt-in dark themes.
+Tailwind, no conflicting utilities in any rendered class list, readable text contrast in the light and opt-in dark themes, and a 375px layout with no sideways scroll.
 
 It is not part of `npm run verify` or `npm run verify:release`. It does not
 write screenshots or traces, certify full accessibility, verify native Desktop
