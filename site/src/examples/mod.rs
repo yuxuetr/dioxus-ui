@@ -28,4 +28,24 @@ macro_rules! examples {
 
 examples! {
   button_variants => "button", "Variants";
+  button_sizes => "button", "Sizes and states";
+  button_group_basic => "button-group", "Orientation";
+  command_palette => "command", "Command palette";
+  kbd_shortcuts => "kbd", "Shortcuts";
+  toggle_basic => "toggle", "Variants";
+  toggle_group_single => "toggle-group", "Single selection";
+  calendar_month => "calendar", "Month";
+  checkbox_basic => "checkbox", "States";
+  date_picker_basic => "date-picker", "Date picker";
+  field_basic => "field", "Description and error";
+  input_states => "input", "States";
+  input_group_addons => "input-group", "Addons";
+  input_otp_basic => "input-otp", "Six digits";
+  label_basic => "label", "Labels";
+  native_select_basic => "native-select", "Groups";
+  radio_group_basic => "radio-group", "Plan picker";
+  select_basic => "select", "Select";
+  slider_basic => "slider", "Orientation and states";
+  switch_basic => "switch", "States";
+  textarea_basic => "textarea", "Character count";
 }
