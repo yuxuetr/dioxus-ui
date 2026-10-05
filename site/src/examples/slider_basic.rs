@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Label, Slider, SliderOrientation};
+use dioxus_shadcn::{Label, Slider, SliderOrientation};
 
 #[component]
 pub fn Demo() -> Element {

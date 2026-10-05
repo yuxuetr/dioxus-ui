@@ -12,7 +12,7 @@ dxui add message-scroller
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["message-scroller"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["message-scroller"] }
 ```
 
 ## API Surface

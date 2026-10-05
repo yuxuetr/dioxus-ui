@@ -1,6 +1,6 @@
 # Internal Trial Developer Guide
 
-This guide explains how to try `dioxus-ui` inside an internal Dioxus project
+This guide explains how to try `dioxus-shadcn` inside an internal Dioxus project
 before the crates are published. It is for controlled evaluation, not a stable
 commercial release.
 
@@ -27,47 +27,47 @@ Internal trial should not claim:
 - publish-ready crates
 - complete commercial accessibility guarantees
 - native Mobile or Desktop behavior beyond the documented verification gates
-- support for `cargo install dioxus-ui-cli` from crates.io
+- support for `cargo install dioxus-shadcn-cli` from crates.io
 
 ## Recommended Mode
 
 Use source-copy mode first. It matches the shadcn-style workflow and lets trial
 apps edit generated component source locally.
 
-From the `dioxus-ui` repository, list available components:
+From the `dioxus-shadcn` repository, list available components:
 
 ```bash
-cargo run -q -p dioxus-ui-cli -- list
+cargo run -q -p dioxus-shadcn-cli -- list
 ```
 
 Initialize a trial app:
 
 ```bash
-cargo run -q -p dioxus-ui-cli -- init --root /path/to/trial-app
+cargo run -q -p dioxus-shadcn-cli -- init --root /path/to/trial-app
 ```
 
 Add components:
 
 ```bash
-cargo run -q -p dioxus-ui-cli -- add button --root /path/to/trial-app
-cargo run -q -p dioxus-ui-cli -- add input --root /path/to/trial-app
-cargo run -q -p dioxus-ui-cli -- add dialog --root /path/to/trial-app
+cargo run -q -p dioxus-shadcn-cli -- add button --root /path/to/trial-app
+cargo run -q -p dioxus-shadcn-cli -- add input --root /path/to/trial-app
+cargo run -q -p dioxus-shadcn-cli -- add dialog --root /path/to/trial-app
 ```
 
 Use `--overwrite` only when intentionally replacing locally generated files:
 
 ```bash
-cargo run -q -p dioxus-ui-cli -- add button --root /path/to/trial-app --overwrite
+cargo run -q -p dioxus-shadcn-cli -- add button --root /path/to/trial-app --overwrite
 ```
 
 Generated files are written under:
 
 ```text
-assets/dioxus-ui.css
+assets/dioxus-shadcn.css
 src/components/ui/
 ```
 
-`assets/dioxus-ui.css` is a Tailwind CSS v4 input stylesheet. It is not a full
+`assets/dioxus-shadcn.css` is a Tailwind CSS v4 input stylesheet. It is not a full
 compiled Tailwind output.
 
 ## Trial App Wiring
@@ -93,7 +93,7 @@ Example trial app dependency:
 
 ```toml
 [dependencies]
-dioxus-ui = { path = "/path/to/dioxus-ui/crates/dioxus-ui", default-features = false, features = ["button", "input", "dialog"] }
+dioxus-shadcn = { path = "/path/to/dioxus-shadcn/crates/dioxus-shadcn", default-features = false, features = ["button", "input", "dialog"] }
 ```
 
 Use this only for API feedback. Do not treat path dependency behavior as a
@@ -139,15 +139,15 @@ between Web, Desktop, and Mobile targets.
 
 ## Local Verification
 
-Run these in the `dioxus-ui` repository before giving a commit to trial users:
+Run these in the `dioxus-shadcn` repository before giving a commit to trial users:
 
 ```bash
 npm run verify:docs
 npm run verify:registry
 npm run verify:cli-template-packaging-readiness
 scripts/generated-fixture-smoke.sh
-cargo test -p dioxus-ui-cli
-cargo check -p dioxus-ui-cli
+cargo test -p dioxus-shadcn-cli
+cargo check -p dioxus-shadcn-cli
 git diff --check
 ```
 
@@ -213,10 +213,10 @@ releases, or contact registries as part of internal trial.
 Internal trial does not require crates.io access. Formal crates.io publishing
 still requires release-owner evidence for:
 
-- `dioxus-ui-core`
-- `dioxus-ui-primitives`
-- `dioxus-ui`
-- `dioxus-ui-cli`
+- `dioxus-shadcn-core`
+- `dioxus-shadcn-primitives`
+- `dioxus-shadcn`
+- `dioxus-shadcn-cli`
 
 For each crate, record whether the name is available or already owned, who the
 crate owner or team is, whether credentials are ready, and whether the publish

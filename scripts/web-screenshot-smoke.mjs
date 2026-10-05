@@ -228,7 +228,7 @@ async function verifyViewport(browser, profile) {
 
     const failures = [];
 
-    if (result.title !== "dioxus-ui preview") failures.push("page title");
+    if (result.title !== "dioxus-shadcn preview") failures.push("page title");
     if (result.bodyTextLength <= 0) failures.push("nonblank body text");
     if (result.root !== 1) failures.push("web preview root");
     if (result.form !== 1) failures.push("form panel");

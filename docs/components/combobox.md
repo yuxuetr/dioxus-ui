@@ -12,7 +12,7 @@ dxui add combobox
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["combobox"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["combobox"] }
 ```
 
 ## API Surface

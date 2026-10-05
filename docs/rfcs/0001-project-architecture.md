@@ -5,7 +5,7 @@
 
 ## Summary
 
-Build `dioxus-ui` as a multi-crate workspace with a source-copy CLI and an
+Build `dioxus-shadcn` as a multi-crate workspace with a source-copy CLI and an
 optional packaged component crate.
 
 ## Motivation
@@ -21,10 +21,10 @@ Use this planned layout:
 
 ```text
 crates/
-├─ dioxus-ui-core
-├─ dioxus-ui-primitives
-├─ dioxus-ui
-└─ dioxus-ui-cli
+├─ dioxus-shadcn-core
+├─ dioxus-shadcn-primitives
+├─ dioxus-shadcn
+└─ dioxus-shadcn-cli
 registry/
 templates/
 examples/
@@ -34,10 +34,10 @@ docs/
 The dependency direction is:
 
 ```text
-dioxus-ui-cli ──► dioxus-ui-core
-dioxus-ui ──────► dioxus-ui-core
-dioxus-ui ──────► dioxus-ui-primitives
-dioxus-ui-primitives ──► dioxus-ui-core
+dioxus-shadcn-cli ──► dioxus-shadcn-core
+dioxus-shadcn ──────► dioxus-shadcn-core
+dioxus-shadcn ──────► dioxus-shadcn-primitives
+dioxus-shadcn-primitives ──► dioxus-shadcn-core
 ```
 
 Templates may duplicate or adapt crate code when that produces better generated
@@ -56,9 +56,9 @@ default = []
 button = []
 input = []
 tabs = []
-dialog = ["dioxus-ui-primitives/dialog"]
-popover = ["dioxus-ui-primitives/popover"]
-select = ["dioxus-ui-primitives/select"]
+dialog = ["dioxus-shadcn-primitives/dialog"]
+popover = ["dioxus-shadcn-primitives/popover"]
+select = ["dioxus-shadcn-primitives/select"]
 ```
 
 Platform-specific code should be isolated behind small adapters or explicit
@@ -98,7 +98,7 @@ Costs:
 
 ## Open Questions
 
-- Should templates depend on `dioxus-ui-primitives`, or should they copy all
+- Should templates depend on `dioxus-shadcn-primitives`, or should they copy all
   primitive behavior into the user project?
 - How much should `dxui init` modify an existing Dioxus project?
 - What minimum Dioxus version should be supported for the first release?

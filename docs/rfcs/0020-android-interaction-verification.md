@@ -41,9 +41,9 @@ As of M144:
 `adb shell am start` passes no environment to the app, so the iOS
 `SIMCTL_CHILD_` approach has no Android equivalent.
 
-- The command sets the `debug.dioxus_ui.self_test` system property to `1`
+- The command sets the `debug.dioxus_shadcn.self_test` system property to `1`
   before launch.
-- On Android, the app runs `getprop debug.dioxus_ui.self_test` once at
+- On Android, the app runs `getprop debug.dioxus_shadcn.self_test` once at
   startup and runs the self-test when the value is `1`.
 - The shell user can set `debug.*` properties without root.
 - The property lasts until reboot, so the command clears it after the run,

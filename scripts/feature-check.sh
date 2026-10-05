@@ -72,18 +72,18 @@ features=(
 )
 
 for feature in "${features[@]}"; do
-  echo "checking dioxus-ui feature: ${feature}"
-  cargo check -q -p dioxus-ui --no-default-features --features "${feature}"
+  echo "checking dioxus-shadcn feature: ${feature}"
+  cargo check -q -p dioxus-shadcn --no-default-features --features "${feature}"
 done
 
 echo "checking static component feature set"
-cargo check -q -p dioxus-ui --no-default-features --features "alert,alert-dialog,aspect-ratio,attachment,avatar,badge,breadcrumb,bubble,button-group,card,carousel,chart,collapsible,direction,empty,field,input-group,input-otp,item,kbd,marker,message,message-scroller,native-select,pagination,progress,separator,sidebar,skeleton,sonner,spinner,table,toast,typography"
+cargo check -q -p dioxus-shadcn --no-default-features --features "alert,alert-dialog,aspect-ratio,attachment,avatar,badge,breadcrumb,bubble,button-group,card,carousel,chart,collapsible,direction,empty,field,input-group,input-otp,item,kbd,marker,message,message-scroller,native-select,pagination,progress,separator,sidebar,skeleton,sonner,spinner,table,toast,typography"
 
 echo "checking primitive-backed feature set"
-cargo check -q -p dioxus-ui --no-default-features --features "combobox,context-menu,date-picker,dialog,drawer,dropdown,hover-card,menubar,navigation-menu,popover,radio-group,select,sheet,slider,toggle-group,tooltip"
+cargo check -q -p dioxus-shadcn --no-default-features --features "combobox,context-menu,date-picker,dialog,drawer,dropdown,hover-card,menubar,navigation-menu,popover,radio-group,select,sheet,slider,toggle-group,tooltip"
 
-echo "checking all dioxus-ui features"
-cargo check -q -p dioxus-ui --all-features
+echo "checking all dioxus-shadcn features"
+cargo check -q -p dioxus-shadcn --all-features
 
 # The Mobile demo depends on the preview states alone, so the workspace
 # build's feature unification would hide a feature they use but do not enable.

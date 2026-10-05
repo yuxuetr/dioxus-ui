@@ -11,10 +11,10 @@ fn PreviewApp() -> Element {
   let self_test = std::env::var_os("DIOXUS_UI_DESKTOP_SELF_TEST").is_some();
 
   rsx! {
-    document::Title { "dioxus-ui desktop preview" }
+    document::Title { "dioxus-shadcn desktop preview" }
     PreviewSurface {
       target: PreviewTarget::Desktop,
-      title: "dioxus-ui Desktop Preview".to_string(),
+      title: "dioxus-shadcn Desktop Preview".to_string(),
     }
     if self_test {
       InteractionSelfTest { label: "desktop" }

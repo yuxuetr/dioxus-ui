@@ -126,7 +126,7 @@ Belongs in examples/tests:
 
 ## Implementation Sequence
 
-1. Add placement and collision types to `dioxus-ui-primitives`.
+1. Add placement and collision types to `dioxus-shadcn-primitives`.
 2. Add pure tests for placement fallback math.
 3. Add side/align data attributes to Popover, Tooltip, Dropdown, and Select.
 4. Verify Web overlay positioning in a real example.

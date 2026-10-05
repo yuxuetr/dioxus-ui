@@ -17,7 +17,7 @@ As of M137:
 - `CalendarDay` renders a `gridcell` button with state attributes but no
   click, keyboard, or focus handling. Every day button is in the Tab order.
 - `CalendarNavButton` has no click handler.
-- `calendar_move_date` and `CalendarKeyMove` exist in `dioxus-ui-primitives`,
+- `calendar_move_date` and `CalendarKeyMove` exist in `dioxus-shadcn-primitives`,
   but nothing maps keys to them.
 - `DatePickerTrigger` and `DatePickerContent` render `open` state only, with
   static `data-side` and `data-align` attributes and no anchor, focus entry, or

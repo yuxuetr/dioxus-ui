@@ -1,9 +1,9 @@
 use dioxus::prelude::*;
 
 mod self_test;
-use dioxus_ui::Progress;
-use dioxus_ui::SliderOrientation;
-use dioxus_ui::{
+use dioxus_shadcn::Progress;
+use dioxus_shadcn::SliderOrientation;
+use dioxus_shadcn::{
   Accordion, AccordionContent, AccordionItem, AccordionTrigger, Calendar, CalendarBody,
   CalendarCaption, CalendarDate, CalendarDay, CalendarGrid, CalendarHeader, CalendarMonth,
   CalendarNav, CalendarNavButton, CalendarNavDirection, CalendarRow, CalendarWeekday, Checkbox,
@@ -22,7 +22,7 @@ use dioxus_ui::{
   command_matches, sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute,
   toggle_group_single_selection,
 };
-use dioxus_ui::{
+use dioxus_shadcn::{
   AlertDialogAction, AlertDialogActionVariant, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogOverlay, AlertDialogTitle, AttachmentOrientation,
   AttachmentSize, AttachmentState, BubbleAlign, ButtonGroupOrientation, ButtonSize, ButtonVariant,
@@ -39,27 +39,27 @@ use dioxus_ui::{
   message_scroller_jump_button_class, message_scroller_show_unread_marker,
   otp_apply_paste_filtered, otp_slots,
 };
-use dioxus_ui::{
+use dioxus_shadcn::{
   AttachmentAction, AttachmentTrigger, ButtonGroup, ButtonGroupItem, ComboboxTrigger, Field,
   FieldLabel, InputGroup, InputGroupAction, InputGroupControl, MessageScrollerJumpButton,
 };
-use dioxus_ui::{
+use dioxus_shadcn::{
   Button, Collapsible, CollapsibleContent, CollapsibleTrigger, Input, NativeSelect,
   NativeSelectOption, Slider, Textarea, Toggle,
 };
-use dioxus_ui::{
+use dioxus_shadcn::{
   Carousel, CarouselContent, CarouselIndicator, CarouselItem, CarouselNext, CarouselPrevious,
   CarouselState, CarouselStep, CarouselViewport, carousel_can_go_next, carousel_can_go_previous,
 };
-use dioxus_ui::{
+use dioxus_shadcn::{
   InputOtp, InputOtpGroup, InputOtpHiddenInput, InputOtpSlot, Pagination, PaginationContent,
   PaginationItem, PaginationLink, PaginationNext, PaginationPrevious,
 };
-use dioxus_ui::{
+use dioxus_shadcn::{
   LayoutOrientation, ResizableHandle, ResizablePanel, ResizablePanelGroup, ResizablePanelState,
   resizable_resize_pair,
 };
-use dioxus_ui::{
+use dioxus_shadcn::{
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarItem, SidebarTrigger,
 };
 pub use self_test::{INTERACTION_SELF_TEST_SCRIPT, InteractionSelfTest};
@@ -89,7 +89,7 @@ pub struct PreviewLine {
 
 impl PreviewLine {
   pub fn render(&self, target: PreviewTarget) -> String {
-    format!("dioxus-ui {} demo {}: {}", target.label(), self.label, self.value)
+    format!("dioxus-shadcn {} demo {}: {}", target.label(), self.label, self.value)
   }
 }
 
@@ -952,7 +952,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               span { class: "text-sm text-muted-foreground", "https://" }
               input {
                 class: "min-w-0 flex-1 bg-transparent px-3 py-2 text-sm outline-none",
-                value: "dioxus-ui.dev",
+                value: "dioxus-shadcn.dev",
                 "aria-label": "domain",
               }
             }

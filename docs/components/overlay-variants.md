@@ -16,7 +16,7 @@ M12 covers:
 - Hover Card: implemented
 
 These components should ship in both crate mode and source-copy mode. Crate mode
-can reuse `dioxus-ui-core` and `dioxus-ui-primitives`; generated templates must
+can reuse `dioxus-shadcn-core` and `dioxus-shadcn-primitives`; generated templates must
 remain self-contained and must not import internal crates.
 
 ## Shared Rules

@@ -13,7 +13,7 @@ dxui add sheet
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["sheet"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["sheet"] }
 ```
 
 ## API Surface
@@ -31,7 +31,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["sheet"] }
 - `sheet_content_class`
 
 The module also re-exports `DialogPrimitiveConfig` for users importing from
-`dioxus_ui::sheet`.
+`dioxus_shadcn::sheet`.
 
 ## Behavior
 

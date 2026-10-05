@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{
+use dioxus_shadcn::{
   Button, ButtonVariant, MessageScroller, MessageScrollerBottomAnchor, MessageScrollerContent,
   MessageScrollerIntent, MessageScrollerJumpButton, MessageScrollerUnreadMarker,
   MessageScrollerViewport,

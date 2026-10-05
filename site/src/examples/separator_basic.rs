@@ -1,11 +1,11 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Separator, SeparatorOrientation};
+use dioxus_shadcn::{Separator, SeparatorOrientation};
 
 #[component]
 pub fn Demo() -> Element {
   rsx! {
     div { class: "max-w-sm",
-      h4 { class: "text-sm font-medium", "dioxus-ui" }
+      h4 { class: "text-sm font-medium", "dioxus-shadcn" }
       p { class: "text-sm text-muted-foreground", "Components for Dioxus." }
       Separator { class: "my-4" }
       div { class: "flex h-5 items-center gap-4 text-sm",

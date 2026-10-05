@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{
+use dioxus_shadcn::{
   Button, ButtonVariant, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader,
   SheetOverlay, SheetSide, SheetTitle,
 };

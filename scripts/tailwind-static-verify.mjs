@@ -5,10 +5,10 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)));
 const roots = [
-  "crates/dioxus-ui/src",
-  "crates/dioxus-ui-core/src",
-  "crates/dioxus-ui-primitives/src",
-  "crates/dioxus-ui-cli/templates",
+  "crates/dioxus-shadcn/src",
+  "crates/dioxus-shadcn-core/src",
+  "crates/dioxus-shadcn-primitives/src",
+  "crates/dioxus-shadcn-cli/templates",
 ];
 const utilityPrefixes = [
   "bg",

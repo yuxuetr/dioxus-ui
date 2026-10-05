@@ -66,7 +66,7 @@ gate.
 
 The first mobile browser smoke should verify:
 
-- page title is `dioxus-ui preview`
+- page title is `dioxus-shadcn preview`
 - `[data-preview-root="web"]` exists
 - `[data-preview-panel="mobile-profile"]` exists
 - `[data-mobile-profile="touch-targets"]` exists

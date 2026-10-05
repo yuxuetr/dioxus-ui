@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{
+use dioxus_shadcn::{
   Button, ButtonVariant, ToastAction, ToastClose, ToastDescription, ToastRoot, ToastTitle,
   ToastViewport, toast_dismiss_reason_attribute,
 };

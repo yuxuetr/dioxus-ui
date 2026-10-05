@@ -2,7 +2,7 @@
 
 ## Goal
 
-This document defines the public component API conventions for `dioxus-ui`.
+This document defines the public component API conventions for `dioxus-shadcn`.
 Every component template and crate module should follow these rules unless a
 component-specific RFC documents an exception.
 

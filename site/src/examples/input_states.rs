@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Input, Label};
+use dioxus_shadcn::{Input, Label};
 
 #[component]
 pub fn Demo() -> Element {

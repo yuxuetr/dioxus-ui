@@ -12,7 +12,7 @@ dxui add context-menu
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["context-menu"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["context-menu"] }
 ```
 
 ## API Surface
@@ -32,7 +32,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["context-me
 - `context_menu_item_class`
 
 The module also re-exports `DropdownPrimitiveConfig` for users importing from
-`dioxus_ui::context_menu`.
+`dioxus_shadcn::context_menu`.
 
 ## Behavior
 

@@ -12,7 +12,7 @@ dxui add navigation-menu
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["navigation-menu"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["navigation-menu"] }
 ```
 
 ## API Surface
@@ -31,7 +31,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["navigation
 - `navigation_menu_link_class`
 
 The module also re-exports `PopoverPrimitiveConfig` for users importing from
-`dioxus_ui::navigation_menu`.
+`dioxus_shadcn::navigation_menu`.
 
 ## Behavior
 

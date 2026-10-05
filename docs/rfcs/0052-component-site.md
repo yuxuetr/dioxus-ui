@@ -33,7 +33,7 @@ As of M178:
 
 - A `site/` workspace member, package `dioxus-ui-site`, `publish = false`.
   It depends on `dioxus` with the `web` and `router` features and on
-  `dioxus-ui` by path with every component feature, so it renders what a
+  `dioxus-shadcn` by path with every component feature, so it renders what a
   crate-mode app gets.
 - The site uses the library's own components (Button, Toggle, Sheet, Tabs,
   and so on) for its chrome. A component that cannot build the site is a gap
@@ -69,7 +69,7 @@ page.
 - Each example is one Rust file under `site/src/examples/<slug>/`, holding
   one component function. The page renders the function and shows the same
   file with `include_str!`, so the shown source is the code that runs.
-- Examples import from `dioxus_ui`, as a crate-mode app does. The source tab
+- Examples import from `dioxus_shadcn`, as a crate-mode app does. The source tab
   shows that import.
 - M180 adds the page template and the examples; M179 builds the shell.
 

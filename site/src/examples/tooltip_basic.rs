@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Tooltip, TooltipContent, TooltipTrigger};
+use dioxus_shadcn::{Tooltip, TooltipContent, TooltipTrigger};
 
 #[component]
 pub fn Demo() -> Element {

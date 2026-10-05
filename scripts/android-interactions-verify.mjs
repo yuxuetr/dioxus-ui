@@ -9,7 +9,7 @@ import { join } from "node:path";
 const repoRoot = new URL("..", import.meta.url).pathname;
 const packageName = "com.example.DioxusUiMobileDemo";
 const activity = `${packageName}/dev.dioxus.main.MainActivity`;
-const requestProperty = "debug.dioxus_ui.self_test";
+const requestProperty = "debug.dioxus_shadcn.self_test";
 const passLine = "mobile interaction verification passed";
 const resultTimeoutMs = 180000;
 const bootTimeoutMs = 300000;

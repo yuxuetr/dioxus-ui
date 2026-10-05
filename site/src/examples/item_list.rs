@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Badge, BadgeVariant, Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle};
+use dioxus_shadcn::{Badge, BadgeVariant, Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle};
 
 const PEOPLE: [(&str, &str, &str); 3] = [
   ("AL", "Ada Lovelace", "ada@example.com"),

@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{
+use dioxus_shadcn::{
   Calendar, CalendarBody, CalendarCaption, CalendarDate, CalendarDay, CalendarGrid, CalendarHeader,
   CalendarMonth, CalendarNav, CalendarNavButton, CalendarNavDirection, CalendarRow,
   CalendarWeekday, calendar_month_grid, calendar_move_date,

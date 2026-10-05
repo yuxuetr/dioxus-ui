@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{
+use dioxus_shadcn::{
   Carousel, CarouselContent, CarouselIndicator, CarouselItem, CarouselNext, CarouselPrevious,
   CarouselState, CarouselStep, CarouselViewport, carousel_can_go_next, carousel_can_go_previous,
 };

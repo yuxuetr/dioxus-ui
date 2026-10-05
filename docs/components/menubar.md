@@ -12,7 +12,7 @@ dxui add menubar
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["menubar"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["menubar"] }
 ```
 
 ## API Surface
@@ -36,7 +36,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["menubar"] 
 
 The module also re-exports `DropdownPrimitiveConfig`, `DismissBehavior`,
 `OverlayAlign`, and `OverlaySide` for users importing from
-`dioxus_ui::menubar`.
+`dioxus_shadcn::menubar`.
 
 ## Behavior
 

@@ -1,0 +1,23 @@
+[package]
+name = "dioxus-shadcn-cli"
+description = "Command-line tool for adding dioxus-shadcn components to Dioxus projects."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+readme.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[[bin]]
+name = "dxui"
+path = "src/main.rs"
+
+[dependencies]
+dioxus-shadcn-core.workspace = true
+serde_json.workspace = true
+
+[build-dependencies]
+serde_json.workspace = true
+
+[dev-dependencies]

@@ -12,7 +12,7 @@ dxui add scroll-area
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["scroll-area"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["scroll-area"] }
 ```
 
 ## API Surface

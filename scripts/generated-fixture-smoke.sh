@@ -8,7 +8,7 @@ cd "${repo_root}"
 
 echo "fixture: ${fixture_root}"
 
-templates_dir="crates/dioxus-ui-cli/templates"
+templates_dir="crates/dioxus-shadcn-cli/templates"
 
 # grep exits 2 on a missing directory, which `if` would read as "no match".
 if [[ ! -d "${templates_dir}" ]]; then
@@ -16,14 +16,14 @@ if [[ ! -d "${templates_dir}" ]]; then
   exit 1
 fi
 
-if grep -R "dioxus_ui_core\|dioxus_ui_primitives" "${templates_dir}"; then
-  echo "templates must not import dioxus-ui internal crates" >&2
+if grep -R "dioxus_shadcn_core\|dioxus_shadcn_primitives" "${templates_dir}"; then
+  echo "templates must not import dioxus-shadcn internal crates" >&2
   exit 1
 fi
 
-cargo run -q -p dioxus-ui-cli -- init --root "${fixture_root}"
+cargo run -q -p dioxus-shadcn-cli -- init --root "${fixture_root}"
 
-mapfile -t components < <(cargo run -q -p dioxus-ui-cli -- list)
+mapfile -t components < <(cargo run -q -p dioxus-shadcn-cli -- list)
 
 if [[ "${#components[@]}" -eq 0 ]]; then
   echo "dxui list returned no public components" >&2
@@ -31,7 +31,7 @@ if [[ "${#components[@]}" -eq 0 ]]; then
 fi
 
 for component in "${components[@]}"; do
-  cargo run -q -p dioxus-ui-cli -- add "${component}" --root "${fixture_root}"
+  cargo run -q -p dioxus-shadcn-cli -- add "${component}" --root "${fixture_root}"
 done
 
 for component in "${components[@]}"; do
@@ -59,8 +59,8 @@ if ! grep -qx "pub mod utils;" "${fixture_root}/src/components/ui/mod.rs"; then
   exit 1
 fi
 
-if grep -R "dioxus_ui_core\|dioxus_ui_primitives" "${fixture_root}/src/components/ui"; then
-  echo "generated components must not import dioxus-ui internal crates" >&2
+if grep -R "dioxus_shadcn_core\|dioxus_shadcn_primitives" "${fixture_root}/src/components/ui"; then
+  echo "generated components must not import dioxus-shadcn internal crates" >&2
   exit 1
 fi
 

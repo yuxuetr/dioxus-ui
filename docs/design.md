@@ -8,7 +8,7 @@ crate is convenient, but it can be difficult to customize. A pure copied-source
 approach is flexible, but it needs strong conventions and tooling to stay
 consistent.
 
-`dioxus-ui` should support both workflows:
+`dioxus-shadcn` should support both workflows:
 
 - copy component source into an app with `dxui add`
 - install a crate and enable components by feature flag
@@ -21,13 +21,13 @@ The copied-source workflow is the first-class early path.
 templates + registry
         │
         ▼
-   dioxus-ui-cli ───────────────► user app source tree
+   dioxus-shadcn-cli ───────────────► user app source tree
         │
         ▼
-crates/dioxus-ui
+crates/dioxus-shadcn
         │
-        ├── dioxus-ui-core
-        └── dioxus-ui-primitives
+        ├── dioxus-shadcn-core
+        └── dioxus-shadcn-primitives
 ```
 
 The detailed Cargo workspace contract is documented in
@@ -35,7 +35,7 @@ The detailed Cargo workspace contract is documented in
 
 ## Crate Responsibilities
 
-### dioxus-ui-core
+### dioxus-shadcn-core
 
 Shared utilities and types that do not depend on a specific component.
 
@@ -46,7 +46,7 @@ Planned contents:
 - shared props conventions
 - component metadata types used by tests or generation
 
-### dioxus-ui-primitives
+### dioxus-shadcn-primitives
 
 Unstyled behavior components for difficult interactions.
 
@@ -62,7 +62,7 @@ Planned contents:
 
 This crate should avoid Tailwind classes.
 
-### dioxus-ui
+### dioxus-shadcn
 
 Styled public components for direct dependency use.
 
@@ -76,7 +76,7 @@ Planned contents:
 - component feature flags
 - re-exports from primitives when useful
 
-### dioxus-ui-cli
+### dioxus-shadcn-cli
 
 Command-line tool for project setup and component source generation.
 
@@ -192,18 +192,18 @@ dxui add tabs
 Crate mode:
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["button", "dialog"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["button", "dialog"] }
 ```
 
 Planned module layout:
 
 ```text
-dioxus_ui::button
-dioxus_ui::input
-dioxus_ui::tabs
-dioxus_ui::dialog
-dioxus_ui::popover
-dioxus_ui::select
+dioxus_shadcn::button
+dioxus_shadcn::input
+dioxus_shadcn::tabs
+dioxus_shadcn::dialog
+dioxus_shadcn::popover
+dioxus_shadcn::select
 ```
 
 The crate may re-export common components at the root for ergonomic imports,
@@ -262,7 +262,7 @@ For Tailwind CSS v4, the generated CSS entry should use CSS-first imports:
 ```
 
 `dxui init` may also add project-level theme variables or base selectors to that
-entry file. It should not treat `assets/dioxus-ui.css` as a precompiled complete
+entry file. It should not treat `assets/dioxus-shadcn.css` as a precompiled complete
 Tailwind output. The final CSS output belongs to the user's app build, because
 Tailwind must scan the user's application and generated component files.
 

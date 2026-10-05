@@ -89,7 +89,7 @@ The script should print saved paths and metadata after successful validation.
 
 Both viewports should verify:
 
-- page title is `dioxus-ui preview`
+- page title is `dioxus-shadcn preview`
 - `[data-preview-root="web"]` exists once
 - `[data-preview-panel="form"]` exists and contains an input
 - `[data-preview-panel="message"]` exists

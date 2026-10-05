@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Accordion, AccordionContent, AccordionItem, AccordionTrigger, accordion_single_open};
+use dioxus_shadcn::{Accordion, AccordionContent, AccordionItem, AccordionTrigger, accordion_single_open};
 
 const QUESTIONS: [(&str, &str, &str); 3] = [
   ("copy", "Can I edit the components?", "Yes. dxui add copies the source into your app, and you own it."),

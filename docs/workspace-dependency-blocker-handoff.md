@@ -30,9 +30,9 @@ The workspace declares project crate dependencies with a local path and a
 version requirement:
 
 ```toml
-dioxus-ui-core = { version = "0.1.0", path = "crates/dioxus-ui-core" }
-dioxus-ui-primitives = { version = "0.1.0", path = "crates/dioxus-ui-primitives" }
-dioxus-ui = { version = "0.1.0", path = "crates/dioxus-ui" }
+dioxus-shadcn-core = { version = "0.1.0", path = "crates/dioxus-shadcn-core" }
+dioxus-shadcn-primitives = { version = "0.1.0", path = "crates/dioxus-shadcn-primitives" }
+dioxus-shadcn = { version = "0.1.0", path = "crates/dioxus-shadcn" }
 ```
 
 Local development and workspace checks use the path. Packaged crates resolve

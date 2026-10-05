@@ -33,8 +33,8 @@ required_fragments=(
 )
 
 for fragment in "${required_fragments[@]}"; do
-  require_fragment "web" "${web_output}" "dioxus-ui web demo ${fragment}"
-  require_fragment "desktop" "${desktop_output}" "dioxus-ui desktop demo ${fragment}"
+  require_fragment "web" "${web_output}" "dioxus-shadcn web demo ${fragment}"
+  require_fragment "desktop" "${desktop_output}" "dioxus-shadcn desktop demo ${fragment}"
 done
 
 echo "example smoke passed"

@@ -1,7 +1,7 @@
 use std::sync::Mutex;
 use std::sync::atomic::{AtomicU64, Ordering};
 
-use dioxus_ui_primitives::{
+use dioxus_shadcn_primitives::{
   DuplicateAnnouncementPolicy, FocusCommandResult, FocusRuntime, FocusRuntimeRequest,
   GestureRuntime, GestureRuntimeRequest, GestureRuntimeResult, LiveRegionRuntime,
   LiveRegionRuntimeRequest, LiveRegionRuntimeResult, MeasurementRuntime, MeasurementRuntimeRequest,
@@ -235,9 +235,9 @@ impl PortalRuntime for WebPortalRuntime {
 
   fn mount_target(&self, request: &PortalRuntimeRequest) -> PortalMountResult<Self::MountId> {
     match &request.target {
-      dioxus_ui_primitives::PortalTarget::Inline => PortalMountResult::Inline,
-      dioxus_ui_primitives::PortalTarget::Body => self.mount("body".to_string(), request.modal),
-      dioxus_ui_primitives::PortalTarget::Selector(selector) => {
+      dioxus_shadcn_primitives::PortalTarget::Inline => PortalMountResult::Inline,
+      dioxus_shadcn_primitives::PortalTarget::Body => self.mount("body".to_string(), request.modal),
+      dioxus_shadcn_primitives::PortalTarget::Selector(selector) => {
         if self.available_selectors.iter().any(|available_selector| available_selector == selector)
         {
           self.mount(selector.clone(), request.modal)
@@ -406,16 +406,16 @@ impl PointerRuntime for WebPointerRuntime {
     }
 
     match request.phase {
-      dioxus_ui_primitives::PointerPhase::Start => match self.set_capture(true) {
+      dioxus_shadcn_primitives::PointerPhase::Start => match self.set_capture(true) {
         Ok(()) => PointerRuntimeResult::Started,
         Err(()) => PointerRuntimeResult::Unsupported,
       },
-      dioxus_ui_primitives::PointerPhase::Move => PointerRuntimeResult::Moved(request.delta),
-      dioxus_ui_primitives::PointerPhase::End => match self.set_capture(false) {
+      dioxus_shadcn_primitives::PointerPhase::Move => PointerRuntimeResult::Moved(request.delta),
+      dioxus_shadcn_primitives::PointerPhase::End => match self.set_capture(false) {
         Ok(()) => PointerRuntimeResult::Ended,
         Err(()) => PointerRuntimeResult::Unsupported,
       },
-      dioxus_ui_primitives::PointerPhase::Cancel => match self.set_capture(false) {
+      dioxus_shadcn_primitives::PointerPhase::Cancel => match self.set_capture(false) {
         Ok(()) => PointerRuntimeResult::Cancelled,
         Err(()) => PointerRuntimeResult::Unsupported,
       },
@@ -648,9 +648,9 @@ mod tests {
     assert!(runtime.capture_active());
     assert_eq!(
       runtime.handle_pointer(&PointerRuntimeRequest::move_by(
-        dioxus_ui_primitives::PointerDelta::new(12.0, 0.0)
+        dioxus_shadcn_primitives::PointerDelta::new(12.0, 0.0)
       )),
-      PointerRuntimeResult::Moved(dioxus_ui_primitives::PointerDelta::new(12.0, 0.0))
+      PointerRuntimeResult::Moved(dioxus_shadcn_primitives::PointerDelta::new(12.0, 0.0))
     );
     assert_eq!(runtime.handle_pointer(&PointerRuntimeRequest::end()), PointerRuntimeResult::Ended);
     assert!(!runtime.capture_active());
@@ -676,11 +676,11 @@ mod tests {
 
     assert_eq!(
       runtime.resolve_gesture(&next_request),
-      GestureRuntimeResult::Resolved(dioxus_ui_primitives::GestureOutcome::CommitNext)
+      GestureRuntimeResult::Resolved(dioxus_shadcn_primitives::GestureOutcome::CommitNext)
     );
     assert_eq!(
       runtime.resolve_gesture(&cancel_request),
-      GestureRuntimeResult::Resolved(dioxus_ui_primitives::GestureOutcome::Cancel)
+      GestureRuntimeResult::Resolved(dioxus_shadcn_primitives::GestureOutcome::Cancel)
     );
     assert_eq!(runtime.records().len(), 2);
   }

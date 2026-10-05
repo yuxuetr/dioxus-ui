@@ -20,11 +20,11 @@ The audit covers these public surfaces:
 
 | Surface | Current Shape | Stability Concern |
 | --- | --- | --- |
-| Styled component crate | `dioxus-ui` exports feature-gated component modules and re-exports component types, class helpers, constants, and selected primitive config types. | Component names, prop names, variants, feature names, and class helper names become user-facing in crate mode. |
-| Primitive crate | `dioxus-ui-primitives` exports pure helper functions, state structs, config structs, runtime adapter traits, and interaction enums. | Helper naming and state shape become reusable app logic contracts. |
-| Core crate | `dioxus-ui-core` exports class merging and registry data types. | Registry schema types and helper names affect CLI and integrator tooling. |
+| Styled component crate | `dioxus-shadcn` exports feature-gated component modules and re-exports component types, class helpers, constants, and selected primitive config types. | Component names, prop names, variants, feature names, and class helper names become user-facing in crate mode. |
+| Primitive crate | `dioxus-shadcn-primitives` exports pure helper functions, state structs, config structs, runtime adapter traits, and interaction enums. | Helper naming and state shape become reusable app logic contracts. |
+| Core crate | `dioxus-shadcn-core` exports class merging and registry data types. | Registry schema types and helper names affect CLI and integrator tooling. |
 | CLI source-copy API | `dxui add`, registry slugs, template filenames, and generated source targets. | Slugs and file paths become source-copy workflow contracts. |
-| Feature flags | Component feature names in `crates/dioxus-ui/Cargo.toml`. | Feature names are dependency API and should not drift accidentally. |
+| Feature flags | Component feature names in `crates/dioxus-shadcn/Cargo.toml`. | Feature names are dependency API and should not drift accidentally. |
 | Documentation examples | README, component docs, release docs, and source preview routes. | Examples shape user expectations before the crate API is stable. |
 
 ## Baseline Counts

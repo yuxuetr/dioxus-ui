@@ -47,9 +47,9 @@ const scripts = packageJson.scripts ?? {};
 const failures = [];
 
 const internalDependencies = [
-  "dioxus-ui-core",
-  "dioxus-ui-primitives",
-  "dioxus-ui",
+  "dioxus-shadcn-core",
+  "dioxus-shadcn-primitives",
+  "dioxus-shadcn",
 ];
 
 const requireIncludes = (name, text, fragments) => {
@@ -107,7 +107,7 @@ if (workspaceDependencies === null) {
 
 requireIncludes("docs/workspace-dependency-publish-readiness-metadata.md", metadataDoc, [
   "Workspace Dependency Publish Readiness Metadata",
-  "version = \"0.1.0\", path = \"crates/dioxus-ui-core\"",
+  "version = \"0.1.0\", path = \"crates/dioxus-shadcn-core\"",
   "crates.io-resolvable version metadata",
   "after resolution",
   "must not change dependency versions, run `cargo package`, run `cargo publish`, contact crates.io, check registry ownership, inspect credentials, create package archives, or authorize a release",

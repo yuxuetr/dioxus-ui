@@ -70,7 +70,7 @@ requireIncludes("docs/publish-readiness-resolution-runbook.md", runbookDoc, [
   "Follow-up Updates",
   "Resolved items",
   "CLI template packaging strategy",
-  "`dioxus-ui-cli` embeds registry and template assets at compile time",
+  "`dioxus-shadcn-cli` embeds registry and template assets at compile time",
   "npm run verify:cli-template-packaging-readiness",
   "must not resolve blockers, replace repository URLs, stabilize APIs, generate release notes, generate license text, change embedded CLI template delivery, change dependency versions, contact registries, inspect credentials, run `cargo package`, run `cargo publish`, or create package archives",
 ]);

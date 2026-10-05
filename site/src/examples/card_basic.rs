@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Button, ButtonVariant, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Input, Label};
+use dioxus_shadcn::{Button, ButtonVariant, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Input, Label};
 
 #[component]
 pub fn Demo() -> Element {

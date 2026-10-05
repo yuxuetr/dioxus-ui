@@ -20,10 +20,10 @@ const scripts = packageJson.scripts ?? {};
 const failures = [];
 
 const publishOrder = [
-  "dioxus-ui-core",
-  "dioxus-ui-primitives",
-  "dioxus-ui",
-  "dioxus-ui-cli",
+  "dioxus-shadcn-core",
+  "dioxus-shadcn-primitives",
+  "dioxus-shadcn",
+  "dioxus-shadcn-cli",
 ];
 
 const requireIncludes = (name, text, fragments) => {

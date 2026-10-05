@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Field, FieldDescription, FieldError, FieldGroup, FieldLabel, Input};
+use dioxus_shadcn::{Field, FieldDescription, FieldError, FieldGroup, FieldLabel, Input};
 
 #[component]
 pub fn Demo() -> Element {

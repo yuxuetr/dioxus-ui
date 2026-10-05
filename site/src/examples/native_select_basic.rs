@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Label, NativeSelect, NativeSelectGroup, NativeSelectOption};
+use dioxus_shadcn::{Label, NativeSelect, NativeSelectGroup, NativeSelectOption};
 
 #[component]
 pub fn Demo() -> Element {

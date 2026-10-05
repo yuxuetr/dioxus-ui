@@ -97,8 +97,8 @@ const aggregateScriptRequirements = {
   "verify:release": [
     "cargo check --workspace --all-features",
     "cargo test --workspace --all-features",
-    "cargo test -p dioxus-ui-cli --test registry",
-    "cargo run -p dioxus-ui-cli -- list",
+    "cargo test -p dioxus-shadcn-cli --test registry",
+    "cargo run -p dioxus-shadcn-cli -- list",
     "npm run verify:cargo-workspace",
     "npm run verify:cargo-publish-metadata",
     "npm run verify:publish-readiness-blockers",

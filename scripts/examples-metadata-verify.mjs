@@ -111,9 +111,9 @@ const requiredReadmeSnippets = [
   "cargo run -p dioxus-ui-runtime-desktop-verification",
   "cargo test -p dioxus-ui-runtime-desktop-verification",
   "## CLI Init Smoke",
-  "cargo run -p dioxus-ui-cli -- init --root /tmp/dxui-demo",
+  "cargo run -p dioxus-shadcn-cli -- init --root /tmp/dxui-demo",
   "## CLI Add Smoke",
-  "cargo run -p dioxus-ui-cli -- add button --root /tmp/dxui-demo",
+  "cargo run -p dioxus-shadcn-cli -- add button --root /tmp/dxui-demo",
   "## Generated Fixture Smoke",
   "scripts/generated-fixture-smoke.sh",
   "## Example Smoke",
@@ -137,8 +137,8 @@ if (scripts["verify:examples-metadata"] !== "node scripts/examples-metadata-veri
 const requiredSmokeFragments = [
   "cargo run -q -p dioxus-ui-web-demo",
   "cargo run -q -p dioxus-ui-desktop-demo",
-  "dioxus-ui web demo",
-  "dioxus-ui desktop demo",
+  "dioxus-shadcn web demo",
+  "dioxus-shadcn desktop demo",
 ];
 
 for (const fragment of requiredSmokeFragments) {

@@ -30,7 +30,7 @@ const requiredSnippets = [
   },
   {
     label: "CLI registry test command",
-    snippet: "cargo test -p dioxus-ui-cli --test registry",
+    snippet: "cargo test -p dioxus-shadcn-cli --test registry",
   },
   {
     label: "source-copy fixture smoke command",

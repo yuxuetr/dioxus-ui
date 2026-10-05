@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Label, RadioGroup, RadioGroupItem};
+use dioxus_shadcn::{Label, RadioGroup, RadioGroupItem};
 
 const PLANS: [(&str, &str, bool); 3] =
   [("free", "Free", false), ("pro", "Pro", false), ("team", "Team (sold out)", true)];

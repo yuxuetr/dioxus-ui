@@ -12,7 +12,7 @@ dxui add popover
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["popover"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["popover"] }
 ```
 
 ## API Surface

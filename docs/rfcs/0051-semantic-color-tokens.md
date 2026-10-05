@@ -21,10 +21,10 @@ As of M175:
 
   | Location | Uses | Files |
   | --- | --- | --- |
-  | `crates/dioxus-ui/src` | 629 | 62 |
-  | `crates/dioxus-ui-cli/templates` | 540 | 62 |
-  | `crates/dioxus-ui-primitives/src` (chart colors) | 7 | 1 |
-  | `crates/dioxus-ui-core/src` (class merge tests only) | 6 | 1 |
+  | `crates/dioxus-shadcn/src` | 629 | 62 |
+  | `crates/dioxus-shadcn-cli/templates` | 540 | 62 |
+  | `crates/dioxus-shadcn-primitives/src` (chart colors) | 7 | 1 |
+  | `crates/dioxus-shadcn-core/src` (class merge tests only) | 6 | 1 |
 
 - The most common crate uses are `bg-zinc-100` (77), `text-zinc-950` (76),
   `border-zinc-200` (59), `bg-white` (51), `ring-blue-600` (47),
@@ -146,7 +146,7 @@ marks through `class`; reevaluate when an app reports that.
 
 ### Stylesheet setup
 
-- The CLI default `assets/dioxus-ui.css` gets the `:root`, `.dark`, and
+- The CLI default `assets/dioxus-shadcn.css` gets the `:root`, `.dark`, and
   `@theme inline` token blocks and the custom variant. They replace the
   `--dxui-background` and `--dxui-foreground` variables; `bg-background` and
   `text-foreground` keep working.
@@ -158,7 +158,7 @@ marks through `class`; reevaluate when an app reports that.
   on `.dark` redefines only the tokens and app palette classes keep their
   colors.
 - Crate-mode apps get the stylesheet the same way as source-copy apps: run
-  `dxui init`, which writes only `assets/dioxus-ui.css` and an empty
+  `dxui init`, which writes only `assets/dioxus-shadcn.css` and an empty
   `src/components/ui/mod.rs`, or copy the token blocks from the theming
   docs.
 

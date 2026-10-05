@@ -20,11 +20,11 @@ src/components/ui/calendar.rs
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["date-picker", "calendar"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["date-picker", "calendar"] }
 ```
 
 ```rust
-use dioxus_ui::{DatePickerContent, DatePickerTrigger, DatePickerValue};
+use dioxus_shadcn::{DatePickerContent, DatePickerTrigger, DatePickerValue};
 ```
 
 ## API Surface

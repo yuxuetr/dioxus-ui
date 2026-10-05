@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Button, ButtonVariant, Input, Label, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle};
+use dioxus_shadcn::{Button, ButtonVariant, Input, Label, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle};
 
 #[component]
 pub fn Demo() -> Element {

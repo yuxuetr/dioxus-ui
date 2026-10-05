@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Button, ButtonSize, ButtonVariant};
+use dioxus_shadcn::{Button, ButtonSize, ButtonVariant};
 
 #[component]
 pub fn Demo() -> Element {

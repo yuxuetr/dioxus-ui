@@ -82,10 +82,10 @@ const expectedWorkspaceArrays = {
   categories: ["gui", "web-programming"],
 };
 const expectedDescriptions = {
-  "dioxus-ui-core": "Core utilities and shared conventions for dioxus-ui.",
-  "dioxus-ui-primitives": "Unstyled primitive state and accessibility helpers for dioxus-ui.",
-  "dioxus-ui": "Tailwind-styled Dioxus UI components with source-copy friendly APIs.",
-  "dioxus-ui-cli": "Command-line tool for adding dioxus-ui components to Dioxus projects.",
+  "dioxus-shadcn-core": "Core utilities and shared conventions for dioxus-shadcn.",
+  "dioxus-shadcn-primitives": "Unstyled primitive state and accessibility helpers for dioxus-shadcn.",
+  "dioxus-shadcn": "Tailwind-styled Dioxus UI components with source-copy friendly APIs.",
+  "dioxus-shadcn-cli": "Command-line tool for adding dioxus-shadcn components to Dioxus projects.",
 };
 const inheritedPublishFields = ["version", "edition", "license", "repository", "readme", "keywords", "categories"];
 
@@ -161,9 +161,9 @@ if (existsSync(examplesDir)) {
 }
 
 const metadataFragments = [
-  "dioxus-ui-core",
-  "dioxus-ui-primitives",
-  "dioxus-ui-cli",
+  "dioxus-shadcn-core",
+  "dioxus-shadcn-primitives",
+  "dioxus-shadcn-cli",
   "shared workspace `readme`, `keywords`, and `categories` metadata",
   "Example and verification crates under `examples/` remain application fixtures",
   "does not claim the crates are ready to publish",

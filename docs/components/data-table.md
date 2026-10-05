@@ -23,11 +23,11 @@ src/components/ui/command.rs
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["data-table"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["data-table"] }
 ```
 
 ```rust
-use dioxus_ui::{DataTable, DataTableHeaderCell, DataTableSortDirection};
+use dioxus_shadcn::{DataTable, DataTableHeaderCell, DataTableSortDirection};
 ```
 
 ## API Surface

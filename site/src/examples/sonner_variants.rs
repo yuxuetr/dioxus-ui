@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{
+use dioxus_shadcn::{
   Button, ButtonVariant, SonnerClose, SonnerContent, SonnerDescription, SonnerIcon, SonnerTitle,
   SonnerToast, SonnerVariant, SonnerViewport,
 };

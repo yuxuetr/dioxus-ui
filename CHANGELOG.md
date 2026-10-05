@@ -13,13 +13,13 @@ release owner renames it to the released version at publish time.
 
 ### Added
 
-- `dioxus-ui-core`: shared conventions, including the `classes` composer,
+- `dioxus-shadcn-core`: shared conventions, including the `classes` composer,
   `UiDensity`, and registry metadata types used by the CLI.
-- `dioxus-ui-primitives`: unstyled state and accessibility helpers for
+- `dioxus-shadcn-primitives`: unstyled state and accessibility helpers for
   dialogs, dismissal, overlay placement, roving focus, typeahead, select,
   slider, calendar, data table, Input OTP, Message Scroller, and chart
   measurement.
-- `dioxus-ui`: Tailwind-styled Dioxus components behind per-component crate
+- `dioxus-shadcn`: Tailwind-styled Dioxus components behind per-component crate
   features, covering 64 components: Accordion, Alert, Alert Dialog, Aspect
   Ratio, Attachment, Avatar, Badge, Breadcrumb, Bubble, Button, Button Group,
   Calendar, Card, Carousel, Chart, Checkbox, Collapsible, Combobox, Command,
@@ -29,7 +29,7 @@ release owner renames it to the released version at publish time.
   Pagination, Popover, Progress, Radio Group, Resizable, Scroll Area, Select,
   Separator, Sheet, Sidebar, Skeleton, Slider, Sonner, Spinner, Switch, Table,
   Tabs, Textarea, Toast, Toggle, Toggle Group, Tooltip, and Typography.
-- `dioxus-ui-cli`: the `dxui` command with `init`, `add`, and `list`, using
+- `dioxus-shadcn-cli`: the `dxui` command with `init`, `add`, and `list`, using
   registry and template assets embedded at compile time for source-copy
   installs.
 - Component registry entries, source-copy templates, and docs pages for every
@@ -192,7 +192,7 @@ release owner renames it to the released version at publish time.
   emulator build of the same preview, requested through a debug system
   property and read from logcat.
 - An opt-in dark theme: `dxui init` writes a `.dark` block into
-  `assets/dioxus-ui.css` that redefines the semantic color tokens. Adding the
+  `assets/dioxus-shadcn.css` that redefines the semantic color tokens. Adding the
   `dark` class to an ancestor turns it on without changing component
   classes; app palette classes keep their colors under `.dark`.
 - `npm run css:preview` regenerates
@@ -240,6 +240,11 @@ release owner renames it to the released version at publish time.
 ### Changed
 
 - Template changelog history has been removed from the project changelog.
+- The crates publish as `dioxus-shadcn`, `dioxus-shadcn-core`,
+  `dioxus-shadcn-primitives`, and `dioxus-shadcn-cli`, since crates.io's
+  `dioxus_ui` takes the `dioxus-ui` name; `dxui init` writes
+  `assets/dioxus-shadcn.css`. The repository and the `dxui` binary keep their
+  names (see RFC 0056).
 - `AlertTitle` renders a `div` instead of an `h5`, as in shadcn/ui v4; an
   `h5` skipped heading levels on most pages.
 - `ScrollAreaViewport` and `MessageScrollerViewport` are Tab stops with a
@@ -258,7 +263,7 @@ release owner renames it to the released version at publish time.
   border and the Sonner dot on an opaque popover surface.
   - Migration for crate-mode apps: the stylesheet must define the tokens, or
     the components lose their colors. Run `dxui init` to write
-    `assets/dioxus-ui.css`, or copy everything after the import from
+    `assets/dioxus-shadcn.css`, or copy everything after the import from
     `examples/web-demo/assets/preview.css` into your Tailwind input. To keep
     a blue brand, set `--primary` and `--ring` in `:root` and `.dark`.
   - Migration for source-copy apps: copied components keep their palette

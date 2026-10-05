@@ -13,7 +13,7 @@ dxui add sonner
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["sonner"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["sonner"] }
 ```
 
 ## API Surface

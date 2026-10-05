@@ -11,7 +11,7 @@ dxui add spinner
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["spinner"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["spinner"] }
 ```
 
 ## API Surface

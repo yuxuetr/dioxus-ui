@@ -129,7 +129,7 @@ panics or console errors.
 
 ## Fixture Boundaries
 
-The fixture may import `dioxus-ui-primitives` with the `runtime` feature and may
+The fixture may import `dioxus-shadcn-primitives` with the `runtime` feature and may
 contain local experimental Web adapter code.
 
 The fixture must not:

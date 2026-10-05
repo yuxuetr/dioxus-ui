@@ -1,0 +1,13 @@
+[package]
+name = "dioxus-shadcn-core"
+description = "Core utilities and shared conventions for dioxus-shadcn."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+readme.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+serde.workspace = true

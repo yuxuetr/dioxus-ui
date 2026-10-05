@@ -2,17 +2,17 @@
 
 These recipes show how to use chart primitives with app-owned rendering or the
 first-party SVG Chart composition parts. M35 adds `dxui add chart`, a `chart`
-registry entry, and a `dioxus-ui` `chart` feature for line, bar, and area SVG
+registry entry, and a `dioxus-shadcn` `chart` feature for line, bar, and area SVG
 composition.
 
-Use these helpers from `dioxus-ui-primitives` or `dioxus-ui` when an app wants
+Use these helpers from `dioxus-shadcn-primitives` or `dioxus-shadcn` when an app wants
 shared data and accessibility behavior without taking an external rendering
 dependency.
 
 ## Shared Data Setup
 
 ```rust
-use dioxus_ui_primitives::{
+use dioxus_shadcn_primitives::{
   chart_fallback_rows, chart_scale_value, chart_series_x_domain,
   chart_series_y_domain, chart_summary, ChartColorToken, ChartDomain,
   ChartPoint, ChartSeries,

@@ -49,7 +49,7 @@ As of M173:
 - `npm run verify:runtime-interactions` still answers the stylesheet request
   with a fresh compile. It keeps testing the current classes even when the
   committed file is stale, and the drift gate reports the stale file.
-- RFC 0003 still holds for library users: dioxus-ui ships no compiled
+- RFC 0003 still holds for library users: dioxus-shadcn ships no compiled
   Tailwind output. The generated file belongs to the previews only.
 
 ## Scope

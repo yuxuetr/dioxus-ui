@@ -83,7 +83,7 @@ Rules:
 Crate feature:
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["input-otp"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["input-otp"] }
 ```
 
 Source-copy command:
@@ -219,8 +219,8 @@ Mobile behavior should be conservative:
 
 Generated Input OTP source must remain self-contained:
 
-- no imports from `dioxus-ui-core`
-- no imports from `dioxus-ui-primitives`
+- no imports from `dioxus-shadcn-core`
+- no imports from `dioxus-shadcn-primitives`
 - no renderer runtime adapters
 - no authentication or timer dependencies
 
@@ -242,7 +242,7 @@ Before marking Input OTP complete, update:
 
 - `registry/input-otp.json`
 - `templates/input_otp.rs`
-- `crates/dioxus-ui/src/input_otp.rs`
+- `crates/dioxus-shadcn/src/input_otp.rs`
 - component docs page
 - component catalog
 - parity matrix

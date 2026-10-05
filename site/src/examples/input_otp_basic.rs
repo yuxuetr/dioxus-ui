@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{InputOtp, InputOtpGroup, InputOtpHiddenInput, InputOtpSeparator, InputOtpSlot, Label, otp_slots};
+use dioxus_shadcn::{InputOtp, InputOtpGroup, InputOtpHiddenInput, InputOtpSeparator, InputOtpSlot, Label, otp_slots};
 
 #[component]
 pub fn Demo() -> Element {

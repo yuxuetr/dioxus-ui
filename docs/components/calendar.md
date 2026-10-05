@@ -20,11 +20,11 @@ src/components/ui/calendar.rs
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["calendar"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["calendar"] }
 ```
 
 ```rust
-use dioxus_ui::{Calendar, CalendarDay, CalendarDate, CalendarRangeState};
+use dioxus_shadcn::{Calendar, CalendarDay, CalendarDate, CalendarRangeState};
 ```
 
 ## API Surface

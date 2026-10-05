@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Alert, AlertDescription, AlertTitle, AlertVariant};
+use dioxus_shadcn::{Alert, AlertDescription, AlertTitle, AlertVariant};
 
 #[component]
 pub fn Demo() -> Element {

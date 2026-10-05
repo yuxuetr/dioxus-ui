@@ -13,7 +13,7 @@ dxui add hover-card
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["hover-card"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["hover-card"] }
 ```
 
 ## API Surface
@@ -32,7 +32,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["hover-card
 - `hover_card_align_attribute`
 
 The module also re-exports `OverlaySide`, `OverlayAlign`, and
-`PopoverPrimitiveConfig` for users importing from `dioxus_ui::hover_card`.
+`PopoverPrimitiveConfig` for users importing from `dioxus_shadcn::hover_card`.
 
 ## Behavior
 

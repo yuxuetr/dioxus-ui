@@ -1,4 +1,4 @@
-//! The dioxus-ui component site (RFC 0052): the catalog, each component's
+//! The dioxus-shadcn component site (RFC 0052): the catalog, each component's
 //! page, and the setup and theming guides, built on the published components.
 
 mod catalog;
@@ -6,7 +6,7 @@ mod examples;
 mod pages;
 
 use dioxus::prelude::*;
-use dioxus_ui::{
+use dioxus_shadcn::{
   Button, ButtonSize, ButtonVariant, SheetContent, SheetOverlay, SheetSide, SheetTitle, Toggle,
 };
 use pages::{ComponentPage, GettingStarted, Home, NotFound, Theming};
@@ -42,7 +42,7 @@ fn App() -> Element {
   });
 
   rsx! {
-    document::Title { "dioxus-ui" }
+    document::Title { "dioxus-shadcn" }
     document::Stylesheet { href: SITE_CSS }
     Router::<Route> {}
   }
@@ -68,7 +68,7 @@ fn Shell() -> Element {
             onclick: move |_| menu_open.set(true),
             "Menu"
           }
-          Link { class: "font-semibold", to: Route::Home {}, "dioxus-ui" }
+          Link { class: "font-semibold", to: Route::Home {}, "dioxus-shadcn" }
           nav { class: "hidden items-center gap-4 text-sm text-muted-foreground sm:flex",
             Link { class: "hover:text-foreground", to: Route::GettingStarted {}, "Docs" }
             Link {

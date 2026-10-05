@@ -6,7 +6,7 @@ The repository should become a Cargo workspace that supports two distribution
 modes:
 
 - source-copy mode through `dxui add`
-- crate mode through feature-gated `dioxus-ui` exports
+- crate mode through feature-gated `dioxus-shadcn` exports
 
 Source-copy mode is the first implementation target. Crate mode must still be
 designed early so the module boundaries do not need to be rewritten later.
@@ -17,16 +17,16 @@ designed early so the module boundaries do not need to be rewritten later.
 dioxus-ui/
 ├─ Cargo.toml
 ├─ crates/
-│  ├─ dioxus-ui-core/
+│  ├─ dioxus-shadcn-core/
 │  │  ├─ Cargo.toml
 │  │  └─ src/lib.rs
-│  ├─ dioxus-ui-primitives/
+│  ├─ dioxus-shadcn-primitives/
 │  │  ├─ Cargo.toml
 │  │  └─ src/lib.rs
-│  ├─ dioxus-ui/
+│  ├─ dioxus-shadcn/
 │  │  ├─ Cargo.toml
 │  │  └─ src/lib.rs
-│  └─ dioxus-ui-cli/
+│  └─ dioxus-shadcn-cli/
 │     ├─ Cargo.toml
 │     ├─ registry/
 │     ├─ templates/
@@ -36,7 +36,7 @@ dioxus-ui/
 ```
 
 The root `Cargo.toml` should become a virtual workspace manifest after M1.1.
-The current root package should move to `crates/dioxus-ui`.
+The current root package should move to `crates/dioxus-shadcn`.
 
 ## Workspace Manifest
 
@@ -46,10 +46,10 @@ Initial root manifest shape:
 [workspace]
 resolver = "2"
 members = [
-  "crates/dioxus-ui-core",
-  "crates/dioxus-ui-primitives",
-  "crates/dioxus-ui",
-  "crates/dioxus-ui-cli",
+  "crates/dioxus-shadcn-core",
+  "crates/dioxus-shadcn-primitives",
+  "crates/dioxus-shadcn",
+  "crates/dioxus-shadcn-cli",
   "examples/web-demo",
   "examples/desktop-demo",
 ]
@@ -86,7 +86,7 @@ part of an explicit publish-readiness review.
 
 ## Crate Responsibilities
 
-### dioxus-ui-core
+### dioxus-shadcn-core
 
 Platform-neutral shared code.
 
@@ -100,11 +100,11 @@ Owns:
 
 Must not depend on:
 
-- `dioxus-ui`
-- `dioxus-ui-cli`
+- `dioxus-shadcn`
+- `dioxus-shadcn-cli`
 - styled component modules
 
-### dioxus-ui-primitives
+### dioxus-shadcn-primitives
 
 Unstyled behavior and accessibility primitives.
 
@@ -120,15 +120,15 @@ Owns:
 May depend on:
 
 - `dioxus`
-- `dioxus-ui-core`
+- `dioxus-shadcn-core`
 
 Must not depend on:
 
 - Tailwind classes
-- `dioxus-ui`
+- `dioxus-shadcn`
 - CLI internals
 
-### dioxus-ui
+### dioxus-shadcn
 
 Styled public component crate.
 
@@ -142,10 +142,10 @@ Owns:
 May depend on:
 
 - `dioxus`
-- `dioxus-ui-core`
-- `dioxus-ui-primitives`
+- `dioxus-shadcn-core`
+- `dioxus-shadcn-primitives`
 
-### dioxus-ui-cli
+### dioxus-shadcn-cli
 
 Code generation and project initialization.
 
@@ -159,12 +159,12 @@ Owns:
 
 May depend on:
 
-- `dioxus-ui-core` for shared registry types if useful
+- `dioxus-shadcn-core` for shared registry types if useful
 - CLI-focused crates such as `clap`, `serde`, and `serde_json`
 
 Must not depend on:
 
-- `dioxus-ui`
+- `dioxus-shadcn`
 
 The CLI should read templates from the repository during development and embed
 or package templates for release.
@@ -172,25 +172,25 @@ or package templates for release.
 ## Dependency Direction
 
 ```text
-dioxus-ui-core
+dioxus-shadcn-core
        ▲
        │
-dioxus-ui-primitives
+dioxus-shadcn-primitives
        ▲
        │
-   dioxus-ui
+   dioxus-shadcn
 
-dioxus-ui-core
+dioxus-shadcn-core
        ▲
        │
- dioxus-ui-cli
+ dioxus-shadcn-cli
 ```
 
 Invalid dependencies:
 
-- `dioxus-ui-core` -> any project crate
-- `dioxus-ui-primitives` -> `dioxus-ui`
-- `dioxus-ui-cli` -> `dioxus-ui`
+- `dioxus-shadcn-core` -> any project crate
+- `dioxus-shadcn-primitives` -> `dioxus-shadcn`
+- `dioxus-shadcn-cli` -> `dioxus-shadcn`
 
 ## Component Modules
 
@@ -200,14 +200,14 @@ documentation page.
 Example for Button:
 
 ```text
-crates/dioxus-ui/src/button.rs
-crates/dioxus-ui-cli/registry/button.json
-crates/dioxus-ui-cli/templates/button.rs
+crates/dioxus-shadcn/src/button.rs
+crates/dioxus-shadcn-cli/registry/button.json
+crates/dioxus-shadcn-cli/templates/button.rs
 docs/components/button.md
 ```
 
 Registry and templates live inside the CLI crate so `cargo package` ships them
-with `dioxus-ui-cli`. Registry `source` paths such as `templates/button.rs` are
+with `dioxus-shadcn-cli`. Registry `source` paths such as `templates/button.rs` are
 relative to the CLI crate root.
 
 The public crate can re-export ergonomic names:
@@ -231,10 +231,10 @@ textarea = []
 label = []
 tabs = []
 accordion = []
-dialog = ["dioxus-ui-primitives/dialog"]
-popover = ["dioxus-ui-primitives/popover"]
-tooltip = ["dioxus-ui-primitives/tooltip"]
-select = ["dioxus-ui-primitives/select"]
+dialog = ["dioxus-shadcn-primitives/dialog"]
+popover = ["dioxus-shadcn-primitives/popover"]
+tooltip = ["dioxus-shadcn-primitives/tooltip"]
+select = ["dioxus-shadcn-primitives/select"]
 ```
 
 Primitive features should be similarly scoped:

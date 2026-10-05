@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{
+use dioxus_shadcn::{
   LayoutOrientation, ResizableHandle, ResizablePanel, ResizablePanelGroup, ResizablePanelState,
   resizable_resize_pair,
 };

@@ -21,10 +21,10 @@ const scripts = packageJson.scripts ?? {};
 const failures = [];
 
 const plannedCrates = [
-  "dioxus-ui-core",
-  "dioxus-ui-primitives",
-  "dioxus-ui",
-  "dioxus-ui-cli",
+  "dioxus-shadcn-core",
+  "dioxus-shadcn-primitives",
+  "dioxus-shadcn",
+  "dioxus-shadcn-cli",
 ];
 
 const requireIncludes = (name, text, fragments) => {
@@ -48,8 +48,8 @@ if (!scripts["verify:release"]?.includes("npm run verify:registry-availability-r
 
 for (const crateName of plannedCrates) {
   const manifestPath =
-    crateName === "dioxus-ui"
-      ? "crates/dioxus-ui/Cargo.toml"
+    crateName === "dioxus-shadcn"
+      ? "crates/dioxus-shadcn/Cargo.toml"
       : `crates/${crateName}/Cargo.toml`;
   const manifest = readText(manifestPath);
   requireIncludes(manifestPath, manifest, [`name = "${crateName}"`]);
@@ -61,10 +61,10 @@ for (const crateName of plannedCrates) {
 
 requireIncludes("Cargo.toml", rootCargo, [
   "members = [",
-  "crates/dioxus-ui-core",
-  "crates/dioxus-ui-primitives",
-  "crates/dioxus-ui",
-  "crates/dioxus-ui-cli",
+  "crates/dioxus-shadcn-core",
+  "crates/dioxus-shadcn-primitives",
+  "crates/dioxus-shadcn",
+  "crates/dioxus-shadcn-cli",
 ]);
 
 requireIncludes("docs/registry-availability-readiness-metadata.md", readinessDoc, [

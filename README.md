@@ -1,6 +1,6 @@
-# dioxus-ui
+# dioxus-shadcn
 
-`dioxus-ui` aims to be a shadcn/ui-style component system for Dioxus:
+`dioxus-shadcn` aims to be a shadcn/ui-style component system for Dioxus:
 
 - headless primitives for behavior, accessibility, state, and composition
 - Tailwind CSS styled components as the default visual layer
@@ -33,10 +33,10 @@ the component APIs are expected to evolve quickly.
 ```text
 dioxus-ui/
 ├─ crates/
-│  ├─ dioxus-ui-core/         # shared types, class merging, theme tokens
-│  ├─ dioxus-ui-primitives/   # unstyled logic components
-│  ├─ dioxus-ui/              # styled public components
-│  └─ dioxus-ui-cli/          # dxui init / dxui add
+│  ├─ dioxus-shadcn-core/     # shared types, class merging, theme tokens
+│  ├─ dioxus-shadcn-primitives/   # unstyled logic components
+│  ├─ dioxus-shadcn/          # styled public components
+│  └─ dioxus-shadcn-cli/      # dxui init / dxui add
 │     ├─ registry/            # component metadata embedded in the CLI
 │     └─ templates/           # source templates copied by the CLI
 ├─ examples/
@@ -54,7 +54,7 @@ Example run commands are documented in [examples/README.md](examples/README.md).
 ### Source-Copy Mode
 
 ```bash
-cargo install dioxus-ui-cli
+cargo install dioxus-shadcn-cli
 
 dxui init
 dxui add button
@@ -73,10 +73,10 @@ src/components/ui/button.rs
 src/components/ui/dialog.rs
 src/components/ui/input.rs
 src/components/ui/utils.rs
-assets/dioxus-ui.css
+assets/dioxus-shadcn.css
 ```
 
-For Tailwind CSS v4, `assets/dioxus-ui.css` should be an input stylesheet, not
+For Tailwind CSS v4, `assets/dioxus-shadcn.css` should be an input stylesheet, not
 a precompiled full Tailwind output:
 
 ```css
@@ -138,7 +138,7 @@ The Web, Desktop, and Mobile previews have a "Dark theme" toggle in their
 header that shows the components under the block.
 
 Crate-mode apps get the same stylesheet by running `dxui init`, which writes
-only `assets/dioxus-ui.css` and an empty `src/components/ui/mod.rs`, or by
+only `assets/dioxus-shadcn.css` and an empty `src/components/ui/mod.rs`, or by
 copying everything after the import from
 `examples/web-demo/assets/preview.css`, which `npm run verify:css-inputs`
 keeps identical to the generated one.
@@ -147,11 +147,11 @@ keeps identical to the generated one.
 
 ```toml
 [dependencies]
-dioxus-ui = { version = "0.1", default-features = false, features = ["button", "input", "dialog"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["button", "input", "dialog"] }
 ```
 
 ```rust
-use dioxus_ui::{Button, Dialog, Input};
+use dioxus_shadcn::{Button, Dialog, Input};
 ```
 
 Crate mode comes after the copied source API stabilizes.

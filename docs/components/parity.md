@@ -1,6 +1,6 @@
 # shadcn/ui Parity Matrix
 
-This matrix tracks how `dioxus-ui` maps to the public shadcn/ui component
+This matrix tracks how `dioxus-shadcn` maps to the public shadcn/ui component
 catalog. It is a planning aid, not a promise that every React component should
 be ported one-for-one.
 

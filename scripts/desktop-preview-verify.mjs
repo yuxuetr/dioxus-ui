@@ -98,7 +98,7 @@ const requiredStates = [
 ];
 
 const missingStates = requiredStates.filter((state) => {
-  return !output.includes(`dioxus-ui desktop demo ${state}`);
+  return !output.includes(`dioxus-shadcn desktop demo ${state}`);
 });
 
 if (missingStates.length > 0) {

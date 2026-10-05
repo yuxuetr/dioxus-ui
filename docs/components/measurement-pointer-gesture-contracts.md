@@ -10,14 +10,14 @@ Status: Implemented in M24.
 ## Decision
 
 Measurement, pointer, and gesture adapter contracts should extend
-`dioxus-ui-primitives/src/runtime.rs` behind the existing `runtime` feature.
+`dioxus-shadcn-primitives/src/runtime.rs` behind the existing `runtime` feature.
 
 Rationale:
 
 - focus, portal, timer, and live-region contracts already share the same
   primitive-layer runtime module
 - placement, resizable, and carousel helper math already live in
-  `dioxus-ui-primitives`
+  `dioxus-shadcn-primitives`
 - these contracts describe runtime command boundaries, not styled component
   behavior
 - keeping the contracts together makes unsupported fallback behavior consistent
@@ -33,7 +33,7 @@ state, or arbitrate native scrolling.
 Planned file:
 
 ```text
-crates/dioxus-ui-primitives/src/runtime.rs
+crates/dioxus-shadcn-primitives/src/runtime.rs
 ```
 
 Initial public exports:
@@ -237,7 +237,7 @@ Fallback behavior must be testable without a renderer.
 
 M24 shipped rectangle measurement contracts, pointer phase/delta contracts,
 gesture state/outcome contracts, unsupported-runtime fallbacks, and a
-`carousel_apply_gesture` helper behind the `dioxus-ui-primitives/runtime`
+`carousel_apply_gesture` helper behind the `dioxus-shadcn-primitives/runtime`
 feature. Renderer-specific DOM, WebView, and mobile adapters remain deferred.
 
 ## Quality Gates
@@ -245,7 +245,7 @@ feature. Renderer-specific DOM, WebView, and mobile adapters remain deferred.
 Before marking M24 implementation tasks done:
 
 ```bash
-cargo test -p dioxus-ui-primitives --features runtime
+cargo test -p dioxus-shadcn-primitives --features runtime
 cargo test --workspace --all-features --quiet
 scripts/feature-check.sh
 ```

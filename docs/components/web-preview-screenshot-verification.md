@@ -37,7 +37,7 @@ screenshots when `DIOXUS_UI_WEB_SCREENSHOT=1` is set.
 
 Both viewports must verify:
 
-- page title is `dioxus-ui preview`
+- page title is `dioxus-shadcn preview`
 - `[data-preview-root="web"]` exists
 - `[data-preview-panel="form"]` exists and contains an input
 - `[data-preview-panel="message"]` exists and contains the message scroller

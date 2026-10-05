@@ -22,7 +22,7 @@ remain app-owned or future opt-in adapters.
 ## Existing Foundation
 
 The public component should reuse the primitives already shipped by
-`dioxus-ui-primitives`:
+`dioxus-shadcn-primitives`:
 
 ```rust
 ChartPoint

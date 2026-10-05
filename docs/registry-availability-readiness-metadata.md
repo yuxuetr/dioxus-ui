@@ -11,19 +11,19 @@ for the consolidated release-owner evidence, rollback, and validation view.
 The planned publishable crates are:
 
 ```text
-dioxus-ui-core
-dioxus-ui-primitives
-dioxus-ui
-dioxus-ui-cli
+dioxus-shadcn-core
+dioxus-shadcn-primitives
+dioxus-shadcn
+dioxus-shadcn-cli
 ```
 
 The planned publish order is:
 
 ```text
-dioxus-ui-core
-dioxus-ui-primitives
-dioxus-ui
-dioxus-ui-cli
+dioxus-shadcn-core
+dioxus-shadcn-primitives
+dioxus-shadcn
+dioxus-shadcn-cli
 ```
 
 Local Cargo metadata can confirm that these crate names are present in the
@@ -41,10 +41,10 @@ Required crates.io evidence, recorded by the release owner per crate:
 
 | Crate | Name Evidence | Owners | Publish Position |
 | --- | --- | --- | --- |
-| `dioxus-ui-core` | Available, or already owned by the release owner | crates.io owner list or team | 1 |
-| `dioxus-ui-primitives` | Available, or already owned by the release owner | crates.io owner list or team | 2 |
-| `dioxus-ui` | Available, or already owned by the release owner | crates.io owner list or team | 3 |
-| `dioxus-ui-cli` | Available, or already owned by the release owner | crates.io owner list or team | 4 |
+| `dioxus-shadcn-core` | Available, or already owned by the release owner | crates.io owner list or team | 1 |
+| `dioxus-shadcn-primitives` | Available, or already owned by the release owner | crates.io owner list or team | 2 |
+| `dioxus-shadcn` | Available, or already owned by the release owner | crates.io owner list or team | 3 |
+| `dioxus-shadcn-cli` | Available, or already owned by the release owner | crates.io owner list or team | 4 |
 
 Shared evidence for the whole publish:
 

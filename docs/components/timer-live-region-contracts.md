@@ -9,12 +9,12 @@ Status: Implemented in M23.
 ## Decision
 
 Timer and live-region adapter contracts should extend
-`dioxus-ui-primitives/src/runtime.rs` behind the existing `runtime` feature.
+`dioxus-shadcn-primitives/src/runtime.rs` behind the existing `runtime` feature.
 
 Rationale:
 
-- focus and portal contracts already use `dioxus-ui-primitives/runtime`
-- feedback queues and expiration helpers already live in `dioxus-ui-primitives`
+- focus and portal contracts already use `dioxus-shadcn-primitives/runtime`
+- feedback queues and expiration helpers already live in `dioxus-shadcn-primitives`
 - timer and live-region contracts are runtime command boundaries, not styling
   utilities
 - a separate module would split closely related optional runtime contracts too
@@ -31,7 +31,7 @@ promise orchestration.
 Planned file:
 
 ```text
-crates/dioxus-ui-primitives/src/runtime.rs
+crates/dioxus-shadcn-primitives/src/runtime.rs
 ```
 
 Initial public exports:
@@ -206,7 +206,7 @@ Fallback behavior must be testable without a renderer.
 
 M23 shipped timer and live-region request, result, trait, unsupported-runtime,
 and Toast/Sonner mapping helpers behind the existing
-`dioxus-ui-primitives/runtime` feature. Renderer-specific timers and DOM live
+`dioxus-shadcn-primitives/runtime` feature. Renderer-specific timers and DOM live
 regions remain future work.
 
 ## Quality Gates
@@ -214,7 +214,7 @@ regions remain future work.
 Before marking M23 implementation tasks done:
 
 ```bash
-cargo test -p dioxus-ui-primitives --features runtime
+cargo test -p dioxus-shadcn-primitives --features runtime
 cargo test --workspace --all-features --quiet
 scripts/feature-check.sh
 ```

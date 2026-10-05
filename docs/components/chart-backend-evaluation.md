@@ -8,7 +8,7 @@ Status: Decided in M29.1; first-party SVG composition implemented in M35.
 
 ## Decision
 
-M35 adds `dxui add chart`, a `chart` registry entry, and a `dioxus-ui` `chart`
+M35 adds `dxui add chart`, a `chart` registry entry, and a `dioxus-shadcn` `chart`
 feature for first-party SVG composition only.
 
 When chart rendering starts, prefer a first-party, source-copy-friendly SVG
@@ -38,7 +38,7 @@ It still does not ship:
 | First-party SVG in Dioxus RSX | Implemented first public path | Source-copy friendly, accessible markup is controllable, works naturally across Web/Desktop WebView, no heavy dependency | More rendering work for axes, ticks, paths, and stacked charts | Implemented in M35 for line, bar, and area composition |
 | Canvas with app-owned drawing | Useful for dense data | Better for many points and custom drawing | Weaker built-in semantics, needs explicit fallback table and hit testing, Web/Desktop/Mobile verification is heavier | Keep as recipe or future opt-in adapter, not default |
 | Plotters adapter | Strong Rust-native candidate | Mature Rust plotting API, supports multiple backends including SVG, bitmap, and WASM/canvas paths | Dependency surface, Dioxus event integration, accessibility and source-copy policy need adapter design | First external Rust backend candidate after first-party SVG contract is proven |
-| Charming/ECharts adapter | Strong app-owned option | Rich ECharts feature set, HTML/WASM/SSR renderer options | JS/ECharts rendering model, optional SSR/WASM feature split, generated source complexity, accessibility policy not controlled by this library | Keep app-owned, not a default `dioxus-ui` backend |
+| Charming/ECharts adapter | Strong app-owned option | Rich ECharts feature set, HTML/WASM/SSR renderer options | JS/ECharts rendering model, optional SSR/WASM feature split, generated source complexity, accessibility policy not controlled by this library | Keep app-owned, not a default `dioxus-shadcn` backend |
 
 ## Source Notes
 

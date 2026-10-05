@@ -1,6 +1,6 @@
 # Quality Gates
 
-This document defines local and CI verification commands for `dioxus-ui`.
+This document defines local and CI verification commands for `dioxus-shadcn`.
 
 ## Default Local Gate
 
@@ -18,13 +18,13 @@ These commands should stay fast enough for regular development.
 Run after changes to CLI, registry, templates, or component dependencies:
 
 ```bash
-cargo test -p dioxus-ui-cli --test registry
+cargo test -p dioxus-shadcn-cli --test registry
 scripts/generated-fixture-smoke.sh
 ```
 
 This verifies:
 
-- public registry component names match `dioxus-ui` crate feature names.
+- public registry component names match `dioxus-shadcn` crate feature names.
 - public registry components have docs pages and catalog entries.
 - registry template source and target paths match generated module names.
 - every template file is registered exactly once, including `utils`.
@@ -33,12 +33,12 @@ This verifies:
 - `dxui init` creates the generated project structure.
 - `dxui add` can add every public component.
 - generated `mod.rs` includes every public component and `utils`.
-- generated code does not import `dioxus-ui-core` or `dioxus-ui-primitives`.
+- generated code does not import `dioxus-shadcn-core` or `dioxus-shadcn-primitives`.
 - generated source compiles with only `dioxus = "0.7"`.
 
 ## Feature Gate
 
-Run after changes to `crates/dioxus-ui/Cargo.toml`, crate exports, or feature
+Run after changes to `crates/dioxus-shadcn/Cargo.toml`, crate exports, or feature
 gating:
 
 ```bash
@@ -47,10 +47,10 @@ scripts/feature-check.sh
 
 This verifies:
 
-- every public `dioxus-ui` feature compiles independently.
+- every public `dioxus-shadcn` feature compiles independently.
 - static component feature combinations compile.
 - primitive-backed feature combinations compile.
-- all `dioxus-ui` features compile together.
+- all `dioxus-shadcn` features compile together.
 
 This command invokes Cargo many times and is intentionally separated from the
 default local gate.
@@ -115,8 +115,8 @@ The release aggregate expands to the required local release gates:
 ```bash
 cargo check --workspace --all-features
 cargo test --workspace --all-features
-cargo test -p dioxus-ui-cli --test registry
-cargo run -p dioxus-ui-cli -- list
+cargo test -p dioxus-shadcn-cli --test registry
+cargo run -p dioxus-shadcn-cli -- list
 npm run verify:cargo-workspace
 npm run verify:cargo-publish-metadata
 npm run verify:publish-readiness-blockers
@@ -628,7 +628,7 @@ release gates.
 `npm run verify:android-interactions` runs the same scenarios in an Android
 emulator build of `examples/mobile-demo` (RFC 0020). It boots the first AVD
 headless when no emulator is running, requests the self-test through the
-`debug.dioxus_ui.self_test` system property, and passes only when logcat
+`debug.dioxus_shadcn.self_test` system property, and passes only when logcat
 reports success. It reports an NDK install whose symbolic links were stored as
 text files before building. It needs the Android SDK, NDK, and an AVD and is
 not part of default or release gates.
@@ -761,7 +761,7 @@ Default pull request CI should run:
 ```bash
 cargo check --workspace --all-features
 cargo test --workspace --all-features
-cargo test -p dioxus-ui-cli --test registry
+cargo test -p dioxus-shadcn-cli --test registry
 scripts/generated-fixture-smoke.sh
 npm run verify
 ```

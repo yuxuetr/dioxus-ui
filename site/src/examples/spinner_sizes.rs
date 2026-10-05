@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Spinner, SpinnerSize};
+use dioxus_shadcn::{Spinner, SpinnerSize};
 
 #[component]
 pub fn Demo() -> Element {

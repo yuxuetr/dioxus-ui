@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{ScrollArea, ScrollAreaContent, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport, Separator};
+use dioxus_shadcn::{ScrollArea, ScrollAreaContent, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport, Separator};
 
 #[component]
 pub fn Demo() -> Element {

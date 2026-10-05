@@ -12,7 +12,7 @@ dxui add bubble
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["bubble"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["bubble"] }
 ```
 
 ## API Surface

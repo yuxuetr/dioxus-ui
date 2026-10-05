@@ -8,7 +8,7 @@ Status: Implemented in M22.
 
 ## Decision
 
-Focus and portal adapter contracts should live in `dioxus-ui-primitives`.
+Focus and portal adapter contracts should live in `dioxus-shadcn-primitives`.
 
 Rationale:
 
@@ -16,7 +16,7 @@ Rationale:
 - existing portal policy types already live in the primitive layer
 - contracts need to reference `FocusStrategy`, `FocusReturn`, and
   `PortalTarget`
-- `dioxus-ui-core` should remain styling and shared type infrastructure, not
+- `dioxus-shadcn-core` should remain styling and shared type infrastructure, not
   interaction runtime policy
 - a new crate would add workspace complexity before there is renderer-specific
   implementation to isolate
@@ -29,7 +29,7 @@ WebView APIs, timers, or renderer hooks.
 Planned files:
 
 ```text
-crates/dioxus-ui-primitives/src/runtime.rs
+crates/dioxus-shadcn-primitives/src/runtime.rs
 ```
 
 Initial public exports:
@@ -55,20 +55,20 @@ concepts:
 
 ## Feature Strategy
 
-Add a feature to `dioxus-ui-primitives`:
+Add a feature to `dioxus-shadcn-primitives`:
 
 ```toml
 runtime = []
 ```
 
-Do not add the feature to `dioxus-ui` component features automatically in M22.
+Do not add the feature to `dioxus-shadcn` component features automatically in M22.
 Styled components should continue to compile and behave as controlled
 composition parts without runtime contracts.
 
-Future `dioxus-ui` feature wiring can be explicit, for example:
+Future `dioxus-shadcn` feature wiring can be explicit, for example:
 
 ```toml
-dioxus-ui = { features = ["dialog", "runtime"] }
+dioxus-shadcn = { features = ["dialog", "runtime"] }
 ```
 
 That should wait until contracts have tests and examples.
@@ -190,7 +190,7 @@ covered by pure tests without renderer-specific commands.
 Before marking M22 implementation tasks done:
 
 ```bash
-cargo test -p dioxus-ui-primitives --features runtime
+cargo test -p dioxus-shadcn-primitives --features runtime
 cargo test --workspace --all-features --quiet
 scripts/feature-check.sh
 ```

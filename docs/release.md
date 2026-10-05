@@ -2,10 +2,10 @@
 
 ## Goal
 
-`dioxus-ui` supports two distribution modes:
+`dioxus-shadcn` supports two distribution modes:
 
 - source-copy mode through `dxui add`
-- crate mode through `dioxus-ui` feature flags
+- crate mode through `dioxus-shadcn` feature flags
 
 Source-copy mode remains the preferred early release path. Crate mode should be
 published only after component APIs are stable enough that users can depend on
@@ -16,18 +16,18 @@ them without needing to edit internals.
 Planned published crates:
 
 ```text
-dioxus-ui-core
-dioxus-ui-primitives
-dioxus-ui
-dioxus-ui-cli
+dioxus-shadcn-core
+dioxus-shadcn-primitives
+dioxus-shadcn
+dioxus-shadcn-cli
 ```
 
 Publishing order:
 
-1. `dioxus-ui-core`
-2. `dioxus-ui-primitives`
-3. `dioxus-ui`
-4. `dioxus-ui-cli`
+1. `dioxus-shadcn-core`
+2. `dioxus-shadcn-primitives`
+3. `dioxus-shadcn`
+4. `dioxus-shadcn-cli`
 
 ## Feature Policy
 
@@ -36,7 +36,7 @@ The styled crate should keep `default = []`.
 Users opt into components:
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["button", "dialog"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["button", "dialog"] }
 ```
 
 Feature names should match registry names where possible:
@@ -60,11 +60,11 @@ dropdown
 Overlay components may enable primitive features:
 
 ```toml
-dialog = ["dioxus-ui-primitives/dialog"]
-popover = ["dioxus-ui-primitives/popover"]
-tooltip = ["dioxus-ui-primitives/tooltip"]
-select = ["dioxus-ui-primitives/select"]
-dropdown = ["dioxus-ui-primitives/dropdown"]
+dialog = ["dioxus-shadcn-primitives/dialog"]
+popover = ["dioxus-shadcn-primitives/popover"]
+tooltip = ["dioxus-shadcn-primitives/tooltip"]
+select = ["dioxus-shadcn-primitives/select"]
+dropdown = ["dioxus-shadcn-primitives/dropdown"]
 ```
 
 ## Versioning Policy
@@ -103,8 +103,8 @@ order. For manual review or focused failure isolation, the expanded gate set is:
 ```bash
 cargo check --workspace --all-features
 cargo test --workspace --all-features
-cargo test -p dioxus-ui-cli --test registry
-cargo run -p dioxus-ui-cli -- list
+cargo test -p dioxus-shadcn-cli --test registry
+cargo run -p dioxus-shadcn-cli -- list
 npm run verify:cargo-workspace
 npm run verify:cargo-publish-metadata
 npm run verify:publish-readiness-blockers
@@ -581,14 +581,14 @@ Workflow activation and required-gate promotion should follow
 Smoke commands:
 
 ```bash
-cargo run -p dioxus-ui-cli -- init --root /tmp/dxui-release-smoke
-cargo run -p dioxus-ui-cli -- add button --root /tmp/dxui-release-smoke
-cargo run -p dioxus-ui-cli -- add dialog --root /tmp/dxui-release-smoke
+cargo run -p dioxus-shadcn-cli -- init --root /tmp/dxui-release-smoke
+cargo run -p dioxus-shadcn-cli -- add button --root /tmp/dxui-release-smoke
+cargo run -p dioxus-shadcn-cli -- add dialog --root /tmp/dxui-release-smoke
 ```
 
 Manual review:
 
-- generated `assets/dioxus-ui.css` uses Tailwind CSS v4 syntax
+- generated `assets/dioxus-shadcn.css` uses Tailwind CSS v4 syntax
 - generated `src/components/ui/mod.rs` is deterministic
 - registry entries point to existing templates
 - component features compile individually and in representative combinations
@@ -621,7 +621,7 @@ dxui add <component>
 
 The CLI embeds registry and template assets at compile time. Installed CLI
 commands can read component metadata and generated source without relying on
-the `crates/dioxus-ui-cli/registry/` or `crates/dioxus-ui-cli/templates/`
+the `crates/dioxus-shadcn-cli/registry/` or `crates/dioxus-shadcn-cli/templates/`
 directories at runtime. Both directories live inside the CLI crate so
 `cargo package` includes them in the published crate.
 
@@ -641,10 +641,10 @@ extracted archive, then aborted each upload:
 
 | Crate | Packaged Files | Compressed Size |
 | --- | --- | --- |
-| `dioxus-ui-core` | 7 | 11.8 KiB |
-| `dioxus-ui-primitives` | 26 | 35.0 KiB |
-| `dioxus-ui` | 70 | 66.3 KiB |
-| `dioxus-ui-cli` | 139 | 55.8 KiB |
+| `dioxus-shadcn-core` | 7 | 11.8 KiB |
+| `dioxus-shadcn-primitives` | 26 | 35.0 KiB |
+| `dioxus-shadcn` | 70 | 66.3 KiB |
+| `dioxus-shadcn-cli` | 139 | 55.8 KiB |
 
 The only warnings were `aborting upload due to dry run`. Package archives stay
 in the Cargo target directory and are never committed.
@@ -668,8 +668,8 @@ first.
 4. Run `cargo publish --workspace --dry-run` and confirm all four crates
    verify.
 5. Run `cargo publish --workspace`. Cargo publishes each crate after its
-   dependencies; the dry run uploaded `dioxus-ui-core`, `dioxus-ui-cli`,
-   `dioxus-ui-primitives`, then `dioxus-ui`, which satisfies the same
+   dependencies; the dry run uploaded `dioxus-shadcn-core`, `dioxus-shadcn-cli`,
+   `dioxus-shadcn-primitives`, then `dioxus-shadcn`, which satisfies the same
    constraints as the publishing order above.
 6. Optionally tag the release commit as `v0.1.0`.
 
@@ -729,7 +729,7 @@ first.
   follow it. Pagination content wraps in narrow containers (see
   RFC 0048); a Pagination that drops pages to fit is not included. The
   previews link a committed compiled stylesheet (see RFC 0049) that must be
-  regenerated with `npm run css:preview` after class changes; dioxus-ui
+  regenerated with `npm run css:preview` after class changes; dioxus-shadcn
   itself still ships no compiled Tailwind output. The previews have a dark
   theme toggle (see RFC 0050); they do not follow the system color scheme or
   remember the choice. Date Picker and
@@ -757,7 +757,7 @@ first.
   reader announcements are not automated, and swipe to dismiss is not
   implemented.
 - Generated templates include a local `utils.rs` helper module and should not
-  require `dioxus-ui-core` or `dioxus-ui-primitives` in source-copy mode.
+  require `dioxus-shadcn-core` or `dioxus-shadcn-primitives` in source-copy mode.
 - Web has a rendered preview shell and screenshot procedure. Desktop has a
   rendered preview shell and structural gate, but Desktop WebView screenshot
   capture is currently unsupported because the native preview window is not

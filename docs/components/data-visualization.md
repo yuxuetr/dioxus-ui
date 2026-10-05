@@ -14,7 +14,7 @@ M16 covers:
 - Chart strategy
 
 Data Table ships in crate mode and source-copy mode. Crate mode can reuse
-`dioxus-ui-core`, `dioxus-ui-primitives`, and existing styled components;
+`dioxus-shadcn-core`, `dioxus-shadcn-primitives`, and existing styled components;
 generated templates must remain self-contained and must not import internal
 crates.
 

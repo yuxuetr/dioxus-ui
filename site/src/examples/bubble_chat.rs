@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Bubble, BubbleAlign, BubbleContent, BubbleGroup, BubbleReactions, BubbleVariant};
+use dioxus_shadcn::{Bubble, BubbleAlign, BubbleContent, BubbleGroup, BubbleReactions, BubbleVariant};
 
 #[component]
 pub fn Demo() -> Element {

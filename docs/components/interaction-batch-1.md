@@ -40,7 +40,7 @@ Remaining hardening:
 - Components must support crate-mode feature flags and `dxui add` source-copy
   templates.
 - Generated templates must remain self-contained and must not import
-  `dioxus-ui-core` or `dioxus-ui-primitives`.
+  `dioxus-shadcn-core` or `dioxus-shadcn-primitives`.
 - Styling must use static Tailwind class tokens.
 - Controlled props come first; later uncontrolled helpers can be added only
   after the controlled API is stable.

@@ -7,10 +7,10 @@ contract, not a publish authorization.
 
 Publish crates in this order after all publish readiness blockers are resolved:
 
-1. `dioxus-ui-core`
-2. `dioxus-ui-primitives`
-3. `dioxus-ui`
-4. `dioxus-ui-cli`
+1. `dioxus-shadcn-core`
+2. `dioxus-shadcn-primitives`
+3. `dioxus-shadcn`
+4. `dioxus-shadcn-cli`
 
 The dependency crates come first so downstream crates can resolve their
 workspace dependencies from crates.io during publication.

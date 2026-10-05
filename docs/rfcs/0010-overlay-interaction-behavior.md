@@ -22,7 +22,7 @@ As of `0.1.0` the styled overlay parts render `open` state only:
   wire every close path by hand.
 - `PopoverContent`, `DropdownContent`, `HoverCardContent`, and
   `TooltipContent` have no anchor and no placement; the app positions them.
-- `compute_overlay_placement` in `dioxus-ui-primitives` implements side,
+- `compute_overlay_placement` in `dioxus-shadcn-primitives` implements side,
   alignment, offset, flip, and shift, but nothing measures real elements and
   feeds it.
 - The `FocusRuntime`, `PortalRuntime`, and `MeasurementRuntime` traits only
@@ -94,7 +94,7 @@ dependency graph does not change.
 
 The runtime traits are not the integration point for this behavior. Their
 only implementations are record-keeping example adapters, and templates could
-not use a trait-based adapter from `dioxus-ui-primitives` anyway. The traits
+not use a trait-based adapter from `dioxus-shadcn-primitives` anyway. The traits
 stay published unchanged.
 
 Reevaluate when a renderer without JavaScript evaluation (for example a native

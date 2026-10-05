@@ -34,8 +34,8 @@ failure proves that work is required.
 | --- | --- | --- | --- |
 | Rust workspace check | `cargo check --workspace --all-features` | `Cargo.toml`, crate source, feature flags | first compiler error and affected crate |
 | Rust workspace tests | `cargo test --workspace --all-features` | failing test module and crate feature set | failing test name and assertion |
-| CLI registry test | `cargo test -p dioxus-ui-cli --test registry` | `registry/`, `templates/`, CLI registry loader | missing registry/template mapping |
-| CLI list smoke | `cargo run -p dioxus-ui-cli -- list` | CLI command output and registry names | command output and missing component |
+| CLI registry test | `cargo test -p dioxus-shadcn-cli --test registry` | `registry/`, `templates/`, CLI registry loader | missing registry/template mapping |
+| CLI list smoke | `cargo run -p dioxus-shadcn-cli -- list` | CLI command output and registry names | command output and missing component |
 | Cargo metadata | `npm run verify:cargo-workspace` | workspace manifests and crate metadata docs | mismatched package field |
 | Publish readiness | `npm run verify:publish-readiness-blockers` | publish blocker docs and readiness metadata | unresolved blocker and expected evidence |
 | Publish runbook | `npm run verify:publish-readiness-runbook` | publish readiness resolution runbook | missing blocker guidance |
@@ -48,7 +48,7 @@ failure proves that work is required.
 | Rendered coverage | `npm run verify:rendered-component-coverage` | component docs catalog and preview inventory | missing public component preview id |
 | Examples metadata | `npm run verify:examples-metadata` | example manifests and examples README | missing example wiring |
 | CSS input metadata | `npm run verify:css-inputs` | Tailwind CSS v4 input files | stale v3 directive or missing source root |
-| Registry metadata | `npm run verify:registry` | `crates/dioxus-ui-cli/registry/` and `crates/dioxus-ui-cli/templates/` | invalid source or target path |
+| Registry metadata | `npm run verify:registry` | `crates/dioxus-shadcn-cli/registry/` and `crates/dioxus-shadcn-cli/templates/` | invalid source or target path |
 | Tailwind static tokens | `npm run verify:tailwind-static` | Rust source and templates | dynamic utility construction, bare data variants, palette colors outside the RFC 0051 tokens |
 | Tailwind utility conflicts | `npm run verify:tailwind-conflicts` | Rust source and templates | a base class and a state class setting the same property |
 | Preview stylesheet drift | `npm run verify:preview-css` | `examples/preview-states/assets/preview.generated.css` | a class changed without `npm run css:preview` |

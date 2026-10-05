@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{ButtonGroup, ButtonGroupItem, ButtonGroupOrientation};
+use dioxus_shadcn::{ButtonGroup, ButtonGroupItem, ButtonGroupOrientation};
 
 #[component]
 pub fn Demo() -> Element {

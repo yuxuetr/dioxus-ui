@@ -20,11 +20,11 @@ src/components/ui/native_select.rs
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["native-select"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["native-select"] }
 ```
 
 ```rust
-use dioxus_ui::{NativeSelect, NativeSelectGroup, NativeSelectOption};
+use dioxus_shadcn::{NativeSelect, NativeSelectGroup, NativeSelectOption};
 ```
 
 ## API Surface

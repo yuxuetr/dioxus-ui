@@ -1,4 +1,4 @@
-use dioxus_ui::{
+use dioxus_shadcn::{
   AlertDialogActionVariant, AlertDialogPrimitiveConfig, AlertVariant, AttachmentMediaVariant,
   AttachmentOrientation, AttachmentSize, AttachmentState, BadgeVariant, BubbleAlign,
   BubbleReactionAlign, BubbleReactionSide, BubbleVariant, ButtonGroupOrientation, ButtonSize,
@@ -80,14 +80,17 @@ fn main() {
   let class =
     button_class(ButtonVariant::Primary, ButtonSize::Md, UiDensity::Comfortable, "w-full");
 
-  println!("dioxus-ui web demo button class: {class}");
+  println!("dioxus-shadcn web demo button class: {class}");
   println!(
-    "dioxus-ui web demo button group class: {}",
+    "dioxus-shadcn web demo button group class: {}",
     button_group_class(ButtonGroupOrientation::Horizontal, true, "w-full")
   );
-  println!("dioxus-ui web demo button group item class: {}", button_group_item_class("min-w-20"));
   println!(
-    "dioxus-ui web demo attachment class: {}",
+    "dioxus-shadcn web demo button group item class: {}",
+    button_group_item_class("min-w-20")
+  );
+  println!(
+    "dioxus-shadcn web demo attachment class: {}",
     attachment_class(
       AttachmentState::Uploading,
       AttachmentSize::Default,
@@ -96,65 +99,68 @@ fn main() {
     )
   );
   println!(
-    "dioxus-ui web demo attachment parts: {}/{}/{}/{}",
+    "dioxus-shadcn web demo attachment parts: {}/{}/{}/{}",
     attachment_group_class("pb-1"),
     attachment_media_class(AttachmentMediaVariant::Icon, ""),
     attachment_content_class(""),
     attachment_title_class("")
   );
   println!(
-    "dioxus-ui web demo attachment actions: {}/{}/{}",
+    "dioxus-shadcn web demo attachment actions: {}/{}/{}",
     attachment_description_class("text-blue-700"),
     attachment_actions_class("ml-auto"),
     attachment_action_class("text-blue-600")
   );
   println!(
-    "dioxus-ui web demo attachment trigger/state: {}/{}",
+    "dioxus-shadcn web demo attachment trigger/state: {}/{}",
     attachment_trigger_class("w-full"),
     AttachmentState::Uploading.attribute()
   );
-  println!("dioxus-ui web demo bubble class: {}", bubble_class(BubbleAlign::End, "max-w-lg"));
+  println!("dioxus-shadcn web demo bubble class: {}", bubble_class(BubbleAlign::End, "max-w-lg"));
   println!(
-    "dioxus-ui web demo bubble content class: {}",
+    "dioxus-shadcn web demo bubble content class: {}",
     bubble_content_class(BubbleVariant::Tinted, "rounded-xl")
   );
   println!(
-    "dioxus-ui web demo bubble reactions class: {}",
+    "dioxus-shadcn web demo bubble reactions class: {}",
     bubble_reactions_class(BubbleReactionSide::Bottom, BubbleReactionAlign::End, "opacity-90")
   );
   println!(
-    "dioxus-ui web demo bubble group/variant: {}/{}",
+    "dioxus-shadcn web demo bubble group/variant: {}/{}",
     bubble_group_class("gap-3"),
     BubbleVariant::Tinted.attribute()
   );
-  println!("dioxus-ui web demo message class: {}", message_class(MessageAlign::End, "max-w-2xl"));
   println!(
-    "dioxus-ui web demo message parts: {}/{}/{}/{}",
+    "dioxus-shadcn web demo message class: {}",
+    message_class(MessageAlign::End, "max-w-2xl")
+  );
+  println!(
+    "dioxus-shadcn web demo message parts: {}/{}/{}/{}",
     message_group_class("gap-5"),
     message_avatar_class("bg-blue-100"),
     message_content_class(MessageAlign::End, "gap-2"),
     message_header_class("justify-end")
   );
   println!(
-    "dioxus-ui web demo message footer/align: {}/{}",
+    "dioxus-shadcn web demo message footer/align: {}/{}",
     message_footer_class("justify-end"),
     MessageAlign::End.attribute()
   );
   let web_message_metrics = MessageScrollerMetrics::new(880.0, 300.0, 1200.0);
   let web_unread_visible = message_scroller_show_unread_marker(MessageScrollerIntent::Hold, 2);
   println!(
-    "dioxus-ui web demo message scroller class: {}",
+    "dioxus-shadcn web demo message scroller class: {}",
     message_scroller_class(MessageScrollerIntent::Hold, "h-96")
   );
   println!(
-    "dioxus-ui web demo message scroller parts: {}/{}/{}/{}",
+    "dioxus-shadcn web demo message scroller parts: {}/{}/{}/{}",
     message_scroller_viewport_class("px-2"),
     message_scroller_content_class("gap-5"),
     message_scroller_bottom_anchor_class("scroll-mb-8"),
     message_scroller_unread_marker_class(web_unread_visible, "bottom-6")
   );
   println!(
-    "dioxus-ui web demo message scroller helper: {}/{}/{}",
+    "dioxus-shadcn web demo message scroller helper: {}/{}/{}",
     message_scroller_is_at_bottom(web_message_metrics, 24.0),
     message_scroller_jump_button_class(web_unread_visible, "rounded-full"),
     message_scroller_intent_attribute(MessageScrollerIntent::Hold)
@@ -172,109 +178,125 @@ fn main() {
   let web_chart_x = ChartScale::new(ChartDomain::new(0.0, 3.0), ChartDomain::new(32.0, 608.0));
   let web_chart_y = ChartScale::new(ChartDomain::new(0.0, 24.0), ChartDomain::new(288.0, 32.0));
   println!(
-    "dioxus-ui web demo chart classes: {}/{}/{}/{}",
+    "dioxus-shadcn web demo chart classes: {}/{}/{}/{}",
     chart_class("max-w-3xl"),
     chart_line_series_class(ChartColorToken::Primary, ""),
     chart_area_series_class(ChartColorToken::Primary, "opacity-20"),
     chart_bar_series_class(ChartColorToken::Secondary, "")
   );
   println!(
-    "dioxus-ui web demo chart helper: {}/{}/{}",
+    "dioxus-shadcn web demo chart helper: {}/{}/{}",
     chart_view_box(640.0, 320.0),
     chart_line_path(&web_chart_series, web_chart_x, web_chart_y),
     chart_fallback_rows(std::slice::from_ref(&web_chart_series)).len()
   );
   println!(
-    "dioxus-ui web demo chart bars: {}",
+    "dioxus-shadcn web demo chart bars: {}",
     chart_bar_rects(&web_chart_series, web_chart_x, web_chart_y, 0.0, 18.0).len()
   );
   println!(
-    "dioxus-ui web demo marker class: {}",
+    "dioxus-shadcn web demo marker class: {}",
     marker_class(MarkerVariant::Border, "text-blue-700")
   );
   println!(
-    "dioxus-ui web demo marker parts: {}/{}/{}",
+    "dioxus-shadcn web demo marker parts: {}/{}/{}",
     marker_icon_class("text-blue-600"),
     marker_content_class("font-medium"),
     MarkerVariant::Border.attribute()
   );
-  println!("dioxus-ui web demo input class: {}", input_class(false, "mt-2"));
-  println!("dioxus-ui web demo input group class: {}", input_group_class(false, false, "max-w-sm"));
+  println!("dioxus-shadcn web demo input class: {}", input_class(false, "mt-2"));
   println!(
-    "dioxus-ui web demo input group addon class: {}",
+    "dioxus-shadcn web demo input group class: {}",
+    input_group_class(false, false, "max-w-sm")
+  );
+  println!(
+    "dioxus-shadcn web demo input group addon class: {}",
     input_group_addon_class(InputGroupAddonPosition::Start, "")
   );
-  println!("dioxus-ui web demo input group control class: {}", input_group_control_class(""));
+  println!("dioxus-shadcn web demo input group control class: {}", input_group_control_class(""));
   println!(
-    "dioxus-ui web demo input group action class: {}",
+    "dioxus-shadcn web demo input group action class: {}",
     input_group_action_class("text-blue-600")
   );
-  println!("dioxus-ui web demo input otp class: {}", input_otp_class(false, "max-w-xs"));
-  println!("dioxus-ui web demo input otp group class: {}", input_otp_group_class("gap-2"));
+  println!("dioxus-shadcn web demo input otp class: {}", input_otp_class(false, "max-w-xs"));
+  println!("dioxus-shadcn web demo input otp group class: {}", input_otp_group_class("gap-2"));
   println!(
-    "dioxus-ui web demo input otp slot class: {}",
+    "dioxus-shadcn web demo input otp slot class: {}",
     input_otp_slot_class(true, false, false, "h-12 w-12")
   );
   println!(
-    "dioxus-ui web demo input otp separator/input: {}/{}",
+    "dioxus-shadcn web demo input otp separator/input: {}/{}",
     input_otp_separator_class("text-blue-600"),
     input_otp_hidden_input_class("")
   );
   let web_otp = otp_apply_paste_filtered("", 0, "12a3", 6, |ch| ch.is_ascii_digit());
-  println!("dioxus-ui web demo input otp helper: {}/{}", web_otp, otp_slots(&web_otp, 6, 3).len());
-  println!("dioxus-ui web demo input otp mode: {}", InputOtpInputMode::Numeric.attribute());
-  println!("dioxus-ui web demo textarea class: {}", textarea_class(false, "mt-2"));
-  println!("dioxus-ui web demo label class: {}", label_class("mb-2"));
-  println!("dioxus-ui web demo alert class: {}", alert_class(AlertVariant::Default, "mb-4"));
-  println!("dioxus-ui web demo alert title class: {}", alert_title_class(""));
   println!(
-    "dioxus-ui web demo alert description class: {}",
+    "dioxus-shadcn web demo input otp helper: {}/{}",
+    web_otp,
+    otp_slots(&web_otp, 6, 3).len()
+  );
+  println!("dioxus-shadcn web demo input otp mode: {}", InputOtpInputMode::Numeric.attribute());
+  println!("dioxus-shadcn web demo textarea class: {}", textarea_class(false, "mt-2"));
+  println!("dioxus-shadcn web demo label class: {}", label_class("mb-2"));
+  println!("dioxus-shadcn web demo alert class: {}", alert_class(AlertVariant::Default, "mb-4"));
+  println!("dioxus-shadcn web demo alert title class: {}", alert_title_class(""));
+  println!(
+    "dioxus-shadcn web demo alert description class: {}",
     alert_description_class(AlertVariant::Default, "")
   );
-  println!("dioxus-ui web demo alert dialog overlay class: {}", alert_dialog_overlay_class(""));
+  println!("dioxus-shadcn web demo alert dialog overlay class: {}", alert_dialog_overlay_class(""));
   println!(
-    "dioxus-ui web demo alert dialog content class: {}",
+    "dioxus-shadcn web demo alert dialog content class: {}",
     alert_dialog_content_class("max-w-md")
   );
   println!(
-    "dioxus-ui web demo alert dialog action class: {}",
+    "dioxus-shadcn web demo alert dialog action class: {}",
     alert_dialog_action_class(AlertDialogActionVariant::Destructive, "")
   );
   println!(
-    "dioxus-ui web demo alert dialog primitive open: {}",
+    "dioxus-shadcn web demo alert dialog primitive open: {}",
     AlertDialogPrimitiveConfig::controlled(true).open
   );
   println!(
-    "dioxus-ui web demo direction class/attr: {}/{}",
+    "dioxus-shadcn web demo direction class/attr: {}/{}",
     direction_class("block"),
     TextDirection::Rtl.attribute()
   );
-  println!("dioxus-ui web demo aspect ratio style: {}", aspect_ratio_style(16.0 / 9.0));
-  println!("dioxus-ui web demo avatar class: {}", avatar_class("h-12 w-12"));
-  println!("dioxus-ui web demo avatar image class: {}", avatar_image_class(""));
-  println!("dioxus-ui web demo avatar fallback class: {}", avatar_fallback_class("bg-blue-100"));
-  println!("dioxus-ui web demo badge class: {}", badge_class(BadgeVariant::Default, ""));
-  println!("dioxus-ui web demo breadcrumb list class: {}", breadcrumb_list_class(""));
-  println!("dioxus-ui web demo breadcrumb current link class: {}", breadcrumb_link_class(true, ""));
-  println!("dioxus-ui web demo empty class: {}", empty_class("min-h-56"));
-  println!("dioxus-ui web demo empty title class: {}", empty_title_class(""));
-  println!("dioxus-ui web demo empty actions class: {}", empty_actions_class(""));
-  println!("dioxus-ui web demo field class: {}", field_class(true, "max-w-sm"));
-  println!("dioxus-ui web demo field error class: {}", field_error_class(""));
-  println!("dioxus-ui web demo field group class: {}", field_group_class(""));
-  println!("dioxus-ui web demo item class: {}", item_class(true, false, ""));
-  println!("dioxus-ui web demo item title class: {}", item_title_class(""));
-  println!("dioxus-ui web demo item description class: {}", item_description_class(""));
-  println!("dioxus-ui web demo kbd class: {}", kbd_class(KbdSize::Md, ""));
-  println!("dioxus-ui web demo typography h1 class: {}", typography_h1_class(""));
-  println!("dioxus-ui web demo typography p class: {}", typography_p_class(""));
-  println!("dioxus-ui web demo typography inline code class: {}", typography_inline_code_class(""));
+  println!("dioxus-shadcn web demo aspect ratio style: {}", aspect_ratio_style(16.0 / 9.0));
+  println!("dioxus-shadcn web demo avatar class: {}", avatar_class("h-12 w-12"));
+  println!("dioxus-shadcn web demo avatar image class: {}", avatar_image_class(""));
   println!(
-    "dioxus-ui web demo calendar day class: {}",
+    "dioxus-shadcn web demo avatar fallback class: {}",
+    avatar_fallback_class("bg-blue-100")
+  );
+  println!("dioxus-shadcn web demo badge class: {}", badge_class(BadgeVariant::Default, ""));
+  println!("dioxus-shadcn web demo breadcrumb list class: {}", breadcrumb_list_class(""));
+  println!(
+    "dioxus-shadcn web demo breadcrumb current link class: {}",
+    breadcrumb_link_class(true, "")
+  );
+  println!("dioxus-shadcn web demo empty class: {}", empty_class("min-h-56"));
+  println!("dioxus-shadcn web demo empty title class: {}", empty_title_class(""));
+  println!("dioxus-shadcn web demo empty actions class: {}", empty_actions_class(""));
+  println!("dioxus-shadcn web demo field class: {}", field_class(true, "max-w-sm"));
+  println!("dioxus-shadcn web demo field error class: {}", field_error_class(""));
+  println!("dioxus-shadcn web demo field group class: {}", field_group_class(""));
+  println!("dioxus-shadcn web demo item class: {}", item_class(true, false, ""));
+  println!("dioxus-shadcn web demo item title class: {}", item_title_class(""));
+  println!("dioxus-shadcn web demo item description class: {}", item_description_class(""));
+  println!("dioxus-shadcn web demo kbd class: {}", kbd_class(KbdSize::Md, ""));
+  println!("dioxus-shadcn web demo typography h1 class: {}", typography_h1_class(""));
+  println!("dioxus-shadcn web demo typography p class: {}", typography_p_class(""));
+  println!(
+    "dioxus-shadcn web demo typography inline code class: {}",
+    typography_inline_code_class("")
+  );
+  println!(
+    "dioxus-shadcn web demo calendar day class: {}",
     calendar_day_class(true, false, false, false, CalendarRangeState::Single, "")
   );
   println!(
-    "dioxus-ui web demo calendar grid first day: {:?}",
+    "dioxus-shadcn web demo calendar grid first day: {:?}",
     calendar_month_grid(
       CalendarMonth::unchecked(2024, 6),
       CalendarWeekday::Sunday,
@@ -288,7 +310,7 @@ fn main() {
       .date
   );
   println!(
-    "dioxus-ui web demo calendar moved date: {:?}",
+    "dioxus-shadcn web demo calendar moved date: {:?}",
     calendar_move_date(
       CalendarDate::unchecked(2024, 6, 5),
       CalendarKeyMove::NextWeek,
@@ -296,17 +318,23 @@ fn main() {
     )
   );
   println!(
-    "dioxus-ui web demo carousel content class: {}",
+    "dioxus-shadcn web demo carousel content class: {}",
     carousel_content_class(CarouselOrientation::Horizontal, "")
   );
   println!(
-    "dioxus-ui web demo carousel item class: {}",
+    "dioxus-shadcn web demo carousel item class: {}",
     carousel_item_class(CarouselOrientation::Horizontal, true, "basis-1/2")
   );
-  println!("dioxus-ui web demo carousel next control class: {}", carousel_control_class(false, ""));
-  println!("dioxus-ui web demo carousel indicator class: {}", carousel_indicator_class(true, ""));
   println!(
-    "dioxus-ui web demo carousel next/can: {}/{}",
+    "dioxus-shadcn web demo carousel next control class: {}",
+    carousel_control_class(false, "")
+  );
+  println!(
+    "dioxus-shadcn web demo carousel indicator class: {}",
+    carousel_indicator_class(true, "")
+  );
+  println!(
+    "dioxus-shadcn web demo carousel next/can: {}/{}",
     carousel_next(0, 3, false),
     carousel_can_go_next(
       CarouselState::new(0, 3).index,
@@ -314,63 +342,69 @@ fn main() {
       false,
     )
   );
-  println!("dioxus-ui web demo card class: {}", card_class("max-w-sm"));
-  println!("dioxus-ui web demo card header class: {}", card_header_class(""));
-  println!("dioxus-ui web demo card title class: {}", card_title_class(""));
-  println!("dioxus-ui web demo card description class: {}", card_description_class(""));
-  println!("dioxus-ui web demo card content class: {}", card_content_class(""));
-  println!("dioxus-ui web demo card footer class: {}", card_footer_class("justify-end"));
-  println!("dioxus-ui web demo pagination class: {}", pagination_class("mt-6"));
-  println!("dioxus-ui web demo pagination link class: {}", pagination_link_class(true, false, ""));
-  println!("dioxus-ui web demo progress class: {}", progress_class("h-2"));
-  println!("dioxus-ui web demo progress indicator class: {}", progress_indicator_class(""));
-  println!("dioxus-ui web demo progress percent: {}", progress_percent(64.0, 100.0));
+  println!("dioxus-shadcn web demo card class: {}", card_class("max-w-sm"));
+  println!("dioxus-shadcn web demo card header class: {}", card_header_class(""));
+  println!("dioxus-shadcn web demo card title class: {}", card_title_class(""));
+  println!("dioxus-shadcn web demo card description class: {}", card_description_class(""));
+  println!("dioxus-shadcn web demo card content class: {}", card_content_class(""));
+  println!("dioxus-shadcn web demo card footer class: {}", card_footer_class("justify-end"));
+  println!("dioxus-shadcn web demo pagination class: {}", pagination_class("mt-6"));
   println!(
-    "dioxus-ui web demo toast viewport class: {}",
+    "dioxus-shadcn web demo pagination link class: {}",
+    pagination_link_class(true, false, "")
+  );
+  println!("dioxus-shadcn web demo progress class: {}", progress_class("h-2"));
+  println!("dioxus-shadcn web demo progress indicator class: {}", progress_indicator_class(""));
+  println!("dioxus-shadcn web demo progress percent: {}", progress_percent(64.0, 100.0));
+  println!(
+    "dioxus-shadcn web demo toast viewport class: {}",
     toast_viewport_class(ToastPlacement::BottomRight, "")
   );
-  println!("dioxus-ui web demo toast root class: {}", toast_root_class(ToastVariant::Success, ""));
   println!(
-    "dioxus-ui web demo toast action/close class: {}/{}",
+    "dioxus-shadcn web demo toast root class: {}",
+    toast_root_class(ToastVariant::Success, "")
+  );
+  println!(
+    "dioxus-shadcn web demo toast action/close class: {}/{}",
     toast_action_class(false, ""),
     toast_close_class(false, "")
   );
   println!(
-    "dioxus-ui web demo toast queue/expired: {}/{}",
+    "dioxus-shadcn web demo toast queue/expired: {}/{}",
     toast_queue_push(ToastQueue::new(2), ToastItem::new("saved", "Saved")).items.len(),
     toast_is_expired(5000, 5000)
   );
   println!(
-    "dioxus-ui web demo sonner viewport class: {}",
+    "dioxus-shadcn web demo sonner viewport class: {}",
     sonner_viewport_class(SonnerPlacement::BottomRight, "")
   );
   println!(
-    "dioxus-ui web demo sonner toast/icon class: {}/{}",
+    "dioxus-shadcn web demo sonner toast/icon class: {}/{}",
     sonner_toast_class(SonnerVariant::Success, ""),
     sonner_icon_class(SonnerVariant::Success, "")
   );
   println!(
-    "dioxus-ui web demo sonner queue: {}",
+    "dioxus-shadcn web demo sonner queue: {}",
     sonner_queue_push(SonnerQueue::new(2), SonnerItem::new("synced", "Synced")).items.len()
   );
-  println!("dioxus-ui web demo slider class: {}", slider_root_class("mt-3"));
-  println!("dioxus-ui web demo slider track class: {}", slider_track_class(""));
-  println!("dioxus-ui web demo slider percent: {}", slider_percent(42.0, 0.0, 100.0, 1.0));
+  println!("dioxus-shadcn web demo slider class: {}", slider_root_class("mt-3"));
+  println!("dioxus-shadcn web demo slider track class: {}", slider_track_class(""));
+  println!("dioxus-shadcn web demo slider percent: {}", slider_percent(42.0, 0.0, 100.0, 1.0));
   println!(
-    "dioxus-ui web demo slider range style: {}",
+    "dioxus-shadcn web demo slider range style: {}",
     slider_range_style(SliderOrientation::Horizontal, 42.0)
   );
   println!(
-    "dioxus-ui web demo slider thumb style: {}",
+    "dioxus-shadcn web demo slider thumb style: {}",
     slider_thumb_style(SliderOrientation::Horizontal, 42.0)
   );
   println!(
-    "dioxus-ui web demo radio group class: {}",
+    "dioxus-shadcn web demo radio group class: {}",
     radio_group_class(NavigationOrientation::Horizontal, "gap-3")
   );
-  println!("dioxus-ui web demo radio group item class: {}", radio_group_item_class(true, ""));
+  println!("dioxus-shadcn web demo radio group item class: {}", radio_group_item_class(true, ""));
   println!(
-    "dioxus-ui web demo radio group next value: {:?}",
+    "dioxus-shadcn web demo radio group next value: {:?}",
     radio_group_move_value(
       Some("sm"),
       &[
@@ -384,12 +418,12 @@ fn main() {
     )
   );
   println!(
-    "dioxus-ui web demo toggle group class: {}",
+    "dioxus-shadcn web demo toggle group class: {}",
     toggle_group_class(NavigationOrientation::Horizontal, "gap-1")
   );
-  println!("dioxus-ui web demo toggle group item class: {}", toggle_group_item_class(true, ""));
+  println!("dioxus-shadcn web demo toggle group item class: {}", toggle_group_item_class(true, ""));
   println!(
-    "dioxus-ui web demo toggle group next value: {:?}",
+    "dioxus-shadcn web demo toggle group next value: {:?}",
     toggle_group_move_value(
       Some("bold"),
       &[
@@ -403,84 +437,105 @@ fn main() {
     )
   );
   println!(
-    "dioxus-ui web demo toggle group values: {:?}",
+    "dioxus-shadcn web demo toggle group values: {:?}",
     toggle_group_multiple_selection(&["bold".to_string()], "underline")
   );
   println!(
-    "dioxus-ui web demo separator class: {}",
+    "dioxus-shadcn web demo separator class: {}",
     separator_class(SeparatorOrientation::Horizontal, "my-4")
   );
-  println!("dioxus-ui web demo skeleton class: {}", skeleton_class("h-4 w-32"));
-  println!("dioxus-ui web demo spinner class: {}", spinner_class(SpinnerSize::Md, "text-blue-600"));
-  println!("dioxus-ui web demo table class: {}", table_class("min-w-lg"));
-  println!("dioxus-ui web demo table row class: {}", table_row_class(""));
-  println!("dioxus-ui web demo checkbox class: {}", checkbox_class(true, "mt-2"));
-  println!("dioxus-ui web demo collapsible class: {}", collapsible_class(false, "max-w-sm"));
-  println!("dioxus-ui web demo collapsible trigger class: {}", collapsible_trigger_class("w-full"));
+  println!("dioxus-shadcn web demo skeleton class: {}", skeleton_class("h-4 w-32"));
   println!(
-    "dioxus-ui web demo collapsible content class: {}",
+    "dioxus-shadcn web demo spinner class: {}",
+    spinner_class(SpinnerSize::Md, "text-blue-600")
+  );
+  println!("dioxus-shadcn web demo table class: {}", table_class("min-w-lg"));
+  println!("dioxus-shadcn web demo table row class: {}", table_row_class(""));
+  println!("dioxus-shadcn web demo checkbox class: {}", checkbox_class(true, "mt-2"));
+  println!("dioxus-shadcn web demo collapsible class: {}", collapsible_class(false, "max-w-sm"));
+  println!(
+    "dioxus-shadcn web demo collapsible trigger class: {}",
+    collapsible_trigger_class("w-full")
+  );
+  println!(
+    "dioxus-shadcn web demo collapsible content class: {}",
     collapsible_content_class(true, "pt-2")
   );
-  println!("dioxus-ui web demo command class: {}", command_class("max-w-md"));
-  println!("dioxus-ui web demo command input class: {}", command_input_class(""));
-  println!("dioxus-ui web demo command item class: {}", command_item_class(true, false, ""));
+  println!("dioxus-shadcn web demo command class: {}", command_class("max-w-md"));
+  println!("dioxus-shadcn web demo command input class: {}", command_input_class(""));
+  println!("dioxus-shadcn web demo command item class: {}", command_item_class(true, false, ""));
   println!(
-    "dioxus-ui web demo command active descendant: {:?}",
+    "dioxus-shadcn web demo command active descendant: {:?}",
     command_active_descendant_state(Some("open-file".to_string())).active_id
   );
-  println!("dioxus-ui web demo combobox trigger class: {}", combobox_trigger_class(false, "w-64"));
-  println!("dioxus-ui web demo combobox input class: {}", combobox_input_class(""));
-  println!("dioxus-ui web demo combobox item class: {}", combobox_item_class(true, false, ""));
   println!(
-    "dioxus-ui web demo combobox primitive open: {}",
+    "dioxus-shadcn web demo combobox trigger class: {}",
+    combobox_trigger_class(false, "w-64")
+  );
+  println!("dioxus-shadcn web demo combobox input class: {}", combobox_input_class(""));
+  println!("dioxus-shadcn web demo combobox item class: {}", combobox_item_class(true, false, ""));
+  println!(
+    "dioxus-shadcn web demo combobox primitive open: {}",
     ComboboxPrimitiveConfig::controlled(true).open
   );
   println!(
-    "dioxus-ui web demo context menu content class: {}",
+    "dioxus-shadcn web demo context menu content class: {}",
     context_menu_content_class("min-w-48")
   );
   println!(
-    "dioxus-ui web demo context menu item class: {}",
+    "dioxus-shadcn web demo context menu item class: {}",
     context_menu_item_class(true, false, "")
   );
-  println!("dioxus-ui web demo context menu shortcut class: {}", context_menu_shortcut_class(""));
   println!(
-    "dioxus-ui web demo context menu primitive open: {}",
+    "dioxus-shadcn web demo context menu shortcut class: {}",
+    context_menu_shortcut_class("")
+  );
+  println!(
+    "dioxus-shadcn web demo context menu primitive open: {}",
     ContextMenuPrimitiveConfig::controlled(true).open
   );
   println!(
-    "dioxus-ui web demo data table header class: {}",
+    "dioxus-shadcn web demo data table header class: {}",
     data_table_header_cell_class(true, "w-40")
   );
-  println!("dioxus-ui web demo data table row class: {}", data_table_row_class(true, false, ""));
-  println!("dioxus-ui web demo data table page window: {:?}", data_table_page_window(1, 10, 24));
   println!(
-    "dioxus-ui web demo data table selected rows: {:?}",
+    "dioxus-shadcn web demo data table row class: {}",
+    data_table_row_class(true, false, "")
+  );
+  println!(
+    "dioxus-shadcn web demo data table page window: {:?}",
+    data_table_page_window(1, 10, 24)
+  );
+  println!(
+    "dioxus-shadcn web demo data table selected rows: {:?}",
     data_table_toggle_row(&["row-1".to_string()], "row-2")
   );
   println!(
-    "dioxus-ui web demo data table sort: {}",
+    "dioxus-shadcn web demo data table sort: {}",
     data_table_sort_attribute(Some(DataTableSortDirection::Ascending))
   );
-  println!("dioxus-ui web demo scroll area class: {}", scroll_area_class("h-72"));
-  println!("dioxus-ui web demo scroll area viewport class: {}", scroll_area_viewport_class(""));
+  println!("dioxus-shadcn web demo scroll area class: {}", scroll_area_class("h-72"));
+  println!("dioxus-shadcn web demo scroll area viewport class: {}", scroll_area_viewport_class(""));
   println!(
-    "dioxus-ui web demo scroll area scrollbar class: {}",
+    "dioxus-shadcn web demo scroll area scrollbar class: {}",
     scroll_area_scrollbar_class(ScrollAreaOrientation::Vertical, "")
   );
-  println!("dioxus-ui web demo scroll area thumb class: {}", scroll_area_thumb_class(""));
+  println!("dioxus-shadcn web demo scroll area thumb class: {}", scroll_area_thumb_class(""));
   println!(
-    "dioxus-ui web demo scroll area orientation: {}",
+    "dioxus-shadcn web demo scroll area orientation: {}",
     scroll_area_orientation_attribute(ScrollAreaOrientation::Both)
   );
   println!(
-    "dioxus-ui web demo resizable group class: {}",
+    "dioxus-shadcn web demo resizable group class: {}",
     resizable_panel_group_class(LayoutOrientation::Horizontal, "h-64")
   );
-  println!("dioxus-ui web demo resizable handle class: {}", resizable_handle_class(false, ""));
-  println!("dioxus-ui web demo resizable panel style: {}", resizable_panel_style(75.0, 20.0, 80.0));
+  println!("dioxus-shadcn web demo resizable handle class: {}", resizable_handle_class(false, ""));
   println!(
-    "dioxus-ui web demo resizable resize: {:?}",
+    "dioxus-shadcn web demo resizable panel style: {}",
+    resizable_panel_style(75.0, 20.0, 80.0)
+  );
+  println!(
+    "dioxus-shadcn web demo resizable resize: {:?}",
     resizable_resize_pair(
       ResizablePanelState::new(50.0, 20.0, 80.0),
       ResizablePanelState::new(50.0, 20.0, 80.0),
@@ -488,126 +543,129 @@ fn main() {
     )
   );
   println!(
-    "dioxus-ui web demo sidebar class: {}",
+    "dioxus-shadcn web demo sidebar class: {}",
     sidebar_class(false, SidebarSide::Left, "shrink-0")
   );
-  println!("dioxus-ui web demo sidebar item class: {}", sidebar_item_class(true, false, ""));
-  println!("dioxus-ui web demo sidebar trigger class: {}", sidebar_trigger_class(""));
+  println!("dioxus-shadcn web demo sidebar item class: {}", sidebar_item_class(true, false, ""));
+  println!("dioxus-shadcn web demo sidebar trigger class: {}", sidebar_trigger_class(""));
   println!(
-    "dioxus-ui web demo sidebar side/toggle: {}/{}",
+    "dioxus-shadcn web demo sidebar side/toggle: {}/{}",
     sidebar_side_attribute(SidebarSide::Left),
     sidebar_toggle(SidebarState::new(false).collapsed)
   );
   println!(
-    "dioxus-ui web demo date picker trigger class: {}",
+    "dioxus-shadcn web demo date picker trigger class: {}",
     date_picker_trigger_class(false, "w-64")
   );
-  println!("dioxus-ui web demo date picker value class: {}", date_picker_value_class(""));
-  println!("dioxus-ui web demo date picker content class: {}", date_picker_content_class("p-3"));
+  println!("dioxus-shadcn web demo date picker value class: {}", date_picker_value_class(""));
   println!(
-    "dioxus-ui web demo date picker side/align: {}/{}",
+    "dioxus-shadcn web demo date picker content class: {}",
+    date_picker_content_class("p-3")
+  );
+  println!(
+    "dioxus-shadcn web demo date picker side/align: {}/{}",
     date_picker_side_attribute(DatePickerSide::Bottom),
     date_picker_align_attribute(DatePickerAlign::Start)
   );
   println!(
-    "dioxus-ui web demo date picker primitive open: {}",
+    "dioxus-shadcn web demo date picker primitive open: {}",
     DatePickerPrimitiveConfig::controlled(true).open
   );
-  println!("dioxus-ui web demo menubar class: {}", menubar_class("w-fit"));
-  println!("dioxus-ui web demo menubar trigger class: {}", menubar_trigger_class(true, ""));
-  println!("dioxus-ui web demo menubar item class: {}", menubar_item_class(true, false, ""));
+  println!("dioxus-shadcn web demo menubar class: {}", menubar_class("w-fit"));
+  println!("dioxus-shadcn web demo menubar trigger class: {}", menubar_trigger_class(true, ""));
+  println!("dioxus-shadcn web demo menubar item class: {}", menubar_item_class(true, false, ""));
   println!(
-    "dioxus-ui web demo menubar primitive open: {}",
+    "dioxus-shadcn web demo menubar primitive open: {}",
     MenubarPrimitiveConfig::controlled(true).open
   );
-  println!("dioxus-ui web demo navigation menu class: {}", navigation_menu_class("w-full"));
+  println!("dioxus-shadcn web demo navigation menu class: {}", navigation_menu_class("w-full"));
   println!(
-    "dioxus-ui web demo navigation menu trigger class: {}",
+    "dioxus-shadcn web demo navigation menu trigger class: {}",
     navigation_menu_trigger_class(true, "")
   );
   println!(
-    "dioxus-ui web demo navigation menu link class: {}",
+    "dioxus-shadcn web demo navigation menu link class: {}",
     navigation_menu_link_class(true, "")
   );
   println!(
-    "dioxus-ui web demo navigation menu primitive open: {}",
+    "dioxus-shadcn web demo navigation menu primitive open: {}",
     NavigationMenuPrimitiveConfig::controlled(true).open
   );
-  println!("dioxus-ui web demo switch class: {}", switch_class(true, "mt-2"));
-  println!("dioxus-ui web demo switch thumb class: {}", switch_thumb_class(true));
-  println!("dioxus-ui web demo tabs list class: {}", tabs_list_class("mt-4"));
-  println!("dioxus-ui web demo tabs trigger class: {}", tabs_trigger_class(true, "min-w-24"));
-  println!("dioxus-ui web demo tabs content class: {}", tabs_content_class("p-4"));
+  println!("dioxus-shadcn web demo switch class: {}", switch_class(true, "mt-2"));
+  println!("dioxus-shadcn web demo switch thumb class: {}", switch_thumb_class(true));
+  println!("dioxus-shadcn web demo tabs list class: {}", tabs_list_class("mt-4"));
+  println!("dioxus-shadcn web demo tabs trigger class: {}", tabs_trigger_class(true, "min-w-24"));
+  println!("dioxus-shadcn web demo tabs content class: {}", tabs_content_class("p-4"));
   println!(
-    "dioxus-ui web demo toggle class: {}",
+    "dioxus-shadcn web demo toggle class: {}",
     toggle_class(ToggleVariant::Default, ToggleSize::Md, true, "")
   );
-  println!("dioxus-ui web demo accordion item class: {}", accordion_item_class(""));
-  println!("dioxus-ui web demo accordion trigger class: {}", accordion_trigger_class(""));
-  println!("dioxus-ui web demo accordion content class: {}", accordion_content_class("px-1"));
-  println!("dioxus-ui web demo dialog overlay class: {}", dialog_overlay_class(""));
-  println!("dioxus-ui web demo dialog content class: {}", dialog_content_class("max-w-xl"));
+  println!("dioxus-shadcn web demo accordion item class: {}", accordion_item_class(""));
+  println!("dioxus-shadcn web demo accordion trigger class: {}", accordion_trigger_class(""));
+  println!("dioxus-shadcn web demo accordion content class: {}", accordion_content_class("px-1"));
+  println!("dioxus-shadcn web demo dialog overlay class: {}", dialog_overlay_class(""));
+  println!("dioxus-shadcn web demo dialog content class: {}", dialog_content_class("max-w-xl"));
   println!(
-    "dioxus-ui web demo dialog primitive open: {}",
+    "dioxus-shadcn web demo dialog primitive open: {}",
     DialogPrimitiveConfig::controlled(true).open
   );
-  println!("dioxus-ui web demo drawer overlay class: {}", drawer_overlay_class(""));
-  println!("dioxus-ui web demo drawer content class: {}", drawer_content_class("max-h-[70vh]"));
+  println!("dioxus-shadcn web demo drawer overlay class: {}", drawer_overlay_class(""));
+  println!("dioxus-shadcn web demo drawer content class: {}", drawer_content_class("max-h-[70vh]"));
   println!(
-    "dioxus-ui web demo drawer primitive open: {}",
+    "dioxus-shadcn web demo drawer primitive open: {}",
     DrawerPrimitiveConfig::controlled(true).open
   );
-  println!("dioxus-ui web demo popover content class: {}", popover_content_class("w-80"));
-  println!("dioxus-ui web demo popover header class: {}", popover_header_class(""));
-  println!("dioxus-ui web demo popover title class: {}", popover_title_class(""));
-  println!("dioxus-ui web demo popover description class: {}", popover_description_class(""));
+  println!("dioxus-shadcn web demo popover content class: {}", popover_content_class("w-80"));
+  println!("dioxus-shadcn web demo popover header class: {}", popover_header_class(""));
+  println!("dioxus-shadcn web demo popover title class: {}", popover_title_class(""));
+  println!("dioxus-shadcn web demo popover description class: {}", popover_description_class(""));
   println!(
-    "dioxus-ui web demo popover primitive open: {}",
+    "dioxus-shadcn web demo popover primitive open: {}",
     PopoverPrimitiveConfig::controlled(true).open
   );
-  println!("dioxus-ui web demo hover card content class: {}", hover_card_content_class("w-96"));
+  println!("dioxus-shadcn web demo hover card content class: {}", hover_card_content_class("w-96"));
   println!(
-    "dioxus-ui web demo hover card side/align: {}/{}",
+    "dioxus-shadcn web demo hover card side/align: {}/{}",
     hover_card_side_attribute(HoverCardSide::Bottom),
     hover_card_align_attribute(HoverCardAlign::Center)
   );
   println!(
-    "dioxus-ui web demo hover card primitive open: {}",
+    "dioxus-shadcn web demo hover card primitive open: {}",
     HoverCardPrimitiveConfig::controlled(true).open
   );
-  println!("dioxus-ui web demo tooltip content class: {}", tooltip_content_class(""));
+  println!("dioxus-shadcn web demo tooltip content class: {}", tooltip_content_class(""));
   println!(
-    "dioxus-ui web demo tooltip primitive delay: {}",
+    "dioxus-shadcn web demo tooltip primitive delay: {}",
     TooltipPrimitiveConfig::controlled(true).delay_ms
   );
-  println!("dioxus-ui web demo select trigger class: {}", select_trigger_class(false, "w-44"));
-  println!("dioxus-ui web demo select value class: {}", select_value_class(""));
-  println!("dioxus-ui web demo select content class: {}", select_content_class(""));
-  println!("dioxus-ui web demo select label class: {}", select_label_class(""));
-  println!("dioxus-ui web demo select item class: {}", select_item_class(true, ""));
-  println!("dioxus-ui web demo select separator class: {}", select_separator_class(""));
+  println!("dioxus-shadcn web demo select trigger class: {}", select_trigger_class(false, "w-44"));
+  println!("dioxus-shadcn web demo select value class: {}", select_value_class(""));
+  println!("dioxus-shadcn web demo select content class: {}", select_content_class(""));
+  println!("dioxus-shadcn web demo select label class: {}", select_label_class(""));
+  println!("dioxus-shadcn web demo select item class: {}", select_item_class(true, ""));
+  println!("dioxus-shadcn web demo select separator class: {}", select_separator_class(""));
   println!(
-    "dioxus-ui web demo select primitive value: {:?}",
+    "dioxus-shadcn web demo select primitive value: {:?}",
     SelectPrimitiveConfig::controlled(true, Some("system".to_string())).value
   );
-  println!("dioxus-ui web demo native select class: {}", native_select_class(false, "w-48"));
-  println!("dioxus-ui web demo native select group class: {}", native_select_group_class(""));
-  println!("dioxus-ui web demo native select option class: {}", native_select_option_class(""));
-  println!("dioxus-ui web demo sheet overlay class: {}", sheet_overlay_class(""));
+  println!("dioxus-shadcn web demo native select class: {}", native_select_class(false, "w-48"));
+  println!("dioxus-shadcn web demo native select group class: {}", native_select_group_class(""));
+  println!("dioxus-shadcn web demo native select option class: {}", native_select_option_class(""));
+  println!("dioxus-shadcn web demo sheet overlay class: {}", sheet_overlay_class(""));
   println!(
-    "dioxus-ui web demo sheet content class: {}",
+    "dioxus-shadcn web demo sheet content class: {}",
     sheet_content_class(SheetSide::Right, "w-80")
   );
   println!(
-    "dioxus-ui web demo sheet primitive open: {}",
+    "dioxus-shadcn web demo sheet primitive open: {}",
     SheetPrimitiveConfig::controlled(true).open
   );
-  println!("dioxus-ui web demo dropdown content class: {}", dropdown_content_class(""));
-  println!("dioxus-ui web demo dropdown label class: {}", dropdown_label_class(""));
-  println!("dioxus-ui web demo dropdown item class: {}", dropdown_item_class(false, ""));
-  println!("dioxus-ui web demo dropdown separator class: {}", dropdown_separator_class(""));
+  println!("dioxus-shadcn web demo dropdown content class: {}", dropdown_content_class(""));
+  println!("dioxus-shadcn web demo dropdown label class: {}", dropdown_label_class(""));
+  println!("dioxus-shadcn web demo dropdown item class: {}", dropdown_item_class(false, ""));
+  println!("dioxus-shadcn web demo dropdown separator class: {}", dropdown_separator_class(""));
   println!(
-    "dioxus-ui web demo dropdown primitive open: {}",
+    "dioxus-shadcn web demo dropdown primitive open: {}",
     DropdownPrimitiveConfig::controlled(true).open
   );
 }

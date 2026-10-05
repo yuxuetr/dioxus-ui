@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{
+use dioxus_shadcn::{
   InputGroup, InputGroupAction, InputGroupAddon, InputGroupAddonPosition, InputGroupControl,
 };
 

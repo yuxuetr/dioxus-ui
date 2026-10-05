@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Checkbox, Label};
+use dioxus_shadcn::{Checkbox, Label};
 
 #[component]
 pub fn Demo() -> Element {

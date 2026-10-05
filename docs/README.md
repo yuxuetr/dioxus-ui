@@ -1,6 +1,6 @@
 # Documentation
 
-This directory defines the architecture and execution plan for `dioxus-ui`.
+This directory defines the architecture and execution plan for `dioxus-shadcn`.
 
 Read in this order:
 

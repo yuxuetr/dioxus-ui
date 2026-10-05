@@ -101,7 +101,7 @@ each command starts its own `dx serve` process.
 
 ## M135 Component Overlay Fixtures
 
-M135 adds fixtures that render real `dioxus-ui` components instead of generic
+M135 adds fixtures that render real `dioxus-shadcn` components instead of generic
 controls, so the verifier exercises the shipped overlay behavior from
 [RFC 0010](../rfcs/0010-overlay-interaction-behavior.md):
 

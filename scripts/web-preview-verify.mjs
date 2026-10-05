@@ -100,7 +100,7 @@ const requiredStates = [
 ];
 
 const missingStates = requiredStates.filter((state) => {
-  return !output.includes(`dioxus-ui web demo ${state}`);
+  return !output.includes(`dioxus-shadcn web demo ${state}`);
 });
 
 if (missingStates.length > 0) {

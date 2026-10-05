@@ -12,7 +12,7 @@ dxui add tooltip
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["tooltip"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["tooltip"] }
 ```
 
 ## API Surface

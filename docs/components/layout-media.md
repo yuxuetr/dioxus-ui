@@ -18,7 +18,7 @@ M17 covers:
 - Carousel
 
 These components should ship in crate mode and source-copy mode. Crate mode can
-reuse `dioxus-ui-core` and `dioxus-ui-primitives`; generated templates must
+reuse `dioxus-shadcn-core` and `dioxus-shadcn-primitives`; generated templates must
 remain self-contained and must not import internal crates.
 
 ## Shared Primitive Strategy

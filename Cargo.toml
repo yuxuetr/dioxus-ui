@@ -1,10 +1,10 @@
 [workspace]
 resolver = "2"
 members = [
-  "crates/dioxus-ui-core",
-  "crates/dioxus-ui-primitives",
-  "crates/dioxus-ui",
-  "crates/dioxus-ui-cli",
+  "crates/dioxus-shadcn-core",
+  "crates/dioxus-shadcn-primitives",
+  "crates/dioxus-shadcn",
+  "crates/dioxus-shadcn-cli",
   "examples/web-demo",
   "examples/desktop-demo",
   "examples/mobile-demo",
@@ -25,9 +25,9 @@ categories = ["gui", "web-programming"]
 
 [workspace.dependencies]
 dioxus = "0.7"
-dioxus-ui-core = { version = "0.1.0", path = "crates/dioxus-ui-core" }
-dioxus-ui-primitives = { version = "0.1.0", path = "crates/dioxus-ui-primitives" }
-dioxus-ui = { version = "0.1.0", path = "crates/dioxus-ui" }
+dioxus-shadcn-core = { version = "0.1.0", path = "crates/dioxus-shadcn-core" }
+dioxus-shadcn-primitives = { version = "0.1.0", path = "crates/dioxus-shadcn-primitives" }
+dioxus-shadcn = { version = "0.1.0", path = "crates/dioxus-shadcn" }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 

@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Direction, TextDirection, Toggle};
+use dioxus_shadcn::{Direction, TextDirection, Toggle};
 
 #[component]
 pub fn Demo() -> Element {

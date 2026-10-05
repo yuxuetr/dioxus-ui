@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Kbd, KbdSize};
+use dioxus_shadcn::{Kbd, KbdSize};
 
 #[component]
 pub fn Demo() -> Element {

@@ -10,7 +10,7 @@ Approved local follow-up is mapped in
 [Release Notes Local Follow-up Map](release-notes-local-follow-up-map.md).
 
 M98 defines the read-only contract for the project changelog. The repository
-already has `CHANGELOG.md`, but it must be owned by `dioxus-ui` rather than
+already has `CHANGELOG.md`, but it must be owned by `dioxus-shadcn` rather than
 carrying template release history.
 
 ## Expected Shape

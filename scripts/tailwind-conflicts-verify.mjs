@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { utilityConflicts } from "./preview-tailwind.mjs";
 
 const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)));
-const roots = ["crates/dioxus-ui/src", "crates/dioxus-ui-cli/templates"];
+const roots = ["crates/dioxus-shadcn/src", "crates/dioxus-shadcn-cli/templates"];
 
 // A class function joins an always-applied `*_BASE_CLASS` with state classes.
 // When a state class sets a property the base class already sets, the

@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{
+use dioxus_shadcn::{
   Button, ButtonVariant, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter,
   DrawerHeader, DrawerOverlay, DrawerTitle,
 };

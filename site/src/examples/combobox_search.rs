@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem, ComboboxList, Label};
+use dioxus_shadcn::{ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem, ComboboxList, Label};
 
 const FRAMEWORKS: [(&str, &str); 5] =
   [("dioxus", "Dioxus"), ("leptos", "Leptos"), ("yew", "Yew"), ("sycamore", "Sycamore"), ("iced", "Iced")];

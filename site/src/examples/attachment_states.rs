@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{
+use dioxus_shadcn::{
   Attachment, AttachmentAction, AttachmentActions, AttachmentContent, AttachmentDescription,
   AttachmentGroup, AttachmentMedia, AttachmentState, AttachmentTitle, AttachmentTrigger,
 };

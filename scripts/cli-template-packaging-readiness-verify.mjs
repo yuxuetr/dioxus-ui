@@ -9,8 +9,8 @@ const readText = (relativePath) => readFileSync(join(repoRoot, relativePath), "u
 const normalizeWhitespace = (text) => text.replace(/\s+/g, " ");
 
 const packageJson = JSON.parse(readText("package.json"));
-const cliSource = readText("crates/dioxus-ui-cli/src/main.rs");
-const cliBuild = readText("crates/dioxus-ui-cli/build.rs");
+const cliSource = readText("crates/dioxus-shadcn-cli/src/main.rs");
+const cliBuild = readText("crates/dioxus-shadcn-cli/build.rs");
 const readinessDoc = normalizeWhitespace(readText("docs/cli-template-packaging-readiness-metadata.md"));
 const publishBlockers = readText("docs/publish-readiness-blockers.md");
 const cargoPublishDoc = normalizeWhitespace(readText("docs/cargo-publish-metadata.md"));
@@ -47,20 +47,20 @@ if (!scripts["verify:release"]?.includes("npm run verify:cli-template-packaging-
   failures.push("package.json verify:release must include npm run verify:cli-template-packaging-readiness");
 }
 
-requireIncludes("crates/dioxus-ui-cli/src/main.rs", cliSource, [
+requireIncludes("crates/dioxus-shadcn-cli/src/main.rs", cliSource, [
   'include!(concat!(env!("OUT_DIR"), "/embedded_assets.rs"))',
   "EMBEDDED_REGISTRY_JSON",
   "EMBEDDED_ASSETS",
   "embedded_asset_content",
 ]);
 
-requireAbsent("crates/dioxus-ui-cli/src/main.rs", cliSource, [
+requireAbsent("crates/dioxus-shadcn-cli/src/main.rs", cliSource, [
   "workspace.join(&file.source)",
   "workspace.join(&asset.source)",
   'join("registry")',
 ]);
 
-requireIncludes("crates/dioxus-ui-cli/build.rs", cliBuild, [
+requireIncludes("crates/dioxus-shadcn-cli/build.rs", cliBuild, [
   "embedded_assets.rs",
   "include_str!",
   "registry_sources",
@@ -78,7 +78,7 @@ requireIncludes("docs/cli-template-packaging-readiness-metadata.md", readinessDo
 
 requireIncludes("docs/publish-readiness-blockers.md", publishBlockers, [
   "Resolved publish readiness items",
-  "`dioxus-ui-cli` embeds registry and template assets at compile time",
+  "`dioxus-shadcn-cli` embeds registry and template assets at compile time",
   "npm run verify:cli-template-packaging-readiness",
 ]);
 

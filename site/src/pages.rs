@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Badge, BadgeVariant, Tabs, TabsContent, TabsList, TabsTrigger};
+use dioxus_shadcn::{Badge, BadgeVariant, Tabs, TabsContent, TabsList, TabsTrigger};
 
 use crate::Route;
 use crate::catalog::{CATEGORIES, Component};
@@ -37,7 +37,7 @@ pub fn Home() -> Element {
 
   rsx! {
     article { "data-site-page": "home",
-      h1 { class: H1, "dioxus-ui" }
+      h1 { class: H1, "dioxus-shadcn" }
       p { class: LEAD,
         "Accessible, Tailwind-styled components for Dioxus, in the manner of shadcn/ui. "
         "Copy a component's source into your app with the CLI, or depend on the crate."
@@ -91,7 +91,7 @@ pub fn GettingStarted() -> Element {
         code { class: INLINE_CODE, "src/components/ui" }
         ", where you own and edit it."
       }
-      CodeBlock { code: "cargo install dioxus-ui-cli\n\ndxui init\ndxui add button\ndxui add dialog" }
+      CodeBlock { code: "cargo install dioxus-shadcn-cli\n\ndxui init\ndxui add button\ndxui add dialog" }
       p { class: P,
         code { class: INLINE_CODE, "dxui add" }
         " keeps existing files; pass "
@@ -101,15 +101,15 @@ pub fn GettingStarted() -> Element {
       h2 { class: H2, "Crate mode" }
       p { class: P, "Enable one feature per component:" }
       CodeBlock {
-        code: "[dependencies]\ndioxus-ui = { version = \"0.1\", default-features = false, features = [\"button\", \"dialog\"] }"
+        code: "[dependencies]\ndioxus-shadcn = { version = \"0.1\", default-features = false, features = [\"button\", \"dialog\"] }"
           .to_string()
       }
-      CodeBlock { code: "use dioxus_ui::{Button, ButtonVariant};".to_string() }
+      CodeBlock { code: "use dioxus_shadcn::{Button, ButtonVariant};".to_string() }
       h2 { class: H2, "Stylesheet" }
       p { class: P,
         code { class: INLINE_CODE, "dxui init" }
         " writes "
-        code { class: INLINE_CODE, "assets/dioxus-ui.css" }
+        code { class: INLINE_CODE, "assets/dioxus-shadcn.css" }
         ", a Tailwind CSS v4 input with the semantic color tokens. Crate-mode apps need it too: run "
         code { class: INLINE_CODE, "dxui init" }
         " or copy the token blocks into your own input, and let your build compile it."
@@ -191,7 +191,7 @@ pub fn ComponentPage(slug: String) -> Element {
       CodeBlock { code: "dxui add {component.slug}" }
       p { class: P, "Or enable the crate feature:" }
       CodeBlock {
-        code: format!("dioxus-ui = {{ version = \"0.1\", features = [\"{}\"] }}", component.feature)
+        code: format!("dioxus-shadcn = {{ version = \"0.1\", features = [\"{}\"] }}", component.feature)
       }
       if has_examples {
         h2 { class: H2, "Examples" }

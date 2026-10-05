@@ -37,7 +37,7 @@ should document the deferral rather than forcing a weak component.
 Crate feature:
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["button-group"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["button-group"] }
 ```
 
 Source-copy command:
@@ -91,7 +91,7 @@ Tailwind constraints:
 Crate feature:
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["input-group"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["input-group"] }
 ```
 
 Source-copy command:
@@ -157,7 +157,7 @@ Tailwind constraints:
 Crate feature:
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["collapsible"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["collapsible"] }
 ```
 
 Source-copy command:
@@ -221,7 +221,7 @@ Tailwind constraints:
 Crate feature:
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["direction"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["direction"] }
 ```
 
 Source-copy command, if accepted:
@@ -267,8 +267,8 @@ Tailwind constraints:
 
 Generated templates for M31 must remain self-contained:
 
-- no imports from `dioxus-ui-core`
-- no imports from `dioxus-ui-primitives`
+- no imports from `dioxus-shadcn-core`
+- no imports from `dioxus-shadcn-primitives`
 - no renderer runtime dependencies
 - no Tailwind dynamic class generation
 

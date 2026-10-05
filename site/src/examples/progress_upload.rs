@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Button, ButtonVariant, Label, Progress};
+use dioxus_shadcn::{Button, ButtonVariant, Label, Progress};
 
 #[component]
 pub fn Demo() -> Element {

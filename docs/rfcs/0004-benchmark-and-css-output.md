@@ -27,7 +27,7 @@ This matches the project architecture:
 
 ## CSS Output Decision
 
-`dioxus-ui` should not publish a universal precompiled Tailwind output as its
+`dioxus-shadcn` should not publish a universal precompiled Tailwind output as its
 main artifact. Tailwind must scan the user's app source and generated component
 files to produce the final CSS.
 

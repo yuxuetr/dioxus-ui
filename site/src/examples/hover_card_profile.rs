@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{HoverCard, HoverCardContent, HoverCardDescription, HoverCardHeader, HoverCardTitle, HoverCardTrigger};
+use dioxus_shadcn::{HoverCard, HoverCardContent, HoverCardDescription, HoverCardHeader, HoverCardTitle, HoverCardTrigger};
 
 #[component]
 pub fn Demo() -> Element {

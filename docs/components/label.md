@@ -11,7 +11,7 @@ dxui add label
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["label"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["label"] }
 ```
 
 ## API Surface

@@ -39,10 +39,10 @@ src/components/ui/
 ├─ dialog.rs
 └─ mod.rs
 assets/
-└─ dioxus-ui.css
+└─ dioxus-shadcn.css
 ```
 
-`assets/dioxus-ui.css` is an input stylesheet. For Tailwind CSS v4, the default
+`assets/dioxus-shadcn.css` is an input stylesheet. For Tailwind CSS v4, the default
 content should start with:
 
 ```css

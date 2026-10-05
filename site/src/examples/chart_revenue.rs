@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{
+use dioxus_shadcn::{
   ChartAreaSeries, ChartColorToken, ChartDescription, ChartDomain, ChartFallbackTable,
   ChartLegend, ChartLineSeries, ChartPoint, ChartRoot, ChartScale, ChartSeries, ChartSvg,
   ChartTitle, chart_fallback_rows,

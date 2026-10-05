@@ -12,7 +12,7 @@ dxui add alert-dialog
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["alert-dialog"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["alert-dialog"] }
 ```
 
 ## API Surface
@@ -32,7 +32,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["alert-dial
 - `alert_dialog_action_class`
 
 The module also re-exports `DialogPrimitiveConfig` for users importing from
-`dioxus_ui::alert_dialog`.
+`dioxus_shadcn::alert_dialog`.
 
 ## Behavior
 

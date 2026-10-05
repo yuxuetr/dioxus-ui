@@ -76,7 +76,7 @@ Required helper behavior:
   controlled intent without measuring the viewport itself.
 
 M34.2 implements these helpers in
-`crates/dioxus-ui-primitives/src/message_scroller.rs`.
+`crates/dioxus-shadcn-primitives/src/message_scroller.rs`.
 
 ## Runtime Boundary
 
@@ -179,14 +179,14 @@ git diff --check
 M34.2 helper implementation should run:
 
 ```bash
-cargo test -p dioxus-ui-primitives
+cargo test -p dioxus-shadcn-primitives
 cargo test --workspace --all-features --quiet
 ```
 
 M34.3 component implementation should additionally run:
 
 ```bash
-cargo test -q -p dioxus-ui-cli --test registry
+cargo test -q -p dioxus-shadcn-cli --test registry
 scripts/generated-fixture-smoke.sh
 scripts/feature-check.sh
 ```

@@ -16,7 +16,7 @@
 
 ## Evidence
 
-- crates.io treats `-` and `_` as the same, and `dioxus_ui` 0.1.1 (owner `max-wells`, last updated 2025-03-15) takes `dioxus-ui`. `dioxus-ui-core`, `dioxus-ui-primitives`, and `dioxus-ui-cli` are free, and so are `dioxus-shadcn`, `dioxus-shadcn-core`, `dioxus-shadcn-primitives`, and `dioxus-shadcn-cli`. The release owner chose the `dioxus-shadcn` names on 2026-10-05.
+- crates.io treats `-` and `_` as the same, and `dioxus_shadcn` 0.1.1 (owner `max-wells`, last updated 2025-03-15) takes `dioxus-shadcn`. `dioxus-shadcn-core`, `dioxus-shadcn-primitives`, and `dioxus-shadcn-cli` are free, and so are `dioxus-shadcn`, `dioxus-shadcn-core`, `dioxus-shadcn-primitives`, and `dioxus-shadcn-cli`. The release owner chose the `dioxus-shadcn` names on 2026-10-05.
 - The public GitHub repository has no `.github/workflows`, so no check runs on push; the browser workflow is only a template in the docs.
 
 ## M184 First Publish Preparation
@@ -26,7 +26,7 @@
   - Done: RFC 0056. The theme stylesheet becomes `assets/dioxus-shadcn.css`; the `dxui` DOM prefix and archived plans keep their names.
 
 - TODO M184.2 Rename the published crates
-  - Rename `dioxus-ui`, `dioxus-ui-core`, `dioxus-ui-primitives`, and `dioxus-ui-cli` to the `dioxus-shadcn` names: package names, directories, Rust paths, the theme stylesheet, docs, registry, templates, and scripts.
+  - Rename `dioxus-shadcn`, `dioxus-shadcn-core`, `dioxus-shadcn-primitives`, and `dioxus-shadcn-cli` to the `dioxus-shadcn` names: package names, directories, Rust paths, the theme stylesheet, docs, registry, templates, and scripts.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser checks.
 
 - TODO M184.3 Run the release gate in CI

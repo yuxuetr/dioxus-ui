@@ -2,7 +2,7 @@ mod chart_fixture;
 mod web_runtime;
 
 use chart_fixture::chart_fixture_states;
-use dioxus_ui_primitives::{
+use dioxus_shadcn_primitives::{
   CarouselState, FocusRuntime, FocusRuntimeRequest, FocusRuntimeUnsupported, GestureRuntime,
   GestureRuntimeRequest, GestureRuntimeUnsupported, LiveRegionRuntime, LiveRegionRuntimeRequest,
   LiveRegionRuntimeUnsupported, MeasurementRuntime, MeasurementRuntimeRequest,
@@ -291,7 +291,7 @@ const GESTURE_CHECKS: [VerificationCheck; 4] = [
 ];
 
 fn main() {
-  println!("dioxus-ui runtime web verification fixture scaffold");
+  println!("dioxus-shadcn runtime web verification fixture scaffold");
 
   for panel in RUNTIME_PANELS {
     println!("panel={} testid={} fallback={}", panel.label, panel.test_id, panel.fallback);
@@ -428,10 +428,10 @@ fn timer_live_region_measurement_panel_states() -> Vec<String> {
   let disabled_timer_request = TimerRuntimeRequest::toast_dismiss(0);
   let scheduled_timer = web_timer_runtime.schedule_once(&timer_request);
   let cancelled_timer = match scheduled_timer {
-    dioxus_ui_primitives::TimerRuntimeResult::Scheduled(timer_id) => {
+    dioxus_shadcn_primitives::TimerRuntimeResult::Scheduled(timer_id) => {
       web_timer_runtime.cancel(&timer_id)
     }
-    _ => dioxus_ui_primitives::TimerRuntimeResult::Unsupported,
+    _ => dioxus_shadcn_primitives::TimerRuntimeResult::Unsupported,
   };
   let unsupported_timer_id = ();
   let web_live_region_runtime = WebLiveRegionRuntime::new();
@@ -491,7 +491,7 @@ fn timer_live_region_measurement_panel_states() -> Vec<String> {
       "live_region_duplicate testid={} expected={} result={}",
       LIVE_REGION_CHECKS[2].test_id,
       LIVE_REGION_CHECKS[2].expected,
-      duplicate_result == dioxus_ui_primitives::LiveRegionRuntimeResult::SuppressedDuplicate
+      duplicate_result == dioxus_shadcn_primitives::LiveRegionRuntimeResult::SuppressedDuplicate
     ),
     format!(
       "live_region_empty testid={} expected={} result={:?}",
@@ -748,19 +748,19 @@ mod tests {
 
     assert_eq!(
       focus_runtime.focus_initial(&focus_node, FocusRuntimeRequest::dialog_default()),
-      dioxus_ui_primitives::FocusCommandResult::Applied
+      dioxus_shadcn_primitives::FocusCommandResult::Applied
     );
     assert_eq!(
       focus_runtime.focus_initial(&missing_focus_node, FocusRuntimeRequest::dialog_default()),
-      dioxus_ui_primitives::FocusCommandResult::MissingTarget
+      dioxus_shadcn_primitives::FocusCommandResult::MissingTarget
     );
     assert!(matches!(
       portal_runtime.mount_target(&PortalRuntimeRequest::body(true)),
-      dioxus_ui_primitives::PortalMountResult::Mounted(_)
+      dioxus_shadcn_primitives::PortalMountResult::Mounted(_)
     ));
     assert_eq!(
       portal_runtime.mount_target(&PortalRuntimeRequest::selector("#missing", true)),
-      dioxus_ui_primitives::PortalMountResult::MissingTarget
+      dioxus_shadcn_primitives::PortalMountResult::MissingTarget
     );
   }
 
@@ -773,15 +773,15 @@ mod tests {
 
     assert_eq!(
       focus_runtime.focus_initial(&focus_node, focus_request),
-      dioxus_ui_primitives::FocusCommandResult::Unsupported
+      dioxus_shadcn_primitives::FocusCommandResult::Unsupported
     );
     assert_eq!(
       portal_runtime.mount_target(&PortalRuntimeRequest::inline(false)),
-      dioxus_ui_primitives::PortalMountResult::Inline
+      dioxus_shadcn_primitives::PortalMountResult::Inline
     );
     assert_eq!(
       portal_runtime.mount_target(&PortalRuntimeRequest::selector("#missing", true)),
-      dioxus_ui_primitives::PortalMountResult::Unsupported
+      dioxus_shadcn_primitives::PortalMountResult::Unsupported
     );
   }
 
@@ -884,15 +884,15 @@ mod tests {
 
     assert_eq!(
       timer_runtime.schedule_once(&TimerRuntimeRequest::toast_dismiss(0)),
-      dioxus_ui_primitives::TimerRuntimeResult::Disabled
+      dioxus_shadcn_primitives::TimerRuntimeResult::Disabled
     );
     assert_eq!(
       live_region_runtime.announce(&LiveRegionRuntimeRequest::polite(" ")),
-      dioxus_ui_primitives::LiveRegionRuntimeResult::EmptyMessage
+      dioxus_shadcn_primitives::LiveRegionRuntimeResult::EmptyMessage
     );
     assert_eq!(
       measurement_runtime.measure(&MeasurementRuntimeRequest::Node(node)),
-      dioxus_ui_primitives::MeasurementRuntimeResult::Unsupported
+      dioxus_shadcn_primitives::MeasurementRuntimeResult::Unsupported
     );
   }
 
@@ -904,21 +904,21 @@ mod tests {
     let scheduled = timer_runtime.schedule_once(&timer_request);
 
     let timer_id = match scheduled {
-      dioxus_ui_primitives::TimerRuntimeResult::Scheduled(timer_id) => timer_id,
+      dioxus_shadcn_primitives::TimerRuntimeResult::Scheduled(timer_id) => timer_id,
       other => panic!("expected scheduled timer, got {other:?}"),
     };
 
     assert_eq!(
       timer_runtime.cancel(&timer_id),
-      dioxus_ui_primitives::TimerRuntimeResult::Cancelled
+      dioxus_shadcn_primitives::TimerRuntimeResult::Cancelled
     );
     assert_eq!(
       live_region_runtime.announce(&LiveRegionRuntimeRequest::polite("Saved")),
-      dioxus_ui_primitives::LiveRegionRuntimeResult::Queued
+      dioxus_shadcn_primitives::LiveRegionRuntimeResult::Queued
     );
     assert_eq!(
       live_region_runtime.announce(&LiveRegionRuntimeRequest::polite("Saved")),
-      dioxus_ui_primitives::LiveRegionRuntimeResult::SuppressedDuplicate
+      dioxus_shadcn_primitives::LiveRegionRuntimeResult::SuppressedDuplicate
     );
   }
 
@@ -966,11 +966,11 @@ mod tests {
 
     assert_eq!(
       pointer_runtime.handle_pointer(&PointerRuntimeRequest::start()),
-      dioxus_ui_primitives::PointerRuntimeResult::Unsupported
+      dioxus_shadcn_primitives::PointerRuntimeResult::Unsupported
     );
     assert_eq!(
       gesture_runtime.resolve_gesture(&next_request),
-      dioxus_ui_primitives::GestureRuntimeResult::Unsupported
+      dioxus_shadcn_primitives::GestureRuntimeResult::Unsupported
     );
     assert_eq!(carousel_apply_gesture(carousel_state, next_request.resolve_outcome()).index, 2);
   }

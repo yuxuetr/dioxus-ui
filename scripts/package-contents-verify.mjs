@@ -5,7 +5,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)));
-const cliRoot = join(repoRoot, "crates/dioxus-ui-cli");
+const cliRoot = join(repoRoot, "crates/dioxus-shadcn-cli");
 
 const readText = (relativePath) => readFileSync(join(repoRoot, relativePath), "utf8");
 const normalizeWhitespace = (text) => text.replace(/\s+/g, " ");
@@ -18,10 +18,10 @@ const failures = [];
 
 // Files every published crate must ship, beyond its entry point.
 const publishableCrates = [
-  { name: "dioxus-ui-core", entry: "src/lib.rs" },
-  { name: "dioxus-ui-primitives", entry: "src/lib.rs" },
-  { name: "dioxus-ui", entry: "src/lib.rs" },
-  { name: "dioxus-ui-cli", entry: "src/main.rs" },
+  { name: "dioxus-shadcn-core", entry: "src/lib.rs" },
+  { name: "dioxus-shadcn-primitives", entry: "src/lib.rs" },
+  { name: "dioxus-shadcn", entry: "src/lib.rs" },
+  { name: "dioxus-shadcn-cli", entry: "src/main.rs" },
 ];
 
 const requireIncludes = (name, text, fragments) => {
@@ -82,10 +82,10 @@ for (const { name, entry } of publishableCrates) {
       failures.push(`${name} package is missing ${required}`);
     }
   }
-  if (name === "dioxus-ui-cli") {
+  if (name === "dioxus-shadcn-cli") {
     const missing = cliEmbeddedAssets().filter((asset) => !files.has(asset));
     for (const asset of missing) {
-      failures.push(`dioxus-ui-cli package is missing embedded asset ${asset}`);
+      failures.push(`dioxus-shadcn-cli package is missing embedded asset ${asset}`);
     }
   }
 }

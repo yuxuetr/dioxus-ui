@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Label, Switch};
+use dioxus_shadcn::{Label, Switch};
 
 #[component]
 pub fn Demo() -> Element {

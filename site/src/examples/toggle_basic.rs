@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Toggle, ToggleVariant};
+use dioxus_shadcn::{Toggle, ToggleVariant};
 
 #[component]
 pub fn Demo() -> Element {

@@ -72,7 +72,7 @@ The consuming app owns:
 Crate feature:
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["attachment"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["attachment"] }
 ```
 
 Source-copy command:
@@ -156,7 +156,7 @@ Rules:
 Crate feature:
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["bubble"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["bubble"] }
 ```
 
 Source-copy command:
@@ -211,7 +211,7 @@ Rules:
 Crate feature:
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["message"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["message"] }
 ```
 
 Source-copy command:
@@ -274,7 +274,7 @@ Rules:
 Crate feature:
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["marker"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["marker"] }
 ```
 
 Source-copy command:
@@ -424,8 +424,8 @@ M33 components should follow these requirements:
 
 Generated message component sources must remain self-contained:
 
-- no imports from `dioxus-ui-core`
-- no imports from `dioxus-ui-primitives`
+- no imports from `dioxus-shadcn-core`
+- no imports from `dioxus-shadcn-primitives`
 - no AI SDK imports
 - no upload client imports
 - no markdown parser imports
@@ -459,7 +459,7 @@ M33 completion required updates to:
 
 - `registry/*.json`
 - `templates/*.rs`
-- `crates/dioxus-ui/src/*.rs`
+- `crates/dioxus-shadcn/src/*.rs`
 - component docs pages
 - component catalog
 - parity matrix

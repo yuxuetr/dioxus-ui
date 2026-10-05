@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{
+use dioxus_shadcn::{
   Button, ButtonVariant, DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogTitle,
   Input, Label,
 };
@@ -7,7 +7,7 @@ use dioxus_ui::{
 #[component]
 pub fn Demo() -> Element {
   let mut open = use_signal(|| false);
-  let mut name = use_signal(|| "dioxus-ui".to_string());
+  let mut name = use_signal(|| "dioxus-shadcn".to_string());
 
   rsx! {
     Button { variant: ButtonVariant::Outline, onclick: move |_| open.set(true), "Rename project" }

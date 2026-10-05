@@ -27,7 +27,7 @@ Use this checklist with:
 
 | Evidence Area | Required Evidence | Focused Gate |
 | --- | --- | --- |
-| Publishable crate set | Confirmed publishable crates remain `dioxus-ui-core`, `dioxus-ui-primitives`, `dioxus-ui`, and `dioxus-ui-cli` | `npm run verify:cargo-publish-metadata` |
+| Publishable crate set | Confirmed publishable crates remain `dioxus-shadcn-core`, `dioxus-shadcn-primitives`, `dioxus-shadcn`, and `dioxus-shadcn-cli` | `npm run verify:cargo-publish-metadata` |
 | Publish order | Confirmed dependency-first order remains core, primitives, styled crate, then CLI | `npm run verify:publish-order` |
 | Internal dependency graph | Confirmed list of project-crate dependencies that must resolve after publish | `npm run verify:cargo-workspace` |
 | Version policy | Approved version requirement policy for internal published crate dependencies | `npm run verify:workspace-dependency-publish-readiness` |

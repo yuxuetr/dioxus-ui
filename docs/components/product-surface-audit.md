@@ -11,10 +11,10 @@ In scope:
 
 - `registry/*.json` component entries
 - `templates/*.rs` source-copy files
-- `crates/dioxus-ui/src/*.rs` styled crate modules
+- `crates/dioxus-shadcn/src/*.rs` styled crate modules
 - `docs/components/*.md` component documentation pages
-- `crates/dioxus-ui/src/lib.rs` public module and re-export surface
-- `crates/dioxus-ui/Cargo.toml` feature declarations
+- `crates/dioxus-shadcn/src/lib.rs` public module and re-export surface
+- `crates/dioxus-shadcn/Cargo.toml` feature declarations
 
 Out of scope:
 
@@ -55,9 +55,9 @@ The local audit compared normalized component names across:
 
 - `registry/*.json`
 - `templates/*.rs`
-- `crates/dioxus-ui/src/*.rs`
-- `crates/dioxus-ui/Cargo.toml` features
-- `crates/dioxus-ui/src/lib.rs` modules and re-exports
+- `crates/dioxus-shadcn/src/*.rs`
+- `crates/dioxus-shadcn/Cargo.toml` features
+- `crates/dioxus-shadcn/src/lib.rs` modules and re-exports
 - `docs/components/*.md`
 
 Counts:
@@ -78,7 +78,7 @@ Intentional exceptions:
 - `utils` is a source-copy helper with `registry/utils.json` and
   `templates/utils.rs`; it is not a styled crate component, feature, or docs
   page.
-- `dioxus-ui-core` and `dioxus-ui-primitives` are external crate re-exports in
+- `dioxus-shadcn-core` and `dioxus-shadcn-primitives` are external crate re-exports in
   `lib.rs`; they are not component modules and are excluded from component
   re-export counts.
 

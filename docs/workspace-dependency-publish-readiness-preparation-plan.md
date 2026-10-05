@@ -36,9 +36,9 @@ The workspace currently uses path-only internal workspace dependencies for
 local development:
 
 ```toml
-dioxus-ui-core = { path = "crates/dioxus-ui-core" }
-dioxus-ui-primitives = { path = "crates/dioxus-ui-primitives" }
-dioxus-ui = { path = "crates/dioxus-ui" }
+dioxus-shadcn-core = { path = "crates/dioxus-shadcn-core" }
+dioxus-shadcn-primitives = { path = "crates/dioxus-shadcn-primitives" }
+dioxus-shadcn = { path = "crates/dioxus-shadcn" }
 ```
 
 That shape is valid for local checks, examples, source-copy fixture smoke, and

@@ -141,7 +141,7 @@ Mobile:
 
 ## Implementation Sequence
 
-1. Add primitive state types in `dioxus-ui-primitives`.
+1. Add primitive state types in `dioxus-shadcn-primitives`.
 2. Add tests for default behavior values.
 3. Implement Dialog primitive before styled Dialog.
 4. Verify focus and portal behavior in web example.
@@ -158,6 +158,6 @@ Mobile:
 ## Open Questions
 
 - Which Dioxus portal API should be used for Web and Desktop?
-- Should focus helpers live in `dioxus-ui-primitives` or a lower-level crate?
-- Should copied templates depend on `dioxus-ui-primitives` for overlay behavior,
+- Should focus helpers live in `dioxus-shadcn-primitives` or a lower-level crate?
+- Should copied templates depend on `dioxus-shadcn-primitives` for overlay behavior,
   or copy primitive code into the user project?

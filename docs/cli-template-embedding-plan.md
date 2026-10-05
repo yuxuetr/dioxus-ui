@@ -1,6 +1,6 @@
 # CLI Template Embedding Plan
 
-M124 resolves the CLI template packaging blocker by moving `dioxus-ui-cli` from
+M124 resolves the CLI template packaging blocker by moving `dioxus-shadcn-cli` from
 repository-layout registry/template reads to compile-time embedded assets. It
 does not publish, package, install, or contact registries.
 
@@ -34,7 +34,7 @@ the repository directory at runtime.
 
 ## Implementation Shape
 
-Add an internal asset catalog in `crates/dioxus-ui-cli/src/main.rs`:
+Add an internal asset catalog in `crates/dioxus-shadcn-cli/src/main.rs`:
 
 ```text
 struct EmbeddedAsset {
@@ -106,9 +106,9 @@ M124 must not:
 Focused validation:
 
 ```bash
-cargo test -p dioxus-ui-cli
-cargo test -p dioxus-ui-cli --test registry
-cargo run -p dioxus-ui-cli -- list
+cargo test -p dioxus-shadcn-cli
+cargo test -p dioxus-shadcn-cli --test registry
+cargo run -p dioxus-shadcn-cli -- list
 scripts/generated-fixture-smoke.sh
 npm run verify:cli-template-packaging-readiness
 npm run verify:registry

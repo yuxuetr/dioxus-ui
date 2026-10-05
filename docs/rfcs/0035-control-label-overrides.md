@@ -39,7 +39,7 @@ As of M159:
 - `PaginationPrevious` and `PaginationNext` pass their default through it, so
   a passed `aria-label` is the only one rendered.
 - Carousel uses the shared helper instead of its private copy.
-- `dioxus-ssr` becomes a dev-dependency of `dioxus-ui`. Unit tests render the
+- `dioxus-ssr` becomes a dev-dependency of `dioxus-shadcn`. Unit tests render the
   controls with and without a passed label and assert that the HTML has exactly
   one `aria-label` with the expected value.
 

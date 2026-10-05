@@ -13,7 +13,7 @@ rechecked in M36.3 with no new public component gaps found.
 
 ## Source
 
-The upstream shadcn/ui Components page lists these current gaps for `dioxus-ui`:
+The upstream shadcn/ui Components page lists these current gaps for `dioxus-shadcn`:
 
 - Attachment
 - Bubble
@@ -169,7 +169,7 @@ Before marking implementation tasks done, run:
 
 ```bash
 cargo test --workspace --all-features --quiet
-cargo test -q -p dioxus-ui-cli --test registry
+cargo test -q -p dioxus-shadcn-cli --test registry
 scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
 ```

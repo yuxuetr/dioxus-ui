@@ -28,7 +28,7 @@ const assertExcludes = ({ label, source, fragment }) => {
   }
 };
 
-const cliSource = readRepoFile("crates/dioxus-ui-cli/src/main.rs");
+const cliSource = readRepoFile("crates/dioxus-shadcn-cli/src/main.rs");
 const previewCssInputs = [
   {
     label: "examples/web-demo/assets/preview.css",
@@ -53,7 +53,7 @@ const requiredCliFragments = [
 
 for (const fragment of requiredCliFragments) {
   assertIncludes({
-    label: "crates/dioxus-ui-cli/src/main.rs DEFAULT_CSS",
+    label: "crates/dioxus-shadcn-cli/src/main.rs DEFAULT_CSS",
     source: cliSource,
     fragment,
   });
@@ -61,7 +61,7 @@ for (const fragment of requiredCliFragments) {
 
 for (const directive of forbiddenTailwindV3Directives) {
   assertExcludes({
-    label: "crates/dioxus-ui-cli/src/main.rs DEFAULT_CSS",
+    label: "crates/dioxus-shadcn-cli/src/main.rs DEFAULT_CSS",
     source: cliSource,
     fragment: directive,
   });
@@ -82,12 +82,12 @@ const cliBodyStart = cliSource.indexOf(cliImport);
 const cliBody =
   cliBodyStart < 0 ? "" : cliSource.slice(cliBodyStart + cliImport.length, cliSource.indexOf('"#;', cliBodyStart));
 if (!cliBody.includes("@theme inline {")) {
-  failures.push("crates/dioxus-ui-cli/src/main.rs DEFAULT_CSS missing the token blocks");
+  failures.push("crates/dioxus-shadcn-cli/src/main.rs DEFAULT_CSS missing the token blocks");
 }
 // The dark theme redefines only the tokens (RFC 0051), so app palette classes
 // keep their colors under `.dark`.
 if (/--color-(?:white|black|zinc|blue|red|green|amber|emerald)-?\d*:/.test(cliBody)) {
-  failures.push("crates/dioxus-ui-cli/src/main.rs DEFAULT_CSS must not redefine Tailwind palette variables");
+  failures.push("crates/dioxus-shadcn-cli/src/main.rs DEFAULT_CSS must not redefine Tailwind palette variables");
 }
 
 // The component site (RFC 0052) carries the same body, so it renders the
@@ -97,7 +97,7 @@ const siteCss = readRepoFile(siteCssLabel);
 if (cliBody && !siteCss.includes(cliBody)) {
   failures.push(`${siteCssLabel} token blocks differ from the CLI DEFAULT_CSS`);
 }
-for (const fragment of ['@import "tailwindcss";', '@source "../src";', '@source "../../crates/dioxus-ui/src";']) {
+for (const fragment of ['@import "tailwindcss";', '@source "../src";', '@source "../../crates/dioxus-shadcn/src";']) {
   assertIncludes({ label: siteCssLabel, source: siteCss, fragment });
 }
 

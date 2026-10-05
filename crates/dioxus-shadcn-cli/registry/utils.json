@@ -1,0 +1,12 @@
+{
+  "name": "utils",
+  "description": "Local helpers shared by generated dioxus-shadcn components.",
+  "files": [
+    {
+      "source": "templates/utils.rs",
+      "target": "src/components/ui/utils.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

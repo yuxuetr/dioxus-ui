@@ -24,7 +24,7 @@ source-copy components must continue to work as controlled composition parts
 when no adapter is installed.
 
 M22 implemented the first primitive-layer contract slice for focus and portal
-requests behind the `dioxus-ui-primitives/runtime` feature.
+requests behind the `dioxus-shadcn-primitives/runtime` feature.
 M23 extends the same feature with timer and live-region contracts for feedback
 runtime integration.
 
@@ -225,12 +225,12 @@ Preferred source-copy model:
 3. Generated adapter code should live under `src/components/ui/runtime` or a
    similarly explicit module.
 4. Templates must keep Tailwind class tokens static and avoid importing
-   `dioxus-ui-core` or `dioxus-ui-primitives`.
+   `dioxus-shadcn-core` or `dioxus-shadcn-primitives`.
 
 ## Initial API Direction
 
 M21 designed trait-sized contracts before renderer-specific code. M22-M24 then
-implemented primitive-layer contracts behind the `dioxus-ui-primitives/runtime`
+implemented primitive-layer contracts behind the `dioxus-shadcn-primitives/runtime`
 feature for focus, portal, timer, live-region, measurement, pointer, and
 gesture boundaries. Renderer-specific commands remain deferred until Web,
 Desktop, and Mobile verification is planned and tested.

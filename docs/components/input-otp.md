@@ -12,7 +12,7 @@ dxui add input-otp
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["input-otp"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["input-otp"] }
 ```
 
 ## API Surface

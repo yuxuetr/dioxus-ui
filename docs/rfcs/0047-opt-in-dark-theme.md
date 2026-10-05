@@ -35,7 +35,7 @@ As of M171:
 
 ## Decision
 
-- The CLI default `assets/dioxus-ui.css` gains a `.dark` block that sets
+- The CLI default `assets/dioxus-shadcn.css` gains a `.dark` block that sets
   `color-scheme: dark` and redefines these palette variables:
   - white becomes zinc-950;
   - each zinc step takes its mirror step (950 for 50, 900 for 100, and so

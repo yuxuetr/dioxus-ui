@@ -61,7 +61,7 @@ const blockerFragments = [
   "Workspace dependency publish readiness",
   "Resolved publish readiness items",
   "https://github.com/yuxuetr/dioxus-ui",
-  "`dioxus-ui-cli` embeds registry and template assets at compile time",
+  "`dioxus-shadcn-cli` embeds registry and template assets at compile time",
   "does not resolve the blockers",
 ];
 

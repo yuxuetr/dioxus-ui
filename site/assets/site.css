@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @source "../src";
-@source "../../crates/dioxus-ui/src";
+@source "../../crates/dioxus-shadcn/src";
 
 /* Semantic color tokens (RFC 0051), in the shadcn/ui v4 layout: `:root` and
    `.dark` hold the values and `@theme inline` maps them to Tailwind colors,

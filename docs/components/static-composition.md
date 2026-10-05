@@ -19,7 +19,7 @@ M20 covers:
 - Item
 
 These components should ship in crate mode and source-copy mode. Crate mode can
-reuse `dioxus-ui-core`; generated templates must remain self-contained and must
+reuse `dioxus-shadcn-core`; generated templates must remain self-contained and must
 not import internal crates.
 
 ## Shared Rules

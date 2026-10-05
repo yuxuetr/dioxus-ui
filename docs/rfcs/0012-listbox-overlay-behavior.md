@@ -20,7 +20,7 @@ As of M136:
   anchor and no placement.
 - Options have no click handling, no keyboard navigation, no highlighted
   option, and no typeahead. `TypeaheadState` and `ActiveDescendantState` exist
-  in `dioxus-ui-primitives`, but no component uses them.
+  in `dioxus-shadcn-primitives`, but no component uses them.
 - `ComboboxInput` has no `oninput`, so the app cannot read typed text through
   the component, and its `aria-expanded` is always `"true"`.
 - RFC 0010 deferred Select and Combobox until listbox keyboard wiring could be

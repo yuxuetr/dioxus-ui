@@ -19,7 +19,7 @@ M19 covers:
 M19 did not add:
 
 - `dxui add chart`
-- a `chart` feature in `dioxus-ui`
+- a `chart` feature in `dioxus-shadcn`
 - SVG or canvas rendering components
 - a dependency on a charting backend
 

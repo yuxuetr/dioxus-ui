@@ -1,6 +1,6 @@
 # Components
 
-This page is the documentation-site seed for `dioxus-ui` components.
+This page is the documentation-site seed for `dioxus-shadcn` components.
 
 Current preview mode is command-line smoke output from the example crates. A
 future docs site should replace this with visual Dioxus Web/Desktop previews.
@@ -125,7 +125,7 @@ dxui add button
 ## Install by Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["button"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["button"] }
 ```
 
 ## Component Catalog
@@ -207,10 +207,10 @@ cargo run -p dioxus-ui-desktop-demo
 ## CLI Smoke Commands
 
 ```bash
-cargo run -p dioxus-ui-cli -- list
-cargo run -p dioxus-ui-cli -- init --root /tmp/dxui-preview
-cargo run -p dioxus-ui-cli -- add button --root /tmp/dxui-preview
-cargo run -p dioxus-ui-cli -- add dialog --root /tmp/dxui-preview
+cargo run -p dioxus-shadcn-cli -- list
+cargo run -p dioxus-shadcn-cli -- init --root /tmp/dxui-preview
+cargo run -p dioxus-shadcn-cli -- add button --root /tmp/dxui-preview
+cargo run -p dioxus-shadcn-cli -- add dialog --root /tmp/dxui-preview
 ```
 
 ## Next Preview Milestone

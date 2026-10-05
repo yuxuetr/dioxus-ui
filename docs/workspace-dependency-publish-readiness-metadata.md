@@ -18,9 +18,9 @@ M133 resolves this item locally. The workspace declares internal crate
 dependencies with both a local path and a version requirement:
 
 ```toml
-dioxus-ui-core = { version = "0.1.0", path = "crates/dioxus-ui-core" }
-dioxus-ui-primitives = { version = "0.1.0", path = "crates/dioxus-ui-primitives" }
-dioxus-ui = { version = "0.1.0", path = "crates/dioxus-ui" }
+dioxus-shadcn-core = { version = "0.1.0", path = "crates/dioxus-shadcn-core" }
+dioxus-shadcn-primitives = { version = "0.1.0", path = "crates/dioxus-shadcn-primitives" }
+dioxus-shadcn = { version = "0.1.0", path = "crates/dioxus-shadcn" }
 ```
 
 Cargo uses the path for local development, workspace tests, feature checks,

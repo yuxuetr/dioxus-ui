@@ -24,10 +24,10 @@ Goal: create the Rust project structure without shipping components yet.
 Deliverables:
 
 - Cargo workspace
-- `dioxus-ui-core`
-- `dioxus-ui-primitives`
-- `dioxus-ui`
-- `dioxus-ui-cli`
+- `dioxus-shadcn-core`
+- `dioxus-shadcn-primitives`
+- `dioxus-shadcn`
+- `dioxus-shadcn-cli`
 - empty registry and template directories
 - web and desktop example skeletons
 
@@ -98,7 +98,7 @@ Goal: make crate-mode usage viable after APIs settle.
 
 Deliverables:
 
-- feature-gated `dioxus-ui` exports
+- feature-gated `dioxus-shadcn` exports
 - crate-mode examples
 - versioning policy
 - release checklist

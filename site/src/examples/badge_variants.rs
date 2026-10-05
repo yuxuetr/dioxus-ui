@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Badge, BadgeVariant};
+use dioxus_shadcn::{Badge, BadgeVariant};
 
 #[component]
 pub fn Demo() -> Element {

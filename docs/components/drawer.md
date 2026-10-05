@@ -13,7 +13,7 @@ dxui add drawer
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["drawer"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["drawer"] }
 ```
 
 ## API Surface
@@ -30,7 +30,7 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["drawer"] }
 - `drawer_content_class`
 
 The module also re-exports `DialogPrimitiveConfig` for users importing from
-`dioxus_ui::drawer`.
+`dioxus_shadcn::drawer`.
 
 ## Behavior
 

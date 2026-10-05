@@ -46,7 +46,7 @@ Resolved items:
 
 | Item | Resolution Evidence | Ongoing Verification |
 | --- | --- | --- |
-| CLI template packaging strategy | `dioxus-ui-cli` embeds registry and template assets at compile time | `npm run verify:cli-template-packaging-readiness` |
+| CLI template packaging strategy | `dioxus-shadcn-cli` embeds registry and template assets at compile time | `npm run verify:cli-template-packaging-readiness` |
 
 ## Readiness Contract
 

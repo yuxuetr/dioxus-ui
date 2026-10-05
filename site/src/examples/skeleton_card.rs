@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::Skeleton;
+use dioxus_shadcn::Skeleton;
 
 #[component]
 pub fn Demo() -> Element {

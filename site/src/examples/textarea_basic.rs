@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Label, Textarea};
+use dioxus_shadcn::{Label, Textarea};
 
 #[component]
 pub fn Demo() -> Element {

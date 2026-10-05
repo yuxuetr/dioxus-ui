@@ -11,7 +11,7 @@ dxui add kbd
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["kbd"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["kbd"] }
 ```
 
 ## API Surface

@@ -12,7 +12,7 @@ dxui add input-group
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["input-group"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["input-group"] }
 ```
 
 ## API Surface

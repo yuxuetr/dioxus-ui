@@ -1,4 +1,4 @@
-use dioxus_ui_primitives::{
+use dioxus_shadcn_primitives::{
   FocusRuntime, FocusRuntimeRequest, FocusRuntimeUnsupported, GestureRuntimeRequest,
   LiveRegionRuntimeRequest, MeasurementRuntime, MeasurementRuntimeRequest,
   MeasurementRuntimeUnsupported, PointerDelta, PointerRuntime, PointerRuntimeRequest,
@@ -171,7 +171,7 @@ const DESKTOP_SMOKE_CHECKS: [DesktopSmokeCheck; 18] = [
 ];
 
 fn main() {
-  println!("dioxus-ui runtime desktop verification smoke fixture");
+  println!("dioxus-shadcn runtime desktop verification smoke fixture");
 
   for panel in DESKTOP_RUNTIME_PANELS {
     println!("panel={} testid={} desktop_risk={}", panel.label, panel.test_id, panel.desktop_risk);
@@ -356,19 +356,19 @@ mod tests {
 
     assert_eq!(
       focus_runtime.focus_initial(&focus_node, FocusRuntimeRequest::dialog_default()),
-      dioxus_ui_primitives::FocusCommandResult::Unsupported
+      dioxus_shadcn_primitives::FocusCommandResult::Unsupported
     );
     assert_eq!(
       portal_runtime.mount_target(&PortalRuntimeRequest::inline(false)),
-      dioxus_ui_primitives::PortalMountResult::Inline
+      dioxus_shadcn_primitives::PortalMountResult::Inline
     );
     assert_eq!(
       timer_runtime.schedule_once(&TimerRuntimeRequest::toast_dismiss(0)),
-      dioxus_ui_primitives::TimerRuntimeResult::Disabled
+      dioxus_shadcn_primitives::TimerRuntimeResult::Disabled
     );
     assert_eq!(
       pointer_runtime.handle_pointer(&PointerRuntimeRequest::start()),
-      dioxus_ui_primitives::PointerRuntimeResult::Unsupported
+      dioxus_shadcn_primitives::PointerRuntimeResult::Unsupported
     );
   }
 }

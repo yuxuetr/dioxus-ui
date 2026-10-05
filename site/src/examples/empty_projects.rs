@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Button, Empty, EmptyActions, EmptyDescription, EmptyHeader, EmptyTitle};
+use dioxus_shadcn::{Button, Empty, EmptyActions, EmptyDescription, EmptyHeader, EmptyTitle};
 
 #[component]
 pub fn Demo() -> Element {

@@ -1,4 +1,4 @@
-use dioxus_ui_primitives::{
+use dioxus_shadcn_primitives::{
   ChartColorToken, ChartDomain, ChartPoint, ChartScale, ChartSeries, chart_color_attribute,
   chart_fallback_rows, chart_number_label, chart_series_label, chart_series_x_domain,
   chart_series_y_domain, chart_summary, chart_value_label,
@@ -202,7 +202,7 @@ fn bar_rects(series: &ChartSeries, x_scale: ChartScale, y_scale: ChartScale) -> 
     .join("")
 }
 
-fn fallback_table_markup(rows: &[dioxus_ui_primitives::ChartFallbackRow]) -> String {
+fn fallback_table_markup(rows: &[dioxus_shadcn_primitives::ChartFallbackRow]) -> String {
   let body = rows
     .iter()
     .map(|row| {
@@ -220,7 +220,7 @@ fn fallback_table_markup(rows: &[dioxus_ui_primitives::ChartFallbackRow]) -> Str
   )
 }
 
-fn value_from_row(row: &dioxus_ui_primitives::ChartFallbackRow) -> Option<f64> {
+fn value_from_row(row: &dioxus_shadcn_primitives::ChartFallbackRow) -> Option<f64> {
   if row.missing { None } else { row.y_label.parse::<f64>().ok() }
 }
 

@@ -140,7 +140,7 @@ choose the device.
 
 Dioxus 0.7 apps do not adopt the UIScene lifecycle, and iOS 27 stops them at
 launch (`UIApplicationEvaluateRuntimeIssueForNoSceneLifecycleAdoption`). This
-affects every Dioxus 0.7 iOS app, not only dioxus-ui. To recheck after a
+affects every Dioxus 0.7 iOS app, not only dioxus-shadcn. To recheck after a
 Dioxus upgrade:
 
 ```bash
@@ -174,7 +174,7 @@ emulator, or boots the first AVD headless and stops it afterwards.
 `DIOXUS_UI_ANDROID_SERIAL` and `DIOXUS_UI_ANDROID_AVD` choose the device.
 
 `am start` passes no environment, so the command sets the
-`debug.dioxus_ui.self_test` system property, which the app reads with
+`debug.dioxus_shadcn.self_test` system property, which the app reads with
 `getprop`, and clears it after the run. The result line comes from logcat
 (`RustStdoutStderr`).
 

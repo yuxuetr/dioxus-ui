@@ -7,10 +7,10 @@ keep publishable crate manifests complete enough for review without running
 Planned publishable crates:
 
 ```text
-dioxus-ui-core
-dioxus-ui-primitives
-dioxus-ui
-dioxus-ui-cli
+dioxus-shadcn-core
+dioxus-shadcn-primitives
+dioxus-shadcn
+dioxus-shadcn-cli
 ```
 
 The planned publish order is tracked in

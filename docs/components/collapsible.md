@@ -12,7 +12,7 @@ dxui add collapsible
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["collapsible"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["collapsible"] }
 ```
 
 ## API Surface

@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Marker, MarkerContent, MarkerIcon, MarkerVariant};
+use dioxus_shadcn::{Marker, MarkerContent, MarkerIcon, MarkerVariant};
 
 #[component]
 pub fn Demo() -> Element {

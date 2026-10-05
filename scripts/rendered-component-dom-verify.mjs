@@ -242,7 +242,7 @@ async function runBrowserAssertions() {
 
     const failures = [...result.failures];
 
-    if (result.title !== "dioxus-ui preview") failures.push("page title");
+    if (result.title !== "dioxus-shadcn preview") failures.push("page title");
     if (result.rootCount !== 1) failures.push("web preview root");
     if (result.bodyTextLength <= 0) failures.push("nonblank body text");
     if (result.checked !== manifest.records.length) {

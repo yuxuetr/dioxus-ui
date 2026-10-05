@@ -1,0 +1,85 @@
+[package]
+name = "dioxus-shadcn"
+description = "Tailwind-styled Dioxus UI components with source-copy friendly APIs."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+readme.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[features]
+default = []
+attachment = []
+alert = []
+alert-dialog = ["dioxus-shadcn-primitives/dialog"]
+aspect-ratio = []
+avatar = []
+badge = []
+breadcrumb = []
+bubble = []
+button = []
+button-group = []
+calendar = []
+carousel = []
+card = []
+input = []
+input-group = []
+input-otp = []
+item = []
+kbd = []
+textarea = []
+label = []
+marker = []
+menubar = ["dioxus-shadcn-primitives/dropdown"]
+message = []
+message-scroller = []
+native-select = []
+navigation-menu = ["dioxus-shadcn-primitives/popover"]
+checkbox = []
+chart = []
+collapsible = []
+command = []
+combobox = ["dioxus-shadcn-primitives/popover"]
+context-menu = ["dioxus-shadcn-primitives/dropdown"]
+data-table = []
+date-picker = ["dioxus-shadcn-primitives/popover"]
+pagination = []
+separator = []
+sheet = ["dioxus-shadcn-primitives/dialog"]
+sidebar = []
+skeleton = []
+slider = []
+sonner = []
+spinner = []
+switch = []
+table = []
+tabs = []
+toggle = []
+toggle-group = []
+toast = []
+typography = []
+accordion = []
+dialog = ["dioxus-shadcn-primitives/dialog"]
+direction = []
+drawer = ["dioxus-shadcn-primitives/dialog"]
+dropdown = ["dioxus-shadcn-primitives/dropdown"]
+empty = []
+field = []
+hover-card = ["dioxus-shadcn-primitives/popover"]
+popover = ["dioxus-shadcn-primitives/popover"]
+progress = []
+radio-group = []
+resizable = []
+select = ["dioxus-shadcn-primitives/select"]
+scroll-area = []
+tooltip = ["dioxus-shadcn-primitives/tooltip"]
+
+[dependencies]
+dioxus.workspace = true
+dioxus-shadcn-core.workspace = true
+dioxus-shadcn-primitives.workspace = true
+
+[dev-dependencies]
+dioxus-ssr = "0.7.9"

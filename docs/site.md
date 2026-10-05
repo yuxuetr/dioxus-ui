@@ -78,8 +78,8 @@ Overlay previews should also show:
 
 The docs site should derive its catalog from:
 
-- `crates/dioxus-ui-cli/registry/*.json`
-- `crates/dioxus-ui-cli/templates/*.rs`
+- `crates/dioxus-shadcn-cli/registry/*.json`
+- `crates/dioxus-shadcn-cli/templates/*.rs`
 - public crate features
 - component docs in `docs/components`
 
@@ -95,13 +95,13 @@ Required catalog fields:
 
 | Field | Source | Notes |
 | --- | --- | --- |
-| `name` | `crates/dioxus-ui-cli/registry/*.json` | Stable CLI/source-copy component id. |
-| `description` | `crates/dioxus-ui-cli/registry/*.json` | Short catalog summary. |
+| `name` | `crates/dioxus-shadcn-cli/registry/*.json` | Stable CLI/source-copy component id. |
+| `description` | `crates/dioxus-shadcn-cli/registry/*.json` | Short catalog summary. |
 | `registry_path` | filesystem | Path to the registry entry. |
 | `template_path` | registry file list | Primary source-copy template path. |
 | `docs_path` | `docs/components/{name}.md` | Component detail markdown page. |
-| `crate_feature` | `crates/dioxus-ui/Cargo.toml` | Feature users enable for crate mode. |
-| `crate_module` | `crates/dioxus-ui/src/{name}.rs` | Styled crate module path. |
+| `crate_feature` | `crates/dioxus-shadcn/Cargo.toml` | Feature users enable for crate mode. |
+| `crate_module` | `crates/dioxus-shadcn/src/{name}.rs` | Styled crate module path. |
 | `source_copy_target` | registry file list | Generated target path for `dxui add`. |
 
 Derived catalog fields:
@@ -110,7 +110,7 @@ Derived catalog fields:
 - `title`: title-cased `name`
 - `crate_import`: module name with dashes converted to underscores
 - `source_copy_command`: `dxui add {name}`
-- `crate_feature_toml`: `dioxus-ui = { features = ["{name}"] }`
+- `crate_feature_toml`: `dioxus-shadcn = { features = ["{name}"] }`
 
 Intentional exceptions:
 
@@ -702,7 +702,7 @@ Internal source-copy trials are documented in:
 docs/internal-trial-developer-guide.md
 ```
 
-The guide explains how to run the local CLI with `cargo run -p dioxus-ui-cli`,
+The guide explains how to run the local CLI with `cargo run -p dioxus-shadcn-cli`,
 initialize a trial app, add generated components, validate Tailwind CSS v4 input
 styling, collect API/accessibility/runtime feedback, and keep the six publish
 blockers as coordinated release-owner work rather than accidental trial scope.
@@ -968,8 +968,8 @@ The command runs:
 
 - `cargo check --workspace --all-features`
 - `cargo test --workspace --all-features`
-- `cargo test -p dioxus-ui-cli --test registry`
-- `cargo run -p dioxus-ui-cli -- list`
+- `cargo test -p dioxus-shadcn-cli --test registry`
+- `cargo run -p dioxus-shadcn-cli -- list`
 - `npm run verify`
 - `scripts/feature-check.sh`
 - `scripts/generated-fixture-smoke.sh`
@@ -3596,7 +3596,7 @@ hygiene.
 
 M89 should add a deterministic read-only check that keeps Tailwind CSS v4 input
 metadata aligned across generated CLI defaults, rendered preview CSS inputs, and
-documentation. The project intentionally treats `assets/dioxus-ui.css` and
+documentation. The project intentionally treats `assets/dioxus-shadcn.css` and
 preview `preview.css` files as Tailwind input stylesheets, not committed full
 Tailwind output.
 
@@ -3639,8 +3639,8 @@ M89 adds a focused CSS input metadata command:
 npm run verify:css-inputs
 ```
 
-The command checks the CLI default generated `assets/dioxus-ui.css` content in
-`crates/dioxus-ui-cli/src/main.rs` and the rendered preview CSS inputs:
+The command checks the CLI default generated `assets/dioxus-shadcn.css` content in
+`crates/dioxus-shadcn-cli/src/main.rs` and the rendered preview CSS inputs:
 
 ```text
 examples/web-demo/assets/preview.css
@@ -3722,9 +3722,9 @@ safe defaults for a source-copy component library.
 
 The check should scan:
 
-- `crates/dioxus-ui/src/**/*.rs`
-- `crates/dioxus-ui-cli/templates/**/*.rs`
-- `crates/dioxus-ui-core/src/**/*.rs`
+- `crates/dioxus-shadcn/src/**/*.rs`
+- `crates/dioxus-shadcn-cli/templates/**/*.rs`
+- `crates/dioxus-shadcn-core/src/**/*.rs`
 
 The check should fail on common dynamic utility prefixes followed by
 interpolation, including:
@@ -3883,13 +3883,13 @@ The check should derive its public component list from:
 - `docs/components/*.md`
 - `registry/*.json`
 - `templates/*.rs`
-- `crates/dioxus-ui/Cargo.toml`
+- `crates/dioxus-shadcn/Cargo.toml`
 
 Each public component docs page should include:
 
 - a level-one title matching the catalog title
 - a `Source Copy` section with the expected `dxui add <component>` command
-- a `Crate Feature` section with the expected `dioxus-ui` feature snippet
+- a `Crate Feature` section with the expected `dioxus-shadcn` feature snippet
 - an `API Surface` section with at least one bullet
 - an `Accessibility Notes` section with non-empty prose
 
@@ -4247,8 +4247,8 @@ The status snapshot should derive from:
 
 - `registry/*.json`
 - `templates/*.rs`
-- `crates/dioxus-ui/Cargo.toml`
-- `crates/dioxus-ui/src/*.rs`
+- `crates/dioxus-shadcn/Cargo.toml`
+- `crates/dioxus-shadcn/src/*.rs`
 - `docs/components/*.md`
 - `scripts/docs-catalog-builder.mjs`
 

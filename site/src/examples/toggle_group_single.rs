@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{ToggleGroup, ToggleGroupItem, toggle_group_single_selection};
+use dioxus_shadcn::{ToggleGroup, ToggleGroupItem, toggle_group_single_selection};
 
 #[component]
 pub fn Demo() -> Element {

@@ -29,19 +29,19 @@ Use it with:
 The planned publishable crates are:
 
 ```text
-dioxus-ui-core
-dioxus-ui-primitives
-dioxus-ui
-dioxus-ui-cli
+dioxus-shadcn-core
+dioxus-shadcn-primitives
+dioxus-shadcn
+dioxus-shadcn-cli
 ```
 
 The planned publish order is:
 
 ```text
-dioxus-ui-core
-dioxus-ui-primitives
-dioxus-ui
-dioxus-ui-cli
+dioxus-shadcn-core
+dioxus-shadcn-primitives
+dioxus-shadcn
+dioxus-shadcn-cli
 ```
 
 ## Required Evidence

@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{
+use dioxus_shadcn::{
   Checkbox, DataTable, DataTableCell, DataTableContainer, DataTableHeaderCell, DataTableRow,
   DataTableSelectedCount, DataTableSortDirection, DataTableToolbar, Input, data_table_toggle_row,
 };

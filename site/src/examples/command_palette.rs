@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{
+use dioxus_shadcn::{
   Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandLabel, CommandList,
   CommandShortcut, command_matches,
 };

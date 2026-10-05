@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{
+use dioxus_shadcn::{
   TypographyBlockquote, TypographyH1, TypographyH2, TypographyInlineCode, TypographyLead,
   TypographyMuted, TypographyP, TypographyProse,
 };

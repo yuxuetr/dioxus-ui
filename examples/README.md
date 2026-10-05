@@ -156,13 +156,13 @@ cargo run -p dioxus-ui-runtime-desktop-verification
 ## CLI Init Smoke
 
 ```bash
-cargo run -p dioxus-ui-cli -- init --root /tmp/dxui-demo
+cargo run -p dioxus-shadcn-cli -- init --root /tmp/dxui-demo
 ```
 
 ## CLI Add Smoke
 
 ```bash
-cargo run -p dioxus-ui-cli -- add button --root /tmp/dxui-demo
+cargo run -p dioxus-shadcn-cli -- add button --root /tmp/dxui-demo
 ```
 
 ## Generated Fixture Smoke

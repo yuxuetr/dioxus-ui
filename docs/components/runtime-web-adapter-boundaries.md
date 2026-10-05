@@ -27,12 +27,12 @@ Future opt-in crate location, if implementation pressure justifies it:
 crates/dioxus-ui-runtime-web/
 ```
 
-Do not add Web runtime adapters to `dioxus-ui` default features, generated
+Do not add Web runtime adapters to `dioxus-shadcn` default features, generated
 templates, or styled component modules in M27.
 
 ## Rationale
 
-- the fixture already depends on `dioxus-ui-primitives/runtime`
+- the fixture already depends on `dioxus-shadcn-primitives/runtime`
 - browser behavior needs verification before it becomes a reusable package
 - generated source-copy components must stay runtime-free by default
 - app-owned policies such as copy, z-index, lifecycle, and gesture thresholds
@@ -166,11 +166,11 @@ added only through an explicit command in a later milestone.
 
 Generated component templates must not import:
 
-- `dioxus-ui-primitives`
+- `dioxus-shadcn-primitives`
 - `dioxus-ui-runtime-web`
 - browser-only adapter modules
 
-The verification fixture may import `dioxus-ui-primitives/runtime` because it
+The verification fixture may import `dioxus-shadcn-primitives/runtime` because it
 is a workspace example, not generated user code.
 
 ## Quality Gates

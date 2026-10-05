@@ -35,10 +35,10 @@ change as the corresponding metadata and documentation updates.
 The crates.io registry availability blocker remains unresolved until a release
 owner supplies evidence for:
 
-- crate name availability or existing ownership for `dioxus-ui-core`
-- crate name availability or existing ownership for `dioxus-ui-primitives`
-- crate name availability or existing ownership for `dioxus-ui`
-- crate name availability or existing ownership for `dioxus-ui-cli`
+- crate name availability or existing ownership for `dioxus-shadcn-core`
+- crate name availability or existing ownership for `dioxus-shadcn-primitives`
+- crate name availability or existing ownership for `dioxus-shadcn`
+- crate name availability or existing ownership for `dioxus-shadcn-cli`
 - owner list or team for every crate
 - credential readiness
 - publish order confirmation

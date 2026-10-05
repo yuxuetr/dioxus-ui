@@ -106,7 +106,7 @@ dxui add runtime-mobile
 ```
 
 Generated components should continue to compile without runtime helpers and
-without imports from `dioxus-ui-primitives`.
+without imports from `dioxus-shadcn-primitives`.
 
 ## Implementation Order
 
@@ -137,7 +137,7 @@ For the implementation order after verification planning, see the
 Before a renderer adapter is marked stable:
 
 ```bash
-cargo test -p dioxus-ui-primitives --features runtime
+cargo test -p dioxus-shadcn-primitives --features runtime
 cargo test --workspace --all-features --quiet
 scripts/feature-check.sh
 ```

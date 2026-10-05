@@ -86,7 +86,7 @@ const categoryLabels = new Map(catalogCategories.map((category) => [category.id,
 
 // Registry JSON and templates ship inside the CLI crate; registry `source`
 // paths are relative to it.
-const cliRoot = "crates/dioxus-ui-cli";
+const cliRoot = "crates/dioxus-shadcn-cli";
 
 // Crate source files that are not public components.
 const internalCrateModules = new Set(["lib", "modal_focus", "anchored_overlay", "dismiss_timer", "listbox", "roving_group", "hover_open", "default_attribute", "dialog_labels"]);
@@ -114,7 +114,7 @@ function categoryAnchor(category) {
 }
 
 function parseCargoFeatures(repoRoot) {
-  const cargo = readFileSync(join(repoRoot, "crates/dioxus-ui/Cargo.toml"), "utf8");
+  const cargo = readFileSync(join(repoRoot, "crates/dioxus-shadcn/Cargo.toml"), "utf8");
   const featureBlock = cargo.split(/\n\[features\]\n/)[1]?.split(/\n\[/)[0] ?? "";
 
   return [...featureBlock.matchAll(/^([a-zA-Z0-9_-]+)\s*=/gm)]
@@ -124,7 +124,7 @@ function parseCargoFeatures(repoRoot) {
 }
 
 function parseLibModules(repoRoot) {
-  const lib = readFileSync(join(repoRoot, "crates/dioxus-ui/src/lib.rs"), "utf8");
+  const lib = readFileSync(join(repoRoot, "crates/dioxus-shadcn/src/lib.rs"), "utf8");
   return [...lib.matchAll(/^pub mod ([a-zA-Z0-9_]+);/gm)]
     .map((match) => normalize(match[1]))
     .sort();
@@ -180,13 +180,13 @@ function buildCatalogItems(repoRoot, publicComponentNames) {
       source_preview_lines: stats.lines,
       source_preview_bytes: stats.bytes,
       crate_feature: name,
-      crate_module: `crates/dioxus-ui/src/${crateImport}.rs`,
+      crate_module: `crates/dioxus-shadcn/src/${crateImport}.rs`,
       source_copy_target: primaryFile?.target,
       slug: name,
       title: titleCase(name),
       crate_import: crateImport,
       source_copy_command: `dxui add ${name}`,
-      crate_feature_toml: `dioxus-ui = { features = ["${name}"] }`,
+      crate_feature_toml: `dioxus-shadcn = { features = ["${name}"] }`,
     };
   });
 }
@@ -197,7 +197,7 @@ export function buildDocsCatalog(options = {}) {
   const registryNames = namesFromFiles(repoRoot, `${cliRoot}/registry`, ".json")
     .filter((name) => name !== "schema");
   const templateNames = namesFromFiles(repoRoot, `${cliRoot}/templates`, ".rs").map(normalize);
-  const crateModuleNames = namesFromFiles(repoRoot, "crates/dioxus-ui/src", ".rs")
+  const crateModuleNames = namesFromFiles(repoRoot, "crates/dioxus-shadcn/src", ".rs")
     .filter((name) => !internalCrateModules.has(name))
     .map(normalize);
   const docsNames = namesFromFiles(repoRoot, "docs/components", ".md");

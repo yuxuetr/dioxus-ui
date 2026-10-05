@@ -12,7 +12,7 @@ dxui add marker
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["marker"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["marker"] }
 ```
 
 ## API Surface

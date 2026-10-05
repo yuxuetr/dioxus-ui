@@ -5,7 +5,7 @@
 
 ## Summary
 
-Organize `dioxus-ui` by component modules and support platform-sensitive
+Organize `dioxus-shadcn` by component modules and support platform-sensitive
 defaults through density/profile settings instead of separate component
 families.
 
@@ -111,23 +111,23 @@ dxui add dialog
 Crate mode:
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["button", "dialog"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["button", "dialog"] }
 ```
 
 Planned module structure:
 
 ```text
-dioxus_ui::button
-dioxus_ui::dialog
-dioxus_ui::input
-dioxus_ui::tabs
-dioxus_ui::select
+dioxus_shadcn::button
+dioxus_shadcn::dialog
+dioxus_shadcn::input
+dioxus_shadcn::tabs
+dioxus_shadcn::select
 ```
 
 Root re-exports are allowed for ergonomics:
 
 ```rust
-use dioxus_ui::{Button, Dialog};
+use dioxus_shadcn::{Button, Dialog};
 ```
 
 But implementation, tests, registry entries, and feature flags should remain
@@ -178,6 +178,6 @@ Costs:
 
 ## Open Questions
 
-- Should `UiDensity` live in `dioxus-ui-core` from M1?
+- Should `UiDensity` live in `dioxus-shadcn-core` from M1?
 - Should `dxui init` write a config file, or should defaults stay in Rust code?
 - Should profile defaults be compile-time features, runtime context, or both?

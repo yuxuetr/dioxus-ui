@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_ui::{Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow};
+use dioxus_shadcn::{Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow};
 
 const INVOICES: [(&str, &str, &str, &str); 3] = [
   ("INV001", "Paid", "Credit card", "$250.00"),

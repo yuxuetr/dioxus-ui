@@ -14,7 +14,7 @@ fn PreviewApp() -> Element {
   rsx! {
     PreviewSurface {
       target: PreviewTarget::Mobile,
-      title: "dioxus-ui Mobile Preview".to_string(),
+      title: "dioxus-shadcn Mobile Preview".to_string(),
     }
     if self_test {
       InteractionSelfTest { label: "mobile" }
@@ -29,11 +29,11 @@ fn self_test_requested() -> bool {
 }
 
 /// Apps started with `am start` get no environment, so the Android command
-/// sets the `debug.dioxus_ui.self_test` system property to `1` instead.
+/// sets the `debug.dioxus_shadcn.self_test` system property to `1` instead.
 #[cfg(target_os = "android")]
 fn self_test_requested() -> bool {
   std::process::Command::new("getprop")
-    .arg("debug.dioxus_ui.self_test")
+    .arg("debug.dioxus_shadcn.self_test")
     .output()
     .map(|output| output.stdout.trim_ascii() == b"1")
     .unwrap_or(false)

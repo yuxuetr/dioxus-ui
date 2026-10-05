@@ -12,7 +12,7 @@ dxui add toast
 ## Crate Feature
 
 ```toml
-dioxus-ui = { version = "0.1", default-features = false, features = ["toast"] }
+dioxus-shadcn = { version = "0.1", default-features = false, features = ["toast"] }
 ```
 
 ## API Surface
