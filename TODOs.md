@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 20%
 - Current milestone: M181 Interactive Part Callbacks And Attributes
-- Current task: M181.1
+- Current task: M181.2
 
 ## Backup
 
@@ -21,10 +21,11 @@
 
 ## M181 Interactive Part Callbacks And Attributes
 
-- TODO M181.1 Design part callbacks and attributes
+- DONE M181.1 Design part callbacks and attributes
   - List the parts that render a native interactive element without a way for the app to act on it, and decide per part: `onclick`, `r#for`, and attribute spreading (`GlobalAttributes` plus the element), spread after the explicit attributes as in RFC 0028 to RFC 0036.
   - Keep parts whose click already reports through a component callback (close buttons, triggers with `on_open_change`, calendar days) out of scope, with reevaluation conditions.
   - Record the decision in an RFC and update the Attribute Forwarding section of `docs/component-api.md`.
+  - Done: RFC 0053. The audit also found `ComboboxTrigger` without a click handler, so M181.2 covers it too.
 
 - TODO M181.2 Wire up the action parts
   - `ButtonGroupItem`, `InputGroupAction`, `AttachmentAction`, `AttachmentTrigger`, `MessageScrollerJumpButton`, and `TooltipTrigger`, in the crate and the templates, with SSR tests for the passed attributes.
