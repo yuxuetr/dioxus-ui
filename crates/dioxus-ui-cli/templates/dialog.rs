@@ -5,10 +5,10 @@ pub use super::utils::{
 };
 
 pub const DIALOG_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";
-pub const DIALOG_CONTENT_BASE_CLASS: &str = "fixed left-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 rounded-md border border-zinc-200 bg-white p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600";
-pub const DIALOG_TITLE_BASE_CLASS: &str = "text-lg font-semibold leading-none text-zinc-950";
-pub const DIALOG_DESCRIPTION_BASE_CLASS: &str = "text-sm text-zinc-600";
-pub const DIALOG_CLOSE_BASE_CLASS: &str = "absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none";
+pub const DIALOG_CONTENT_BASE_CLASS: &str = "fixed left-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 rounded-md border border-border bg-background p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+pub const DIALOG_TITLE_BASE_CLASS: &str = "text-lg font-semibold leading-none text-foreground";
+pub const DIALOG_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
+pub const DIALOG_CLOSE_BASE_CLASS: &str = "absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none";
 
 pub fn dialog_overlay_class(class: &str) -> String {
   classes([Some(DIALOG_OVERLAY_BASE_CLASS), Some(class)])

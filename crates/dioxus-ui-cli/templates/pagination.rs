@@ -4,10 +4,10 @@ use super::utils::{classes, default_aria_label};
 pub const PAGINATION_BASE_CLASS: &str = "mx-auto flex w-full justify-center";
 pub const PAGINATION_CONTENT_BASE_CLASS: &str = "flex flex-row flex-wrap items-center justify-center gap-1";
 pub const PAGINATION_ITEM_BASE_CLASS: &str = "";
-pub const PAGINATION_LINK_BASE_CLASS: &str = "inline-flex h-10 min-w-10 items-center justify-center rounded-md px-3 text-sm font-medium transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600";
-pub const PAGINATION_LINK_ACTIVE_CLASS: &str = "border border-zinc-200 bg-white";
+pub const PAGINATION_LINK_BASE_CLASS: &str = "inline-flex h-10 min-w-10 items-center justify-center rounded-md px-3 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+pub const PAGINATION_LINK_ACTIVE_CLASS: &str = "border border-border bg-background";
 pub const PAGINATION_LINK_DISABLED_CLASS: &str = "pointer-events-none opacity-50";
-pub const PAGINATION_ELLIPSIS_BASE_CLASS: &str = "flex h-10 w-10 items-center justify-center text-sm text-zinc-600";
+pub const PAGINATION_ELLIPSIS_BASE_CLASS: &str = "flex h-10 w-10 items-center justify-center text-sm text-muted-foreground";
 
 pub fn pagination_class(class: &str) -> String {
   classes([Some(PAGINATION_BASE_CLASS), Some(class)])

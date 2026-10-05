@@ -66,7 +66,8 @@ the shadcn/ui zinc base color, with the deviations listed below.
 | `--input` | `oklch(0.92 0.004 286.32)` | `oklch(1 0 0 / 15%)` |
 | `--ring` | `oklch(0.552 0.016 285.938)` * | `oklch(0.552 0.016 285.938)` |
 | `--chart-1` to `--chart-5` | shadcn/ui zinc values | shadcn/ui zinc values |
-| `--sidebar`, `--sidebar-foreground`, `--sidebar-primary`, `--sidebar-primary-foreground`, `--sidebar-accent`, `--sidebar-accent-foreground`, `--sidebar-border`, `--sidebar-ring` | shadcn/ui zinc values | shadcn/ui zinc values |
+| `--sidebar`, `--sidebar-foreground`, `--sidebar-primary`, `--sidebar-primary-foreground`, `--sidebar-accent`, `--sidebar-accent-foreground`, `--sidebar-border` | shadcn/ui zinc values | shadcn/ui zinc values |
+| `--sidebar-ring` | `oklch(0.552 0.016 285.938)` * | `oklch(0.552 0.016 285.938)` |
 | `--success` * | `oklch(0.627 0.194 149.214)` | `oklch(0.723 0.219 149.579)` |
 | `--warning` * | `oklch(0.666 0.179 58.318)` | `oklch(0.769 0.188 70.08)` |
 | `--info` * | `oklch(0.546 0.245 262.881)` | `oklch(0.623 0.214 259.815)` |
@@ -79,8 +80,9 @@ Deviations from shadcn/ui, marked * above:
   reaches only 4.4:1 and fails the 4.5:1 check that
   `npm run verify:runtime-interactions` runs. zinc-600 is what descriptions
   use today.
-- `--ring` is zinc-500 in the light theme, not zinc-400, so the focus ring
-  keeps 3:1 against white (WCAG 1.4.11). zinc-400 reaches about 2.6:1.
+- `--ring` and `--sidebar-ring` are zinc-500 in the light theme, not
+  zinc-400, so the focus ring keeps 3:1 against white (WCAG 1.4.11). zinc-400
+  reaches about 2.6:1.
 - `--destructive-foreground` is kept from shadcn/ui v3. v4 writes
   `text-white` and adds `dark:bg-destructive/60`; one token keeps component
   classes free of `dark:` variants, and dark text on the lighter dark-theme
@@ -125,6 +127,7 @@ Each palette role maps to one token class:
 | destructive text and items: `text-red-600 focus:bg-red-50`, Alert destructive | `text-destructive focus:bg-destructive/10` |
 | Toast, Sonner, Bubble, Attachment states | `border-<state>/30 bg-<state>/10` with `text-foreground`; dots `bg-<state>`; `<state>` is `success`, `warning`, `info`, or `destructive` |
 | Chart color tokens | `text-primary`, `text-muted-foreground`, `text-success`, `text-warning`, `text-destructive`, `text-foreground` |
+| Sidebar surface, borders, item fills, and focus ring | `bg-sidebar text-sidebar-foreground`, `border-sidebar-border`, `bg-sidebar-accent text-sidebar-accent-foreground`, `ring-sidebar-ring` |
 | modal overlays: `bg-black/50` | unchanged, as shadcn/ui |
 
 Blue stops being the brand color: checked states and the primary Button turn

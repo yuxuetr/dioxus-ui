@@ -17,21 +17,22 @@ pub enum AlertDialogActionVariant {
 impl AlertDialogActionVariant {
   pub const fn class(self) -> &'static str {
     match self {
-      Self::Default => "bg-blue-600 text-white hover:bg-blue-700",
-      Self::Destructive => "bg-red-600 text-white hover:bg-red-700",
+      Self::Default => "bg-primary text-primary-foreground hover:bg-primary/90",
+      Self::Destructive => "bg-destructive text-destructive-foreground hover:bg-destructive/90",
     }
   }
 }
 
 pub const ALERT_DIALOG_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";
-pub const ALERT_DIALOG_CONTENT_BASE_CLASS: &str = "fixed left-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 rounded-md border border-zinc-200 bg-white p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600";
+pub const ALERT_DIALOG_CONTENT_BASE_CLASS: &str = "fixed left-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 rounded-md border border-border bg-background p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 pub const ALERT_DIALOG_HEADER_BASE_CLASS: &str = "flex flex-col gap-2 text-center sm:text-left";
 pub const ALERT_DIALOG_FOOTER_BASE_CLASS: &str =
   "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end";
-pub const ALERT_DIALOG_TITLE_BASE_CLASS: &str = "text-lg font-semibold leading-none text-zinc-950";
-pub const ALERT_DIALOG_DESCRIPTION_BASE_CLASS: &str = "text-sm text-zinc-600";
-pub const ALERT_DIALOG_ACTION_BASE_CLASS: &str = "inline-flex h-10 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
-pub const ALERT_DIALOG_CANCEL_BASE_CLASS: &str = "inline-flex h-10 items-center justify-center rounded-md border border-zinc-200 bg-white px-4 text-sm font-medium transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
+pub const ALERT_DIALOG_TITLE_BASE_CLASS: &str =
+  "text-lg font-semibold leading-none text-foreground";
+pub const ALERT_DIALOG_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
+pub const ALERT_DIALOG_ACTION_BASE_CLASS: &str = "inline-flex h-10 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+pub const ALERT_DIALOG_CANCEL_BASE_CLASS: &str = "inline-flex h-10 items-center justify-center rounded-md border border-border bg-background px-4 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
 pub fn alert_dialog_overlay_class(class: &str) -> String {
   classes([Some(ALERT_DIALOG_OVERLAY_BASE_CLASS), Some(class)])
@@ -239,7 +240,7 @@ mod tests {
     let actual = alert_dialog_action_class(AlertDialogActionVariant::Destructive, "w-full");
 
     assert!(actual.contains(ALERT_DIALOG_ACTION_BASE_CLASS));
-    assert!(actual.contains("bg-red-600 text-white hover:bg-red-700"));
+    assert!(actual.contains("bg-destructive text-destructive-foreground hover:bg-destructive/90"));
     assert!(actual.ends_with("w-full"));
   }
 

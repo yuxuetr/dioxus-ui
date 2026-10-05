@@ -96,15 +96,16 @@ await new Promise((resolve) => {
 "#;
 
 pub const MENUBAR_BASE_CLASS: &str =
-  "flex h-10 items-center gap-1 rounded-md border border-zinc-200 bg-white p-1";
+  "flex h-10 items-center gap-1 rounded-md border border-border bg-background p-1";
 pub const MENUBAR_MENU_BASE_CLASS: &str = "relative";
-pub const MENUBAR_TRIGGER_BASE_CLASS: &str = "inline-flex h-8 items-center justify-center rounded-sm px-3 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-100 focus:bg-zinc-100 focus:outline-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
-pub const MENUBAR_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-zinc-200 bg-white p-1 text-zinc-950 shadow-md";
-pub const MENUBAR_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-zinc-500";
+pub const MENUBAR_TRIGGER_BASE_CLASS: &str = "inline-flex h-8 items-center justify-center rounded-sm px-3 text-sm font-medium text-foreground transition-colors hover:bg-accent focus:bg-accent focus:outline-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
+pub const MENUBAR_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
+pub const MENUBAR_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-muted-foreground";
 pub const MENUBAR_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
 pub const MENUBAR_ITEM_INSET_CLASS: &str = "pl-8";
-pub const MENUBAR_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-zinc-200";
-pub const MENUBAR_SHORTCUT_BASE_CLASS: &str = "ml-auto text-xs tracking-normal text-zinc-500";
+pub const MENUBAR_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-border";
+pub const MENUBAR_SHORTCUT_BASE_CLASS: &str =
+  "ml-auto text-xs tracking-normal text-muted-foreground";
 
 pub fn menubar_class(class: &str) -> String {
   classes([Some(MENUBAR_BASE_CLASS), Some(class)])
@@ -115,7 +116,7 @@ pub fn menubar_menu_class(class: &str) -> String {
 }
 
 pub fn menubar_trigger_class(open: bool, class: &str) -> String {
-  let state_class = if open { "bg-zinc-100" } else { "" };
+  let state_class = if open { "bg-accent" } else { "" };
 
   classes([Some(MENUBAR_TRIGGER_BASE_CLASS), Some(state_class), Some(class)])
 }
@@ -130,9 +131,9 @@ pub fn menubar_label_class(class: &str) -> String {
 
 pub fn menubar_item_class(inset: bool, destructive: bool, class: &str) -> String {
   let variant_class = if destructive {
-    "text-red-600 focus:bg-red-50 focus:text-red-700"
+    "text-destructive focus:bg-destructive/10 focus:text-destructive"
   } else {
-    "text-zinc-900 focus:bg-zinc-100"
+    "text-foreground focus:bg-accent"
   };
   let inset_class = if inset { MENUBAR_ITEM_INSET_CLASS } else { "" };
 
@@ -431,7 +432,7 @@ mod tests {
     let actual = menubar_trigger_class(true, "min-w-20");
 
     assert!(actual.contains(MENUBAR_TRIGGER_BASE_CLASS));
-    assert!(actual.contains("bg-zinc-100"));
+    assert!(actual.contains("bg-accent"));
     assert!(actual.ends_with("min-w-20"));
   }
 
@@ -441,7 +442,7 @@ mod tests {
 
     assert!(actual.contains(MENUBAR_ITEM_BASE_CLASS));
     assert!(actual.contains(MENUBAR_ITEM_INSET_CLASS));
-    assert!(actual.contains("text-red-600 focus:bg-red-50 focus:text-red-700"));
+    assert!(actual.contains("text-destructive focus:bg-destructive/10 focus:text-destructive"));
     assert!(actual.ends_with("gap-2"));
   }
 

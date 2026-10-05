@@ -7,11 +7,11 @@ pub use dioxus_ui_primitives::{
 use crate::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
 use crate::listbox::{ListboxMode, use_listbox};
 
-pub const DROPDOWN_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-zinc-200 bg-white p-1 text-zinc-950 shadow-md";
+pub const DROPDOWN_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
 pub const DROPDOWN_GROUP_BASE_CLASS: &str = "p-1";
-pub const DROPDOWN_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-zinc-500";
+pub const DROPDOWN_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-muted-foreground";
 pub const DROPDOWN_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
-pub const DROPDOWN_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-zinc-200";
+pub const DROPDOWN_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-border";
 
 pub fn dropdown_content_class(class: &str) -> String {
   classes([Some(DROPDOWN_CONTENT_BASE_CLASS), Some(class)])
@@ -27,9 +27,9 @@ pub fn dropdown_label_class(class: &str) -> String {
 
 pub fn dropdown_item_class(destructive: bool, class: &str) -> String {
   let variant_class = if destructive {
-    "text-red-600 focus:bg-red-50 focus:text-red-700"
+    "text-destructive focus:bg-destructive/10 focus:text-destructive"
   } else {
-    "text-zinc-900 focus:bg-zinc-100"
+    "text-foreground focus:bg-accent"
   };
 
   classes([Some(DROPDOWN_ITEM_BASE_CLASS), Some(variant_class), Some(class)])
@@ -151,7 +151,7 @@ mod tests {
     let actual = dropdown_item_class(true, "gap-2");
 
     assert!(actual.contains(DROPDOWN_ITEM_BASE_CLASS));
-    assert!(actual.contains("text-red-600 focus:bg-red-50 focus:text-red-700"));
+    assert!(actual.contains("text-destructive focus:bg-destructive/10 focus:text-destructive"));
     assert!(actual.ends_with("gap-2"));
   }
 

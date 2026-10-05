@@ -5,7 +5,7 @@ use super::utils::{
 pub use super::utils::{DismissBehavior, OverlayAlign, OverlaySide, TooltipPrimitiveConfig};
 
 pub const TOOLTIP_CONTENT_BASE_CLASS: &str =
-  "z-50 overflow-hidden rounded-md bg-zinc-950 px-3 py-1.5 text-xs text-white shadow-md";
+  "z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground shadow-md";
 
 pub fn tooltip_content_class(class: &str) -> String {
   classes([Some(TOOLTIP_CONTENT_BASE_CLASS), Some(class)])

@@ -10,22 +10,23 @@ pub use dioxus_ui_primitives::{
 };
 
 pub const CALENDAR_BASE_CLASS: &str =
-  "w-fit rounded-md border border-zinc-200 bg-white p-3 text-zinc-950";
+  "w-fit rounded-md border border-border bg-background p-3 text-foreground";
 pub const CALENDAR_HEADER_BASE_CLASS: &str = "mb-3 flex items-center justify-between gap-2";
 pub const CALENDAR_CAPTION_BASE_CLASS: &str = "text-sm font-medium";
 pub const CALENDAR_NAV_BASE_CLASS: &str = "flex items-center gap-1";
-pub const CALENDAR_NAV_BUTTON_BASE_CLASS: &str = "inline-flex h-8 w-8 items-center justify-center rounded-md text-sm transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
+pub const CALENDAR_NAV_BUTTON_BASE_CLASS: &str = "inline-flex h-8 w-8 items-center justify-center rounded-md text-sm transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 pub const CALENDAR_GRID_BASE_CLASS: &str = "grid gap-1";
 pub const CALENDAR_HEAD_BASE_CLASS: &str = "grid grid-cols-7 gap-1";
 pub const CALENDAR_HEAD_CELL_BASE_CLASS: &str =
-  "flex h-8 w-8 items-center justify-center text-xs font-medium text-zinc-500";
+  "flex h-8 w-8 items-center justify-center text-xs font-medium text-muted-foreground";
 pub const CALENDAR_BODY_BASE_CLASS: &str = "grid gap-1";
 pub const CALENDAR_ROW_BASE_CLASS: &str = "grid grid-cols-7 gap-1";
-pub const CALENDAR_DAY_BASE_CLASS: &str = "inline-flex h-8 w-8 items-center justify-center rounded-md text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
-pub const CALENDAR_DAY_SELECTED_CLASS: &str = "bg-blue-600 text-white hover:bg-blue-700";
-pub const CALENDAR_DAY_TODAY_CLASS: &str = "border border-zinc-300";
-pub const CALENDAR_DAY_OUTSIDE_CLASS: &str = "text-zinc-400";
-pub const CALENDAR_DAY_RANGE_CLASS: &str = "bg-blue-100 text-blue-950 hover:bg-blue-200";
+pub const CALENDAR_DAY_BASE_CLASS: &str = "inline-flex h-8 w-8 items-center justify-center rounded-md text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+pub const CALENDAR_DAY_SELECTED_CLASS: &str =
+  "bg-primary text-primary-foreground hover:bg-primary/90";
+pub const CALENDAR_DAY_TODAY_CLASS: &str = "border border-input";
+pub const CALENDAR_DAY_OUTSIDE_CLASS: &str = "text-muted-foreground";
+pub const CALENDAR_DAY_RANGE_CLASS: &str = "bg-accent text-accent-foreground";
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum CalendarNavDirection {
@@ -96,7 +97,7 @@ pub fn calendar_day_class(
 
   classes([
     Some(CALENDAR_DAY_BASE_CLASS),
-    (!in_range && !selected).then_some("hover:bg-zinc-100"),
+    (!in_range && !selected).then_some("hover:bg-accent"),
     (in_range && !selected).then_some(CALENDAR_DAY_RANGE_CLASS),
     selected.then_some(CALENDAR_DAY_SELECTED_CLASS),
     today.then_some(CALENDAR_DAY_TODAY_CLASS),

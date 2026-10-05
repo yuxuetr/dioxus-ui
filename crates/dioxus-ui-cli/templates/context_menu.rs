@@ -2,13 +2,13 @@ use dioxus::prelude::*;
 use super::utils::{AnchoredPlacement, ListboxMode, classes, use_anchored_overlay, use_listbox};
 pub use super::utils::{DismissBehavior, DropdownPrimitiveConfig, OverlayAlign, OverlaySide};
 
-pub const CONTEXT_MENU_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-zinc-200 bg-white p-1 text-zinc-950 shadow-md";
+pub const CONTEXT_MENU_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
 pub const CONTEXT_MENU_GROUP_BASE_CLASS: &str = "p-1";
-pub const CONTEXT_MENU_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-zinc-500";
+pub const CONTEXT_MENU_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-muted-foreground";
 pub const CONTEXT_MENU_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
 pub const CONTEXT_MENU_ITEM_INSET_CLASS: &str = "pl-8";
-pub const CONTEXT_MENU_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-zinc-200";
-pub const CONTEXT_MENU_SHORTCUT_BASE_CLASS: &str = "ml-auto text-xs tracking-normal text-zinc-500";
+pub const CONTEXT_MENU_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-border";
+pub const CONTEXT_MENU_SHORTCUT_BASE_CLASS: &str = "ml-auto text-xs tracking-normal text-muted-foreground";
 
 pub fn context_menu_content_class(class: &str) -> String {
   classes([Some(CONTEXT_MENU_CONTENT_BASE_CLASS), Some(class)])
@@ -24,9 +24,9 @@ pub fn context_menu_label_class(class: &str) -> String {
 
 pub fn context_menu_item_class(inset: bool, destructive: bool, class: &str) -> String {
   let variant_class = if destructive {
-    "text-red-600 focus:bg-red-50 focus:text-red-700"
+    "text-destructive focus:bg-destructive/10 focus:text-destructive"
   } else {
-    "text-zinc-900 focus:bg-zinc-100"
+    "text-foreground focus:bg-accent"
   };
   let inset_class = if inset { CONTEXT_MENU_ITEM_INSET_CLASS } else { "" };
 

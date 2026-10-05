@@ -1137,6 +1137,9 @@
   .border-ring {
     border-color: var(--ring);
   }
+  .border-sidebar-border {
+    border-color: var(--sidebar-border);
+  }
   .border-transparent {
     border-color: transparent;
   }
@@ -1223,6 +1226,12 @@
   }
   .bg-secondary {
     background-color: var(--secondary);
+  }
+  .bg-sidebar {
+    background-color: var(--sidebar);
+  }
+  .bg-sidebar-accent {
+    background-color: var(--sidebar-accent);
   }
   .bg-transparent {
     background-color: transparent;
@@ -1541,14 +1550,17 @@
   .text-secondary-foreground {
     color: var(--secondary-foreground);
   }
+  .text-sidebar-accent-foreground {
+    color: var(--sidebar-accent-foreground);
+  }
+  .text-sidebar-foreground {
+    color: var(--sidebar-foreground);
+  }
   .text-transparent {
     color: transparent;
   }
   .text-white {
     color: var(--color-white);
-  }
-  .text-zinc-400 {
-    color: var(--color-zinc-400);
   }
   .text-zinc-500 {
     color: var(--color-zinc-500);
@@ -1690,9 +1702,6 @@
   .placeholder\:text-muted-foreground::placeholder {
     color: var(--muted-foreground);
   }
-  .placeholder\:text-zinc-500::placeholder {
-    color: var(--color-zinc-500);
-  }
   .before\:h-px::before {
     content: var(--tw-content);
     height: 1px;
@@ -1752,12 +1761,6 @@
     .hover\:bg-accent:hover {
       background-color: var(--accent);
     }
-    .hover\:bg-blue-200:hover {
-      background-color: var(--color-blue-200);
-    }
-    .hover\:bg-blue-700:hover {
-      background-color: var(--color-blue-700);
-    }
     .hover\:bg-destructive\/90:hover {
       background-color: var(--destructive);
     }
@@ -1774,9 +1777,6 @@
         background-color: color-mix(in oklab, var(--primary) 90%, transparent);
       }
     }
-    .hover\:bg-red-700:hover {
-      background-color: var(--color-red-700);
-    }
     .hover\:bg-secondary\/80:hover {
       background-color: var(--secondary);
     }
@@ -1785,11 +1785,17 @@
         background-color: color-mix(in oklab, var(--secondary) 80%, transparent);
       }
     }
+    .hover\:bg-sidebar-accent:hover {
+      background-color: var(--sidebar-accent);
+    }
     .hover\:bg-zinc-50:hover {
       background-color: var(--color-zinc-50);
     }
     .hover\:bg-zinc-100:hover {
       background-color: var(--color-zinc-100);
+    }
+    .hover\:text-foreground:hover {
+      color: var(--foreground);
     }
     .hover\:text-zinc-700:hover {
       color: var(--color-zinc-700);
@@ -1807,14 +1813,14 @@
   .focus\:bg-accent:focus {
     background-color: var(--accent);
   }
-  .focus\:bg-red-50:focus {
-    background-color: var(--color-red-50);
+  .focus\:bg-destructive\/10:focus {
+    background-color: var(--destructive);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--destructive) 10%, transparent);
+    }
   }
-  .focus\:bg-zinc-100:focus {
-    background-color: var(--color-zinc-100);
-  }
-  .focus\:text-red-700:focus {
-    color: var(--color-red-700);
+  .focus\:text-destructive:focus {
+    color: var(--destructive);
   }
   .focus\:outline-none:focus {
     --tw-outline-style: none;
@@ -1830,11 +1836,11 @@
   .focus-visible\:ring-destructive:focus-visible {
     --tw-ring-color: var(--destructive);
   }
-  .focus-visible\:ring-red-500:focus-visible {
-    --tw-ring-color: var(--color-red-500);
-  }
   .focus-visible\:ring-ring:focus-visible {
     --tw-ring-color: var(--ring);
+  }
+  .focus-visible\:ring-sidebar-ring:focus-visible {
+    --tw-ring-color: var(--sidebar-ring);
   }
   .focus-visible\:outline-none:focus-visible {
     --tw-outline-style: none;
@@ -1852,26 +1858,20 @@
   .data-highlighted\:bg-accent[data-highlighted] {
     background-color: var(--accent);
   }
-  .data-highlighted\:bg-zinc-100[data-highlighted] {
-    background-color: var(--color-zinc-100);
-  }
   .data-highlighted\:text-accent-foreground[data-highlighted] {
     color: var(--accent-foreground);
-  }
-  .data-highlighted\:text-zinc-950[data-highlighted] {
-    color: var(--color-zinc-950);
   }
   .data-\[active\=true\]\:bg-accent[data-active="true"] {
     background-color: var(--accent);
   }
-  .data-\[active\=true\]\:bg-zinc-100[data-active="true"] {
-    background-color: var(--color-zinc-100);
+  .data-\[active\=true\]\:bg-sidebar-accent[data-active="true"] {
+    background-color: var(--sidebar-accent);
   }
   .data-\[active\=true\]\:text-accent-foreground[data-active="true"] {
     color: var(--accent-foreground);
   }
-  .data-\[active\=true\]\:text-zinc-950[data-active="true"] {
-    color: var(--color-zinc-950);
+  .data-\[active\=true\]\:text-sidebar-accent-foreground[data-active="true"] {
+    color: var(--sidebar-accent-foreground);
   }
   .data-\[collapsed\=true\]\:block[data-collapsed="true"] {
     display: block;
@@ -1960,8 +1960,8 @@
     --tw-translate-y: calc(calc(1 / 2 * 100%) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
-  .data-\[placeholder\=true\]\:text-zinc-500[data-placeholder="true"] {
-    color: var(--color-zinc-500);
+  .data-\[placeholder\=true\]\:text-muted-foreground[data-placeholder="true"] {
+    color: var(--muted-foreground);
   }
   .data-\[selected\=true\]\:bg-accent[data-selected="true"] {
     background-color: var(--accent);
@@ -2184,7 +2184,7 @@
   --sidebar-accent: oklch(0.967 0.001 286.375);
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.705 0.015 286.067);
+  --sidebar-ring: oklch(0.552 0.016 285.938);
 }
 .dark {
   color-scheme: dark;

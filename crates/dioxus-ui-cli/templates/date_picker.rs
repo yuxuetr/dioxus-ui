@@ -2,15 +2,15 @@ use dioxus::prelude::*;
 use super::utils::{AnchoredPlacement, classes, use_anchored_overlay, use_modal_focus_scope};
 pub use super::utils::{DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
 
-pub const DATE_PICKER_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-white px-3 py-2 text-sm text-zinc-950 transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
-pub const DATE_PICKER_VALUE_BASE_CLASS: &str = "truncate text-left data-[placeholder=true]:text-zinc-500";
-pub const DATE_PICKER_CONTENT_BASE_CLASS: &str = "z-50 w-auto rounded-md border border-zinc-200 bg-white p-0 text-zinc-950 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600";
+pub const DATE_PICKER_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
+pub const DATE_PICKER_VALUE_BASE_CLASS: &str = "truncate text-left data-[placeholder=true]:text-muted-foreground";
+pub const DATE_PICKER_CONTENT_BASE_CLASS: &str = "z-50 w-auto rounded-md border border-border bg-popover p-0 text-popover-foreground shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
 pub fn date_picker_trigger_class(invalid: bool, class: &str) -> String {
   let invalid_class = if invalid {
-    "border-red-500 focus-visible:ring-red-500"
+    "border-destructive focus-visible:ring-destructive"
   } else {
-    "border-zinc-200 focus-visible:ring-blue-600"
+    "border-input focus-visible:ring-ring"
   };
 
   classes([

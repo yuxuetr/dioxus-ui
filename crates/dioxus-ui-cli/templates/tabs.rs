@@ -6,9 +6,9 @@ use super::utils::{classes, group_part_id, use_roving_group};
 static NEXT_TABS_ID: AtomicUsize = AtomicUsize::new(0);
 
 pub const TABS_BASE_CLASS: &str = "data-[orientation=vertical]:flex data-[orientation=vertical]:gap-4";
-pub const TABS_LIST_BASE_CLASS: &str = "inline-flex h-10 items-center justify-center rounded-md bg-zinc-100 p-1 text-zinc-600 data-[orientation=vertical]:h-auto data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch data-[orientation=vertical]:justify-start";
-pub const TABS_TRIGGER_BASE_CLASS: &str = "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
-pub const TABS_CONTENT_BASE_CLASS: &str = "mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 data-[orientation=vertical]:mt-0";
+pub const TABS_LIST_BASE_CLASS: &str = "inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground data-[orientation=vertical]:h-auto data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch data-[orientation=vertical]:justify-start";
+pub const TABS_TRIGGER_BASE_CLASS: &str = "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+pub const TABS_CONTENT_BASE_CLASS: &str = "mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[orientation=vertical]:mt-0";
 
 /// Whether moving focus to a trigger also selects it.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
@@ -60,7 +60,7 @@ pub fn tabs_list_class(class: &str) -> String {
 
 pub fn tabs_trigger_class(active: bool, class: &str) -> String {
   let active_class =
-    if active { "bg-white text-zinc-950 shadow-sm" } else { "text-zinc-600 hover:text-zinc-950" };
+    if active { "bg-background text-foreground shadow-sm" } else { "text-muted-foreground hover:text-foreground" };
 
   classes([Some(TABS_TRIGGER_BASE_CLASS), Some(active_class), Some(class)])
 }

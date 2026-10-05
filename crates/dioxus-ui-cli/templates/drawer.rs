@@ -5,12 +5,12 @@ use super::utils::{classes, use_dialog_label_part, use_dialog_labels, use_modal_
 use dioxus::prelude::*;
 
 pub const DRAWER_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";
-pub const DRAWER_CONTENT_BASE_CLASS: &str = "fixed inset-x-0 bottom-0 z-50 grid max-h-[85vh] gap-4 rounded-t-md border border-zinc-200 bg-white p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600";
+pub const DRAWER_CONTENT_BASE_CLASS: &str = "fixed inset-x-0 bottom-0 z-50 grid max-h-[85vh] gap-4 rounded-t-md border border-border bg-background p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 pub const DRAWER_HEADER_BASE_CLASS: &str = "flex flex-col gap-2 text-center";
 pub const DRAWER_FOOTER_BASE_CLASS: &str = "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end";
-pub const DRAWER_TITLE_BASE_CLASS: &str = "text-lg font-semibold leading-none text-zinc-950";
-pub const DRAWER_DESCRIPTION_BASE_CLASS: &str = "text-sm text-zinc-600";
-pub const DRAWER_CLOSE_BASE_CLASS: &str = "absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none";
+pub const DRAWER_TITLE_BASE_CLASS: &str = "text-lg font-semibold leading-none text-foreground";
+pub const DRAWER_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
+pub const DRAWER_CLOSE_BASE_CLASS: &str = "absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none";
 
 pub fn drawer_overlay_class(class: &str) -> String {
   classes([Some(DRAWER_OVERLAY_BASE_CLASS), Some(class)])

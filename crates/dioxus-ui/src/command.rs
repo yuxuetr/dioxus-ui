@@ -9,16 +9,17 @@ use crate::listbox::{ListboxMode, use_listbox};
 static NEXT_COMMAND_ID: AtomicUsize = AtomicUsize::new(0);
 
 pub const COMMAND_BASE_CLASS: &str =
-  "flex h-full w-full flex-col overflow-hidden rounded-md bg-white text-zinc-950";
-pub const COMMAND_INPUT_BASE_CLASS: &str = "flex h-11 w-full rounded-md bg-transparent px-3 py-2 text-sm outline-none placeholder:text-zinc-500 disabled:cursor-not-allowed disabled:opacity-50";
+  "flex h-full w-full flex-col overflow-hidden rounded-md bg-background text-foreground";
+pub const COMMAND_INPUT_BASE_CLASS: &str = "flex h-11 w-full rounded-md bg-transparent px-3 py-2 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50";
 pub const COMMAND_LIST_BASE_CLASS: &str = "max-h-80 overflow-y-auto overflow-x-hidden";
-pub const COMMAND_EMPTY_BASE_CLASS: &str = "py-6 text-center text-sm text-zinc-500";
+pub const COMMAND_EMPTY_BASE_CLASS: &str = "py-6 text-center text-sm text-muted-foreground";
 pub const COMMAND_STATUS_BASE_CLASS: &str = "sr-only";
-pub const COMMAND_GROUP_BASE_CLASS: &str = "overflow-hidden p-1 text-zinc-950";
-pub const COMMAND_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-zinc-500";
-pub const COMMAND_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[active=true]:bg-zinc-100 data-[active=true]:text-zinc-950 data-highlighted:bg-zinc-100 data-highlighted:text-zinc-950 data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-zinc-100";
-pub const COMMAND_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-zinc-200";
-pub const COMMAND_SHORTCUT_BASE_CLASS: &str = "ml-auto text-xs tracking-normal text-zinc-500";
+pub const COMMAND_GROUP_BASE_CLASS: &str = "overflow-hidden p-1 text-foreground";
+pub const COMMAND_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-muted-foreground";
+pub const COMMAND_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[active=true]:bg-accent data-[active=true]:text-accent-foreground data-highlighted:bg-accent data-highlighted:text-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-accent";
+pub const COMMAND_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-border";
+pub const COMMAND_SHORTCUT_BASE_CLASS: &str =
+  "ml-auto text-xs tracking-normal text-muted-foreground";
 
 pub fn command_class(class: &str) -> String {
   classes([Some(COMMAND_BASE_CLASS), Some(class)])
@@ -49,8 +50,8 @@ pub fn command_label_class(class: &str) -> String {
 }
 
 pub fn command_item_class(active: bool, selected: bool, class: &str) -> String {
-  let active_class = if active { "bg-zinc-100 text-zinc-950" } else { "" };
-  let selected_class = if selected { "bg-zinc-100" } else { "" };
+  let active_class = if active { "bg-accent text-accent-foreground" } else { "" };
+  let selected_class = if selected { "bg-accent" } else { "" };
 
   classes([Some(COMMAND_ITEM_BASE_CLASS), Some(active_class), Some(selected_class), Some(class)])
 }
@@ -297,7 +298,7 @@ mod tests {
     let actual = command_item_class(true, true, "gap-2");
 
     assert!(actual.contains(COMMAND_ITEM_BASE_CLASS));
-    assert!(actual.contains("bg-zinc-100 text-zinc-950"));
+    assert!(actual.contains("bg-accent text-accent-foreground"));
     assert!(actual.ends_with("gap-2"));
   }
 

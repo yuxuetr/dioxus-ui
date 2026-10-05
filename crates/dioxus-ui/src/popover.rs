@@ -7,10 +7,10 @@ pub use dioxus_ui_primitives::{
 use crate::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
 use crate::dialog_labels::{DialogLabelPart, use_dialog_label_part, use_dialog_labels};
 
-pub const POPOVER_CONTENT_BASE_CLASS: &str = "z-50 w-72 rounded-md border border-zinc-200 bg-white p-4 text-zinc-950 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600";
+pub const POPOVER_CONTENT_BASE_CLASS: &str = "z-50 w-72 rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 pub const POPOVER_HEADER_BASE_CLASS: &str = "grid gap-1";
-pub const POPOVER_TITLE_BASE_CLASS: &str = "font-medium leading-none text-zinc-950";
-pub const POPOVER_DESCRIPTION_BASE_CLASS: &str = "text-sm text-zinc-600";
+pub const POPOVER_TITLE_BASE_CLASS: &str = "font-medium leading-none text-foreground";
+pub const POPOVER_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
 
 pub fn popover_content_class(class: &str) -> String {
   classes([Some(POPOVER_CONTENT_BASE_CLASS), Some(class)])
