@@ -75,7 +75,7 @@ serde_json = "1"
 
 The repository URL has been approved for first publish preparation.
 The shared README, keywords, and categories are publish metadata. No publish
-blocker remains; the release owner runs `cargo publish --workspace`. APIs are still pre-1.0; the current `0.1.x` surface is accepted
+blocker remains, and 0.1.0 was published on 2026-10-05. APIs are still pre-1.0; the current `0.1.x` surface is accepted
 for first publish.
 
 Publishable crate manifests under `crates/` should keep crate-specific

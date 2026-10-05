@@ -13,7 +13,7 @@ a changelog migration note.
 
 ## Package Set
 
-Published crates (0.1.0 prepared, not yet on crates.io):
+Published crates (0.1.0 on crates.io since 2026-10-05):
 
 ```text
 dioxus-shadcn-core
@@ -654,25 +654,29 @@ also resolves dependencies against the live crates.io index.
 
 ## First Publish Steps
 
-The actual publish is a release-owner action. It requires the crates.io
-evidence in
+The release owner published 0.1.0 on 2026-10-05 with these steps, tagged as
+`v0.1.0`. The first attempt failed before any upload because the crates.io
+account had no verified email; verify it at crates.io/settings/profile before
+publishing. The steps require the crates.io evidence in
 [Registry Availability Readiness Metadata](registry-availability-readiness-metadata.md#resolution)
 first.
 
-1. Record the crates.io evidence and mark registry availability resolved
-   (done on 2026-10-05; recheck the names if the publish is much later).
+1. Record the crates.io evidence and mark registry availability resolved.
 2. Rename the `CHANGELOG.md` Unreleased section to `[0.1.0]` with the release
-   date and commit it (done as 2026-10-05; change the date if the publish
-   happens on another day).
+   date and commit it.
 3. Authenticate with `cargo login`; never commit or paste the token into the
    repository.
 4. Run `cargo publish --workspace --dry-run` and confirm all four crates
    verify.
 5. Run `cargo publish --workspace`. Cargo publishes each crate after its
-   dependencies; the dry run uploaded `dioxus-shadcn-core`, `dioxus-shadcn-cli`,
-   `dioxus-shadcn-primitives`, then `dioxus-shadcn`, which satisfies the same
-   constraints as the publishing order above.
-6. Optionally tag the release commit as `v0.1.0`.
+   dependencies; 0.1.0 uploaded `dioxus-shadcn-core`, then
+   `dioxus-shadcn-cli` and `dioxus-shadcn-primitives`, then `dioxus-shadcn`,
+   which satisfies the same constraints as the publishing order above.
+6. Tag the release commit, as `v0.1.0`.
+
+After publishing, `cargo install dioxus-shadcn-cli` installed a `dxui` that
+lists all 64 components, and a fresh app built with both a copied component
+and the `dioxus-shadcn` crate from crates.io.
 
 ## Known Pre-1.0 Limitations
 

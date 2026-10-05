@@ -26,8 +26,6 @@ Internal trial should not claim:
 - stable `1.0` APIs
 - complete commercial accessibility guarantees
 - native Mobile or Desktop behavior beyond the documented verification gates
-- support for `cargo install dioxus-shadcn-cli` from crates.io before the
-  release owner publishes 0.1.0
 
 ## Recommended Mode
 
@@ -199,7 +197,7 @@ in place:
 No publish blocker remains. Registry availability was resolved on 2026-10-05
 (see
 [Registry Availability Readiness Metadata](registry-availability-readiness-metadata.md#resolution)),
-and the release owner runs `cargo publish --workspace`.
+and 0.1.0 was published on 2026-10-05 (tag `v0.1.0`).
 
 When bumping the workspace version, update the internal dependency versions in
 the same change; `npm run verify:workspace-dependency-publish-readiness` fails
@@ -211,8 +209,8 @@ releases, or contact registries as part of internal trial.
 ## crates.io Evidence Boundary
 
 Internal trial does not require crates.io access. The release owner recorded
-crates.io evidence on 2026-10-05 for the following crates; recheck the names if
-the publish happens much later:
+crates.io evidence on 2026-10-05 for the following crates, all published as
+0.1.0 that day:
 
 - `dioxus-shadcn-core`
 - `dioxus-shadcn-primitives`

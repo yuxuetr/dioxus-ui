@@ -13,7 +13,7 @@ Use [Publish Blocker Resolution Tracker](publish-blocker-resolution-tracker.md)
 to track current blockers together while evidence and local follow-up are
 prepared.
 
-Current blockers: none. The release owner runs the actual publish.
+Current blockers: none. 0.1.0 was published on 2026-10-05.
 
 Resolved publish readiness items:
 
