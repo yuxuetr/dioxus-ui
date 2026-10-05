@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 25%
+- Current milestone: M173 Phone-width Preview Layout
+- Current task: M173.2 Implement phone-width layout fixes
 
 ## Backup
 
@@ -3158,6 +3158,25 @@
 
 - DONE M172.4 Complete the dark theme milestone
   - Add theming docs, update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and quality gate docs.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M173 Phone-width Preview Layout
+
+- DONE M173.1 Design phone-width layout fixes
+  - Record that at 375px the preview page is 2379px wide because its grids have no column template below their breakpoints, and that the centered Pagination row overflows its card on both sides, putting Previous out of reach.
+  - Define `grid-cols-1` for the preview grids, wrapping Pagination content, and a phone-width browser check.
+  - Record what stays out of scope (other component widths, a responsive Pagination that drops pages) with reevaluation conditions.
+
+- TODO M173.2 Implement phone-width layout fixes
+  - Add `grid-cols-1` to the preview grids and `flex-wrap justify-center` to the Pagination content in the crate and the template.
+
+- TODO M173.3 Verify phone-width layout in a real browser
+  - Extend `npm run verify:runtime-interactions` to resize to 375px after the interactions and assert no horizontal page scroll and no element outside its fixture card unless an ancestor clips it.
+  - Reverse-verify that the check fails without `grid-cols-1` or without the Pagination wrap.
+
+- TODO M173.4 Complete the phone-width layout milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and quality gate docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 
