@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M172 Opt-in Dark Theme
-- Current task: M172.4 Complete the dark theme milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -3156,7 +3156,7 @@
   - Extend `npm run verify:runtime-interactions` with a text contrast check in the light and dark themes, after the first render and after the interactions, and a check that dark surfaces apply.
   - Reverse-verify that the check fails on a pure scale inversion, without the block, or without the white remap.
 
-- TODO M172.4 Complete the dark theme milestone
+- DONE M172.4 Complete the dark theme milestone
   - Add theming docs, update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and quality gate docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
