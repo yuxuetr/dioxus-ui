@@ -589,6 +589,16 @@ write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.
 
+`npm run verify:site` serves the component site with `dx serve` (see
+[RFC 0052](rfcs/0052-component-site.md)) and visits the home, installation,
+and theming pages and every catalog component page. It fails on a console
+error, a route that renders the not found page or the wrong component, text
+below the WCAG AA contrast minimum in the light or dark theme, or a sideways
+scroll at 375px. It also checks that unknown routes render the not found page,
+that the header toggle switches the theme, and that the catalog menu opens and
+navigates below `md`. It needs Playwright Chromium and is not part of the
+release gate.
+
 `npm run verify:desktop-interactions` builds the Desktop preview and runs its
 in-app self-test (RFC 0017). Ten scenarios cover the compiled preview
 stylesheet (RFC 0049), the preview theme toggle (RFC 0050), the dialog focus

@@ -9,6 +9,7 @@ const packageJsonPath = join(repoRoot, "package.json");
 const helperOnlyNodeScripts = new Set([
   "scripts/docs-catalog-builder.mjs",
   "scripts/preview-tailwind.mjs",
+  "scripts/browser-check-support.mjs",
 ]);
 const failures = [];
 

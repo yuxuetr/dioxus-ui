@@ -1,146 +1,11 @@
 #!/usr/bin/env node
-import { request } from "node:http";
-import { once } from "node:events";
-import { spawn } from "node:child_process";
-import { existsSync } from "node:fs";
-import { chromium, expect } from "@playwright/test";
+import { expect } from "@playwright/test";
 import { compilePreviewCss, utilityConflicts } from "./preview-tailwind.mjs";
+import { launchBrowser, lowContrastText, serveDioxusWeb, setDarkTheme } from "./browser-check-support.mjs";
 
-const repoRoot = new URL("..", import.meta.url).pathname;
-const host = "127.0.0.1";
-const port = 45239;
-const previewUrl = `http://${host}:${port}`;
-const installHint = "npx playwright install chromium";
-const executablePath = process.env.DIOXUS_UI_BROWSER_EXECUTABLE;
 const viewport = { width: 1280, height: 900 };
-
-let server;
-let serverOutput = "";
-
-function validateBrowserConfig() {
-  if (!executablePath) {
-    return;
-  }
-
-  if (!existsSync(executablePath)) {
-    throw new Error(
-      `DIOXUS_UI_BROWSER_EXECUTABLE does not exist: ${executablePath}`,
-    );
-  }
-}
-
-function browserLaunchOptions() {
-  if (!executablePath) {
-    return { headless: true };
-  }
-
-  return { headless: true, executablePath };
-}
-
-function startServer() {
-  server = spawn(
-    "dx",
-    [
-      "serve",
-      "--web",
-      "--package",
-      "dioxus-ui-web-demo",
-      "--bin",
-      "preview",
-      "--port",
-      String(port),
-      "--addr",
-      host,
-      "--open",
-      "false",
-      "--hot-reload",
-      "false",
-      "--watch",
-      "false",
-      "--interactive",
-      "false",
-    ],
-    {
-      cwd: repoRoot,
-      stdio: ["ignore", "pipe", "pipe"],
-    },
-  );
-
-  server.stdout.on("data", (chunk) => {
-    serverOutput += chunk.toString();
-  });
-
-  server.stderr.on("data", (chunk) => {
-    serverOutput += chunk.toString();
-  });
-}
-
-async function stopServer() {
-  if (!server) {
-    return;
-  }
-
-  if (server.exitCode !== null || server.signalCode !== null) {
-    return;
-  }
-
-  server.kill("SIGINT");
-
-  const timeout = setTimeout(() => {
-    if (server.exitCode === null && server.signalCode === null) {
-      server.kill("SIGTERM");
-    }
-  }, 3000);
-
-  try {
-    await once(server, "exit");
-  } finally {
-    clearTimeout(timeout);
-  }
-}
-
-function requestPreview() {
-  return new Promise((resolve) => {
-    const req = request(previewUrl, { method: "GET", timeout: 1000 }, (res) => {
-      res.resume();
-      resolve(res.statusCode === 200);
-    });
-
-    req.on("timeout", () => {
-      req.destroy();
-      resolve(false);
-    });
-
-    req.on("error", () => {
-      resolve(false);
-    });
-
-    req.end();
-  });
-}
-
-async function waitForPreview() {
-  const startedAt = Date.now();
-  const timeoutMs = 120000;
-
-  while (Date.now() - startedAt < timeoutMs) {
-    if (server.exitCode !== null || server.signalCode !== null) {
-      throw new Error(`dx serve exited before preview became ready.\n${serverOutput}`);
-    }
-
-    if (await requestPreview()) {
-      return;
-    }
-
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-  }
-
-  throw new Error(`Timed out waiting for ${previewUrl}.\n${serverOutput}`);
-}
-
-function isMissingBrowserError(error) {
-  return String(error?.message ?? error).includes("Executable doesn't exist");
-}
+const server = serveDioxusWeb({ packageName: "dioxus-ui-web-demo", bin: "preview", port: 45239 });
+const previewUrl = server.url;
 
 async function expectFocused(page, selector, label) {
   const focused = await page.evaluate((targetSelector) => {
@@ -162,75 +27,6 @@ async function expectNoUtilityConflicts(page, label) {
   if (conflicts.length > 0) {
     throw new Error(`${label}: conflicting Tailwind utilities: ${conflicts.join(", ")}`);
   }
-}
-
-// Lists visible text whose color falls below the WCAG AA contrast minimum
-// against its composited background: 4.5:1, or 3:1 for large text. Disabled
-// and faded elements are exempt. Runs in the page.
-function lowContrastText() {
-  const canvas = document.createElement("canvas");
-  canvas.width = 1;
-  canvas.height = 1;
-  const context = canvas.getContext("2d", { willReadFrequently: true });
-  // The canvas converts oklch and color-mix values to sRGB.
-  const rgba = (color) => {
-    context.clearRect(0, 0, 1, 1);
-    context.fillStyle = color;
-    context.fillRect(0, 0, 1, 1);
-    const [red, green, blue, alpha] = context.getImageData(0, 0, 1, 1).data;
-    return [red, green, blue, alpha / 255];
-  };
-  const over = (top, bottom) => [0, 1, 2].map((i) => top[i] * top[3] + bottom[i] * (1 - top[3])).concat(1);
-  const luminance = (color) => {
-    const [red, green, blue] = color.slice(0, 3).map((channel) => {
-      const value = channel / 255;
-      return value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
-    });
-    return 0.2126 * red + 0.7152 * green + 0.0722 * blue;
-  };
-  const backgroundOf = (element) => {
-    const layers = [];
-    for (let node = element; node; node = node.parentElement) {
-      const layer = rgba(getComputedStyle(node).backgroundColor);
-      if (layer[3] > 0) {
-        layers.push(layer);
-      }
-      if (layer[3] === 1) {
-        break;
-      }
-    }
-    return layers.reverse().reduce((below, layer) => over(layer, below), [255, 255, 255, 1]);
-  };
-  const failures = [];
-  for (const element of document.querySelectorAll("body *")) {
-    const hasText = [...element.childNodes].some((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
-    const rect = element.getBoundingClientRect();
-    const style = getComputedStyle(element);
-    if (!hasText || rect.width <= 1 || rect.height <= 1 || style.visibility === "hidden") {
-      continue;
-    }
-    if (element.closest("[disabled], [aria-disabled='true'], [data-disabled='true']")) {
-      continue;
-    }
-    let faded = false;
-    for (let node = element; node; node = node.parentElement) {
-      faded ||= Number(getComputedStyle(node).opacity) < 1;
-    }
-    if (faded) {
-      continue;
-    }
-    const background = backgroundOf(element);
-    const [lighter, darker] = [luminance(over(rgba(style.color), background)), luminance(background)].sort(
-      (a, b) => b - a,
-    );
-    const ratio = (lighter + 0.05) / (darker + 0.05);
-    const size = Number.parseFloat(style.fontSize);
-    const minimum = size >= 24 || (size >= 18.66 && Number(style.fontWeight) >= 700) ? 3 : 4.5;
-    if (ratio < minimum) {
-      failures.push(`"${element.textContent.trim().slice(0, 40)}" ${ratio.toFixed(2)}:1 (${element.className})`);
-    }
-  }
-  return failures;
 }
 
 // The preview header toggle switches the page to the opt-in dark theme and
@@ -262,15 +58,7 @@ async function expectThemeToggle(page) {
 async function expectReadableText(page, label) {
   for (const theme of ["light", "dark"]) {
     // Components use transition-colors, so wait for the theme switch to settle.
-    await page.evaluate(async (dark) => {
-      document.documentElement.classList.toggle("dark", dark);
-      await Promise.all(
-        document
-          .getAnimations()
-          .filter((animation) => animation instanceof CSSTransition)
-          .map((animation) => animation.finished.catch(() => {})),
-      );
-    }, theme === "dark");
+    await setDarkTheme(page, theme === "dark");
     if (theme === "dark") {
       const surface = await page.evaluate(() => {
         const probe = document.createElement("div");
@@ -292,15 +80,7 @@ async function expectReadableText(page, label) {
       throw new Error(`${label} (${theme} theme): low contrast text: ${failures.join("; ")}`);
     }
   }
-  await page.evaluate(async () => {
-    document.documentElement.classList.remove("dark");
-    await Promise.all(
-        document
-          .getAnimations()
-          .filter((animation) => animation instanceof CSSTransition)
-          .map((animation) => animation.finished.catch(() => {})),
-      );
-  });
+  await setDarkTheme(page, false);
 }
 
 // At phone width the page must not scroll sideways, and no element may extend
@@ -367,19 +147,7 @@ function utilityBackgroundColor(page, utility) {
 }
 
 async function runBrowserAssertions() {
-  let browser;
-
-  try {
-    browser = await chromium.launch(browserLaunchOptions());
-  } catch (error) {
-    if (!executablePath && isMissingBrowserError(error)) {
-      throw new Error(
-        `Playwright Chromium is not installed. Run \`${installHint}\` before node scripts/runtime-interactions-verify.mjs.`,
-      );
-    }
-
-    throw error;
-  }
+  const browser = await launchBrowser("scripts/runtime-interactions-verify.mjs");
 
   try {
     const context = await browser.newContext({ viewport });
@@ -2158,14 +1926,12 @@ async function runBrowserAssertions() {
 }
 
 try {
-  validateBrowserConfig();
-  startServer();
-  await waitForPreview();
+  await server.ready();
   await runBrowserAssertions();
   console.log("runtime interaction verification passed (34 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
 } finally {
-  await stopServer();
+  await server.stop();
 }
