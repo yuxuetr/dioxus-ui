@@ -1,7 +1,6 @@
 # Input
 
-Input is a styled single-line text field with invalid and density-aware class
-support.
+Input is a styled single-line text field with an invalid state.
 
 ## Source Copy
 
@@ -41,5 +40,5 @@ text, and the app passes it back as `value`. Other attributes, such as
 
 ## Accessibility Notes
 
-Pair inputs with `Label` and expose validation state with `aria-invalid` when
-the field is invalid.
+Pair inputs with `Label` and set `invalid` when the field is invalid; it renders
+`aria-invalid` and the destructive border.

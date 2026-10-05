@@ -32,11 +32,14 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["chart"
 - `ChartDomain`
 - `ChartScale`
 - `ChartColorToken`
+- `ChartFallbackRow` (`ChartFallbackTable`'s `rows`)
+- `ChartBarRect` (what `chart_bar_rects` returns)
 - `chart_line_path`
 - `chart_area_path`
 - `chart_bar_rects`
 - `chart_fallback_rows`
 - `chart_summary`
+- `chart_domain`, `chart_scale_value`, `chart_view_box`
 
 ## Accessibility Notes
 

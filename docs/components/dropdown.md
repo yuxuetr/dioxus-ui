@@ -23,6 +23,7 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["dropdo
 - `DropdownItem`
 - `DropdownSeparator`
 - `DropdownPrimitiveConfig`
+- `DropdownDismissBehavior`, `DropdownSide`, `DropdownAlign`
 - `dropdown_content_class`
 - `dropdown_item_class`
 

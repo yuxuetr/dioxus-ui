@@ -42,6 +42,10 @@ rsx! {
 }
 ```
 
+`CollapsibleContent` renders nothing while closed. Set `force_mount: true`
+(default `false`) to keep it in the DOM, hidden, for example so the trigger's
+`aria-controls` always points at an element.
+
 A click, Enter, or Space on `CollapsibleTrigger` calls `on_open_change` with
 the requested state, `!open`. Pass the value back as `open` to every part. A
 disabled trigger does not call it. All three parts pass other attributes, such

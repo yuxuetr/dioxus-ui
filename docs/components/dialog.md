@@ -23,6 +23,7 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["dialog
 - `DialogDescription`
 - `DialogClose`
 - `DialogPrimitiveConfig`
+- `DismissBehavior` (the `dismiss` prop)
 - `dialog_overlay_class`
 - `dialog_content_class`
 

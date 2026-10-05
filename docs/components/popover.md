@@ -22,6 +22,7 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["popove
 - `PopoverTitle`
 - `PopoverDescription`
 - `PopoverPrimitiveConfig`
+- `PopoverDismissBehavior`, `OverlaySide`, `OverlayAlign`
 - `popover_content_class`
 
 ## Behavior

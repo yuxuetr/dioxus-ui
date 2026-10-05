@@ -1,7 +1,8 @@
 # Toast
 
 Toast provides controlled notification composition parts and pure queue helpers.
-It does not own timers, portal mounting, focus movement, or live-region runtime.
+It does not own the queue, portal mounting, or focus movement; each `ToastRoot`
+runs its own dismiss countdown, and `ToastViewport` is a polite live region.
 
 ## Source Copy
 
@@ -38,10 +39,11 @@ The app owns the queue. Pass one `on_dismiss` handler to `ToastRoot`,
 `ToastAction`, and `ToastClose`; it receives the `ToastDismissReason`:
 
 ```rust
-let dismiss = move |reason: ToastDismissReason| {
+// A `Callback` is `Copy`, so the three parts can share it.
+let dismiss = use_callback(move |reason: ToastDismissReason| {
   queue.set(toast_queue_dismiss(queue(), &id));
   log::info!("toast dismissed: {}", toast_dismiss_reason_attribute(reason));
-};
+});
 
 rsx! {
   ToastRoot {

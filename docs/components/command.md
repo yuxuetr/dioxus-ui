@@ -28,12 +28,13 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["comman
 - `CommandItem`
 - `CommandSeparator`
 - `CommandShortcut`
-- `ActiveDescendantState`
+- `ActiveDescendantState` (crate only)
 - `command_class`
 - `command_input_class`
 - `command_item_class`
 - `command_matches`
-- `command_active_descendant_state`
+- `command_active_descendant_state` (crate only; the source-copy template
+  omits it and `ActiveDescendantState`)
 
 ## Behavior
 

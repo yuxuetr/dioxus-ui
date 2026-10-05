@@ -31,7 +31,8 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["combob
 - `combobox_trigger_class`
 - `combobox_input_class`
 - `combobox_item_class`
-- `combobox_active_descendant_state`
+- `combobox_active_descendant_state` (crate only; the source-copy template
+  omits it)
 
 ## Behavior
 

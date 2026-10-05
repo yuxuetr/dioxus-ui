@@ -27,5 +27,6 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["card"]
 
 ## Accessibility Notes
 
-Cards do not add landmarks or interactive semantics by default. Choose heading
-levels based on the surrounding page hierarchy.
+Cards do not add landmarks or interactive semantics. `CardTitle` renders an
+`h3`; when the page outline needs another level, put your own heading inside a
+`CardHeader` instead.

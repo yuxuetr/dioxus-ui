@@ -27,10 +27,13 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["sheet"
 - `SheetClose`
 - `SheetSide`
 - `SheetPrimitiveConfig`
+- `SheetDismissBehavior`, `SheetFocusReturn`, `SheetFocusStrategy`,
+  `SheetPortalTarget`
 - `sheet_overlay_class`
 - `sheet_content_class`
 
-The module also re-exports `DialogPrimitiveConfig` for users importing from
+The module also re-exports `DialogPrimitiveConfig`, `DismissBehavior`,
+`FocusReturn`, `FocusStrategy`, and `PortalTarget` for users importing from
 `dioxus_shadcn::sheet`.
 
 ## Behavior
@@ -41,7 +44,7 @@ The module also re-exports `DialogPrimitiveConfig` for users importing from
 - Escape on the content requests close when `dismiss.escape_key` is set.
 - A click on the overlay requests close when `dismiss.outside_pointer` is set.
   The default `DismissBehavior::dialog_default()` leaves it off.
-- `SheetClose` always requests close.
+- `SheetClose` requests close unless `disabled`.
 - Opening focuses the element marked `data-dxui-autofocus`, such as a
   keyboard-managed Calendar day, otherwise the first focusable element, or the
   content itself.

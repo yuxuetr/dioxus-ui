@@ -41,5 +41,5 @@ text, and the app passes it back as `value`. Other attributes, such as
 
 ## Accessibility Notes
 
-Pair textareas with `Label` and expose validation state with `aria-invalid`
-when the field is invalid.
+Pair textareas with `Label` and set `invalid` when the field is invalid; it
+renders `aria-invalid` and the destructive border.

@@ -21,6 +21,7 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["toolti
 - `TooltipTrigger`
 - `TooltipContent`
 - `TooltipPrimitiveConfig`
+- `TooltipDismissBehavior`, `TooltipSide`, `TooltipAlign`
 - `tooltip_content_class`
 
 ## Behavior

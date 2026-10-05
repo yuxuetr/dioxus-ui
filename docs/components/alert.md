@@ -27,8 +27,8 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["alert"
 
 ## Accessibility Notes
 
-Alerts use `role="alert"` by default. Use this for messages that should be
-announced immediately; use a non-alert container for passive supporting copy.
+`Alert` always renders `role="alert"`, so use it for messages that should be
+announced immediately; use a plain `div` for passive supporting copy.
 
 `AlertTitle` renders a `div`, as in shadcn/ui v4, so it never skips a heading
 level. Wrap its text in a heading of the right level when the page outline

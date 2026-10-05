@@ -24,7 +24,10 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["calend
 ```
 
 ```rust
-use dioxus_shadcn::{Calendar, CalendarDay, CalendarDate, CalendarRangeState};
+use dioxus_shadcn::{
+  Calendar, CalendarDate, CalendarDay, CalendarMonth, CalendarRangeState, CalendarWeekday,
+  calendar_month_grid, calendar_move_date,
+};
 ```
 
 ## API Surface
@@ -41,6 +44,12 @@ use dioxus_shadcn::{Calendar, CalendarDay, CalendarDate, CalendarRangeState};
 - `CalendarRow { class, children }`
 - `CalendarDay { date, selected, today, outside_month, disabled, range_state, focused, on_key_move, on_select, class, children }`
 
+Types the props and helpers use:
+
+- `CalendarNavDirection` (`CalendarNavButton`'s `direction`)
+- `CalendarKeyMove` (the `on_key_move` payload)
+- `CalendarMonth`, `CalendarWeekday`, `CalendarMonthGrid`, `CalendarPrimitiveDay`
+
 Primitive helpers:
 
 - `calendar_month_grid(...)`
@@ -49,6 +58,7 @@ Primitive helpers:
 - `calendar_range_state(...)`
 - `days_in_month(year, month)`
 - `is_leap_year(year)`
+- `calendar_range_attribute(range_state)`
 
 ## Keyboard Behavior
 
@@ -101,9 +111,10 @@ rsx! {
 
 ## Accessibility Notes
 
-Calendar exposes grid, row, columnheader, and gridcell roles. Selection,
-disabled, outside-month, today, and range state are mapped to ARIA and data
-attributes. Keyboard-managed days use roving tabindex and move DOM focus with
+Calendar exposes grid, row, columnheader, and gridcell roles. Selection and
+disabled state render `aria-selected` and `aria-disabled`; today, outside-month,
+and range state render only `data-today`, `data-outside-month`, and
+`data-range`. Keyboard-managed days use roving tabindex and move DOM focus with
 the focused date. Arrow keys follow visual left and right; right-to-left
 mirroring is not implemented.
 

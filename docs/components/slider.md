@@ -1,7 +1,7 @@
 # Slider
 
-Slider provides a controlled horizontal numeric value with range and thumb
-styling.
+Slider provides a controlled numeric value with range and thumb styling, in a
+horizontal or vertical orientation.
 
 ## Source Copy
 
@@ -59,8 +59,9 @@ press, so a drag keeps working outside the slider. A disabled slider ignores
 keys and the pointer. `slider_key_move` exposes the key mapping.
 
 Other attributes, such as `aria-label`, `aria-labelledby`, and
-`aria-valuetext`, are passed to the root. The slider always fills left to
-right and is horizontal.
+`aria-valuetext`, are passed to the root. A horizontal slider fills left to
+right, with no right-to-left mirroring; see Vertical Sliders for the
+bottom-to-top orientation.
 
 ## Vertical Sliders
 
