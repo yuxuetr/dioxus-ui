@@ -247,6 +247,7 @@ format!("bg-{}-500", color)
 - [RFC 0046: Listbox Width Follows Trigger](docs/rfcs/0046-listbox-width-follows-trigger.md)
 - [RFC 0047: Opt-in Dark Theme](docs/rfcs/0047-opt-in-dark-theme.md)
 - [RFC 0048: Phone-width Preview Layout](docs/rfcs/0048-phone-width-preview-layout.md)
+- [RFC 0049: Compiled Preview Stylesheet](docs/rfcs/0049-compiled-preview-stylesheet.md)
 
 ## Verification Shortcuts
 
