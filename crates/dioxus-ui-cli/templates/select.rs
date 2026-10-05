@@ -1,5 +1,7 @@
 use dioxus::prelude::*;
-use super::utils::{AnchoredPlacement, ListboxMode, classes, use_anchored_overlay, use_listbox};
+use super::utils::{
+  AnchoredPlacement, ListboxMode, classes, default_attribute, use_anchored_overlay, use_listbox,
+};
 pub use super::utils::{DismissBehavior, OverlayAlign, OverlaySide, SelectPrimitiveConfig};
 
 pub const SELECT_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
@@ -64,7 +66,8 @@ pub fn SelectTrigger(
   children: Element,
 ) -> Element {
   let class = select_trigger_class(invalid, &class);
-  let controls = id.as_ref().map(|id| format!("{id}-content"));
+  let controls =
+    id.as_ref().and_then(|id| default_attribute(&attributes, "aria-controls", format!("{id}-content")));
 
   rsx! {
     button {

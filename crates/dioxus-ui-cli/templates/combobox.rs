@@ -1,5 +1,7 @@
 use dioxus::prelude::*;
-use super::utils::{AnchoredPlacement, ListboxMode, classes, use_anchored_overlay, use_listbox};
+use super::utils::{
+  AnchoredPlacement, ListboxMode, classes, default_attribute, use_anchored_overlay, use_listbox,
+};
 pub use super::utils::{DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
 
 pub const COMBOBOX_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
@@ -116,6 +118,8 @@ pub fn ComboboxInput(
 ) -> Element {
   let class = combobox_input_class(&class);
   let active_descendant = active_id.unwrap_or_default();
+  let controls =
+    id.as_ref().and_then(|id| default_attribute(&attributes, "aria-controls", format!("{id}-list")));
 
   rsx! {
     input {
@@ -128,6 +132,7 @@ pub fn ComboboxInput(
       autocomplete: "off",
       "aria-activedescendant": active_descendant,
       "aria-autocomplete": "list",
+      "aria-controls": controls,
       "aria-expanded": open.to_string(),
       oninput: move |event| {
         if let Some(handler) = oninput {
@@ -164,6 +169,7 @@ pub fn ComboboxContent(
   children: Element,
 ) -> Element {
   let class = combobox_content_class(&class);
+  use_context_provider(|| ComboboxAnchor(anchor_id.clone()));
   let listbox =
     use_listbox(open, anchor_id.clone(), ListboxMode::Combobox, on_value_change, on_open_change);
   let anchored = use_anchored_overlay(
@@ -185,6 +191,12 @@ pub fn ComboboxContent(
   }
 }
 
+/// The content's `anchor_id`, which names its list and derives the list's `id`.
+#[derive(Clone, PartialEq)]
+struct ComboboxAnchor(Option<String>);
+
+/// Inside `ComboboxContent` with an `anchor_id`, the listbox takes the input's
+/// name, and its `id` is the input's `aria-controls` value, `{anchor_id}-list`.
 #[component]
 pub fn ComboboxList(
   #[props(default)] active_id: Option<String>,
@@ -193,11 +205,15 @@ pub fn ComboboxList(
 ) -> Element {
   let class = combobox_list_class(&class);
   let active_descendant = active_id.unwrap_or_default();
+  let anchor_id = try_use_context::<ComboboxAnchor>().and_then(|anchor| anchor.0);
+  let id = anchor_id.as_ref().map(|anchor_id| format!("{anchor_id}-list"));
 
   rsx! {
     div {
       role: "listbox",
+      id,
       class,
+      "aria-labelledby": anchor_id,
       "aria-activedescendant": active_descendant,
       {children}
     }

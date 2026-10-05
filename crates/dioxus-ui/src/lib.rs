@@ -115,9 +115,11 @@ mod dismiss_timer;
 
 #[cfg(any(
   feature = "carousel",
+  feature = "combobox",
   feature = "message-scroller",
   feature = "pagination",
-  feature = "scroll-area"
+  feature = "scroll-area",
+  feature = "select"
 ))]
 mod default_attribute;
 
