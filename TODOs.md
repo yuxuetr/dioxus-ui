@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M173 Phone-width Preview Layout
-- Current task: M173.2 Implement phone-width layout fixes
+- Current task: M173.3 Verify phone-width layout in a real browser
 
 ## Backup
 
@@ -3168,7 +3168,7 @@
   - Define `grid-cols-1` for the preview grids, wrapping Pagination content, and a phone-width browser check.
   - Record what stays out of scope (other component widths, a responsive Pagination that drops pages) with reevaluation conditions.
 
-- TODO M173.2 Implement phone-width layout fixes
+- DONE M173.2 Implement phone-width layout fixes
   - Add `grid-cols-1` to the preview grids and `flex-wrap justify-center` to the Pagination content in the crate and the template.
 
 - TODO M173.3 Verify phone-width layout in a real browser
