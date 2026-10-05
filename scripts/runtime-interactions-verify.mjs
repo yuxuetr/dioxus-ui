@@ -176,6 +176,18 @@ function utilityBorderColor(page, utility) {
   }, utility);
 }
 
+// The background color a lone utility renders.
+function utilityBackgroundColor(page, utility) {
+  return page.evaluate((className) => {
+    const probe = document.createElement("div");
+    probe.className = className;
+    document.body.append(probe);
+    const color = getComputedStyle(probe).backgroundColor;
+    probe.remove();
+    return color;
+  }, utility);
+}
+
 async function runBrowserAssertions() {
   let browser;
 
@@ -1182,6 +1194,14 @@ async function runBrowserAssertions() {
     await switchFixture.locator('label[for="interaction-checkbox-terms"]').click();
     await expect(switchFixture).toHaveAttribute("data-checkbox", "true");
     await expect(terms).toBeChecked();
+    // The checkbox draws its own box: no native control, the blue fill, and a
+    // tick that only the checked state has.
+    const backgroundImage = (locator) => locator.evaluate((element) => getComputedStyle(element).backgroundImage);
+    await expect(terms).toHaveCSS("appearance", "none");
+    await expect(terms).toHaveCSS("background-color", await utilityBackgroundColor(page, "bg-blue-600"));
+    const tick = await backgroundImage(terms);
+    expect(tick).toContain("data:image/svg+xml");
+    await expect(newsletter).toHaveCSS("background-image", "none");
     await expect(newsletter).toBeDisabled();
     await newsletter.click({ force: true });
     await expect(newsletter).not.toBeChecked();
@@ -1191,6 +1211,11 @@ async function runBrowserAssertions() {
     const isIndeterminate = (name) => mixedCheckbox(name).evaluate((element) => element.indeterminate);
     await expect.poll(() => isIndeterminate("Select all")).toBe(true);
     await expect(mixedCheckbox("Select all")).toHaveAttribute("data-state", "indeterminate");
+    // Mixed draws a dash on the blue fill, not the tick.
+    await expect(mixedCheckbox("Select all")).toHaveCSS("background-color", await utilityBackgroundColor(page, "bg-blue-600"));
+    const dash = await backgroundImage(mixedCheckbox("Select all"));
+    expect(dash).toContain("data:image/svg+xml");
+    expect(dash).not.toBe(tick);
     // A change while mixed requests checked.
     await mixedCheckbox("Select all").click();
     await expect(switchFixture).toHaveAttribute("data-mixed-items", "true-true");

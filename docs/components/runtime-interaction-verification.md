@@ -395,6 +395,14 @@ modifier, such as `bg-blue-100!`. A fixture override without it, the base
 Radio Group border restored, or a full-width vertical Slider each make the
 verifier fail.
 
+M170 adds drawn Checkbox checks from
+[RFC 0045](../rfcs/0045-drawn-checkbox.md). The verifier checks that a
+checked Checkbox has `appearance: none`, the color a lone `bg-blue-600`
+renders, and an SVG background image, that an unchecked one has no
+background image, and that the mixed Select all checkbox has the blue fill
+and an SVG mark different from the tick. Keeping the native appearance, or
+removing the tick or the dash, each make the verifier fail.
+
 ## Documentation Alignment
 
 M111 should keep these files aligned:
