@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 25%
+- Current milestone: M174 Compiled Preview Stylesheet
+- Current task: M174.2 Implement the compiled preview stylesheet
 
 ## Backup
 
@@ -3176,6 +3176,27 @@
   - Reverse-verify that the check fails without `grid-cols-1` or without the Pagination wrap.
 
 - DONE M173.4 Complete the phone-width layout milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and quality gate docs.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M174 Compiled Preview Stylesheet
+
+- DONE M174.1 Design the compiled preview stylesheet
+  - Record that the Web and Desktop previews link the uncompiled Tailwind input, that the Mobile preview links no stylesheet, and that manual previews and the Desktop and Mobile self-tests therefore run without utility classes.
+  - Define a generated compiled stylesheet linked by `PreviewSurface`, a regeneration script, a drift gate, and a stylesheet scenario in the self-test.
+  - Record what stays out of scope (dx's Tailwind integration, compiled CSS for library users) with reevaluation conditions.
+
+- TODO M174.2 Implement the compiled preview stylesheet
+  - Add `npm run css:preview`, commit `examples/preview-states/assets/preview.generated.css`, link it from `PreviewSurface`, and drop the Web and Desktop links to the uncompiled input.
+  - Add `npm run verify:preview-css` to the release gate.
+
+- TODO M174.3 Verify the stylesheet in the Desktop and Mobile WebViews
+  - Add a first `stylesheet` scenario to the in-app self-test that waits for an `sr-only` element to be absolutely positioned.
+  - Run the Desktop self-test, and the iOS and Android self-tests where available.
+  - Reverse-verify that the scenario fails without the stylesheet link and that the drift gate fails on a stale file.
+
+- TODO M174.4 Complete the compiled preview stylesheet milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and quality gate docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
