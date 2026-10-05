@@ -76,6 +76,7 @@ examples! {
   separator_basic => "separator", "Orientation";
   avatar_basic => "avatar", "Image and fallback";
   badge_variants => "badge", "Variants";
+  badge_status => "badge", "Status";
   chart_revenue => "chart", "Area and line";
   data_table_users => "data-table", "Filter, sort, and select";
   empty_projects => "empty", "No projects";
@@ -83,6 +84,7 @@ examples! {
   table_invoices => "table", "Invoices";
   typography_article => "typography", "Article";
   alert_variants => "alert", "Variants";
+  alert_status => "alert", "Status";
   skeleton_card => "skeleton", "Loading profile";
   sonner_variants => "sonner", "Variants";
   spinner_sizes => "spinner", "Sizes";

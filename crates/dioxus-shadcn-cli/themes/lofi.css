@@ -23,8 +23,11 @@
   --destructive: oklch(0.535 0.102 28.47);
   --destructive-foreground: oklch(0.949 0.002 28.47);
   --success: oklch(0.901 0.153 164.14);
+  --success-foreground: oklch(0.18 0.03 164.14);
   --warning: oklch(0.884 0.135 79.94);
+  --warning-foreground: oklch(0.177 0.027 79.94);
   --info: oklch(0.795 0.103 205.9);
+  --info-foreground: oklch(0.159 0.02 205.9);
   --border: oklch(0.94 0 0);
   --input: oklch(0.94 0 0);
   --ring: oklch(0.159 0 0);

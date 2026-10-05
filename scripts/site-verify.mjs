@@ -29,7 +29,7 @@ const presets = readdirSync(new URL("../crates/dioxus-shadcn-cli/themes/", impor
   .map((file) => file.replace(/\.css$/, ""))
   .sort();
 // Pages with the most token pairs: the variants, status colors, and muted text.
-const presetPages = ["/", "/components/button", "/components/alert", "/components/tabs"];
+const presetPages = ["/", "/components/button", "/components/alert", "/components/badge", "/components/tabs"];
 // The examples each page should show, from the site's example list.
 const examplesSource = readFileSync(new URL("../site/src/examples/mod.rs", import.meta.url), "utf8");
 const examples = [...examplesSource.matchAll(/^\s*(\w+) => "([a-z-]+)", "([^"]+)";$/gm)].map((match) => ({

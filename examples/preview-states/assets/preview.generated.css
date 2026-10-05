@@ -74,8 +74,11 @@
     --color-destructive: var(--destructive);
     --color-destructive-foreground: var(--destructive-foreground);
     --color-success: var(--success);
+    --color-success-foreground: var(--success-foreground);
     --color-warning: var(--warning);
+    --color-warning-foreground: var(--warning-foreground);
     --color-info: var(--info);
+    --color-info-foreground: var(--info-foreground);
     --color-border: var(--border);
     --color-input: var(--input);
     --color-ring: var(--ring);
@@ -1214,6 +1217,12 @@
   .bg-warning {
     background-color: var(--warning);
   }
+  .bg-warning\/10 {
+    background-color: var(--warning);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--warning) 10%, transparent);
+    }
+  }
   .bg-zinc-900 {
     background-color: var(--color-zinc-900);
   }
@@ -1441,6 +1450,9 @@
   .text-foreground {
     color: var(--foreground);
   }
+  .text-info-foreground {
+    color: var(--info-foreground);
+  }
   .text-muted-foreground {
     color: var(--muted-foreground);
   }
@@ -1471,11 +1483,17 @@
   .text-success {
     color: var(--success);
   }
+  .text-success-foreground {
+    color: var(--success-foreground);
+  }
   .text-transparent {
     color: transparent;
   }
   .text-warning {
     color: var(--warning);
+  }
+  .text-warning-foreground {
+    color: var(--warning-foreground);
   }
   .text-white {
     color: var(--color-white);
@@ -2091,8 +2109,11 @@
   --destructive: oklch(0.532 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
   --success: oklch(0.627 0.194 149.214);
+  --success-foreground: oklch(0.141 0.005 285.823);
   --warning: oklch(0.666 0.179 58.318);
+  --warning-foreground: oklch(0.141 0.005 285.823);
   --info: oklch(0.546 0.245 262.881);
+  --info-foreground: oklch(0.985 0 0);
   --border: oklch(0.92 0.004 286.32);
   --input: oklch(0.92 0.004 286.32);
   --ring: oklch(0.552 0.016 285.938);
@@ -2129,8 +2150,11 @@
   --destructive: oklch(0.704 0.191 22.216);
   --destructive-foreground: oklch(0.141 0.005 285.823);
   --success: oklch(0.723 0.219 149.579);
+  --success-foreground: oklch(0.141 0.005 285.823);
   --warning: oklch(0.769 0.188 70.08);
+  --warning-foreground: oklch(0.141 0.005 285.823);
   --info: oklch(0.623 0.214 259.815);
+  --info-foreground: oklch(0.141 0.005 285.823);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.552 0.016 285.938);

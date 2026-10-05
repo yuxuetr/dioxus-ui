@@ -83,6 +83,7 @@ const preset = (name, source) => {
   const secondaryForeground = fixed("secondary-foreground", colors["secondary-content"], [colors.secondary]);
   const destructive = fixed("destructive", colors.error, [...surfaces, { over: colors["base-100"], alpha: 0.1 }]);
   const destructiveForeground = fixed("destructive-foreground", colors["error-content"], [destructive]);
+  const statusForeground = (status) => fixed(`${status}-foreground`, colors[`${status}-content`], [colors[status]]);
 
   const tokens = [
     ["radius", radius.trim()],
@@ -103,8 +104,11 @@ const preset = (name, source) => {
     ["destructive", destructive],
     ["destructive-foreground", destructiveForeground],
     ["success", colors.success],
+    ["success-foreground", statusForeground("success")],
     ["warning", colors.warning],
+    ["warning-foreground", statusForeground("warning")],
     ["info", colors.info],
+    ["info-foreground", statusForeground("info")],
     ["border", colors["base-300"]],
     ["input", colors["base-300"]],
     ["ring", colors.primary],

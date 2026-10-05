@@ -2,7 +2,7 @@
 /* Ported from the daisyUI pastel theme (https://daisyui.com), MIT License,
    Copyright (c) 2020 Pouya Saadeghi. Mapped to the dioxus-shadcn tokens by
    RFC 0057.
-   Adjusted for WCAG AA: secondary-foreground, destructive, destructive-foreground. */
+   Adjusted for WCAG AA: secondary-foreground, destructive, destructive-foreground, success-foreground, warning-foreground, info-foreground. */
 [data-theme="pastel"] {
   color-scheme: light;
   --radius: 1rem;
@@ -23,8 +23,11 @@
   --destructive: oklch(0.544 0.078 19.571);
   --destructive-foreground: oklch(0.96 0.017 27.518);
   --success: oklch(0.87 0.15 154.449);
+  --success-foreground: oklch(0.468 0.139 150.069);
   --warning: oklch(0.83 0.128 66.29);
+  --warning-foreground: oklch(0.451 0.16 38.402);
   --info: oklch(0.86 0.127 207.078);
+  --info-foreground: oklch(0.458 0.092 223.128);
   --border: oklch(0.925 0.001 247.838);
   --input: oklch(0.925 0.001 247.838);
   --ring: oklch(0.9 0.063 306.703);

@@ -15,6 +15,9 @@ for commit messages.
   `[data-theme="<name>"]`, with foregrounds adjusted to WCAG AA.
   `dxui theme list` prints them and `dxui theme add <name>...` appends them to
   `assets/dioxus-shadcn.css`.
+- `Success`, `Warning`, and `Info` variants for Alert and Badge, and the
+  `--success-foreground`, `--warning-foreground`, and `--info-foreground`
+  tokens ([RFC 0058](docs/rfcs/0058-status-variants.md)).
 
 ### Changed
 
@@ -24,6 +27,19 @@ for commit messages.
 - Checkbox draws its tick and dash as a masked `::before` filled with
   `--primary-foreground` instead of white and dark data URI backgrounds, so
   the marks follow any theme. Checkbox no longer uses the `dark:` variant.
+
+- `ALERT_BASE_CLASS` no longer sets `bg-card`; the `Default` and
+  `Destructive` variants do, so status alerts can tint the surface.
+
+### Migration
+
+- `AlertVariant` and `BadgeVariant` have new variants; exhaustive `match`
+  expressions need an arm or a wildcard.
+- A stylesheet from before 0.2.0 lacks the status foreground tokens. Add
+  `--success-foreground`, `--warning-foreground`, and `--info-foreground` to
+  `:root` and `.dark`, and their `--color-*` lines to `@theme inline`, with
+  the values `dxui init` now writes; without them status badges draw text in
+  the inherited color.
 
 ### Fixed
 

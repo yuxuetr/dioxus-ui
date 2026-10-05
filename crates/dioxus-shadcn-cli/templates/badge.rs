@@ -7,6 +7,9 @@ pub enum BadgeVariant {
   Secondary,
   Destructive,
   Outline,
+  Success,
+  Warning,
+  Info,
 }
 
 impl BadgeVariant {
@@ -16,6 +19,9 @@ impl BadgeVariant {
       Self::Secondary => "border-transparent bg-secondary text-secondary-foreground",
       Self::Destructive => "border-transparent bg-destructive text-destructive-foreground",
       Self::Outline => "border-border text-foreground",
+      Self::Success => "border-transparent bg-success text-success-foreground",
+      Self::Warning => "border-transparent bg-warning text-warning-foreground",
+      Self::Info => "border-transparent bg-info text-info-foreground",
     }
   }
 }

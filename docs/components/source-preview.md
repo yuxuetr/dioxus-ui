@@ -17,12 +17,12 @@ Source preview routes: 64
 | Component | Route | Template | Target | Language | Lines | Bytes |
 | --- | --- | --- | --- | --- | --- | --- |
 | [Accordion](accordion.md) | /components/accordion/source | crates/dioxus-shadcn-cli/templates/accordion.rs | src/components/ui/accordion.rs | rust | 166 | 5025 |
-| [Alert](alert.md) | /components/alert/source | crates/dioxus-shadcn-cli/templates/alert.rs | src/components/ui/alert.rs | rust | 84 | 1973 |
+| [Alert](alert.md) | /components/alert/source | crates/dioxus-shadcn-cli/templates/alert.rs | src/components/ui/alert.rs | rust | 94 | 2513 |
 | [Alert Dialog](alert-dialog.md) | /components/alert-dialog/source | crates/dioxus-shadcn-cli/templates/alert_dialog.rs | src/components/ui/alert_dialog.rs | rust | 220 | 6729 |
 | [Aspect Ratio](aspect-ratio.md) | /components/aspect-ratio/source | crates/dioxus-shadcn-cli/templates/aspect_ratio.rs | src/components/ui/aspect_ratio.rs | rust | 42 | 878 |
 | [Attachment](attachment.md) | /components/attachment/source | crates/dioxus-shadcn-cli/templates/attachment.rs | src/components/ui/attachment.rs | rust | 325 | 8888 |
 | [Avatar](avatar.md) | /components/avatar/source | crates/dioxus-shadcn-cli/templates/avatar.rs | src/components/ui/avatar.rs | rust | 60 | 1358 |
-| [Badge](badge.md) | /components/badge/source | crates/dioxus-shadcn-cli/templates/badge.rs | src/components/ui/badge.rs | rust | 44 | 1131 |
+| [Badge](badge.md) | /components/badge/source | crates/dioxus-shadcn-cli/templates/badge.rs | src/components/ui/badge.rs | rust | 50 | 1392 |
 | [Breadcrumb](breadcrumb.md) | /components/breadcrumb/source | crates/dioxus-shadcn-cli/templates/breadcrumb.rs | src/components/ui/breadcrumb.rs | rust | 143 | 3501 |
 | [Bubble](bubble.md) | /components/bubble/source | crates/dioxus-shadcn-cli/templates/bubble.rs | src/components/ui/bubble.rs | rust | 224 | 5744 |
 | [Button](button.md) | /components/button/source | crates/dioxus-shadcn-cli/templates/button.rs | src/components/ui/button.rs | rust | 99 | 2739 |

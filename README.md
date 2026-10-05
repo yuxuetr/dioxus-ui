@@ -125,7 +125,8 @@ v4 layout ([RFC 0051](docs/rfcs/0051-semantic-color-tokens.md)):
 `-foreground` pair where text sits on it, plus `--border`, `--input`,
 `--ring`, `--chart-1` to `--chart-5`, the `--sidebar-*` group, and
 `--radius`. On top of shadcn/ui it adds `--destructive-foreground` and the
-`--success`, `--warning`, and `--info` status colors. `@theme inline` turns
+`--success`, `--warning`, and `--info` status colors with their
+`-foreground` pairs. `@theme inline` turns
 each token into a Tailwind color, so `bg-primary` and `text-muted-foreground`
 work in app code too. To rebrand, redefine a token in `:root` and `.dark`,
 for example a blue `--primary` and `--ring`. Component classes use only the

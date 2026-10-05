@@ -32,7 +32,7 @@ page shows every preset as a card themed by its own preset, with swatches and
 its `dxui theme add` command. `npm run site:catalog` also writes
 `site/src/themes.rs` and `site/assets/themes.css` from
 `crates/dioxus-shadcn-cli/themes/`, and `npm run verify:site` chooses every
-preset through the menu on four pages and runs the contrast check and
+preset through the menu on five pages and runs the contrast check and
 axe-core in each.
 
 ## Deployment

@@ -25,6 +25,12 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["alert"
 - `alert_title_class`
 - `alert_description_class`
 
+`AlertVariant` has `Default`, `Destructive`, and the status variants
+`Success`, `Warning`, and `Info`. The status colors are too light to be text,
+so status alerts tint the surface and border and keep foreground text; pass
+the same variant to `AlertDescription`
+([RFC 0058](../rfcs/0058-status-variants.md)).
+
 ## Accessibility Notes
 
 `Alert` always renders `role="alert"`, so use it for messages that should be

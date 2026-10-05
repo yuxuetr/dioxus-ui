@@ -20,6 +20,11 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["badge"
 - `BadgeVariant`
 - `badge_class`
 
+`BadgeVariant` has `Default`, `Secondary`, `Destructive`, and `Outline`, and
+the solid status variants `Success`, `Warning`, and `Info`, which draw
+`text-success-foreground` and the like on the status color
+([RFC 0058](../rfcs/0058-status-variants.md)).
+
 ## Accessibility Notes
 
 Use badges as supporting text, not as the only way to communicate important

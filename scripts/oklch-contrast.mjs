@@ -82,4 +82,10 @@ export const TEXT_PAIRS = [
   ["sidebar-foreground", "sidebar"],
   ["sidebar-accent-foreground", "sidebar-accent"],
   ["sidebar-primary-foreground", "sidebar-primary"],
+  ["success-foreground", "success"],
+  ["warning-foreground", "warning"],
+  ["info-foreground", "info"],
+  ["foreground", "card", ["success", 0.1]],
+  ["foreground", "card", ["warning", 0.1]],
+  ["foreground", "card", ["info", 0.1]],
 ];
