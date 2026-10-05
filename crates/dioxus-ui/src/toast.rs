@@ -10,9 +10,9 @@ use crate::dismiss_timer::use_dismiss_timer;
 
 pub const TOAST_VIEWPORT_BASE_CLASS: &str =
   "fixed z-50 flex max-h-screen w-full flex-col gap-2 p-4 sm:max-w-sm";
-pub const TOAST_ROOT_BASE_CLASS: &str = "pointer-events-auto relative grid w-full gap-1 overflow-hidden rounded-md border bg-white p-4 pr-10 text-zinc-950 shadow-lg transition-all data-[state=closed]:opacity-0 data-[state=open]:opacity-100";
+pub const TOAST_ROOT_BASE_CLASS: &str = "pointer-events-auto relative grid w-full gap-1 overflow-hidden rounded-md border bg-white p-4 pr-10 shadow-lg transition-all data-[state=closed]:opacity-0 data-[state=open]:opacity-100";
 pub const TOAST_TITLE_BASE_CLASS: &str = "text-sm font-semibold leading-none tracking-normal";
-pub const TOAST_DESCRIPTION_BASE_CLASS: &str = "text-sm text-zinc-600";
+pub const TOAST_DESCRIPTION_BASE_CLASS: &str = "text-sm";
 pub const TOAST_ACTION_BASE_CLASS: &str = "inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-zinc-200 bg-transparent px-3 text-sm font-medium transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
 pub const TOAST_CLOSE_BASE_CLASS: &str = "absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-md text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
 
@@ -31,7 +31,7 @@ pub fn toast_viewport_class(placement: ToastPlacement, class: &str) -> String {
 
 pub fn toast_root_class(variant: ToastVariant, class: &str) -> String {
   let variant_class = match variant {
-    ToastVariant::Default => "border-zinc-200",
+    ToastVariant::Default => "border-zinc-200 text-zinc-950",
     ToastVariant::Success => "border-green-200 text-green-950",
     ToastVariant::Info => "border-blue-200 text-blue-950",
     ToastVariant::Warning => "border-amber-200 text-amber-950",

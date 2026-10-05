@@ -8,7 +8,7 @@ pub enum InputGroupAddonPosition {
   End,
 }
 
-pub const INPUT_GROUP_BASE_CLASS: &str = "flex min-h-10 w-full items-center overflow-hidden rounded-md border border-zinc-200 bg-white text-sm transition-colors focus-within:ring-2 focus-within:ring-blue-600 data-[disabled=true]:opacity-50";
+pub const INPUT_GROUP_BASE_CLASS: &str = "flex min-h-10 w-full items-center overflow-hidden rounded-md border bg-white text-sm transition-colors focus-within:ring-2 data-[disabled=true]:opacity-50";
 pub const INPUT_GROUP_INVALID_CLASS: &str = "border-red-500 focus-within:ring-red-500";
 pub const INPUT_GROUP_DISABLED_CLASS: &str = "cursor-not-allowed";
 pub const INPUT_GROUP_ADDON_BASE_CLASS: &str =
@@ -37,7 +37,11 @@ impl InputGroupAddonPosition {
 pub fn input_group_class(invalid: bool, disabled: bool, class: &str) -> String {
   classes([
     Some(INPUT_GROUP_BASE_CLASS),
-    invalid.then_some(INPUT_GROUP_INVALID_CLASS),
+    Some(if invalid {
+      INPUT_GROUP_INVALID_CLASS
+    } else {
+      "border-zinc-200 focus-within:ring-blue-600"
+    }),
     disabled.then_some(INPUT_GROUP_DISABLED_CLASS),
     Some(class),
   ])

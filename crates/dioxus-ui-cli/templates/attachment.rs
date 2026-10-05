@@ -29,10 +29,10 @@ pub enum AttachmentMediaVariant {
   Image,
 }
 
-pub const ATTACHMENT_BASE_CLASS: &str = "group flex min-w-0 rounded-md border border-zinc-200 bg-white text-sm text-zinc-950 transition-colors";
+pub const ATTACHMENT_BASE_CLASS: &str = "group flex min-w-0 rounded-md border text-zinc-950 transition-colors";
 pub const ATTACHMENT_HORIZONTAL_CLASS: &str = "items-center gap-3 p-3";
 pub const ATTACHMENT_VERTICAL_CLASS: &str = "flex-col gap-3 p-3";
-pub const ATTACHMENT_SIZE_DEFAULT_CLASS: &str = "min-h-16";
+pub const ATTACHMENT_SIZE_DEFAULT_CLASS: &str = "min-h-16 text-sm";
 pub const ATTACHMENT_SIZE_SM_CLASS: &str = "min-h-12 text-sm";
 pub const ATTACHMENT_SIZE_XS_CLASS: &str = "min-h-10 text-xs";
 pub const ATTACHMENT_UPLOADING_CLASS: &str = "border-blue-200 bg-blue-50";
@@ -53,7 +53,7 @@ pub const ATTACHMENT_TRIGGER_BASE_CLASS: &str = "inline-flex min-h-10 items-cent
 impl AttachmentState {
   pub const fn class(self) -> &'static str {
     match self {
-      Self::Idle => "",
+      Self::Idle => "border-zinc-200 bg-white",
       Self::Uploading => ATTACHMENT_UPLOADING_CLASS,
       Self::Processing => ATTACHMENT_PROCESSING_CLASS,
       Self::Error => ATTACHMENT_ERROR_CLASS,

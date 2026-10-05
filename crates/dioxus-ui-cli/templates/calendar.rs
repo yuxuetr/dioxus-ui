@@ -58,7 +58,7 @@ pub const CALENDAR_HEAD_BASE_CLASS: &str = "grid grid-cols-7 gap-1";
 pub const CALENDAR_HEAD_CELL_BASE_CLASS: &str = "flex h-8 w-8 items-center justify-center text-xs font-medium text-zinc-500";
 pub const CALENDAR_BODY_BASE_CLASS: &str = "grid gap-1";
 pub const CALENDAR_ROW_BASE_CLASS: &str = "grid grid-cols-7 gap-1";
-pub const CALENDAR_DAY_BASE_CLASS: &str = "inline-flex h-8 w-8 items-center justify-center rounded-md text-sm transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
+pub const CALENDAR_DAY_BASE_CLASS: &str = "inline-flex h-8 w-8 items-center justify-center rounded-md text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
 pub const CALENDAR_DAY_SELECTED_CLASS: &str = "bg-blue-600 text-white hover:bg-blue-700";
 pub const CALENDAR_DAY_TODAY_CLASS: &str = "border border-zinc-300";
 pub const CALENDAR_DAY_OUTSIDE_CLASS: &str = "text-zinc-400";
@@ -126,6 +126,7 @@ pub fn calendar_day_class(
 
   classes([
     Some(CALENDAR_DAY_BASE_CLASS),
+    (!in_range && !selected).then_some("hover:bg-zinc-100"),
     (in_range && !selected).then_some(CALENDAR_DAY_RANGE_CLASS),
     selected.then_some(CALENDAR_DAY_SELECTED_CLASS),
     today.then_some(CALENDAR_DAY_TODAY_CLASS),

@@ -18,7 +18,7 @@ impl AlertVariant {
 
 pub const ALERT_BASE_CLASS: &str = "relative w-full rounded-md border bg-white p-4";
 pub const ALERT_TITLE_BASE_CLASS: &str = "mb-1 font-medium leading-none tracking-normal";
-pub const ALERT_DESCRIPTION_BASE_CLASS: &str = "text-sm text-zinc-600";
+pub const ALERT_DESCRIPTION_BASE_CLASS: &str = "text-sm";
 
 pub fn alert_class(variant: AlertVariant, class: &str) -> String {
   classes([Some(ALERT_BASE_CLASS), Some(variant.class()), Some(class)])

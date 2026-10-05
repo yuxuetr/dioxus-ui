@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use super::utils::{AnchoredPlacement, ListboxMode, classes, use_anchored_overlay, use_listbox};
 pub use super::utils::{DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
 
-pub const COMBOBOX_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-950 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50";
+pub const COMBOBOX_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-white px-3 py-2 text-sm text-zinc-950 transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
 pub const COMBOBOX_INPUT_BASE_CLASS: &str = "flex h-10 w-full rounded-md bg-transparent px-3 py-2 text-sm outline-none placeholder:text-zinc-500 disabled:cursor-not-allowed disabled:opacity-50";
 pub const COMBOBOX_CONTENT_BASE_CLASS: &str = "z-50 max-h-96 min-w-32 overflow-hidden rounded-md border border-zinc-200 bg-white p-1 text-zinc-950 shadow-md";
 pub const COMBOBOX_LIST_BASE_CLASS: &str = "max-h-80 overflow-y-auto overflow-x-hidden";
@@ -16,7 +16,7 @@ pub fn combobox_trigger_class(invalid: bool, class: &str) -> String {
   let invalid_class = if invalid {
     "border-red-500 focus-visible:ring-red-500"
   } else {
-    "focus-visible:ring-blue-600"
+    "border-zinc-200 focus-visible:ring-blue-600"
   };
 
   classes([

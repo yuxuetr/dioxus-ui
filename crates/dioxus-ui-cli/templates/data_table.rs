@@ -128,7 +128,7 @@ fn sorted_unique(mut values: Vec<String>) -> Vec<String> {
 pub const DATA_TABLE_BASE_CLASS: &str = "grid gap-4";
 pub const DATA_TABLE_TOOLBAR_BASE_CLASS: &str = "flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between";
 pub const DATA_TABLE_CONTAINER_BASE_CLASS: &str = "relative w-full overflow-auto rounded-md border border-zinc-200";
-pub const DATA_TABLE_HEADER_CELL_BASE_CLASS: &str = "h-12 px-4 text-left align-middle text-sm font-medium text-zinc-600 data-[sort=ascending]:text-zinc-950 data-[sort=descending]:text-zinc-950";
+pub const DATA_TABLE_HEADER_CELL_BASE_CLASS: &str = "h-12 px-4 text-left align-middle text-sm font-medium data-[sort=ascending]:text-zinc-950 data-[sort=descending]:text-zinc-950";
 pub const DATA_TABLE_ROW_BASE_CLASS: &str = "border-b transition-colors hover:bg-zinc-100 data-[selected=true]:bg-zinc-100 data-[disabled=true]:opacity-50";
 pub const DATA_TABLE_CELL_BASE_CLASS: &str = "p-4 align-middle text-sm";
 pub const DATA_TABLE_PAGINATION_BASE_CLASS: &str = "flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between";
@@ -151,7 +151,7 @@ pub fn data_table_container_class(class: &str) -> String {
 pub fn data_table_header_cell_class(sorted: bool, class: &str) -> String {
   classes([
     Some(DATA_TABLE_HEADER_CELL_BASE_CLASS),
-    sorted.then_some("text-zinc-950"),
+    Some(if sorted { "text-zinc-950" } else { "text-zinc-600" }),
     Some(class),
   ])
 }

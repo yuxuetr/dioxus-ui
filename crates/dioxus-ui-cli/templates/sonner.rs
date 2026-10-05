@@ -78,11 +78,11 @@ impl SonnerQueue {
 }
 
 pub const SONNER_VIEWPORT_BASE_CLASS: &str = "fixed z-50 flex max-h-screen w-full flex-col gap-2 p-4 sm:max-w-sm";
-pub const SONNER_TOAST_BASE_CLASS: &str = "pointer-events-auto relative grid w-full grid-cols-[auto_1fr_auto] items-start gap-3 overflow-hidden rounded-md border bg-white p-4 text-zinc-950 shadow-lg transition-all";
+pub const SONNER_TOAST_BASE_CLASS: &str = "pointer-events-auto relative grid w-full grid-cols-[auto_1fr_auto] items-start gap-3 overflow-hidden rounded-md border p-4 shadow-lg transition-all";
 pub const SONNER_ICON_BASE_CLASS: &str = "mt-0.5 h-2.5 w-2.5 rounded-full";
 pub const SONNER_CONTENT_BASE_CLASS: &str = "grid gap-1";
 pub const SONNER_TITLE_BASE_CLASS: &str = "text-sm font-semibold leading-none tracking-normal";
-pub const SONNER_DESCRIPTION_BASE_CLASS: &str = "text-sm text-zinc-600";
+pub const SONNER_DESCRIPTION_BASE_CLASS: &str = "text-sm";
 pub const SONNER_ACTION_BASE_CLASS: &str = "inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-zinc-200 bg-transparent px-3 text-sm font-medium transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
 pub const SONNER_CLOSE_BASE_CLASS: &str = "inline-flex h-7 w-7 items-center justify-center rounded-md text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
 
@@ -188,7 +188,7 @@ pub fn sonner_viewport_class(placement: SonnerPlacement, class: &str) -> String 
 
 pub fn sonner_toast_class(variant: SonnerVariant, class: &str) -> String {
   let variant_class = match variant {
-    SonnerVariant::Default => "border-zinc-200",
+    SonnerVariant::Default => "border-zinc-200 bg-white text-zinc-950",
     SonnerVariant::Success => "border-green-200 bg-green-50 text-green-950",
     SonnerVariant::Info => "border-blue-200 bg-blue-50 text-blue-950",
     SonnerVariant::Warning => "border-amber-200 bg-amber-50 text-amber-950",

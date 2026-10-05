@@ -55,7 +55,7 @@ pub enum InputOtpInputMode {
 pub const INPUT_OTP_BASE_CLASS: &str = "relative flex items-center gap-2";
 pub const INPUT_OTP_DISABLED_CLASS: &str = "opacity-50";
 pub const INPUT_OTP_GROUP_BASE_CLASS: &str = "flex items-center gap-1";
-pub const INPUT_OTP_SLOT_BASE_CLASS: &str = "relative flex h-10 w-10 items-center justify-center rounded-md border border-zinc-200 bg-white text-sm font-medium text-zinc-950 transition-colors";
+pub const INPUT_OTP_SLOT_BASE_CLASS: &str = "relative flex h-10 w-10 items-center justify-center rounded-md border text-sm font-medium transition-colors";
 pub const INPUT_OTP_SLOT_ACTIVE_CLASS: &str = "border-blue-600 ring-2 ring-blue-600";
 pub const INPUT_OTP_SLOT_INVALID_CLASS: &str = "border-red-500 ring-2 ring-red-500";
 pub const INPUT_OTP_SLOT_DISABLED_CLASS: &str = "cursor-not-allowed bg-zinc-50 text-zinc-400";
@@ -238,9 +238,14 @@ pub fn input_otp_group_class(class: &str) -> String {
 pub fn input_otp_slot_class(active: bool, invalid: bool, disabled: bool, class: &str) -> String {
   classes([
     Some(INPUT_OTP_SLOT_BASE_CLASS),
-    active.then_some(INPUT_OTP_SLOT_ACTIVE_CLASS),
-    invalid.then_some(INPUT_OTP_SLOT_INVALID_CLASS),
-    disabled.then_some(INPUT_OTP_SLOT_DISABLED_CLASS),
+    Some(if invalid {
+      INPUT_OTP_SLOT_INVALID_CLASS
+    } else if active {
+      INPUT_OTP_SLOT_ACTIVE_CLASS
+    } else {
+      "border-zinc-200"
+    }),
+    Some(if disabled { INPUT_OTP_SLOT_DISABLED_CLASS } else { "bg-white text-zinc-950" }),
     Some(class),
   ])
 }

@@ -42,6 +42,16 @@ Rules:
 - user classes are appended last
 - component classes must be complete Tailwind tokens
 - dynamic class token construction is not allowed
+- a component never joins two utilities that set the same property under the
+  same variant, such as a base `border-zinc-200` with a state
+  `border-red-500`; the base value moves into the default branch instead
+  (see [RFC 0044](rfcs/0044-tailwind-utility-conflicts.md))
+
+Appending does not make a user class win. Tailwind orders utilities in the
+stylesheet, not by their position in the class list, so `bg-blue-100` passed
+to a component whose base class has `bg-zinc-100` may lose. Add classes for
+properties the component leaves unset, or override one it sets with
+Tailwind's important modifier, such as `bg-blue-100!`.
 
 ### `children`
 

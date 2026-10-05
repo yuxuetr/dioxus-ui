@@ -12,7 +12,7 @@ pub const fn sidebar_toggle(collapsed: bool) -> bool {
   !collapsed
 }
 
-pub const SIDEBAR_BASE_CLASS: &str = "flex h-full w-64 flex-col border-zinc-200 bg-white text-zinc-950 transition-[width] data-[collapsed=true]:w-14 data-[side=left]:border-r data-[side=right]:border-l";
+pub const SIDEBAR_BASE_CLASS: &str = "flex h-full flex-col border-zinc-200 bg-white text-zinc-950 transition-[width] data-[side=left]:border-r data-[side=right]:border-l";
 pub const SIDEBAR_RAIL_BASE_CLASS: &str = "absolute inset-y-0 z-10 hidden w-3 -translate-x-1/2 transition-colors hover:bg-zinc-100 data-[collapsed=true]:block";
 pub const SIDEBAR_HEADER_BASE_CLASS: &str = "flex min-h-14 items-center gap-2 border-b border-zinc-200 px-3";
 pub const SIDEBAR_CONTENT_BASE_CLASS: &str = "flex-1 overflow-auto p-2";
@@ -38,7 +38,7 @@ pub fn sidebar_class(collapsed: bool, side: SidebarSide, class: &str) -> String 
   classes([
     Some(SIDEBAR_BASE_CLASS),
     Some(side_class),
-    collapsed.then_some("w-14"),
+    Some(if collapsed { "w-14" } else { "w-64" }),
     Some(class),
   ])
 }

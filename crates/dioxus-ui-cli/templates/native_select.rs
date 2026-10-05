@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use super::utils::classes;
 
-pub const NATIVE_SELECT_BASE_CLASS: &str = "h-10 w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-950 transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
+pub const NATIVE_SELECT_BASE_CLASS: &str = "h-10 w-full rounded-md border bg-white px-3 py-2 text-sm text-zinc-950 transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
 pub const NATIVE_SELECT_GROUP_BASE_CLASS: &str = "text-sm font-medium text-zinc-900";
 pub const NATIVE_SELECT_OPTION_BASE_CLASS: &str = "text-sm text-zinc-950";
 
@@ -9,7 +9,7 @@ pub fn native_select_class(invalid: bool, class: &str) -> String {
   let invalid_class = if invalid {
     "border-red-500 focus-visible:ring-red-500"
   } else {
-    "focus-visible:ring-blue-600"
+    "border-zinc-200 focus-visible:ring-blue-600"
   };
 
   classes([Some(NATIVE_SELECT_BASE_CLASS), Some(invalid_class), Some(class)])

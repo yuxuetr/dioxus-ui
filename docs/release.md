@@ -130,6 +130,7 @@ npm run verify:examples-metadata
 npm run verify:css-inputs
 npm run verify:registry
 npm run verify:tailwind-static
+npm run verify:tailwind-conflicts
 npm run verify
 npm run verify:changelog
 scripts/feature-check.sh

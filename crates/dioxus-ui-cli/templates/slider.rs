@@ -143,10 +143,10 @@ pub struct SliderAriaAttributes {
 }
 
 pub const SLIDER_ROOT_BASE_CLASS: &str =
-  "relative flex w-full touch-none select-none items-center disabled:opacity-50";
+  "relative flex touch-none select-none items-center disabled:opacity-50";
 pub const SLIDER_TRACK_BASE_CLASS: &str =
-  "relative h-2 w-full grow overflow-hidden rounded-full bg-zinc-100";
-pub const SLIDER_RANGE_BASE_CLASS: &str = "absolute h-full rounded-full bg-blue-600";
+  "relative grow overflow-hidden rounded-full bg-zinc-100";
+pub const SLIDER_RANGE_BASE_CLASS: &str = "absolute rounded-full bg-blue-600";
 pub const SLIDER_THUMB_BASE_CLASS: &str = "block h-5 w-5 rounded-full border-2 border-blue-600 bg-white shadow transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
 
 pub fn slider_root_class(class: &str) -> String {
@@ -219,9 +219,9 @@ fn slider_orientation_classes(
   orientation: SliderOrientation,
 ) -> (Option<&'static str>, Option<&'static str>, Option<&'static str>) {
   match orientation {
-    SliderOrientation::Horizontal => (None, None, None),
+    SliderOrientation::Horizontal => (Some("w-full"), Some("h-2 w-full"), Some("h-full")),
     SliderOrientation::Vertical => {
-      (Some("h-full w-auto flex-col"), Some("h-full w-2"), Some("w-full"))
+      (Some("h-full w-5 flex-col"), Some("h-full w-2"), Some("w-full"))
     }
   }
 }

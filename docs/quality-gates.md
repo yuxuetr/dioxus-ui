@@ -142,6 +142,7 @@ npm run verify:examples-metadata
 npm run verify:css-inputs
 npm run verify:registry
 npm run verify:tailwind-static
+npm run verify:tailwind-conflicts
 npm run verify
 npm run verify:changelog
 scripts/feature-check.sh
@@ -295,9 +296,17 @@ well-formed asset mappings. It is read-only and does not execute CLI commands,
 compile Rust crates, or replace CLI registry tests.
 
 `npm run verify:tailwind-static` checks shipped Rust source and source-copy
-templates for dynamic Tailwind utility token interpolation. It is read-only and
-does not compile Tailwind CSS, validate user-provided classes, or assert visual
-parity.
+templates for dynamic Tailwind utility token interpolation and for bare data
+variants such as `data-disabled:`, which match any attribute value. It is
+read-only and does not compile Tailwind CSS, validate user-provided classes, or
+assert visual parity.
+
+`npm run verify:tailwind-conflicts` compiles each utility of the shipped class
+functions with the Tailwind Node API and fails when a function joins a base
+class with a state class, helper, or method class that sets the same property
+under the same variant (see
+[RFC 0044](rfcs/0044-tailwind-utility-conflicts.md)). It does not validate
+user-provided classes or conflicts between two state classes.
 
 `npm run verify:package-scripts` checks that `package.json` still exposes the
 required verification aliases, that aggregate aliases reference the expected

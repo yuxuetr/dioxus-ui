@@ -459,8 +459,19 @@ npm run verify:tailwind-static
 ```
 
 This checks shipped Rust source and templates for dynamic Tailwind utility
-tokens such as `bg-{...}`. It does not compile Tailwind CSS or assert visual
-parity.
+tokens such as `bg-{...}` and for bare data variants such as `data-disabled:`,
+which match any attribute value. It does not compile Tailwind CSS or assert
+visual parity.
+
+Verify that class functions never join conflicting Tailwind utilities:
+
+```bash
+npm run verify:tailwind-conflicts
+```
+
+This compiles each utility with the Tailwind Node API and fails when a class
+function joins a base class with a state class that sets the same property
+under the same variant, where the stylesheet order would pick the winner.
 
 Verify npm verification alias wiring only:
 

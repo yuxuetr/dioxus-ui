@@ -140,13 +140,13 @@ pub enum ToggleGroupType {
   Multiple,
 }
 
-pub const TOGGLE_GROUP_BASE_CLASS: &str = "inline-flex items-center gap-1";
+pub const TOGGLE_GROUP_BASE_CLASS: &str = "inline-flex gap-1";
 pub const TOGGLE_GROUP_ITEM_BASE_CLASS: &str = "inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
 
 pub fn toggle_group_class(orientation: NavigationOrientation, class: &str) -> String {
   let orientation_class = match orientation {
     NavigationOrientation::Vertical => "flex-col items-start",
-    NavigationOrientation::Horizontal | NavigationOrientation::Both => "flex-row",
+    NavigationOrientation::Horizontal | NavigationOrientation::Both => "flex-row items-center",
   };
 
   classes([
