@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 25%
 - Current milestone: M177 Component Token Migration
-- Current task: M177.2 Migrate overlays and navigation
+- Current task: M177.3 Migrate layout, data display, feedback, and messaging
 
 ## Backup
 
@@ -39,7 +39,7 @@
   - Button, Button Group, Toggle, Toggle Group, Input, Input Group, Textarea, Input OTP, Label, Field, Checkbox, Radio Group, Switch, Slider, Native Select, Select, and Combobox, in the crate and the templates.
   - Update unit tests, the docs class snippets, the browser checks that compare utility colors, and the compiled preview stylesheet.
 
-- TODO M177.2 Migrate overlays and navigation
+- DONE M177.2 Migrate overlays and navigation
   - Dialog, Alert Dialog, Sheet, Drawer, Popover, Hover Card, Tooltip, Dropdown, Context Menu, Menubar, Navigation Menu, Command, Date Picker, Calendar, Tabs, Breadcrumb, Pagination, and Sidebar, in the crate and the templates.
   - Update the same tests, docs, checks, and compiled stylesheet.
 
