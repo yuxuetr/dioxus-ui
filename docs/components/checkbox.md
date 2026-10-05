@@ -65,8 +65,13 @@ browsers announce as a mixed checkbox, and renders
 `data-state="indeterminate"`. A change while mixed requests `true`. A click
 clears the property in the browser; when the app keeps the checkbox mixed,
 the component sets it again after the next render. The property is set in the
-browser, so server-rendered HTML shows the checkbox unchecked until it
+browser, so server-rendered HTML exposes the checkbox as unchecked until it
 hydrates (see [RFC 0041](../rfcs/0041-checkbox-indeterminate-state.md)).
+
+The input draws its own box with `appearance-none`: the checked state shows a
+tick and the mixed state a dash, both on the blue fill. The marks are keyed
+off `data-state`, so server-rendered HTML already shows them (see
+[RFC 0045](../rfcs/0045-drawn-checkbox.md)).
 
 ## Accessibility Notes
 
