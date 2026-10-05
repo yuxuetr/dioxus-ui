@@ -65,6 +65,12 @@ rsx! {
   Next, in the browser and in server-rendered HTML; the visible "Previous" and
   "Next" text stays English.
 
+## Narrow Containers
+
+`PaginationContent` wraps its items onto centered lines when they do not fit,
+so every link stays reachable at phone width. To keep a single line, show
+fewer pages with `PaginationEllipsis`.
+
 ## Accessibility Notes
 
 Pagination renders a navigation region with a pagination label. Mark the

@@ -874,13 +874,13 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           }
         }
         section {
-          class: "grid gap-3 md:grid-cols-2",
+          class: "grid grid-cols-1 gap-3 md:grid-cols-2",
           "data-preview-panel": "actions",
           button { class: "{primary_button_class}", "Primary action" }
           button { class: "{secondary_button_class}", "Secondary action" }
         }
         section {
-          class: "grid gap-3 rounded-md border border-zinc-200 p-4 sm:grid-cols-2 lg:grid-cols-3",
+          class: "grid grid-cols-1 gap-3 rounded-md border border-zinc-200 p-4 sm:grid-cols-2 lg:grid-cols-3",
           "data-preview-panel": "mobile-profile",
           h2 { class: "text-sm font-medium sm:col-span-2 lg:col-span-3", "Mobile Web profile" }
           p {
@@ -914,7 +914,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           }
         }
         section {
-          class: "grid gap-4 lg:grid-cols-2",
+          class: "grid grid-cols-1 gap-4 lg:grid-cols-2",
           "data-preview-panel": "form",
           article {
             class: "rounded-md border border-zinc-200 p-4",
@@ -1040,7 +1040,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           }
         }
         section {
-          class: "grid gap-4 lg:grid-cols-2",
+          class: "grid grid-cols-1 gap-4 lg:grid-cols-2",
           "data-preview-panel": "interactions",
           "data-interaction-root": "runtime",
           article {
@@ -2255,10 +2255,10 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           }
         }
         section {
-          class: "grid gap-3 md:grid-cols-2 xl:grid-cols-3",
+          class: "grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3",
           "data-preview-panel": "inventory",
           section {
-            class: "grid gap-2 md:col-span-2 xl:col-span-3",
+            class: "grid grid-cols-1 gap-2 md:col-span-2 xl:col-span-3",
             "aria-label": "Rendered component coverage targets",
             for target in COMPONENT_PREVIEW_TARGETS {
               article {
