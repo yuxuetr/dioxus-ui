@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 40%
 - Current milestone: M181 Interactive Part Callbacks And Attributes
-- Current task: M181.2
+- Current task: M181.3
 
 ## Backup
 
@@ -27,9 +27,10 @@
   - Record the decision in an RFC and update the Attribute Forwarding section of `docs/component-api.md`.
   - Done: RFC 0053. The audit also found `ComboboxTrigger` without a click handler, so M181.2 covers it too.
 
-- TODO M181.2 Wire up the action parts
+- DONE M181.2 Wire up the action parts
   - `ButtonGroupItem`, `InputGroupAction`, `AttachmentAction`, `AttachmentTrigger`, `MessageScrollerJumpButton`, and `TooltipTrigger`, in the crate and the templates, with SSR tests for the passed attributes.
   - Add preview fixtures and extend `npm run verify:runtime-interactions` to click each part and assert its callback ran, then reverse-verify.
+  - Done: plus `ComboboxTrigger`; the `action-parts` fixture covers clicks, a disabled press, and the jump button inside a form. Reverse checks: a dropped callback and a dropped `type="button"` both fail.
 
 - TODO M181.3 Wire up labels and links
   - `FieldLabel` gains `r#for` and attributes; `BreadcrumbLink` and `HoverCardTrigger` gain attributes, in the crate and the templates, with SSR tests.
