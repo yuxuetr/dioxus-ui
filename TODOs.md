@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M170 Drawn Checkbox
-- Current task: M170.3 Verify the drawn checkbox in a real browser
+- Current task: M170.4 Complete drawn checkbox milestone
 
 ## Backup
 
@@ -3113,7 +3113,7 @@
 - DONE M170.2 Implement the drawn checkbox
   - Add the appearance, marks, and mixed fill to the crate source and template, and update the Checkbox docs page.
 
-- TODO M170.3 Verify the drawn checkbox in a real browser
+- DONE M170.3 Verify the drawn checkbox in a real browser
   - Extend `npm run verify:runtime-interactions` to assert no native appearance, the blue fill and a tick when checked, no mark when unchecked, and a different mark on the blue fill when mixed.
   - Reverse-verify that the script fails without `appearance-none`, without the tick, or without the dash.
 
