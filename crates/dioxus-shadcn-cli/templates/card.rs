@@ -56,12 +56,14 @@ pub fn CardHeader(#[props(default)] class: String, children: Element) -> Element
   }
 }
 
+/// A `div`, as in shadcn/ui v4; wrap the text in a heading at the level the
+/// page outline needs.
 #[component]
 pub fn CardTitle(#[props(default)] class: String, children: Element) -> Element {
   let class = card_title_class(&class);
 
   rsx! {
-    h3 {
+    div {
       class,
       {children}
     }

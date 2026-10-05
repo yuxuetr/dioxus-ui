@@ -248,6 +248,8 @@ These are the first publish (`0.1.0`) release notes.
   names (see RFC 0056).
 - `AlertTitle` renders a `div` instead of an `h5`, as in shadcn/ui v4; an
   `h5` skipped heading levels on most pages.
+- `CardTitle` renders a `div` instead of an `h3`, as in shadcn/ui v4, so an app
+  picks the heading level.
 - `ScrollAreaViewport` and `MessageScrollerViewport` are Tab stops with a
   focus ring and pass through attributes, so keyboard users can scroll them.
 - The source-copy `utils` helper `default_aria_label` is now
