@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 65%
+- Overall: 70%
 - Current milestone: M179 Component Site Shell
-- Current task: M179.3 Verify the site in the browser
+- Current task: M179.4 Complete the component site shell
 
 ## Backup
 
@@ -79,7 +79,7 @@
   - Add the crate, the layout, the sidebar catalog, routing, the home, getting started, and theming pages, and the theme toggle.
   - Add the site's compiled stylesheet with a drift gate like `npm run verify:preview-css`.
 
-- TODO M179.3 Verify the site in the browser
+- DONE M179.3 Verify the site in the browser
   - Add a browser check that visits every route and fails on a console error, a missing page, low text contrast in either theme, or a sideways scroll at 375px.
   - Reverse-verify it with a broken route and a low-contrast class.
 
