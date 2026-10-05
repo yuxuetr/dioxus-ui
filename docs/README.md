@@ -1,6 +1,7 @@
 # Documentation
 
-This directory defines the architecture and execution plan for `dioxus-shadcn`.
+This directory documents the architecture, component behavior, and release
+process of `dioxus-shadcn`.
 
 Read in this order:
 
@@ -127,8 +128,8 @@ Read in this order:
 
 ## Project Principles
 
-- Documentation before implementation.
-- Source-copy workflow before packaged crate workflow.
+- Design in an RFC before changing behavior.
+- Source-copy mode and crate mode share one component API.
 - Headless primitives before complex styled components.
 - Complete Tailwind class tokens in source files.
 - Accessibility requirements are part of component behavior, not optional polish.

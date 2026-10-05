@@ -3,13 +3,13 @@
 The examples are workspace members so they stay checked by `cargo check
 --workspace`.
 
-Current examples are command-line smoke applications. They verify local crate
-wiring and representative crate-mode states before a rendered Dioxus preview app
-lands.
+The demo crates run as command-line smoke applications by default, which verify
+local crate wiring and representative crate-mode states, and as rendered
+preview shells through their `preview` binaries.
 
 Representative preview states live in `examples/preview-states`
-(`dioxus-ui-preview-states`) so command-line smoke output, future Web previews,
-and future Desktop previews can share the same inventory.
+(`dioxus-ui-preview-states`) so the command-line smoke output and the Web,
+Desktop, and Mobile previews share the same inventory.
 
 ## Web Demo
 
@@ -23,8 +23,10 @@ Rendered preview shell:
 dx serve --package dioxus-ui-web-demo --bin preview
 ```
 
-The preview shell uses `examples/web-demo/assets/preview.css` as a Tailwind CSS
-v4 source input. It is not a committed complete Tailwind output file.
+`examples/web-demo/assets/preview.css` is the Tailwind CSS v4 input. The
+previews link the committed compiled output,
+`examples/preview-states/assets/preview.generated.css`, which
+`npm run css:preview` rebuilds (RFC 0049).
 
 Structural preview gate:
 
@@ -44,9 +46,9 @@ Rendered Desktop preview shell:
 dx serve --package dioxus-ui-desktop-demo --bin preview --platform desktop
 ```
 
-The Desktop rendered preview uses `examples/desktop-demo/assets/preview.css` as
-a Tailwind CSS v4 source input. It is not a committed complete Tailwind output
-file. `cargo run -p dioxus-ui-desktop-demo` remains the Desktop smoke command.
+The Desktop rendered preview links the same committed compiled stylesheet as
+the Web preview, `examples/preview-states/assets/preview.generated.css`.
+`cargo run -p dioxus-ui-desktop-demo` remains the Desktop smoke command.
 
 Structural Desktop preview gate:
 
@@ -118,9 +120,9 @@ output or visual styling.
 cargo run -p dioxus-ui-runtime-web-verification
 ```
 
-This fixture starts as a compile-checked runtime contract scaffold. Browser
-automation should be added separately after the panels can render under a Web
-runtime.
+This fixture is a compile-checked runtime contract scaffold. Browser
+automation of the rendered preview runs in
+`npm run verify:runtime-interactions`.
 
 For the current expensive runtime check, run:
 
@@ -134,7 +136,7 @@ The Node command is intentionally separate from default checks. It validates
 the browser-assertion prerequisites exposed by the runtime fixture before real
 Web runtime automation is added. It also validates the example-only SVG Chart
 fixture prerequisites for sizing, responsive viewBox output, fallback table
-rows, and reduced-motion behavior before a public Chart component is added.
+rows, and reduced-motion behavior.
 
 ## Runtime Desktop Verification
 
@@ -180,7 +182,8 @@ scripts/example-smoke.sh
 This runs the Web and Desktop demo crates and verifies representative states for
 composition, form-specific, message, scroller, direction, collapsible, and chart
 components. Web screenshots are covered by the Web preview gate; Desktop has a
-structural preview gate and screenshot capture remains planned.
+structural preview gate, and Desktop WebView screenshot capture is
+unsupported.
 
 ## Examples Metadata
 

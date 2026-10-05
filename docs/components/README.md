@@ -1,9 +1,7 @@
 # Components
 
-This page is the documentation-site seed for `dioxus-shadcn` components.
-
-Current preview mode is command-line smoke output from the example crates. A
-future docs site should replace this with visual Dioxus Web/Desktop previews.
+This page indexes the Markdown docs for `dioxus-shadcn` components. Live
+examples are on the component site (`dx serve --package dioxus-ui-site`).
 
 For shadcn/ui coverage planning, see the [parity matrix](parity.md),
 [complex component batches](complex-batches.md), and

@@ -1,18 +1,18 @@
 # dioxus-shadcn
 
-`dioxus-shadcn` aims to be a shadcn/ui-style component system for Dioxus:
+`dioxus-shadcn` is a shadcn/ui-style component library for Dioxus 0.7:
 
 - headless primitives for behavior, accessibility, state, and composition
 - Tailwind CSS styled components as the default visual layer
 - a CLI that copies component source into user projects
-- an optional packaged crate for users who prefer dependency-based usage
+- a packaged crate for users who prefer dependency-based usage
 
-The project is intentionally documentation-first. The initial goal is to define
-the architecture and development sequence before implementing components.
+It ships 64 components, the `dxui` CLI, and a component site. Version 0.1.0 is
+prepared for crates.io.
 
 ## Product Direction
 
-The library should not be a pure Tailwind component package. The target shape is:
+The library is not a pure Tailwind component package. Its shape is:
 
 ```text
 Dioxus headless/primitive logic layer
@@ -25,10 +25,10 @@ This gives users two workflows:
 1. Add source code into an app and customize it freely.
 2. Depend on a crate and enable only the component features they need.
 
-The source-copy workflow is the priority for early versions because Dioxus and
-the component APIs are expected to evolve quickly.
+Both workflows use the same component API. Source copy suits apps that want to
+edit components; the crate suits apps that want updates through Cargo.
 
-## Planned Repository Layout
+## Repository Layout
 
 ```text
 dioxus-ui/
@@ -36,12 +36,16 @@ dioxus-ui/
 │  ├─ dioxus-shadcn-core/     # shared types, class merging, theme tokens
 │  ├─ dioxus-shadcn-primitives/   # unstyled logic components
 │  ├─ dioxus-shadcn/          # styled public components
-│  └─ dioxus-shadcn-cli/      # dxui init / dxui add
+│  └─ dioxus-shadcn-cli/      # dxui init / add / list
 │     ├─ registry/            # component metadata embedded in the CLI
 │     └─ templates/           # source templates copied by the CLI
 ├─ examples/
+│  ├─ preview-states/         # preview fixtures shared by the demos
 │  ├─ web-demo/
-│  └─ desktop-demo/
+│  ├─ desktop-demo/
+│  ├─ mobile-demo/
+│  ├─ runtime-web-verification/
+│  └─ runtime-desktop-verification/
 ├─ site/                      # component site (dx serve --package dioxus-ui-site)
 └─ docs/
    └─ rfcs/
@@ -52,7 +56,7 @@ it is the short guide for using them. This README documents development.
 
 Example run commands are documented in [examples/README.md](examples/README.md).
 
-## Planned Usage
+## Usage
 
 ### Source-Copy Mode
 
@@ -72,6 +76,7 @@ previously generated component file.
 Expected output in a Dioxus app:
 
 ```text
+src/components/ui/mod.rs
 src/components/ui/button.rs
 src/components/ui/dialog.rs
 src/components/ui/input.rs
@@ -141,10 +146,13 @@ The Web, Desktop, and Mobile previews have a "Dark theme" toggle in their
 header that shows the components under the block.
 
 Crate-mode apps get the same stylesheet by running `dxui init`, which writes
-only `assets/dioxus-shadcn.css` and an empty `src/components/ui/mod.rs`, or by
-copying everything after the import from
-`examples/web-demo/assets/preview.css`, which `npm run verify:css-inputs`
-keeps identical to the generated one.
+only `assets/dioxus-shadcn.css` and an empty `src/components/ui/mod.rs`. They
+also add an `@source` line for the crate's source after the import, since
+Tailwind generates only the classes it finds in scanned files (see
+[crates/README.md](crates/README.md#depend-on-the-crate)). The token blocks in
+`examples/web-demo/assets/preview.css`, after its repository-relative
+`@source` lines, match the generated stylesheet; `npm run verify:css-inputs`
+checks that.
 
 ### Crate Mode
 
@@ -154,42 +162,15 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["button
 ```
 
 ```rust
-use dioxus_shadcn::{Button, Dialog, Input};
+use dioxus_shadcn::{Button, DialogContent, DialogTitle, Input};
 ```
-
-Crate mode comes after the copied source API stabilizes.
 
 ## Component Scope
 
-Early components:
-
-- Button
-- Input
-- Textarea
-- Label
-- Checkbox
-- Switch
-- Badge
-- Card
-- Alert
-- Avatar
-- Separator
-- Tabs
-- Accordion
-
-Later primitive-first components:
-
-- Dialog
-- Dropdown
-- Popover
-- Tooltip
-- Toast
-- Select
-- Command
-
-The later group needs stronger accessibility and interaction design, including
-focus management, keyboard navigation, ARIA attributes, portal behavior,
-outside-click handling, and positioning.
+The 64 components are listed in
+[docs/components/catalog.md](docs/components/catalog.md) and by `dxui list`.
+Known pre-1.0 limitations are in
+[docs/release.md](docs/release.md#known-pre-10-limitations).
 
 ## Tailwind Rule
 
@@ -318,7 +299,12 @@ route in a browser.
 ## Verification Shortcuts
 
 The repository includes `package.json` metadata for Node-based verification
-aliases and future browser smoke tests.
+aliases and opt-in browser smoke tests.
+
+`.github/workflows/ci.yml` runs on GitHub Actions: rustfmt, Clippy, and the
+default CI set on pull requests, and `npm run verify:release` on pushes to
+`main`. The browser smoke workflow (`browser-smoke.yml`) stays inactive by
+policy (RFC 0009).
 
 Install JavaScript dependencies:
 
@@ -350,8 +336,8 @@ and CI browser docs checks. It also checks CI Plan documentation while keeping
 browser installation and screenshots opt-in, verifies browser artifact policy
 metadata, validates the release warning inventory, validates release candidate
 handoff metadata, then checks repository hygiene for forbidden generated
-artifacts and inactive workflow files. It also
-checks Cargo publish metadata for the planned library and CLI crates without
+artifacts and an active browser smoke workflow file. It also
+checks Cargo publish metadata for the library and CLI crates without
 packaging or publishing them, then validates the publish readiness blocker
 inventory, release notes readiness metadata, license readiness metadata,
 repository identity readiness metadata, API stability readiness metadata, and
@@ -396,8 +382,8 @@ docs, crate features, and crate modules. The page check also verifies
 status check verifies `docs/components/status.md` matches the local component
 implementation surface. The structure check verifies public component docs keep
 the required title, install, API, and accessibility sections. The route check
-verifies future docs runtime route metadata. The source preview check verifies
-template metadata for future source preview routes. The README check verifies
+verifies site route metadata. The source preview check verifies template
+metadata for the Code tab source previews. The README check verifies
 verification shortcut command discoverability and summary coverage. The index
 check verifies README and docs/README keep the required project entry points.
 The link target check verifies tracked Markdown files do not reference missing
@@ -619,9 +605,10 @@ Verify publish readiness blockers only:
 npm run verify:publish-readiness-blockers
 ```
 
-This checks the documented placeholder repository URL, pre-1.0 API stability,
+This checks that the placeholder repository URL, pre-1.0 API stability,
 release notes readiness, root license file readiness, crates.io review, and
-workspace dependency publish readiness blockers. It does not replace
+workspace dependency publish readiness blockers stay recorded as resolved; no
+publish blocker remains. It does not replace
 repository URLs, check registries, run `cargo package`, run `cargo publish`,
 stabilize APIs, generate changelogs, generate license text, change embedded
 CLI template delivery, or change dependency versions.
@@ -724,10 +711,9 @@ Verify registry availability readiness metadata only:
 npm run verify:registry-availability-readiness
 ```
 
-This checks that planned publishable crate names remain documented and that
-the deferred crates.io name and ownership review blocker remains documented
-with the per-crate evidence a release owner must supply. Deferral blocks
-crates.io publishing but not local release readiness.
+This checks that the publishable crate names remain documented and that the
+crates.io name and ownership review stays recorded as resolved, with the
+release owner's per-crate evidence.
 It does not contact crates.io, check crate name availability, check ownership,
 inspect credentials, run `cargo package`, run `cargo publish`, or create
 package archives.
@@ -1039,7 +1025,7 @@ run release gates, launch browser automation, capture screenshots, create
 artifacts, create Git tags, publish packages, activate CI workflows, generate
 docs output, change component APIs, or rewrite templates.
 
-Future browser-rendered Playwright smoke will require an explicit browser
+Browser-rendered Playwright smoke is opt-in and needs an explicit browser
 install:
 
 ```bash

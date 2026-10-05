@@ -107,7 +107,8 @@ application or platform profile.
 
 ### `density`
 
-Interactive components should eventually support `UiDensity`.
+Components whose spacing depends on the platform take a `density: UiDensity`
+prop; `Button` does today.
 
 ```rust
 pub enum UiDensity {
@@ -117,9 +118,8 @@ pub enum UiDensity {
 }
 ```
 
-Initial components may use a default density internally before global context is
-implemented. The public API should avoid design choices that make density hard
-to add later.
+There is no global density context; each component takes the prop, and new
+components should not make it hard to add.
 
 ### State Props
 
@@ -270,10 +270,8 @@ Button
 ButtonProps
 ButtonVariant
 ButtonSize
-Dialog
-DialogRoot
-DialogTrigger
 DialogContent
+DialogTitle
 ```
 
 Module names:
@@ -294,7 +292,7 @@ input
 tabs
 ```
 
-## Initial Component API Targets
+## Minimum Component APIs
 
 ### Button
 
@@ -317,7 +315,7 @@ Minimum props:
 - `class`
 - `disabled`
 - `invalid`
-- `oninput`
+- `on_value_change`
 
 ### Label
 
@@ -329,12 +327,10 @@ Minimum props:
 
 ### Dialog
 
-Dialog requires a separate primitive design before implementation.
+Dialog is controlled: the app owns `open`, renders its own trigger, and passes
+`on_open_change` to the content. Its parts are:
 
-Minimum conceptual pieces:
-
-- `DialogRoot`
-- `DialogTrigger`
+- `DialogOverlay`
 - `DialogContent`
 - `DialogTitle`
 - `DialogDescription`

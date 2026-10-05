@@ -347,15 +347,15 @@ metadata stays consistent across root and `crates/` manifests. It verifies
 workspace inheritance and `cargo metadata` output without publishing crates,
 packaging crates, contacting crates.io, or checking dependency freshness.
 
-`npm run verify:cargo-publish-metadata` checks planned published crate
+`npm run verify:cargo-publish-metadata` checks published crate
 descriptions, shared README/keywords/categories metadata, example `publish =
 false` boundaries, and release wiring. It is read-only and does not run
 `cargo publish`, run `cargo package`, contact crates.io, replace repository URLs, or create package archives.
 
-`npm run verify:publish-readiness-blockers` checks the documented placeholder
+`npm run verify:publish-readiness-blockers` checks that the resolved placeholder
 repository URL, pre-1.0 API stability, release notes readiness, root license
 file readiness, crates.io review, and workspace dependency publish readiness
-blockers. It is read-only and does not replace repository URLs, check
+blockers stay recorded as resolved. It is read-only and does not replace repository URLs, check
 registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate
 changelogs, generate license text, change embedded CLI template delivery, or
 change dependency versions.

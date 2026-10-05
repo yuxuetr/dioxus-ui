@@ -7,13 +7,13 @@
 - source-copy mode through `dxui add`
 - crate mode through `dioxus-shadcn` feature flags
 
-Source-copy mode remains the preferred early release path. Crate mode should be
-published only after component APIs are stable enough that users can depend on
-them without needing to edit internals.
+Both modes ship in 0.1.0. The `0.1.x` API surface is accepted for first
+publish; before `1.0`, a breaking change bumps the minor version and comes with
+a changelog migration note.
 
 ## Package Set
 
-Planned published crates:
+Published crates (0.1.0 prepared, not yet on crates.io):
 
 ```text
 dioxus-shadcn-core
@@ -182,10 +182,10 @@ Cargo publish metadata checks are read-only and validate only planned published
 crate descriptions, shared README/keywords/categories metadata, example
 `publish = false` boundaries, and release wiring; they do not run
 `cargo publish`, run `cargo package`, contact crates.io, replace repository URLs, or create package archives.
-Publish readiness blocker checks are read-only and validate only the documented
-placeholder repository URL, pre-1.0 API stability, release notes readiness,
+Publish readiness blocker checks are read-only and validate only that the
+resolved placeholder repository URL, pre-1.0 API stability, release notes readiness,
 root license file readiness, crates.io review, and workspace dependency
-publish readiness blockers; they do not replace repository URLs, check
+publish readiness blockers stay recorded as resolved; they do not replace repository URLs, check
 registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate
 changelogs, generate license text, change embedded CLI template delivery, or
 change dependency versions.
@@ -227,7 +227,7 @@ provides copyable owner, URL, remote availability, metadata approval, and
 rollback evidence fields.
 [Repository Identity Local Follow-up Map](repository-identity-local-follow-up-map.md)
 maps identity decision outcomes to local metadata and documentation follow-up
-without replacing the placeholder URL by itself.
+for any future identity change.
 API stability readiness checks are read-only and validate only workspace
 version `0.1.0` and the accepted `0.1.x` first-publish API policy; they do not
 stabilize component APIs, change crate versions, change the pre-`1.0`
@@ -343,7 +343,8 @@ CI browser docs checks are read-only and do not create workflow files.
 CI Plan checks are also read-only and validate documentation only.
 CI workflow template metadata checks are also read-only and validate only the
 documented browser workflow template, RFC 0009 activation policy, CI browser
-guide, package alias, and absence of an active workflow file; they do not run
+guide, package alias, and absence of an active browser smoke workflow file
+(`.github/workflows/browser-smoke.yml`); they do not run
 GitHub Actions, install browsers, upload artifacts, or change rollout policy.
 Browser artifact policy metadata checks are also read-only and validate only
 committed artifact guidance, screenshot upload patterns, `.gitignore` coverage,
@@ -427,8 +428,7 @@ npm run verify:runtime-interactions
 npm run verify:repo-hygiene
 ```
 
-Browser-rendered Playwright smoke remains opt-in until a stable command is added
-and proven.
+Browser-rendered Playwright smoke remains opt-in by policy (RFC 0009).
 
 Optional browser smoke:
 
@@ -609,12 +609,12 @@ release verification tiers.
 
 ## CLI Release Notes
 
-The first CLI release can support:
+The 0.1.0 CLI supports, one component per `add`:
 
 ```text
-dxui init
+dxui init [--root <path>]
+dxui add <component> [--root <path>] [--overwrite]
 dxui list
-dxui add <component>
 ```
 
 The CLI embeds registry and template assets at compile time. Installed CLI
@@ -656,7 +656,7 @@ also resolves dependencies against the live crates.io index.
 
 The actual publish is a release-owner action. It requires the crates.io
 evidence in
-[Registry Availability Readiness Metadata](registry-availability-readiness-metadata.md#deferral)
+[Registry Availability Readiness Metadata](registry-availability-readiness-metadata.md#resolution)
 first.
 
 1. Record the crates.io evidence and mark registry availability resolved
@@ -685,13 +685,12 @@ first.
   highlights and chooses items from its input (see RFC 0024); fuzzy ranking
   is not implemented. Combobox and Command announce result counts through
   status parts whose wording the app provides (see RFC 0027). Switch and
-  Checkbox report changes through `on_checked_change` (see RFC 0028); an
-  indeterminate checkbox and a form input for Switch are not included. Button,
+  Checkbox report changes through `on_checked_change` (see RFC 0028); a form
+  input for Switch is not included. Button,
   Toggle, Input, and Textarea report events through `onclick`,
   `on_pressed_change`, and `on_value_change` (see RFC 0029); key, focus, and
   blur callbacks are not included. Slider responds to keys and the pointer
-  (see RFC 0030); right-to-left, vertical, and multi-thumb sliders are not
-  included. Collapsible and Native Select report changes through
+  (see RFC 0030); right-to-left and multi-thumb sliders are not included. Collapsible and Native Select report changes through
   `on_open_change` and `on_value_change` (see RFC 0031); multiple selection is
   not included. Input OTP reports the cleaned code through `on_value_change`
   (see RFC 0032); editing a slot in the middle is not included. Pagination

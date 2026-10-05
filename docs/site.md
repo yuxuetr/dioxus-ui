@@ -22,9 +22,10 @@ component has none, a page does not render its listed examples, an example
 draws nothing, or its Code tab lacks the source. Pages also link to the API
 and accessibility sections of the Markdown component docs.
 
-## Current Site Shape
+## Markdown Reference Docs
 
-The documentation site is currently Markdown-first:
+Next to the site, the Markdown docs stay the reference for architecture,
+release, and per-component API and accessibility details:
 
 ```text
 docs/
@@ -38,23 +39,6 @@ docs/
 ├─ workspace.md
 └─ rfcs/
 ```
-
-This keeps the project easy to review before choosing a docs runtime.
-
-## Future Site Runtime
-
-The site should eventually be a Dioxus Web app or static site that uses the same
-component crate and registry metadata as the CLI.
-
-Required views:
-
-- component catalog
-- component detail page
-- source-copy command
-- crate feature usage
-- accessibility notes
-- Web/Desktop preview tabs
-- generated source preview
 
 ## Preview Contract
 

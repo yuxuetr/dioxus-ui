@@ -2,16 +2,14 @@
 
 ## Goal
 
-The repository should become a Cargo workspace that supports two distribution
-modes:
+The repository is a Cargo workspace that supports two distribution modes:
 
 - source-copy mode through `dxui add`
 - crate mode through feature-gated `dioxus-shadcn` exports
 
-Source-copy mode is the first implementation target. Crate mode must still be
-designed early so the module boundaries do not need to be rewritten later.
+Both modes share one component API, so the module boundaries below serve both.
 
-## Planned Layout
+## Layout
 
 ```text
 dioxus-ui/
@@ -31,16 +29,14 @@ dioxus-ui/
 │     ├─ registry/
 │     ├─ templates/
 │     └─ src/main.rs
-├─ examples/
+├─ examples/                # demos, preview fixtures, runtime verification
+├─ site/                    # component site
 └─ docs/
 ```
 
-The root `Cargo.toml` should become a virtual workspace manifest after M1.1.
-The current root package should move to `crates/dioxus-shadcn`.
-
 ## Workspace Manifest
 
-Initial root manifest shape:
+The root manifest is virtual:
 
 ```toml
 [workspace]
@@ -52,6 +48,11 @@ members = [
   "crates/dioxus-shadcn-cli",
   "examples/web-demo",
   "examples/desktop-demo",
+  "examples/mobile-demo",
+  "examples/preview-states",
+  "examples/runtime-web-verification",
+  "examples/runtime-desktop-verification",
+  "site",
 ]
 
 [workspace.package]
@@ -65,14 +66,16 @@ categories = ["gui", "web-programming"]
 
 [workspace.dependencies]
 dioxus = "0.7"
+dioxus-shadcn-core = { version = "0.1.0", path = "crates/dioxus-shadcn-core" }
+dioxus-shadcn-primitives = { version = "0.1.0", path = "crates/dioxus-shadcn-primitives" }
+dioxus-shadcn = { version = "0.1.0", path = "crates/dioxus-shadcn" }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 ```
 
 The repository URL has been approved for first publish preparation.
-The shared README, keywords, and categories are publish metadata only; they do
-not imply the crates are ready to publish while other publish blockers remain
-unresolved. APIs are still pre-1.0; the current `0.1.x` surface is accepted
+The shared README, keywords, and categories are publish metadata. No publish
+blocker remains; the release owner runs `cargo publish --workspace`. APIs are still pre-1.0; the current `0.1.x` surface is accepted
 for first publish.
 
 Publishable crate manifests under `crates/` should keep crate-specific
@@ -159,15 +162,14 @@ Owns:
 
 May depend on:
 
-- `dioxus-shadcn-core` for shared registry types if useful
-- CLI-focused crates such as `clap`, `serde`, and `serde_json`
+- `dioxus-shadcn-core` for shared registry types
+- `serde_json`; arguments are parsed by hand
 
 Must not depend on:
 
 - `dioxus-shadcn`
 
-The CLI should read templates from the repository during development and embed
-or package templates for release.
+The CLI embeds the registry and templates at compile time (`build.rs`).
 
 ## Dependency Direction
 

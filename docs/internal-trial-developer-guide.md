@@ -24,10 +24,10 @@ Internal trial is appropriate for:
 Internal trial should not claim:
 
 - stable `1.0` APIs
-- publish-ready crates
 - complete commercial accessibility guarantees
 - native Mobile or Desktop behavior beyond the documented verification gates
-- support for `cargo install dioxus-shadcn-cli` from crates.io
+- support for `cargo install dioxus-shadcn-cli` from crates.io before the
+  release owner publishes 0.1.0
 
 ## Recommended Mode
 
@@ -86,14 +86,16 @@ shape, class names, variants, and local customization needs.
 
 ## Optional Crate Path Trial
 
-Crate mode can be evaluated with local path dependencies, but it should be
-treated as less stable than source-copy mode until API stability is approved.
+Crate mode can be evaluated with local path dependencies. Its API is the same
+as source-copy mode's, under the accepted `0.1.x` policy. Add an `@source` line
+for the crate's `src` directory to the stylesheet so Tailwind generates the
+component classes (see [crates/README.md](../crates/README.md)).
 
 Example trial app dependency:
 
 ```toml
 [dependencies]
-dioxus-shadcn = { path = "/path/to/dioxus-shadcn/crates/dioxus-shadcn", default-features = false, features = ["button", "input", "dialog"] }
+dioxus-shadcn = { path = "/path/to/dioxus-ui/crates/dioxus-shadcn", default-features = false, features = ["button", "input", "dialog"] }
 ```
 
 Use this only for API feedback. Do not treat path dependency behavior as a
@@ -190,16 +192,14 @@ in place:
   breaking changes before `1.0` require a minor bump and a `CHANGELOG.md`
   migration note
 - release notes: first publish scope, excluded scope, and known warnings in the
-  `CHANGELOG.md` Unreleased section
+  `CHANGELOG.md` `[0.1.0]` section
 - workspace dependencies: internal crates declare `version = "0.1.0"`
   alongside local paths
 
-The only remaining blocker is crates.io registry availability. It stays
-deferred until a release owner confirms crate names, owners, credentials, and
-publish order using the evidence table in
-[Registry Availability Readiness Metadata](registry-availability-readiness-metadata.md#deferral).
-Deferral blocks crates.io publishing; it does not block local release readiness
-or internal trial.
+No publish blocker remains. Registry availability was resolved on 2026-10-05
+(see
+[Registry Availability Readiness Metadata](registry-availability-readiness-metadata.md#resolution)),
+and the release owner runs `cargo publish --workspace`.
 
 When bumping the workspace version, update the internal dependency versions in
 the same change; `npm run verify:workspace-dependency-publish-readiness` fails
@@ -210,8 +210,9 @@ releases, or contact registries as part of internal trial.
 
 ## crates.io Evidence Boundary
 
-Internal trial does not require crates.io access. Formal crates.io publishing
-still requires release-owner evidence for:
+Internal trial does not require crates.io access. The release owner recorded
+crates.io evidence on 2026-10-05 for the following crates; recheck the names if
+the publish happens much later:
 
 - `dioxus-shadcn-core`
 - `dioxus-shadcn-primitives`

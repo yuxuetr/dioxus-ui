@@ -39,7 +39,7 @@ The detailed Cargo workspace contract is documented in
 
 Shared utilities and types that do not depend on a specific component.
 
-Planned contents:
+Contents:
 
 - class composition helpers
 - design token names
@@ -50,7 +50,7 @@ Planned contents:
 
 Unstyled behavior components for difficult interactions.
 
-Planned contents:
+Contents:
 
 - Dialog behavior
 - Popover behavior
@@ -66,26 +66,21 @@ This crate should avoid Tailwind classes.
 
 Styled public components for direct dependency use.
 
-Planned contents:
+Contents:
 
-- Button
-- Input
-- Tabs
-- Dialog
-- Select
-- component feature flags
+- the 64 components listed in [the catalog](components/catalog.md)
+- one Cargo feature per component
 - re-exports from primitives when useful
 
 ### dioxus-shadcn-cli
 
 Command-line tool for project setup and component source generation.
 
-Planned commands:
+Commands:
 
 ```bash
-dxui init
-dxui add button
-dxui add dialog
+dxui init [--root <path>]
+dxui add <component> [--root <path>] [--overwrite]
 dxui list
 ```
 
@@ -94,18 +89,24 @@ dxui list
 The registry describes each component and its file dependencies. Templates are
 the source files copied into user applications.
 
-Example registry shape:
+Registry entry for Button (`crates/dioxus-shadcn-cli/registry/button.json`):
 
 ```json
 {
   "name": "button",
-  "files": ["templates/button.rs"],
-  "dependencies": [],
+  "description": "Button component with variants, sizes, and density-aware spacing.",
+  "files": [
+    {
+      "source": "templates/button.rs",
+      "target": "src/components/ui/button.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
   "assets": []
 }
 ```
-
-The exact schema should be finalized before CLI implementation.
 
 ## Component Categories
 
@@ -195,7 +196,7 @@ Crate mode:
 dioxus-shadcn = { version = "0.1", default-features = false, features = ["button", "dialog"] }
 ```
 
-Planned module layout:
+Module layout:
 
 ```text
 dioxus_shadcn::button
@@ -245,8 +246,8 @@ Recommended defaults:
 - Desktop: `Compact` or `Comfortable`, depending on app type
 - Mobile: `Touch`
 
-`dxui init` can later ask for a default target profile and write it to generated
-configuration. Individual components should still allow explicit overrides.
+Components take an explicit `density` prop. A `dxui init` option that writes a
+default target profile is an idea, not implemented.
 
 ## Styling Strategy
 
@@ -279,19 +280,9 @@ Baseline requirements:
 - focus-visible styles
 - overlay dismissal behavior that is predictable and documented
 
-Complex components should use primitives so the behavior can be reused by both
-styled crate components and copied templates.
+Styled crate components build their behavior on `dioxus-shadcn-primitives`.
+Copied templates inline that behavior and depend only on `dioxus` and the
+shared `utils.rs`.
 
 Focus, dismissal, and portal behavior are designed in
 [RFC 0006: Focus and Portal Primitives](rfcs/0006-focus-and-portal-primitives.md).
-
-## Initial Implementation Sequence
-
-1. Finish documentation and RFCs.
-2. Convert the single crate into a workspace.
-3. Add core class utilities.
-4. Add registry schema and validation.
-5. Implement Button in source-copy mode.
-6. Implement Input, Textarea, and Label.
-7. Add Tabs and Accordion.
-8. Design Dialog primitive before implementing overlays.
