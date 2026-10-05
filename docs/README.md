@@ -127,7 +127,8 @@ Read in this order:
 120. [RFC 0057: Theme Presets](rfcs/0057-theme-presets.md)
 121. [RFC 0058: Status Variants](rfcs/0058-status-variants.md)
 122. [RFC 0059: Display Components](rfcs/0059-display-components.md)
-123. [TODO Plan](../TODOs.md)
+123. [RFC 0060: Input Components](rfcs/0060-input-components.md)
+124. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
