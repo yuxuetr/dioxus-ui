@@ -211,4 +211,5 @@ Tailwind utility conflicts
 ([RFC 0044](rfcs/0044-tailwind-utility-conflicts.md)), and M170 to the drawn
 Checkbox ([RFC 0045](rfcs/0045-drawn-checkbox.md)), and M171 to list widths
 that follow the trigger
-([RFC 0046](rfcs/0046-listbox-width-follows-trigger.md)).
+([RFC 0046](rfcs/0046-listbox-width-follows-trigger.md)), and M172 to an
+opt-in dark theme ([RFC 0047](rfcs/0047-opt-in-dark-theme.md)).

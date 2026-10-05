@@ -90,6 +90,22 @@ a precompiled full Tailwind output:
 The user's Dioxus app build should produce the final CSS after scanning the app
 source and generated component files.
 
+The generated stylesheet also holds an opt-in dark theme: a `.dark` block
+that redefines the white, zinc, blue, red, green, amber, and emerald palette
+variables. Add the class to the app's top-level element to turn it on:
+
+```rust
+div { class: "dark min-h-screen bg-white text-zinc-950", App {} }
+```
+
+The block remaps those colors for everything under `.dark`, your own classes
+included, so white text over an image turns dark there. To follow the system
+preference instead, wrap the block in `@media (prefers-color-scheme: dark)`
+and change its selector to `:root`. Crate-mode apps copy the block from
+`examples/web-demo/assets/preview.css`, which `npm run verify:css-inputs`
+keeps identical to the generated one;
+[RFC 0047](docs/rfcs/0047-opt-in-dark-theme.md) explains the mapping.
+
 ### Crate Mode
 
 ```toml
@@ -842,7 +858,7 @@ input, Collapsible and Native Select events, Input OTP typing, Pagination
 page changes, Carousel slide changes, Resizable handle input, Sidebar
 toggle and items, form control names, dialog names, composite widget names, the Checkbox mixed
 state and drawn marks, Select and Combobox list widths, and Slider thumb position and vertical sliders, all with compiled
-Tailwind and no conflicting utilities in any rendered class list. It requires Playwright
+Tailwind, no conflicting utilities in any rendered class list, and readable text contrast in the light and opt-in dark themes. It requires Playwright
 Chromium or `DIOXUS_UI_BROWSER_EXECUTABLE`, does not write screenshots or
 traces, and does not claim full accessibility certification, native Desktop or
 Mobile coverage, or visual parity.

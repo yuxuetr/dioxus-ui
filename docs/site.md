@@ -2320,7 +2320,7 @@ input, Collapsible and Native Select events, Input OTP typing, Pagination
 page changes, Carousel slide changes, Resizable handle input, Sidebar
 toggle and items, form control names, dialog names, composite widget names, the Checkbox mixed
 state and drawn marks, Select and Combobox list widths, and Slider thumb position and vertical sliders, all with compiled
-Tailwind and no conflicting utilities in any rendered class list.
+Tailwind, no conflicting utilities in any rendered class list, and readable text contrast in the light and opt-in dark themes.
 
 It is not part of `npm run verify` or `npm run verify:release`. It does not
 write screenshots or traces, certify full accessibility, verify native Desktop
@@ -3587,6 +3587,8 @@ The check should validate:
   local preview source, and shared preview states
 - committed CSS inputs do not reintroduce Tailwind CSS v3 directives such as
   `@tailwind base`, `@tailwind components`, or `@tailwind utilities`
+- since M172, the preview CSS inputs carry the CLI default `.dark` theme block
+  verbatim ([RFC 0047](rfcs/0047-opt-in-dark-theme.md))
 
 The gate should not compile Tailwind CSS, inspect generated CSS output, launch
 preview binaries, perform browser automation, scan Rust class tokens, or assert

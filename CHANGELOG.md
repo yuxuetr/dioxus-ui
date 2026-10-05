@@ -191,6 +191,11 @@ release owner renames it to the released version at publish time.
 - `npm run verify:android-interactions`: the same scenarios in an Android
   emulator build of the same preview, requested through a debug system
   property and read from logcat.
+- An opt-in dark theme: `dxui init` writes a `.dark` block into
+  `assets/dioxus-ui.css` that redefines the white, zinc, blue, red, green,
+  amber, and emerald palette variables. Adding the `dark` class to an
+  ancestor turns it on without changing component classes. The block applies
+  to app classes under `.dark` too.
 
 ### Changed
 

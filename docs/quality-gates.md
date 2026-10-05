@@ -217,7 +217,8 @@ rewrite documentation.
 
 `npm run verify:css-inputs` checks that CLI default CSS and rendered preview CSS
 inputs keep Tailwind CSS v4 syntax, documented theme bridge tokens, required
-preview `@source` roots, and no Tailwind CSS v3 directives. It is read-only and
+preview `@source` roots, the CLI's opt-in `.dark` theme block copied verbatim
+into each preview input, and no Tailwind CSS v3 directives. It is read-only and
 does not compile Tailwind, inspect generated CSS output, launch previews, or
 assert visual parity.
 
@@ -557,7 +558,8 @@ and page-wide id references; and tab list, toggle group, menu bar, navigation,
 and calendar grid names; and the Checkbox mixed state and drawn marks; and
 Select and Combobox list widths; and the Slider thumb
 position and vertical sliders, all with compiled Tailwind and no conflicting
-utilities in any rendered class list. It does not
+utilities in any rendered class list; and text contrast of at least WCAG AA
+in the light and opt-in dark themes. It does not
 write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.
