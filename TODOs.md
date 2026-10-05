@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M169 Tailwind Utility Conflicts
-- Current task: M169.1 Design Tailwind utility conflict fixes
+- Current task: M169.2 Remove conflicting utilities from class functions
 
 ## Backup
 
@@ -3086,7 +3086,7 @@
 
 ## M169 Tailwind Utility Conflicts
 
-- TODO M169.1 Design Tailwind utility conflict fixes
+- DONE M169.1 Design Tailwind utility conflict fixes
   - Record that class functions join base classes with state classes that set the same property, and that Tailwind orders utilities in the stylesheet, so a base `border-zinc-200` beats an invalid `border-red-500`, a checked `border-blue-600`, and variant colors, and the vertical Slider's `w-full` beats `w-auto`.
   - Define moving each contested utility out of the base class into every branch, a static conflict check over class functions, a rendered conflict check in the browser verifier, and the important modifier for user overrides.
   - Record what stays out of scope (merging user classes, the native Checkbox appearance, conflicts between two state classes) with reevaluation conditions.
