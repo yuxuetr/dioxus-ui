@@ -93,6 +93,11 @@ for (const crateName of readdirSync(join(repoRoot, "crates"))) {
   } else if (!hasWorkspaceInheritance(packageSection, "license")) {
     failures.push(`crates/${crateName}/Cargo.toml must inherit license.workspace = true`);
   }
+  // Cargo packages only files inside the crate, so each crate links the root
+  // LICENSE to ship the MIT notice.
+  if (!existsSync(join(repoRoot, "crates", crateName, "LICENSE"))) {
+    failures.push(`crates/${crateName}/LICENSE must link the root LICENSE so the package ships it`);
+  }
 }
 
 requireIncludes("docs/license-readiness-metadata.md", licenseDoc, [

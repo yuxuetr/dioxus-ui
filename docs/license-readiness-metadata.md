@@ -21,6 +21,8 @@ The release metadata should distinguish these states:
 - Cargo workspace license metadata exists.
 - Published crate metadata inherits the workspace license expression.
 - Root MIT license text is committed in `LICENSE`.
+- Each crate links `crates/<crate>/LICENSE` to the root file, since Cargo
+  packages only files inside the crate directory.
 
 The expected root file is:
 
@@ -53,6 +55,7 @@ The verifier should fail when committed metadata drifts. Examples include:
 
 - workspace license stops being documented as `MIT`
 - root `LICENSE` is missing
+- a crate has no `LICENSE` link, so its package would ship without the notice
 - release docs imply license metadata can change without maintainer review
 - package scripts stop running the license readiness metadata gate
 
