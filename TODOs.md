@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 20%
 - Current milestone: M182 Automated Accessibility Audit
-- Current task: M182.1
+- Current task: M182.2
 
 ## Backup
 
@@ -25,9 +25,10 @@
 
 ## M182 Automated Accessibility Audit
 
-- TODO M182.1 Design the accessibility audit
+- DONE M182.1 Design the accessibility audit
   - Choose the axe-core rule tags, where the audit runs (each site component page, and the runtime preview at the points where the contrast check runs, including open overlays), how it handles both themes, and which rules, if any, are disabled and why.
   - Decide each component fix from the evidence and record the decisions and reevaluation conditions in an RFC.
+  - Done: RFC 0054. The preview audit disables `landmark-unique` only, since it shows several instances of the same landmark component.
 
 - TODO M182.2 Fix the component findings
   - Drop `aria-orientation` from the `ButtonGroup` and `ToggleGroup` roots, keeping `data-orientation`; make the `ScrollArea` and `MessageScroller` viewports keyboard reachable; render `AlertTitle` as a `div`; in the crate and the templates, with tests.
