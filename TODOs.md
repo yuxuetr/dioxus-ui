@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 20%
+- Overall: 40%
 - Current milestone: M184 First Publish Preparation
-- Current task: M184.2
+- Current task: M184.3
 
 ## Backup
 
@@ -25,9 +25,10 @@
   - Record the conflict, the chosen names, what keeps its name (the repository, the `dxui` binary, unpublished examples), and reevaluation conditions in an RFC.
   - Done: RFC 0056. The theme stylesheet becomes `assets/dioxus-shadcn.css`; the `dxui` DOM prefix and archived plans keep their names.
 
-- TODO M184.2 Rename the published crates
+- DONE M184.2 Rename the published crates
   - Rename `dioxus-shadcn`, `dioxus-shadcn-core`, `dioxus-shadcn-primitives`, and `dioxus-shadcn-cli` to the `dioxus-shadcn` names: package names, directories, Rust paths, the theme stylesheet, docs, registry, templates, and scripts.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release` and the browser checks.
+  - Done: 339 files rewritten and the four crate directories moved; the release gate, runtime check, site check, and Desktop self-test pass.
 
 - TODO M184.3 Run the release gate in CI
   - Add a GitHub Actions workflow that runs the release gate on push and pull request, push it, and confirm the first run passes.
