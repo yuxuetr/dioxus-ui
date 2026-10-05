@@ -4,7 +4,7 @@
 
 - Overall: 0.2.0 plan, 3 of 8 milestones complete
 - Current milestone: M190 Display Components
-- Current task: M190.2
+- Current task: M190.3
 
 ## Backup
 
@@ -60,7 +60,8 @@
 
 - DONE M190.1 Stat
   - Done: RFC 0059 for all of M190; `dl`-based StatGroup with horizontal and vertical orientations, template, registry, docs, and a site example.
-- TODO M190.2 Timeline
+- DONE M190.2 Timeline
+  - Done: `ol` timeline with `time` and hidden markers, vertical and horizontal through a named group instead of context; checked in a screenshot.
 - TODO M190.3 Steps
 - TODO M190.4 Indicator and Status
 - TODO M190.5 Radial Progress
