@@ -80,12 +80,14 @@ clamped to 0 through 100. Children replace the centered `{value}%` label.
 
 ### Countdown
 
-`Countdown` renders `remaining` seconds as days, hours, minutes, and seconds
-blocks with two-digit, tabular numbers, and `role="timer"`, which is not a
+`Countdown` renders `remaining` seconds as `D:HH:MM:SS` with two-digit,
+tabular numbers, and `role="timer"`, which is not a
 live region, so screen readers do not announce every second. The app owns
 the clock and passes the new value; Dioxus has no timer that works on every
 renderer without a platform crate. Days show only when `remaining` reaches a
-day. `aria-label` names the timer.
+day. `aria-label` names the timer. Colons keep it language-neutral;
+`countdown_parts` gives the numbers for a layout with unit labels in the
+app's language.
 
 ### Diff
 

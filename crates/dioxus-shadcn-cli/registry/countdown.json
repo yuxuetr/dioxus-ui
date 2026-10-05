@@ -1,0 +1,14 @@
+{
+  "name": "countdown",
+  "description": "Styled countdown timer for app-owned remaining seconds.",
+  "files": [
+    {
+      "source": "templates/countdown.rs",
+      "target": "src/components/ui/countdown.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

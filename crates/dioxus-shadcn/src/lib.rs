@@ -714,6 +714,9 @@ pub mod tooltip;
 pub mod typography;
 
 pub use dioxus_shadcn_core::UiDensity;
+#[cfg(feature = "countdown")]
+pub mod countdown;
+
 #[cfg(feature = "radial-progress")]
 pub mod radial_progress;
 
@@ -825,4 +828,10 @@ pub use radial_progress::{
   RADIAL_PROGRESS_BASE_CLASS, RADIAL_PROGRESS_DEFAULT_LABEL_CLASS, RADIAL_PROGRESS_INDICATOR_CLASS,
   RADIAL_PROGRESS_SLOT_CLASS, RADIAL_PROGRESS_TRACK_CLASS, RadialProgress, RadialProgressSize,
   radial_progress_class, radial_progress_geometry, radial_progress_value,
+};
+
+#[cfg(feature = "countdown")]
+pub use countdown::{
+  COUNTDOWN_BASE_CLASS, COUNTDOWN_SEPARATOR_CLASS, Countdown, CountdownParts, countdown_class,
+  countdown_parts, countdown_segments,
 };

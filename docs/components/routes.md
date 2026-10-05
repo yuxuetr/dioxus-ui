@@ -11,7 +11,7 @@ It does not create rendered routes, router code, screenshots, or generated JSON.
 For source preview route metadata, see the
 [Source Preview Manifest](source-preview.md).
 
-Component routes: 70
+Component routes: 71
 Category routes: 8
 
 ## Top-level Routes
@@ -60,6 +60,7 @@ Category routes: 8
 | [Combobox](combobox.md) | /components/combobox | docs/components/combobox.md | /components#category-overlays | /components/combobox/source |
 | [Command](command.md) | /components/command | docs/components/command.md | /components#category-actions | /components/command/source |
 | [Context Menu](context-menu.md) | /components/context-menu | docs/components/context-menu.md | /components#category-overlays | /components/context-menu/source |
+| [Countdown](countdown.md) | /components/countdown | docs/components/countdown.md | /components#category-data-display | /components/countdown/source |
 | [Data Table](data-table.md) | /components/data-table | docs/components/data-table.md | /components#category-data-display | /components/data-table/source |
 | [Date Picker](date-picker.md) | /components/date-picker | docs/components/date-picker.md | /components#category-forms | /components/date-picker/source |
 | [Dialog](dialog.md) | /components/dialog | docs/components/dialog.md | /components#category-overlays | /components/dialog/source |

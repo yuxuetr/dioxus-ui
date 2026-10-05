@@ -356,6 +356,12 @@ pub const CATEGORIES: &[Category] = &[
         feature: "chart",
       },
       Component {
+        slug: "countdown",
+        title: "Countdown",
+        description: "Styled countdown timer for app-owned remaining seconds.",
+        feature: "countdown",
+      },
+      Component {
         slug: "data-table",
         title: "Data Table",
         description: "Controlled Data Table composition parts and state helpers.",

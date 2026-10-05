@@ -150,6 +150,7 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["button
 | [Command](command.md) | `dxui add command` | `command` | Active descendant command parts |
 | [Combobox](combobox.md) | `dxui add combobox` | `combobox` | Popover-backed searchable choice parts |
 | [Context Menu](context-menu.md) | `dxui add context-menu` | `context-menu` | Dropdown-backed menu parts |
+| [Countdown](countdown.md) | `dxui add countdown` | `countdown` | App-clocked countdown timer |
 | [Data Table](data-table.md) | `dxui add data-table` | `data-table` | Controlled data table parts |
 | [Date Picker](date-picker.md) | `dxui add date-picker` | `date-picker` | Calendar popover composition parts |
 | [Dialog](dialog.md) | `dxui add dialog` | `dialog` | Primitive config + styled parts |

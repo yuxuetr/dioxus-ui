@@ -10,7 +10,7 @@ The catalog is derived from registry entries, templates, component docs,
 crate features, and crate modules. It intentionally does not include visual
 preview routes, screenshot artifacts, or generated JSON metadata.
 
-Public components: 70
+Public components: 71
 
 ## Groups
 
@@ -82,6 +82,7 @@ Public components: 70
 - [Avatar](avatar.md): Avatar component with image and fallback parts.
 - [Badge](badge.md): Badge component with static status variants.
 - [Chart](chart.md): Source-copy friendly SVG chart composition parts.
+- [Countdown](countdown.md): Styled countdown timer for app-owned remaining seconds.
 - [Data Table](data-table.md): Controlled Data Table composition parts and state helpers.
 - [Empty](empty.md): Empty-state layout composition parts.
 - [Progress](progress.md): Progress component with accessible value semantics.
@@ -132,6 +133,7 @@ Public components: 70
 | [Combobox](combobox.md) | Controlled searchable selection parts backed by popover primitive configuration. | `dxui add combobox` | `combobox` | `crates/dioxus-shadcn-cli/templates/combobox.rs` | `src/components/ui/combobox.rs` |
 | [Command](command.md) | Controlled command palette parts with active descendant semantics. | `dxui add command` | `command` | `crates/dioxus-shadcn-cli/templates/command.rs` | `src/components/ui/command.rs` |
 | [Context Menu](context-menu.md) | Controlled context menu parts backed by dropdown primitive configuration. | `dxui add context-menu` | `context-menu` | `crates/dioxus-shadcn-cli/templates/context_menu.rs` | `src/components/ui/context_menu.rs` |
+| [Countdown](countdown.md) | Styled countdown timer for app-owned remaining seconds. | `dxui add countdown` | `countdown` | `crates/dioxus-shadcn-cli/templates/countdown.rs` | `src/components/ui/countdown.rs` |
 | [Data Table](data-table.md) | Controlled Data Table composition parts and state helpers. | `dxui add data-table` | `data-table` | `crates/dioxus-shadcn-cli/templates/data_table.rs` | `src/components/ui/data_table.rs` |
 | [Date Picker](date-picker.md) | Date Picker trigger, value, and popover content parts for composing Calendar. | `dxui add date-picker` | `date-picker` | `crates/dioxus-shadcn-cli/templates/date_picker.rs` | `src/components/ui/date_picker.rs` |
 | [Dialog](dialog.md) | Dialog overlay components backed by primitive configuration types. | `dxui add dialog` | `dialog` | `crates/dioxus-shadcn-cli/templates/dialog.rs` | `src/components/ui/dialog.rs` |

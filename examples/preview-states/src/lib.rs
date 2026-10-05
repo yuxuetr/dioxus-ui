@@ -265,6 +265,14 @@ pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
     notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
   },
   ComponentPreviewTarget {
+    component: "countdown",
+    label: "Countdown",
+    panel: "data-display",
+    test_id: "component-preview-countdown",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
     component: "data-table",
     label: "Data Table",
     panel: "data-display",

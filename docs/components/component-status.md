@@ -13,14 +13,14 @@ parity.
 
 ## Summary
 
-- Public components: 70
-- Registry entries: 71
+- Public components: 71
+- Registry entries: 72
 - Source-copy helpers: utils
-- Templates: 71
-- Crate modules: 70
-- Crate features: 70
-- Component docs pages: 70
-- Complete local wiring: 70
+- Templates: 72
+- Crate modules: 71
+- Crate features: 71
+- Component docs pages: 71
+- Complete local wiring: 71
 - Incomplete local wiring: 0
 
 ## Category Counts
@@ -32,7 +32,7 @@ parity.
 | Overlays | 11 |
 | Navigation | 6 |
 | Layout | 11 |
-| Data Display | 11 |
+| Data Display | 12 |
 | Feedback | 6 |
 | Messaging | 5 |
 
@@ -49,6 +49,7 @@ parity.
 | Avatar | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Badge | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Chart | Data Display | yes | yes | yes | yes | yes | yes | yes |
+| Countdown | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Data Table | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Empty | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Progress | Data Display | yes | yes | yes | yes | yes | yes | yes |
@@ -124,6 +125,7 @@ parity.
 | Avatar | Data Display | [docs](avatar.md) | `dxui add avatar` | `avatar` | `crates/dioxus-shadcn-cli/templates/avatar.rs` | `src/components/ui/avatar.rs` |
 | Badge | Data Display | [docs](badge.md) | `dxui add badge` | `badge` | `crates/dioxus-shadcn-cli/templates/badge.rs` | `src/components/ui/badge.rs` |
 | Chart | Data Display | [docs](chart.md) | `dxui add chart` | `chart` | `crates/dioxus-shadcn-cli/templates/chart.rs` | `src/components/ui/chart.rs` |
+| Countdown | Data Display | [docs](countdown.md) | `dxui add countdown` | `countdown` | `crates/dioxus-shadcn-cli/templates/countdown.rs` | `src/components/ui/countdown.rs` |
 | Data Table | Data Display | [docs](data-table.md) | `dxui add data-table` | `data-table` | `crates/dioxus-shadcn-cli/templates/data_table.rs` | `src/components/ui/data_table.rs` |
 | Empty | Data Display | [docs](empty.md) | `dxui add empty` | `empty` | `crates/dioxus-shadcn-cli/templates/empty.rs` | `src/components/ui/empty.rs` |
 | Progress | Data Display | [docs](progress.md) | `dxui add progress` | `progress` | `crates/dioxus-shadcn-cli/templates/progress.rs` | `src/components/ui/progress.rs` |

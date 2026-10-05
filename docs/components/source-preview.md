@@ -10,7 +10,7 @@ The manifest defines template metadata for future source preview routes.
 It does not embed full template source, syntax highlighting, rendered routes,
 screenshots, or generated JSON.
 
-Source preview routes: 70
+Source preview routes: 71
 
 ## Source Preview Routes
 
@@ -36,6 +36,7 @@ Source preview routes: 70
 | [Combobox](combobox.md) | /components/combobox/source | crates/dioxus-shadcn-cli/templates/combobox.rs | src/components/ui/combobox.rs | rust | 303 | 9800 |
 | [Command](command.md) | /components/command/source | crates/dioxus-shadcn-cli/templates/command.rs | src/components/ui/command.rs | rust | 287 | 8296 |
 | [Context Menu](context-menu.md) | /components/context-menu/source | crates/dioxus-shadcn-cli/templates/context_menu.rs | src/components/ui/context_menu.rs | rust | 236 | 6848 |
+| [Countdown](countdown.md) | /components/countdown/source | crates/dioxus-shadcn-cli/templates/countdown.rs | src/components/ui/countdown.rs | rust | 68 | 2101 |
 | [Data Table](data-table.md) | /components/data-table/source | crates/dioxus-shadcn-cli/templates/data_table.rs | src/components/ui/data_table.rs | rust | 345 | 8843 |
 | [Date Picker](date-picker.md) | /components/date-picker/source | crates/dioxus-shadcn-cli/templates/date_picker.rs | src/components/ui/date_picker.rs | rust | 146 | 4830 |
 | [Dialog](dialog.md) | /components/dialog/source | crates/dioxus-shadcn-cli/templates/dialog.rs | src/components/ui/dialog.rs | rust | 146 | 4556 |
