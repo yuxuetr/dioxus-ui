@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 80%
 - Current milestone: M181 Interactive Part Callbacks And Attributes
-- Current task: M181.4
+- Current task: M181.5
 
 ## Backup
 
@@ -37,8 +37,9 @@
   - Extend the runtime check to assert a `FieldLabel` click focuses its input, then reverse-verify.
   - Done: an empty `for` is omitted, since `for=""` unlinks a wrapped input; the same bug in `Label` is fixed in its own commit. Reverse check: dropping `for` fails the runtime check.
 
-- TODO M181.4 Drop the site example workarounds
+- DONE M181.4 Drop the site example workarounds
   - Use the new callbacks and `r#for` in the site examples so each action does something visible, remove the `div onclick` wrapper and the duplicate `aria-label`s, and keep `npm run verify:site` passing.
+  - Done: `npm run verify:site` passes, and a one-off browser run clicked each updated example and saw its effect.
 
 - TODO M181.5 Complete the interactive part milestone
   - Update CHANGELOG, the component docs pages, and the docs index.
