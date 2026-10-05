@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M168 Compiled Tailwind Browser Checks
-- Current task: M168.2 Implement value-matching data variants
+- Current task: M168.3 Verify components with compiled Tailwind in a real browser
 
 ## Backup
 
@@ -3072,7 +3072,7 @@
   - Define compiling the preview stylesheet with the Tailwind Node API for the browser checks, value-matching data variants, Navigation Menu content below its trigger, and a static guard against bare data variants.
   - Record what stays out of scope (utility conflicts in composed classes, Desktop and Mobile compiled CSS, a compiled stylesheet for `dx serve`) with reevaluation conditions.
 
-- TODO M168.2 Implement value-matching data variants
+- DONE M168.2 Implement value-matching data variants
   - Rewrite bare data variants in the crate source and templates to `data-[name=value]:`, place Navigation Menu content below its trigger, and make `npm run verify:tailwind-static` reject bare data variants.
 
 - TODO M168.3 Verify components with compiled Tailwind in a real browser
