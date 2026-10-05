@@ -4,7 +4,7 @@
 
 - Overall: 0.2.0 plan, 4 of 8 milestones complete
 - Current milestone: M191 Input Components
-- Current task: M191.5
+- Current task: M191 docs
 
 ## Backup
 
@@ -83,7 +83,8 @@
   - Done: pure add, commit, and remove functions with unit tests and a runtime check for Enter, comma paste, Backspace, and remove buttons.
 - DONE M191.4 File Input
   - Done: styled native file input forwarding the change event; runtime check sets two files and reads their names.
-- TODO M191.5 Swap
+- DONE M191.5 Swap
+  - Done: `on`/`off` element props instead of child parts (RFC amended), `aria-pressed`, hidden inactive layer, and a runtime check.
 
 ## M192 Mobile Navigation
 
