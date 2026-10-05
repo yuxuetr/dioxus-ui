@@ -494,6 +494,17 @@ This compiles each utility with the Tailwind Node API and fails when a class
 function joins a base class with a state class that sets the same property
 under the same variant, where the stylesheet order would pick the winner.
 
+Verify that the committed preview stylesheet matches the current classes:
+
+```bash
+npm run verify:preview-css
+```
+
+The Web, Desktop, and Mobile previews link
+`examples/preview-states/assets/preview.generated.css`, compiled Tailwind for
+the shared preview page. After changing a component or fixture class, run
+`npm run css:preview` to regenerate it; this check fails until you do.
+
 Verify npm verification alias wiring only:
 
 ```bash
@@ -866,7 +877,7 @@ traces, and does not claim full accessibility certification, native Desktop or
 Mobile coverage, or visual parity.
 
 `npm run verify:desktop-interactions` runs the same kinds of interactions in the
-Desktop WebView. The Desktop preview runs an in-app self-test of eight
+Desktop WebView. The Desktop preview runs an in-app self-test of nine
 scenarios and exits with the result (RFC 0017). It opens a window and needs a
 GUI session. `npm run verify:mobile-interactions` runs the same scenarios in an
 iOS Simulator build (RFC 0018) and needs Xcode.

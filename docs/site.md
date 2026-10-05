@@ -3589,6 +3589,9 @@ The check should validate:
   `@tailwind base`, `@tailwind components`, or `@tailwind utilities`
 - since M172, the preview CSS inputs carry the CLI default `.dark` theme block
   verbatim ([RFC 0047](rfcs/0047-opt-in-dark-theme.md))
+- since M174, the compiled stylesheet the previews link is checked separately
+  by `npm run verify:preview-css`
+  ([RFC 0049](rfcs/0049-compiled-preview-stylesheet.md))
 
 The gate should not compile Tailwind CSS, inspect generated CSS output, launch
 preview binaries, perform browser automation, scan Rust class tokens, or assert

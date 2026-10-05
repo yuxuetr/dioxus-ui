@@ -183,8 +183,8 @@ release owner renames it to the released version at publish time.
 - Vertical sliders: `Slider` gains `orientation` with `SliderOrientation`; a
   vertical slider fills from the bottom, maps the pointer along its height,
   and renders `aria-orientation="vertical"`.
-- `npm run verify:desktop-interactions`: an in-app self-test that runs eight
-  interaction scenarios in the Desktop preview's WebView and exits with the
+- `npm run verify:desktop-interactions`: an in-app self-test that runs nine
+  scenarios in the Desktop preview's WebView and exits with the
   result.
 - `npm run verify:mobile-interactions`: the same scenarios in an iOS Simulator
   build of the new `examples/mobile-demo` preview, read from the app console.
@@ -196,6 +196,13 @@ release owner renames it to the released version at publish time.
   amber, and emerald palette variables. Adding the `dark` class to an
   ancestor turns it on without changing component classes. The block applies
   to app classes under `.dark` too.
+- `npm run css:preview` regenerates
+  `examples/preview-states/assets/preview.generated.css`, compiled Tailwind
+  that `PreviewSurface` links for the Web, Desktop, and Mobile previews, and
+  `npm run verify:preview-css`, part of the release gate, fails when it is
+  stale. Manual previews were unstyled: they linked the uncompiled Tailwind
+  input, or no stylesheet on Mobile. The Desktop, iOS, and Android self-tests
+  start with a `stylesheet` scenario and report nine scenarios.
 
 ### Changed
 

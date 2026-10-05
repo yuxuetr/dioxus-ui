@@ -131,6 +131,7 @@ npm run verify:css-inputs
 npm run verify:registry
 npm run verify:tailwind-static
 npm run verify:tailwind-conflicts
+npm run verify:preview-css
 npm run verify
 npm run verify:changelog
 scripts/feature-check.sh
@@ -713,7 +714,10 @@ first.
   block of palette variables (see RFC 0047); semantic color tokens and a
   system-preference default are not included, and the block also remaps app
   classes under `.dark`. Pagination content wraps in narrow containers (see
-  RFC 0048); a Pagination that drops pages to fit is not included. Date Picker and
+  RFC 0048); a Pagination that drops pages to fit is not included. The
+  previews link a committed compiled stylesheet (see RFC 0049) that must be
+  regenerated with `npm run css:preview` after class changes; dioxus-ui
+  itself still ships no compiled Tailwind output. Date Picker and
   Calendar implement anchored placement, focus entry, and day keyboard
   navigation (see RFC 0013); typed date parsing and source-copy date arithmetic
   are not included. Dropdown and Context Menu implement menu keyboard
@@ -744,13 +748,14 @@ first.
   capture is currently unsupported because the native preview window is not
   repeatable in local probes.
 - Desktop interaction behavior is checked by `npm run verify:desktop-interactions`,
-  an in-app self-test of eight interaction paths in the Desktop WebView (see
-  RFC 0017). It needs a GUI session, runs locally on macOS only, and is not
+  an in-app self-test of nine scenarios in the Desktop WebView (see
+  RFC 0017), starting with a check that the compiled preview stylesheet
+  applies (see RFC 0049). It needs a GUI session, runs locally on macOS only, and is not
   part of `npm run verify:release`. It does not exercise native default
   actions such as Tab movement.
 - Mobile has a Web profile structural gate for source-level mobile viewport and
-  fallback markers. `npm run verify:mobile-interactions` runs the eight
-  interaction scenarios in an iOS Simulator build (see RFC 0018). It needs
+  fallback markers. `npm run verify:mobile-interactions` runs the nine
+  scenarios in an iOS Simulator build (see RFC 0018). It needs
   Xcode and is not part of `npm run verify:release`.
   `npm run verify:android-interactions` runs them in an Android emulator
   (see RFC 0020); it needs the Android SDK, NDK, and an AVD and is not part of

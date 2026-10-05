@@ -143,6 +143,7 @@ npm run verify:css-inputs
 npm run verify:registry
 npm run verify:tailwind-static
 npm run verify:tailwind-conflicts
+npm run verify:preview-css
 npm run verify
 npm run verify:changelog
 scripts/feature-check.sh
@@ -308,6 +309,12 @@ class with a state class, helper, or method class that sets the same property
 under the same variant (see
 [RFC 0044](rfcs/0044-tailwind-utility-conflicts.md)). It does not validate
 user-provided classes or conflicts between two state classes.
+
+`npm run verify:preview-css` compiles the preview stylesheet input and fails
+when `examples/preview-states/assets/preview.generated.css`, which every
+preview target links, differs from the result (see
+[RFC 0049](rfcs/0049-compiled-preview-stylesheet.md)). Run
+`npm run css:preview` to regenerate it after a class change.
 
 `npm run verify:package-scripts` checks that `package.json` still exposes the
 required verification aliases, that aggregate aliases reference the expected
@@ -566,7 +573,8 @@ templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.
 
 `npm run verify:desktop-interactions` builds the Desktop preview and runs its
-in-app self-test (RFC 0017). Eight scenarios cover the dialog focus scope,
+in-app self-test (RFC 0017). Nine scenarios cover the compiled preview
+stylesheet (RFC 0049), the dialog focus scope,
 anchored overlay, listbox, menu mode, toast timer, calendar focus following,
 Menubar, and Navigation Menu inside the Desktop WebView. The command exits
 with the self-test status. It opens a window, needs a GUI session, and is not
