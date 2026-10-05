@@ -274,7 +274,7 @@ async function expectReadableText(page, label) {
     if (theme === "dark") {
       const surface = await page.evaluate(() => {
         const probe = document.createElement("div");
-        probe.className = "bg-white";
+        probe.className = "bg-background";
         document.body.append(probe);
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
@@ -284,7 +284,7 @@ async function expectReadableText(page, label) {
         return Math.max(...context.getImageData(0, 0, 1, 1).data.slice(0, 3));
       });
       if (surface > 40) {
-        throw new Error(`${label}: bg-white under .dark should be a dark surface, got channel ${surface}`);
+        throw new Error(`${label}: bg-background under .dark should be a dark surface, got channel ${surface}`);
       }
     }
     const failures = await page.evaluate(lowContrastText);

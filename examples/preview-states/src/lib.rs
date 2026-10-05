@@ -845,8 +845,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
     AttachmentOrientation::Horizontal,
     "max-w-md",
   );
-  let bubble = bubble_class(BubbleAlign::Start, "rounded-xl bg-zinc-100 p-3");
-  let marker = marker_class(MarkerVariant::Border, "text-blue-700!");
+  let bubble = bubble_class(BubbleAlign::Start, "rounded-xl bg-secondary p-3");
+  let marker = marker_class(MarkerVariant::Border, "text-primary!");
   let scroller = message_scroller_class(MessageScrollerIntent::Hold, "h-64 overflow-auto!");
   let chart_series = ChartSeries::new(
     "revenue",
@@ -869,13 +869,13 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   rsx! {
     document::Stylesheet { href: PREVIEW_CSS }
     main {
-      class: "{theme_class}min-h-screen bg-white text-zinc-950",
+      class: "{theme_class}min-h-screen bg-background text-foreground",
       "data-preview-root": "{root}",
       section {
         class: "mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 py-8",
         "data-preview-panel": "overview",
         header {
-          class: "flex flex-col gap-2 border-b border-zinc-200 pb-4",
+          class: "flex flex-col gap-2 border-b border-border pb-4",
           div { class: "flex flex-wrap items-center justify-between gap-3",
             h1 { class: "text-2xl font-semibold", "{title}" }
             Toggle {
@@ -886,7 +886,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           p {
-            class: "max-w-3xl text-sm text-zinc-600",
+            class: "max-w-3xl text-sm text-muted-foreground",
             "Rendered preview shell for representative component states. This is a component preview surface, not a landing page."
           }
         }
@@ -897,35 +897,35 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           button { class: "{secondary_button_class}", "Secondary action" }
         }
         section {
-          class: "grid grid-cols-1 gap-3 rounded-md border border-zinc-200 p-4 sm:grid-cols-2 lg:grid-cols-3",
+          class: "grid grid-cols-1 gap-3 rounded-md border border-border p-4 sm:grid-cols-2 lg:grid-cols-3",
           "data-preview-panel": "mobile-profile",
           h2 { class: "text-sm font-medium sm:col-span-2 lg:col-span-3", "Mobile Web profile" }
           p {
-            class: "text-sm text-zinc-600 sm:col-span-2 lg:col-span-3",
+            class: "text-sm text-muted-foreground sm:col-span-2 lg:col-span-3",
             "Source-level markers for mobile-width Web verification. Native device behavior remains app-owned."
           }
           div {
-            class: "rounded-md bg-zinc-50 p-3 text-sm",
+            class: "rounded-md bg-muted p-3 text-sm",
             "data-mobile-profile": "touch-targets",
             button { class: "{primary_button_class} min-h-11! w-full", "Touch target" }
           }
           div {
-            class: "rounded-md bg-zinc-50 p-3 text-sm",
+            class: "rounded-md bg-muted p-3 text-sm",
             "data-mobile-profile": "hover-alternative",
             button { class: "{secondary_button_class} min-h-11! w-full", "Tap or focus" }
           }
           div {
-            class: "rounded-md bg-zinc-50 p-3 text-sm",
+            class: "rounded-md bg-muted p-3 text-sm",
             "data-mobile-profile": "safe-area-owned",
             "Safe-area padding is owned by the app shell."
           }
           div {
-            class: "rounded-md bg-zinc-50 p-3 text-sm",
+            class: "rounded-md bg-muted p-3 text-sm",
             "data-mobile-profile": "reduced-motion",
             "Animation and timer policy remains app-owned."
           }
           div {
-            class: "rounded-md bg-zinc-50 p-3 text-sm",
+            class: "rounded-md bg-muted p-3 text-sm",
             "data-mobile-profile": "visible-status",
             "Visible status text mirrors runtime-sensitive behavior."
           }
@@ -934,11 +934,11 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           class: "grid grid-cols-1 gap-4 lg:grid-cols-2",
           "data-preview-panel": "form",
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             h2 { class: "text-sm font-medium", "Form states" }
             div {
               class: "{form_group_class} mt-3",
-              span { class: "text-sm text-zinc-500", "https://" }
+              span { class: "text-sm text-muted-foreground", "https://" }
               input {
                 class: "min-w-0 flex-1 bg-transparent px-3 py-2 text-sm outline-none",
                 value: "dioxus-ui.dev",
@@ -950,50 +950,50 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               "aria-label": "one-time code",
               for digit in ["1", "2", "3", "", "", ""] {
                 span {
-                  class: "flex h-10 w-10 items-center justify-center rounded-md border border-zinc-200 text-sm",
+                  class: "flex h-10 w-10 items-center justify-center rounded-md border border-border text-sm",
                   "{digit}"
                 }
               }
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-preview-panel": "overlay-open",
             h2 { class: "text-sm font-medium", "Open overlay state" }
             div {
-              class: "relative mt-3 min-h-36 rounded-md bg-zinc-50 p-4",
+              class: "relative mt-3 min-h-36 rounded-md bg-muted p-4",
               button { class: "{secondary_button_class}", "Open popover" }
               div {
-                class: "absolute left-4 top-16 z-10 w-64 rounded-md border border-zinc-200 bg-white p-3 text-sm shadow-md",
+                class: "absolute left-4 top-16 z-10 w-64 rounded-md border border-border bg-background p-3 text-sm shadow-md",
                 role: "dialog",
                 "aria-label": "Preview popover",
                 p { class: "font-medium", "Preview popover" }
-                p { class: "mt-1 text-zinc-600", "Open-state target for screenshot verification." }
+                p { class: "mt-1 text-muted-foreground", "Open-state target for screenshot verification." }
               }
             }
           }
         }
         section {
-          class: "rounded-md border border-zinc-200 p-4",
+          class: "rounded-md border border-border p-4",
           "data-preview-panel": "message",
           h2 { class: "text-sm font-medium", "Message states" }
           div {
-            class: "{scroller} mt-3 rounded-md bg-zinc-50 p-3",
+            class: "{scroller} mt-3 rounded-md bg-muted p-3",
             div {
               class: "{message_group}",
               div {
                 class: "{user_message}",
-                div { class: "{message_avatar_class(\"bg-blue-100!\")}", "U" }
+                div { class: "{message_avatar_class(\"bg-info/20!\")}", "U" }
                 div {
                   class: "{user_content}",
                   div { class: "{message_header_class(\"\")}", "User - just now" }
-                  div { class: "rounded-xl bg-blue-600 px-3 py-2 text-sm text-white", "Can we preview the expanded parity states?" }
+                  div { class: "rounded-xl bg-primary px-3 py-2 text-sm text-primary-foreground", "Can we preview the expanded parity states?" }
                   div { class: "{message_footer_class(\"\")}", "sent" }
                 }
               }
               div {
                 class: "{assistant_message}",
-                div { class: "{message_avatar_class(\"bg-zinc-200!\")}", "A" }
+                div { class: "{message_avatar_class(\"bg-success/20!\")}", "A" }
                 div {
                   class: "{assistant_content}",
                   div { class: "{message_header_class(\"\")}", "Assistant - preview" }
@@ -1006,12 +1006,12 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           }
         }
         section {
-          class: "{chart_class(\"rounded-md border border-zinc-200 p-4\")}",
+          class: "{chart_class(\"rounded-md border border-border p-4\")}",
           "data-preview-panel": "chart",
           h2 { class: "text-sm font-medium", "Chart states" }
-          p { class: "mt-1 text-sm text-zinc-600", "Line, area, bar, legend, and fallback table targets." }
+          p { class: "mt-1 text-sm text-muted-foreground", "Line, area, bar, legend, and fallback table targets." }
           div {
-            class: "mt-3 flex flex-wrap gap-3 text-sm text-zinc-600",
+            class: "mt-3 flex flex-wrap gap-3 text-sm text-muted-foreground",
             span { "Revenue" }
             span { "Area" }
             span { "Bars" }
@@ -1048,9 +1048,9 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             tbody {
               for row in fallback_rows {
                 tr {
-                  td { class: "border-t border-zinc-200 py-1", "{row.series_label}" }
-                  td { class: "border-t border-zinc-200 py-1", "{row.x_label}" }
-                  td { class: "border-t border-zinc-200 py-1", "{row.y_label}" }
+                  td { class: "border-t border-border py-1", "{row.series_label}" }
+                  td { class: "border-t border-border py-1", "{row.x_label}" }
+                  td { class: "border-t border-border py-1", "{row.y_label}" }
                 }
               }
             }
@@ -1061,7 +1061,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           "data-preview-panel": "interactions",
           "data-interaction-root": "runtime",
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "disclosure",
             "data-state": "{disclosure_state}",
             h2 { class: "text-sm font-medium", "Disclosure interaction" }
@@ -1075,14 +1075,14 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
             div {
               id: "interaction-disclosure-content",
-              class: "mt-3 rounded-md bg-zinc-50 p-3 text-sm text-zinc-700",
+              class: "mt-3 rounded-md bg-muted p-3 text-sm text-muted-foreground",
               "data-interaction-state": "disclosure-content",
               hidden: !disclosure_open(),
               "Disclosure content is visible when open."
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "overlay",
             "data-state": "{overlay_state}",
             h2 { class: "text-sm font-medium", "Overlay interaction" }
@@ -1096,7 +1096,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
             div {
               id: "interaction-overlay-content",
-              class: "mt-3 rounded-md border border-zinc-200 bg-white p-3 text-sm shadow-sm",
+              class: "mt-3 rounded-md border border-border bg-background p-3 text-sm shadow-sm",
               role: "dialog",
               "aria-label": "Interaction overlay",
               "data-interaction-state": "overlay-content",
@@ -1111,7 +1111,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "selection",
             "data-state": "{selected_option_value}",
             h2 { class: "text-sm font-medium", "Selection interaction" }
@@ -1132,11 +1132,11 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "keyboard",
             h2 { class: "text-sm font-medium", "Keyboard-visible state" }
             div {
-              class: "mt-3 rounded-md border border-zinc-200 p-2",
+              class: "mt-3 rounded-md border border-border p-2",
               role: "listbox",
               tabindex: "0",
               "aria-activedescendant": "interaction-command-{command_active_value}",
@@ -1155,12 +1155,12 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "scroll-status",
             "data-state": "{scroll_status_value}",
             h2 { class: "text-sm font-medium", "Scroll status interaction" }
             p {
-              class: "mt-3 text-sm text-zinc-600",
+              class: "mt-3 text-sm text-muted-foreground",
               "data-interaction-state": "scroll-status",
               "Scroll status: {scroll_status_value}"
             }
@@ -1172,7 +1172,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "popover",
             "data-state": if popover_open() { "open" } else { "closed" },
             h2 { class: "text-sm font-medium", "Popover interaction" }
@@ -1194,7 +1194,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             PopoverContent { "data-interaction-control": "plain-popover", "Plain popover" }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "select",
             "data-value": "{select_value}",
             h2 { class: "text-sm font-medium", "Select interaction" }
@@ -1224,12 +1224,12 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "command",
             "data-result": "{command_result}",
             h2 { class: "text-sm font-medium", "Command interaction" }
             Command {
-              class: "mt-3 border border-zinc-200",
+              class: "mt-3 border border-border",
               on_select: move |value: String| command_result.set(value),
               CommandInput {
                 value: command_query(),
@@ -1267,13 +1267,13 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "combobox",
             "data-value": "{combobox_value}",
             h2 { class: "text-sm font-medium", "Combobox interaction" }
             ComboboxInput {
               id: "interaction-combobox-input",
-              class: "mt-3 border border-zinc-200",
+              class: "mt-3 border border-border",
               "aria-label": "Fruit",
               "aria-describedby": "interaction-select-hint",
               value: combobox_query(),
@@ -1305,7 +1305,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "date-picker",
             "data-value": "{iso_date(date_selected())}",
             h2 { class: "text-sm font-medium", "Date picker interaction" }
@@ -1384,7 +1384,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "dropdown",
             "data-action": "{dropdown_action}",
             h2 { class: "text-sm font-medium", "Dropdown interaction" }
@@ -1416,7 +1416,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "menubar",
             "data-action": "{menubar_action}",
             h2 { class: "text-sm font-medium", "Menubar interaction" }
@@ -1482,7 +1482,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "navigation-menu",
             "data-value": "{navigation_active}",
             h2 { class: "text-sm font-medium", "Navigation menu interaction" }
@@ -1521,7 +1521,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "tabs",
             "data-value": "{tabs_value}",
             h2 { class: "text-sm font-medium", "Tabs interaction" }
@@ -1546,7 +1546,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "tabs-vertical",
             "data-value": "{settings_tab}",
             h2 { class: "text-sm font-medium", "Vertical tabs interaction" }
@@ -1574,7 +1574,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "radio-group",
             "data-value": radio_value().unwrap_or_else(|| "none".to_string()),
             h2 { class: "text-sm font-medium", "Radio group interaction" }
@@ -1608,7 +1608,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "progress",
             h2 { id: "interaction-progress-label", class: "text-sm font-medium", "Upload" }
             Progress {
@@ -1619,7 +1619,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "toggle-group",
             "data-value": toggle_value().unwrap_or_else(|| "none".to_string()),
             h2 { class: "text-sm font-medium", "Toggle group interaction" }
@@ -1642,7 +1642,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "switch",
             "data-switch": "{wifi_enabled}",
             "data-checkbox": "{terms_accepted}",
@@ -1713,7 +1713,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "form-controls",
             "data-clicks": "{button_clicks}",
             "data-bold": "{bold_pressed}",
@@ -1760,7 +1760,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "slider",
             "data-volume": "{volume}",
             "data-balance": "{balance}",
@@ -1792,7 +1792,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "collapsible-select",
             "data-open": "{details_open}",
             "data-size": "{size_value}",
@@ -1827,7 +1827,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "input-otp",
             "data-code": "{otp_code}",
             h2 { class: "text-sm font-medium", "Input OTP interaction" }
@@ -1855,7 +1855,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "pagination",
             "data-page": "{results_page}",
             "data-disabled-clicks": "{disabled_link_clicks}",
@@ -1905,7 +1905,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "carousel",
             "data-index": "{carousel_state().index}",
             h2 { class: "text-sm font-medium", "Carousel interaction" }
@@ -1956,7 +1956,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "resizable",
             "data-sizes": "{resizable_panels().0.size}-{resizable_panels().1.size}",
             h2 { class: "text-sm font-medium", "Resizable interaction" }
@@ -1993,7 +1993,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "sidebar",
             "data-collapsed": "{sidebar_collapsed}",
             "data-section": "{sidebar_section}",
@@ -2040,7 +2040,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "accordion",
             "data-value": accordion_value().unwrap_or_else(|| "none".to_string()),
             h2 { class: "text-sm font-medium", "Accordion interaction" }
@@ -2068,13 +2068,13 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "context-menu",
             "data-action": "{context_action}",
             "data-bookmarked": "{context_bookmarked}",
             h2 { class: "text-sm font-medium", "Context menu interaction" }
             div {
-              class: "mt-3 h-24 border border-dashed border-zinc-400",
+              class: "mt-3 h-24 border border-dashed border-input",
               "data-interaction-control": "context-area",
               oncontextmenu: move |event| {
                 event.prevent_default();
@@ -2102,7 +2102,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "toast",
             "data-state": if toast_open() { "open" } else { "closed" },
             "data-reason": "{toast_reason}",
@@ -2140,7 +2140,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "sonner",
             "data-reason": "{sonner_reason}",
             h2 { class: "text-sm font-medium", "Sonner interaction" }
@@ -2174,7 +2174,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "tooltip",
             "data-state": if tooltip_open() { "open" } else { "closed" },
             h2 { class: "text-sm font-medium", "Tooltip interaction" }
@@ -2185,7 +2185,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "hover-card",
             "data-state": if hover_card_open() { "open" } else { "closed" },
             h2 { class: "text-sm font-medium", "Hover card interaction" }
@@ -2211,7 +2211,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "alert-dialog",
             "data-state": if alert_dialog_open() { "open" } else { "closed" },
             "data-result": "{alert_dialog_result}",
@@ -2239,7 +2239,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
           }
           article {
-            class: "rounded-md border border-zinc-200 p-4",
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "dialog",
             "data-state": if dialog_open() { "open" } else { "closed" },
             h2 { class: "text-sm font-medium", "Dialog interaction" }
@@ -2260,7 +2260,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               DialogTitle { "Rename project" }
               DialogDescription { "Focus stays inside until the dialog closes." }
               input {
-                class: "rounded-md border border-zinc-200 px-2 py-1 text-sm",
+                class: "rounded-md border border-border px-2 py-1 text-sm",
                 "aria-label": "Project name",
                 "data-interaction-control": "dialog-input",
               }
@@ -2280,24 +2280,24 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             for target in COMPONENT_PREVIEW_TARGETS {
               article {
                 key: "{target.test_id}",
-                class: "rounded-md border border-zinc-200 bg-zinc-50 p-3",
+                class: "rounded-md border border-border bg-muted p-3",
                 "data-component-preview": "{target.test_id}",
                 "data-component": "{target.component}",
                 "data-component-panel": "{target.panel}",
                 "data-component-coverage": "{target.coverage_level}",
-                h2 { class: "text-sm font-medium text-zinc-950", "{target.label}" }
-                p { class: "mt-1 text-xs text-zinc-600", "{target.notes}" }
+                h2 { class: "text-sm font-medium text-foreground", "{target.label}" }
+                p { class: "mt-1 text-xs text-muted-foreground", "{target.notes}" }
               }
             }
           }
           for state in states {
             article {
               key: "{state.label}",
-              class: "rounded-md border border-zinc-200 bg-white p-4 shadow-sm",
+              class: "rounded-md border border-border bg-background p-4 shadow-sm",
               "data-preview-state": "{state.label}",
-              h2 { class: "text-sm font-medium text-zinc-950", "{state.label}" }
+              h2 { class: "text-sm font-medium text-foreground", "{state.label}" }
               code {
-                class: "mt-3 block overflow-hidden text-ellipsis whitespace-nowrap rounded bg-zinc-50 px-2 py-1 text-xs text-zinc-700",
+                class: "mt-3 block overflow-hidden text-ellipsis whitespace-nowrap rounded bg-muted px-2 py-1 text-xs text-muted-foreground",
                 title: "{state.value}",
                 "{state.value}"
               }
@@ -2384,7 +2384,7 @@ impl PreviewConfig {
         bottom_threshold: 24.0,
         jump_button_class: "rounded-full",
         marker_variant: MarkerVariant::Border,
-        marker_class: "text-blue-700!",
+        marker_class: "text-primary!",
         chart_id: "revenue",
         chart_label: "Revenue",
         chart_points: vec![
@@ -2431,9 +2431,9 @@ impl PreviewConfig {
         unread: 3,
         scroll_intent: MessageScrollerIntent::JumpToLatest,
         bottom_threshold: 16.0,
-        jump_button_class: "text-red-700",
+        jump_button_class: "text-destructive",
         marker_variant: MarkerVariant::Separator,
-        marker_class: "text-red-700!",
+        marker_class: "text-destructive!",
         chart_id: "cost",
         chart_label: "Cost",
         chart_points: vec![

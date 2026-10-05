@@ -127,10 +127,9 @@ to the app's top-level element to turn it on:
 div { class: "dark min-h-screen bg-background text-foreground", App {} }
 ```
 
-`.dark` redefines the tokens and, until every component uses them, also remaps
-the white, zinc, blue, red, green, amber, and emerald palette variables for
-everything under it, your own classes included, so white text over an image
-turns dark there ([RFC 0047](docs/rfcs/0047-opt-in-dark-theme.md)). The
+`.dark` redefines only the tokens, so your own palette classes, such as
+`bg-white` or `text-zinc-600`, keep their colors there; use the token classes
+for app surfaces that should follow the theme. The
 `@custom-variant` line makes an app's own `dark:` utilities follow the same
 class. To follow the system preference instead, wrap the `.dark` blocks in
 `@media (prefers-color-scheme: dark)` and change their selector to `:root`.

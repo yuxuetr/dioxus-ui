@@ -1,7 +1,11 @@
 # RFC 0047: Opt-in Dark Theme
 
-- Status: Accepted
+- Status: Superseded by [RFC 0051](0051-semantic-color-tokens.md)
 - Created: 2026-10-05
+
+> Since M178, the palette remap below is replaced: `.dark` redefines only the
+> RFC 0051 semantic color tokens, and app palette classes keep their colors
+> under `.dark`. The opt-in `dark` class and the contrast checks remain.
 
 ## Summary
 

@@ -75,19 +75,24 @@ const requiredPreviewFragments = [
 ];
 
 // The previews carry everything the CLI stylesheet holds after its import
-// verbatim (the RFC 0051 tokens and the opt-in dark theme), so browser checks
+// verbatim (the RFC 0051 tokens, light and dark), so browser checks
 // exercise the stylesheet `dxui init` generates.
 const cliImport = 'const DEFAULT_CSS: &str = r#"@import "tailwindcss";\n';
 const cliBodyStart = cliSource.indexOf(cliImport);
 const cliBody =
   cliBodyStart < 0 ? "" : cliSource.slice(cliBodyStart + cliImport.length, cliSource.indexOf('"#;', cliBodyStart));
-if (!cliBody.includes("@theme inline {") || !cliBody.includes("/* Opt-in dark theme")) {
-  failures.push("crates/dioxus-ui-cli/src/main.rs DEFAULT_CSS missing the token or opt-in dark theme blocks");
+if (!cliBody.includes("@theme inline {")) {
+  failures.push("crates/dioxus-ui-cli/src/main.rs DEFAULT_CSS missing the token blocks");
+}
+// The dark theme redefines only the tokens (RFC 0051), so app palette classes
+// keep their colors under `.dark`.
+if (/--color-(?:white|black|zinc|blue|red|green|amber|emerald)-?\d*:/.test(cliBody)) {
+  failures.push("crates/dioxus-ui-cli/src/main.rs DEFAULT_CSS must not redefine Tailwind palette variables");
 }
 
 for (const { label, source } of previewCssInputs) {
   if (cliBody && !source.includes(cliBody)) {
-    failures.push(`${label} token and dark theme blocks differ from the CLI DEFAULT_CSS`);
+    failures.push(`${label} token blocks differ from the CLI DEFAULT_CSS`);
   }
   for (const fragment of requiredPreviewFragments) {
     assertIncludes({ label, source, fragment });
