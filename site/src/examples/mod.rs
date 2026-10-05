@@ -96,6 +96,7 @@ examples! {
   dock_phone => "dock", "Phone tabs";
   fab_speed_dial => "fab", "Speed dial";
   chart_revenue => "chart", "Area and line";
+  chart_traffic => "chart", "Donut";
   data_table_users => "data-table", "Filter, sort, and select";
   empty_projects => "empty", "No projects";
   progress_upload => "progress", "Upload";

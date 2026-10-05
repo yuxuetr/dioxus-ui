@@ -36,6 +36,9 @@ for commit messages.
   ([RFC 0064](docs/rfcs/0064-typed-date-input.md)): typed dates in ISO or the
   app's day, month, and year order. The `date-picker` feature now enables
   `calendar`, and `DatePickerTrigger` passes other attributes to its button.
+- Pie and donut charts ([RFC 0065](docs/rfcs/0065-pie-and-donut-charts.md)):
+  `ChartPieSeries`, `ChartSlice`, `chart_pie_arcs`, and the `Chart1` to
+  `Chart5` color tokens for the `--chart-*` palette.
 
 ### Changed
 
@@ -53,8 +56,8 @@ for commit messages.
 
 ### Migration
 
-- `AlertVariant` and `BadgeVariant` have new variants; exhaustive `match`
-  expressions need an arm or a wildcard.
+- `AlertVariant`, `BadgeVariant`, and `ChartColorToken` have new variants;
+  exhaustive `match` expressions need an arm or a wildcard.
 - A stylesheet from before 0.2.0 lacks the status foreground tokens. Add
   `--success-foreground`, `--warning-foreground`, and `--info-foreground` to
   `:root` and `.dark`, and their `--color-*` lines to `@theme inline`, with
@@ -63,6 +66,10 @@ for commit messages.
 
 ### Fixed
 
+- Chart series colored `Success`, `Warning`, or the new palette tokens drew
+  in the inherited color in crate mode, since Tailwind never saw their
+  classes, which the primitives crate returns. `CHART_COLOR_CLASSES` lists
+  them in the scanned crate.
 - The light theme's `--destructive` token has lightness 0.532 instead of
   0.577, so focused destructive menu items in Dropdown, Context Menu, and
   Menubar reach 4.5:1 on their `bg-destructive/10` highlight (3.99:1 before).

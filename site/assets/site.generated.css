@@ -967,6 +967,9 @@
   .flex-wrap {
     flex-wrap: wrap;
   }
+  .place-content-center {
+    place-content: center;
+  }
   .place-items-center {
     place-items: center;
   }
@@ -1261,6 +1264,9 @@
   .bg-chart-3 {
     background-color: var(--chart-3);
   }
+  .bg-current {
+    background-color: currentcolor;
+  }
   .bg-destructive {
     background-color: var(--destructive);
   }
@@ -1347,6 +1353,9 @@
   }
   .fill-none {
     fill: none;
+  }
+  .stroke-background {
+    stroke: var(--background);
   }
   .stroke-current {
     stroke: currentcolor;
@@ -1590,6 +1599,21 @@
   .text-card-foreground {
     color: var(--card-foreground);
   }
+  .text-chart-1 {
+    color: var(--chart-1);
+  }
+  .text-chart-2 {
+    color: var(--chart-2);
+  }
+  .text-chart-3 {
+    color: var(--chart-3);
+  }
+  .text-chart-4 {
+    color: var(--chart-4);
+  }
+  .text-chart-5 {
+    color: var(--chart-5);
+  }
   .text-destructive {
     color: var(--destructive);
   }
@@ -1634,6 +1658,9 @@
   }
   .text-transparent {
     color: transparent;
+  }
+  .text-warning {
+    color: var(--warning);
   }
   .text-warning-foreground {
     color: var(--warning-foreground);

@@ -68,6 +68,13 @@ pub enum ChartColorToken {
   Warning,
   Destructive,
   Neutral,
+  /// The `--chart-1` to `--chart-5` palette, for series and slices that sit
+  /// side by side (RFC 0065).
+  Chart1,
+  Chart2,
+  Chart3,
+  Chart4,
+  Chart5,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -138,6 +145,11 @@ pub fn chart_color_class(token: ChartColorToken) -> &'static str {
     ChartColorToken::Warning => "text-warning",
     ChartColorToken::Destructive => "text-destructive",
     ChartColorToken::Neutral => "text-foreground",
+    ChartColorToken::Chart1 => "text-chart-1",
+    ChartColorToken::Chart2 => "text-chart-2",
+    ChartColorToken::Chart3 => "text-chart-3",
+    ChartColorToken::Chart4 => "text-chart-4",
+    ChartColorToken::Chart5 => "text-chart-5",
   }
 }
 
@@ -149,6 +161,11 @@ pub fn chart_color_attribute(token: ChartColorToken) -> &'static str {
     ChartColorToken::Warning => "warning",
     ChartColorToken::Destructive => "destructive",
     ChartColorToken::Neutral => "neutral",
+    ChartColorToken::Chart1 => "chart-1",
+    ChartColorToken::Chart2 => "chart-2",
+    ChartColorToken::Chart3 => "chart-3",
+    ChartColorToken::Chart4 => "chart-4",
+    ChartColorToken::Chart5 => "chart-5",
   }
 }
 

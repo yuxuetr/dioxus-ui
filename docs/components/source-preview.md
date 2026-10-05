@@ -30,7 +30,7 @@ Source preview routes: 79
 | [Calendar](calendar.md) | /components/calendar/source | crates/dioxus-shadcn-cli/templates/calendar.rs | src/components/ui/calendar.rs | rust | 400 | 11744 |
 | [Card](card.md) | /components/card/source | crates/dioxus-shadcn-cli/templates/card.rs | src/components/ui/card.rs | rust | 108 | 2469 |
 | [Carousel](carousel.md) | /components/carousel/source | crates/dioxus-shadcn-cli/templates/carousel.rs | src/components/ui/carousel.rs | rust | 385 | 10591 |
-| [Chart](chart.md) | /components/chart/source | crates/dioxus-shadcn-cli/templates/chart.rs | src/components/ui/chart.rs | rust | 633 | 14857 |
+| [Chart](chart.md) | /components/chart/source | crates/dioxus-shadcn-cli/templates/chart.rs | src/components/ui/chart.rs | rust | 798 | 20517 |
 | [Checkbox](checkbox.md) | /components/checkbox/source | crates/dioxus-shadcn-cli/templates/checkbox.rs | src/components/ui/checkbox.rs | rust | 101 | 4564 |
 | [Collapsible](collapsible.md) | /components/collapsible/source | crates/dioxus-shadcn-cli/templates/collapsible.rs | src/components/ui/collapsible.rs | rust | 119 | 3417 |
 | [Combobox](combobox.md) | /components/combobox/source | crates/dioxus-shadcn-cli/templates/combobox.rs | src/components/ui/combobox.rs | rust | 314 | 10670 |

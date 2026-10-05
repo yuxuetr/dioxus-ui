@@ -93,6 +93,13 @@ pub enum ChartColorToken {
   Warning,
   Destructive,
   Neutral,
+  /// The `--chart-1` to `--chart-5` palette, for series and slices that sit
+  /// side by side (RFC 0065).
+  Chart1,
+  Chart2,
+  Chart3,
+  Chart4,
+  Chart5,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -229,6 +236,11 @@ pub fn chart_color_class(token: ChartColorToken) -> &'static str {
     ChartColorToken::Warning => "text-warning",
     ChartColorToken::Destructive => "text-destructive",
     ChartColorToken::Neutral => "text-foreground",
+    ChartColorToken::Chart1 => "text-chart-1",
+    ChartColorToken::Chart2 => "text-chart-2",
+    ChartColorToken::Chart3 => "text-chart-3",
+    ChartColorToken::Chart4 => "text-chart-4",
+    ChartColorToken::Chart5 => "text-chart-5",
   }
 }
 
@@ -240,6 +252,11 @@ pub fn chart_color_attribute(token: ChartColorToken) -> &'static str {
     ChartColorToken::Warning => "warning",
     ChartColorToken::Destructive => "destructive",
     ChartColorToken::Neutral => "neutral",
+    ChartColorToken::Chart1 => "chart-1",
+    ChartColorToken::Chart2 => "chart-2",
+    ChartColorToken::Chart3 => "chart-3",
+    ChartColorToken::Chart4 => "chart-4",
+    ChartColorToken::Chart5 => "chart-5",
   }
 }
 
@@ -625,6 +642,154 @@ pub fn ChartBarSeries(
           y: chart_number_label(rect.y),
           width: chart_number_label(rect.width),
           height: chart_number_label(rect.height),
+        }
+      }
+    }
+  }
+}
+
+pub const CHART_PIE_SERIES_BASE_CLASS: &str = "stroke-background";
+
+/// One pie or donut slice to draw.
+#[derive(Clone, Debug, PartialEq)]
+pub struct ChartSlice {
+  pub id: String,
+  pub label: String,
+  pub value: f64,
+  pub color: ChartColorToken,
+}
+
+impl ChartSlice {
+  pub fn new(id: impl Into<String>, label: impl Into<String>, value: f64, color: ChartColorToken) -> Self {
+    Self { id: id.into(), label: label.into(), value, color }
+  }
+}
+
+/// A slice's SVG path, its angles in radians from the top, clockwise, and
+/// its share of the total.
+#[derive(Clone, Debug, PartialEq)]
+pub struct ChartArc {
+  pub path: String,
+  pub start_angle: f64,
+  pub end_angle: f64,
+  pub fraction: f64,
+}
+
+fn arc_number(value: f64) -> String {
+  let rounded = (value * 100.0).round() / 100.0;
+  // Avoid "-0" in paths.
+  if rounded == 0.0 { "0".to_string() } else { rounded.to_string() }
+}
+
+fn arc_point(center: (f64, f64), radius: f64, angle: f64) -> String {
+  // Angles count from the top, so sine and cosine swap roles.
+  let x = center.0 + radius * angle.sin();
+  let y = center.1 - radius * angle.cos();
+  format!("{} {}", arc_number(x), arc_number(y))
+}
+
+fn ring_path(center: (f64, f64), radius: f64, inner: f64, start: f64, end: f64) -> String {
+  let large = if end - start > std::f64::consts::PI { 1 } else { 0 };
+  let (r, ir) = (arc_number(radius), arc_number(inner));
+  if inner > 0.0 {
+    format!(
+      "M {} A {r} {r} 0 {large} 1 {} L {} A {ir} {ir} 0 {large} 0 {} Z",
+      arc_point(center, radius, start),
+      arc_point(center, radius, end),
+      arc_point(center, inner, end),
+      arc_point(center, inner, start),
+    )
+  } else {
+    format!(
+      "M {} {} L {} A {r} {r} 0 {large} 1 {} Z",
+      arc_number(center.0),
+      arc_number(center.1),
+      arc_point(center, radius, start),
+      arc_point(center, radius, end),
+    )
+  }
+}
+
+// One SVG arc cannot start and end at the same point, so a whole circle is
+// two half arcs; a ring adds the inner circle, cut out by the even-odd rule.
+fn full_circle_path(center: (f64, f64), radius: f64, inner: f64) -> String {
+  let circle = |radius: f64| {
+    let r = arc_number(radius);
+    format!(
+      "M {} A {r} {r} 0 1 1 {} A {r} {r} 0 1 1 {} Z",
+      arc_point(center, radius, 0.0),
+      arc_point(center, radius, std::f64::consts::PI),
+      arc_point(center, radius, 0.0),
+    )
+  };
+  if inner > 0.0 { format!("{} {}", circle(radius), circle(inner)) } else { circle(radius) }
+}
+
+/// The slices for `values` around `center`: each takes its share of the
+/// total, from the top, clockwise. Values that are negative, zero, or not
+/// finite count as zero and get an empty path; a zero total draws nothing.
+/// `inner_radius` above zero makes a donut.
+pub fn chart_pie_arcs(values: &[f64], center: (f64, f64), radius: f64, inner_radius: f64) -> Vec<ChartArc> {
+  let sizes = values.iter().map(|value| if value.is_finite() && *value > 0.0 { *value } else { 0.0 }).collect::<Vec<_>>();
+  let total = sizes.iter().sum::<f64>();
+  let radius = non_negative_finite(radius);
+  let inner = non_negative_finite(inner_radius).min(radius);
+  let full = std::f64::consts::TAU;
+  let mut start = 0.0;
+
+  sizes
+    .into_iter()
+    .map(|size| {
+      let fraction = if total > 0.0 { size / total } else { 0.0 };
+      let end = start + fraction * full;
+      let path = if fraction <= 0.0 {
+        String::new()
+      } else if fraction >= 1.0 - 1e-9 {
+        full_circle_path(center, radius, inner)
+      } else {
+        ring_path(center, radius, inner, start, end)
+      };
+      let arc = ChartArc { path, start_angle: start, end_angle: end, fraction };
+      start = end;
+      arc
+    })
+    .collect()
+}
+
+pub fn chart_pie_series_class(class: &str) -> String {
+  classes([Some(CHART_PIE_SERIES_BASE_CLASS), Some(class)])
+}
+
+/// Pie or donut slices, inside a `ChartSvg`. `center` and `radius` are in the
+/// view box's units; `inner_radius` above zero makes a donut. Each slice is
+/// filled with its color and outlined with the background, and carries
+/// `data-slice` and `data-fraction`.
+#[component]
+pub fn ChartPieSeries(
+  slices: Vec<ChartSlice>,
+  #[props(default = (100.0, 100.0))] center: (f64, f64),
+  #[props(default = 96.0)] radius: f64,
+  #[props(default)] inner_radius: f64,
+  #[props(default = 2.0)] gap: f64,
+  #[props(default)] class: String,
+) -> Element {
+  let class = chart_pie_series_class(&class);
+  let values = slices.iter().map(|slice| slice.value).collect::<Vec<_>>();
+  let arcs = chart_pie_arcs(&values, center, radius, inner_radius);
+  let gap = arc_number(non_negative_finite(gap));
+
+  rsx! {
+    g { class, "data-chart-type": "pie", stroke_width: gap,
+      for (slice, arc) in slices.iter().zip(arcs) {
+        if !arc.path.is_empty() {
+          path {
+            key: "{slice.id}",
+            class: "fill-current {chart_color_class(slice.color)}",
+            d: arc.path,
+            fill_rule: "evenodd",
+            "data-slice": slice.id.clone(),
+            "data-fraction": arc_number(arc.fraction),
+          }
         }
       }
     }

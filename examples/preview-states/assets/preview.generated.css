@@ -1403,6 +1403,9 @@
   .fill-none {
     fill: none;
   }
+  .stroke-background {
+    stroke: var(--background);
+  }
   .stroke-current {
     stroke: currentcolor;
   }
@@ -1649,6 +1652,21 @@
   }
   .text-card-foreground {
     color: var(--card-foreground);
+  }
+  .text-chart-1 {
+    color: var(--chart-1);
+  }
+  .text-chart-2 {
+    color: var(--chart-2);
+  }
+  .text-chart-3 {
+    color: var(--chart-3);
+  }
+  .text-chart-4 {
+    color: var(--chart-4);
+  }
+  .text-chart-5 {
+    color: var(--chart-5);
   }
   .text-destructive {
     color: var(--destructive);
