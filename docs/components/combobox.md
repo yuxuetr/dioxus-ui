@@ -75,7 +75,8 @@ rsx! {
   existing input-inside-content usage.
 - With `anchor_id`, content is placed on `side` (default `Bottom`) with `align`
   (default `Start`) and `side_offset` (default `4`), flipping and shifting like
-  Popover.
+  Popover. The list is at least as wide as its input, and at least 8rem (see
+  [RFC 0046](../rfcs/0046-listbox-width-follows-trigger.md)).
 - Focus stays in the input. No option is highlighted until ArrowDown or
   ArrowUp; the highlighted option gets `data-highlighted` and the input's
   `aria-activedescendant`. Arrows skip disabled options without wrapping, and

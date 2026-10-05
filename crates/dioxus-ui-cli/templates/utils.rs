@@ -333,8 +333,10 @@ const clamp = (value, size, viewportSize) =>
 const place = () => {
   const rect = anchorRect();
   if (!rect || !(preferredSide in opposite)) return;
-  // Fixed positioning can change the content's size, so apply it before measuring.
+  // Fixed positioning and the anchor width (a minimum width for lists) can
+  // change the content's size, so apply them before measuring.
   Object.assign(content.style, { position: "fixed", margin: "0" });
+  content.style.setProperty("--dxui-anchor-width", `${rect.width}px`);
   const width = content.offsetWidth;
   const height = content.offsetHeight;
   const viewportWidth = document.documentElement.clientWidth;
@@ -393,6 +395,7 @@ document.removeEventListener("pointerdown", onPointerDown, true);
 document.removeEventListener("focusin", onFocusIn);
 document.removeEventListener("keydown", onKeyDown);
 Object.assign(content.style, { position: "", margin: "", left: "", top: "" });
+content.style.removeProperty("--dxui-anchor-width");
 "#;
 
 /// Where anchored content goes relative to the element with id `anchor_id`, or

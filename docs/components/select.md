@@ -61,7 +61,8 @@ rsx! {
   trigger requests open.
 - With `anchor_id`, content is placed on `side` (default `Bottom`) with `align`
   (default `Start`) and `side_offset` (default `4`), flipping and shifting like
-  Popover.
+  Popover. The list is at least as wide as its trigger, and at least 8rem (see
+  [RFC 0046](../rfcs/0046-listbox-width-follows-trigger.md)).
 - Focus stays on the trigger. The selected option, or the first enabled one,
   is highlighted with `data-highlighted` and referenced by the trigger's
   `aria-activedescendant`. ArrowDown and ArrowUp move between enabled options

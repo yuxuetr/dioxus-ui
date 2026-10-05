@@ -4,7 +4,7 @@ pub use super::utils::{DismissBehavior, OverlayAlign, OverlaySide, SelectPrimiti
 
 pub const SELECT_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-white px-3 py-2 text-sm text-zinc-950 transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
 pub const SELECT_VALUE_BASE_CLASS: &str = "truncate";
-pub const SELECT_CONTENT_BASE_CLASS: &str = "z-50 max-h-96 min-w-32 overflow-hidden rounded-md border border-zinc-200 bg-white p-1 text-zinc-950 shadow-md";
+pub const SELECT_CONTENT_BASE_CLASS: &str = "z-50 max-h-96 min-w-[max(8rem,var(--dxui-anchor-width,0px))] overflow-hidden rounded-md border border-zinc-200 bg-white p-1 text-zinc-950 shadow-md";
 pub const SELECT_GROUP_BASE_CLASS: &str = "p-1";
 pub const SELECT_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-zinc-500";
 pub const SELECT_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-zinc-100 data-highlighted:bg-zinc-100 data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
