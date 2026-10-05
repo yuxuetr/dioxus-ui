@@ -4,7 +4,7 @@
 
 - Overall: 0.2.0 plan, 3 of 8 milestones complete
 - Current milestone: M190 Display Components
-- Current task: M190.5
+- Current task: M190.6
 
 ## Backup
 
@@ -66,7 +66,8 @@
   - Done: counter-numbered `ol` with status-colored connectors, `aria-current="step"`, and hidden completed text; checked in a screenshot.
 - DONE M190.4 Indicator and Status
   - Done: logical-placement Indicator and a labelled-or-hidden Status dot. `docs/components/status.md` clashed with the generated status page, which moved to `component-status.md`.
-- TODO M190.5 Radial Progress
+- DONE M190.5 Radial Progress
+  - Done: SVG progressbar ring with clamped value, default percentage label replaced by children; checked in a screenshot.
 - TODO M190.6 Countdown
 - TODO M190.7 Diff
 
