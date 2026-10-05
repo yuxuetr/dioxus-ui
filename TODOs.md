@@ -4,7 +4,7 @@
 
 - Overall: 0.2.0 plan, 1 of 8 milestones complete
 - Current milestone: M188 Theme Presets
-- Current task: M188.2
+- Current task: M188.4
 
 ## Backup
 
@@ -40,10 +40,12 @@
 - DONE M188.1 Design theme presets
   - RFC 0057: a preset is a token set scoped by `[data-theme="name"]`, with `color-scheme`; the daisyUI-to-token mapping; which presets ship; the CLI surface.
   - Done: RFC 0057. Measured 18 of 35 daisyUI themes below AA, so foregrounds are adjusted; 33 presets ship (not `light` and `dark`); Checkbox moves its check mark to a mask.
-- TODO M188.2 Ship preset data and `dxui theme`
+- DONE M188.2 Ship preset data and `dxui theme`
   - Preset files embedded in the CLI; `dxui theme list` and `dxui theme add <name>` append a preset to `assets/dioxus-shadcn.css`, idempotently. CLI tests.
-- TODO M188.3 Gate preset contrast
+  - Done: 33 presets from `scripts/theme-presets.mjs`, embedded by `build.rs`; four CLI tests (repeat, unknown name without writing, missing stylesheet, schemes). The RFC's two component changes also landed: Link buttons use `text-foreground` (breaking for apps matching the class), and Checkbox marks are a masked `::before` filled with `--primary-foreground`, reverse-verified in the runtime check.
+- DONE M188.3 Gate preset contrast
   - Every preset's foreground and background pairs meet WCAG AA, computed from the OKLCH values; reverse-verified with a failing preset.
+  - Done: `npm run verify:theme-presets` in the release gate, red for a lowered foreground and a missing token. It also covers the default theme and found focused destructive menu items at 3.99:1; the light `--destructive` lightness went from 0.577 to 0.532.
 - TODO M188.4 Theme picker on the site
   - The site switches presets at runtime, the Theming page lists them with swatches, and `npm run verify:site` audits each preset.
 
