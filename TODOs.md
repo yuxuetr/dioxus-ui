@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 30%
-- Current milestone: M177 Component Token Migration
-- Current task: M177.4 Complete the component token migration
+- Overall: 40%
+- Current milestone: M178 Token-only Dark Theme And Palette Gate
+- Current task: M178.1 Move the dark theme onto the tokens
 
 ## Backup
 
@@ -47,7 +47,7 @@
   - The remaining components, including Card, Alert, Badge, Avatar, Table, Data Table, Accordion, Collapsible, Chart, Progress, Skeleton, Spinner, Toast, Sonner, Attachment, Bubble, Message, Message Scroller, and Marker, in the crate and the templates.
   - Update the same tests, docs, checks, and compiled stylesheet.
 
-- TODO M177.4 Complete the component token migration
+- DONE M177.4 Complete the component token migration
   - Update CHANGELOG Unreleased notes with the breaking change and a migration note for crate-mode apps.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`.
