@@ -311,6 +311,8 @@ release owner renames it to the released version at publish time.
   `role="group"`, which does not support it. `ToggleGroup` reports its
   orientation as `data-orientation`.
 - The site and the previews set `lang="en"` on the document.
+- Each crate package ships the MIT `LICENSE`; Cargo packages only files inside
+  a crate, so the packages had none.
 - The Select and Combobox listboxes take their trigger or input's name and
   an id derived from `anchor_id` (`{anchor_id}-content`, `{anchor_id}-list`),
   which the trigger and input point `aria-controls` at; an expanded combobox
