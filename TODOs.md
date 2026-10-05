@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 80%
 - Current milestone: M182 Automated Accessibility Audit
-- Current task: M182.4
+- Current task: M182.5
 
 ## Backup
 
@@ -38,8 +38,9 @@
   - Set the document language on the site and the previews, and fix the Skeleton example and the unnamed or duplicate-named preview fixtures.
   - Done: dx's page template has no `lang`, so the site and `PreviewSurface` set it at startup. Duplicate preview landmarks stay, covered by the preview's `landmark-unique` exception.
 
-- TODO M182.4 Add the audit to the browser checks
+- DONE M182.4 Add the audit to the browser checks
   - Add `axe-core` as a dev dependency, run it from `npm run verify:site` and `npm run verify:runtime-interactions`, and reverse-verify that a reintroduced finding fails each check.
+  - Done: the audit also caught the preview's hand-built scrolling message list, which now has a Tab stop and a region name. Reverse checks: `aria-orientation` on `ToggleGroup` fails the runtime check; a viewport without `tabindex` and an `h5` `AlertTitle` fail the site check.
 
 - TODO M182.5 Complete the accessibility audit milestone
   - Update CHANGELOG, the affected component docs, quality gates, and the docs index.
