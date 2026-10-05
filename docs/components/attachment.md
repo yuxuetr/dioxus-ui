@@ -34,8 +34,9 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["attachment
 
 ## Accessibility Notes
 
-`AttachmentAction` and `AttachmentTrigger` render native buttons. Icon-only
-actions need accessible names from the app. Error states must include visible
+`AttachmentAction` and `AttachmentTrigger` render native buttons that take
+`onclick` and pass through other attributes. Icon-only actions need an
+`aria-label` from the app, such as `"Remove report.pdf"`. Error states must include visible
 text in `AttachmentDescription`; color alone is not enough.
 
 `AttachmentGroup` is visual grouping only. Apps own group labels when the group

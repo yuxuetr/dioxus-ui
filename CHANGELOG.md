@@ -224,6 +224,13 @@ release owner renames it to the released version at publish time.
 - `npm run verify:tailwind-static` fails when a component or template class
   uses a Tailwind palette color instead of a semantic token, except the
   `bg-black/50` modal overlay.
+- Action part callbacks: `ButtonGroupItem`, `InputGroupAction`,
+  `AttachmentAction`, `AttachmentTrigger`, `ComboboxTrigger`,
+  `MessageScrollerJumpButton`, and `TooltipTrigger` gain `onclick` and pass
+  through attributes; before, nothing could run when they were clicked.
+  `FieldLabel` gains `r#for`, and `FieldLabel`, `BreadcrumbLink`, and
+  `HoverCardTrigger` pass through attributes such as `id`, `title`, and
+  `target`.
 
 ### Changed
 
@@ -277,6 +284,11 @@ release owner renames it to the released version at publish time.
 ### Fixed
 
 - Stale template repository links are no longer part of the changelog.
+- `Label` and `FieldLabel` leave out `for` when none is passed. `Label`
+  wrote `for=""`, which points at no control, so a label wrapping its input
+  did not name or focus it.
+- `MessageScrollerJumpButton` renders `type="button"`; inside a form it
+  submitted the form.
 - The Slider thumb follows the value; it was never positioned, so it sat at
   the end of the root for every value.
 - A passed `aria-label` on `PaginationPrevious` and `PaginationNext` replaces

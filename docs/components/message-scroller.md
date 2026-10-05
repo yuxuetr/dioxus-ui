@@ -32,8 +32,10 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["message-sc
 ## Accessibility Notes
 
 Message Scroller does not add feed, log, list, or live-region semantics by
-default. Unread markers should contain visible text. Icon-only jump controls
-need accessible labels from the app. Appends must not move focus automatically.
+default. Unread markers should contain visible text.
+`MessageScrollerJumpButton` is a `type="button"` that takes `onclick`, where
+the app scrolls and clears its unread state, and passes through other
+attributes; icon-only jump controls need an `aria-label` from the app. Appends must not move focus automatically.
 
 ## Runtime Notes
 

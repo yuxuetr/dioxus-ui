@@ -34,7 +34,8 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["field"] }
 ## Accessibility Notes
 
 - `Field` exposes invalid and disabled state through data attributes.
-- `FieldLabel` renders a native `label`; apps own `for` or wrapping
-  association.
+- `FieldLabel` renders a native `label`. Pass `r#for` with the control's
+  `id`, or wrap the control; an empty `for` is left out. Other attributes,
+  such as `id`, pass through.
 - Apps own `aria-describedby`, `aria-invalid`, and live-region behavior on the
   actual form control.

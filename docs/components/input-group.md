@@ -31,5 +31,6 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["input-grou
 
 Input Group preserves native input semantics by leaving the actual input element
 app-owned. Pair grouped inputs with `Label`; use text or `aria-hidden` for
-decorative addons as appropriate. `InputGroupAction` renders a native button,
-and icon-only actions need accessible names from the app.
+decorative addons as appropriate. `InputGroupAction` renders a native button
+that takes `onclick` and passes through other attributes; icon-only actions
+need an `aria-label` from the app.

@@ -60,6 +60,8 @@ rsx! {
 - Escape requests close per `dismiss` (default
   `DismissBehavior::tooltip_default()`); outside pointer presses do not.
 - Without `Tooltip`, the app wires its own trigger and passes `anchor_id`.
+- `TooltipTrigger` takes `onclick` for its action and passes through other
+  button attributes, such as `aria-label` for an icon-only trigger.
 
 The Web renderer is covered by `npm run verify:runtime-interactions`.
 

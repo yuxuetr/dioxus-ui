@@ -38,4 +38,6 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["breadcrumb
 - `BreadcrumbList` renders an ordered list.
 - `BreadcrumbLink { current: true }` and `BreadcrumbPage` expose
   `aria-current="page"`.
+- `BreadcrumbLink` passes through anchor attributes such as `title` and
+  `target`.
 - Routing and hidden labels for custom icons remain app-owned.

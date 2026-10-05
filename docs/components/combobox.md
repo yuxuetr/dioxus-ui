@@ -124,3 +124,7 @@ the app gives it; the wording and when to speak stay with the app (see
 `ComboboxInput` passes through attributes such as `name`, `aria-labelledby`,
 and `aria-describedby` (see
 [RFC 0038](../rfcs/0038-form-control-naming.md)).
+`ComboboxTrigger` takes `onclick`, where the app opens the list, and passes
+through attributes such as `aria-label` and `aria-controls`; its `role`,
+`aria-expanded`, and `aria-invalid` come from its props (see
+[RFC 0053](../rfcs/0053-interactive-part-callbacks.md)).

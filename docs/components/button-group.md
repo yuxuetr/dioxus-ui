@@ -27,4 +27,5 @@ dioxus-ui = { version = "0.1", default-features = false, features = ["button-gro
 Button Group renders a `role="group"` wrapper and native button items. Pass
 `aria_label` when the group needs an accessible name. Apps own icon-only
 accessible names, command behavior, pressed state, and any toolbar or
-roving-focus semantics.
+roving-focus semantics. `ButtonGroupItem` takes `onclick`, and other button
+attributes, such as `aria-pressed` and `aria-label`, pass through.

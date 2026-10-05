@@ -59,7 +59,8 @@ rsx! {
   both requests close at once, unless the pointer is over them.
 - A press on the trigger follows the link and keeps the card open.
 - Touch pointers do not open the card.
-- `HoverCardTrigger` renders an `a` with the required `href`.
+- `HoverCardTrigger` renders an `a` with the required `href` and passes
+  through anchor attributes such as `target` and `rel`.
 - Inside `HoverCard`, the content anchors to `HoverCardTrigger` and uses the
   root's `on_open_change` for dismissal. `anchor_id` and `on_open_change` on
   `HoverCardContent` override them.
