@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M175 Preview Theme Toggle
-- Current task: M175.2 Implement the preview theme toggle
+- Current task: M175.3 Verify the toggle in the Desktop and Mobile WebViews
 
 ## Backup
 
@@ -3208,7 +3208,7 @@
   - Define a `Toggle` in the `PreviewSurface` header that adds `dark` to the `main` root, a browser check of the toggle, and a `theme` self-test scenario.
   - Record what stays out of scope (system preference, remembered choice, WebView contrast checks) with reevaluation conditions.
 
-- TODO M175.2 Implement the preview theme toggle
+- DONE M175.2 Implement the preview theme toggle
   - Add the `dark_theme` signal and the "Dark theme" `Toggle` to `PreviewSurface`, and regenerate the compiled preview stylesheet.
   - Make `npm run verify:runtime-interactions` press the toggle and check the dark and light surfaces.
   - Reverse-verify that a toggle without the `dark` class fails the browser check.
