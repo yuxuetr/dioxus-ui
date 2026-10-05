@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M171 Listbox Width Follows Trigger
-- Current task: M171.4 Complete listbox width milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -3136,7 +3136,7 @@
   - Extend `npm run verify:runtime-interactions` to assert that the open Select and Combobox lists are at least as wide as their trigger and input.
   - Reverse-verify that the script fails without the custom property or with the previous `min-w-32`.
 
-- TODO M171.4 Complete listbox width milestone
+- DONE M171.4 Complete listbox width milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and quality gate docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
