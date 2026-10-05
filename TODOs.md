@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80%
-- Current milestone: M181 Interactive Part Callbacks And Attributes
-- Current task: M181.5
+- Overall: 100%
+- Current milestone: none (M181 complete)
+- Current task: none
 
 ## Backup
 
@@ -41,10 +41,11 @@
   - Use the new callbacks and `r#for` in the site examples so each action does something visible, remove the `div onclick` wrapper and the duplicate `aria-label`s, and keep `npm run verify:site` passing.
   - Done: `npm run verify:site` passes, and a one-off browser run clicked each updated example and saw its effect.
 
-- TODO M181.5 Complete the interactive part milestone
+- DONE M181.5 Complete the interactive part milestone
   - Update CHANGELOG, the component docs pages, and the docs index.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, `npm run verify:runtime-interactions`, and `npm run verify:site`.
   - Push local commits to `origin/main`.
+  - Done: release gate, runtime check (35 fixtures), site check (67 routes, 65 examples), and the Desktop self-test (10 scenarios) pass.
 
 ## Status Rules
 
