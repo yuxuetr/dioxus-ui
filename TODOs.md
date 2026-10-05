@@ -4,7 +4,7 @@
 
 - Overall: 0.2.0 plan, 6 of 8 milestones complete
 - Current milestone: M193 Completing Existing Components
-- Current task: M193.3
+- Current task: M193.4
 
 ## Backup
 
@@ -99,7 +99,8 @@
   - Done: RFC 0062; `multiple` withholds the listbox close handler, so the listbox code is unchanged. Selected options show check marks (a visible change for single selection too, noted in the CHANGELOG). Web runtime fixtures for both; the Desktop self-test still passes.
 - DONE M193.2 Navigation Menu submenus
   - Done: RFC 0063; ownership-scoped script and a vertical orientation whose contents pair by value (absolute panels would overflow the outer popover). Runtime fixture covers click, hover, arrows, and Escape; the original fixture and the Desktop scenario still pass.
-- TODO M193.3 Typed date input for Date Picker
+- DONE M193.3 Typed date input for Date Picker
+  - Done: RFC 0064; `DatePickerInput` with `parse_date`/`format_date`, unit tests for orders and invalid dates, and a runtime check. The Calendar template's `CalendarDate::new` does not validate, so the template checks month lengths itself; `DatePickerTrigger` gained attribute passthrough for an icon-only trigger.
 - TODO M193.4 Pie and donut charts
 
 ## M194 0.2.0 Release
