@@ -109,7 +109,8 @@ Read in this order:
 103. [RFC 0040: Composite Widget Names](rfcs/0040-composite-widget-names.md)
 104. [RFC 0041: Checkbox Indeterminate State](rfcs/0041-checkbox-indeterminate-state.md)
 105. [RFC 0042: Slider Thumb Position And Vertical Orientation](rfcs/0042-slider-thumb-position-and-vertical-orientation.md)
-106. [TODO Plan](../TODOs.md)
+106. [RFC 0043: Compiled Tailwind Browser Checks](rfcs/0043-compiled-tailwind-browser-checks.md)
+107. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 

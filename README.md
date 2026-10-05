@@ -225,6 +225,7 @@ format!("bg-{}-500", color)
 - [RFC 0040: Composite Widget Names](docs/rfcs/0040-composite-widget-names.md)
 - [RFC 0041: Checkbox Indeterminate State](docs/rfcs/0041-checkbox-indeterminate-state.md)
 - [RFC 0042: Slider Thumb Position And Vertical Orientation](docs/rfcs/0042-slider-thumb-position-and-vertical-orientation.md)
+- [RFC 0043: Compiled Tailwind Browser Checks](docs/rfcs/0043-compiled-tailwind-browser-checks.md)
 
 ## Verification Shortcuts
 

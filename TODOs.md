@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M168 Compiled Tailwind Browser Checks
+- Current task: M168.1 Design compiled Tailwind browser checks
 
 ## Backup
 
@@ -3062,6 +3062,25 @@
 
 - DONE M167.4 Complete slider milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and accessibility docs.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M168 Compiled Tailwind Browser Checks
+
+- TODO M168.1 Design compiled Tailwind browser checks
+  - Record that the Web preview links `@import "tailwindcss"` uncompiled, so no browser check sees class-based layout, and that compiling it shows bare `data-name:` variants applying to `data-name="false"` (disabled styles on every enabled option and link), value variants such as `data-orientation-vertical:` never matching, and open Navigation Menu content covering its trigger.
+  - Define compiling the preview stylesheet with the Tailwind Node API for the browser checks, value-matching data variants, Navigation Menu content below its trigger, and a static guard against bare data variants.
+  - Record what stays out of scope (utility conflicts in composed classes, Desktop and Mobile compiled CSS, a compiled stylesheet for `dx serve`) with reevaluation conditions.
+
+- TODO M168.2 Implement value-matching data variants
+  - Rewrite bare data variants in the crate source and templates to `data-[name=value]:`, place Navigation Menu content below its trigger, and make `npm run verify:tailwind-static` reject bare data variants.
+
+- TODO M168.3 Verify components with compiled Tailwind in a real browser
+  - Make `npm run verify:runtime-interactions` answer the preview stylesheet with compiled Tailwind, remove inline layout workarounds from the interaction fixtures, and replace checks that worked around missing CSS with measured ones.
+  - Reverse-verify that the script fails with the bare `data-disabled:` variant, with Navigation Menu content at `top-0`, and without the compiled stylesheet.
+
+- TODO M168.4 Complete compiled Tailwind milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and quality gate docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 
