@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M169 Tailwind Utility Conflicts
-- Current task: M169.2 Remove conflicting utilities from class functions
+- Current task: M169.3 Verify rendered class lists in a real browser
 
 ## Backup
 
@@ -3091,7 +3091,7 @@
   - Define moving each contested utility out of the base class into every branch, a static conflict check over class functions, a rendered conflict check in the browser verifier, and the important modifier for user overrides.
   - Record what stays out of scope (merging user classes, the native Checkbox appearance, conflicts between two state classes) with reevaluation conditions.
 
-- TODO M169.2 Remove conflicting utilities from class functions
+- DONE M169.2 Remove conflicting utilities from class functions
   - Move contested utilities out of base classes in the crate source and templates, size the vertical Slider root, and add `npm run verify:tailwind-conflicts` to the release gate.
 
 - TODO M169.3 Verify rendered class lists in a real browser
