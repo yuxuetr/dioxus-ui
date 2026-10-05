@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 20%
 - Current milestone: M184 First Publish Preparation
-- Current task: M184.1
+- Current task: M184.2
 
 ## Backup
 
@@ -21,8 +21,9 @@
 
 ## M184 First Publish Preparation
 
-- TODO M184.1 Record the crate name decision
+- DONE M184.1 Record the crate name decision
   - Record the conflict, the chosen names, what keeps its name (the repository, the `dxui` binary, unpublished examples), and reevaluation conditions in an RFC.
+  - Done: RFC 0056. The theme stylesheet becomes `assets/dioxus-shadcn.css`; the `dxui` DOM prefix and archived plans keep their names.
 
 - TODO M184.2 Rename the published crates
   - Rename `dioxus-ui`, `dioxus-ui-core`, `dioxus-ui-primitives`, and `dioxus-ui-cli` to the `dioxus-shadcn` names: package names, directories, Rust paths, the theme stylesheet, docs, registry, templates, and scripts.
