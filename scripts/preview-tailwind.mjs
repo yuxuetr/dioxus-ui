@@ -28,6 +28,15 @@ export async function compilePreviewCss(
   return compiler.build(scanner.scan());
 }
 
+// The compiled stylesheet PreviewSurface links for the Web, Desktop, and
+// Mobile previews (RFC 0049). Ends with a newline like other committed files.
+export const generatedPreviewCssPath = join(repoRoot, "examples/preview-states/assets/preview.generated.css");
+
+export async function renderGeneratedPreviewCss() {
+  const css = await compilePreviewCss();
+  return css.endsWith("\n") ? css : `${css}\n`;
+}
+
 const declaredPropertiesCache = new Map();
 const important = (utility) => utility.endsWith("!") || utility.startsWith("!");
 const variantOf = (utility) => utility.slice(0, Math.max(utility.lastIndexOf(":"), 0));

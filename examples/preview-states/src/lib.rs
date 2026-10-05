@@ -709,6 +709,10 @@ pub fn preview_smoke_lines(target: PreviewTarget) -> Vec<String> {
   preview_lines(target).into_iter().map(|line| line.render(target)).collect()
 }
 
+// Compiled Tailwind for every preview target; regenerate with
+// `npm run css:preview` after class changes (RFC 0049).
+const PREVIEW_CSS: Asset = asset!("/assets/preview.generated.css");
+
 #[component]
 pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let states = preview_lines(target);
@@ -859,6 +863,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let fallback_rows = chart_fallback_rows(&[chart_series]);
 
   rsx! {
+    document::Stylesheet { href: PREVIEW_CSS }
     main {
       class: "min-h-screen bg-white text-zinc-950",
       "data-preview-root": "{root}",
