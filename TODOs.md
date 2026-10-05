@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M173 Phone-width Preview Layout
-- Current task: M173.4 Complete the phone-width layout milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -3175,7 +3175,7 @@
   - Extend `npm run verify:runtime-interactions` to resize to 375px after the interactions and assert no horizontal page scroll and no element outside its fixture card unless an ancestor clips it.
   - Reverse-verify that the check fails without `grid-cols-1` or without the Pagination wrap.
 
-- TODO M173.4 Complete the phone-width layout milestone
+- DONE M173.4 Complete the phone-width layout milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and quality gate docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
