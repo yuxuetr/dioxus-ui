@@ -320,6 +320,7 @@ only.
 - [RFC 0058: Status Variants](docs/rfcs/0058-status-variants.md)
 - [RFC 0059: Display Components](docs/rfcs/0059-display-components.md)
 - [RFC 0060: Input Components](docs/rfcs/0060-input-components.md)
+- [RFC 0061: Mobile Navigation](docs/rfcs/0061-mobile-navigation.md)
 
 ## Verification Shortcuts
 

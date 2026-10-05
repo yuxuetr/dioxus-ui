@@ -128,7 +128,8 @@ Read in this order:
 121. [RFC 0058: Status Variants](rfcs/0058-status-variants.md)
 122. [RFC 0059: Display Components](rfcs/0059-display-components.md)
 123. [RFC 0060: Input Components](rfcs/0060-input-components.md)
-124. [TODO Plan](../TODOs.md)
+124. [RFC 0061: Mobile Navigation](rfcs/0061-mobile-navigation.md)
+125. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
