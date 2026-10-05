@@ -132,7 +132,8 @@ Read in this order:
 125. [RFC 0062: Multi-Select](rfcs/0062-multi-select.md)
 126. [RFC 0063: Navigation Menu Submenus](rfcs/0063-navigation-menu-submenus.md)
 127. [RFC 0064: Typed Date Input](rfcs/0064-typed-date-input.md)
-128. [TODO Plan](../TODOs.md)
+128. [RFC 0065: Pie and Donut Charts](rfcs/0065-pie-and-donut-charts.md)
+129. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 

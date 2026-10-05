@@ -324,6 +324,7 @@ only.
 - [RFC 0062: Multi-Select](docs/rfcs/0062-multi-select.md)
 - [RFC 0063: Navigation Menu Submenus](docs/rfcs/0063-navigation-menu-submenus.md)
 - [RFC 0064: Typed Date Input](docs/rfcs/0064-typed-date-input.md)
+- [RFC 0065: Pie and Donut Charts](docs/rfcs/0065-pie-and-donut-charts.md)
 
 ## Verification Shortcuts
 
