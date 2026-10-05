@@ -4,7 +4,7 @@
 
 - Overall: 0.2.0 plan, 6 of 8 milestones complete
 - Current milestone: M193 Completing Existing Components
-- Current task: M193.1
+- Current task: M193.2
 
 ## Backup
 
@@ -95,7 +95,8 @@
 
 ## M193 Completing Existing Components
 
-- TODO M193.1 Multi-select for Select and Combobox
+- DONE M193.1 Multi-select for Select and Combobox
+  - Done: RFC 0062; `multiple` withholds the listbox close handler, so the listbox code is unchanged. Selected options show check marks (a visible change for single selection too, noted in the CHANGELOG). Web runtime fixtures for both; the Desktop self-test still passes.
 - TODO M193.2 Navigation Menu submenus
 - TODO M193.3 Typed date input for Date Picker
 - TODO M193.4 Pie and donut charts
