@@ -2,33 +2,30 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: none (M185 complete)
-- Current task: none
+- Overall: 0%
+- Current milestone: M186 First Publish
+- Current task: M186.1
 
 ## Backup
 
-- Completed plans: `docs/archive/TODOs.completed-20260628192208.md` (M1 to M29), `docs/archive/TODOs.completed-20261005.md` (M30 to M175), `docs/archive/TODOs.completed-20261005-m176-m180.md` (M176 to M180), `docs/archive/TODOs.completed-20261005-m181.md` (M181), `docs/archive/TODOs.completed-20261005-m182.md` (M182), `docs/archive/TODOs.completed-20261005-m183.md` (M183), and `docs/archive/TODOs.completed-20261005-m184.md` (M184)
+- Completed plans: `docs/archive/TODOs.completed-20260628192208.md` (M1 to M29), `docs/archive/TODOs.completed-20261005.md` (M30 to M175), `docs/archive/TODOs.completed-20261005-m176-m180.md` (M176 to M180), `docs/archive/TODOs.completed-20261005-m181.md` (M181), `docs/archive/TODOs.completed-20261005-m182.md` (M182), `docs/archive/TODOs.completed-20261005-m183.md` (M183), `docs/archive/TODOs.completed-20261005-m184.md` (M184), and `docs/archive/TODOs.completed-20261005-m185.md` (M185)
 
 ## Goals
 
-- The crates.io pages show a short user guide, and the changelog names the `0.1.0` release, so the release owner can run `cargo publish --workspace`.
+- `dioxus-shadcn` 0.1.0 is on crates.io, with `CardTitle` matching shadcn/ui v4 before the API is frozen in a published version.
 
 ## Evidence
 
-- All four packages ship the root README, 1128 lines that mostly document development checks; crates.io shows it on every crate page, fixed per version.
-- Crate-mode Tailwind generates no component classes unless the stylesheet has an `@source` line for the crate's source, and no doc says so (checked by compiling the generated stylesheet with and without it).
-- `CHANGELOG.md` keeps the first release under `[Unreleased]`; the publish steps in `docs/release.md` rename it to `[0.1.0]` before publishing.
+- `CardTitle` renders a fixed `h3`, so an app cannot fit it to its page outline; shadcn/ui v4 renders a `div`, and M182 made the same change to `AlertTitle` for the same reason.
+- On 2026-10-05 the release owner asked for the publish to run now, with the current login.
 
-## M185 Release Notes Finalization
+## M186 First Publish
 
-- DONE M185.1 Write the published crate README
-  - Add a short user guide as the packages' README: the crates, source-copy and crate-mode setup (including the crate `@source` line), the theme, the components, and status; compile its examples.
-  - Done: `crates/README.md` is the workspace `readme`. Both setups compile from a scratch app, and Tailwind generates the component classes only with the crate `@source` line. The packaged README dropped the core crate archive from 16 KiB to 5 KiB.
+- TODO M186.1 Render CardTitle as a div
+  - Change `CardTitle` in the crate and the template, with an SSR test, and update the Card docs and CHANGELOG.
 
-- DONE M185.2 Name the 0.1.0 release in the changelog
-  - Rename `[Unreleased]` to `[0.1.0]` with the release date, keep the gates passing, rerun the publish dry run, and push.
-  - Done: `[0.1.0] - 2026-10-05` under an empty `[Unreleased]`. The release gate first failed because two gates read `crates/README.md` as a crate; they now list directories only. The dry run packages and verifies all four crates.
+- TODO M186.2 Publish 0.1.0
+  - With a clean tree matching `origin/main`, rerun the publish dry run, run `cargo publish --workspace`, tag `v0.1.0`, and record the release in the docs.
 
 ## Status Rules
 
