@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M173 Phone-width Preview Layout
-- Current task: M173.3 Verify phone-width layout in a real browser
+- Current task: M173.4 Complete the phone-width layout milestone
 
 ## Backup
 
@@ -3171,7 +3171,7 @@
 - DONE M173.2 Implement phone-width layout fixes
   - Add `grid-cols-1` to the preview grids and `flex-wrap justify-center` to the Pagination content in the crate and the template.
 
-- TODO M173.3 Verify phone-width layout in a real browser
+- DONE M173.3 Verify phone-width layout in a real browser
   - Extend `npm run verify:runtime-interactions` to resize to 375px after the interactions and assert no horizontal page scroll and no element outside its fixture card unless an ancestor clips it.
   - Reverse-verify that the check fails without `grid-cols-1` or without the Pagination wrap.
 
