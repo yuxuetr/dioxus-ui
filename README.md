@@ -228,6 +228,7 @@ format!("bg-{}-500", color)
 - [RFC 0043: Compiled Tailwind Browser Checks](docs/rfcs/0043-compiled-tailwind-browser-checks.md)
 - [RFC 0044: Tailwind Utility Conflicts](docs/rfcs/0044-tailwind-utility-conflicts.md)
 - [RFC 0045: Drawn Checkbox](docs/rfcs/0045-drawn-checkbox.md)
+- [RFC 0046: Listbox Width Follows Trigger](docs/rfcs/0046-listbox-width-follows-trigger.md)
 
 ## Verification Shortcuts
 

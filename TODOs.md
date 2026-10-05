@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 0%
+- Current milestone: M171 Listbox Width Follows Trigger
+- Current task: M171.1 Design listbox width
 
 ## Backup
 
@@ -3119,6 +3119,25 @@
 
 - DONE M170.4 Complete drawn checkbox milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and accessibility docs.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M171 Listbox Width Follows Trigger
+
+- TODO M171.1 Design listbox width
+  - Record that open Select and Combobox lists size to their options with `min-w-32`, so a full-width trigger opens a list a fraction of its width.
+  - Define an anchor width custom property set by the anchoring script and a Select and Combobox minimum width of the larger of 8rem and the anchor width.
+  - Record what stays out of scope (a maximum width, other anchored content, Desktop and Mobile scenarios) with reevaluation conditions.
+
+- TODO M171.2 Implement listbox width
+  - Set and clear `--dxui-anchor-width` in the anchoring script of the crate and the template, and use it in the Select and Combobox content classes.
+
+- TODO M171.3 Verify listbox width in a real browser
+  - Extend `npm run verify:runtime-interactions` to assert that the open Select and Combobox lists are at least as wide as their trigger and input.
+  - Reverse-verify that the script fails without the custom property or with the previous `min-w-32`.
+
+- TODO M171.4 Complete listbox width milestone
+  - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and quality gate docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 
