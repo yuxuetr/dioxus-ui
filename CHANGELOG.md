@@ -8,6 +8,14 @@ for commit messages.
 
 ## [Unreleased]
 
+### Fixed
+
+- The light theme's `--destructive` token has lightness 0.532 instead of
+  0.577, so focused destructive menu items in Dropdown, Context Menu, and
+  Menubar reach 4.5:1 on their `bg-destructive/10` highlight (3.99:1 before).
+  Apps that ran `dxui init` before 0.2.0 can change the value in
+  `assets/dioxus-shadcn.css`.
+
 ## [0.1.0] - 2026-10-05
 
 These are the first publish (`0.1.0`) release notes.

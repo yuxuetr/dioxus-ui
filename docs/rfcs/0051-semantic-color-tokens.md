@@ -60,7 +60,7 @@ the shadcn/ui zinc base color, with the deviations listed below.
 | `--secondary`, `--muted`, `--accent` | `oklch(0.967 0.001 286.375)` | `oklch(0.274 0.006 286.033)` |
 | `--secondary-foreground`, `--accent-foreground` | `oklch(0.21 0.006 285.885)` | `oklch(0.985 0 0)` |
 | `--muted-foreground` | `oklch(0.442 0.017 285.786)` * | `oklch(0.705 0.015 286.067)` |
-| `--destructive` | `oklch(0.577 0.245 27.325)` | `oklch(0.704 0.191 22.216)` |
+| `--destructive` | `oklch(0.532 0.245 27.325)` * | `oklch(0.704 0.191 22.216)` |
 | `--destructive-foreground` * | `oklch(0.985 0 0)` | `oklch(0.141 0.005 285.823)` |
 | `--border` | `oklch(0.92 0.004 286.32)` | `oklch(1 0 0 / 10%)` |
 | `--input` | `oklch(0.92 0.004 286.32)` | `oklch(1 0 0 / 15%)` |
@@ -75,6 +75,10 @@ the shadcn/ui zinc base color, with the deviations listed below.
 
 Deviations from shadcn/ui, marked * above:
 
+- `--destructive` has lightness 0.532 in the light theme, not 0.577. Menus
+  put destructive items' text on `bg-destructive/10` when focused, where
+  0.577 reaches only 3.99:1; M188 found this with the contrast gate of
+  [RFC 0057](0057-theme-presets.md).
 - `--muted-foreground` is zinc-600 in the light theme, not zinc-500.
   shadcn/ui puts muted text on `bg-muted` (Tabs, Command), where zinc-500
   reaches only 4.4:1 and fails the 4.5:1 check that
