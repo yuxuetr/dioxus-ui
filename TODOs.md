@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 25%
+- Current milestone: M175 Preview Theme Toggle
+- Current task: M175.2 Implement the preview theme toggle
 
 ## Backup
 
@@ -3198,6 +3198,28 @@
 
 - DONE M174.4 Complete the compiled preview stylesheet milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and quality gate docs.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M175 Preview Theme Toggle
+
+- DONE M175.1 Design the preview theme toggle
+  - Record that the compiled preview stylesheet carries the `.dark` block but nothing on the preview page turns it on, so manual previews and the Desktop and Mobile WebViews only render the light theme.
+  - Define a `Toggle` in the `PreviewSurface` header that adds `dark` to the `main` root, a browser check of the toggle, and a `theme` self-test scenario.
+  - Record what stays out of scope (system preference, remembered choice, WebView contrast checks) with reevaluation conditions.
+
+- TODO M175.2 Implement the preview theme toggle
+  - Add the `dark_theme` signal and the "Dark theme" `Toggle` to `PreviewSurface`, and regenerate the compiled preview stylesheet.
+  - Make `npm run verify:runtime-interactions` press the toggle and check the dark and light surfaces.
+  - Reverse-verify that a toggle without the `dark` class fails the browser check.
+
+- TODO M175.3 Verify the toggle in the Desktop and Mobile WebViews
+  - Add a `theme` scenario after `stylesheet` to the in-app self-test.
+  - Run the Desktop self-test, and the iOS and Android self-tests where available.
+  - Reverse-verify that the scenario fails when the toggle does not add the `dark` class.
+
+- TODO M175.4 Complete the preview theme toggle milestone
+  - Update CHANGELOG Unreleased notes and quality gate docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 
