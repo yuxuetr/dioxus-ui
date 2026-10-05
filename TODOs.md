@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0.2.0 plan, 5 of 8 milestones complete
-- Current milestone: M192 Mobile Navigation
-- Current task: M192 docs
+- Overall: 0.2.0 plan, 6 of 8 milestones complete
+- Current milestone: M193 Completing Existing Components
+- Current task: M193.1
 
 ## Backup
 
