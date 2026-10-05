@@ -64,6 +64,7 @@ pub fn SelectTrigger(
   children: Element,
 ) -> Element {
   let class = select_trigger_class(invalid, &class);
+  let controls = id.as_ref().map(|id| format!("{id}-content"));
 
   rsx! {
     button {
@@ -72,6 +73,7 @@ pub fn SelectTrigger(
       id,
       class,
       disabled,
+      "aria-controls": controls,
       "aria-expanded": open.to_string(),
       "aria-haspopup": "listbox",
       "aria-invalid": invalid.to_string(),
@@ -109,7 +111,8 @@ pub fn SelectValue(#[props(default)] class: String, children: Element) -> Elemen
 /// trigger while focus stays on it: arrows, Home, End, and typeahead move the
 /// highlighted option, and Enter, Space, or click choose it through
 /// `on_value_change` before requesting close. Escape and outside interactions
-/// request close per `dismiss`.
+/// request close per `dismiss`. The listbox takes the trigger's name, and its
+/// `id` is the trigger's `aria-controls` value, `{anchor_id}-content`.
 #[component]
 pub fn SelectContent(
   #[props(default)] open: bool,
@@ -124,6 +127,8 @@ pub fn SelectContent(
   children: Element,
 ) -> Element {
   let class = select_content_class(&class);
+  let id = anchor_id.as_ref().map(|anchor_id| format!("{anchor_id}-content"));
+  let labelledby = anchor_id.clone();
   let listbox =
     use_listbox(open, anchor_id.clone(), ListboxMode::Select, on_value_change, on_open_change);
   let anchored = use_anchored_overlay(
@@ -136,7 +141,9 @@ pub fn SelectContent(
   rsx! {
     div {
       role: "listbox",
+      id,
       class,
+      "aria-labelledby": labelledby,
       hidden: !open,
       "data-state": if open { "open" } else { "closed" },
       "data-dxui-anchored": anchored,
@@ -186,6 +193,7 @@ pub fn SelectItem(
       role: "option",
       class,
       "aria-selected": selected.to_string(),
+      "aria-disabled": disabled.to_string(),
       "data-disabled": disabled.to_string(),
       "data-value": value,
       {children}

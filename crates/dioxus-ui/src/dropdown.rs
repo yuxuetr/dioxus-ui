@@ -119,6 +119,7 @@ pub fn DropdownItem(
     div {
       role: "menuitem",
       class,
+      "aria-disabled": disabled.to_string(),
       "data-disabled": disabled.to_string(),
       onclick: move |event| {
         if let Some(handler) = onclick.filter(|_| !disabled) {
@@ -145,6 +146,19 @@ pub fn DropdownSeparator(#[props(default)] class: String) -> Element {
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  #[test]
+  fn ssr_disabled_item_sets_aria_disabled() {
+    fn app() -> Element {
+      rsx! { DropdownItem { disabled: true, "Archive" } }
+    }
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    let html = dioxus_ssr::render(&dom);
+
+    assert!(html.contains(r#"aria-disabled="true""#));
+    assert!(html.contains(r#"data-disabled="true""#));
+  }
 
   #[test]
   fn dropdown_item_class_reflects_destructive_state() {

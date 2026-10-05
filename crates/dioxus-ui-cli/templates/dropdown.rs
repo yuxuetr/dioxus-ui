@@ -114,6 +114,7 @@ pub fn DropdownItem(
     div {
       role: "menuitem",
       class,
+      "aria-disabled": disabled.to_string(),
       "data-disabled": disabled.to_string(),
       onclick: move |event| {
         if let Some(handler) = onclick.filter(|_| !disabled) {
