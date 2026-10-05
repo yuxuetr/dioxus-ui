@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 50%
 - Current milestone: M172 Opt-in Dark Theme
-- Current task: M172.2 Implement the dark theme
+- Current task: M172.3 Verify the dark theme in a real browser
 
 ## Backup
 
@@ -3148,7 +3148,7 @@
   - Define an opt-in `.dark` block that remaps the white, zinc, blue, red, green, amber, and emerald variables, shipped in the CLI default stylesheet and the preview stylesheets.
   - Record what stays out of scope (semantic tokens, a system-preference default, `text-white` on app-owned images) with reevaluation conditions.
 
-- TODO M172.2 Implement the dark theme
+- DONE M172.2 Implement the dark theme
   - Add the `.dark` block to the CLI default `assets/dioxus-ui.css` and to the Web and Desktop preview stylesheets.
   - Extend `npm run verify:css-inputs` to require that the preview blocks match the CLI block.
 
