@@ -248,6 +248,7 @@ format!("bg-{}-500", color)
 - [RFC 0047: Opt-in Dark Theme](docs/rfcs/0047-opt-in-dark-theme.md)
 - [RFC 0048: Phone-width Preview Layout](docs/rfcs/0048-phone-width-preview-layout.md)
 - [RFC 0049: Compiled Preview Stylesheet](docs/rfcs/0049-compiled-preview-stylesheet.md)
+- [RFC 0050: Preview Theme Toggle](docs/rfcs/0050-preview-theme-toggle.md)
 
 ## Verification Shortcuts
 
