@@ -4,7 +4,7 @@
 
 - Overall: 0.2.0 plan, 4 of 8 milestones complete
 - Current milestone: M191 Input Components
-- Current task: M191.3
+- Current task: M191.4
 
 ## Backup
 
@@ -79,7 +79,8 @@
   - Done: RFC 0060 for all of M191; native radio stars with a runtime check for arrow keys, clicks, and fill.
 - DONE M191.2 Number Input
   - Done: text spinbutton instead of `type="number"` (RFC amended: its empty value for incomplete text breaks control). The runtime check found the wrapper dimming when a button hit a bound; the dimming now keys off the input only.
-- TODO M191.3 Tags Input
+- DONE M191.3 Tags Input
+  - Done: pure add, commit, and remove functions with unit tests and a runtime check for Enter, comma paste, Backspace, and remove buttons.
 - TODO M191.4 File Input
 - TODO M191.5 Swap
 
