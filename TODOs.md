@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
+- Overall: 80%
 - Current milestone: M180 Component Pages
-- Current task: M180.1 Build the component page template
+- Current task: M180.2 Add actions and forms examples
 
 ## Backup
 
@@ -90,7 +90,7 @@
 
 ## M180 Component Pages
 
-- TODO M180.1 Build the component page template
+- DONE M180.1 Build the component page template
   - Show the description, the `dxui add` command and crate feature, live examples with a preview and source tab, and links to the API and accessibility notes.
   - Fail the site check when a catalog component has no page or an example has no source.
 
