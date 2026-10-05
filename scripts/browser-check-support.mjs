@@ -3,13 +3,15 @@
 import { request } from "node:http";
 import { once } from "node:events";
 import { spawn } from "node:child_process";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import { chromium } from "@playwright/test";
 
 const repoRoot = new URL("..", import.meta.url).pathname;
 const host = "127.0.0.1";
 const installHint = "npx playwright install chromium";
 const executablePath = process.env.DIOXUS_UI_BROWSER_EXECUTABLE;
+const axeSource = readFileSync(createRequire(import.meta.url).resolve("axe-core/axe.min.js"), "utf8");
 
 // Launches headless Chromium, or the browser DIOXUS_UI_BROWSER_EXECUTABLE
 // names, with an install hint when Playwright's own build is missing.
@@ -186,4 +188,21 @@ export function lowContrastText() {
     }
   }
   return failures;
+}
+
+// Runs axe-core on the page with the WCAG 2.1 A and AA and best-practice
+// rules (RFC 0054) and lists each violation with its first element.
+export async function accessibilityViolations(page, { disabledRules = [] } = {}) {
+  if (!(await page.evaluate(() => "axe" in window))) {
+    await page.addScriptTag({ content: axeSource });
+  }
+  return page.evaluate(async (disabled) => {
+    const result = await window.axe.run(document, {
+      runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "best-practice"] },
+      rules: Object.fromEntries(disabled.map((id) => [id, { enabled: false }])),
+    });
+    return result.violations.map(
+      (violation) => `${violation.id} (${violation.impact}): ${violation.help}: ${violation.nodes[0]?.html.slice(0, 160)}`,
+    );
+  }, disabledRules);
 }

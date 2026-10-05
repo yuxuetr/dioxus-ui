@@ -2,11 +2,17 @@
 import { readFileSync } from "node:fs";
 import { expect } from "@playwright/test";
 import { buildDocsCatalog } from "./docs-catalog-builder.mjs";
-import { launchBrowser, lowContrastText, serveDioxusWeb, setDarkTheme } from "./browser-check-support.mjs";
+import {
+  accessibilityViolations,
+  launchBrowser,
+  lowContrastText,
+  serveDioxusWeb,
+  setDarkTheme,
+} from "./browser-check-support.mjs";
 
 // Visits every component site route (RFC 0052) and fails on a console error,
-// a route that renders the not found page, low text contrast in either
-// theme, or a sideways scroll at 375px.
+// a route that renders the not found page, low text contrast or an axe-core
+// violation (RFC 0054) in either theme, or a sideways scroll at 375px.
 const server = serveDioxusWeb({ packageName: "dioxus-ui-site", port: 45241 });
 const viewport = { width: 1280, height: 900 };
 const routes = [
@@ -35,12 +41,17 @@ async function visit(page, path) {
   return article;
 }
 
-async function expectReadable(page, label) {
+async function expectReadable(page, label, { audit = false } = {}) {
   for (const dark of [false, true]) {
     await setDarkTheme(page, dark);
+    const theme = dark ? "dark" : "light";
     const failures = await page.evaluate(lowContrastText);
     if (failures.length > 0) {
-      throw new Error(`${label} (${dark ? "dark" : "light"} theme): low contrast text: ${failures.slice(0, 5).join("; ")}`);
+      throw new Error(`${label} (${theme} theme): low contrast text: ${failures.slice(0, 5).join("; ")}`);
+    }
+    const violations = audit ? await accessibilityViolations(page) : [];
+    if (violations.length > 0) {
+      throw new Error(`${label} (${theme} theme): accessibility violations: ${violations.join("; ")}`);
     }
   }
   await setDarkTheme(page, false);
@@ -118,7 +129,7 @@ async function run() {
       if (route.slug) {
         await expectExamples(page, route);
       }
-      await expectReadable(page, route.path);
+      await expectReadable(page, route.path, { audit: true });
       await expectNoSidewaysScroll(page, route.path);
       if (errors.length > 0) {
         throw new Error(`${route.path}: console errors: ${errors.join("; ")}`);

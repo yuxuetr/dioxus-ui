@@ -990,6 +990,10 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           h2 { class: "text-sm font-medium", "Message states" }
           div {
             class: "{scroller} mt-3 rounded-md bg-muted p-3",
+            // It scrolls, so keyboard users need a Tab stop to reach it.
+            tabindex: "0",
+            role: "region",
+            "aria-label": "Conversation",
             div {
               class: "{message_group}",
               div {

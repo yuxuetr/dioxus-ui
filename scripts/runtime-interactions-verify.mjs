@@ -1,7 +1,13 @@
 #!/usr/bin/env node
 import { expect } from "@playwright/test";
 import { compilePreviewCss, utilityConflicts } from "./preview-tailwind.mjs";
-import { launchBrowser, lowContrastText, serveDioxusWeb, setDarkTheme } from "./browser-check-support.mjs";
+import {
+  accessibilityViolations,
+  launchBrowser,
+  lowContrastText,
+  serveDioxusWeb,
+  setDarkTheme,
+} from "./browser-check-support.mjs";
 
 const viewport = { width: 1280, height: 900 };
 const server = serveDioxusWeb({ packageName: "dioxus-ui-web-demo", bin: "preview", port: 45239 });
@@ -78,6 +84,12 @@ async function expectReadableText(page, label) {
     const failures = await page.evaluate(lowContrastText);
     if (failures.length > 0) {
       throw new Error(`${label} (${theme} theme): low contrast text: ${failures.join("; ")}`);
+    }
+    // The preview shows several instances of one landmark component, such as
+    // the Toast and Sonner viewports, which an app renders one of.
+    const violations = await accessibilityViolations(page, { disabledRules: ["landmark-unique"] });
+    if (violations.length > 0) {
+      throw new Error(`${label} (${theme} theme): accessibility violations: ${violations.join("; ")}`);
     }
   }
   await setDarkTheme(page, false);
