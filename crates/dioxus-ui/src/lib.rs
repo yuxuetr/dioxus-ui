@@ -113,8 +113,13 @@ mod listbox;
 #[cfg(any(feature = "sonner", feature = "toast"))]
 mod dismiss_timer;
 
-#[cfg(any(feature = "carousel", feature = "pagination"))]
-mod aria_label;
+#[cfg(any(
+  feature = "carousel",
+  feature = "message-scroller",
+  feature = "pagination",
+  feature = "scroll-area"
+))]
+mod default_attribute;
 
 #[cfg(any(feature = "hover-card", feature = "tooltip"))]
 mod hover_open;

@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 
-use crate::aria_label::default_aria_label;
+use crate::default_attribute::default_attribute;
 
 pub const PAGINATION_BASE_CLASS: &str = "mx-auto flex w-full justify-center";
 pub const PAGINATION_CONTENT_BASE_CLASS: &str =
@@ -107,7 +107,7 @@ pub fn PaginationPrevious(
     disabled,
     onclick,
     class,
-    default_aria_label(&attributes, "Go to previous page"),
+    default_attribute(&attributes, "aria-label", "Go to previous page"),
     attributes,
     rsx! { "Previous" },
   )
@@ -129,7 +129,7 @@ pub fn PaginationNext(
     disabled,
     onclick,
     class,
-    default_aria_label(&attributes, "Go to next page"),
+    default_attribute(&attributes, "aria-label", "Go to next page"),
     attributes,
     rsx! { "Next" },
   )
@@ -227,7 +227,7 @@ mod tests {
   }
 
   #[test]
-  fn ssr_renders_the_default_aria_label() {
+  fn ssr_renders_the_default_attribute() {
     fn app() -> Element {
       rsx! {
         PaginationPrevious {}

@@ -262,7 +262,7 @@ pub fn ToggleGroup(
     div {
       role: "group",
       class,
-      "aria-orientation": orientation,
+      "data-orientation": orientation,
       "data-type": selection_type,
       "data-looping": looping.to_string(),
       "data-dxui-roving-group": scope_id,

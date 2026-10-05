@@ -70,7 +70,6 @@ pub fn ButtonGroup(
       role: "group",
       class,
       "aria-label": aria_label,
-      "aria-orientation": orientation.attribute(),
       "data-orientation": orientation.attribute(),
       "data-attached": attached.to_string(),
       {children}

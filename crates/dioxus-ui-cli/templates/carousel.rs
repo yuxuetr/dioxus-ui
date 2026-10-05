@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use super::utils::{classes, default_aria_label};
+use super::utils::{classes, default_attribute};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum CarouselOrientation {
@@ -305,7 +305,7 @@ pub fn CarouselPrevious(
   children: Element,
 ) -> Element {
   let class = carousel_control_class(disabled, &class);
-  let aria_label = default_aria_label(&attributes, "Previous slide");
+  let aria_label = default_attribute(&attributes, "aria-label", "Previous slide");
 
   rsx! {
     button {
@@ -335,7 +335,7 @@ pub fn CarouselNext(
   children: Element,
 ) -> Element {
   let class = carousel_control_class(disabled, &class);
-  let aria_label = default_aria_label(&attributes, "Next slide");
+  let aria_label = default_attribute(&attributes, "aria-label", "Next slide");
 
   rsx! {
     button {
@@ -364,7 +364,7 @@ pub fn CarouselIndicator(
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
 ) -> Element {
   let class = carousel_indicator_class(selected, &class);
-  let aria_label = default_aria_label(&attributes, "Go to slide");
+  let aria_label = default_attribute(&attributes, "aria-label", "Go to slide");
 
   rsx! {
     button {

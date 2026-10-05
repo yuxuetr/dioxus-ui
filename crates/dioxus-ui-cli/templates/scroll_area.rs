@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use super::utils::classes;
+use super::utils::{classes, default_attribute};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ScrollAreaOrientation {
@@ -18,7 +18,7 @@ pub fn scroll_area_orientation_attribute(orientation: ScrollAreaOrientation) -> 
 }
 
 pub const SCROLL_AREA_BASE_CLASS: &str = "relative overflow-hidden";
-pub const SCROLL_AREA_VIEWPORT_BASE_CLASS: &str = "h-full w-full overflow-auto rounded-inherit";
+pub const SCROLL_AREA_VIEWPORT_BASE_CLASS: &str = "h-full w-full overflow-auto rounded-inherit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring";
 pub const SCROLL_AREA_CONTENT_BASE_CLASS: &str = "min-w-full";
 pub const SCROLL_AREA_SCROLLBAR_BASE_CLASS: &str = "flex touch-none select-none transition-colors data-[orientation=horizontal]:h-2.5 data-[orientation=horizontal]:flex-col data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2.5";
 pub const SCROLL_AREA_THUMB_BASE_CLASS: &str = "relative flex-1 rounded-full bg-border";
@@ -76,12 +76,19 @@ pub fn ScrollArea(
 }
 
 #[component]
-pub fn ScrollAreaViewport(#[props(default)] class: String, children: Element) -> Element {
+pub fn ScrollAreaViewport(
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
   let class = scroll_area_viewport_class(&class);
+  let tabindex = default_attribute(&attributes, "tabindex", "0");
 
   rsx! {
     div {
       class,
+      tabindex,
+      ..attributes,
       {children}
     }
   }

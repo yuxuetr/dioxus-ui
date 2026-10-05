@@ -61,7 +61,7 @@ pub fn AlertTitle(#[props(default)] class: String, children: Element) -> Element
   let class = alert_title_class(&class);
 
   rsx! {
-    h5 {
+    div {
       class,
       {children}
     }
@@ -87,6 +87,23 @@ pub fn AlertDescription(
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  fn render(app: fn() -> Element) -> String {
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    dioxus_ssr::render(&dom)
+  }
+
+  #[test]
+  fn ssr_title_is_not_a_heading() {
+    fn app() -> Element {
+      rsx! { AlertTitle { "Heads up" } }
+    }
+    let html = render(app);
+
+    assert!(html.starts_with("<div"));
+    assert!(!html.contains("<h"));
+  }
 
   #[test]
   fn alert_class_includes_variant_and_user_class() {

@@ -110,7 +110,7 @@ pub fn ToggleGroup(
     div {
       role: "group",
       class,
-      "aria-orientation": orientation,
+      "data-orientation": orientation,
       "data-type": selection_type,
       "data-looping": looping.to_string(),
       "data-dxui-roving-group": scope_id,
@@ -148,6 +148,23 @@ pub fn ToggleGroupItem(
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  fn render(app: fn() -> Element) -> String {
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    dioxus_ssr::render(&dom)
+  }
+
+  #[test]
+  fn ssr_group_has_no_aria_orientation() {
+    fn app() -> Element {
+      rsx! { ToggleGroup { orientation: NavigationOrientation::Vertical, "aria-label": "Text style" } }
+    }
+    let html = render(app);
+
+    assert!(!html.contains("aria-orientation"));
+    assert!(html.contains(r#"data-orientation="vertical""#));
+  }
 
   fn items() -> Vec<RovingFocusItem> {
     vec![

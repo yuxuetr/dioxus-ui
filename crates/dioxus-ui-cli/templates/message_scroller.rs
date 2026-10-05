@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use super::utils::classes;
+use super::utils::{classes, default_attribute};
 
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct MessageScrollerMetrics {
@@ -35,7 +35,7 @@ pub enum MessageScrollerIntent {
 }
 
 pub const MESSAGE_SCROLLER_BASE_CLASS: &str = "relative flex min-h-0 w-full flex-col overflow-hidden";
-pub const MESSAGE_SCROLLER_VIEWPORT_BASE_CLASS: &str = "min-h-0 flex-1 overflow-y-auto overscroll-contain";
+pub const MESSAGE_SCROLLER_VIEWPORT_BASE_CLASS: &str = "min-h-0 flex-1 overflow-y-auto overscroll-contain focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring";
 pub const MESSAGE_SCROLLER_CONTENT_BASE_CLASS: &str = "flex min-h-full flex-col gap-4";
 pub const MESSAGE_SCROLLER_BOTTOM_ANCHOR_BASE_CLASS: &str = "h-px w-full shrink-0 scroll-mb-4";
 pub const MESSAGE_SCROLLER_UNREAD_MARKER_BASE_CLASS: &str = "pointer-events-none absolute inset-x-0 bottom-4 z-10 flex justify-center";
@@ -185,12 +185,19 @@ pub fn MessageScroller(
 }
 
 #[component]
-pub fn MessageScrollerViewport(#[props(default)] class: String, children: Element) -> Element {
+pub fn MessageScrollerViewport(
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
   let class = message_scroller_viewport_class(&class);
+  let tabindex = default_attribute(&attributes, "tabindex", "0");
 
   rsx! {
     div {
       class,
+      tabindex,
+      ..attributes,
       {children}
     }
   }

@@ -71,7 +71,6 @@ pub fn ButtonGroup(
       role: "group",
       class,
       "aria-label": aria_label,
-      "aria-orientation": orientation.attribute(),
       "data-orientation": orientation.attribute(),
       "data-attached": attached.to_string(),
       {children}
@@ -108,6 +107,17 @@ pub fn ButtonGroupItem(
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  #[test]
+  fn ssr_group_has_no_aria_orientation() {
+    fn app() -> Element {
+      rsx! { ButtonGroup { orientation: ButtonGroupOrientation::Vertical, ButtonGroupItem { "A" } } }
+    }
+    let html = render(app);
+
+    assert!(!html.contains("aria-orientation"));
+    assert!(html.contains(r#"data-orientation="vertical""#));
+  }
 
   fn render(app: fn() -> Element) -> String {
     let mut dom = VirtualDom::new(app);

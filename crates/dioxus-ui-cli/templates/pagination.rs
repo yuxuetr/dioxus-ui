@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use super::utils::{classes, default_aria_label};
+use super::utils::{classes, default_attribute};
 
 pub const PAGINATION_BASE_CLASS: &str = "mx-auto flex w-full justify-center";
 pub const PAGINATION_CONTENT_BASE_CLASS: &str = "flex flex-row flex-wrap items-center justify-center gap-1";
@@ -103,7 +103,7 @@ pub fn PaginationPrevious(
     disabled,
     onclick,
     class,
-    default_aria_label(&attributes, "Go to previous page"),
+    default_attribute(&attributes, "aria-label", "Go to previous page"),
     attributes,
     rsx! { "Previous" },
   )
@@ -125,7 +125,7 @@ pub fn PaginationNext(
     disabled,
     onclick,
     class,
-    default_aria_label(&attributes, "Go to next page"),
+    default_attribute(&attributes, "aria-label", "Go to next page"),
     attributes,
     rsx! { "Next" },
   )

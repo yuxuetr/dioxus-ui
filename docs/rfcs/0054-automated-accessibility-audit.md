@@ -42,6 +42,10 @@ landmarks across the whole page. A one-off axe-core 4 run with the
   and pass through global and `div` attributes after it. An app names a
   viewport with `role="region"` and `aria-label`, or passes `tabindex: "-1"`
   when its content already has a focusable element.
+  The shared `default_attribute` helper, which generalizes RFC 0035's
+  `default_aria_label`, leaves out the default `tabindex` when one is passed,
+  so server-rendered HTML carries only the passed value. The viewports also
+  show a `ring` focus outline, inset so a clipping root does not hide it.
 - `AlertTitle` renders a `div`, as in shadcn/ui v4. An app that wants a
   heading wraps the text in its own heading at the right level.
 

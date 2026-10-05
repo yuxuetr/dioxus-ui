@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 
-use crate::aria_label::default_aria_label;
+use crate::default_attribute::default_attribute;
 pub use dioxus_ui_primitives::{
   CarouselState, LayoutOrientation as CarouselOrientation, carousel_can_go_next,
   carousel_can_go_previous, carousel_clamp_index, carousel_next, carousel_previous,
@@ -209,7 +209,7 @@ pub fn CarouselPrevious(
   children: Element,
 ) -> Element {
   let class = carousel_control_class(disabled, &class);
-  let aria_label = default_aria_label(&attributes, "Previous slide");
+  let aria_label = default_attribute(&attributes, "aria-label", "Previous slide");
 
   rsx! {
     button {
@@ -237,7 +237,7 @@ pub fn CarouselNext(
   children: Element,
 ) -> Element {
   let class = carousel_control_class(disabled, &class);
-  let aria_label = default_aria_label(&attributes, "Next slide");
+  let aria_label = default_attribute(&attributes, "aria-label", "Next slide");
 
   rsx! {
     button {
@@ -264,7 +264,7 @@ pub fn CarouselIndicator(
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
 ) -> Element {
   let class = carousel_indicator_class(selected, &class);
-  let aria_label = default_aria_label(&attributes, "Go to slide");
+  let aria_label = default_attribute(&attributes, "aria-label", "Go to slide");
 
   rsx! {
     button {
@@ -314,7 +314,7 @@ mod tests {
   }
 
   #[test]
-  fn ssr_renders_the_default_aria_label() {
+  fn ssr_renders_the_default_attribute() {
     fn app() -> Element {
       rsx! {
         CarouselPrevious {}

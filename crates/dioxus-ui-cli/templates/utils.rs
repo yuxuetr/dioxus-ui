@@ -24,11 +24,11 @@ where
   output
 }
 
-/// Keeps a component's default `aria-label` only when the app passed none.
-/// The browser applies the later spread value anyway, but SSR writes both
-/// attributes and an HTML parser keeps the first.
-pub fn default_aria_label(attributes: &[Attribute], label: &'static str) -> Option<&'static str> {
-  (!attributes.iter().any(|attribute| attribute.name == "aria-label")).then_some(label)
+/// Keeps a component's default value for attribute `name` only when the app
+/// passed none. The browser applies the later spread value anyway, but SSR
+/// writes both attributes and an HTML parser keeps the first.
+pub fn default_attribute(attributes: &[Attribute], name: &str, value: &'static str) -> Option<&'static str> {
+  (!attributes.iter().any(|attribute| attribute.name == name)).then_some(value)
 }
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]

@@ -1622,6 +1622,9 @@
     --tw-outline-style: none;
     outline-style: none;
   }
+  .focus-visible\:ring-inset:focus-visible {
+    --tw-ring-inset: inset;
+  }
   .disabled\:pointer-events-none:disabled {
     pointer-events: none;
   }

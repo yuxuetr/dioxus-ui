@@ -59,7 +59,7 @@ pub fn AlertTitle(#[props(default)] class: String, children: Element) -> Element
   let class = alert_title_class(&class);
 
   rsx! {
-    h5 {
+    div {
       class,
       {children}
     }

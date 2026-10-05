@@ -2,8 +2,10 @@ use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 pub use dioxus_ui_primitives::{ScrollAreaOrientation, scroll_area_orientation_attribute};
 
+use crate::default_attribute::default_attribute;
+
 pub const SCROLL_AREA_BASE_CLASS: &str = "relative overflow-hidden";
-pub const SCROLL_AREA_VIEWPORT_BASE_CLASS: &str = "h-full w-full overflow-auto rounded-inherit";
+pub const SCROLL_AREA_VIEWPORT_BASE_CLASS: &str = "h-full w-full overflow-auto rounded-inherit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring";
 pub const SCROLL_AREA_CONTENT_BASE_CLASS: &str = "min-w-full";
 pub const SCROLL_AREA_SCROLLBAR_BASE_CLASS: &str = "flex touch-none select-none transition-colors data-[orientation=horizontal]:h-2.5 data-[orientation=horizontal]:flex-col data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2.5";
 pub const SCROLL_AREA_THUMB_BASE_CLASS: &str = "relative flex-1 rounded-full bg-border";
@@ -57,12 +59,19 @@ pub fn ScrollArea(
 }
 
 #[component]
-pub fn ScrollAreaViewport(#[props(default)] class: String, children: Element) -> Element {
+pub fn ScrollAreaViewport(
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
   let class = scroll_area_viewport_class(&class);
+  let tabindex = default_attribute(&attributes, "tabindex", "0");
 
   rsx! {
     div {
       class,
+      tabindex,
+      ..attributes,
       {children}
     }
   }
@@ -123,6 +132,28 @@ pub fn ScrollAreaCorner(#[props(default)] class: String) -> Element {
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  fn render(app: fn() -> Element) -> String {
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    dioxus_ssr::render(&dom)
+  }
+
+  #[test]
+  fn ssr_viewport_is_focusable_and_takes_attributes() {
+    fn app() -> Element {
+      rsx! {
+        ScrollAreaViewport { role: "region", "aria-label": "Tags", "a" }
+        ScrollAreaViewport { tabindex: "-1", "b" }
+      }
+    }
+    let html = render(app);
+
+    assert!(html.contains(r#"tabindex="0""#));
+    assert!(html.contains(r#"aria-label="Tags""#));
+    assert!(html.contains(r#"tabindex="-1""#));
+    assert_eq!(html.matches("tabindex=").count(), 2);
+  }
 
   #[test]
   fn scroll_area_scrollbar_class_reflects_orientation() {

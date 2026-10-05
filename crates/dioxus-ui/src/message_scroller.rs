@@ -6,10 +6,11 @@ pub use dioxus_ui_primitives::{
   message_scroller_should_follow, message_scroller_show_unread_marker,
 };
 
+use crate::default_attribute::default_attribute;
+
 pub const MESSAGE_SCROLLER_BASE_CLASS: &str =
   "relative flex min-h-0 w-full flex-col overflow-hidden";
-pub const MESSAGE_SCROLLER_VIEWPORT_BASE_CLASS: &str =
-  "min-h-0 flex-1 overflow-y-auto overscroll-contain";
+pub const MESSAGE_SCROLLER_VIEWPORT_BASE_CLASS: &str = "min-h-0 flex-1 overflow-y-auto overscroll-contain focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring";
 pub const MESSAGE_SCROLLER_CONTENT_BASE_CLASS: &str = "flex min-h-full flex-col gap-4";
 pub const MESSAGE_SCROLLER_BOTTOM_ANCHOR_BASE_CLASS: &str = "h-px w-full shrink-0 scroll-mb-4";
 pub const MESSAGE_SCROLLER_UNREAD_MARKER_BASE_CLASS: &str =
@@ -83,12 +84,19 @@ pub fn MessageScroller(
 }
 
 #[component]
-pub fn MessageScrollerViewport(#[props(default)] class: String, children: Element) -> Element {
+pub fn MessageScrollerViewport(
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
   let class = message_scroller_viewport_class(&class);
+  let tabindex = default_attribute(&attributes, "tabindex", "0");
 
   rsx! {
     div {
       class,
+      tabindex,
+      ..attributes,
       {children}
     }
   }
@@ -164,6 +172,17 @@ pub fn MessageScrollerJumpButton(
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  #[test]
+  fn ssr_viewport_is_focusable_and_takes_attributes() {
+    fn app() -> Element {
+      rsx! { MessageScrollerViewport { "aria-label": "Conversation", "a" } }
+    }
+    let html = render(app);
+
+    assert!(html.contains(r#"tabindex="0""#));
+    assert!(html.contains(r#"aria-label="Conversation""#));
+  }
 
   fn render(app: fn() -> Element) -> String {
     let mut dom = VirtualDom::new(app);

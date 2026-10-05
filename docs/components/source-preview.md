@@ -17,7 +17,7 @@ Source preview routes: 64
 | Component | Route | Template | Target | Language | Lines | Bytes |
 | --- | --- | --- | --- | --- | --- | --- |
 | [Accordion](accordion.md) | /components/accordion/source | crates/dioxus-ui-cli/templates/accordion.rs | src/components/ui/accordion.rs | rust | 166 | 5025 |
-| [Alert](alert.md) | /components/alert/source | crates/dioxus-ui-cli/templates/alert.rs | src/components/ui/alert.rs | rust | 84 | 1972 |
+| [Alert](alert.md) | /components/alert/source | crates/dioxus-ui-cli/templates/alert.rs | src/components/ui/alert.rs | rust | 84 | 1973 |
 | [Alert Dialog](alert-dialog.md) | /components/alert-dialog/source | crates/dioxus-ui-cli/templates/alert_dialog.rs | src/components/ui/alert_dialog.rs | rust | 220 | 6729 |
 | [Aspect Ratio](aspect-ratio.md) | /components/aspect-ratio/source | crates/dioxus-ui-cli/templates/aspect_ratio.rs | src/components/ui/aspect_ratio.rs | rust | 42 | 878 |
 | [Attachment](attachment.md) | /components/attachment/source | crates/dioxus-ui-cli/templates/attachment.rs | src/components/ui/attachment.rs | rust | 325 | 8888 |
@@ -26,10 +26,10 @@ Source preview routes: 64
 | [Breadcrumb](breadcrumb.md) | /components/breadcrumb/source | crates/dioxus-ui-cli/templates/breadcrumb.rs | src/components/ui/breadcrumb.rs | rust | 143 | 3501 |
 | [Bubble](bubble.md) | /components/bubble/source | crates/dioxus-ui-cli/templates/bubble.rs | src/components/ui/bubble.rs | rust | 224 | 5744 |
 | [Button](button.md) | /components/button/source | crates/dioxus-ui-cli/templates/button.rs | src/components/ui/button.rs | rust | 99 | 2717 |
-| [Button Group](button-group.md) | /components/button-group/source | crates/dioxus-ui-cli/templates/button_group.rs | src/components/ui/button_group.rs | rust | 106 | 3147 |
+| [Button Group](button-group.md) | /components/button-group/source | crates/dioxus-ui-cli/templates/button_group.rs | src/components/ui/button_group.rs | rust | 105 | 3096 |
 | [Calendar](calendar.md) | /components/calendar/source | crates/dioxus-ui-cli/templates/calendar.rs | src/components/ui/calendar.rs | rust | 400 | 11744 |
 | [Card](card.md) | /components/card/source | crates/dioxus-ui-cli/templates/card.rs | src/components/ui/card.rs | rust | 106 | 2367 |
-| [Carousel](carousel.md) | /components/carousel/source | crates/dioxus-ui-cli/templates/carousel.rs | src/components/ui/carousel.rs | rust | 385 | 10553 |
+| [Carousel](carousel.md) | /components/carousel/source | crates/dioxus-ui-cli/templates/carousel.rs | src/components/ui/carousel.rs | rust | 385 | 10591 |
 | [Chart](chart.md) | /components/chart/source | crates/dioxus-ui-cli/templates/chart.rs | src/components/ui/chart.rs | rust | 633 | 14857 |
 | [Checkbox](checkbox.md) | /components/checkbox/source | crates/dioxus-ui-cli/templates/checkbox.rs | src/components/ui/checkbox.rs | rust | 100 | 4951 |
 | [Collapsible](collapsible.md) | /components/collapsible/source | crates/dioxus-ui-cli/templates/collapsible.rs | src/components/ui/collapsible.rs | rust | 119 | 3417 |
@@ -54,15 +54,15 @@ Source preview routes: 64
 | [Marker](marker.md) | /components/marker/source | crates/dioxus-ui-cli/templates/marker.rs | src/components/ui/marker.rs | rust | 93 | 2345 |
 | [Menubar](menubar.md) | /components/menubar/source | crates/dioxus-ui-cli/templates/menubar.rs | src/components/ui/menubar.rs | rust | 423 | 13594 |
 | [Message](message.md) | /components/message/source | crates/dioxus-ui-cli/templates/message.rs | src/components/ui/message.rs | rust | 153 | 3802 |
-| [Message Scroller](message-scroller.md) | /components/message-scroller/source | crates/dioxus-ui-cli/templates/message_scroller.rs | src/components/ui/message_scroller.rs | rust | 265 | 7274 |
+| [Message Scroller](message-scroller.md) | /components/message-scroller/source | crates/dioxus-ui-cli/templates/message_scroller.rs | src/components/ui/message_scroller.rs | rust | 272 | 7583 |
 | [Native Select](native-select.md) | /components/native-select/source | crates/dioxus-ui-cli/templates/native_select.rs | src/components/ui/native_select.rs | rust | 93 | 2513 |
 | [Navigation Menu](navigation-menu.md) | /components/navigation-menu/source | crates/dioxus-ui-cli/templates/navigation_menu.rs | src/components/ui/navigation_menu.rs | rust | 419 | 13991 |
-| [Pagination](pagination.md) | /components/pagination/source | crates/dioxus-ui-cli/templates/pagination.rs | src/components/ui/pagination.rs | rust | 200 | 5426 |
+| [Pagination](pagination.md) | /components/pagination/source | crates/dioxus-ui-cli/templates/pagination.rs | src/components/ui/pagination.rs | rust | 200 | 5451 |
 | [Popover](popover.md) | /components/popover/source | crates/dioxus-ui-cli/templates/popover.rs | src/components/ui/popover.rs | rust | 105 | 3313 |
 | [Progress](progress.md) | /components/progress/source | crates/dioxus-ui-cli/templates/progress.rs | src/components/ui/progress.rs | rust | 51 | 1424 |
 | [Radio Group](radio-group.md) | /components/radio-group/source | crates/dioxus-ui-cli/templates/radio_group.rs | src/components/ui/radio_group.rs | rust | 279 | 7304 |
 | [Resizable](resizable.md) | /components/resizable/source | crates/dioxus-ui-cli/templates/resizable.rs | src/components/ui/resizable.rs | rust | 329 | 11123 |
-| [Scroll Area](scroll-area.md) | /components/scroll-area/source | crates/dioxus-ui-cli/templates/scroll_area.rs | src/components/ui/scroll_area.rs | rust | 141 | 3766 |
+| [Scroll Area](scroll-area.md) | /components/scroll-area/source | crates/dioxus-ui-cli/templates/scroll_area.rs | src/components/ui/scroll_area.rs | rust | 148 | 4075 |
 | [Select](select.md) | /components/select/source | crates/dioxus-ui-cli/templates/select.rs | src/components/ui/select.rs | rust | 207 | 6380 |
 | [Separator](separator.md) | /components/separator/source | crates/dioxus-ui-cli/templates/separator.rs | src/components/ui/separator.rs | rust | 51 | 1251 |
 | [Sheet](sheet.md) | /components/sheet/source | crates/dioxus-ui-cli/templates/sheet.rs | src/components/ui/sheet.rs | rust | 207 | 5793 |
