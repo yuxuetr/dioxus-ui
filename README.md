@@ -310,6 +310,7 @@ route in a browser.
 - [RFC 0053: Interactive Part Callbacks](docs/rfcs/0053-interactive-part-callbacks.md)
 - [RFC 0054: Automated Accessibility Audit](docs/rfcs/0054-automated-accessibility-audit.md)
 - [RFC 0055: Open State Accessibility Audit](docs/rfcs/0055-open-state-accessibility-audit.md)
+- [RFC 0056: Published Crate Names](docs/rfcs/0056-published-crate-names.md)
 
 ## Verification Shortcuts
 

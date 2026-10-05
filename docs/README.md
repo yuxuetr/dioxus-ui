@@ -122,7 +122,8 @@ Read in this order:
 116. [RFC 0053: Interactive Part Callbacks](rfcs/0053-interactive-part-callbacks.md)
 117. [RFC 0054: Automated Accessibility Audit](rfcs/0054-automated-accessibility-audit.md)
 118. [RFC 0055: Open State Accessibility Audit](rfcs/0055-open-state-accessibility-audit.md)
-119. [TODO Plan](../TODOs.md)
+119. [RFC 0056: Published Crate Names](rfcs/0056-published-crate-names.md)
+120. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
