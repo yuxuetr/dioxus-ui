@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M171 Listbox Width Follows Trigger
-- Current task: M171.1 Design listbox width
+- Current task: M171.2 Implement listbox width
 
 ## Backup
 
@@ -3124,7 +3124,7 @@
 
 ## M171 Listbox Width Follows Trigger
 
-- TODO M171.1 Design listbox width
+- DONE M171.1 Design listbox width
   - Record that open Select and Combobox lists size to their options with `min-w-32`, so a full-width trigger opens a list a fraction of its width.
   - Define an anchor width custom property set by the anchoring script and a Select and Combobox minimum width of the larger of 8rem and the anchor width.
   - Record what stays out of scope (a maximum width, other anchored content, Desktop and Mobile scenarios) with reevaluation conditions.
