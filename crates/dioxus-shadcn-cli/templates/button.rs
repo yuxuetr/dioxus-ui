@@ -19,7 +19,7 @@ impl ButtonVariant {
       Self::Destructive => "bg-destructive text-destructive-foreground hover:bg-destructive/90",
       Self::Outline => "border border-input bg-background hover:bg-accent",
       Self::Ghost => "bg-transparent hover:bg-accent",
-      Self::Link => "bg-transparent text-primary underline-offset-4 hover:underline",
+      Self::Link => "bg-transparent text-foreground decoration-primary underline-offset-4 hover:underline",
     }
   }
 }

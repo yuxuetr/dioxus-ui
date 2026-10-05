@@ -16,6 +16,12 @@ for commit messages.
   `dxui theme list` prints them and `dxui theme add <name>...` appends them to
   `assets/dioxus-shadcn.css`.
 
+### Changed
+
+- `ButtonVariant::Link` uses `text-foreground decoration-primary` instead of
+  `text-primary`, so link buttons stay readable in presets whose primary color
+  is light. The default theme looks the same.
+
 ### Fixed
 
 - The light theme's `--destructive` token has lightness 0.532 instead of

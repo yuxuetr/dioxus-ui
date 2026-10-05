@@ -21,6 +21,10 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["button
 - `ButtonSize`
 - `button_class`
 
+`ButtonVariant::Link` draws foreground-colored text with a primary underline
+on hover, so link buttons stay readable in theme presets with a light primary
+color ([RFC 0057](../rfcs/0057-theme-presets.md)).
+
 ## Events
 
 ```rust

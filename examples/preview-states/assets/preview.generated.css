@@ -1498,6 +1498,9 @@
   .underline {
     text-decoration-line: underline;
   }
+  .decoration-primary {
+    text-decoration-color: var(--primary);
+  }
   .underline-offset-4 {
     text-underline-offset: 4px;
   }

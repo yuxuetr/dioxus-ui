@@ -20,7 +20,9 @@ impl ButtonVariant {
       Self::Destructive => "bg-destructive text-destructive-foreground hover:bg-destructive/90",
       Self::Outline => "border border-input bg-background hover:bg-accent",
       Self::Ghost => "bg-transparent hover:bg-accent",
-      Self::Link => "bg-transparent text-primary underline-offset-4 hover:underline",
+      Self::Link => {
+        "bg-transparent text-foreground decoration-primary underline-offset-4 hover:underline"
+      }
     }
   }
 }
@@ -122,5 +124,15 @@ mod tests {
     assert!(actual.contains("bg-primary"));
     assert!(actual.contains("hover:bg-primary/90"));
     assert!(!actual.contains("{}"));
+  }
+
+  #[test]
+  fn link_text_uses_the_foreground_color() {
+    // Theme presets may have a light primary that cannot be text on the page
+    // background (RFC 0057), so only the underline takes the primary color.
+    let actual = button_class(ButtonVariant::Link, ButtonSize::Md, UiDensity::Comfortable, "");
+
+    assert!(actual.contains("text-foreground decoration-primary"));
+    assert!(!actual.contains("text-primary"));
   }
 }

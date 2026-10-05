@@ -25,7 +25,7 @@ Source preview routes: 64
 | [Badge](badge.md) | /components/badge/source | crates/dioxus-shadcn-cli/templates/badge.rs | src/components/ui/badge.rs | rust | 44 | 1131 |
 | [Breadcrumb](breadcrumb.md) | /components/breadcrumb/source | crates/dioxus-shadcn-cli/templates/breadcrumb.rs | src/components/ui/breadcrumb.rs | rust | 143 | 3501 |
 | [Bubble](bubble.md) | /components/bubble/source | crates/dioxus-shadcn-cli/templates/bubble.rs | src/components/ui/bubble.rs | rust | 224 | 5744 |
-| [Button](button.md) | /components/button/source | crates/dioxus-shadcn-cli/templates/button.rs | src/components/ui/button.rs | rust | 99 | 2717 |
+| [Button](button.md) | /components/button/source | crates/dioxus-shadcn-cli/templates/button.rs | src/components/ui/button.rs | rust | 99 | 2739 |
 | [Button Group](button-group.md) | /components/button-group/source | crates/dioxus-shadcn-cli/templates/button_group.rs | src/components/ui/button_group.rs | rust | 105 | 3096 |
 | [Calendar](calendar.md) | /components/calendar/source | crates/dioxus-shadcn-cli/templates/calendar.rs | src/components/ui/calendar.rs | rust | 400 | 11744 |
 | [Card](card.md) | /components/card/source | crates/dioxus-shadcn-cli/templates/card.rs | src/components/ui/card.rs | rust | 108 | 2469 |
