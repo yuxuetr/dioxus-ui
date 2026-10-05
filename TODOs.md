@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 45%
+- Overall: 50%
 - Current milestone: M178 Token-only Dark Theme And Palette Gate
-- Current task: M178.2 Gate palette colors in component classes
+- Current task: M178.3 Complete the token-only dark theme
 
 ## Backup
 
@@ -59,7 +59,7 @@
   - Keep the light and dark contrast checks passing, and replace the `bg-white` dark-surface probe with a token surface probe.
   - Mark RFC 0047 as superseded where its palette remap is replaced.
 
-- TODO M178.2 Gate palette colors in component classes
+- DONE M178.2 Gate palette colors in component classes
   - Add a verifier that fails when crate or template class strings use palette color utilities outside the exceptions the RFC allows, and add it to the release gate.
   - Reverse-verify that a reintroduced palette color in a component fails it.
 
