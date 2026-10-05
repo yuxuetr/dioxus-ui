@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M172 Opt-in Dark Theme
-- Current task: M172.3 Verify the dark theme in a real browser
+- Current task: M172.4 Complete the dark theme milestone
 
 ## Backup
 
@@ -3152,7 +3152,7 @@
   - Add the `.dark` block to the CLI default `assets/dioxus-ui.css` and to the Web and Desktop preview stylesheets.
   - Extend `npm run verify:css-inputs` to require that the preview blocks match the CLI block.
 
-- TODO M172.3 Verify the dark theme in a real browser
+- DONE M172.3 Verify the dark theme in a real browser
   - Extend `npm run verify:runtime-interactions` with a text contrast check in the light and dark themes, after the first render and after the interactions, and a check that dark surfaces apply.
   - Reverse-verify that the check fails on a pure scale inversion, without the block, or without the white remap.
 
