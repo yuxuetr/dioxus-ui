@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 60%
 - Current milestone: M181 Interactive Part Callbacks And Attributes
-- Current task: M181.3
+- Current task: M181.4
 
 ## Backup
 
@@ -32,9 +32,10 @@
   - Add preview fixtures and extend `npm run verify:runtime-interactions` to click each part and assert its callback ran, then reverse-verify.
   - Done: plus `ComboboxTrigger`; the `action-parts` fixture covers clicks, a disabled press, and the jump button inside a form. Reverse checks: a dropped callback and a dropped `type="button"` both fail.
 
-- TODO M181.3 Wire up labels and links
+- DONE M181.3 Wire up labels and links
   - `FieldLabel` gains `r#for` and attributes; `BreadcrumbLink` and `HoverCardTrigger` gain attributes, in the crate and the templates, with SSR tests.
   - Extend the runtime check to assert a `FieldLabel` click focuses its input, then reverse-verify.
+  - Done: an empty `for` is omitted, since `for=""` unlinks a wrapped input; the same bug in `Label` is fixed in its own commit. Reverse check: dropping `for` fails the runtime check.
 
 - TODO M181.4 Drop the site example workarounds
   - Use the new callbacks and `r#for` in the site examples so each action does something visible, remove the `div onclick` wrapper and the duplicate `aria-label`s, and keep `npm run verify:site` passing.
