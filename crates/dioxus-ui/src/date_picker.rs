@@ -106,7 +106,7 @@ pub fn DatePickerValue(
 /// to the element marked `data-dxui-autofocus` (a keyboard-managed Calendar's
 /// focused day) or the first focusable element, Tab wraps inside, and closing
 /// returns focus to the trigger. Escape and outside interactions request close
-/// per `dismiss`.
+/// per `dismiss`. The dialog takes the `anchor_id` element's name.
 #[component]
 pub fn DatePickerContent(
   #[props(default)] open: bool,
@@ -120,6 +120,7 @@ pub fn DatePickerContent(
   children: Element,
 ) -> Element {
   let class = date_picker_content_class(&class);
+  let labelledby = anchor_id.clone();
   let focus_scope = use_modal_focus_scope(open);
   let anchored = use_anchored_overlay(
     open,
@@ -133,6 +134,7 @@ pub fn DatePickerContent(
       role: "dialog",
       class,
       tabindex: "-1",
+      "aria-labelledby": labelledby,
       hidden: !open,
       "data-dxui-anchored": anchored,
       "data-dxui-focus-scope": focus_scope,
@@ -147,6 +149,19 @@ pub fn DatePickerContent(
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  #[test]
+  fn ssr_content_takes_the_trigger_name() {
+    fn app() -> Element {
+      rsx! { DatePickerContent { open: true, anchor_id: "due-date", "Calendar" } }
+    }
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    let html = dioxus_ssr::render(&dom);
+
+    assert!(html.contains(r#"role="dialog""#));
+    assert!(html.contains(r#"aria-labelledby="due-date""#));
+  }
 
   #[test]
   fn date_picker_trigger_class_reflects_invalid_state() {

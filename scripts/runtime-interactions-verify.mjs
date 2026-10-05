@@ -1744,7 +1744,7 @@ async function runBrowserAssertions() {
 
     const hoverCard = page.locator('[data-interaction-target="hover-card"]');
     const hoverCardTrigger = hoverCard.getByRole("link", { name: "@dioxus" });
-    const hoverCardContent = hoverCard.locator('[role="dialog"]');
+    const hoverCardContent = hoverCard.locator('[data-dxui-hover-content]');
     const hoverCardHeading = hoverCard.getByRole("heading", { name: "Hover card interaction" });
     await hoverCardTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
     // The tooltip check ends with Tab onto this trigger; move focus away first.

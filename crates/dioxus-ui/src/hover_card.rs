@@ -143,7 +143,6 @@ pub fn HoverCardContent(
 
   rsx! {
     div {
-      role: "dialog",
       class,
       hidden: !open,
       "data-align": hover_card_align_attribute(align),
@@ -211,6 +210,17 @@ mod tests {
 
     assert!(html.contains(r#"target="_blank""#));
     assert!(html.contains(r#"rel="noreferrer""#));
+  }
+
+  #[test]
+  fn ssr_content_renders_no_role() {
+    fn app() -> Element {
+      rsx! { HoverCardContent { open: true, "Dioxus" } }
+    }
+    let html = render(app);
+
+    assert!(html.contains(r#"data-state="open""#));
+    assert!(!html.contains("role="));
   }
 
   #[test]

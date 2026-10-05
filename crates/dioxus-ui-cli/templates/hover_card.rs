@@ -135,7 +135,6 @@ pub fn HoverCardContent(
 
   rsx! {
     div {
-      role: "dialog",
       class,
       hidden: !open,
       "data-align": hover_card_align_attribute(align),

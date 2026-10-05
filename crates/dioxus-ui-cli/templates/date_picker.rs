@@ -104,7 +104,7 @@ pub fn DatePickerValue(
 /// to the element marked `data-dxui-autofocus` (a keyboard-managed Calendar's
 /// focused day) or the first focusable element, Tab wraps inside, and closing
 /// returns focus to the trigger. Escape and outside interactions request close
-/// per `dismiss`.
+/// per `dismiss`. The dialog takes the `anchor_id` element's name.
 #[component]
 pub fn DatePickerContent(
   #[props(default)] open: bool,
@@ -118,6 +118,7 @@ pub fn DatePickerContent(
   children: Element,
 ) -> Element {
   let class = date_picker_content_class(&class);
+  let labelledby = anchor_id.clone();
   let focus_scope = use_modal_focus_scope(open);
   let anchored = use_anchored_overlay(
     open,
@@ -131,6 +132,7 @@ pub fn DatePickerContent(
       role: "dialog",
       class,
       tabindex: "-1",
+      "aria-labelledby": labelledby,
       hidden: !open,
       "data-dxui-anchored": anchored,
       "data-dxui-focus-scope": focus_scope,
