@@ -2,50 +2,46 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: none (M181 complete)
-- Current task: none
+- Overall: 0%
+- Current milestone: M182 Automated Accessibility Audit
+- Current task: M182.1
 
 ## Backup
 
-- Completed plans: `docs/archive/TODOs.completed-20260628192208.md` (M1 to M29), `docs/archive/TODOs.completed-20261005.md` (M30 to M175), and `docs/archive/TODOs.completed-20261005-m176-m180.md` (M176 to M180)
+- Completed plans: `docs/archive/TODOs.completed-20260628192208.md` (M1 to M29), `docs/archive/TODOs.completed-20261005.md` (M30 to M175), `docs/archive/TODOs.completed-20261005-m176-m180.md` (M176 to M180), and `docs/archive/TODOs.completed-20261005-m181.md` (M181)
 
 ## Goals
 
-- Every component part that renders a native button, link, or label an app needs to act on accepts the callback and attributes the native element would, so no site example has to wrap a part in a `div onclick` or repeat a label in `aria-label`.
+- The site and the runtime preview pass an axe-core audit (WCAG 2.1 A and AA plus best practices) in the light and dark themes, and a regression fails a browser check.
 
 ## Evidence
 
-- The M180 site examples work around parts that cannot be wired up: `ButtonGroupItem`, `AttachmentAction`, `AttachmentTrigger`, and `InputGroupAction` render buttons with no `onclick`; `MessageScrollerJumpButton` has no `onclick` (the example wraps it in a `div`) and no `type="button"`; `TooltipTrigger` cannot run an action; `FieldLabel` has no `for`, so the Field example labels each input with `aria-label` instead.
-- `docs/component-api.md` defers attribute forwarding "before a concrete need appears"; these are the concrete needs.
+- A one-off axe-core 4 run over the 64 component pages and the runtime preview found:
+  - `ButtonGroup` and `ToggleGroup` put `aria-orientation` on `role="group"`, which does not support it (critical).
+  - The `ScrollArea` and `MessageScroller` viewports scroll but cannot be reached from the keyboard (serious).
+  - `AlertTitle` renders an `h5`, which skips heading levels on any page; shadcn/ui v4 renders a `div`.
+  - The site and preview documents have no `lang`.
+  - Example and fixture gaps: the Skeleton example puts `aria-label` on a plain `div`, a preview listbox and a Select trigger have no accessible name, and two preview Paginations share one landmark name.
 
-## M181 Interactive Part Callbacks And Attributes
+## M182 Automated Accessibility Audit
 
-- DONE M181.1 Design part callbacks and attributes
-  - List the parts that render a native interactive element without a way for the app to act on it, and decide per part: `onclick`, `r#for`, and attribute spreading (`GlobalAttributes` plus the element), spread after the explicit attributes as in RFC 0028 to RFC 0036.
-  - Keep parts whose click already reports through a component callback (close buttons, triggers with `on_open_change`, calendar days) out of scope, with reevaluation conditions.
-  - Record the decision in an RFC and update the Attribute Forwarding section of `docs/component-api.md`.
-  - Done: RFC 0053. The audit also found `ComboboxTrigger` without a click handler, so M181.2 covers it too.
+- TODO M182.1 Design the accessibility audit
+  - Choose the axe-core rule tags, where the audit runs (each site component page, and the runtime preview at the points where the contrast check runs, including open overlays), how it handles both themes, and which rules, if any, are disabled and why.
+  - Decide each component fix from the evidence and record the decisions and reevaluation conditions in an RFC.
 
-- DONE M181.2 Wire up the action parts
-  - `ButtonGroupItem`, `InputGroupAction`, `AttachmentAction`, `AttachmentTrigger`, `MessageScrollerJumpButton`, and `TooltipTrigger`, in the crate and the templates, with SSR tests for the passed attributes.
-  - Add preview fixtures and extend `npm run verify:runtime-interactions` to click each part and assert its callback ran, then reverse-verify.
-  - Done: plus `ComboboxTrigger`; the `action-parts` fixture covers clicks, a disabled press, and the jump button inside a form. Reverse checks: a dropped callback and a dropped `type="button"` both fail.
+- TODO M182.2 Fix the component findings
+  - Drop `aria-orientation` from the `ButtonGroup` and `ToggleGroup` roots, keeping `data-orientation`; make the `ScrollArea` and `MessageScroller` viewports keyboard reachable; render `AlertTitle` as a `div`; in the crate and the templates, with tests.
 
-- DONE M181.3 Wire up labels and links
-  - `FieldLabel` gains `r#for` and attributes; `BreadcrumbLink` and `HoverCardTrigger` gain attributes, in the crate and the templates, with SSR tests.
-  - Extend the runtime check to assert a `FieldLabel` click focuses its input, then reverse-verify.
-  - Done: an empty `for` is omitted, since `for=""` unlinks a wrapped input; the same bug in `Label` is fixed in its own commit. Reverse check: dropping `for` fails the runtime check.
+- TODO M182.3 Fix the site and preview findings
+  - Set the document language on the site and the previews, and fix the Skeleton example and the unnamed or duplicate-named preview fixtures.
 
-- DONE M181.4 Drop the site example workarounds
-  - Use the new callbacks and `r#for` in the site examples so each action does something visible, remove the `div onclick` wrapper and the duplicate `aria-label`s, and keep `npm run verify:site` passing.
-  - Done: `npm run verify:site` passes, and a one-off browser run clicked each updated example and saw its effect.
+- TODO M182.4 Add the audit to the browser checks
+  - Add `axe-core` as a dev dependency, run it from `npm run verify:site` and `npm run verify:runtime-interactions`, and reverse-verify that a reintroduced finding fails each check.
 
-- DONE M181.5 Complete the interactive part milestone
-  - Update CHANGELOG, the component docs pages, and the docs index.
-  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, `npm run verify:runtime-interactions`, and `npm run verify:site`.
+- TODO M182.5 Complete the accessibility audit milestone
+  - Update CHANGELOG, the affected component docs, quality gates, and the docs index.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, `npm run verify:runtime-interactions`, `npm run verify:site`, and the Desktop self-test.
   - Push local commits to `origin/main`.
-  - Done: release gate, runtime check (35 fixtures), site check (67 routes, 65 examples), and the Desktop self-test (10 scenarios) pass.
 
 ## Status Rules
 
