@@ -365,9 +365,8 @@ pub use checkbox::{
 #[cfg(feature = "collapsible")]
 pub use collapsible::{
   COLLAPSIBLE_BASE_CLASS, COLLAPSIBLE_CONTENT_BASE_CLASS, COLLAPSIBLE_CONTENT_CLOSED_CLASS,
-  COLLAPSIBLE_CONTENT_OPEN_CLASS, COLLAPSIBLE_TRIGGER_BASE_CLASS, COLLAPSIBLE_TRIGGER_CLOSED_CLASS,
-  COLLAPSIBLE_TRIGGER_OPEN_CLASS, Collapsible, CollapsibleContent, CollapsibleTrigger,
-  collapsible_class, collapsible_content_class, collapsible_trigger_class,
+  COLLAPSIBLE_CONTENT_OPEN_CLASS, COLLAPSIBLE_TRIGGER_BASE_CLASS, Collapsible, CollapsibleContent,
+  CollapsibleTrigger, collapsible_class, collapsible_content_class, collapsible_trigger_class,
 };
 #[cfg(feature = "combobox")]
 pub use combobox::{

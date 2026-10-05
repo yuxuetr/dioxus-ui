@@ -1,11 +1,11 @@
 use dioxus::prelude::*;
 use super::utils::classes;
 
-pub const EMPTY_BASE_CLASS: &str = "flex min-h-40 flex-col items-center justify-center gap-6 rounded-md border border-dashed border-zinc-200 p-8 text-center";
+pub const EMPTY_BASE_CLASS: &str = "flex min-h-40 flex-col items-center justify-center gap-6 rounded-md border border-dashed border-border p-8 text-center";
 pub const EMPTY_HEADER_BASE_CLASS: &str = "flex flex-col items-center gap-2";
-pub const EMPTY_TITLE_BASE_CLASS: &str = "text-lg font-semibold text-zinc-950";
-pub const EMPTY_DESCRIPTION_BASE_CLASS: &str = "max-w-sm text-sm text-zinc-600";
-pub const EMPTY_CONTENT_BASE_CLASS: &str = "text-sm text-zinc-600";
+pub const EMPTY_TITLE_BASE_CLASS: &str = "text-lg font-semibold text-foreground";
+pub const EMPTY_DESCRIPTION_BASE_CLASS: &str = "max-w-sm text-sm text-muted-foreground";
+pub const EMPTY_CONTENT_BASE_CLASS: &str = "text-sm text-muted-foreground";
 pub const EMPTY_ACTIONS_BASE_CLASS: &str = "flex flex-wrap items-center justify-center gap-2";
 
 pub fn empty_class(class: &str) -> String {

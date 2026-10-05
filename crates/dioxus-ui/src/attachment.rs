@@ -34,32 +34,32 @@ pub enum AttachmentMediaVariant {
 }
 
 pub const ATTACHMENT_BASE_CLASS: &str =
-  "group flex min-w-0 rounded-md border text-zinc-950 transition-colors";
+  "group flex min-w-0 rounded-md border text-foreground transition-colors";
 pub const ATTACHMENT_HORIZONTAL_CLASS: &str = "items-center gap-3 p-3";
 pub const ATTACHMENT_VERTICAL_CLASS: &str = "flex-col gap-3 p-3";
 pub const ATTACHMENT_SIZE_DEFAULT_CLASS: &str = "min-h-16 text-sm";
 pub const ATTACHMENT_SIZE_SM_CLASS: &str = "min-h-12 text-sm";
 pub const ATTACHMENT_SIZE_XS_CLASS: &str = "min-h-10 text-xs";
-pub const ATTACHMENT_UPLOADING_CLASS: &str = "border-blue-200 bg-blue-50";
-pub const ATTACHMENT_PROCESSING_CLASS: &str = "border-zinc-300 bg-zinc-50";
-pub const ATTACHMENT_ERROR_CLASS: &str = "border-red-300 bg-red-50";
-pub const ATTACHMENT_DONE_CLASS: &str = "border-emerald-200 bg-emerald-50";
+pub const ATTACHMENT_UPLOADING_CLASS: &str = "border-info/30 bg-info/10";
+pub const ATTACHMENT_PROCESSING_CLASS: &str = "border-border bg-muted";
+pub const ATTACHMENT_ERROR_CLASS: &str = "border-destructive/30 bg-destructive/10";
+pub const ATTACHMENT_DONE_CLASS: &str = "border-success/30 bg-success/10";
 pub const ATTACHMENT_GROUP_BASE_CLASS: &str = "flex gap-2 overflow-x-auto";
-pub const ATTACHMENT_MEDIA_BASE_CLASS: &str = "flex shrink-0 items-center justify-center overflow-hidden rounded-md border border-zinc-200 bg-zinc-50 text-zinc-500";
+pub const ATTACHMENT_MEDIA_BASE_CLASS: &str = "flex shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-muted text-muted-foreground";
 pub const ATTACHMENT_MEDIA_ICON_CLASS: &str = "h-10 w-10";
 pub const ATTACHMENT_MEDIA_IMAGE_CLASS: &str =
   "h-14 w-14 [&>img]:h-full [&>img]:w-full [&>img]:object-cover";
 pub const ATTACHMENT_CONTENT_BASE_CLASS: &str = "grid min-w-0 flex-1 gap-1";
-pub const ATTACHMENT_TITLE_BASE_CLASS: &str = "truncate font-medium text-zinc-950";
-pub const ATTACHMENT_DESCRIPTION_BASE_CLASS: &str = "line-clamp-2 text-xs text-zinc-600";
+pub const ATTACHMENT_TITLE_BASE_CLASS: &str = "truncate font-medium text-foreground";
+pub const ATTACHMENT_DESCRIPTION_BASE_CLASS: &str = "line-clamp-2 text-xs text-muted-foreground";
 pub const ATTACHMENT_ACTIONS_BASE_CLASS: &str = "flex shrink-0 items-center gap-1";
-pub const ATTACHMENT_ACTION_BASE_CLASS: &str = "inline-flex h-8 min-w-8 items-center justify-center rounded-md px-2 text-xs font-medium text-zinc-700 transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
-pub const ATTACHMENT_TRIGGER_BASE_CLASS: &str = "inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-dashed border-zinc-300 bg-white px-3 py-2 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
+pub const ATTACHMENT_ACTION_BASE_CLASS: &str = "inline-flex h-8 min-w-8 items-center justify-center rounded-md px-2 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+pub const ATTACHMENT_TRIGGER_BASE_CLASS: &str = "inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-dashed border-input bg-background px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
 impl AttachmentState {
   pub const fn class(self) -> &'static str {
     match self {
-      Self::Idle => "border-zinc-200 bg-white",
+      Self::Idle => "border-border bg-background",
       Self::Uploading => ATTACHMENT_UPLOADING_CLASS,
       Self::Processing => ATTACHMENT_PROCESSING_CLASS,
       Self::Error => ATTACHMENT_ERROR_CLASS,
@@ -348,11 +348,11 @@ mod tests {
 
   #[test]
   fn action_and_trigger_use_button_sized_classes() {
-    let action = attachment_action_class("text-red-600");
+    let action = attachment_action_class("text-destructive");
     let trigger = attachment_trigger_class("w-full");
 
     assert!(action.contains("h-8"));
-    assert!(action.contains("focus-visible:ring-blue-600"));
+    assert!(action.contains("focus-visible:ring-ring"));
     assert!(trigger.contains("min-h-10"));
     assert!(trigger.ends_with("w-full"));
   }

@@ -416,10 +416,7 @@ fn main() {
   println!("dioxus-ui web demo table row class: {}", table_row_class(""));
   println!("dioxus-ui web demo checkbox class: {}", checkbox_class(true, "mt-2"));
   println!("dioxus-ui web demo collapsible class: {}", collapsible_class(false, "max-w-sm"));
-  println!(
-    "dioxus-ui web demo collapsible trigger class: {}",
-    collapsible_trigger_class(true, "w-full")
-  );
+  println!("dioxus-ui web demo collapsible trigger class: {}", collapsible_trigger_class("w-full"));
   println!(
     "dioxus-ui web demo collapsible content class: {}",
     collapsible_content_class(true, "pt-2")
@@ -546,7 +543,7 @@ fn main() {
     toggle_class(ToggleVariant::Default, ToggleSize::Md, true, "")
   );
   println!("dioxus-ui web demo accordion item class: {}", accordion_item_class(""));
-  println!("dioxus-ui web demo accordion trigger class: {}", accordion_trigger_class(true, ""));
+  println!("dioxus-ui web demo accordion trigger class: {}", accordion_trigger_class(""));
   println!("dioxus-ui web demo accordion content class: {}", accordion_content_class("px-1"));
   println!("dioxus-ui web demo dialog overlay class: {}", dialog_overlay_class(""));
   println!("dioxus-ui web demo dialog content class: {}", dialog_content_class("max-w-xl"));

@@ -117,8 +117,8 @@ v4 layout ([RFC 0051](docs/rfcs/0051-semantic-color-tokens.md)):
 `--success`, `--warning`, and `--info` status colors. `@theme inline` turns
 each token into a Tailwind color, so `bg-primary` and `text-muted-foreground`
 work in app code too. To rebrand, redefine a token in `:root` and `.dark`,
-for example a blue `--primary` and `--ring`. Components move onto the tokens
-in M177; until then they still use palette classes.
+for example a blue `--primary` and `--ring`. Component classes use only the
+tokens, plus `bg-black/50` for modal overlays.
 
 The generated stylesheet also holds an opt-in dark theme. Add the `dark` class
 to the app's top-level element to turn it on:
@@ -197,8 +197,8 @@ Use this:
 
 ```rust
 match variant {
-  ButtonVariant::Primary => "bg-blue-600 text-white hover:bg-blue-700",
-  ButtonVariant::Secondary => "bg-zinc-100 text-zinc-900 hover:bg-zinc-200",
+  ButtonVariant::Primary => "bg-primary text-primary-foreground hover:bg-primary/90",
+  ButtonVariant::Secondary => "bg-secondary text-secondary-foreground hover:bg-secondary/80",
 }
 ```
 

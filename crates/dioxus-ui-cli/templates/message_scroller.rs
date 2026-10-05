@@ -39,7 +39,7 @@ pub const MESSAGE_SCROLLER_VIEWPORT_BASE_CLASS: &str = "min-h-0 flex-1 overflow-
 pub const MESSAGE_SCROLLER_CONTENT_BASE_CLASS: &str = "flex min-h-full flex-col gap-4";
 pub const MESSAGE_SCROLLER_BOTTOM_ANCHOR_BASE_CLASS: &str = "h-px w-full shrink-0 scroll-mb-4";
 pub const MESSAGE_SCROLLER_UNREAD_MARKER_BASE_CLASS: &str = "pointer-events-none absolute inset-x-0 bottom-4 z-10 flex justify-center";
-pub const MESSAGE_SCROLLER_JUMP_BUTTON_BASE_CLASS: &str = "inline-flex h-9 items-center justify-center rounded-md border border-zinc-200 bg-white px-3 text-sm font-medium text-zinc-950 shadow-sm transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
+pub const MESSAGE_SCROLLER_JUMP_BUTTON_BASE_CLASS: &str = "inline-flex h-9 items-center justify-center rounded-md border border-border bg-background px-3 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
 impl Default for MessageScrollerIntent {
   fn default() -> Self {

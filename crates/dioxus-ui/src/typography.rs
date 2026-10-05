@@ -1,20 +1,20 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 
-pub const TYPOGRAPHY_PROSE_BASE_CLASS: &str = "max-w-none text-zinc-700";
+pub const TYPOGRAPHY_PROSE_BASE_CLASS: &str = "max-w-none text-foreground";
 pub const TYPOGRAPHY_H1_BASE_CLASS: &str =
-  "scroll-m-20 text-4xl font-extrabold tracking-normal text-zinc-950";
+  "scroll-m-20 text-4xl font-extrabold tracking-normal text-foreground";
 pub const TYPOGRAPHY_H2_BASE_CLASS: &str =
-  "scroll-m-20 border-b border-zinc-200 pb-2 text-3xl font-semibold tracking-normal text-zinc-950";
+  "scroll-m-20 border-b border-border pb-2 text-3xl font-semibold tracking-normal text-foreground";
 pub const TYPOGRAPHY_H3_BASE_CLASS: &str =
-  "scroll-m-20 text-2xl font-semibold tracking-normal text-zinc-950";
-pub const TYPOGRAPHY_P_BASE_CLASS: &str = "leading-7 text-zinc-700";
-pub const TYPOGRAPHY_LEAD_BASE_CLASS: &str = "text-xl text-zinc-600";
-pub const TYPOGRAPHY_MUTED_BASE_CLASS: &str = "text-sm text-zinc-500";
+  "scroll-m-20 text-2xl font-semibold tracking-normal text-foreground";
+pub const TYPOGRAPHY_P_BASE_CLASS: &str = "leading-7 text-foreground";
+pub const TYPOGRAPHY_LEAD_BASE_CLASS: &str = "text-xl text-muted-foreground";
+pub const TYPOGRAPHY_MUTED_BASE_CLASS: &str = "text-sm text-muted-foreground";
 pub const TYPOGRAPHY_BLOCKQUOTE_BASE_CLASS: &str =
-  "mt-6 border-l-2 border-zinc-200 pl-6 italic text-zinc-700";
+  "mt-6 border-l-2 border-border pl-6 italic text-foreground";
 pub const TYPOGRAPHY_INLINE_CODE_BASE_CLASS: &str =
-  "relative rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-sm text-zinc-950";
+  "relative rounded bg-muted px-1.5 py-0.5 font-mono text-sm text-foreground";
 
 pub fn typography_prose_class(class: &str) -> String {
   classes([Some(TYPOGRAPHY_PROSE_BASE_CLASS), Some(class)])

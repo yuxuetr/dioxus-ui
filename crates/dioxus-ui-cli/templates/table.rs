@@ -5,11 +5,11 @@ pub const TABLE_CONTAINER_BASE_CLASS: &str = "relative w-full overflow-auto";
 pub const TABLE_BASE_CLASS: &str = "w-full caption-bottom text-sm";
 pub const TABLE_HEADER_BASE_CLASS: &str = "[&_tr]:border-b";
 pub const TABLE_BODY_BASE_CLASS: &str = "[&_tr:last-child]:border-0";
-pub const TABLE_FOOTER_BASE_CLASS: &str = "border-t bg-zinc-100 font-medium [&>tr]:last:border-b-0";
-pub const TABLE_ROW_BASE_CLASS: &str = "border-b transition-colors hover:bg-zinc-100";
-pub const TABLE_HEAD_BASE_CLASS: &str = "h-12 px-4 text-left align-middle font-medium text-zinc-600";
+pub const TABLE_FOOTER_BASE_CLASS: &str = "border-t bg-muted font-medium [&>tr]:last:border-b-0";
+pub const TABLE_ROW_BASE_CLASS: &str = "border-b transition-colors hover:bg-muted";
+pub const TABLE_HEAD_BASE_CLASS: &str = "h-12 px-4 text-left align-middle font-medium text-muted-foreground";
 pub const TABLE_CELL_BASE_CLASS: &str = "p-4 align-middle";
-pub const TABLE_CAPTION_BASE_CLASS: &str = "mt-4 text-sm text-zinc-600";
+pub const TABLE_CAPTION_BASE_CLASS: &str = "mt-4 text-sm text-muted-foreground";
 
 pub fn table_container_class(class: &str) -> String {
   classes([Some(TABLE_CONTAINER_BASE_CLASS), Some(class)])

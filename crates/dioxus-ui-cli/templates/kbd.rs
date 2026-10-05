@@ -18,7 +18,7 @@ impl KbdSize {
   }
 }
 
-pub const KBD_BASE_CLASS: &str = "inline-flex items-center justify-center rounded border border-zinc-200 bg-zinc-50 font-mono font-medium text-zinc-700 shadow-sm";
+pub const KBD_BASE_CLASS: &str = "inline-flex items-center justify-center rounded border border-border bg-muted font-mono font-medium text-muted-foreground shadow-sm";
 
 pub fn kbd_class(size: KbdSize, class: &str) -> String {
   classes([Some(KBD_BASE_CLASS), Some(size.class()), Some(class)])

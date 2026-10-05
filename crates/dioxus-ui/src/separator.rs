@@ -24,7 +24,7 @@ impl SeparatorOrientation {
   }
 }
 
-pub const SEPARATOR_BASE_CLASS: &str = "shrink-0 bg-zinc-200";
+pub const SEPARATOR_BASE_CLASS: &str = "shrink-0 bg-border";
 
 pub fn separator_class(orientation: SeparatorOrientation, class: &str) -> String {
   classes([Some(SEPARATOR_BASE_CLASS), Some(orientation.class()), Some(class)])

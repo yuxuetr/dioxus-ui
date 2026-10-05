@@ -217,6 +217,10 @@ release owner renames it to the released version at publish time.
 ### Changed
 
 - Template changelog history has been removed from the project changelog.
+- `accordion_trigger_class` and `collapsible_trigger_class` take only the
+  user class, and `COLLAPSIBLE_TRIGGER_OPEN_CLASS` and
+  `COLLAPSIBLE_TRIGGER_CLOSED_CLASS` are removed: open and closed triggers
+  share the foreground color, which is now in the base class.
 - The generated stylesheet drops the unused `--dxui-background` and
   `--dxui-foreground` variables; `bg-background` and `text-foreground` now
   read the `--background` and `--foreground` tokens.

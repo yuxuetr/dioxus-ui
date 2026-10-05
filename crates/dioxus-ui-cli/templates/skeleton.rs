@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use super::utils::classes;
 
-pub const SKELETON_BASE_CLASS: &str = "animate-pulse rounded-md bg-zinc-100";
+pub const SKELETON_BASE_CLASS: &str = "animate-pulse rounded-md bg-accent";
 
 pub fn skeleton_class(class: &str) -> String {
   classes([Some(SKELETON_BASE_CLASS), Some(class)])

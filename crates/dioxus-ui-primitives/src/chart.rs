@@ -132,12 +132,12 @@ pub fn chart_scale_value(value: f64, domain: ChartDomain, range: ChartDomain) ->
 
 pub fn chart_color_class(token: ChartColorToken) -> &'static str {
   match token {
-    ChartColorToken::Primary => "text-blue-600",
-    ChartColorToken::Secondary => "text-zinc-600",
-    ChartColorToken::Success => "text-green-600",
-    ChartColorToken::Warning => "text-amber-600",
-    ChartColorToken::Destructive => "text-red-600",
-    ChartColorToken::Neutral => "text-zinc-900",
+    ChartColorToken::Primary => "text-primary",
+    ChartColorToken::Secondary => "text-muted-foreground",
+    ChartColorToken::Success => "text-success",
+    ChartColorToken::Warning => "text-warning",
+    ChartColorToken::Destructive => "text-destructive",
+    ChartColorToken::Neutral => "text-foreground",
   }
 }
 
@@ -250,7 +250,7 @@ mod tests {
 
   #[test]
   fn maps_color_tokens() {
-    assert_eq!(chart_color_class(ChartColorToken::Warning), "text-amber-600");
+    assert_eq!(chart_color_class(ChartColorToken::Warning), "text-warning");
     assert_eq!(chart_color_attribute(ChartColorToken::Destructive), "destructive");
   }
 

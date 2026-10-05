@@ -12,10 +12,10 @@ pub enum BadgeVariant {
 impl BadgeVariant {
   pub const fn class(self) -> &'static str {
     match self {
-      Self::Default => "border-transparent bg-blue-600 text-white",
-      Self::Secondary => "border-transparent bg-zinc-100 text-zinc-900",
-      Self::Destructive => "border-transparent bg-red-600 text-white",
-      Self::Outline => "border-zinc-200 text-zinc-900",
+      Self::Default => "border-transparent bg-primary text-primary-foreground",
+      Self::Secondary => "border-transparent bg-secondary text-secondary-foreground",
+      Self::Destructive => "border-transparent bg-destructive text-destructive-foreground",
+      Self::Outline => "border-border text-foreground",
     }
   }
 }

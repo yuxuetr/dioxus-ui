@@ -20,7 +20,7 @@ impl SpinnerSize {
 }
 
 pub const SPINNER_BASE_CLASS: &str =
-  "inline-block shrink-0 animate-spin rounded-full border-zinc-200 border-t-zinc-900";
+  "inline-block shrink-0 animate-spin rounded-full border-border border-t-foreground";
 
 pub fn spinner_class(size: SpinnerSize, class: &str) -> String {
   classes([Some(SPINNER_BASE_CLASS), Some(size.class()), Some(class)])
@@ -49,11 +49,11 @@ mod tests {
 
   #[test]
   fn spinner_class_includes_size_and_user_class() {
-    let actual = spinner_class(SpinnerSize::Lg, "text-blue-600");
+    let actual = spinner_class(SpinnerSize::Lg, "text-primary");
 
     assert!(actual.contains(SPINNER_BASE_CLASS));
     assert!(actual.contains("h-6 w-6 border-[3px]"));
-    assert!(actual.ends_with("text-blue-600"));
+    assert!(actual.ends_with("text-primary"));
   }
 
   #[test]
@@ -61,7 +61,7 @@ mod tests {
     let actual = spinner_class(SpinnerSize::Sm, "");
 
     assert!(actual.contains("animate-spin"));
-    assert!(actual.contains("border-t-zinc-900"));
+    assert!(actual.contains("border-t-foreground"));
     assert!(actual.contains("h-4 w-4 border-2"));
   }
 }

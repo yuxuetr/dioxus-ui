@@ -20,7 +20,7 @@ impl SpinnerSize {
 }
 
 pub const SPINNER_BASE_CLASS: &str =
-  "inline-block shrink-0 animate-spin rounded-full border-zinc-200 border-t-zinc-900";
+  "inline-block shrink-0 animate-spin rounded-full border-border border-t-foreground";
 
 pub fn spinner_class(size: SpinnerSize, class: &str) -> String {
   classes([Some(SPINNER_BASE_CLASS), Some(size.class()), Some(class)])

@@ -2,10 +2,10 @@ use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 
 pub const CARD_BASE_CLASS: &str =
-  "rounded-md border border-zinc-200 bg-white text-zinc-950 shadow-sm";
+  "rounded-md border border-border bg-card text-card-foreground shadow-sm";
 pub const CARD_HEADER_BASE_CLASS: &str = "flex flex-col gap-1.5 p-6";
 pub const CARD_TITLE_BASE_CLASS: &str = "text-2xl font-semibold leading-none tracking-normal";
-pub const CARD_DESCRIPTION_BASE_CLASS: &str = "text-sm text-zinc-600";
+pub const CARD_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
 pub const CARD_CONTENT_BASE_CLASS: &str = "p-6 pt-0";
 pub const CARD_FOOTER_BASE_CLASS: &str = "flex items-center p-6 pt-0";
 

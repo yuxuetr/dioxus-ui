@@ -8,11 +8,11 @@ pub enum MarkerVariant {
   Separator,
 }
 
-pub const MARKER_BASE_CLASS: &str = "flex min-w-0 items-center gap-2 text-sm text-zinc-600";
-pub const MARKER_DEFAULT_CLASS: &str = "rounded-md bg-zinc-50 px-3 py-2";
-pub const MARKER_BORDER_CLASS: &str = "rounded-md border border-zinc-200 bg-white px-3 py-2";
-pub const MARKER_SEPARATOR_CLASS: &str = "w-full py-2 before:h-px before:flex-1 before:bg-zinc-200 after:h-px after:flex-1 after:bg-zinc-200";
-pub const MARKER_ICON_BASE_CLASS: &str = "flex shrink-0 items-center justify-center text-zinc-500";
+pub const MARKER_BASE_CLASS: &str = "flex min-w-0 items-center gap-2 text-sm text-muted-foreground";
+pub const MARKER_DEFAULT_CLASS: &str = "rounded-md bg-muted px-3 py-2";
+pub const MARKER_BORDER_CLASS: &str = "rounded-md border border-border bg-background px-3 py-2";
+pub const MARKER_SEPARATOR_CLASS: &str = "w-full py-2 before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border";
+pub const MARKER_ICON_BASE_CLASS: &str = "flex shrink-0 items-center justify-center text-muted-foreground";
 pub const MARKER_CONTENT_BASE_CLASS: &str = "min-w-0 truncate";
 
 impl MarkerVariant {

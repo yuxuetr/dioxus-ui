@@ -10,13 +10,13 @@ pub enum AlertVariant {
 impl AlertVariant {
   pub const fn class(self) -> &'static str {
     match self {
-      Self::Default => "border-zinc-200 text-zinc-950",
-      Self::Destructive => "border-red-500 text-red-900",
+      Self::Default => "border-border text-foreground",
+      Self::Destructive => "border-destructive text-destructive",
     }
   }
 }
 
-pub const ALERT_BASE_CLASS: &str = "relative w-full rounded-md border bg-white p-4";
+pub const ALERT_BASE_CLASS: &str = "relative w-full rounded-md border bg-card p-4 text-card-foreground";
 pub const ALERT_TITLE_BASE_CLASS: &str = "mb-1 font-medium leading-none tracking-normal";
 pub const ALERT_DESCRIPTION_BASE_CLASS: &str = "text-sm";
 
@@ -30,8 +30,8 @@ pub fn alert_title_class(class: &str) -> String {
 
 pub fn alert_description_class(variant: AlertVariant, class: &str) -> String {
   let variant_class = match variant {
-    AlertVariant::Default => "text-zinc-600",
-    AlertVariant::Destructive => "text-red-800",
+    AlertVariant::Default => "text-muted-foreground",
+    AlertVariant::Destructive => "text-destructive",
   };
 
   classes([Some(ALERT_DESCRIPTION_BASE_CLASS), Some(variant_class), Some(class)])

@@ -1,13 +1,13 @@
 use dioxus::prelude::*;
 use super::utils::classes;
 
-pub const ITEM_BASE_CLASS: &str = "flex items-start gap-3 rounded-md p-3 text-sm transition-colors data-[disabled=true]:opacity-50 data-[selected=true]:bg-zinc-100";
-pub const ITEM_SELECTED_CLASS: &str = "bg-zinc-100";
+pub const ITEM_BASE_CLASS: &str = "flex items-start gap-3 rounded-md p-3 text-sm transition-colors data-[disabled=true]:opacity-50 data-[selected=true]:bg-accent";
+pub const ITEM_SELECTED_CLASS: &str = "bg-accent";
 pub const ITEM_DISABLED_CLASS: &str = "pointer-events-none opacity-50";
 pub const ITEM_MEDIA_BASE_CLASS: &str = "flex shrink-0 items-center justify-center";
 pub const ITEM_CONTENT_BASE_CLASS: &str = "grid min-w-0 flex-1 gap-1";
-pub const ITEM_TITLE_BASE_CLASS: &str = "truncate font-medium text-zinc-950";
-pub const ITEM_DESCRIPTION_BASE_CLASS: &str = "line-clamp-2 text-sm text-zinc-600";
+pub const ITEM_TITLE_BASE_CLASS: &str = "truncate font-medium text-foreground";
+pub const ITEM_DESCRIPTION_BASE_CLASS: &str = "line-clamp-2 text-sm text-muted-foreground";
 pub const ITEM_ACTIONS_BASE_CLASS: &str = "ml-auto flex shrink-0 items-center gap-2";
 
 pub fn item_class(selected: bool, disabled: bool, class: &str) -> String {

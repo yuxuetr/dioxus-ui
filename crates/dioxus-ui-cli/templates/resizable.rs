@@ -127,7 +127,7 @@ observer.disconnect();
 
 pub const RESIZABLE_PANEL_GROUP_BASE_CLASS: &str = "flex h-full w-full data-[orientation=vertical]:flex-col";
 pub const RESIZABLE_PANEL_BASE_CLASS: &str = "min-w-0 overflow-hidden";
-pub const RESIZABLE_HANDLE_BASE_CLASS: &str = "relative flex w-px cursor-col-resize touch-none items-center justify-center bg-zinc-200 after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 data-[orientation=vertical]:h-px data-[orientation=vertical]:w-full data-[orientation=vertical]:cursor-row-resize data-[orientation=vertical]:after:inset-x-0 data-[orientation=vertical]:after:top-1/2 data-[orientation=vertical]:after:h-1 data-[orientation=vertical]:after:w-full data-[orientation=vertical]:after:-translate-y-1/2 data-[disabled=true]:opacity-50";
+pub const RESIZABLE_HANDLE_BASE_CLASS: &str = "relative flex w-px cursor-col-resize touch-none items-center justify-center bg-border after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[orientation=vertical]:h-px data-[orientation=vertical]:w-full data-[orientation=vertical]:cursor-row-resize data-[orientation=vertical]:after:inset-x-0 data-[orientation=vertical]:after:top-1/2 data-[orientation=vertical]:after:h-1 data-[orientation=vertical]:after:w-full data-[orientation=vertical]:after:-translate-y-1/2 data-[disabled=true]:opacity-50";
 
 pub fn resizable_panel_group_class(orientation: LayoutOrientation, class: &str) -> String {
   let orientation_class = match orientation {

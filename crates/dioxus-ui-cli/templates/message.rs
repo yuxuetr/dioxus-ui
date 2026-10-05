@@ -11,12 +11,12 @@ pub const MESSAGE_BASE_CLASS: &str = "flex w-full min-w-0 gap-3 text-sm";
 pub const MESSAGE_ALIGN_START_CLASS: &str = "items-start justify-start";
 pub const MESSAGE_ALIGN_END_CLASS: &str = "items-start justify-end flex-row-reverse";
 pub const MESSAGE_GROUP_BASE_CLASS: &str = "flex flex-col gap-4";
-pub const MESSAGE_AVATAR_BASE_CLASS: &str = "flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-zinc-100 text-xs font-medium text-zinc-700";
+pub const MESSAGE_AVATAR_BASE_CLASS: &str = "flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted text-xs font-medium text-foreground";
 pub const MESSAGE_CONTENT_BASE_CLASS: &str = "grid min-w-0 max-w-full flex-1 gap-1";
 pub const MESSAGE_CONTENT_ALIGN_START_CLASS: &str = "justify-items-start";
 pub const MESSAGE_CONTENT_ALIGN_END_CLASS: &str = "justify-items-end";
-pub const MESSAGE_HEADER_BASE_CLASS: &str = "flex min-w-0 items-center gap-2 text-xs text-zinc-500";
-pub const MESSAGE_FOOTER_BASE_CLASS: &str = "flex min-w-0 items-center gap-2 text-xs text-zinc-500";
+pub const MESSAGE_HEADER_BASE_CLASS: &str = "flex min-w-0 items-center gap-2 text-xs text-muted-foreground";
+pub const MESSAGE_FOOTER_BASE_CLASS: &str = "flex min-w-0 items-center gap-2 text-xs text-muted-foreground";
 
 impl MessageAlign {
   pub const fn class(self) -> &'static str {

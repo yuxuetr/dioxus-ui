@@ -464,7 +464,7 @@ fn main() {
   println!("dioxus-ui desktop demo collapsible class: {}", collapsible_class(true, "max-w-xs"));
   println!(
     "dioxus-ui desktop demo collapsible trigger class: {}",
-    collapsible_trigger_class(false, "w-full")
+    collapsible_trigger_class("w-full")
   );
   println!(
     "dioxus-ui desktop demo collapsible content class: {}",
@@ -613,10 +613,7 @@ fn main() {
     toggle_class(ToggleVariant::Outline, ToggleSize::Sm, false, "")
   );
   println!("dioxus-ui desktop demo accordion item class: {}", accordion_item_class(""));
-  println!(
-    "dioxus-ui desktop demo accordion trigger class: {}",
-    accordion_trigger_class(false, "")
-  );
+  println!("dioxus-ui desktop demo accordion trigger class: {}", accordion_trigger_class(""));
   println!("dioxus-ui desktop demo accordion content class: {}", accordion_content_class("px-1"));
   println!("dioxus-ui desktop demo dialog overlay class: {}", dialog_overlay_class(""));
   println!("dioxus-ui desktop demo dialog content class: {}", dialog_content_class("max-w-md"));

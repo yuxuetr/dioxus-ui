@@ -7,14 +7,14 @@ pub use dioxus_ui_primitives::{
   chart_series_x_domain, chart_series_y_domain, chart_summary, chart_value_label,
 };
 
-pub const CHART_BASE_CLASS: &str = "relative w-full text-zinc-950";
+pub const CHART_BASE_CLASS: &str = "relative w-full text-foreground";
 pub const CHART_SVG_BASE_CLASS: &str = "h-auto w-full overflow-visible";
-pub const CHART_TITLE_BASE_CLASS: &str = "text-sm font-medium text-zinc-950";
-pub const CHART_DESCRIPTION_BASE_CLASS: &str = "text-sm text-zinc-600";
+pub const CHART_TITLE_BASE_CLASS: &str = "text-sm font-medium text-foreground";
+pub const CHART_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
 pub const CHART_LEGEND_BASE_CLASS: &str =
-  "mt-3 flex flex-wrap items-center gap-3 text-sm text-zinc-700";
+  "mt-3 flex flex-wrap items-center gap-3 text-sm text-muted-foreground";
 pub const CHART_FALLBACK_TABLE_BASE_CLASS: &str = "mt-4 w-full caption-bottom text-sm";
-pub const CHART_TOOLTIP_SLOT_BASE_CLASS: &str = "pointer-events-none absolute z-20 rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-950 shadow-md";
+pub const CHART_TOOLTIP_SLOT_BASE_CLASS: &str = "pointer-events-none absolute z-20 rounded-md border border-border bg-popover px-3 py-2 text-sm text-popover-foreground shadow-md";
 pub const CHART_LINE_SERIES_BASE_CLASS: &str = "fill-none stroke-current";
 pub const CHART_AREA_SERIES_BASE_CLASS: &str = "fill-current stroke-current";
 pub const CHART_BAR_SERIES_BASE_CLASS: &str = "fill-current";

@@ -89,8 +89,8 @@ Deviations from shadcn/ui, marked * above:
   red keeps 4.5:1.
 - `--success`, `--warning`, and `--info` are added for the Toast, Sonner,
   Attachment, and Chart states, which shadcn/ui does not cover. Each is one
-  strong color: surfaces use it at `/10`, borders at `/30`, and status dots
-  and chart series use it whole. Text on those surfaces stays `foreground`
+  strong color: inline surfaces use it at `/10`, borders at `/30` or `/50`,
+  and status dots and chart series use it whole. Text on those surfaces stays `foreground`
   or `muted-foreground`, so no status foreground token is needed.
 - `--radius` is `0.5rem`. `@theme inline` derives `--radius-sm` to
   `--radius-xl` from it as shadcn/ui does, and `0.5rem` gives back
@@ -125,7 +125,8 @@ Each palette role maps to one token class:
 | destructive fills: `bg-red-600 text-white hover:bg-red-700` | `bg-destructive text-destructive-foreground hover:bg-destructive/90` |
 | invalid fields: `border-red-500`, `ring-red-500` | `border-destructive`, `ring-destructive` |
 | destructive text and items: `text-red-600 focus:bg-red-50`, Alert destructive | `text-destructive focus:bg-destructive/10` |
-| Toast, Sonner, Bubble, Attachment states | `border-<state>/30 bg-<state>/10` with `text-foreground`; dots `bg-<state>`; `<state>` is `success`, `warning`, `info`, or `destructive` |
+| Bubble and Attachment states (inline) | `border-<state>/30 bg-<state>/10` with `text-foreground`; `<state>` is `success`, `warning`, `info`, or `destructive` |
+| Toast and Sonner states (floating over content, so the surface stays opaque) | `bg-popover text-popover-foreground border-<state>/50`; Sonner dots `bg-<state>`; descriptions `text-muted-foreground` |
 | Chart color tokens | `text-primary`, `text-muted-foreground`, `text-success`, `text-warning`, `text-destructive`, `text-foreground` |
 | Sidebar surface, borders, item fills, and focus ring | `bg-sidebar text-sidebar-foreground`, `border-sidebar-border`, `bg-sidebar-accent text-sidebar-accent-foreground`, `ring-sidebar-ring` |
 | modal overlays: `bg-black/50` | unchanged, as shadcn/ui |

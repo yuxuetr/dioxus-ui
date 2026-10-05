@@ -5,22 +5,16 @@ use super::utils::{classes, group_part_id, use_roving_group};
 
 static NEXT_ACCORDION_ID: AtomicUsize = AtomicUsize::new(0);
 
-pub const ACCORDION_ITEM_BASE_CLASS: &str = "border-b border-zinc-200";
-pub const ACCORDION_TRIGGER_BASE_CLASS: &str = "flex w-full items-center justify-between py-4 text-left text-sm font-medium transition-colors hover:text-zinc-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
-pub const ACCORDION_CONTENT_BASE_CLASS: &str = "overflow-hidden pb-4 text-sm text-zinc-600";
+pub const ACCORDION_ITEM_BASE_CLASS: &str = "border-b border-border";
+pub const ACCORDION_TRIGGER_BASE_CLASS: &str = "flex w-full items-center justify-between py-4 text-left text-sm font-medium text-foreground transition-colors hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+pub const ACCORDION_CONTENT_BASE_CLASS: &str = "overflow-hidden pb-4 text-sm text-muted-foreground";
 
 pub fn accordion_item_class(class: &str) -> String {
   classes([Some(ACCORDION_ITEM_BASE_CLASS), Some(class)])
 }
 
-pub fn accordion_trigger_class(open: bool, class: &str) -> String {
-  let open_class = if open {
-    "text-zinc-950"
-  } else {
-    "text-zinc-900"
-  };
-
-  classes([Some(ACCORDION_TRIGGER_BASE_CLASS), Some(open_class), Some(class)])
+pub fn accordion_trigger_class(class: &str) -> String {
+  classes([Some(ACCORDION_TRIGGER_BASE_CLASS), Some(class)])
 }
 
 pub fn accordion_content_class(class: &str) -> String {
@@ -120,7 +114,7 @@ pub fn AccordionTrigger(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = accordion_trigger_class(open, &class);
+  let class = accordion_trigger_class(&class);
   let ids = accordion_part_ids();
   let is_item = ids.is_some().then_some("");
   let (value, id, controls) = ids.map_or((None, None, None), |(value, trigger_id, content_id)| {

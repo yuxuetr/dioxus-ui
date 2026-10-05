@@ -40,14 +40,16 @@ pub const BUBBLE_ALIGN_START_CLASS: &str = "items-start";
 pub const BUBBLE_ALIGN_END_CLASS: &str = "items-end";
 pub const BUBBLE_GROUP_BASE_CLASS: &str = "flex flex-col gap-2";
 pub const BUBBLE_CONTENT_BASE_CLASS: &str = "min-w-0 rounded-md px-3 py-2 text-sm leading-6";
-pub const BUBBLE_DEFAULT_CLASS: &str = "bg-zinc-950 text-white";
-pub const BUBBLE_SECONDARY_CLASS: &str = "bg-zinc-100 text-zinc-950";
-pub const BUBBLE_MUTED_CLASS: &str = "bg-zinc-50 text-zinc-700";
-pub const BUBBLE_TINTED_CLASS: &str = "bg-blue-50 text-blue-950";
-pub const BUBBLE_OUTLINE_CLASS: &str = "border border-zinc-200 bg-white text-zinc-950";
-pub const BUBBLE_GHOST_CLASS: &str = "bg-transparent text-zinc-950";
-pub const BUBBLE_DESTRUCTIVE_CLASS: &str = "bg-red-50 text-red-950 border border-red-200";
-pub const BUBBLE_REACTIONS_BASE_CLASS: &str = "flex items-center gap-1 text-xs text-zinc-500";
+pub const BUBBLE_DEFAULT_CLASS: &str = "bg-primary text-primary-foreground";
+pub const BUBBLE_SECONDARY_CLASS: &str = "bg-secondary text-secondary-foreground";
+pub const BUBBLE_MUTED_CLASS: &str = "bg-muted text-muted-foreground";
+pub const BUBBLE_TINTED_CLASS: &str = "bg-info/10 text-foreground";
+pub const BUBBLE_OUTLINE_CLASS: &str = "border border-border bg-background text-foreground";
+pub const BUBBLE_GHOST_CLASS: &str = "bg-transparent text-foreground";
+pub const BUBBLE_DESTRUCTIVE_CLASS: &str =
+  "bg-destructive/10 text-foreground border border-destructive/30";
+pub const BUBBLE_REACTIONS_BASE_CLASS: &str =
+  "flex items-center gap-1 text-xs text-muted-foreground";
 pub const BUBBLE_REACTIONS_TOP_CLASS: &str = "order-first mb-1";
 pub const BUBBLE_REACTIONS_BOTTOM_CLASS: &str = "order-last mt-1";
 pub const BUBBLE_REACTIONS_ALIGN_START_CLASS: &str = "self-start";

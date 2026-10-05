@@ -83,8 +83,8 @@ pub const SONNER_ICON_BASE_CLASS: &str = "mt-0.5 h-2.5 w-2.5 rounded-full";
 pub const SONNER_CONTENT_BASE_CLASS: &str = "grid gap-1";
 pub const SONNER_TITLE_BASE_CLASS: &str = "text-sm font-semibold leading-none tracking-normal";
 pub const SONNER_DESCRIPTION_BASE_CLASS: &str = "text-sm";
-pub const SONNER_ACTION_BASE_CLASS: &str = "inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-zinc-200 bg-transparent px-3 text-sm font-medium transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
-pub const SONNER_CLOSE_BASE_CLASS: &str = "inline-flex h-7 w-7 items-center justify-center rounded-md text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
+pub const SONNER_ACTION_BASE_CLASS: &str = "inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-border bg-transparent px-3 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+pub const SONNER_CLOSE_BASE_CLASS: &str = "inline-flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
 pub fn sonner_placement_attribute(placement: SonnerPlacement) -> &'static str {
   match placement {
@@ -188,12 +188,12 @@ pub fn sonner_viewport_class(placement: SonnerPlacement, class: &str) -> String 
 
 pub fn sonner_toast_class(variant: SonnerVariant, class: &str) -> String {
   let variant_class = match variant {
-    SonnerVariant::Default => "border-zinc-200 bg-white text-zinc-950",
-    SonnerVariant::Success => "border-green-200 bg-green-50 text-green-950",
-    SonnerVariant::Info => "border-blue-200 bg-blue-50 text-blue-950",
-    SonnerVariant::Warning => "border-amber-200 bg-amber-50 text-amber-950",
-    SonnerVariant::Error => "border-red-200 bg-red-50 text-red-950",
-    SonnerVariant::Loading => "border-zinc-200 bg-zinc-50 text-zinc-950",
+    SonnerVariant::Default => "border-border bg-popover text-popover-foreground",
+    SonnerVariant::Success => "border-success/50 bg-popover text-popover-foreground",
+    SonnerVariant::Info => "border-info/50 bg-popover text-popover-foreground",
+    SonnerVariant::Warning => "border-warning/50 bg-popover text-popover-foreground",
+    SonnerVariant::Error => "border-destructive/50 bg-popover text-popover-foreground",
+    SonnerVariant::Loading => "border-border bg-popover text-popover-foreground",
   };
 
   classes([
@@ -205,12 +205,12 @@ pub fn sonner_toast_class(variant: SonnerVariant, class: &str) -> String {
 
 pub fn sonner_icon_class(variant: SonnerVariant, class: &str) -> String {
   let variant_class = match variant {
-    SonnerVariant::Default => "bg-zinc-400",
-    SonnerVariant::Success => "bg-green-600",
-    SonnerVariant::Info => "bg-blue-600",
-    SonnerVariant::Warning => "bg-amber-500",
-    SonnerVariant::Error => "bg-red-600",
-    SonnerVariant::Loading => "bg-zinc-400 animate-pulse",
+    SonnerVariant::Default => "bg-muted-foreground",
+    SonnerVariant::Success => "bg-success",
+    SonnerVariant::Info => "bg-info",
+    SonnerVariant::Warning => "bg-warning",
+    SonnerVariant::Error => "bg-destructive",
+    SonnerVariant::Loading => "bg-muted-foreground animate-pulse",
   };
 
   classes([
@@ -230,11 +230,11 @@ pub fn sonner_title_class(class: &str) -> String {
 
 pub fn sonner_description_class(variant: SonnerVariant, class: &str) -> String {
   let variant_class = match variant {
-    SonnerVariant::Default | SonnerVariant::Loading => "text-zinc-600",
-    SonnerVariant::Success => "text-green-800",
-    SonnerVariant::Info => "text-blue-800",
-    SonnerVariant::Warning => "text-amber-800",
-    SonnerVariant::Error => "text-red-800",
+    SonnerVariant::Default | SonnerVariant::Loading => "text-muted-foreground",
+    SonnerVariant::Success => "text-muted-foreground",
+    SonnerVariant::Info => "text-muted-foreground",
+    SonnerVariant::Warning => "text-muted-foreground",
+    SonnerVariant::Error => "text-muted-foreground",
   };
 
   classes([

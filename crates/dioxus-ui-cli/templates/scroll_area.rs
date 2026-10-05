@@ -21,8 +21,8 @@ pub const SCROLL_AREA_BASE_CLASS: &str = "relative overflow-hidden";
 pub const SCROLL_AREA_VIEWPORT_BASE_CLASS: &str = "h-full w-full overflow-auto rounded-inherit";
 pub const SCROLL_AREA_CONTENT_BASE_CLASS: &str = "min-w-full";
 pub const SCROLL_AREA_SCROLLBAR_BASE_CLASS: &str = "flex touch-none select-none transition-colors data-[orientation=horizontal]:h-2.5 data-[orientation=horizontal]:flex-col data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2.5";
-pub const SCROLL_AREA_THUMB_BASE_CLASS: &str = "relative flex-1 rounded-full bg-zinc-300";
-pub const SCROLL_AREA_CORNER_BASE_CLASS: &str = "bg-zinc-100";
+pub const SCROLL_AREA_THUMB_BASE_CLASS: &str = "relative flex-1 rounded-full bg-border";
+pub const SCROLL_AREA_CORNER_BASE_CLASS: &str = "bg-accent";
 
 pub fn scroll_area_class(class: &str) -> String {
   classes([Some(SCROLL_AREA_BASE_CLASS), Some(class)])

@@ -10,11 +10,11 @@ use crate::dismiss_timer::use_dismiss_timer;
 
 pub const TOAST_VIEWPORT_BASE_CLASS: &str =
   "fixed z-50 flex max-h-screen w-full flex-col gap-2 p-4 sm:max-w-sm";
-pub const TOAST_ROOT_BASE_CLASS: &str = "pointer-events-auto relative grid w-full gap-1 overflow-hidden rounded-md border bg-white p-4 pr-10 shadow-lg transition-all data-[state=closed]:opacity-0 data-[state=open]:opacity-100";
+pub const TOAST_ROOT_BASE_CLASS: &str = "pointer-events-auto relative grid w-full gap-1 overflow-hidden rounded-md border bg-popover p-4 pr-10 text-popover-foreground shadow-lg transition-all data-[state=closed]:opacity-0 data-[state=open]:opacity-100";
 pub const TOAST_TITLE_BASE_CLASS: &str = "text-sm font-semibold leading-none tracking-normal";
 pub const TOAST_DESCRIPTION_BASE_CLASS: &str = "text-sm";
-pub const TOAST_ACTION_BASE_CLASS: &str = "inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-zinc-200 bg-transparent px-3 text-sm font-medium transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
-pub const TOAST_CLOSE_BASE_CLASS: &str = "absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-md text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
+pub const TOAST_ACTION_BASE_CLASS: &str = "inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-border bg-transparent px-3 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+pub const TOAST_CLOSE_BASE_CLASS: &str = "absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
 pub fn toast_viewport_class(placement: ToastPlacement, class: &str) -> String {
   let placement_class = match placement {
@@ -31,12 +31,12 @@ pub fn toast_viewport_class(placement: ToastPlacement, class: &str) -> String {
 
 pub fn toast_root_class(variant: ToastVariant, class: &str) -> String {
   let variant_class = match variant {
-    ToastVariant::Default => "border-zinc-200 text-zinc-950",
-    ToastVariant::Success => "border-green-200 text-green-950",
-    ToastVariant::Info => "border-blue-200 text-blue-950",
-    ToastVariant::Warning => "border-amber-200 text-amber-950",
-    ToastVariant::Error => "border-red-200 text-red-950",
-    ToastVariant::Loading => "border-zinc-200 text-zinc-950",
+    ToastVariant::Default => "border-border text-foreground",
+    ToastVariant::Success => "border-success/50 text-foreground",
+    ToastVariant::Info => "border-info/50 text-foreground",
+    ToastVariant::Warning => "border-warning/50 text-foreground",
+    ToastVariant::Error => "border-destructive/50 text-foreground",
+    ToastVariant::Loading => "border-border text-foreground",
   };
 
   classes([Some(TOAST_ROOT_BASE_CLASS), Some(variant_class), Some(class)])
@@ -48,11 +48,11 @@ pub fn toast_title_class(class: &str) -> String {
 
 pub fn toast_description_class(variant: ToastVariant, class: &str) -> String {
   let variant_class = match variant {
-    ToastVariant::Default | ToastVariant::Loading => "text-zinc-600",
-    ToastVariant::Success => "text-green-800",
-    ToastVariant::Info => "text-blue-800",
-    ToastVariant::Warning => "text-amber-800",
-    ToastVariant::Error => "text-red-800",
+    ToastVariant::Default | ToastVariant::Loading => "text-muted-foreground",
+    ToastVariant::Success => "text-muted-foreground",
+    ToastVariant::Info => "text-muted-foreground",
+    ToastVariant::Warning => "text-muted-foreground",
+    ToastVariant::Error => "text-muted-foreground",
   };
 
   classes([Some(TOAST_DESCRIPTION_BASE_CLASS), Some(variant_class), Some(class)])
@@ -233,8 +233,8 @@ mod tests {
     let description = toast_description_class(ToastVariant::Error, "");
 
     assert!(root.contains(TOAST_ROOT_BASE_CLASS));
-    assert!(root.contains("border-red-200 text-red-950"));
-    assert!(description.contains("text-red-800"));
+    assert!(root.contains("border-destructive/50 text-foreground"));
+    assert!(description.contains("text-muted-foreground"));
   }
 
   #[test]

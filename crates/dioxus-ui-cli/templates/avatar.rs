@@ -3,7 +3,7 @@ use super::utils::classes;
 
 pub const AVATAR_BASE_CLASS: &str = "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full";
 pub const AVATAR_IMAGE_BASE_CLASS: &str = "aspect-square h-full w-full object-cover";
-pub const AVATAR_FALLBACK_BASE_CLASS: &str = "flex h-full w-full items-center justify-center rounded-full bg-zinc-100 text-sm font-medium text-zinc-900";
+pub const AVATAR_FALLBACK_BASE_CLASS: &str = "flex h-full w-full items-center justify-center rounded-full bg-muted text-sm font-medium text-foreground";
 
 pub fn avatar_class(class: &str) -> String {
   classes([Some(AVATAR_BASE_CLASS), Some(class)])
