@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M169 Tailwind Utility Conflicts
-- Current task: M169.3 Verify rendered class lists in a real browser
+- Current task: M169.4 Complete Tailwind utility conflict milestone
 
 ## Backup
 
@@ -3094,7 +3094,7 @@
 - DONE M169.2 Remove conflicting utilities from class functions
   - Move contested utilities out of base classes in the crate source and templates, size the vertical Slider root, and add `npm run verify:tailwind-conflicts` to the release gate.
 
-- TODO M169.3 Verify rendered class lists in a real browser
+- DONE M169.3 Verify rendered class lists in a real browser
   - Make `npm run verify:runtime-interactions` fail on conflicting utilities in any rendered class list before and after the interactions, switch fixture overrides to the important modifier, and measure the Radio Group checked border and the vertical Slider width.
   - Reverse-verify that the checks fail with the base invalid border restored, without the important modifier on a fixture override, with the base Radio border restored, and with a full-width vertical Slider.
 
