@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 60%
 - Current milestone: M182 Automated Accessibility Audit
-- Current task: M182.3
+- Current task: M182.4
 
 ## Backup
 
@@ -34,8 +34,9 @@
   - Drop `aria-orientation` from the `ButtonGroup` and `ToggleGroup` roots, keeping `data-orientation`; make the `ScrollArea` and `MessageScroller` viewports keyboard reachable; render `AlertTitle` as a `div`; in the crate and the templates, with tests.
   - Done: a passed `tabindex` replaces the viewport default through `default_attribute`, the generalized `default_aria_label`, so SSR writes one value.
 
-- TODO M182.3 Fix the site and preview findings
+- DONE M182.3 Fix the site and preview findings
   - Set the document language on the site and the previews, and fix the Skeleton example and the unnamed or duplicate-named preview fixtures.
+  - Done: dx's page template has no `lang`, so the site and `PreviewSurface` set it at startup. Duplicate preview landmarks stay, covered by the preview's `landmark-unique` exception.
 
 - TODO M182.4 Add the audit to the browser checks
   - Add `axe-core` as a dev dependency, run it from `npm run verify:site` and `npm run verify:runtime-interactions`, and reverse-verify that a reintroduced finding fails each check.
