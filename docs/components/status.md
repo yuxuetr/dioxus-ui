@@ -65,7 +65,7 @@ parity.
 | Field | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Input | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Input Group | Forms | yes | yes | yes | yes | yes | yes | yes |
-| Input Otp | Forms | yes | yes | yes | yes | yes | yes | yes |
+| Input OTP | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Label | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Native Select | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Radio Group | Forms | yes | yes | yes | yes | yes | yes | yes |
@@ -134,7 +134,7 @@ parity.
 | Field | Forms | [docs](field.md) | `dxui add field` | `field` | `crates/dioxus-shadcn-cli/templates/field.rs` | `src/components/ui/field.rs` |
 | Input | Forms | [docs](input.md) | `dxui add input` | `input` | `crates/dioxus-shadcn-cli/templates/input.rs` | `src/components/ui/input.rs` |
 | Input Group | Forms | [docs](input-group.md) | `dxui add input-group` | `input-group` | `crates/dioxus-shadcn-cli/templates/input_group.rs` | `src/components/ui/input_group.rs` |
-| Input Otp | Forms | [docs](input-otp.md) | `dxui add input-otp` | `input-otp` | `crates/dioxus-shadcn-cli/templates/input_otp.rs` | `src/components/ui/input_otp.rs` |
+| Input OTP | Forms | [docs](input-otp.md) | `dxui add input-otp` | `input-otp` | `crates/dioxus-shadcn-cli/templates/input_otp.rs` | `src/components/ui/input_otp.rs` |
 | Label | Forms | [docs](label.md) | `dxui add label` | `label` | `crates/dioxus-shadcn-cli/templates/label.rs` | `src/components/ui/label.rs` |
 | Native Select | Forms | [docs](native-select.md) | `dxui add native-select` | `native-select` | `crates/dioxus-shadcn-cli/templates/native_select.rs` | `src/components/ui/native_select.rs` |
 | Radio Group | Forms | [docs](radio-group.md) | `dxui add radio-group` | `radio-group` | `crates/dioxus-shadcn-cli/templates/radio_group.rs` | `src/components/ui/radio_group.rs` |

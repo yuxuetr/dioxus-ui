@@ -47,7 +47,7 @@ Source preview routes: 64
 | [Hover Card](hover-card.md) | /components/hover-card/source | crates/dioxus-shadcn-cli/templates/hover_card.rs | src/components/ui/hover_card.rs | rust | 185 | 5524 |
 | [Input](input.md) | /components/input/source | crates/dioxus-shadcn-cli/templates/input.rs | src/components/ui/input.rs | rust | 47 | 1524 |
 | [Input Group](input-group.md) | /components/input-group/source | crates/dioxus-shadcn-cli/templates/input_group.rs | src/components/ui/input_group.rs | rust | 133 | 3920 |
-| [Input Otp](input-otp.md) | /components/input-otp/source | crates/dioxus-shadcn-cli/templates/input_otp.rs | src/components/ui/input_otp.rs | rust | 412 | 11385 |
+| [Input OTP](input-otp.md) | /components/input-otp/source | crates/dioxus-shadcn-cli/templates/input_otp.rs | src/components/ui/input_otp.rs | rust | 412 | 11385 |
 | [Item](item.md) | /components/item/source | crates/dioxus-shadcn-cli/templates/item.rs | src/components/ui/item.rs | rust | 121 | 2963 |
 | [Kbd](kbd.md) | /components/kbd/source | crates/dioxus-shadcn-cli/templates/kbd.rs | src/components/ui/kbd.rs | rust | 42 | 901 |
 | [Label](label.md) | /components/label/source | crates/dioxus-shadcn-cli/templates/label.rs | src/components/ui/label.rs | rust | 32 | 869 |

@@ -8,7 +8,6 @@ const { catalog, repoRoot } = buildDocsCatalog();
 
 const normalizeHeading = (value) => {
   return value
-    .replace(/\bOtp\b/g, "OTP")
     .replace(/\bKbd\b/g, "Kbd")
     .trim();
 };

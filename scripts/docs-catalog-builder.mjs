@@ -102,10 +102,13 @@ function normalize(name) {
   return name.replaceAll("_", "-");
 }
 
+// Acronyms in slugs keep their capitals, as in the component docs' headings.
+const acronyms = new Set(["otp"]);
+
 function titleCase(name) {
   return name
     .split("-")
-    .map((part) => `${part.slice(0, 1).toUpperCase()}${part.slice(1)}`)
+    .map((part) => (acronyms.has(part) ? part.toUpperCase() : `${part.slice(0, 1).toUpperCase()}${part.slice(1)}`))
     .join(" ");
 }
 

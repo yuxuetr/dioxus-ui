@@ -31,7 +31,7 @@ Public components: 64
 - [Field](field.md): Form field layout composition parts.
 - [Input](input.md): Input component with disabled and invalid states.
 - [Input Group](input-group.md): Input Group component for addons, controls, and actions around inputs.
-- [Input Otp](input-otp.md): Input OTP component with controlled visual slots and native input support.
+- [Input OTP](input-otp.md): Input OTP component with controlled visual slots and native input support.
 - [Label](label.md): Label component for associating text with form controls.
 - [Native Select](native-select.md): Styled native select, optgroup, and option components.
 - [Radio Group](radio-group.md): Radio Group component for single-choice grouped selection.
@@ -137,7 +137,7 @@ Public components: 64
 | [Hover Card](hover-card.md) | Controlled rich preview content backed by popover primitive configuration. | `dxui add hover-card` | `hover-card` | `crates/dioxus-shadcn-cli/templates/hover_card.rs` | `src/components/ui/hover_card.rs` |
 | [Input](input.md) | Input component with disabled and invalid states. | `dxui add input` | `input` | `crates/dioxus-shadcn-cli/templates/input.rs` | `src/components/ui/input.rs` |
 | [Input Group](input-group.md) | Input Group component for addons, controls, and actions around inputs. | `dxui add input-group` | `input-group` | `crates/dioxus-shadcn-cli/templates/input_group.rs` | `src/components/ui/input_group.rs` |
-| [Input Otp](input-otp.md) | Input OTP component with controlled visual slots and native input support. | `dxui add input-otp` | `input-otp` | `crates/dioxus-shadcn-cli/templates/input_otp.rs` | `src/components/ui/input_otp.rs` |
+| [Input OTP](input-otp.md) | Input OTP component with controlled visual slots and native input support. | `dxui add input-otp` | `input-otp` | `crates/dioxus-shadcn-cli/templates/input_otp.rs` | `src/components/ui/input_otp.rs` |
 | [Item](item.md) | Generic list item composition parts. | `dxui add item` | `item` | `crates/dioxus-shadcn-cli/templates/item.rs` | `src/components/ui/item.rs` |
 | [Kbd](kbd.md) | Styled keyboard shortcut hint. | `dxui add kbd` | `kbd` | `crates/dioxus-shadcn-cli/templates/kbd.rs` | `src/components/ui/kbd.rs` |
 | [Label](label.md) | Label component for associating text with form controls. | `dxui add label` | `label` | `crates/dioxus-shadcn-cli/templates/label.rs` | `src/components/ui/label.rs` |

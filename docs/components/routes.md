@@ -71,7 +71,7 @@ Category routes: 8
 | [Hover Card](hover-card.md) | /components/hover-card | docs/components/hover-card.md | /components#category-overlays | /components/hover-card/source |
 | [Input](input.md) | /components/input | docs/components/input.md | /components#category-forms | /components/input/source |
 | [Input Group](input-group.md) | /components/input-group | docs/components/input-group.md | /components#category-forms | /components/input-group/source |
-| [Input Otp](input-otp.md) | /components/input-otp | docs/components/input-otp.md | /components#category-forms | /components/input-otp/source |
+| [Input OTP](input-otp.md) | /components/input-otp | docs/components/input-otp.md | /components#category-forms | /components/input-otp/source |
 | [Item](item.md) | /components/item | docs/components/item.md | /components#category-layout | /components/item/source |
 | [Kbd](kbd.md) | /components/kbd | docs/components/kbd.md | /components#category-actions | /components/kbd/source |
 | [Label](label.md) | /components/label | docs/components/label.md | /components#category-forms | /components/label/source |

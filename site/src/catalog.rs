@@ -99,7 +99,7 @@ pub const CATEGORIES: &[Category] = &[
       },
       Component {
         slug: "input-otp",
-        title: "Input Otp",
+        title: "Input OTP",
         description: "Input OTP component with controlled visual slots and native input support.",
         feature: "input-otp",
       },

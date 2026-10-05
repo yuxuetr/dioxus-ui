@@ -354,7 +354,7 @@ pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
   },
   ComponentPreviewTarget {
     component: "input-otp",
-    label: "Input Otp",
+    label: "Input OTP",
     panel: "forms",
     test_id: "component-preview-input-otp",
     coverage_level: "controlled",
