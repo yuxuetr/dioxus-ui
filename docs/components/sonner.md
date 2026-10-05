@@ -48,7 +48,8 @@ receives a `SonnerDismissReason`, usually followed by `sonner_queue_dismiss`.
 - `open` defaults to `true`; set it to `false` to hide a toast without
   unmounting it.
 - `SonnerAction` runs `onclick`, then calls `on_dismiss(Action)`.
-- `SonnerClose` calls `on_dismiss(Close)`.
+- `SonnerClose` calls `on_dismiss(Close)`. It is a 28px icon button named
+  "Close notification", so give it a glyph or icon rather than a word.
 
 Sonner shares the Toast countdown script; only the Web renderer is covered by
 `npm run verify:runtime-interactions`.

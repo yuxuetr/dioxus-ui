@@ -48,7 +48,7 @@ rsx! {
     on_dismiss: dismiss,
     ToastTitle { "Changes saved" }
     ToastAction { onclick: move |_| undo(), on_dismiss: dismiss, "Undo" }
-    ToastClose { on_dismiss: dismiss, "Close" }
+    ToastClose { on_dismiss: dismiss, "×" }
   }
 }
 ```
@@ -58,7 +58,8 @@ rsx! {
   focus is inside it, and resumes with the remaining time. `0` disables it,
   which suits loading toasts.
 - `ToastAction` runs `onclick`, then calls `on_dismiss(Action)`.
-- `ToastClose` calls `on_dismiss(Close)`.
+- `ToastClose` calls `on_dismiss(Close)`. It is a 28px icon button named
+  "Close notification", so give it a glyph or icon rather than a word.
 
 The countdown runs through `document::eval`, so it works in the Web, Desktop,
 and Mobile renderers. The Web renderer is covered by `npm run verify:runtime-interactions` and the

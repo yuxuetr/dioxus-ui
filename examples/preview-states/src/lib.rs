@@ -2117,7 +2117,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                     toast_reason.set(toast_dismiss_reason_attribute(reason));
                     toast_open.set(false);
                   },
-                  "Close"
+                  "×"
                 }
               }
             }
@@ -2150,7 +2150,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                       sonner_reason.set(sonner_dismiss_reason_attribute(reason));
                       sonner_open.set(false);
                     },
-                    "Close"
+                    "×"
                   }
                 }
               }
