@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0.2.0 plan, 6 of 8 milestones complete
-- Current milestone: M193 Completing Existing Components
-- Current task: M193.4
+- Overall: 0.2.0 plan, 7 of 8 milestones complete
+- Current milestone: M194 0.2.0 Release
+- Current task: M194.1
 
 ## Backup
 
@@ -101,7 +101,8 @@
   - Done: RFC 0063; ownership-scoped script and a vertical orientation whose contents pair by value (absolute panels would overflow the outer popover). Runtime fixture covers click, hover, arrows, and Escape; the original fixture and the Desktop scenario still pass.
 - DONE M193.3 Typed date input for Date Picker
   - Done: RFC 0064; `DatePickerInput` with `parse_date`/`format_date`, unit tests for orders and invalid dates, and a runtime check. The Calendar template's `CalendarDate::new` does not validate, so the template checks month lengths itself; `DatePickerTrigger` gained attribute passthrough for an icon-only trigger.
-- TODO M193.4 Pie and donut charts
+- DONE M193.4 Pie and donut charts
+  - Done: RFC 0065; `chart_pie_arcs` with exact-path unit tests and a donut site example. The screenshot showed palette slices uncolored: Tailwind never saw classes returned from the primitives crate (also true of Success and Warning since 0.1.0); `CHART_COLOR_CLASSES` lists them, with a test that keeps it in sync.
 
 ## M194 0.2.0 Release
 
