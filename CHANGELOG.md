@@ -214,7 +214,9 @@ release owner renames it to the released version at publish time.
   `dark` class also drives app `dark:` utilities through `@custom-variant`.
 - A component site in `site/` (`dioxus-ui-site`, not published): a Dioxus Web
   app with the catalog sidebar, a page per component with its install
-  commands, installation and theming guides, and a dark theme toggle. Run it
+  commands, live examples for all 64 components with a Preview and a Code
+  tab, links to the API and accessibility notes, installation and theming
+  guides, and a dark theme toggle. Run it
   with `dx serve --package dioxus-ui-site`. `npm run verify:site-css` and
   `npm run verify:site-catalog` keep its compiled stylesheet and catalog data
   fresh in the release gate, and `npm run verify:site` checks every route in

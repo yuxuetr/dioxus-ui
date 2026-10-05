@@ -12,6 +12,16 @@ catalog component. Run it with `dx serve --package dioxus-ui-site`;
 `npm run verify:site` checks every route in a browser. The Markdown docs stay
 the reference; the site links to them rather than rendering them.
 
+## M180 Component Pages
+
+Since M180 every component page shows live examples: each is one file under
+`site/src/examples/` whose `Demo` component the page renders and whose text
+the Code tab shows with `include_str!`. All 64 catalog components have at
+least one example (65 in all), and `npm run verify:site` fails when a
+component has none, a page does not render its listed examples, an example
+draws nothing, or its Code tab lacks the source. Pages also link to the API
+and accessibility sections of the Markdown component docs.
+
 ## Current Site Shape
 
 The documentation site is currently Markdown-first:

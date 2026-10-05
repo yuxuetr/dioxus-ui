@@ -212,8 +212,11 @@ format!("bg-{}-500", color)
 
 `site/` is a Dioxus Web app that browses the catalog in the manner of the
 shadcn/ui site: a sidebar grouped by category, a page per component with its
-install commands, installation and theming guides, and a dark theme toggle
-([RFC 0052](docs/rfcs/0052-component-site.md)). Run it locally with:
+install commands and live examples (each with a Preview and a Code tab
+showing the file that runs), installation and theming guides, and a dark
+theme toggle ([RFC 0052](docs/rfcs/0052-component-site.md)). To add an
+example, put a file with a `Demo` component under `site/src/examples/` and
+list it in `site/src/examples/mod.rs`. Run it locally with:
 
 ```bash
 dx serve --package dioxus-ui-site

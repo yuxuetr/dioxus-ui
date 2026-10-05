@@ -128,8 +128,9 @@ Exit criteria:
 Status: M179 adds the component site shell
 ([RFC 0052](rfcs/0052-component-site.md)): routes for every catalog component,
 the catalog sidebar, the installation and theming guides, and the theme
-toggle, checked in a browser by `npm run verify:site`. M180 adds the live
-examples and their source.
+toggle, checked in a browser by `npm run verify:site`. M180 adds live
+examples with their source for all 64 components and links each page to the
+API and accessibility notes, so the stage's exit criteria hold for the site.
 
 ## Stage 7: Runtime Adapters
 
