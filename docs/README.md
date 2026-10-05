@@ -131,7 +131,8 @@ Read in this order:
 124. [RFC 0061: Mobile Navigation](rfcs/0061-mobile-navigation.md)
 125. [RFC 0062: Multi-Select](rfcs/0062-multi-select.md)
 126. [RFC 0063: Navigation Menu Submenus](rfcs/0063-navigation-menu-submenus.md)
-127. [TODO Plan](../TODOs.md)
+127. [RFC 0064: Typed Date Input](rfcs/0064-typed-date-input.md)
+128. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
