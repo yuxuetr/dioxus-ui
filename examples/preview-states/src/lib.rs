@@ -2,6 +2,7 @@ use dioxus::prelude::*;
 
 mod self_test;
 use dioxus_shadcn::FileInput;
+use dioxus_shadcn::NavigationMenuOrientation;
 use dioxus_shadcn::NumberInput;
 use dioxus_shadcn::Progress;
 use dioxus_shadcn::Rating;
@@ -893,6 +894,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut menubar_action = use_signal(|| "none");
   let menubar_open = move |value: &str| menubar_active() == Some(value);
   let mut navigation_active = use_signal(String::new);
+  let mut mega_active = use_signal(String::new);
+  let mut mega_sub = use_signal(|| "web".to_string());
   let navigation_open = move |value: &str| navigation_active() == value;
   let mut tabs_value = use_signal(|| "account".to_string());
   let tab_active = move |value: &str| tabs_value() == value;
@@ -1760,6 +1763,59 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                     open: navigation_open("examples"),
                     NavigationMenuLink { href: "#navigation-dashboard", "Dashboard" }
                     NavigationMenuLink { href: "#navigation-chat", "Chat" }
+                  }
+                }
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "navigation-submenu",
+            "data-value": "{mega_active}",
+            "data-sub": "{mega_sub}",
+            h2 { class: "text-sm font-medium", "Navigation submenu interaction" }
+            NavigationMenu {
+              class: "mt-3",
+              "aria-label": "Solutions",
+              on_value_change: move |value: String| {
+                if !value.is_empty() {
+                  mega_sub.set("web".to_string());
+                }
+                mega_active.set(value);
+              },
+              NavigationMenuList {
+                NavigationMenuItem {
+                  value: "solutions",
+                  NavigationMenuTrigger { open: mega_active() == "solutions", "Solutions" }
+                  NavigationMenuContent {
+                    open: mega_active() == "solutions",
+                    NavigationMenu {
+                      orientation: NavigationMenuOrientation::Vertical,
+                      "aria-label": "Solution areas",
+                      on_value_change: move |value: String| {
+                        if !value.is_empty() {
+                          mega_sub.set(value);
+                        }
+                      },
+                      NavigationMenuList {
+                        NavigationMenuItem {
+                          value: "web",
+                          NavigationMenuTrigger { open: mega_sub() == "web", "Web" }
+                        }
+                        NavigationMenuItem {
+                          value: "mobile",
+                          NavigationMenuTrigger { open: mega_sub() == "mobile", "Mobile" }
+                        }
+                      }
+                      NavigationMenuContent { value: "web", open: mega_sub() == "web",
+                        NavigationMenuLink { href: "#mega-dashboards", "Dashboards" }
+                        NavigationMenuLink { href: "#mega-stores", "Stores" }
+                      }
+                      NavigationMenuContent { value: "mobile", open: mega_sub() == "mobile",
+                        NavigationMenuLink { href: "#mega-ios", "iOS apps" }
+                        NavigationMenuLink { href: "#mega-android", "Android apps" }
+                      }
+                    }
                   }
                 }
               }

@@ -62,6 +62,7 @@ examples! {
   tooltip_basic => "tooltip", "Tooltip";
   breadcrumb_basic => "breadcrumb", "Collapsed path";
   navigation_menu_basic => "navigation-menu", "Product menu";
+  navigation_menu_mega => "navigation-menu", "Mega menu";
   pagination_basic => "pagination", "Pages";
   sidebar_collapsible => "sidebar", "Collapsible";
   tabs_account => "tabs", "Account settings";

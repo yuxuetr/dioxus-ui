@@ -1922,6 +1922,38 @@
   .group-data-\[orientation\=horizontal\]\/timeline\:text-center:is(:where(.group\/timeline)[data-orientation="horizontal"] *) {
     text-align: center;
   }
+  .group-data-\[orientation\=vertical\]\/navigation-menu\:static:is(:where(.group\/navigation-menu)[data-orientation="vertical"] *) {
+    position: static;
+  }
+  .group-data-\[orientation\=vertical\]\/navigation-menu\:mt-0:is(:where(.group\/navigation-menu)[data-orientation="vertical"] *) {
+    margin-top: 0px;
+  }
+  .group-data-\[orientation\=vertical\]\/navigation-menu\:w-full:is(:where(.group\/navigation-menu)[data-orientation="vertical"] *) {
+    width: 100%;
+  }
+  .group-data-\[orientation\=vertical\]\/navigation-menu\:flex-none:is(:where(.group\/navigation-menu)[data-orientation="vertical"] *) {
+    flex: none;
+  }
+  .group-data-\[orientation\=vertical\]\/navigation-menu\:flex-col:is(:where(.group\/navigation-menu)[data-orientation="vertical"] *) {
+    flex-direction: column;
+  }
+  .group-data-\[orientation\=vertical\]\/navigation-menu\:items-stretch:is(:where(.group\/navigation-menu)[data-orientation="vertical"] *) {
+    align-items: stretch;
+  }
+  .group-data-\[orientation\=vertical\]\/navigation-menu\:justify-start:is(:where(.group\/navigation-menu)[data-orientation="vertical"] *) {
+    justify-content: flex-start;
+  }
+  .group-data-\[orientation\=vertical\]\/navigation-menu\:border-0:is(:where(.group\/navigation-menu)[data-orientation="vertical"] *) {
+    border-style: var(--tw-border-style);
+    border-width: 0px;
+  }
+  .group-data-\[orientation\=vertical\]\/navigation-menu\:p-0:is(:where(.group\/navigation-menu)[data-orientation="vertical"] *) {
+    padding: 0px;
+  }
+  .group-data-\[orientation\=vertical\]\/navigation-menu\:shadow-none:is(:where(.group\/navigation-menu)[data-orientation="vertical"] *) {
+    --tw-shadow: 0 0 #0000;
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
   .group-data-\[orientation\=vertical\]\/steps\:w-auto:is(:where(.group\/steps)[data-orientation="vertical"] *) {
     width: auto;
   }
@@ -2431,11 +2463,17 @@
   .data-\[orientation\=vertical\]\:w-full[data-orientation="vertical"] {
     width: 100%;
   }
+  .data-\[orientation\=vertical\]\:max-w-none[data-orientation="vertical"] {
+    max-width: none;
+  }
   .data-\[orientation\=vertical\]\:cursor-row-resize[data-orientation="vertical"] {
     cursor: row-resize;
   }
   .data-\[orientation\=vertical\]\:flex-col[data-orientation="vertical"] {
     flex-direction: column;
+  }
+  .data-\[orientation\=vertical\]\:items-start[data-orientation="vertical"] {
+    align-items: flex-start;
   }
   .data-\[orientation\=vertical\]\:items-stretch[data-orientation="vertical"] {
     align-items: stretch;

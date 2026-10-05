@@ -582,7 +582,7 @@ pub use navigation_menu::{
   NAVIGATION_MENU_LINK_BASE_CLASS, NAVIGATION_MENU_LIST_BASE_CLASS,
   NAVIGATION_MENU_TRIGGER_BASE_CLASS, NAVIGATION_MENU_VIEWPORT_BASE_CLASS, NavigationMenu,
   NavigationMenuContent, NavigationMenuIndicator, NavigationMenuItem, NavigationMenuLink,
-  NavigationMenuList, NavigationMenuTrigger, NavigationMenuViewport,
+  NavigationMenuList, NavigationMenuOrientation, NavigationMenuTrigger, NavigationMenuViewport,
   PopoverPrimitiveConfig as NavigationMenuPrimitiveConfig, navigation_menu_class,
   navigation_menu_content_class, navigation_menu_indicator_class, navigation_menu_item_class,
   navigation_menu_link_class, navigation_menu_list_class, navigation_menu_trigger_class,

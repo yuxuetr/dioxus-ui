@@ -25,6 +25,7 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["naviga
 - `NavigationMenuLink`
 - `NavigationMenuViewport`
 - `NavigationMenuIndicator`
+- `NavigationMenuOrientation`
 - `NavigationMenuPrimitiveConfig`
 - `navigation_menu_class`
 - `navigation_menu_trigger_class`
@@ -85,6 +86,35 @@ rsx! {
 Content is laid out with CSS, not anchored. `NavigationMenuViewport` and
 `NavigationMenuIndicator` only reflect the `open` value the app passes.
 
+### Submenus
+
+Nest a `NavigationMenu` with `orientation: NavigationMenuOrientation::Vertical`
+in a content for a mega menu: its triggers form a column, and its contents sit
+beside its list, each with its item's `value`:
+
+```rust
+NavigationMenuContent { open: open("solutions"),
+  NavigationMenu {
+    orientation: NavigationMenuOrientation::Vertical,
+    "aria-label": "Solution areas",
+    on_value_change: move |value: String| if !value.is_empty() { area.set(value) },
+    NavigationMenuList {
+      NavigationMenuItem { value: "web", NavigationMenuTrigger { open: area() == "web", "Web" } }
+      NavigationMenuItem { value: "mobile", NavigationMenuTrigger { open: area() == "mobile", "Mobile" } }
+    }
+    NavigationMenuContent { value: "web", open: area() == "web", /* links */ }
+    NavigationMenuContent { value: "mobile", open: area() == "mobile", /* links */ }
+  }
+}
+```
+
+Each menu's script acts only on its own items. In the vertical menu, a click
+or hover opens a panel at once, ArrowDown and ArrowUp move between triggers,
+ArrowRight enters the panel and ArrowLeft returns, and the panel stays open
+when the pointer leaves, so keep one panel open, such as the first when the
+outer item opens. Escape closes both menus and returns focus to the outer
+trigger (see [RFC 0063](../rfcs/0063-navigation-menu-submenus.md)).
+
 The Web renderer is covered by `npm run verify:runtime-interactions` and the
 Desktop renderer by `npm run verify:desktop-interactions`, and the iOS
 Simulator by `npm run verify:mobile-interactions`, and an Android emulator by
@@ -95,8 +125,8 @@ Simulator by `npm run verify:mobile-interactions`, and an Android emulator by
 Use Navigation Menu for navigation destinations. Use Menubar or Context Menu for
 application commands. Navigation Menu follows the disclosure navigation
 pattern: triggers are buttons with `aria-expanded`, content holds links, and
-no `menu` roles are used. Viewport size measurement, submenus, and motion are
-not implemented (see [RFC 0016](../rfcs/0016-navigation-menu-interaction.md)).
+no `menu` roles are used. Viewport size measurement and motion are not
+implemented (see [RFC 0016](../rfcs/0016-navigation-menu-interaction.md)).
 
 `NavigationMenu` passes through attributes, so give the `nav` landmark an
 `aria-label` when the page has more than one (see [RFC

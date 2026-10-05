@@ -1454,6 +1454,37 @@ async function runBrowserAssertions() {
     await expect(tagList).toBeVisible();
     await tagInput.press("Escape");
     await expect(tagList).toBeHidden();
+    // A vertical Navigation Menu nested in content is a submenu: its triggers
+    // switch the panel beside them by click, hover, and arrow keys without
+    // touching the outer value, and Escape closes both (RFC 0063).
+    const megaFixture = page.locator('[data-interaction-target="navigation-submenu"]');
+    const solutions = megaFixture.getByRole("button", { name: "Solutions", exact: true });
+    const web = megaFixture.getByRole("button", { name: "Web", exact: true });
+    const mobile = megaFixture.getByRole("button", { name: "Mobile", exact: true });
+    await solutions.click();
+    await expect(megaFixture).toHaveAttribute("data-value", "solutions");
+    await expect(megaFixture.getByRole("link", { name: "Dashboards", exact: true })).toBeVisible();
+    await mobile.click();
+    await expect(megaFixture).toHaveAttribute("data-sub", "mobile");
+    await expect(megaFixture).toHaveAttribute("data-value", "solutions");
+    await expect(megaFixture.getByRole("link", { name: "iOS apps", exact: true })).toBeVisible();
+    await web.hover();
+    await expect(megaFixture).toHaveAttribute("data-sub", "web");
+    await web.focus();
+    await web.press("ArrowDown");
+    await expect(mobile).toBeFocused();
+    await mobile.press("ArrowRight");
+    await expect(megaFixture).toHaveAttribute("data-sub", "mobile");
+    await expect(megaFixture.getByRole("link", { name: "iOS apps", exact: true })).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(megaFixture.getByRole("link", { name: "Android apps", exact: true })).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expect(mobile).toBeFocused();
+    await expect(megaFixture).toHaveAttribute("data-value", "solutions");
+    await expectAccessibleOpen(page, "open navigation submenu");
+    await page.keyboard.press("Escape");
+    await expect(megaFixture).toHaveAttribute("data-value", "");
+    await expect(solutions).toBeFocused();
     const sliderFixture = page.locator('[data-interaction-target="slider"]');
     const volume = sliderFixture.getByRole("slider", { name: "Volume", exact: true });
     const locked = sliderFixture.getByRole("slider", { name: "Locked", exact: true });
@@ -2178,7 +2209,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (44 fixtures)");
+  console.log("runtime interaction verification passed (45 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

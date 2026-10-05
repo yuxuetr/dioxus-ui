@@ -35,13 +35,17 @@ link leaves the page.
 `NavigationMenu` takes `orientation: NavigationMenuOrientation`,
 `Horizontal` by default, and sets `data-orientation`. A vertical menu:
 
-- lays its list out as a column and places each item's content beside the
-  list, through the `navigation-menu` group, instead of below it;
+- lays its list out as a column. Its contents sit beside the list, as
+  siblings of `NavigationMenuList` rather than inside the items, and take the
+  item's `value`, which the script uses to pair them; in the flow, they size
+  the menu, so the outer content grows to fit the open panel instead of being
+  overflowed by an absolutely placed one;
 - moves between triggers with ArrowDown and ArrowUp, enters content with
   ArrowRight (ArrowLeft in right-to-left), and returns to the trigger from
   content with ArrowLeft;
 - opens on hover without the 200 ms delay, since the pointer is already in
-  the outer menu.
+  the outer menu, and keeps its panel when the pointer or focus leaves it,
+  so the outer content never shows an empty panel area.
 
 Escape closes every menu and returns focus to the outer trigger.
 

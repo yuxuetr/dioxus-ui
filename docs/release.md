@@ -745,8 +745,9 @@ and the `dioxus-shadcn` crate from crates.io.
   navigation and activation, and Context Menu opens at a point (see RFC 0014);
   submenus are not implemented. Menubar implements roving triggers and menu
   switching with Left, Right, and hover (see RFC 0015). Navigation Menu
-  implements click, keyboard, and hover disclosure with dismissal, but not
-  viewport size measurement (see RFC 0016). Tabs, Radio Group, and Toggle
+  implements click, keyboard, and hover disclosure with dismissal and
+  vertical submenus (see RFC 0016 and RFC 0063), but not viewport size
+  measurement. Tabs, Radio Group, and Toggle
   Group keep one Tab stop and move focus with arrow keys, and Tabs and Radio
   Group select the focused item (see RFC 0019); Tabs also supports manual
   activation and a vertical orientation (see RFC 0026). These groups, Menubar, and Navigation

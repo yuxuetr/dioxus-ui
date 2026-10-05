@@ -27,6 +27,11 @@ for commit messages.
 - `multiple` on `SelectContent` and `ComboboxContent`
   ([RFC 0062](docs/rfcs/0062-multi-select.md)): a choice keeps the listbox
   open, which is `aria-multiselectable`.
+- Navigation Menu submenus
+  ([RFC 0063](docs/rfcs/0063-navigation-menu-submenus.md)): a nested
+  `NavigationMenu` with `NavigationMenuOrientation::Vertical` shows its panels
+  beside its triggers, and each menu's script acts only on its own items.
+  `NavigationMenuContent` takes `value` for that layout.
 
 ### Changed
 
