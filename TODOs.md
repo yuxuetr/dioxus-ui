@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25%
+- Overall: 30%
 - Current milestone: M177 Component Token Migration
-- Current task: M177.3 Migrate layout, data display, feedback, and messaging
+- Current task: M177.4 Complete the component token migration
 
 ## Backup
 
@@ -43,7 +43,7 @@
   - Dialog, Alert Dialog, Sheet, Drawer, Popover, Hover Card, Tooltip, Dropdown, Context Menu, Menubar, Navigation Menu, Command, Date Picker, Calendar, Tabs, Breadcrumb, Pagination, and Sidebar, in the crate and the templates.
   - Update the same tests, docs, checks, and compiled stylesheet.
 
-- TODO M177.3 Migrate layout, data display, feedback, and messaging
+- DONE M177.3 Migrate layout, data display, feedback, and messaging
   - The remaining components, including Card, Alert, Badge, Avatar, Table, Data Table, Accordion, Collapsible, Chart, Progress, Skeleton, Spinner, Toast, Sonner, Attachment, Bubble, Message, Message Scroller, and Marker, in the crate and the templates.
   - Update the same tests, docs, checks, and compiled stylesheet.
 
