@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60%
+- Overall: 80%
 - Current milestone: M183 Open State Accessibility Audit
-- Current task: M183.4
+- Current task: M183.5
 
 ## Backup
 
@@ -37,8 +37,9 @@
   - Name the DatePicker dialog and drop the Hover Card dialog role; in the crate and the templates, with tests.
   - Done: `DatePickerContent` renders `aria-labelledby="{anchor_id}"`; the runtime check finds the Hover Card content by its `data-dxui-hover-content` marker.
 
-- TODO M183.4 Audit open states in the runtime check
+- DONE M183.4 Audit open states in the runtime check
   - Run the audit while each overlay, menu, and popup fixture is open, and reverse-verify that a reintroduced finding fails the check.
+  - Done: 14 open states are audited. The audit also caught an unnamed, unlinked Combobox list that the probe missed, fixed the same way as Select. Reverse checks: the Hover Card dialog role and a `SelectItem` without `aria-disabled` each fail the check.
 
 - TODO M183.5 Complete the open state audit milestone
   - Update CHANGELOG, the affected component docs, and the docs index.
