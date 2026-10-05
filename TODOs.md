@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 40%
+- Overall: 60%
 - Current milestone: M183 Open State Accessibility Audit
-- Current task: M183.3
+- Current task: M183.4
 
 ## Backup
 
@@ -33,8 +33,9 @@
   - Link the Select trigger and listbox and name the listbox; set `aria-disabled` on disabled `SelectItem` and `DropdownItem`; in the crate and the templates, with tests.
   - Done: `SelectContent` renders `id="{anchor_id}-content"` and `aria-labelledby="{anchor_id}"`, and `SelectTrigger` points `aria-controls` at it; a Select without ids renders neither.
 
-- TODO M183.3 Fix the DatePicker and Hover Card findings
+- DONE M183.3 Fix the DatePicker and Hover Card findings
   - Name the DatePicker dialog and drop the Hover Card dialog role; in the crate and the templates, with tests.
+  - Done: `DatePickerContent` renders `aria-labelledby="{anchor_id}"`; the runtime check finds the Hover Card content by its `data-dxui-hover-content` marker.
 
 - TODO M183.4 Audit open states in the runtime check
   - Run the audit while each overlay, menu, and popup fixture is open, and reverse-verify that a reintroduced finding fails the check.
