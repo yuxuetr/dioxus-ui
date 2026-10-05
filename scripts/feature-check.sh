@@ -79,6 +79,7 @@ features=(
   diff
   rating
   number-input
+  tags-input
 )
 
 for feature in "${features[@]}"; do

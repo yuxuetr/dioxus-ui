@@ -152,6 +152,12 @@ pub const CATEGORIES: &[Category] = &[
         feature: "switch",
       },
       Component {
+        slug: "tags-input",
+        title: "Tags Input",
+        description: "Styled tag list with removable chips and a text input.",
+        feature: "tags-input",
+      },
+      Component {
         slug: "textarea",
         title: "Textarea",
         description: "Textarea component with disabled and invalid states.",

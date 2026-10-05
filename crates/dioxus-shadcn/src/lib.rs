@@ -714,6 +714,9 @@ pub mod tooltip;
 pub mod typography;
 
 pub use dioxus_shadcn_core::UiDensity;
+#[cfg(feature = "tags-input")]
+pub mod tags_input;
+
 #[cfg(feature = "number-input")]
 pub mod number_input;
 
@@ -861,4 +864,11 @@ pub use number_input::{
   NUMBER_INPUT_BASE_CLASS, NUMBER_INPUT_BUTTON_CLASS, NUMBER_INPUT_FIELD_CLASS, NumberInput,
   number_input_clamp, number_input_class, number_input_format, number_input_parse,
   number_input_round, number_input_step,
+};
+
+#[cfg(feature = "tags-input")]
+pub use tags_input::{
+  TAGS_INPUT_BASE_CLASS, TAGS_INPUT_FIELD_CLASS, TAGS_INPUT_LIST_CLASS, TAGS_INPUT_REMOVE_CLASS,
+  TAGS_INPUT_TAG_CLASS, TagsInput, tags_input_add, tags_input_class, tags_input_commit,
+  tags_input_remove,
 };

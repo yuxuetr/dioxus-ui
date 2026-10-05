@@ -1,0 +1,14 @@
+{
+  "name": "tags-input",
+  "description": "Styled tag list with removable chips and a text input.",
+  "files": [
+    {
+      "source": "templates/tags_input.rs",
+      "target": "src/components/ui/tags_input.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

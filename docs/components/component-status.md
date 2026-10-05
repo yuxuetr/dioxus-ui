@@ -13,14 +13,14 @@ parity.
 
 ## Summary
 
-- Public components: 74
-- Registry entries: 75
+- Public components: 75
+- Registry entries: 76
 - Source-copy helpers: utils
-- Templates: 75
-- Crate modules: 74
-- Crate features: 74
-- Component docs pages: 74
-- Complete local wiring: 74
+- Templates: 76
+- Crate modules: 75
+- Crate features: 75
+- Component docs pages: 75
+- Complete local wiring: 75
 - Incomplete local wiring: 0
 
 ## Category Counts
@@ -28,7 +28,7 @@ parity.
 | Category | Components |
 | --- | ---: |
 | Actions | 6 |
-| Forms | 16 |
+| Forms | 17 |
 | Overlays | 11 |
 | Navigation | 6 |
 | Layout | 11 |
@@ -80,6 +80,7 @@ parity.
 | Select | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Slider | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Switch | Forms | yes | yes | yes | yes | yes | yes | yes |
+| Tags Input | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Textarea | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Accordion | Layout | yes | yes | yes | yes | yes | yes | yes |
 | Aspect Ratio | Layout | yes | yes | yes | yes | yes | yes | yes |
@@ -159,6 +160,7 @@ parity.
 | Select | Forms | [docs](select.md) | `dxui add select` | `select` | `crates/dioxus-shadcn-cli/templates/select.rs` | `src/components/ui/select.rs` |
 | Slider | Forms | [docs](slider.md) | `dxui add slider` | `slider` | `crates/dioxus-shadcn-cli/templates/slider.rs` | `src/components/ui/slider.rs` |
 | Switch | Forms | [docs](switch.md) | `dxui add switch` | `switch` | `crates/dioxus-shadcn-cli/templates/switch.rs` | `src/components/ui/switch.rs` |
+| Tags Input | Forms | [docs](tags-input.md) | `dxui add tags-input` | `tags-input` | `crates/dioxus-shadcn-cli/templates/tags_input.rs` | `src/components/ui/tags_input.rs` |
 | Textarea | Forms | [docs](textarea.md) | `dxui add textarea` | `textarea` | `crates/dioxus-shadcn-cli/templates/textarea.rs` | `src/components/ui/textarea.rs` |
 | Accordion | Layout | [docs](accordion.md) | `dxui add accordion` | `accordion` | `crates/dioxus-shadcn-cli/templates/accordion.rs` | `src/components/ui/accordion.rs` |
 | Aspect Ratio | Layout | [docs](aspect-ratio.md) | `dxui add aspect-ratio` | `aspect-ratio` | `crates/dioxus-shadcn-cli/templates/aspect_ratio.rs` | `src/components/ui/aspect_ratio.rs` |

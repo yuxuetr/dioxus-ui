@@ -11,7 +11,7 @@ It does not create rendered routes, router code, screenshots, or generated JSON.
 For source preview route metadata, see the
 [Source Preview Manifest](source-preview.md).
 
-Component routes: 74
+Component routes: 75
 Category routes: 8
 
 ## Top-level Routes
@@ -107,6 +107,7 @@ Category routes: 8
 | [Switch](switch.md) | /components/switch | docs/components/switch.md | /components#category-forms | /components/switch/source |
 | [Table](table.md) | /components/table | docs/components/table.md | /components#category-data-display | /components/table/source |
 | [Tabs](tabs.md) | /components/tabs | docs/components/tabs.md | /components#category-navigation | /components/tabs/source |
+| [Tags Input](tags-input.md) | /components/tags-input | docs/components/tags-input.md | /components#category-forms | /components/tags-input/source |
 | [Textarea](textarea.md) | /components/textarea | docs/components/textarea.md | /components#category-forms | /components/textarea/source |
 | [Timeline](timeline.md) | /components/timeline | docs/components/timeline.md | /components#category-data-display | /components/timeline/source |
 | [Toast](toast.md) | /components/toast | docs/components/toast.md | /components#category-feedback | /components/toast/source |

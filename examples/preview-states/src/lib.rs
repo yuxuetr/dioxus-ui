@@ -5,6 +5,7 @@ use dioxus_shadcn::NumberInput;
 use dioxus_shadcn::Progress;
 use dioxus_shadcn::Rating;
 use dioxus_shadcn::SliderOrientation;
+use dioxus_shadcn::TagsInput;
 use dioxus_shadcn::{
   Accordion, AccordionContent, AccordionItem, AccordionTrigger, Calendar, CalendarBody,
   CalendarCaption, CalendarDate, CalendarDay, CalendarGrid, CalendarHeader, CalendarMonth,
@@ -644,6 +645,14 @@ pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
     notes: "Controlled state target; keyboard and click requests are browser-verified in the interaction panel.",
   },
   ComponentPreviewTarget {
+    component: "tags-input",
+    label: "Tags Input",
+    panel: "forms",
+    test_id: "component-preview-tags-input",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
     component: "textarea",
     label: "Textarea",
     panel: "forms",
@@ -877,6 +886,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut diff_position = use_signal(|| 50.0);
   let mut rating = use_signal(|| 3_u8);
   let mut quantity = use_signal(|| 5.0);
+  let mut topics = use_signal(Vec::<String>::new);
   let mut locked_slider_changes = use_signal(|| 0_u32);
   let mut details_open = use_signal(|| false);
   let mut size_value = use_signal(|| "md".to_string());
@@ -1931,6 +1941,18 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               max: 10.0,
               value: quantity(),
               on_value_change: move |value| quantity.set(value),
+            }
+          }
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "tags-input",
+            "data-tags": "{topics().join(\"|\")}",
+            h2 { class: "text-sm font-medium", "Tags input interaction" }
+            TagsInput {
+              class: "mt-3",
+              "aria-label": "Topics",
+              tags: topics(),
+              on_tags_change: move |tags| topics.set(tags),
             }
           }
           article {

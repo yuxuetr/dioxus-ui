@@ -10,7 +10,7 @@ The catalog is derived from registry entries, templates, component docs,
 crate features, and crate modules. It intentionally does not include visual
 preview routes, screenshot artifacts, or generated JSON metadata.
 
-Public components: 74
+Public components: 75
 
 ## Groups
 
@@ -40,6 +40,7 @@ Public components: 74
 - [Select](select.md): Select components backed by primitive configuration types.
 - [Slider](slider.md): Slider component for controlled horizontal numeric values.
 - [Switch](switch.md): Switch component with checked and disabled states.
+- [Tags Input](tags-input.md): Styled tag list with removable chips and a text input.
 - [Textarea](textarea.md): Textarea component with disabled and invalid states.
 
 ### Overlays
@@ -183,6 +184,7 @@ Public components: 74
 | [Switch](switch.md) | Switch component with checked and disabled states. | `dxui add switch` | `switch` | `crates/dioxus-shadcn-cli/templates/switch.rs` | `src/components/ui/switch.rs` |
 | [Table](table.md) | Table component with styled table parts. | `dxui add table` | `table` | `crates/dioxus-shadcn-cli/templates/table.rs` | `src/components/ui/table.rs` |
 | [Tabs](tabs.md) | Tabs components with controlled active state. | `dxui add tabs` | `tabs` | `crates/dioxus-shadcn-cli/templates/tabs.rs` | `src/components/ui/tabs.rs` |
+| [Tags Input](tags-input.md) | Styled tag list with removable chips and a text input. | `dxui add tags-input` | `tags-input` | `crates/dioxus-shadcn-cli/templates/tags_input.rs` | `src/components/ui/tags_input.rs` |
 | [Textarea](textarea.md) | Textarea component with disabled and invalid states. | `dxui add textarea` | `textarea` | `crates/dioxus-shadcn-cli/templates/textarea.rs` | `src/components/ui/textarea.rs` |
 | [Timeline](timeline.md) | Styled ordered timeline with time, marker, and content parts. | `dxui add timeline` | `timeline` | `crates/dioxus-shadcn-cli/templates/timeline.rs` | `src/components/ui/timeline.rs` |
 | [Toast](toast.md) | Controlled toast notification parts and queue helpers. | `dxui add toast` | `toast` | `crates/dioxus-shadcn-cli/templates/toast.rs` | `src/components/ui/toast.rs` |

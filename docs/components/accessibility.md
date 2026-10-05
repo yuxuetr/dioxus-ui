@@ -33,6 +33,7 @@ Statuses:
 | Stat | Uses a definition list so each value is read with its title. | Implemented |
 | Status | Renders an image named by its label, or hides itself when nearby text states the status. | Implemented |
 | Steps | Uses an ordered list, aria-current on the current step, and hidden text for completed steps. | Implemented |
+| Tags Input | Lists tags in a list with named remove buttons; Enter, comma, and Backspace edit the list. | Implemented |
 | Timeline | Uses an ordered list with time elements; markers are hidden from assistive technology. | Implemented |
 | Typography | Uses native text elements; consuming apps own heading hierarchy and landmark placement. | Implemented |
 

@@ -1368,6 +1368,12 @@
   .py-10 {
     padding-block: calc(var(--spacing) * 10);
   }
+  .ps-2 {
+    padding-inline-start: calc(var(--spacing) * 2);
+  }
+  .pe-1 {
+    padding-inline-end: var(--spacing);
+  }
   .pt-0 {
     padding-top: 0px;
   }
@@ -1970,6 +1976,14 @@
   @media (hover: hover) {
     .hover\:bg-accent:hover {
       background-color: var(--accent);
+    }
+    .hover\:bg-background\/60:hover {
+      background-color: var(--background);
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:bg-background\/60:hover {
+        background-color: color-mix(in oklab, var(--background) 60%, transparent);
+      }
     }
     .hover\:bg-destructive\/90:hover {
       background-color: var(--destructive);

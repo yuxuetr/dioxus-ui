@@ -1354,6 +1354,23 @@ async function runBrowserAssertions() {
     await expect(decrease).toBeDisabled();
     // A button at a bound must not dim the field.
     await expect(quantity.locator("..")).toHaveCSS("opacity", "1");
+    // Tags Input adds on Enter and commas, removes the last tag with
+    // Backspace in an empty input, and removes a tag by its button (RFC 0060).
+    const tagsFixture = page.locator('[data-interaction-target="tags-input"]');
+    const topicsInput = tagsFixture.getByRole("textbox", { name: "Topics", exact: true });
+    await topicsInput.fill("rust");
+    await topicsInput.press("Enter");
+    await expect(tagsFixture).toHaveAttribute("data-tags", "rust");
+    await expect(topicsInput).toHaveValue("");
+    await topicsInput.fill("ui, web, rust, da");
+    await expect(tagsFixture).toHaveAttribute("data-tags", "rust|ui|web");
+    await expect(topicsInput).toHaveValue("da");
+    await topicsInput.fill("");
+    await topicsInput.press("Backspace");
+    await expect(tagsFixture).toHaveAttribute("data-tags", "rust|ui");
+    await tagsFixture.getByRole("button", { name: "Remove rust", exact: true }).click();
+    await expect(tagsFixture).toHaveAttribute("data-tags", "ui");
+    await expect(tagsFixture.getByRole("listitem")).toHaveCount(1);
     const sliderFixture = page.locator('[data-interaction-target="slider"]');
     const volume = sliderFixture.getByRole("slider", { name: "Volume", exact: true });
     const locked = sliderFixture.getByRole("slider", { name: "Locked", exact: true });
@@ -2078,7 +2095,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (38 fixtures)");
+  console.log("runtime interaction verification passed (39 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
