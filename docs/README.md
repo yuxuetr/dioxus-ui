@@ -121,7 +121,8 @@ Read in this order:
 115. [RFC 0052: Component Site](rfcs/0052-component-site.md)
 116. [RFC 0053: Interactive Part Callbacks](rfcs/0053-interactive-part-callbacks.md)
 117. [RFC 0054: Automated Accessibility Audit](rfcs/0054-automated-accessibility-audit.md)
-118. [TODO Plan](../TODOs.md)
+118. [RFC 0055: Open State Accessibility Audit](rfcs/0055-open-state-accessibility-audit.md)
+119. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
