@@ -18,10 +18,10 @@ Use it with:
 
 | Surface | Count | User-facing Mode | Notes |
 | --- | ---: | --- | --- |
-| Styled component crate modules | 64 | Crate mode | Feature-gated modules under `crates/dioxus-shadcn/src`. |
-| Styled component features | 64 | Crate mode | Public Cargo feature names in `crates/dioxus-shadcn/Cargo.toml`. |
-| Source-copy templates | 65 | Source-copy mode | 64 component templates plus shared `utils.rs`. |
-| Registry entries | 65 | CLI/source-copy mode | 64 component entries plus `utils.json`. |
+| Styled component crate modules | 72 | Crate mode | Feature-gated modules under `crates/dioxus-shadcn/src`. |
+| Styled component features | 72 | Crate mode | Public Cargo feature names in `crates/dioxus-shadcn/Cargo.toml`. |
+| Source-copy templates | 73 | Source-copy mode | 72 component templates plus shared `utils.rs`. |
+| Registry entries | 73 | CLI/source-copy mode | 72 component entries plus `utils.json`. |
 | Registry schema | 1 | Tooling metadata | `crates/dioxus-shadcn-cli/registry/schema.json` validates registry shape and is not a component. |
 | Primitive modules | 20 | Crate mode/internal behavior | Public helpers and config types in `dioxus-shadcn-primitives`. |
 | Core crate exports | 4 groups | Crate/tooling mode | `classes`, `UiDensity`, and registry data structs. |
@@ -51,15 +51,18 @@ collapsible
 combobox
 command
 context-menu
+countdown
 data-table
 date-picker
 dialog
+diff
 direction
 drawer
 dropdown
 empty
 field
 hover-card
+indicator
 input
 input-group
 input-otp
@@ -75,6 +78,7 @@ navigation-menu
 pagination
 popover
 progress
+radial-progress
 radio-group
 resizable
 scroll-area
@@ -86,10 +90,14 @@ skeleton
 slider
 sonner
 spinner
+stat
+status
+steps
 switch
 table
 tabs
 textarea
+timeline
 toast
 toggle
 toggle-group
@@ -125,15 +133,18 @@ collapsible
 combobox
 command
 context_menu
+countdown
 data_table
 date_picker
 dialog
+diff
 direction
 drawer
 dropdown
 empty
 field
 hover_card
+indicator
 input
 input_group
 input_otp
@@ -149,6 +160,7 @@ navigation_menu
 pagination
 popover
 progress
+radial_progress
 radio_group
 resizable
 scroll_area
@@ -160,10 +172,14 @@ skeleton
 slider
 sonner
 spinner
+stat
+status
+steps
 switch
 table
 tabs
 textarea
+timeline
 toast
 toggle
 toggle_group

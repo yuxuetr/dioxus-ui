@@ -26,7 +26,7 @@ dxui add dialog
 `dxui init` writes `assets/dioxus-shadcn.css` and `src/components/ui/mod.rs`.
 `dxui add` copies each component, and the `utils.rs` they share, into
 `src/components/ui/` and declares its module; it keeps existing files unless
-you pass `--overwrite`. `dxui list` prints the 64 components. Copied
+you pass `--overwrite`. `dxui list` prints the 72 components. Copied
 components depend only on `dioxus`.
 
 Declare the modules once:
@@ -90,13 +90,14 @@ stylesheet; set `data-theme="nord"` on any element to theme its subtree.
 
 Accordion, Alert, Alert Dialog, Aspect Ratio, Attachment, Avatar, Badge,
 Breadcrumb, Bubble, Button, Button Group, Calendar, Card, Carousel, Chart,
-Checkbox, Collapsible, Combobox, Command, Context Menu, Data Table, Date
-Picker, Dialog, Direction, Drawer, Dropdown, Empty, Field, Hover Card, Input,
-Input Group, Input OTP, Item, Kbd, Label, Marker, Menubar, Message, Message
-Scroller, Native Select, Navigation Menu, Pagination, Popover, Progress, Radio
-Group, Resizable, Scroll Area, Select, Separator, Sheet, Sidebar, Skeleton,
-Slider, Sonner, Spinner, Switch, Table, Tabs, Textarea, Toast, Toggle, Toggle
-Group, Tooltip, and Typography.
+Checkbox, Collapsible, Combobox, Command, Context Menu, Countdown, Data Table,
+Date Picker, Dialog, Diff, Direction, Drawer, Dropdown, Empty, Field, Hover
+Card, Indicator, Input, Input Group, Input OTP, Item, Kbd, Label, Marker,
+Menubar, Message, Message Scroller, Native Select, Navigation Menu,
+Pagination, Popover, Progress, Radial Progress, Radio Group, Resizable, Scroll
+Area, Select, Separator, Sheet, Sidebar, Skeleton, Slider, Sonner, Spinner,
+Stat, Status, Steps, Switch, Table, Tabs, Textarea, Timeline, Toast, Toggle,
+Toggle Group, Tooltip, and Typography.
 
 Components are controlled: the app owns state such as `open` or `value` and
 receives changes through callbacks such as `on_open_change`. Overlays handle
