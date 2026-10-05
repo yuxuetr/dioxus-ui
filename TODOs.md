@@ -4,7 +4,7 @@
 
 - Overall: 0.2.0 plan, 5 of 8 milestones complete
 - Current milestone: M192 Mobile Navigation
-- Current task: M192.1
+- Current task: M192.2
 
 ## Backup
 
@@ -88,7 +88,8 @@
 
 ## M192 Mobile Navigation
 
-- TODO M192.1 Dock
+- DONE M192.1 Dock
+  - Done: RFC 0061 for M192; safe-area `nav` with link or button items and `aria-current`, a phone-frame site example.
 - TODO M192.2 FAB and Speed Dial
 
 ## M193 Completing Existing Components
