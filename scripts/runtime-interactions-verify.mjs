@@ -4,6 +4,7 @@ import { once } from "node:events";
 import { spawn } from "node:child_process";
 import { existsSync } from "node:fs";
 import { chromium, expect } from "@playwright/test";
+import { compilePreviewCss } from "./preview-tailwind.mjs";
 
 const repoRoot = new URL("..", import.meta.url).pathname;
 const host = "127.0.0.1";
@@ -169,6 +170,12 @@ async function runBrowserAssertions() {
   try {
     const context = await browser.newContext({ viewport });
     const page = await context.newPage();
+    const previewCss = await compilePreviewCss();
+    // dx serves the stylesheet uncompiled; answer it with compiled Tailwind so
+    // class-based layout takes part in every check below.
+    await page.route(/\/assets\/preview[^/]*\.css(?:\?.*)?$/, (route) =>
+      route.fulfill({ contentType: "text/css", body: previewCss }),
+    );
 
     await page.goto(previewUrl, { waitUntil: "domcontentloaded", timeout: 30000 });
     await page.waitForSelector('[data-preview-root="web"]', {
@@ -178,6 +185,7 @@ async function runBrowserAssertions() {
 
     const root = page.locator('[data-interaction-root="runtime"]');
     await expect(root).toHaveCount(1);
+    await expect(page.locator(".sr-only").first()).toHaveCSS("position", "absolute");
 
     const disclosure = page.locator('[data-interaction-target="disclosure"]');
     const disclosureTrigger = page.locator('[data-interaction-control="disclosure-trigger"]');
@@ -904,12 +912,11 @@ async function runBrowserAssertions() {
     const verticalPanel = (name) => verticalTabs.getByRole("tabpanel", { name, exact: true });
     await verticalTab("General").evaluate((element) => element.scrollIntoView({ block: "center" }));
     await expect(verticalList).toHaveAttribute("aria-orientation", "vertical");
-    // The preview serves uncompiled Tailwind, so the layout classes are keyed
-    // off data-orientation rather than measured.
-    await expect(verticalTabs.locator("[data-orientation]").first()).toHaveAttribute(
-      "data-orientation",
-      "vertical",
-    );
+    // Vertical triggers stack in one column.
+    const generalBox = await verticalTab("General").boundingBox();
+    const securityBox = await verticalTab("Security").boundingBox();
+    expect(Math.round(securityBox.x)).toBe(Math.round(generalBox.x));
+    expect(securityBox.y).toBeGreaterThanOrEqual(generalBox.y + generalBox.height);
     await expect(verticalList).toHaveAttribute("data-orientation", "vertical");
     await expect(verticalPanel("General")).toHaveAttribute("data-orientation", "vertical");
     await expect(verticalTab("General")).toHaveAttribute("tabindex", "0");
@@ -1415,20 +1422,25 @@ async function runBrowserAssertions() {
     await expect(previousAnchor).not.toHaveAttribute("href");
     await previousAnchor.focus();
     await expect(previousAnchor).not.toBeFocused();
-    // The preview serves uncompiled Tailwind, so pointer-events-none does not
-    // stop this press; the component must ignore it.
-    await previousAnchor.click({ force: true });
+    // pointer-events-none stops a real press; a dispatched click still reaches
+    // the element, and the component must ignore it.
+    await expect(previousAnchor).toHaveCSS("pointer-events", "none");
+    await previousAnchor.dispatchEvent("click");
     await expect(pagination).toHaveAttribute("data-disabled-clicks", "0");
 
     const carousel = page.locator('[data-interaction-target="carousel"]');
     const carouselRegion = carousel.getByRole("region", { name: "Featured products", exact: true });
     const carouselButton = (name) => carousel.getByRole("button", { name, exact: true });
     const slide = (number) => carousel.getByRole("group", { name: `${number} of 3`, exact: true });
-    // A slide's left edge relative to the 240px viewport.
+    // A slide's content edge relative to the 240px viewport; items carry the
+    // gap as left padding.
     const slideOffset = (number) =>
       slide(number).evaluate((element) => {
         const viewport = element.parentElement.parentElement;
-        return Math.round(element.getBoundingClientRect().left - viewport.getBoundingClientRect().left);
+        const padding = parseFloat(getComputedStyle(element).paddingLeft);
+        return Math.round(
+          element.getBoundingClientRect().left + padding - viewport.getBoundingClientRect().left,
+        );
       });
     await carouselRegion.evaluate((element) => element.scrollIntoView({ block: "center" }));
     await expect(carouselRegion).toHaveAttribute("aria-roledescription", "carousel");
@@ -1515,18 +1527,20 @@ async function runBrowserAssertions() {
     await expect(archiveItem).not.toHaveAttribute("href");
     await archiveItem.focus();
     await expect(archiveItem).not.toBeFocused();
-    // The preview serves uncompiled Tailwind, so pointer-events-none does not
-    // stop this press; the component must ignore it.
-    await archiveItem.click({ force: true });
+    // pointer-events-none stops a real press; a dispatched click still reaches
+    // the element, and the component must ignore it.
+    await expect(archiveItem).toHaveCSS("pointer-events", "none");
+    await archiveItem.dispatchEvent("click");
     await expect(sidebarButton("Trash")).toBeDisabled();
     await expect(sidebar).toHaveAttribute("data-disabled-clicks", "0");
     // An item with neither href nor onclick stays a wrapper.
     await expect(sidebar.locator('[title="Help wrapper"]')).toHaveJSProperty("tagName", "DIV");
-    await expect.poll(() => slideOffset(2)).toBe(240);
+    // Slides step by the viewport width plus the 16px gap.
+    await expect.poll(() => slideOffset(2)).toBe(256);
     await carouselButton("Next slide").click();
     await expect(carousel).toHaveAttribute("data-index", "1");
     await expect.poll(() => slideOffset(2)).toBe(0);
-    await expect.poll(() => slideOffset(1)).toBe(-240);
+    await expect.poll(() => slideOffset(1)).toBe(-256);
     await expect(slide(2)).toHaveAttribute("data-selected", "true");
     // A passed label replaces the shared default on every indicator.
     await expect(carouselButton("Go to slide")).toHaveCount(0);
@@ -1842,8 +1856,6 @@ async function runBrowserAssertions() {
     const dialogContent = page.locator('[data-interaction-target="dialog"] [role="dialog"]');
     const dialogInput = page.locator('[data-interaction-control="dialog-input"]');
     const dialogClose = dialogContent.getByRole("button", { name: "Cancel" });
-    // The preview serves uncompiled Tailwind input, so the overlay has no
-    // `fixed inset-0` box to hit; dispatch the click on the element instead.
     const dialogOverlay = page.locator('[data-interaction-target="dialog"] > [data-state]:not([role])');
     await expect(dialog).toHaveAttribute("data-state", "closed");
     await expect(dialogContent).toBeHidden();
@@ -1878,7 +1890,8 @@ async function runBrowserAssertions() {
     await expect(dialogTrigger).toBeFocused();
     await dialogTrigger.click();
     await expect(dialogInput).toBeFocused();
-    await dialogOverlay.dispatchEvent("click");
+    // A press on the overlay outside the content closes the dialog.
+    await dialogOverlay.click({ position: { x: 8, y: 8 } });
     await expect(dialogContent).toBeHidden();
     await expect(dialogTrigger).toBeFocused();
     await dialogTrigger.click();

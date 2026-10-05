@@ -128,10 +128,9 @@ controls, so the verifier exercises the shipped overlay behavior from
 | `accordion` | Accordion | each trigger sits in a heading and names its region through `aria-controls` and `aria-labelledby`; every enabled trigger is a Tab stop; click, Enter, and Space toggle, and toggling the open item closes it; Up and Down move focus without toggling, wrap, and skip the disabled trigger, Home and End jump, and Left and Right do nothing |
 | `context-menu` | Context Menu | a right-click opens the menu at the pointer and a second right-click moves it; the first item takes focus; arrows wrap; Enter toggles the checkbox item and closes; click runs an item; near the viewport bottom the menu flips above the pointer; an outside click closes it |
 
-The Web preview serves the Tailwind input stylesheet without compiling it, so
-the Dialog overlay has no `fixed inset-0` box. The verifier dispatches the
-overlay click on the element instead of clicking a screen position. Placement
-uses inline fixed coordinates and does not depend on Tailwind.
+Since M168 the verifier serves compiled Tailwind, so the Dialog overlay has
+its `fixed inset-0` box and the verifier presses it outside the content.
+Placement uses inline fixed coordinates and does not depend on Tailwind.
 
 Reverse checks run during M135: removing the Tab wrap listener, ignoring
 Escape in Dialog content, disabling the flip, and giving Tooltip the popover
@@ -214,9 +213,8 @@ M151 adds the vertical Tabs row from
 Selecting on focus in manual mode, removing the Tab stop reset when focus
 leaves, preferring the last focused trigger in manual mode, keeping
 horizontal keys on the vertical list, or a horizontal `aria-orientation` each
-make the verifier fail. The preview serves `preview.css` without running
-Tailwind, so the vertical layout is checked through `data-orientation`, not
-measured.
+make the verifier fail. Since M168 the verifier also measures that the
+vertical triggers stack in one column.
 
 M152 extends the Command and Combobox rows from
 [RFC 0027](../rfcs/0027-combobox-and-command-result-announcements.md). The
@@ -251,9 +249,7 @@ M155 adds a Slider row from
 [RFC 0030](../rfcs/0030-slider-keyboard-and-pointer-input.md). The verifier
 presses every slider key, checks clamping at both ends and that the page did
 not scroll, then clicks and drags with the mouse, including past the right
-edge while the pointer is captured. The preview serves uncompiled Tailwind, so
-the fixture gives each slider an inline height to make it a pointer target. A
-disabled slider must ignore keys and the pointer. Swapping the key directions,
+edge while the pointer is captured. A disabled slider must ignore keys and the pointer. Swapping the key directions,
 paging by one step, not preventing the default key action, not starting the
 pointer script, or removing either disabled guard each make the verifier fail.
 
@@ -273,8 +269,7 @@ slots and expects the overlay input to take focus, types digits, types a
 rejected letter and presses Backspace, and inserts `123-4567` the way a paste
 or autofill delivers text. It checks both the app code and the native value,
 because a filter that only runs in Rust leaves the letter in the input for
-Backspace to remove. The preview serves uncompiled Tailwind, so the fixture
-gives the root and the input inline layout styles. Removing the callback, not
+Backspace to remove. Removing the callback, not
 spreading the attributes of either part, not starting the filter script, or a
 filter script that does not cut at the length each make the verifier fail.
 
@@ -284,8 +279,9 @@ pages in a button Pagination by click, Enter, and Space, and checks
 `aria-current` and the disabled Previous and Next at the ends. In an anchor
 Pagination it checks that an enabled control keeps its `href` and passed
 `target`, and that the disabled one has no `href`, cannot take focus, and
-ignores a forced press. The preview serves uncompiled Tailwind, so
-`pointer-events-none` does not stop that press and the component must.
+ignores a dispatched click. Compiled Tailwind gives it
+`pointer-events: none`, which stops a real press, so the verifier checks that
+style and dispatches the click to reach the component's own guard.
 Removing the callback, always rendering an anchor, keeping `href` on a
 disabled anchor, calling `onclick` while disabled, or not spreading the
 attributes in either form each make the verifier fail.
@@ -297,9 +293,9 @@ ArrowLeft and ArrowRight from inside the region, and measures each slide's
 offset from the 240px viewport to check that the selected slide lines up with
 it and its neighbors sit one slide width away. It also checks the disabled
 controls at the ends, that ArrowDown does nothing in a horizontal Carousel,
-and that passed indicator labels replace the shared default. The preview
-serves uncompiled Tailwind, so the fixture gives the viewport, content, and
-slides inline layout styles. Removing the Next or indicator callback, removing
+and that passed indicator labels replace the shared default. Since M168 the
+slides use their own classes, so neighbors sit one slide width plus the 16px
+gap away. Removing the Next or indicator callback, removing
 the key step, not translating the slides, or not spreading the attributes of
 the root, content, or slides each make the verifier fail. The browser applies
 a spread `aria-label` after the explicit one, so keeping the default label
@@ -312,8 +308,7 @@ with `aria-valuenow`, `aria-valuemin`, `aria-valuemax`, and a passed
 `aria-controls`, resizes the panels with ArrowRight, ArrowLeft, Home, and End
 within the 20% to 80% limits, and drags the handle over the 300px group: 30px
 moves it 10%, a drag past the maximum stops at 80%, and moving back puts the
-edge under the pointer again. The preview serves uncompiled Tailwind, so the
-fixture gives the group and the handle inline layout styles. Removing the key
+edge under the pointer again. Removing the key
 handler, not starting the pointer script, sending per-move deltas instead of
 targets, keeping the group orientation in `aria-orientation`, or not
 spreading the attributes of the group, a panel, or the handle each make the
@@ -325,7 +320,7 @@ sidebar with a trigger click and Enter, checks `aria-expanded` and that
 `aria-controls` names the `aside` landmark, changes the section with a button
 item click and Space while `aria-current` follows, and checks that a link item
 keeps its `href`, that a disabled link item has no `href`, cannot take focus,
-and ignores a forced press, that a disabled button item is natively disabled,
+and ignores a dispatched click, that a disabled button item is natively disabled,
 and that an item with neither `href` nor `onclick` stays a `div`. Removing the
 trigger or item callback, always rendering a wrapper, keeping `href` or
 calling `onclick` on a disabled item, or not spreading the attributes of the
@@ -374,10 +369,19 @@ M167 adds Slider position and orientation checks from
 The verifier measures the volume thumb center at 0 and 100, and a vertical
 Balance slider: `aria-orientation="vertical"`, a thumb centered at the value
 measured from the bottom, a press near the top that sets 80, and ArrowUp.
-The preview serves uncompiled Tailwind, so the fixtures give the roots an
-inline size and `position: relative`. Not positioning the thumb, mapping the
+Not positioning the thumb, mapping the
 vertical pointer along `clientX`, or keeping a horizontal `aria-orientation`
 each make the verifier fail.
+
+M168 runs the verifier against compiled Tailwind from
+[RFC 0043](../rfcs/0043-compiled-tailwind-browser-checks.md). The verifier
+compiles `examples/web-demo/assets/preview.css` with the Tailwind Node API
+and answers the page's request for the stylesheet with the result, then
+checks that an `sr-only` element is absolutely positioned. The Slider, Input
+OTP, Carousel, Resizable, and context menu fixtures no longer carry inline
+layout styles. Serving the uncompiled stylesheet, the bare `data-disabled:`
+variant, which disables every enabled Select option, or Navigation Menu
+content at `top-0`, which covers its trigger, each make the verifier fail.
 
 ## Documentation Alignment
 

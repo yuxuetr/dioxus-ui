@@ -1750,12 +1750,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-locked-changes": "{locked_slider_changes}",
             h2 { class: "text-sm font-medium", "Slider interaction" }
             Label { id: "interaction-slider-volume-label", "Volume" }
-            // The preview serves uncompiled Tailwind, so the root gets an
-            // explicit size and position to be a pointer target and to place
-            // the thumb.
             Slider {
               class: "mt-3",
-              style: "height: 20px; position: relative",
               "aria-labelledby": "interaction-slider-volume-label",
               step: 5.0,
               value: volume(),
@@ -1763,20 +1759,19 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             }
             Slider {
               class: "mt-3",
-              style: "height: 20px",
               "aria-label": "Locked",
               value: 30.0,
               disabled: true,
               on_value_change: move |_| locked_slider_changes += 1,
             }
-            Slider {
-              class: "mt-3",
-              style: "height: 120px; width: 20px; position: relative",
-              "aria-label": "Balance",
-              orientation: SliderOrientation::Vertical,
-              step: 10.0,
-              value: balance(),
-              on_value_change: move |value| balance.set(value),
+            div { class: "mt-3 h-32",
+              Slider {
+                "aria-label": "Balance",
+                orientation: SliderOrientation::Vertical,
+                step: 10.0,
+                value: balance(),
+                on_value_change: move |value| balance.set(value),
+              }
             }
           }
           article {
@@ -1820,11 +1815,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-code": "{otp_code}",
             h2 { class: "text-sm font-medium", "Input OTP interaction" }
             Label { id: "interaction-otp-label", "Verification code" }
-            // The preview serves uncompiled Tailwind, so the overlay input and
-            // its root get explicit layout styles.
             InputOtp {
               class: "mt-3",
-              style: "position: relative; min-height: 40px",
               title: "Verification code slots",
               InputOtpGroup {
                 for slot in otp_slots(&otp_code(), 6, otp_code().chars().count().min(5)) {
@@ -1837,7 +1829,6 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 }
               }
               InputOtpHiddenInput {
-                style: "position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0",
                 "aria-labelledby": "interaction-otp-label",
                 name: "code",
                 value: otp_code(),
@@ -1901,8 +1892,6 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-interaction-target": "carousel",
             "data-index": "{carousel_state().index}",
             h2 { class: "text-sm font-medium", "Carousel interaction" }
-            // The preview serves uncompiled Tailwind, so the layout the
-            // translate depends on is inline.
             Carousel {
               class: "mt-3",
               "aria-label": "Featured products",
@@ -1915,13 +1904,12 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                     },
                   )
               },
-              CarouselViewport { width: "240px", overflow: "hidden",
-                CarouselContent { index: carousel_state().index, display: "flex",
+              CarouselViewport { width: "240px",
+                CarouselContent { index: carousel_state().index,
                   for slide in 0..3_usize {
                     CarouselItem {
                       key: "{slide}",
                       selected: carousel_state().index == slide,
-                      flex: "0 0 100%",
                       "aria-label": "{slide + 1} of 3",
                       "Product {slide + 1}"
                     }
@@ -1955,12 +1943,9 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-interaction-target": "resizable",
             "data-sizes": "{resizable_panels().0.size}-{resizable_panels().1.size}",
             h2 { class: "text-sm font-medium", "Resizable interaction" }
-            // The preview serves uncompiled Tailwind, so the group layout and
-            // the handle width are inline.
             ResizablePanelGroup {
               class: "mt-3",
               orientation: LayoutOrientation::Horizontal,
-              display: "flex",
               width: "300px",
               height: "80px",
               ResizablePanel {
@@ -1974,9 +1959,6 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 orientation: LayoutOrientation::Horizontal,
                 "aria-controls": "interaction-resizable-files",
                 "aria-label": "Resize files",
-                width: "8px",
-                flex_shrink: "0",
-                background: "#d4d4d8",
                 value: resizable_panels().0.size,
                 min: 20.0,
                 max: 80.0,
@@ -2075,8 +2057,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-bookmarked": "{context_bookmarked}",
             h2 { class: "text-sm font-medium", "Context menu interaction" }
             div {
-              // Inline size: the preview serves uncompiled Tailwind input.
-              style: "height: 96px; margin-top: 12px; border: 1px dashed #a1a1aa;",
+              class: "mt-3 h-24 border border-dashed border-zinc-400",
               "data-interaction-control": "context-area",
               oncontextmenu: move |event| {
                 event.prevent_default();

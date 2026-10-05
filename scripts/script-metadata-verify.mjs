@@ -6,7 +6,10 @@ import { fileURLToPath } from "node:url";
 const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)));
 const scriptsDir = join(repoRoot, "scripts");
 const packageJsonPath = join(repoRoot, "package.json");
-const helperOnlyNodeScripts = new Set(["scripts/docs-catalog-builder.mjs"]);
+const helperOnlyNodeScripts = new Set([
+  "scripts/docs-catalog-builder.mjs",
+  "scripts/preview-tailwind.mjs",
+]);
 const failures = [];
 
 const readFirstLine = (path) => {
