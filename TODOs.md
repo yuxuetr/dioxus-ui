@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 5%
+- Overall: 10%
 - Current milestone: M176 Semantic Color Tokens
-- Current task: M176.2 Add the token stylesheet
+- Current task: M176.3 Complete the semantic color token foundation
 
 ## Backup
 
@@ -23,7 +23,7 @@
   - Write the palette-to-token mapping table, including where the current blue checked states and focus rings become `primary` and `ring` as in shadcn/ui, and whether toast, sonner, and attachment status variants keep palette colors or get extra tokens.
   - Decide how crate-mode apps get the token stylesheet, how RFC 0047's palette remap is retired, and record the breaking change and the reevaluation conditions in an RFC.
 
-- TODO M176.2 Add the token stylesheet
+- DONE M176.2 Add the token stylesheet
   - Put the token `:root`, `.dark`, and `@theme inline` blocks in the CLI `DEFAULT_CSS`, replacing the `--dxui-*` variables, and carry them in the Web and Desktop preview inputs.
   - Keep the RFC 0047 palette remap until the components are migrated, so the dark theme keeps working in between.
   - Extend `npm run verify:css-inputs` to fail when the preview token blocks drift from the CLI blocks, and reverse-verify it.
