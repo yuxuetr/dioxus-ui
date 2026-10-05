@@ -24,6 +24,7 @@
     "css:preview": "node scripts/preview-css.mjs",
     "css:site": "node scripts/preview-css.mjs site",
     "site:catalog": "node scripts/site-catalog.mjs",
+    "site:pages": "node scripts/site-pages.mjs",
     "verify:docs-catalog": "node scripts/docs-catalog-verify.mjs",
     "verify:docs-catalog-page": "node scripts/docs-catalog-markdown-verify.mjs",
     "verify:docs-routes": "node scripts/docs-route-manifest-verify.mjs",

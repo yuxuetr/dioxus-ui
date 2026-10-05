@@ -106,6 +106,7 @@ with a migration note in the changelog. The Web renderer is tested in a
 browser, including an axe-core accessibility audit. Desktop, iOS, and Android
 run a self-test of the main overlays.
 
+- [Component site](https://yuxuetr.github.io/dioxus-ui/)
 - [Component docs](https://github.com/yuxuetr/dioxus-ui/tree/main/docs/components)
 - [Changelog](https://github.com/yuxuetr/dioxus-ui/blob/main/CHANGELOG.md)
 - [Repository](https://github.com/yuxuetr/dioxus-ui)

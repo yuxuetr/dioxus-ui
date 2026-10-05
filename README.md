@@ -7,7 +7,8 @@
 - a CLI that copies component source into user projects
 - a packaged crate for users who prefer dependency-based usage
 
-It ships 64 components, the `dxui` CLI, and a component site. Version 0.1.0 is
+It ships 64 components, the `dxui` CLI, and a
+[component site](https://yuxuetr.github.io/dioxus-ui/). Version 0.1.0 is
 on crates.io as [`dioxus-shadcn`](https://crates.io/crates/dioxus-shadcn) and
 [`dioxus-shadcn-cli`](https://crates.io/crates/dioxus-shadcn-cli).
 
@@ -211,6 +212,12 @@ After changing classes the site uses, run `npm run css:site`; after changing
 the registry or catalog, run `npm run site:catalog`. The release gate fails
 when either generated file is stale, and `npm run verify:site` checks every
 route in a browser.
+
+Every push to `main` deploys the site to
+<https://yuxuetr.github.io/dioxus-ui/> through `.github/workflows/pages.yml`:
+it builds with `--base-path dioxus-ui`, and `npm run site:pages` copies
+`index.html` to each route and to `404.html`, since GitHub Pages serves files
+only.
 
 ## Documentation
 

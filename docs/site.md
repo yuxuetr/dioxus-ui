@@ -22,6 +22,16 @@ component has none, a page does not render its listed examples, an example
 draws nothing, or its Code tab lacks the source. Pages also link to the API
 and accessibility sections of the Markdown component docs.
 
+## Deployment
+
+Every push to `main` deploys the site to
+<https://yuxuetr.github.io/dioxus-ui/> through `.github/workflows/pages.yml`.
+The workflow runs
+`dx build --release --package dioxus-ui-site --platform web --base-path dioxus-ui`,
+then `npm run site:pages <public dir>`, which copies `index.html` into a
+directory for each route so deep links load with status 200, and to
+`404.html` so unknown paths reach the router's not found page.
+
 ## Markdown Reference Docs
 
 Next to the site, the Markdown docs stay the reference for architecture,
