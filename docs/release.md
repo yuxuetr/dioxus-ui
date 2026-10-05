@@ -705,8 +705,9 @@ first.
   Tailwind and data variants match attribute values (see RFC 0043); compiled
   CSS in the Desktop and Mobile self-tests is not covered. Class functions do
   not join conflicting utilities (see RFC 0044); a user class that sets a
-  property the component sets needs Tailwind's important modifier, and the
-  native Checkbox ignores its border and background classes. Date Picker and
+  property the component sets needs Tailwind's important modifier. Checkbox
+  draws its box and marks (see RFC 0045); the marks are white images, so
+  custom mark colors and forced-colors marks are not included. Date Picker and
   Calendar implement anchored placement, focus entry, and day keyboard
   navigation (see RFC 0013); typed date parsing and source-copy date arithmetic
   are not included. Dropdown and Context Menu implement menu keyboard

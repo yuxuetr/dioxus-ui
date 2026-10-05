@@ -208,4 +208,5 @@ thumb position and vertical orientation
 and M168 to compiled Tailwind browser checks
 ([RFC 0043](rfcs/0043-compiled-tailwind-browser-checks.md)), and M169 to
 Tailwind utility conflicts
-([RFC 0044](rfcs/0044-tailwind-utility-conflicts.md)).
+([RFC 0044](rfcs/0044-tailwind-utility-conflicts.md)), and M170 to the drawn
+Checkbox ([RFC 0045](rfcs/0045-drawn-checkbox.md)).

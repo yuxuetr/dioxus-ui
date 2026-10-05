@@ -238,6 +238,10 @@ release owner renames it to the released version at publish time.
   Alert, and Attachment variants kept the default colors, the collapsed
   Sidebar width relied on a data variant, and the vertical Slider stayed full
   width. A vertical Slider root is now `w-5`.
+- Checkbox follows its classes: it drops the native appearance, which
+  ignored the border and background classes, and draws a tick when checked
+  and a dash on the blue fill when mixed, keyed off `data-state` so
+  server-rendered HTML shows them.
 
 ### Excluded From First Publish
 
