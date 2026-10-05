@@ -8,8 +8,9 @@ for commit messages.
 
 ## [Unreleased]
 
-The Unreleased section carries the first publish (`0.1.0`) release notes. The
-release owner renames it to the released version at publish time.
+## [0.1.0] - 2026-10-05
+
+These are the first publish (`0.1.0`) release notes.
 
 ### Added
 

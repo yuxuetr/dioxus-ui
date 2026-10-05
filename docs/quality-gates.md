@@ -361,7 +361,7 @@ changelogs, generate license text, change embedded CLI template delivery, or
 change dependency versions.
 
 `npm run verify:release-notes-readiness` checks that project-owned changelog
-structure exists and its Unreleased section records first publish included
+structure exists and its `[0.1.0]` section records first publish included
 scope, excluded scope, and known warnings. It is read-only and does not
 generate release notes, run git-cliff, derive changes from Git history, create
 tags, or publish releases.

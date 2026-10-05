@@ -190,8 +190,7 @@ registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate
 changelogs, generate license text, change embedded CLI template delivery, or
 change dependency versions.
 Release notes readiness checks are read-only and validate only that
-project-owned changelog structure exists and its Unreleased section records
-first publish included scope, excluded scope, and known warnings; they do not
+project-owned changelog structure exists and its `[0.1.0]` section records first publish included scope, excluded scope, and known warnings; they do not
 generate release notes, run git-cliff, derive changes from Git history, create
 tags, or publish releases.
 [Release Notes Readiness Preparation Plan](release-notes-readiness-preparation-plan.md)
@@ -663,7 +662,8 @@ first.
 1. Record the crates.io evidence and mark registry availability resolved
    (done on 2026-10-05; recheck the names if the publish is much later).
 2. Rename the `CHANGELOG.md` Unreleased section to `[0.1.0]` with the release
-   date and commit it.
+   date and commit it (done as 2026-10-05; change the date if the publish
+   happens on another day).
 3. Authenticate with `cargo login`; never commit or paste the token into the
    repository.
 4. Run `cargo publish --workspace --dry-run` and confirm all four crates

@@ -18,7 +18,8 @@ The consolidated first-publish release scope and rollback view is tracked in
 Publish readiness docs should distinguish these states:
 
 - `CHANGELOG.md` is project-owned and structurally checked.
-- The Unreleased section carries the first publish (`0.1.0`) release notes.
+- The `[0.1.0]` section carries the first publish release notes, under an
+  empty `[Unreleased]` section for later changes.
 - First publish notes record included scope, excluded scope, and known
   warnings.
 

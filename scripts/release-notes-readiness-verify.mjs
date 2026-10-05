@@ -57,6 +57,7 @@ requireExcludes("docs/publish-readiness-blockers.md", publishBlockers, [
 
 requireIncludes("CHANGELOG.md", changelog, [
   "## [Unreleased]",
+  "## [0.1.0] - ",
   "first publish (`0.1.0`) release notes",
   "`dioxus-shadcn-core`",
   "`dioxus-shadcn-primitives`",
@@ -70,7 +71,7 @@ requireIncludes("CHANGELOG.md", changelog, [
 requireIncludes("docs/release-notes-readiness-metadata.md", releaseNotesDoc, [
   "Release Notes Readiness Metadata",
   "`CHANGELOG.md` is project-owned and structurally checked.",
-  "The Unreleased section carries the first publish (`0.1.0`) release notes.",
+  "The `[0.1.0]` section carries the first publish release notes",
   "not derived from Git history",
   "release notes readiness",
   "after resolution",
@@ -82,13 +83,13 @@ requireIncludes("docs/changelog-metadata.md", changelogDoc, [
 
 requireIncludes("docs/release.md", releaseDoc, [
   "Release notes readiness checks are read-only",
-  "project-owned changelog structure exists and its Unreleased section records first publish included scope, excluded scope, and known warnings",
+  "project-owned changelog structure exists and its `[0.1.0]` section records first publish included scope, excluded scope, and known warnings",
   "they do not generate release notes, run git-cliff, derive changes from Git history, create tags, or publish releases",
 ]);
 
 requireIncludes("docs/quality-gates.md", qualityDoc, [
   "`npm run verify:release-notes-readiness`",
-  "project-owned changelog structure exists and its Unreleased section records first publish included scope, excluded scope, and known warnings",
+  "project-owned changelog structure exists and its `[0.1.0]` section records first publish included scope, excluded scope, and known warnings",
   "does not generate release notes, run git-cliff, derive changes from Git history, create tags, or publish releases",
 ]);
 

@@ -633,7 +633,7 @@ npm run verify:release-notes-readiness
 ```
 
 This checks that project-owned changelog structure exists and the
-`CHANGELOG.md` Unreleased section records first publish included scope,
+`CHANGELOG.md` `[0.1.0]` section records first publish included scope,
 excluded scope, and known warnings. It does not generate release notes, run
 git-cliff, derive changes from Git history, create tags, or publish releases.
 [Release Notes Blocker Handoff](docs/release-notes-blocker-handoff.md)
