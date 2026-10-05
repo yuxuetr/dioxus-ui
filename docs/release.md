@@ -639,12 +639,12 @@ every crate from its extracted archive, then aborted each upload:
 
 | Crate | Packaged Files | Compressed Size |
 | --- | --- | --- |
-| `dioxus-shadcn-core` | 8 | 16.1 KiB |
-| `dioxus-shadcn-primitives` | 27 | 39.2 KiB |
-| `dioxus-shadcn` | 79 | 111.5 KiB |
-| `dioxus-shadcn-cli` | 140 | 95.3 KiB |
+| `dioxus-shadcn-core` | 8 | 5.1 KiB |
+| `dioxus-shadcn-primitives` | 27 | 28.3 KiB |
+| `dioxus-shadcn` | 79 | 100.7 KiB |
+| `dioxus-shadcn-cli` | 140 | 84.3 KiB |
 
-Each package includes `README.md` and `LICENSE`.
+Each package includes `README.md`, from `crates/README.md`, and `LICENSE`.
 The only warnings were `aborting upload due to dry run`. Package archives stay
 in the Cargo target directory and are never committed.
 
