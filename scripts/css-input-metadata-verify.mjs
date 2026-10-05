@@ -42,12 +42,13 @@ const previewCssInputs = [
 
 const requiredCliFragments = [
   'const DEFAULT_CSS: &str = r#"@import "tailwindcss";',
-  "@theme {",
-  "--color-background: var(--dxui-background);",
-  "--color-foreground: var(--dxui-foreground);",
+  "@custom-variant dark (&:is(.dark *));",
   ":root {",
-  "--dxui-background: #ffffff;",
-  "--dxui-foreground: #09090b;",
+  "--primary: oklch(0.21 0.006 285.885);",
+  ".dark {\n  color-scheme: dark;",
+  "@theme inline {",
+  "--color-primary: var(--primary);",
+  "--color-background: var(--background);",
 ];
 
 for (const fragment of requiredCliFragments) {
@@ -73,18 +74,20 @@ const requiredPreviewFragments = [
   '@source "../../preview-states/src";',
 ];
 
-// The previews carry the CLI's opt-in dark theme block verbatim, so browser
-// checks exercise the theme `dxui init` generates.
-const darkThemeStart = cliSource.indexOf("/* Opt-in dark theme");
-const darkThemeBlock =
-  darkThemeStart < 0 ? "" : cliSource.slice(darkThemeStart, cliSource.indexOf("\n}\n", darkThemeStart) + 3);
-if (!darkThemeBlock.includes(".dark {")) {
-  failures.push("crates/dioxus-ui-cli/src/main.rs DEFAULT_CSS missing the opt-in dark theme block");
+// The previews carry everything the CLI stylesheet holds after its import
+// verbatim (the RFC 0051 tokens and the opt-in dark theme), so browser checks
+// exercise the stylesheet `dxui init` generates.
+const cliImport = 'const DEFAULT_CSS: &str = r#"@import "tailwindcss";\n';
+const cliBodyStart = cliSource.indexOf(cliImport);
+const cliBody =
+  cliBodyStart < 0 ? "" : cliSource.slice(cliBodyStart + cliImport.length, cliSource.indexOf('"#;', cliBodyStart));
+if (!cliBody.includes("@theme inline {") || !cliBody.includes("/* Opt-in dark theme")) {
+  failures.push("crates/dioxus-ui-cli/src/main.rs DEFAULT_CSS missing the token or opt-in dark theme blocks");
 }
 
 for (const { label, source } of previewCssInputs) {
-  if (darkThemeBlock && !source.includes(darkThemeBlock)) {
-    failures.push(`${label} dark theme block differs from the CLI DEFAULT_CSS block`);
+  if (cliBody && !source.includes(cliBody)) {
+    failures.push(`${label} token and dark theme blocks differ from the CLI DEFAULT_CSS`);
   }
   for (const fragment of requiredPreviewFragments) {
     assertIncludes({ label, source, fragment });
