@@ -1,0 +1,14 @@
+{
+  "name": "steps",
+  "description": "Styled numbered steps with complete, current, and upcoming states.",
+  "files": [
+    {
+      "source": "templates/steps.rs",
+      "target": "src/components/ui/steps.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

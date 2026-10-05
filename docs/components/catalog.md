@@ -10,7 +10,7 @@ The catalog is derived from registry entries, templates, component docs,
 crate features, and crate modules. It intentionally does not include visual
 preview routes, screenshot artifacts, or generated JSON metadata.
 
-Public components: 66
+Public components: 67
 
 ## Groups
 
@@ -60,6 +60,7 @@ Public components: 66
 - [Navigation Menu](navigation-menu.md): Controlled navigation menu parts with navigation semantics.
 - [Pagination](pagination.md): Pagination component with link, item, and ellipsis parts.
 - [Sidebar](sidebar.md): Controlled sidebar shell and navigation composition parts.
+- [Steps](steps.md): Styled numbered steps with complete, current, and upcoming states.
 - [Tabs](tabs.md): Tabs components with controlled active state.
 
 ### Layout
@@ -164,6 +165,7 @@ Public components: 66
 | [Sonner](sonner.md) | Opinionated toast notification parts and queue helpers. | `dxui add sonner` | `sonner` | `crates/dioxus-shadcn-cli/templates/sonner.rs` | `src/components/ui/sonner.rs` |
 | [Spinner](spinner.md) | Spinner component for loading status feedback. | `dxui add spinner` | `spinner` | `crates/dioxus-shadcn-cli/templates/spinner.rs` | `src/components/ui/spinner.rs` |
 | [Stat](stat.md) | Styled statistic group with title, value, description, and figure. | `dxui add stat` | `stat` | `crates/dioxus-shadcn-cli/templates/stat.rs` | `src/components/ui/stat.rs` |
+| [Steps](steps.md) | Styled numbered steps with complete, current, and upcoming states. | `dxui add steps` | `steps` | `crates/dioxus-shadcn-cli/templates/steps.rs` | `src/components/ui/steps.rs` |
 | [Switch](switch.md) | Switch component with checked and disabled states. | `dxui add switch` | `switch` | `crates/dioxus-shadcn-cli/templates/switch.rs` | `src/components/ui/switch.rs` |
 | [Table](table.md) | Table component with styled table parts. | `dxui add table` | `table` | `crates/dioxus-shadcn-cli/templates/table.rs` | `src/components/ui/table.rs` |
 | [Tabs](tabs.md) | Tabs components with controlled active state. | `dxui add tabs` | `tabs` | `crates/dioxus-shadcn-cli/templates/tabs.rs` | `src/components/ui/tabs.rs` |

@@ -714,6 +714,9 @@ pub mod tooltip;
 pub mod typography;
 
 pub use dioxus_shadcn_core::UiDensity;
+#[cfg(feature = "steps")]
+pub mod steps;
+
 #[cfg(feature = "timeline")]
 pub mod timeline;
 
@@ -790,4 +793,11 @@ pub use timeline::{
   TIMELINE_MARKER_BASE_CLASS, TIMELINE_MARKER_SLOT_CLASS, TIMELINE_TIME_BASE_CLASS, Timeline,
   TimelineContent, TimelineItem, TimelineMarker, TimelineOrientation, TimelineTime, timeline_class,
   timeline_content_class, timeline_item_class, timeline_marker_class, timeline_time_class,
+};
+
+#[cfg(feature = "steps")]
+pub use steps::{
+  STEP_BASE_CLASS, STEP_INDICATOR_BASE_CLASS, STEP_LABEL_BASE_CLASS, STEP_TRACK_BASE_CLASS,
+  STEPS_BASE_CLASS, Step, StepStatus, Steps, StepsOrientation, step_class, step_indicator_class,
+  step_label_class, step_track_class, steps_class,
 };

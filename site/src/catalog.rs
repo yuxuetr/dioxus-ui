@@ -248,6 +248,12 @@ pub const CATEGORIES: &[Category] = &[
         feature: "sidebar",
       },
       Component {
+        slug: "steps",
+        title: "Steps",
+        description: "Styled numbered steps with complete, current, and upcoming states.",
+        feature: "steps",
+      },
+      Component {
         slug: "tabs",
         title: "Tabs",
         description: "Tabs components with controlled active state.",

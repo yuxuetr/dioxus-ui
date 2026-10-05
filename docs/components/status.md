@@ -13,14 +13,14 @@ parity.
 
 ## Summary
 
-- Public components: 66
-- Registry entries: 67
+- Public components: 67
+- Registry entries: 68
 - Source-copy helpers: utils
-- Templates: 67
-- Crate modules: 66
-- Crate features: 66
-- Component docs pages: 66
-- Complete local wiring: 66
+- Templates: 68
+- Crate modules: 67
+- Crate features: 67
+- Component docs pages: 67
+- Complete local wiring: 67
 - Incomplete local wiring: 0
 
 ## Category Counts
@@ -30,7 +30,7 @@ parity.
 | Actions | 6 |
 | Forms | 14 |
 | Overlays | 11 |
-| Navigation | 5 |
+| Navigation | 6 |
 | Layout | 10 |
 | Data Display | 10 |
 | Feedback | 5 |
@@ -94,6 +94,7 @@ parity.
 | Navigation Menu | Navigation | yes | yes | yes | yes | yes | yes | yes |
 | Pagination | Navigation | yes | yes | yes | yes | yes | yes | yes |
 | Sidebar | Navigation | yes | yes | yes | yes | yes | yes | yes |
+| Steps | Navigation | yes | yes | yes | yes | yes | yes | yes |
 | Tabs | Navigation | yes | yes | yes | yes | yes | yes | yes |
 | Alert Dialog | Overlays | yes | yes | yes | yes | yes | yes | yes |
 | Combobox | Overlays | yes | yes | yes | yes | yes | yes | yes |
@@ -165,6 +166,7 @@ parity.
 | Navigation Menu | Navigation | [docs](navigation-menu.md) | `dxui add navigation-menu` | `navigation-menu` | `crates/dioxus-shadcn-cli/templates/navigation_menu.rs` | `src/components/ui/navigation_menu.rs` |
 | Pagination | Navigation | [docs](pagination.md) | `dxui add pagination` | `pagination` | `crates/dioxus-shadcn-cli/templates/pagination.rs` | `src/components/ui/pagination.rs` |
 | Sidebar | Navigation | [docs](sidebar.md) | `dxui add sidebar` | `sidebar` | `crates/dioxus-shadcn-cli/templates/sidebar.rs` | `src/components/ui/sidebar.rs` |
+| Steps | Navigation | [docs](steps.md) | `dxui add steps` | `steps` | `crates/dioxus-shadcn-cli/templates/steps.rs` | `src/components/ui/steps.rs` |
 | Tabs | Navigation | [docs](tabs.md) | `dxui add tabs` | `tabs` | `crates/dioxus-shadcn-cli/templates/tabs.rs` | `src/components/ui/tabs.rs` |
 | Alert Dialog | Overlays | [docs](alert-dialog.md) | `dxui add alert-dialog` | `alert-dialog` | `crates/dioxus-shadcn-cli/templates/alert_dialog.rs` | `src/components/ui/alert_dialog.rs` |
 | Combobox | Overlays | [docs](combobox.md) | `dxui add combobox` | `combobox` | `crates/dioxus-shadcn-cli/templates/combobox.rs` | `src/components/ui/combobox.rs` |
