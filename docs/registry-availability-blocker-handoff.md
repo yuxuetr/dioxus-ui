@@ -20,7 +20,7 @@ Use it with:
 | --- | --- |
 | Blocker | Registry availability not checked |
 | Registry | crates.io |
-| Publish state | Deferred: blocks crates.io publishing, not local release readiness |
+| Publish state | Resolved on 2026-10-05: the renamed crates are free on crates.io (see [Registry Availability Readiness Metadata](registry-availability-readiness-metadata.md#resolution)) |
 | Resolution owner | Release owner |
 | Focused gates | `npm run verify:registry-availability-readiness`, `npm run verify:publish-order` |
 

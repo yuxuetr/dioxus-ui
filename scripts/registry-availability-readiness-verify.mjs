@@ -56,6 +56,7 @@ for (const crateName of plannedCrates) {
   requireIncludes("docs/registry-availability-readiness-metadata.md", readinessDoc, [
     crateName,
     `| \`${crateName}\` | Available, or already owned by the release owner |`,
+    `| \`${crateName}\` | Free (the crates API answered 404) |`,
   ]);
 }
 
@@ -71,7 +72,8 @@ requireIncludes("docs/registry-availability-readiness-metadata.md", readinessDoc
   "Registry Availability Readiness Metadata",
   "does not prove the names are available on crates.io",
   "## Deferral",
-  "Deferral blocks crates.io publishing; it does not block local release readiness or internal trial.",
+  "## Resolution",
+  "M184 resolved this blocker on 2026-10-05.",
   "| Crate | Name Evidence | Owners | Publish Position |",
   "credential readiness confirmed by the release owner",
   "named release owner responsible for the actual publish",
@@ -80,32 +82,28 @@ requireIncludes("docs/registry-availability-readiness-metadata.md", readinessDoc
 ]);
 
 requireIncludes("docs/publish-readiness-blockers.md", publishBlockers, [
-  "Registry availability not checked",
-  "Cargo publish metadata gate intentionally avoids crates.io lookups",
-  "Release owner checks names and ownership during publish preparation",
+  "Current blockers: none.",
+  "| Registry availability not checked | The renamed `dioxus-shadcn` crates were free on crates.io on 2026-10-05",
   "checking crates.io name availability",
-  "Deferral blocks crates.io publishing; it does not block local release readiness or internal trial.",
 ]);
 
 requireIncludes("docs/registry-availability-blocker-handoff.md", registryHandoff, [
-  "| Publish state | Deferred: blocks crates.io publishing, not local release readiness |",
+  "| Publish state | Resolved on 2026-10-05: the renamed crates are free on crates.io",
 ]);
 
 requireIncludes("docs/cargo-publish-metadata.md", cargoPublishDoc, [
-  "crates.io name and ownership review remains unresolved",
+  "crates.io name and ownership review is resolved for the renamed `dioxus-shadcn` crates",
 ]);
 
 requireIncludes("docs/release.md", releaseDoc, [
   "Registry availability readiness checks are read-only",
-  "Deferral blocks crates.io publishing but not local release readiness",
-  "crates.io name and ownership review blocker",
+  "crates.io name and ownership review stays recorded as resolved",
   "they do not contact crates.io, check crate name availability, check ownership, inspect credentials, run `cargo package`, run `cargo publish`, or create package archives",
 ]);
 
 requireIncludes("docs/quality-gates.md", qualityDoc, [
   "`npm run verify:registry-availability-readiness`",
-  "Deferral blocks crates.io publishing but not local release readiness",
-  "crates.io name and ownership review blocker",
+  "crates.io name and ownership review stays recorded as resolved",
   "does not contact crates.io, check crate name availability, check ownership, inspect credentials, run `cargo package`, run `cargo publish`, or create package archives",
 ]);
 

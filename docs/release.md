@@ -257,9 +257,8 @@ publishable crate and checks that the CLI package contains
 every registry entry and template the CLI embeds; it lists package contents only and does not build
 package archives, run `cargo publish`, or contact crates.io.
 Registry availability readiness checks are read-only. They validate that the
-crates.io name and ownership review blocker remains documented as deferred.
-Deferral blocks crates.io publishing but not local release readiness, and the
-checks themselves stay local; they do not contact crates.io, check crate name availability, check ownership, inspect
+crates.io name and ownership review stays recorded as resolved, with the
+release owner's per-crate evidence, and the checks themselves stay local; they do not contact crates.io, check crate name availability, check ownership, inspect
 credentials, run `cargo package`, run `cargo publish`, or create package
 archives.
 Publish readiness coverage checks are read-only. They validate that every
@@ -635,17 +634,18 @@ packaging strategy remains covered by
 
 ## First Publish Dry Run
 
-M134 ran `cargo publish --workspace --dry-run` on 2026-10-04 with
-cargo 1.98.1. Cargo packaged and compile-verified every crate from its
-extracted archive, then aborted each upload:
+M184 ran `cargo publish --workspace --dry-run` on 2026-10-05 with
+cargo 1.99.0, after the RFC 0056 rename. Cargo packaged and compile-verified
+every crate from its extracted archive, then aborted each upload:
 
 | Crate | Packaged Files | Compressed Size |
 | --- | --- | --- |
-| `dioxus-shadcn-core` | 7 | 11.8 KiB |
-| `dioxus-shadcn-primitives` | 26 | 35.0 KiB |
-| `dioxus-shadcn` | 70 | 66.3 KiB |
-| `dioxus-shadcn-cli` | 139 | 55.8 KiB |
+| `dioxus-shadcn-core` | 8 | 16.1 KiB |
+| `dioxus-shadcn-primitives` | 27 | 39.2 KiB |
+| `dioxus-shadcn` | 79 | 111.5 KiB |
+| `dioxus-shadcn-cli` | 140 | 95.3 KiB |
 
+Each package includes `README.md` and `LICENSE`.
 The only warnings were `aborting upload due to dry run`. Package archives stay
 in the Cargo target directory and are never committed.
 
@@ -660,7 +660,8 @@ evidence in
 [Registry Availability Readiness Metadata](registry-availability-readiness-metadata.md#deferral)
 first.
 
-1. Record the crates.io evidence and mark registry availability resolved.
+1. Record the crates.io evidence and mark registry availability resolved
+   (done on 2026-10-05; recheck the names if the publish is much later).
 2. Rename the `CHANGELOG.md` Unreleased section to `[0.1.0]` with the release
    date and commit it.
 3. Authenticate with `cargo login`; never commit or paste the token into the

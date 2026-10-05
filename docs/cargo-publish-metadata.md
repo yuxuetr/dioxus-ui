@@ -53,7 +53,9 @@ include:
 - release verification stops running the focused metadata gate
 
 This gate should make publish metadata reviewable. It does not claim the crates
-are ready to publish while crates.io registry availability remains unresolved.
+are ready to publish and does not check crates.io itself; the release owner
+recorded registry availability in
+[Registry Availability Readiness Metadata](registry-availability-readiness-metadata.md#resolution).
 First publish release notes are recorded in `CHANGELOG.md`. APIs remain
 pre-1.0, and the current `0.1.x` API surface is accepted for first publish
 under the pre-`1.0` breaking-change policy. The repository URL is approved as
@@ -61,7 +63,8 @@ under the pre-`1.0` breaking-change policy. The repository URL is approved as
 in `LICENSE`. CLI template delivery now uses embedded registry/template assets
 and is tracked by
 [CLI Template Packaging Readiness Metadata](cli-template-packaging-readiness-metadata.md).
-The crates.io name and ownership review remains unresolved. Workspace
+The crates.io name and ownership review is resolved for the renamed
+`dioxus-shadcn` crates. Workspace
 dependency publish readiness is resolved: internal workspace dependencies
 declare crates.io-resolvable versions alongside local paths.
 

@@ -13,17 +13,7 @@ Use [Publish Blocker Resolution Tracker](publish-blocker-resolution-tracker.md)
 to track current blockers together while evidence and local follow-up are
 prepared.
 
-Current blockers:
-
-| Blocker | Evidence | Resolution Owner |
-| --- | --- | --- |
-| Registry availability not checked | Cargo publish metadata gate intentionally avoids crates.io lookups | Release owner checks names and ownership during publish preparation |
-
-Registry availability is deferred until a release owner supplies the crates.io
-evidence listed in
-[Registry Availability Readiness Metadata](registry-availability-readiness-metadata.md#deferral).
-Deferral blocks crates.io publishing; it does not block local release
-readiness or internal trial.
+Current blockers: none. The release owner runs the actual publish.
 
 Resolved publish readiness items:
 
@@ -34,6 +24,7 @@ Resolved publish readiness items:
 | Pre-1.0 API stability | Current `0.1.x` API surface is accepted for first publish; breaking changes before `1.0` require a minor bump and a changelog migration note | `npm run verify:api-stability-readiness` |
 | Release notes not publish-ready | `CHANGELOG.md` has project-owned structure and its Unreleased section records first publish included scope, excluded scope, and known warnings | `npm run verify:release-notes-readiness` |
 | Workspace dependency publish readiness | Internal workspace dependencies declare `version = "0.1.0"` alongside local paths | `npm run verify:workspace-dependency-publish-readiness` |
+| Registry availability not checked | The renamed `dioxus-shadcn` crates were free on crates.io on 2026-10-05 ([RFC 0056](rfcs/0056-published-crate-names.md)) | `npm run verify:registry-availability-readiness` |
 | CLI template packaging strategy | `dioxus-shadcn-cli` embeds registry and template assets at compile time | `npm run verify:cli-template-packaging-readiness` |
 
 ## Scope

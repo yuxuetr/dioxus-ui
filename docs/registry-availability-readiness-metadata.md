@@ -59,6 +59,29 @@ Shared evidence for the whole publish:
 If any crate name is unavailable and not owned by the release owner, the
 blocker stays unresolved and a rename milestone is required before publish.
 
+## Resolution
+
+M184 resolved this blocker on 2026-10-05. The first check found `dioxus-ui`
+taken by another owner's `dioxus_ui`, so M184 renamed the crates (see
+[RFC 0056](rfcs/0056-published-crate-names.md)), and the release owner
+supplied this evidence:
+
+| Crate | crates.io on 2026-10-05 | Owners | Publish Position |
+| --- | --- | --- | --- |
+| `dioxus-shadcn-core` | Free (the crates API answered 404) | the release owner's account after the first publish | 1 |
+| `dioxus-shadcn-primitives` | Free (the crates API answered 404) | the release owner's account after the first publish | 2 |
+| `dioxus-shadcn` | Free (the crates API answered 404) | the release owner's account after the first publish | 3 |
+| `dioxus-shadcn-cli` | Free (the crates API answered 404) | the release owner's account after the first publish | 4 |
+
+- Release owner: the repository owner, `yuxuetr`, who runs the publish.
+- Credentials: the release owner ran `cargo login`; no token is committed.
+- Publish order: `cargo publish --workspace --dry-run` packaged and verified
+  all four crates in the order above.
+- The check ran outside the local gates, which stay read-only.
+
+A name can be taken between this check and the publish; a failed upload for
+that reason reopens the blocker.
+
 ## Readiness Contract
 
 `npm run verify:registry-availability-readiness` should confirm that:
@@ -66,10 +89,8 @@ blocker stays unresolved and a rename milestone is required before publish.
 - package scripts expose the focused readiness check
 - the release aggregate includes the focused readiness check
 - planned publishable crate names remain documented
-- publish blocker docs still list registry availability as unresolved
-- the deferral statement and the per-crate evidence table remain documented
-- release, quality gate, Cargo publish metadata, and docs-site notes do not
-  imply crates.io availability has been checked
+- publish blocker docs list registry availability as resolved
+- the per-crate evidence table and the recorded resolution remain documented
 
 The gate is intentionally read-only. It must not contact crates.io, check crate
 name availability, check ownership, inspect credentials, run `cargo package`,

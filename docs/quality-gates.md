@@ -435,9 +435,8 @@ lists package contents only; it does not build or compress package archives,
 run `cargo publish`, or contact crates.io.
 
 `npm run verify:registry-availability-readiness` checks that the crates.io name
-and ownership review blocker remains documented as deferred, together with the
-per-crate evidence a release owner must supply. Deferral blocks crates.io
-publishing but not local release readiness. It is read-only and does not
+and ownership review stays recorded as resolved, with the per-crate evidence
+the release owner supplied. It is read-only and does not
 contact crates.io, check crate name availability, check ownership, inspect
 credentials, run `cargo package`, run `cargo publish`, or create package
 archives.
