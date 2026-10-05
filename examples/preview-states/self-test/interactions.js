@@ -35,6 +35,17 @@ const scenarios = [
     const hidden = $(".sr-only");
     await waitFor(() => hidden !== null && getComputedStyle(hidden).position === "absolute", "the compiled preview stylesheet applies");
   }],
+  ["theme", async () => {
+    // The header toggle switches the page to the opt-in dark theme (RFC 0050).
+    const toggle = $("#preview-theme-toggle");
+    const main = $("[data-preview-root]");
+    const light = getComputedStyle(main).backgroundColor;
+    toggle.click();
+    await waitFor(() => getComputedStyle(main).colorScheme === "dark", "the toggle turns on the dark theme");
+    await waitFor(() => getComputedStyle(main).backgroundColor !== light, "the dark theme remaps the page surface");
+    toggle.click();
+    await waitFor(() => getComputedStyle(main).backgroundColor === light, "a second press restores the light theme");
+  }],
   ["dialog", async () => {
     const root = $('[data-interaction-target="dialog"]');
     const trigger = root.querySelector('[data-interaction-control="dialog-trigger"]');
