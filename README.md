@@ -251,6 +251,7 @@ format!("bg-{}-500", color)
 - [RFC 0048: Phone-width Preview Layout](docs/rfcs/0048-phone-width-preview-layout.md)
 - [RFC 0049: Compiled Preview Stylesheet](docs/rfcs/0049-compiled-preview-stylesheet.md)
 - [RFC 0050: Preview Theme Toggle](docs/rfcs/0050-preview-theme-toggle.md)
+- [RFC 0051: Semantic Color Tokens](docs/rfcs/0051-semantic-color-tokens.md)
 
 ## Verification Shortcuts
 

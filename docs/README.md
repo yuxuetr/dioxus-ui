@@ -117,7 +117,8 @@ Read in this order:
 111. [RFC 0048: Phone-width Preview Layout](rfcs/0048-phone-width-preview-layout.md)
 112. [RFC 0049: Compiled Preview Stylesheet](rfcs/0049-compiled-preview-stylesheet.md)
 113. [RFC 0050: Preview Theme Toggle](rfcs/0050-preview-theme-toggle.md)
-114. [TODO Plan](../TODOs.md)
+114. [RFC 0051: Semantic Color Tokens](rfcs/0051-semantic-color-tokens.md)
+115. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
