@@ -546,7 +546,7 @@ arrow keys; and Resizable handle keys and drags; and Sidebar toggles and
 items; and Radio Group, Progress, Select, and Combobox names; and dialog names
 and page-wide id references; and tab list, toggle group, menu bar, navigation,
 and calendar grid names; and the Checkbox mixed state; and the Slider thumb
-position and vertical sliders. It does not
+position and vertical sliders, all with compiled Tailwind. It does not
 write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.

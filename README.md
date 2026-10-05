@@ -826,7 +826,8 @@ Button, Toggle, Input, and Textarea events, Slider keyboard and pointer
 input, Collapsible and Native Select events, Input OTP typing, Pagination
 page changes, Carousel slide changes, Resizable handle input, Sidebar
 toggle and items, form control names, dialog names, composite widget names, the Checkbox mixed
-state, and Slider thumb position and vertical sliders. It requires Playwright
+state, and Slider thumb position and vertical sliders, all with compiled
+Tailwind. It requires Playwright
 Chromium or `DIOXUS_UI_BROWSER_EXECUTABLE`, does not write screenshots or
 traces, and does not claim full accessibility certification, native Desktop or
 Mobile coverage, or visual parity.

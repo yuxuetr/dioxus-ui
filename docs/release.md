@@ -700,7 +700,10 @@ first.
   through passed attributes (see RFC 0040). Checkbox has a native mixed state
   (see RFC 0041); it is set after hydration. Slider places its thumb on the
   value and supports a vertical orientation (see RFC 0042); right-to-left and
-  multi-thumb sliders are not included. Date Picker and
+  multi-thumb sliders are not included. Browser checks run with compiled
+  Tailwind and data variants match attribute values (see RFC 0043); utilities
+  that conflict inside one composed class list, and compiled CSS in the
+  Desktop and Mobile self-tests, are not covered. Date Picker and
   Calendar implement anchored placement, focus entry, and day keyboard
   navigation (see RFC 0013); typed date parsing and source-copy date arithmetic
   are not included. Dropdown and Context Menu implement menu keyboard

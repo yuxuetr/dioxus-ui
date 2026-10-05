@@ -205,6 +205,10 @@ release owner renames it to the released version at publish time.
 - `ResizableHandle` renders `aria-orientation` for the separator line, so it
   is `vertical` in a horizontal group, where it repeated the group orientation.
 - `slider_range_style` and `slider_thumb_style` take a `SliderOrientation`.
+- `npm run verify:runtime-interactions` compiles the preview stylesheet with
+  the Tailwind Node API and runs every check with compiled Tailwind; the
+  repository gains the `tailwindcss`, `@tailwindcss/node`, and
+  `@tailwindcss/oxide` dev dependencies.
 
 ### Fixed
 
@@ -214,6 +218,12 @@ release owner renames it to the released version at publish time.
 - A passed `aria-label` on `PaginationPrevious` and `PaginationNext` replaces
   the English default in server-rendered HTML too, where both attributes were
   written and the default won.
+- Data-attribute variants match values, such as `data-[disabled=true]:`.
+  The bare `data-disabled:` form matched `data-disabled="false"`, so compiled
+  Tailwind disabled every enabled option, item, and link, and forms such as
+  `data-orientation-vertical:` never matched, so orientation, state, and side
+  styles never applied.
+- Navigation Menu content opens below its trigger instead of covering it.
 
 ### Excluded From First Publish
 

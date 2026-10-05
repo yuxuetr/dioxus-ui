@@ -204,4 +204,6 @@ widget names ([RFC 0040](rfcs/0040-composite-widget-names.md)), and M166 to
 the Checkbox indeterminate state
 ([RFC 0041](rfcs/0041-checkbox-indeterminate-state.md)), and M167 to Slider
 thumb position and vertical orientation
-([RFC 0042](rfcs/0042-slider-thumb-position-and-vertical-orientation.md)).
+([RFC 0042](rfcs/0042-slider-thumb-position-and-vertical-orientation.md)),
+and M168 to compiled Tailwind browser checks
+([RFC 0043](rfcs/0043-compiled-tailwind-browser-checks.md)).
