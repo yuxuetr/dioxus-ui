@@ -714,6 +714,9 @@ pub mod tooltip;
 pub mod typography;
 
 pub use dioxus_shadcn_core::UiDensity;
+#[cfg(feature = "timeline")]
+pub mod timeline;
+
 #[cfg(feature = "stat")]
 pub mod stat;
 
@@ -779,4 +782,12 @@ pub use stat::{
   STAT_TITLE_BASE_CLASS, STAT_VALUE_BASE_CLASS, Stat, StatDescription, StatFigure, StatGroup,
   StatGroupOrientation, StatTitle, StatValue, stat_class, stat_description_class,
   stat_figure_class, stat_group_class, stat_title_class, stat_value_class,
+};
+
+#[cfg(feature = "timeline")]
+pub use timeline::{
+  TIMELINE_BASE_CLASS, TIMELINE_CONTENT_BASE_CLASS, TIMELINE_ITEM_BASE_CLASS,
+  TIMELINE_MARKER_BASE_CLASS, TIMELINE_MARKER_SLOT_CLASS, TIMELINE_TIME_BASE_CLASS, Timeline,
+  TimelineContent, TimelineItem, TimelineMarker, TimelineOrientation, TimelineTime, timeline_class,
+  timeline_content_class, timeline_item_class, timeline_marker_class, timeline_time_class,
 };

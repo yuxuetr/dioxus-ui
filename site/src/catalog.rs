@@ -374,6 +374,12 @@ pub const CATEGORIES: &[Category] = &[
         feature: "table",
       },
       Component {
+        slug: "timeline",
+        title: "Timeline",
+        description: "Styled ordered timeline with time, marker, and content parts.",
+        feature: "timeline",
+      },
+      Component {
         slug: "typography",
         title: "Typography",
         description: "Styled semantic typography parts.",

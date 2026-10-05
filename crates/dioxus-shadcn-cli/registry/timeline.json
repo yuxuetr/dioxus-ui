@@ -1,0 +1,14 @@
+{
+  "name": "timeline",
+  "description": "Styled ordered timeline with time, marker, and content parts.",
+  "files": [
+    {
+      "source": "templates/timeline.rs",
+      "target": "src/components/ui/timeline.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

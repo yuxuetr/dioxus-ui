@@ -190,6 +190,7 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["button
 | [Table](table.md) | `dxui add table` | `table` | Styled parts |
 | [Tabs](tabs.md) | `dxui add tabs` | `tabs` | Controlled styled parts |
 | [Textarea](textarea.md) | `dxui add textarea` | `textarea` | Styled |
+| [Timeline](timeline.md) | `dxui add timeline` | `timeline` | Ordered event timeline parts |
 | [Toggle](toggle.md) | `dxui add toggle` | `toggle` | Controlled styled part |
 | [Toggle Group](toggle-group.md) | `dxui add toggle-group` | `toggle-group` | Primitive-backed styled parts |
 | [Toast](toast.md) | `dxui add toast` | `toast` | Controlled notification parts |

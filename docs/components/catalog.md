@@ -10,7 +10,7 @@ The catalog is derived from registry entries, templates, component docs,
 crate features, and crate modules. It intentionally does not include visual
 preview routes, screenshot artifacts, or generated JSON metadata.
 
-Public components: 65
+Public components: 66
 
 ## Groups
 
@@ -85,6 +85,7 @@ Public components: 65
 - [Progress](progress.md): Progress component with accessible value semantics.
 - [Stat](stat.md): Styled statistic group with title, value, description, and figure.
 - [Table](table.md): Table component with styled table parts.
+- [Timeline](timeline.md): Styled ordered timeline with time, marker, and content parts.
 - [Typography](typography.md): Styled semantic typography parts.
 
 ### Feedback
@@ -167,6 +168,7 @@ Public components: 65
 | [Table](table.md) | Table component with styled table parts. | `dxui add table` | `table` | `crates/dioxus-shadcn-cli/templates/table.rs` | `src/components/ui/table.rs` |
 | [Tabs](tabs.md) | Tabs components with controlled active state. | `dxui add tabs` | `tabs` | `crates/dioxus-shadcn-cli/templates/tabs.rs` | `src/components/ui/tabs.rs` |
 | [Textarea](textarea.md) | Textarea component with disabled and invalid states. | `dxui add textarea` | `textarea` | `crates/dioxus-shadcn-cli/templates/textarea.rs` | `src/components/ui/textarea.rs` |
+| [Timeline](timeline.md) | Styled ordered timeline with time, marker, and content parts. | `dxui add timeline` | `timeline` | `crates/dioxus-shadcn-cli/templates/timeline.rs` | `src/components/ui/timeline.rs` |
 | [Toast](toast.md) | Controlled toast notification parts and queue helpers. | `dxui add toast` | `toast` | `crates/dioxus-shadcn-cli/templates/toast.rs` | `src/components/ui/toast.rs` |
 | [Toggle](toggle.md) | Toggle component for controlled pressed button states. | `dxui add toggle` | `toggle` | `crates/dioxus-shadcn-cli/templates/toggle.rs` | `src/components/ui/toggle.rs` |
 | [Toggle Group](toggle-group.md) | Toggle Group component for grouped single or multiple pressed states. | `dxui add toggle-group` | `toggle-group` | `crates/dioxus-shadcn-cli/templates/toggle_group.rs` | `src/components/ui/toggle_group.rs` |

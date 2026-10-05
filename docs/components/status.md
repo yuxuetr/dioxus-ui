@@ -13,14 +13,14 @@ parity.
 
 ## Summary
 
-- Public components: 65
-- Registry entries: 66
+- Public components: 66
+- Registry entries: 67
 - Source-copy helpers: utils
-- Templates: 66
-- Crate modules: 65
-- Crate features: 65
-- Component docs pages: 65
-- Complete local wiring: 65
+- Templates: 67
+- Crate modules: 66
+- Crate features: 66
+- Component docs pages: 66
+- Complete local wiring: 66
 - Incomplete local wiring: 0
 
 ## Category Counts
@@ -32,7 +32,7 @@ parity.
 | Overlays | 11 |
 | Navigation | 5 |
 | Layout | 10 |
-| Data Display | 9 |
+| Data Display | 10 |
 | Feedback | 5 |
 | Messaging | 5 |
 
@@ -54,6 +54,7 @@ parity.
 | Progress | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Stat | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Table | Data Display | yes | yes | yes | yes | yes | yes | yes |
+| Timeline | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Typography | Data Display | yes | yes | yes | yes | yes | yes | yes |
 | Alert | Feedback | yes | yes | yes | yes | yes | yes | yes |
 | Skeleton | Feedback | yes | yes | yes | yes | yes | yes | yes |
@@ -124,6 +125,7 @@ parity.
 | Progress | Data Display | [docs](progress.md) | `dxui add progress` | `progress` | `crates/dioxus-shadcn-cli/templates/progress.rs` | `src/components/ui/progress.rs` |
 | Stat | Data Display | [docs](stat.md) | `dxui add stat` | `stat` | `crates/dioxus-shadcn-cli/templates/stat.rs` | `src/components/ui/stat.rs` |
 | Table | Data Display | [docs](table.md) | `dxui add table` | `table` | `crates/dioxus-shadcn-cli/templates/table.rs` | `src/components/ui/table.rs` |
+| Timeline | Data Display | [docs](timeline.md) | `dxui add timeline` | `timeline` | `crates/dioxus-shadcn-cli/templates/timeline.rs` | `src/components/ui/timeline.rs` |
 | Typography | Data Display | [docs](typography.md) | `dxui add typography` | `typography` | `crates/dioxus-shadcn-cli/templates/typography.rs` | `src/components/ui/typography.rs` |
 | Alert | Feedback | [docs](alert.md) | `dxui add alert` | `alert` | `crates/dioxus-shadcn-cli/templates/alert.rs` | `src/components/ui/alert.rs` |
 | Skeleton | Feedback | [docs](skeleton.md) | `dxui add skeleton` | `skeleton` | `crates/dioxus-shadcn-cli/templates/skeleton.rs` | `src/components/ui/skeleton.rs` |

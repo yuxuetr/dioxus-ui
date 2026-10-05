@@ -78,6 +78,7 @@ examples! {
   badge_variants => "badge", "Variants";
   badge_status => "badge", "Status";
   stat_revenue => "stat", "Revenue";
+  timeline_release => "timeline", "Release history";
   chart_revenue => "chart", "Area and line";
   data_table_users => "data-table", "Filter, sort, and select";
   empty_projects => "empty", "No projects";

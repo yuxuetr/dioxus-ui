@@ -312,6 +312,9 @@
   .col-start-2 {
     grid-column-start: 2;
   }
+  .col-start-3 {
+    grid-column-start: 3;
+  }
   .row-span-3 {
     grid-row: span 3 / span 3;
   }
@@ -805,6 +808,9 @@
   .grid-cols-\[auto_1fr_auto\] {
     grid-template-columns: auto 1fr auto;
   }
+  .grid-cols-\[minmax\(0\,8rem\)_auto_minmax\(0\,1fr\)\] {
+    grid-template-columns: minmax(0,8rem) auto minmax(0,1fr);
+  }
   .flex-col {
     flex-direction: column;
   }
@@ -880,6 +886,9 @@
   .gap-8 {
     gap: calc(var(--spacing) * 8);
   }
+  .gap-10 {
+    gap: calc(var(--spacing) * 10);
+  }
   :where(.space-y-1 > :not(:last-child)) {
     --tw-space-y-reverse: 0;
     margin-block-start: calc(var(--spacing) * var(--tw-space-y-reverse));
@@ -918,6 +927,9 @@
   }
   .self-start {
     align-self: flex-start;
+  }
+  .self-stretch {
+    align-self: stretch;
   }
   .truncate {
     overflow: hidden;
@@ -1252,6 +1264,9 @@
   .pt-0 {
     padding-top: 0px;
   }
+  .pt-0\.5 {
+    padding-top: calc(var(--spacing) * 0.5);
+  }
   .pt-2 {
     padding-top: calc(var(--spacing) * 2);
   }
@@ -1266,6 +1281,9 @@
   }
   .pb-4 {
     padding-bottom: calc(var(--spacing) * 4);
+  }
+  .pb-8 {
+    padding-bottom: calc(var(--spacing) * 8);
   }
   .pl-4 {
     padding-left: calc(var(--spacing) * 4);
@@ -1418,6 +1436,9 @@
   .text-sidebar-foreground {
     color: var(--sidebar-foreground);
   }
+  .text-success {
+    color: var(--success);
+  }
   .text-success-foreground {
     color: var(--success-foreground);
   }
@@ -1538,6 +1559,48 @@
     -webkit-user-select: none;
     user-select: none;
   }
+  .group-last\/item\:pb-0:is(:where(.group\/item):last-child *) {
+    padding-bottom: 0px;
+  }
+  .group-data-\[orientation\=horizontal\]\/timeline\:col-start-1:is(:where(.group\/timeline)[data-orientation="horizontal"] *) {
+    grid-column-start: 1;
+  }
+  .group-data-\[orientation\=horizontal\]\/timeline\:row-start-2:is(:where(.group\/timeline)[data-orientation="horizontal"] *) {
+    grid-row-start: 2;
+  }
+  .group-data-\[orientation\=horizontal\]\/timeline\:row-start-3:is(:where(.group\/timeline)[data-orientation="horizontal"] *) {
+    grid-row-start: 3;
+  }
+  .group-data-\[orientation\=horizontal\]\/timeline\:flex-1:is(:where(.group\/timeline)[data-orientation="horizontal"] *) {
+    flex: 1;
+  }
+  .group-data-\[orientation\=horizontal\]\/timeline\:grid-cols-1:is(:where(.group\/timeline)[data-orientation="horizontal"] *) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .group-data-\[orientation\=horizontal\]\/timeline\:grid-rows-\[auto_auto_1fr\]:is(:where(.group\/timeline)[data-orientation="horizontal"] *) {
+    grid-template-rows: auto auto 1fr;
+  }
+  .group-data-\[orientation\=horizontal\]\/timeline\:flex-row:is(:where(.group\/timeline)[data-orientation="horizontal"] *) {
+    flex-direction: row;
+  }
+  .group-data-\[orientation\=horizontal\]\/timeline\:px-2:is(:where(.group\/timeline)[data-orientation="horizontal"] *) {
+    padding-inline: calc(var(--spacing) * 2);
+  }
+  .group-data-\[orientation\=horizontal\]\/timeline\:pt-0:is(:where(.group\/timeline)[data-orientation="horizontal"] *) {
+    padding-top: 0px;
+  }
+  .group-data-\[orientation\=horizontal\]\/timeline\:pt-2:is(:where(.group\/timeline)[data-orientation="horizontal"] *) {
+    padding-top: calc(var(--spacing) * 2);
+  }
+  .group-data-\[orientation\=horizontal\]\/timeline\:pb-0:is(:where(.group\/timeline)[data-orientation="horizontal"] *) {
+    padding-bottom: 0px;
+  }
+  .group-data-\[orientation\=horizontal\]\/timeline\:pb-2:is(:where(.group\/timeline)[data-orientation="horizontal"] *) {
+    padding-bottom: calc(var(--spacing) * 2);
+  }
+  .group-data-\[orientation\=horizontal\]\/timeline\:text-center:is(:where(.group\/timeline)[data-orientation="horizontal"] *) {
+    text-align: center;
+  }
   .peer-disabled\:cursor-not-allowed:is(:where(.peer):disabled ~ *) {
     cursor: not-allowed;
   }
@@ -1556,9 +1619,17 @@
     width: 100%;
     height: 100%;
   }
+  .before\:h-1\.5::before {
+    content: var(--tw-content);
+    height: calc(var(--spacing) * 1.5);
+  }
   .before\:h-px::before {
     content: var(--tw-content);
     height: 1px;
+  }
+  .before\:w-px::before {
+    content: var(--tw-content);
+    width: 1px;
   }
   .before\:flex-1::before {
     content: var(--tw-content);
@@ -1580,6 +1651,22 @@
     content: var(--tw-content);
     mask: url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27black%27%20stroke-width=%272.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M3.5%208.5l3%203%206-7%27/%3E%3C/svg%3E) center/100% no-repeat;
   }
+  .group-first\/item\:before\:invisible:is(:where(.group\/item):first-child *)::before {
+    content: var(--tw-content);
+    visibility: hidden;
+  }
+  .group-data-\[orientation\=horizontal\]\/timeline\:before\:h-px:is(:where(.group\/timeline)[data-orientation="horizontal"] *)::before {
+    content: var(--tw-content);
+    height: 1px;
+  }
+  .group-data-\[orientation\=horizontal\]\/timeline\:before\:w-auto:is(:where(.group\/timeline)[data-orientation="horizontal"] *)::before {
+    content: var(--tw-content);
+    width: auto;
+  }
+  .group-data-\[orientation\=horizontal\]\/timeline\:before\:flex-1:is(:where(.group\/timeline)[data-orientation="horizontal"] *)::before {
+    content: var(--tw-content);
+    flex: 1;
+  }
   .after\:absolute::after {
     content: var(--tw-content);
     position: absolute;
@@ -1600,6 +1687,10 @@
     content: var(--tw-content);
     width: var(--spacing);
   }
+  .after\:w-px::after {
+    content: var(--tw-content);
+    width: 1px;
+  }
   .after\:flex-1::after {
     content: var(--tw-content);
     flex: 1;
@@ -1612,6 +1703,28 @@
   .after\:bg-border::after {
     content: var(--tw-content);
     background-color: var(--border);
+  }
+  .group-last\/item\:after\:invisible:is(:where(.group\/item):last-child *)::after {
+    content: var(--tw-content);
+    visibility: hidden;
+  }
+  .group-data-\[orientation\=horizontal\]\/timeline\:after\:h-px:is(:where(.group\/timeline)[data-orientation="horizontal"] *)::after {
+    content: var(--tw-content);
+    height: 1px;
+  }
+  .group-data-\[orientation\=horizontal\]\/timeline\:after\:w-auto:is(:where(.group\/timeline)[data-orientation="horizontal"] *)::after {
+    content: var(--tw-content);
+    width: auto;
+  }
+  .empty\:size-3:empty {
+    width: calc(var(--spacing) * 3);
+    height: calc(var(--spacing) * 3);
+  }
+  .empty\:rounded-full:empty {
+    border-radius: calc(infinity * 1px);
+  }
+  .empty\:bg-primary:empty {
+    background-color: var(--primary);
   }
   .focus-within\:ring-2:focus-within {
     --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
@@ -1756,6 +1869,9 @@
   }
   .data-\[orientation\=horizontal\]\:flex-col[data-orientation="horizontal"] {
     flex-direction: column;
+  }
+  .data-\[orientation\=horizontal\]\:flex-row[data-orientation="horizontal"] {
+    flex-direction: row;
   }
   .data-\[orientation\=horizontal\]\:pl-4[data-orientation="horizontal"] {
     padding-left: calc(var(--spacing) * 4);

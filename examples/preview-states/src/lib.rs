@@ -585,6 +585,14 @@ pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
     notes: "Rendered markup and class-state coverage target.",
   },
   ComponentPreviewTarget {
+    component: "timeline",
+    label: "Timeline",
+    panel: "data-display",
+    test_id: "component-preview-timeline",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
     component: "toast",
     label: "Toast",
     panel: "feedback",

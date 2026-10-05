@@ -25,6 +25,7 @@ Statuses:
 | Separator | Supports decorative and semantic separator usage. | Implemented |
 | Skeleton | Hidden from assistive technology by default. | Implemented |
 | Stat | Uses a definition list so each value is read with its title. | Implemented |
+| Timeline | Uses an ordered list with time elements; markers are hidden from assistive technology. | Implemented |
 | Typography | Uses native text elements; consuming apps own heading hierarchy and landmark placement. | Implemented |
 
 ## Form Basics
