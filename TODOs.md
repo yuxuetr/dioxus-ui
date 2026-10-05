@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0%
+- Overall: 25%
 - Current milestone: M170 Drawn Checkbox
-- Current task: M170.1 Design the drawn checkbox
+- Current task: M170.2 Implement the drawn checkbox
 
 ## Backup
 
@@ -3105,7 +3105,7 @@
 
 ## M170 Drawn Checkbox
 
-- TODO M170.1 Design the drawn checkbox
+- DONE M170.1 Design the drawn checkbox
   - Record that `Checkbox` renders a native checkbox, so Chrome ignores its border and background classes and the mixed state has no themed look.
   - Define `appearance-none` with tick and dash background images keyed off `data-state`, and the blue fill for the mixed state.
   - Record what stays out of scope (custom mark colors, a Checkbox wrapper element, forced-colors styling) with reevaluation conditions.
