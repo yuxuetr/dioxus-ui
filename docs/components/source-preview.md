@@ -50,7 +50,7 @@ Source preview routes: 64
 | [Input Otp](input-otp.md) | /components/input-otp/source | crates/dioxus-ui-cli/templates/input_otp.rs | src/components/ui/input_otp.rs | rust | 412 | 11381 |
 | [Item](item.md) | /components/item/source | crates/dioxus-ui-cli/templates/item.rs | src/components/ui/item.rs | rust | 121 | 2963 |
 | [Kbd](kbd.md) | /components/kbd/source | crates/dioxus-ui-cli/templates/kbd.rs | src/components/ui/kbd.rs | rust | 42 | 901 |
-| [Label](label.md) | /components/label/source | crates/dioxus-ui-cli/templates/label.rs | src/components/ui/label.rs | rust | 30 | 743 |
+| [Label](label.md) | /components/label/source | crates/dioxus-ui-cli/templates/label.rs | src/components/ui/label.rs | rust | 32 | 869 |
 | [Marker](marker.md) | /components/marker/source | crates/dioxus-ui-cli/templates/marker.rs | src/components/ui/marker.rs | rust | 93 | 2345 |
 | [Menubar](menubar.md) | /components/menubar/source | crates/dioxus-ui-cli/templates/menubar.rs | src/components/ui/menubar.rs | rust | 423 | 13594 |
 | [Message](message.md) | /components/message/source | crates/dioxus-ui-cli/templates/message.rs | src/components/ui/message.rs | rust | 153 | 3802 |

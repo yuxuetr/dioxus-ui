@@ -17,6 +17,8 @@ pub fn Label(
   children: Element,
 ) -> Element {
   let class = label_class(&class);
+  // An empty `for` would point at no control, unlinking a wrapped input.
+  let r#for = (!r#for.is_empty()).then_some(r#for);
 
   rsx! {
     label {

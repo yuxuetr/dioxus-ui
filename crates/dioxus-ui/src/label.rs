@@ -17,6 +17,8 @@ pub fn Label(
   children: Element,
 ) -> Element {
   let class = label_class(&class);
+  // An empty `for` would point at no control, unlinking a wrapped input.
+  let r#for = (!r#for.is_empty()).then_some(r#for);
 
   rsx! {
     label {
@@ -31,6 +33,22 @@ pub fn Label(
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  #[test]
+  fn ssr_omits_an_empty_for() {
+    fn app() -> Element {
+      rsx! {
+        Label { r#for: "name", "Name" }
+        Label { "Wrapped" }
+      }
+    }
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    let html = dioxus_ssr::render(&dom);
+
+    assert_eq!(html.matches("for=").count(), 1);
+    assert!(html.contains(r#"for="name""#));
+  }
 
   #[test]
   fn label_class_appends_user_class() {
