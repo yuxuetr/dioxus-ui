@@ -229,6 +229,7 @@ format!("bg-{}-500", color)
 - [RFC 0044: Tailwind Utility Conflicts](docs/rfcs/0044-tailwind-utility-conflicts.md)
 - [RFC 0045: Drawn Checkbox](docs/rfcs/0045-drawn-checkbox.md)
 - [RFC 0046: Listbox Width Follows Trigger](docs/rfcs/0046-listbox-width-follows-trigger.md)
+- [RFC 0047: Opt-in Dark Theme](docs/rfcs/0047-opt-in-dark-theme.md)
 
 ## Verification Shortcuts
 

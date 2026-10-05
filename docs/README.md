@@ -113,7 +113,8 @@ Read in this order:
 107. [RFC 0044: Tailwind Utility Conflicts](rfcs/0044-tailwind-utility-conflicts.md)
 108. [RFC 0045: Drawn Checkbox](rfcs/0045-drawn-checkbox.md)
 109. [RFC 0046: Listbox Width Follows Trigger](rfcs/0046-listbox-width-follows-trigger.md)
-110. [TODO Plan](../TODOs.md)
+110. [RFC 0047: Opt-in Dark Theme](rfcs/0047-opt-in-dark-theme.md)
+111. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
