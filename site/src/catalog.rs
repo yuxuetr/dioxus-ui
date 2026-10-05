@@ -116,6 +116,12 @@ pub const CATEGORIES: &[Category] = &[
         feature: "native-select",
       },
       Component {
+        slug: "number-input",
+        title: "Number Input",
+        description: "Styled number field with stepping buttons and spinbutton keys.",
+        feature: "number-input",
+      },
+      Component {
         slug: "radio-group",
         title: "Radio Group",
         description: "Radio Group component for single-choice grouped selection.",

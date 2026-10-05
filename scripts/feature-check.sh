@@ -78,6 +78,7 @@ features=(
   countdown
   diff
   rating
+  number-input
 )
 
 for feature in "${features[@]}"; do

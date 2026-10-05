@@ -1324,6 +1324,36 @@ async function runBrowserAssertions() {
     await star(2).click();
     await expect(ratingFixture).toHaveAttribute("data-rating", "2");
     await expect(star(3)).toHaveAttribute("data-filled", "false");
+    // Number Input keeps the typed text, reports complete numbers, steps with
+    // the arrow keys and buttons, and clamps on blur (RFC 0060).
+    const numberFixture = page.locator('[data-interaction-target="number-input"]');
+    const quantity = numberFixture.getByRole("spinbutton", { name: "Quantity", exact: true });
+    const increase = numberFixture.getByRole("button", { name: "Increase", exact: true });
+    const decrease = numberFixture.getByRole("button", { name: "Decrease", exact: true });
+    await expect(quantity).toHaveValue("5");
+    await quantity.fill("7");
+    await expect(numberFixture).toHaveAttribute("data-value", "7");
+    await quantity.press("ArrowUp");
+    await expect(numberFixture).toHaveAttribute("data-value", "8");
+    await expect(quantity).toHaveAttribute("aria-valuenow", "8");
+    // Incomplete text survives the render and reverts on blur.
+    await quantity.fill("-");
+    await expect(quantity).toHaveValue("-");
+    await expect(numberFixture).toHaveAttribute("data-value", "8");
+    await quantity.blur();
+    await expect(quantity).toHaveValue("8");
+    await quantity.fill("15");
+    await quantity.blur();
+    await expect(numberFixture).toHaveAttribute("data-value", "10");
+    await expect(quantity).toHaveValue("10");
+    await expect(increase).toBeDisabled();
+    await decrease.click();
+    await expect(numberFixture).toHaveAttribute("data-value", "9");
+    await quantity.press("Home");
+    await expect(numberFixture).toHaveAttribute("data-value", "0");
+    await expect(decrease).toBeDisabled();
+    // A button at a bound must not dim the field.
+    await expect(quantity.locator("..")).toHaveCSS("opacity", "1");
     const sliderFixture = page.locator('[data-interaction-target="slider"]');
     const volume = sliderFixture.getByRole("slider", { name: "Volume", exact: true });
     const locked = sliderFixture.getByRole("slider", { name: "Locked", exact: true });
@@ -2048,7 +2078,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (37 fixtures)");
+  console.log("runtime interaction verification passed (38 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

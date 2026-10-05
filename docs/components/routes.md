@@ -11,7 +11,7 @@ It does not create rendered routes, router code, screenshots, or generated JSON.
 For source preview route metadata, see the
 [Source Preview Manifest](source-preview.md).
 
-Component routes: 73
+Component routes: 74
 Category routes: 8
 
 ## Top-level Routes
@@ -84,6 +84,7 @@ Category routes: 8
 | [Message Scroller](message-scroller.md) | /components/message-scroller | docs/components/message-scroller.md | /components#category-messaging | /components/message-scroller/source |
 | [Native Select](native-select.md) | /components/native-select | docs/components/native-select.md | /components#category-forms | /components/native-select/source |
 | [Navigation Menu](navigation-menu.md) | /components/navigation-menu | docs/components/navigation-menu.md | /components#category-navigation | /components/navigation-menu/source |
+| [Number Input](number-input.md) | /components/number-input | docs/components/number-input.md | /components#category-forms | /components/number-input/source |
 | [Pagination](pagination.md) | /components/pagination | docs/components/pagination.md | /components#category-navigation | /components/pagination/source |
 | [Popover](popover.md) | /components/popover | docs/components/popover.md | /components#category-overlays | /components/popover/source |
 | [Progress](progress.md) | /components/progress | docs/components/progress.md | /components#category-data-display | /components/progress/source |

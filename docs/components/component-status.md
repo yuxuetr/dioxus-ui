@@ -13,14 +13,14 @@ parity.
 
 ## Summary
 
-- Public components: 73
-- Registry entries: 74
+- Public components: 74
+- Registry entries: 75
 - Source-copy helpers: utils
-- Templates: 74
-- Crate modules: 73
-- Crate features: 73
-- Component docs pages: 73
-- Complete local wiring: 73
+- Templates: 75
+- Crate modules: 74
+- Crate features: 74
+- Component docs pages: 74
+- Complete local wiring: 74
 - Incomplete local wiring: 0
 
 ## Category Counts
@@ -28,7 +28,7 @@ parity.
 | Category | Components |
 | --- | ---: |
 | Actions | 6 |
-| Forms | 15 |
+| Forms | 16 |
 | Overlays | 11 |
 | Navigation | 6 |
 | Layout | 11 |
@@ -74,6 +74,7 @@ parity.
 | Input OTP | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Label | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Native Select | Forms | yes | yes | yes | yes | yes | yes | yes |
+| Number Input | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Radio Group | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Rating | Forms | yes | yes | yes | yes | yes | yes | yes |
 | Select | Forms | yes | yes | yes | yes | yes | yes | yes |
@@ -152,6 +153,7 @@ parity.
 | Input OTP | Forms | [docs](input-otp.md) | `dxui add input-otp` | `input-otp` | `crates/dioxus-shadcn-cli/templates/input_otp.rs` | `src/components/ui/input_otp.rs` |
 | Label | Forms | [docs](label.md) | `dxui add label` | `label` | `crates/dioxus-shadcn-cli/templates/label.rs` | `src/components/ui/label.rs` |
 | Native Select | Forms | [docs](native-select.md) | `dxui add native-select` | `native-select` | `crates/dioxus-shadcn-cli/templates/native_select.rs` | `src/components/ui/native_select.rs` |
+| Number Input | Forms | [docs](number-input.md) | `dxui add number-input` | `number-input` | `crates/dioxus-shadcn-cli/templates/number_input.rs` | `src/components/ui/number_input.rs` |
 | Radio Group | Forms | [docs](radio-group.md) | `dxui add radio-group` | `radio-group` | `crates/dioxus-shadcn-cli/templates/radio_group.rs` | `src/components/ui/radio_group.rs` |
 | Rating | Forms | [docs](rating.md) | `dxui add rating` | `rating` | `crates/dioxus-shadcn-cli/templates/rating.rs` | `src/components/ui/rating.rs` |
 | Select | Forms | [docs](select.md) | `dxui add select` | `select` | `crates/dioxus-shadcn-cli/templates/select.rs` | `src/components/ui/select.rs` |

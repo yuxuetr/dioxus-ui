@@ -10,7 +10,7 @@ The catalog is derived from registry entries, templates, component docs,
 crate features, and crate modules. It intentionally does not include visual
 preview routes, screenshot artifacts, or generated JSON metadata.
 
-Public components: 73
+Public components: 74
 
 ## Groups
 
@@ -34,6 +34,7 @@ Public components: 73
 - [Input OTP](input-otp.md): Input OTP component with controlled visual slots and native input support.
 - [Label](label.md): Label component for associating text with form controls.
 - [Native Select](native-select.md): Styled native select, optgroup, and option components.
+- [Number Input](number-input.md): Styled number field with stepping buttons and spinbutton keys.
 - [Radio Group](radio-group.md): Radio Group component for single-choice grouped selection.
 - [Rating](rating.md): Styled star rating built on a native radio group.
 - [Select](select.md): Select components backed by primitive configuration types.
@@ -159,6 +160,7 @@ Public components: 73
 | [Message Scroller](message-scroller.md) | Controlled message scroller composition parts with pure scroll intent helpers. | `dxui add message-scroller` | `message-scroller` | `crates/dioxus-shadcn-cli/templates/message_scroller.rs` | `src/components/ui/message_scroller.rs` |
 | [Native Select](native-select.md) | Styled native select, optgroup, and option components. | `dxui add native-select` | `native-select` | `crates/dioxus-shadcn-cli/templates/native_select.rs` | `src/components/ui/native_select.rs` |
 | [Navigation Menu](navigation-menu.md) | Controlled navigation menu parts with navigation semantics. | `dxui add navigation-menu` | `navigation-menu` | `crates/dioxus-shadcn-cli/templates/navigation_menu.rs` | `src/components/ui/navigation_menu.rs` |
+| [Number Input](number-input.md) | Styled number field with stepping buttons and spinbutton keys. | `dxui add number-input` | `number-input` | `crates/dioxus-shadcn-cli/templates/number_input.rs` | `src/components/ui/number_input.rs` |
 | [Pagination](pagination.md) | Pagination component with link, item, and ellipsis parts. | `dxui add pagination` | `pagination` | `crates/dioxus-shadcn-cli/templates/pagination.rs` | `src/components/ui/pagination.rs` |
 | [Popover](popover.md) | Popover content components backed by primitive configuration types. | `dxui add popover` | `popover` | `crates/dioxus-shadcn-cli/templates/popover.rs` | `src/components/ui/popover.rs` |
 | [Progress](progress.md) | Progress component with accessible value semantics. | `dxui add progress` | `progress` | `crates/dioxus-shadcn-cli/templates/progress.rs` | `src/components/ui/progress.rs` |

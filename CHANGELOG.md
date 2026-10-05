@@ -20,7 +20,8 @@ for commit messages.
   tokens ([RFC 0058](docs/rfcs/0058-status-variants.md)).
 - Display components ported from daisyUI
   ([RFC 0059](docs/rfcs/0059-display-components.md)): Stat, Timeline, Steps, Indicator, Status, Radial Progress, Countdown, and Diff.
-- Input components ([RFC 0060](docs/rfcs/0060-input-components.md)): Rating.
+- Input components ([RFC 0060](docs/rfcs/0060-input-components.md)): Rating and
+  Number Input.
 
 ### Changed
 

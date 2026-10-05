@@ -80,6 +80,7 @@ const componentCategories = {
   "toggle-group": "actions",
   tooltip: "overlays",
   typography: "data-display",
+  "number-input": "forms",
   rating: "forms",
   diff: "data-display",
   countdown: "data-display",

@@ -1,0 +1,14 @@
+{
+  "name": "number-input",
+  "description": "Styled number field with stepping buttons and spinbutton keys.",
+  "files": [
+    {
+      "source": "templates/number_input.rs",
+      "target": "src/components/ui/number_input.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

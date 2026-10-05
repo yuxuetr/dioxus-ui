@@ -1,6 +1,7 @@
 use dioxus::prelude::*;
 
 mod self_test;
+use dioxus_shadcn::NumberInput;
 use dioxus_shadcn::Progress;
 use dioxus_shadcn::Rating;
 use dioxus_shadcn::SliderOrientation;
@@ -459,6 +460,14 @@ pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
     notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
   },
   ComponentPreviewTarget {
+    component: "number-input",
+    label: "Number Input",
+    panel: "forms",
+    test_id: "component-preview-number-input",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
     component: "pagination",
     label: "Pagination",
     panel: "navigation",
@@ -867,6 +876,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut balance = use_signal(|| 50.0);
   let mut diff_position = use_signal(|| 50.0);
   let mut rating = use_signal(|| 3_u8);
+  let mut quantity = use_signal(|| 5.0);
   let mut locked_slider_changes = use_signal(|| 0_u32);
   let mut details_open = use_signal(|| false);
   let mut size_value = use_signal(|| "md".to_string());
@@ -1907,6 +1917,20 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               "aria-label": "Product rating",
               value: rating(),
               on_value_change: move |value| rating.set(value),
+            }
+          }
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "number-input",
+            "data-value": "{quantity}",
+            h2 { class: "text-sm font-medium", "Number input interaction" }
+            NumberInput {
+              class: "mt-3 max-w-40",
+              "aria-label": "Quantity",
+              min: 0.0,
+              max: 10.0,
+              value: quantity(),
+              on_value_change: move |value| quantity.set(value),
             }
           }
           article {

@@ -714,6 +714,9 @@ pub mod tooltip;
 pub mod typography;
 
 pub use dioxus_shadcn_core::UiDensity;
+#[cfg(feature = "number-input")]
+pub mod number_input;
+
 #[cfg(feature = "rating")]
 pub mod rating;
 
@@ -851,4 +854,11 @@ pub use diff::{
 #[cfg(feature = "rating")]
 pub use rating::{
   RATING_BASE_CLASS, RATING_STAR_CLASS, RATING_STAR_WRAPPER_CLASS, Rating, rating_class,
+};
+
+#[cfg(feature = "number-input")]
+pub use number_input::{
+  NUMBER_INPUT_BASE_CLASS, NUMBER_INPUT_BUTTON_CLASS, NUMBER_INPUT_FIELD_CLASS, NumberInput,
+  number_input_clamp, number_input_class, number_input_format, number_input_parse,
+  number_input_round, number_input_step,
 };

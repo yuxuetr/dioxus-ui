@@ -1641,6 +1641,10 @@
     outline-style: var(--tw-outline-style);
     outline-width: 1px;
   }
+  .blur {
+    --tw-blur: blur(8px);
+    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
+  }
   .filter {
     filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
   }
@@ -2071,6 +2075,12 @@
   }
   .has-focus-visible\:ring-offset-background:has(:focus-visible) {
     --tw-ring-offset-color: var(--background);
+  }
+  .has-\[input\:disabled\]\:cursor-not-allowed:has(:is(input:disabled)) {
+    cursor: not-allowed;
+  }
+  .has-\[input\:disabled\]\:opacity-50:has(:is(input:disabled)) {
+    opacity: 50%;
   }
   .data-highlighted\:bg-accent[data-highlighted] {
     background-color: var(--accent);

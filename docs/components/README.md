@@ -174,6 +174,7 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["button
 | [Message Scroller](message-scroller.md) | `dxui add message-scroller` | `message-scroller` | Controlled transcript viewport parts |
 | [Native Select](native-select.md) | `dxui add native-select` | `native-select` | Styled native form select |
 | [Navigation Menu](navigation-menu.md) | `dxui add navigation-menu` | `navigation-menu` | Navigation-oriented disclosure parts |
+| [Number Input](number-input.md) | `dxui add number-input` | `number-input` | Spinbutton number field |
 | [Pagination](pagination.md) | `dxui add pagination` | `pagination` | Styled parts |
 | [Popover](popover.md) | `dxui add popover` | `popover` | Primitive config + styled parts |
 | [Progress](progress.md) | `dxui add progress` | `progress` | Styled |

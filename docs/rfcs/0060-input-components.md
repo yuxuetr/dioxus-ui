@@ -32,13 +32,19 @@ group. `disabled` disables every star.
 
 ### Number Input
 
-`NumberInput` is a native `type="number"` input, with its spinner hidden,
-between decrement and increment buttons. `value`, `min`, `max`, and `step`
-are `f64`. The input keeps the text being typed, so "1." or "-" survive a
-render, and calls `on_value_change` only with a number that parses. On blur
-it clamps to `min` and `max`. The buttons step and clamp; they are
-`tabindex="-1"` with "Decrease" and "Increase" labels, since the input's own
-arrow keys do the same for keyboard users.
+`NumberInput` is a text input with `inputmode="decimal"` and
+`role="spinbutton"`, between decrement and increment buttons. A native
+`type="number"` input reports `value` as an empty string while its text is
+incomplete, such as "-" or "1.", so a controlled render would wipe what the
+user is typing; owning the text avoids that. `value` and `step` are `f64`,
+and `min` and `max` are optional. The input keeps the text being typed and
+calls `on_value_change` only with a number that parses. On blur it clamps
+to `min` and `max` and rounds to the step's decimals. ArrowUp and ArrowDown
+step, Home and End go to `min` and `max`, and the input sets
+`aria-valuenow`, `aria-valuemin`, and `aria-valuemax`. The buttons step and
+clamp; they are `tabindex="-1"`, since the keys do the same for keyboard
+users, and are named by `decrement_label` and `increment_label`, "Decrease"
+and "Increase" by default.
 
 ### Tags Input
 
@@ -68,8 +74,9 @@ otherwise, such as a menu icon that becomes a close icon. It sets
 
 - **Custom star buttons for Rating.** Radios give the group semantics, arrow
   keys, and form value without code.
-- **A text input with `inputmode="decimal"` for Number Input.** It loses the
-  spinbutton role and arrow keys that `type="number"` has.
+- **A native `type="number"` input for Number Input.** It has the spinbutton
+  role and arrow keys built in, but its empty `value` for incomplete text
+  breaks a controlled input.
 
 ## Verification
 
