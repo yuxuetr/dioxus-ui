@@ -19,7 +19,7 @@ src/components/ui/field.rs
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.1", default-features = false, features = ["field"] }
+dioxus-shadcn = { version = "0.2", default-features = false, features = ["field"] }
 ```
 
 ## API Surface

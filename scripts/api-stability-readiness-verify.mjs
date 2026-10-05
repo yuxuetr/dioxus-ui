@@ -70,11 +70,16 @@ if (!scripts["verify:release"]?.includes("npm run verify:api-stability-readiness
   failures.push("package.json verify:release must include npm run verify:api-stability-readiness");
 }
 
+// The docs name the current version and its minor series, so a version bump
+// fails here until they are updated with it.
 const workspacePackage = getSection(rootCargo, "workspace.package");
+const version = workspacePackage === null ? null : getStringField(workspacePackage, "version");
+const minorMatch = version?.match(/^0\.(\d+)\.\d+$/);
+const minor = minorMatch ? `0.${minorMatch[1]}` : "0.?";
 if (workspacePackage === null) {
   failures.push("Cargo.toml is missing [workspace.package]");
-} else if (getStringField(workspacePackage, "version") !== "0.1.0") {
-  failures.push('Cargo.toml [workspace.package] must keep version = "0.1.0" until API readiness docs are updated');
+} else if (minorMatch === null) {
+  failures.push(`Cargo.toml [workspace.package] version ${version} is not a pre-1.0 0.x.y version`);
 }
 
 const crateNames = readdirSync(join(repoRoot, "crates"), { withFileTypes: true })
@@ -92,11 +97,11 @@ for (const crateName of crateNames) {
 
 requireIncludes("docs/api-stability-readiness-metadata.md", apiDoc, [
   "API Stability Readiness Metadata",
-  "workspace is at `0.1.0`",
-  "current `0.1.x` API surface is accepted for first publish",
+  `workspace is at \`${version}\``,
+  `current \`${minor}.x\` API surface is accepted`,
   "Approved Publish Blocker Resolution Plan",
   "Must not break public crate-mode APIs",
-  "Allowed before `1.0` only in a minor bump (`0.1` to `0.2`)",
+  "Allowed before `1.0` only in a minor bump",
   "documented in `CHANGELOG.md` with a migration note",
   "Breaking API changes remain allowed before `1.0`.",
   "This gate must not freeze APIs or change versions automatically.",
@@ -105,7 +110,7 @@ requireIncludes("docs/api-stability-readiness-metadata.md", apiDoc, [
 
 requireIncludes("docs/publish-readiness-blockers.md", publishBlockers, [
   "Pre-1.0 API stability",
-  "Current `0.1.x` API surface is accepted for first publish",
+  `Current \`${minor}.x\` API surface is accepted`,
   "npm run verify:api-stability-readiness",
 ]);
 
@@ -115,26 +120,26 @@ requireExcludes("docs/publish-readiness-blockers.md", publishBlockers, [
 
 requireIncludes("docs/cargo-publish-metadata.md", cargoPublishDoc, [
   "APIs remain pre-1.0",
-  "current `0.1.x` API surface is accepted for first publish",
+  `current \`${minor}.x\` API surface is accepted`,
 ]);
 
 requireIncludes("docs/release.md", releaseDoc, [
   "Before `1.0`, API changes are allowed but should still be documented in the changelog.",
   "API stability readiness checks are read-only",
-  "workspace version `0.1.0` and the accepted `0.1.x` first-publish API policy",
+  `workspace version \`${version}\` and the accepted \`${minor}.x\` API policy`,
   "they do not stabilize component APIs, change crate versions, change the pre-`1.0` breaking-change policy, generate migration guides, run `cargo package`, or run `cargo publish`",
 ]);
 
 requireIncludes("docs/quality-gates.md", qualityDoc, [
   "`npm run verify:api-stability-readiness`",
-  "workspace version `0.1.0` and the accepted `0.1.x` first-publish API policy",
+  `workspace version \`${version}\` and the accepted \`${minor}.x\` API policy`,
   "does not stabilize component APIs, change crate versions, change the pre-`1.0` breaking-change policy, generate migration guides, run `cargo package`, or run `cargo publish`",
 ]);
 
 requireIncludes("docs/site.md", siteDoc, [
   "M102 API Stability Readiness Metadata Gate Usage",
   "npm run verify:api-stability-readiness",
-  "workspace version `0.1.0` and the accepted `0.1.x` first-publish API policy",
+  `workspace version \`${version}\` and the accepted \`${minor}.x\` API policy`,
 ]);
 
 if (failures.length > 0) {

@@ -13,7 +13,7 @@ dxui add hover-card
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.1", default-features = false, features = ["hover-card"] }
+dioxus-shadcn = { version = "0.2", default-features = false, features = ["hover-card"] }
 ```
 
 ## API Surface

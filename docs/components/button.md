@@ -11,7 +11,7 @@ dxui add button
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.1", default-features = false, features = ["button"] }
+dioxus-shadcn = { version = "0.2", default-features = false, features = ["button"] }
 ```
 
 ## API Surface

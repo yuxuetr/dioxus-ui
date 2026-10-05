@@ -257,5 +257,8 @@ Indicator, Status, Radial Progress, Countdown, and Diff
 ([RFC 0059](rfcs/0059-display-components.md)), and M191 Rating, Number
 Input, Tags Input, File Input, and Swap
 ([RFC 0060](rfcs/0060-input-components.md)), and M192 Dock and Fab
-([RFC 0061](rfcs/0061-mobile-navigation.md)); the plan is tracked in
-`TODOs.md`.
+([RFC 0061](rfcs/0061-mobile-navigation.md)), and M193 multi-select,
+Navigation Menu submenus, typed dates, and pie charts
+([RFC 0062](rfcs/0062-multi-select.md) to
+[RFC 0065](rfcs/0065-pie-and-donut-charts.md)). M194 prepares 0.2.0; the plan
+is tracked in `TODOs.md`.

@@ -12,7 +12,7 @@ dxui add chart
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.1", default-features = false, features = ["chart"] }
+dioxus-shadcn = { version = "0.2", default-features = false, features = ["chart"] }
 ```
 
 ## API Surface

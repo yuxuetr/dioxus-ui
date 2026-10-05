@@ -11,7 +11,7 @@ dxui add progress
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.1", default-features = false, features = ["progress"] }
+dioxus-shadcn = { version = "0.2", default-features = false, features = ["progress"] }
 ```
 
 ## API Surface

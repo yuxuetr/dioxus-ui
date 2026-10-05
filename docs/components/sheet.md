@@ -13,7 +13,7 @@ dxui add sheet
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.1", default-features = false, features = ["sheet"] }
+dioxus-shadcn = { version = "0.2", default-features = false, features = ["sheet"] }
 ```
 
 ## API Surface

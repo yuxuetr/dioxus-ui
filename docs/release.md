@@ -7,9 +7,9 @@
 - source-copy mode through `dxui add`
 - crate mode through `dioxus-shadcn` feature flags
 
-Both modes ship in 0.1.0. The `0.1.x` API surface is accepted for first
-publish; before `1.0`, a breaking change bumps the minor version and comes with
-a changelog migration note.
+Both modes ship in 0.1.0 and 0.2.0. The `0.2.x` API surface is accepted;
+before `1.0`, a breaking change bumps the minor version and comes with a
+changelog migration note.
 
 ## Package Set
 
@@ -36,7 +36,7 @@ The styled crate should keep `default = []`.
 Users opt into components:
 
 ```toml
-dioxus-shadcn = { version = "0.1", default-features = false, features = ["button", "dialog"] }
+dioxus-shadcn = { version = "0.2", default-features = false, features = ["button", "dialog"] }
 ```
 
 Feature names should match registry names where possible:
@@ -230,7 +230,7 @@ rollback evidence fields.
 maps identity decision outcomes to local metadata and documentation follow-up
 for any future identity change.
 API stability readiness checks are read-only and validate only workspace
-version `0.1.0` and the accepted `0.1.x` first-publish API policy; they do not
+version `0.2.0` and the accepted `0.2.x` API policy; they do not
 stabilize component APIs, change crate versions, change the pre-`1.0`
 breaking-change policy, generate migration guides, run `cargo package`, or run
 `cargo publish`.

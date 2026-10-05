@@ -11,7 +11,7 @@ dxui add badge
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.1", default-features = false, features = ["badge"] }
+dioxus-shadcn = { version = "0.2", default-features = false, features = ["badge"] }
 ```
 
 ## API Surface

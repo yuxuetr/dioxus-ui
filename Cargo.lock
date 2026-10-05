@@ -1355,7 +1355,7 @@ dependencies = [
 
 [[package]]
 name = "dioxus-shadcn"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "dioxus",
  "dioxus-shadcn-core",
@@ -1365,7 +1365,7 @@ dependencies = [
 
 [[package]]
 name = "dioxus-shadcn-cli"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "dioxus-shadcn-core",
  "serde_json",
@@ -1373,14 +1373,14 @@ dependencies = [
 
 [[package]]
 name = "dioxus-shadcn-core"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "serde",
 ]
 
 [[package]]
 name = "dioxus-shadcn-primitives"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "dioxus-shadcn-core",
 ]
@@ -1439,7 +1439,7 @@ dependencies = [
 
 [[package]]
 name = "dioxus-ui-desktop-demo"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "dioxus",
  "dioxus-shadcn",
@@ -1448,7 +1448,7 @@ dependencies = [
 
 [[package]]
 name = "dioxus-ui-mobile-demo"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "dioxus",
  "dioxus-ui-preview-states",
@@ -1456,7 +1456,7 @@ dependencies = [
 
 [[package]]
 name = "dioxus-ui-preview-states"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "dioxus",
  "dioxus-shadcn",
@@ -1465,21 +1465,21 @@ dependencies = [
 
 [[package]]
 name = "dioxus-ui-runtime-desktop-verification"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "dioxus-shadcn-primitives",
 ]
 
 [[package]]
 name = "dioxus-ui-runtime-web-verification"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "dioxus-shadcn-primitives",
 ]
 
 [[package]]
 name = "dioxus-ui-site"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "dioxus",
  "dioxus-shadcn",
@@ -1487,7 +1487,7 @@ dependencies = [
 
 [[package]]
 name = "dioxus-ui-web-demo"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "dioxus",
  "dioxus-shadcn",

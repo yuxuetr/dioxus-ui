@@ -12,7 +12,7 @@ dxui add indicator
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.1", default-features = false, features = ["indicator"] }
+dioxus-shadcn = { version = "0.2", default-features = false, features = ["indicator"] }
 ```
 
 ## API Surface

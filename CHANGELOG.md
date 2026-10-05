@@ -8,6 +8,13 @@ for commit messages.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-05
+
+Version 0.2.0 adds theme presets, 15 components ported from daisyUI, and the
+0.1.0 exclusions apps hit most: multi-select, Navigation Menu submenus, typed
+dates, and pie charts. It has 79 components. Breaking changes are listed
+under Migration.
+
 ### Added
 
 - Theme presets ([RFC 0057](docs/rfcs/0057-theme-presets.md)): 33 daisyUI
@@ -19,7 +26,8 @@ for commit messages.
   `--success-foreground`, `--warning-foreground`, and `--info-foreground`
   tokens ([RFC 0058](docs/rfcs/0058-status-variants.md)).
 - Display components ported from daisyUI
-  ([RFC 0059](docs/rfcs/0059-display-components.md)): Stat, Timeline, Steps, Indicator, Status, Radial Progress, Countdown, and Diff.
+  ([RFC 0059](docs/rfcs/0059-display-components.md)): Stat, Timeline, Steps,
+  Indicator, Status, Radial Progress, Countdown, and Diff.
 - Input components ([RFC 0060](docs/rfcs/0060-input-components.md)): Rating, Number
   Input, Tags Input, File Input, and Swap.
 - Mobile navigation ([RFC 0061](docs/rfcs/0061-mobile-navigation.md)): Dock and

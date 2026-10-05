@@ -21,9 +21,9 @@ Resolved publish readiness items:
 | --- | --- | --- |
 | Placeholder repository URL | Workspace metadata uses `https://github.com/yuxuetr/dioxus-ui` | `npm run verify:repository-identity-readiness` |
 | Root license files not committed | `LICENSE` contains reviewed MIT license text | `npm run verify:license-readiness` |
-| Pre-1.0 API stability | Current `0.1.x` API surface is accepted for first publish; breaking changes before `1.0` require a minor bump and a changelog migration note | `npm run verify:api-stability-readiness` |
+| Pre-1.0 API stability | Current `0.2.x` API surface is accepted; breaking changes before `1.0` require a minor bump and a changelog migration note | `npm run verify:api-stability-readiness` |
 | Release notes not publish-ready | `CHANGELOG.md` has project-owned structure and its `[0.1.0]` section records first publish included scope, excluded scope, and known warnings | `npm run verify:release-notes-readiness` |
-| Workspace dependency publish readiness | Internal workspace dependencies declare `version = "0.1.0"` alongside local paths | `npm run verify:workspace-dependency-publish-readiness` |
+| Workspace dependency publish readiness | Internal workspace dependencies declare `version = "0.2.0"` alongside local paths | `npm run verify:workspace-dependency-publish-readiness` |
 | Registry availability not checked | The renamed `dioxus-shadcn` crates were free on crates.io on 2026-10-05 ([RFC 0056](rfcs/0056-published-crate-names.md)) | `npm run verify:registry-availability-readiness` |
 | CLI template packaging strategy | `dioxus-shadcn-cli` embeds registry and template assets at compile time | `npm run verify:cli-template-packaging-readiness` |
 

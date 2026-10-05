@@ -83,7 +83,7 @@ Rules:
 Crate feature:
 
 ```toml
-dioxus-shadcn = { version = "0.1", default-features = false, features = ["input-otp"] }
+dioxus-shadcn = { version = "0.2", default-features = false, features = ["input-otp"] }
 ```
 
 Source-copy command:

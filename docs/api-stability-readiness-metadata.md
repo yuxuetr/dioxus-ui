@@ -1,9 +1,10 @@
 # API Stability Readiness Metadata
 
 M102 defines the read-only contract for API stability readiness. The workspace
-is at `0.1.0`, and M133 records the maintainer decision that the current
-`0.1.x` API surface is accepted for first publish under a pre-`1.0`
-breaking-change policy.
+is at `0.2.0`. M133 recorded the maintainer decision that the `0.1.x` API
+surface was accepted for first publish under a pre-`1.0` breaking-change
+policy, and the same policy carries each minor release: the current `0.2.x` API surface is accepted, and 0.2.0 lists its breaking changes in the
+changelog's Migration section.
 The current audit inventory is tracked in
 [Public API Surface Inventory](public-api-surface-inventory.md).
 The maintainer review checklist is tracked in
@@ -21,11 +22,11 @@ The consolidated first-publish evidence and rollback view is tracked in
 
 | Field | Value |
 | --- | --- |
-| Workspace version | `0.1.0` |
-| Decision | Current `0.1.x` API surface is accepted for first publish |
+| Workspace version | `0.2.0` |
+| Decision | Current `0.2.x` API surface is accepted |
 | Decision source | [Approved Publish Blocker Resolution Plan](approved-publish-blocker-resolution-plan.md) |
-| Patch releases (`0.1.x`) | Must not break public crate-mode APIs |
-| Breaking changes | Allowed before `1.0` only in a minor bump (`0.1` to `0.2`) |
+| Patch releases (`0.2.x`) | Must not break public crate-mode APIs |
+| Breaking changes | Allowed before `1.0` only in a minor bump, such as `0.2` to `0.3` |
 | Changelog | Every breaking change is documented in `CHANGELOG.md` with a migration note |
 
 Cargo already treats `0.x` minor bumps as incompatible, so `^0.1` consumers do
@@ -39,7 +40,7 @@ The release metadata should distinguish these states:
 
 - Crate versions exist and are intentionally pre-`1.0`.
 - Breaking API changes remain allowed before `1.0`.
-- The current `0.1.x` API surface is accepted for first publish.
+- The current `0.2.x` API surface is accepted.
 
 This gate must not freeze APIs or change versions automatically.
 
@@ -66,11 +67,11 @@ Out of scope:
 
 The verifier should fail when committed metadata drifts. Examples include:
 
-- workspace version stops matching the documented `0.1.x` policy without
+- workspace version stops matching the documented minor policy without
   updating release readiness docs
 - publish readiness blockers stop recording the accepted API policy as resolved
 - release docs stop saying breaking changes before `1.0` must be documented
 - package scripts stop running the API stability readiness gate
 
-This gate should keep the accepted `0.1.x` API policy explicit after
+This gate should keep the accepted minor API policy explicit after
 resolution.

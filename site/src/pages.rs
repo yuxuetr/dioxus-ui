@@ -101,7 +101,7 @@ pub fn GettingStarted() -> Element {
       h2 { class: H2, "Crate mode" }
       p { class: P, "Enable one feature per component:" }
       CodeBlock {
-        code: "[dependencies]\ndioxus-shadcn = { version = \"0.1\", default-features = false, features = [\"button\", \"dialog\"] }"
+        code: "[dependencies]\ndioxus-shadcn = { version = \"0.2\", default-features = false, features = [\"button\", \"dialog\"] }"
           .to_string()
       }
       CodeBlock { code: "use dioxus_shadcn::{Button, ButtonVariant};".to_string() }
@@ -234,7 +234,7 @@ pub fn ComponentPage(slug: String) -> Element {
       CodeBlock { code: "dxui add {component.slug}" }
       p { class: P, "Or enable the crate feature:" }
       CodeBlock {
-        code: format!("dioxus-shadcn = {{ version = \"0.1\", features = [\"{}\"] }}", component.feature)
+        code: format!("dioxus-shadcn = {{ version = \"0.2\", features = [\"{}\"] }}", component.feature)
       }
       if has_examples {
         h2 { class: H2, "Examples" }

@@ -12,7 +12,7 @@ dxui add alert-dialog
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.1", default-features = false, features = ["alert-dialog"] }
+dioxus-shadcn = { version = "0.2", default-features = false, features = ["alert-dialog"] }
 ```
 
 ## API Surface

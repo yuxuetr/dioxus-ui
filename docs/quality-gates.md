@@ -412,8 +412,8 @@ repository identity by itself.
 maps repository identity outcomes to local follow-up files and gates without
 applying URL changes.
 
-`npm run verify:api-stability-readiness` checks workspace version `0.1.0` and
-the accepted `0.1.x` first-publish API policy. It is read-only and does not
+`npm run verify:api-stability-readiness` checks workspace version `0.2.0` and
+the accepted `0.2.x` API policy. It is read-only and does not
 stabilize component APIs, change crate versions, change the pre-`1.0`
 breaking-change policy, generate migration guides, run `cargo package`, or run
 `cargo publish`.

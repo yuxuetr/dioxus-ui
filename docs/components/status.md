@@ -12,7 +12,7 @@ dxui add status
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.1", default-features = false, features = ["status"] }
+dioxus-shadcn = { version = "0.2", default-features = false, features = ["status"] }
 ```
 
 ## API Surface

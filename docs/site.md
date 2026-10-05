@@ -1831,8 +1831,7 @@ M102 adds a focused API stability readiness metadata command:
 npm run verify:api-stability-readiness
 ```
 
-The command checks workspace version `0.1.0` and the accepted `0.1.x`
-first-publish API policy.
+The command checks workspace version `0.2.0` and the accepted `0.2.x` API policy, deriving both from `Cargo.toml` since 0.2.0.
 
 The check is included in:
 
@@ -1847,8 +1846,7 @@ guides, run `cargo package`, or run `cargo publish`.
 ## M102 Final Result
 
 M102 added `npm run verify:api-stability-readiness` and wired it into
-`npm run verify:release`. The gate validates workspace version `0.1.0` and the
-accepted `0.1.x` first-publish API policy recorded in M133.
+`npm run verify:release`. The gate validates workspace version `0.2.0` and the accepted `0.2.x` API policy, which carries the M133 decision to each minor release.
 
 Validation completed:
 

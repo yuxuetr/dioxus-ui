@@ -12,7 +12,7 @@ dxui add alert
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.1", default-features = false, features = ["alert"] }
+dioxus-shadcn = { version = "0.2", default-features = false, features = ["alert"] }
 ```
 
 ## API Surface

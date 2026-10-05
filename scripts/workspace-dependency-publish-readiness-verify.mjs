@@ -107,7 +107,7 @@ if (workspaceDependencies === null) {
 
 requireIncludes("docs/workspace-dependency-publish-readiness-metadata.md", metadataDoc, [
   "Workspace Dependency Publish Readiness Metadata",
-  "version = \"0.1.0\", path = \"crates/dioxus-shadcn-core\"",
+  `version = "${workspaceVersion}", path = "crates/dioxus-shadcn-core"`,
   "crates.io-resolvable version metadata",
   "after resolution",
   "must not change dependency versions, run `cargo package`, run `cargo publish`, contact crates.io, check registry ownership, inspect credentials, create package archives, or authorize a release",
@@ -115,7 +115,7 @@ requireIncludes("docs/workspace-dependency-publish-readiness-metadata.md", metad
 
 requireIncludes("docs/publish-readiness-blockers.md", blockerDoc, [
   "Workspace dependency publish readiness",
-  "Internal workspace dependencies declare `version = \"0.1.0\"` alongside local paths",
+  `Internal workspace dependencies declare \`version = "${workspaceVersion}"\` alongside local paths`,
 ]);
 
 requireIncludes("docs/publish-readiness-coverage-metadata.md", coverageDoc, [
