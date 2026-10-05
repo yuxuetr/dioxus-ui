@@ -115,6 +115,14 @@ pub fn GettingStarted() -> Element {
         " or copy the token blocks into your own input, and let your build compile it."
       }
       p { class: P,
+        "Crate mode also needs an "
+        code { class: INLINE_CODE, "@source" }
+        " line for the crate's source after the import, since Tailwind generates only the classes it finds in scanned files. "
+        code { class: INLINE_CODE, "cargo metadata" }
+        " shows where the crate lives:"
+      }
+      CodeBlock { code: "@import \"tailwindcss\";\n@source \"/path/to/dioxus-shadcn-0.1.0/src\";".to_string() }
+      p { class: P,
         "Continue with "
         Link { class: "font-medium underline underline-offset-4", to: Route::Theming {}, "Theming" }
         "."

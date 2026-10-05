@@ -60,7 +60,8 @@ fn App() -> Element {
 
 Run `dxui init` for the stylesheet. Tailwind generates only the classes it
 finds in scanned files, so add an `@source` line for the crate's source to the
-stylesheet. Cargo prints where the crate lives:
+stylesheet. Cargo prints where the crate's `Cargo.toml` lives; use its
+directory plus `/src`:
 
 ```bash
 cargo metadata --format-version 1 \
