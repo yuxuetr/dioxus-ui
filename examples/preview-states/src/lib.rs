@@ -40,8 +40,8 @@ use dioxus_ui::{
   otp_apply_paste_filtered, otp_slots,
 };
 use dioxus_ui::{
-  AttachmentAction, AttachmentTrigger, ButtonGroup, ButtonGroupItem, ComboboxTrigger, InputGroup,
-  InputGroupAction, InputGroupControl, MessageScrollerJumpButton,
+  AttachmentAction, AttachmentTrigger, ButtonGroup, ButtonGroupItem, ComboboxTrigger, Field,
+  FieldLabel, InputGroup, InputGroupAction, InputGroupControl, MessageScrollerJumpButton,
 };
 use dioxus_ui::{
   Button, Collapsible, CollapsibleContent, CollapsibleTrigger, Input, NativeSelect,
@@ -2312,6 +2312,10 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                   "Copy link"
                 }
                 TooltipContent { open: false, "Copied" }
+              }
+              Field { class: "max-w-56",
+                FieldLabel { r#for: "action-part-email", "Contact email" }
+                Input { id: "action-part-email", r#type: "email" }
               }
               // A jump button inside a form must not submit it.
               form {

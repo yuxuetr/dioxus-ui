@@ -23,7 +23,7 @@ Source preview routes: 64
 | [Attachment](attachment.md) | /components/attachment/source | crates/dioxus-ui-cli/templates/attachment.rs | src/components/ui/attachment.rs | rust | 325 | 8888 |
 | [Avatar](avatar.md) | /components/avatar/source | crates/dioxus-ui-cli/templates/avatar.rs | src/components/ui/avatar.rs | rust | 60 | 1358 |
 | [Badge](badge.md) | /components/badge/source | crates/dioxus-ui-cli/templates/badge.rs | src/components/ui/badge.rs | rust | 44 | 1131 |
-| [Breadcrumb](breadcrumb.md) | /components/breadcrumb/source | crates/dioxus-ui-cli/templates/breadcrumb.rs | src/components/ui/breadcrumb.rs | rust | 141 | 3401 |
+| [Breadcrumb](breadcrumb.md) | /components/breadcrumb/source | crates/dioxus-ui-cli/templates/breadcrumb.rs | src/components/ui/breadcrumb.rs | rust | 143 | 3501 |
 | [Bubble](bubble.md) | /components/bubble/source | crates/dioxus-ui-cli/templates/bubble.rs | src/components/ui/bubble.rs | rust | 224 | 5744 |
 | [Button](button.md) | /components/button/source | crates/dioxus-ui-cli/templates/button.rs | src/components/ui/button.rs | rust | 99 | 2717 |
 | [Button Group](button-group.md) | /components/button-group/source | crates/dioxus-ui-cli/templates/button_group.rs | src/components/ui/button_group.rs | rust | 106 | 3147 |
@@ -43,8 +43,8 @@ Source preview routes: 64
 | [Drawer](drawer.md) | /components/drawer/source | crates/dioxus-ui-cli/templates/drawer.rs | src/components/ui/drawer.rs | rust | 178 | 5128 |
 | [Dropdown](dropdown.md) | /components/dropdown/source | crates/dioxus-ui-cli/templates/dropdown.rs | src/components/ui/dropdown.rs | rust | 139 | 4299 |
 | [Empty](empty.md) | /components/empty/source | crates/dioxus-ui-cli/templates/empty.rs | src/components/ui/empty.rs | rust | 106 | 2495 |
-| [Field](field.md) | /components/field/source | crates/dioxus-ui-cli/templates/field.rs | src/components/ui/field.rs | rust | 101 | 2306 |
-| [Hover Card](hover-card.md) | /components/hover-card/source | crates/dioxus-ui-cli/templates/hover_card.rs | src/components/ui/hover_card.rs | rust | 180 | 5437 |
+| [Field](field.md) | /components/field/source | crates/dioxus-ui-cli/templates/field.rs | src/components/ui/field.rs | rust | 110 | 2591 |
+| [Hover Card](hover-card.md) | /components/hover-card/source | crates/dioxus-ui-cli/templates/hover_card.rs | src/components/ui/hover_card.rs | rust | 186 | 5546 |
 | [Input](input.md) | /components/input/source | crates/dioxus-ui-cli/templates/input.rs | src/components/ui/input.rs | rust | 47 | 1524 |
 | [Input Group](input-group.md) | /components/input-group/source | crates/dioxus-ui-cli/templates/input_group.rs | src/components/ui/input_group.rs | rust | 133 | 3920 |
 | [Input Otp](input-otp.md) | /components/input-otp/source | crates/dioxus-ui-cli/templates/input_otp.rs | src/components/ui/input_otp.rs | rust | 412 | 11381 |

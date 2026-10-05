@@ -48,12 +48,21 @@ pub fn Field(
 }
 
 #[component]
-pub fn FieldLabel(#[props(default)] class: String, children: Element) -> Element {
+pub fn FieldLabel(
+  #[props(default)] r#for: String,
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = label)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
   let class = field_label_class(&class);
+  // An empty `for` would point at no control, unlinking a wrapped input.
+  let r#for = (!r#for.is_empty()).then_some(r#for);
 
   rsx! {
     label {
       class,
+      r#for,
+      ..attributes,
       {children}
     }
   }
@@ -98,6 +107,28 @@ pub fn FieldGroup(#[props(default)] class: String, children: Element) -> Element
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  fn render(app: fn() -> Element) -> String {
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    dioxus_ssr::render(&dom)
+  }
+
+  #[test]
+  fn ssr_label_renders_for_and_passed_attributes() {
+    fn app() -> Element {
+      rsx! {
+        FieldLabel { r#for: "email", id: "email-label", "Email" }
+        FieldLabel { "Wrapped" }
+      }
+    }
+    let html = render(app);
+
+    assert!(html.contains(r#"for="email""#));
+    assert!(html.contains(r#"id="email-label""#));
+    // Without `for`, the label must not point at an empty id.
+    assert_eq!(html.matches("for=").count(), 1);
+  }
 
   #[test]
   fn field_class_reflects_invalid_state() {

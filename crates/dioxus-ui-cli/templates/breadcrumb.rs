@@ -84,6 +84,7 @@ pub fn BreadcrumbLink(
   #[props(default)] href: String,
   #[props(default)] current: bool,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = a)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = breadcrumb_link_class(current, &class);
@@ -93,6 +94,7 @@ pub fn BreadcrumbLink(
       class,
       href,
       "aria-current": if current { "page" } else { "false" },
+      ..attributes,
       {children}
     }
   }

@@ -84,7 +84,12 @@ pub fn HoverCard(
 
 /// A link that opens the card. Use it inside `HoverCard`.
 #[component]
-pub fn HoverCardTrigger(href: String, #[props(default)] class: String, children: Element) -> Element {
+pub fn HoverCardTrigger(
+  href: String,
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = a)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
   let id = try_use_context::<HoverCardContext>().map(|context| context.trigger_id());
   let is_part = id.is_some().then_some("");
 
@@ -94,6 +99,7 @@ pub fn HoverCardTrigger(href: String, #[props(default)] class: String, children:
       id,
       class,
       "data-dxui-hover-trigger": is_part,
+      ..attributes,
       {children}
     }
   }

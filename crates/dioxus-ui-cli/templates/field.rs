@@ -52,12 +52,21 @@ pub fn Field(
 }
 
 #[component]
-pub fn FieldLabel(#[props(default)] class: String, children: Element) -> Element {
+pub fn FieldLabel(
+  #[props(default)] r#for: String,
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = label)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
   let class = field_label_class(&class);
+  // An empty `for` would point at no control, unlinking a wrapped input.
+  let r#for = (!r#for.is_empty()).then_some(r#for);
 
   rsx! {
     label {
       class,
+      r#for,
+      ..attributes,
       {children}
     }
   }

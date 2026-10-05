@@ -95,6 +95,7 @@ pub fn HoverCard(
 pub fn HoverCardTrigger(
   href: String,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = a)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let id = try_use_context::<HoverCardContext>().map(|context| context.trigger_id());
@@ -106,6 +107,7 @@ pub fn HoverCardTrigger(
       id,
       class,
       "data-dxui-hover-trigger": is_part,
+      ..attributes,
       {children}
     }
   }
@@ -193,6 +195,23 @@ pub fn HoverCardDescription(#[props(default)] class: String, children: Element) 
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  fn render(app: fn() -> Element) -> String {
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    dioxus_ssr::render(&dom)
+  }
+
+  #[test]
+  fn ssr_trigger_renders_passed_attributes() {
+    fn app() -> Element {
+      rsx! { HoverCardTrigger { href: "https://dioxuslabs.com", target: "_blank", rel: "noreferrer", "@dioxus" } }
+    }
+    let html = render(app);
+
+    assert!(html.contains(r#"target="_blank""#));
+    assert!(html.contains(r#"rel="noreferrer""#));
+  }
 
   #[test]
   fn hover_card_content_class_appends_user_class() {

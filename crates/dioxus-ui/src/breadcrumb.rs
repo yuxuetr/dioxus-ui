@@ -86,6 +86,7 @@ pub fn BreadcrumbLink(
   #[props(default)] href: String,
   #[props(default)] current: bool,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = a)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = breadcrumb_link_class(current, &class);
@@ -95,6 +96,7 @@ pub fn BreadcrumbLink(
       class,
       href,
       "aria-current": if current { "page" } else { "false" },
+      ..attributes,
       {children}
     }
   }
@@ -144,6 +146,23 @@ pub fn BreadcrumbEllipsis(#[props(default)] class: String) -> Element {
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  fn render(app: fn() -> Element) -> String {
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    dioxus_ssr::render(&dom)
+  }
+
+  #[test]
+  fn ssr_link_renders_passed_attributes_and_keeps_aria_current() {
+    fn app() -> Element {
+      rsx! { BreadcrumbLink { href: "/docs", current: true, title: "Documentation", "Docs" } }
+    }
+    let html = render(app);
+
+    assert!(html.contains(r#"title="Documentation""#));
+    assert!(html.contains(r#"aria-current="page""#));
+  }
 
   #[test]
   fn breadcrumb_link_class_reflects_current_state() {

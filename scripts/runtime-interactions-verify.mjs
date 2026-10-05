@@ -1935,6 +1935,10 @@ async function runBrowserAssertions() {
     // The jump button is a plain button, so its form was never submitted.
     await expect(actionPart("Jump to latest")).toHaveAttribute("type", "button");
     await expect(actionParts).toHaveAttribute("data-submits", "0");
+    // A FieldLabel names its input and focuses it on a click.
+    const contactEmail = actionParts.getByRole("textbox", { name: "Contact email", exact: true });
+    await actionParts.getByText("Contact email", { exact: true }).click();
+    await expect(contactEmail).toBeFocused();
     // A press on a disabled part does not call onclick.
     await expect(actionPart("Italic")).toBeDisabled();
     await actionPart("Italic").click({ force: true });
