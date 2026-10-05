@@ -76,12 +76,13 @@ npm run verify:desktop-interactions
 The command builds the Desktop preview (`dioxus-ui-desktop-demo`, binary
 `preview`) and runs it with `DIOXUS_UI_DESKTOP_SELF_TEST=1`. The app runs
 `examples/desktop-demo/self-test/interactions.js` in its own WebView, prints
-`desktop interaction verification passed (8 scenarios: ...)` or the failing
+`desktop interaction verification passed (9 scenarios: ...)` or the failing
 scenario, and exits with that status. WKWebView has no WebDriver endpoint, so
 the scenarios drive the shared interaction fixtures from inside the page:
 
 | Scenario | Path exercised |
 | --- | --- |
+| `stylesheet` | the compiled preview stylesheet linked by `PreviewSurface` applies (M174, [RFC 0049](../rfcs/0049-compiled-preview-stylesheet.md)) |
 | `dialog` | modal focus scope: focus entry, Escape, focus return |
 | `popover` | anchored overlay: fixed placement next to the trigger, outside press |
 | `select` | Rust ArrowDown handler, listbox highlight, Enter selection |
@@ -105,6 +106,7 @@ removed one behavior and was then restored:
 - listbox selection reporting
 - menubar switching inside a menu
 - the calendar `set_focus` call
+- the `PreviewSurface` stylesheet link, which fails the `stylesheet` scenario
 
 A 300 ms overall timeout also made it report `timed out` instead of hanging.
 
@@ -125,7 +127,7 @@ iPhone on iOS 26 or older and shuts it down afterwards. It then installs the
 app and launches it with `SIMCTL_CHILD_DIOXUS_UI_MOBILE_SELF_TEST=1`.
 
 The app runs the shared scenario script from `examples/preview-states` (the
-same eight scenarios as Desktop). The command passes only when the console
+same nine scenarios as Desktop). The command passes only when the console
 prints `mobile interaction verification passed`, because `simctl` does not
 report the app's exit status.
 

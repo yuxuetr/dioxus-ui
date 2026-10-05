@@ -29,6 +29,12 @@ const focus = (element) => {
 };
 
 const scenarios = [
+  ["stylesheet", async () => {
+    // PreviewSurface links compiled Tailwind (RFC 0049); without it the
+    // scenarios below would run on an unstyled page.
+    const hidden = $(".sr-only");
+    await waitFor(() => hidden !== null && getComputedStyle(hidden).position === "absolute", "the compiled preview stylesheet applies");
+  }],
   ["dialog", async () => {
     const root = $('[data-interaction-target="dialog"]');
     const trigger = root.querySelector('[data-interaction-control="dialog-trigger"]');
