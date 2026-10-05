@@ -10,7 +10,7 @@ use crate::listbox::{ListboxMode, use_listbox};
 pub const CONTEXT_MENU_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-zinc-200 bg-white p-1 text-zinc-950 shadow-md";
 pub const CONTEXT_MENU_GROUP_BASE_CLASS: &str = "p-1";
 pub const CONTEXT_MENU_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-zinc-500";
-pub const CONTEXT_MENU_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-disabled:pointer-events-none data-disabled:opacity-50";
+pub const CONTEXT_MENU_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
 pub const CONTEXT_MENU_ITEM_INSET_CLASS: &str = "pl-8";
 pub const CONTEXT_MENU_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-zinc-200";
 pub const CONTEXT_MENU_SHORTCUT_BASE_CLASS: &str = "ml-auto text-xs tracking-normal text-zinc-500";

@@ -7,7 +7,7 @@ pub enum InputGroupAddonPosition {
   End,
 }
 
-pub const INPUT_GROUP_BASE_CLASS: &str = "flex min-h-10 w-full items-center overflow-hidden rounded-md border border-zinc-200 bg-white text-sm transition-colors focus-within:ring-2 focus-within:ring-blue-600 data-disabled:opacity-50";
+pub const INPUT_GROUP_BASE_CLASS: &str = "flex min-h-10 w-full items-center overflow-hidden rounded-md border border-zinc-200 bg-white text-sm transition-colors focus-within:ring-2 focus-within:ring-blue-600 data-[disabled=true]:opacity-50";
 pub const INPUT_GROUP_INVALID_CLASS: &str = "border-red-500 focus-within:ring-red-500";
 pub const INPUT_GROUP_DISABLED_CLASS: &str = "cursor-not-allowed";
 pub const INPUT_GROUP_ADDON_BASE_CLASS: &str = "flex h-full shrink-0 items-center gap-2 bg-zinc-50 px-3 text-sm text-zinc-600";

@@ -53,6 +53,12 @@ const dynamicTokenPattern = new RegExp(
     .join("|")})-\\{[^}\\n]+\\}`,
   "g",
 );
+// Tailwind's bare `data-name:` variant matches when the attribute exists, but
+// components render boolean flags as "true" or "false" and enumerations as
+// `data-orientation="vertical"`. Only attributes set without a value, such as
+// the listbox's `data-highlighted`, may use the bare form.
+const presenceDataAttributes = new Set(["highlighted"]);
+const bareDataVariantPattern = /(?:^|[\s"])((?:[a-z-]+:)*data-([a-z-]+)):/g;
 
 const rustFiles = [];
 
@@ -85,6 +91,14 @@ for (const file of rustFiles.sort()) {
     const matches = [...line.matchAll(dynamicTokenPattern)];
     for (const match of matches) {
       failures.push(`${relativePath}:${index + 1}: dynamic Tailwind token "${match[0].trim()}"`);
+    }
+
+    for (const match of line.matchAll(bareDataVariantPattern)) {
+      if (!presenceDataAttributes.has(match[2])) {
+        failures.push(
+          `${relativePath}:${index + 1}: bare data variant "${match[1]}:" matches any value; use data-[attribute=value]:`,
+        );
+      }
     }
   }
 }

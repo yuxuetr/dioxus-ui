@@ -12,14 +12,14 @@ pub const fn sidebar_toggle(collapsed: bool) -> bool {
   !collapsed
 }
 
-pub const SIDEBAR_BASE_CLASS: &str = "flex h-full w-64 flex-col border-zinc-200 bg-white text-zinc-950 transition-[width] data-collapsed:w-14 data-side-left:border-r data-side-right:border-l";
-pub const SIDEBAR_RAIL_BASE_CLASS: &str = "absolute inset-y-0 z-10 hidden w-3 -translate-x-1/2 transition-colors hover:bg-zinc-100 data-collapsed:block";
+pub const SIDEBAR_BASE_CLASS: &str = "flex h-full w-64 flex-col border-zinc-200 bg-white text-zinc-950 transition-[width] data-[collapsed=true]:w-14 data-[side=left]:border-r data-[side=right]:border-l";
+pub const SIDEBAR_RAIL_BASE_CLASS: &str = "absolute inset-y-0 z-10 hidden w-3 -translate-x-1/2 transition-colors hover:bg-zinc-100 data-[collapsed=true]:block";
 pub const SIDEBAR_HEADER_BASE_CLASS: &str = "flex min-h-14 items-center gap-2 border-b border-zinc-200 px-3";
 pub const SIDEBAR_CONTENT_BASE_CLASS: &str = "flex-1 overflow-auto p-2";
 pub const SIDEBAR_FOOTER_BASE_CLASS: &str = "border-t border-zinc-200 p-2";
 pub const SIDEBAR_GROUP_BASE_CLASS: &str = "grid gap-1 py-2";
 pub const SIDEBAR_GROUP_LABEL_BASE_CLASS: &str = "px-2 py-1 text-xs font-medium text-zinc-500";
-pub const SIDEBAR_ITEM_BASE_CLASS: &str = "flex min-h-9 items-center gap-2 rounded-md px-2 text-sm transition-colors hover:bg-zinc-100 data-active:bg-zinc-100 data-active:text-zinc-950 data-disabled:pointer-events-none data-disabled:opacity-50";
+pub const SIDEBAR_ITEM_BASE_CLASS: &str = "flex min-h-9 items-center gap-2 rounded-md px-2 text-sm transition-colors hover:bg-zinc-100 data-[active=true]:bg-zinc-100 data-[active=true]:text-zinc-950 data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
 pub const SIDEBAR_TRIGGER_BASE_CLASS: &str = "inline-flex h-9 w-9 items-center justify-center rounded-md text-sm transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
 
 pub fn sidebar_side_attribute(side: SidebarSide) -> &'static str {

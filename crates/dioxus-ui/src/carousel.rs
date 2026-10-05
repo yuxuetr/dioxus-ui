@@ -9,11 +9,11 @@ pub use dioxus_ui_primitives::{
 
 pub const CAROUSEL_BASE_CLASS: &str = "relative";
 pub const CAROUSEL_VIEWPORT_BASE_CLASS: &str = "overflow-hidden";
-pub const CAROUSEL_CONTENT_BASE_CLASS: &str = "flex data-orientation-horizontal:-ml-4 data-orientation-vertical:-mt-4 data-orientation-vertical:flex-col";
-pub const CAROUSEL_ITEM_BASE_CLASS: &str = "min-w-0 shrink-0 grow-0 basis-full transition-transform duration-300 motion-reduce:transition-none data-orientation-horizontal:pl-4 data-orientation-vertical:pt-4";
+pub const CAROUSEL_CONTENT_BASE_CLASS: &str = "flex data-[orientation=horizontal]:-ml-4 data-[orientation=vertical]:-mt-4 data-[orientation=vertical]:flex-col";
+pub const CAROUSEL_ITEM_BASE_CLASS: &str = "min-w-0 shrink-0 grow-0 basis-full transition-transform duration-300 motion-reduce:transition-none data-[orientation=horizontal]:pl-4 data-[orientation=vertical]:pt-4";
 pub const CAROUSEL_CONTROL_BASE_CLASS: &str = "inline-flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 bg-white text-sm shadow-sm transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
 pub const CAROUSEL_INDICATOR_BASE_CLASS: &str =
-  "h-2 w-2 rounded-full bg-zinc-300 transition-colors data-selected:bg-zinc-950";
+  "h-2 w-2 rounded-full bg-zinc-300 transition-colors data-[selected=true]:bg-zinc-950";
 
 pub fn carousel_orientation_attribute(orientation: CarouselOrientation) -> &'static str {
   match orientation {

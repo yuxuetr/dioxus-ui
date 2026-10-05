@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use super::utils::classes;
 
-pub const ITEM_BASE_CLASS: &str = "flex items-start gap-3 rounded-md p-3 text-sm transition-colors data-disabled:opacity-50 data-selected:bg-zinc-100";
+pub const ITEM_BASE_CLASS: &str = "flex items-start gap-3 rounded-md p-3 text-sm transition-colors data-[disabled=true]:opacity-50 data-[selected=true]:bg-zinc-100";
 pub const ITEM_SELECTED_CLASS: &str = "bg-zinc-100";
 pub const ITEM_DISABLED_CLASS: &str = "pointer-events-none opacity-50";
 pub const ITEM_MEDIA_BASE_CLASS: &str = "flex shrink-0 items-center justify-center";

@@ -92,10 +92,10 @@ await new Promise((resolve) => {
 
 pub const MENUBAR_BASE_CLASS: &str = "flex h-10 items-center gap-1 rounded-md border border-zinc-200 bg-white p-1";
 pub const MENUBAR_MENU_BASE_CLASS: &str = "relative";
-pub const MENUBAR_TRIGGER_BASE_CLASS: &str = "inline-flex h-8 items-center justify-center rounded-sm px-3 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-100 focus:bg-zinc-100 focus:outline-none data-disabled:pointer-events-none data-disabled:opacity-50";
+pub const MENUBAR_TRIGGER_BASE_CLASS: &str = "inline-flex h-8 items-center justify-center rounded-sm px-3 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-100 focus:bg-zinc-100 focus:outline-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
 pub const MENUBAR_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-zinc-200 bg-white p-1 text-zinc-950 shadow-md";
 pub const MENUBAR_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-zinc-500";
-pub const MENUBAR_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-disabled:pointer-events-none data-disabled:opacity-50";
+pub const MENUBAR_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
 pub const MENUBAR_ITEM_INSET_CLASS: &str = "pl-8";
 pub const MENUBAR_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-zinc-200";
 pub const MENUBAR_SHORTCUT_BASE_CLASS: &str = "ml-auto text-xs tracking-normal text-zinc-500";

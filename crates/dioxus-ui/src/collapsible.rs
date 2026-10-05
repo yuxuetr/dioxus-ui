@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 
-pub const COLLAPSIBLE_BASE_CLASS: &str = "grid gap-2 data-disabled:opacity-50";
+pub const COLLAPSIBLE_BASE_CLASS: &str = "grid gap-2 data-[disabled=true]:opacity-50";
 pub const COLLAPSIBLE_TRIGGER_BASE_CLASS: &str = "inline-flex items-center justify-between gap-2 rounded-md text-sm font-medium transition-colors hover:text-zinc-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";
 pub const COLLAPSIBLE_TRIGGER_OPEN_CLASS: &str = "text-zinc-950";
 pub const COLLAPSIBLE_TRIGGER_CLOSED_CLASS: &str = "text-zinc-900";

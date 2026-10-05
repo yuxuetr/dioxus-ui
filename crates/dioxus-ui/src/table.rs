@@ -162,9 +162,9 @@ mod tests {
 
   #[test]
   fn table_row_class_appends_user_class() {
-    let actual = table_row_class("data-selected:bg-zinc-100");
+    let actual = table_row_class("data-[selected=true]:bg-zinc-100");
 
     assert!(actual.contains(TABLE_ROW_BASE_CLASS));
-    assert!(actual.ends_with("data-selected:bg-zinc-100"));
+    assert!(actual.ends_with("data-[selected=true]:bg-zinc-100"));
   }
 }

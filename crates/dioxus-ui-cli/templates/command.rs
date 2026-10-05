@@ -12,7 +12,7 @@ pub const COMMAND_EMPTY_BASE_CLASS: &str = "py-6 text-center text-sm text-zinc-5
 pub const COMMAND_STATUS_BASE_CLASS: &str = "sr-only";
 pub const COMMAND_GROUP_BASE_CLASS: &str = "overflow-hidden p-1 text-zinc-950";
 pub const COMMAND_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-zinc-500";
-pub const COMMAND_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-active:bg-zinc-100 data-active:text-zinc-950 data-highlighted:bg-zinc-100 data-highlighted:text-zinc-950 data-disabled:pointer-events-none data-disabled:opacity-50 data-selected:bg-zinc-100";
+pub const COMMAND_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[active=true]:bg-zinc-100 data-[active=true]:text-zinc-950 data-highlighted:bg-zinc-100 data-highlighted:text-zinc-950 data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-zinc-100";
 pub const COMMAND_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-zinc-200";
 pub const COMMAND_SHORTCUT_BASE_CLASS: &str = "ml-auto text-xs tracking-normal text-zinc-500";
 

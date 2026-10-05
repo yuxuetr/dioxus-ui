@@ -10,7 +10,7 @@ use crate::dismiss_timer::use_dismiss_timer;
 
 pub const TOAST_VIEWPORT_BASE_CLASS: &str =
   "fixed z-50 flex max-h-screen w-full flex-col gap-2 p-4 sm:max-w-sm";
-pub const TOAST_ROOT_BASE_CLASS: &str = "pointer-events-auto relative grid w-full gap-1 overflow-hidden rounded-md border bg-white p-4 pr-10 text-zinc-950 shadow-lg transition-all data-state-closed:opacity-0 data-state-open:opacity-100";
+pub const TOAST_ROOT_BASE_CLASS: &str = "pointer-events-auto relative grid w-full gap-1 overflow-hidden rounded-md border bg-white p-4 pr-10 text-zinc-950 shadow-lg transition-all data-[state=closed]:opacity-0 data-[state=open]:opacity-100";
 pub const TOAST_TITLE_BASE_CLASS: &str = "text-sm font-semibold leading-none tracking-normal";
 pub const TOAST_DESCRIPTION_BASE_CLASS: &str = "text-sm text-zinc-600";
 pub const TOAST_ACTION_BASE_CLASS: &str = "inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-zinc-200 bg-transparent px-3 text-sm font-medium transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:pointer-events-none disabled:opacity-50";

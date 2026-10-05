@@ -10,7 +10,7 @@ pub const COMBOBOX_EMPTY_BASE_CLASS: &str = "py-6 text-center text-sm text-zinc-
 pub const COMBOBOX_STATUS_BASE_CLASS: &str = "sr-only";
 pub const COMBOBOX_GROUP_BASE_CLASS: &str = "overflow-hidden p-1 text-zinc-950";
 pub const COMBOBOX_VALUE_BASE_CLASS: &str = "truncate";
-pub const COMBOBOX_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-active:bg-zinc-100 data-active:text-zinc-950 data-highlighted:bg-zinc-100 data-highlighted:text-zinc-950 data-disabled:pointer-events-none data-disabled:opacity-50 data-selected:bg-zinc-100";
+pub const COMBOBOX_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[active=true]:bg-zinc-100 data-[active=true]:text-zinc-950 data-highlighted:bg-zinc-100 data-highlighted:text-zinc-950 data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-zinc-100";
 
 pub fn combobox_trigger_class(invalid: bool, class: &str) -> String {
   let invalid_class = if invalid {

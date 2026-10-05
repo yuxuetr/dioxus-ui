@@ -12,10 +12,8 @@ pub const DATA_TABLE_TOOLBAR_BASE_CLASS: &str =
   "flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between";
 pub const DATA_TABLE_CONTAINER_BASE_CLASS: &str =
   "relative w-full overflow-auto rounded-md border border-zinc-200";
-pub const DATA_TABLE_HEADER_CELL_BASE_CLASS: &str =
-  "h-12 px-4 text-left align-middle text-sm font-medium text-zinc-600 data-sort:text-zinc-950";
-pub const DATA_TABLE_ROW_BASE_CLASS: &str =
-  "border-b transition-colors hover:bg-zinc-100 data-selected:bg-zinc-100 data-disabled:opacity-50";
+pub const DATA_TABLE_HEADER_CELL_BASE_CLASS: &str = "h-12 px-4 text-left align-middle text-sm font-medium text-zinc-600 data-[sort=ascending]:text-zinc-950 data-[sort=descending]:text-zinc-950";
+pub const DATA_TABLE_ROW_BASE_CLASS: &str = "border-b transition-colors hover:bg-zinc-100 data-[selected=true]:bg-zinc-100 data-[disabled=true]:opacity-50";
 pub const DATA_TABLE_CELL_BASE_CLASS: &str = "p-4 align-middle text-sm";
 pub const DATA_TABLE_PAGINATION_BASE_CLASS: &str =
   "flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between";

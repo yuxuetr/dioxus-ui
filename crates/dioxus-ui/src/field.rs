@@ -1,8 +1,8 @@
 use dioxus::prelude::*;
 use dioxus_ui_core::classes;
 
-pub const FIELD_BASE_CLASS: &str = "grid gap-2 data-disabled:opacity-50";
-pub const FIELD_INVALID_CLASS: &str = "data-invalid:text-red-600";
+pub const FIELD_BASE_CLASS: &str = "grid gap-2 data-[disabled=true]:opacity-50";
+pub const FIELD_INVALID_CLASS: &str = "data-[invalid=true]:text-red-600";
 pub const FIELD_LABEL_BASE_CLASS: &str = "text-sm font-medium leading-none text-zinc-950";
 pub const FIELD_DESCRIPTION_BASE_CLASS: &str = "text-sm text-zinc-600";
 pub const FIELD_ERROR_BASE_CLASS: &str = "text-sm font-medium text-red-600";
