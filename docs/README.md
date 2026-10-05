@@ -114,7 +114,8 @@ Read in this order:
 108. [RFC 0045: Drawn Checkbox](rfcs/0045-drawn-checkbox.md)
 109. [RFC 0046: Listbox Width Follows Trigger](rfcs/0046-listbox-width-follows-trigger.md)
 110. [RFC 0047: Opt-in Dark Theme](rfcs/0047-opt-in-dark-theme.md)
-111. [TODO Plan](../TODOs.md)
+111. [RFC 0048: Phone-width Preview Layout](rfcs/0048-phone-width-preview-layout.md)
+112. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 
