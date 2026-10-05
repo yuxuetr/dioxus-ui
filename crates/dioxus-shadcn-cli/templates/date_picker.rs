@@ -1,6 +1,7 @@
 use dioxus::prelude::*;
 use super::utils::{AnchoredPlacement, classes, use_anchored_overlay, use_modal_focus_scope};
 pub use super::utils::{DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
+use super::calendar::CalendarDate;
 
 pub const DATE_PICKER_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
 pub const DATE_PICKER_VALUE_BASE_CLASS: &str = "truncate text-left data-[placeholder=true]:text-muted-foreground";
@@ -47,7 +48,8 @@ pub fn date_picker_align_attribute(align: OverlayAlign) -> &'static str {
 }
 
 /// Click requests `!open` through `on_open_change`. Pass `id` as the content's
-/// `anchor_id`.
+/// `anchor_id`. Other attributes, such as `aria-label` for an icon-only
+/// trigger, go to the button.
 #[component]
 pub fn DatePickerTrigger(
   #[props(default)] id: Option<String>,
@@ -56,6 +58,7 @@ pub fn DatePickerTrigger(
   #[props(default)] disabled: bool,
   #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = date_picker_trigger_class(invalid, &class);
@@ -75,6 +78,7 @@ pub fn DatePickerTrigger(
       "aria-haspopup": "dialog",
       "aria-invalid": invalid.to_string(),
       "data-state": if open { "open" } else { "closed" },
+      ..attributes,
       {children}
     }
   }
@@ -140,6 +144,165 @@ pub fn DatePickerContent(
       "data-side": date_picker_side_attribute(side),
       "data-state": if open { "open" } else { "closed" },
       {children}
+    }
+  }
+}
+
+/// The order of the day, month, and year in a typed date.
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub enum DateOrder {
+  /// ISO `2026-10-05`.
+  #[default]
+  YearMonthDay,
+  /// `10/05/2026`.
+  MonthDayYear,
+  /// `05/10/2026`.
+  DayMonthYear,
+}
+
+impl DateOrder {
+  pub const fn placeholder(self) -> &'static str {
+    match self {
+      Self::YearMonthDay => "YYYY-MM-DD",
+      Self::MonthDayYear => "MM/DD/YYYY",
+      Self::DayMonthYear => "DD/MM/YYYY",
+    }
+  }
+
+  pub const fn separator(self) -> char {
+    match self {
+      Self::YearMonthDay => '-',
+      Self::MonthDayYear | Self::DayMonthYear => '/',
+    }
+  }
+}
+
+/// A date typed as three numbers separated by `-`, `/`, `.`, or spaces. A
+/// four-digit first number reads as ISO year-month-day in any order;
+/// otherwise `order` decides. Years need four digits, and impossible dates,
+/// such as February 30, are rejected.
+pub fn parse_date(text: &str, order: DateOrder) -> Option<CalendarDate> {
+  let parts = text
+    .trim()
+    .split(['-', '/', '.', ' '])
+    .filter(|part| !part.is_empty())
+    .collect::<Vec<_>>();
+  let [first, second, third] = parts.as_slice() else {
+    return None;
+  };
+  if ![first, second, third].iter().all(|part| part.bytes().all(|byte| byte.is_ascii_digit())) {
+    return None;
+  }
+  let (year, month, day) = if first.len() == 4 {
+    (*first, *second, *third)
+  } else {
+    match order {
+      DateOrder::YearMonthDay => return None,
+      DateOrder::MonthDayYear => (*third, *first, *second),
+      DateOrder::DayMonthYear => (*third, *second, *first),
+    }
+  };
+  if year.len() != 4 {
+    return None;
+  }
+  checked_date(year.parse().ok()?, month.parse().ok()?, day.parse().ok()?)
+}
+
+// The Calendar template's `CalendarDate::new` does not validate, so typed
+// dates are checked here.
+fn checked_date(year: i32, month: u8, day: u8) -> Option<CalendarDate> {
+  let leap = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
+  let days = match month {
+    1 | 3 | 5 | 7 | 8 | 10 | 12 => 31,
+    4 | 6 | 9 | 11 => 30,
+    2 if leap => 29,
+    2 => 28,
+    _ => return None,
+  };
+  (1..=days).contains(&day).then(|| CalendarDate::new(year, month, day))
+}
+
+/// The date zero-padded in `order` with its separator.
+pub fn format_date(date: CalendarDate, order: DateOrder) -> String {
+  let separator = order.separator();
+  let (year, month, day) = (date.year, date.month, date.day);
+  match order {
+    DateOrder::YearMonthDay => format!("{year:04}{separator}{month:02}{separator}{day:02}"),
+    DateOrder::MonthDayYear => format!("{month:02}{separator}{day:02}{separator}{year:04}"),
+    DateOrder::DayMonthYear => format!("{day:02}{separator}{month:02}{separator}{year:04}"),
+  }
+}
+
+pub const DATE_PICKER_INPUT_BASE_CLASS: &str = "flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm tabular-nums transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
+
+pub fn date_picker_input_class(invalid: bool, class: &str) -> String {
+  let invalid_class = if invalid {
+    "border-destructive focus-visible:ring-destructive"
+  } else {
+    "border-input focus-visible:ring-ring"
+  };
+
+  classes([Some(DATE_PICKER_INPUT_BASE_CLASS), Some(invalid_class), Some(class)])
+}
+
+/// A text field for typing a date. It keeps the text being typed, calls
+/// `on_value_change(Some(date))` once the text parses and
+/// `on_value_change(None)` when it is cleared, marks text that does not
+/// parse as invalid without clearing it, and rewrites a valid date in
+/// `order`'s format on blur. A new `value`, such as a calendar pick, replaces
+/// the text. Other attributes, such as `id` and `aria-label`, go to the input.
+#[component]
+pub fn DatePickerInput(
+  #[props(default)] value: Option<CalendarDate>,
+  #[props(default)] order: DateOrder,
+  #[props(default)] placeholder: String,
+  #[props(default)] invalid: bool,
+  #[props(default)] disabled: bool,
+  #[props(default)] class: String,
+  #[props(default)] on_value_change: Option<EventHandler<Option<CalendarDate>>>,
+  #[props(extends = GlobalAttributes, extends = input)] attributes: Vec<Attribute>,
+) -> Element {
+  let mut text = use_signal(|| value.map(|date| format_date(date, order)).unwrap_or_default());
+
+  // Follow a new value unless the text already means it.
+  use_effect(use_reactive((&value, &order), move |(value, order)| {
+    let current = parse_date(&text.peek(), order);
+    if current != value {
+      text.set(value.map(|date| format_date(date, order)).unwrap_or_default());
+    }
+  }));
+
+  let typed = text();
+  let unparsed = !typed.trim().is_empty() && parse_date(&typed, order).is_none();
+  let class = date_picker_input_class(invalid || unparsed, &class);
+  let placeholder = if placeholder.is_empty() { order.placeholder().to_string() } else { placeholder };
+
+  rsx! {
+    input {
+      class,
+      r#type: "text",
+      inputmode: "numeric",
+      autocomplete: "off",
+      placeholder,
+      disabled,
+      value: typed,
+      "aria-invalid": (invalid || unparsed).then_some("true"),
+      oninput: move |event| {
+        let next = event.value();
+        let parsed = parse_date(&next, order);
+        let cleared = next.trim().is_empty();
+        text.set(next);
+        if let Some(handler) = on_value_change.filter(|_| parsed.is_some() || cleared) {
+          handler.call(parsed);
+        }
+      },
+      onblur: move |_| {
+        let parsed = parse_date(&text.peek(), order);
+        if let Some(date) = parsed {
+          text.set(format_date(date, order));
+        }
+      },
+      ..attributes,
     }
   }
 }

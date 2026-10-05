@@ -56,6 +56,7 @@ use dioxus_shadcn::{
   Carousel, CarouselContent, CarouselIndicator, CarouselItem, CarouselNext, CarouselPrevious,
   CarouselState, CarouselStep, CarouselViewport, carousel_can_go_next, carousel_can_go_previous,
 };
+use dioxus_shadcn::{DateOrder, DatePickerInput};
 use dioxus_shadcn::{Diff, DiffAfter, DiffBefore};
 use dioxus_shadcn::{Fab, FabAction};
 use dioxus_shadcn::{
@@ -895,6 +896,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let menubar_open = move |value: &str| menubar_active() == Some(value);
   let mut navigation_active = use_signal(String::new);
   let mut mega_active = use_signal(String::new);
+  let mut typed_date = use_signal(|| None::<CalendarDate>);
   let mut mega_sub = use_signal(|| "web".to_string());
   let navigation_open = move |value: &str| navigation_active() == value;
   let mut tabs_value = use_signal(|| "account".to_string());
@@ -1550,6 +1552,19 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                   }
                 }
               }
+            }
+          }
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "date-input",
+            "data-value": "{typed_date().map(iso_date).unwrap_or_default()}",
+            h2 { class: "text-sm font-medium", "Date input interaction" }
+            DatePickerInput {
+              class: "mt-3",
+              "aria-label": "Birthday",
+              order: DateOrder::DayMonthYear,
+              value: typed_date(),
+              on_value_change: move |date| typed_date.set(date),
             }
           }
           article {

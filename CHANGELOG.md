@@ -32,6 +32,10 @@ for commit messages.
   `NavigationMenu` with `NavigationMenuOrientation::Vertical` shows its panels
   beside its triggers, and each menu's script acts only on its own items.
   `NavigationMenuContent` takes `value` for that layout.
+- `DatePickerInput`, `DateOrder`, `parse_date`, and `format_date`
+  ([RFC 0064](docs/rfcs/0064-typed-date-input.md)): typed dates in ISO or the
+  app's day, month, and year order. The `date-picker` feature now enables
+  `calendar`, and `DatePickerTrigger` passes other attributes to its button.
 
 ### Changed
 

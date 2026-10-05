@@ -429,12 +429,13 @@ pub use data_table::{
 };
 #[cfg(feature = "date-picker")]
 pub use date_picker::{
-  DATE_PICKER_CONTENT_BASE_CLASS, DATE_PICKER_TRIGGER_BASE_CLASS, DATE_PICKER_VALUE_BASE_CLASS,
-  DatePickerContent, DatePickerTrigger, DatePickerValue,
-  DismissBehavior as DatePickerDismissBehavior, OverlayAlign as DatePickerAlign,
+  DATE_PICKER_CONTENT_BASE_CLASS, DATE_PICKER_INPUT_BASE_CLASS, DATE_PICKER_TRIGGER_BASE_CLASS,
+  DATE_PICKER_VALUE_BASE_CLASS, DateOrder, DatePickerContent, DatePickerInput, DatePickerTrigger,
+  DatePickerValue, DismissBehavior as DatePickerDismissBehavior, OverlayAlign as DatePickerAlign,
   OverlaySide as DatePickerSide, PopoverPrimitiveConfig as DatePickerPrimitiveConfig,
-  date_picker_align_attribute, date_picker_content_class, date_picker_side_attribute,
-  date_picker_trigger_class, date_picker_value_class,
+  date_picker_align_attribute, date_picker_content_class, date_picker_input_class,
+  date_picker_side_attribute, date_picker_trigger_class, date_picker_value_class, format_date,
+  parse_date,
 };
 #[cfg(feature = "dialog")]
 pub use dialog::{

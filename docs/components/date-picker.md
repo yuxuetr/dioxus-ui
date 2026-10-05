@@ -32,6 +32,8 @@ use dioxus_shadcn::{DatePickerContent, DatePickerTrigger, DatePickerValue};
 - `DatePickerTrigger { id, open, invalid, disabled, on_open_change, class, children }`
 - `DatePickerValue { placeholder, class, children }`
 - `DatePickerContent { open, side, align, anchor_id, side_offset, on_open_change, dismiss, class, children }`
+- `DatePickerInput { value, order, placeholder, invalid, disabled, on_value_change, class }`
+- `DateOrder`, `parse_date(text, order)`, `format_date(date, order)`
 - `DatePickerPrimitiveConfig`
 - `DatePickerDismissBehavior`, `DatePickerSide`, `DatePickerAlign`
 
@@ -40,6 +42,7 @@ Class helpers:
 - `date_picker_trigger_class(invalid, class)`
 - `date_picker_value_class(class)`
 - `date_picker_content_class(class)`
+- `date_picker_input_class(invalid, class)`
 
 ## Behavior
 
@@ -87,6 +90,31 @@ The Web renderer is covered by `npm run verify:runtime-interactions` and the
 Desktop renderer by `npm run verify:desktop-interactions`, and the iOS
 Simulator by `npm run verify:mobile-interactions`, and an Android emulator by
 `npm run verify:android-interactions`.
+
+### Typed dates
+
+`DatePickerInput` is a text field for typing a date, controlled by
+`value: Option<CalendarDate>`. Share the value with the calendar, and put the
+trigger beside it as an icon button with an `aria-label`:
+
+```rust
+DatePickerInput {
+  "aria-label": "Start date",
+  order: DateOrder::MonthDayYear,
+  value: selected(),
+  on_value_change: move |date| selected.set(date),
+}
+```
+
+`parse_date(text, order)` reads three numbers separated by `-`, `/`, `.`, or
+spaces: a four-digit first number is ISO year-month-day in any order, and
+otherwise `DateOrder` (`YearMonthDay`, `MonthDayYear`, or `DayMonthYear`)
+decides. Years need four digits, and impossible dates such as February 30
+are rejected. The input keeps the text being typed, calls `on_value_change`
+with a date once the text parses or with `None` when cleared, marks text that
+does not parse with `aria-invalid` without clearing it, and on blur rewrites
+a valid date with `format_date`. The placeholder defaults to the order's
+pattern (see [RFC 0064](../rfcs/0064-typed-date-input.md)).
 
 ## Accessibility Notes
 

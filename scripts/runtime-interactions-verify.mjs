@@ -1485,6 +1485,25 @@ async function runBrowserAssertions() {
     await page.keyboard.press("Escape");
     await expect(megaFixture).toHaveAttribute("data-value", "");
     await expect(solutions).toBeFocused();
+    // Date Picker Input parses typed dates in its order, keeps and marks text
+    // that does not parse, clears to no date, and formats on blur (RFC 0064).
+    const dateInputFixture = page.locator('[data-interaction-target="date-input"]');
+    const birthday = dateInputFixture.getByRole("textbox", { name: "Birthday", exact: true });
+    await expect(birthday).toHaveAttribute("placeholder", "DD/MM/YYYY");
+    await birthday.fill("5.3.1990");
+    await expect(dateInputFixture).toHaveAttribute("data-value", "1990-03-05");
+    await expect(birthday).not.toHaveAttribute("aria-invalid", "true");
+    await birthday.blur();
+    await expect(birthday).toHaveValue("05/03/1990");
+    await birthday.fill("31/02/1990");
+    await expect(birthday).toHaveAttribute("aria-invalid", "true");
+    await expect(dateInputFixture).toHaveAttribute("data-value", "1990-03-05");
+    await birthday.blur();
+    await expect(birthday).toHaveValue("31/02/1990");
+    await birthday.fill("1990-12-24");
+    await expect(dateInputFixture).toHaveAttribute("data-value", "1990-12-24");
+    await birthday.fill("");
+    await expect(dateInputFixture).toHaveAttribute("data-value", "");
     const sliderFixture = page.locator('[data-interaction-target="slider"]');
     const volume = sliderFixture.getByRole("slider", { name: "Volume", exact: true });
     const locked = sliderFixture.getByRole("slider", { name: "Locked", exact: true });
@@ -2209,7 +2228,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (45 fixtures)");
+  console.log("runtime interaction verification passed (46 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

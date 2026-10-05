@@ -37,6 +37,7 @@ examples! {
   calendar_month => "calendar", "Month";
   checkbox_basic => "checkbox", "States";
   date_picker_basic => "date-picker", "Date picker";
+  date_picker_input => "date-picker", "Typed date";
   field_basic => "field", "Description and error";
   input_states => "input", "States";
   input_group_addons => "input-group", "Addons";
