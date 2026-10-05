@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 55%
+- Overall: 60%
 - Current milestone: M179 Component Site Shell
-- Current task: M179.1 Design the component site
+- Current task: M179.2 Build the site shell
 
 ## Backup
 
@@ -70,7 +70,7 @@
 
 ## M179 Component Site Shell
 
-- TODO M179.1 Design the component site
+- DONE M179.1 Design the component site
   - Define a `site/` workspace crate (`publish = false`) built with Dioxus Web and its router, depending on `dioxus-ui` by path.
   - Define the routes (home, getting started, theming, one page per component), the sidebar catalog from the existing catalog categories and registry metadata, and the light and dark theme toggle.
   - Define how examples and their source are shown (one Rust file per example, rendered live and shown with `include_str!`), how install commands come from the registry, how the site gets compiled Tailwind, and what stays out of scope (hosting, search, a theme editor) in an RFC.
