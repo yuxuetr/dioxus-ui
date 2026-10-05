@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 15%
+- Overall: 20%
 - Current milestone: M177 Component Token Migration
-- Current task: M177.1 Migrate actions and forms
+- Current task: M177.2 Migrate overlays and navigation
 
 ## Backup
 
@@ -35,7 +35,7 @@
 
 ## M177 Component Token Migration
 
-- TODO M177.1 Migrate actions and forms
+- DONE M177.1 Migrate actions and forms
   - Button, Button Group, Toggle, Toggle Group, Input, Input Group, Textarea, Input OTP, Label, Field, Checkbox, Radio Group, Switch, Slider, Native Select, Select, and Combobox, in the crate and the templates.
   - Update unit tests, the docs class snippets, the browser checks that compare utility colors, and the compiled preview stylesheet.
 
