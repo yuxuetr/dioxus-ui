@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 100%
-- Current milestone: None
-- Current task: None
+- Overall: 25%
+- Current milestone: M172 Opt-in Dark Theme
+- Current task: M172.2 Implement the dark theme
 
 ## Backup
 
@@ -3138,6 +3138,26 @@
 
 - DONE M171.4 Complete listbox width milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and quality gate docs.
+  - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
+  - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
+
+## M172 Opt-in Dark Theme
+
+- DONE M172.1 Design the dark theme
+  - Record that every component color is a fixed Tailwind palette utility, that compiled utilities read palette variables such as `var(--color-zinc-900)`, and that no dark theme exists.
+  - Define an opt-in `.dark` block that remaps the white, zinc, blue, red, green, amber, and emerald variables, shipped in the CLI default stylesheet and the preview stylesheets.
+  - Record what stays out of scope (semantic tokens, a system-preference default, `text-white` on app-owned images) with reevaluation conditions.
+
+- TODO M172.2 Implement the dark theme
+  - Add the `.dark` block to the CLI default `assets/dioxus-ui.css` and to the Web and Desktop preview stylesheets.
+  - Extend `npm run verify:css-inputs` to require that the preview blocks match the CLI block.
+
+- TODO M172.3 Verify the dark theme in a real browser
+  - Extend `npm run verify:runtime-interactions` with a text contrast check in the light and dark themes, after the first render and after the interactions, and a check that dark surfaces apply.
+  - Reverse-verify that the check fails on a pure scale inversion, without the block, or without the white remap.
+
+- TODO M172.4 Complete the dark theme milestone
+  - Add theming docs, update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and quality gate docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
 
