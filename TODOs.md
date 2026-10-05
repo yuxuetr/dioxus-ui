@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50%
+- Overall: 75%
 - Current milestone: M168 Compiled Tailwind Browser Checks
-- Current task: M168.3 Verify components with compiled Tailwind in a real browser
+- Current task: M168.4 Complete compiled Tailwind milestone
 
 ## Backup
 
@@ -3075,7 +3075,7 @@
 - DONE M168.2 Implement value-matching data variants
   - Rewrite bare data variants in the crate source and templates to `data-[name=value]:`, place Navigation Menu content below its trigger, and make `npm run verify:tailwind-static` reject bare data variants.
 
-- TODO M168.3 Verify components with compiled Tailwind in a real browser
+- DONE M168.3 Verify components with compiled Tailwind in a real browser
   - Make `npm run verify:runtime-interactions` answer the preview stylesheet with compiled Tailwind, remove inline layout workarounds from the interaction fixtures, and replace checks that worked around missing CSS with measured ones.
   - Reverse-verify that the script fails with the bare `data-disabled:` variant, with Navigation Menu content at `top-0`, and without the compiled stylesheet.
 
