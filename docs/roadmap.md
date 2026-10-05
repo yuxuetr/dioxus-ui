@@ -254,5 +254,7 @@ Status: M187 deploys the component site to
 ([RFC 0057](rfcs/0057-theme-presets.md)), M189 the status variants
 ([RFC 0058](rfcs/0058-status-variants.md)), and M190 Stat, Timeline, Steps,
 Indicator, Status, Radial Progress, Countdown, and Diff
-([RFC 0059](rfcs/0059-display-components.md)); the plan is tracked in
+([RFC 0059](rfcs/0059-display-components.md)), and M191 Rating, Number
+Input, Tags Input, File Input, and Swap
+([RFC 0060](rfcs/0060-input-components.md)); the plan is tracked in
 `TODOs.md`.
