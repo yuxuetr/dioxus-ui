@@ -4,14 +4,17 @@ use dioxus_ui::{Tooltip, TooltipContent, TooltipTrigger};
 #[component]
 pub fn Demo() -> Element {
   let mut open = use_signal(|| false);
+  let mut copies = use_signal(|| 0);
 
   rsx! {
     Tooltip { on_open_change: move |next| open.set(next),
       TooltipTrigger {
         class: "rounded-md border border-input px-3 py-2 text-sm hover:bg-accent",
-        "Hover or focus me"
+        onclick: move |_| copies += 1,
+        "Copy link"
       }
-      TooltipContent { open: open(), "Saved 2 minutes ago" }
+      TooltipContent { open: open(), "Copies the page address" }
     }
+    p { class: "mt-3 text-sm text-muted-foreground", "Copied {copies} times" }
   }
 }

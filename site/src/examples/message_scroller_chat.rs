@@ -33,9 +33,7 @@ pub fn Demo() -> Element {
           MessageScrollerBottomAnchor {}
         }
       }
-      div { onclick: move |_| unread.set(false),
-        MessageScrollerJumpButton { visible: unread(), "Jump to latest" }
-      }
+      MessageScrollerJumpButton { visible: unread(), onclick: move |_| unread.set(false), "Jump to latest" }
     }
   }
 }

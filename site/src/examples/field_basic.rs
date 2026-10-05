@@ -9,14 +9,14 @@ pub fn Demo() -> Element {
   rsx! {
     FieldGroup { class: "max-w-sm",
       Field {
-        FieldLabel { "Email" }
-        Input { r#type: "email", "aria-label": "Email", placeholder: "you@example.com" }
+        FieldLabel { r#for: "field-basic-email", "Email" }
+        Input { id: "field-basic-email", r#type: "email", placeholder: "you@example.com" }
         FieldDescription { "We never share your email." }
       }
       Field { invalid: too_short,
-        FieldLabel { "Username" }
+        FieldLabel { r#for: "field-basic-username", "Username" }
         Input {
-          "aria-label": "Username",
+          id: "field-basic-username",
           invalid: too_short,
           value: username(),
           on_value_change: move |value| username.set(value),
@@ -26,8 +26,8 @@ pub fn Demo() -> Element {
         }
       }
       Field { disabled: true,
-        FieldLabel { "Workspace" }
-        Input { "aria-label": "Workspace", disabled: true, value: "acme" }
+        FieldLabel { r#for: "field-basic-workspace", "Workspace" }
+        Input { id: "field-basic-workspace", disabled: true, value: "acme" }
       }
     }
   }
