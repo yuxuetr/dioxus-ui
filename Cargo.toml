@@ -19,7 +19,7 @@ version = "0.1.0"
 edition = "2024"
 license = "MIT"
 repository = "https://github.com/yuxuetr/dioxus-ui"
-readme = "README.md"
+readme = "crates/README.md"
 keywords = ["dioxus", "ui", "tailwind", "components"]
 categories = ["gui", "web-programming"]
 

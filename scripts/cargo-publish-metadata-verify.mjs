@@ -106,8 +106,8 @@ if (!existsSync(rootCargoPath)) {
   if (workspacePackage === null) {
     failures.push("root Cargo.toml is missing [workspace.package]");
   } else {
-    if (getStringField(workspacePackage, "readme") !== "README.md") {
-      failures.push('root [workspace.package] must set readme = "README.md"');
+    if (getStringField(workspacePackage, "readme") !== "crates/README.md") {
+      failures.push('root [workspace.package] must set readme = "crates/README.md"');
     }
 
     for (const [field, expectedValues] of Object.entries(expectedWorkspaceArrays)) {

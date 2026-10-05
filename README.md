@@ -47,6 +47,9 @@ dioxus-ui/
    └─ rfcs/
 ```
 
+The published crates show [crates/README.md](crates/README.md) on crates.io;
+it is the short guide for using them. This README documents development.
+
 Example run commands are documented in [examples/README.md](examples/README.md).
 
 ## Planned Usage

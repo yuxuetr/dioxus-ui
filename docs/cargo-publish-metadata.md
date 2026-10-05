@@ -27,7 +27,9 @@ and must keep `publish = false`.
 In scope:
 
 - crate-specific package descriptions for the four planned published crates
-- shared workspace `readme`, `keywords`, and `categories` metadata
+- shared workspace `readme`, `keywords`, and `categories` metadata; the
+  `readme` is `crates/README.md`, a short user guide, since the root README
+  documents development
 - inheritance of shared publish metadata by crates under `crates/`
 - `publish = false` boundaries for example workspace members
 - release documentation and package script wiring
