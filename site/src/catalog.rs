@@ -44,6 +44,12 @@ pub const CATEGORIES: &[Category] = &[
         feature: "kbd",
       },
       Component {
+        slug: "swap",
+        title: "Swap",
+        description: "Styled toggle button that swaps between two elements.",
+        feature: "swap",
+      },
+      Component {
         slug: "toggle",
         title: "Toggle",
         description: "Toggle component for controlled pressed button states.",

@@ -67,6 +67,7 @@ use dioxus_shadcn::{
 use dioxus_shadcn::{
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarItem, SidebarTrigger,
 };
+use dioxus_shadcn::{Swap, SwapEffect};
 pub use self_test::{INTERACTION_SELF_TEST_SCRIPT, InteractionSelfTest};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -630,6 +631,14 @@ pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
     notes: "Rendered markup and class-state coverage target.",
   },
   ComponentPreviewTarget {
+    component: "swap",
+    label: "Swap",
+    panel: "actions",
+    test_id: "component-preview-swap",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
     component: "switch",
     label: "Switch",
     panel: "forms",
@@ -897,6 +906,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut quantity = use_signal(|| 5.0);
   let mut topics = use_signal(Vec::<String>::new);
   let mut chosen_files = use_signal(String::new);
+  let mut menu_swapped = use_signal(|| false);
   let mut locked_slider_changes = use_signal(|| 0_u32);
   let mut details_open = use_signal(|| false);
   let mut size_value = use_signal(|| "md".to_string());
@@ -1979,6 +1989,21 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 let names = event.files().iter().map(|file| file.name()).collect::<Vec<_>>();
                 chosen_files.set(names.join("|"));
               },
+            }
+          }
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "swap",
+            "data-active": "{menu_swapped}",
+            h2 { class: "text-sm font-medium", "Swap interaction" }
+            Swap {
+              class: "mt-3 size-9 border border-border",
+              "aria-label": "Menu",
+              effect: SwapEffect::Rotate,
+              active: menu_swapped(),
+              on_active_change: move |active| menu_swapped.set(active),
+              on: rsx! { span { "data-swap-layer": "on", "×" } },
+              off: rsx! { span { "data-swap-layer": "off", "≡" } },
             }
           }
           article {

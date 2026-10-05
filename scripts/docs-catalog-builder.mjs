@@ -80,6 +80,7 @@ const componentCategories = {
   "toggle-group": "actions",
   tooltip: "overlays",
   typography: "data-display",
+  swap: "actions",
   "file-input": "forms",
   "tags-input": "forms",
   "number-input": "forms",

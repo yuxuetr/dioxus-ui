@@ -11,7 +11,7 @@ It does not create rendered routes, router code, screenshots, or generated JSON.
 For source preview route metadata, see the
 [Source Preview Manifest](source-preview.md).
 
-Component routes: 76
+Component routes: 77
 Category routes: 8
 
 ## Top-level Routes
@@ -105,6 +105,7 @@ Category routes: 8
 | [Stat](stat.md) | /components/stat | docs/components/stat.md | /components#category-data-display | /components/stat/source |
 | [Status](status.md) | /components/status | docs/components/status.md | /components#category-feedback | /components/status/source |
 | [Steps](steps.md) | /components/steps | docs/components/steps.md | /components#category-navigation | /components/steps/source |
+| [Swap](swap.md) | /components/swap | docs/components/swap.md | /components#category-actions | /components/swap/source |
 | [Switch](switch.md) | /components/switch | docs/components/switch.md | /components#category-forms | /components/switch/source |
 | [Table](table.md) | /components/table | docs/components/table.md | /components#category-data-display | /components/table/source |
 | [Tabs](tabs.md) | /components/tabs | docs/components/tabs.md | /components#category-navigation | /components/tabs/source |

@@ -13,21 +13,21 @@ parity.
 
 ## Summary
 
-- Public components: 76
-- Registry entries: 77
+- Public components: 77
+- Registry entries: 78
 - Source-copy helpers: utils
-- Templates: 77
-- Crate modules: 76
-- Crate features: 76
-- Component docs pages: 76
-- Complete local wiring: 76
+- Templates: 78
+- Crate modules: 77
+- Crate features: 77
+- Component docs pages: 77
+- Complete local wiring: 77
 - Incomplete local wiring: 0
 
 ## Category Counts
 
 | Category | Components |
 | --- | ---: |
-| Actions | 6 |
+| Actions | 7 |
 | Forms | 18 |
 | Overlays | 11 |
 | Navigation | 6 |
@@ -44,6 +44,7 @@ parity.
 | Button Group | Actions | yes | yes | yes | yes | yes | yes | yes |
 | Command | Actions | yes | yes | yes | yes | yes | yes | yes |
 | Kbd | Actions | yes | yes | yes | yes | yes | yes | yes |
+| Swap | Actions | yes | yes | yes | yes | yes | yes | yes |
 | Toggle | Actions | yes | yes | yes | yes | yes | yes | yes |
 | Toggle Group | Actions | yes | yes | yes | yes | yes | yes | yes |
 | Avatar | Data Display | yes | yes | yes | yes | yes | yes | yes |
@@ -125,6 +126,7 @@ parity.
 | Button Group | Actions | [docs](button-group.md) | `dxui add button-group` | `button-group` | `crates/dioxus-shadcn-cli/templates/button_group.rs` | `src/components/ui/button_group.rs` |
 | Command | Actions | [docs](command.md) | `dxui add command` | `command` | `crates/dioxus-shadcn-cli/templates/command.rs` | `src/components/ui/command.rs` |
 | Kbd | Actions | [docs](kbd.md) | `dxui add kbd` | `kbd` | `crates/dioxus-shadcn-cli/templates/kbd.rs` | `src/components/ui/kbd.rs` |
+| Swap | Actions | [docs](swap.md) | `dxui add swap` | `swap` | `crates/dioxus-shadcn-cli/templates/swap.rs` | `src/components/ui/swap.rs` |
 | Toggle | Actions | [docs](toggle.md) | `dxui add toggle` | `toggle` | `crates/dioxus-shadcn-cli/templates/toggle.rs` | `src/components/ui/toggle.rs` |
 | Toggle Group | Actions | [docs](toggle-group.md) | `dxui add toggle-group` | `toggle-group` | `crates/dioxus-shadcn-cli/templates/toggle_group.rs` | `src/components/ui/toggle_group.rs` |
 | Avatar | Data Display | [docs](avatar.md) | `dxui add avatar` | `avatar` | `crates/dioxus-shadcn-cli/templates/avatar.rs` | `src/components/ui/avatar.rs` |

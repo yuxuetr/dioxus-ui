@@ -21,7 +21,7 @@ for commit messages.
 - Display components ported from daisyUI
   ([RFC 0059](docs/rfcs/0059-display-components.md)): Stat, Timeline, Steps, Indicator, Status, Radial Progress, Countdown, and Diff.
 - Input components ([RFC 0060](docs/rfcs/0060-input-components.md)): Rating, Number
-  Input, Tags Input, and File Input.
+  Input, Tags Input, File Input, and Swap.
 
 ### Changed
 

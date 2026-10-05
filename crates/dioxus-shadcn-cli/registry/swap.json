@@ -1,0 +1,14 @@
+{
+  "name": "swap",
+  "description": "Styled toggle button that swaps between two elements.",
+  "files": [
+    {
+      "source": "templates/swap.rs",
+      "target": "src/components/ui/swap.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

@@ -714,6 +714,9 @@ pub mod tooltip;
 pub mod typography;
 
 pub use dioxus_shadcn_core::UiDensity;
+#[cfg(feature = "swap")]
+pub mod swap;
+
 #[cfg(feature = "file-input")]
 pub mod file_input;
 
@@ -878,3 +881,8 @@ pub use tags_input::{
 
 #[cfg(feature = "file-input")]
 pub use file_input::{FILE_INPUT_BASE_CLASS, FileInput, file_input_class};
+
+#[cfg(feature = "swap")]
+pub use swap::{
+  SWAP_BASE_CLASS, SWAP_LAYER_BASE_CLASS, Swap, SwapEffect, swap_class, swap_layer_class,
+};

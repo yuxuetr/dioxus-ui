@@ -89,6 +89,7 @@ examples! {
   number_input_cart => "number-input", "Quantity and weight";
   tags_input_topics => "tags-input", "Topics";
   file_input_upload => "file-input", "Documents";
+  swap_icons => "swap", "Icons and text";
   chart_revenue => "chart", "Area and line";
   data_table_users => "data-table", "Filter, sort, and select";
   empty_projects => "empty", "No projects";

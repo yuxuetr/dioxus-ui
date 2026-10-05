@@ -195,6 +195,7 @@ dioxus-shadcn = { version = "0.1", default-features = false, features = ["button
 | [Stat](stat.md) | `dxui add stat` | `stat` | Statistic definition list parts |
 | [Status](status.md) | `dxui add status` | `status` | Labelled or decorative status dot |
 | [Steps](steps.md) | `dxui add steps` | `steps` | Numbered process step parts |
+| [Swap](swap.md) | `dxui add swap` | `swap` | Two-state swapping toggle button |
 | [Switch](switch.md) | `dxui add switch` | `switch` | Controlled styled part |
 | [Table](table.md) | `dxui add table` | `table` | Styled parts |
 | [Tabs](tabs.md) | `dxui add tabs` | `tabs` | Controlled styled parts |

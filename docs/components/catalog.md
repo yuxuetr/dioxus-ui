@@ -10,7 +10,7 @@ The catalog is derived from registry entries, templates, component docs,
 crate features, and crate modules. It intentionally does not include visual
 preview routes, screenshot artifacts, or generated JSON metadata.
 
-Public components: 76
+Public components: 77
 
 ## Groups
 
@@ -20,6 +20,7 @@ Public components: 76
 - [Button Group](button-group.md): Button Group component for grouped command buttons.
 - [Command](command.md): Controlled command palette parts with active descendant semantics.
 - [Kbd](kbd.md): Styled keyboard shortcut hint.
+- [Swap](swap.md): Styled toggle button that swaps between two elements.
 - [Toggle](toggle.md): Toggle component for controlled pressed button states.
 - [Toggle Group](toggle-group.md): Toggle Group component for grouped single or multiple pressed states.
 
@@ -183,6 +184,7 @@ Public components: 76
 | [Stat](stat.md) | Styled statistic group with title, value, description, and figure. | `dxui add stat` | `stat` | `crates/dioxus-shadcn-cli/templates/stat.rs` | `src/components/ui/stat.rs` |
 | [Status](status.md) | Styled status dot with an optional accessible label. | `dxui add status` | `status` | `crates/dioxus-shadcn-cli/templates/status.rs` | `src/components/ui/status.rs` |
 | [Steps](steps.md) | Styled numbered steps with complete, current, and upcoming states. | `dxui add steps` | `steps` | `crates/dioxus-shadcn-cli/templates/steps.rs` | `src/components/ui/steps.rs` |
+| [Swap](swap.md) | Styled toggle button that swaps between two elements. | `dxui add swap` | `swap` | `crates/dioxus-shadcn-cli/templates/swap.rs` | `src/components/ui/swap.rs` |
 | [Switch](switch.md) | Switch component with checked and disabled states. | `dxui add switch` | `switch` | `crates/dioxus-shadcn-cli/templates/switch.rs` | `src/components/ui/switch.rs` |
 | [Table](table.md) | Table component with styled table parts. | `dxui add table` | `table` | `crates/dioxus-shadcn-cli/templates/table.rs` | `src/components/ui/table.rs` |
 | [Tabs](tabs.md) | Tabs components with controlled active state. | `dxui add tabs` | `tabs` | `crates/dioxus-shadcn-cli/templates/tabs.rs` | `src/components/ui/tabs.rs` |

@@ -10,7 +10,7 @@ The manifest defines template metadata for future source preview routes.
 It does not embed full template source, syntax highlighting, rendered routes,
 screenshots, or generated JSON.
 
-Source preview routes: 76
+Source preview routes: 77
 
 ## Source Preview Routes
 
@@ -81,6 +81,7 @@ Source preview routes: 76
 | [Stat](stat.md) | /components/stat/source | crates/dioxus-shadcn-cli/templates/stat.rs | src/components/ui/stat.rs | rust | 137 | 3801 |
 | [Status](status.md) | /components/status/source | crates/dioxus-shadcn-cli/templates/status.rs | src/components/ui/status.rs | rust | 71 | 1785 |
 | [Steps](steps.md) | /components/steps/source | crates/dioxus-shadcn-cli/templates/steps.rs | src/components/ui/steps.rs | rust | 136 | 5029 |
+| [Swap](swap.md) | /components/swap/source | crates/dioxus-shadcn-cli/templates/swap.rs | src/components/ui/swap.rs | rust | 79 | 2520 |
 | [Switch](switch.md) | /components/switch/source | crates/dioxus-shadcn-cli/templates/switch.rs | src/components/ui/switch.rs | rust | 73 | 2165 |
 | [Table](table.md) | /components/table/source | crates/dioxus-shadcn-cli/templates/table.rs | src/components/ui/table.rs | rust | 149 | 3429 |
 | [Tabs](tabs.md) | /components/tabs/source | crates/dioxus-shadcn-cli/templates/tabs.rs | src/components/ui/tabs.rs | rust | 194 | 6622 |

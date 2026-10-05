@@ -1379,6 +1379,21 @@ async function runBrowserAssertions() {
       { name: "plan.md", mimeType: "text/markdown", buffer: Buffer.from("# plan") },
     ]);
     await expect(fileFixture).toHaveAttribute("data-files", "notes.txt|plan.md");
+    // Swap toggles aria-pressed and shows the matching layer, hiding the
+    // other from assistive technology (RFC 0060).
+    const swapFixture = page.locator('[data-interaction-target="swap"]');
+    const swapButton = swapFixture.getByRole("button", { name: "Menu", exact: true });
+    const swapLayer = (state) => swapFixture.locator(`[data-swap-layer="${state}"]`).locator("..");
+    await expect(swapButton).toHaveAttribute("aria-pressed", "false");
+    await expect(swapLayer("on")).toHaveAttribute("aria-hidden", "true");
+    await swapButton.press("Enter");
+    await expect(swapFixture).toHaveAttribute("data-active", "true");
+    await expect(swapButton).toHaveAttribute("aria-pressed", "true");
+    await expect(swapLayer("off")).toHaveAttribute("aria-hidden", "true");
+    await expect(swapLayer("on")).not.toHaveAttribute("aria-hidden", "true");
+    await expect(swapLayer("on")).toHaveCSS("opacity", "1");
+    await swapButton.click();
+    await expect(swapFixture).toHaveAttribute("data-active", "false");
     const sliderFixture = page.locator('[data-interaction-target="slider"]');
     const volume = sliderFixture.getByRole("slider", { name: "Volume", exact: true });
     const locked = sliderFixture.getByRole("slider", { name: "Locked", exact: true });
@@ -2103,7 +2118,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (40 fixtures)");
+  console.log("runtime interaction verification passed (41 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

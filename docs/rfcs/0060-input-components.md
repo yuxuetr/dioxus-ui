@@ -64,11 +64,13 @@ as in Attachment.
 
 ### Swap
 
-`Swap` is a toggle button showing `SwapOn` when `active` and `SwapOff`
-otherwise, such as a menu icon that becomes a close icon. It sets
-`aria-pressed`, takes `aria-label`, and calls `on_active_change`.
-`SwapEffect` is `Fade` (default), `Rotate`, or `Flip`; motion stops under
-`prefers-reduced-motion`.
+`Swap` is a toggle button that shows its `on` element when `active` and its
+`off` element otherwise, such as a menu icon that becomes a close icon. The
+two are element props rather than child parts, so Swap computes each layer's
+classes from the effect and state without stacked group selectors. The hidden
+layer is `aria-hidden`. It sets `aria-pressed`, takes `aria-label`, and calls
+`on_active_change`. `SwapEffect` is `Fade` (default), `Rotate`, or `Flip`;
+motion stops under `prefers-reduced-motion`.
 
 ## Alternatives
 
