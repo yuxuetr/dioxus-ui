@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75%
-- Current milestone: M169 Tailwind Utility Conflicts
-- Current task: M169.4 Complete Tailwind utility conflict milestone
+- Overall: 100%
+- Current milestone: None
+- Current task: None
 
 ## Backup
 
@@ -3098,7 +3098,7 @@
   - Make `npm run verify:runtime-interactions` fail on conflicting utilities in any rendered class list before and after the interactions, switch fixture overrides to the important modifier, and measure the Radio Group checked border and the vertical Slider width.
   - Reverse-verify that the checks fail with the base invalid border restored, without the important modifier on a fixture override, with the base Radio border restored, and with a full-width vertical Slider.
 
-- TODO M169.4 Complete Tailwind utility conflict milestone
+- DONE M169.4 Complete Tailwind utility conflict milestone
   - Update CHANGELOG Unreleased notes, Known Pre-1.0 Limitations, and quality gate docs.
   - Run `CARGO_NET_OFFLINE=true npm run verify:release`, the browser interaction smoke, and the Desktop self-test.
   - Push local commits to `origin/main`; crates.io publish remains a release-owner action.
