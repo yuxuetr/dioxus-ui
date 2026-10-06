@@ -555,6 +555,17 @@ block into a fresh app that built while denying warnings, and `dxui diff`
 reported that every copy matched; another app built against `dioxus-shadcn`
 0.4 from crates.io.
 
+## 0.4.1 Publish
+
+The release owner confirmed 0.4.1 on 2026-10-06, to follow the `dxui diff`
+change once CI passed. The release gate and dry run passed, and
+`cargo-semver-checks --release-type patch` against 0.4.0 required no version
+change in the three library crates. The four crates were published in
+dependency order and tagged `v0.4.1`. In a fresh app with Button, Dialog, and
+the dashboard block, the published `dxui` 0.4.1 ran `dxui diff` without names
+and reported all 14 entries matching, then exited 1 after `dialog.rs` was
+edited.
+
 ## Known Pre-1.0 Limitations
 
 - Dialog, Alert Dialog, Sheet, and Drawer implement Escape and overlay
