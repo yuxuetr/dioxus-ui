@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 57% (4 of 7 tasks)
+- Overall: 71% (5 of 7 tasks)
 - Current milestone: M204
-- Current task: M204.1
+- Current task: M204.2 (waits for the release owner)
 
 ## Backup
 
@@ -51,8 +51,9 @@
 
 ## M204 0.4.0 Release
 
-- TODO M204.1 Prepare 0.4.0
+- DONE M204.1 Prepare 0.4.0
   - CHANGELOG with migration notes, versions bumped, `Cargo.lock` on the latest Dioxus 0.7. `cargo-semver-checks` against 0.3.0 becomes a step in `docs/release.md`, and its findings are in the notes. Release gate and publish dry run pass.
+  - Done: versions 0.4.0; CHANGELOG [0.4.0]; `cargo update` within semver, Dioxus on 0.7.10 (newest 0.7; crates.io lists only 0.8 alphas above it). `cargo-semver-checks --release-type minor` against 0.3.0: 202 checks pass for each library crate (without `--release-type` every lint is skipped, which `docs/release.md` now says). `npm run verify:release` exits 0 (6m23s) and `cargo publish --workspace --dry-run` verifies all four crates.
 - TODO M204.2 Publish 0.4.0
   - Only after the release owner confirms; then build fresh apps in both modes from crates.io.
 
