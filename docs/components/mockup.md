@@ -12,7 +12,7 @@ dxui add mockup
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.2", default-features = false, features = ["mockup"] }
+dioxus-shadcn = { version = "0.3", default-features = false, features = ["mockup"] }
 ```
 
 ## API Surface

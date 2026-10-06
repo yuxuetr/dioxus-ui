@@ -8,6 +8,15 @@ for commit messages.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-06
+
+Version 0.3.0 moves from components to screens: submenus, scroll lock, an
+off-canvas Sidebar, a range slider, a Theme Controller, and blocks that
+`dxui add` copies as whole screens. It has 82 components and 3 blocks, fixes
+charts that drew upside down, and keeps the source-copy templates in line
+with the crate through a parity test. Breaking changes are listed under
+Migration.
+
 ### Added
 
 - Blocks ([RFC 0073](docs/rfcs/0073-blocks.md)): `dxui add <block>` copies a
@@ -102,9 +111,15 @@ for commit messages.
 
 ### Migration
 
+- `ChartScale` keeps the direction of its output range. Charts that passed a
+  range from bottom to top, as the docs show, now draw the right way up;
+  code that flipped values itself to undo the inversion must stop.
 - Apps that copied the Calendar template and call `CalendarDate::new` get an
   `Option` after re-adding it; use `CalendarDate::unchecked` for the old
   behavior. Templates already in an app are not changed.
+- A Sidebar given `on_mobile_open_change` renders inside a wrapper element
+  (a flex item on wide viewports, the modal panel on phones); selectors
+  that expect the `aside` as a direct child of the layout need updating.
 
 ## [0.2.0] - 2026-10-05
 

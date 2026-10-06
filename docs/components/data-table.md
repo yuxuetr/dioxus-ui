@@ -23,7 +23,7 @@ src/components/ui/command.rs
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.2", default-features = false, features = ["data-table"] }
+dioxus-shadcn = { version = "0.3", default-features = false, features = ["data-table"] }
 ```
 
 ```rust

@@ -286,3 +286,14 @@ Exit criteria:
   site example, and tests
 - a generated fixture app builds every block
 - 0.3.0 release notes list each breaking change with a migration note
+
+Status: M195 retires the first-publish gates and adds the template parity
+test ([RFC 0066](rfcs/0066-template-parity.md)), M196 menu checkable items
+and submenus ([RFC 0067](rfcs/0067-menu-submenus.md)), M197 scroll lock, the
+off-canvas Sidebar, the range slider, and the pagination range
+([RFC 0068](rfcs/0068-modal-scroll-lock.md) to
+[RFC 0070](rfcs/0070-range-slider.md)), M198 Theme Controller, Menu, and
+Mockup ([RFC 0071](rfcs/0071-theme-controller.md) and
+[RFC 0072](rfcs/0072-menu-and-mockup.md)), M199 copyable code and the rendered
+reference on the site, and M200 blocks ([RFC 0073](rfcs/0073-blocks.md)).
+M201 prepares 0.3.0.

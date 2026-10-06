@@ -36,7 +36,7 @@ The styled crate should keep `default = []`.
 Users opt into components:
 
 ```toml
-dioxus-shadcn = { version = "0.2", default-features = false, features = ["button", "dialog"] }
+dioxus-shadcn = { version = "0.3", default-features = false, features = ["button", "dialog"] }
 ```
 
 Feature names should match registry names where possible:

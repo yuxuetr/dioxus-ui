@@ -12,7 +12,7 @@ dxui add attachment
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.2", default-features = false, features = ["attachment"] }
+dioxus-shadcn = { version = "0.3", default-features = false, features = ["attachment"] }
 ```
 
 ## API Surface

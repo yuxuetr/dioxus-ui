@@ -48,7 +48,7 @@ use components::ui::button::{Button, ButtonVariant};
 
 ```toml
 [dependencies]
-dioxus-shadcn = { version = "0.2", features = ["button", "dialog"] }
+dioxus-shadcn = { version = "0.3", features = ["button", "dialog"] }
 ```
 
 ```rust
