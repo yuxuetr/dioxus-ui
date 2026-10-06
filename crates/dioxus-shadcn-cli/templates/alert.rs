@@ -25,7 +25,7 @@ impl AlertVariant {
   }
 }
 
-pub const ALERT_BASE_CLASS: &str = "relative w-full rounded-md border p-4 text-card-foreground";
+pub const ALERT_BASE_CLASS: &str = "relative w-full rounded-md border p-4";
 pub const ALERT_TITLE_BASE_CLASS: &str = "mb-1 font-medium leading-none tracking-normal";
 pub const ALERT_DESCRIPTION_BASE_CLASS: &str = "text-sm";
 

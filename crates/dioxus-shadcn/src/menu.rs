@@ -5,7 +5,7 @@ use crate::element_id::next_element_id;
 
 pub const MENU_BASE_CLASS: &str = "flex w-full flex-col gap-0.5 text-sm";
 pub const MENU_TITLE_BASE_CLASS: &str = "px-3 pb-1 pt-3 text-xs font-medium text-muted-foreground";
-pub const MENU_ITEM_BASE_CLASS: &str = "flex w-full items-center gap-2 rounded-md px-3 py-2 text-start text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
+pub const MENU_ITEM_BASE_CLASS: &str = "flex w-full items-center gap-2 rounded-md px-3 py-2 text-start transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
 pub const MENU_ITEM_ACTIVE_CLASS: &str = "bg-accent font-medium text-accent-foreground";
 /// A down chevron at the end of a group's button that turns up while it is
 /// open; up and down need no mirroring in right-to-left.
@@ -22,7 +22,8 @@ pub fn menu_title_class(class: &str) -> String {
 }
 
 pub fn menu_item_class(active: bool, class: &str) -> String {
-  classes([Some(MENU_ITEM_BASE_CLASS), active.then_some(MENU_ITEM_ACTIVE_CLASS), Some(class)])
+  let state_class = if active { MENU_ITEM_ACTIVE_CLASS } else { "text-foreground" };
+  classes([Some(MENU_ITEM_BASE_CLASS), Some(state_class), Some(class)])
 }
 
 pub fn menu_group_list_class(class: &str) -> String {

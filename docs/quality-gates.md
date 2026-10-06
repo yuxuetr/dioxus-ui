@@ -311,11 +311,15 @@ read-only and does not compile Tailwind CSS, validate user-provided classes, or
 assert visual parity.
 
 `npm run verify:tailwind-conflicts` compiles each utility of the shipped class
-functions with the Tailwind Node API and fails when a function joins a base
-class with a state class, helper, or method class that sets the same property
-under the same variant (see
-[RFC 0044](rfcs/0044-tailwind-utility-conflicts.md)). It does not validate
-user-provided classes or conflicts between two state classes.
+functions with the Tailwind Node API, under the token stylesheet `dxui init`
+writes so token colors such as `bg-primary` compile, and fails when a function
+joins a base class with a state class, helper, or method class that sets the
+same property under the same variant (see
+[RFC 0044](rfcs/0044-tailwind-utility-conflicts.md)). It first checks its own
+ground truth: `bg-primary` must conflict with `bg-accent`, and two names
+Tailwind does not know must not conflict. A constant used as another
+element's whole `class` is not paired with the base class. It does not
+validate user-provided classes or conflicts between two state classes.
 
 `npm run verify:preview-css` compiles the preview stylesheet input and fails
 when `examples/preview-states/assets/preview.generated.css`, which every

@@ -31,12 +31,12 @@ pub fn toast_viewport_class(placement: ToastPlacement, class: &str) -> String {
 
 pub fn toast_root_class(variant: ToastVariant, class: &str) -> String {
   let variant_class = match variant {
-    ToastVariant::Default => "border-border text-foreground",
-    ToastVariant::Success => "border-success/50 text-foreground",
-    ToastVariant::Info => "border-info/50 text-foreground",
-    ToastVariant::Warning => "border-warning/50 text-foreground",
-    ToastVariant::Error => "border-destructive/50 text-foreground",
-    ToastVariant::Loading => "border-border text-foreground",
+    ToastVariant::Default => "border-border",
+    ToastVariant::Success => "border-success/50",
+    ToastVariant::Info => "border-info/50",
+    ToastVariant::Warning => "border-warning/50",
+    ToastVariant::Error => "border-destructive/50",
+    ToastVariant::Loading => "border-border",
   };
 
   classes([Some(TOAST_ROOT_BASE_CLASS), Some(variant_class), Some(class)])
@@ -233,7 +233,7 @@ mod tests {
     let description = toast_description_class(ToastVariant::Error, "");
 
     assert!(root.contains(TOAST_ROOT_BASE_CLASS));
-    assert!(root.contains("border-destructive/50 text-foreground"));
+    assert!(root.contains("border-destructive/50"));
     assert!(description.contains("text-muted-foreground"));
   }
 

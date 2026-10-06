@@ -59,14 +59,21 @@ const declaredPropertiesCache = new Map();
 const important = (utility) => utility.endsWith("!") || utility.startsWith("!");
 const variantOf = (utility) => utility.slice(0, Math.max(utility.lastIndexOf(":"), 0));
 
+// The stylesheet `dxui init` writes, without the preview's scan roots: its
+// `@theme inline` block defines the token colors, so `bg-primary` compiles
+// like `bg-blue-500` instead of producing nothing.
+const themeInput = readFileSync(compiledStylesheets.preview.input, "utf8").replace(/^@source .*\n/gm, "");
+
 async function declaredProperties(utility) {
   // A fresh compiler per utility, because build() accumulates candidates.
-  const compiler = await compile('@import "tailwindcss";', {
+  const compiler = await compile(themeInput, {
     base: repoRoot,
     onDependency: () => {},
   });
   const css = compiler.build([utility]);
-  const start = css.indexOf("@layer utilities");
+  // With no utility, Tailwind still emits an empty `@layer utilities;`
+  // statement, and the token rules that follow it are not the utility's.
+  const start = css.indexOf("@layer utilities {");
   if (start < 0) {
     return new Set();
   }

@@ -17,6 +17,13 @@ const utilityList = /^[a-z0-9:[\]=/.%_ -]+$/;
 const failures = [];
 let functionCount = 0;
 
+// The ground truth must see token colors and must not see conflicts between
+// names Tailwind does not know; either mistake silently passes every check.
+const calibration = await utilityConflicts(["bg-primary bg-accent", "app-card app-card-title"]);
+if (calibration.join() !== "bg-primary / bg-accent") {
+  failures.push(`ground truth miscalibrated: expected only bg-primary / bg-accent, got [${calibration.join(", ")}]`);
+}
+
 for (const root of roots) {
   for (const entry of readdirSync(join(repoRoot, root)).sort()) {
     if (!entry.endsWith(".rs")) {
@@ -63,7 +70,12 @@ for (const root of roots) {
 
     for (const fn of functions) {
       const { name, body } = fn;
-      const referenced = referencedIn(body);
+      // A constant that is an element's whole class, such as a decorative
+      // child's, is never joined with the base class.
+      const ownElement = (constant) =>
+        new RegExp(`\\bclass: ${constant}\\b`).test(body) &&
+        !new RegExp(`Some\\(${constant}\\)|then_some\\(${constant}\\)|\\{ ${constant} \\}`).test(body);
+      const referenced = referencedIn(body).filter((constant) => !ownElement(constant));
       const bases = referenced.filter((constant) => constant.endsWith("_BASE_CLASS"));
       if (bases.length === 0) {
         continue;

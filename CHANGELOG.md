@@ -8,6 +8,15 @@ for commit messages.
 
 ## [Unreleased]
 
+### Fixed
+
+- The active Menu item takes `text-accent-foreground` as intended; the base
+  class's `text-foreground` won by stylesheet order. Alert and Toast drop
+  color utilities that never applied for the same reason, which leaves their
+  rendering unchanged. `verify:tailwind-conflicts` compiled utilities without
+  the token stylesheet, so it could not see conflicts between token colors
+  such as `text-foreground` and `text-accent-foreground`.
+
 ### Added
 
 - `dxui init` writes the `@source` line crate mode needs, from
