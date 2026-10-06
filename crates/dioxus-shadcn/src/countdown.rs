@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 /// Remaining seconds split into days, hours, minutes, and seconds.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -37,7 +37,7 @@ pub const COUNTDOWN_BASE_CLASS: &str = "inline-flex items-baseline font-semibold
 pub const COUNTDOWN_SEPARATOR_CLASS: &str = "px-0.5 text-muted-foreground";
 
 pub fn countdown_class(class: &str) -> String {
-  classes([Some(COUNTDOWN_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(COUNTDOWN_BASE_CLASS)]), class)
 }
 
 /// The time left, in `remaining` seconds, as `D:HH:MM:SS`. The app owns the

@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 use crate::default_attribute::default_attribute;
 
@@ -52,28 +52,30 @@ pub fn pagination_range(current: u32, total: u32, siblings: u32) -> Vec<Paginati
 }
 
 pub fn pagination_class(class: &str) -> String {
-  classes([Some(PAGINATION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(PAGINATION_BASE_CLASS)]), class)
 }
 
 pub fn pagination_content_class(class: &str) -> String {
-  classes([Some(PAGINATION_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(PAGINATION_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn pagination_item_class(class: &str) -> String {
-  classes([Some(PAGINATION_ITEM_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(PAGINATION_ITEM_BASE_CLASS)]), class)
 }
 
 pub fn pagination_link_class(active: bool, disabled: bool, class: &str) -> String {
-  classes([
-    Some(PAGINATION_LINK_BASE_CLASS),
-    active.then_some(PAGINATION_LINK_ACTIVE_CLASS),
-    disabled.then_some(PAGINATION_LINK_DISABLED_CLASS),
-    Some(class),
-  ])
+  merge_classes(
+    classes([
+      Some(PAGINATION_LINK_BASE_CLASS),
+      active.then_some(PAGINATION_LINK_ACTIVE_CLASS),
+      disabled.then_some(PAGINATION_LINK_DISABLED_CLASS),
+    ]),
+    class,
+  )
 }
 
 pub fn pagination_ellipsis_class(class: &str) -> String {
-  classes([Some(PAGINATION_ELLIPSIS_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(PAGINATION_ELLIPSIS_BASE_CLASS)]), class)
 }
 
 #[component]
@@ -324,7 +326,10 @@ mod tests {
   fn pagination_link_class_reflects_active_and_disabled_states() {
     let actual = pagination_link_class(true, true, "rounded-full");
 
-    assert!(actual.contains(PAGINATION_LINK_BASE_CLASS));
+    assert_eq!(
+      actual,
+      "inline-flex h-10 min-w-10 items-center justify-center px-3 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-border bg-background pointer-events-none opacity-50 rounded-full"
+    );
     assert!(actual.contains(PAGINATION_LINK_ACTIVE_CLASS));
     assert!(actual.contains(PAGINATION_LINK_DISABLED_CLASS));
     assert!(actual.ends_with("rounded-full"));

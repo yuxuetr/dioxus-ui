@@ -1,5 +1,5 @@
 use super::element_id::next_element_id;
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 // Keep in sync with `INPUT_OTP_FILTER_SCRIPT` in the `dioxus-shadcn` crate.
@@ -222,26 +222,21 @@ pub fn otp_clamp_value(value: &str, length: usize) -> String {
 }
 
 pub fn input_otp_class(disabled: bool, class: &str) -> String {
-  classes([Some(INPUT_OTP_BASE_CLASS), disabled.then_some(INPUT_OTP_DISABLED_CLASS), Some(class)])
+  merge_classes(classes([Some(INPUT_OTP_BASE_CLASS), disabled.then_some(INPUT_OTP_DISABLED_CLASS)]), class)
 }
 
 pub fn input_otp_group_class(class: &str) -> String {
-  classes([Some(INPUT_OTP_GROUP_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(INPUT_OTP_GROUP_BASE_CLASS)]), class)
 }
 
 pub fn input_otp_slot_class(active: bool, invalid: bool, disabled: bool, class: &str) -> String {
-  classes([
-    Some(INPUT_OTP_SLOT_BASE_CLASS),
-    Some(if invalid {
+  merge_classes(classes([Some(INPUT_OTP_SLOT_BASE_CLASS), Some(if invalid {
       INPUT_OTP_SLOT_INVALID_CLASS
     } else if active {
       INPUT_OTP_SLOT_ACTIVE_CLASS
     } else {
       "border-input"
-    }),
-    Some(if disabled { INPUT_OTP_SLOT_DISABLED_CLASS } else { "bg-background text-foreground" }),
-    Some(class),
-  ])
+    }), Some(if disabled { INPUT_OTP_SLOT_DISABLED_CLASS } else { "bg-background text-foreground" })]), class)
 }
 
 pub fn input_otp_slot_display(value: Option<char>) -> String {
@@ -249,11 +244,11 @@ pub fn input_otp_slot_display(value: Option<char>) -> String {
 }
 
 pub fn input_otp_separator_class(class: &str) -> String {
-  classes([Some(INPUT_OTP_SEPARATOR_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(INPUT_OTP_SEPARATOR_BASE_CLASS)]), class)
 }
 
 pub fn input_otp_hidden_input_class(class: &str) -> String {
-  classes([Some(INPUT_OTP_HIDDEN_INPUT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(INPUT_OTP_HIDDEN_INPUT_BASE_CLASS)]), class)
 }
 
 fn otp_value_chars(value: &str, length: usize) -> Vec<char> {

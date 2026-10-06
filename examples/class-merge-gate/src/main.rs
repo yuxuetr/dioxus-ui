@@ -8,8 +8,6 @@ use std::{env, fs};
 
 use serde_json::{Value, json};
 
-mod classify;
-
 type Merge = fn(&str, &str) -> String;
 type Known = fn(&str) -> bool;
 
@@ -35,7 +33,12 @@ fn run() -> Result<(), Box<dyn Error>> {
         tw_merge::merge::merge_classes(format!("{user} {user}")).split_whitespace().count() == 1
       },
     ),
-    "table" => (classify::merge, |user| classify::classify(user).is_some()),
+    "table" => (
+      |component, user| dioxus_shadcn_core::merge_classes(component.to_string(), user),
+      |user| {
+        dioxus_shadcn_core::merge_classes(user.to_string(), user).split_whitespace().count() == 1
+      },
+    ),
     other => return Err(format!("unknown candidate `{other}`").into()),
   };
   let corpus: Value = serde_json::from_str(&fs::read_to_string(corpus_path)?)?;

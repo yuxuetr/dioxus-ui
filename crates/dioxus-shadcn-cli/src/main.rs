@@ -1083,7 +1083,12 @@ mod tests {
     let modules = fs::read_to_string(root.join("src").join("components").join("ui").join("mod.rs"))
       .expect("mod file should be readable");
 
-    assert_eq!(modules, format!("{UI_MOD_HEADER}\npub mod button;\npub mod utils;\n"));
+    assert_eq!(
+      modules,
+      format!(
+        "{UI_MOD_HEADER}\npub mod button;\npub mod class_merge;\npub mod class_merge_table;\npub mod utils;\n"
+      )
+    );
   }
 
   fn ui_files(root: &Path) -> Vec<String> {
@@ -1099,7 +1104,10 @@ mod tests {
   fn add_component_copies_only_the_helpers_it_uses() {
     let root = temp_project();
     add_component(&root, "button").expect("add should succeed");
-    assert_eq!(ui_files(&root), ["button.rs", "mod.rs", "utils.rs"]);
+    assert_eq!(
+      ui_files(&root),
+      ["button.rs", "class_merge.rs", "class_merge_table.rs", "mod.rs", "utils.rs"]
+    );
 
     let root = temp_project();
     add_component(&root, "dropdown").expect("add should succeed");
@@ -1107,6 +1115,8 @@ mod tests {
       ui_files(&root),
       [
         "anchored_overlay.rs",
+        "class_merge.rs",
+        "class_merge_table.rs",
         "dropdown.rs",
         "element_id.rs",
         "listbox.rs",
@@ -1154,7 +1164,10 @@ mod tests {
     add_component(&root, "button").expect("add should succeed");
 
     let modules = fs::read_to_string(ui_dir.join("mod.rs")).expect("mod file should be readable");
-    assert_eq!(modules, "pub use card::Card;\n\npub mod button;\npub mod card;\npub mod utils;\n");
+    assert_eq!(
+      modules,
+      "pub use card::Card;\n\npub mod button;\npub mod card;\npub mod class_merge;\npub mod class_merge_table;\npub mod utils;\n"
+    );
   }
 
   #[test]
@@ -1198,7 +1211,12 @@ mod tests {
     let modules = fs::read_to_string(root.join("src").join("components").join("ui").join("mod.rs"))
       .expect("mod file should be readable");
 
-    assert_eq!(modules, format!("{UI_MOD_HEADER}\npub mod button;\npub mod utils;\n"));
+    assert_eq!(
+      modules,
+      format!(
+        "{UI_MOD_HEADER}\npub mod button;\npub mod class_merge;\npub mod class_merge_table;\npub mod utils;\n"
+      )
+    );
   }
 
   #[test]
@@ -1331,6 +1349,8 @@ mod tests {
     assert_eq!(
       written,
       [
+        ("src/components/ui/class_merge_table.rs".to_string(), FileStatus::Written),
+        ("src/components/ui/class_merge.rs".to_string(), FileStatus::Written),
         ("src/components/ui/utils.rs".to_string(), FileStatus::Written),
         ("src/components/ui/button.rs".to_string(), FileStatus::Written)
       ]
@@ -1342,12 +1362,12 @@ mod tests {
     let button_path = root.join("src/components/ui/button.rs");
     fs::write(&button_path, "custom").expect("button should be written");
     let kept = statuses(add_entries(&root, &button, false).expect("add should succeed"));
-    assert_eq!(kept[0].1, FileStatus::Unchanged);
-    assert_eq!(kept[1].1, FileStatus::Kept);
+    assert_eq!(kept[2].1, FileStatus::Unchanged);
+    assert_eq!(kept[3].1, FileStatus::Kept);
     assert_eq!(fs::read_to_string(&button_path).expect("button should be readable"), "custom");
 
     let replaced = statuses(add_entries(&root, &button, true).expect("add should succeed"));
-    assert_eq!(replaced[1].1, FileStatus::Written);
+    assert_eq!(replaced[3].1, FileStatus::Written);
   }
 
   #[test]

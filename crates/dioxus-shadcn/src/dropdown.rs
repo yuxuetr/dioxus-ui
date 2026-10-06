@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
   DismissBehavior, DropdownPrimitiveConfig, OverlayAlign, OverlaySide,
 };
@@ -21,15 +21,15 @@ pub const DROPDOWN_SHORTCUT_BASE_CLASS: &str =
   "ml-auto text-xs tracking-normal text-muted-foreground";
 
 pub fn dropdown_content_class(class: &str) -> String {
-  classes([Some(DROPDOWN_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DROPDOWN_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn dropdown_group_class(class: &str) -> String {
-  classes([Some(DROPDOWN_GROUP_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DROPDOWN_GROUP_BASE_CLASS)]), class)
 }
 
 pub fn dropdown_label_class(class: &str) -> String {
-  classes([Some(DROPDOWN_LABEL_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DROPDOWN_LABEL_BASE_CLASS)]), class)
 }
 
 pub fn dropdown_item_class(destructive: bool, class: &str) -> String {
@@ -39,40 +39,47 @@ pub fn dropdown_item_class(destructive: bool, class: &str) -> String {
     "text-foreground focus:bg-accent"
   };
 
-  classes([Some(DROPDOWN_ITEM_BASE_CLASS), Some(variant_class), Some(class)])
+  merge_classes(classes([Some(DROPDOWN_ITEM_BASE_CLASS), Some(variant_class)]), class)
 }
 
 /// An item whose label lines up with checkbox and radio items.
 pub fn dropdown_inset_item_class(destructive: bool, class: &str) -> String {
-  dropdown_item_class(destructive, &classes([Some(DROPDOWN_ITEM_INSET_CLASS), Some(class)]))
+  dropdown_item_class(
+    destructive,
+    &merge_classes(classes([Some(DROPDOWN_ITEM_INSET_CLASS)]), class),
+  )
 }
 
 /// An inset item with a check mark shown while `checked`.
 pub fn dropdown_checkbox_item_class(checked: bool, class: &str) -> String {
-  let mark =
-    classes([Some(MENU_CHECKBOX_MARK_CLASS), Some(menu_mark_state_class(checked)), Some(class)]);
+  let mark = merge_classes(
+    classes([Some(MENU_CHECKBOX_MARK_CLASS), Some(menu_mark_state_class(checked))]),
+    class,
+  );
   dropdown_inset_item_class(false, &mark)
 }
 
 /// An inset item with a dot shown while `checked`.
 pub fn dropdown_radio_item_class(checked: bool, class: &str) -> String {
-  let mark =
-    classes([Some(MENU_RADIO_MARK_CLASS), Some(menu_mark_state_class(checked)), Some(class)]);
+  let mark = merge_classes(
+    classes([Some(MENU_RADIO_MARK_CLASS), Some(menu_mark_state_class(checked))]),
+    class,
+  );
   dropdown_inset_item_class(false, &mark)
 }
 
 pub fn dropdown_separator_class(class: &str) -> String {
-  classes([Some(DROPDOWN_SEPARATOR_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DROPDOWN_SEPARATOR_BASE_CLASS)]), class)
 }
 
 /// A sub trigger: an item with a chevron at its end.
 pub fn dropdown_sub_trigger_class(inset: bool, class: &str) -> String {
-  let class = classes([Some(MENU_SUB_TRIGGER_CLASS), Some(class)]);
+  let class = merge_classes(classes([Some(MENU_SUB_TRIGGER_CLASS)]), class);
   if inset { dropdown_inset_item_class(false, &class) } else { dropdown_item_class(false, &class) }
 }
 
 pub fn dropdown_shortcut_class(class: &str) -> String {
-  classes([Some(DROPDOWN_SHORTCUT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DROPDOWN_SHORTCUT_BASE_CLASS)]), class)
 }
 
 /// Opening focuses the first enabled item. Arrows move focus with wrapping,

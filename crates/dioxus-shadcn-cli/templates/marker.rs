@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -37,15 +37,15 @@ impl MarkerVariant {
 }
 
 pub fn marker_class(variant: MarkerVariant, class: &str) -> String {
-  classes([Some(MARKER_BASE_CLASS), Some(variant.class()), Some(class)])
+  merge_classes(classes([Some(MARKER_BASE_CLASS), Some(variant.class())]), class)
 }
 
 pub fn marker_icon_class(class: &str) -> String {
-  classes([Some(MARKER_ICON_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MARKER_ICON_BASE_CLASS)]), class)
 }
 
 pub fn marker_content_class(class: &str) -> String {
-  classes([Some(MARKER_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MARKER_CONTENT_BASE_CLASS)]), class)
 }
 
 #[component]

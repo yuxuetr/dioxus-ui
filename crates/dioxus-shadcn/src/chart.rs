@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
   ChartColorToken, ChartDomain, ChartFallbackRow, ChartPoint, ChartScale, ChartSeries,
   chart_color_attribute, chart_color_class, chart_domain, chart_domain_normalize,
@@ -28,43 +28,52 @@ pub struct ChartBarRect {
 }
 
 pub fn chart_class(class: &str) -> String {
-  classes([Some(CHART_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CHART_BASE_CLASS)]), class)
 }
 
 pub fn chart_svg_class(class: &str) -> String {
-  classes([Some(CHART_SVG_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CHART_SVG_BASE_CLASS)]), class)
 }
 
 pub fn chart_title_class(class: &str) -> String {
-  classes([Some(CHART_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CHART_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn chart_description_class(class: &str) -> String {
-  classes([Some(CHART_DESCRIPTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CHART_DESCRIPTION_BASE_CLASS)]), class)
 }
 
 pub fn chart_legend_class(class: &str) -> String {
-  classes([Some(CHART_LEGEND_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CHART_LEGEND_BASE_CLASS)]), class)
 }
 
 pub fn chart_fallback_table_class(class: &str) -> String {
-  classes([Some(CHART_FALLBACK_TABLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CHART_FALLBACK_TABLE_BASE_CLASS)]), class)
 }
 
 pub fn chart_tooltip_slot_class(visible: bool, class: &str) -> String {
-  classes([Some(CHART_TOOLTIP_SLOT_BASE_CLASS), (!visible).then_some("hidden"), Some(class)])
+  merge_classes(
+    classes([Some(CHART_TOOLTIP_SLOT_BASE_CLASS), (!visible).then_some("hidden")]),
+    class,
+  )
 }
 
 pub fn chart_line_series_class(color: ChartColorToken, class: &str) -> String {
-  classes([Some(CHART_LINE_SERIES_BASE_CLASS), Some(chart_color_class(color)), Some(class)])
+  merge_classes(
+    classes([Some(CHART_LINE_SERIES_BASE_CLASS), Some(chart_color_class(color))]),
+    class,
+  )
 }
 
 pub fn chart_area_series_class(color: ChartColorToken, class: &str) -> String {
-  classes([Some(CHART_AREA_SERIES_BASE_CLASS), Some(chart_color_class(color)), Some(class)])
+  merge_classes(
+    classes([Some(CHART_AREA_SERIES_BASE_CLASS), Some(chart_color_class(color))]),
+    class,
+  )
 }
 
 pub fn chart_bar_series_class(color: ChartColorToken, class: &str) -> String {
-  classes([Some(CHART_BAR_SERIES_BASE_CLASS), Some(chart_color_class(color)), Some(class)])
+  merge_classes(classes([Some(CHART_BAR_SERIES_BASE_CLASS), Some(chart_color_class(color))]), class)
 }
 
 pub fn chart_view_box(width: f64, height: f64) -> String {
@@ -498,7 +507,7 @@ pub fn chart_pie_arcs(
 }
 
 pub fn chart_pie_series_class(class: &str) -> String {
-  classes([Some(CHART_PIE_SERIES_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CHART_PIE_SERIES_BASE_CLASS)]), class)
 }
 
 /// Pie or donut slices, inside a `ChartSvg`. `center` and `radius` are in the

@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 pub const TABLE_CONTAINER_BASE_CLASS: &str = "relative w-full overflow-auto";
 pub const TABLE_BASE_CLASS: &str = "w-full caption-bottom text-sm";
@@ -13,39 +13,39 @@ pub const TABLE_CELL_BASE_CLASS: &str = "p-4 align-middle";
 pub const TABLE_CAPTION_BASE_CLASS: &str = "mt-4 text-sm text-muted-foreground";
 
 pub fn table_container_class(class: &str) -> String {
-  classes([Some(TABLE_CONTAINER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TABLE_CONTAINER_BASE_CLASS)]), class)
 }
 
 pub fn table_class(class: &str) -> String {
-  classes([Some(TABLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TABLE_BASE_CLASS)]), class)
 }
 
 pub fn table_header_class(class: &str) -> String {
-  classes([Some(TABLE_HEADER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TABLE_HEADER_BASE_CLASS)]), class)
 }
 
 pub fn table_body_class(class: &str) -> String {
-  classes([Some(TABLE_BODY_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TABLE_BODY_BASE_CLASS)]), class)
 }
 
 pub fn table_footer_class(class: &str) -> String {
-  classes([Some(TABLE_FOOTER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TABLE_FOOTER_BASE_CLASS)]), class)
 }
 
 pub fn table_row_class(class: &str) -> String {
-  classes([Some(TABLE_ROW_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TABLE_ROW_BASE_CLASS)]), class)
 }
 
 pub fn table_head_class(class: &str) -> String {
-  classes([Some(TABLE_HEAD_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TABLE_HEAD_BASE_CLASS)]), class)
 }
 
 pub fn table_cell_class(class: &str) -> String {
-  classes([Some(TABLE_CELL_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TABLE_CELL_BASE_CLASS)]), class)
 }
 
 pub fn table_caption_class(class: &str) -> String {
-  classes([Some(TABLE_CAPTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TABLE_CAPTION_BASE_CLASS)]), class)
 }
 
 #[component]

@@ -1,7 +1,7 @@
 use super::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
 use super::hover_open::{HoverOpenOptions, use_hover_open};
 pub use super::overlay::{DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 pub const HOVER_CARD_CONTENT_BASE_CLASS: &str = "z-50 w-80 rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
@@ -10,19 +10,19 @@ pub const HOVER_CARD_TITLE_BASE_CLASS: &str = "font-medium leading-none text-for
 pub const HOVER_CARD_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
 
 pub fn hover_card_content_class(class: &str) -> String {
-  classes([Some(HOVER_CARD_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(HOVER_CARD_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn hover_card_header_class(class: &str) -> String {
-  classes([Some(HOVER_CARD_HEADER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(HOVER_CARD_HEADER_BASE_CLASS)]), class)
 }
 
 pub fn hover_card_title_class(class: &str) -> String {
-  classes([Some(HOVER_CARD_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(HOVER_CARD_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn hover_card_description_class(class: &str) -> String {
-  classes([Some(HOVER_CARD_DESCRIPTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(HOVER_CARD_DESCRIPTION_BASE_CLASS)]), class)
 }
 
 pub fn hover_card_side_attribute(side: OverlaySide) -> &'static str {

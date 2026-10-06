@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 pub const TAGS_INPUT_BASE_CLASS: &str = "flex min-h-10 w-full flex-wrap items-center gap-1.5 rounded-md border bg-background px-2 py-1.5 text-sm transition-colors focus-within:ring-2";
 pub const TAGS_INPUT_LIST_CLASS: &str = "flex flex-wrap gap-1.5";
@@ -14,7 +14,7 @@ pub fn tags_input_class(invalid: bool, class: &str) -> String {
     "border-input focus-within:ring-ring"
   };
 
-  classes([Some(TAGS_INPUT_BASE_CLASS), Some(invalid_class), Some(class)])
+  merge_classes(classes([Some(TAGS_INPUT_BASE_CLASS), Some(invalid_class)]), class)
 }
 
 /// The tags with `draft` added, trimmed, unless it is empty or already there.

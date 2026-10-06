@@ -1,56 +1,22 @@
-//! The generated-table merge candidate (RFC 0076): each utility is classified
-//! into the longhand slots it sets, and a component utility is dropped when a
-//! user utility under the same variants and importance sets all of them.
-//! A token the table cannot classify removes nothing and is never removed.
+//! Merges a user class into a component's classes, as the last class wins
+//! (RFC 0076). Each utility is classified into the longhand slots it sets
+//! by data generated from Tailwind; a component utility is dropped when a
+//! user utility under the same variants and importance sets all of them. A
+//! token the data cannot classify, such as an app's own class or theme name,
+//! removes nothing and is never removed, and debug builds say so.
+//!
+//! Tailwind scans this file in apps that copy it, so it names no utility
+//! but `static`, the keyword the debug report needs.
 
-#[rustfmt::skip]
-mod table;
+use crate::class_merge_table::{GROUPS, HINTS, Kind, PROPERTIES, ROOTS, SETS, STATIC, Value};
 
-use table::{GROUPS, PROPERTIES, ROOTS, SETS, STATIC};
-
-/// The type of an arbitrary value, as Tailwind infers it or a hint names it.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum Kind {
-  Color,
-  Length,
-  Percentage,
-  Number,
-  Url,
-  Image,
-  Shadow,
-}
-
-/// A value form a root accepts.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum Value {
-  /// The root alone, such as `rounded`.
-  Bare,
-  /// `px-13`.
-  Integer,
-  /// `px-2.25`, in quarters.
-  Decimal,
-  /// `w-1/3`.
-  Fraction,
-  /// A named value from one of the keyword groups, such as `bg-primary`.
-  Keyword(u16),
-  /// `text-[13px]`, with the kind inferred from the value.
-  Literal(Kind),
-  /// `text-[length:var(--x)]` or `text-(length:--x)`.
-  Hinted(Kind),
-  /// `bg-[var(--x)]` or `bg-(--x)`.
-  Var,
-  /// Any arbitrary value, on a root with one slot set.
-  Arbitrary,
-}
-
-#[derive(Debug, PartialEq, Eq)]
-pub(crate) struct Utility<'a> {
+struct Utility<'a> {
   variants: &'a str,
   important: bool,
-  slots: &'static [u16],
+  slots: &'a [u16],
 }
 
-pub(crate) fn classify(token: &str) -> Option<Utility<'_>> {
+fn classify(token: &str) -> Option<Utility<'_>> {
   let (variants, utility) = match last_top_level_colon(token) {
     Some(index) => (&token[..index], &token[index + 1..]),
     None => ("", token),
@@ -62,30 +28,73 @@ pub(crate) fn classify(token: &str) -> Option<Utility<'_>> {
   Some(Utility { variants, important, slots: lookup(utility)? })
 }
 
-/// Joins the component classes and the user classes, without the component
-/// utilities a user utility replaces.
-pub(crate) fn merge(component: &str, user: &str) -> String {
-  let users = user.split_whitespace().filter_map(classify).collect::<Vec<_>>();
-  let mut merged = String::with_capacity(component.len() + user.len() + 1);
-  let tokens = component
+/// Appends the user class to the component classes and drops each component
+/// utility that a user utility replaces: one that sets every longhand the
+/// component utility sets, under the same variants and importance. A user
+/// utility that sets only some of them, such as horizontal padding over all
+/// padding, leaves both in place.
+pub fn merge_classes(component: String, user: &str) -> String {
+  if user.split_whitespace().next().is_none() {
+    return component;
+  }
+  let users = user
     .split_whitespace()
-    .filter(|token| {
-      !classify(token).is_some_and(|own| {
-        users.iter().any(|other| {
-          other.variants == own.variants
-            && other.important == own.important
-            && is_subset(own.slots, other.slots)
-        })
-      })
+    .filter_map(|token| {
+      let utility = classify(token);
+      if utility.is_none() {
+        report(format!("`{token}` is not a Tailwind utility the class merge knows, so it replaces no component class"));
+      }
+      utility.map(|utility| (token, utility))
     })
-    .chain(user.split_whitespace());
-  for token in tokens {
+    .collect::<Vec<_>>();
+  let mut merged = String::with_capacity(component.len() + user.len() + 1);
+  let kept = component.split_whitespace().filter(|token| {
+    let Some(own) = classify(token) else {
+      return true;
+    };
+    let replacement = users.iter().find(|(_, other)| {
+      other.variants == own.variants
+        && other.important == own.important
+        && is_subset(own.slots, other.slots)
+    });
+    if let Some((replacement, _)) = replacement {
+      report(format!("`{replacement}` replaces the component class `{token}`"));
+    }
+    replacement.is_none()
+  });
+  for token in kept.chain(user.split_whitespace()) {
     if !merged.is_empty() {
       merged.push(' ');
     }
     merged.push_str(token);
   }
   merged
+}
+
+/// Logs each distinct merge decision once, in debug builds, so an override
+/// that did not apply can be traced without reading the stylesheet.
+fn report(message: String) {
+  #[cfg(debug_assertions)]
+  {
+    use std::collections::BTreeSet;
+    use std::sync::Mutex;
+
+    static REPORTED: Mutex<BTreeSet<String>> = Mutex::new(BTreeSet::new());
+    if let Ok(mut reported) = REPORTED.lock()
+      && reported.insert(message.clone())
+    {
+      tracing::debug!("dioxus-shadcn class merge (RFC 0076): {message}");
+    }
+  }
+  #[cfg(not(debug_assertions))]
+  let _ = message;
+}
+
+/// Compares a stored name, which the generated data keeps reversed so
+/// Tailwind's source scan finds no class names in it, with a name read
+/// forward.
+fn reversed_cmp(stored: &str, name: &str) -> std::cmp::Ordering {
+  stored.bytes().cmp(name.bytes().rev())
 }
 
 fn is_subset(inner: &[u16], outer: &[u16]) -> bool {
@@ -107,25 +116,25 @@ fn last_top_level_colon(token: &str) -> Option<usize> {
   last
 }
 
-fn lookup(utility: &str) -> Option<&'static [u16]> {
-  if let Ok(index) = STATIC.binary_search_by(|(name, _)| name.cmp(&utility)) {
+fn lookup(utility: &str) -> Option<&[u16]> {
+  if let Ok(index) = STATIC.binary_search_by(|(name, _)| reversed_cmp(name, utility)) {
     return Some(SETS[STATIC[index].1 as usize]);
   }
   if let Some(inner) = utility.strip_prefix('[').and_then(|rest| rest.strip_suffix(']')) {
     let (property, _) = inner.split_once(':')?;
-    let index = PROPERTIES.binary_search_by(|(name, _)| name.cmp(&property)).ok()?;
+    let index = PROPERTIES.binary_search_by(|(name, _)| reversed_cmp(name, property)).ok()?;
     return Some(SETS[PROPERTIES[index].1 as usize]);
   }
 
-  // Roots from the longest: `border-t-2` is `border-t` with `2` before it is
-  // `border` with `t-2`. Dashes inside an arbitrary value do not split.
+  // Roots from the longest, so a root with a dash in it wins over the root
+  // before that dash. Dashes inside an arbitrary value do not split.
   let named_end = utility.find(['[', '(']).unwrap_or(utility.len());
   let splits = std::iter::once(utility.len()).chain(
     utility[..named_end].rmatch_indices('-').map(|(index, _)| index).filter(|index| *index > 0),
   );
   for split in splits {
     let root = &utility[..split];
-    let Ok(index) = ROOTS.binary_search_by(|(name, _)| name.cmp(&root)) else {
+    let Ok(index) = ROOTS.binary_search_by(|(name, _)| reversed_cmp(name, root)) else {
       continue;
     };
     let value = utility.get(split + 1..).unwrap_or("");
@@ -141,7 +150,7 @@ fn match_value(rules: &[(Value, u16)], value: &str) -> Option<u16> {
   rules.iter().find_map(|(rule, set)| {
     let matches = match (rule, form) {
       (Value::Keyword(group), Form::Named(name)) => {
-        GROUPS[*group as usize].binary_search(&name).is_ok()
+        GROUPS[*group as usize].binary_search_by(|stored| reversed_cmp(stored, name)).is_ok()
       }
       (Value::Arbitrary, Form::Arbitrary(_)) => true,
       (rule, Form::Arbitrary(Some(value))) => *rule == value,
@@ -184,7 +193,7 @@ fn value_form(value: &str) -> Option<Form<'_>> {
   {
     return Some(Form::Plain(Value::Fraction));
   }
-  // `primary/50`: the opacity modifier does not change the slots.
+  // An opacity modifier after a slash does not change the slots.
   let name = value.split_once('/').map_or(value, |(name, _)| name);
   Some(Form::Named(name))
 }
@@ -196,16 +205,7 @@ fn arbitrary_form(inner: &str, shorthand: bool) -> Option<Value> {
     && !hint.is_empty()
     && hint.bytes().all(|byte| byte.is_ascii_lowercase() || byte == b'-')
   {
-    let kind = match hint {
-      "color" => Kind::Color,
-      "length" => Kind::Length,
-      "percentage" => Kind::Percentage,
-      "number" => Kind::Number,
-      "url" => Kind::Url,
-      "image" => Kind::Image,
-      "shadow" => Kind::Shadow,
-      _ => return None,
-    };
+    let &(_, kind) = HINTS.iter().find(|(name, _)| reversed_cmp(name, hint).is_eq())?;
     let is_var = if shorthand { rest.starts_with("--") } else { rest.starts_with("var(") };
     return is_var.then_some(Value::Hinted(kind));
   }
@@ -275,7 +275,7 @@ fn literal_kind(value: &str) -> Option<Kind> {
   if is_length(value) {
     return (!is_number(value)).then_some(Kind::Length);
   }
-  // `0_0_0_1px_var(--x)`: each comma-separated shadow has an x and a y offset.
+  // `Kind::Shadow`: each comma-separated part has an x and a y offset.
   let is_shadow =
     value.split(',').all(|shadow| shadow.split('_').filter(|part| is_length(part)).count() >= 2);
   is_shadow.then_some(Kind::Shadow)
@@ -284,6 +284,10 @@ fn literal_kind(value: &str) -> Option<Kind> {
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  fn merge(component: &str, user: &str) -> String {
+    merge_classes(component.to_string(), user)
+  }
 
   #[test]
   fn last_wins_and_partial_overlaps_keep_both() {
@@ -295,6 +299,7 @@ mod tests {
       "hover:bg-primary/90 bg-accent"
     );
     assert_eq!(merge("text-sm text-muted-foreground", "text-primary"), "text-sm text-primary");
+    assert_eq!(merge("px-4", "px-2!"), "px-4 px-2!");
   }
 
   #[test]
@@ -304,5 +309,10 @@ mod tests {
       "group bg-primary group/item app-card bg-primry px-foo"
     );
     assert_eq!(merge("border-b", "border-b-primary"), "border-b border-b-primary");
+  }
+
+  #[test]
+  fn an_empty_user_class_returns_the_component_classes() {
+    assert_eq!(merge("inline-flex  h-10", " "), "inline-flex  h-10");
   }
 }

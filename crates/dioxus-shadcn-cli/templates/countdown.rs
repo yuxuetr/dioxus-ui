@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 /// Remaining seconds split into days, hours, minutes, and seconds.
@@ -37,7 +37,7 @@ pub const COUNTDOWN_BASE_CLASS: &str = "inline-flex items-baseline font-semibold
 pub const COUNTDOWN_SEPARATOR_CLASS: &str = "px-0.5 text-muted-foreground";
 
 pub fn countdown_class(class: &str) -> String {
-  classes([Some(COUNTDOWN_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(COUNTDOWN_BASE_CLASS)]), class)
 }
 
 /// The time left, in `remaining` seconds, as `D:HH:MM:SS`. The app owns the

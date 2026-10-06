@@ -1,5 +1,5 @@
 use super::default_attribute::default_attribute;
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
@@ -38,8 +38,8 @@ pub const MESSAGE_SCROLLER_VIEWPORT_BASE_CLASS: &str = "min-h-0 flex-1 overflow-
 pub const MESSAGE_SCROLLER_CONTENT_BASE_CLASS: &str = "flex min-h-full flex-col gap-4";
 pub const MESSAGE_SCROLLER_BOTTOM_ANCHOR_BASE_CLASS: &str = "h-px w-full shrink-0 scroll-mb-4";
 pub const MESSAGE_SCROLLER_UNREAD_MARKER_BASE_CLASS: &str =
-  "pointer-events-none absolute inset-x-0 bottom-4 z-10 flex justify-center";
-pub const MESSAGE_SCROLLER_JUMP_BUTTON_BASE_CLASS: &str = "inline-flex h-9 items-center justify-center rounded-md border border-border bg-background px-3 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+  "pointer-events-none absolute inset-x-0 bottom-4 z-10 justify-center";
+pub const MESSAGE_SCROLLER_JUMP_BUTTON_BASE_CLASS: &str = "h-9 items-center justify-center rounded-md border border-border bg-background px-3 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
 pub const fn message_scroller_intent_attribute(intent: MessageScrollerIntent) -> &'static str {
   match intent {
@@ -111,35 +111,27 @@ pub fn message_scroller_next_intent(
 }
 
 pub fn message_scroller_class(_intent: MessageScrollerIntent, class: &str) -> String {
-  classes([Some(MESSAGE_SCROLLER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MESSAGE_SCROLLER_BASE_CLASS)]), class)
 }
 
 pub fn message_scroller_viewport_class(class: &str) -> String {
-  classes([Some(MESSAGE_SCROLLER_VIEWPORT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MESSAGE_SCROLLER_VIEWPORT_BASE_CLASS)]), class)
 }
 
 pub fn message_scroller_content_class(class: &str) -> String {
-  classes([Some(MESSAGE_SCROLLER_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MESSAGE_SCROLLER_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn message_scroller_bottom_anchor_class(class: &str) -> String {
-  classes([Some(MESSAGE_SCROLLER_BOTTOM_ANCHOR_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MESSAGE_SCROLLER_BOTTOM_ANCHOR_BASE_CLASS)]), class)
 }
 
 pub fn message_scroller_unread_marker_class(visible: bool, class: &str) -> String {
-  classes([
-    Some(MESSAGE_SCROLLER_UNREAD_MARKER_BASE_CLASS),
-    (!visible).then_some("hidden"),
-    Some(class),
-  ])
+  merge_classes(classes([Some(MESSAGE_SCROLLER_UNREAD_MARKER_BASE_CLASS), Some(if visible { "flex" } else { "hidden" })]), class)
 }
 
 pub fn message_scroller_jump_button_class(visible: bool, class: &str) -> String {
-  classes([
-    Some(MESSAGE_SCROLLER_JUMP_BUTTON_BASE_CLASS),
-    (!visible).then_some("hidden"),
-    Some(class),
-  ])
+  merge_classes(classes([Some(MESSAGE_SCROLLER_JUMP_BUTTON_BASE_CLASS), Some(if visible { "inline-flex" } else { "hidden" })]), class)
 }
 
 fn non_negative_finite(value: f64) -> f64 {

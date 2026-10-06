@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 pub const TYPOGRAPHY_PROSE_BASE_CLASS: &str = "max-w-none text-foreground";
 pub const TYPOGRAPHY_H1_BASE_CLASS: &str =
@@ -17,39 +17,39 @@ pub const TYPOGRAPHY_INLINE_CODE_BASE_CLASS: &str =
   "relative rounded bg-muted px-1.5 py-0.5 font-mono text-sm text-foreground";
 
 pub fn typography_prose_class(class: &str) -> String {
-  classes([Some(TYPOGRAPHY_PROSE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TYPOGRAPHY_PROSE_BASE_CLASS)]), class)
 }
 
 pub fn typography_h1_class(class: &str) -> String {
-  classes([Some(TYPOGRAPHY_H1_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TYPOGRAPHY_H1_BASE_CLASS)]), class)
 }
 
 pub fn typography_h2_class(class: &str) -> String {
-  classes([Some(TYPOGRAPHY_H2_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TYPOGRAPHY_H2_BASE_CLASS)]), class)
 }
 
 pub fn typography_h3_class(class: &str) -> String {
-  classes([Some(TYPOGRAPHY_H3_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TYPOGRAPHY_H3_BASE_CLASS)]), class)
 }
 
 pub fn typography_p_class(class: &str) -> String {
-  classes([Some(TYPOGRAPHY_P_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TYPOGRAPHY_P_BASE_CLASS)]), class)
 }
 
 pub fn typography_lead_class(class: &str) -> String {
-  classes([Some(TYPOGRAPHY_LEAD_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TYPOGRAPHY_LEAD_BASE_CLASS)]), class)
 }
 
 pub fn typography_muted_class(class: &str) -> String {
-  classes([Some(TYPOGRAPHY_MUTED_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TYPOGRAPHY_MUTED_BASE_CLASS)]), class)
 }
 
 pub fn typography_blockquote_class(class: &str) -> String {
-  classes([Some(TYPOGRAPHY_BLOCKQUOTE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TYPOGRAPHY_BLOCKQUOTE_BASE_CLASS)]), class)
 }
 
 pub fn typography_inline_code_class(class: &str) -> String {
-  classes([Some(TYPOGRAPHY_INLINE_CODE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TYPOGRAPHY_INLINE_CODE_BASE_CLASS)]), class)
 }
 
 #[component]

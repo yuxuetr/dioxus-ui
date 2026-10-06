@@ -1,5 +1,5 @@
 use super::element_id::next_element_id;
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 // Runs for the slider's lifetime. A primary-button press captures the pointer
@@ -137,19 +137,19 @@ pub const SLIDER_RANGE_BASE_CLASS: &str = "absolute rounded-full bg-primary";
 pub const SLIDER_THUMB_BASE_CLASS: &str = "block h-5 w-5 rounded-full border-2 border-primary bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
 pub fn slider_root_class(class: &str) -> String {
-  classes([Some(SLIDER_ROOT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SLIDER_ROOT_BASE_CLASS)]), class)
 }
 
 pub fn slider_track_class(class: &str) -> String {
-  classes([Some(SLIDER_TRACK_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SLIDER_TRACK_BASE_CLASS)]), class)
 }
 
 pub fn slider_range_class(class: &str) -> String {
-  classes([Some(SLIDER_RANGE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SLIDER_RANGE_BASE_CLASS)]), class)
 }
 
 pub fn slider_thumb_class(class: &str) -> String {
-  classes([Some(SLIDER_THUMB_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SLIDER_THUMB_BASE_CLASS)]), class)
 }
 
 pub fn slider_state(value: f64, min: f64, max: f64, step: f64) -> SliderState {
@@ -286,9 +286,9 @@ pub fn Slider(
   let aria = state.aria_attributes();
   let (root_orientation, track_orientation, range_orientation) =
     slider_orientation_classes(orientation);
-  let root_class = slider_root_class(&classes([root_orientation, Some(class.as_str())]));
-  let track_class = slider_track_class(&classes([track_orientation, Some(track_class.as_str())]));
-  let range_class = slider_range_class(&classes([range_orientation, Some(range_class.as_str())]));
+  let root_class = slider_root_class(&merge_classes(classes([root_orientation]), class.as_str()));
+  let track_class = slider_track_class(&merge_classes(classes([track_orientation]), track_class.as_str()));
+  let range_class = slider_range_class(&merge_classes(classes([range_orientation]), range_class.as_str()));
   let thumb_class = slider_thumb_class(&thumb_class);
   let range_style = slider_range_style(orientation, percent);
   let thumb_style = slider_thumb_style(orientation, percent);
@@ -501,9 +501,9 @@ pub fn RangeSlider(
   let high = slider_state(values.1, min, max, step).percent();
   let (root_orientation, track_orientation, range_orientation) =
     slider_orientation_classes(orientation);
-  let root_class = slider_root_class(&classes([root_orientation, Some(class.as_str())]));
-  let track_class = slider_track_class(&classes([track_orientation, Some(track_class.as_str())]));
-  let range_class = slider_range_class(&classes([range_orientation, Some(range_class.as_str())]));
+  let root_class = slider_root_class(&merge_classes(classes([root_orientation]), class.as_str()));
+  let track_class = slider_track_class(&merge_classes(classes([track_orientation]), track_class.as_str()));
+  let range_class = slider_range_class(&merge_classes(classes([range_orientation]), range_class.as_str()));
   let thumb_class = slider_thumb_class(&thumb_class);
   let range_style = match orientation {
     SliderOrientation::Horizontal => format!("left: {low}%; width: {}%;", high - low),

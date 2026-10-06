@@ -3,7 +3,7 @@ use super::modal_focus::use_modal_focus_scope;
 pub use super::overlay::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 pub const DIALOG_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";
@@ -13,23 +13,23 @@ pub const DIALOG_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
 pub const DIALOG_CLOSE_BASE_CLASS: &str = "absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none";
 
 pub fn dialog_overlay_class(class: &str) -> String {
-  classes([Some(DIALOG_OVERLAY_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DIALOG_OVERLAY_BASE_CLASS)]), class)
 }
 
 pub fn dialog_content_class(class: &str) -> String {
-  classes([Some(DIALOG_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DIALOG_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn dialog_title_class(class: &str) -> String {
-  classes([Some(DIALOG_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DIALOG_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn dialog_description_class(class: &str) -> String {
-  classes([Some(DIALOG_DESCRIPTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DIALOG_DESCRIPTION_BASE_CLASS)]), class)
 }
 
 pub fn dialog_close_class(class: &str) -> String {
-  classes([Some(DIALOG_CLOSE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DIALOG_CLOSE_BASE_CLASS)]), class)
 }
 
 /// Backdrop that requests close on click when `dismiss.outside_pointer` is set.

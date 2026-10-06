@@ -4,24 +4,59 @@
 // A value form Tailwind does not accept, or one whose slots this table cannot
 // tell, is left out, so the merge treats it as unknown and removes nothing.
 //
-// Usage: node scripts/class-merge-table.mjs [--check] <output.rs>
+// It writes the crate's copy and the template copy.
+//
+// Usage: node scripts/class-merge-table.mjs [--check]
 import { readFileSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { __unstable__loadDesignSystem, compile } from "@tailwindcss/node";
+import { Scanner } from "@tailwindcss/oxide";
 import { launchBrowser } from "./browser-check-support.mjs";
 import { declarationsByToken, expandLonghands, isSlot, physical } from "./class-merge-truth.mjs";
 import { themeInput } from "./preview-tailwind.mjs";
 
 const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)));
-const args = process.argv.slice(2);
-const check = args.includes("--check");
-const output = args.find((arg) => !arg.startsWith("--"));
-if (!output) {
-  console.error("usage: node scripts/class-merge-table.mjs [--check] <output.rs>");
-  process.exit(2);
+const check = process.argv.includes("--check");
+const outputs = ["crates/dioxus-shadcn-core/src/class_merge_table.rs", "crates/dioxus-shadcn-cli/templates/class_merge_table.rs"];
+
+// The types the table is written in, so the table imports nothing and the
+// crate and template copies are identical.
+const ENUMS = `/// The type of an arbitrary value, as Tailwind infers it or a hint names it.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum Kind {
+  Color,
+  Length,
+  Percentage,
+  Number,
+  Url,
+  Image,
+  Shadow,
 }
+
+/// A value form a utility root accepts.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum Value {
+  /// The root alone.
+  Bare,
+  /// A whole number after the root.
+  Integer,
+  /// A number in quarters after the root.
+  Decimal,
+  /// A fraction after the root.
+  Fraction,
+  /// A named value from one of the keyword groups, such as a theme color.
+  Keyword(u16),
+  /// An arbitrary value in brackets, its kind inferred from the value.
+  Literal(Kind),
+  /// An arbitrary value with a kind hint, in brackets or parentheses.
+  Hinted(Kind),
+  /// A CSS variable, in brackets or as the parenthesis shorthand.
+  Var,
+  /// Any arbitrary value, on a root whose every form sets the same slots.
+  Arbitrary,
+}`;
 const tailwindVersion = createRequire(import.meta.url)("tailwindcss/package.json").version;
 
 const design = await __unstable__loadDesignSystem(themeInput, { base: repoRoot });
@@ -31,24 +66,27 @@ const classList = design.getClassList().map(([name]) => name);
 // the merge can infer from an arbitrary value; `Other` stands for any other
 // arbitrary value: a root that accepts it along with every other form, all
 // setting the same slots, takes any arbitrary value.
+// Several samples per kind: Tailwind may treat two values the merge infers
+// alike differently on one root, such as `0_0_0_1px_#000` and `13px_2px` on
+// `bg`, and then the form is left out.
 const kinds = {
-  Color: "#123456",
-  Length: "13px",
-  Percentage: "37%",
-  Number: "1.5",
-  Url: "url(x)",
-  Image: "linear-gradient(red,blue)",
-  Shadow: "0_0_0_1px_#000",
+  Color: ["#123456", "rgb(1_2_3)", "oklch(0.5_0.1_200)"],
+  Length: ["13px", "2rem", "-3px"],
+  Percentage: ["37%", "100%"],
+  Number: ["1.5", "2", "0"],
+  Url: ["url(x)"],
+  Image: ["linear-gradient(red,blue)", "radial-gradient(red,blue)"],
+  Shadow: ["0_0_0_1px_#000", "13px_2px", "0_1px_2px_red"],
 };
 const probes = (root) => [
-  ["Bare", root],
-  ["Integer", `${root}-13`],
-  ["Decimal", `${root}-2.25`],
-  ["Fraction", `${root}-1/3`],
-  ...Object.entries(kinds).map(([kind, value]) => [`Literal(Kind::${kind})`, `${root}-[${value}]`]),
-  ...Object.keys(kinds).map((kind) => [`Hinted(Kind::${kind})`, `${root}-[${kind.toLowerCase()}:var(--x)]`]),
-  ["Var", `${root}-[var(--x)]`],
-  ["Other", `${root}-[foo(1)]`],
+  ["Bare", [root]],
+  ["Integer", [`${root}-13`, `${root}-2`]],
+  ["Decimal", [`${root}-2.25`, `${root}-0.5`]],
+  ["Fraction", [`${root}-1/3`]],
+  ...Object.entries(kinds).map(([kind, values]) => [`Literal(Kind::${kind})`, values.map((value) => `${root}-[${value}]`)]),
+  ...Object.keys(kinds).map((kind) => [`Hinted(Kind::${kind})`, [`${root}-[${kind.toLowerCase()}:var(--x)]`, `${root}-(${kind.toLowerCase()}:--x)`]]),
+  ["Var", [`${root}-[var(--x)]`, `${root}-(--x)`]],
+  ["Other", [`${root}-[foo(1)]`]],
 ];
 
 const functional = new Map();
@@ -67,7 +105,7 @@ for (const root of design.utilities.keys("functional")) {
   if (!functional.has(root)) functional.set(root, new Set());
 }
 
-const probeTokens = [...functional.keys()].flatMap((root) => probes(root).map(([, token]) => token));
+const probeTokens = [...functional.keys()].flatMap((root) => probes(root).flatMap(([, tokens]) => tokens));
 const compiler = await compile(themeInput, { base: repoRoot, onDependency: () => {} });
 const declarations = declarationsByToken(compiler.build([...classList, ...probeTokens]));
 const properties = [...new Set([...declarations.values()].flat().filter(isSlot).map((d) => d.property))];
@@ -130,8 +168,12 @@ const groupIndex = (values) => {
 const rootRows = [];
 let skippedRoots = 0;
 for (const [root, named] of [...functional].sort(([a], [b]) => (a < b ? -1 : 1))) {
+  // A form counts when every sample compiles to the same slots.
   const forms = probes(root)
-    .map(([form, token]) => [form, slotKey(token)])
+    .map(([form, tokens]) => {
+      const keys = new Set(tokens.map(slotKey));
+      return [form, keys.size === 1 ? [...keys][0] : null];
+    })
     .filter(([, key]) => key);
   const keywordSets = new Map();
   for (const value of named) {
@@ -146,8 +188,13 @@ for (const [root, named] of [...functional].sort(([a], [b]) => (a < b ? -1 : 1))
   // A root whose every form sets the same slots, and which accepts every
   // arbitrary form, takes any arbitrary value: one rule instead of fourteen.
   const anyArbitrary = distinct.size === 1 && forms.filter(([form]) => arbitrary(form)).length === 2 * Object.keys(kinds).length + 2;
+  // On a root whose forms differ, Tailwind infers a literal's type and falls
+  // back to a default when it cannot; a literal form is kept only where its
+  // slots match the same kind named by a hint, so Tailwind inferred that kind.
+  const hinted = new Map(forms.filter(([form]) => form.startsWith("Hinted")).map(([form, key]) => [form.replace("Hinted", "Literal"), key]));
   const rules = forms
     .filter(([form]) => !(anyArbitrary && arbitrary(form)) && form !== "Other")
+    .filter(([form, key]) => anyArbitrary || !form.startsWith("Literal") || hinted.get(form) === key)
     .map(([form, key]) => [form, setIndex(key)]);
   if (anyArbitrary) rules.push(["Arbitrary", setIndex(forms[0][1])]);
   for (const [key, values] of keywordSets) rules.push([`Keyword(${groupIndex(values.sort())})`, setIndex(key)]);
@@ -170,56 +217,88 @@ const propertyRows = Object.keys(longhands)
   })
   .sort(([a], [b]) => (a < b ? -1 : 1));
 
+// Names are stored reversed, so Tailwind's source scan of an app that copies
+// the table finds no class names in it and generates no CSS for them.
+const reverse = (text) => [...text].reverse().join("");
+const byReversed = ([a], [b]) => (reverse(a) < reverse(b) ? -1 : reverse(a) > reverse(b) ? 1 : 0);
 const slotOf = (slot) => slotNames.get(slot);
-const quote = (text) => JSON.stringify(text);
+const quote = (text) => JSON.stringify(reverse(text));
 const lines = [
   `// Generated by \`node scripts/class-merge-table.mjs\` from Tailwind CSS ${tailwindVersion}`,
   "// and the token stylesheet `dxui init` writes. Do not edit (RFC 0076).",
   "",
-  "use super::{Kind, Value};",
+  ...ENUMS.split("\n"),
+  "",
+  "/// Hint names, reversed, and the kind each names.",
+  "pub(super) const HINTS: &[(&str, Kind)] = &[",
+  ...Object.keys(kinds).map((kind) => `  (${quote(kind.toLowerCase())}, Kind::${kind}),`),
+  "];",
   "",
   `/// Slot sets, sorted. A slot is a longhand in one writing direction; ${slotNames.size} in all.`,
   "pub(super) const SETS: &[&[u16]] = &[",
   ...[...sets.keys()].map((key) => `  &[${key.split("\n").map(slotOf).sort((a, b) => a - b).join(", ")}],`),
   "];",
   "",
-  "/// Static utilities, sorted by name.",
+  "/// Static utilities, by reversed name.",
   "pub(super) const STATIC: &[(&str, u16)] = &[",
-  ...staticRows.map(([name, set]) => `  (${quote(name)}, ${set}),`),
+  ...[...staticRows].sort(byReversed).map(([name, set]) => `  (${quote(name)}, ${set}),`),
   "];",
   "",
-  "/// Properties an arbitrary property such as `[mask-type:alpha]` can name, sorted.",
+  "/// Properties an arbitrary property can name, by reversed name.",
   "pub(super) const PROPERTIES: &[(&str, u16)] = &[",
-  ...propertyRows.map(([name, set]) => `  (${quote(name)}, ${set}),`),
+  ...[...propertyRows].sort(byReversed).map(([name, set]) => `  (${quote(name)}, ${set}),`),
   "];",
   "",
-  "/// Keyword values, each group sorted.",
+  "/// Keyword values, reversed, each group in order.",
   "pub(super) const GROUPS: &[&[&str]] = &[",
-  ...[...groups.keys()].map((key) => `  &[${key.split(" ").map(quote).join(", ")}],`),
+  ...[...groups.keys()].map((key) => `  &[${key.split(" ").map((value) => [value]).sort(byReversed).map(([value]) => quote(value)).join(", ")}],`),
   "];",
   "",
-  "/// Functional roots, sorted, with the value forms Tailwind accepts for each.",
+  "/// Functional roots, by reversed name, with the value forms Tailwind accepts for each.",
   "pub(super) const ROOTS: &[(&str, &[(Value, u16)])] = &[",
-  ...rootRows.map(([root, rules]) => `  (${quote(root)}, &[${rules.map(([form, set]) => `(Value::${form}, ${set})`).join(", ")}]),`),
+  ...[...rootRows].sort(byReversed).map(([root, rules]) => `  (${quote(root)}, &[${rules.map(([form, set]) => `(Value::${form}, ${set})`).join(", ")}]),`),
   "];",
   "",
 ];
+const stale = [];
 const source = lines.join("\n");
 
-if (check) {
-  let current = "";
-  try {
-    current = readFileSync(output, "utf8");
-  } catch {}
-  if (current !== source) {
-    console.error(`${output} is out of date; run \`node scripts/class-merge-table.mjs ${output}\``);
-    process.exit(1);
-  }
-  console.log(`${output} is current`);
-} else {
-  writeFileSync(output, source);
-  console.log(
-    `wrote ${output}: ${staticRows.length} static utilities, ${rootRows.length} roots (${skippedRoots} with no form), ` +
-      `${groups.size} keyword groups, ${sets.size} slot sets, ${slotNames.size} slots`,
-  );
+// Neither copied helper may give Tailwind a class to generate.
+const helperSources = ["crates/dioxus-shadcn-cli/templates/class_merge.rs"];
+const leaked = [];
+for (const [label, content] of [["class_merge_table.rs", source], ...helperSources.map((path) => [path, readFileSync(`${repoRoot}/${path}`, "utf8")])]) {
+  const scanner = new Scanner({});
+  const candidates = scanner.getCandidatesWithPositions({ content, extension: "rs" }).map(({ candidate }) => candidate);
+  // A fresh compiler: build() keeps every candidate it was given before.
+  const fresh = await compile(themeInput, { base: repoRoot, onDependency: () => {} });
+  const generated = declarationsByToken(fresh.build(candidates));
+  // `static` is the Rust keyword the debug report's set of reported messages
+  // needs; it costs an app one rule.
+  const names = [...generated.keys()].filter((name) => name !== "static");
+  if (names.length > 0) leaked.push(`${label}: ${names.slice(0, 20).join(", ")}`);
 }
+if (leaked.length > 0) {
+  console.error(`Tailwind would generate CSS for class names in the class merge helpers:\n${leaked.join("\n")}`);
+  process.exit(1);
+}
+
+for (const relativePath of outputs) {
+  const path = `${repoRoot}/${relativePath}`;
+  if (check) {
+    let current = "";
+    try {
+      current = readFileSync(path, "utf8");
+    } catch {}
+    if (current !== source) stale.push(relativePath);
+  } else {
+    writeFileSync(path, source);
+  }
+}
+if (check && stale.length > 0) {
+  console.error(`${stale.join(" and ")} out of date; run \`node scripts/class-merge-table.mjs\``);
+  process.exit(1);
+}
+console.log(
+  `${check ? "class merge tables are current" : "wrote the class merge tables"}: ${staticRows.length} static utilities, ` +
+    `${rootRows.length} roots (${skippedRoots} with no form), ${groups.size} keyword groups, ${sets.size} slot sets, ${slotNames.size} slots`,
+);

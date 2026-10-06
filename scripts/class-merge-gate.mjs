@@ -75,6 +75,26 @@ for (const token of componentTokens) {
     }
   }
 }
+// Arbitrary values of every shape on every root the components use, so the
+// merge's inference of an arbitrary value's type meets Tailwind's own.
+const arbitrarySamples = [
+  "13px", "2px", "13px_2px", "center_top", "1.5", "#fff", "rgb(1_2_3)", "50%", "0_1px_2px_red",
+  "url(x)", "linear-gradient(red,blue)", "calc(1px+2px)", "var(--x)", "length:var(--x)",
+  "color:var(--x)", "foo",
+];
+const roots = new Set(
+  componentTokens.map((token) => {
+    const utility = splitVariants(token).utility.replace(/!$/, "").replace(/^-/, "");
+    const bracket = utility.search(/-[[(]/);
+    return bracket >= 0 ? utility.slice(0, bracket) : utility.replace(/-[^-]*$/, "");
+  }),
+);
+for (const root of roots) {
+  if (!/^[a-z][a-z0-9-]*$/.test(root)) continue;
+  for (const sample of arbitrarySamples) userSet.add(`${root}-[${sample}]`);
+  userSet.add(`${root}-(--x)`);
+  userSet.add(`${root}-(length:--x)`);
+}
 const userTokens = [...userSet].sort();
 const allTokens = [...new Set([...componentTokens, ...userTokens])];
 
@@ -197,16 +217,22 @@ const describe = (pair) => {
 
 // A removal outside rule 1 drops a style the user did not replace. A kept
 // pair is fine unless the component utility still wins a longhand the user
-// utility sets: then the override does not apply.
-function judge(name, removed, droppedUsers) {
+// utility sets: then the override does not apply. Where the merge cannot
+// classify the user utility, rule 3 leaves the classes as they are and debug
+// builds say so; that is allowed for arbitrary values, but every named
+// utility Tailwind knows must be classified.
+function judge(name, removed, droppedUsers, unknown = new Set()) {
   const falseRemovals = [...removed].filter((pair) => !expected.has(pair));
   const missedRemovals = [...expected].filter((pair) => !removed.has(pair));
   const overridesLost = [...overlaps].filter(([pair, { userWins }]) => !userWins && !removed.has(pair)).map(([pair]) => pair);
   const unfixable = overridesLost.filter((pair) => !expected.has(pair));
-  const fixable = overridesLost.filter((pair) => expected.has(pair));
+  const userOf = (pair) => userTokens[Number(pair.split(",")[1])];
+  const fixable = overridesLost.filter((pair) => expected.has(pair) && !unknown.has(userOf(pair)));
+  const unclassified = overridesLost.filter((pair) => expected.has(pair) && unknown.has(userOf(pair)));
+  const unknownNamed = [...unknown].filter((token) => ltr.get(token).size > 0 && !/[[(]/.test(token));
   return {
-    name, falseRemovals, missedRemovals, fixable, unfixable, droppedUsers,
-    passed: falseRemovals.length + fixable.length + droppedUsers === 0,
+    name, falseRemovals, missedRemovals, fixable, unfixable, unclassified, unknownNamed, droppedUsers,
+    passed: falseRemovals.length + fixable.length + unknownNamed.length + droppedUsers === 0,
   };
 }
 
@@ -248,8 +274,9 @@ for (const candidate of candidates) {
     { cwd: repoRoot, encoding: "utf8", maxBuffer: 1 << 30 },
   );
   const report = JSON.parse(output);
-  const result = judge(candidate, new Set(report.removed.map(([c, u]) => `${c},${u}`)), report.droppedUsers.length);
-  result.unknown = report.unknown.map((index) => userTokens[index]);
+  const unknown = report.unknown.map((index) => userTokens[index]);
+  const result = judge(candidate, new Set(report.removed.map(([c, u]) => `${c},${u}`)), report.droppedUsers.length, new Set(unknown));
+  result.unknown = unknown;
   result.cost = report.cost;
   results.push(result);
 }
@@ -323,7 +350,9 @@ for (const result of results) {
   console.log(`\n${result.name}: ${result.passed ? "PASS" : "FAIL"}`);
   console.log(`  false removals: ${result.falseRemovals.length}${result.falseRemovals.length ? ` (${sample(result.falseRemovals)})` : ""}`);
   console.log(`  lost overrides it could have removed: ${result.fixable.length}${result.fixable.length ? ` (${sample(result.fixable)})` : ""}`);
-  console.log(`  kept where removal was allowed, harmless: ${result.missedRemovals.length - result.fixable.length}`);
+  console.log(`  lost overrides by user utilities it cannot classify (rule 3): ${result.unclassified.length}${result.unclassified.length ? ` (${sample(result.unclassified)})` : ""}`);
+  console.log(`  named utilities Tailwind knows that it cannot classify: ${result.unknownNamed.length}${result.unknownNamed.length ? ` (${result.unknownNamed.slice(0, 12).join(", ")})` : ""}`);
+  console.log(`  kept where removal was allowed, harmless: ${result.missedRemovals.length - result.fixable.length - result.unclassified.length}`);
   console.log(`  dropped user tokens: ${result.droppedUsers}`);
   const knownToTailwind = result.unknown.filter((token) => !unknownUsers.includes(token));
   console.log(`  unclassified user tokens: ${result.unknown.length}, of which Tailwind knows ${knownToTailwind.length}${knownToTailwind.length ? ` (${knownToTailwind.slice(0, 12).join(", ")})` : ""}`);
@@ -345,6 +374,7 @@ if (process.env.CLASS_MERGE_GATE_REPORT) {
           name: result.name,
           falseRemovals: pairs(result.falseRemovals),
           fixable: pairs(result.fixable),
+          unclassified: pairs(result.unclassified),
           unknown: result.unknown,
         })),
       },

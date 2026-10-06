@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
   ToastDismissReason, ToastItem, ToastPlacement, ToastQueue, ToastVariant,
   toast_dismiss_reason_attribute, toast_is_expired, toast_placement_attribute, toast_queue_dismiss,
@@ -26,7 +26,7 @@ pub fn toast_viewport_class(placement: ToastPlacement, class: &str) -> String {
     ToastPlacement::BottomRight => "bottom-0 right-0 sm:right-0",
   };
 
-  classes([Some(TOAST_VIEWPORT_BASE_CLASS), Some(placement_class), Some(class)])
+  merge_classes(classes([Some(TOAST_VIEWPORT_BASE_CLASS), Some(placement_class)]), class)
 }
 
 pub fn toast_root_class(variant: ToastVariant, class: &str) -> String {
@@ -39,11 +39,11 @@ pub fn toast_root_class(variant: ToastVariant, class: &str) -> String {
     ToastVariant::Loading => "border-border",
   };
 
-  classes([Some(TOAST_ROOT_BASE_CLASS), Some(variant_class), Some(class)])
+  merge_classes(classes([Some(TOAST_ROOT_BASE_CLASS), Some(variant_class)]), class)
 }
 
 pub fn toast_title_class(class: &str) -> String {
-  classes([Some(TOAST_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TOAST_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn toast_description_class(variant: ToastVariant, class: &str) -> String {
@@ -55,23 +55,21 @@ pub fn toast_description_class(variant: ToastVariant, class: &str) -> String {
     ToastVariant::Error => "text-muted-foreground",
   };
 
-  classes([Some(TOAST_DESCRIPTION_BASE_CLASS), Some(variant_class), Some(class)])
+  merge_classes(classes([Some(TOAST_DESCRIPTION_BASE_CLASS), Some(variant_class)]), class)
 }
 
 pub fn toast_action_class(disabled: bool, class: &str) -> String {
-  classes([
-    Some(TOAST_ACTION_BASE_CLASS),
-    disabled.then_some("pointer-events-none opacity-50"),
-    Some(class),
-  ])
+  merge_classes(
+    classes([Some(TOAST_ACTION_BASE_CLASS), disabled.then_some("pointer-events-none opacity-50")]),
+    class,
+  )
 }
 
 pub fn toast_close_class(disabled: bool, class: &str) -> String {
-  classes([
-    Some(TOAST_CLOSE_BASE_CLASS),
-    disabled.then_some("pointer-events-none opacity-50"),
-    Some(class),
-  ])
+  merge_classes(
+    classes([Some(TOAST_CLOSE_BASE_CLASS), disabled.then_some("pointer-events-none opacity-50")]),
+    class,
+  )
 }
 
 pub fn toast_live_attribute(variant: ToastVariant) -> &'static str {
@@ -232,7 +230,10 @@ mod tests {
     let root = toast_root_class(ToastVariant::Error, "border-2");
     let description = toast_description_class(ToastVariant::Error, "");
 
-    assert!(root.contains(TOAST_ROOT_BASE_CLASS));
+    assert_eq!(
+      root,
+      "pointer-events-auto relative grid w-full gap-1 overflow-hidden rounded-md bg-popover p-4 pr-10 text-popover-foreground shadow-lg transition-all data-[state=closed]:opacity-0 data-[state=open]:opacity-100 border-destructive/50 border-2"
+    );
     assert!(root.contains("border-destructive/50"));
     assert!(description.contains("text-muted-foreground"));
   }

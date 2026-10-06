@@ -1,6 +1,6 @@
 use super::element_id::next_element_id;
 use super::roving_group::{group_part_id, use_roving_group};
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 pub const ACCORDION_ITEM_BASE_CLASS: &str = "border-b border-border";
@@ -8,15 +8,15 @@ pub const ACCORDION_TRIGGER_BASE_CLASS: &str = "flex w-full items-center justify
 pub const ACCORDION_CONTENT_BASE_CLASS: &str = "overflow-hidden pb-4 text-sm text-muted-foreground";
 
 pub fn accordion_item_class(class: &str) -> String {
-  classes([Some(ACCORDION_ITEM_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ACCORDION_ITEM_BASE_CLASS)]), class)
 }
 
 pub fn accordion_trigger_class(class: &str) -> String {
-  classes([Some(ACCORDION_TRIGGER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ACCORDION_TRIGGER_BASE_CLASS)]), class)
 }
 
 pub fn accordion_content_class(class: &str) -> String {
-  classes([Some(ACCORDION_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ACCORDION_CONTENT_BASE_CLASS)]), class)
 }
 
 /// Returns the open value of a single-open accordion after `toggled_value` is

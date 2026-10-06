@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -38,7 +38,7 @@ pub const RADIAL_PROGRESS_SLOT_CLASS: &str = "peer relative empty:hidden";
 pub const RADIAL_PROGRESS_DEFAULT_LABEL_CLASS: &str = "relative hidden peer-empty:inline";
 
 pub fn radial_progress_class(size: RadialProgressSize, class: &str) -> String {
-  classes([Some(RADIAL_PROGRESS_BASE_CLASS), Some(size.class()), Some(class)])
+  merge_classes(classes([Some(RADIAL_PROGRESS_BASE_CLASS), Some(size.class())]), class)
 }
 
 /// The value clamped to 0 through 100; anything that is not a number is 0.

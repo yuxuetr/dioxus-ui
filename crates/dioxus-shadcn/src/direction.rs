@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum TextDirection {
@@ -20,7 +20,7 @@ impl TextDirection {
 pub const DIRECTION_BASE_CLASS: &str = "contents";
 
 pub fn direction_class(class: &str) -> String {
-  classes([Some(DIRECTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DIRECTION_BASE_CLASS)]), class)
 }
 
 #[component]
@@ -56,7 +56,7 @@ mod tests {
   fn direction_class_appends_user_class() {
     let actual = direction_class("block");
 
-    assert!(actual.contains(DIRECTION_BASE_CLASS));
+    assert_eq!(actual, "block");
     assert!(actual.ends_with("block"));
   }
 }

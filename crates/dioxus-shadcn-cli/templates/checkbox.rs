@@ -2,7 +2,7 @@ use std::cell::Cell;
 use std::rc::Rc;
 
 use super::element_id::next_element_id;
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 // Sets the native `indeterminate` property, which has no HTML attribute.
@@ -25,7 +25,7 @@ pub fn checkbox_class(checked: bool, class: &str) -> String {
     "border-input bg-background text-transparent"
   };
 
-  classes([Some(CHECKBOX_BASE_CLASS), Some(checked_class), Some(class)])
+  merge_classes(classes([Some(CHECKBOX_BASE_CLASS), Some(checked_class)]), class)
 }
 
 pub fn checkbox_state(checked: bool, indeterminate: bool) -> &'static str {

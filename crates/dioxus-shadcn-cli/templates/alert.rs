@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -30,11 +30,11 @@ pub const ALERT_TITLE_BASE_CLASS: &str = "mb-1 font-medium leading-none tracking
 pub const ALERT_DESCRIPTION_BASE_CLASS: &str = "text-sm";
 
 pub fn alert_class(variant: AlertVariant, class: &str) -> String {
-  classes([Some(ALERT_BASE_CLASS), Some(variant.class()), Some(class)])
+  merge_classes(classes([Some(ALERT_BASE_CLASS), Some(variant.class())]), class)
 }
 
 pub fn alert_title_class(class: &str) -> String {
-  classes([Some(ALERT_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ALERT_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn alert_description_class(variant: AlertVariant, class: &str) -> String {
@@ -45,7 +45,7 @@ pub fn alert_description_class(variant: AlertVariant, class: &str) -> String {
     AlertVariant::Success | AlertVariant::Warning | AlertVariant::Info => "text-foreground",
   };
 
-  classes([Some(ALERT_DESCRIPTION_BASE_CLASS), Some(variant_class), Some(class)])
+  merge_classes(classes([Some(ALERT_DESCRIPTION_BASE_CLASS), Some(variant_class)]), class)
 }
 
 #[component]

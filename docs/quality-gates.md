@@ -145,6 +145,8 @@ npm run verify:css-inputs
 npm run verify:registry
 npm run verify:tailwind-static
 npm run verify:tailwind-conflicts
+npm run verify:class-merge-table
+npm run verify:class-merge
 npm run verify:preview-css
 npm run verify:site-css
 npm run verify:site-catalog
@@ -320,6 +322,18 @@ ground truth: `bg-primary` must conflict with `bg-accent`, and two names
 Tailwind does not know must not conflict. A constant used as another
 element's whole `class` is not paired with the base class. It does not
 validate user-provided classes or conflicts between two state classes.
+
+`npm run verify:class-merge-table` fails when the class merge table in
+`dioxus-shadcn-core` or the template copy differs from what
+`node scripts/class-merge-table.mjs` generates from Tailwind, or when
+Tailwind would generate a utility for a name in the copied helpers. `npm run
+verify:class-merge` runs the RFC 0076 ground-truth gate on the shipped
+`merge_classes`: it fails on a removal of a component utility the user class
+does not replace, on a kept component utility that still wins over a user
+utility the merge could classify, on a named Tailwind utility the merge
+cannot classify, when Chrome disagrees with its cascade model, or when a
+reverse merge passes (see
+[RFC 0076](rfcs/0076-user-class-overrides.md#the-ground-truth-gate)).
 
 `npm run verify:preview-css` compiles the preview stylesheet input and fails
 when `examples/preview-states/assets/preview.generated.css`, which every

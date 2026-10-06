@@ -201,6 +201,7 @@ async function verifyViewport(browser, profile) {
       const count = (selector) => document.querySelectorAll(selector).length;
       const chart = document.querySelector('[data-preview-panel="chart"] svg');
       const chartRect = chart?.getBoundingClientRect();
+      const conversation = document.querySelector('[data-preview-panel="message"] [role="region"]');
 
       return {
         title: document.title,
@@ -215,6 +216,7 @@ async function verifyViewport(browser, profile) {
         overlayDialog: count('[data-preview-panel="overlay-open"] [role="dialog"]'),
         interactions: count('[data-preview-panel="interactions"]'),
         interactionRoot: count('[data-preview-panel="interactions"][data-interaction-root="runtime"]'),
+        conversationOverflow: conversation ? getComputedStyle(conversation).overflowY : null,
         chartBox: chartRect
           ? { width: Math.round(chartRect.width), height: Math.round(chartRect.height) }
           : null,
@@ -240,6 +242,10 @@ async function verifyViewport(browser, profile) {
     if (result.overlayDialog !== 1) failures.push("overlay dialog");
     if (result.interactions !== 1) failures.push("interactions panel");
     if (result.interactionRoot !== 1) failures.push("runtime interaction root");
+    // The conversation passes `overflow-auto` over the scroller's own
+    // `overflow-hidden`, which wins by stylesheet order unless the user class
+    // replaces it (RFC 0076).
+    if (result.conversationOverflow !== "auto") failures.push(`conversation overflow ${result.conversationOverflow}`);
     if (result.viewport.width !== profile.viewport.width) {
       failures.push(`viewport width ${result.viewport.width}`);
     }

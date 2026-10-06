@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum MessageAlign {
@@ -45,27 +45,27 @@ impl MessageAlign {
 }
 
 pub fn message_class(align: MessageAlign, class: &str) -> String {
-  classes([Some(MESSAGE_BASE_CLASS), Some(align.class()), Some(class)])
+  merge_classes(classes([Some(MESSAGE_BASE_CLASS), Some(align.class())]), class)
 }
 
 pub fn message_group_class(class: &str) -> String {
-  classes([Some(MESSAGE_GROUP_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MESSAGE_GROUP_BASE_CLASS)]), class)
 }
 
 pub fn message_avatar_class(class: &str) -> String {
-  classes([Some(MESSAGE_AVATAR_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MESSAGE_AVATAR_BASE_CLASS)]), class)
 }
 
 pub fn message_content_class(align: MessageAlign, class: &str) -> String {
-  classes([Some(MESSAGE_CONTENT_BASE_CLASS), Some(align.content_class()), Some(class)])
+  merge_classes(classes([Some(MESSAGE_CONTENT_BASE_CLASS), Some(align.content_class())]), class)
 }
 
 pub fn message_header_class(class: &str) -> String {
-  classes([Some(MESSAGE_HEADER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MESSAGE_HEADER_BASE_CLASS)]), class)
 }
 
 pub fn message_footer_class(class: &str) -> String {
-  classes([Some(MESSAGE_FOOTER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MESSAGE_FOOTER_BASE_CLASS)]), class)
 }
 
 #[component]
@@ -167,7 +167,7 @@ mod tests {
   fn message_content_class_reflects_alignment() {
     let actual = message_content_class(MessageAlign::Start, "gap-2");
 
-    assert!(actual.contains(MESSAGE_CONTENT_BASE_CLASS));
+    assert_eq!(actual, "grid min-w-0 max-w-full flex-1 justify-items-start gap-2");
     assert!(actual.contains(MESSAGE_CONTENT_ALIGN_START_CLASS));
     assert!(actual.ends_with("gap-2"));
   }

@@ -1,7 +1,7 @@
 use std::rc::Rc;
 
 use super::element_id::next_element_id;
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 // The trigger comes first in source, so Tab reaches it before the actions,
@@ -19,11 +19,11 @@ pub const FAB_ACTION_ICON_CLASS: &str = "inline-flex size-11 items-center justif
 
 pub fn fab_class(fixed: bool, class: &str) -> String {
   let position = if fixed { FAB_FIXED_CLASS } else { FAB_STATIC_CLASS };
-  classes([Some(FAB_BASE_CLASS), Some(position), Some(class)])
+  merge_classes(classes([Some(FAB_BASE_CLASS), Some(position)]), class)
 }
 
 pub fn fab_action_class(class: &str) -> String {
-  classes([Some(FAB_ACTION_CLASS), Some(class)])
+  merge_classes(classes([Some(FAB_ACTION_CLASS)]), class)
 }
 
 /// A floating action button, fixed to the bottom inline-end corner;

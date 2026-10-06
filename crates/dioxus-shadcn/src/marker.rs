@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum MarkerVariant {
@@ -37,15 +37,15 @@ impl MarkerVariant {
 }
 
 pub fn marker_class(variant: MarkerVariant, class: &str) -> String {
-  classes([Some(MARKER_BASE_CLASS), Some(variant.class()), Some(class)])
+  merge_classes(classes([Some(MARKER_BASE_CLASS), Some(variant.class())]), class)
 }
 
 pub fn marker_icon_class(class: &str) -> String {
-  classes([Some(MARKER_ICON_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MARKER_ICON_BASE_CLASS)]), class)
 }
 
 pub fn marker_content_class(class: &str) -> String {
-  classes([Some(MARKER_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MARKER_CONTENT_BASE_CLASS)]), class)
 }
 
 #[component]
@@ -102,7 +102,10 @@ mod tests {
   fn marker_class_reflects_variant() {
     let actual = marker_class(MarkerVariant::Border, "text-blue-700");
 
-    assert!(actual.contains(MARKER_BASE_CLASS));
+    assert_eq!(
+      actual,
+      "flex min-w-0 items-center gap-2 text-sm rounded-md border border-border bg-background px-3 py-2 text-blue-700"
+    );
     assert!(actual.contains(MARKER_BORDER_CLASS));
     assert!(actual.ends_with("text-blue-700"));
   }

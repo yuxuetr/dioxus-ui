@@ -1,6 +1,6 @@
 use super::element_id::next_element_id;
 use super::roving_group::{group_part_id, use_roving_group};
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 pub const TABS_BASE_CLASS: &str =
@@ -50,11 +50,11 @@ impl TabsOrientation {
 }
 
 pub fn tabs_class(class: &str) -> String {
-  classes([Some(TABS_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TABS_BASE_CLASS)]), class)
 }
 
 pub fn tabs_list_class(class: &str) -> String {
-  classes([Some(TABS_LIST_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TABS_LIST_BASE_CLASS)]), class)
 }
 
 pub fn tabs_trigger_class(active: bool, class: &str) -> String {
@@ -64,11 +64,11 @@ pub fn tabs_trigger_class(active: bool, class: &str) -> String {
     "text-muted-foreground hover:text-foreground"
   };
 
-  classes([Some(TABS_TRIGGER_BASE_CLASS), Some(active_class), Some(class)])
+  merge_classes(classes([Some(TABS_TRIGGER_BASE_CLASS), Some(active_class)]), class)
 }
 
 pub fn tabs_content_class(class: &str) -> String {
-  classes([Some(TABS_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TABS_CONTENT_BASE_CLASS)]), class)
 }
 
 #[derive(Clone, PartialEq)]

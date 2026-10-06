@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ButtonGroupOrientation {
@@ -44,16 +44,14 @@ pub fn button_group_class(
     BUTTON_GROUP_GAP_CLASS
   };
 
-  classes([
-    Some(BUTTON_GROUP_BASE_CLASS),
-    Some(orientation.class()),
-    Some(spacing_class),
-    Some(class),
-  ])
+  merge_classes(
+    classes([Some(BUTTON_GROUP_BASE_CLASS), Some(orientation.class()), Some(spacing_class)]),
+    class,
+  )
 }
 
 pub fn button_group_item_class(class: &str) -> String {
-  classes([Some(BUTTON_GROUP_ITEM_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(BUTTON_GROUP_ITEM_BASE_CLASS)]), class)
 }
 
 #[component]

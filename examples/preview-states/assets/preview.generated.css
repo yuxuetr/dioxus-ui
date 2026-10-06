@@ -698,8 +698,8 @@
   .min-h-10 {
     min-height: calc(var(--spacing) * 10);
   }
-  .min-h-11\! {
-    min-height: calc(var(--spacing) * 11) !important;
+  .min-h-11 {
+    min-height: calc(var(--spacing) * 11);
   }
   .min-h-12 {
     min-height: calc(var(--spacing) * 12);
@@ -1162,9 +1162,6 @@
   .overflow-auto {
     overflow: auto;
   }
-  .overflow-auto\! {
-    overflow: auto !important;
-  }
   .overflow-hidden {
     overflow: hidden;
   }
@@ -1333,6 +1330,9 @@
   }
   .border-t-transparent {
     border-top-color: transparent;
+  }
+  .border-b-primary {
+    border-bottom-color: var(--primary);
   }
   .border-l-transparent {
     border-left-color: transparent;
@@ -1507,6 +1507,9 @@
   }
   .px-2 {
     padding-inline: calc(var(--spacing) * 2);
+  }
+  .px-2\! {
+    padding-inline: calc(var(--spacing) * 2) !important;
   }
   .px-3 {
     padding-inline: calc(var(--spacing) * 3);
@@ -1740,9 +1743,6 @@
   .text-destructive {
     color: var(--destructive);
   }
-  .text-destructive\! {
-    color: var(--destructive) !important;
-  }
   .text-destructive-foreground {
     color: var(--destructive-foreground);
   }
@@ -1760,9 +1760,6 @@
   }
   .text-primary {
     color: var(--primary);
-  }
-  .text-primary\! {
-    color: var(--primary) !important;
   }
   .text-primary-foreground {
     color: var(--primary-foreground);

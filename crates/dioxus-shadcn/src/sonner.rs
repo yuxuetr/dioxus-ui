@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
   ToastDismissReason as SonnerDismissReason, ToastItem as SonnerItem,
   ToastPlacement as SonnerPlacement, ToastQueue as SonnerQueue, ToastVariant as SonnerVariant,
@@ -31,7 +31,7 @@ pub fn sonner_viewport_class(placement: SonnerPlacement, class: &str) -> String 
     SonnerPlacement::BottomRight => "bottom-0 right-0 sm:right-0",
   };
 
-  classes([Some(SONNER_VIEWPORT_BASE_CLASS), Some(placement_class), Some(class)])
+  merge_classes(classes([Some(SONNER_VIEWPORT_BASE_CLASS), Some(placement_class)]), class)
 }
 
 pub fn sonner_toast_class(variant: SonnerVariant, class: &str) -> String {
@@ -44,7 +44,7 @@ pub fn sonner_toast_class(variant: SonnerVariant, class: &str) -> String {
     SonnerVariant::Loading => "border-border bg-popover text-popover-foreground",
   };
 
-  classes([Some(SONNER_TOAST_BASE_CLASS), Some(variant_class), Some(class)])
+  merge_classes(classes([Some(SONNER_TOAST_BASE_CLASS), Some(variant_class)]), class)
 }
 
 pub fn sonner_icon_class(variant: SonnerVariant, class: &str) -> String {
@@ -57,15 +57,15 @@ pub fn sonner_icon_class(variant: SonnerVariant, class: &str) -> String {
     SonnerVariant::Loading => "bg-muted-foreground animate-pulse",
   };
 
-  classes([Some(SONNER_ICON_BASE_CLASS), Some(variant_class), Some(class)])
+  merge_classes(classes([Some(SONNER_ICON_BASE_CLASS), Some(variant_class)]), class)
 }
 
 pub fn sonner_content_class(class: &str) -> String {
-  classes([Some(SONNER_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SONNER_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn sonner_title_class(class: &str) -> String {
-  classes([Some(SONNER_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SONNER_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn sonner_description_class(variant: SonnerVariant, class: &str) -> String {
@@ -77,23 +77,21 @@ pub fn sonner_description_class(variant: SonnerVariant, class: &str) -> String {
     SonnerVariant::Error => "text-muted-foreground",
   };
 
-  classes([Some(SONNER_DESCRIPTION_BASE_CLASS), Some(variant_class), Some(class)])
+  merge_classes(classes([Some(SONNER_DESCRIPTION_BASE_CLASS), Some(variant_class)]), class)
 }
 
 pub fn sonner_action_class(disabled: bool, class: &str) -> String {
-  classes([
-    Some(SONNER_ACTION_BASE_CLASS),
-    disabled.then_some("pointer-events-none opacity-50"),
-    Some(class),
-  ])
+  merge_classes(
+    classes([Some(SONNER_ACTION_BASE_CLASS), disabled.then_some("pointer-events-none opacity-50")]),
+    class,
+  )
 }
 
 pub fn sonner_close_class(disabled: bool, class: &str) -> String {
-  classes([
-    Some(SONNER_CLOSE_BASE_CLASS),
-    disabled.then_some("pointer-events-none opacity-50"),
-    Some(class),
-  ])
+  merge_classes(
+    classes([Some(SONNER_CLOSE_BASE_CLASS), disabled.then_some("pointer-events-none opacity-50")]),
+    class,
+  )
 }
 
 pub fn sonner_live_attribute(variant: SonnerVariant) -> &'static str {
@@ -273,7 +271,10 @@ mod tests {
   fn sonner_toast_class_reflects_variant() {
     let actual = sonner_toast_class(SonnerVariant::Success, "shadow-none");
 
-    assert!(actual.contains(SONNER_TOAST_BASE_CLASS));
+    assert_eq!(
+      actual,
+      "pointer-events-auto relative grid w-full grid-cols-[auto_1fr_auto] items-start gap-3 overflow-hidden rounded-md border p-4 transition-all border-success/50 bg-popover text-popover-foreground shadow-none"
+    );
     assert!(actual.contains("border-success/50 bg-popover text-popover-foreground"));
     assert!(actual.ends_with("shadow-none"));
   }

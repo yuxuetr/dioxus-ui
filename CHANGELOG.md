@@ -8,8 +8,24 @@ for commit messages.
 
 ## [Unreleased]
 
+### Changed
+
+- A class passed to a component now wins as the last class does in
+  shadcn/ui: it replaces each component utility whose properties it sets in
+  full, under the same variants and importance, so `Button { class: "px-2" }`
+  renders `px-2` without the button's `px-4`. Component `hover:` and
+  `data-[state=...]:` styles stay, a class that sets only part of a
+  component utility (`px-2` over `p-4`) keeps both, and a class the merge
+  does not know replaces nothing. `dioxus-shadcn-core` exports
+  `merge_classes`, which every class function uses (RFC 0076).
+
 ### Fixed
 
+- The Message Scroller jump button hides when there is nothing to jump to;
+  its `inline-flex` won over `hidden` by stylesheet order. The unread marker
+  and the Sidebar rail now set their display only through their state, with
+  no visible change. `verify:tailwind-conflicts` skipped single-word
+  utilities such as `hidden`.
 - The active Menu item takes `text-accent-foreground` as intended; the base
   class's `text-foreground` won by stylesheet order. Alert and Toast drop
   color utilities that never applied for the same reason, which leaves their
@@ -24,6 +40,17 @@ for commit messages.
   line that names the previous version. Before, the crate README asked for a
   hand-written path, which went stale on every upgrade and left Tailwind
   scanning old source.
+
+### Migration
+
+- An app that passed a class conflicting with a component utility and
+  relied on the component's value now gets its own. Overrides written with
+  Tailwind's important modifier keep working and no longer need it unless
+  they override part of a component utility.
+- Copy mode: re-copy components with `dxui add <name> --overwrite`. `utils`
+  now brings two helpers, `class_merge` and `class_merge_table`; the second
+  is generated from Tailwind and stores its names reversed so Tailwind
+  generates no CSS for them.
 
 ## [0.4.2] - 2026-10-06
 

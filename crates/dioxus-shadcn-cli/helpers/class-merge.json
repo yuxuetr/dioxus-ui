@@ -1,0 +1,14 @@
+{
+  "name": "class-merge",
+  "description": "Merges a user class into a component's classes so the last class wins (RFC 0076).",
+  "files": [
+    {
+      "source": "templates/class_merge.rs",
+      "target": "src/components/ui/class_merge.rs"
+    }
+  ],
+  "dependencies": [
+    "class-merge-table"
+  ],
+  "assets": []
+}

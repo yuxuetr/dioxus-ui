@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 use dioxus_shadcn_primitives::{
   FocusMove, NavigationOrientation, RovingFocusItem, RovingFocusState,
 };
@@ -22,14 +22,14 @@ pub fn toggle_group_class(orientation: NavigationOrientation, class: &str) -> St
     NavigationOrientation::Horizontal | NavigationOrientation::Both => "flex-row items-center",
   };
 
-  classes([Some(TOGGLE_GROUP_BASE_CLASS), Some(orientation_class), Some(class)])
+  merge_classes(classes([Some(TOGGLE_GROUP_BASE_CLASS), Some(orientation_class)]), class)
 }
 
 pub fn toggle_group_item_class(pressed: bool, class: &str) -> String {
   let pressed_class =
     if pressed { "bg-accent text-accent-foreground" } else { "bg-transparent hover:bg-accent" };
 
-  classes([Some(TOGGLE_GROUP_ITEM_BASE_CLASS), Some(pressed_class), Some(class)])
+  merge_classes(classes([Some(TOGGLE_GROUP_ITEM_BASE_CLASS), Some(pressed_class)]), class)
 }
 
 pub fn toggle_group_orientation_attribute(orientation: NavigationOrientation) -> &'static str {
@@ -189,7 +189,7 @@ mod tests {
   fn toggle_group_class_reflects_orientation() {
     let actual = toggle_group_class(NavigationOrientation::Vertical, "gap-2");
 
-    assert!(actual.contains(TOGGLE_GROUP_BASE_CLASS));
+    assert_eq!(actual, "inline-flex flex-col items-start gap-2");
     assert!(actual.contains("flex-col items-start"));
     assert!(actual.ends_with("gap-2"));
   }

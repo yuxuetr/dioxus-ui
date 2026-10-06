@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
   DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig,
 };
@@ -21,15 +21,15 @@ pub fn date_picker_trigger_class(invalid: bool, class: &str) -> String {
     "border-input focus-visible:ring-ring"
   };
 
-  classes([Some(DATE_PICKER_TRIGGER_BASE_CLASS), Some(invalid_class), Some(class)])
+  merge_classes(classes([Some(DATE_PICKER_TRIGGER_BASE_CLASS), Some(invalid_class)]), class)
 }
 
 pub fn date_picker_value_class(class: &str) -> String {
-  classes([Some(DATE_PICKER_VALUE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DATE_PICKER_VALUE_BASE_CLASS)]), class)
 }
 
 pub fn date_picker_content_class(class: &str) -> String {
-  classes([Some(DATE_PICKER_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DATE_PICKER_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn date_picker_side_attribute(side: OverlaySide) -> &'static str {
@@ -228,7 +228,7 @@ pub fn date_picker_input_class(invalid: bool, class: &str) -> String {
     "border-input focus-visible:ring-ring"
   };
 
-  classes([Some(DATE_PICKER_INPUT_BASE_CLASS), Some(invalid_class), Some(class)])
+  merge_classes(classes([Some(DATE_PICKER_INPUT_BASE_CLASS), Some(invalid_class)]), class)
 }
 
 /// A text field for typing a date. It keeps the text being typed, calls
@@ -364,7 +364,10 @@ mod tests {
   fn date_picker_trigger_class_reflects_invalid_state() {
     let actual = date_picker_trigger_class(true, "w-56");
 
-    assert!(actual.contains(DATE_PICKER_TRIGGER_BASE_CLASS));
+    assert_eq!(
+      actual,
+      "flex h-10 items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50 border-destructive focus-visible:ring-destructive w-56"
+    );
     assert!(actual.contains("border-destructive focus-visible:ring-destructive"));
     assert!(actual.ends_with("w-56"));
   }

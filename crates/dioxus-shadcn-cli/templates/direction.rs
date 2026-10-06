@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -20,7 +20,7 @@ impl TextDirection {
 pub const DIRECTION_BASE_CLASS: &str = "contents";
 
 pub fn direction_class(class: &str) -> String {
-  classes([Some(DIRECTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DIRECTION_BASE_CLASS)]), class)
 }
 
 #[component]

@@ -1,0 +1,12 @@
+{
+  "name": "class-merge-table",
+  "description": "The class merge table, generated from Tailwind (RFC 0076).",
+  "files": [
+    {
+      "source": "templates/class_merge_table.rs",
+      "target": "src/components/ui/class_merge_table.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

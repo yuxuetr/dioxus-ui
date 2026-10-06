@@ -3,7 +3,7 @@ use super::modal_focus::use_modal_focus_scope;
 pub use super::overlay::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -34,35 +34,35 @@ pub const ALERT_DIALOG_ACTION_BASE_CLASS: &str = "inline-flex h-10 items-center 
 pub const ALERT_DIALOG_CANCEL_BASE_CLASS: &str = "inline-flex h-10 items-center justify-center rounded-md border border-border bg-background px-4 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
 pub fn alert_dialog_overlay_class(class: &str) -> String {
-  classes([Some(ALERT_DIALOG_OVERLAY_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ALERT_DIALOG_OVERLAY_BASE_CLASS)]), class)
 }
 
 pub fn alert_dialog_content_class(class: &str) -> String {
-  classes([Some(ALERT_DIALOG_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ALERT_DIALOG_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn alert_dialog_header_class(class: &str) -> String {
-  classes([Some(ALERT_DIALOG_HEADER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ALERT_DIALOG_HEADER_BASE_CLASS)]), class)
 }
 
 pub fn alert_dialog_footer_class(class: &str) -> String {
-  classes([Some(ALERT_DIALOG_FOOTER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ALERT_DIALOG_FOOTER_BASE_CLASS)]), class)
 }
 
 pub fn alert_dialog_title_class(class: &str) -> String {
-  classes([Some(ALERT_DIALOG_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ALERT_DIALOG_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn alert_dialog_description_class(class: &str) -> String {
-  classes([Some(ALERT_DIALOG_DESCRIPTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ALERT_DIALOG_DESCRIPTION_BASE_CLASS)]), class)
 }
 
 pub fn alert_dialog_action_class(variant: AlertDialogActionVariant, class: &str) -> String {
-  classes([Some(ALERT_DIALOG_ACTION_BASE_CLASS), Some(variant.class()), Some(class)])
+  merge_classes(classes([Some(ALERT_DIALOG_ACTION_BASE_CLASS), Some(variant.class())]), class)
 }
 
 pub fn alert_dialog_cancel_class(class: &str) -> String {
-  classes([Some(ALERT_DIALOG_CANCEL_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ALERT_DIALOG_CANCEL_BASE_CLASS)]), class)
 }
 
 #[component]

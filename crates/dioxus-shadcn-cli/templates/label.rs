@@ -1,10 +1,10 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 pub const LABEL_BASE_CLASS: &str = "text-sm font-medium leading-none text-foreground peer-disabled:cursor-not-allowed peer-disabled:opacity-70";
 
 pub fn label_class(class: &str) -> String {
-  classes([Some(LABEL_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(LABEL_BASE_CLASS)]), class)
 }
 
 /// Other attributes, such as `id` for an `aria-labelledby` reference, are

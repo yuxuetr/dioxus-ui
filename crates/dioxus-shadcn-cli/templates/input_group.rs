@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -35,24 +35,19 @@ impl InputGroupAddonPosition {
 }
 
 pub fn input_group_class(invalid: bool, disabled: bool, class: &str) -> String {
-  classes([
-    Some(INPUT_GROUP_BASE_CLASS),
-    Some(if invalid { INPUT_GROUP_INVALID_CLASS } else { "border-input focus-within:ring-ring" }),
-    disabled.then_some(INPUT_GROUP_DISABLED_CLASS),
-    Some(class),
-  ])
+  merge_classes(classes([Some(INPUT_GROUP_BASE_CLASS), Some(if invalid { INPUT_GROUP_INVALID_CLASS } else { "border-input focus-within:ring-ring" }), disabled.then_some(INPUT_GROUP_DISABLED_CLASS)]), class)
 }
 
 pub fn input_group_addon_class(position: InputGroupAddonPosition, class: &str) -> String {
-  classes([Some(INPUT_GROUP_ADDON_BASE_CLASS), Some(position.class()), Some(class)])
+  merge_classes(classes([Some(INPUT_GROUP_ADDON_BASE_CLASS), Some(position.class())]), class)
 }
 
 pub fn input_group_control_class(class: &str) -> String {
-  classes([Some(INPUT_GROUP_CONTROL_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(INPUT_GROUP_CONTROL_BASE_CLASS)]), class)
 }
 
 pub fn input_group_action_class(class: &str) -> String {
-  classes([Some(INPUT_GROUP_ACTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(INPUT_GROUP_ACTION_BASE_CLASS)]), class)
 }
 
 #[component]

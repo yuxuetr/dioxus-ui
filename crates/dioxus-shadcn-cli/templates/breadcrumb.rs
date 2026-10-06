@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 pub const BREADCRUMB_BASE_CLASS: &str = "";
@@ -13,35 +13,31 @@ pub const BREADCRUMB_ELLIPSIS_BASE_CLASS: &str =
   "flex h-9 w-9 items-center justify-center text-muted-foreground";
 
 pub fn breadcrumb_class(class: &str) -> String {
-  classes([Some(BREADCRUMB_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(BREADCRUMB_BASE_CLASS)]), class)
 }
 
 pub fn breadcrumb_list_class(class: &str) -> String {
-  classes([Some(BREADCRUMB_LIST_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(BREADCRUMB_LIST_BASE_CLASS)]), class)
 }
 
 pub fn breadcrumb_item_class(class: &str) -> String {
-  classes([Some(BREADCRUMB_ITEM_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(BREADCRUMB_ITEM_BASE_CLASS)]), class)
 }
 
 pub fn breadcrumb_link_class(current: bool, class: &str) -> String {
-  classes([
-    Some(BREADCRUMB_LINK_BASE_CLASS),
-    current.then_some(BREADCRUMB_LINK_CURRENT_CLASS),
-    Some(class),
-  ])
+  merge_classes(classes([Some(BREADCRUMB_LINK_BASE_CLASS), current.then_some(BREADCRUMB_LINK_CURRENT_CLASS)]), class)
 }
 
 pub fn breadcrumb_page_class(class: &str) -> String {
-  classes([Some(BREADCRUMB_PAGE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(BREADCRUMB_PAGE_BASE_CLASS)]), class)
 }
 
 pub fn breadcrumb_separator_class(class: &str) -> String {
-  classes([Some(BREADCRUMB_SEPARATOR_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(BREADCRUMB_SEPARATOR_BASE_CLASS)]), class)
 }
 
 pub fn breadcrumb_ellipsis_class(class: &str) -> String {
-  classes([Some(BREADCRUMB_ELLIPSIS_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(BREADCRUMB_ELLIPSIS_BASE_CLASS)]), class)
 }
 
 #[component]

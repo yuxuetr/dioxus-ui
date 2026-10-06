@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum KbdSize {
@@ -22,7 +22,7 @@ impl KbdSize {
 pub const KBD_BASE_CLASS: &str = "inline-flex items-center justify-center rounded border border-border bg-muted font-mono font-medium text-muted-foreground shadow-sm";
 
 pub fn kbd_class(size: KbdSize, class: &str) -> String {
-  classes([Some(KBD_BASE_CLASS), Some(size.class()), Some(class)])
+  merge_classes(classes([Some(KBD_BASE_CLASS), Some(size.class())]), class)
 }
 
 #[component]

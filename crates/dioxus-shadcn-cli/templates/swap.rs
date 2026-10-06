@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -27,7 +27,7 @@ pub const SWAP_BASE_CLASS: &str = "relative inline-grid cursor-pointer place-ite
 pub const SWAP_LAYER_BASE_CLASS: &str = "col-start-1 row-start-1 transition duration-300 [backface-visibility:hidden] motion-reduce:transition-none";
 
 pub fn swap_class(class: &str) -> String {
-  classes([Some(SWAP_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SWAP_BASE_CLASS)]), class)
 }
 
 pub fn swap_layer_class(effect: SwapEffect, shown: bool) -> String {

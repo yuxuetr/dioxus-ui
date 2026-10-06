@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 pub const DIFF_BASE_CLASS: &str = "relative isolate grid overflow-hidden rounded-md select-none";
 pub const DIFF_LAYER_CLASS: &str = "col-start-1 row-start-1 [&>img]:size-full [&>img]:object-cover";
@@ -14,11 +14,11 @@ pub const DIFF_DIVIDER_CLASS: &str = "pointer-events-none absolute inset-y-0 lef
 pub const DIFF_HANDLE_CLASS: &str = "pointer-events-none absolute top-1/2 left-(--diff-position) z-10 grid size-8 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-border bg-background text-xs text-muted-foreground shadow-sm peer-focus-visible:ring-2 peer-focus-visible:ring-ring";
 
 pub fn diff_class(class: &str) -> String {
-  classes([Some(DIFF_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DIFF_BASE_CLASS)]), class)
 }
 
 pub fn diff_layer_class(after: bool, class: &str) -> String {
-  classes([Some(DIFF_LAYER_CLASS), after.then_some(DIFF_AFTER_CLASS), Some(class)])
+  merge_classes(classes([Some(DIFF_LAYER_CLASS), after.then_some(DIFF_AFTER_CLASS)]), class)
 }
 
 /// The divider position clamped to 0 through 100; anything that is not a

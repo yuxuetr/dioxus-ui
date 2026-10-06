@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 pub const CARD_BASE_CLASS: &str =
@@ -10,27 +10,27 @@ pub const CARD_CONTENT_BASE_CLASS: &str = "p-6 pt-0";
 pub const CARD_FOOTER_BASE_CLASS: &str = "flex items-center p-6 pt-0";
 
 pub fn card_class(class: &str) -> String {
-  classes([Some(CARD_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CARD_BASE_CLASS)]), class)
 }
 
 pub fn card_header_class(class: &str) -> String {
-  classes([Some(CARD_HEADER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CARD_HEADER_BASE_CLASS)]), class)
 }
 
 pub fn card_title_class(class: &str) -> String {
-  classes([Some(CARD_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CARD_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn card_description_class(class: &str) -> String {
-  classes([Some(CARD_DESCRIPTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CARD_DESCRIPTION_BASE_CLASS)]), class)
 }
 
 pub fn card_content_class(class: &str) -> String {
-  classes([Some(CARD_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CARD_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn card_footer_class(class: &str) -> String {
-  classes([Some(CARD_FOOTER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CARD_FOOTER_BASE_CLASS)]), class)
 }
 
 #[component]

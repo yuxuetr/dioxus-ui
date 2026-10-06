@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 pub const INPUT_BASE_CLASS: &str = "flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
@@ -10,7 +10,7 @@ pub fn input_class(invalid: bool, class: &str) -> String {
     "border-input focus-visible:ring-ring"
   };
 
-  classes([Some(INPUT_BASE_CLASS), Some(invalid_class), Some(class)])
+  merge_classes(classes([Some(INPUT_BASE_CLASS), Some(invalid_class)]), class)
 }
 
 /// A controlled input. Each `input` event calls `on_value_change` with the new

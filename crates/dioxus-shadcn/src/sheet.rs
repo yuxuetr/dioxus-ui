@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
@@ -45,31 +45,31 @@ pub const SHEET_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
 pub const SHEET_CLOSE_BASE_CLASS: &str = "absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none";
 
 pub fn sheet_overlay_class(class: &str) -> String {
-  classes([Some(SHEET_OVERLAY_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SHEET_OVERLAY_BASE_CLASS)]), class)
 }
 
 pub fn sheet_content_class(side: SheetSide, class: &str) -> String {
-  classes([Some(SHEET_CONTENT_BASE_CLASS), Some(side.class()), Some(class)])
+  merge_classes(classes([Some(SHEET_CONTENT_BASE_CLASS), Some(side.class())]), class)
 }
 
 pub fn sheet_header_class(class: &str) -> String {
-  classes([Some(SHEET_HEADER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SHEET_HEADER_BASE_CLASS)]), class)
 }
 
 pub fn sheet_footer_class(class: &str) -> String {
-  classes([Some(SHEET_FOOTER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SHEET_FOOTER_BASE_CLASS)]), class)
 }
 
 pub fn sheet_title_class(class: &str) -> String {
-  classes([Some(SHEET_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SHEET_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn sheet_description_class(class: &str) -> String {
-  classes([Some(SHEET_DESCRIPTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SHEET_DESCRIPTION_BASE_CLASS)]), class)
 }
 
 pub fn sheet_close_class(class: &str) -> String {
-  classes([Some(SHEET_CLOSE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SHEET_CLOSE_BASE_CLASS)]), class)
 }
 
 #[component]
@@ -218,7 +218,10 @@ mod tests {
     let actual = sheet_content_class(SheetSide::Left, "w-80");
 
     assert!(actual.contains(SHEET_CONTENT_BASE_CLASS));
-    assert!(actual.contains("inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm"));
+    assert_eq!(
+      actual,
+      "fixed z-50 gap-4 border-border bg-background p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring inset-y-0 left-0 h-full border-r sm:max-w-sm w-80"
+    );
     assert!(actual.ends_with("w-80"));
   }
 

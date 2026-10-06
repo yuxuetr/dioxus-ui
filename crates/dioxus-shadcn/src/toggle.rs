@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ToggleVariant {
@@ -45,7 +45,10 @@ pub fn toggle_class(
   pressed: bool,
   class: &str,
 ) -> String {
-  classes([Some(TOGGLE_BASE_CLASS), Some(variant.class(pressed)), Some(size.class()), Some(class)])
+  merge_classes(
+    classes([Some(TOGGLE_BASE_CLASS), Some(variant.class(pressed)), Some(size.class())]),
+    class,
+  )
 }
 
 /// A controlled toggle button. A click, Enter, or Space calls

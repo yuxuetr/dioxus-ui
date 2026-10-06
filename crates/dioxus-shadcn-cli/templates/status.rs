@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -46,7 +46,7 @@ impl StatusSize {
 pub const STATUS_BASE_CLASS: &str = "inline-block shrink-0 rounded-full";
 
 pub fn status_class(variant: StatusVariant, size: StatusSize, class: &str) -> String {
-  classes([Some(STATUS_BASE_CLASS), Some(variant.class()), Some(size.class()), Some(class)])
+  merge_classes(classes([Some(STATUS_BASE_CLASS), Some(variant.class()), Some(size.class())]), class)
 }
 
 /// A colored dot. With `label` it is an image named by the label; without

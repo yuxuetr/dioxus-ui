@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
   DismissBehavior, DropdownPrimitiveConfig, OverlayAlign, OverlaySide,
 };
@@ -109,25 +109,25 @@ pub const MENUBAR_SHORTCUT_BASE_CLASS: &str =
   "ml-auto text-xs tracking-normal text-muted-foreground";
 
 pub fn menubar_class(class: &str) -> String {
-  classes([Some(MENUBAR_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MENUBAR_BASE_CLASS)]), class)
 }
 
 pub fn menubar_menu_class(class: &str) -> String {
-  classes([Some(MENUBAR_MENU_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MENUBAR_MENU_BASE_CLASS)]), class)
 }
 
 pub fn menubar_trigger_class(open: bool, class: &str) -> String {
   let state_class = if open { "bg-accent" } else { "" };
 
-  classes([Some(MENUBAR_TRIGGER_BASE_CLASS), Some(state_class), Some(class)])
+  merge_classes(classes([Some(MENUBAR_TRIGGER_BASE_CLASS), Some(state_class)]), class)
 }
 
 pub fn menubar_content_class(class: &str) -> String {
-  classes([Some(MENUBAR_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MENUBAR_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn menubar_label_class(class: &str) -> String {
-  classes([Some(MENUBAR_LABEL_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MENUBAR_LABEL_BASE_CLASS)]), class)
 }
 
 pub fn menubar_item_class(inset: bool, destructive: bool, class: &str) -> String {
@@ -138,34 +138,41 @@ pub fn menubar_item_class(inset: bool, destructive: bool, class: &str) -> String
   };
   let inset_class = if inset { MENUBAR_ITEM_INSET_CLASS } else { "" };
 
-  classes([Some(MENUBAR_ITEM_BASE_CLASS), Some(variant_class), Some(inset_class), Some(class)])
+  merge_classes(
+    classes([Some(MENUBAR_ITEM_BASE_CLASS), Some(variant_class), Some(inset_class)]),
+    class,
+  )
 }
 
 pub fn menubar_separator_class(class: &str) -> String {
-  classes([Some(MENUBAR_SEPARATOR_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MENUBAR_SEPARATOR_BASE_CLASS)]), class)
 }
 
 /// An inset item with a check mark shown while `checked`.
 pub fn menubar_checkbox_item_class(checked: bool, class: &str) -> String {
-  let mark =
-    classes([Some(MENU_CHECKBOX_MARK_CLASS), Some(menu_mark_state_class(checked)), Some(class)]);
+  let mark = merge_classes(
+    classes([Some(MENU_CHECKBOX_MARK_CLASS), Some(menu_mark_state_class(checked))]),
+    class,
+  );
   menubar_item_class(true, false, &mark)
 }
 
 /// An inset item with a dot shown while `checked`.
 pub fn menubar_radio_item_class(checked: bool, class: &str) -> String {
-  let mark =
-    classes([Some(MENU_RADIO_MARK_CLASS), Some(menu_mark_state_class(checked)), Some(class)]);
+  let mark = merge_classes(
+    classes([Some(MENU_RADIO_MARK_CLASS), Some(menu_mark_state_class(checked))]),
+    class,
+  );
   menubar_item_class(true, false, &mark)
 }
 
 /// A sub trigger: an item with a chevron at its end.
 pub fn menubar_sub_trigger_class(inset: bool, class: &str) -> String {
-  menubar_item_class(inset, false, &classes([Some(MENU_SUB_TRIGGER_CLASS), Some(class)]))
+  menubar_item_class(inset, false, &merge_classes(classes([Some(MENU_SUB_TRIGGER_CLASS)]), class))
 }
 
 pub fn menubar_shortcut_class(class: &str) -> String {
-  classes([Some(MENUBAR_SHORTCUT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MENUBAR_SHORTCUT_BASE_CLASS)]), class)
 }
 
 /// The triggers form one Tab stop: Left, Right, Home, and End move focus

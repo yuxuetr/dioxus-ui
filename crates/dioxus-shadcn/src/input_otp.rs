@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
   OtpSlotState, otp_apply_paste, otp_apply_paste_filtered, otp_clamp_value, otp_delete_char,
   otp_insert_char, otp_insert_char_filtered, otp_is_complete, otp_next_index, otp_previous_index,
@@ -84,26 +84,31 @@ pub fn input_otp_sanitize(value: &str, length: usize, input_mode: InputOtpInputM
 }
 
 pub fn input_otp_class(disabled: bool, class: &str) -> String {
-  classes([Some(INPUT_OTP_BASE_CLASS), disabled.then_some(INPUT_OTP_DISABLED_CLASS), Some(class)])
+  merge_classes(
+    classes([Some(INPUT_OTP_BASE_CLASS), disabled.then_some(INPUT_OTP_DISABLED_CLASS)]),
+    class,
+  )
 }
 
 pub fn input_otp_group_class(class: &str) -> String {
-  classes([Some(INPUT_OTP_GROUP_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(INPUT_OTP_GROUP_BASE_CLASS)]), class)
 }
 
 pub fn input_otp_slot_class(active: bool, invalid: bool, disabled: bool, class: &str) -> String {
-  classes([
-    Some(INPUT_OTP_SLOT_BASE_CLASS),
-    Some(if invalid {
-      INPUT_OTP_SLOT_INVALID_CLASS
-    } else if active {
-      INPUT_OTP_SLOT_ACTIVE_CLASS
-    } else {
-      "border-input"
-    }),
-    Some(if disabled { INPUT_OTP_SLOT_DISABLED_CLASS } else { "bg-background text-foreground" }),
-    Some(class),
-  ])
+  merge_classes(
+    classes([
+      Some(INPUT_OTP_SLOT_BASE_CLASS),
+      Some(if invalid {
+        INPUT_OTP_SLOT_INVALID_CLASS
+      } else if active {
+        INPUT_OTP_SLOT_ACTIVE_CLASS
+      } else {
+        "border-input"
+      }),
+      Some(if disabled { INPUT_OTP_SLOT_DISABLED_CLASS } else { "bg-background text-foreground" }),
+    ]),
+    class,
+  )
 }
 
 pub fn input_otp_slot_display(value: Option<char>) -> String {
@@ -111,11 +116,11 @@ pub fn input_otp_slot_display(value: Option<char>) -> String {
 }
 
 pub fn input_otp_separator_class(class: &str) -> String {
-  classes([Some(INPUT_OTP_SEPARATOR_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(INPUT_OTP_SEPARATOR_BASE_CLASS)]), class)
 }
 
 pub fn input_otp_hidden_input_class(class: &str) -> String {
-  classes([Some(INPUT_OTP_HIDDEN_INPUT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(INPUT_OTP_HIDDEN_INPUT_BASE_CLASS)]), class)
 }
 
 #[component]
@@ -274,7 +279,10 @@ mod tests {
   fn slot_class_reflects_active_invalid_and_disabled_state() {
     let actual = input_otp_slot_class(true, true, true, "h-12");
 
-    assert!(actual.contains(INPUT_OTP_SLOT_BASE_CLASS));
+    assert_eq!(
+      actual,
+      "relative flex w-10 items-center justify-center rounded-md border text-sm font-medium transition-colors border-destructive ring-2 ring-destructive cursor-not-allowed bg-muted text-muted-foreground h-12"
+    );
     // The invalid border replaces the active one; both set the border color.
     assert!(!actual.contains(INPUT_OTP_SLOT_ACTIVE_CLASS));
     assert!(actual.contains(INPUT_OTP_SLOT_INVALID_CLASS));

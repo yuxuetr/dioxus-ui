@@ -1,5 +1,5 @@
 use super::roving_group::use_roving_group;
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -133,14 +133,14 @@ pub fn toggle_group_class(orientation: NavigationOrientation, class: &str) -> St
     NavigationOrientation::Horizontal | NavigationOrientation::Both => "flex-row items-center",
   };
 
-  classes([Some(TOGGLE_GROUP_BASE_CLASS), Some(orientation_class), Some(class)])
+  merge_classes(classes([Some(TOGGLE_GROUP_BASE_CLASS), Some(orientation_class)]), class)
 }
 
 pub fn toggle_group_item_class(pressed: bool, class: &str) -> String {
   let pressed_class =
     if pressed { "bg-accent text-accent-foreground" } else { "bg-transparent hover:bg-accent" };
 
-  classes([Some(TOGGLE_GROUP_ITEM_BASE_CLASS), Some(pressed_class), Some(class)])
+  merge_classes(classes([Some(TOGGLE_GROUP_ITEM_BASE_CLASS), Some(pressed_class)]), class)
 }
 
 pub fn toggle_group_orientation_attribute(orientation: NavigationOrientation) -> &'static str {

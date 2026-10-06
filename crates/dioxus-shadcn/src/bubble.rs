@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum BubbleVariant {
@@ -133,15 +133,15 @@ impl BubbleReactionAlign {
 }
 
 pub fn bubble_class(align: BubbleAlign, class: &str) -> String {
-  classes([Some(BUBBLE_BASE_CLASS), Some(align.class()), Some(class)])
+  merge_classes(classes([Some(BUBBLE_BASE_CLASS), Some(align.class())]), class)
 }
 
 pub fn bubble_group_class(class: &str) -> String {
-  classes([Some(BUBBLE_GROUP_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(BUBBLE_GROUP_BASE_CLASS)]), class)
 }
 
 pub fn bubble_content_class(variant: BubbleVariant, class: &str) -> String {
-  classes([Some(BUBBLE_CONTENT_BASE_CLASS), Some(variant.class()), Some(class)])
+  merge_classes(classes([Some(BUBBLE_CONTENT_BASE_CLASS), Some(variant.class())]), class)
 }
 
 pub fn bubble_reactions_class(
@@ -149,7 +149,10 @@ pub fn bubble_reactions_class(
   align: BubbleReactionAlign,
   class: &str,
 ) -> String {
-  classes([Some(BUBBLE_REACTIONS_BASE_CLASS), Some(side.class()), Some(align.class()), Some(class)])
+  merge_classes(
+    classes([Some(BUBBLE_REACTIONS_BASE_CLASS), Some(side.class()), Some(align.class())]),
+    class,
+  )
 }
 
 #[component]
@@ -227,7 +230,7 @@ mod tests {
   fn bubble_class_reflects_alignment() {
     let actual = bubble_class(BubbleAlign::End, "max-w-sm");
 
-    assert!(actual.contains(BUBBLE_BASE_CLASS));
+    assert_eq!(actual, "group flex flex-col gap-1 items-end max-w-sm");
     assert!(actual.contains(BUBBLE_ALIGN_END_CLASS));
     assert!(actual.ends_with("max-w-sm"));
   }
@@ -236,7 +239,10 @@ mod tests {
   fn bubble_content_class_reflects_variant() {
     let actual = bubble_content_class(BubbleVariant::Destructive, "rounded-lg");
 
-    assert!(actual.contains(BUBBLE_CONTENT_BASE_CLASS));
+    assert_eq!(
+      actual,
+      "min-w-0 px-3 py-2 text-sm leading-6 bg-destructive/10 text-foreground border border-destructive/30 rounded-lg"
+    );
     assert!(actual.contains(BUBBLE_DESTRUCTIVE_CLASS));
     assert!(actual.ends_with("rounded-lg"));
   }

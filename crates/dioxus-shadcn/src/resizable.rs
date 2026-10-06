@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
   LayoutOrientation, ResizablePanelState, layout_orientation_attribute, resizable_clamp,
   resizable_resize_pair,
@@ -66,19 +66,21 @@ pub fn resizable_panel_group_class(orientation: LayoutOrientation, class: &str) 
     LayoutOrientation::Vertical => "flex-col",
   };
 
-  classes([Some(RESIZABLE_PANEL_GROUP_BASE_CLASS), Some(orientation_class), Some(class)])
+  merge_classes(classes([Some(RESIZABLE_PANEL_GROUP_BASE_CLASS), Some(orientation_class)]), class)
 }
 
 pub fn resizable_panel_class(collapsed: bool, class: &str) -> String {
-  classes([Some(RESIZABLE_PANEL_BASE_CLASS), collapsed.then_some("hidden"), Some(class)])
+  merge_classes(classes([Some(RESIZABLE_PANEL_BASE_CLASS), collapsed.then_some("hidden")]), class)
 }
 
 pub fn resizable_handle_class(disabled: bool, class: &str) -> String {
-  classes([
-    Some(RESIZABLE_HANDLE_BASE_CLASS),
-    disabled.then_some("pointer-events-none opacity-50"),
-    Some(class),
-  ])
+  merge_classes(
+    classes([
+      Some(RESIZABLE_HANDLE_BASE_CLASS),
+      disabled.then_some("pointer-events-none opacity-50"),
+    ]),
+    class,
+  )
 }
 
 pub fn resizable_panel_style(size: f64, min_size: f64, max_size: f64) -> String {
@@ -256,7 +258,7 @@ mod tests {
   fn resizable_group_class_reflects_orientation() {
     let actual = resizable_panel_group_class(LayoutOrientation::Vertical, "h-80");
 
-    assert!(actual.contains(RESIZABLE_PANEL_GROUP_BASE_CLASS));
+    assert_eq!(actual, "flex w-full data-[orientation=vertical]:flex-col flex-col h-80");
     assert!(actual.contains("flex-col"));
     assert!(actual.ends_with("h-80"));
   }

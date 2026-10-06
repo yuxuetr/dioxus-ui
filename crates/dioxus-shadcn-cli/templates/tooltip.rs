@@ -1,13 +1,13 @@
 use super::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
 use super::hover_open::{HoverOpenOptions, use_hover_open};
 pub use super::overlay::{DismissBehavior, OverlayAlign, OverlaySide, TooltipPrimitiveConfig};
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 pub const TOOLTIP_CONTENT_BASE_CLASS: &str = "z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground shadow-md";
 
 pub fn tooltip_content_class(class: &str) -> String {
-  classes([Some(TOOLTIP_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TOOLTIP_CONTENT_BASE_CLASS)]), class)
 }
 
 #[derive(Clone, PartialEq)]

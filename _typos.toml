@@ -4,4 +4,5 @@ udid = "udid"
 UDID = "UDID"
 
 [files]
-extend-exclude = ["CHANGELOG.md", "notebooks/*"]
+# The class merge tables store Tailwind names reversed (RFC 0076).
+extend-exclude = ["CHANGELOG.md", "notebooks/*", "**/class_merge_table.rs"]

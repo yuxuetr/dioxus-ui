@@ -5,6 +5,10 @@
 
 ## Summary
 
+The user override rules here, the important modifier and no merging, are
+superseded by [RFC 0076](0076-user-class-overrides.md), which merges the user
+class; the rules for component classes stand.
+
 Stop class functions from joining utilities that set the same CSS property.
 Each contested utility moves out of the base class into every branch of the
 state that replaces it. A static check covers the class functions, a browser

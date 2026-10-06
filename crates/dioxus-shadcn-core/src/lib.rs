@@ -1,10 +1,14 @@
 //! Shared foundation types and utilities for dioxus-shadcn.
 
 mod class;
+mod class_merge;
+#[rustfmt::skip]
+mod class_merge_table;
 
 use serde::{Deserialize, Serialize};
 
 pub use class::classes;
+pub use class_merge::merge_classes;
 
 /// Density controls spacing and hit target size across platforms.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]

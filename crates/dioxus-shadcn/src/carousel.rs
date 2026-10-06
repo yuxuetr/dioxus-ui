@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 use crate::default_attribute::default_attribute;
 pub use dioxus_shadcn_primitives::{
@@ -22,11 +22,11 @@ pub fn carousel_orientation_attribute(orientation: CarouselOrientation) -> &'sta
 }
 
 pub fn carousel_class(class: &str) -> String {
-  classes([Some(CAROUSEL_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CAROUSEL_BASE_CLASS)]), class)
 }
 
 pub fn carousel_viewport_class(class: &str) -> String {
-  classes([Some(CAROUSEL_VIEWPORT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CAROUSEL_VIEWPORT_BASE_CLASS)]), class)
 }
 
 pub fn carousel_content_class(orientation: CarouselOrientation, class: &str) -> String {
@@ -35,7 +35,7 @@ pub fn carousel_content_class(orientation: CarouselOrientation, class: &str) -> 
     CarouselOrientation::Vertical => "-mt-4 flex-col",
   };
 
-  classes([Some(CAROUSEL_CONTENT_BASE_CLASS), Some(orientation_class), Some(class)])
+  merge_classes(classes([Some(CAROUSEL_CONTENT_BASE_CLASS), Some(orientation_class)]), class)
 }
 
 pub fn carousel_item_class(
@@ -48,28 +48,34 @@ pub fn carousel_item_class(
     CarouselOrientation::Vertical => "pt-4",
   };
 
-  classes([
-    Some(CAROUSEL_ITEM_BASE_CLASS),
-    Some(orientation_class),
-    selected.then_some("data-selected"),
-    Some(class),
-  ])
+  merge_classes(
+    classes([
+      Some(CAROUSEL_ITEM_BASE_CLASS),
+      Some(orientation_class),
+      selected.then_some("data-selected"),
+    ]),
+    class,
+  )
 }
 
 pub fn carousel_control_class(disabled: bool, class: &str) -> String {
-  classes([
-    Some(CAROUSEL_CONTROL_BASE_CLASS),
-    disabled.then_some("pointer-events-none opacity-50"),
-    Some(class),
-  ])
+  merge_classes(
+    classes([
+      Some(CAROUSEL_CONTROL_BASE_CLASS),
+      disabled.then_some("pointer-events-none opacity-50"),
+    ]),
+    class,
+  )
 }
 
 pub fn carousel_indicator_class(selected: bool, class: &str) -> String {
-  classes([
-    Some(CAROUSEL_INDICATOR_BASE_CLASS),
-    Some(if selected { "bg-primary" } else { "bg-muted-foreground/40" }),
-    Some(class),
-  ])
+  merge_classes(
+    classes([
+      Some(CAROUSEL_INDICATOR_BASE_CLASS),
+      Some(if selected { "bg-primary" } else { "bg-muted-foreground/40" }),
+    ]),
+    class,
+  )
 }
 
 /// A slide step requested from the keyboard.
@@ -343,7 +349,10 @@ mod tests {
   fn carousel_item_class_reflects_state() {
     let actual = carousel_item_class(CarouselOrientation::Horizontal, true, "basis-1/2");
 
-    assert!(actual.contains(CAROUSEL_ITEM_BASE_CLASS));
+    assert_eq!(
+      actual,
+      "min-w-0 shrink-0 grow-0 transition-transform duration-300 motion-reduce:transition-none data-[orientation=horizontal]:pl-4 data-[orientation=vertical]:pt-4 pl-4 data-selected basis-1/2"
+    );
     assert!(actual.contains("pl-4"));
     assert!(actual.contains("data-selected"));
     assert!(actual.ends_with("basis-1/2"));

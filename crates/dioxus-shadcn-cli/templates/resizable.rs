@@ -1,5 +1,5 @@
 use super::element_id::next_element_id;
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -130,19 +130,15 @@ pub fn resizable_panel_group_class(orientation: LayoutOrientation, class: &str) 
     LayoutOrientation::Vertical => "flex-col",
   };
 
-  classes([Some(RESIZABLE_PANEL_GROUP_BASE_CLASS), Some(orientation_class), Some(class)])
+  merge_classes(classes([Some(RESIZABLE_PANEL_GROUP_BASE_CLASS), Some(orientation_class)]), class)
 }
 
 pub fn resizable_panel_class(collapsed: bool, class: &str) -> String {
-  classes([Some(RESIZABLE_PANEL_BASE_CLASS), collapsed.then_some("hidden"), Some(class)])
+  merge_classes(classes([Some(RESIZABLE_PANEL_BASE_CLASS), collapsed.then_some("hidden")]), class)
 }
 
 pub fn resizable_handle_class(disabled: bool, class: &str) -> String {
-  classes([
-    Some(RESIZABLE_HANDLE_BASE_CLASS),
-    disabled.then_some("pointer-events-none opacity-50"),
-    Some(class),
-  ])
+  merge_classes(classes([Some(RESIZABLE_HANDLE_BASE_CLASS), disabled.then_some("pointer-events-none opacity-50")]), class)
 }
 
 pub fn resizable_panel_style(size: f64, min_size: f64, max_size: f64) -> String {

@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum InputGroupAddonPosition {
@@ -35,24 +35,26 @@ impl InputGroupAddonPosition {
 }
 
 pub fn input_group_class(invalid: bool, disabled: bool, class: &str) -> String {
-  classes([
-    Some(INPUT_GROUP_BASE_CLASS),
-    Some(if invalid { INPUT_GROUP_INVALID_CLASS } else { "border-input focus-within:ring-ring" }),
-    disabled.then_some(INPUT_GROUP_DISABLED_CLASS),
-    Some(class),
-  ])
+  merge_classes(
+    classes([
+      Some(INPUT_GROUP_BASE_CLASS),
+      Some(if invalid { INPUT_GROUP_INVALID_CLASS } else { "border-input focus-within:ring-ring" }),
+      disabled.then_some(INPUT_GROUP_DISABLED_CLASS),
+    ]),
+    class,
+  )
 }
 
 pub fn input_group_addon_class(position: InputGroupAddonPosition, class: &str) -> String {
-  classes([Some(INPUT_GROUP_ADDON_BASE_CLASS), Some(position.class()), Some(class)])
+  merge_classes(classes([Some(INPUT_GROUP_ADDON_BASE_CLASS), Some(position.class())]), class)
 }
 
 pub fn input_group_control_class(class: &str) -> String {
-  classes([Some(INPUT_GROUP_CONTROL_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(INPUT_GROUP_CONTROL_BASE_CLASS)]), class)
 }
 
 pub fn input_group_action_class(class: &str) -> String {
-  classes([Some(INPUT_GROUP_ACTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(INPUT_GROUP_ACTION_BASE_CLASS)]), class)
 }
 
 #[component]
@@ -164,7 +166,10 @@ mod tests {
   fn input_group_addon_class_reflects_position() {
     let actual = input_group_addon_class(InputGroupAddonPosition::End, "text-xs");
 
-    assert!(actual.contains(INPUT_GROUP_ADDON_BASE_CLASS));
+    assert_eq!(
+      actual,
+      "flex h-full shrink-0 items-center gap-2 bg-muted px-3 text-muted-foreground border-l border-input text-xs"
+    );
     assert!(actual.contains(INPUT_GROUP_ADDON_END_CLASS));
     assert!(actual.ends_with("text-xs"));
   }
@@ -173,7 +178,10 @@ mod tests {
   fn input_group_action_class_preserves_static_tailwind_tokens() {
     let actual = input_group_action_class("text-primary");
 
-    assert!(actual.contains(INPUT_GROUP_ACTION_BASE_CLASS));
+    assert_eq!(
+      actual,
+      "inline-flex h-full shrink-0 items-center justify-center px-3 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 text-primary"
+    );
     assert!(actual.contains("focus-visible:ring-ring"));
     assert!(actual.ends_with("text-primary"));
     assert!(!actual.contains("{}"));

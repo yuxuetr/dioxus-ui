@@ -11,3 +11,4 @@ categories.workspace = true
 
 [dependencies]
 serde.workspace = true
+tracing = { version = "0.1", default-features = false, features = ["std"] }

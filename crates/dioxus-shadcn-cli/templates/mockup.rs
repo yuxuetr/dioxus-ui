@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 pub const MOCKUP_FRAME_BASE_CLASS: &str =
@@ -20,23 +20,19 @@ pub const MOCKUP_PHONE_DISPLAY_BASE_CLASS: &str =
   "aspect-[9/19.5] overflow-hidden rounded-[1.75rem] bg-background";
 
 pub fn mockup_frame_class(class: &str) -> String {
-  classes([Some(MOCKUP_FRAME_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MOCKUP_FRAME_BASE_CLASS)]), class)
 }
 
 pub fn mockup_code_class(class: &str) -> String {
-  classes([Some(MOCKUP_CODE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MOCKUP_CODE_BASE_CLASS)]), class)
 }
 
 pub fn mockup_code_line_class(highlight: bool, class: &str) -> String {
-  classes([
-    Some(MOCKUP_CODE_LINE_BASE_CLASS),
-    highlight.then_some(MOCKUP_CODE_LINE_HIGHLIGHT_CLASS),
-    Some(class),
-  ])
+  merge_classes(classes([Some(MOCKUP_CODE_LINE_BASE_CLASS), highlight.then_some(MOCKUP_CODE_LINE_HIGHLIGHT_CLASS)]), class)
 }
 
 pub fn mockup_phone_class(class: &str) -> String {
-  classes([Some(MOCKUP_PHONE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MOCKUP_PHONE_BASE_CLASS)]), class)
 }
 
 /// The three window dots, decorative.
@@ -61,7 +57,7 @@ pub fn MockupBrowser(
   children: Element,
 ) -> Element {
   let class = mockup_frame_class(&class);
-  let content_class = classes([Some(MOCKUP_CONTENT_BASE_CLASS), Some(content_class.as_str())]);
+  let content_class = merge_classes(classes([Some(MOCKUP_CONTENT_BASE_CLASS)]), content_class.as_str());
 
   rsx! {
     div {
@@ -87,7 +83,7 @@ pub fn MockupWindow(
   children: Element,
 ) -> Element {
   let class = mockup_frame_class(&class);
-  let content_class = classes([Some(MOCKUP_CONTENT_BASE_CLASS), Some(content_class.as_str())]);
+  let content_class = merge_classes(classes([Some(MOCKUP_CONTENT_BASE_CLASS)]), content_class.as_str());
 
   rsx! {
     div {
@@ -149,7 +145,7 @@ pub fn MockupPhone(
 ) -> Element {
   let class = mockup_phone_class(&class);
   let display_class =
-    classes([Some(MOCKUP_PHONE_DISPLAY_BASE_CLASS), Some(display_class.as_str())]);
+    merge_classes(classes([Some(MOCKUP_PHONE_DISPLAY_BASE_CLASS)]), display_class.as_str());
 
   rsx! {
     div {

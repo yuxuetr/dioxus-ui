@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
   DismissBehavior, DropdownPrimitiveConfig, OverlayAlign, OverlaySide,
 };
@@ -22,15 +22,15 @@ pub const CONTEXT_MENU_SHORTCUT_BASE_CLASS: &str =
   "ml-auto text-xs tracking-normal text-muted-foreground";
 
 pub fn context_menu_content_class(class: &str) -> String {
-  classes([Some(CONTEXT_MENU_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CONTEXT_MENU_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn context_menu_group_class(class: &str) -> String {
-  classes([Some(CONTEXT_MENU_GROUP_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CONTEXT_MENU_GROUP_BASE_CLASS)]), class)
 }
 
 pub fn context_menu_label_class(class: &str) -> String {
-  classes([Some(CONTEXT_MENU_LABEL_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CONTEXT_MENU_LABEL_BASE_CLASS)]), class)
 }
 
 pub fn context_menu_item_class(inset: bool, destructive: bool, class: &str) -> String {
@@ -41,34 +41,45 @@ pub fn context_menu_item_class(inset: bool, destructive: bool, class: &str) -> S
   };
   let inset_class = if inset { CONTEXT_MENU_ITEM_INSET_CLASS } else { "" };
 
-  classes([Some(CONTEXT_MENU_ITEM_BASE_CLASS), Some(variant_class), Some(inset_class), Some(class)])
+  merge_classes(
+    classes([Some(CONTEXT_MENU_ITEM_BASE_CLASS), Some(variant_class), Some(inset_class)]),
+    class,
+  )
 }
 
 pub fn context_menu_separator_class(class: &str) -> String {
-  classes([Some(CONTEXT_MENU_SEPARATOR_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CONTEXT_MENU_SEPARATOR_BASE_CLASS)]), class)
 }
 
 /// An inset item with a check mark shown while `checked`.
 pub fn context_menu_checkbox_item_class(checked: bool, class: &str) -> String {
-  let mark =
-    classes([Some(MENU_CHECKBOX_MARK_CLASS), Some(menu_mark_state_class(checked)), Some(class)]);
+  let mark = merge_classes(
+    classes([Some(MENU_CHECKBOX_MARK_CLASS), Some(menu_mark_state_class(checked))]),
+    class,
+  );
   context_menu_item_class(true, false, &mark)
 }
 
 /// An inset item with a dot shown while `checked`.
 pub fn context_menu_radio_item_class(checked: bool, class: &str) -> String {
-  let mark =
-    classes([Some(MENU_RADIO_MARK_CLASS), Some(menu_mark_state_class(checked)), Some(class)]);
+  let mark = merge_classes(
+    classes([Some(MENU_RADIO_MARK_CLASS), Some(menu_mark_state_class(checked))]),
+    class,
+  );
   context_menu_item_class(true, false, &mark)
 }
 
 /// A sub trigger: an item with a chevron at its end.
 pub fn context_menu_sub_trigger_class(inset: bool, class: &str) -> String {
-  context_menu_item_class(inset, false, &classes([Some(MENU_SUB_TRIGGER_CLASS), Some(class)]))
+  context_menu_item_class(
+    inset,
+    false,
+    &merge_classes(classes([Some(MENU_SUB_TRIGGER_CLASS)]), class),
+  )
 }
 
 pub fn context_menu_shortcut_class(class: &str) -> String {
-  classes([Some(CONTEXT_MENU_SHORTCUT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CONTEXT_MENU_SHORTCUT_BASE_CLASS)]), class)
 }
 
 /// With `anchor_point` (viewport coordinates, usually the `oncontextmenu`

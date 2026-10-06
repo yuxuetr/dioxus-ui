@@ -2,7 +2,7 @@ use super::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
 use super::calendar::CalendarDate;
 use super::modal_focus::use_modal_focus_scope;
 pub use super::overlay::{DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 pub const DATE_PICKER_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
@@ -17,15 +17,15 @@ pub fn date_picker_trigger_class(invalid: bool, class: &str) -> String {
     "border-input focus-visible:ring-ring"
   };
 
-  classes([Some(DATE_PICKER_TRIGGER_BASE_CLASS), Some(invalid_class), Some(class)])
+  merge_classes(classes([Some(DATE_PICKER_TRIGGER_BASE_CLASS), Some(invalid_class)]), class)
 }
 
 pub fn date_picker_value_class(class: &str) -> String {
-  classes([Some(DATE_PICKER_VALUE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DATE_PICKER_VALUE_BASE_CLASS)]), class)
 }
 
 pub fn date_picker_content_class(class: &str) -> String {
-  classes([Some(DATE_PICKER_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DATE_PICKER_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn date_picker_side_attribute(side: OverlaySide) -> &'static str {
@@ -224,7 +224,7 @@ pub fn date_picker_input_class(invalid: bool, class: &str) -> String {
     "border-input focus-visible:ring-ring"
   };
 
-  classes([Some(DATE_PICKER_INPUT_BASE_CLASS), Some(invalid_class), Some(class)])
+  merge_classes(classes([Some(DATE_PICKER_INPUT_BASE_CLASS), Some(invalid_class)]), class)
 }
 
 /// A text field for typing a date. It keeps the text being typed, calls

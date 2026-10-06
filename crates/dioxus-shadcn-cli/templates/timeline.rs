@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -32,23 +32,23 @@ pub const TIMELINE_MARKER_SLOT_CLASS: &str =
 pub const TIMELINE_CONTENT_BASE_CLASS: &str = "col-start-3 row-start-1 pb-8 group-last/item:pb-0 group-data-[orientation=horizontal]/timeline:col-start-1 group-data-[orientation=horizontal]/timeline:row-start-3 group-data-[orientation=horizontal]/timeline:px-2 group-data-[orientation=horizontal]/timeline:pt-2 group-data-[orientation=horizontal]/timeline:pb-0 group-data-[orientation=horizontal]/timeline:text-center";
 
 pub fn timeline_class(class: &str) -> String {
-  classes([Some(TIMELINE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TIMELINE_BASE_CLASS)]), class)
 }
 
 pub fn timeline_item_class(class: &str) -> String {
-  classes([Some(TIMELINE_ITEM_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TIMELINE_ITEM_BASE_CLASS)]), class)
 }
 
 pub fn timeline_time_class(class: &str) -> String {
-  classes([Some(TIMELINE_TIME_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TIMELINE_TIME_BASE_CLASS)]), class)
 }
 
 pub fn timeline_marker_class(class: &str) -> String {
-  classes([Some(TIMELINE_MARKER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TIMELINE_MARKER_BASE_CLASS)]), class)
 }
 
 pub fn timeline_content_class(class: &str) -> String {
-  classes([Some(TIMELINE_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TIMELINE_CONTENT_BASE_CLASS)]), class)
 }
 
 /// An ordered list of events. `TimelineOrientation::Vertical`, the default,

@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum AttachmentState {
@@ -134,45 +134,47 @@ pub fn attachment_class(
   orientation: AttachmentOrientation,
   class: &str,
 ) -> String {
-  classes([
-    Some(ATTACHMENT_BASE_CLASS),
-    Some(orientation.class()),
-    Some(size.class()),
-    Some(state.class()),
-    Some(class),
-  ])
+  merge_classes(
+    classes([
+      Some(ATTACHMENT_BASE_CLASS),
+      Some(orientation.class()),
+      Some(size.class()),
+      Some(state.class()),
+    ]),
+    class,
+  )
 }
 
 pub fn attachment_group_class(class: &str) -> String {
-  classes([Some(ATTACHMENT_GROUP_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ATTACHMENT_GROUP_BASE_CLASS)]), class)
 }
 
 pub fn attachment_media_class(variant: AttachmentMediaVariant, class: &str) -> String {
-  classes([Some(ATTACHMENT_MEDIA_BASE_CLASS), Some(variant.class()), Some(class)])
+  merge_classes(classes([Some(ATTACHMENT_MEDIA_BASE_CLASS), Some(variant.class())]), class)
 }
 
 pub fn attachment_content_class(class: &str) -> String {
-  classes([Some(ATTACHMENT_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ATTACHMENT_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn attachment_title_class(class: &str) -> String {
-  classes([Some(ATTACHMENT_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ATTACHMENT_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn attachment_description_class(class: &str) -> String {
-  classes([Some(ATTACHMENT_DESCRIPTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ATTACHMENT_DESCRIPTION_BASE_CLASS)]), class)
 }
 
 pub fn attachment_actions_class(class: &str) -> String {
-  classes([Some(ATTACHMENT_ACTIONS_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ATTACHMENT_ACTIONS_BASE_CLASS)]), class)
 }
 
 pub fn attachment_action_class(class: &str) -> String {
-  classes([Some(ATTACHMENT_ACTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ATTACHMENT_ACTION_BASE_CLASS)]), class)
 }
 
 pub fn attachment_trigger_class(class: &str) -> String {
-  classes([Some(ATTACHMENT_TRIGGER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ATTACHMENT_TRIGGER_BASE_CLASS)]), class)
 }
 
 #[component]
@@ -369,7 +371,10 @@ mod tests {
   fn attachment_media_class_reflects_variant() {
     let actual = attachment_media_class(AttachmentMediaVariant::Image, "rounded-none");
 
-    assert!(actual.contains(ATTACHMENT_MEDIA_BASE_CLASS));
+    assert_eq!(
+      actual,
+      "flex shrink-0 items-center justify-center overflow-hidden border border-border bg-muted text-muted-foreground h-14 w-14 [&>img]:h-full [&>img]:w-full [&>img]:object-cover rounded-none"
+    );
     assert!(actual.contains(ATTACHMENT_MEDIA_IMAGE_CLASS));
     assert!(actual.ends_with("rounded-none"));
   }

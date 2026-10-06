@@ -1,11 +1,11 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 pub const ASPECT_RATIO_BASE_CLASS: &str = "relative w-full overflow-hidden";
 pub const DEFAULT_ASPECT_RATIO: f64 = 16.0 / 9.0;
 
 pub fn aspect_ratio_class(class: &str) -> String {
-  classes([Some(ASPECT_RATIO_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ASPECT_RATIO_BASE_CLASS)]), class)
 }
 
 pub fn aspect_ratio_style(ratio: f64) -> String {

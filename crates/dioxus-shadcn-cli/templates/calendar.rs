@@ -1,7 +1,7 @@
 use std::rc::Rc;
 use std::sync::atomic::{AtomicBool, Ordering};
 
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
@@ -94,47 +94,43 @@ pub const CALENDAR_DAY_OUTSIDE_CLASS: &str = "text-muted-foreground";
 pub const CALENDAR_DAY_RANGE_CLASS: &str = "bg-accent text-accent-foreground";
 
 pub fn calendar_class(class: &str) -> String {
-  classes([Some(CALENDAR_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CALENDAR_BASE_CLASS)]), class)
 }
 
 pub fn calendar_header_class(class: &str) -> String {
-  classes([Some(CALENDAR_HEADER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CALENDAR_HEADER_BASE_CLASS)]), class)
 }
 
 pub fn calendar_caption_class(class: &str) -> String {
-  classes([Some(CALENDAR_CAPTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CALENDAR_CAPTION_BASE_CLASS)]), class)
 }
 
 pub fn calendar_nav_class(class: &str) -> String {
-  classes([Some(CALENDAR_NAV_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CALENDAR_NAV_BASE_CLASS)]), class)
 }
 
 pub fn calendar_nav_button_class(disabled: bool, class: &str) -> String {
-  classes([
-    Some(CALENDAR_NAV_BUTTON_BASE_CLASS),
-    disabled.then_some("pointer-events-none opacity-50"),
-    Some(class),
-  ])
+  merge_classes(classes([Some(CALENDAR_NAV_BUTTON_BASE_CLASS), disabled.then_some("pointer-events-none opacity-50")]), class)
 }
 
 pub fn calendar_grid_class(class: &str) -> String {
-  classes([Some(CALENDAR_GRID_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CALENDAR_GRID_BASE_CLASS)]), class)
 }
 
 pub fn calendar_head_class(class: &str) -> String {
-  classes([Some(CALENDAR_HEAD_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CALENDAR_HEAD_BASE_CLASS)]), class)
 }
 
 pub fn calendar_head_cell_class(class: &str) -> String {
-  classes([Some(CALENDAR_HEAD_CELL_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CALENDAR_HEAD_CELL_BASE_CLASS)]), class)
 }
 
 pub fn calendar_body_class(class: &str) -> String {
-  classes([Some(CALENDAR_BODY_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CALENDAR_BODY_BASE_CLASS)]), class)
 }
 
 pub fn calendar_row_class(class: &str) -> String {
-  classes([Some(CALENDAR_ROW_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CALENDAR_ROW_BASE_CLASS)]), class)
 }
 
 pub fn calendar_day_class(
@@ -153,16 +149,7 @@ pub fn calendar_day_class(
       | CalendarRangeState::Single
   );
 
-  classes([
-    Some(CALENDAR_DAY_BASE_CLASS),
-    (!in_range && !selected).then_some("hover:bg-accent"),
-    (in_range && !selected).then_some(CALENDAR_DAY_RANGE_CLASS),
-    selected.then_some(CALENDAR_DAY_SELECTED_CLASS),
-    today.then_some(CALENDAR_DAY_TODAY_CLASS),
-    outside_month.then_some(CALENDAR_DAY_OUTSIDE_CLASS),
-    disabled.then_some("pointer-events-none opacity-50"),
-    Some(class),
-  ])
+  merge_classes(classes([Some(CALENDAR_DAY_BASE_CLASS), (!in_range && !selected).then_some("hover:bg-accent"), (in_range && !selected).then_some(CALENDAR_DAY_RANGE_CLASS), selected.then_some(CALENDAR_DAY_SELECTED_CLASS), today.then_some(CALENDAR_DAY_TODAY_CLASS), outside_month.then_some(CALENDAR_DAY_OUTSIDE_CLASS), disabled.then_some("pointer-events-none opacity-50")]), class)
 }
 
 // Set when a day handles a navigation key, and taken by the day that becomes

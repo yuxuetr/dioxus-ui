@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -31,7 +31,7 @@ pub const BADGE_BASE_CLASS: &str =
   "inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-semibold transition-colors";
 
 pub fn badge_class(variant: BadgeVariant, class: &str) -> String {
-  classes([Some(BADGE_BASE_CLASS), Some(variant.class()), Some(class)])
+  merge_classes(classes([Some(BADGE_BASE_CLASS), Some(variant.class())]), class)
 }
 
 #[component]

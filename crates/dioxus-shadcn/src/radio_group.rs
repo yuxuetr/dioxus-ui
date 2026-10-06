@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 use dioxus_shadcn_primitives::{
   FocusMove, NavigationOrientation, RovingFocusItem, RovingFocusState,
 };
@@ -16,7 +16,7 @@ pub fn radio_group_class(orientation: NavigationOrientation, class: &str) -> Str
     NavigationOrientation::Vertical | NavigationOrientation::Both => "grid-flow-row",
   };
 
-  classes([Some(RADIO_GROUP_BASE_CLASS), Some(orientation_class), Some(class)])
+  merge_classes(classes([Some(RADIO_GROUP_BASE_CLASS), Some(orientation_class)]), class)
 }
 
 pub fn radio_group_item_class(checked: bool, class: &str) -> String {
@@ -26,11 +26,11 @@ pub fn radio_group_item_class(checked: bool, class: &str) -> String {
     "border-input bg-background text-transparent"
   };
 
-  classes([Some(RADIO_GROUP_ITEM_BASE_CLASS), Some(checked_class), Some(class)])
+  merge_classes(classes([Some(RADIO_GROUP_ITEM_BASE_CLASS), Some(checked_class)]), class)
 }
 
 pub fn radio_group_indicator_class(class: &str) -> String {
-  classes([Some(RADIO_GROUP_INDICATOR_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(RADIO_GROUP_INDICATOR_BASE_CLASS)]), class)
 }
 
 pub fn radio_group_orientation_attribute(orientation: NavigationOrientation) -> &'static str {
@@ -159,7 +159,7 @@ mod tests {
   fn radio_group_class_reflects_orientation() {
     let actual = radio_group_class(NavigationOrientation::Horizontal, "gap-3");
 
-    assert!(actual.contains(RADIO_GROUP_BASE_CLASS));
+    assert_eq!(actual, "grid grid-flow-col auto-cols-max items-center gap-3");
     assert!(actual.contains("grid-flow-col auto-cols-max items-center"));
     assert!(actual.ends_with("gap-3"));
   }

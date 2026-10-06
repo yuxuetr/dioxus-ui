@@ -1,10 +1,10 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 pub const SKELETON_BASE_CLASS: &str = "animate-pulse rounded-md bg-accent";
 
 pub fn skeleton_class(class: &str) -> String {
-  classes([Some(SKELETON_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SKELETON_BASE_CLASS)]), class)
 }
 
 #[component]

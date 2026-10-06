@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum SeparatorOrientation {
@@ -27,7 +27,7 @@ impl SeparatorOrientation {
 pub const SEPARATOR_BASE_CLASS: &str = "shrink-0 bg-border";
 
 pub fn separator_class(orientation: SeparatorOrientation, class: &str) -> String {
-  classes([Some(SEPARATOR_BASE_CLASS), Some(orientation.class()), Some(class)])
+  merge_classes(classes([Some(SEPARATOR_BASE_CLASS), Some(orientation.class())]), class)
 }
 
 #[component]

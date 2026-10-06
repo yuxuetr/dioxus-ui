@@ -1050,8 +1050,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
     "max-w-md",
   );
   let bubble = bubble_class(BubbleAlign::Start, "rounded-xl bg-secondary p-3");
-  let marker = marker_class(MarkerVariant::Border, "text-primary!");
-  let scroller = message_scroller_class(MessageScrollerIntent::Hold, "h-64 overflow-auto!");
+  let marker = marker_class(MarkerVariant::Border, "text-primary");
+  let scroller = message_scroller_class(MessageScrollerIntent::Hold, "h-64 overflow-auto");
   let chart_series = ChartSeries::new(
     "revenue",
     "Revenue",
@@ -1111,12 +1111,28 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           div {
             class: "rounded-md bg-muted p-3 text-sm",
             "data-mobile-profile": "touch-targets",
-            button { class: "{primary_button_class} min-h-11! w-full", "Touch target" }
+            button {
+              class: button_class(
+                ButtonVariant::Primary,
+                ButtonSize::Md,
+                UiDensity::Comfortable,
+                "min-h-11 w-full",
+              ),
+              "Touch target"
+            }
           }
           div {
             class: "rounded-md bg-muted p-3 text-sm",
             "data-mobile-profile": "hover-alternative",
-            button { class: "{secondary_button_class} min-h-11! w-full", "Tap or focus" }
+            button {
+              class: button_class(
+                ButtonVariant::Secondary,
+                ButtonSize::Sm,
+                UiDensity::Compact,
+                "min-h-11 w-full",
+              ),
+              "Tap or focus"
+            }
           }
           div {
             class: "rounded-md bg-muted p-3 text-sm",
@@ -3116,7 +3132,7 @@ impl PreviewConfig {
         bottom_threshold: 24.0,
         jump_button_class: "rounded-full",
         marker_variant: MarkerVariant::Border,
-        marker_class: "text-primary!",
+        marker_class: "text-primary",
         chart_id: "revenue",
         chart_label: "Revenue",
         chart_points: vec![
@@ -3165,7 +3181,7 @@ impl PreviewConfig {
         bottom_threshold: 16.0,
         jump_button_class: "text-destructive",
         marker_variant: MarkerVariant::Separator,
-        marker_class: "text-destructive!",
+        marker_class: "text-destructive",
         chart_id: "cost",
         chart_label: "Cost",
         chart_points: vec![

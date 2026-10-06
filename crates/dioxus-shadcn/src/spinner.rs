@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum SpinnerSize {
@@ -23,7 +23,7 @@ pub const SPINNER_BASE_CLASS: &str =
   "inline-block shrink-0 animate-spin rounded-full border-border border-t-foreground";
 
 pub fn spinner_class(size: SpinnerSize, class: &str) -> String {
-  classes([Some(SPINNER_BASE_CLASS), Some(size.class()), Some(class)])
+  merge_classes(classes([Some(SPINNER_BASE_CLASS), Some(size.class())]), class)
 }
 
 #[component]

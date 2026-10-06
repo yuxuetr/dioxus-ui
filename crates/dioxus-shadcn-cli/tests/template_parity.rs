@@ -258,3 +258,73 @@ fn templates_match_crate_modules() {
 
   assert!(drift.is_empty(), "{} template items drifted:\n{}", drift.len(), drift.join("\n"));
 }
+
+/// The `class` parameters and props a file declares, by name: `class: &str`,
+/// `track_class: String`, and the like.
+fn user_class_names(tokens: TokenStream, names: &mut Vec<String>) {
+  let tokens = tokens.into_iter().collect::<Vec<_>>();
+  for (index, token) in tokens.iter().enumerate() {
+    match token {
+      TokenTree::Group(group) => user_class_names(group.stream(), names),
+      TokenTree::Ident(ident) if ident.to_string().ends_with("class") => {
+        let rest = tokens[index + 1..].iter().take(3).map(ToString::to_string).collect::<String>();
+        if rest.starts_with(":&str") || rest.starts_with(":String") {
+          names.push(ident.to_string());
+        }
+      }
+      _ => {}
+    }
+  }
+}
+
+/// Elements of `classes([...])` calls that are a user class, which must go
+/// through `merge_classes` instead (RFC 0076).
+fn user_classes_in_classes_calls(tokens: TokenStream, names: &[String], found: &mut Vec<String>) {
+  let tokens = tokens.into_iter().collect::<Vec<_>>();
+  for (index, token) in tokens.iter().enumerate() {
+    let TokenTree::Group(group) = token else {
+      continue;
+    };
+    let is_classes_call = matches!(tokens.get(index.wrapping_sub(1)), Some(TokenTree::Ident(ident)) if ident == "classes")
+      && group.delimiter() == Delimiter::Parenthesis;
+    if is_classes_call {
+      for element in group.stream().to_string().replace(' ', "").trim_matches(['[', ']']).split(',')
+      {
+        let inner = element.strip_prefix("Some(").and_then(|rest| rest.strip_suffix(')'));
+        let name = inner.map(|inner| inner.trim_start_matches('&').trim_end_matches(".as_str()"));
+        if name.is_some_and(|name| names.iter().any(|candidate| candidate == name)) {
+          found.push(element.to_string());
+        }
+      }
+    }
+    user_classes_in_classes_calls(group.stream(), names, found);
+  }
+}
+
+#[test]
+fn class_functions_merge_the_user_class() {
+  let root = workspace_root();
+  let mut appended = Vec::new();
+  for dir in ["crates/dioxus-shadcn/src", "crates/dioxus-shadcn-cli/templates"] {
+    for path in rust_files(&root.join(dir)) {
+      let source = fs::read_to_string(&path)
+        .unwrap_or_else(|error| panic!("read {}: {error}", path.display()));
+      let source = source.split("#[cfg(test)]").next().unwrap_or_default();
+      let tokens = source
+        .parse::<TokenStream>()
+        .unwrap_or_else(|error| panic!("lex {}: {error}", path.display()));
+      let mut names = Vec::new();
+      user_class_names(tokens.clone(), &mut names);
+      let mut found = Vec::new();
+      user_classes_in_classes_calls(tokens, &names, &mut found);
+      appended.extend(found.into_iter().map(|element| {
+        format!("{}: {element}", path.strip_prefix(&root).unwrap_or(&path).display())
+      }));
+    }
+  }
+  assert!(
+    appended.is_empty(),
+    "class functions append a user class without merge_classes:\n{}",
+    appended.join("\n")
+  );
+}

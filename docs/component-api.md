@@ -39,7 +39,8 @@ Every styled component should accept a user class string.
 Rules:
 
 - default is empty
-- user classes are appended last
+- the user class is merged last with `merge_classes`, so it wins (see
+  [RFC 0076](rfcs/0076-user-class-overrides.md))
 - component classes must be complete Tailwind tokens
 - dynamic class token construction is not allowed
 - a component never joins two utilities that set the same property under the
@@ -47,11 +48,20 @@ Rules:
   `border-destructive`; the base value moves into the default branch instead
   (see [RFC 0044](rfcs/0044-tailwind-utility-conflicts.md))
 
-Appending does not make a user class win. Tailwind orders utilities in the
-stylesheet, not by their position in the class list, so `bg-blue-100` passed
-to a component whose base class has `bg-muted` may lose. Add classes for
-properties the component leaves unset, or override one it sets with
-Tailwind's important modifier, such as `bg-blue-100!`.
+A user utility replaces each component utility whose properties it sets in
+full, under the same variants and importance: `bg-blue-100` passed to a
+component with `bg-muted` renders `bg-blue-100` alone, and `hover:` or
+`data-[state=open]:` component styles stay. A user utility that sets only
+some of a component utility's properties, such as `px-2` over `p-4`, keeps
+both; it applies wherever Tailwind orders it later, which holds for that
+pair. Where it does not, as with a logical side over a physical one (`ms-2`
+over `ml-4`), add Tailwind's important modifier, such as `ms-2!`.
+
+A class the merge does not know, such as an app's own class, a theme name
+the app added (`bg-brand`), or an arbitrary value of a type the merge cannot
+tell on a utility with several meanings (`bg-[13px]`), replaces nothing. In
+debug builds the merge logs each class it could not classify and each
+component class it replaced, once, at the debug level.
 
 ### `children`
 

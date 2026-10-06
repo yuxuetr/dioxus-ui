@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -133,15 +133,15 @@ impl BubbleReactionAlign {
 }
 
 pub fn bubble_class(align: BubbleAlign, class: &str) -> String {
-  classes([Some(BUBBLE_BASE_CLASS), Some(align.class()), Some(class)])
+  merge_classes(classes([Some(BUBBLE_BASE_CLASS), Some(align.class())]), class)
 }
 
 pub fn bubble_group_class(class: &str) -> String {
-  classes([Some(BUBBLE_GROUP_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(BUBBLE_GROUP_BASE_CLASS)]), class)
 }
 
 pub fn bubble_content_class(variant: BubbleVariant, class: &str) -> String {
-  classes([Some(BUBBLE_CONTENT_BASE_CLASS), Some(variant.class()), Some(class)])
+  merge_classes(classes([Some(BUBBLE_CONTENT_BASE_CLASS), Some(variant.class())]), class)
 }
 
 pub fn bubble_reactions_class(
@@ -149,7 +149,7 @@ pub fn bubble_reactions_class(
   align: BubbleReactionAlign,
   class: &str,
 ) -> String {
-  classes([Some(BUBBLE_REACTIONS_BASE_CLASS), Some(side.class()), Some(align.class()), Some(class)])
+  merge_classes(classes([Some(BUBBLE_REACTIONS_BASE_CLASS), Some(side.class()), Some(align.class())]), class)
 }
 
 #[component]

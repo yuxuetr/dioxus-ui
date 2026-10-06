@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 pub const AVATAR_BASE_CLASS: &str = "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full";
@@ -6,15 +6,15 @@ pub const AVATAR_IMAGE_BASE_CLASS: &str = "aspect-square h-full w-full object-co
 pub const AVATAR_FALLBACK_BASE_CLASS: &str = "flex h-full w-full items-center justify-center rounded-full bg-muted text-sm font-medium text-foreground";
 
 pub fn avatar_class(class: &str) -> String {
-  classes([Some(AVATAR_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(AVATAR_BASE_CLASS)]), class)
 }
 
 pub fn avatar_image_class(class: &str) -> String {
-  classes([Some(AVATAR_IMAGE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(AVATAR_IMAGE_BASE_CLASS)]), class)
 }
 
 pub fn avatar_fallback_class(class: &str) -> String {
-  classes([Some(AVATAR_FALLBACK_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(AVATAR_FALLBACK_BASE_CLASS)]), class)
 }
 
 #[component]

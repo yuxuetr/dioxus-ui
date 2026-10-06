@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -134,45 +134,39 @@ pub fn attachment_class(
   orientation: AttachmentOrientation,
   class: &str,
 ) -> String {
-  classes([
-    Some(ATTACHMENT_BASE_CLASS),
-    Some(orientation.class()),
-    Some(size.class()),
-    Some(state.class()),
-    Some(class),
-  ])
+  merge_classes(classes([Some(ATTACHMENT_BASE_CLASS), Some(orientation.class()), Some(size.class()), Some(state.class())]), class)
 }
 
 pub fn attachment_group_class(class: &str) -> String {
-  classes([Some(ATTACHMENT_GROUP_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ATTACHMENT_GROUP_BASE_CLASS)]), class)
 }
 
 pub fn attachment_media_class(variant: AttachmentMediaVariant, class: &str) -> String {
-  classes([Some(ATTACHMENT_MEDIA_BASE_CLASS), Some(variant.class()), Some(class)])
+  merge_classes(classes([Some(ATTACHMENT_MEDIA_BASE_CLASS), Some(variant.class())]), class)
 }
 
 pub fn attachment_content_class(class: &str) -> String {
-  classes([Some(ATTACHMENT_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ATTACHMENT_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn attachment_title_class(class: &str) -> String {
-  classes([Some(ATTACHMENT_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ATTACHMENT_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn attachment_description_class(class: &str) -> String {
-  classes([Some(ATTACHMENT_DESCRIPTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ATTACHMENT_DESCRIPTION_BASE_CLASS)]), class)
 }
 
 pub fn attachment_actions_class(class: &str) -> String {
-  classes([Some(ATTACHMENT_ACTIONS_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ATTACHMENT_ACTIONS_BASE_CLASS)]), class)
 }
 
 pub fn attachment_action_class(class: &str) -> String {
-  classes([Some(ATTACHMENT_ACTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ATTACHMENT_ACTION_BASE_CLASS)]), class)
 }
 
 pub fn attachment_trigger_class(class: &str) -> String {
-  classes([Some(ATTACHMENT_TRIGGER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ATTACHMENT_TRIGGER_BASE_CLASS)]), class)
 }
 
 #[component]

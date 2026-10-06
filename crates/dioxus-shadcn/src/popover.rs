@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
   DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig,
 };
@@ -13,19 +13,19 @@ pub const POPOVER_TITLE_BASE_CLASS: &str = "font-medium leading-none text-foregr
 pub const POPOVER_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
 
 pub fn popover_content_class(class: &str) -> String {
-  classes([Some(POPOVER_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(POPOVER_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn popover_header_class(class: &str) -> String {
-  classes([Some(POPOVER_HEADER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(POPOVER_HEADER_BASE_CLASS)]), class)
 }
 
 pub fn popover_title_class(class: &str) -> String {
-  classes([Some(POPOVER_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(POPOVER_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn popover_description_class(class: &str) -> String {
-  classes([Some(POPOVER_DESCRIPTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(POPOVER_DESCRIPTION_BASE_CLASS)]), class)
 }
 
 /// Non-modal content. With `anchor_id` it is placed next to that element with
@@ -116,7 +116,10 @@ mod tests {
   fn popover_content_class_appends_user_class() {
     let actual = popover_content_class("w-80");
 
-    assert!(actual.contains(POPOVER_CONTENT_BASE_CLASS));
+    assert_eq!(
+      actual,
+      "z-50 rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring w-80"
+    );
     assert!(actual.ends_with("w-80"));
   }
 

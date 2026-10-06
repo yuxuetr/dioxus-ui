@@ -1422,6 +1422,7 @@ name = "dioxus-shadcn-core"
 version = "0.4.2"
 dependencies = [
  "serde",
+ "tracing",
 ]
 
 [[package]]
@@ -1487,6 +1488,7 @@ dependencies = [
 name = "dioxus-ui-class-merge-gate"
 version = "0.4.2"
 dependencies = [
+ "dioxus-shadcn-core",
  "serde_json",
  "tw_merge",
 ]

@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 pub const TEXTAREA_BASE_CLASS: &str = "flex min-h-24 w-full rounded-md border bg-background px-3 py-2 text-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
 
@@ -10,7 +10,7 @@ pub fn textarea_class(invalid: bool, class: &str) -> String {
     "border-input focus-visible:ring-ring"
   };
 
-  classes([Some(TEXTAREA_BASE_CLASS), Some(invalid_class), Some(class)])
+  merge_classes(classes([Some(TEXTAREA_BASE_CLASS), Some(invalid_class)]), class)
 }
 
 /// A controlled textarea. Each `input` event calls `on_value_change` with the new

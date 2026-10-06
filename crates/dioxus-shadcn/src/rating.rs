@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 use crate::element_id::next_element_id;
 
@@ -10,7 +10,7 @@ pub const RATING_STAR_WRAPPER_CLASS: &str = "inline-flex rounded-sm has-focus-vi
 pub const RATING_STAR_CLASS: &str = "size-6 cursor-pointer appearance-none bg-muted-foreground/40 [mask:url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2024%2024%27%3E%3Cpath%20d=%27M12%202l3.09%206.26L22%209.27l-5%204.87%201.18%206.88L12%2017.77l-6.18%203.25L7%2014.14%202%209.27l6.91-1.01L12%202z%27/%3E%3C/svg%3E)_center/contain_no-repeat] focus-visible:outline-none data-[filled=true]:bg-warning disabled:cursor-not-allowed disabled:opacity-50";
 
 pub fn rating_class(class: &str) -> String {
-  classes([Some(RATING_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(RATING_BASE_CLASS)]), class)
 }
 
 /// A star rating from 0 (none) to `max`, as a radio group: the arrow keys

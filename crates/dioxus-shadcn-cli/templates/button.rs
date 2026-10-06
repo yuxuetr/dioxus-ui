@@ -1,4 +1,4 @@
-use super::utils::{UiDensity, classes};
+use super::utils::{UiDensity, classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -61,13 +61,7 @@ pub fn button_class(
     UiDensity::Touch => "min-h-12",
   };
 
-  classes([
-    Some(BUTTON_BASE_CLASS),
-    Some(variant.class()),
-    Some(size.class()),
-    Some(density_class),
-    Some(class),
-  ])
+  merge_classes(classes([Some(BUTTON_BASE_CLASS), Some(variant.class()), Some(size.class()), Some(density_class)]), class)
 }
 
 /// Calls `onclick` on a click, Enter, or Space. Other attributes, such as

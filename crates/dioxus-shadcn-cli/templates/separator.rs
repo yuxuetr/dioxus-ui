@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -27,7 +27,7 @@ impl SeparatorOrientation {
 pub const SEPARATOR_BASE_CLASS: &str = "shrink-0 bg-border";
 
 pub fn separator_class(orientation: SeparatorOrientation, class: &str) -> String {
-  classes([Some(SEPARATOR_BASE_CLASS), Some(orientation.class()), Some(class)])
+  merge_classes(classes([Some(SEPARATOR_BASE_CLASS), Some(orientation.class())]), class)
 }
 
 #[component]

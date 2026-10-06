@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum StatGroupOrientation {
@@ -31,27 +31,27 @@ pub const STAT_DESCRIPTION_BASE_CLASS: &str =
 pub const STAT_FIGURE_BASE_CLASS: &str = "col-start-2 row-span-3 row-start-1 self-center";
 
 pub fn stat_group_class(orientation: StatGroupOrientation, class: &str) -> String {
-  classes([Some(STAT_GROUP_BASE_CLASS), Some(orientation.class()), Some(class)])
+  merge_classes(classes([Some(STAT_GROUP_BASE_CLASS), Some(orientation.class())]), class)
 }
 
 pub fn stat_class(class: &str) -> String {
-  classes([Some(STAT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(STAT_BASE_CLASS)]), class)
 }
 
 pub fn stat_title_class(class: &str) -> String {
-  classes([Some(STAT_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(STAT_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn stat_value_class(class: &str) -> String {
-  classes([Some(STAT_VALUE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(STAT_VALUE_BASE_CLASS)]), class)
 }
 
 pub fn stat_description_class(class: &str) -> String {
-  classes([Some(STAT_DESCRIPTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(STAT_DESCRIPTION_BASE_CLASS)]), class)
 }
 
 pub fn stat_figure_class(class: &str) -> String {
-  classes([Some(STAT_FIGURE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(STAT_FIGURE_BASE_CLASS)]), class)
 }
 
 /// A definition list of stats; each `Stat` inside pairs a title with its

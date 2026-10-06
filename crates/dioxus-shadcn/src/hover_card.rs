@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
   DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig,
 };
@@ -13,19 +13,19 @@ pub const HOVER_CARD_TITLE_BASE_CLASS: &str = "font-medium leading-none text-for
 pub const HOVER_CARD_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
 
 pub fn hover_card_content_class(class: &str) -> String {
-  classes([Some(HOVER_CARD_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(HOVER_CARD_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn hover_card_header_class(class: &str) -> String {
-  classes([Some(HOVER_CARD_HEADER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(HOVER_CARD_HEADER_BASE_CLASS)]), class)
 }
 
 pub fn hover_card_title_class(class: &str) -> String {
-  classes([Some(HOVER_CARD_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(HOVER_CARD_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn hover_card_description_class(class: &str) -> String {
-  classes([Some(HOVER_CARD_DESCRIPTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(HOVER_CARD_DESCRIPTION_BASE_CLASS)]), class)
 }
 
 pub fn hover_card_side_attribute(side: OverlaySide) -> &'static str {
@@ -227,7 +227,10 @@ mod tests {
   fn hover_card_content_class_appends_user_class() {
     let actual = hover_card_content_class("w-96");
 
-    assert!(actual.contains(HOVER_CARD_CONTENT_BASE_CLASS));
+    assert_eq!(
+      actual,
+      "z-50 rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring w-96"
+    );
     assert!(actual.ends_with("w-96"));
   }
 

@@ -1,12 +1,14 @@
 {
   "name": "utils",
-  "description": "Class composition and the density type shared by every copied component.",
+  "description": "Class composition, the user class merge, and the density type shared by every copied component.",
   "files": [
     {
       "source": "templates/utils.rs",
       "target": "src/components/ui/utils.rs"
     }
   ],
-  "dependencies": [],
+  "dependencies": [
+    "class-merge"
+  ],
   "assets": []
 }

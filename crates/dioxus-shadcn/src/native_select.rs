@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 pub const NATIVE_SELECT_BASE_CLASS: &str = "h-10 w-full rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
 pub const NATIVE_SELECT_GROUP_BASE_CLASS: &str = "text-sm font-medium text-foreground";
@@ -12,15 +12,15 @@ pub fn native_select_class(invalid: bool, class: &str) -> String {
     "border-input focus-visible:ring-ring"
   };
 
-  classes([Some(NATIVE_SELECT_BASE_CLASS), Some(invalid_class), Some(class)])
+  merge_classes(classes([Some(NATIVE_SELECT_BASE_CLASS), Some(invalid_class)]), class)
 }
 
 pub fn native_select_group_class(class: &str) -> String {
-  classes([Some(NATIVE_SELECT_GROUP_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(NATIVE_SELECT_GROUP_BASE_CLASS)]), class)
 }
 
 pub fn native_select_option_class(class: &str) -> String {
-  classes([Some(NATIVE_SELECT_OPTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(NATIVE_SELECT_OPTION_BASE_CLASS)]), class)
 }
 
 /// A change calls `on_value_change` with the chosen option's `value`; the app
@@ -99,7 +99,10 @@ mod tests {
   fn native_select_class_reflects_invalid_state() {
     let actual = native_select_class(true, "w-48");
 
-    assert!(actual.contains(NATIVE_SELECT_BASE_CLASS));
+    assert_eq!(
+      actual,
+      "h-10 rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50 border-destructive focus-visible:ring-destructive w-48"
+    );
     assert!(actual.contains("border-destructive focus-visible:ring-destructive"));
     assert!(actual.ends_with("w-48"));
   }

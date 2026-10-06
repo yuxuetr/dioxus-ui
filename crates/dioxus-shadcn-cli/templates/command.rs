@@ -1,6 +1,6 @@
 use super::element_id::next_element_id;
 use super::listbox::{ListboxMode, use_listbox};
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 pub const COMMAND_BASE_CLASS: &str =
@@ -17,46 +17,46 @@ pub const COMMAND_SHORTCUT_BASE_CLASS: &str =
   "ml-auto text-xs tracking-normal text-muted-foreground";
 
 pub fn command_class(class: &str) -> String {
-  classes([Some(COMMAND_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(COMMAND_BASE_CLASS)]), class)
 }
 
 pub fn command_input_class(class: &str) -> String {
-  classes([Some(COMMAND_INPUT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(COMMAND_INPUT_BASE_CLASS)]), class)
 }
 
 pub fn command_list_class(class: &str) -> String {
-  classes([Some(COMMAND_LIST_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(COMMAND_LIST_BASE_CLASS)]), class)
 }
 
 pub fn command_empty_class(class: &str) -> String {
-  classes([Some(COMMAND_EMPTY_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(COMMAND_EMPTY_BASE_CLASS)]), class)
 }
 
 pub fn command_status_class(class: &str) -> String {
-  classes([Some(COMMAND_STATUS_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(COMMAND_STATUS_BASE_CLASS)]), class)
 }
 
 pub fn command_group_class(class: &str) -> String {
-  classes([Some(COMMAND_GROUP_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(COMMAND_GROUP_BASE_CLASS)]), class)
 }
 
 pub fn command_label_class(class: &str) -> String {
-  classes([Some(COMMAND_LABEL_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(COMMAND_LABEL_BASE_CLASS)]), class)
 }
 
 pub fn command_item_class(active: bool, selected: bool, class: &str) -> String {
   let active_class = if active { "bg-accent text-accent-foreground" } else { "" };
   let selected_class = if selected { "bg-accent" } else { "" };
 
-  classes([Some(COMMAND_ITEM_BASE_CLASS), Some(active_class), Some(selected_class), Some(class)])
+  merge_classes(classes([Some(COMMAND_ITEM_BASE_CLASS), Some(active_class), Some(selected_class)]), class)
 }
 
 pub fn command_separator_class(class: &str) -> String {
-  classes([Some(COMMAND_SEPARATOR_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(COMMAND_SEPARATOR_BASE_CLASS)]), class)
 }
 
 pub fn command_shortcut_class(class: &str) -> String {
-  classes([Some(COMMAND_SHORTCUT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(COMMAND_SHORTCUT_BASE_CLASS)]), class)
 }
 
 /// Returns true when the trimmed `query` is empty or `label` contains it,

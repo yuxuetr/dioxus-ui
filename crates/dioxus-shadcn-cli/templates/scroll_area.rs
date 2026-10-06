@@ -1,5 +1,5 @@
 use super::default_attribute::default_attribute;
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -26,15 +26,15 @@ pub const SCROLL_AREA_THUMB_BASE_CLASS: &str = "relative flex-1 rounded-full bg-
 pub const SCROLL_AREA_CORNER_BASE_CLASS: &str = "bg-accent";
 
 pub fn scroll_area_class(class: &str) -> String {
-  classes([Some(SCROLL_AREA_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SCROLL_AREA_BASE_CLASS)]), class)
 }
 
 pub fn scroll_area_viewport_class(class: &str) -> String {
-  classes([Some(SCROLL_AREA_VIEWPORT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SCROLL_AREA_VIEWPORT_BASE_CLASS)]), class)
 }
 
 pub fn scroll_area_content_class(class: &str) -> String {
-  classes([Some(SCROLL_AREA_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SCROLL_AREA_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn scroll_area_scrollbar_class(orientation: ScrollAreaOrientation, class: &str) -> String {
@@ -44,15 +44,15 @@ pub fn scroll_area_scrollbar_class(orientation: ScrollAreaOrientation, class: &s
     ScrollAreaOrientation::Both => "h-full w-2.5 border-l border-l-transparent p-px",
   };
 
-  classes([Some(SCROLL_AREA_SCROLLBAR_BASE_CLASS), Some(orientation_class), Some(class)])
+  merge_classes(classes([Some(SCROLL_AREA_SCROLLBAR_BASE_CLASS), Some(orientation_class)]), class)
 }
 
 pub fn scroll_area_thumb_class(class: &str) -> String {
-  classes([Some(SCROLL_AREA_THUMB_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SCROLL_AREA_THUMB_BASE_CLASS)]), class)
 }
 
 pub fn scroll_area_corner_class(class: &str) -> String {
-  classes([Some(SCROLL_AREA_CORNER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SCROLL_AREA_CORNER_BASE_CLASS)]), class)
 }
 
 #[component]

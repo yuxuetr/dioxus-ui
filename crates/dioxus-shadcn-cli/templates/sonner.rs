@@ -1,5 +1,5 @@
 use super::dismiss_timer::use_dismiss_timer;
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 pub use self::{
@@ -192,7 +192,7 @@ pub fn sonner_viewport_class(placement: SonnerPlacement, class: &str) -> String 
     SonnerPlacement::BottomRight => "bottom-0 right-0 sm:right-0",
   };
 
-  classes([Some(SONNER_VIEWPORT_BASE_CLASS), Some(placement_class), Some(class)])
+  merge_classes(classes([Some(SONNER_VIEWPORT_BASE_CLASS), Some(placement_class)]), class)
 }
 
 pub fn sonner_toast_class(variant: SonnerVariant, class: &str) -> String {
@@ -205,7 +205,7 @@ pub fn sonner_toast_class(variant: SonnerVariant, class: &str) -> String {
     SonnerVariant::Loading => "border-border bg-popover text-popover-foreground",
   };
 
-  classes([Some(SONNER_TOAST_BASE_CLASS), Some(variant_class), Some(class)])
+  merge_classes(classes([Some(SONNER_TOAST_BASE_CLASS), Some(variant_class)]), class)
 }
 
 pub fn sonner_icon_class(variant: SonnerVariant, class: &str) -> String {
@@ -218,15 +218,15 @@ pub fn sonner_icon_class(variant: SonnerVariant, class: &str) -> String {
     SonnerVariant::Loading => "bg-muted-foreground animate-pulse",
   };
 
-  classes([Some(SONNER_ICON_BASE_CLASS), Some(variant_class), Some(class)])
+  merge_classes(classes([Some(SONNER_ICON_BASE_CLASS), Some(variant_class)]), class)
 }
 
 pub fn sonner_content_class(class: &str) -> String {
-  classes([Some(SONNER_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SONNER_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn sonner_title_class(class: &str) -> String {
-  classes([Some(SONNER_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SONNER_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn sonner_description_class(variant: SonnerVariant, class: &str) -> String {
@@ -238,23 +238,15 @@ pub fn sonner_description_class(variant: SonnerVariant, class: &str) -> String {
     SonnerVariant::Error => "text-muted-foreground",
   };
 
-  classes([Some(SONNER_DESCRIPTION_BASE_CLASS), Some(variant_class), Some(class)])
+  merge_classes(classes([Some(SONNER_DESCRIPTION_BASE_CLASS), Some(variant_class)]), class)
 }
 
 pub fn sonner_action_class(disabled: bool, class: &str) -> String {
-  classes([
-    Some(SONNER_ACTION_BASE_CLASS),
-    disabled.then_some("pointer-events-none opacity-50"),
-    Some(class),
-  ])
+  merge_classes(classes([Some(SONNER_ACTION_BASE_CLASS), disabled.then_some("pointer-events-none opacity-50")]), class)
 }
 
 pub fn sonner_close_class(disabled: bool, class: &str) -> String {
-  classes([
-    Some(SONNER_CLOSE_BASE_CLASS),
-    disabled.then_some("pointer-events-none opacity-50"),
-    Some(class),
-  ])
+  merge_classes(classes([Some(SONNER_CLOSE_BASE_CLASS), disabled.then_some("pointer-events-none opacity-50")]), class)
 }
 
 pub fn sonner_live_attribute(variant: SonnerVariant) -> &'static str {

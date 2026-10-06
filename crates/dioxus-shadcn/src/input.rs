@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 pub const INPUT_BASE_CLASS: &str = "flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
 
@@ -10,7 +10,7 @@ pub fn input_class(invalid: bool, class: &str) -> String {
     "border-input focus-visible:ring-ring"
   };
 
-  classes([Some(INPUT_BASE_CLASS), Some(invalid_class), Some(class)])
+  merge_classes(classes([Some(INPUT_BASE_CLASS), Some(invalid_class)]), class)
 }
 
 /// A controlled input. Each `input` event calls `on_value_change` with the new
@@ -53,7 +53,10 @@ mod tests {
   fn input_class_adds_invalid_state() {
     let actual = input_class(true, "w-64");
 
-    assert!(actual.contains(INPUT_BASE_CLASS));
+    assert_eq!(
+      actual,
+      "flex h-10 rounded-md border bg-background px-3 py-2 text-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50 border-destructive focus-visible:ring-destructive w-64"
+    );
     assert!(actual.contains("border-destructive focus-visible:ring-destructive"));
     assert!(actual.ends_with("w-64"));
   }

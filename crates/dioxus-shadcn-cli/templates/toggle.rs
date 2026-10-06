@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -45,7 +45,7 @@ pub fn toggle_class(
   pressed: bool,
   class: &str,
 ) -> String {
-  classes([Some(TOGGLE_BASE_CLASS), Some(variant.class(pressed)), Some(size.class()), Some(class)])
+  merge_classes(classes([Some(TOGGLE_BASE_CLASS), Some(variant.class(pressed)), Some(size.class())]), class)
 }
 
 /// A controlled toggle button. A click, Enter, or Space calls

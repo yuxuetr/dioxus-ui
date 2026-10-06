@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -22,7 +22,7 @@ impl KbdSize {
 pub const KBD_BASE_CLASS: &str = "inline-flex items-center justify-center rounded border border-border bg-muted font-mono font-medium text-muted-foreground shadow-sm";
 
 pub fn kbd_class(size: KbdSize, class: &str) -> String {
-  classes([Some(KBD_BASE_CLASS), Some(size.class()), Some(class)])
+  merge_classes(classes([Some(KBD_BASE_CLASS), Some(size.class())]), class)
 }
 
 #[component]

@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 // Dim the field only when the input is disabled, not when a button is at a
@@ -14,7 +14,7 @@ pub fn number_input_class(invalid: bool, class: &str) -> String {
     "border-input focus-within:ring-ring"
   };
 
-  classes([Some(NUMBER_INPUT_BASE_CLASS), Some(invalid_class), Some(class)])
+  merge_classes(classes([Some(NUMBER_INPUT_BASE_CLASS), Some(invalid_class)]), class)
 }
 
 /// The value kept within the optional bounds.

@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
@@ -16,31 +16,31 @@ pub const DRAWER_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
 pub const DRAWER_CLOSE_BASE_CLASS: &str = "absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none";
 
 pub fn drawer_overlay_class(class: &str) -> String {
-  classes([Some(DRAWER_OVERLAY_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DRAWER_OVERLAY_BASE_CLASS)]), class)
 }
 
 pub fn drawer_content_class(class: &str) -> String {
-  classes([Some(DRAWER_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DRAWER_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn drawer_header_class(class: &str) -> String {
-  classes([Some(DRAWER_HEADER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DRAWER_HEADER_BASE_CLASS)]), class)
 }
 
 pub fn drawer_footer_class(class: &str) -> String {
-  classes([Some(DRAWER_FOOTER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DRAWER_FOOTER_BASE_CLASS)]), class)
 }
 
 pub fn drawer_title_class(class: &str) -> String {
-  classes([Some(DRAWER_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DRAWER_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn drawer_description_class(class: &str) -> String {
-  classes([Some(DRAWER_DESCRIPTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DRAWER_DESCRIPTION_BASE_CLASS)]), class)
 }
 
 pub fn drawer_close_class(class: &str) -> String {
-  classes([Some(DRAWER_CLOSE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(DRAWER_CLOSE_BASE_CLASS)]), class)
 }
 
 #[component]
@@ -187,7 +187,10 @@ mod tests {
   fn drawer_content_class_appends_user_class() {
     let actual = drawer_content_class("max-h-[70vh]");
 
-    assert!(actual.contains(DRAWER_CONTENT_BASE_CLASS));
+    assert_eq!(
+      actual,
+      "fixed inset-x-0 bottom-0 z-50 grid gap-4 rounded-t-md border border-border bg-background p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring max-h-[70vh]"
+    );
     assert!(actual.contains("bottom-0"));
     assert!(actual.ends_with("max-h-[70vh]"));
   }

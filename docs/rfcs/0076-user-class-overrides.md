@@ -87,7 +87,18 @@ values by type, `(--x)` variables) and the longhand slots each form sets. A
 form it does not list, such as `px-foo`, an app's own theme name, or a
 class that is not a utility, is unknown: it removes nothing and is never
 removed. `scripts/class-merge-table.mjs` generates it from Tailwind and the
-`dxui init` token stylesheet, and fails `--check` when it is stale.
+`dxui init` token stylesheet, and fails `--check` when it is stale. Where a
+utility root has several meanings, such as `bg-` for a color, an image, or a
+position, an arbitrary value form is kept only when several samples of the
+kind the merge infers, and the same kind named by a hint, all compile to the
+same slots; otherwise such values are unknown.
+
+`merge_classes` in `dioxus-shadcn-core` and the copy-mode helpers
+`class-merge` and `class-merge-table`, which `utils` brings, hold the same
+code and table. The table stores its names reversed, because copy-mode apps
+keep it under `src/`, where Tailwind's source scan would otherwise generate
+CSS for every utility it names; the generator fails when a scan of either
+copied helper finds a utility other than `static`, a Rust keyword.
 
 ### The ground-truth gate
 
@@ -97,8 +108,9 @@ list:
 - **Corpus.** Every utility in the crate's class constants and class
   literals (814), and as user utilities those same utilities, each one
   important and under `hover:`, the wider and narrower members of its family
-  (`p`, `px`, `pt`, ... with the same value), arbitrary values, and tokens
-  Tailwind does not know (3,171).
+  (`p`, `px`, `pt`, ... with the same value), sixteen arbitrary values of
+  every shape and two variable forms on every root the components use, and
+  tokens Tailwind does not know (6,463).
 - **Slots.** Tailwind compiles every utility under the token stylesheet; a
   declaration's state is its enclosing at-rules other than `@supports` and
   the selector around the class. Chrome expands each property into
@@ -112,8 +124,10 @@ list:
   equal states mean equal specificity, so importance and then stylesheet
   order decide. A kept pair whose component utility still wins a slot, and
   which rule 1 allowed the merge to remove, fails the gate: an override that
-  does not apply. A kept pair rule 1 does not allow removing is a partial
-  overlap no merge can fix, and is reported.
+  does not apply. If the merge could not classify the user utility, rule 3
+  applies and the pair is reported; but a named utility Tailwind knows that
+  the merge cannot classify fails the gate. A kept pair rule 1 does not
+  allow removing is a partial overlap no merge can fix, and is reported.
 - **Browser.** Chrome checks the cascade model: for every slot a pair shares
   in the plain state, both utilities on one element must compute what the
   user utility forced with `!important` computes exactly when the model says
@@ -140,9 +154,9 @@ cheaper one per render wins, measured over the site's component pages.
   and expect the component's value; noted in the 0.5.0 Migration section.
 - `docs/component-api.md`, the RFC 0044 class rules, and the known
   limitations change when M209.2 lands, not before.
-- No new dependency. The table is about 2,400 generated lines, which
-  copy-mode apps receive as a helper (RFC 0074) with the components that
-  take a `class`.
+- No new dependency beyond `tracing`, which Dioxus already uses, for the
+  debug report. The table is about 2,450 generated lines (111 KB), which
+  copy-mode apps receive as a helper (RFC 0074) with every component.
 - An app's own theme names, such as `bg-brand` from `--color-brand`, are not
   in the table, so they do not replace a component utility; debug builds
   report them, and the important modifier still works. Re-evaluate when an
@@ -150,23 +164,26 @@ cheaper one per render wins, measured over the site's component pages.
 
 ## Validation
 
-M209.1 ran the gate on 2026-10-06 with Tailwind CSS 4.3.3 and Chrome from
-Playwright, before any component changes:
+M209.1 chose the mechanism with the gate on 2026-10-06, and M209.2 widened the
+corpus with arbitrary values on every root and ran it on the shipped
+`merge_classes`, with Tailwind CSS 4.3.3 and Chrome from Playwright:
 
 | | Generated table | `tw_merge` 0.1.22 |
 | --- | --- | --- |
-| False removals | 0 | 196 |
-| Overrides that do not apply although removal was allowed | 0 | 484 |
+| False removals | 0 | 7,837 |
+| Overrides that do not apply although removal was allowed | 0 | 835 |
+| Named Tailwind utilities the merge cannot classify | 0 | 42 |
+| Tailwind utilities the merge cannot classify, in all | 70 | 620 |
 | User tokens dropped | 0 | 0 |
-| User tokens Tailwind knows but the merge cannot classify | 0 | 231 |
-| Cost per call, no user class | 0.74 µs | 1.63 µs |
-| Cost per call, `mt-4` | 0.92 µs | 1.85 µs |
-| Cost per call, `px-2 bg-accent text-sm` | 1.42 µs | 2.53 µs |
+| Cost per call, no user class | 0.03 µs | 1.65 µs |
+| Cost per call, `mt-4` | 0.58 µs | 1.87 µs |
+| Cost per call, `px-2 bg-accent text-sm` | 0.89 µs | 2.58 µs |
 
 Costs are release builds on the development machine, over the crate's
 class constants. The busiest site component page, Date Picker, has 442
-elements with a class, so even a user class on each would cost under 1 ms
-per render with the table; elements without a user class need no merge.
+elements with a class, so even a user class on each would cost under 0.5 ms
+per render with the table, and an element without a user class returns its
+component classes unchanged.
 
 `tw_merge`'s false removals drop styles the user did not replace:
 
@@ -176,25 +193,38 @@ per render with the table; elements without a user class need no merge.
   border width, so the border disappears.
 - `text-sm` removes `leading-6`, although in Tailwind 4 `leading-*` wins over
   a font size's line height.
-- Tokens Tailwind does not know, such as `bg-primry` or `border-b-dashed`,
-  remove the component's background or border as if they were colors.
+- Tokens Tailwind does not know, such as `bg-primry`, `border-b-dashed`, or
+  `absolute-[#fff]`, remove the component's utility of the same group.
 
 Its lost overrides are utilities it does not know (`ps-*`, `pe-*`,
 `bg-(--x)`, `decoration-*`) or whose wider groups it does not know (`sr-only`
 over `w-*`, `inset-x-*` over `start-*`, `flex-1` over `shrink-*`).
 
-The gate also found 412 partial overlaps no merge can fix, where Tailwind's
+The 70 Tailwind utilities the table leaves unknown are arbitrary values on
+roots with several meanings whose type it cannot tell the way Tailwind does,
+such as `bg-[13px]`, `bg-[center_top]`, `font-[foo]`, and `border-[1.5]`;
+they keep both classes under rule 3, and debug builds report them. The first
+widened run found the merge reading `bg-[13px_2px]` as a shadow, which
+Tailwind treats as a background position, and removing the component's
+background color; probing several samples per kind fixed it.
+
+The gate also found 898 partial overlaps no merge can fix, where Tailwind's
 order makes the user utility lose a longhand it shares with a component
 utility it does not replace: almost all a logical utility over a physical
 one (`ms-1` over `-ml-4`, `rounded-s-none` over `rounded-l-none`), which
 overlap in one writing direction only, and a few corner groups
 (`rounded-t-none` over `rounded-l-none`). These need the important modifier.
 
-Chrome agreed with the cascade model on all 15,432 shared plain-state
+Chrome agreed with the cascade model on all 24,120 shared plain-state
 longhands; with the order comparison reversed it disagreed on all of them.
 Each reverse merge was rejected, and the table with importance ignored
-failed with 5,337 false removals.
+failed with 5,337 false removals. In the preview, the message
+scroller's `overflow-auto` computes `auto` over the scroller's own
+`overflow-hidden`; appending without the merge computes `hidden`, which
+`verify:web-screenshot-smoke` rejects.
 
 Building the corpus showed that `verify:tailwind-conflicts` compiled without
-the token stylesheet, so it could not see conflicts between token colors.
-Fixing it found the active Menu item losing `text-accent-foreground`.
+the token stylesheet and skipped single-word utilities, so it saw neither
+conflicts between token colors nor `inline-flex` against `hidden`. Fixing it
+found the active Menu item losing `text-accent-foreground` and the Message
+Scroller jump button never hiding.

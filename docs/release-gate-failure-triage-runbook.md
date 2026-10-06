@@ -47,6 +47,8 @@ failure proves that work is required.
 | Registry metadata | `npm run verify:registry` | `crates/dioxus-shadcn-cli/registry/` and `crates/dioxus-shadcn-cli/templates/` | invalid source or target path |
 | Tailwind static tokens | `npm run verify:tailwind-static` | Rust source and templates | dynamic utility construction, bare data variants, palette colors outside the RFC 0051 tokens |
 | Tailwind utility conflicts | `npm run verify:tailwind-conflicts` | Rust source and templates | a base class and a state class setting the same property |
+| Class merge table | `npm run verify:class-merge-table` | `scripts/class-merge-table.mjs`, Tailwind version, token stylesheet | the table is stale after a Tailwind or token change, or a copied helper names a utility |
+| Class merge ground truth | `npm run verify:class-merge` | `dioxus-shadcn-core` class merge, component classes | a merge that drops a style the user did not replace, or a user utility that loses to the component |
 | Preview stylesheet drift | `npm run verify:preview-css` | `examples/preview-states/assets/preview.generated.css` | a class changed without `npm run css:preview` |
 | Default local gate | `npm run verify` | smoke and docs output | nested failing command |
 | Changelog metadata | `npm run verify:changelog` | `CHANGELOG.md` and changelog metadata docs | missing Unreleased or stale link |

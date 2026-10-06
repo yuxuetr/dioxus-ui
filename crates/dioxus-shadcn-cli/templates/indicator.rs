@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -27,11 +27,11 @@ pub const INDICATOR_BASE_CLASS: &str = "relative inline-flex";
 pub const INDICATOR_ITEM_BASE_CLASS: &str = "absolute z-10";
 
 pub fn indicator_class(class: &str) -> String {
-  classes([Some(INDICATOR_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(INDICATOR_BASE_CLASS)]), class)
 }
 
 pub fn indicator_item_class(placement: IndicatorPlacement, class: &str) -> String {
-  classes([Some(INDICATOR_ITEM_BASE_CLASS), Some(placement.class()), Some(class)])
+  merge_classes(classes([Some(INDICATOR_ITEM_BASE_CLASS), Some(placement.class())]), class)
 }
 
 /// Wraps an element so an `IndicatorItem` can sit on one of its corners.

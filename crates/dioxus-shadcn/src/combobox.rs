@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
   ActiveDescendantState, DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig,
 };
@@ -25,35 +25,35 @@ pub fn combobox_trigger_class(invalid: bool, class: &str) -> String {
     "border-input focus-visible:ring-ring"
   };
 
-  classes([Some(COMBOBOX_TRIGGER_BASE_CLASS), Some(invalid_class), Some(class)])
+  merge_classes(classes([Some(COMBOBOX_TRIGGER_BASE_CLASS), Some(invalid_class)]), class)
 }
 
 pub fn combobox_input_class(class: &str) -> String {
-  classes([Some(COMBOBOX_INPUT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(COMBOBOX_INPUT_BASE_CLASS)]), class)
 }
 
 pub fn combobox_content_class(class: &str) -> String {
-  classes([Some(COMBOBOX_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(COMBOBOX_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn combobox_list_class(class: &str) -> String {
-  classes([Some(COMBOBOX_LIST_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(COMBOBOX_LIST_BASE_CLASS)]), class)
 }
 
 pub fn combobox_empty_class(class: &str) -> String {
-  classes([Some(COMBOBOX_EMPTY_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(COMBOBOX_EMPTY_BASE_CLASS)]), class)
 }
 
 pub fn combobox_status_class(class: &str) -> String {
-  classes([Some(COMBOBOX_STATUS_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(COMBOBOX_STATUS_BASE_CLASS)]), class)
 }
 
 pub fn combobox_group_class(class: &str) -> String {
-  classes([Some(COMBOBOX_GROUP_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(COMBOBOX_GROUP_BASE_CLASS)]), class)
 }
 
 pub fn combobox_value_class(class: &str) -> String {
-  classes([Some(COMBOBOX_VALUE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(COMBOBOX_VALUE_BASE_CLASS)]), class)
 }
 
 pub fn combobox_item_class(active: bool, selected: bool, class: &str) -> String {
@@ -62,7 +62,10 @@ pub fn combobox_item_class(active: bool, selected: bool, class: &str) -> String 
   // (RFC 0062).
   let selected_class = if selected { "after:opacity-100" } else { "after:opacity-0" };
 
-  classes([Some(COMBOBOX_ITEM_BASE_CLASS), Some(active_class), Some(selected_class), Some(class)])
+  merge_classes(
+    classes([Some(COMBOBOX_ITEM_BASE_CLASS), Some(active_class), Some(selected_class)]),
+    class,
+  )
 }
 
 pub fn combobox_active_descendant_state(active_id: Option<String>) -> ActiveDescendantState {
@@ -386,7 +389,10 @@ mod tests {
   fn combobox_trigger_class_reflects_invalid_state() {
     let actual = combobox_trigger_class(true, "w-60");
 
-    assert!(actual.contains(COMBOBOX_TRIGGER_BASE_CLASS));
+    assert_eq!(
+      actual,
+      "flex h-10 items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50 border-destructive focus-visible:ring-destructive w-60"
+    );
     assert!(actual.contains("border-destructive focus-visible:ring-destructive"));
     assert!(actual.ends_with("w-60"));
   }

@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 // Dim the field only when the input is disabled, not when a button is at a
 // bound.
@@ -14,7 +14,7 @@ pub fn number_input_class(invalid: bool, class: &str) -> String {
     "border-input focus-within:ring-ring"
   };
 
-  classes([Some(NUMBER_INPUT_BASE_CLASS), Some(invalid_class), Some(class)])
+  merge_classes(classes([Some(NUMBER_INPUT_BASE_CLASS), Some(invalid_class)]), class)
 }
 
 /// The value kept within the optional bounds.

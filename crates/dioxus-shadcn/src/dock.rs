@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 pub const DOCK_BASE_CLASS: &str = "z-40 flex h-16 items-stretch border-t border-border bg-background pb-[env(safe-area-inset-bottom)] text-foreground";
 pub const DOCK_FIXED_CLASS: &str = "fixed inset-x-0 bottom-0";
@@ -13,16 +13,16 @@ pub const DOCK_LABEL_CLASS: &str = "text-xs font-medium";
 
 pub fn dock_class(fixed: bool, class: &str) -> String {
   let position = if fixed { DOCK_FIXED_CLASS } else { DOCK_STATIC_CLASS };
-  classes([Some(DOCK_BASE_CLASS), Some(position), Some(class)])
+  merge_classes(classes([Some(DOCK_BASE_CLASS), Some(position)]), class)
 }
 
 pub fn dock_item_class(active: bool, class: &str) -> String {
   let state = if active { DOCK_ITEM_ACTIVE_CLASS } else { DOCK_ITEM_INACTIVE_CLASS };
-  classes([Some(DOCK_ITEM_BASE_CLASS), Some(state), Some(class)])
+  merge_classes(classes([Some(DOCK_ITEM_BASE_CLASS), Some(state)]), class)
 }
 
 pub fn dock_label_class(class: &str) -> String {
-  classes([Some(DOCK_LABEL_CLASS), Some(class)])
+  merge_classes(classes([Some(DOCK_LABEL_CLASS)]), class)
 }
 
 /// A bottom navigation bar, fixed to the viewport and padded for the home

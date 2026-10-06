@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
@@ -35,35 +35,35 @@ pub const ALERT_DIALOG_ACTION_BASE_CLASS: &str = "inline-flex h-10 items-center 
 pub const ALERT_DIALOG_CANCEL_BASE_CLASS: &str = "inline-flex h-10 items-center justify-center rounded-md border border-border bg-background px-4 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
 pub fn alert_dialog_overlay_class(class: &str) -> String {
-  classes([Some(ALERT_DIALOG_OVERLAY_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ALERT_DIALOG_OVERLAY_BASE_CLASS)]), class)
 }
 
 pub fn alert_dialog_content_class(class: &str) -> String {
-  classes([Some(ALERT_DIALOG_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ALERT_DIALOG_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn alert_dialog_header_class(class: &str) -> String {
-  classes([Some(ALERT_DIALOG_HEADER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ALERT_DIALOG_HEADER_BASE_CLASS)]), class)
 }
 
 pub fn alert_dialog_footer_class(class: &str) -> String {
-  classes([Some(ALERT_DIALOG_FOOTER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ALERT_DIALOG_FOOTER_BASE_CLASS)]), class)
 }
 
 pub fn alert_dialog_title_class(class: &str) -> String {
-  classes([Some(ALERT_DIALOG_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ALERT_DIALOG_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn alert_dialog_description_class(class: &str) -> String {
-  classes([Some(ALERT_DIALOG_DESCRIPTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ALERT_DIALOG_DESCRIPTION_BASE_CLASS)]), class)
 }
 
 pub fn alert_dialog_action_class(variant: AlertDialogActionVariant, class: &str) -> String {
-  classes([Some(ALERT_DIALOG_ACTION_BASE_CLASS), Some(variant.class()), Some(class)])
+  merge_classes(classes([Some(ALERT_DIALOG_ACTION_BASE_CLASS), Some(variant.class())]), class)
 }
 
 pub fn alert_dialog_cancel_class(class: &str) -> String {
-  classes([Some(ALERT_DIALOG_CANCEL_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ALERT_DIALOG_CANCEL_BASE_CLASS)]), class)
 }
 
 #[component]
@@ -231,7 +231,10 @@ mod tests {
   fn alert_dialog_content_class_appends_user_class() {
     let actual = alert_dialog_content_class("max-w-md");
 
-    assert!(actual.contains(ALERT_DIALOG_CONTENT_BASE_CLASS));
+    assert_eq!(
+      actual,
+      "fixed left-1/2 top-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 gap-4 rounded-md border border-border bg-background p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring max-w-md"
+    );
     assert!(actual.ends_with("max-w-md"));
   }
 

@@ -1,16 +1,16 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 pub const PROGRESS_BASE_CLASS: &str = "relative h-4 w-full overflow-hidden rounded-full bg-muted";
 pub const PROGRESS_INDICATOR_BASE_CLASS: &str =
   "h-full w-full flex-1 bg-primary transition-transform";
 
 pub fn progress_class(class: &str) -> String {
-  classes([Some(PROGRESS_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(PROGRESS_BASE_CLASS)]), class)
 }
 
 pub fn progress_indicator_class(class: &str) -> String {
-  classes([Some(PROGRESS_INDICATOR_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(PROGRESS_INDICATOR_BASE_CLASS)]), class)
 }
 
 pub fn progress_percent(value: f32, max: f32) -> f32 {
@@ -58,7 +58,7 @@ mod tests {
   fn progress_class_appends_user_class() {
     let actual = progress_class("h-2");
 
-    assert!(actual.contains(PROGRESS_BASE_CLASS));
+    assert_eq!(actual, "relative w-full overflow-hidden rounded-full bg-muted h-2");
     assert!(actual.ends_with("h-2"));
   }
 

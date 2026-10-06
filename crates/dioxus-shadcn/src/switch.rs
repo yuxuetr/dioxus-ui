@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 pub const SWITCH_BASE_CLASS: &str = "inline-flex h-6 w-11 shrink-0 items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50";
 pub const SWITCH_THUMB_BASE_CLASS: &str =
@@ -8,7 +8,7 @@ pub const SWITCH_THUMB_BASE_CLASS: &str =
 pub fn switch_class(checked: bool, class: &str) -> String {
   let checked_class = if checked { "bg-primary" } else { "bg-input" };
 
-  classes([Some(SWITCH_BASE_CLASS), Some(checked_class), Some(class)])
+  merge_classes(classes([Some(SWITCH_BASE_CLASS), Some(checked_class)]), class)
 }
 
 pub fn switch_thumb_class(checked: bool) -> String {

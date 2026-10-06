@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 pub const ITEM_BASE_CLASS: &str = "flex items-start gap-3 rounded-md p-3 text-sm transition-colors data-[disabled=true]:opacity-50 data-[selected=true]:bg-accent";
 pub const ITEM_SELECTED_CLASS: &str = "bg-accent";
@@ -11,32 +11,34 @@ pub const ITEM_DESCRIPTION_BASE_CLASS: &str = "line-clamp-2 text-sm text-muted-f
 pub const ITEM_ACTIONS_BASE_CLASS: &str = "ml-auto flex shrink-0 items-center gap-2";
 
 pub fn item_class(selected: bool, disabled: bool, class: &str) -> String {
-  classes([
-    Some(ITEM_BASE_CLASS),
-    selected.then_some(ITEM_SELECTED_CLASS),
-    disabled.then_some(ITEM_DISABLED_CLASS),
-    Some(class),
-  ])
+  merge_classes(
+    classes([
+      Some(ITEM_BASE_CLASS),
+      selected.then_some(ITEM_SELECTED_CLASS),
+      disabled.then_some(ITEM_DISABLED_CLASS),
+    ]),
+    class,
+  )
 }
 
 pub fn item_media_class(class: &str) -> String {
-  classes([Some(ITEM_MEDIA_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ITEM_MEDIA_BASE_CLASS)]), class)
 }
 
 pub fn item_content_class(class: &str) -> String {
-  classes([Some(ITEM_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ITEM_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn item_title_class(class: &str) -> String {
-  classes([Some(ITEM_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ITEM_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn item_description_class(class: &str) -> String {
-  classes([Some(ITEM_DESCRIPTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ITEM_DESCRIPTION_BASE_CLASS)]), class)
 }
 
 pub fn item_actions_class(class: &str) -> String {
-  classes([Some(ITEM_ACTIONS_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(ITEM_ACTIONS_BASE_CLASS)]), class)
 }
 
 #[component]

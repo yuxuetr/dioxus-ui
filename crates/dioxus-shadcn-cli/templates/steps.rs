@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -63,11 +63,11 @@ pub const STEP_INDICATOR_BASE_CLASS: &str = "flex size-8 shrink-0 items-center j
 pub const STEP_LABEL_BASE_CLASS: &str = "px-2 group-data-[orientation=vertical]/steps:px-0 group-data-[orientation=vertical]/steps:pt-3 group-data-[orientation=vertical]/steps:pb-6";
 
 pub fn steps_class(class: &str) -> String {
-  classes([Some(STEPS_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(STEPS_BASE_CLASS)]), class)
 }
 
 pub fn step_class(class: &str) -> String {
-  classes([Some(STEP_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(STEP_BASE_CLASS)]), class)
 }
 
 pub fn step_track_class(status: StepStatus) -> String {

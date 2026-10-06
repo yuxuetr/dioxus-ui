@@ -162,10 +162,9 @@ node scripts/class-merge-gate.mjs table tw-merge
 ```
 
 `dioxus-ui-class-merge-gate` runs a class merge candidate over the RFC 0076
-corpus for `scripts/class-merge-gate.mjs`: `table`, classified by
-`src/classify/table.rs`, which `node scripts/class-merge-table.mjs
-examples/class-merge-gate/src/classify/table.rs` generates from Tailwind, or
-`tw-merge`, the `tw_merge` crate. The gate compares each with Tailwind's
+corpus for `scripts/class-merge-gate.mjs`: `table`, the `merge_classes` that
+`dioxus-shadcn-core` ships with the table `node scripts/class-merge-table.mjs`
+generates from Tailwind, or `tw-merge`, the `tw_merge` crate. The gate compares each with Tailwind's
 compiled output (see
 [RFC 0076](../docs/rfcs/0076-user-class-overrides.md#validation)).
 

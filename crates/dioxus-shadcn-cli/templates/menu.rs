@@ -1,5 +1,5 @@
 use super::element_id::next_element_id;
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 pub const MENU_BASE_CLASS: &str = "flex w-full flex-col gap-0.5 text-sm";
@@ -13,20 +13,20 @@ pub const MENU_GROUP_LIST_BASE_CLASS: &str =
   "ms-4 mt-0.5 flex flex-col gap-0.5 border-s border-border ps-2";
 
 pub fn menu_class(class: &str) -> String {
-  classes([Some(MENU_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MENU_BASE_CLASS)]), class)
 }
 
 pub fn menu_title_class(class: &str) -> String {
-  classes([Some(MENU_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MENU_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn menu_item_class(active: bool, class: &str) -> String {
   let state_class = if active { MENU_ITEM_ACTIVE_CLASS } else { "text-foreground" };
-  classes([Some(MENU_ITEM_BASE_CLASS), Some(state_class), Some(class)])
+  merge_classes(classes([Some(MENU_ITEM_BASE_CLASS), Some(state_class)]), class)
 }
 
 pub fn menu_group_list_class(class: &str) -> String {
-  classes([Some(MENU_GROUP_LIST_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MENU_GROUP_LIST_BASE_CLASS)]), class)
 }
 
 /// A vertical navigation list. Put it in a `nav` named for what it lists,
@@ -140,7 +140,7 @@ pub fn MenuGroup(
   children: Element,
 ) -> Element {
   let list_id = use_hook(|| format!("dxui-menu-group-{}", next_element_id()));
-  let class = menu_item_class(false, &classes([Some(MENU_GROUP_TRIGGER_CLASS), Some(&class)]));
+  let class = menu_item_class(false, &merge_classes(classes([Some(MENU_GROUP_TRIGGER_CLASS)]), &class));
   let list_class = menu_group_list_class(&list_class);
   let state = if open { "open" } else { "closed" };
 

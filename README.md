@@ -570,6 +570,17 @@ This compiles each utility with the Tailwind Node API and fails when a class
 function joins a base class with a state class that sets the same property
 under the same variant, where the stylesheet order would pick the winner.
 
+Verify that a user class replaces the component utilities it overrides and
+nothing else ([RFC 0076](docs/rfcs/0076-user-class-overrides.md)):
+
+```bash
+npm run verify:class-merge-table
+npm run verify:class-merge
+```
+
+The first fails when the generated merge table is stale. The second judges
+the shipped merge against Tailwind's compiled output and Chrome.
+
 Verify that the committed preview stylesheet matches the current classes:
 
 ```bash

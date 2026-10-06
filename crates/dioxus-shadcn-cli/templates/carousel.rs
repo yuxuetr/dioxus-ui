@@ -1,5 +1,5 @@
 use super::default_attribute::default_attribute;
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 pub use self::LayoutOrientation as CarouselOrientation;
@@ -100,11 +100,11 @@ pub fn carousel_previous(index: usize, item_count: usize, looping: bool) -> usiz
 }
 
 pub fn carousel_class(class: &str) -> String {
-  classes([Some(CAROUSEL_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CAROUSEL_BASE_CLASS)]), class)
 }
 
 pub fn carousel_viewport_class(class: &str) -> String {
-  classes([Some(CAROUSEL_VIEWPORT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(CAROUSEL_VIEWPORT_BASE_CLASS)]), class)
 }
 
 pub fn carousel_content_class(orientation: CarouselOrientation, class: &str) -> String {
@@ -113,7 +113,7 @@ pub fn carousel_content_class(orientation: CarouselOrientation, class: &str) -> 
     CarouselOrientation::Vertical => "-mt-4 flex-col",
   };
 
-  classes([Some(CAROUSEL_CONTENT_BASE_CLASS), Some(orientation_class), Some(class)])
+  merge_classes(classes([Some(CAROUSEL_CONTENT_BASE_CLASS), Some(orientation_class)]), class)
 }
 
 pub fn carousel_item_class(
@@ -126,28 +126,15 @@ pub fn carousel_item_class(
     CarouselOrientation::Vertical => "pt-4",
   };
 
-  classes([
-    Some(CAROUSEL_ITEM_BASE_CLASS),
-    Some(orientation_class),
-    selected.then_some("data-selected"),
-    Some(class),
-  ])
+  merge_classes(classes([Some(CAROUSEL_ITEM_BASE_CLASS), Some(orientation_class), selected.then_some("data-selected")]), class)
 }
 
 pub fn carousel_control_class(disabled: bool, class: &str) -> String {
-  classes([
-    Some(CAROUSEL_CONTROL_BASE_CLASS),
-    disabled.then_some("pointer-events-none opacity-50"),
-    Some(class),
-  ])
+  merge_classes(classes([Some(CAROUSEL_CONTROL_BASE_CLASS), disabled.then_some("pointer-events-none opacity-50")]), class)
 }
 
 pub fn carousel_indicator_class(selected: bool, class: &str) -> String {
-  classes([
-    Some(CAROUSEL_INDICATOR_BASE_CLASS),
-    Some(if selected { "bg-primary" } else { "bg-muted-foreground/40" }),
-    Some(class),
-  ])
+  merge_classes(classes([Some(CAROUSEL_INDICATOR_BASE_CLASS), Some(if selected { "bg-primary" } else { "bg-muted-foreground/40" })]), class)
 }
 
 /// A slide step requested from the keyboard.

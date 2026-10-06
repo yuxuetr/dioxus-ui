@@ -99,7 +99,8 @@ Platform-neutral shared code.
 
 Owns:
 
-- class composition utilities
+- class composition utilities and the user class merge, with its table
+  generated from Tailwind (RFC 0076)
 - `UiDensity`
 - later `UiPlatform` if a concrete behavior needs it
 - shared component conventions

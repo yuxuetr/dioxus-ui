@@ -2,7 +2,7 @@ use std::cell::Cell;
 use std::rc::Rc;
 
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 use crate::element_id::next_element_id;
 
@@ -26,7 +26,7 @@ pub fn checkbox_class(checked: bool, class: &str) -> String {
     "border-input bg-background text-transparent"
   };
 
-  classes([Some(CHECKBOX_BASE_CLASS), Some(checked_class), Some(class)])
+  merge_classes(classes([Some(CHECKBOX_BASE_CLASS), Some(checked_class)]), class)
 }
 
 pub fn checkbox_state(checked: bool, indeterminate: bool) -> &'static str {

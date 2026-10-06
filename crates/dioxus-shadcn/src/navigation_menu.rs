@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::PopoverPrimitiveConfig;
 
 use crate::element_id::next_element_id;
@@ -250,41 +250,41 @@ pub const NAVIGATION_MENU_INDICATOR_BASE_CLASS: &str =
   "top-full z-10 flex h-2 items-end justify-center overflow-hidden";
 
 pub fn navigation_menu_class(class: &str) -> String {
-  classes([Some(NAVIGATION_MENU_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(NAVIGATION_MENU_BASE_CLASS)]), class)
 }
 
 pub fn navigation_menu_list_class(class: &str) -> String {
-  classes([Some(NAVIGATION_MENU_LIST_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(NAVIGATION_MENU_LIST_BASE_CLASS)]), class)
 }
 
 pub fn navigation_menu_item_class(class: &str) -> String {
-  classes([Some(NAVIGATION_MENU_ITEM_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(NAVIGATION_MENU_ITEM_BASE_CLASS)]), class)
 }
 
 pub fn navigation_menu_trigger_class(open: bool, class: &str) -> String {
   let state_class = if open { "bg-accent" } else { "bg-background" };
 
-  classes([Some(NAVIGATION_MENU_TRIGGER_BASE_CLASS), Some(state_class), Some(class)])
+  merge_classes(classes([Some(NAVIGATION_MENU_TRIGGER_BASE_CLASS), Some(state_class)]), class)
 }
 
 pub fn navigation_menu_content_class(class: &str) -> String {
-  classes([Some(NAVIGATION_MENU_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(NAVIGATION_MENU_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn navigation_menu_link_class(active: bool, class: &str) -> String {
   let state_class = if active { "bg-accent" } else { "" };
 
-  classes([Some(NAVIGATION_MENU_LINK_BASE_CLASS), Some(state_class), Some(class)])
+  merge_classes(classes([Some(NAVIGATION_MENU_LINK_BASE_CLASS), Some(state_class)]), class)
 }
 
 pub fn navigation_menu_viewport_class(class: &str) -> String {
-  classes([Some(NAVIGATION_MENU_VIEWPORT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(NAVIGATION_MENU_VIEWPORT_BASE_CLASS)]), class)
 }
 
 pub fn navigation_menu_indicator_class(open: bool, class: &str) -> String {
   let state_class = if open { "opacity-100" } else { "opacity-0" };
 
-  classes([Some(NAVIGATION_MENU_INDICATOR_BASE_CLASS), Some(state_class), Some(class)])
+  merge_classes(classes([Some(NAVIGATION_MENU_INDICATOR_BASE_CLASS), Some(state_class)]), class)
 }
 
 /// Follows the disclosure navigation pattern: a click, Enter, or Space on a

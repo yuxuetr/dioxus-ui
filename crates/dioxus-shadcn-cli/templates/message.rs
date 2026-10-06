@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -45,27 +45,27 @@ impl MessageAlign {
 }
 
 pub fn message_class(align: MessageAlign, class: &str) -> String {
-  classes([Some(MESSAGE_BASE_CLASS), Some(align.class()), Some(class)])
+  merge_classes(classes([Some(MESSAGE_BASE_CLASS), Some(align.class())]), class)
 }
 
 pub fn message_group_class(class: &str) -> String {
-  classes([Some(MESSAGE_GROUP_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MESSAGE_GROUP_BASE_CLASS)]), class)
 }
 
 pub fn message_avatar_class(class: &str) -> String {
-  classes([Some(MESSAGE_AVATAR_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MESSAGE_AVATAR_BASE_CLASS)]), class)
 }
 
 pub fn message_content_class(align: MessageAlign, class: &str) -> String {
-  classes([Some(MESSAGE_CONTENT_BASE_CLASS), Some(align.content_class()), Some(class)])
+  merge_classes(classes([Some(MESSAGE_CONTENT_BASE_CLASS), Some(align.content_class())]), class)
 }
 
 pub fn message_header_class(class: &str) -> String {
-  classes([Some(MESSAGE_HEADER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MESSAGE_HEADER_BASE_CLASS)]), class)
 }
 
 pub fn message_footer_class(class: &str) -> String {
-  classes([Some(MESSAGE_FOOTER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(MESSAGE_FOOTER_BASE_CLASS)]), class)
 }
 
 #[component]

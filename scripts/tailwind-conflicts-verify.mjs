@@ -54,7 +54,7 @@ for (const root of roots) {
     const literals = (body) =>
       [...body.matchAll(/"([^"\n]*)"/g)]
         .map((match) => match[1])
-        .filter((value) => value.includes("-") && utilityList.test(value));
+        .filter((value) => utilityList.test(value));
     const referencedIn = (body) =>
       [...constants.keys()].filter((constant) => new RegExp(`\\b${constant}\\b`).test(body));
     const calledHelpers = (fn) => {

@@ -1,5 +1,5 @@
 use super::roving_group::use_roving_group;
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -127,7 +127,7 @@ pub fn radio_group_class(orientation: NavigationOrientation, class: &str) -> Str
     NavigationOrientation::Vertical | NavigationOrientation::Both => "grid-flow-row",
   };
 
-  classes([Some(RADIO_GROUP_BASE_CLASS), Some(orientation_class), Some(class)])
+  merge_classes(classes([Some(RADIO_GROUP_BASE_CLASS), Some(orientation_class)]), class)
 }
 
 pub fn radio_group_item_class(checked: bool, class: &str) -> String {
@@ -137,11 +137,11 @@ pub fn radio_group_item_class(checked: bool, class: &str) -> String {
     "border-input bg-background text-transparent"
   };
 
-  classes([Some(RADIO_GROUP_ITEM_BASE_CLASS), Some(checked_class), Some(class)])
+  merge_classes(classes([Some(RADIO_GROUP_ITEM_BASE_CLASS), Some(checked_class)]), class)
 }
 
 pub fn radio_group_indicator_class(class: &str) -> String {
-  classes([Some(RADIO_GROUP_INDICATOR_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(RADIO_GROUP_INDICATOR_BASE_CLASS)]), class)
 }
 
 pub fn radio_group_orientation_attribute(orientation: NavigationOrientation) -> &'static str {

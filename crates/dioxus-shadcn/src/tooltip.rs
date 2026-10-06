@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
   DismissBehavior, OverlayAlign, OverlaySide, TooltipPrimitiveConfig,
 };
@@ -10,7 +10,7 @@ use crate::hover_open::{HoverOpenOptions, use_hover_open};
 pub const TOOLTIP_CONTENT_BASE_CLASS: &str = "z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground shadow-md";
 
 pub fn tooltip_content_class(class: &str) -> String {
-  classes([Some(TOOLTIP_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TOOLTIP_CONTENT_BASE_CLASS)]), class)
 }
 
 #[derive(Clone, PartialEq)]

@@ -1,5 +1,5 @@
 use super::dismiss_timer::use_dismiss_timer;
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -181,7 +181,7 @@ pub fn toast_viewport_class(placement: ToastPlacement, class: &str) -> String {
     ToastPlacement::BottomRight => "bottom-0 right-0 sm:right-0",
   };
 
-  classes([Some(TOAST_VIEWPORT_BASE_CLASS), Some(placement_class), Some(class)])
+  merge_classes(classes([Some(TOAST_VIEWPORT_BASE_CLASS), Some(placement_class)]), class)
 }
 
 pub fn toast_root_class(variant: ToastVariant, class: &str) -> String {
@@ -194,11 +194,11 @@ pub fn toast_root_class(variant: ToastVariant, class: &str) -> String {
     ToastVariant::Loading => "border-border",
   };
 
-  classes([Some(TOAST_ROOT_BASE_CLASS), Some(variant_class), Some(class)])
+  merge_classes(classes([Some(TOAST_ROOT_BASE_CLASS), Some(variant_class)]), class)
 }
 
 pub fn toast_title_class(class: &str) -> String {
-  classes([Some(TOAST_TITLE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(TOAST_TITLE_BASE_CLASS)]), class)
 }
 
 pub fn toast_description_class(variant: ToastVariant, class: &str) -> String {
@@ -210,23 +210,15 @@ pub fn toast_description_class(variant: ToastVariant, class: &str) -> String {
     ToastVariant::Error => "text-muted-foreground",
   };
 
-  classes([Some(TOAST_DESCRIPTION_BASE_CLASS), Some(variant_class), Some(class)])
+  merge_classes(classes([Some(TOAST_DESCRIPTION_BASE_CLASS), Some(variant_class)]), class)
 }
 
 pub fn toast_action_class(disabled: bool, class: &str) -> String {
-  classes([
-    Some(TOAST_ACTION_BASE_CLASS),
-    disabled.then_some("pointer-events-none opacity-50"),
-    Some(class),
-  ])
+  merge_classes(classes([Some(TOAST_ACTION_BASE_CLASS), disabled.then_some("pointer-events-none opacity-50")]), class)
 }
 
 pub fn toast_close_class(disabled: bool, class: &str) -> String {
-  classes([
-    Some(TOAST_CLOSE_BASE_CLASS),
-    disabled.then_some("pointer-events-none opacity-50"),
-    Some(class),
-  ])
+  merge_classes(classes([Some(TOAST_CLOSE_BASE_CLASS), disabled.then_some("pointer-events-none opacity-50")]), class)
 }
 
 pub fn toast_live_attribute(variant: ToastVariant) -> &'static str {

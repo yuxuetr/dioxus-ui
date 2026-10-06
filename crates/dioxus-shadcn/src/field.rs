@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 
 pub const FIELD_BASE_CLASS: &str = "grid gap-2 data-[disabled=true]:opacity-50";
 pub const FIELD_INVALID_CLASS: &str = "data-[invalid=true]:text-destructive";
@@ -9,23 +9,23 @@ pub const FIELD_ERROR_BASE_CLASS: &str = "text-sm font-medium text-destructive";
 pub const FIELD_GROUP_BASE_CLASS: &str = "grid gap-4";
 
 pub fn field_class(invalid: bool, class: &str) -> String {
-  classes([Some(FIELD_BASE_CLASS), invalid.then_some(FIELD_INVALID_CLASS), Some(class)])
+  merge_classes(classes([Some(FIELD_BASE_CLASS), invalid.then_some(FIELD_INVALID_CLASS)]), class)
 }
 
 pub fn field_label_class(class: &str) -> String {
-  classes([Some(FIELD_LABEL_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(FIELD_LABEL_BASE_CLASS)]), class)
 }
 
 pub fn field_description_class(class: &str) -> String {
-  classes([Some(FIELD_DESCRIPTION_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(FIELD_DESCRIPTION_BASE_CLASS)]), class)
 }
 
 pub fn field_error_class(class: &str) -> String {
-  classes([Some(FIELD_ERROR_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(FIELD_ERROR_BASE_CLASS)]), class)
 }
 
 pub fn field_group_class(class: &str) -> String {
-  classes([Some(FIELD_GROUP_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(FIELD_GROUP_BASE_CLASS)]), class)
 }
 
 #[component]
@@ -161,7 +161,10 @@ mod tests {
   fn field_class_reflects_invalid_state() {
     let actual = field_class(true, "gap-3");
 
-    assert!(actual.contains(FIELD_BASE_CLASS));
+    assert_eq!(
+      actual,
+      "grid data-[disabled=true]:opacity-50 data-[invalid=true]:text-destructive gap-3"
+    );
     assert!(actual.contains(FIELD_INVALID_CLASS));
     assert!(actual.ends_with("gap-3"));
   }

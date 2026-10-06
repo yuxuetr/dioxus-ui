@@ -1,3 +1,5 @@
+pub use super::class_merge::merge_classes;
+
 pub fn classes<I, S>(parts: I) -> String
 where
   I: IntoIterator<Item = Option<S>>,

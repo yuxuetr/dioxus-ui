@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::classes;
+use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
   DismissBehavior, OverlayAlign, OverlaySide, SelectPrimitiveConfig,
 };
@@ -26,33 +26,33 @@ pub fn select_trigger_class(invalid: bool, class: &str) -> String {
     "border-input focus-visible:ring-ring"
   };
 
-  classes([Some(SELECT_TRIGGER_BASE_CLASS), Some(invalid_class), Some(class)])
+  merge_classes(classes([Some(SELECT_TRIGGER_BASE_CLASS), Some(invalid_class)]), class)
 }
 
 pub fn select_value_class(class: &str) -> String {
-  classes([Some(SELECT_VALUE_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SELECT_VALUE_BASE_CLASS)]), class)
 }
 
 pub fn select_content_class(class: &str) -> String {
-  classes([Some(SELECT_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SELECT_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn select_group_class(class: &str) -> String {
-  classes([Some(SELECT_GROUP_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SELECT_GROUP_BASE_CLASS)]), class)
 }
 
 pub fn select_label_class(class: &str) -> String {
-  classes([Some(SELECT_LABEL_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SELECT_LABEL_BASE_CLASS)]), class)
 }
 
 pub fn select_item_class(selected: bool, class: &str) -> String {
   let selected_class = if selected { "after:opacity-100" } else { "after:opacity-0" };
 
-  classes([Some(SELECT_ITEM_BASE_CLASS), Some(selected_class), Some(class)])
+  merge_classes(classes([Some(SELECT_ITEM_BASE_CLASS), Some(selected_class)]), class)
 }
 
 pub fn select_separator_class(class: &str) -> String {
-  classes([Some(SELECT_SEPARATOR_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SELECT_SEPARATOR_BASE_CLASS)]), class)
 }
 
 /// Click requests `!open` through `on_open_change`, and ArrowDown or ArrowUp
@@ -293,7 +293,10 @@ mod tests {
   fn select_trigger_class_reflects_invalid_state() {
     let actual = select_trigger_class(true, "w-44");
 
-    assert!(actual.contains(SELECT_TRIGGER_BASE_CLASS));
+    assert_eq!(
+      actual,
+      "flex h-10 items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50 border-destructive focus-visible:ring-destructive w-44"
+    );
     assert!(actual.contains("border-destructive focus-visible:ring-destructive"));
     assert!(actual.ends_with("w-44"));
   }

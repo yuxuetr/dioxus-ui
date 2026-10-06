@@ -141,6 +141,8 @@ npm run verify:css-inputs
 npm run verify:registry
 npm run verify:tailwind-static
 npm run verify:tailwind-conflicts
+npm run verify:class-merge-table
+npm run verify:class-merge
 npm run verify:preview-css
 npm run verify:site-css
 npm run verify:site-catalog
@@ -621,8 +623,11 @@ warnings, and `dxui diff` reported every copy matching.
   has two thumbs (see RFC 0070); right-to-left sliders are not included. Browser checks run with compiled
   Tailwind and data variants match attribute values (see RFC 0043); compiled
   CSS in the Desktop and Mobile self-tests is not covered. Class functions do
-  not join conflicting utilities (see RFC 0044); a user class that sets a
-  property the component sets needs Tailwind's important modifier. Checkbox
+  not join conflicting utilities (see RFC 0044), and a user class replaces the
+  component utilities it overrides (see RFC 0076); a user utility that
+  overrides part of one, such as a logical side over a physical one, and
+  classes the merge does not know, such as an app's own theme names, still
+  need Tailwind's important modifier. Checkbox
   draws its box and marks (see RFC 0045); the marks are masks filled with
   `--primary-foreground`, so they follow every theme (see RFC 0057), and
   forced-colors marks are not included. Select and

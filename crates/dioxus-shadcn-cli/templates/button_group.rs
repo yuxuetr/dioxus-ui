@@ -1,4 +1,4 @@
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -44,16 +44,11 @@ pub fn button_group_class(
     BUTTON_GROUP_GAP_CLASS
   };
 
-  classes([
-    Some(BUTTON_GROUP_BASE_CLASS),
-    Some(orientation.class()),
-    Some(spacing_class),
-    Some(class),
-  ])
+  merge_classes(classes([Some(BUTTON_GROUP_BASE_CLASS), Some(orientation.class()), Some(spacing_class)]), class)
 }
 
 pub fn button_group_item_class(class: &str) -> String {
-  classes([Some(BUTTON_GROUP_ITEM_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(BUTTON_GROUP_ITEM_BASE_CLASS)]), class)
 }
 
 #[component]

@@ -5,7 +5,7 @@ use super::default_attribute::default_attribute;
 use super::element_id::next_element_id;
 use super::media_query::use_media_query;
 use super::modal_focus::use_modal_focus_scope;
-use super::utils::classes;
+use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 /// Below this width a Sidebar with `on_mobile_open_change` is off-canvas.
@@ -50,7 +50,7 @@ pub const fn sidebar_toggle(collapsed: bool) -> bool {
 }
 
 pub const SIDEBAR_BASE_CLASS: &str = "flex h-full flex-col border-sidebar-border bg-sidebar text-sidebar-foreground transition-[width] data-[side=left]:border-r data-[side=right]:border-l";
-pub const SIDEBAR_RAIL_BASE_CLASS: &str = "absolute inset-y-0 z-10 hidden w-3 -translate-x-1/2 transition-colors hover:bg-sidebar-accent data-[collapsed=true]:block";
+pub const SIDEBAR_RAIL_BASE_CLASS: &str = "absolute inset-y-0 z-10 w-3 -translate-x-1/2 transition-colors hover:bg-sidebar-accent data-[collapsed=true]:block";
 pub const SIDEBAR_HEADER_BASE_CLASS: &str =
   "flex min-h-14 items-center gap-2 border-b border-sidebar-border px-3";
 pub const SIDEBAR_CONTENT_BASE_CLASS: &str = "flex-1 overflow-auto p-2";
@@ -77,12 +77,7 @@ pub fn sidebar_class(collapsed: bool, side: SidebarSide, class: &str) -> String 
     SidebarSide::Right => "border-l",
   };
 
-  classes([
-    Some(SIDEBAR_BASE_CLASS),
-    Some(side_class),
-    Some(if collapsed { "w-14" } else { "w-64" }),
-    Some(class),
-  ])
+  merge_classes(classes([Some(SIDEBAR_BASE_CLASS), Some(side_class), Some(if collapsed { "w-14" } else { "w-64" })]), class)
 }
 
 /// The off-canvas panel shown below `SIDEBAR_MOBILE_QUERY`, holding the
@@ -103,48 +98,43 @@ pub fn sidebar_mobile_class(side: SidebarSide, class: &str) -> String {
     SidebarSide::Right => "border-l",
   };
 
-  classes([Some(SIDEBAR_BASE_CLASS), Some(side_class), Some("w-full"), Some(class)])
+  merge_classes(classes([Some(SIDEBAR_BASE_CLASS), Some(side_class), Some("w-full")]), class)
 }
 
 pub fn sidebar_overlay_class(class: &str) -> String {
-  classes([Some(SIDEBAR_OVERLAY_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SIDEBAR_OVERLAY_BASE_CLASS)]), class)
 }
 
 pub fn sidebar_rail_class(collapsed: bool, class: &str) -> String {
-  classes([Some(SIDEBAR_RAIL_BASE_CLASS), collapsed.then_some("block"), Some(class)])
+  merge_classes(classes([Some(SIDEBAR_RAIL_BASE_CLASS), Some(if collapsed { "block" } else { "hidden" })]), class)
 }
 
 pub fn sidebar_header_class(class: &str) -> String {
-  classes([Some(SIDEBAR_HEADER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SIDEBAR_HEADER_BASE_CLASS)]), class)
 }
 
 pub fn sidebar_content_class(class: &str) -> String {
-  classes([Some(SIDEBAR_CONTENT_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SIDEBAR_CONTENT_BASE_CLASS)]), class)
 }
 
 pub fn sidebar_footer_class(class: &str) -> String {
-  classes([Some(SIDEBAR_FOOTER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SIDEBAR_FOOTER_BASE_CLASS)]), class)
 }
 
 pub fn sidebar_group_class(class: &str) -> String {
-  classes([Some(SIDEBAR_GROUP_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SIDEBAR_GROUP_BASE_CLASS)]), class)
 }
 
 pub fn sidebar_group_label_class(class: &str) -> String {
-  classes([Some(SIDEBAR_GROUP_LABEL_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SIDEBAR_GROUP_LABEL_BASE_CLASS)]), class)
 }
 
 pub fn sidebar_item_class(active: bool, disabled: bool, class: &str) -> String {
-  classes([
-    Some(SIDEBAR_ITEM_BASE_CLASS),
-    active.then_some("bg-sidebar-accent text-sidebar-accent-foreground"),
-    disabled.then_some("pointer-events-none opacity-50"),
-    Some(class),
-  ])
+  merge_classes(classes([Some(SIDEBAR_ITEM_BASE_CLASS), active.then_some("bg-sidebar-accent text-sidebar-accent-foreground"), disabled.then_some("pointer-events-none opacity-50")]), class)
 }
 
 pub fn sidebar_trigger_class(class: &str) -> String {
-  classes([Some(SIDEBAR_TRIGGER_BASE_CLASS), Some(class)])
+  merge_classes(classes([Some(SIDEBAR_TRIGGER_BASE_CLASS)]), class)
 }
 
 /// The sidebar is an `aside` that `collapsed` narrows. With
