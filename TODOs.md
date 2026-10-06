@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 71% (5 of 7 tasks)
-- Current milestone: M204
-- Current task: M204.2 (waits for the release owner)
+- Overall: 100% (7 of 7 tasks)
+- Current milestone: none (0.4.0 published)
+- Current task: none
 
 ## Backup
 
@@ -54,8 +54,9 @@
 - DONE M204.1 Prepare 0.4.0
   - CHANGELOG with migration notes, versions bumped, `Cargo.lock` on the latest Dioxus 0.7. `cargo-semver-checks` against 0.3.0 becomes a step in `docs/release.md`, and its findings are in the notes. Release gate and publish dry run pass.
   - Done: versions 0.4.0; CHANGELOG [0.4.0]; `cargo update` within semver, Dioxus on 0.7.10 (newest 0.7; crates.io lists only 0.8 alphas above it). `cargo-semver-checks --release-type minor` against 0.3.0: 202 checks pass for each library crate (without `--release-type` every lint is skipped, which `docs/release.md` now says). `npm run verify:release` exits 0 (6m23s) and `cargo publish --workspace --dry-run` verifies all four crates.
-- TODO M204.2 Publish 0.4.0
+- DONE M204.2 Publish 0.4.0
   - Only after the release owner confirms; then build fresh apps in both modes from crates.io.
+  - Done: confirmed on 2026-10-06 once CI passed on `d064c6b`; the four crates are on crates.io at 0.4.0 in dependency order, tagged `v0.4.0`. The published `dxui` 0.4.0 copied Button, Dialog, Popover, and the dashboard block into a fresh app that built while denying warnings, and `dxui diff` reported every copy matching; a crate-mode app built against `dioxus-shadcn` 0.4.
 
 ## Deferred (re-evaluate when)
 
