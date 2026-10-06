@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 4% (1 of 23 tasks)
-- Current milestone: M195
-- Current task: M195.2
+- Overall: 9% (2 of 23 tasks)
+- Current milestone: M196
+- Current task: M196.1
 
 ## Backup
 
@@ -38,8 +38,9 @@
 - DONE M195.1 Retire first-publish readiness docs and gates
   - Archive the readiness, blocker, decision, handoff, and follow-up docs under `docs/archive/`; remove their verifiers from `verify:release` and `package.json`; keep `docs/release.md`, the changelog, package contents, publish order, and Cargo metadata checks. Record the release gate's duration before and after.
   - Done: 46 docs in `docs/archive/first-publish/` with an index, 12 verifiers removed. The internal dependency version check moved into `verify:cargo-publish-metadata` and `verify:package-contents` now requires `LICENSE`, both reverse-verified. `verify:release`: 122 npm steps in 48.35 s before, 98 in 40.47 s after (cached builds). `docs/site.md` went from 4304 to 3457 lines.
-- TODO M195.2 Template parity
+- DONE M195.2 Template parity
   - Measure crate-to-template drift after normalizing imports, tests, and formatting; fix the API drift found; RFC 0066 decides between a parity gate and generating templates from the crate, from that measurement. The chosen check is reverse-verified with an injected divergence.
+  - Done: RFC 0066 chose a gate: `tests/template_parity.rs` compares items with `syn` (160 differing items as committed, 97 after formatting and normalization). The drift included user-visible bugs: Select and Combobox templates lacked the 0.2.0 check mark, `CalendarDate::unchecked` (used by the docs) was missing, and 25 enums lacked `Default`. Templates are rustfmt-formatted; the crate's let chains became nested ifs. Generation is re-evaluated when `CRATE_ONLY` passes 10 entries. Reverse-verified four ways.
 
 ## M196 Menus
 
