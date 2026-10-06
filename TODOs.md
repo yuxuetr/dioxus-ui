@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0% (0.3.0 planned)
+- Overall: 4% (1 of 23 tasks)
 - Current milestone: M195
-- Current task: M195.1
+- Current task: M195.2
 
 ## Backup
 
@@ -35,8 +35,9 @@
 
 ## M195 Maintenance Groundwork
 
-- TODO M195.1 Retire first-publish readiness docs and gates
+- DONE M195.1 Retire first-publish readiness docs and gates
   - Archive the readiness, blocker, decision, handoff, and follow-up docs under `docs/archive/`; remove their verifiers from `verify:release` and `package.json`; keep `docs/release.md`, the changelog, package contents, publish order, and Cargo metadata checks. Record the release gate's duration before and after.
+  - Done: 46 docs in `docs/archive/first-publish/` with an index, 12 verifiers removed. The internal dependency version check moved into `verify:cargo-publish-metadata` and `verify:package-contents` now requires `LICENSE`, both reverse-verified. `verify:release`: 122 npm steps in 48.35 s before, 98 in 40.47 s after (cached builds). `docs/site.md` went from 4304 to 3457 lines.
 - TODO M195.2 Template parity
   - Measure crate-to-template drift after normalizing imports, tests, and formatting; fix the API drift found; RFC 0066 decides between a parity gate and generating templates from the crate, from that measurement. The chosen check is reverse-verified with an injected divergence.
 
