@@ -296,4 +296,29 @@ off-canvas Sidebar, the range slider, and the pagination range
 Mockup ([RFC 0071](rfcs/0071-theme-controller.md) and
 [RFC 0072](rfcs/0072-menu-and-mockup.md)), M199 copyable code and the rendered
 reference on the site, and M200 blocks ([RFC 0073](rfcs/0073-blocks.md)).
-M201 prepares 0.3.0.
+M201 publishes 0.3.0 on 2026-10-06 (tag `v0.3.0`).
+
+## Stage 10: 0.4.0 Copy Mode
+
+Goal: a copied component brings only the code it needs and builds without
+warnings, and the CLI says what it did and what changed since the app copied
+a component.
+
+Deliverables:
+
+- the shared utils template split along crate module boundaries, copied as
+  registry dependencies
+- copied components that build with warnings denied
+- several names per `dxui add`, `dxui --version`, honest add output, and
+  `dxui diff`
+- `cargo-semver-checks` as a release step
+
+Exit criteria:
+
+- `dxui add button` copies only Button and the base helper, and an app using
+  it builds with `-D warnings`
+- apps with 0.3.0 templates keep building, or the migration notes say what to
+  change
+- 0.4.0 release notes list each breaking change with a migration note
+
+Status: planned as M202 to M204 in `TODOs.md`.
