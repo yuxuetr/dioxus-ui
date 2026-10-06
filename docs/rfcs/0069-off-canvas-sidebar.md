@@ -31,7 +31,9 @@ desktop layout for a frame, as does server-side rendering.
 
 Off-canvas is opt-in: a Sidebar without `on_mobile_open_change` renders the
 same `aside` as before at every width. With it, the `aside` sits in a wrapper
-that is `display: contents` on wide viewports and, below the breakpoint:
+that, on wide viewports, is a flex item stretching to the layout's height
+(the sidebar's `h-full` does not resolve through a `display: contents`
+wrapper in Chrome) and, below the breakpoint:
 
 - is a `dialog` with `aria-modal`, named by the `aside`, fixed to the side,
   and hidden unless `mobile_open`;

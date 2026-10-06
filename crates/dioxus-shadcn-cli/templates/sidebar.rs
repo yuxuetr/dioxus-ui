@@ -210,7 +210,9 @@ pub fn Sidebar(
   }
 
   // Off-canvas: a wrapper is the modal panel below the breakpoint, named by
-  // the sidebar, and `display: contents` above it.
+  // the sidebar. Above it the wrapper is a flex item that stretches to the
+  // layout's height, so the sidebar's `h-full` resolves against it; a
+  // `display: contents` wrapper leaves that percentage unresolved in Chrome.
   let passed_id = attributes.iter().find(|attribute| attribute.name == "id").and_then(
     |attribute| match &attribute.value {
       dioxus::dioxus_core::AttributeValue::Text(id) => Some(id.clone()),
@@ -220,7 +222,8 @@ pub fn Sidebar(
   let generated_id = format!("{scope_id}-panel");
   let label_id = passed_id.unwrap_or_else(|| generated_id.clone());
   let id = default_attribute(&attributes, "id", generated_id);
-  let panel_class = if modal { sidebar_mobile_panel_class(side) } else { "contents".to_string() };
+  let panel_class =
+    if modal { sidebar_mobile_panel_class(side) } else { "flex shrink-0".to_string() };
   let class =
     if modal { sidebar_mobile_class(side, &class) } else { sidebar_class(collapsed, side, &class) };
 
