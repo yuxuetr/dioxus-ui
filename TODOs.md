@@ -60,9 +60,10 @@
 
 ## M205 0.4.1 Diff Everything
 
-- TODO M205.1 `dxui diff` without names checks every copied entry
+- DONE M205.1 `dxui diff` without names checks every copied entry
   - With no names, `dxui diff` reads the modules declared in `src/components/ui/mod.rs` and `src/blocks/mod.rs`, keeps those that name a component or block (helpers come in as dependencies, app modules are skipped), and diffs them; with nothing copied it says so and exits 1. `dxui add` without names still fails.
   - Exit: tests cover an app with an edited and a matching copy, an app module that is skipped, and an empty app; reverse-verify by dropping the blocks file.
+  - Done: `copied_entries` reads both `mod.rs` files and keeps declared modules that name a component or block; `add` checks for a name itself now that option parsing allows none. A test covers an empty app, a skipped `my_widget` module, matching copies of Button and the dashboard block, and an edited block; it fails when the blocks file is not read. In a scratch app with Sidebar and the login block, an edited `utils.rs` is reported with exit 1.
 - TODO M205.2 Publish 0.4.1
   - Confirmed by the release owner on 2026-10-06 once M205.1 is done and CI passes. CHANGELOG, versions, release gate, `cargo-semver-checks` against 0.4.0, then publish and check `dxui diff` from crates.io in a fresh app.
 
