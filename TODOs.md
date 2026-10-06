@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 14% (1 of 7 tasks)
-- Current milestone: M202
-- Current task: M202.2
+- Overall: 29% (2 of 7 tasks)
+- Current milestone: M203
+- Current task: M203.1
 
 ## Backup
 
@@ -36,8 +36,9 @@
   - An RFC first. Each shared helper (class composition and attributes, anchored overlay, listbox, roving group, modal focus, dismiss timer, hover open, media query, submenus and menu marks, dialog labels) becomes its own template and registry entry, and each component depends on the ones it uses; `dxui add` copies dependencies transitively. The parity test compares each helper template with its crate module.
   - Exit: `dxui add button` copies `button.rs` and the base helper only; the generated fixture app with every component and block builds; an app holding a 0.3.0 `utils.rs` still builds after adding a component.
   - Done: RFC 0074; 13 helper templates with entries in `helpers/`, and a registry test that each template's `super::` imports are dependencies and each helper dependency is imported (reverse-verified both ways). `dxui add button` copies `button.rs` and a 27-line `utils.rs`; a new app prints 3 warnings (Button and density variants) instead of 66. The fixture app builds; the 0.3.0 copy app from the registry check builds after adding dropdown, tooltip, and dialog, and `dxui add` prints a note about its old `utils.rs`, since old and new helper copies can pick the same element ids.
-- TODO M202.2 Copied components build without warnings
+- DONE M202.2 Copied components build without warnings
   - Exit: a new app that adds and uses one component builds with `RUSTFLAGS="-D warnings"`, checked for Button and for an overlay component in the generated fixture script, and the fixture app with every component and block builds with it too. Reverse-verify by reintroducing an unused helper.
+  - Done: after M202.1 the remaining warnings were variants, props, and `pub use` re-exports the app does not use, which no split removes, so `dxui init` writes `#![allow(dead_code, unused_imports)]` at the top of `ui/mod.rs` and `dxui add` keeps it (and any other non-`mod` line, which it used to drop). The fixture script denies warnings with `#![deny(warnings)]` (same effect as `-D warnings` on the crate's own code, without rebuilding dependencies): the library fixture with every component and block, with the header removed, and a new app binary using Button, Dialog, and Popover, with it. Reverse-verified: an unused private helper in `button.rs` fails the library; the app without the header fails.
 
 ## M203 CLI for Copy Users
 
