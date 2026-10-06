@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 43% (3 of 7 tasks)
-- Current milestone: M203
-- Current task: M203.2
+- Overall: 57% (4 of 7 tasks)
+- Current milestone: M204
+- Current task: M204.1
 
 ## Backup
 
@@ -45,8 +45,9 @@
 - DONE M203.1 Several names per add, and a version flag
   - `dxui add button dialog dashboard` adds each, components and blocks alike, and stops at the first unknown name before writing anything; `dxui --version` and `-V` print the version.
   - Done: names are checked against components and blocks before `init`, which used to run first and write the stylesheet and `ui/mod.rs` even for an unknown name; tests cover several names with a block, an unknown name in the middle leaving the root absent (reverse-verified by writing first), and both version flags.
-- TODO M203.2 Report kept files and show template differences
+- DONE M203.2 Report kept files and show template differences
   - `dxui add` reports each file as written, unchanged, or kept because it differs from the template, and suggests `dxui diff`. `dxui diff <name>...` prints a unified diff between the app's copies and the CLI's templates and exits 1 when any differ, so CI can check it.
+  - Done: `add` and `diff` share one dependency resolution that returns entries as data; a file missing from the app also counts as a difference for `diff`. Unified diffs come from the `similar` crate (MIT/Apache-2.0, no further dependencies; `cargo deny` passes). Tests cover written, unchanged, kept, and overwrite statuses and a diff that fails on an edited and a missing copy. On the 0.3.0 copy app, `dxui add button sidebar` reports utils.rs and sidebar.rs as kept, and `dxui diff sidebar` exits 1 with their diffs.
 
 ## M204 0.4.0 Release
 
