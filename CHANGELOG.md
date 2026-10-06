@@ -120,6 +120,10 @@ Migration.
 - A Sidebar given `on_mobile_open_change` renders inside a wrapper element
   (a flex item on wide viewports, the modal panel on phones); selectors
   that expect the `aside` as a direct child of the layout need updating.
+- `SidebarProps`, `SidebarTriggerProps`, `DropdownItemProps`,
+  `FieldDescriptionProps`, and `FieldErrorProps` have new fields. Code that
+  builds them through `rsx!` or their builders is unaffected; a struct
+  literal naming every field must add the new ones.
 
 ## [0.2.0] - 2026-10-05
 

@@ -126,6 +126,16 @@ if (!existsSync(rootCargoPath)) {
       }
     }
 
+    // crates.io shows this README for every crate, so its snippets name the
+    // version being published.
+    const readme = readText(join(cratesDir, "README.md"));
+    const minorVersion = workspaceVersion?.split(".").slice(0, 2).join(".");
+    for (const snippet of [`dioxus-shadcn-${workspaceVersion}/src`, `version = "${minorVersion}"`]) {
+      if (!readme.includes(snippet)) {
+        failures.push(`crates/README.md must show ${snippet} for workspace version "${workspaceVersion}"`);
+      }
+    }
+
     for (const [field, expectedValues] of Object.entries(expectedWorkspaceArrays)) {
       const actualValues = getStringArrayField(workspacePackage, field);
       if (actualValues === null || actualValues.join("\0") !== expectedValues.join("\0")) {
