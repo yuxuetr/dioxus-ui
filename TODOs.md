@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0% (0 of 11 tasks)
+- Overall: 9% (1 of 11 tasks)
 - Current milestone: M208 (0.4.3)
-- Current task: M208.1
+- Current task: M208.2
 
 ## Backup
 
@@ -35,9 +35,10 @@
 
 ## M208 0.4.3 Crate-Mode Setup and Theme Marks
 
-- TODO M208.1 `dxui` keeps the crate's `@source` line current
+- DONE M208.1 `dxui` keeps the crate's `@source` line current
   - In an app that depends on `dioxus-shadcn`, `dxui init` writes the `@source` line for the resolved crate's `src` from `cargo metadata`, and running it again after an upgrade replaces a line that names another version. An app that does not depend on the crate gets no line. `crates/README.md` drops the manual `cargo metadata | jq` step.
   - Exit: tests cover a new line, a replaced stale line, a current line left alone, and an app without the crate; in a scratch crate-mode app, bumping the version and rerunning `dxui init` makes a class only the new version uses appear in the compiled CSS. Reverse-verify by leaving the stale line.
+  - Done: `dxui init` reads `cargo metadata` and replaces crate `@source` lines (`dioxus-shadcn/src` or `dioxus-shadcn-<version>/src`) in `assets/dioxus-shadcn.css`; an unreadable manifest fails the command. Unit tests cover the four cases plus line matching and this workspace's metadata. In a scratch app on 0.2.0, the stale line after bumping to 0.3.0 compiled without `rounded-b-xl` and `w-28` (0.3.0-only Mockup classes); after `dxui init` both appeared, and a rerun changed nothing.
 - TODO M208.2 Checkbox marks follow the theme
   - The check and indeterminate marks take the color of the token the checked box uses for its foreground, in the crate and the template, instead of fixed white and dark images.
   - Exit: `npm run verify:theme-presets` checks mark contrast against the checked background for every preset and fails on the old white mark under a light-primary preset such as `cupcake`; the browser check sees the mark color change with `data-theme`.
