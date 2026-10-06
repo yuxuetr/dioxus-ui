@@ -48,6 +48,7 @@ examples! {
   select_basic => "select", "Select";
   select_multiple => "select", "Multiple";
   slider_basic => "slider", "Orientation and states";
+  slider_range => "slider", "Price range";
   switch_basic => "switch", "States";
   textarea_basic => "textarea", "Character count";
   alert_dialog_confirm => "alert-dialog", "Confirm deletion";

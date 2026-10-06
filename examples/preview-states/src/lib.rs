@@ -5,6 +5,7 @@ use dioxus_shadcn::FileInput;
 use dioxus_shadcn::NavigationMenuOrientation;
 use dioxus_shadcn::NumberInput;
 use dioxus_shadcn::Progress;
+use dioxus_shadcn::RangeSlider;
 use dioxus_shadcn::Rating;
 use dioxus_shadcn::SliderOrientation;
 use dioxus_shadcn::TagsInput;
@@ -959,6 +960,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut part_form_submits = use_signal(|| 0);
   let mut carousel_state = use_signal(|| CarouselState::new(0, 3));
   let mut shell_collapsed = use_signal(|| false);
+  let mut price = use_signal(|| (20.0, 80.0));
   let mut shell_mobile_open = use_signal(|| false);
   let mut sidebar_collapsed = use_signal(|| false);
   let mut sidebar_section = use_signal(|| "inbox");
@@ -2517,6 +2519,22 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 min_size: 20.0,
                 max_size: 80.0,
                 "Editor"
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "range-slider",
+            "data-low": "{price().0}",
+            "data-high": "{price().1}",
+            h2 { class: "text-sm font-medium", "Range slider interaction" }
+            div { class: "mt-6 w-72",
+              RangeSlider {
+                "aria-label": "Price",
+                value: price(),
+                step: 5.0,
+                min_steps_between: 2,
+                on_value_change: move |next| price.set(next),
               }
             }
           }

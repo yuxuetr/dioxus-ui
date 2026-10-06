@@ -697,10 +697,10 @@ pub use sidebar::{
 pub use skeleton::{SKELETON_BASE_CLASS, Skeleton, skeleton_class};
 #[cfg(feature = "slider")]
 pub use slider::{
-  SLIDER_RANGE_BASE_CLASS, SLIDER_ROOT_BASE_CLASS, SLIDER_THUMB_BASE_CLASS,
-  SLIDER_TRACK_BASE_CLASS, Slider, SliderOrientation, slider_aria_attributes, slider_key_move,
-  slider_percent, slider_range_class, slider_range_style, slider_root_class, slider_state,
-  slider_thumb_class, slider_thumb_style, slider_track_class,
+  RangeSlider, SLIDER_RANGE_BASE_CLASS, SLIDER_ROOT_BASE_CLASS, SLIDER_THUMB_BASE_CLASS,
+  SLIDER_TRACK_BASE_CLASS, Slider, SliderOrientation, range_slider_values, slider_aria_attributes,
+  slider_key_move, slider_percent, slider_range_class, slider_range_style, slider_root_class,
+  slider_state, slider_thumb_class, slider_thumb_style, slider_track_class,
 };
 #[cfg(feature = "sonner")]
 pub use sonner::{

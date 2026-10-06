@@ -316,6 +316,7 @@ only.
 - [RFC 0067: Menu Submenus](docs/rfcs/0067-menu-submenus.md)
 - [RFC 0068: Modal Scroll Lock](docs/rfcs/0068-modal-scroll-lock.md)
 - [RFC 0069: Off-Canvas Sidebar and Shortcut](docs/rfcs/0069-off-canvas-sidebar.md)
+- [RFC 0070: Range Slider](docs/rfcs/0070-range-slider.md)
 
 ## Verification Shortcuts
 

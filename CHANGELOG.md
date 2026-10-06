@@ -27,6 +27,10 @@ for commit messages.
   `on_mobile_open_change`, the Sidebar is a modal panel below 768px that
   `SidebarTrigger` opens, and `shortcut` toggles it with Ctrl or Command;
   `on_collapsed_change` on `Sidebar` serves the shortcut on wide viewports.
+- `RangeSlider` and `range_slider_values`
+  ([RFC 0070](docs/rfcs/0070-range-slider.md)): two thumbs for a low and a
+  high value, kept `min_steps_between` steps apart, each a focusable slider
+  bounded by the other.
 
 ### Changed
 

@@ -107,7 +107,8 @@ Read in this order:
 100. [RFC 0067: Menu Submenus](rfcs/0067-menu-submenus.md)
 101. [RFC 0068: Modal Scroll Lock](rfcs/0068-modal-scroll-lock.md)
 102. [RFC 0069: Off-Canvas Sidebar and Shortcut](rfcs/0069-off-canvas-sidebar.md)
-103. [TODO Plan](../TODOs.md)
+103. [RFC 0070: Range Slider](rfcs/0070-range-slider.md)
+104. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 

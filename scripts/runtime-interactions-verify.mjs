@@ -1926,6 +1926,55 @@ async function runBrowserAssertions() {
     await page.mouse.up();
     await expect(resizeHandle).toBeFocused();
 
+    const range = page.locator('[data-interaction-target="range-slider"]');
+    const rangeGroup = range.getByRole("group", { name: "Price", exact: true });
+    const lowThumb = range.getByRole("slider", { name: "Minimum", exact: true });
+    const highThumb = range.getByRole("slider", { name: "Maximum", exact: true });
+    const expectRange = async (low, high) => {
+      await expect(range).toHaveAttribute("data-low", String(low));
+      await expect(range).toHaveAttribute("data-high", String(high));
+      await expect(lowThumb).toHaveAttribute("aria-valuenow", String(low));
+      await expect(highThumb).toHaveAttribute("aria-valuenow", String(high));
+      // Each thumb is bounded by the other, 2 steps of 5 apart.
+      await expect(lowThumb).toHaveAttribute("aria-valuemax", String(high - 10));
+      await expect(highThumb).toHaveAttribute("aria-valuemin", String(low + 10));
+    };
+    await rangeGroup.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expectRange(20, 80);
+    await lowThumb.focus();
+    await page.keyboard.press("ArrowRight");
+    await expectRange(25, 80);
+    await page.keyboard.press("End");
+    await expectRange(70, 80);
+    await page.keyboard.press("Home");
+    await expectRange(0, 80);
+    await highThumb.focus();
+    await page.keyboard.press("PageDown");
+    await expectRange(0, 30);
+    await page.keyboard.press("Home");
+    await expectRange(0, 10);
+    await page.keyboard.press("End");
+    await expectRange(0, 100);
+    // A press moves the nearer thumb, and a drag stops at the gap.
+    const rangeBox = await rangeGroup.boundingBox();
+    const rangeAt = (percent) => rangeBox.x + (rangeBox.width * percent) / 100;
+    const rangeMiddle = rangeBox.y + rangeBox.height / 2;
+    await page.mouse.click(rangeAt(90), rangeMiddle);
+    await expectRange(0, 90);
+    await expect(highThumb).toBeFocused();
+    await page.mouse.click(rangeAt(30), rangeMiddle);
+    await expectRange(30, 90);
+    await expect(lowThumb).toBeFocused();
+    await page.mouse.move(rangeAt(90), rangeMiddle);
+    await page.mouse.down();
+    await page.mouse.move(rangeAt(50), rangeMiddle, { steps: 4 });
+    await page.mouse.move(rangeAt(10), rangeMiddle, { steps: 4 });
+    await page.mouse.up();
+    await expectRange(30, 40);
+    const fill = await rangeGroup.locator(".bg-primary").boundingBox();
+    expect(Math.abs(fill.x - rangeAt(30))).toBeLessThan(2);
+    expect(Math.abs(fill.width - (rangeBox.width * 10) / 100)).toBeLessThan(2);
+
     const shell = page.locator('[data-interaction-target="sidebar-mobile"]');
     const shellTrigger = shell.getByRole("button", { name: "Toggle navigation", exact: true });
     const shellPanel = page.locator("#interaction-sidebar-mobile");
@@ -2470,7 +2519,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (49 fixtures)");
+  console.log("runtime interaction verification passed (50 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

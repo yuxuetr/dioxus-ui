@@ -1,7 +1,8 @@
 # Slider
 
 Slider provides a controlled numeric value with range and thumb styling, in a
-horizontal or vertical orientation.
+horizontal or vertical orientation, and `RangeSlider` a controlled pair of
+values with two thumbs.
 
 ## Source Copy
 
@@ -27,6 +28,8 @@ dioxus-shadcn = { version = "0.2", default-features = false, features = ["slider
 - `slider_range_style`
 - `slider_thumb_style`
 - `slider_aria_attributes`
+- `RangeSlider`
+- `range_slider_values`
 
 ## Keyboard And Pointer Input
 
@@ -84,6 +87,34 @@ reads pointer positions along its height, and renders
 ArrowRight still increase the value. The thumb is centered on the value with
 an inline absolute position in both orientations (see
 [RFC 0042](../rfcs/0042-slider-thumb-position-and-vertical-orientation.md)).
+
+## Range Slider
+
+`RangeSlider` holds a low and a high value (see
+[RFC 0070](../rfcs/0070-range-slider.md)):
+
+```rust
+let mut price = use_signal(|| (20.0, 80.0));
+
+rsx! {
+  RangeSlider {
+    "aria-label": "Price",
+    value: price(),
+    step: 5.0,
+    min_steps_between: 2,
+    on_value_change: move |next| price.set(next),
+  }
+}
+```
+
+- Each thumb is a `slider` with its own focus, named by `start_label` and
+  `end_label` ("Minimum" and "Maximum" by default), and moved by the same
+  keys as `Slider`. Its `aria-valuemin` or `aria-valuemax` is the other
+  thumb's value, `min_steps_between` steps away.
+- A press moves the nearer thumb and focuses it; dragging keeps moving it
+  and stops at the other thumb.
+- The root is a `group`; name it with `aria-label` or `aria-labelledby`.
+- Right-to-left horizontal range sliders are not included.
 
 ## Accessibility Notes
 

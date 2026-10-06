@@ -77,7 +77,7 @@ Source preview routes: 79
 | [Sheet](sheet.md) | /components/sheet/source | crates/dioxus-shadcn-cli/templates/sheet.rs | src/components/ui/sheet.rs | rust | 210 | 5807 |
 | [Sidebar](sidebar.md) | /components/sidebar/source | crates/dioxus-shadcn-cli/templates/sidebar.rs | src/components/ui/sidebar.rs | rust | 494 | 15448 |
 | [Skeleton](skeleton.md) | /components/skeleton/source | crates/dioxus-shadcn-cli/templates/skeleton.rs | src/components/ui/skeleton.rs | rust | 21 | 418 |
-| [Slider](slider.md) | /components/slider/source | crates/dioxus-shadcn-cli/templates/slider.rs | src/components/ui/slider.rs | rust | 381 | 13032 |
+| [Slider](slider.md) | /components/slider/source | crates/dioxus-shadcn-cli/templates/slider.rs | src/components/ui/slider.rs | rust | 579 | 21046 |
 | [Sonner](sonner.md) | /components/sonner/source | crates/dioxus-shadcn-cli/templates/sonner.rs | src/components/ui/sonner.rs | rust | 427 | 12558 |
 | [Spinner](spinner.md) | /components/spinner/source | crates/dioxus-shadcn-cli/templates/spinner.rs | src/components/ui/spinner.rs | rust | 45 | 958 |
 | [Stat](stat.md) | /components/stat/source | crates/dioxus-shadcn-cli/templates/stat.rs | src/components/ui/stat.rs | rust | 140 | 3807 |

@@ -526,7 +526,7 @@ templates and an added `nord` preset.
   Toggle, Input, and Textarea report events through `onclick`,
   `on_pressed_change`, and `on_value_change` (see RFC 0029); key, focus, and
   blur callbacks are not included. Slider responds to keys and the pointer
-  (see RFC 0030); right-to-left and multi-thumb sliders are not included. Collapsible and Native Select report changes through
+  (see RFC 0030), and `RangeSlider` has two thumbs (see RFC 0070); right-to-left sliders are not included. Collapsible and Native Select report changes through
   `on_open_change` and `on_value_change` (see RFC 0031); multiple selection is
   not included. Input OTP reports the cleaned code through `on_value_change`
   (see RFC 0032); editing a slot in the middle is not included. Pagination
@@ -547,8 +547,8 @@ templates and an added `nord` preset.
   toggle groups, menu bars, navigation menus, and calendar grids take names
   through passed attributes (see RFC 0040). Checkbox has a native mixed state
   (see RFC 0041); it is set after hydration. Slider places its thumb on the
-  value and supports a vertical orientation (see RFC 0042); right-to-left and
-  multi-thumb sliders are not included. Browser checks run with compiled
+  value and supports a vertical orientation (see RFC 0042), and `RangeSlider`
+  has two thumbs (see RFC 0070); right-to-left sliders are not included. Browser checks run with compiled
   Tailwind and data variants match attribute values (see RFC 0043); compiled
   CSS in the Desktop and Mobile self-tests is not covered. Class functions do
   not join conflicting utilities (see RFC 0044); a user class that sets a
