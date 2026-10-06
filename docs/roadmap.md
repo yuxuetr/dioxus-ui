@@ -262,3 +262,27 @@ Navigation Menu submenus, typed dates, and pie charts
 ([RFC 0062](rfcs/0062-multi-select.md) to
 [RFC 0065](rfcs/0065-pie-and-donut-charts.md)). M194 publishes 0.2.0 on 2026-10-05
 (tag `v0.2.0`).
+
+## Stage 9: 0.3.0 Screens and Maintenance
+
+Goal: make the library complete enough to build an app shell, show the code
+in the docs, and cut the cost of each change.
+
+Deliverables:
+
+- the first-publish readiness docs and gates archived, and one source of
+  truth checked between crate modules and templates
+- Dropdown checkbox, radio, and shortcut items, and submenus for Dropdown,
+  Context Menu, and Menubar
+- scroll lock for modal overlays, Sidebar off-canvas and shortcut, a range
+  slider, and a pagination range helper
+- Theme Controller, Menu, and Mockup from daisyUI
+- example source and API reference on the component site
+- blocks: copyable screens added by `dxui add`
+
+Exit criteria:
+
+- every new component and block has a template, registry entry, docs page,
+  site example, and tests
+- a generated fixture app builds every block
+- 0.3.0 release notes list each breaking change with a migration note

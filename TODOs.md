@@ -2,116 +2,104 @@
 
 ## Progress
 
-- Overall: 100% (0.2.0 published)
-- Current milestone: none (M194 complete)
-- Current task: none
+- Overall: 0% (0.3.0 planned)
+- Current milestone: M195
+- Current task: M195.1
 
 ## Backup
 
-- Completed plans: `docs/archive/TODOs.completed-20260628192208.md` (M1 to M29), `docs/archive/TODOs.completed-20261005.md` (M30 to M175), `docs/archive/TODOs.completed-20261005-m176-m180.md` (M176 to M180), `docs/archive/TODOs.completed-20261005-m181.md` (M181), `docs/archive/TODOs.completed-20261005-m182.md` (M182), `docs/archive/TODOs.completed-20261005-m183.md` (M183), `docs/archive/TODOs.completed-20261005-m184.md` (M184), `docs/archive/TODOs.completed-20261005-m185.md` (M185), and `docs/archive/TODOs.completed-20261005-m186.md` (M186)
+- Completed plans: `docs/archive/TODOs.completed-20260628192208.md` (M1 to M29), `docs/archive/TODOs.completed-20261005.md` (M30 to M175), `docs/archive/TODOs.completed-20261005-m176-m180.md` (M176 to M180), `docs/archive/TODOs.completed-20261005-m181.md` (M181), `docs/archive/TODOs.completed-20261005-m182.md` (M182), `docs/archive/TODOs.completed-20261005-m183.md` (M183), `docs/archive/TODOs.completed-20261005-m184.md` (M184), `docs/archive/TODOs.completed-20261005-m185.md` (M185), `docs/archive/TODOs.completed-20261005-m186.md` (M186), and `docs/archive/TODOs.completed-20261006-m187-m194.md` (M187 to M194, 0.2.0)
 
 ## Goals
 
-- The component site is public at <https://yuxuetr.github.io/dioxus-ui/>.
-- 0.2.0 fills the gaps against shadcn/ui and daisyUI: theme presets an app can switch at runtime, status variants, the daisyUI components shadcn/ui lacks, and the 0.1.0 excluded scope users are most likely to hit.
+- 0.3.0 takes the library from components to screens: menus, overlays, and layouts complete enough for a real app shell, docs that show the code, and copyable blocks built from the components.
+- Maintenance costs less per change: one source of truth between crate modules and templates, and a release gate that checks the product instead of the finished first publish.
 
-## Evidence
+## Evidence (measured 2026-10-06 at `v0.2.0`)
 
-- 0.1.0 ships one theme. Rebranding means hand-editing about 70 token values per color scheme; daisyUI ships 35 themes switched by `data-theme`, and shadcn/ui ships base color presets.
-- The stylesheet already defines `--success`, `--warning`, and `--info`, but only Toast, Sonner, and Attachment read them; Alert has only Default and Destructive, and Badge has no status variant.
-- daisyUI components with no counterpart here: Stat, Timeline, Steps, Indicator, Status, Radial Progress, Countdown, Diff, Rating, Swap, File Input, Dock, and FAB.
-- The 0.1.0 release notes exclude multi-select, Navigation Menu submenus, typed date parsing, and chart families beyond line, bar, and area; each one blocks a common app screen (filters, mega menus, date forms, dashboards).
+- Adoption: 18 crates.io downloads, no stars, no issues. There is no outside demand signal yet, so priorities come from the library's own documented gaps and from building screens with it.
+- Docs: component pages on the site show live examples but not their source, and link to GitHub markdown for props. Copying an example means reading `site/src/examples` on GitHub. The Installation page still shows a `dioxus-shadcn-0.1.0` source path.
+- Menus: Context Menu and Menubar have checkbox, radio, and shortcut items; Dropdown, the most used menu, has none. The release notes say menu submenus are not implemented, which shadcn/ui's Dropdown, Context Menu, and Menubar all have.
+- Overlays and layout: the release notes exclude scroll lock (the page scrolls behind an open Dialog, Sheet, or Drawer), Sidebar mobile off-canvas and keyboard shortcut, multi-thumb sliders, and a pagination range helper.
+- Themes: the release notes exclude a system color scheme default; the site forgets the chosen theme on reload. daisyUI ships a Theme Controller for this.
+- daisyUI components with no counterpart and a use beyond layout: Theme Controller, Menu (vertical, nested), and Mockup (browser, window, code, phone).
+- Template drift: all 21 commits between `v0.1.0` and `v0.2.0` that changed `crates/dioxus-shadcn/src` also had to edit `templates/`. The copies already differ in API, not only imports: `BadgeVariant` derives `Default` in the crate and not in the template.
+- Release gate: about 95 steps. 43 of the 67 files in `docs/` and about 15 verifiers check the first publish's readiness (blockers, decision packets, handoffs), which was resolved on 2026-10-05.
 
 ## Scope Rules
 
-- Every new component lands complete: crate module and feature, source-copy template, registry entry, docs page, site example, SSR tests, and a runtime check when it is interactive. A component that cannot meet this is cut, not stubbed.
-- Ported daisyUI palettes keep daisyUI's MIT copyright notice in the theme file.
-- Adding enum variants is breaking for exhaustive matches; collect these in the CHANGELOG migration notes for 0.2.0.
-- Publishing 0.2.0 needs the release owner's confirmation.
+- Every new component or block lands complete: crate module and feature (components), template, registry entry, docs page, site example, SSR tests, and a runtime check when it is interactive. What cannot meet this is cut, not stubbed.
+- Prefer new props, parts, and components over changing existing ones. Breaking changes go in the 0.3.0 CHANGELOG Migration section.
+- Retiring a gate requires that what it guarded is either finished or still checked by another gate; record which in the commit.
+- Publishing 0.3.0 needs the release owner's confirmation.
 
-## M187 Component Site Deployment
+## M195 Maintenance Groundwork
 
-- DONE M187.1 Deploy the site to GitHub Pages
-  - Build with `--base-path dioxus-ui` on every push to `main`; copy `index.html` to each route and `404.html`.
-  - Done: `.github/workflows/pages.yml` and `scripts/site-pages.mjs`; Pages enabled with the Actions source. The live site serves every route with status 200 and unknown paths with the router's not found page.
+- TODO M195.1 Retire first-publish readiness docs and gates
+  - Archive the readiness, blocker, decision, handoff, and follow-up docs under `docs/archive/`; remove their verifiers from `verify:release` and `package.json`; keep `docs/release.md`, the changelog, package contents, publish order, and Cargo metadata checks. Record the release gate's duration before and after.
+- TODO M195.2 Template parity
+  - Measure crate-to-template drift after normalizing imports, tests, and formatting; fix the API drift found; RFC 0066 decides between a parity gate and generating templates from the crate, from that measurement. The chosen check is reverse-verified with an injected divergence.
 
-## M188 Theme Presets
+## M196 Menus
 
-- DONE M188.1 Design theme presets
-  - RFC 0057: a preset is a token set scoped by `[data-theme="name"]`, with `color-scheme`; the daisyUI-to-token mapping; which presets ship; the CLI surface.
-  - Done: RFC 0057. Measured 18 of 35 daisyUI themes below AA, so foregrounds are adjusted; 33 presets ship (not `light` and `dark`); Checkbox moves its check mark to a mask.
-- DONE M188.2 Ship preset data and `dxui theme`
-  - Preset files embedded in the CLI; `dxui theme list` and `dxui theme add <name>` append a preset to `assets/dioxus-shadcn.css`, idempotently. CLI tests.
-  - Done: 33 presets from `scripts/theme-presets.mjs`, embedded by `build.rs`; four CLI tests (repeat, unknown name without writing, missing stylesheet, schemes). The RFC's two component changes also landed: Link buttons use `text-foreground` (breaking for apps matching the class), and Checkbox marks are a masked `::before` filled with `--primary-foreground`, reverse-verified in the runtime check.
-- DONE M188.3 Gate preset contrast
-  - Every preset's foreground and background pairs meet WCAG AA, computed from the OKLCH values; reverse-verified with a failing preset.
-  - Done: `npm run verify:theme-presets` in the release gate, red for a lowered foreground and a missing token. It also covers the default theme and found focused destructive menu items at 3.99:1; the light `--destructive` lightness went from 0.577 to 0.532.
-- DONE M188.4 Theme picker on the site
-  - The site switches presets at runtime, the Theming page lists them with swatches, and `npm run verify:site` audits each preset.
-  - Done: header theme menu and a Theming page gallery; `verify:site` audits 33 presets on four pages, reverse-verified with a weakened preset. The site's canvas measured nine presets at 4.48 to 4.49:1, so the contrast math now quantizes to 8-bit sRGB and matches the canvas exactly.
+- TODO M196.1 Dropdown checkbox, radio, and shortcut items
+  - Same parts and behavior as Context Menu: `DropdownCheckboxItem`, `DropdownRadioGroup`, `DropdownRadioItem`, `DropdownShortcut`; runtime check.
+- TODO M196.2 Menu submenus
+  - RFC: `*Sub`, `*SubTrigger`, and `*SubContent` for Dropdown, Context Menu, and Menubar; ArrowRight opens (ArrowLeft in right-to-left), ArrowLeft and Escape close one level, hover opens with a short delay. Runtime check for each menu; the Desktop menu scenarios still pass.
 
-## M189 Status Variants
+## M197 Overlays and Layout
 
-- DONE M189.1 Success, Warning, and Info variants for Alert and Badge
-  - Crate and templates, SSR tests, docs, site examples, contrast in every preset.
-  - Done: RFC 0058. White text measured 3.08:1 on light success, so three status foreground tokens were added; solid status badges, tinted status alerts (`bg-card` moved from the base class into the Default and Destructive variants). The site audits the new examples in both themes and all 33 presets.
+- TODO M197.1 Scroll lock for modal overlays
+  - Dialog, Alert Dialog, Sheet, and Drawer stop page scroll while open and restore it, scrollbar width compensated, nested modals counted. Runtime check of `scrollY` under an open dialog.
+- TODO M197.2 Sidebar off-canvas and shortcut
+  - Below a breakpoint the Sidebar opens as a Sheet; an opt-in keyboard shortcut (Ctrl/Cmd+B in shadcn/ui) toggles it. Runtime check at phone width.
+- TODO M197.3 Range slider
+  - Two thumbs on one track with `value: (f64, f64)` and a minimum gap, keyboard and pointer, without changing `Slider`'s API. Runtime check.
+- TODO M197.4 Pagination range helper
+  - `pagination_range(current, total, siblings)` returning pages and ellipses; unit tests, docs, and the site example switched to it.
 
-## M190 Display Components
+## M198 daisyUI Components
 
-- DONE M190.1 Stat
-  - Done: RFC 0059 for all of M190; `dl`-based StatGroup with horizontal and vertical orientations, template, registry, docs, and a site example.
-- DONE M190.2 Timeline
-  - Done: `ol` timeline with `time` and hidden markers, vertical and horizontal through a named group instead of context; checked in a screenshot.
-- DONE M190.3 Steps
-  - Done: counter-numbered `ol` with status-colored connectors, `aria-current="step"`, and hidden completed text; checked in a screenshot.
-- DONE M190.4 Indicator and Status
-  - Done: logical-placement Indicator and a labelled-or-hidden Status dot. `docs/components/status.md` clashed with the generated status page, which moved to `component-status.md`.
-- DONE M190.5 Radial Progress
-  - Done: SVG progressbar ring with clamped value, default percentage label replaced by children; checked in a screenshot.
-- DONE M190.6 Countdown
-  - Done: language-neutral `D:HH:MM:SS` timer with `countdown_parts` for labelled layouts; the site example's clock was checked ticking in a browser.
-- DONE M190.7 Diff
-  - Done: range-input driven comparison with a runtime fixture (arrow keys, clip, click), reverse-verified with a handler that does not fire.
+- TODO M198.1 Theme Controller
+  - Sets `data-theme` and the dark class on the document, defaults to the system color scheme, remembers the choice, and applies it before first paint. The site's theme menu uses it.
+- TODO M198.2 Menu
+  - Vertical navigation list with titles, active items, and nested collapsible groups.
+- TODO M198.3 Mockup
+  - Browser, Window, Code, and Phone frames.
 
-## M191 Input Components
+## M199 Site Documentation
 
-- DONE M191.1 Rating
-  - Done: RFC 0060 for all of M191; native radio stars with a runtime check for arrow keys, clicks, and fill.
-- DONE M191.2 Number Input
-  - Done: text spinbutton instead of `type="number"` (RFC amended: its empty value for incomplete text breaks control). The runtime check found the wrapper dimming when a button hit a bound; the dimming now keys off the input only.
-- DONE M191.3 Tags Input
-  - Done: pure add, commit, and remove functions with unit tests and a runtime check for Enter, comma paste, Backspace, and remove buttons.
-- DONE M191.4 File Input
-  - Done: styled native file input forwarding the change event; runtime check sets two files and reads their names.
-- DONE M191.5 Swap
-  - Done: `on`/`off` element props instead of child parts (RFC amended), `aria-pressed`, hidden inactive layer, and a runtime check.
+- TODO M199.1 Example source on the site
+  - Every example has a Preview and Code view with a copy button, generated from the example file and kept in sync by a verifier. Fix the stale `0.1.0` path on the Installation page.
+- TODO M199.2 API reference on the site
+  - Each component page renders its docs page's API, behavior, and accessibility sections instead of linking to GitHub.
 
-## M192 Mobile Navigation
+## M200 Blocks
 
-- DONE M192.1 Dock
-  - Done: RFC 0061 for M192; safe-area `nav` with link or button items and `aria-current`, a phone-frame site example.
-- DONE M192.2 FAB and Speed Dial
-  - Done: plain button or speed dial by whether `on_open_change` is set; runtime check for open, Escape focus return, and actions. The `aria-controls` gate required the hidden container to stay rendered.
+- TODO M200.1 Block registry and CLI
+  - RFC: a block is a registry item of kind `block` that copies one screen into `src/blocks/` and adds the components it uses; `dxui list` and `dxui add` handle blocks; a generated fixture app builds every block.
+- TODO M200.2 Dashboard block
+  - Sidebar (with off-canvas), header, stats, chart, and data table.
+- TODO M200.3 Login and settings blocks
+  - A sign-in form and a settings page with tabs and fields.
+- TODO M200.4 Blocks on the site
+  - A Blocks page with a full-width preview, source, and the `dxui add` command for each block, audited in both themes and every preset.
 
-## M193 Completing Existing Components
+## M201 0.3.0 Release
 
-- DONE M193.1 Multi-select for Select and Combobox
-  - Done: RFC 0062; `multiple` withholds the listbox close handler, so the listbox code is unchanged. Selected options show check marks (a visible change for single selection too, noted in the CHANGELOG). Web runtime fixtures for both; the Desktop self-test still passes.
-- DONE M193.2 Navigation Menu submenus
-  - Done: RFC 0063; ownership-scoped script and a vertical orientation whose contents pair by value (absolute panels would overflow the outer popover). Runtime fixture covers click, hover, arrows, and Escape; the original fixture and the Desktop scenario still pass.
-- DONE M193.3 Typed date input for Date Picker
-  - Done: RFC 0064; `DatePickerInput` with `parse_date`/`format_date`, unit tests for orders and invalid dates, and a runtime check. The Calendar template's `CalendarDate::new` does not validate, so the template checks month lengths itself; `DatePickerTrigger` gained attribute passthrough for an icon-only trigger.
-- DONE M193.4 Pie and donut charts
-  - Done: RFC 0065; `chart_pie_arcs` with exact-path unit tests and a donut site example. The screenshot showed palette slices uncolored: Tailwind never saw classes returned from the primitives crate (also true of Success and Warning since 0.1.0); `CHART_COLOR_CLASSES` lists them, with a test that keeps it in sync.
-
-## M194 0.2.0 Release
-
-- DONE M194.1 Prepare 0.2.0
-  - CHANGELOG with migration notes, workspace and internal dependency versions bumped, release gate and publish dry run pass.
-  - Done: `[0.2.0]` section with Added, Changed, Migration, and Fixed; versions and install snippets at 0.2; the API stability and dependency verifiers now derive the version from `Cargo.toml`. Release gate passes; `cargo publish --workspace --dry-run` packages and verifies all four crates (crates.io still at 0.1.0).
-- DONE M194.2 Publish 0.2.0
+- TODO M201.1 Prepare 0.3.0
+  - CHANGELOG with migration notes, versions bumped, `Cargo.lock` on the latest Dioxus 0.7, release gate and publish dry run pass.
+- TODO M201.2 Publish 0.3.0
   - Only after the release owner confirms.
-  - Done: confirmed and published on 2026-10-05, tagged `v0.2.0`. The published `dxui` lists 79 components and 33 presets; a fresh app builds against `dioxus-shadcn` 0.2 from crates.io.
+
+## Deferred (re-evaluate when)
+
+- Form state and validation library: when the settings block needs more than `Field` with per-field errors.
+- Chart tooltips and hit testing: when the dashboard block's chart needs exact values on hover.
+- Swipe gestures for Carousel, Toast, and Drawer: when touch input can be checked by a script rather than the Mobile checklist.
+- DOM portal: when an anchored overlay is clipped in a runtime check; fixed positioning has not been clipped so far.
+- Dioxus 0.8: when `cargo search dioxus` lists a 0.8 release.
+- Command fuzzy ranking, editing an Input OTP slot in the middle, and right-to-left Slider, Resizable, and Calendar keys: when an issue asks for them.
 
 ## Status Rules
 
