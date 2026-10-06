@@ -56,6 +56,12 @@ pub const CATEGORIES: &[Category] = &[
         feature: "swap",
       },
       Component {
+        slug: "theme-controller",
+        title: "Theme Controller",
+        description: "Applies, follows, and remembers the color theme on the document root.",
+        feature: "theme-controller",
+      },
+      Component {
         slug: "toggle",
         title: "Toggle",
         description: "Toggle component for controlled pressed button states.",

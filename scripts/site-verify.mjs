@@ -160,26 +160,37 @@ async function run() {
       await expect(article).toHaveAttribute("data-site-page", "not-found");
     }
 
-    // The header toggle turns the whole site dark and back.
+    // The theme menu applies a scheme or preset to the document root through
+    // the ThemeController (RFC 0071), which remembers it across visits and
+    // follows the system scheme while the theme is "system".
     await visit(page, "/");
-    const toggle = page.locator("#site-theme-toggle");
-    const root = page.locator("[data-site-root]");
-    for (const dark of [true, false]) {
-      await toggle.click();
-      await expect(toggle).toHaveAttribute("aria-pressed", String(dark));
-      await expect(root).toHaveCSS("color-scheme", dark ? "dark" : "normal");
+    const themeMenu = page.getByRole("combobox", { name: "Theme", exact: true });
+    const root = page.locator("html");
+    await expect(themeMenu).toHaveValue("system");
+    for (const [value, scheme] of [["dark", "dark"], ["light", "normal"]]) {
+      await themeMenu.selectOption(value);
+      await expect(root).toHaveCSS("color-scheme", scheme);
+    }
+    await themeMenu.selectOption("dark");
+    // The page template applies the stored theme before the app loads.
+    await page.goto(`${server.url}/`, { waitUntil: "commit" });
+    await expect(root).toHaveClass(/\bdark\b/);
+    await visit(page, "/");
+    await expect(themeMenu).toHaveValue("dark");
+    await themeMenu.selectOption("system");
+    for (const colorScheme of ["dark", "light"]) {
+      await page.emulateMedia({ colorScheme });
+      await expect(root).toHaveCSS("color-scheme", colorScheme === "dark" ? "dark" : "normal");
     }
 
-    // The theme menu sets each preset on the site root, which brings its own
-    // color scheme and turns the dark toggle off, and every preset stays
-    // readable and passes axe-core.
-    const themeMenu = page.getByRole("combobox", { name: "Theme", exact: true });
+    // Each preset sets data-theme on the root, brings its own color scheme,
+    // and stays readable and passes axe-core.
     for (const path of presetPages) {
       await visit(page, path);
       for (const preset of presets) {
         await themeMenu.selectOption(preset);
         await expect(root).toHaveAttribute("data-theme", preset);
-        await expect(toggle).toBeDisabled();
+        await expect(root).not.toHaveClass(/\bdark\b/);
         await settle(page);
         const label = `${path} (${preset} preset)`;
         const failures = await page.evaluate(lowContrastText);
@@ -191,9 +202,8 @@ async function run() {
           throw new Error(`${label}: accessibility violations: ${violations.join("; ")}`);
         }
       }
-      await themeMenu.selectOption("");
-      await expect(root).toHaveAttribute("data-theme", "");
-      await expect(toggle).toBeEnabled();
+      await themeMenu.selectOption("system");
+      await expect(root).not.toHaveAttribute("data-theme");
     }
 
     // Below md the catalog opens from the header menu.

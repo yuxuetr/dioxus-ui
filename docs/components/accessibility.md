@@ -38,6 +38,7 @@ Statuses:
 | Steps | Uses an ordered list, aria-current on the current step, and hidden text for completed steps. | Implemented |
 | Swap | Uses a native button with aria-pressed and hides the inactive layer. | Implemented |
 | Tags Input | Lists tags in a list with named remove buttons; Enter, comma, and Backspace edit the list. | Implemented |
+| Theme Controller | Renders no content; the app names the control that picks the theme. | Implemented |
 | Timeline | Uses an ordered list with time elements; markers are hidden from assistive technology. | Implemented |
 | Typography | Uses native text elements; consuming apps own heading hierarchy and landmark placement. | Implemented |
 

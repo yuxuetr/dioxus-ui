@@ -10,7 +10,7 @@ The manifest defines template metadata for future source preview routes.
 It does not embed full template source, syntax highlighting, rendered routes,
 screenshots, or generated JSON.
 
-Source preview routes: 79
+Source preview routes: 80
 
 ## Source Preview Routes
 
@@ -89,6 +89,7 @@ Source preview routes: 79
 | [Tabs](tabs.md) | /components/tabs/source | crates/dioxus-shadcn-cli/templates/tabs.rs | src/components/ui/tabs.rs | rust | 198 | 6632 |
 | [Tags Input](tags-input.md) | /components/tags-input/source | crates/dioxus-shadcn-cli/templates/tags_input.rs | src/components/ui/tags_input.rs | rust | 135 | 4901 |
 | [Textarea](textarea.md) | /components/textarea/source | crates/dioxus-shadcn-cli/templates/textarea.rs | src/components/ui/textarea.rs | rust | 47 | 1563 |
+| [Theme Controller](theme-controller.md) | /components/theme-controller/source | crates/dioxus-shadcn-cli/templates/theme_controller.rs | src/components/ui/theme_controller.rs | rust | 158 | 5567 |
 | [Timeline](timeline.md) | /components/timeline/source | crates/dioxus-shadcn-cli/templates/timeline.rs | src/components/ui/timeline.rs | rust | 127 | 5177 |
 | [Toast](toast.md) | /components/toast/source | crates/dioxus-shadcn-cli/templates/toast.rs | src/components/ui/toast.rs | rust | 370 | 10722 |
 | [Toggle](toggle.md) | /components/toggle/source | crates/dioxus-shadcn-cli/templates/toggle.rs | src/components/ui/toggle.rs | rust | 84 | 2373 |

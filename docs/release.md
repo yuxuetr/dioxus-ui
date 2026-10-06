@@ -561,9 +561,9 @@ templates and an added `nord` preset.
   semantic color tokens (see RFC 0051), which crate-mode apps must define;
   the Checkbox marks follow the default light and dark
   `--primary-foreground` only. The dark theme is an opt-in `.dark`
-  class that redefines only the tokens (see RFC 0047 and RFC 0051); a
-  system-preference default is not included, and app palette classes do not
-  follow it. Pagination content wraps in narrow containers (see
+  class that redefines only the tokens (see RFC 0047 and RFC 0051);
+  `ThemeController` defaults it to the system preference and remembers the
+  choice (see RFC 0071), and app palette classes do not follow it. Pagination content wraps in narrow containers (see
   RFC 0048); a Pagination that drops pages to fit is not included. The
   previews link a committed compiled stylesheet (see RFC 0049) that must be
   regenerated with `npm run css:preview` after class changes; dioxus-shadcn

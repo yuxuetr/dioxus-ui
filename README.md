@@ -7,7 +7,7 @@
 - a CLI that copies component source into user projects
 - a packaged crate for users who prefer dependency-based usage
 
-It ships 79 components, the `dxui` CLI, and a
+It ships 80 components, the `dxui` CLI, and a
 [component site](https://yuxuetr.github.io/dioxus-ui/). Version 0.2.0 is
 on crates.io as [`dioxus-shadcn`](https://crates.io/crates/dioxus-shadcn) and
 [`dioxus-shadcn-cli`](https://crates.io/crates/dioxus-shadcn-cli).
@@ -180,7 +180,7 @@ use dioxus_shadcn::{Button, DialogContent, DialogTitle, Input};
 
 ## Component Scope
 
-The 79 components are listed in
+The 80 components are listed in
 [docs/components/catalog.md](docs/components/catalog.md) and by `dxui list`.
 Known pre-1.0 limitations are in
 [docs/release.md](docs/release.md#known-pre-10-limitations).
@@ -317,6 +317,7 @@ only.
 - [RFC 0068: Modal Scroll Lock](docs/rfcs/0068-modal-scroll-lock.md)
 - [RFC 0069: Off-Canvas Sidebar and Shortcut](docs/rfcs/0069-off-canvas-sidebar.md)
 - [RFC 0070: Range Slider](docs/rfcs/0070-range-slider.md)
+- [RFC 0071: Theme Controller](docs/rfcs/0071-theme-controller.md)
 
 ## Verification Shortcuts
 

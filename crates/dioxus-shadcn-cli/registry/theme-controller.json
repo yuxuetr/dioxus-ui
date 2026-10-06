@@ -1,0 +1,14 @@
+{
+  "name": "theme-controller",
+  "description": "Applies, follows, and remembers the color theme on the document root.",
+  "files": [
+    {
+      "source": "templates/theme_controller.rs",
+      "target": "src/components/ui/theme_controller.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

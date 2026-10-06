@@ -743,6 +743,9 @@ pub use dioxus_shadcn_core::UiDensity;
 #[cfg(feature = "fab")]
 pub mod fab;
 
+#[cfg(feature = "theme-controller")]
+pub mod theme_controller;
+
 #[cfg(feature = "dock")]
 pub mod dock;
 
@@ -932,3 +935,5 @@ pub use fab::{
   FAB_BASE_CLASS, FAB_FIXED_CLASS, FAB_STATIC_CLASS, FAB_TRIGGER_CLASS, Fab, FabAction,
   fab_action_class, fab_class,
 };
+#[cfg(feature = "theme-controller")]
+pub use theme_controller::{THEME_STORAGE_KEY, Theme, ThemeController, theme_init_script};

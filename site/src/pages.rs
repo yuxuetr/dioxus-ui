@@ -174,10 +174,12 @@ pub fn Theming() -> Element {
         code { class: INLINE_CODE, "dxui theme add" }
         " appends them to the stylesheet; each is one "
         code { class: INLINE_CODE, "[data-theme]" }
-        " rule, so setting the attribute themes that element's subtree. The theme menu in this site's header does the same."
+        " rule, so setting the attribute themes that element's subtree. "
+        code { class: INLINE_CODE, "ThemeController" }
+        " sets it on the page root, follows the system's light or dark scheme by default, and remembers the choice; this site's header menu uses it."
       }
       CodeBlock {
-        code: "dxui theme add nord dracula\n\n// main.rs\ndiv { \"data-theme\": \"nord\", class: \"min-h-screen bg-background text-foreground\", App {} }"
+        code: "dxui theme add nord dracula\n\n// main.rs\nlet mut theme = use_signal(|| Theme::System);\nrsx! {\n  ThemeController { theme: theme(), on_theme_change: move |stored| theme.set(stored) }\n  // theme.set(Theme::Preset(\"nord\".into())) from any control\n  App {}\n}"
           .to_string()
       }
       ul { class: "mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3", "data-site-presets": "",

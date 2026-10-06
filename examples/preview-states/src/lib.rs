@@ -77,6 +77,7 @@ use dioxus_shadcn::{
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarItem, SidebarTrigger,
 };
 use dioxus_shadcn::{Swap, SwapEffect};
+use dioxus_shadcn::{Theme, ThemeController};
 pub use self_test::{INTERACTION_SELF_TEST_SCRIPT, InteractionSelfTest};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -720,6 +721,14 @@ pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
     notes: "Rendered target exists; renderer behavior needs separate runtime verification.",
   },
   ComponentPreviewTarget {
+    component: "theme-controller",
+    label: "Theme Controller",
+    panel: "actions",
+    test_id: "component-preview-theme-controller",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
+  },
+  ComponentPreviewTarget {
     component: "toggle",
     label: "Toggle",
     panel: "actions",
@@ -961,6 +970,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut carousel_state = use_signal(|| CarouselState::new(0, 3));
   let mut shell_collapsed = use_signal(|| false);
   let mut price = use_signal(|| (20.0, 80.0));
+  let mut chosen_theme = use_signal(|| Theme::System);
+  let mut controller_mounted = use_signal(|| true);
   let mut shell_mobile_open = use_signal(|| false);
   let mut sidebar_collapsed = use_signal(|| false);
   let mut sidebar_section = use_signal(|| "inbox");
@@ -2519,6 +2530,41 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 min_size: 20.0,
                 max_size: 80.0,
                 "Editor"
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "theme-controller",
+            "data-theme-choice": "{chosen_theme().as_str()}",
+            h2 { class: "text-sm font-medium", "Theme controller interaction" }
+            if controller_mounted() {
+              ThemeController {
+                theme: chosen_theme(),
+                storage_key: "dxui-preview-theme",
+                on_theme_change: move |stored| chosen_theme.set(stored),
+              }
+            }
+            div { class: "mt-3 flex flex-wrap gap-2",
+              for (option, label) in [
+                (Theme::System, "System"),
+                (Theme::Light, "Light"),
+                (Theme::Dark, "Dark"),
+                (Theme::Preset("nord".to_string()), "Nord"),
+              ]
+              {
+                button {
+                  key: "{label}",
+                  class: "{secondary_button_class}",
+                  "aria-pressed": "{chosen_theme() == option}",
+                  onclick: move |_| chosen_theme.set(option.clone()),
+                  "{label}"
+                }
+              }
+              button {
+                class: "{secondary_button_class}",
+                onclick: move |_| controller_mounted.toggle(),
+                if controller_mounted() { "Unmount controller" } else { "Mount controller" }
               }
             }
           }

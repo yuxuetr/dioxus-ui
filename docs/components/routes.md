@@ -11,7 +11,7 @@ It does not create rendered routes, router code, screenshots, or generated JSON.
 For source preview route metadata, see the
 [Source Preview Manifest](source-preview.md).
 
-Component routes: 79
+Component routes: 80
 Category routes: 8
 
 ## Top-level Routes
@@ -113,6 +113,7 @@ Category routes: 8
 | [Tabs](tabs.md) | /components/tabs | docs/components/tabs.md | /components#category-navigation | /components/tabs/source |
 | [Tags Input](tags-input.md) | /components/tags-input | docs/components/tags-input.md | /components#category-forms | /components/tags-input/source |
 | [Textarea](textarea.md) | /components/textarea | docs/components/textarea.md | /components#category-forms | /components/textarea/source |
+| [Theme Controller](theme-controller.md) | /components/theme-controller | docs/components/theme-controller.md | /components#category-actions | /components/theme-controller/source |
 | [Timeline](timeline.md) | /components/timeline | docs/components/timeline.md | /components#category-data-display | /components/timeline/source |
 | [Toast](toast.md) | /components/toast | docs/components/toast.md | /components#category-feedback | /components/toast/source |
 | [Toggle](toggle.md) | /components/toggle | docs/components/toggle.md | /components#category-actions | /components/toggle/source |

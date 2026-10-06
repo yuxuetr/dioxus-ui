@@ -1926,6 +1926,39 @@ async function runBrowserAssertions() {
     await page.mouse.up();
     await expect(resizeHandle).toBeFocused();
 
+    const themeFixture = page.locator('[data-interaction-target="theme-controller"]');
+    const themeButton = (name) => themeFixture.getByRole("button", { name, exact: true });
+    const htmlRoot = page.locator("html");
+    const storedTheme = () => page.evaluate(() => window.localStorage.getItem("dxui-preview-theme"));
+    await themeButton("Dark").evaluate((element) => element.scrollIntoView({ block: "center" }));
+    // System follows the color scheme, live.
+    await page.emulateMedia({ colorScheme: "dark" });
+    await expect(htmlRoot).toHaveClass(/\bdark\b/);
+    await page.emulateMedia({ colorScheme: "light" });
+    await expect(htmlRoot).not.toHaveClass(/\bdark\b/);
+    // Each theme lands on the root and in storage.
+    await themeButton("Dark").click();
+    await expect(htmlRoot).toHaveClass(/\bdark\b/);
+    await expect.poll(storedTheme).toBe("dark");
+    await themeButton("Nord").click();
+    await expect(htmlRoot).toHaveAttribute("data-theme", "nord");
+    await expect(htmlRoot).not.toHaveClass(/\bdark\b/);
+    await expect.poll(storedTheme).toBe("nord");
+    await themeButton("Light").click();
+    await expect(htmlRoot).not.toHaveAttribute("data-theme");
+    await expect(htmlRoot).not.toHaveClass(/\bdark\b/);
+    // A controller mounting with a stored theme applies and reports it.
+    await themeButton("Unmount controller").click();
+    await page.evaluate(() => window.localStorage.setItem("dxui-preview-theme", "dark"));
+    await themeButton("Mount controller").click();
+    await expect(themeFixture).toHaveAttribute("data-theme-choice", "dark");
+    await expect(htmlRoot).toHaveClass(/\bdark\b/);
+    await expect(themeButton("Dark")).toHaveAttribute("aria-pressed", "true");
+    // Back to the system scheme for the checks that follow.
+    await themeButton("System").click();
+    await expect(htmlRoot).not.toHaveClass(/\bdark\b/);
+    await page.evaluate(() => window.localStorage.removeItem("dxui-preview-theme"));
+
     const range = page.locator('[data-interaction-target="range-slider"]');
     const rangeGroup = range.getByRole("group", { name: "Price", exact: true });
     const lowThumb = range.getByRole("slider", { name: "Minimum", exact: true });
@@ -2519,7 +2552,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (50 fixtures)");
+  console.log("runtime interaction verification passed (51 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

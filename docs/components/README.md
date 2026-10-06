@@ -203,6 +203,7 @@ dioxus-shadcn = { version = "0.2", default-features = false, features = ["button
 | [Tabs](tabs.md) | `dxui add tabs` | `tabs` | Controlled styled parts |
 | [Tags Input](tags-input.md) | `dxui add tags-input` | `tags-input` | Removable tag chips with a text input |
 | [Textarea](textarea.md) | `dxui add textarea` | `textarea` | Styled |
+| [Theme Controller](theme-controller.md) | `dxui add theme-controller` | `theme-controller` | Applied, system-following, remembered color theme |
 | [Timeline](timeline.md) | `dxui add timeline` | `timeline` | Ordered event timeline parts |
 | [Toggle](toggle.md) | `dxui add toggle` | `toggle` | Controlled styled part |
 | [Toggle Group](toggle-group.md) | `dxui add toggle-group` | `toggle-group` | Primitive-backed styled parts |

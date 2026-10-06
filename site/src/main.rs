@@ -9,7 +9,7 @@ mod themes;
 use dioxus::prelude::*;
 use dioxus_shadcn::{
   Button, ButtonSize, ButtonVariant, NativeSelect, NativeSelectGroup, NativeSelectOption,
-  SheetContent, SheetOverlay, SheetSide, SheetTitle, Toggle,
+  SheetContent, SheetOverlay, SheetSide, SheetTitle, Theme, ThemeController,
 };
 use pages::{ComponentPage, GettingStarted, Home, NotFound, Theming};
 
@@ -37,12 +37,6 @@ fn main() {
 
 #[component]
 fn App() -> Element {
-  // dx's page template has no `lang`, which assistive technology needs to
-  // pick a voice; the site is English.
-  use_effect(|| {
-    document::eval("document.documentElement.lang = 'en';");
-  });
-
   rsx! {
     document::Title { "dioxus-shadcn" }
     document::Stylesheet { href: SITE_CSS }
@@ -50,22 +44,20 @@ fn App() -> Element {
   }
 }
 
-/// The header, the catalog sidebar, and the routed page. The site starts in
-/// the light theme; the header toggle adds the opt-in `dark` class, and the
-/// theme menu sets `data-theme` to a preset (RFC 0057), which brings its own
-/// color scheme, so the toggle is off while a preset is chosen.
+/// The header, the catalog sidebar, and the routed page. The theme menu picks
+/// the system scheme, light, dark, or a preset (RFC 0057), which the
+/// `ThemeController` applies to the document root and remembers (RFC 0071);
+/// pages read and set the same theme through context.
 #[component]
 fn Shell() -> Element {
-  let mut dark_theme = use_signal(|| false);
-  let mut preset = use_signal(String::new);
+  let mut theme = use_context_provider(|| Signal::new(Theme::System));
   let mut menu_open = use_signal(|| false);
-  let theme_class = if dark_theme() && preset().is_empty() { "dark " } else { "" };
 
   rsx! {
+    ThemeController { theme: theme(), on_theme_change: move |stored| theme.set(stored) }
     div {
-      class: "{theme_class}min-h-screen bg-background text-foreground",
+      class: "min-h-screen bg-background text-foreground",
       "data-site-root": "",
-      "data-theme": preset(),
       header { class: "sticky top-0 z-40 border-b border-border bg-background",
         div { class: "mx-auto flex h-14 max-w-6xl items-center gap-3 px-4",
           Button {
@@ -88,30 +80,36 @@ fn Shell() -> Element {
           }
           div { class: "ml-auto flex items-center gap-2",
             NativeSelect {
-              id: "site-theme-preset",
+              id: "site-theme",
               class: "h-8 w-32",
               "aria-label": "Theme",
-              on_value_change: move |value| preset.set(value),
-              NativeSelectOption { value: "", selected: preset().is_empty(), "Default" }
-              for (label, dark) in [("Light presets", false), ("Dark presets", true)] {
-                NativeSelectGroup { key: "{label}", label,
-                  for theme in themes::THEMES.iter().filter(|theme| theme.dark == dark) {
-                    NativeSelectOption {
-                      key: "{theme.name}",
-                      value: theme.name,
-                      selected: preset() == theme.name,
-                      "{theme.title}"
+              on_value_change: move |value: String| theme.set(Theme::parse(&value)),
+              NativeSelectGroup { label: "Default",
+                for option in [Theme::System, Theme::Light, Theme::Dark] {
+                  NativeSelectOption {
+                    key: "{option.as_str()}",
+                    value: option.as_str().to_string(),
+                    selected: theme() == option,
+                    match option {
+                      Theme::Light => "Light",
+                      Theme::Dark => "Dark",
+                      _ => "System",
                     }
                   }
                 }
               }
-            }
-            Toggle {
-              id: "site-theme-toggle",
-              pressed: dark_theme() && preset().is_empty(),
-              disabled: !preset().is_empty(),
-              on_pressed_change: move |pressed| dark_theme.set(pressed),
-              "Dark theme"
+              for (label, dark) in [("Light presets", false), ("Dark presets", true)] {
+                NativeSelectGroup { key: "{label}", label,
+                  for preset in themes::THEMES.iter().filter(|preset| preset.dark == dark) {
+                    NativeSelectOption {
+                      key: "{preset.name}",
+                      value: preset.name,
+                      selected: theme().as_str() == preset.name,
+                      "{preset.title}"
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -165,5 +163,20 @@ fn SiteNav() -> Element {
         }
       }
     }
+  }
+}
+
+#[cfg(test)]
+mod tests {
+  use dioxus_shadcn::{THEME_STORAGE_KEY, theme_init_script};
+
+  #[test]
+  fn page_template_applies_the_stored_theme_before_the_app_loads() {
+    let template = include_str!("../index.html");
+
+    assert!(
+      template.contains(&format!("<script>{}</script>", theme_init_script(THEME_STORAGE_KEY)))
+    );
+    assert!(template.contains(r#"<html lang="en">"#));
   }
 }

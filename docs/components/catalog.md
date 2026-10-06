@@ -10,7 +10,7 @@ The catalog is derived from registry entries, templates, component docs,
 crate features, and crate modules. It intentionally does not include visual
 preview routes, screenshot artifacts, or generated JSON metadata.
 
-Public components: 79
+Public components: 80
 
 ## Groups
 
@@ -22,6 +22,7 @@ Public components: 79
 - [Fab](fab.md): Styled floating action button with an optional speed dial.
 - [Kbd](kbd.md): Styled keyboard shortcut hint.
 - [Swap](swap.md): Styled toggle button that swaps between two elements.
+- [Theme Controller](theme-controller.md): Applies, follows, and remembers the color theme on the document root.
 - [Toggle](toggle.md): Toggle component for controlled pressed button states.
 - [Toggle Group](toggle-group.md): Toggle Group component for grouped single or multiple pressed states.
 
@@ -194,6 +195,7 @@ Public components: 79
 | [Tabs](tabs.md) | Tabs components with controlled active state. | `dxui add tabs` | `tabs` | `crates/dioxus-shadcn-cli/templates/tabs.rs` | `src/components/ui/tabs.rs` |
 | [Tags Input](tags-input.md) | Styled tag list with removable chips and a text input. | `dxui add tags-input` | `tags-input` | `crates/dioxus-shadcn-cli/templates/tags_input.rs` | `src/components/ui/tags_input.rs` |
 | [Textarea](textarea.md) | Textarea component with disabled and invalid states. | `dxui add textarea` | `textarea` | `crates/dioxus-shadcn-cli/templates/textarea.rs` | `src/components/ui/textarea.rs` |
+| [Theme Controller](theme-controller.md) | Applies, follows, and remembers the color theme on the document root. | `dxui add theme-controller` | `theme-controller` | `crates/dioxus-shadcn-cli/templates/theme_controller.rs` | `src/components/ui/theme_controller.rs` |
 | [Timeline](timeline.md) | Styled ordered timeline with time, marker, and content parts. | `dxui add timeline` | `timeline` | `crates/dioxus-shadcn-cli/templates/timeline.rs` | `src/components/ui/timeline.rs` |
 | [Toast](toast.md) | Controlled toast notification parts and queue helpers. | `dxui add toast` | `toast` | `crates/dioxus-shadcn-cli/templates/toast.rs` | `src/components/ui/toast.rs` |
 | [Toggle](toggle.md) | Toggle component for controlled pressed button states. | `dxui add toggle` | `toggle` | `crates/dioxus-shadcn-cli/templates/toggle.rs` | `src/components/ui/toggle.rs` |

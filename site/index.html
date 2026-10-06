@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>dioxus-shadcn</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <!-- theme_init_script(THEME_STORAGE_KEY) (RFC 0071): applies the stored theme before the app loads. -->
+    <script>(() => { try { const t = localStorage.getItem("dxui-theme") || "system"; const r = document.documentElement; const p = !["system", "light", "dark"].includes(t); if (p) r.dataset.theme = t; r.classList.toggle("dark", !p && (t === "dark" || (t === "system" && matchMedia("(prefers-color-scheme: dark)").matches))); } catch {} })();</script>
+  </head>
+  <body>
+    <div id="main"></div>
+  </body>
+</html>

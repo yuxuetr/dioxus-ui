@@ -10,6 +10,12 @@ for commit messages.
 
 ### Added
 
+- Theme Controller ([RFC 0071](docs/rfcs/0071-theme-controller.md)), the
+  80th component: `ThemeController` applies `Theme::System`, `Light`,
+  `Dark`, or a preset to the document root, follows the system scheme by
+  default, remembers the choice in `localStorage`, and reports a stored
+  theme on mount; `theme_init_script` applies it before first paint. The
+  component site uses it and keeps the theme across visits.
 - `DropdownCheckboxItem`, `DropdownRadioGroup`, `DropdownRadioItem`, and
   `DropdownShortcut`, as Context Menu and Menubar have, and `inset` on
   `DropdownItem` to line plain items up with them.
@@ -37,6 +43,9 @@ for commit messages.
 
 ### Changed
 
+- The component site's header theme menu offers System, Light, Dark, and the
+  presets, replacing the separate dark toggle, and applies them to the
+  document root.
 - The menu and list script reads only each menu's own items, ignores keys
   from a nested menu, and stops when an ancestor is hidden, for Select,
   Combobox, and Command as well as menus.
