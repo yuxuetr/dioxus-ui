@@ -104,7 +104,7 @@ const categoryLabels = new Map(catalogCategories.map((category) => [category.id,
 const cliRoot = "crates/dioxus-shadcn-cli";
 
 // Crate source files that are not public components.
-const internalCrateModules = new Set(["lib", "modal_focus", "anchored_overlay", "dismiss_timer", "listbox", "roving_group", "hover_open", "default_attribute", "dialog_labels", "menu_marks", "menu_sub"]);
+const internalCrateModules = new Set(["lib", "modal_focus", "anchored_overlay", "dismiss_timer", "listbox", "roving_group", "hover_open", "default_attribute", "dialog_labels", "menu_marks", "menu_sub", "media_query"]);
 
 function namesFromFiles(repoRoot, dir, extension) {
   return readdirSync(join(repoRoot, dir))

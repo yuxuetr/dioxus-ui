@@ -538,8 +538,8 @@ templates and an added `nord` preset.
   SSR (see RFC 0035). Resizable handles report keyboard and pointer resizes
   through `on_resize` (see RFC 0036); right-to-left groups and keyboard
   collapse are not included. Sidebar triggers report toggles and items render
-  links or buttons with `aria-current` (see RFC 0037); keyboard shortcuts and
-  mobile off-canvas behavior are not included. Radio Group, Progress, the Select
+  links or buttons with `aria-current` (see RFC 0037); an opt-in off-canvas
+  panel and keyboard shortcut follow the viewport (see RFC 0069). Radio Group, Progress, the Select
   trigger, and the Combobox input pass through naming attributes (see RFC
   0038); the other parts of those components do not. Dialog, Alert Dialog,
   Sheet, Drawer, and Popover content take their names from their titles (see

@@ -79,7 +79,8 @@ pub mod dialog;
   feature = "date-picker",
   feature = "dialog",
   feature = "drawer",
-  feature = "sheet"
+  feature = "sheet",
+  feature = "sidebar"
 ))]
 mod modal_focus;
 
@@ -121,6 +122,9 @@ mod menu_marks;
 #[cfg(any(feature = "context-menu", feature = "dropdown", feature = "menubar"))]
 mod menu_sub;
 
+#[cfg(feature = "sidebar")]
+mod media_query;
+
 #[cfg(any(feature = "sonner", feature = "toast"))]
 mod dismiss_timer;
 
@@ -130,7 +134,8 @@ mod dismiss_timer;
   feature = "message-scroller",
   feature = "pagination",
   feature = "scroll-area",
-  feature = "select"
+  feature = "select",
+  feature = "sidebar"
 ))]
 mod default_attribute;
 
@@ -680,12 +685,13 @@ pub use sheet::{
 pub use sidebar::{
   SIDEBAR_BASE_CLASS, SIDEBAR_CONTENT_BASE_CLASS, SIDEBAR_FOOTER_BASE_CLASS,
   SIDEBAR_GROUP_BASE_CLASS, SIDEBAR_GROUP_LABEL_BASE_CLASS, SIDEBAR_HEADER_BASE_CLASS,
-  SIDEBAR_ITEM_BASE_CLASS, SIDEBAR_RAIL_BASE_CLASS, SIDEBAR_TRIGGER_BASE_CLASS, Sidebar,
+  SIDEBAR_ITEM_BASE_CLASS, SIDEBAR_MOBILE_PANEL_CLASS, SIDEBAR_MOBILE_QUERY,
+  SIDEBAR_OVERLAY_BASE_CLASS, SIDEBAR_RAIL_BASE_CLASS, SIDEBAR_TRIGGER_BASE_CLASS, Sidebar,
   SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarItem,
   SidebarRail, SidebarSide, SidebarState, SidebarTrigger, sidebar_class, sidebar_content_class,
   sidebar_footer_class, sidebar_group_class, sidebar_group_label_class, sidebar_header_class,
-  sidebar_item_class, sidebar_rail_class, sidebar_side_attribute, sidebar_toggle,
-  sidebar_trigger_class,
+  sidebar_item_class, sidebar_mobile_class, sidebar_mobile_panel_class, sidebar_overlay_class,
+  sidebar_rail_class, sidebar_side_attribute, sidebar_toggle, sidebar_trigger_class,
 };
 #[cfg(feature = "skeleton")]
 pub use skeleton::{SKELETON_BASE_CLASS, Skeleton, skeleton_class};

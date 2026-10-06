@@ -1926,6 +1926,56 @@ async function runBrowserAssertions() {
     await page.mouse.up();
     await expect(resizeHandle).toBeFocused();
 
+    const shell = page.locator('[data-interaction-target="sidebar-mobile"]');
+    const shellTrigger = shell.getByRole("button", { name: "Toggle navigation", exact: true });
+    const shellPanel = page.locator("#interaction-sidebar-mobile");
+    const shellOverlay = shell.locator('[aria-hidden="true"].fixed');
+    const shellDialog = shell.getByRole("dialog", { name: "Navigation", exact: true });
+    await shellTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    // Wide: an in-flow aside; the trigger and Ctrl+B collapse it.
+    await expect(shellPanel).toHaveAttribute("data-mobile", "false");
+    await expect(shellPanel).toBeVisible();
+    await expect(shellTrigger).toHaveAttribute("aria-expanded", "true");
+    await shellTrigger.click();
+    await expect(shell).toHaveAttribute("data-collapsed", "true");
+    await expect(shellTrigger).toHaveAttribute("aria-expanded", "false");
+    await page.keyboard.press("Control+b");
+    await expect(shell).toHaveAttribute("data-collapsed", "false");
+    await expect(shell).toHaveAttribute("data-mobile-open", "false");
+    // Narrow: off-canvas, opened as a modal panel over an overlay.
+    await page.setViewportSize({ width: 375, height: 800 });
+    await expect(shellPanel).toHaveAttribute("data-mobile", "true");
+    await expect(shellPanel).toBeHidden();
+    await expect(shellTrigger).toHaveAttribute("aria-expanded", "false");
+    await shellTrigger.click();
+    await expect(shell).toHaveAttribute("data-mobile-open", "true");
+    await expect(shellPanel).toBeVisible();
+    await expect(shellDialog).toHaveAttribute("aria-modal", "true");
+    await expect(shellTrigger).toHaveAttribute("aria-expanded", "true");
+    await expect(shellPanel.getByRole("button", { name: "Projects", exact: true })).toBeFocused();
+    await expect.poll(() => page.evaluate(() => document.documentElement.style.overflow)).toBe("hidden");
+    const panelBox = await shellDialog.boundingBox();
+    expect(panelBox.x).toBe(0);
+    await expectAccessibleOpen(page, "open off-canvas sidebar");
+    await page.keyboard.press("Escape");
+    await expect(shellPanel).toBeHidden();
+    await expect(shell).toHaveAttribute("data-mobile-open", "false");
+    await expect(shellTrigger).toBeFocused();
+    await expect.poll(() => page.evaluate(() => document.documentElement.style.overflow)).toBe("");
+    await shellTrigger.click();
+    await expect(shellPanel).toBeVisible();
+    await shellOverlay.click({ position: { x: 360, y: 400 } });
+    await expect(shellPanel).toBeHidden();
+    // Ctrl+B opens and closes the off-canvas panel, not the collapse.
+    await page.keyboard.press("Control+b");
+    await expect(shellPanel).toBeVisible();
+    await page.keyboard.press("Control+b");
+    await expect(shellPanel).toBeHidden();
+    await expect(shell).toHaveAttribute("data-collapsed", "false");
+    await page.setViewportSize(viewport);
+    await expect(shellPanel).toHaveAttribute("data-mobile", "false");
+    await expect(shellPanel).toBeVisible();
+
     const sidebar = page.locator('[data-interaction-target="sidebar"]');
     const sidebarTrigger = sidebar.getByRole("button", { name: "Toggle sidebar", exact: true });
     const sidebarLandmark = sidebar.getByRole("complementary", { name: "Workspace", exact: true });
@@ -2420,7 +2470,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (48 fixtures)");
+  console.log("runtime interaction verification passed (49 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

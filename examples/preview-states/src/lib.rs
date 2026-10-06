@@ -958,6 +958,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut last_part_action = use_signal(String::new);
   let mut part_form_submits = use_signal(|| 0);
   let mut carousel_state = use_signal(|| CarouselState::new(0, 3));
+  let mut shell_collapsed = use_signal(|| false);
+  let mut shell_mobile_open = use_signal(|| false);
   let mut sidebar_collapsed = use_signal(|| false);
   let mut sidebar_section = use_signal(|| "inbox");
   let mut sidebar_disabled_clicks = use_signal(|| 0);
@@ -2515,6 +2517,34 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 min_size: 20.0,
                 max_size: 80.0,
                 "Editor"
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "sidebar-mobile",
+            "data-collapsed": "{shell_collapsed}",
+            "data-mobile-open": "{shell_mobile_open}",
+            h2 { class: "text-sm font-medium", "Off-canvas sidebar interaction" }
+            SidebarTrigger {
+              "aria-controls": "interaction-sidebar-mobile",
+              collapsed: shell_collapsed(),
+              on_collapsed_change: move |next| shell_collapsed.set(next),
+              mobile_open: shell_mobile_open(),
+              on_mobile_open_change: move |next| shell_mobile_open.set(next),
+              "Toggle navigation"
+            }
+            Sidebar {
+              id: "interaction-sidebar-mobile",
+              "aria-label": "Navigation",
+              collapsed: shell_collapsed(),
+              on_collapsed_change: move |next| shell_collapsed.set(next),
+              mobile_open: shell_mobile_open(),
+              on_mobile_open_change: move |next| shell_mobile_open.set(next),
+              shortcut: 'b',
+              SidebarContent {
+                SidebarItem { onclick: move |_| shell_mobile_open.set(false), "Projects" }
+                SidebarItem { onclick: move |_| shell_mobile_open.set(false), "Reports" }
               }
             }
           }

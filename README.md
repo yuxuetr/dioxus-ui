@@ -315,6 +315,7 @@ only.
 - [RFC 0066: Template Parity](docs/rfcs/0066-template-parity.md)
 - [RFC 0067: Menu Submenus](docs/rfcs/0067-menu-submenus.md)
 - [RFC 0068: Modal Scroll Lock](docs/rfcs/0068-modal-scroll-lock.md)
+- [RFC 0069: Off-Canvas Sidebar and Shortcut](docs/rfcs/0069-off-canvas-sidebar.md)
 
 ## Verification Shortcuts
 

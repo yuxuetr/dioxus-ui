@@ -22,6 +22,11 @@ for commit messages.
   ([RFC 0068](docs/rfcs/0068-modal-scroll-lock.md)): the page stops
   scrolling while one is open, with the scrollbar's width kept as padding,
   and nested modals share the lock.
+- Off-canvas Sidebar and shortcut
+  ([RFC 0069](docs/rfcs/0069-off-canvas-sidebar.md)): with
+  `on_mobile_open_change`, the Sidebar is a modal panel below 768px that
+  `SidebarTrigger` opens, and `shortcut` toggles it with Ctrl or Command;
+  `on_collapsed_change` on `Sidebar` serves the shortcut on wide viewports.
 
 ### Changed
 
