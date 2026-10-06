@@ -58,7 +58,7 @@ members = [
 ]
 
 [workspace.package]
-version = "0.3.0"
+version = "0.4.0"
 edition = "2024"
 license = "MIT"
 repository = "https://github.com/yuxuetr/dioxus-ui"
@@ -68,17 +68,18 @@ categories = ["gui", "web-programming"]
 
 [workspace.dependencies]
 dioxus = "0.7"
-dioxus-shadcn-core = { version = "0.3.0", path = "crates/dioxus-shadcn-core" }
-dioxus-shadcn-primitives = { version = "0.3.0", path = "crates/dioxus-shadcn-primitives" }
-dioxus-shadcn = { version = "0.3.0", path = "crates/dioxus-shadcn" }
+dioxus-shadcn-core = { version = "0.4.0", path = "crates/dioxus-shadcn-core" }
+dioxus-shadcn-primitives = { version = "0.4.0", path = "crates/dioxus-shadcn-primitives" }
+dioxus-shadcn = { version = "0.4.0", path = "crates/dioxus-shadcn" }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 ```
 
 The repository URL has been approved for first publish preparation.
 The shared README, keywords, and categories are publish metadata. 0.1.0 and 0.2.0
-were published on 2026-10-05. APIs are still pre-1.0; breaking changes bump
-the minor version, and the current `0.3.x` surface is accepted.
+were published on 2026-10-05 and 0.3.0 on 2026-10-06. APIs are still pre-1.0;
+breaking changes bump the minor version, and the current `0.4.x` surface is
+accepted.
 
 Publishable crate manifests under `crates/` should keep crate-specific
 descriptions and inherit shared workspace publish metadata. Example and

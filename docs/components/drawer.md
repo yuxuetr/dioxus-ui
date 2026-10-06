@@ -13,7 +13,7 @@ dxui add drawer
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.3", default-features = false, features = ["drawer"] }
+dioxus-shadcn = { version = "0.4", default-features = false, features = ["drawer"] }
 ```
 
 ## API Surface

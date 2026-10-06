@@ -12,7 +12,7 @@ dxui add radio-group
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.3", default-features = false, features = ["radio-group"] }
+dioxus-shadcn = { version = "0.4", default-features = false, features = ["radio-group"] }
 ```
 
 ## API Surface

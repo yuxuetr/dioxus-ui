@@ -7,7 +7,7 @@
 - source-copy mode through `dxui add`
 - crate mode through `dioxus-shadcn` feature flags
 
-Both modes ship in 0.1.0, 0.2.0, and 0.3.0. The `0.3.x` API surface is accepted;
+Both modes ship in 0.1.0, 0.2.0, and 0.3.0. The `0.4.x` API surface is accepted;
 before `1.0`, a breaking change bumps the minor version and comes with a
 changelog migration note.
 
@@ -37,7 +37,7 @@ The styled crate should keep `default = []`.
 Users opt into components:
 
 ```toml
-dioxus-shadcn = { version = "0.3", default-features = false, features = ["button", "dialog"] }
+dioxus-shadcn = { version = "0.4", default-features = false, features = ["button", "dialog"] }
 ```
 
 Feature names should match registry names where possible:
@@ -88,6 +88,23 @@ Patch releases should be limited to:
 - documentation corrections
 - non-breaking class additions
 - registry metadata fixes
+
+Before each release, compare the three library crates with the last
+published version, here 0.3.0, after the version bump:
+
+```bash
+cargo binstall cargo-semver-checks   # once
+for crate in dioxus-shadcn-core dioxus-shadcn-primitives dioxus-shadcn; do
+  cargo semver-checks -p "$crate" --baseline-version 0.3.0 --all-features --release-type minor
+done
+```
+
+`--release-type minor` runs the breaking-change lints even though a pre-1.0
+minor bump allows breaking changes; without it every lint is skipped. Each
+finding goes in the changelog's Migration section. The check compares crate
+APIs only: copy-mode changes such as template files and the `dxui` command
+line need their own notes. For 0.3.0 it found new props fields in
+`dioxus-shadcn`; for 0.4.0 it found none.
 
 ## Release Gates
 

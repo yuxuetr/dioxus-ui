@@ -11,7 +11,7 @@ dxui add input
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.3", default-features = false, features = ["input"] }
+dioxus-shadcn = { version = "0.4", default-features = false, features = ["input"] }
 ```
 
 ## API Surface

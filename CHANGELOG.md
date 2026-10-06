@@ -8,6 +8,15 @@ for commit messages.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-10-06
+
+Version 0.4.0 makes copy mode clean: a copied component brings only the
+helpers it uses and builds without warnings, and the CLI says what it did
+with each file and what changed since an app copied a component. The crates'
+APIs are unchanged; `cargo-semver-checks` against 0.3.0 found no breaking
+change in `dioxus-shadcn-core`, `dioxus-shadcn-primitives`, or
+`dioxus-shadcn`. Apps that copied components with 0.3 should read Migration.
+
 ### Added
 
 - `dxui add` takes several names, components and blocks alike, as in
@@ -27,10 +36,11 @@ for commit messages.
   `modal_focus.rs`, instead of one 1435-line `utils.rs`
   ([RFC 0074](docs/rfcs/0074-helper-templates.md)). `utils.rs` keeps
   `classes` and `UiDensity`. `dxui add button` now copies `button.rs` and a
-  27-line `utils.rs`, and a new app using it prints 3 warnings instead of 66.
+  27-line `utils.rs`.
 - `dxui init` starts `src/components/ui/mod.rs` with
   `#![allow(dead_code, unused_imports)]`, so an app that uses some variants,
-  props, and re-exports of a component builds without warnings.
+  props, and re-exports of a component builds without warnings; a new app
+  using Button printed 66 in 0.3.0.
 
 ### Fixed
 

@@ -11,7 +11,7 @@ dxui add skeleton
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.3", default-features = false, features = ["skeleton"] }
+dioxus-shadcn = { version = "0.4", default-features = false, features = ["skeleton"] }
 ```
 
 ## API Surface

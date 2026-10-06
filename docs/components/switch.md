@@ -11,7 +11,7 @@ dxui add switch
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.3", default-features = false, features = ["switch"] }
+dioxus-shadcn = { version = "0.4", default-features = false, features = ["switch"] }
 ```
 
 ## API Surface

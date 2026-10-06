@@ -321,4 +321,10 @@ Exit criteria:
   change
 - 0.4.0 release notes list each breaking change with a migration note
 
-Status: planned as M202 to M204 in `TODOs.md`.
+Status: M202 split the utils template into 13 helper templates
+([RFC 0074](rfcs/0074-helper-templates.md)) and made copied components build
+while denying warnings, through an allowance in the generated `ui/mod.rs` for
+the component API an app leaves unused. M203 added several names per
+`dxui add`, `dxui --version`, a per-file add report, and `dxui diff`. M204.1
+prepared 0.4.0, with `cargo-semver-checks` as a release step; publishing
+waits for the release owner.

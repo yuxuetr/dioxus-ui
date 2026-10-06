@@ -52,7 +52,7 @@ use components::ui::button::{Button, ButtonVariant};
 
 ```toml
 [dependencies]
-dioxus-shadcn = { version = "0.3", features = ["button", "dialog"] }
+dioxus-shadcn = { version = "0.4", features = ["button", "dialog"] }
 ```
 
 ```rust
@@ -78,7 +78,7 @@ cargo metadata --format-version 1 \
 
 ```css
 @import "tailwindcss";
-@source "/path/to/dioxus-shadcn-0.3.0/src";
+@source "/path/to/dioxus-shadcn-0.4.0/src";
 ```
 
 ## Theme

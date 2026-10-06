@@ -20,7 +20,7 @@ src/components/ui/native_select.rs
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.3", default-features = false, features = ["native-select"] }
+dioxus-shadcn = { version = "0.4", default-features = false, features = ["native-select"] }
 ```
 
 ```rust

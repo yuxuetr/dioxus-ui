@@ -20,7 +20,7 @@ src/components/ui/calendar.rs
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.3", default-features = false, features = ["calendar"] }
+dioxus-shadcn = { version = "0.4", default-features = false, features = ["calendar"] }
 ```
 
 ```rust
