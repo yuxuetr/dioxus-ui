@@ -7,14 +7,14 @@
 - source-copy mode through `dxui add`
 - crate mode through `dioxus-shadcn` feature flags
 
-Both modes ship in 0.1.0, 0.2.0, 0.3.0, and 0.4.0. The `0.4.x` API surface is accepted;
+Both modes ship in 0.1.0, 0.2.0, 0.3.0, 0.4.0, and 0.4.1. The `0.4.x` API surface is accepted;
 before `1.0`, a breaking change bumps the minor version and comes with a
 changelog migration note.
 
 ## Package Set
 
-Published crates (0.1.0 and 0.2.0 on crates.io since 2026-10-05, 0.3.0 and
-0.4.0 since 2026-10-06):
+Published crates (0.1.0 and 0.2.0 on crates.io since 2026-10-05, 0.3.0,
+0.4.0, and 0.4.1 since 2026-10-06):
 
 ```text
 dioxus-shadcn-core
@@ -104,7 +104,9 @@ minor bump allows breaking changes; without it every lint is skipped. Each
 finding goes in the changelog's Migration section. The check compares crate
 APIs only: copy-mode changes such as template files and the `dxui` command
 line need their own notes. For 0.3.0 it found new props fields in
-`dioxus-shadcn`; for 0.4.0 it found none.
+`dioxus-shadcn`; for 0.4.0 it found none. A patch release compares against
+the previous patch with `--release-type patch`; for 0.4.1 against 0.4.0 it
+found none.
 
 ## Release Gates
 

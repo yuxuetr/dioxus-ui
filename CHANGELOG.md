@@ -8,6 +8,10 @@ for commit messages.
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-10-06
+
+A CLI patch: no crate API or template changes.
+
 ### Changed
 
 - `dxui diff` without names checks every component and block declared in the
