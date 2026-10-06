@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 45% (5 of 11 tasks)
+- Overall: 55% (6 of 11 tasks)
 - Current milestone: M210 (component-owned state)
-- Current task: M210.2 (M208.3, the 0.4.3 publish, waits for the release owner)
+- Current task: M210.3 (M208.3, the 0.4.3 publish, waits for the release owner)
 
 ## Backup
 
@@ -64,9 +64,10 @@
   - An RFC for roots that own state through context: `default_value` for uncontrolled use, `value` with `on_value_change` for controlled use, `open` likewise for overlays, and ids and anchors from `next_element_id()`. Parts read the root; a part outside its root fails to compile or is documented as unsupported, not silently inert. Prototype Select and Tabs in the crate and templates.
   - Exit: the Select and Tabs doc examples have no `anchor_id`, no per-item `selected` or `active`, and one `open`; existing browser checks for both pass unchanged in behavior; SSR renders the same ids twice; the RFC lists every stateful component and the batch it moves in.
   - Done: RFC 0077; `Select` root (value or values, open, optional trigger `id` for a `Label`) and root-owned `Tabs`, through `use_controllable` in `root_state` (crate) and the `root-state` helper (copy mode). Parts outside their root panic with a message naming it; Dioxus 0.7 logs it and renders nothing for the part, which the tests assert. Site, settings block, and fixtures migrated; the fixtures cover controlled and uncontrolled. `verify:release`, `verify:browser-local`, and `verify:site` pass. The multiple Select browser check now waits for the list to be ready before its first key, as the single Select check did. Not run: the Desktop self-test fails at its `theme` scenario on this machine at `v0.4.2` too, because the system appearance is Dark, so no later scenario ran in Desktop; the iOS and Android self-tests were not run.
-- TODO M210.2 Move the overlay components
+- DONE M210.2 Move the overlay components
   - The overlays in the RFC's batch list (dialogs, sheets, drawers, popovers, menus, tooltips, hover cards, combobox, date picker, and the rest the RFC names) take the root-owned API.
   - Exit: their browser and SSR checks pass; the site and blocks use the new API; parity test passes.
+  - Done: roots with `open`, `default_open`, and `on_open_change` for Dialog, Alert Dialog, Sheet, Drawer, Popover, Tooltip, Hover Card, Fab, Dropdown, Context Menu, and Date Picker, through a shared `overlay_root` helper; new trigger parts (unstyled buttons that take `class`, recorded in RFC 0077) and a `ContextMenuTrigger` area. Menubar and Navigation Menu own the open item's `value`; menu radio groups (`menu_radio`) and submenus own their state; Combobox owns value(s) and open through a `choice` helper shared with Select. Date Picker keeps the date with the app and menu checkbox items keep `checked` (RFC keep table). Fixed in passing: `Controllable::get` returned a stale controlled value in event handlers (c294e5b; its message wrongly blames the menubar flake, which was a missing focus wait, fixed in 72ee72f). `verify:release`, `verify:runtime-interactions`, and `verify:site` pass; Desktop, iOS, and Android self-tests not run (Desktop blocked as in M210.1).
 - TODO M210.3 Move the group and disclosure components
   - The groups in the RFC's batch list (accordion, collapsible, radio group, toggle group, menubar, navigation menu, carousel, and the rest the RFC names) take the root-owned API.
   - Exit: as M210.2, and no crate module still takes a per-part state prop the RFC did not keep on purpose.
