@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0% (0 of 7 tasks)
+- Overall: 14% (1 of 7 tasks)
 - Current milestone: M202
-- Current task: M202.1
+- Current task: M202.2
 
 ## Backup
 
@@ -32,9 +32,10 @@
 
 ## M202 Copied Code
 
-- TODO M202.1 Split the utils template along crate module boundaries
+- DONE M202.1 Split the utils template along crate module boundaries
   - An RFC first. Each shared helper (class composition and attributes, anchored overlay, listbox, roving group, modal focus, dismiss timer, hover open, media query, submenus and menu marks, dialog labels) becomes its own template and registry entry, and each component depends on the ones it uses; `dxui add` copies dependencies transitively. The parity test compares each helper template with its crate module.
   - Exit: `dxui add button` copies `button.rs` and the base helper only; the generated fixture app with every component and block builds; an app holding a 0.3.0 `utils.rs` still builds after adding a component.
+  - Done: RFC 0074; 13 helper templates with entries in `helpers/`, and a registry test that each template's `super::` imports are dependencies and each helper dependency is imported (reverse-verified both ways). `dxui add button` copies `button.rs` and a 27-line `utils.rs`; a new app prints 3 warnings (Button and density variants) instead of 66. The fixture app builds; the 0.3.0 copy app from the registry check builds after adding dropdown, tooltip, and dialog, and `dxui add` prints a note about its old `utils.rs`, since old and new helper copies can pick the same element ids.
 - TODO M202.2 Copied components build without warnings
   - Exit: a new app that adds and uses one component builds with `RUSTFLAGS="-D warnings"`, checked for Button and for an overlay component in the generated fixture script, and the fixture app with every component and block builds with it too. Reverse-verify by reintroducing an unused helper.
 
