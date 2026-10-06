@@ -10,9 +10,11 @@ permissions:
   pages: write
   id-token: write
 
+# A newer push supersedes any deploy still waiting or running, so a run stuck
+# in the queue cannot hold back later ones.
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
