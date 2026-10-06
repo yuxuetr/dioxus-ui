@@ -1,0 +1,22 @@
+{
+  "name": "settings",
+  "description": "Settings page with profile and notification tabs, checked fields, and save and reset.",
+  "files": [
+    {
+      "source": "blocks/settings.rs",
+      "target": "src/blocks/settings.rs"
+    }
+  ],
+  "dependencies": [
+    "button",
+    "card",
+    "field",
+    "input",
+    "label",
+    "native-select",
+    "switch",
+    "tabs",
+    "textarea"
+  ],
+  "assets": []
+}

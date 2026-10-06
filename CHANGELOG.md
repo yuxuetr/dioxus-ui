@@ -14,7 +14,8 @@ for commit messages.
   whole screen to `src/blocks/` with the components it uses, and
   `dxui list blocks` lists them. `dashboard` is an app shell with an
   off-canvas sidebar, metrics, a chart, and an orders table; `login` is a
-  sign-in page with checked fields.
+  sign-in page with checked fields; `settings` is a tabbed settings page
+  with save and reset.
 - Mockup ([RFC 0072](docs/rfcs/0072-menu-and-mockup.md)), ported from
   daisyUI: `MockupBrowser`, `MockupWindow`, `MockupCode` with
   `MockupCodeLine`, and `MockupPhone` frames whose decorations are hidden
