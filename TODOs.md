@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 39% (9 of 23 tasks)
+- Overall: 43% (10 of 23 tasks)
 - Current milestone: M198
-- Current task: M198.2
+- Current task: M198.3
 
 ## Backup
 
@@ -71,8 +71,9 @@
 - DONE M198.1 Theme Controller
   - Sets `data-theme` and the dark class on the document, defaults to the system color scheme, remembers the choice, and applies it before first paint. The site's theme menu uses it.
   - Done: RFC 0071; `ThemeController` and `theme_init_script` (the site's new `index.html` carries it). The header menu replaced the dark toggle with System, Light, and Dark entries; site-verify checks reload persistence and the system scheme.
-- TODO M198.2 Menu
+- DONE M198.2 Menu
   - Vertical navigation list with titles, active items, and nested collapsible groups.
+  - Done: RFC 0072 (shared with M198.3); a `ul` list rather than `role="menu"`, controlled `MenuGroup`s. Runtime check reverse-verified; screenshot in both themes.
 - TODO M198.3 Mockup
   - Browser, Window, Code, and Phone frames.
 
