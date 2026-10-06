@@ -77,7 +77,7 @@ serde_json = "1"
 
 The repository URL has been approved for first publish preparation.
 The shared README, keywords, and categories are publish metadata. 0.1.0 and 0.2.0
-were published on 2026-10-05 and 0.3.0 on 2026-10-06. APIs are still pre-1.0;
+were published on 2026-10-05, and 0.3.0 and 0.4.0 on 2026-10-06. APIs are still pre-1.0;
 breaking changes bump the minor version, and the current `0.4.x` surface is
 accepted.
 

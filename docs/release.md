@@ -7,14 +7,14 @@
 - source-copy mode through `dxui add`
 - crate mode through `dioxus-shadcn` feature flags
 
-Both modes ship in 0.1.0, 0.2.0, and 0.3.0. The `0.4.x` API surface is accepted;
+Both modes ship in 0.1.0, 0.2.0, 0.3.0, and 0.4.0. The `0.4.x` API surface is accepted;
 before `1.0`, a breaking change bumps the minor version and comes with a
 changelog migration note.
 
 ## Package Set
 
-Published crates (0.1.0 and 0.2.0 on crates.io since 2026-10-05, 0.3.0 since
-2026-10-06):
+Published crates (0.1.0 and 0.2.0 on crates.io since 2026-10-05, 0.3.0 and
+0.4.0 since 2026-10-06):
 
 ```text
 dioxus-shadcn-core
@@ -540,6 +540,18 @@ lists 82 components and 3 blocks; a fresh app built with the dashboard,
 login, and settings blocks copied, and another built against
 `dioxus-shadcn` 0.3 from crates.io with Theme Controller, Mockup, Menu, and
 `RangeSlider`.
+
+## 0.4.0 Publish
+
+The release owner confirmed 0.4.0 on 2026-10-06 once CI passed on the
+release commit. The release gate and dry run passed, and `cargo-semver-checks`
+against 0.3.0 found no breaking change in the three library crates; the
+migration notes cover apps that copied components with 0.3. The four crates
+were published one at a time in dependency order and tagged `v0.4.0`. The
+published `dxui` 0.4.0 copied Button, Dialog, Popover, and the dashboard
+block into a fresh app that built while denying warnings, and `dxui diff`
+reported that every copy matched; another app built against `dioxus-shadcn`
+0.4 from crates.io.
 
 ## Known Pre-1.0 Limitations
 

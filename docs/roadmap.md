@@ -326,5 +326,5 @@ Status: M202 split the utils template into 13 helper templates
 while denying warnings, through an allowance in the generated `ui/mod.rs` for
 the component API an app leaves unused. M203 added several names per
 `dxui add`, `dxui --version`, a per-file add report, and `dxui diff`. M204.1
-prepared 0.4.0, with `cargo-semver-checks` as a release step; publishing
-waits for the release owner.
+prepared 0.4.0, with `cargo-semver-checks` as a release step, and M204.2
+published it on 2026-10-06 (tag `v0.4.0`).
