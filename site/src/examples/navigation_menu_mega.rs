@@ -30,26 +30,27 @@ const AREAS: [Area; 3] = [
 
 #[component]
 pub fn NavigationMenuMegaDemo() -> Element {
-  let mut active = use_signal(String::new);
   let mut area = use_signal(|| "web".to_string());
 
   rsx! {
     div { class: "min-h-72",
       NavigationMenu {
         "aria-label": "Solutions",
+        // Each opening starts on the first area.
         on_value_change: move |value: String| {
           if !value.is_empty() {
             area.set("web".to_string());
           }
-          active.set(value);
         },
         NavigationMenuList {
           NavigationMenuItem { value: "solutions",
-            NavigationMenuTrigger { open: active() == "solutions", "Solutions" }
-            NavigationMenuContent { open: active() == "solutions",
+            NavigationMenuTrigger { "Solutions" }
+            NavigationMenuContent {
               NavigationMenu {
                 orientation: NavigationMenuOrientation::Vertical,
                 "aria-label": "Solution areas",
+                // An area stays open until another opens.
+                value: area(),
                 on_value_change: move |value: String| {
                   if !value.is_empty() {
                     area.set(value);
@@ -58,12 +59,12 @@ pub fn NavigationMenuMegaDemo() -> Element {
                 NavigationMenuList { class: "w-32",
                   for Area { value, label, .. } in AREAS {
                     NavigationMenuItem { key: "{value}", value,
-                      NavigationMenuTrigger { open: area() == value, "{label}" }
+                      NavigationMenuTrigger { "{label}" }
                     }
                   }
                 }
                 for Area { value, links, .. } in AREAS {
-                  NavigationMenuContent { key: "{value}", value, open: area() == value,
+                  NavigationMenuContent { key: "{value}", value,
                     div { class: "grid w-64 gap-1",
                       for (title, description) in links {
                         NavigationMenuLink { key: "{title}", href: "#",

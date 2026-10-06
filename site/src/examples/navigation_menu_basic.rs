@@ -6,25 +6,20 @@ use dioxus_shadcn::{
 
 #[component]
 pub fn NavigationMenuBasicDemo() -> Element {
-  let mut active = use_signal(String::new);
-  let open = move |value: &str| active() == value;
-
   rsx! {
-    NavigationMenu {
-      "aria-label": "Product",
-      on_value_change: move |value: String| active.set(value),
+    NavigationMenu { "aria-label": "Product",
       NavigationMenuList {
         NavigationMenuItem { value: "docs",
-          NavigationMenuTrigger { open: open("docs"), "Docs" }
-          NavigationMenuContent { open: open("docs"),
+          NavigationMenuTrigger { "Docs" }
+          NavigationMenuContent {
             NavigationMenuLink { href: "#install", "Installation" }
             NavigationMenuLink { href: "#theming", "Theming" }
             NavigationMenuLink { href: "#cli", disabled: true, "CLI (soon)" }
           }
         }
         NavigationMenuItem { value: "examples",
-          NavigationMenuTrigger { open: open("examples"), "Examples" }
-          NavigationMenuContent { open: open("examples"),
+          NavigationMenuTrigger { "Examples" }
+          NavigationMenuContent {
             NavigationMenuLink { href: "#dashboard", "Dashboard" }
             NavigationMenuLink { href: "#chat", "Chat" }
           }

@@ -1,7 +1,10 @@
 use super::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
+use super::choice::{Choice, use_choice};
 use super::default_attribute::default_attribute;
+use super::element_id::next_element_id;
 use super::listbox::{ListboxMode, use_listbox};
 pub use super::overlay::{DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
+use super::root_state::{Controllable, use_controllable, use_root_context};
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
@@ -59,12 +62,77 @@ pub fn combobox_item_class(active: bool, selected: bool, class: &str) -> String 
   // (RFC 0062).
   let selected_class = if selected { "after:opacity-100" } else { "after:opacity-0" };
 
-  merge_classes(classes([Some(COMBOBOX_ITEM_BASE_CLASS), Some(active_class), Some(selected_class)]), class)
+  merge_classes(
+    classes([Some(COMBOBOX_ITEM_BASE_CLASS), Some(active_class), Some(selected_class)]),
+    class,
+  )
 }
 
+/// What a `Combobox` shares with its parts (RFC 0077).
+#[derive(Clone)]
+struct ComboboxContext {
+  input_id: String,
+  choice: Choice,
+  open: Controllable<bool>,
+  set_open: Callback<bool>,
+}
+
+impl ComboboxContext {
+  fn list_id(&self) -> String {
+    format!("{}-list", self.input_id)
+  }
+}
+
+fn use_combobox(part: &str) -> ComboboxContext {
+  use_root_context::<ComboboxContext>(part, "Combobox")
+}
+
+/// The root of a combobox: it owns the chosen value, or values with
+/// `multiple`, and whether the list is open, and links its parts, as
+/// `Select` does. Pass `value` (`values`) or `open` to control them, or
+/// `default_value` (`default_values`) and `default_open` to start them; the
+/// change callbacks hear every change the user makes either way. The typed
+/// text stays with the app, which filters the items it renders. A combobox
+/// has one combobox element, its `ComboboxInput`, or else its
+/// `ComboboxTrigger`; `id` names it, for a `Label` to point at, and the list
+/// anchors to it. Without `id` the ids are generated.
+#[component]
+pub fn Combobox(
+  #[props(default)] id: Option<String>,
+  #[props(default)] value: ReadSignal<Option<String>>,
+  #[props(default)] default_value: Option<String>,
+  #[props(default)] on_value_change: Option<EventHandler<String>>,
+  #[props(default)] multiple: bool,
+  #[props(default)] values: ReadSignal<Option<Vec<String>>>,
+  #[props(default)] default_values: Vec<String>,
+  #[props(default)] on_values_change: Option<EventHandler<Vec<String>>>,
+  #[props(default)] open: ReadSignal<Option<bool>>,
+  #[props(default)] default_open: bool,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
+  children: Element,
+) -> Element {
+  let generated = use_hook(|| format!("dxui-combobox-{}-input", next_element_id()));
+  let input_id = id.unwrap_or(generated);
+  let choice = use_choice(
+    multiple,
+    value,
+    default_value,
+    on_value_change,
+    values,
+    default_values,
+    on_values_change,
+  );
+  let open = use_controllable(move || open.cloned(), move || default_open, on_open_change);
+  let set_open = use_callback(move |next: bool| open.set(next));
+  use_context_provider(|| ComboboxContext { input_id, choice, open, set_open });
+
+  rsx! { {children} }
+}
+
+/// A button that toggles the list. Without a `ComboboxInput` it is the
+/// combobox element and takes the root's `id`.
 #[component]
 pub fn ComboboxTrigger(
-  #[props(default)] open: bool,
   #[props(default)] invalid: bool,
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
@@ -72,18 +140,29 @@ pub fn ComboboxTrigger(
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
+  let context = use_combobox("ComboboxTrigger");
   let class = combobox_trigger_class(invalid, &class);
+  let open = context.open.get();
+  let set_open = context.set_open;
+  // A trigger may sit in a combobox without a list, so it names the list
+  // only while open.
+  let controls =
+    default_attribute(&attributes, "aria-controls", context.list_id()).filter(|_| open);
+  let id = default_attribute(&attributes, "id", context.input_id.clone());
 
   rsx! {
     button {
       r#type: "button",
       role: "combobox",
+      id,
       class,
       disabled,
+      "aria-controls": controls,
       "aria-expanded": open.to_string(),
       "aria-invalid": invalid.to_string(),
       "data-state": if open { "open" } else { "closed" },
       onclick: move |event| {
+        set_open.call(!open);
         if let Some(handler) = onclick {
           handler.call(event);
         }
@@ -94,51 +173,47 @@ pub fn ComboboxTrigger(
   }
 }
 
-/// Typed text reaches the app through `oninput`; the app filters the items it
-/// renders. ArrowDown on a closed input requests open through
-/// `on_open_change`. Pass `id` as the content's `anchor_id`.
+/// Typed text opens the list and reaches the app through `oninput`; the app
+/// filters the items it renders. ArrowDown on a closed input opens the list.
 #[component]
 pub fn ComboboxInput(
-  #[props(default)] id: Option<String>,
   #[props(default)] value: String,
   #[props(default)] placeholder: String,
-  #[props(default = true)] open: bool,
-  #[props(default)] active_id: Option<String>,
   #[props(default)] disabled: bool,
   #[props(default)] oninput: Option<EventHandler<FormEvent>>,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = input)] attributes: Vec<Attribute>,
 ) -> Element {
+  let context = use_combobox("ComboboxInput");
   let class = combobox_input_class(&class);
-  let active_descendant = active_id.unwrap_or_default();
-  let controls = id
-    .as_ref()
-    .and_then(|id| default_attribute(&attributes, "aria-controls", format!("{id}-list")));
+  let open = context.open.get();
+  let set_open = context.set_open;
+  let controls = default_attribute(&attributes, "aria-controls", context.list_id());
 
   rsx! {
     input {
       role: "combobox",
-      id,
+      id: context.input_id,
       class,
       value,
       placeholder,
       disabled,
       autocomplete: "off",
-      "aria-activedescendant": active_descendant,
       "aria-autocomplete": "list",
       "aria-controls": controls,
       "aria-expanded": open.to_string(),
       oninput: move |event| {
+        if !open {
+          set_open.call(true);
+        }
         if let Some(handler) = oninput {
           handler.call(event);
         }
       },
       onkeydown: move |event| {
-        let opens = !open && event.key() == Key::ArrowDown;
-        if let Some(handler) = on_open_change.filter(|_| opens) {
+        if !open && event.key() == Key::ArrowDown {
           event.prevent_default();
-          handler.call(true);
+          set_open.call(true);
         }
       },
       ..attributes,
@@ -146,36 +221,38 @@ pub fn ComboboxInput(
   }
 }
 
-/// With `anchor_id` (the input's `id`) the content is placed next to the input
-/// while focus stays in it: ArrowDown and ArrowUp move the highlighted option,
-/// and Enter or click choose it through `on_value_change` before requesting
-/// close. Escape and outside interactions request close per `dismiss`.
+/// The content is placed next to the input while focus stays in it:
+/// ArrowDown and ArrowUp move the highlighted option, and Enter or click
+/// choose it, which closes the list unless the combobox takes `multiple`
+/// values. Escape and outside interactions close it per `dismiss`.
 #[component]
 pub fn ComboboxContent(
-  #[props(default)] open: bool,
   #[props(default)] class: String,
-  #[props(default)] anchor_id: Option<String>,
   #[props(default = OverlaySide::Bottom)] side: OverlaySide,
   #[props(default = OverlayAlign::Start)] align: OverlayAlign,
   #[props(default = 4)] side_offset: i32,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
-  #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(default = DismissBehavior::popover_default())] dismiss: DismissBehavior,
-  #[props(default)] multiple: bool,
   children: Element,
 ) -> Element {
+  let context = use_combobox("ComboboxContent");
   let class = combobox_content_class(&class);
-  use_context_provider(|| ComboboxContext { anchor_id: anchor_id.clone(), multiple });
+  let open = context.open.get();
+  let anchor_id = Some(context.input_id.clone());
   // With `multiple` a choice leaves the list open; Escape and outside
   // interactions still close it through the anchored overlay.
-  let closes_on_choice = if multiple { None } else { on_open_change };
-  let listbox =
-    use_listbox(open, anchor_id.clone(), ListboxMode::Combobox, on_value_change, closes_on_choice);
+  let closes_on_choice = (!context.choice.multiple).then_some(context.set_open);
+  let listbox = use_listbox(
+    open,
+    anchor_id.clone(),
+    ListboxMode::Combobox,
+    Some(context.choice.choose),
+    closes_on_choice,
+  );
   let anchored = use_anchored_overlay(
     open,
     AnchoredPlacement { anchor_id, anchor_point: None, side, align, side_offset },
     dismiss,
-    on_open_change,
+    Some(context.set_open),
   );
 
   rsx! {
@@ -190,37 +267,19 @@ pub fn ComboboxContent(
   }
 }
 
-/// The content's `anchor_id`, which names its list and derives the list's
-/// `id`, and whether the list takes several values.
-#[derive(Clone, PartialEq)]
-struct ComboboxContext {
-  anchor_id: Option<String>,
-  multiple: bool,
-}
-
-/// Inside `ComboboxContent` with an `anchor_id`, the listbox takes the input's
-/// name, and its `id` is the input's `aria-controls` value, `{anchor_id}-list`.
+/// The listbox, named by the input, whose `aria-controls` points at it.
 #[component]
-pub fn ComboboxList(
-  #[props(default)] active_id: Option<String>,
-  #[props(default)] class: String,
-  children: Element,
-) -> Element {
+pub fn ComboboxList(#[props(default)] class: String, children: Element) -> Element {
+  let context = use_combobox("ComboboxList");
   let class = combobox_list_class(&class);
-  let active_descendant = active_id.unwrap_or_default();
-  let context = try_use_context::<ComboboxContext>();
-  let multiple = context.as_ref().is_some_and(|context| context.multiple);
-  let anchor_id = context.and_then(|context| context.anchor_id);
-  let id = anchor_id.as_ref().map(|anchor_id| format!("{anchor_id}-list"));
 
   rsx! {
     div {
       role: "listbox",
-      id,
+      id: context.list_id(),
       class,
-      "aria-labelledby": anchor_id,
-      "aria-multiselectable": multiple.then_some("true"),
-      "aria-activedescendant": active_descendant,
+      "aria-labelledby": context.input_id,
+      "aria-multiselectable": context.choice.multiple.then_some("true"),
       {children}
     }
   }
@@ -284,13 +343,13 @@ pub fn ComboboxValue(#[props(default)] class: String, children: Element) -> Elem
 #[component]
 pub fn ComboboxItem(
   value: String,
-  #[props(default)] active: bool,
-  #[props(default)] selected: bool,
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = combobox_item_class(active, selected, &class);
+  let context = use_combobox("ComboboxItem");
+  let selected = context.choice.chosen().contains(&value);
+  let class = combobox_item_class(false, selected, &class);
 
   rsx! {
     div {
@@ -298,7 +357,6 @@ pub fn ComboboxItem(
       class,
       "aria-disabled": disabled.to_string(),
       "aria-selected": selected.to_string(),
-      "data-active": active.to_string(),
       "data-disabled": disabled.to_string(),
       "data-selected": selected.to_string(),
       "data-value": value,

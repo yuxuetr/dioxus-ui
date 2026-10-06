@@ -85,13 +85,14 @@ popover-like content, listbox semantics, and selected value display.
 Implemented crate API:
 
 ```rust
-ComboboxTrigger { open, invalid, disabled, class, children }
-ComboboxInput { value, active_id, disabled, class }
-ComboboxContent { open, class, children }
-ComboboxList { active_id, class, children }
+Combobox { id, value, default_value, on_value_change, multiple, values, open, children }
+ComboboxTrigger { invalid, disabled, class, children }
+ComboboxInput { value, disabled, class }
+ComboboxContent { class, children }
+ComboboxList { class, children }
 ComboboxEmpty { class, children }
 ComboboxGroup { class, children }
-ComboboxItem { value, active, selected, disabled, class, children }
+ComboboxItem { value, disabled, class, children }
 ComboboxValue { class, children }
 ```
 

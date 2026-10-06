@@ -5,6 +5,7 @@ pub use dioxus_shadcn_primitives::{
 };
 
 use crate::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
+use crate::choice::{Choice, use_choice};
 use crate::default_attribute::default_attribute;
 use crate::element_id::next_element_id;
 use crate::listbox::{ListboxMode, use_listbox};
@@ -61,11 +62,8 @@ pub fn select_separator_class(class: &str) -> String {
 #[derive(Clone)]
 struct SelectContext {
   trigger_id: String,
-  multiple: bool,
-  single: Controllable<Option<String>>,
-  many: Controllable<Vec<String>>,
+  choice: Choice,
   open: Controllable<bool>,
-  choose: Callback<String>,
   set_open: Callback<bool>,
 }
 
@@ -76,10 +74,6 @@ impl SelectContext {
 
   fn content_id(&self) -> String {
     format!("{}-content", self.trigger_id)
-  }
-
-  fn chosen(&self) -> Vec<String> {
-    if self.multiple { self.many.get() } else { self.single.get().into_iter().collect() }
   }
 }
 
@@ -106,39 +100,18 @@ pub fn Select(
 ) -> Element {
   let generated = use_hook(|| format!("dxui-select-{}-trigger", next_element_id()));
   let trigger_id = id.unwrap_or(generated);
-  let single_change = use_callback(move |next: Option<String>| {
-    if let (Some(handler), Some(next)) = (on_value_change, next) {
-      handler.call(next);
-    }
-  });
-  let single =
-    use_controllable(move || value().map(Some), move || default_value, Some(single_change));
-  let many = use_controllable(move || values.cloned(), move || default_values, on_values_change);
-  let open = use_controllable(move || open.cloned(), move || default_open, on_open_change);
-  let choose = use_callback(move |chosen: String| {
-    if multiple {
-      let mut next = many.get();
-      match next.iter().position(|value| *value == chosen) {
-        Some(index) => {
-          next.remove(index);
-        }
-        None => next.push(chosen),
-      }
-      many.set(next);
-    } else {
-      single.set(Some(chosen));
-    }
-  });
-  let set_open = use_callback(move |next: bool| open.set(next));
-  use_context_provider(|| SelectContext {
-    trigger_id,
+  let choice = use_choice(
     multiple,
-    single,
-    many,
-    open,
-    choose,
-    set_open,
-  });
+    value,
+    default_value,
+    on_value_change,
+    values,
+    default_values,
+    on_values_change,
+  );
+  let open = use_controllable(move || open.cloned(), move || default_open, on_open_change);
+  let set_open = use_callback(move |next: bool| open.set(next));
+  use_context_provider(|| SelectContext { trigger_id, choice, open, set_open });
 
   rsx! { {children} }
 }
@@ -193,7 +166,7 @@ pub fn SelectValue(
 ) -> Element {
   let context = use_root_context::<SelectContext>("SelectValue", "Select");
   let class = select_value_class(&class);
-  let chosen = context.chosen().join(", ");
+  let chosen = context.choice.chosen().join(", ");
   let empty = chosen.is_empty();
   let text = if empty { placeholder } else { chosen };
 
@@ -219,12 +192,12 @@ pub fn SelectContent(
   let class = select_content_class(&class);
   let open = context.open.get();
   let anchor_id = Some(context.trigger_id());
-  let closes_on_choice = (!context.multiple).then_some(context.set_open);
+  let closes_on_choice = (!context.choice.multiple).then_some(context.set_open);
   let listbox = use_listbox(
     open,
     anchor_id.clone(),
     ListboxMode::Select,
-    Some(context.choose),
+    Some(context.choice.choose),
     closes_on_choice,
   );
   let anchored = use_anchored_overlay(
@@ -240,7 +213,7 @@ pub fn SelectContent(
       id: context.content_id(),
       class,
       "aria-labelledby": context.trigger_id(),
-      "aria-multiselectable": context.multiple.then_some("true"),
+      "aria-multiselectable": context.choice.multiple.then_some("true"),
       hidden: !open,
       "data-state": if open { "open" } else { "closed" },
       "data-dxui-anchored": anchored,
@@ -283,7 +256,7 @@ pub fn SelectItem(
   children: Element,
 ) -> Element {
   let context = use_root_context::<SelectContext>("SelectItem", "Select");
-  let selected = context.chosen().contains(&value);
+  let selected = context.choice.chosen().contains(&value);
   let class = select_item_class(selected, &class);
 
   rsx! {

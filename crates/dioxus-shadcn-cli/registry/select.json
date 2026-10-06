@@ -9,6 +9,7 @@
   ],
   "dependencies": [
     "anchored-overlay",
+    "choice",
     "default-attribute",
     "element-id",
     "listbox",

@@ -10,6 +10,7 @@
   "dependencies": [
     "element-id",
     "overlay",
+    "root-state",
     "utils"
   ],
   "assets": []

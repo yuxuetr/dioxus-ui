@@ -24,14 +24,15 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["date-p
 ```
 
 ```rust
-use dioxus_shadcn::{DatePickerContent, DatePickerTrigger, DatePickerValue};
+use dioxus_shadcn::{DatePicker, DatePickerContent, DatePickerTrigger, DatePickerValue};
 ```
 
 ## API Surface
 
-- `DatePickerTrigger { id, open, invalid, disabled, on_open_change, class, children }`
+- `DatePicker { id, open, default_open, on_open_change, children }`
+- `DatePickerTrigger { invalid, disabled, class, children }`
 - `DatePickerValue { placeholder, class, children }`
-- `DatePickerContent { open, side, align, anchor_id, side_offset, on_open_change, dismiss, class, children }`
+- `DatePickerContent { side, align, side_offset, dismiss, class, children }`
 - `DatePickerInput { value, order, placeholder, invalid, disabled, on_value_change, class }`
 - `DateOrder`, `parse_date(text, order)`, `format_date(date, order)`
 - `DatePickerPrimitiveConfig`
@@ -46,45 +47,43 @@ Class helpers:
 
 ## Behavior
 
-`open`, the selected date, the focused date, and the visible month stay
-controlled by the app. Give the trigger an `id`, pass it as `anchor_id`, and
-make the Calendar keyboard-managed (see [Calendar](calendar.md#keyboard-behavior)):
+`DatePicker` owns whether the calendar is open and links the trigger and
+content, which must sit inside it (see
+[RFC 0077](../rfcs/0077-component-owned-state.md)); its `id` names the
+trigger, for a `Label`. The selected date, the focused date, and the visible
+month stay with the app, which builds the Calendar from them; make the
+Calendar keyboard-managed (see [Calendar](calendar.md#keyboard-behavior)).
+Closing on a pick is app code too, so control `open`:
 
 ```rust
 let mut open = use_signal(|| false);
 
 rsx! {
-  DatePickerTrigger {
-    id: "due-date-trigger",
-    open: open(),
-    on_open_change: move |next| open.set(next),
-    DatePickerValue { "{label}" }
-  }
-  DatePickerContent {
-    open: open(),
-    anchor_id: "due-date-trigger",
-    on_open_change: move |next| open.set(next),
-    Calendar {
-      // CalendarDay { focused, on_key_move, on_select: move |date| {
-      //   selected.set(Some(date));
-      //   open.set(false);
-      // }, ... }
+  DatePicker { id: "due-date-trigger", open: open(), on_open_change: move |next| open.set(next),
+    DatePickerTrigger { DatePickerValue { "{label}" } }
+    DatePickerContent {
+      Calendar {
+        // CalendarDay { focused, on_key_move, on_select: move |date| {
+        //   selected.set(Some(date));
+        //   open.set(false);
+        // }, ... }
+      }
     }
   }
 }
 ```
 
-- Clicking the trigger requests `!open`.
-- With `anchor_id`, content is placed on `side` (default `Bottom`) with `align`
+- Clicking the trigger toggles the calendar.
+- Content is placed next to the trigger on `side` (default `Bottom`) with `align`
   (default `Center`) and `side_offset` (default `4`), flipping and shifting like
   Popover.
 - Opening moves focus to the Calendar's focused day (marked
   `data-dxui-autofocus`), or to the first focusable element. Tab and Shift+Tab
   wrap inside the content.
-- Escape and outside interactions request close per `dismiss` (default
+- Escape and outside interactions close it per `dismiss` (default
   `DismissBehavior::popover_default()`). Closing returns focus to the trigger
   unless an outside click already moved focus to another control.
-- Choosing a date is app code: store it in `on_select` and request close.
+- Choosing a date is app code: store it in `on_select` and close the picker.
 
 The Web renderer is covered by `npm run verify:runtime-interactions` and the
 Desktop renderer by `npm run verify:desktop-interactions`, and the iOS
@@ -118,10 +117,9 @@ pattern (see [RFC 0064](../rfcs/0064-typed-date-input.md)).
 
 ## Accessibility Notes
 
-The trigger uses button semantics with `aria-haspopup="dialog"` and controlled
+The trigger uses button semantics with `aria-haspopup="dialog"` and
 expanded/invalid state. Content uses dialog semantics with focus entry, Tab
-containment, and focus return, and with an `anchor_id` takes the trigger's
-name through `aria-labelledby` (see [RFC 0055](../rfcs/0055-open-state-accessibility-audit.md)).
+containment, and focus return, and takes the trigger's name through `aria-labelledby` (see [RFC 0055](../rfcs/0055-open-state-accessibility-audit.md)).
 Typed date parsing remains app-owned.
 
 Use native date inputs when platform-native mobile behavior is the priority.

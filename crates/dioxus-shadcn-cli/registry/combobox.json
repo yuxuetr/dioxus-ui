@@ -9,9 +9,12 @@
   ],
   "dependencies": [
     "anchored-overlay",
+    "choice",
     "default-attribute",
+    "element-id",
     "listbox",
     "overlay",
+    "root-state",
     "utils"
   ],
   "assets": []

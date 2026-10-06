@@ -119,17 +119,17 @@ deferred parts until focus handoff behavior is designed and tested.
 Navigation Menu is for site or app navigation. It may look like a menu, but it
 should keep navigation semantics instead of forcing command-menu roles.
 
-Planned crate API:
+Crate API:
 
 ```rust
-NavigationMenu { class, children }
+NavigationMenu { value, default_value, on_value_change, orientation, class, children }
 NavigationMenuList { class, children }
-NavigationMenuItem { class, children }
-NavigationMenuTrigger { open, disabled, class, children }
-NavigationMenuContent { open, class, children }
+NavigationMenuItem { value, class, children }
+NavigationMenuTrigger { disabled, class, children }
+NavigationMenuContent { value, class, children }
 NavigationMenuLink { active, disabled, class, children }
-NavigationMenuViewport { open, class, children }
-NavigationMenuIndicator { open, class }
+NavigationMenuViewport { class, children }
+NavigationMenuIndicator { class }
 ```
 
 Behavior defaults:

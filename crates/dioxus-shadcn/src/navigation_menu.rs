@@ -3,6 +3,7 @@ use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::PopoverPrimitiveConfig;
 
 use crate::element_id::next_element_id;
+use crate::root_state::{Controllable, use_controllable, use_root_context};
 
 // Runs for the menu's lifetime and reads items from the DOM on every event.
 // Sends the `NavigationMenuItem` value to open, or an empty string to close.
@@ -287,30 +288,36 @@ pub fn navigation_menu_indicator_class(open: bool, class: &str) -> String {
   merge_classes(classes([Some(NAVIGATION_MENU_INDICATOR_BASE_CLASS), Some(state_class)]), class)
 }
 
-/// Follows the disclosure navigation pattern: a click, Enter, or Space on a
-/// trigger toggles its content, the mouse resting on a trigger opens it, and
-/// leaving the open item closes it. Left, Right, Home, and End move between
-/// top-level triggers and links; ArrowDown enters content, where ArrowDown,
-/// ArrowUp, Home, and End move between links. Escape, an outside press, focus
-/// leaving the menu, or a click on a content link closes it.
-///
-/// Every request calls `on_value_change` with the `NavigationMenuItem` value
-/// to open, or an empty string to close.
-///
-/// For a submenu, nest a `NavigationMenu` with
-/// `NavigationMenuOrientation::Vertical` in a content: its triggers form a
-/// column, its contents sit beside its list with their item's `value`,
-/// ArrowDown and ArrowUp move between triggers, and ArrowRight enters a panel
-/// (RFC 0063).
+/// What a `NavigationMenu` shares with its parts: the `value` of the open
+/// item, or the empty string while none is open.
+#[derive(Clone, Copy)]
+struct NavigationMenuContext(Controllable<String>);
+
+/// The value of the `NavigationMenuItem` a part sits in.
+#[derive(Clone)]
+struct NavigationMenuItemContext(String);
+
+fn use_navigation_menu(part: &str) -> Controllable<String> {
+  use_root_context::<NavigationMenuContext>(part, "NavigationMenu").0
+}
+
+/// The root of a navigation menu: it owns which item's content is open, by
+/// the item's `value`, or the empty string while none is. Pass `value` to
+/// control it, or `default_value` to start it; `on_value_change` hears every
+/// change the user makes either way.
 #[component]
 pub fn NavigationMenu(
   #[props(default)] orientation: NavigationMenuOrientation,
+  #[props(default)] value: ReadSignal<Option<String>>,
+  #[props(default)] default_value: String,
   #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = nav)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = navigation_menu_class(&class);
+  let open = use_controllable(move || value.cloned(), move || default_value, on_value_change);
+  use_context_provider(|| NavigationMenuContext(open));
   let scope_id = use_hook(|| format!("dxui-navigation-menu-{}", next_element_id()));
   let effect_scope_id = scope_id.clone();
 
@@ -320,9 +327,7 @@ pub fn NavigationMenu(
     let _ = eval.send(effect_scope_id.as_str());
     spawn(async move {
       while let Ok(value) = eval.recv::<String>().await {
-        if let Some(handler) = on_value_change {
-          handler.call(value);
-        }
+        open.set(value);
       }
     });
   });
@@ -350,14 +355,19 @@ pub fn NavigationMenuList(#[props(default)] class: String, children: Element) ->
   }
 }
 
-/// `value` identifies the item in `NavigationMenu`'s `on_value_change`.
+/// `value` names the item in the `NavigationMenu`'s value; without one it
+/// gets a generated name.
 #[component]
 pub fn NavigationMenuItem(
   #[props(default)] value: String,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
+  use_navigation_menu("NavigationMenuItem");
   let class = navigation_menu_item_class(&class);
+  let id = use_hook(next_element_id);
+  let value = if value.is_empty() { format!("item-{id}") } else { value };
+  use_context_provider(|| NavigationMenuItemContext(value.clone()));
 
   rsx! {
     li {
@@ -371,11 +381,14 @@ pub fn NavigationMenuItem(
 
 #[component]
 pub fn NavigationMenuTrigger(
-  #[props(default)] open: bool,
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
+  let menu = use_navigation_menu("NavigationMenuTrigger");
+  let item =
+    use_root_context::<NavigationMenuItemContext>("NavigationMenuTrigger", "NavigationMenuItem");
+  let open = menu.get() == item.0;
   let class = navigation_menu_trigger_class(open, &class);
 
   rsx! {
@@ -392,14 +405,17 @@ pub fn NavigationMenuTrigger(
 }
 
 /// In a vertical menu, place contents beside the list and give each its
-/// item's `value`; in a horizontal menu, place each inside its item.
+/// item's `value`; in a horizontal menu, place each inside its item. It shows
+/// while its item is the open one.
 #[component]
 pub fn NavigationMenuContent(
-  #[props(default)] open: bool,
   #[props(default)] value: Option<String>,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
+  let menu = use_navigation_menu("NavigationMenuContent");
+  let item = try_use_context::<NavigationMenuItemContext>().map(|item| item.0);
+  let open = value.clone().or(item).is_some_and(|value| menu.get() == value);
   let class = navigation_menu_content_class(&class);
 
   rsx! {
@@ -437,12 +453,10 @@ pub fn NavigationMenuLink(
   }
 }
 
+/// Shows while any item is open.
 #[component]
-pub fn NavigationMenuViewport(
-  #[props(default)] open: bool,
-  #[props(default)] class: String,
-  children: Element,
-) -> Element {
+pub fn NavigationMenuViewport(#[props(default)] class: String, children: Element) -> Element {
+  let open = !use_navigation_menu("NavigationMenuViewport").get().is_empty();
   let class = navigation_menu_viewport_class(&class);
 
   rsx! {
@@ -455,11 +469,10 @@ pub fn NavigationMenuViewport(
   }
 }
 
+/// Shows while any item is open.
 #[component]
-pub fn NavigationMenuIndicator(
-  #[props(default)] open: bool,
-  #[props(default)] class: String,
-) -> Element {
+pub fn NavigationMenuIndicator(#[props(default)] class: String) -> Element {
+  let open = !use_navigation_menu("NavigationMenuIndicator").get().is_empty();
   let class = navigation_menu_indicator_class(open, &class);
 
   rsx! {
@@ -503,11 +516,13 @@ mod tests {
   fn ssr_vertical_submenu_pairs_contents_by_value() {
     fn app() -> Element {
       rsx! {
-        NavigationMenu { orientation: NavigationMenuOrientation::Vertical,
+        NavigationMenu { orientation: NavigationMenuOrientation::Vertical, default_value: "web",
           NavigationMenuList {
-            NavigationMenuItem { value: "web", NavigationMenuTrigger { open: true, "Web" } }
+            NavigationMenuItem { value: "web", NavigationMenuTrigger { "Web" } }
+            NavigationMenuItem { value: "mobile", NavigationMenuTrigger { "Mobile" } }
           }
-          NavigationMenuContent { value: "web", open: true, NavigationMenuLink { "Dioxus" } }
+          NavigationMenuContent { value: "web", NavigationMenuLink { "Dioxus" } }
+          NavigationMenuContent { value: "mobile", NavigationMenuLink { "Tauri" } }
         }
       }
     }
@@ -516,10 +531,58 @@ mod tests {
     assert!(html.contains("data-orientation=\"vertical\""));
     assert!(html.contains("data-value=\"web\" data-state=\"open\" data-dxui-navigation-content"));
     assert!(
+      html.contains("data-value=\"mobile\" data-state=\"closed\" data-dxui-navigation-content")
+    );
+    assert_eq!(html.matches(r#"aria-expanded="true""#).count(), 1);
+    assert!(
       navigation_menu_content_class("")
         .contains("group-data-[orientation=vertical]/navigation-menu:static")
     );
     assert_eq!(NavigationMenuOrientation::default().as_str(), "horizontal");
+  }
+
+  #[test]
+  fn ssr_horizontal_menu_opens_the_item_its_value_names() {
+    fn app() -> Element {
+      rsx! {
+        NavigationMenu { value: "docs",
+          NavigationMenuList {
+            NavigationMenuItem { value: "docs",
+              NavigationMenuTrigger { "Docs" }
+              NavigationMenuContent { "Guides" }
+            }
+            NavigationMenuItem {
+              NavigationMenuTrigger { "Blog" }
+              NavigationMenuContent { "Posts" }
+            }
+          }
+          NavigationMenuIndicator {}
+          NavigationMenuViewport {}
+        }
+      }
+    }
+    let html = render(app);
+
+    assert_eq!(html.matches(r#"aria-expanded="true""#).count(), 1, "{html}");
+    assert_eq!(html.matches(r#"data-state="open""#).count(), 4, "{html}");
+    assert!(html.contains(r#"data-value="item-"#), "{html}");
+  }
+
+  #[test]
+  fn ssr_navigation_parts_outside_their_root_render_nothing() {
+    fn app() -> Element {
+      rsx! {
+        p { "before" }
+        NavigationMenuContent { value: "docs", "Guides" }
+        NavigationMenu {
+          NavigationMenuTrigger { "Docs" }
+        }
+      }
+    }
+    let html = render(app);
+
+    assert!(html.contains("before"));
+    assert!(!html.contains("Guides") && !html.contains("Docs"), "{html}");
   }
 
   #[test]

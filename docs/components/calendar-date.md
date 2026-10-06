@@ -112,9 +112,10 @@ Calendar body.
 Implemented crate API:
 
 ```rust
-DatePickerTrigger { open, invalid, disabled, class, children }
+DatePicker { id, open, default_open, on_open_change, children }
+DatePickerTrigger { invalid, disabled, class, children }
 DatePickerValue { placeholder, class, children }
-DatePickerContent { open, side, align, class, children }
+DatePickerContent { side, align, class, children }
 ```
 
 Behavior defaults:

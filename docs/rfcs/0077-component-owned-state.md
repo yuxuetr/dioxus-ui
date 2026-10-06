@@ -134,7 +134,8 @@ checkbox item keeps `checked`: each item is its own state, as a Checkbox is.
 | M210.1 | Select, Tabs | value (values), open |
 | M210.2 | Dialog, Alert Dialog, Sheet, Drawer, Popover, Hover Card, Tooltip, Fab | open |
 | M210.2 | Dropdown, Context Menu, Menubar | open; radio group value |
-| M210.2 | Combobox, Date Picker, Navigation Menu | open; value |
+| M210.2 | Combobox, Navigation Menu | open; value (the open item's for Navigation Menu) |
+| M210.2 | Date Picker | open |
 | M210.3 | Accordion, Collapsible, Menu groups | open items |
 | M210.3 | Radio Group, Toggle Group, Carousel, Command, Input OTP | value, selected or active item |
 
@@ -144,6 +145,7 @@ Kept as they are, on purpose:
 | --- | --- |
 | Checkbox, Switch, Toggle, Swap, Slider, Number Input, Input, Textarea, Native Select, Resizable | One element holds the state, as with native form controls; there are no parts to share it with |
 | Menu checkbox items (Dropdown, Context Menu, Menubar) | Each item is its own state, as a Checkbox is |
+| Date Picker's date | The app builds the Calendar inside from it, as with Calendar days |
 | Breadcrumb, Pagination, Sidebar, Dock, Menu items, Navigation Menu links, Data Table rows, Item, Calendar days | The current item follows the app's route or data, which the component cannot know |
 | Chart, Progress, Radial Progress | They display a value the app owns |
 

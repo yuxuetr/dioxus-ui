@@ -10,8 +10,10 @@
   "dependencies": [
     "anchored-overlay",
     "calendar",
+    "element-id",
     "modal-focus",
     "overlay",
+    "root-state",
     "utils"
   ],
   "assets": []

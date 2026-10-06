@@ -13,10 +13,10 @@ use dioxus_shadcn::{
   Accordion, AccordionContent, AccordionItem, AccordionTrigger, Calendar, CalendarBody,
   CalendarCaption, CalendarDate, CalendarDay, CalendarGrid, CalendarHeader, CalendarMonth,
   CalendarNav, CalendarNavButton, CalendarNavDirection, CalendarRow, CalendarWeekday, Checkbox,
-  ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList, ComboboxStatus, Command,
+  Combobox, ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList, ComboboxStatus, Command,
   CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandLabel, CommandList, CommandStatus,
   ContextMenu, ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, ContextMenuSub,
-  ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger, DatePickerContent,
+  ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger, DatePicker, DatePickerContent,
   DatePickerTrigger, DatePickerValue, Dropdown, DropdownContent, DropdownItem, DropdownSeparator,
   HoverCard, HoverCardContent, HoverCardDescription, HoverCardHeader, HoverCardTitle,
   HoverCardTrigger, Label, Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSub,
@@ -933,7 +933,6 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut mega_active = use_signal(String::new);
   let mut typed_date = use_signal(|| None::<CalendarDate>);
   let mut mega_sub = use_signal(|| "web".to_string());
-  let navigation_open = move |value: &str| navigation_active() == value;
   let mut tabs_value = use_signal(|| "account".to_string());
   let mut settings_tab = use_signal(|| "general".to_string());
   let mut radio_value = use_signal(|| None::<String>);
@@ -965,7 +964,6 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut fab_open = use_signal(|| false);
   let mut fruits = use_signal(Vec::<String>::new);
   let mut tag_query = use_signal(String::new);
-  let mut tag_open = use_signal(|| false);
   let mut tag_values = use_signal(Vec::<String>::new);
   let mut fab_action = use_signal(String::new);
   let mut locked_slider_changes = use_signal(|| 0_u32);
@@ -1507,35 +1505,32 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-interaction-target": "combobox",
             "data-value": "{combobox_value}",
             h2 { class: "text-sm font-medium", "Combobox interaction" }
-            ComboboxInput {
+            // Controlled open, for the status; the root holds the value.
+            Combobox {
               id: "interaction-combobox-input",
-              class: "mt-3 border border-border",
-              "aria-label": "Fruit",
-              "aria-describedby": "interaction-select-hint",
-              value: combobox_query(),
               open: combobox_open(),
-              placeholder: "Search fruit",
-              oninput: move |event: FormEvent| {
-                combobox_query.set(event.value());
-                combobox_open.set(true);
-              },
-              on_open_change: move |open| combobox_open.set(open),
-            }
-            ComboboxStatus { "{combobox_status}" }
-            ComboboxContent {
-              open: combobox_open(),
-              anchor_id: "interaction-combobox-input",
               on_open_change: move |open| combobox_open.set(open),
               on_value_change: move |value: String| {
                 combobox_query.set(fruit_label(&value).to_string());
                 combobox_value.set(value);
               },
-              ComboboxList {
-                for (value, label, disabled) in INTERACTION_FRUITS
-                  .iter()
-                  .filter(|(_, label, _)| label.to_lowercase().contains(&combobox_query().to_lowercase()))
-                {
-                  ComboboxItem { key: "{value}", value: *value, disabled: *disabled, "{label}" }
+              ComboboxInput {
+                class: "mt-3 border border-border",
+                "aria-label": "Fruit",
+                "aria-describedby": "interaction-select-hint",
+                value: combobox_query(),
+                placeholder: "Search fruit",
+                oninput: move |event: FormEvent| combobox_query.set(event.value()),
+              }
+              ComboboxStatus { "{combobox_status}" }
+              ComboboxContent {
+                ComboboxList {
+                  for (value, label, disabled) in INTERACTION_FRUITS
+                    .iter()
+                    .filter(|(_, label, _)| label.to_lowercase().contains(&combobox_query().to_lowercase()))
+                  {
+                    ComboboxItem { key: "{value}", value: *value, disabled: *disabled, "{label}" }
+                  }
                 }
               }
             }
@@ -1545,40 +1540,21 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-interaction-target": "multi-combobox",
             "data-values": "{tag_values().join(\"|\")}",
             h2 { class: "text-sm font-medium", "Multi-combobox interaction" }
-            ComboboxInput {
+            // Uncontrolled: the root holds the values and the open state.
+            Combobox {
               id: "interaction-multi-combobox-input",
-              class: "mt-3 border border-border",
-              "aria-label": "Fruit tags",
-              value: tag_query(),
-              open: tag_open(),
-              oninput: move |event: FormEvent| {
-                tag_query.set(event.value());
-                tag_open.set(true);
-              },
-              on_open_change: move |open| tag_open.set(open),
-            }
-            ComboboxContent {
-              open: tag_open(),
               multiple: true,
-              anchor_id: "interaction-multi-combobox-input",
-              on_open_change: move |open| tag_open.set(open),
-              on_value_change: move |value: String| {
-                let mut next = tag_values();
-                if let Some(index) = next.iter().position(|tag| *tag == value) {
-                  next.remove(index);
-                } else {
-                  next.push(value);
-                }
-                tag_values.set(next);
-              },
-              ComboboxList {
-                for (value, label, disabled) in INTERACTION_FRUITS {
-                  ComboboxItem {
-                    key: "{value}",
-                    value: *value,
-                    disabled: *disabled,
-                    selected: tag_values().iter().any(|tag| tag == value),
-                    "{label}"
+              on_values_change: move |values| tag_values.set(values),
+              ComboboxInput {
+                class: "mt-3 border border-border",
+                "aria-label": "Fruit tags",
+                value: tag_query(),
+                oninput: move |event: FormEvent| tag_query.set(event.value()),
+              }
+              ComboboxContent {
+                ComboboxList {
+                  for (value, label, disabled) in INTERACTION_FRUITS {
+                    ComboboxItem { key: "{value}", value: *value, disabled: *disabled, "{label}" }
                   }
                 }
               }
@@ -1602,9 +1578,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-interaction-target": "date-picker",
             "data-value": "{iso_date(date_selected())}",
             h2 { class: "text-sm font-medium", "Date picker interaction" }
-            DatePickerTrigger {
+            DatePicker {
               id: "interaction-date-trigger",
-              class: "mt-3",
               open: date_open(),
               on_open_change: move |open| {
                 if open {
@@ -1612,12 +1587,10 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 }
                 date_open.set(open);
               },
+            DatePickerTrigger { class: "mt-3",
               DatePickerValue { "{iso_date(date_selected())}" }
             }
             DatePickerContent {
-              open: date_open(),
-              anchor_id: "interaction-date-trigger",
-              on_open_change: move |open| date_open.set(open),
               Calendar {
                 CalendarHeader {
                   CalendarCaption { id: "interaction-date-caption",
@@ -1674,6 +1647,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                   }
                 }
               }
+            }
             }
           }
           article {
@@ -1820,13 +1794,13 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             NavigationMenu {
               class: "mt-3",
               "aria-label": "Product",
+              // Uncontrolled: the root holds the open item and reports it.
               on_value_change: move |value: String| navigation_active.set(value),
               NavigationMenuList {
                 NavigationMenuItem {
                   value: "docs",
-                  NavigationMenuTrigger { open: navigation_open("docs"), "Docs" }
+                  NavigationMenuTrigger { "Docs" }
                   NavigationMenuContent {
-                    open: navigation_open("docs"),
                     NavigationMenuLink { href: "#navigation-install", "Install" }
                     NavigationMenuLink { href: "#navigation-theming", disabled: true, "Theming" }
                     NavigationMenuLink { href: "#navigation-cli", "CLI" }
@@ -1841,9 +1815,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 }
                 NavigationMenuItem {
                   value: "examples",
-                  NavigationMenuTrigger { open: navigation_open("examples"), "Examples" }
+                  NavigationMenuTrigger { "Examples" }
                   NavigationMenuContent {
-                    open: navigation_open("examples"),
                     NavigationMenuLink { href: "#navigation-dashboard", "Dashboard" }
                     NavigationMenuLink { href: "#navigation-chat", "Chat" }
                   }
@@ -1860,6 +1833,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             NavigationMenu {
               class: "mt-3",
               "aria-label": "Solutions",
+              // Controlled, as is the inner menu, which ignores closing.
+              value: mega_active(),
               on_value_change: move |value: String| {
                 if !value.is_empty() {
                   mega_sub.set("web".to_string());
@@ -1869,12 +1844,12 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               NavigationMenuList {
                 NavigationMenuItem {
                   value: "solutions",
-                  NavigationMenuTrigger { open: mega_active() == "solutions", "Solutions" }
+                  NavigationMenuTrigger { "Solutions" }
                   NavigationMenuContent {
-                    open: mega_active() == "solutions",
                     NavigationMenu {
                       orientation: NavigationMenuOrientation::Vertical,
                       "aria-label": "Solution areas",
+                      value: mega_sub(),
                       on_value_change: move |value: String| {
                         if !value.is_empty() {
                           mega_sub.set(value);
@@ -1883,18 +1858,18 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                       NavigationMenuList {
                         NavigationMenuItem {
                           value: "web",
-                          NavigationMenuTrigger { open: mega_sub() == "web", "Web" }
+                          NavigationMenuTrigger { "Web" }
                         }
                         NavigationMenuItem {
                           value: "mobile",
-                          NavigationMenuTrigger { open: mega_sub() == "mobile", "Mobile" }
+                          NavigationMenuTrigger { "Mobile" }
                         }
                       }
-                      NavigationMenuContent { value: "web", open: mega_sub() == "web",
+                      NavigationMenuContent { value: "web",
                         NavigationMenuLink { href: "#mega-dashboards", "Dashboards" }
                         NavigationMenuLink { href: "#mega-stores", "Stores" }
                       }
-                      NavigationMenuContent { value: "mobile", open: mega_sub() == "mobile",
+                      NavigationMenuContent { value: "mobile",
                         NavigationMenuLink { href: "#mega-ios", "iOS apps" }
                         NavigationMenuLink { href: "#mega-android", "Android apps" }
                       }
@@ -2874,11 +2849,16 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               }
               AttachmentTrigger { onclick: move |_| last_part_action.set("attachment-trigger".to_string()), "Attach" }
               AttachmentAction { onclick: move |_| last_part_action.set("attachment-action".to_string()), "Remove" }
-              ComboboxTrigger {
-                class: "max-w-48",
-                "aria-label": "Fruit",
-                onclick: move |_| last_part_action.set("combobox".to_string()),
-                "Pick a fruit"
+              Combobox {
+                ComboboxTrigger {
+                  class: "max-w-48",
+                  "aria-label": "Fruit",
+                  onclick: move |_| last_part_action.set("combobox".to_string()),
+                  "Pick a fruit"
+                }
+                ComboboxContent {
+                  ComboboxList { ComboboxItem { value: "apple", "Apple" } }
+                }
               }
               Tooltip {
                 TooltipTrigger {

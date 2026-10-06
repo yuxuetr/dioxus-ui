@@ -1,0 +1,14 @@
+{
+  "name": "choice",
+  "description": "The value, or values, a Select or Combobox root owns (RFC 0077).",
+  "files": [
+    {
+      "source": "templates/choice.rs",
+      "target": "src/components/ui/choice.rs"
+    }
+  ],
+  "dependencies": [
+    "root-state"
+  ],
+  "assets": []
+}

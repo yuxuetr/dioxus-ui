@@ -7,7 +7,9 @@ pub use dioxus_shadcn_primitives::{
 use dioxus_shadcn_primitives::CalendarDate;
 
 use crate::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
+use crate::element_id::next_element_id;
 use crate::modal_focus::use_modal_focus_scope;
+use crate::root_state::{Controllable, use_controllable, use_root_context};
 
 pub const DATE_PICKER_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
 pub const DATE_PICKER_VALUE_BASE_CLASS: &str =
@@ -53,30 +55,62 @@ pub fn date_picker_align_attribute(align: OverlayAlign) -> &'static str {
 /// Click requests `!open` through `on_open_change`. Pass `id` as the content's
 /// `anchor_id`. Other attributes, such as `aria-label` for an icon-only
 /// trigger, go to the button.
+/// What a `DatePicker` shares with its parts (RFC 0077).
+#[derive(Clone)]
+struct DatePickerContext {
+  trigger_id: String,
+  open: Controllable<bool>,
+  set_open: Callback<bool>,
+}
+
+fn use_date_picker(part: &str) -> DatePickerContext {
+  use_root_context::<DatePickerContext>(part, "DatePicker")
+}
+
+/// The root of a date picker: it owns whether the calendar is open and links
+/// the trigger and content. Pass `open` to control it, or `default_open` to
+/// start it; `on_open_change` hears every change the user makes either way.
+/// The date stays with the app, which builds the Calendar from it. `id`
+/// names the trigger, for a `Label` to point at; without it the id is
+/// generated.
+#[component]
+pub fn DatePicker(
+  #[props(default)] id: Option<String>,
+  #[props(default)] open: ReadSignal<Option<bool>>,
+  #[props(default)] default_open: bool,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
+  children: Element,
+) -> Element {
+  let generated = use_hook(|| format!("dxui-date-picker-{}-trigger", next_element_id()));
+  let trigger_id = id.unwrap_or(generated);
+  let open = use_controllable(move || open.cloned(), move || default_open, on_open_change);
+  let set_open = use_callback(move |next: bool| open.set(next));
+  use_context_provider(|| DatePickerContext { trigger_id, open, set_open });
+
+  rsx! { {children} }
+}
+
+/// A button that toggles the calendar and anchors it.
 #[component]
 pub fn DatePickerTrigger(
-  #[props(default)] id: Option<String>,
-  #[props(default)] open: bool,
   #[props(default)] invalid: bool,
   #[props(default)] disabled: bool,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
+  let context = use_date_picker("DatePickerTrigger");
   let class = date_picker_trigger_class(invalid, &class);
+  let open = context.open.get();
+  let set_open = context.set_open;
 
   rsx! {
     button {
       r#type: "button",
-      id,
+      id: context.trigger_id,
       class,
       disabled,
-      onclick: move |_| {
-        if let Some(handler) = on_open_change {
-          handler.call(!open);
-        }
-      },
+      onclick: move |_| set_open.call(!open),
       "aria-expanded": open.to_string(),
       "aria-haspopup": "dialog",
       "aria-invalid": invalid.to_string(),
@@ -106,32 +140,31 @@ pub fn DatePickerValue(
   }
 }
 
-/// With `anchor_id` (the trigger's `id`) the content is placed next to the
-/// trigger, flipping and shifting to stay in the viewport. Opening moves focus
-/// to the element marked `data-dxui-autofocus` (a keyboard-managed Calendar's
-/// focused day) or the first focusable element, Tab wraps inside, and closing
-/// returns focus to the trigger. Escape and outside interactions request close
-/// per `dismiss`. The dialog takes the `anchor_id` element's name.
+/// The content is placed next to the trigger, flipping and shifting to stay
+/// in the viewport. Opening moves focus to the element marked
+/// `data-dxui-autofocus` (a keyboard-managed Calendar's focused day) or the
+/// first focusable element, Tab wraps inside, and closing returns focus to the
+/// trigger. Escape and outside interactions close it per `dismiss`. The
+/// dialog takes the trigger's name.
 #[component]
 pub fn DatePickerContent(
-  #[props(default)] open: bool,
   #[props(default = OverlaySide::Bottom)] side: OverlaySide,
   #[props(default = OverlayAlign::Center)] align: OverlayAlign,
-  #[props(default)] anchor_id: Option<String>,
   #[props(default = 4)] side_offset: i32,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default = DismissBehavior::popover_default())] dismiss: DismissBehavior,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
+  let context = use_date_picker("DatePickerContent");
   let class = date_picker_content_class(&class);
-  let labelledby = anchor_id.clone();
+  let open = context.open.get();
+  let anchor_id = Some(context.trigger_id.clone());
   let focus_scope = use_modal_focus_scope(open, false);
   let anchored = use_anchored_overlay(
     open,
     AnchoredPlacement { anchor_id, anchor_point: None, side, align, side_offset },
     dismiss,
-    on_open_change,
+    Some(context.set_open),
   );
 
   rsx! {
@@ -139,7 +172,7 @@ pub fn DatePickerContent(
       role: "dialog",
       class,
       tabindex: "-1",
-      "aria-labelledby": labelledby,
+      "aria-labelledby": context.trigger_id,
       hidden: !open,
       "data-dxui-anchored": anchored,
       "data-dxui-focus-scope": focus_scope,
@@ -350,14 +383,38 @@ mod tests {
   #[test]
   fn ssr_content_takes_the_trigger_name() {
     fn app() -> Element {
-      rsx! { DatePickerContent { open: true, anchor_id: "due-date", "Calendar" } }
+      rsx! {
+        DatePicker { id: "due-date", default_open: true,
+          DatePickerTrigger { "Pick" }
+          DatePickerContent { "Calendar" }
+        }
+      }
     }
     let mut dom = VirtualDom::new(app);
     dom.rebuild_in_place();
     let html = dioxus_ssr::render(&dom);
 
+    assert!(html.contains(r#"id="due-date""#), "{html}");
+    assert!(html.contains(r#"aria-expanded="true""#));
     assert!(html.contains(r#"role="dialog""#));
     assert!(html.contains(r#"aria-labelledby="due-date""#));
+    assert!(!html.contains(" hidden"), "{html}");
+  }
+
+  #[test]
+  fn ssr_date_picker_parts_outside_their_root_render_nothing() {
+    fn app() -> Element {
+      rsx! {
+        p { "before" }
+        DatePickerContent { "Calendar" }
+      }
+    }
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    let html = dioxus_ssr::render(&dom);
+
+    assert!(html.contains("before"));
+    assert!(!html.contains("Calendar"), "{html}");
   }
 
   #[test]

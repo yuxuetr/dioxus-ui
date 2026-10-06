@@ -110,13 +110,16 @@ mod element_id;
 
 #[cfg(any(
   feature = "alert-dialog",
+  feature = "combobox",
   feature = "context-menu",
+  feature = "date-picker",
   feature = "dialog",
   feature = "drawer",
   feature = "dropdown",
   feature = "fab",
   feature = "hover-card",
   feature = "menubar",
+  feature = "navigation-menu",
   feature = "popover",
   feature = "select",
   feature = "sheet",
@@ -181,6 +184,9 @@ mod anchored_overlay;
   feature = "select"
 ))]
 mod listbox;
+
+#[cfg(any(feature = "combobox", feature = "select"))]
+mod choice;
 
 #[cfg(any(feature = "context-menu", feature = "dropdown", feature = "menubar"))]
 mod menu_marks;
@@ -472,7 +478,7 @@ pub use combobox::{
   ActiveDescendantState as ComboboxActiveDescendantState, COMBOBOX_CONTENT_BASE_CLASS,
   COMBOBOX_EMPTY_BASE_CLASS, COMBOBOX_GROUP_BASE_CLASS, COMBOBOX_INPUT_BASE_CLASS,
   COMBOBOX_ITEM_BASE_CLASS, COMBOBOX_LIST_BASE_CLASS, COMBOBOX_STATUS_BASE_CLASS,
-  COMBOBOX_TRIGGER_BASE_CLASS, COMBOBOX_VALUE_BASE_CLASS, ComboboxContent, ComboboxEmpty,
+  COMBOBOX_TRIGGER_BASE_CLASS, COMBOBOX_VALUE_BASE_CLASS, Combobox, ComboboxContent, ComboboxEmpty,
   ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxList, ComboboxStatus, ComboboxTrigger,
   ComboboxValue, DismissBehavior as ComboboxDismissBehavior, OverlayAlign as ComboboxAlign,
   OverlaySide as ComboboxSide, PopoverPrimitiveConfig as ComboboxPrimitiveConfig,
@@ -524,12 +530,12 @@ pub use data_table::{
 #[cfg(feature = "date-picker")]
 pub use date_picker::{
   DATE_PICKER_CONTENT_BASE_CLASS, DATE_PICKER_INPUT_BASE_CLASS, DATE_PICKER_TRIGGER_BASE_CLASS,
-  DATE_PICKER_VALUE_BASE_CLASS, DateOrder, DatePickerContent, DatePickerInput, DatePickerTrigger,
-  DatePickerValue, DismissBehavior as DatePickerDismissBehavior, OverlayAlign as DatePickerAlign,
-  OverlaySide as DatePickerSide, PopoverPrimitiveConfig as DatePickerPrimitiveConfig,
-  date_picker_align_attribute, date_picker_content_class, date_picker_input_class,
-  date_picker_side_attribute, date_picker_trigger_class, date_picker_value_class, format_date,
-  parse_date,
+  DATE_PICKER_VALUE_BASE_CLASS, DateOrder, DatePicker, DatePickerContent, DatePickerInput,
+  DatePickerTrigger, DatePickerValue, DismissBehavior as DatePickerDismissBehavior,
+  OverlayAlign as DatePickerAlign, OverlaySide as DatePickerSide,
+  PopoverPrimitiveConfig as DatePickerPrimitiveConfig, date_picker_align_attribute,
+  date_picker_content_class, date_picker_input_class, date_picker_side_attribute,
+  date_picker_trigger_class, date_picker_value_class, format_date, parse_date,
 };
 #[cfg(feature = "dialog")]
 pub use dialog::{

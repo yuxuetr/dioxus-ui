@@ -41,6 +41,11 @@ for commit messages.
   the pointer. `Menubar` owns which menu is open through `value`,
   `default_value`, and `on_value_change`. In every menu, radio groups own
   their value and submenus their open state.
+- Combobox gains a `Combobox` root that owns the value, or values with
+  `multiple`, and the open state, as `Select` does; typing opens the list.
+  Date Picker gains a `DatePicker` root that owns the open state and names
+  the trigger. `NavigationMenu` owns which item is open through `value`,
+  `default_value`, and `on_value_change`.
 
 ### Fixed
 
@@ -108,12 +113,24 @@ for commit messages.
   of `checked` and move the group's value to `value` and `on_value_change`
   or `default_value`; remove `open` from sub triggers and contents and move
   `on_open_change` (with `open` to control it) to the sub root.
+- Combobox: wrap the parts in `Combobox`, move `id` from `ComboboxInput`,
+  and `open`, `multiple`, and `on_value_change` from `ComboboxContent`, to
+  it (a multiple Combobox takes `values` and `on_values_change` instead of
+  toggling); remove `open`, `on_open_change`, and `active_id` from the input,
+  `anchor_id` from the content, `active_id` from the list, and `active` and
+  `selected` from items, and stop opening the list in `oninput`.
+- Date Picker: wrap the parts in `DatePicker`, move the trigger's `id`,
+  `open`, and `on_open_change` to it, and remove `open`, `anchor_id`, and
+  `on_open_change` from `DatePickerContent`.
+- Navigation Menu: remove `open` from triggers, contents, the viewport, and
+  the indicator; keep the open item in `NavigationMenu { value,
+  on_value_change }` or let it hold it.
 - Copy mode: re-copy components with `dxui add <name> --overwrite`. `utils`
   now brings two helpers, `class_merge` and `class_merge_table`; the second
   is generated from Tailwind and stores its names reversed so Tailwind
   generates no CSS for them. Select and Tabs also bring `root_state`, and the moved overlays bring
-  `root_state`, `overlay_root`, and `default_attribute`, and menus
-  `menu_radio`.
+  `root_state`, `overlay_root`, and `default_attribute`, menus
+  `menu_radio`, and Select and Combobox `choice`.
 
 ## [0.4.2] - 2026-10-06
 

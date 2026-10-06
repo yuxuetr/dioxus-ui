@@ -36,23 +36,21 @@ The module also re-exports `PopoverPrimitiveConfig` for users importing from
 
 ## Behavior
 
-The open item stays controlled by the app. Keep the open item's value, give
-each `NavigationMenuItem` a `value`, and set the value from
-`on_value_change`, which receives an empty string to close:
+`NavigationMenu` owns which item is open, by the `value` of its
+`NavigationMenuItem`, or the empty string while none is, as Radix does; each
+item's trigger and content compare it with their item's (see
+[RFC 0077](../rfcs/0077-component-owned-state.md)). Pass `value` and
+`on_value_change` to control it, or `default_value` to start with an item
+open; `on_value_change` hears every change, the empty string on close. An
+item without a `value` gets a generated one:
 
 ```rust
-let mut active = use_signal(String::new);
-let is_open = move |value: &str| active() == value;
-
 rsx! {
-  NavigationMenu {
-    on_value_change: move |value: String| active.set(value),
+  NavigationMenu { "aria-label": "Product",
     NavigationMenuList {
-      NavigationMenuItem {
-        value: "docs",
-        NavigationMenuTrigger { open: is_open("docs"), "Docs" }
+      NavigationMenuItem { value: "docs",
+        NavigationMenuTrigger { "Docs" }
         NavigationMenuContent {
-          open: is_open("docs"),
           NavigationMenuLink { href: "/docs/install", "Install" }
         }
       }
@@ -84,7 +82,7 @@ rsx! {
   or a click on a content link closes it.
 
 Content is laid out with CSS, not anchored. `NavigationMenuViewport` and
-`NavigationMenuIndicator` only reflect the `open` value the app passes.
+`NavigationMenuIndicator` show while any item is open.
 
 ### Submenus
 
@@ -93,17 +91,19 @@ in a content for a mega menu: its triggers form a column, and its contents sit
 beside its list, each with its item's `value`:
 
 ```rust
-NavigationMenuContent { open: open("solutions"),
+NavigationMenuContent {
   NavigationMenu {
     orientation: NavigationMenuOrientation::Vertical,
     "aria-label": "Solution areas",
+    // Keep a panel open: ignore the empty value a close sends.
+    value: area(),
     on_value_change: move |value: String| if !value.is_empty() { area.set(value) },
     NavigationMenuList {
-      NavigationMenuItem { value: "web", NavigationMenuTrigger { open: area() == "web", "Web" } }
-      NavigationMenuItem { value: "mobile", NavigationMenuTrigger { open: area() == "mobile", "Mobile" } }
+      NavigationMenuItem { value: "web", NavigationMenuTrigger { "Web" } }
+      NavigationMenuItem { value: "mobile", NavigationMenuTrigger { "Mobile" } }
     }
-    NavigationMenuContent { value: "web", open: area() == "web", /* links */ }
-    NavigationMenuContent { value: "mobile", open: area() == "mobile", /* links */ }
+    NavigationMenuContent { value: "web", /* links */ }
+    NavigationMenuContent { value: "mobile", /* links */ }
   }
 }
 ```
