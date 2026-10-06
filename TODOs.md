@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 48% (11 of 23 tasks)
+- Overall: 52% (12 of 23 tasks)
 - Current milestone: M199
-- Current task: M199.1
+- Current task: M199.2
 
 ## Backup
 
@@ -80,8 +80,9 @@
 
 ## M199 Site Documentation
 
-- TODO M199.1 Copy example source on the site
+- DONE M199.1 Copy example source on the site
   - The existing Code tab gets a copy button, as do the install commands. Fix the stale `0.1.0` path on the Installation page. (Narrowed 2026-10-06: Preview and Code tabs already exist.)
+  - Done: copy buttons on all code blocks with a status announcement; versions derived from `CARGO_PKG_VERSION`. Clipboard check in site-verify, reverse-verified. Also found and cancelled a Pages run stuck in the queue for 16 hours, which had blocked every deploy since 2026-10-05 11:58; the live site is current again.
 - TODO M199.2 API reference on the site
   - Each component page renders its docs page's API, behavior, and accessibility sections instead of linking to GitHub.
 
