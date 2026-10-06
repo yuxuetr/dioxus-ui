@@ -4,6 +4,7 @@ use dioxus::prelude::*;
   feature = "alert-dialog",
   feature = "dialog",
   feature = "drawer",
+  feature = "dropdown",
   feature = "popover",
   feature = "sheet"
 ))]
@@ -58,6 +59,7 @@ pub(crate) fn use_overlay_root(
   feature = "alert-dialog",
   feature = "dialog",
   feature = "drawer",
+  feature = "dropdown",
   feature = "popover",
   feature = "sheet"
 ))]

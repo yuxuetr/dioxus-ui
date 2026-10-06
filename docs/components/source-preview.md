@@ -35,7 +35,7 @@ Source preview routes: 82
 | [Collapsible](collapsible.md) | /components/collapsible/source | crates/dioxus-shadcn-cli/templates/collapsible.rs | src/components/ui/collapsible.rs | rust | 108 | 3419 |
 | [Combobox](combobox.md) | /components/combobox/source | crates/dioxus-shadcn-cli/templates/combobox.rs | src/components/ui/combobox.rs | rust | 309 | 10925 |
 | [Command](command.md) | /components/command/source | crates/dioxus-shadcn-cli/templates/command.rs | src/components/ui/command.rs | rust | 281 | 8303 |
-| [Context Menu](context-menu.md) | /components/context-menu/source | crates/dioxus-shadcn-cli/templates/context_menu.rs | src/components/ui/context_menu.rs | rust | 345 | 10502 |
+| [Context Menu](context-menu.md) | /components/context-menu/source | crates/dioxus-shadcn-cli/templates/context_menu.rs | src/components/ui/context_menu.rs | rust | 430 | 13022 |
 | [Countdown](countdown.md) | /components/countdown/source | crates/dioxus-shadcn-cli/templates/countdown.rs | src/components/ui/countdown.rs | rust | 68 | 2127 |
 | [Data Table](data-table.md) | /components/data-table/source | crates/dioxus-shadcn-cli/templates/data_table.rs | src/components/ui/data_table.rs | rust | 334 | 9021 |
 | [Date Picker](date-picker.md) | /components/date-picker/source | crates/dioxus-shadcn-cli/templates/date_picker.rs | src/components/ui/date_picker.rs | rust | 292 | 10289 |
@@ -44,7 +44,7 @@ Source preview routes: 82
 | [Direction](direction.md) | /components/direction/source | crates/dioxus-shadcn-cli/templates/direction.rs | src/components/ui/direction.rs | rust | 44 | 814 |
 | [Dock](dock.md) | /components/dock/source | crates/dioxus-shadcn-cli/templates/dock.rs | src/components/ui/dock.rs | rust | 84 | 3230 |
 | [Drawer](drawer.md) | /components/drawer/source | crates/dioxus-shadcn-cli/templates/drawer.rs | src/components/ui/drawer.rs | rust | 217 | 6431 |
-| [Dropdown](dropdown.md) | /components/dropdown/source | crates/dioxus-shadcn-cli/templates/dropdown.rs | src/components/ui/dropdown.rs | rust | 360 | 11116 |
+| [Dropdown](dropdown.md) | /components/dropdown/source | crates/dioxus-shadcn-cli/templates/dropdown.rs | src/components/ui/dropdown.rs | rust | 410 | 12871 |
 | [Empty](empty.md) | /components/empty/source | crates/dioxus-shadcn-cli/templates/empty.rs | src/components/ui/empty.rs | rust | 106 | 2566 |
 | [Fab](fab.md) | /components/fab/source | crates/dioxus-shadcn-cli/templates/fab.rs | src/components/ui/fab.rs | rust | 139 | 5557 |
 | [Field](field.md) | /components/field/source | crates/dioxus-shadcn-cli/templates/field.rs | src/components/ui/field.rs | rust | 116 | 2850 |
@@ -59,7 +59,7 @@ Source preview routes: 82
 | [Label](label.md) | /components/label/source | crates/dioxus-shadcn-cli/templates/label.rs | src/components/ui/label.rs | rust | 32 | 895 |
 | [Marker](marker.md) | /components/marker/source | crates/dioxus-shadcn-cli/templates/marker.rs | src/components/ui/marker.rs | rust | 96 | 2390 |
 | [Menu](menu.md) | /components/menu/source | crates/dioxus-shadcn-cli/templates/menu.rs | src/components/ui/menu.rs | rust | 173 | 5789 |
-| [Menubar](menubar.md) | /components/menubar/source | crates/dioxus-shadcn-cli/templates/menubar.rs | src/components/ui/menubar.rs | rust | 528 | 17103 |
+| [Menubar](menubar.md) | /components/menubar/source | crates/dioxus-shadcn-cli/templates/menubar.rs | src/components/ui/menubar.rs | rust | 597 | 19705 |
 | [Message](message.md) | /components/message/source | crates/dioxus-shadcn-cli/templates/message.rs | src/components/ui/message.rs | rust | 152 | 3838 |
 | [Message Scroller](message-scroller.md) | /components/message-scroller/source | crates/dioxus-shadcn-cli/templates/message_scroller.rs | src/components/ui/message_scroller.rs | rust | 248 | 7539 |
 | [Mockup](mockup.md) | /components/mockup/source | crates/dioxus-shadcn-cli/templates/mockup.rs | src/components/ui/mockup.rs | rust | 159 | 5165 |

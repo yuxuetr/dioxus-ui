@@ -3,8 +3,11 @@ use super::listbox::{ListboxMode, use_listbox};
 use super::menu_marks::{
   MENU_CHECKBOX_MARK_CLASS, MENU_RADIO_MARK_CLASS, MENU_SUB_TRIGGER_CLASS, menu_mark_state_class,
 };
-use super::menu_sub::{MenuSubContext, use_menu_sub, use_menu_sub_content};
+use super::menu_radio::{use_menu_radio_group, use_menu_radio_item};
+use super::menu_sub::{use_menu_sub, use_menu_sub_content, use_menu_sub_part};
 pub use super::overlay::{DismissBehavior, DropdownPrimitiveConfig, OverlayAlign, OverlaySide};
+use super::overlay_root::{OverlayRoot, use_overlay_root};
+use super::root_state::use_root_context;
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
@@ -38,7 +41,10 @@ pub fn context_menu_item_class(inset: bool, destructive: bool, class: &str) -> S
   };
   let inset_class = if inset { CONTEXT_MENU_ITEM_INSET_CLASS } else { "" };
 
-  merge_classes(classes([Some(CONTEXT_MENU_ITEM_BASE_CLASS), Some(variant_class), Some(inset_class)]), class)
+  merge_classes(
+    classes([Some(CONTEXT_MENU_ITEM_BASE_CLASS), Some(variant_class), Some(inset_class)]),
+    class,
+  )
 }
 
 pub fn context_menu_separator_class(class: &str) -> String {
@@ -47,57 +53,127 @@ pub fn context_menu_separator_class(class: &str) -> String {
 
 /// An inset item with a check mark shown while `checked`.
 pub fn context_menu_checkbox_item_class(checked: bool, class: &str) -> String {
-  let mark =
-    merge_classes(classes([Some(MENU_CHECKBOX_MARK_CLASS), Some(menu_mark_state_class(checked))]), class);
+  let mark = merge_classes(
+    classes([Some(MENU_CHECKBOX_MARK_CLASS), Some(menu_mark_state_class(checked))]),
+    class,
+  );
   context_menu_item_class(true, false, &mark)
 }
 
 /// An inset item with a dot shown while `checked`.
 pub fn context_menu_radio_item_class(checked: bool, class: &str) -> String {
-  let mark =
-    merge_classes(classes([Some(MENU_RADIO_MARK_CLASS), Some(menu_mark_state_class(checked))]), class);
+  let mark = merge_classes(
+    classes([Some(MENU_RADIO_MARK_CLASS), Some(menu_mark_state_class(checked))]),
+    class,
+  );
   context_menu_item_class(true, false, &mark)
 }
 
 /// A sub trigger: an item with a chevron at its end.
 pub fn context_menu_sub_trigger_class(inset: bool, class: &str) -> String {
-  context_menu_item_class(inset, false, &merge_classes(classes([Some(MENU_SUB_TRIGGER_CLASS)]), class))
+  context_menu_item_class(
+    inset,
+    false,
+    &merge_classes(classes([Some(MENU_SUB_TRIGGER_CLASS)]), class),
+  )
 }
 
 pub fn context_menu_shortcut_class(class: &str) -> String {
   merge_classes(classes([Some(CONTEXT_MENU_SHORTCUT_BASE_CLASS)]), class)
 }
 
-/// With `anchor_point` (viewport coordinates, usually the `oncontextmenu`
-/// event's client coordinates) the menu's corner is placed at that point,
+/// What a `ContextMenu` shares with its parts: whether it is open, and the
+/// viewport point the menu opens at.
+#[derive(Clone, Copy)]
+struct ContextMenuContext {
+  root: OverlayRoot,
+  point: Signal<(f64, f64)>,
+}
+
+fn use_context_menu(part: &str) -> ContextMenuContext {
+  use_root_context::<ContextMenuContext>(part, "ContextMenu")
+}
+
+/// The root of a context menu: it owns whether the menu is open. Pass `open`
+/// to control it, or `default_open` to start it; `on_open_change` hears every
+/// change the user makes either way.
+#[component]
+pub fn ContextMenu(
+  #[props(default)] open: ReadSignal<Option<bool>>,
+  #[props(default)] default_open: bool,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
+  children: Element,
+) -> Element {
+  let root = use_overlay_root("context-menu", open, default_open, on_open_change);
+  let point = use_signal(|| (0.0, 0.0));
+  use_context_provider(|| ContextMenuContext { root, point });
+
+  rsx! { {children} }
+}
+
+/// The area that opens the menu at the pointer on a right click, or at the
+/// area on the keyboard's context menu key.
+#[component]
+pub fn ContextMenuTrigger(
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
+  let context = use_context_menu("ContextMenuTrigger");
+  let mut point = context.point;
+
+  rsx! {
+    div {
+      class,
+      "data-state": if context.root.is_open() { "open" } else { "closed" },
+      oncontextmenu: move |event| {
+        event.prevent_default();
+        let position = event.client_coordinates();
+        point.set((position.x, position.y));
+        context.root.set_open.call(true);
+      },
+      ..attributes,
+      {children}
+    }
+  }
+}
+
+/// The menu's corner is placed at the point the trigger was opened at,
 /// flipping and shifting to stay in the viewport. Opening focuses the first
 /// enabled item; arrows wrap, Home, End, and typeahead jump, and activating an
-/// item requests close and returns focus. Escape and outside interactions
-/// request close per `dismiss`.
+/// item closes the menu and returns focus. Escape and outside interactions
+/// close it per `dismiss`.
 #[component]
 pub fn ContextMenuContent(
-  #[props(default)] open: bool,
   #[props(default)] class: String,
-  #[props(default)] anchor_point: Option<(f64, f64)>,
   #[props(default = OverlaySide::Bottom)] side: OverlaySide,
   #[props(default = OverlayAlign::Start)] align: OverlayAlign,
   #[props(default)] side_offset: i32,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default = DismissBehavior::popover_default())] dismiss: DismissBehavior,
   children: Element,
 ) -> Element {
+  let context = use_context_menu("ContextMenuContent");
+  let root = context.root;
   let class = context_menu_content_class(&class);
-  let menu = use_listbox(open, None, ListboxMode::Menu, None, on_open_change);
+  let open = root.is_open();
+  let menu = use_listbox(open, None, ListboxMode::Menu, None, Some(root.set_open));
   let anchored = use_anchored_overlay(
     open,
-    AnchoredPlacement { anchor_id: None, anchor_point, side, align, side_offset },
+    AnchoredPlacement {
+      anchor_id: None,
+      anchor_point: Some((context.point)()),
+      side,
+      align,
+      side_offset,
+    },
     dismiss,
-    on_open_change,
+    Some(root.set_open),
   );
 
   rsx! {
     div {
       role: "menu",
+      id: root.content_id(),
       class,
       hidden: !open,
       "data-state": if open { "open" } else { "closed" },
@@ -188,30 +264,41 @@ pub fn ContextMenuCheckboxItem(
   }
 }
 
+/// Groups radio items and owns the checked item's value. Pass `value` to
+/// control it, or `default_value` to start it; `on_value_change` hears every
+/// change the user makes either way.
 #[component]
 pub fn ContextMenuRadioGroup(
-  #[props(default)] value: String,
+  #[props(default)] value: ReadSignal<Option<String>>,
+  #[props(default)] default_value: Option<String>,
+  #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
+  let group = use_menu_radio_group(value, default_value, on_value_change);
+
   rsx! {
     div {
       role: "group",
       class,
-      "data-value": value,
+      "data-value": group.value(),
       {children}
     }
   }
 }
 
+/// A radio item: activation checks it in its group and calls `onclick`.
+/// Shows a dot while checked.
 #[component]
 pub fn ContextMenuRadioItem(
-  #[props(default)] checked: bool,
+  value: String,
   #[props(default)] disabled: bool,
   #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
+  let group = use_menu_radio_item("ContextMenuRadioItem", "ContextMenuRadioGroup");
+  let checked = group.value().as_ref() == Some(&value);
   let class = context_menu_radio_item_class(checked, &class);
 
   rsx! {
@@ -221,27 +308,33 @@ pub fn ContextMenuRadioItem(
       "aria-checked": checked.to_string(),
       "aria-disabled": disabled.to_string(),
       "data-disabled": disabled.to_string(),
+      "data-state": if checked { "checked" } else { "unchecked" },
       onclick: move |event| {
-        if let Some(handler) = onclick.filter(|_| !disabled) {
-          handler.call(event);
+        if !disabled {
+          group.choose(value.clone());
+          if let Some(handler) = onclick {
+            handler.call(event);
+          }
         }
       },
-      "data-state": if checked { "checked" } else { "unchecked" },
       {children}
     }
   }
 }
 
-/// A nested menu (RFC 0067). Put `ContextMenuSubTrigger` and `ContextMenuSubContent`
-/// inside and pass both the same `open`; `on_open_change` reports requests
-/// to open and close it.
+/// A nested menu (RFC 0067) that owns whether it is open. Put
+/// `ContextMenuSubTrigger` and `ContextMenuSubContent` inside. Pass `open` to
+/// control it, or `default_open` to start it; `on_open_change` hears every
+/// change either way.
 #[component]
 pub fn ContextMenuSub(
+  #[props(default)] open: ReadSignal<Option<bool>>,
+  #[props(default)] default_open: bool,
   #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  use_menu_sub(on_open_change);
+  use_menu_sub(open, default_open, on_open_change);
 
   rsx! {
     div {
@@ -256,32 +349,29 @@ pub fn ContextMenuSub(
 /// right-to-left), or hover.
 #[component]
 pub fn ContextMenuSubTrigger(
-  #[props(default)] open: bool,
   #[props(default)] inset: bool,
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let context = try_use_context::<MenuSubContext>();
-  let id = context.as_ref().map(MenuSubContext::trigger_id);
-  let controls = context.as_ref().map(MenuSubContext::content_id);
-  let on_open_change = context.and_then(|context| context.on_open_change);
+  let sub = use_menu_sub_part("ContextMenuSubTrigger", "ContextMenuSub");
+  let open = sub.is_open();
   let class = context_menu_sub_trigger_class(inset, &class);
 
   rsx! {
     div {
       role: "menuitem",
-      id,
+      id: sub.trigger_id(),
       class,
       "aria-haspopup": "menu",
       "aria-expanded": open.to_string(),
-      "aria-controls": controls,
+      "aria-controls": sub.content_id(),
       "aria-disabled": disabled.to_string(),
       "data-disabled": disabled.to_string(),
       "data-state": if open { "open" } else { "closed" },
       onclick: move |_| {
-        if let Some(handler) = on_open_change.filter(|_| !disabled) {
-          handler.call(true);
+        if !disabled {
+          sub.set_open.call(true);
         }
       },
       {children}
@@ -293,23 +383,18 @@ pub fn ContextMenuSubTrigger(
 /// right-to-left) and Escape close it and return focus to the trigger;
 /// choosing an item closes every level.
 #[component]
-pub fn ContextMenuSubContent(
-  #[props(default)] open: bool,
-  #[props(default)] class: String,
-  children: Element,
-) -> Element {
-  let (context, listbox, anchored) = use_menu_sub_content(open);
-  let id = context.as_ref().map(MenuSubContext::content_id);
-  let labelledby = context.as_ref().map(MenuSubContext::trigger_id);
+pub fn ContextMenuSubContent(#[props(default)] class: String, children: Element) -> Element {
+  let (sub, listbox, anchored) = use_menu_sub_content("ContextMenuSubContent", "ContextMenuSub");
+  let open = sub.is_open();
   let class = context_menu_content_class(&class);
 
   rsx! {
     div {
       role: "menu",
-      id,
+      id: sub.content_id(),
       class,
       hidden: !open,
-      "aria-labelledby": labelledby,
+      "aria-labelledby": sub.trigger_id(),
       "data-state": if open { "open" } else { "closed" },
       "data-dxui-submenu": "",
       "data-dxui-anchored": anchored,

@@ -15,19 +15,19 @@ use dioxus_shadcn::{
   CalendarNav, CalendarNavButton, CalendarNavDirection, CalendarRow, CalendarWeekday, Checkbox,
   ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList, ComboboxStatus, Command,
   CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandLabel, CommandList, CommandStatus,
-  ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, ContextMenuSub,
-  ContextMenuSubContent, ContextMenuSubTrigger, DatePickerContent, DatePickerTrigger,
-  DatePickerValue, DropdownContent, DropdownItem, DropdownSeparator, HoverCard, HoverCardContent,
-  HoverCardDescription, HoverCardHeader, HoverCardTitle, HoverCardTrigger, Label, Menubar,
-  MenubarContent, MenubarItem, MenubarMenu, MenubarSub, MenubarSubContent, MenubarSubTrigger,
-  MenubarTrigger, NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink,
-  NavigationMenuList, NavigationMenuTrigger, NavigationOrientation, RadioGroup, RadioGroupItem,
-  Select, SelectContent, SelectItem, SelectTrigger, SonnerClose, SonnerContent, SonnerTitle,
-  SonnerToast, SonnerVariant, SonnerViewport, Switch, Tabs, TabsActivation, TabsContent, TabsList,
-  TabsOrientation, TabsTrigger, ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport,
-  ToggleGroup, ToggleGroupItem, accordion_single_open, calendar_month_grid, calendar_move_date,
-  command_matches, sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute,
-  toggle_group_single_selection,
+  ContextMenu, ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, ContextMenuSub,
+  ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger, DatePickerContent,
+  DatePickerTrigger, DatePickerValue, Dropdown, DropdownContent, DropdownItem, DropdownSeparator,
+  HoverCard, HoverCardContent, HoverCardDescription, HoverCardHeader, HoverCardTitle,
+  HoverCardTrigger, Label, Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSub,
+  MenubarSubContent, MenubarSubTrigger, MenubarTrigger, NavigationMenu, NavigationMenuContent,
+  NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger,
+  NavigationOrientation, RadioGroup, RadioGroupItem, Select, SelectContent, SelectItem,
+  SelectTrigger, SonnerClose, SonnerContent, SonnerTitle, SonnerToast, SonnerVariant,
+  SonnerViewport, Switch, Tabs, TabsActivation, TabsContent, TabsList, TabsOrientation,
+  TabsTrigger, ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport, ToggleGroup,
+  ToggleGroupItem, accordion_single_open, calendar_month_grid, calendar_move_date, command_matches,
+  sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute, toggle_group_single_selection,
 };
 use dioxus_shadcn::{
   AlertDialog, AlertDialogAction, AlertDialogActionVariant, AlertDialogCancel, AlertDialogContent,
@@ -63,7 +63,7 @@ use dioxus_shadcn::{DateOrder, DatePickerInput};
 use dioxus_shadcn::{Diff, DiffAfter, DiffBefore};
 use dioxus_shadcn::{
   DropdownCheckboxItem, DropdownRadioGroup, DropdownRadioItem, DropdownShortcut, DropdownSub,
-  DropdownSubContent, DropdownSubTrigger,
+  DropdownSubContent, DropdownSubTrigger, DropdownTrigger,
 };
 use dioxus_shadcn::{Fab, FabAction};
 use dioxus_shadcn::{
@@ -921,19 +921,14 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   } else {
     String::new()
   };
-  let mut dropdown_open = use_signal(|| false);
   let mut dropdown_action = use_signal(|| "none");
   let mut options_open = use_signal(|| false);
-  let mut file_open = use_signal(|| false);
-  let mut share_open = use_signal(|| false);
   let mut file_action = use_signal(|| "none");
   let mut status_bar = use_signal(|| true);
   let mut minimap = use_signal(|| false);
-  let mut panel = use_signal(|| "bottom");
-  let mut menubar_active = use_signal(|| None::<&'static str>);
+  let mut panel = use_signal(|| "bottom".to_string());
+  let mut menubar_value = use_signal(String::new);
   let mut menubar_action = use_signal(|| "none");
-  let mut menubar_appearance = use_signal(|| false);
-  let menubar_open = move |value: &str| menubar_active() == Some(value);
   let mut navigation_active = use_signal(String::new);
   let mut mega_active = use_signal(String::new);
   let mut typed_date = use_signal(|| None::<CalendarDate>);
@@ -997,11 +992,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   });
   let mut accordion_value = use_signal(|| None::<String>);
   let accordion_open = move |value: &str| accordion_value().as_deref() == Some(value);
-  let mut context_open = use_signal(|| false);
-  let mut context_point = use_signal(|| (0.0, 0.0));
   let mut context_bookmarked = use_signal(|| false);
   let mut context_action = use_signal(|| "none");
-  let mut context_tools = use_signal(|| false);
   let mut date_open = use_signal(|| false);
   let mut date_month = use_signal(|| CalendarMonth::unchecked(2026, 10));
   let mut date_focused = use_signal(|| CalendarDate::unchecked(2026, 10, 15));
@@ -1689,30 +1681,26 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-interaction-target": "dropdown",
             "data-action": "{dropdown_action}",
             h2 { class: "text-sm font-medium", "Dropdown interaction" }
-            button {
-              id: "interaction-dropdown-trigger",
-              class: "{secondary_button_class} mt-3",
-              "aria-haspopup": "menu",
-              "aria-expanded": if dropdown_open() { "true" } else { "false" },
-              onclick: move |_| dropdown_open.toggle(),
-              "Actions"
-            }
-            DropdownContent {
-              open: dropdown_open(),
-              anchor_id: "interaction-dropdown-trigger",
-              on_open_change: move |open| dropdown_open.set(open),
-              DropdownItem { onclick: move |_| dropdown_action.set("edit"), "Edit" }
-              DropdownItem { onclick: move |_| dropdown_action.set("duplicate"), "Duplicate" }
-              DropdownItem {
-                disabled: true,
-                onclick: move |_| dropdown_action.set("archive"),
-                "Archive"
+            Dropdown {
+              DropdownTrigger {
+                class: "{secondary_button_class} mt-3",
+                "data-interaction-control": "dropdown-trigger",
+                "Actions"
               }
-              DropdownSeparator {}
-              DropdownItem {
-                destructive: true,
-                onclick: move |_| dropdown_action.set("delete"),
-                "Delete"
+              DropdownContent {
+                DropdownItem { onclick: move |_| dropdown_action.set("edit"), "Edit" }
+                DropdownItem { onclick: move |_| dropdown_action.set("duplicate"), "Duplicate" }
+                DropdownItem {
+                  disabled: true,
+                  onclick: move |_| dropdown_action.set("archive"),
+                  "Archive"
+                }
+                DropdownSeparator {}
+                DropdownItem {
+                  destructive: true,
+                  onclick: move |_| dropdown_action.set("delete"),
+                  "Delete"
+                }
               }
             }
           }
@@ -1723,40 +1711,29 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-minimap": "{minimap}",
             "data-panel": "{panel}",
             h2 { class: "text-sm font-medium", "Dropdown options interaction" }
-            button {
-              id: "interaction-dropdown-options-trigger",
-              class: "{secondary_button_class} mt-3",
-              "aria-haspopup": "menu",
-              "aria-expanded": if options_open() { "true" } else { "false" },
-              onclick: move |_| options_open.toggle(),
-              "View"
-            }
-            DropdownContent {
-              open: options_open(),
-              anchor_id: "interaction-dropdown-options-trigger",
-              on_open_change: move |open| options_open.set(open),
-              DropdownCheckboxItem {
-                checked: status_bar(),
-                onclick: move |_| status_bar.toggle(),
-                "Status bar"
-                DropdownShortcut { "Ctrl+/" }
+            // Controlled: the app holds `open` and the radio group's value.
+            Dropdown { open: options_open(), on_open_change: move |open| options_open.set(open),
+              DropdownTrigger {
+                class: "{secondary_button_class} mt-3",
+                "data-interaction-control": "dropdown-options-trigger",
+                "View"
               }
-              DropdownCheckboxItem {
-                checked: minimap(),
-                onclick: move |_| minimap.toggle(),
-                "Minimap"
-              }
-              DropdownSeparator {}
-              DropdownRadioGroup { value: panel(),
-                DropdownRadioItem {
-                  checked: panel() == "bottom",
-                  onclick: move |_| panel.set("bottom"),
-                  "Panel bottom"
+              DropdownContent {
+                DropdownCheckboxItem {
+                  checked: status_bar(),
+                  onclick: move |_| status_bar.toggle(),
+                  "Status bar"
+                  DropdownShortcut { "Ctrl+/" }
                 }
-                DropdownRadioItem {
-                  checked: panel() == "right",
-                  onclick: move |_| panel.set("right"),
-                  "Panel right"
+                DropdownCheckboxItem {
+                  checked: minimap(),
+                  onclick: move |_| minimap.toggle(),
+                  "Minimap"
+                }
+                DropdownSeparator {}
+                DropdownRadioGroup { value: panel(), on_value_change: move |value| panel.set(value),
+                  DropdownRadioItem { value: "bottom", "Panel bottom" }
+                  DropdownRadioItem { value: "right", "Panel right" }
                 }
               }
             }
@@ -1766,28 +1743,23 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-interaction-target": "dropdown-submenu",
             "data-action": "{file_action}",
             h2 { class: "text-sm font-medium", "Dropdown submenu interaction" }
-            button {
-              id: "interaction-dropdown-submenu-trigger",
-              class: "{secondary_button_class} mt-3",
-              "aria-haspopup": "menu",
-              "aria-expanded": if file_open() { "true" } else { "false" },
-              onclick: move |_| file_open.toggle(),
-              "File"
-            }
-            DropdownContent {
-              open: file_open(),
-              anchor_id: "interaction-dropdown-submenu-trigger",
-              align: dioxus_shadcn::DropdownAlign::Start,
-              on_open_change: move |open| file_open.set(open),
-              DropdownItem { onclick: move |_| file_action.set("new"), "New file" }
-              DropdownSub { on_open_change: move |open| share_open.set(open),
-                DropdownSubTrigger { open: share_open(), "Share" }
-                DropdownSubContent { open: share_open(),
-                  DropdownItem { onclick: move |_| file_action.set("copy"), "Copy link" }
-                  DropdownItem { onclick: move |_| file_action.set("email"), "Email" }
-                }
+            Dropdown {
+              DropdownTrigger {
+                class: "{secondary_button_class} mt-3",
+                "data-interaction-control": "dropdown-submenu-trigger",
+                "File"
               }
-              DropdownItem { onclick: move |_| file_action.set("print"), "Print" }
+              DropdownContent { align: dioxus_shadcn::DropdownAlign::Start,
+                DropdownItem { onclick: move |_| file_action.set("new"), "New file" }
+                DropdownSub {
+                  DropdownSubTrigger { "Share" }
+                  DropdownSubContent {
+                    DropdownItem { onclick: move |_| file_action.set("copy"), "Copy link" }
+                    DropdownItem { onclick: move |_| file_action.set("email"), "Email" }
+                  }
+                }
+                DropdownItem { onclick: move |_| file_action.set("print"), "Print" }
+              }
             }
           }
           article {
@@ -1798,63 +1770,38 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             Menubar {
               class: "mt-3",
               "aria-label": "Editor",
-              on_value_change: move |value: String| {
-                let menus = ["file", "edit", "view"];
-                menubar_active.set(menus.into_iter().find(|menu| *menu == value));
-              },
+              // Controlled: the app holds the open menu's value.
+              value: menubar_value(),
+              on_value_change: move |value| menubar_value.set(value),
               MenubarMenu {
                 value: "file",
-                MenubarTrigger {
-                  id: "interaction-menubar-file",
-                  open: menubar_open("file"),
-                  on_open_change: move |open: bool| menubar_active.set(open.then_some("file")),
-                  "File"
-                }
+                MenubarTrigger { "File" }
                 MenubarContent {
-                  open: menubar_open("file"),
-                  anchor_id: "interaction-menubar-file",
-                  on_open_change: move |_| menubar_active.set(None),
                   MenubarItem { onclick: move |_| menubar_action.set("new"), "New" }
                   MenubarItem { onclick: move |_| menubar_action.set("open"), "Open" }
                 }
               }
               MenubarMenu {
                 value: "edit",
-                MenubarTrigger {
-                  id: "interaction-menubar-edit",
-                  open: menubar_open("edit"),
-                  on_open_change: move |open: bool| menubar_active.set(open.then_some("edit")),
-                  "Edit"
-                }
+                MenubarTrigger { "Edit" }
                 MenubarContent {
-                  open: menubar_open("edit"),
-                  anchor_id: "interaction-menubar-edit",
-                  on_open_change: move |_| menubar_active.set(None),
                   MenubarItem { onclick: move |_| menubar_action.set("undo"), "Undo" }
                   MenubarItem { onclick: move |_| menubar_action.set("redo"), "Redo" }
                 }
               }
               MenubarMenu {
                 value: "help",
-                MenubarTrigger { id: "interaction-menubar-help", disabled: true, "Help" }
+                MenubarTrigger { disabled: true, "Help" }
               }
               MenubarMenu {
                 value: "view",
-                MenubarTrigger {
-                  id: "interaction-menubar-view",
-                  open: menubar_open("view"),
-                  on_open_change: move |open: bool| menubar_active.set(open.then_some("view")),
-                  "View"
-                }
+                MenubarTrigger { "View" }
                 MenubarContent {
-                  open: menubar_open("view"),
-                  anchor_id: "interaction-menubar-view",
-                  on_open_change: move |_| menubar_active.set(None),
                   MenubarItem { onclick: move |_| menubar_action.set("zoom-in"), "Zoom in" }
                   MenubarItem { onclick: move |_| menubar_action.set("zoom-out"), "Zoom out" }
-                  MenubarSub { on_open_change: move |open| menubar_appearance.set(open),
-                    MenubarSubTrigger { open: menubar_appearance(), "Appearance" }
-                    MenubarSubContent { open: menubar_appearance(),
+                  MenubarSub {
+                    MenubarSubTrigger { "Appearance" }
+                    MenubarSubContent {
                       MenubarItem {
                         onclick: move |_| menubar_action.set("fullscreen"),
                         "Full screen"
@@ -2714,21 +2661,13 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-action": "{context_action}",
             "data-bookmarked": "{context_bookmarked}",
             h2 { class: "text-sm font-medium", "Context menu interaction" }
-            div {
-              class: "mt-3 h-24 border border-dashed border-input",
-              "data-interaction-control": "context-area",
-              oncontextmenu: move |event| {
-                event.prevent_default();
-                let position = event.client_coordinates();
-                context_point.set((position.x, position.y));
-                context_open.set(true);
-              },
-              "Right-click here"
-            }
-            ContextMenuContent {
-              open: context_open(),
-              anchor_point: context_point(),
-              on_open_change: move |open| context_open.set(open),
+            ContextMenu {
+              ContextMenuTrigger {
+                class: "mt-3 h-24 border border-dashed border-input",
+                "data-interaction-control": "context-area",
+                "Right-click here"
+              }
+              ContextMenuContent {
               ContextMenuItem { onclick: move |_| context_action.set("back"), "Back" }
               ContextMenuCheckboxItem {
                 checked: context_bookmarked(),
@@ -2740,11 +2679,12 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 onclick: move |_| context_action.set("forward"),
                 "Forward"
               }
-              ContextMenuSub { on_open_change: move |open| context_tools.set(open),
-                ContextMenuSubTrigger { open: context_tools(), "More tools" }
-                ContextMenuSubContent { open: context_tools(),
+              ContextMenuSub {
+                ContextMenuSubTrigger { "More tools" }
+                ContextMenuSubContent {
                   ContextMenuItem { onclick: move |_| context_action.set("save"), "Save page" }
                 }
+              }
               }
             }
           }

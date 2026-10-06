@@ -113,6 +113,20 @@ A controlled overlay may leave the trigger out and open from any app button;
 an anchored one, such as a Popover, keeps its trigger as the anchor. The
 content and close parts lose `open`, `on_open_change`, and `anchor_id`.
 
+### Menus
+
+`Dropdown` is a new root with a `DropdownTrigger`. `ContextMenu` is a new
+root with a `ContextMenuTrigger`, an area that opens the menu at the pointer
+on a right click, so the app no longer records the point. `Menubar` takes
+`value`, `default_value`, and `on_value_change` for the `value` of the open
+`MenubarMenu`, the empty string while none is open, as Radix does; each menu's
+trigger and content compare it with their menu's.
+
+In every menu, a radio group owns its value (`value`, `default_value`,
+`on_value_change`) and its radio items take a `value` instead of `checked`,
+and a submenu root owns its open state the same way as an overlay root. A
+checkbox item keeps `checked`: each item is its own state, as a Checkbox is.
+
 ### Which components move
 
 | Batch | Components | State the root takes |
@@ -129,6 +143,7 @@ Kept as they are, on purpose:
 | Components | Why |
 | --- | --- |
 | Checkbox, Switch, Toggle, Swap, Slider, Number Input, Input, Textarea, Native Select, Resizable | One element holds the state, as with native form controls; there are no parts to share it with |
+| Menu checkbox items (Dropdown, Context Menu, Menubar) | Each item is its own state, as a Checkbox is |
 | Breadcrumb, Pagination, Sidebar, Dock, Menu items, Navigation Menu links, Data Table rows, Item, Calendar days | The current item follows the app's route or data, which the component cannot know |
 | Chart, Progress, Radial Progress | They display a value the app owns |
 

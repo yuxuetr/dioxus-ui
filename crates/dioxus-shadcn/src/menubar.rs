@@ -10,7 +10,9 @@ use crate::listbox::{ListboxMode, use_listbox};
 use crate::menu_marks::{
   MENU_CHECKBOX_MARK_CLASS, MENU_RADIO_MARK_CLASS, MENU_SUB_TRIGGER_CLASS, menu_mark_state_class,
 };
-use crate::menu_sub::{MenuSubContext, use_menu_sub, use_menu_sub_content};
+use crate::menu_radio::{use_menu_radio_group, use_menu_radio_item};
+use crate::menu_sub::{use_menu_sub, use_menu_sub_content, use_menu_sub_part};
+use crate::root_state::{Controllable, use_controllable, use_root_context};
 
 // Runs for the bar's lifetime. Triggers are read from the DOM on every event
 // so triggers added or disabled later are picked up. Sends the `MenubarMenu`
@@ -175,18 +177,56 @@ pub fn menubar_shortcut_class(class: &str) -> String {
   merge_classes(classes([Some(MENUBAR_SHORTCUT_BASE_CLASS)]), class)
 }
 
-/// The triggers form one Tab stop: Left, Right, Home, and End move focus
-/// between enabled triggers. While a menu is open, Left or Right inside it, or
-/// hovering another trigger, calls `on_value_change` with the `value` of the
-/// `MenubarMenu` to open.
+/// What a `Menubar` shares with its menus: the `value` of the open menu, or
+/// the empty string while none is open.
+#[derive(Clone, Copy)]
+struct MenubarContext(Controllable<String>);
+
+/// What a `MenubarMenu` shares with its trigger and content.
+#[derive(Clone)]
+struct MenubarMenuContext {
+  bar: Controllable<String>,
+  value: String,
+  id: usize,
+  set_open: Callback<bool>,
+}
+
+impl MenubarMenuContext {
+  fn is_open(&self) -> bool {
+    self.bar.get() == self.value
+  }
+
+  fn trigger_id(&self) -> String {
+    format!("dxui-menubar-menu-{}-trigger", self.id)
+  }
+
+  fn content_id(&self) -> String {
+    format!("dxui-menubar-menu-{}-content", self.id)
+  }
+}
+
+fn use_menubar_menu(part: &str) -> MenubarMenuContext {
+  use_root_context::<MenubarMenuContext>(part, "MenubarMenu")
+}
+
+/// The root of a menubar: it owns which menu is open, by the menu's `value`,
+/// or the empty string while none is. Pass `value` to control it, or
+/// `default_value` to start it; `on_value_change` hears every change the user
+/// makes either way. The triggers form one Tab stop: Left, Right, Home, and
+/// End move focus between enabled triggers. While a menu is open, Left or
+/// Right inside it, or hovering another trigger, opens that menu instead.
 #[component]
 pub fn Menubar(
+  #[props(default)] value: ReadSignal<Option<String>>,
+  #[props(default)] default_value: String,
   #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = menubar_class(&class);
+  let bar = use_controllable(move || value.cloned(), move || default_value, on_value_change);
+  use_context_provider(|| MenubarContext(bar));
   let scope_id = use_hook(|| format!("dxui-menubar-{}", next_element_id()));
   let effect_scope_id = scope_id.clone();
 
@@ -196,9 +236,7 @@ pub fn Menubar(
     let _ = eval.send(effect_scope_id.as_str());
     spawn(async move {
       while let Ok(value) = eval.recv::<String>().await {
-        if let Some(handler) = on_value_change {
-          handler.call(value);
-        }
+        bar.set(value);
       }
     });
   });
@@ -214,14 +252,29 @@ pub fn Menubar(
   }
 }
 
-/// `value` identifies the menu in `Menubar`'s `on_value_change`.
+/// One menu of the bar. `value` names it in the `Menubar`'s value; without
+/// one it gets a generated name.
 #[component]
 pub fn MenubarMenu(
   #[props(default)] value: String,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
+  let bar = use_root_context::<MenubarContext>("MenubarMenu", "Menubar").0;
   let class = menubar_menu_class(&class);
+  let id = use_hook(next_element_id);
+  let value = if value.is_empty() { format!("menu-{id}") } else { value };
+  let own = value.clone();
+  // Closing clears the bar only while this menu is the open one, so a menu
+  // closing as another opens leaves the other open.
+  let set_open = use_callback(move |next: bool| {
+    if next {
+      bar.set(own.clone());
+    } else if bar.get() == own {
+      bar.set(String::new());
+    }
+  });
+  use_context_provider(|| MenubarMenuContext { bar, value: value.clone(), id, set_open });
 
   rsx! {
     div {
@@ -233,40 +286,38 @@ pub fn MenubarMenu(
   }
 }
 
-/// Click requests `!open`; ArrowDown on a closed trigger requests `true`.
+/// Click toggles its menu; ArrowDown on a closed trigger opens it.
 #[component]
 pub fn MenubarTrigger(
-  #[props(default)] id: Option<String>,
-  #[props(default)] open: bool,
   #[props(default)] disabled: bool,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
+  let menu = use_menubar_menu("MenubarTrigger");
+  let open = menu.is_open();
+  let set_open = menu.set_open;
   let class = menubar_trigger_class(open, &class);
 
   rsx! {
     button {
       r#type: "button",
       role: "menuitem",
-      id,
+      id: menu.trigger_id(),
       class,
       disabled,
       "aria-expanded": open.to_string(),
       "aria-haspopup": "menu",
+      // A menu may have no content, such as a disabled one, so the trigger
+      // names the content only while it is open.
+      "aria-controls": open.then(|| menu.content_id()),
       "data-disabled": disabled.to_string(),
       "data-state": if open { "open" } else { "closed" },
       "data-dxui-menubar-trigger": "",
-      onclick: move |_| {
-        if let Some(handler) = on_open_change {
-          handler.call(!open);
-        }
-      },
+      onclick: move |_| set_open.call(!open),
       onkeydown: move |event| {
-        let opens = !open && event.key() == Key::ArrowDown;
-        if let Some(handler) = on_open_change.filter(|_| opens) {
+        if !open && event.key() == Key::ArrowDown {
           event.prevent_default();
-          handler.call(true);
+          set_open.call(true);
         }
       },
       {children}
@@ -275,38 +326,40 @@ pub fn MenubarTrigger(
 }
 
 /// Behaves like `DropdownContent`: opening focuses the first enabled item,
-/// arrows, Home, End, and typeahead move focus, and activating an item
-/// requests close and returns focus to the trigger named by `anchor_id`.
-/// Escape and outside interactions request close per `dismiss`.
+/// arrows, Home, End, and typeahead move focus, and activating an item closes
+/// the menu and returns focus to its trigger. Escape and outside interactions
+/// close it per `dismiss`.
 #[component]
 pub fn MenubarContent(
-  #[props(default)] open: bool,
   #[props(default)] class: String,
-  #[props(default)] anchor_id: Option<String>,
   #[props(default = OverlaySide::Bottom)] side: OverlaySide,
   #[props(default = OverlayAlign::Start)] align: OverlayAlign,
   #[props(default = 4)] side_offset: i32,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default = DismissBehavior::popover_default())] dismiss: DismissBehavior,
   children: Element,
 ) -> Element {
+  let menu = use_menubar_menu("MenubarContent");
   let class = menubar_content_class(&class);
-  let menu = use_listbox(open, anchor_id.clone(), ListboxMode::Menu, None, on_open_change);
+  let open = menu.is_open();
+  let anchor_id = Some(menu.trigger_id());
+  let listbox = use_listbox(open, anchor_id.clone(), ListboxMode::Menu, None, Some(menu.set_open));
   let anchored = use_anchored_overlay(
     open,
     AnchoredPlacement { anchor_id, anchor_point: None, side, align, side_offset },
     dismiss,
-    on_open_change,
+    Some(menu.set_open),
   );
 
   rsx! {
     div {
       role: "menu",
+      id: menu.content_id(),
       class,
       hidden: !open,
+      "aria-labelledby": menu.trigger_id(),
       "data-state": if open { "open" } else { "closed" },
       "data-dxui-anchored": anchored,
-      "data-dxui-listbox": menu,
+      "data-dxui-listbox": listbox,
       {children}
     }
   }
@@ -381,30 +434,41 @@ pub fn MenubarCheckboxItem(
   }
 }
 
+/// Groups radio items and owns the checked item's value. Pass `value` to
+/// control it, or `default_value` to start it; `on_value_change` hears every
+/// change the user makes either way.
 #[component]
 pub fn MenubarRadioGroup(
-  #[props(default)] value: String,
+  #[props(default)] value: ReadSignal<Option<String>>,
+  #[props(default)] default_value: Option<String>,
+  #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
+  let group = use_menu_radio_group(value, default_value, on_value_change);
+
   rsx! {
     div {
       role: "group",
       class,
-      "data-value": value,
+      "data-value": group.value(),
       {children}
     }
   }
 }
 
+/// A radio item: activation checks it in its group and calls `onclick`.
+/// Shows a dot while checked.
 #[component]
 pub fn MenubarRadioItem(
-  #[props(default)] checked: bool,
+  value: String,
   #[props(default)] disabled: bool,
   #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
+  let group = use_menu_radio_item("MenubarRadioItem", "MenubarRadioGroup");
+  let checked = group.value().as_ref() == Some(&value);
   let class = menubar_radio_item_class(checked, &class);
 
   rsx! {
@@ -416,8 +480,11 @@ pub fn MenubarRadioItem(
       "data-disabled": disabled.to_string(),
       "data-state": if checked { "checked" } else { "unchecked" },
       onclick: move |event| {
-        if let Some(handler) = onclick.filter(|_| !disabled) {
-          handler.call(event);
+        if !disabled {
+          group.choose(value.clone());
+          if let Some(handler) = onclick {
+            handler.call(event);
+          }
         }
       },
       {children}
@@ -425,16 +492,19 @@ pub fn MenubarRadioItem(
   }
 }
 
-/// A nested menu (RFC 0067). Put `MenubarSubTrigger` and `MenubarSubContent`
-/// inside and pass both the same `open`; `on_open_change` reports requests
-/// to open and close it.
+/// A nested menu (RFC 0067) that owns whether it is open. Put
+/// `MenubarSubTrigger` and `MenubarSubContent` inside. Pass `open` to
+/// control it, or `default_open` to start it; `on_open_change` hears every
+/// change either way.
 #[component]
 pub fn MenubarSub(
+  #[props(default)] open: ReadSignal<Option<bool>>,
+  #[props(default)] default_open: bool,
   #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  use_menu_sub(on_open_change);
+  use_menu_sub(open, default_open, on_open_change);
 
   rsx! {
     div {
@@ -449,32 +519,29 @@ pub fn MenubarSub(
 /// right-to-left), or hover.
 #[component]
 pub fn MenubarSubTrigger(
-  #[props(default)] open: bool,
   #[props(default)] inset: bool,
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let context = try_use_context::<MenuSubContext>();
-  let id = context.as_ref().map(MenuSubContext::trigger_id);
-  let controls = context.as_ref().map(MenuSubContext::content_id);
-  let on_open_change = context.and_then(|context| context.on_open_change);
+  let sub = use_menu_sub_part("MenubarSubTrigger", "MenubarSub");
+  let open = sub.is_open();
   let class = menubar_sub_trigger_class(inset, &class);
 
   rsx! {
     div {
       role: "menuitem",
-      id,
+      id: sub.trigger_id(),
       class,
       "aria-haspopup": "menu",
       "aria-expanded": open.to_string(),
-      "aria-controls": controls,
+      "aria-controls": sub.content_id(),
       "aria-disabled": disabled.to_string(),
       "data-disabled": disabled.to_string(),
       "data-state": if open { "open" } else { "closed" },
       onclick: move |_| {
-        if let Some(handler) = on_open_change.filter(|_| !disabled) {
-          handler.call(true);
+        if !disabled {
+          sub.set_open.call(true);
         }
       },
       {children}
@@ -486,23 +553,18 @@ pub fn MenubarSubTrigger(
 /// right-to-left) and Escape close it and return focus to the trigger;
 /// choosing an item closes every level.
 #[component]
-pub fn MenubarSubContent(
-  #[props(default)] open: bool,
-  #[props(default)] class: String,
-  children: Element,
-) -> Element {
-  let (context, listbox, anchored) = use_menu_sub_content(open);
-  let id = context.as_ref().map(MenuSubContext::content_id);
-  let labelledby = context.as_ref().map(MenuSubContext::trigger_id);
+pub fn MenubarSubContent(#[props(default)] class: String, children: Element) -> Element {
+  let (sub, listbox, anchored) = use_menu_sub_content("MenubarSubContent", "MenubarSub");
+  let open = sub.is_open();
   let class = menubar_content_class(&class);
 
   rsx! {
     div {
       role: "menu",
-      id,
+      id: sub.content_id(),
       class,
       hidden: !open,
-      "aria-labelledby": labelledby,
+      "aria-labelledby": sub.trigger_id(),
       "data-state": if open { "open" } else { "closed" },
       "data-dxui-submenu": "",
       "data-dxui-anchored": anchored,
@@ -539,6 +601,79 @@ pub fn MenubarShortcut(#[props(default)] class: String, children: Element) -> El
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  fn render(app: fn() -> Element) -> String {
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    dioxus_ssr::render(&dom)
+  }
+
+  #[test]
+  fn ssr_menubar_opens_the_menu_its_value_names() {
+    fn app() -> Element {
+      rsx! {
+        Menubar { default_value: "edit",
+          MenubarMenu { value: "file",
+            MenubarTrigger { "File" }
+            MenubarContent { MenubarItem { "New" } }
+          }
+          MenubarMenu { value: "edit",
+            MenubarTrigger { "Edit" }
+            MenubarContent {
+              MenubarRadioGroup { default_value: "left",
+                MenubarRadioItem { value: "left", "Left" }
+              }
+            }
+          }
+        }
+      }
+    }
+    let html = render(app);
+
+    assert_eq!(html.matches(r#"aria-expanded="true""#).count(), 1, "{html}");
+    assert!(html.contains(r#"data-state="open" data-dxui-menubar-trigger="">Edit"#), "{html}");
+    assert_eq!(html.matches(" hidden").count(), 1, "{html}");
+    let controls = html
+      .split(r#"aria-controls=""#)
+      .skip(1)
+      .filter_map(|rest| rest.split('"').next())
+      .collect::<Vec<_>>();
+    assert_eq!(controls.len(), 1);
+    for id in controls {
+      assert!(html.contains(&format!(r#"id="{id}""#)), "{id}");
+    }
+  }
+
+  #[test]
+  fn ssr_menus_without_a_value_stay_closed() {
+    fn app() -> Element {
+      rsx! {
+        Menubar {
+          MenubarMenu { MenubarTrigger { "File" } MenubarContent { "New" } }
+          MenubarMenu { MenubarTrigger { "Edit" } MenubarContent { "Undo" } }
+        }
+      }
+    }
+    let html = render(app);
+
+    assert_eq!(html.matches(r#"aria-expanded="false""#).count(), 2, "{html}");
+    assert_eq!(html.matches(" hidden").count(), 2, "{html}");
+  }
+
+  #[test]
+  fn ssr_menubar_parts_outside_their_root_render_nothing() {
+    fn app() -> Element {
+      rsx! {
+        p { "before" }
+        MenubarMenu { MenubarTrigger { "File" } }
+        MenubarTrigger { "Edit" }
+      }
+    }
+    let html = render(app);
+
+    assert!(html.contains("before"));
+    assert!(!html.contains("File") && !html.contains("Edit"), "{html}");
+  }
 
   #[test]
   fn menubar_trigger_class_reflects_open_state() {

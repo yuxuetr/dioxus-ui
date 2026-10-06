@@ -44,32 +44,24 @@ The module also re-exports `DropdownPrimitiveConfig`, `DismissBehavior`,
 
 ## Behavior
 
-Checked `MenubarCheckboxItem`s show a check mark and checked
-`MenubarRadioItem`s a dot in their inset; the app controls `checked`.
+`Menubar` owns which menu is open, by the `value` of its `MenubarMenu`, or
+the empty string while none is, as Radix does (see
+[RFC 0077](../rfcs/0077-component-owned-state.md)). Each menu's trigger and
+content read it and link their ids themselves. Pass `value` and
+`on_value_change` to control it, or `default_value` to start with a menu
+open. A `MenubarMenu` without a `value` gets a generated one.
 
-The open menu stays controlled by the app. Keep the open menu's value, give
-each `MenubarMenu` a `value`, give each trigger an `id`, and pass it as the
-content's `anchor_id`:
+A `MenubarRadioGroup` owns its value with `value`, `default_value`, and
+`on_value_change`, and its items take a `value`; a `MenubarCheckboxItem`
+keeps `checked`, which the app flips in its `onclick`. Checked checkbox items
+show a check mark and checked radio items a dot in their inset.
 
 ```rust
-let mut active = use_signal(|| None::<String>);
-let is_open = move |value: &str| active().as_deref() == Some(value);
-
 rsx! {
-  Menubar {
-    on_value_change: move |value: String| active.set(Some(value)),
-    MenubarMenu {
-      value: "file",
-      MenubarTrigger {
-        id: "file-trigger",
-        open: is_open("file"),
-        on_open_change: move |open: bool| active.set(open.then(|| "file".to_string())),
-        "File"
-      }
+  Menubar { "aria-label": "Editor",
+    MenubarMenu { value: "file",
+      MenubarTrigger { "File" }
       MenubarContent {
-        open: is_open("file"),
-        anchor_id: "file-trigger",
-        on_open_change: move |_| active.set(None),
         MenubarItem { onclick: move |_| new_file(), "New" }
       }
     }
@@ -82,15 +74,14 @@ rsx! {
 - A click toggles a menu. ArrowDown, Enter, or Space on a closed trigger opens
   it.
 - Content is placed below its trigger (`side` `Bottom`, `align` `Start`,
-  `side_offset` `4`), flips and shifts to stay in the viewport, and requests
-  close on Escape, a pointer press outside, or focus moving outside, per
+  `side_offset` `4`), flips and shifts to stay in the viewport, and closes on
+  Escape, a pointer press outside, or focus moving outside, per
   `dismiss` (default `DismissBehavior::popover_default()`).
 - An open menu behaves like Dropdown: the first enabled item takes focus,
   ArrowDown and ArrowUp wrap, Home, End, and typeahead jump, and Enter, Space,
-  or a click on an enabled item calls its `onclick` and requests close.
-- While a menu is open, Left and Right call `on_value_change` with the
-  adjacent menu's value, and moving the pointer over another enabled trigger
-  calls it with that trigger's menu value.
+  or a click on an enabled item calls its `onclick` and closes the menu.
+- While a menu is open, Left and Right open the adjacent menu, and moving the
+  pointer over another enabled trigger opens that trigger's menu.
 - In a right-to-left layout, ArrowLeft moves to the next trigger or menu and
   ArrowRight to the previous one.
 - Closing returns focus to the open menu's trigger, unless focus already
@@ -104,16 +95,14 @@ Simulator by `npm run verify:mobile-interactions`, and an Android emulator by
 
 ### Submenus
 
-`MenubarSub` holds a nested menu ([RFC 0067](../rfcs/0067-menu-submenus.md)).
-Pass the same controlled `open` to its trigger and content:
+`MenubarSub` holds a nested menu ([RFC 0067](../rfcs/0067-menu-submenus.md))
+and owns whether it is open; pass `open` and `on_open_change` to control it:
 
 ```rust
-let mut share = use_signal(|| false);
-
 rsx! {
-  MenubarSub { on_open_change: move |open| share.set(open),
-    MenubarSubTrigger { open: share(), "Share" }
-    MenubarSubContent { open: share(),
+  MenubarSub {
+    MenubarSubTrigger { "Share" }
+    MenubarSubContent {
       MenubarItem { onclick: move |_| copy_link(), "Copy link" }
     }
   }
@@ -134,7 +123,7 @@ rsx! {
 ## Accessibility Notes
 
 Root uses `role="menubar"`, triggers use `role="menuitem"` with
-`aria-haspopup="menu"` and `aria-expanded`, and content uses `role="menu"`.
+`aria-haspopup="menu"` and `aria-expanded`, and `aria-controls` while open, and content uses `role="menu"`.
 The open menu moves DOM focus between items, so screen readers announce each
 item as it receives focus. Sub triggers use `aria-haspopup="menu"`,
 `aria-expanded`, and `aria-controls`, and each submenu sits in a `group` and

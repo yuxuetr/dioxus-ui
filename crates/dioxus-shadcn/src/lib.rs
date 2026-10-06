@@ -110,10 +110,13 @@ mod element_id;
 
 #[cfg(any(
   feature = "alert-dialog",
+  feature = "context-menu",
   feature = "dialog",
   feature = "drawer",
+  feature = "dropdown",
   feature = "fab",
   feature = "hover-card",
+  feature = "menubar",
   feature = "popover",
   feature = "select",
   feature = "sheet",
@@ -124,10 +127,13 @@ mod root_state;
 
 #[cfg(any(
   feature = "alert-dialog",
+  feature = "context-menu",
   feature = "dialog",
   feature = "drawer",
+  feature = "dropdown",
   feature = "fab",
   feature = "hover-card",
+  feature = "menubar",
   feature = "popover",
   feature = "sheet",
   feature = "tooltip"
@@ -180,6 +186,9 @@ mod listbox;
 mod menu_marks;
 
 #[cfg(any(feature = "context-menu", feature = "dropdown", feature = "menubar"))]
+mod menu_radio;
+
+#[cfg(any(feature = "context-menu", feature = "dropdown", feature = "menubar"))]
 mod menu_sub;
 
 #[cfg(feature = "sidebar")]
@@ -194,6 +203,7 @@ mod dismiss_timer;
   feature = "combobox",
   feature = "dialog",
   feature = "drawer",
+  feature = "dropdown",
   feature = "message-scroller",
   feature = "pagination",
   feature = "popover",
@@ -485,10 +495,10 @@ pub use command::{
 pub use context_menu::{
   CONTEXT_MENU_CONTENT_BASE_CLASS, CONTEXT_MENU_GROUP_BASE_CLASS, CONTEXT_MENU_ITEM_BASE_CLASS,
   CONTEXT_MENU_ITEM_INSET_CLASS, CONTEXT_MENU_LABEL_BASE_CLASS, CONTEXT_MENU_SEPARATOR_BASE_CLASS,
-  CONTEXT_MENU_SHORTCUT_BASE_CLASS, ContextMenuCheckboxItem, ContextMenuContent, ContextMenuGroup,
-  ContextMenuItem, ContextMenuLabel, ContextMenuRadioGroup, ContextMenuRadioItem,
+  CONTEXT_MENU_SHORTCUT_BASE_CLASS, ContextMenu, ContextMenuCheckboxItem, ContextMenuContent,
+  ContextMenuGroup, ContextMenuItem, ContextMenuLabel, ContextMenuRadioGroup, ContextMenuRadioItem,
   ContextMenuSeparator, ContextMenuShortcut, ContextMenuSub, ContextMenuSubContent,
-  ContextMenuSubTrigger, DismissBehavior as ContextMenuDismissBehavior,
+  ContextMenuSubTrigger, ContextMenuTrigger, DismissBehavior as ContextMenuDismissBehavior,
   DropdownPrimitiveConfig as ContextMenuPrimitiveConfig, OverlayAlign as ContextMenuAlign,
   OverlaySide as ContextMenuSide, context_menu_checkbox_item_class, context_menu_content_class,
   context_menu_group_class, context_menu_item_class, context_menu_label_class,
@@ -551,14 +561,14 @@ pub use drawer::{
 pub use dropdown::{
   DROPDOWN_CONTENT_BASE_CLASS, DROPDOWN_GROUP_BASE_CLASS, DROPDOWN_ITEM_BASE_CLASS,
   DROPDOWN_ITEM_INSET_CLASS, DROPDOWN_LABEL_BASE_CLASS, DROPDOWN_SEPARATOR_BASE_CLASS,
-  DROPDOWN_SHORTCUT_BASE_CLASS, DismissBehavior as DropdownDismissBehavior, DropdownCheckboxItem,
-  DropdownContent, DropdownGroup, DropdownItem, DropdownLabel, DropdownPrimitiveConfig,
-  DropdownRadioGroup, DropdownRadioItem, DropdownSeparator, DropdownShortcut, DropdownSub,
-  DropdownSubContent, DropdownSubTrigger, OverlayAlign as DropdownAlign,
-  OverlaySide as DropdownSide, dropdown_checkbox_item_class, dropdown_content_class,
-  dropdown_group_class, dropdown_inset_item_class, dropdown_item_class, dropdown_label_class,
-  dropdown_radio_item_class, dropdown_separator_class, dropdown_shortcut_class,
-  dropdown_sub_trigger_class,
+  DROPDOWN_SHORTCUT_BASE_CLASS, DismissBehavior as DropdownDismissBehavior, Dropdown,
+  DropdownCheckboxItem, DropdownContent, DropdownGroup, DropdownItem, DropdownLabel,
+  DropdownPrimitiveConfig, DropdownRadioGroup, DropdownRadioItem, DropdownSeparator,
+  DropdownShortcut, DropdownSub, DropdownSubContent, DropdownSubTrigger, DropdownTrigger,
+  OverlayAlign as DropdownAlign, OverlaySide as DropdownSide, dropdown_checkbox_item_class,
+  dropdown_content_class, dropdown_group_class, dropdown_inset_item_class, dropdown_item_class,
+  dropdown_label_class, dropdown_radio_item_class, dropdown_separator_class,
+  dropdown_shortcut_class, dropdown_sub_trigger_class,
 };
 #[cfg(feature = "empty")]
 pub use empty::{

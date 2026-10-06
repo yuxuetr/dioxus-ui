@@ -20,10 +20,14 @@ remain self-contained and must not import internal crates.
 
 ## Shared Rules
 
-Menu systems use controlled state first:
+Each menu root owns its open state, and each radio group its value, with a
+controlled prop, a default, and a change callback (see
+[RFC 0077](../rfcs/0077-component-owned-state.md)):
 
-- `open: bool` for overlay content
-- explicit `checked`, `disabled`, and `selected` props where applicable
+- `open`, `default_open`, and `on_open_change` on Dropdown, Context Menu, and
+  submenu roots; `value` for the open menu on Menubar
+- `checked` on checkbox items, which the app flips
+- explicit `disabled` props where applicable
 - `class: String` on every styled part
 - `children: Element` for composition slots
 
@@ -51,16 +55,18 @@ Deferred runtime work:
 Context Menu is an application command menu opened from a pointer or keyboard
 context action. It should use menu semantics, not navigation semantics.
 
-Planned crate API:
+Crate API:
 
 ```rust
-ContextMenuContent { open, class, children }
+ContextMenu { open, default_open, on_open_change, children }
+ContextMenuTrigger { class, children }
+ContextMenuContent { class, children }
 ContextMenuGroup { class, children }
 ContextMenuLabel { class, children }
 ContextMenuItem { disabled, inset, destructive, class, children }
 ContextMenuCheckboxItem { checked, disabled, class, children }
-ContextMenuRadioGroup { value, class, children }
-ContextMenuRadioItem { value, checked, disabled, class, children }
+ContextMenuRadioGroup { value, default_value, on_value_change, class, children }
+ContextMenuRadioItem { value, disabled, class, children }
 ContextMenuSeparator { class }
 ContextMenuShortcut { class, children }
 ```
@@ -74,25 +80,24 @@ Behavior defaults:
 - `role="menuitem"` for regular items
 - `role="menuitemcheckbox"` and `role="menuitemradio"` for checked items
 
-M13 should not implement pointer-position anchoring yet. The first version can
-be controlled content with placement metadata and static classes.
+`ContextMenuTrigger` opens the menu at the pointer of the right click.
 
 ## Menubar
 
 Menubar is a persistent horizontal command surface with menu content attached to
 top-level triggers.
 
-Planned crate API:
+Crate API:
 
 ```rust
-Menubar { class, children }
-MenubarMenu { class, children }
-MenubarTrigger { open, disabled, class, children }
-MenubarContent { open, class, children }
+Menubar { value, default_value, on_value_change, class, children }
+MenubarMenu { value, class, children }
+MenubarTrigger { disabled, class, children }
+MenubarContent { class, children }
 MenubarItem { disabled, inset, destructive, class, children }
 MenubarCheckboxItem { checked, disabled, class, children }
-MenubarRadioGroup { value, class, children }
-MenubarRadioItem { value, checked, disabled, class, children }
+MenubarRadioGroup { value, default_value, on_value_change, class, children }
+MenubarRadioItem { value, disabled, class, children }
 MenubarLabel { class, children }
 MenubarSeparator { class }
 MenubarShortcut { class, children }

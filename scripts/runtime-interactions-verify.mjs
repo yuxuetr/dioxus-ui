@@ -666,7 +666,7 @@ async function runBrowserAssertions() {
     await expect(datePicker).toHaveAttribute("data-value", "2026-11-03");
 
     const dropdown = page.locator('[data-interaction-target="dropdown"]');
-    const dropdownTrigger = page.locator("#interaction-dropdown-trigger");
+    const dropdownTrigger = page.locator('[data-interaction-control="dropdown-trigger"]');
     const dropdownMenu = dropdown.locator('[role="menu"]');
     const dropdownItem = (name) => dropdownMenu.getByRole("menuitem", { name, exact: true });
     const openDropdown = async () => {
@@ -729,7 +729,7 @@ async function runBrowserAssertions() {
     await expect(dropdownTrigger).toBeFocused();
 
     const options = page.locator('[data-interaction-target="dropdown-options"]');
-    const optionsTrigger = page.locator("#interaction-dropdown-options-trigger");
+    const optionsTrigger = page.locator('[data-interaction-control="dropdown-options-trigger"]');
     const optionsMenu = options.locator('[role="menu"]');
     const optionCheckbox = (name) => optionsMenu.getByRole("menuitemcheckbox", { name, exact: false });
     const optionRadio = (name) => optionsMenu.getByRole("menuitemradio", { name, exact: true });
@@ -775,7 +775,7 @@ async function runBrowserAssertions() {
     await expect(options).toHaveAttribute("data-status-bar", "false");
 
     const fileMenu = page.locator('[data-interaction-target="dropdown-submenu"]');
-    const fileTrigger = page.locator("#interaction-dropdown-submenu-trigger");
+    const fileTrigger = page.locator('[data-interaction-control="dropdown-submenu-trigger"]');
     const fileContent = fileMenu.locator('[role="menu"]:not([data-dxui-submenu])');
     const shareContent = fileMenu.locator("[data-dxui-submenu]");
     const fileItem = (name) => fileMenu.getByRole("menuitem", { name, exact: true });
@@ -855,7 +855,7 @@ async function runBrowserAssertions() {
 
     const menubar = page.locator('[data-interaction-target="menubar"]');
     await expect(menubar.getByRole("menubar", { name: "Editor", exact: true })).toHaveCount(1);
-    const menubarTrigger = (value) => page.locator(`#interaction-menubar-${value}`);
+    const menubarTrigger = (value) => menubar.locator(`[data-value="${value}"] [data-dxui-menubar-trigger]`);
     const menubarMenu = (value) =>
       menubar.locator(`[data-value="${value}"] [role="menu"]:not([data-dxui-submenu])`);
     const menubarItem = (value, name) => menubarMenu(value).getByRole("menuitem", { name, exact: true });
@@ -934,6 +934,9 @@ async function runBrowserAssertions() {
     await expectMenubarOpen("view");
     await page.keyboard.press("End");
     await page.keyboard.press("ArrowRight");
+    // The closed submenu opens on ArrowRight and its script focuses its first
+    // item a frame later; a key pressed before that is lost.
+    await expect(menubarItem("view", "Full screen")).toBeFocused();
     await page.keyboard.press("Enter");
     await expectMenubarClosed();
     await expect(menubar).toHaveAttribute("data-action", "fullscreen");

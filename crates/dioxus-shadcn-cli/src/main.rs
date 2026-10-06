@@ -1117,13 +1117,17 @@ mod tests {
         "anchored_overlay.rs",
         "class_merge.rs",
         "class_merge_table.rs",
+        "default_attribute.rs",
         "dropdown.rs",
         "element_id.rs",
         "listbox.rs",
         "menu_marks.rs",
+        "menu_radio.rs",
         "menu_sub.rs",
         "mod.rs",
         "overlay.rs",
+        "overlay_root.rs",
+        "root_state.rs",
         "utils.rs"
       ]
     );

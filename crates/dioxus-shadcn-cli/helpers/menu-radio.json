@@ -1,0 +1,14 @@
+{
+  "name": "menu-radio",
+  "description": "Radio groups for Dropdown, Context Menu, and Menubar, which own their value (RFC 0077).",
+  "files": [
+    {
+      "source": "templates/menu_radio.rs",
+      "target": "src/components/ui/menu_radio.rs"
+    }
+  ],
+  "dependencies": [
+    "root-state"
+  ],
+  "assets": []
+}

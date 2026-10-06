@@ -36,6 +36,11 @@ for commit messages.
   `open` and `default_open`; Fab owns its speed dial's open state, is a
   speed dial exactly when it has `FabAction` children, and closes the dial
   when an action is pressed.
+- Dropdown and Context Menu gain `Dropdown` and `ContextMenu` roots with a
+  `DropdownTrigger` and a `ContextMenuTrigger` area that opens the menu at
+  the pointer. `Menubar` owns which menu is open through `value`,
+  `default_value`, and `on_value_change`. In every menu, radio groups own
+  their value and submenus their open state.
 
 ### Fixed
 
@@ -90,11 +95,25 @@ for commit messages.
 - Fab: drop `open` and `on_open_change` unless you control the dial, and the
   `open.set(false)` in each `FabAction` `onclick`. A plain Fab must have no
   children.
+- Dropdown: wrap the parts in `Dropdown`, replace the app's trigger button
+  with `DropdownTrigger`, and remove `open`, `anchor_id`, and
+  `on_open_change` from `DropdownContent`.
+- Context Menu: wrap the parts in `ContextMenu`, replace the
+  `oncontextmenu` area with `ContextMenuTrigger`, and remove `open`,
+  `anchor_point`, and `on_open_change` from `ContextMenuContent`.
+- Menubar: remove `id`, `open`, and `on_open_change` from `MenubarTrigger`
+  and `open`, `anchor_id`, and `on_open_change` from `MenubarContent`; keep
+  the open menu in `Menubar { value, on_value_change }` or let it hold it.
+- In Dropdown, Context Menu, and Menubar, give radio items a `value` instead
+  of `checked` and move the group's value to `value` and `on_value_change`
+  or `default_value`; remove `open` from sub triggers and contents and move
+  `on_open_change` (with `open` to control it) to the sub root.
 - Copy mode: re-copy components with `dxui add <name> --overwrite`. `utils`
   now brings two helpers, `class_merge` and `class_merge_table`; the second
   is generated from Tailwind and stores its names reversed so Tailwind
   generates no CSS for them. Select and Tabs also bring `root_state`, and the moved overlays bring
-  `root_state`, `overlay_root`, and `default_attribute`.
+  `root_state`, `overlay_root`, and `default_attribute`, and menus
+  `menu_radio`.
 
 ## [0.4.2] - 2026-10-06
 

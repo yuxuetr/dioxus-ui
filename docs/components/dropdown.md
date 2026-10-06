@@ -17,6 +17,8 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["dropdo
 
 ## API Surface
 
+- `Dropdown`
+- `DropdownTrigger`
 - `DropdownContent`
 - `DropdownGroup`
 - `DropdownLabel`
@@ -39,20 +41,36 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["dropdo
 
 ## Behavior
 
-`open` stays controlled by the app. Give the trigger an `id`, pass it as
-`anchor_id`, and pass `on_open_change` to `DropdownContent`. Checkbox and
-radio state stay controlled too: an item's `onclick` reports activation, and
-the app flips `checked`:
+`Dropdown` owns whether the menu is open and its parts read it, so they must
+sit inside it (see [RFC 0077](../rfcs/0077-component-owned-state.md)).
+`DropdownTrigger` toggles it and anchors the menu; it renders an unstyled
+`button`, so style it with `class`. Pass `open` and `on_open_change` to
+control it, or `default_open` to start it open. A `DropdownRadioGroup` owns
+its value the same way, with `value`, `default_value`, and
+`on_value_change`, and its items take a `value`. A checkbox item keeps
+`checked`: its `onclick` reports activation, and the app flips it:
 
 ```rust
 let mut status_bar = use_signal(|| true);
 
 rsx! {
-  DropdownCheckboxItem {
-    checked: status_bar(),
-    onclick: move |_| status_bar.toggle(),
-    "Status bar"
-    DropdownShortcut { "Ctrl+/" }
+  Dropdown {
+    DropdownTrigger {
+      class: button_class(ButtonVariant::Outline, ButtonSize::Md, UiDensity::Comfortable, ""),
+      "View"
+    }
+    DropdownContent {
+      DropdownCheckboxItem {
+        checked: status_bar(),
+        onclick: move |_| status_bar.toggle(),
+        "Status bar"
+        DropdownShortcut { "Ctrl+/" }
+      }
+      DropdownRadioGroup { default_value: "bottom",
+        DropdownRadioItem { value: "bottom", "Panel bottom" }
+        DropdownRadioItem { value: "right", "Panel right" }
+      }
+    }
   }
 }
 ```
@@ -60,39 +78,35 @@ rsx! {
 Checkbox items show a check mark and radio items a dot while checked, in an
 inset before the label; pass `inset: true` to plain items to line them up.
 
-- With `anchor_id`, content is placed next to the element with that id using
-  fixed positioning, flips to the opposite side when the preferred side lacks
-  room, shifts to stay inside the viewport, and follows resize and scroll.
-  `side_offset` defaults to `4` pixels. Without `anchor_id`, content renders in
-  place.
+- The menu is placed next to the trigger using fixed positioning, flips to
+  the opposite side when the preferred side lacks room, shifts to stay inside
+  the viewport, and follows resize and scroll. `side_offset` defaults to `4`
+  pixels.
 - `side` defaults to `Bottom` and `align` to `End`, matching
   `DropdownPrimitiveConfig`.
-- Escape, a pointer press outside the content and anchor, and focus moving
-  outside request close per `dismiss` (default
+- Escape, a pointer press outside the content and trigger, and focus moving
+  outside close it per `dismiss` (default
   `DismissBehavior::popover_default()`).
 - Opening focuses the first enabled item. ArrowDown and ArrowUp move focus
   and wrap at the ends, skipping disabled items; Home and End jump to the
   first and last item; typing a prefix focuses the next matching item.
 - Enter, Space, or a click on an enabled item, including checkbox and radio
-  items, calls the item's `onclick` and then requests close. Disabled items
+  items, calls the item's `onclick` and then closes the menu. Disabled items
   do not call `onclick`.
-- Closing returns focus to the `anchor_id` element, or without one to the
-  element focused before opening, unless focus already moved to another
+- Closing returns focus to the trigger, unless focus already moved to another
   control. Tab moves focus out
   of the menu, which closes it.
 
 ### Submenus
 
-`DropdownSub` holds a nested menu ([RFC 0067](../rfcs/0067-menu-submenus.md)).
-Pass the same controlled `open` to its trigger and content:
+`DropdownSub` holds a nested menu ([RFC 0067](../rfcs/0067-menu-submenus.md))
+and owns whether it is open; pass `open` and `on_open_change` to control it:
 
 ```rust
-let mut share = use_signal(|| false);
-
 rsx! {
-  DropdownSub { on_open_change: move |open| share.set(open),
-    DropdownSubTrigger { open: share(), "Share" }
-    DropdownSubContent { open: share(),
+  DropdownSub {
+    DropdownSubTrigger { "Share" }
+    DropdownSubContent {
       DropdownItem { onclick: move |_| copy_link(), "Copy link" }
     }
   }

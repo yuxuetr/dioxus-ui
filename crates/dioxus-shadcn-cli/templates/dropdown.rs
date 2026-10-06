@@ -3,8 +3,11 @@ use super::listbox::{ListboxMode, use_listbox};
 use super::menu_marks::{
   MENU_CHECKBOX_MARK_CLASS, MENU_RADIO_MARK_CLASS, MENU_SUB_TRIGGER_CLASS, menu_mark_state_class,
 };
-use super::menu_sub::{MenuSubContext, use_menu_sub, use_menu_sub_content};
+use super::menu_radio::{use_menu_radio_group, use_menu_radio_item};
+use super::menu_sub::{use_menu_sub, use_menu_sub_content, use_menu_sub_part};
 pub use super::overlay::{DismissBehavior, DropdownPrimitiveConfig, OverlayAlign, OverlaySide};
+use super::overlay_root::{OverlayRoot, overlay_trigger, use_overlay_root};
+use super::root_state::use_root_context;
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
@@ -41,20 +44,27 @@ pub fn dropdown_item_class(destructive: bool, class: &str) -> String {
 
 /// An item whose label lines up with checkbox and radio items.
 pub fn dropdown_inset_item_class(destructive: bool, class: &str) -> String {
-  dropdown_item_class(destructive, &merge_classes(classes([Some(DROPDOWN_ITEM_INSET_CLASS)]), class))
+  dropdown_item_class(
+    destructive,
+    &merge_classes(classes([Some(DROPDOWN_ITEM_INSET_CLASS)]), class),
+  )
 }
 
 /// An inset item with a check mark shown while `checked`.
 pub fn dropdown_checkbox_item_class(checked: bool, class: &str) -> String {
-  let mark =
-    merge_classes(classes([Some(MENU_CHECKBOX_MARK_CLASS), Some(menu_mark_state_class(checked))]), class);
+  let mark = merge_classes(
+    classes([Some(MENU_CHECKBOX_MARK_CLASS), Some(menu_mark_state_class(checked))]),
+    class,
+  );
   dropdown_inset_item_class(false, &mark)
 }
 
 /// An inset item with a dot shown while `checked`.
 pub fn dropdown_radio_item_class(checked: bool, class: &str) -> String {
-  let mark =
-    merge_classes(classes([Some(MENU_RADIO_MARK_CLASS), Some(menu_mark_state_class(checked))]), class);
+  let mark = merge_classes(
+    classes([Some(MENU_RADIO_MARK_CLASS), Some(menu_mark_state_class(checked))]),
+    class,
+  );
   dropdown_inset_item_class(false, &mark)
 }
 
@@ -72,37 +82,71 @@ pub fn dropdown_shortcut_class(class: &str) -> String {
   merge_classes(classes([Some(DROPDOWN_SHORTCUT_BASE_CLASS)]), class)
 }
 
+/// What a `Dropdown` shares with its parts.
+#[derive(Clone, Copy)]
+struct DropdownContext(OverlayRoot);
+
+/// The root of a dropdown menu: it owns whether the menu is open. Pass `open`
+/// to control it, or `default_open` to start it; `on_open_change` hears every
+/// change the user makes either way.
+#[component]
+pub fn Dropdown(
+  #[props(default)] open: ReadSignal<Option<bool>>,
+  #[props(default)] default_open: bool,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
+  children: Element,
+) -> Element {
+  let root = use_overlay_root("dropdown", open, default_open, on_open_change);
+  use_context_provider(|| DropdownContext(root));
+
+  rsx! { {children} }
+}
+
+/// A button that toggles the menu and anchors it. Style it with `class`,
+/// such as `button_class(..)`.
+#[component]
+pub fn DropdownTrigger(
+  #[props(default)] class: String,
+  #[props(default)] disabled: bool,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
+  let root = use_root_context::<DropdownContext>("DropdownTrigger", "Dropdown").0;
+  overlay_trigger(root, "menu", class, disabled, attributes, children)
+}
+
 /// Opening focuses the first enabled item. Arrows move focus with wrapping,
-/// Home, End, and typeahead jump, and activating an item requests close and
-/// returns focus to the `anchor_id` element, or without one to where it was
-/// before opening. With `anchor_id` the menu is placed next to that element.
-/// Escape and outside interactions request close per `dismiss`.
+/// Home, End, and typeahead jump, and activating an item closes the menu and
+/// returns focus to the trigger. The menu is placed next to the trigger.
+/// Escape and outside interactions close it per `dismiss`.
 #[component]
 pub fn DropdownContent(
-  #[props(default)] open: bool,
   #[props(default)] class: String,
-  #[props(default)] anchor_id: Option<String>,
   #[props(default = OverlaySide::Bottom)] side: OverlaySide,
   #[props(default = OverlayAlign::End)] align: OverlayAlign,
   #[props(default = 4)] side_offset: i32,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default = DismissBehavior::popover_default())] dismiss: DismissBehavior,
   children: Element,
 ) -> Element {
+  let root = use_root_context::<DropdownContext>("DropdownContent", "Dropdown").0;
   let class = dropdown_content_class(&class);
-  let menu = use_listbox(open, anchor_id.clone(), ListboxMode::Menu, None, on_open_change);
+  let open = root.is_open();
+  let anchor_id = Some(root.trigger_id());
+  let menu = use_listbox(open, anchor_id.clone(), ListboxMode::Menu, None, Some(root.set_open));
   let anchored = use_anchored_overlay(
     open,
     AnchoredPlacement { anchor_id, anchor_point: None, side, align, side_offset },
     dismiss,
-    on_open_change,
+    Some(root.set_open),
   );
 
   rsx! {
     div {
       role: "menu",
+      id: root.content_id(),
       class,
       hidden: !open,
+      "aria-labelledby": root.trigger_id(),
       "data-state": if open { "open" } else { "closed" },
       "data-dxui-anchored": anchored,
       "data-dxui-listbox": menu,
@@ -199,33 +243,41 @@ pub fn DropdownCheckboxItem(
   }
 }
 
-/// Groups radio items; `value` is the checked item's value, for styling.
+/// Groups radio items and owns the checked item's value. Pass `value` to
+/// control it, or `default_value` to start it; `on_value_change` hears every
+/// change the user makes either way.
 #[component]
 pub fn DropdownRadioGroup(
-  #[props(default)] value: String,
+  #[props(default)] value: ReadSignal<Option<String>>,
+  #[props(default)] default_value: Option<String>,
+  #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
+  let group = use_menu_radio_group(value, default_value, on_value_change);
+
   rsx! {
     div {
       role: "group",
       class,
-      "data-value": value,
+      "data-value": group.value(),
       {children}
     }
   }
 }
 
-/// A controlled radio item: `onclick` reports activation, and the app moves
-/// `checked` to it. Shows a dot while checked.
+/// A radio item: activation checks it in its group and calls `onclick`.
+/// Shows a dot while checked.
 #[component]
 pub fn DropdownRadioItem(
-  #[props(default)] checked: bool,
+  value: String,
   #[props(default)] disabled: bool,
   #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
+  let group = use_menu_radio_item("DropdownRadioItem", "DropdownRadioGroup");
+  let checked = group.value().as_ref() == Some(&value);
   let class = dropdown_radio_item_class(checked, &class);
 
   rsx! {
@@ -237,8 +289,11 @@ pub fn DropdownRadioItem(
       "data-disabled": disabled.to_string(),
       "data-state": if checked { "checked" } else { "unchecked" },
       onclick: move |event| {
-        if let Some(handler) = onclick.filter(|_| !disabled) {
-          handler.call(event);
+        if !disabled {
+          group.choose(value.clone());
+          if let Some(handler) = onclick {
+            handler.call(event);
+          }
         }
       },
       {children}
@@ -246,16 +301,19 @@ pub fn DropdownRadioItem(
   }
 }
 
-/// A nested menu (RFC 0067). Put `DropdownSubTrigger` and `DropdownSubContent`
-/// inside and pass both the same `open`; `on_open_change` reports requests
-/// to open and close it.
+/// A nested menu (RFC 0067) that owns whether it is open. Put
+/// `DropdownSubTrigger` and `DropdownSubContent` inside. Pass `open` to
+/// control it, or `default_open` to start it; `on_open_change` hears every
+/// change either way.
 #[component]
 pub fn DropdownSub(
+  #[props(default)] open: ReadSignal<Option<bool>>,
+  #[props(default)] default_open: bool,
   #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  use_menu_sub(on_open_change);
+  use_menu_sub(open, default_open, on_open_change);
 
   rsx! {
     div {
@@ -270,32 +328,29 @@ pub fn DropdownSub(
 /// right-to-left), or hover.
 #[component]
 pub fn DropdownSubTrigger(
-  #[props(default)] open: bool,
   #[props(default)] inset: bool,
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let context = try_use_context::<MenuSubContext>();
-  let id = context.as_ref().map(MenuSubContext::trigger_id);
-  let controls = context.as_ref().map(MenuSubContext::content_id);
-  let on_open_change = context.and_then(|context| context.on_open_change);
+  let sub = use_menu_sub_part("DropdownSubTrigger", "DropdownSub");
+  let open = sub.is_open();
   let class = dropdown_sub_trigger_class(inset, &class);
 
   rsx! {
     div {
       role: "menuitem",
-      id,
+      id: sub.trigger_id(),
       class,
       "aria-haspopup": "menu",
       "aria-expanded": open.to_string(),
-      "aria-controls": controls,
+      "aria-controls": sub.content_id(),
       "aria-disabled": disabled.to_string(),
       "data-disabled": disabled.to_string(),
       "data-state": if open { "open" } else { "closed" },
       onclick: move |_| {
-        if let Some(handler) = on_open_change.filter(|_| !disabled) {
-          handler.call(true);
+        if !disabled {
+          sub.set_open.call(true);
         }
       },
       {children}
@@ -307,23 +362,18 @@ pub fn DropdownSubTrigger(
 /// right-to-left) and Escape close it and return focus to the trigger;
 /// choosing an item closes every level.
 #[component]
-pub fn DropdownSubContent(
-  #[props(default)] open: bool,
-  #[props(default)] class: String,
-  children: Element,
-) -> Element {
-  let (context, listbox, anchored) = use_menu_sub_content(open);
-  let id = context.as_ref().map(MenuSubContext::content_id);
-  let labelledby = context.as_ref().map(MenuSubContext::trigger_id);
+pub fn DropdownSubContent(#[props(default)] class: String, children: Element) -> Element {
+  let (sub, listbox, anchored) = use_menu_sub_content("DropdownSubContent", "DropdownSub");
+  let open = sub.is_open();
   let class = dropdown_content_class(&class);
 
   rsx! {
     div {
       role: "menu",
-      id,
+      id: sub.content_id(),
       class,
       hidden: !open,
-      "aria-labelledby": labelledby,
+      "aria-labelledby": sub.trigger_id(),
       "data-state": if open { "open" } else { "closed" },
       "data-dxui-submenu": "",
       "data-dxui-anchored": anchored,

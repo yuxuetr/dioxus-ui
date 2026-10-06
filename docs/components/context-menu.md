@@ -17,6 +17,8 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["contex
 
 ## API Surface
 
+- `ContextMenu`
+- `ContextMenuTrigger`
 - `ContextMenuContent`
 - `ContextMenuGroup`
 - `ContextMenuLabel`
@@ -40,45 +42,39 @@ The module also re-exports `DropdownPrimitiveConfig` for users importing from
 
 ## Behavior
 
-`open`, the pointer position, and checkbox or radio state stay controlled by
-the app. Checked checkbox items show a check mark and checked radio items a
-dot in their inset. Open the menu from `oncontextmenu` and pass the position as
-`anchor_point`:
+`ContextMenu` owns whether the menu is open and its parts read it, so they
+must sit inside it (see
+[RFC 0077](../rfcs/0077-component-owned-state.md)). `ContextMenuTrigger` is
+the area that opens it: a right click inside opens the menu at the pointer.
+Pass `open` and `on_open_change` to control it, or `default_open` to start it
+open. A `ContextMenuRadioGroup` owns its value with `value`,
+`default_value`, and `on_value_change`, and its items take a `value`; a
+checkbox item keeps `checked`, which the app flips in its `onclick`. Checked
+checkbox items show a check mark and checked radio items a dot in their
+inset:
 
 ```rust
-let mut open = use_signal(|| false);
-let mut point = use_signal(|| (0.0, 0.0));
-
 rsx! {
-  div {
-    oncontextmenu: move |event| {
-      event.prevent_default();
-      let position = event.client_coordinates();
-      point.set((position.x, position.y));
-      open.set(true);
-    },
-    "Right-click here"
-  }
-  ContextMenuContent {
-    open: open(),
-    anchor_point: point(),
-    on_open_change: move |next| open.set(next),
-    ContextMenuItem { onclick: move |_| copy(), "Copy" }
+  ContextMenu {
+    ContextMenuTrigger { class: "h-32 border border-dashed", "Right-click here" }
+    ContextMenuContent {
+      ContextMenuItem { onclick: move |_| copy(), "Copy" }
+    }
   }
 }
 ```
 
-- With `anchor_point`, the menu is placed with its top-left corner at the point
-  (`side` `Bottom`, `align` `Start`, `side_offset` `0`), flipping and shifting
-  to stay 8 pixels inside the viewport. A context menu key fires
-  `oncontextmenu` with coordinates at the focused element.
+- The menu is placed with its top-left corner at the pointer (`side`
+  `Bottom`, `align` `Start`, `side_offset` `0`), flipping and shifting to stay
+  8 pixels inside the viewport. A context menu key opens it at the focused
+  element.
 - Opening focuses the first enabled item. ArrowDown and ArrowUp move focus and
   wrap at the ends, skipping disabled items; Home and End jump to the first and
   last item; typing a prefix focuses the next matching item.
 - Enter, Space, or a click on an enabled item, including checkbox and radio
-  items, calls the item's `onclick` and then requests close. Disabled items do
+  items, calls the item's `onclick` and then closes the menu. Disabled items do
   not call `onclick`.
-- Escape, a pointer press outside, and focus moving outside request close per
+- Escape, a pointer press outside, and focus moving outside close it per
   `dismiss` (default `DismissBehavior::popover_default()`). Closing returns
   focus to the element focused before opening, unless focus already moved to
   another control.
@@ -88,16 +84,15 @@ Only the Web renderer is covered by `npm run verify:runtime-interactions`.
 
 ### Submenus
 
-`ContextMenuSub` holds a nested menu ([RFC 0067](../rfcs/0067-menu-submenus.md)).
-Pass the same controlled `open` to its trigger and content:
+`ContextMenuSub` holds a nested menu
+([RFC 0067](../rfcs/0067-menu-submenus.md)) and owns whether it is open; pass
+`open` and `on_open_change` to control it:
 
 ```rust
-let mut share = use_signal(|| false);
-
 rsx! {
-  ContextMenuSub { on_open_change: move |open| share.set(open),
-    ContextMenuSubTrigger { open: share(), "Share" }
-    ContextMenuSubContent { open: share(),
+  ContextMenuSub {
+    ContextMenuSubTrigger { "Share" }
+    ContextMenuSubContent {
       ContextMenuItem { onclick: move |_| copy_link(), "Copy link" }
     }
   }

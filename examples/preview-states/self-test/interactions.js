@@ -98,7 +98,7 @@ const scenarios = [
   }],
   ["dropdown", async () => {
     const root = $('[data-interaction-target="dropdown"]');
-    const trigger = $("#interaction-dropdown-trigger");
+    const trigger = $('[data-interaction-control="dropdown-trigger"]');
     const menu = root.querySelector('[role="menu"]');
     const item = (name) => Array.from(menu.querySelectorAll('[role="menuitem"]')).find((element) => element.textContent === name);
     focus(trigger);
@@ -153,7 +153,7 @@ const scenarios = [
     await focused(trigger, "the date picker returns focus to its trigger");
   }],
   ["menubar", async () => {
-    const trigger = (value) => $(`#interaction-menubar-${value}`);
+    const trigger = (value) => $(`[data-interaction-target="menubar"] [data-value="${value}"] [data-dxui-menubar-trigger]`);
     const menu = (value) => $(`[data-interaction-target="menubar"] [data-value="${value}"] [role="menu"]`);
     const firstItem = (value) => menu(value).querySelector('[role="menuitem"]');
     await waitFor(() => trigger("file").tabIndex === 0 && trigger("edit").tabIndex === -1, "the triggers form one Tab stop");
