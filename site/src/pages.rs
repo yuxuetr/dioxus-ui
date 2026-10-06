@@ -374,11 +374,9 @@ pub fn Blocks() -> Element {
 /// docs page.
 #[component]
 pub fn BlockPage(slug: String) -> Element {
-  let mut tab = use_signal(|| "preview".to_string());
   let Some(block) = BLOCKS.iter().find(|block| block.slug == slug) else {
     return rsx! { NotFoundContent { path: format!("/blocks/{slug}") } };
   };
-  let on_preview = tab() == "preview";
   let reference =
     BLOCK_REFERENCES.iter().find(|(reference, _)| *reference == block.slug).map(|(_, html)| *html);
 
@@ -388,12 +386,12 @@ pub fn BlockPage(slug: String) -> Element {
       h1 { class: "{H1} mt-1", "{block.title}" }
       p { class: LEAD, "{block.description}" }
       CodeBlock { code: format!("dxui add {}", block.slug) }
-      Tabs { class: "mt-8", on_value_change: move |value: String| tab.set(value),
+      Tabs { class: "mt-8", default_value: "preview",
         TabsList { "aria-label": "{block.title} block",
-          TabsTrigger { value: "preview", active: on_preview, "Preview" }
-          TabsTrigger { value: "code", active: !on_preview, "Code" }
+          TabsTrigger { value: "preview", "Preview" }
+          TabsTrigger { value: "code", "Code" }
         }
-        TabsContent { value: "preview", active: on_preview,
+        TabsContent { value: "preview",
           // The transform makes the frame the containing block of the
           // block's fixed parts, such as the off-canvas sidebar.
           div {
@@ -404,7 +402,7 @@ pub fn BlockPage(slug: String) -> Element {
             BlockRender { slug: block.slug }
           }
         }
-        TabsContent { value: "code", active: !on_preview, class: "relative",
+        TabsContent { value: "code", class: "relative",
           pre { class: "{CODE_BLOCK} max-h-[44rem]", tabindex: "0", "data-site-block-source": "",
             code { "{block.source}" }
           }
@@ -430,27 +428,24 @@ fn BlockRender(slug: &'static str) -> Element {
 /// One example: its live preview, or its source on the Code tab.
 #[component]
 fn ExampleCard(index: usize) -> Element {
-  let mut tab = use_signal(|| "preview".to_string());
   let Some(example) = EXAMPLES.get(index) else {
     return rsx! {};
   };
-  let on_preview = tab() == "preview";
 
   rsx! {
     section { class: "mt-6", "data-site-example": example.title,
       h3 { class: "font-semibold", "{example.title}" }
-      Tabs { class: "mt-3", on_value_change: move |value: String| tab.set(value),
+      Tabs { class: "mt-3", default_value: "preview",
         TabsList { "aria-label": "{example.title} example",
-          TabsTrigger { value: "preview", active: on_preview, "Preview" }
-          TabsTrigger { value: "code", active: !on_preview, "Code" }
+          TabsTrigger { value: "preview", "Preview" }
+          TabsTrigger { value: "code", "Code" }
         }
         TabsContent {
           value: "preview",
-          active: on_preview,
           class: "rounded-md border border-border p-6",
           div { "data-site-example-preview": "", ExampleRender { index } }
         }
-        TabsContent { value: "code", active: !on_preview, class: "relative",
+        TabsContent { value: "code", class: "relative",
           pre { class: "{CODE_BLOCK} max-h-[32rem]", "data-site-example-source": "",
             code { "{example.source}" }
           }

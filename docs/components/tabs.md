@@ -29,21 +29,32 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["tabs"]
 
 ## Behavior
 
-The selected tab stays controlled by the app. Keep its value, pass `active` to
-each trigger and panel, and handle `Tabs` `on_value_change`:
+`Tabs` owns which tab is selected and links its parts (see
+[RFC 0077](../rfcs/0077-component-owned-state.md)). Start it with
+`default_value`, or control it with `value`; `on_value_change` hears every
+change either way:
+
+```rust
+rsx! {
+  Tabs { default_value: "account",
+    TabsList {
+      TabsTrigger { value: "account", "Account" }
+      TabsTrigger { value: "billing", "Billing" }
+    }
+    TabsContent { value: "account", "Account settings" }
+    TabsContent { value: "billing", "Billing settings" }
+  }
+}
+```
+
+Control it when the app changes the tab itself, such as on a failed save:
 
 ```rust
 let mut tab = use_signal(|| "account".to_string());
 
 rsx! {
-  Tabs {
-    on_value_change: move |value: String| tab.set(value),
-    TabsList {
-      TabsTrigger { value: "account", active: tab() == "account", "Account" }
-      TabsTrigger { value: "billing", active: tab() == "billing", "Billing" }
-    }
-    TabsContent { value: "account", active: tab() == "account", "Account settings" }
-    TabsContent { value: "billing", active: tab() == "billing", "Billing settings" }
+  Tabs { value: tab(), on_value_change: move |next| tab.set(next),
+    // the same parts
   }
 }
 ```
@@ -51,8 +62,8 @@ rsx! {
 - The triggers form one Tab stop on the selected trigger. Tab from it moves
   into the visible panel, which has `tabindex="0"`.
 - Left and Right move focus between enabled triggers and wrap; Home and End
-  jump to the first and last. Moving focus calls `on_value_change` with the
-  focused trigger's value (automatic activation).
+  jump to the first and last. Moving focus selects the focused trigger
+  (automatic activation).
 - With `activation: TabsActivation::Manual`, keys only move focus, and Enter,
   Space, or a click selects.
 - With `orientation: TabsOrientation::Vertical`, Up and Down move focus
@@ -63,10 +74,10 @@ rsx! {
   again, so Shift+Tab back into the list lands on it.
 - In a right-to-left horizontal list, ArrowLeft moves to the next trigger and
   ArrowRight to the previous one.
-- A click, Enter, or Space on a trigger calls `on_value_change` with its value.
+- A click, Enter, or Space on a trigger selects it.
 - `Tabs` links each trigger to its panel with `aria-controls` and
-  `aria-labelledby`. Without `Tabs`, the parts keep keyboard movement but
-  report nothing and render no ids.
+  `aria-labelledby`. A part outside a `Tabs` renders nothing, and Dioxus logs
+  that it must be inside one.
 
 The Web renderer is covered by `npm run verify:runtime-interactions`.
 

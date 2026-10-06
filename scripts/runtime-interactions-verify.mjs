@@ -1571,6 +1571,9 @@ async function runBrowserAssertions() {
     await multiTrigger.click();
     await expect(multiList).toBeVisible();
     await expect(multiList).toHaveAttribute("aria-multiselectable", "true");
+    // As with the single Select, keys go to the list once its scripts run,
+    // which placement shows; a key pressed in the frame before that is lost.
+    await expectAnchoredReady(multiFixture);
     await multiTrigger.press("Enter");
     await expect(multiFixture).toHaveAttribute("data-values", "apple");
     await expect(multiList).toBeVisible();

@@ -1,0 +1,12 @@
+{
+  "name": "root-state",
+  "description": "State a compound component's root owns and shares with its parts (RFC 0077).",
+  "files": [
+    {
+      "source": "templates/root_state.rs",
+      "target": "src/components/ui/root_state.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

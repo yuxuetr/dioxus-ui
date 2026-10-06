@@ -18,6 +18,12 @@ for commit messages.
   component utility (`px-2` over `p-4`) keeps both, and a class the merge
   does not know replaces nothing. `dioxus-shadcn-core` exports
   `merge_classes`, which every class function uses (RFC 0076).
+- Select and Tabs own their state (RFC 0077). A new `Select` root holds the
+  chosen value, or values with `multiple`, and the open state; `Tabs` holds
+  the selected tab. Each takes `default_value` to start the state or `value`
+  to control it, and its change callback hears every change either way. The
+  parts read the root, link their ids themselves, and render nothing outside
+  their root, where Dioxus logs which root they need.
 
 ### Fixed
 
@@ -47,10 +53,21 @@ for commit messages.
   relied on the component's value now gets its own. Overrides written with
   Tailwind's important modifier keep working and no longer need it unless
   they override part of a component utility.
+- Select: wrap the parts in `Select`, and move `open`, `on_open_change`, and
+  `on_value_change` to it, or drop them to let it hold the state. Remove
+  `id` from `SelectTrigger` (name the trigger with `Select { id }` for a
+  `Label`), `anchor_id`, `open`, and `multiple` from `SelectContent`, and
+  `selected` from `SelectItem`; a multiple Select takes `values` and
+  `on_values_change` instead of toggling in `on_value_change`. `SelectValue`
+  takes a `placeholder` instead of children; put a label other than the value
+  in the `SelectTrigger`.
+- Tabs: remove `active` from `TabsTrigger` and `TabsContent`, and pass
+  `default_value` or `value` to `Tabs`. Tabs parts outside a `Tabs` no longer
+  render.
 - Copy mode: re-copy components with `dxui add <name> --overwrite`. `utils`
   now brings two helpers, `class_merge` and `class_merge_table`; the second
   is generated from Tailwind and stores its names reversed so Tailwind
-  generates no CSS for them.
+  generates no CSS for them. Select and Tabs also bring `root_state`.
 
 ## [0.4.2] - 2026-10-06
 

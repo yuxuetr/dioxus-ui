@@ -74,7 +74,7 @@ Source preview routes: 82
 | [Rating](rating.md) | /components/rating/source | crates/dioxus-shadcn-cli/templates/rating.rs | src/components/ui/rating.rs | rust | 56 | 2476 |
 | [Resizable](resizable.md) | /components/resizable/source | crates/dioxus-shadcn-cli/templates/resizable.rs | src/components/ui/resizable.rs | rust | 310 | 11140 |
 | [Scroll Area](scroll-area.md) | /components/scroll-area/source | crates/dioxus-shadcn-cli/templates/scroll_area.rs | src/components/ui/scroll_area.rs | rust | 145 | 4157 |
-| [Select](select.md) | /components/select/source | crates/dioxus-shadcn-cli/templates/select.rs | src/components/ui/select.rs | rust | 226 | 7981 |
+| [Select](select.md) | /components/select/source | crates/dioxus-shadcn-cli/templates/select.rs | src/components/ui/select.rs | rust | 310 | 10499 |
 | [Separator](separator.md) | /components/separator/source | crates/dioxus-shadcn-cli/templates/separator.rs | src/components/ui/separator.rs | rust | 52 | 1264 |
 | [Sheet](sheet.md) | /components/sheet/source | crates/dioxus-shadcn-cli/templates/sheet.rs | src/components/ui/sheet.rs | rust | 210 | 5934 |
 | [Sidebar](sidebar.md) | /components/sidebar/source | crates/dioxus-shadcn-cli/templates/sidebar.rs | src/components/ui/sidebar.rs | rust | 487 | 15691 |
@@ -88,7 +88,7 @@ Source preview routes: 82
 | [Swap](swap.md) | /components/swap/source | crates/dioxus-shadcn-cli/templates/swap.rs | src/components/ui/swap.rs | rust | 79 | 2546 |
 | [Switch](switch.md) | /components/switch/source | crates/dioxus-shadcn-cli/templates/switch.rs | src/components/ui/switch.rs | rust | 62 | 2157 |
 | [Table](table.md) | /components/table/source | crates/dioxus-shadcn-cli/templates/table.rs | src/components/ui/table.rs | rust | 150 | 3529 |
-| [Tabs](tabs.md) | /components/tabs/source | crates/dioxus-shadcn-cli/templates/tabs.rs | src/components/ui/tabs.rs | rust | 196 | 6617 |
+| [Tabs](tabs.md) | /components/tabs/source | crates/dioxus-shadcn-cli/templates/tabs.rs | src/components/ui/tabs.rs | rust | 196 | 6500 |
 | [Tags Input](tags-input.md) | /components/tags-input/source | crates/dioxus-shadcn-cli/templates/tags_input.rs | src/components/ui/tags_input.rs | rust | 135 | 4927 |
 | [Textarea](textarea.md) | /components/textarea/source | crates/dioxus-shadcn-cli/templates/textarea.rs | src/components/ui/textarea.rs | rust | 47 | 1589 |
 | [Theme Controller](theme-controller.md) | /components/theme-controller/source | crates/dioxus-shadcn-cli/templates/theme_controller.rs | src/components/ui/theme_controller.rs | rust | 155 | 5442 |

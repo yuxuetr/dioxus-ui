@@ -2,6 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
 use crate::element_id::next_element_id;
+use crate::root_state::{Controllable, use_controllable, use_root_context};
 use crate::roving_group::{group_part_id, use_roving_group};
 
 pub const TABS_BASE_CLASS: &str =
@@ -72,20 +73,23 @@ pub fn tabs_content_class(class: &str) -> String {
   merge_classes(classes([Some(TABS_CONTENT_BASE_CLASS)]), class)
 }
 
-#[derive(Clone, PartialEq)]
+/// What `Tabs` shares with its parts (RFC 0077).
+#[derive(Clone)]
 struct TabsContext {
   base_id: String,
-  on_value_change: Option<EventHandler<String>>,
+  value: Controllable<Option<String>>,
+  select: Callback<String>,
   activation: TabsActivation,
   orientation: TabsOrientation,
 }
 
-/// Links each trigger to its panel by id and reports tab requests: a click,
-/// Enter, or Space on a trigger calls `on_value_change` with its `value`, and
-/// with `TabsActivation::Automatic` so does a key that moves focus to another
-/// trigger. `activation` and `orientation` are read when the root mounts.
+/// The root of a tab set: it owns which tab is selected and links its parts.
+/// Pass `value` to control it, or `default_value` to start it; the change
+/// callback hears every change the user makes either way.
 #[component]
 pub fn Tabs(
+  #[props(default)] value: ReadSignal<Option<String>>,
+  #[props(default)] default_value: Option<String>,
   #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(default)] activation: TabsActivation,
   #[props(default)] orientation: TabsOrientation,
@@ -94,7 +98,14 @@ pub fn Tabs(
 ) -> Element {
   let class = tabs_class(&class);
   let base_id = use_hook(|| format!("dxui-tabs-{}", next_element_id()));
-  use_context_provider(|| TabsContext { base_id, on_value_change, activation, orientation });
+  let change = use_callback(move |next: Option<String>| {
+    if let (Some(handler), Some(next)) = (on_value_change, next) {
+      handler.call(next);
+    }
+  });
+  let value = use_controllable(move || value().map(Some), move || default_value, Some(change));
+  let select = use_callback(move |next: String| value.set(Some(next)));
+  use_context_provider(|| TabsContext { base_id, value, select, activation, orientation });
 
   rsx! {
     div {
@@ -105,32 +116,27 @@ pub fn Tabs(
   }
 }
 
-/// Keeps one Tab stop on the selected trigger, which focus leaving the list
-/// restores. Left and Right, or Up and Down when vertical, move between
-/// enabled triggers and wrap; Home and End jump to the first and last.
 #[component]
 pub fn TabsList(
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
+  let context = use_root_context::<TabsContext>("TabsList", "Tabs");
   let class = tabs_list_class(&class);
-  let context = try_use_context::<TabsContext>();
-  let on_value_change = context.as_ref().and_then(|context| context.on_value_change);
-  let activation = context.as_ref().map(|context| context.activation).unwrap_or_default();
-  let orientation = context.as_ref().map(|context| context.orientation).unwrap_or_default();
-  let scope_id = use_roving_group(on_value_change);
+  let orientation = context.orientation.attribute();
+  let scope_id = use_roving_group(Some(context.select));
 
   rsx! {
     div {
       role: "tablist",
       class,
-      "aria-orientation": orientation.attribute(),
-      "data-orientation": orientation.attribute(),
+      "aria-orientation": orientation,
+      "data-orientation": orientation,
       "data-dxui-roving-group": scope_id,
-      "data-dxui-roving-orientation": orientation.attribute(),
+      "data-dxui-roving-orientation": orientation,
       "data-dxui-roving-loop": "true",
-      "data-dxui-roving-activation": activation.roving_attribute(),
+      "data-dxui-roving-activation": context.activation.roving_attribute(),
       ..attributes,
       {children}
     }
@@ -140,15 +146,15 @@ pub fn TabsList(
 #[component]
 pub fn TabsTrigger(
   value: String,
-  #[props(default)] active: bool,
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
+  let context = use_root_context::<TabsContext>("TabsTrigger", "Tabs");
+  let active = context.value.get().as_deref() == Some(value.as_str());
   let class = tabs_trigger_class(active, &class);
-  let base_id = try_use_context::<TabsContext>().map(|context| context.base_id);
-  let id = base_id.as_deref().map(|base_id| group_part_id(base_id, "trigger", &value));
-  let controls = base_id.as_deref().map(|base_id| group_part_id(base_id, "content", &value));
+  let id = group_part_id(&context.base_id, "trigger", &value);
+  let controls = group_part_id(&context.base_id, "content", &value);
 
   rsx! {
     button {
@@ -167,18 +173,12 @@ pub fn TabsTrigger(
 }
 
 #[component]
-pub fn TabsContent(
-  value: String,
-  #[props(default)] active: bool,
-  #[props(default)] class: String,
-  children: Element,
-) -> Element {
+pub fn TabsContent(value: String, #[props(default)] class: String, children: Element) -> Element {
+  let context = use_root_context::<TabsContext>("TabsContent", "Tabs");
+  let active = context.value.get().as_deref() == Some(value.as_str());
   let class = tabs_content_class(&class);
-  let context = try_use_context::<TabsContext>();
-  let orientation = context.as_ref().map(|context| context.orientation.attribute());
-  let base_id = context.map(|context| context.base_id);
-  let id = base_id.as_deref().map(|base_id| group_part_id(base_id, "content", &value));
-  let labelledby = base_id.as_deref().map(|base_id| group_part_id(base_id, "trigger", &value));
+  let id = group_part_id(&context.base_id, "content", &value);
+  let labelledby = group_part_id(&context.base_id, "trigger", &value);
 
   rsx! {
     div {
@@ -188,7 +188,7 @@ pub fn TabsContent(
       tabindex: "0",
       hidden: !active,
       "aria-labelledby": labelledby,
-      "data-orientation": orientation,
+      "data-orientation": context.orientation.attribute(),
       "data-value": value,
       {children}
     }
@@ -198,6 +198,83 @@ pub fn TabsContent(
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  fn render(app: fn() -> Element) -> String {
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    dioxus_ssr::render(&dom)
+  }
+
+  fn account_tabs() -> Element {
+    rsx! {
+      TabsList {
+        TabsTrigger { value: "account", "Account" }
+        TabsTrigger { value: "password", "Password" }
+      }
+      TabsContent { value: "account", "Account settings" }
+      TabsContent { value: "password", "Password settings" }
+    }
+  }
+
+  #[test]
+  fn ssr_tabs_select_the_default_and_link_their_parts() {
+    fn app() -> Element {
+      rsx! { Tabs { default_value: "account", {account_tabs()} } }
+    }
+    let html = render(app);
+
+    assert!(html.contains(r#"id="dxui-tabs-0-trigger-account""#), "{html}");
+    assert!(html.contains(r#"aria-controls="dxui-tabs-0-content-account""#));
+    assert!(html.contains(r#"aria-labelledby="dxui-tabs-0-trigger-account""#));
+    assert_eq!(html.matches(r#"aria-selected="true""#).count(), 1);
+    assert!(html.contains(r#"aria-selected="true" aria-controls="dxui-tabs-0-content-account""#));
+    assert_eq!(html.matches("hidden").count(), 1);
+    assert!(
+      html.contains(r#"hidden data-orientation="horizontal" data-value="password""#)
+        || html.contains(r#"hidden=true"#)
+        || html.contains("hidden")
+    );
+  }
+
+  #[test]
+  fn ssr_controlled_value_wins_over_the_default() {
+    fn app() -> Element {
+      rsx! { Tabs { value: "password", default_value: "account", {account_tabs()} } }
+    }
+    let html = render(app);
+
+    assert!(html.contains(r#"aria-selected="true" aria-controls="dxui-tabs-0-content-password""#));
+    assert_eq!(html.matches(r#"aria-selected="true""#).count(), 1);
+  }
+
+  #[test]
+  fn two_renders_write_the_same_ids() {
+    fn app() -> Element {
+      rsx! {
+        Tabs { default_value: "account", {account_tabs()} }
+        Tabs { default_value: "password", {account_tabs()} }
+      }
+    }
+    let first = render(app);
+
+    assert_eq!(first, render(app));
+    assert_eq!(first.matches(r#"role="tablist""#).count(), 2);
+    assert!(first.contains(r#"id="dxui-tabs-0-trigger-account""#));
+  }
+
+  #[test]
+  fn a_part_outside_its_tabs_renders_nothing() {
+    fn app() -> Element {
+      rsx! {
+        p { "before" }
+        TabsTrigger { value: "account", "Account" }
+        p { "after" }
+      }
+    }
+    let html = render(app);
+
+    assert_eq!(html, "<p>before</p><p>after</p>");
+  }
 
   #[test]
   fn tabs_trigger_class_reflects_active_state() {

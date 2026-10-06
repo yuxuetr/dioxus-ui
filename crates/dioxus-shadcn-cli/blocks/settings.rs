@@ -88,12 +88,12 @@ pub fn SettingsBlock(
         h1 { class: "text-2xl font-semibold", "Settings" }
         p { class: "mt-1 text-sm text-muted-foreground", "Manage your profile and how we contact you." }
       }
-      Tabs { on_value_change: move |value: String| tab.set(value),
+      Tabs { value: tab(), on_value_change: move |value: String| tab.set(value),
         TabsList { "aria-label": "Settings sections",
-          TabsTrigger { value: "profile", active: tab() == "profile", "Profile" }
-          TabsTrigger { value: "notifications", active: tab() == "notifications", "Notifications" }
+          TabsTrigger { value: "profile", "Profile" }
+          TabsTrigger { value: "notifications", "Notifications" }
         }
-        TabsContent { value: "profile", active: tab() == "profile",
+        TabsContent { value: "profile",
           Card {
             CardHeader {
               CardTitle { "Profile" }
@@ -153,7 +153,7 @@ pub fn SettingsBlock(
             }
           }
         }
-        TabsContent { value: "notifications", active: tab() == "notifications",
+        TabsContent { value: "notifications",
           Card {
             CardHeader {
               CardTitle { "Notifications" }

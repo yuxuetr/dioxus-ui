@@ -1,7 +1,9 @@
 use super::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
 use super::default_attribute::default_attribute;
+use super::element_id::next_element_id;
 use super::listbox::{ListboxMode, use_listbox};
 pub use super::overlay::{DismissBehavior, OverlayAlign, OverlaySide, SelectPrimitiveConfig};
+use super::root_state::{Controllable, use_controllable, use_root_context};
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
@@ -54,43 +56,122 @@ pub fn select_separator_class(class: &str) -> String {
 
 /// Click requests `!open` through `on_open_change`, and ArrowDown or ArrowUp
 /// on a closed trigger requests open. Pass `id` as the content's `anchor_id`.
+/// What a `Select` shares with its parts (RFC 0077).
+#[derive(Clone)]
+struct SelectContext {
+  trigger_id: String,
+  multiple: bool,
+  single: Controllable<Option<String>>,
+  many: Controllable<Vec<String>>,
+  open: Controllable<bool>,
+  choose: Callback<String>,
+  set_open: Callback<bool>,
+}
+
+impl SelectContext {
+  fn trigger_id(&self) -> String {
+    self.trigger_id.clone()
+  }
+
+  fn content_id(&self) -> String {
+    format!("{}-content", self.trigger_id)
+  }
+
+  fn chosen(&self) -> Vec<String> {
+    if self.multiple { self.many.get() } else { self.single.get().into_iter().collect() }
+  }
+}
+
+/// The root of a select: it owns the chosen value, or values with
+/// `multiple`, and whether the list is open, and links its parts. Pass
+/// `value` (`values`) or `open` to control them, or `default_value`
+/// (`default_values`) and `default_open` to start them; the change callbacks
+/// hear every change the user makes either way. `id` names the trigger, for
+/// a `Label` to point at; without it the ids are generated.
+#[component]
+pub fn Select(
+  #[props(default)] id: Option<String>,
+  #[props(default)] value: ReadSignal<Option<String>>,
+  #[props(default)] default_value: Option<String>,
+  #[props(default)] on_value_change: Option<EventHandler<String>>,
+  #[props(default)] multiple: bool,
+  #[props(default)] values: ReadSignal<Option<Vec<String>>>,
+  #[props(default)] default_values: Vec<String>,
+  #[props(default)] on_values_change: Option<EventHandler<Vec<String>>>,
+  #[props(default)] open: ReadSignal<Option<bool>>,
+  #[props(default)] default_open: bool,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
+  children: Element,
+) -> Element {
+  let generated = use_hook(|| format!("dxui-select-{}-trigger", next_element_id()));
+  let trigger_id = id.unwrap_or(generated);
+  let single_change = use_callback(move |next: Option<String>| {
+    if let (Some(handler), Some(next)) = (on_value_change, next) {
+      handler.call(next);
+    }
+  });
+  let single =
+    use_controllable(move || value().map(Some), move || default_value, Some(single_change));
+  let many = use_controllable(move || values.cloned(), move || default_values, on_values_change);
+  let open = use_controllable(move || open.cloned(), move || default_open, on_open_change);
+  let choose = use_callback(move |chosen: String| {
+    if multiple {
+      let mut next = many.get();
+      match next.iter().position(|value| *value == chosen) {
+        Some(index) => {
+          next.remove(index);
+        }
+        None => next.push(chosen),
+      }
+      many.set(next);
+    } else {
+      single.set(Some(chosen));
+    }
+  });
+  let set_open = use_callback(move |next: bool| open.set(next));
+  use_context_provider(|| SelectContext {
+    trigger_id,
+    multiple,
+    single,
+    many,
+    open,
+    choose,
+    set_open,
+  });
+
+  rsx! { {children} }
+}
+
 #[component]
 pub fn SelectTrigger(
-  #[props(default)] id: Option<String>,
-  #[props(default)] open: bool,
   #[props(default)] invalid: bool,
   #[props(default)] disabled: bool,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
+  let context = use_root_context::<SelectContext>("SelectTrigger", "Select");
   let class = select_trigger_class(invalid, &class);
-  let controls = id
-    .as_ref()
-    .and_then(|id| default_attribute(&attributes, "aria-controls", format!("{id}-content")));
+  let open = context.open.get();
+  let set_open = context.set_open;
+  let controls = default_attribute(&attributes, "aria-controls", context.content_id());
 
   rsx! {
     button {
       r#type: "button",
       role: "combobox",
-      id,
+      id: context.trigger_id(),
       class,
       disabled,
       "aria-controls": controls,
       "aria-expanded": open.to_string(),
       "aria-haspopup": "listbox",
       "aria-invalid": invalid.to_string(),
-      onclick: move |_| {
-        if let Some(handler) = on_open_change {
-          handler.call(!open);
-        }
-      },
+      onclick: move |_| set_open.call(!open),
       onkeydown: move |event| {
-        let opens = !open && matches!(event.key(), Key::ArrowDown | Key::ArrowUp);
-        if let Some(handler) = on_open_change.filter(|_| opens) {
+        if !open && matches!(event.key(), Key::ArrowDown | Key::ArrowUp) {
           event.prevent_default();
-          handler.call(true);
+          set_open.call(true);
         }
       },
       ..attributes,
@@ -99,62 +180,64 @@ pub fn SelectTrigger(
   }
 }
 
+/// The chosen value, the chosen values joined with commas, or the
+/// placeholder. To show labels other than the values, put them in the
+/// `SelectTrigger` instead.
 #[component]
-pub fn SelectValue(#[props(default)] class: String, children: Element) -> Element {
+pub fn SelectValue(
+  #[props(default)] placeholder: String,
+  #[props(default)] class: String,
+) -> Element {
+  let context = use_root_context::<SelectContext>("SelectValue", "Select");
   let class = select_value_class(&class);
+  let chosen = context.chosen().join(", ");
+  let empty = chosen.is_empty();
+  let text = if empty { placeholder } else { chosen };
 
   rsx! {
     span {
       class,
-      {children}
+      "data-placeholder": empty.then_some("true"),
+      "{text}"
     }
   }
 }
 
-/// With `anchor_id` (the trigger's `id`) the listbox is placed next to the
-/// trigger while focus stays on it: arrows, Home, End, and typeahead move the
-/// highlighted option, and Enter, Space, or click choose it through
-/// `on_value_change` before requesting close. Escape and outside interactions
-/// request close per `dismiss`. The listbox takes the trigger's name, and its
-/// `id` is the trigger's `aria-controls` value, `{anchor_id}-content`. With
-/// `multiple` a choice keeps the listbox open and the app toggles the value
-/// in its set.
 #[component]
 pub fn SelectContent(
-  #[props(default)] open: bool,
   #[props(default)] class: String,
-  #[props(default)] anchor_id: Option<String>,
   #[props(default = OverlaySide::Bottom)] side: OverlaySide,
   #[props(default = OverlayAlign::Start)] align: OverlayAlign,
   #[props(default = 4)] side_offset: i32,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
-  #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(default = DismissBehavior::popover_default())] dismiss: DismissBehavior,
-  #[props(default)] multiple: bool,
   children: Element,
 ) -> Element {
+  let context = use_root_context::<SelectContext>("SelectContent", "Select");
   let class = select_content_class(&class);
-  let id = anchor_id.as_ref().map(|anchor_id| format!("{anchor_id}-content"));
-  let labelledby = anchor_id.clone();
-  // With `multiple` a choice leaves the listbox open; Escape and outside
-  // interactions still close it through the anchored overlay.
-  let closes_on_choice = if multiple { None } else { on_open_change };
-  let listbox =
-    use_listbox(open, anchor_id.clone(), ListboxMode::Select, on_value_change, closes_on_choice);
+  let open = context.open.get();
+  let anchor_id = Some(context.trigger_id());
+  let closes_on_choice = (!context.multiple).then_some(context.set_open);
+  let listbox = use_listbox(
+    open,
+    anchor_id.clone(),
+    ListboxMode::Select,
+    Some(context.choose),
+    closes_on_choice,
+  );
   let anchored = use_anchored_overlay(
     open,
     AnchoredPlacement { anchor_id, anchor_point: None, side, align, side_offset },
     dismiss,
-    on_open_change,
+    Some(context.set_open),
   );
 
   rsx! {
     div {
       role: "listbox",
-      id,
+      id: context.content_id(),
       class,
-      "aria-labelledby": labelledby,
-      "aria-multiselectable": multiple.then_some("true"),
+      "aria-labelledby": context.trigger_id(),
+      "aria-multiselectable": context.multiple.then_some("true"),
       hidden: !open,
       "data-state": if open { "open" } else { "closed" },
       "data-dxui-anchored": anchored,
@@ -192,11 +275,12 @@ pub fn SelectLabel(#[props(default)] class: String, children: Element) -> Elemen
 #[component]
 pub fn SelectItem(
   value: String,
-  #[props(default)] selected: bool,
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
+  let context = use_root_context::<SelectContext>("SelectItem", "Select");
+  let selected = context.chosen().contains(&value);
   let class = select_item_class(selected, &class);
 
   rsx! {

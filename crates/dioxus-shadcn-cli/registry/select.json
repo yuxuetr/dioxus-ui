@@ -10,8 +10,10 @@
   "dependencies": [
     "anchored-overlay",
     "default-attribute",
+    "element-id",
     "listbox",
     "overlay",
+    "root-state",
     "utils"
   ],
   "assets": []

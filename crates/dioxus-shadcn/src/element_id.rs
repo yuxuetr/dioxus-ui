@@ -38,8 +38,8 @@ mod tests {
 
   fn page() -> Element {
     rsx! {
-      Tabs {
-        TabsList { TabsTrigger { value: "one", active: true, "One" } }
+      Tabs { default_value: "one",
+        TabsList { TabsTrigger { value: "one", "One" } }
       }
       Accordion {
         AccordionItem { value: "a", AccordionTrigger { "A" } }

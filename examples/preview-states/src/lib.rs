@@ -22,7 +22,7 @@ use dioxus_shadcn::{
   MenubarContent, MenubarItem, MenubarMenu, MenubarSub, MenubarSubContent, MenubarSubTrigger,
   MenubarTrigger, NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink,
   NavigationMenuList, NavigationMenuTrigger, NavigationOrientation, RadioGroup, RadioGroupItem,
-  SelectContent, SelectItem, SelectTrigger, SelectValue, SonnerClose, SonnerContent, SonnerTitle,
+  Select, SelectContent, SelectItem, SelectTrigger, SonnerClose, SonnerContent, SonnerTitle,
   SonnerToast, SonnerVariant, SonnerViewport, Switch, Tabs, TabsActivation, TabsContent, TabsList,
   TabsOrientation, TabsTrigger, ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport,
   ToggleGroup, ToggleGroupItem, accordion_single_open, calendar_month_grid, calendar_move_date,
@@ -894,7 +894,6 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut dialog_open = use_signal(|| false);
   let mut alert_dialog_open = use_signal(|| false);
   let mut popover_open = use_signal(|| false);
-  let mut select_open = use_signal(|| false);
   let mut select_value = use_signal(|| "banana".to_string());
   let mut combobox_open = use_signal(|| false);
   let mut combobox_query = use_signal(String::new);
@@ -940,9 +939,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut mega_sub = use_signal(|| "web".to_string());
   let navigation_open = move |value: &str| navigation_active() == value;
   let mut tabs_value = use_signal(|| "account".to_string());
-  let tab_active = move |value: &str| tabs_value() == value;
   let mut settings_tab = use_signal(|| "general".to_string());
-  let settings_tab_active = move |value: &str| settings_tab() == value;
   let mut radio_value = use_signal(|| None::<String>);
   let radio_checked = move |value: &str| radio_value().as_deref() == Some(value);
   let mut toggle_value = use_signal(|| None::<String>);
@@ -970,7 +967,6 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut chosen_files = use_signal(String::new);
   let mut menu_swapped = use_signal(|| false);
   let mut fab_open = use_signal(|| false);
-  let mut fruits_open = use_signal(|| false);
   let mut fruits = use_signal(Vec::<String>::new);
   let mut tag_query = use_signal(String::new);
   let mut tag_open = use_signal(|| false);
@@ -1423,28 +1419,21 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-interaction-target": "select",
             "data-value": "{select_value}",
             h2 { class: "text-sm font-medium", "Select interaction" }
-            SelectTrigger {
+            // Controlled: the app holds the value (RFC 0077).
+            Select {
               id: "interaction-select-trigger",
-              class: "mt-3",
-              "aria-label": "Fruit",
-              "aria-describedby": "interaction-select-hint",
-              open: select_open(),
-              on_open_change: move |open| select_open.set(open),
-              SelectValue { "{fruit_label(&select_value())}" }
-            }
-            p { id: "interaction-select-hint", class: "text-xs", "Pick one fruit." }
-            SelectContent {
-              open: select_open(),
-              anchor_id: "interaction-select-trigger",
-              on_open_change: move |open| select_open.set(open),
+              value: select_value(),
               on_value_change: move |value| select_value.set(value),
-              for (value, label, disabled) in INTERACTION_FRUITS {
-                SelectItem {
-                  key: "{value}",
-                  value: *value,
-                  selected: select_value() == *value,
-                  disabled: *disabled,
-                  "{label}"
+              SelectTrigger {
+                class: "mt-3",
+                "aria-label": "Fruit",
+                "aria-describedby": "interaction-select-hint",
+                span { class: "truncate", "{fruit_label(&select_value())}" }
+              }
+              p { id: "interaction-select-hint", class: "text-xs", "Pick one fruit." }
+              SelectContent {
+                for (value, label, disabled) in INTERACTION_FRUITS {
+                  SelectItem { key: "{value}", value: *value, disabled: *disabled, "{label}" }
                 }
               }
             }
@@ -1454,41 +1443,26 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-interaction-target": "multi-select",
             "data-values": "{fruits().join(\"|\")}",
             h2 { class: "text-sm font-medium", "Multi-select interaction" }
-            SelectTrigger {
+            // Uncontrolled: the root holds the values and reports them.
+            Select {
               id: "interaction-multi-select-trigger",
-              class: "mt-3",
-              "aria-label": "Fruits",
-              open: fruits_open(),
-              on_open_change: move |open| fruits_open.set(open),
-              SelectValue {
-                if fruits().is_empty() {
-                  "Pick fruits"
-                } else {
-                  "{fruits().len()} selected"
+              multiple: true,
+              on_values_change: move |values| fruits.set(values),
+              SelectTrigger {
+                class: "mt-3",
+                "aria-label": "Fruits",
+                span {
+                  class: "truncate",
+                  if fruits().is_empty() {
+                    "Pick fruits"
+                  } else {
+                    "{fruits().len()} selected"
+                  }
                 }
               }
-            }
-            SelectContent {
-              open: fruits_open(),
-              multiple: true,
-              anchor_id: "interaction-multi-select-trigger",
-              on_open_change: move |open| fruits_open.set(open),
-              on_value_change: move |value: String| {
-                let mut next = fruits();
-                if let Some(index) = next.iter().position(|fruit| *fruit == value) {
-                  next.remove(index);
-                } else {
-                  next.push(value);
-                }
-                fruits.set(next);
-              },
-              for (value, label, disabled) in INTERACTION_FRUITS {
-                SelectItem {
-                  key: "{value}",
-                  value: *value,
-                  selected: fruits().iter().any(|fruit| fruit == value),
-                  disabled: *disabled,
-                  "{label}"
+              SelectContent {
+                for (value, label, disabled) in INTERACTION_FRUITS {
+                  SelectItem { key: "{value}", value: *value, disabled: *disabled, "{label}" }
                 }
               }
             }
@@ -1988,24 +1962,25 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-interaction-target": "tabs",
             "data-value": "{tabs_value}",
             h2 { class: "text-sm font-medium", "Tabs interaction" }
+            // Uncontrolled: the root holds the tab and reports it.
             Tabs {
               class: "mt-3",
+              default_value: "account",
               on_value_change: move |value: String| tabs_value.set(value),
               TabsList { "aria-label": "Account settings",
-                TabsTrigger { value: "account", active: tab_active("account"), "Account" }
+                TabsTrigger { value: "account", "Account" }
                 TabsTrigger {
                   value: "password",
-                  active: tab_active("password"),
                   disabled: true,
                   "Password"
                 }
-                TabsTrigger { value: "billing", active: tab_active("billing"), "Billing" }
-                TabsTrigger { value: "team", active: tab_active("team"), "Team" }
+                TabsTrigger { value: "billing", "Billing" }
+                TabsTrigger { value: "team", "Team" }
               }
-              TabsContent { value: "account", active: tab_active("account"), "Account settings" }
-              TabsContent { value: "password", active: tab_active("password"), "Password settings" }
-              TabsContent { value: "billing", active: tab_active("billing"), "Billing settings" }
-              TabsContent { value: "team", active: tab_active("team"), "Team settings" }
+              TabsContent { value: "account", "Account settings" }
+              TabsContent { value: "password", "Password settings" }
+              TabsContent { value: "billing", "Billing settings" }
+              TabsContent { value: "team", "Team settings" }
             }
           }
           article {
@@ -2017,23 +1992,17 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               class: "mt-3",
               activation: TabsActivation::Manual,
               orientation: TabsOrientation::Vertical,
+              // Controlled: the app holds the tab.
+              value: settings_tab(),
               on_value_change: move |value: String| settings_tab.set(value),
               TabsList {
-                TabsTrigger { value: "general", active: settings_tab_active("general"), "General" }
-                TabsTrigger { value: "security", active: settings_tab_active("security"), "Security" }
-                TabsTrigger {
-                  value: "notifications",
-                  active: settings_tab_active("notifications"),
-                  "Notifications"
-                }
+                TabsTrigger { value: "general", "General" }
+                TabsTrigger { value: "security", "Security" }
+                TabsTrigger { value: "notifications", "Notifications" }
               }
-              TabsContent { value: "general", active: settings_tab_active("general"), "General settings" }
-              TabsContent { value: "security", active: settings_tab_active("security"), "Security settings" }
-              TabsContent {
-                value: "notifications",
-                active: settings_tab_active("notifications"),
-                "Notification settings"
-              }
+              TabsContent { value: "general", "General settings" }
+              TabsContent { value: "security", "Security settings" }
+              TabsContent { value: "notifications", "Notification settings" }
             }
           }
           article {

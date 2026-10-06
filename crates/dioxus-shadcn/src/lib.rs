@@ -108,6 +108,9 @@ pub mod dialog;
 ))]
 mod element_id;
 
+#[cfg(any(feature = "select", feature = "tabs"))]
+mod root_state;
+
 #[cfg(any(
   feature = "alert-dialog",
   feature = "date-picker",
@@ -697,7 +700,7 @@ pub use select::{
   DismissBehavior as SelectDismissBehavior, OverlayAlign as SelectAlign, OverlaySide as SelectSide,
   SELECT_CONTENT_BASE_CLASS, SELECT_GROUP_BASE_CLASS, SELECT_ITEM_BASE_CLASS,
   SELECT_LABEL_BASE_CLASS, SELECT_SEPARATOR_BASE_CLASS, SELECT_TRIGGER_BASE_CLASS,
-  SELECT_VALUE_BASE_CLASS, SelectContent, SelectGroup, SelectItem, SelectLabel,
+  SELECT_VALUE_BASE_CLASS, Select, SelectContent, SelectGroup, SelectItem, SelectLabel,
   SelectPrimitiveConfig, SelectSeparator, SelectTrigger, SelectValue, select_content_class,
   select_group_class, select_item_class, select_label_class, select_separator_class,
   select_trigger_class, select_value_class,
