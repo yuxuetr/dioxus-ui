@@ -618,9 +618,9 @@ pub use pagination::{
   PAGINATION_BASE_CLASS, PAGINATION_CONTENT_BASE_CLASS, PAGINATION_ELLIPSIS_BASE_CLASS,
   PAGINATION_ITEM_BASE_CLASS, PAGINATION_LINK_ACTIVE_CLASS, PAGINATION_LINK_BASE_CLASS,
   PAGINATION_LINK_DISABLED_CLASS, Pagination, PaginationContent, PaginationEllipsis,
-  PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, pagination_class,
-  pagination_content_class, pagination_ellipsis_class, pagination_item_class,
-  pagination_link_class,
+  PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, PaginationRangeItem,
+  pagination_class, pagination_content_class, pagination_ellipsis_class, pagination_item_class,
+  pagination_link_class, pagination_range,
 };
 #[cfg(feature = "popover")]
 pub use popover::{

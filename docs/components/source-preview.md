@@ -64,7 +64,7 @@ Source preview routes: 79
 | [Native Select](native-select.md) | /components/native-select/source | crates/dioxus-shadcn-cli/templates/native_select.rs | src/components/ui/native_select.rs | rust | 93 | 2513 |
 | [Navigation Menu](navigation-menu.md) | /components/navigation-menu/source | crates/dioxus-shadcn-cli/templates/navigation_menu.rs | src/components/ui/navigation_menu.rs | rust | 477 | 17709 |
 | [Number Input](number-input.md) | /components/number-input/source | crates/dioxus-shadcn-cli/templates/number_input.rs | src/components/ui/number_input.rs | rust | 158 | 5761 |
-| [Pagination](pagination.md) | /components/pagination/source | crates/dioxus-shadcn-cli/templates/pagination.rs | src/components/ui/pagination.rs | rust | 202 | 5455 |
+| [Pagination](pagination.md) | /components/pagination/source | crates/dioxus-shadcn-cli/templates/pagination.rs | src/components/ui/pagination.rs | rust | 240 | 7019 |
 | [Popover](popover.md) | /components/popover/source | crates/dioxus-shadcn-cli/templates/popover.rs | src/components/ui/popover.rs | rust | 108 | 3320 |
 | [Progress](progress.md) | /components/progress/source | crates/dioxus-shadcn-cli/templates/progress.rs | src/components/ui/progress.rs | rust | 52 | 1426 |
 | [Radial Progress](radial-progress.md) | /components/radial-progress/source | crates/dioxus-shadcn-cli/templates/radial_progress.rs | src/components/ui/radial_progress.rs | rust | 111 | 3523 |

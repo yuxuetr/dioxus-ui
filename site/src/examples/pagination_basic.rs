@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use dioxus_shadcn::{
   Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink,
-  PaginationNext, PaginationPrevious,
+  PaginationNext, PaginationPrevious, PaginationRangeItem, pagination_range,
 };
 
 const LAST_PAGE: u32 = 10;
@@ -9,8 +9,9 @@ const LAST_PAGE: u32 = 10;
 #[component]
 pub fn Demo() -> Element {
   let mut page = use_signal(|| 1_u32);
-  // Show the first pages, an ellipsis, and the last page.
-  let numbers = [1, 2, 3];
+  // The first and last page, one page on each side of the current one, and
+  // ellipses for the gaps.
+  let entries = pagination_range(page(), LAST_PAGE, 1);
 
   rsx! {
     Pagination {
@@ -18,14 +19,15 @@ pub fn Demo() -> Element {
         PaginationItem {
           PaginationPrevious { disabled: page() == 1, onclick: move |_| page -= 1 }
         }
-        for number in numbers {
-          PaginationItem { key: "{number}",
-            PaginationLink { active: page() == number, onclick: move |_| page.set(number), "{number}" }
+        for (index, entry) in entries.into_iter().enumerate() {
+          PaginationItem { key: "{index}",
+            match entry {
+              PaginationRangeItem::Page(number) => rsx! {
+                PaginationLink { active: page() == number, onclick: move |_| page.set(number), "{number}" }
+              },
+              PaginationRangeItem::Ellipsis => rsx! { PaginationEllipsis {} },
+            }
           }
-        }
-        PaginationItem { PaginationEllipsis {} }
-        PaginationItem {
-          PaginationLink { active: page() == LAST_PAGE, onclick: move |_| page.set(LAST_PAGE), "{LAST_PAGE}" }
         }
         PaginationItem {
           PaginationNext { disabled: page() == LAST_PAGE, onclick: move |_| page += 1 }

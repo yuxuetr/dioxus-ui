@@ -23,6 +23,8 @@ dioxus-shadcn = { version = "0.2", default-features = false, features = ["pagina
 - `PaginationPrevious`
 - `PaginationNext`
 - `PaginationEllipsis`
+- `PaginationRangeItem`
+- `pagination_range`
 - `pagination_link_class`
 
 ## Page Changes
@@ -64,6 +66,28 @@ rsx! {
   through. A passed `aria-label` replaces the English default on Previous and
   Next, in the browser and in server-rendered HTML; the visible "Previous" and
   "Next" text stays English.
+
+## Page Ranges
+
+`pagination_range(current, total, siblings)` returns the entries to render
+for page `current` of `total` (both start at 1): every page when they fit in
+`2 * siblings + 5` entries, otherwise the first and last page, `siblings`
+pages on each side of `current`, and `PaginationRangeItem::Ellipsis` for each
+gap of two or more pages. Long ranges always have `2 * siblings + 5` entries,
+so the row keeps its width as the page moves:
+
+```rust
+for (index, entry) in pagination_range(page(), 10, 1).into_iter().enumerate() {
+  PaginationItem { key: "{index}",
+    match entry {
+      PaginationRangeItem::Page(number) => rsx! {
+        PaginationLink { active: page() == number, onclick: move |_| page.set(number), "{number}" }
+      },
+      PaginationRangeItem::Ellipsis => rsx! { PaginationEllipsis {} },
+    }
+  }
+}
+```
 
 ## Narrow Containers
 

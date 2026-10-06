@@ -13,6 +13,44 @@ pub const PAGINATION_LINK_DISABLED_CLASS: &str = "pointer-events-none opacity-50
 pub const PAGINATION_ELLIPSIS_BASE_CLASS: &str =
   "flex h-10 w-10 items-center justify-center text-sm text-muted-foreground";
 
+/// One entry of a pagination row: a page number or an ellipsis.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum PaginationRangeItem {
+  Page(u32),
+  Ellipsis,
+}
+
+/// The entries for page `current` of `total` (both 1-based): every page when
+/// they fit in `2 * siblings + 5` entries, otherwise the first and last page,
+/// `siblings` pages on each side of `current`, and an ellipsis for each gap of
+/// two or more pages. Long ranges always have `2 * siblings + 5` entries, so
+/// the row does not change width as the page moves. `current` is clamped to
+/// `1..=total`; a `total` of 0 gives no entries.
+pub fn pagination_range(current: u32, total: u32, siblings: u32) -> Vec<PaginationRangeItem> {
+  use PaginationRangeItem::{Ellipsis, Page};
+
+  let slots = siblings.saturating_mul(2).saturating_add(5);
+  if total <= slots {
+    return (1..total.saturating_add(1)).map(Page).collect();
+  }
+  let current = current.clamp(1, total);
+  let left = current.saturating_sub(siblings).max(1);
+  let right = current.saturating_add(siblings).min(total);
+  // An edge run covers the pages a missing ellipsis would have stood for.
+  let edge = slots - 2;
+  match (left > 3, right < total - 2) {
+    (false, _) => (1..edge + 1).map(Page).chain([Ellipsis, Page(total)]).collect(),
+    (true, false) => {
+      [Page(1), Ellipsis].into_iter().chain((total - edge + 1..total + 1).map(Page)).collect()
+    }
+    (true, true) => [Page(1), Ellipsis]
+      .into_iter()
+      .chain((left..right + 1).map(Page))
+      .chain([Ellipsis, Page(total)])
+      .collect(),
+  }
+}
+
 pub fn pagination_class(class: &str) -> String {
   classes([Some(PAGINATION_BASE_CLASS), Some(class)])
 }
@@ -205,6 +243,48 @@ pub fn PaginationEllipsis(#[props(default)] class: String) -> Element {
 #[cfg(test)]
 mod tests {
   use super::*;
+  use PaginationRangeItem::{Ellipsis, Page};
+
+  #[test]
+  fn pagination_range_shows_every_page_when_they_fit() {
+    assert_eq!(pagination_range(1, 0, 1), vec![]);
+    assert_eq!(pagination_range(3, 5, 1), (1..=5).map(Page).collect::<Vec<_>>());
+    assert_eq!(pagination_range(4, 7, 1), (1..=7).map(Page).collect::<Vec<_>>());
+  }
+
+  #[test]
+  fn pagination_range_keeps_its_length_as_the_page_moves() {
+    assert_eq!(
+      pagination_range(1, 10, 1),
+      vec![Page(1), Page(2), Page(3), Page(4), Page(5), Ellipsis, Page(10)]
+    );
+    assert_eq!(
+      pagination_range(4, 10, 1),
+      vec![Page(1), Page(2), Page(3), Page(4), Page(5), Ellipsis, Page(10)]
+    );
+    assert_eq!(
+      pagination_range(5, 10, 1),
+      vec![Page(1), Ellipsis, Page(4), Page(5), Page(6), Ellipsis, Page(10)]
+    );
+    assert_eq!(
+      pagination_range(7, 10, 1),
+      vec![Page(1), Ellipsis, Page(6), Page(7), Page(8), Page(9), Page(10)]
+    );
+    assert_eq!(
+      pagination_range(10, 10, 1),
+      vec![Page(1), Ellipsis, Page(6), Page(7), Page(8), Page(9), Page(10)]
+    );
+    for current in 1..=50 {
+      assert_eq!(pagination_range(current, 50, 2).len(), 9, "{current}");
+    }
+  }
+
+  #[test]
+  fn pagination_range_clamps_the_current_page() {
+    assert_eq!(pagination_range(0, 10, 1), pagination_range(1, 10, 1));
+    assert_eq!(pagination_range(99, 10, 1), pagination_range(10, 10, 1));
+    assert_eq!(pagination_range(2, 20, 0), vec![Page(1), Page(2), Page(3), Ellipsis, Page(20)]);
+  }
 
   fn render(app: fn() -> Element) -> String {
     let mut dom = VirtualDom::new(app);

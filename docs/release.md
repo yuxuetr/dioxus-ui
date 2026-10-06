@@ -531,7 +531,8 @@ templates and an added `nord` preset.
   not included. Input OTP reports the cleaned code through `on_value_change`
   (see RFC 0032); editing a slot in the middle is not included. Pagination
   controls report clicks through `onclick` and render buttons without an
-  `href` (see RFC 0033); a page range helper is not included. Carousel shows
+  `href` (see RFC 0033); `pagination_range` lays out page numbers and
+  ellipses. Carousel shows
   the selected index and reports clicks and arrow keys (see RFC 0034); swipe
   gestures and autoplay are not included. A passed `aria-label` replaces the
   English default on Pagination and Carousel controls in the browser and in

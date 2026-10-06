@@ -31,6 +31,9 @@ for commit messages.
   ([RFC 0070](docs/rfcs/0070-range-slider.md)): two thumbs for a low and a
   high value, kept `min_steps_between` steps apart, each a focusable slider
   bounded by the other.
+- `pagination_range` and `PaginationRangeItem`: the pages and ellipses to
+  render for a current page, with a constant length for long ranges. The
+  site's Pagination example uses it; it showed pages 1 to 3 and 10 only.
 
 ### Changed
 
