@@ -62,6 +62,8 @@ for commit messages.
 - The component site's header theme menu offers System, Light, Dark, and the
   presets, replacing the separate dark toggle, and applies them to the
   document root.
+- The component site has a Blocks section: each block renders in a
+  full-width preview frame, with its source, add command, and docs.
 - The component site renders each component's reference (API, behavior,
   and accessibility notes) from its docs page at build time, with links to
   other components kept on the site, instead of linking to GitHub.
@@ -74,6 +76,11 @@ for commit messages.
 
 ### Fixed
 
+- Charts drew upside down: `ChartScale::new` and `chart_scale_value`
+  normalized the output range, so a y range from 280 to 32, as the examples
+  and docs use for an SVG, lost its direction and larger values went lower.
+  The range now keeps its direction. Apps that flipped values themselves to
+  work around it must stop. The dashboard block's chart showed it.
 - Checked checkbox and radio items in Context Menu and Menubar now show a
   check mark or a dot; they were inset for one but drew nothing, so the
   checked state was only announced, not seen.

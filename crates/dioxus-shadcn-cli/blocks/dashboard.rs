@@ -18,8 +18,12 @@ use crate::components::ui::sidebar::{
 };
 use crate::components::ui::stat::{Stat, StatDescription, StatGroup, StatTitle, StatValue};
 
-const SECTIONS: [(&str, &str); 4] =
-  [("overview", "Overview"), ("orders", "Orders"), ("customers", "Customers"), ("settings", "Settings")];
+const SECTIONS: [(&str, &str); 4] = [
+  ("overview", "Overview"),
+  ("orders", "Orders"),
+  ("customers", "Customers"),
+  ("settings", "Settings"),
+];
 
 const REVENUE: [f64; 6] = [18.0, 22.0, 19.0, 27.0, 31.0, 36.0];
 
@@ -53,13 +57,20 @@ pub fn DashboardBlock() -> Element {
   if !ascending() {
     orders.reverse();
   }
-  let direction =
-    if ascending() { DataTableSortDirection::Ascending } else { DataTableSortDirection::Descending };
+  let direction = if ascending() {
+    DataTableSortDirection::Ascending
+  } else {
+    DataTableSortDirection::Descending
+  };
 
   let revenue = ChartSeries::new(
     "revenue",
     "Revenue",
-    REVENUE.iter().enumerate().map(|(month, value)| ChartPoint::new(month as f64, *value)).collect(),
+    REVENUE
+      .iter()
+      .enumerate()
+      .map(|(month, value)| ChartPoint::new(month as f64, *value))
+      .collect(),
   );
   // Data mapped into the 640 by 320 view box, with room at the edges.
   let x = ChartScale::new(ChartDomain::new(0.0, 5.0), ChartDomain::new(32.0, 608.0));
@@ -67,7 +78,8 @@ pub fn DashboardBlock() -> Element {
   let rows = chart_fallback_rows(std::slice::from_ref(&revenue));
 
   rsx! {
-    div { class: "flex min-h-screen bg-background text-foreground",
+    // A full-height shell: the sidebar fills it and the content scrolls.
+    div { class: "flex h-screen bg-background text-foreground",
       Sidebar {
         id: "dashboard-sidebar",
         "aria-label": "Main",
@@ -105,7 +117,7 @@ pub fn DashboardBlock() -> Element {
           }
         }
       }
-      div { class: "flex min-w-0 flex-1 flex-col",
+      div { class: "flex min-w-0 flex-1 flex-col overflow-y-auto",
         header { class: "flex h-14 items-center gap-3 border-b border-border px-4",
           SidebarTrigger {
             "aria-controls": "dashboard-sidebar",
@@ -165,7 +177,7 @@ pub fn DashboardBlock() -> Element {
                   ChartAreaSeries { series: revenue.clone(), x_scale: x, y_scale: y, color: ChartColorToken::Primary, baseline: 0.0 }
                   ChartLineSeries { series: revenue.clone(), x_scale: x, y_scale: y, color: ChartColorToken::Primary }
                 }
-                ChartFallbackTable { rows, caption: "Revenue by month" }
+                div { class: "sr-only", ChartFallbackTable { rows, caption: "Revenue by month" } }
               }
             }
           }

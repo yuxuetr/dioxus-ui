@@ -62,9 +62,24 @@ pub fn SettingsBlock(
     (label, id, checked, description)
   };
   let notifications = [
-    toggle("Product updates", "settings-updates", draft().product_updates, "News about features and releases."),
-    toggle("Security alerts", "settings-security", draft().security_alerts, "Sign-ins from new devices and password changes."),
-    toggle("Weekly digest", "settings-digest", draft().weekly_digest, "A summary of your workspace every Monday."),
+    toggle(
+      "Product updates",
+      "settings-updates",
+      draft().product_updates,
+      "News about features and releases.",
+    ),
+    toggle(
+      "Security alerts",
+      "settings-security",
+      draft().security_alerts,
+      "Sign-ins from new devices and password changes.",
+    ),
+    toggle(
+      "Weekly digest",
+      "settings-digest",
+      draft().weekly_digest,
+      "A summary of your workspace every Monday.",
+    ),
   ];
 
   rsx! {

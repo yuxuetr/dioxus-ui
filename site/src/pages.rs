@@ -4,6 +4,7 @@ use dioxus_shadcn::{
 };
 
 use crate::Route;
+use crate::blocks::BLOCKS;
 use crate::catalog::{CATEGORIES, Component};
 use crate::examples::EXAMPLES;
 
@@ -337,6 +338,88 @@ pub fn ComponentPage(slug: String) -> Element {
         }
       }
     }
+  }
+}
+
+/// The blocks (RFC 0073), each with its add command.
+#[component]
+pub fn Blocks() -> Element {
+  rsx! {
+    article { "data-site-page": "blocks",
+      h1 { class: H1, "Blocks" }
+      p { class: LEAD, "Whole screens built from the components, copied into your app with their components." }
+      CodeBlock { code: "dxui list blocks\ndxui add dashboard" }
+      ul { class: "mt-8 grid gap-4 sm:grid-cols-2",
+        for block in BLOCKS {
+          li { key: "{block.slug}", class: "rounded-lg border border-border p-4",
+            Link {
+              class: "font-semibold underline-offset-4 hover:underline",
+              to: Route::BlockPage { slug: block.slug.to_string() },
+              "{block.title}"
+            }
+            p { class: "mt-1 text-sm text-muted-foreground", "{block.description}" }
+            code { class: "{INLINE_CODE} mt-3 inline-block", "dxui add {block.slug}" }
+          }
+        }
+      }
+    }
+  }
+}
+
+/// One block: its add command, a full-width preview or its source, and its
+/// docs page.
+#[component]
+pub fn BlockPage(slug: String) -> Element {
+  let mut tab = use_signal(|| "preview".to_string());
+  let Some(block) = BLOCKS.iter().find(|block| block.slug == slug) else {
+    return rsx! { NotFoundContent { path: format!("/blocks/{slug}") } };
+  };
+  let on_preview = tab() == "preview";
+  let reference =
+    BLOCK_REFERENCES.iter().find(|(reference, _)| *reference == block.slug).map(|(_, html)| *html);
+
+  rsx! {
+    article { "data-site-page": "block", "data-block": block.slug,
+      p { class: "text-sm text-muted-foreground", "Blocks" }
+      h1 { class: "{H1} mt-1", "{block.title}" }
+      p { class: LEAD, "{block.description}" }
+      CodeBlock { code: format!("dxui add {}", block.slug) }
+      Tabs { class: "mt-8", on_value_change: move |value: String| tab.set(value),
+        TabsList { "aria-label": "{block.title} block",
+          TabsTrigger { value: "preview", active: on_preview, "Preview" }
+          TabsTrigger { value: "code", active: !on_preview, "Code" }
+        }
+        TabsContent { value: "preview", active: on_preview,
+          // The transform makes the frame the containing block of the
+          // block's fixed parts, such as the off-canvas sidebar.
+          div {
+            class: "h-[44rem] overflow-auto rounded-lg border border-border [transform:translateZ(0)]",
+            tabindex: "0",
+            "aria-label": "{block.title} preview",
+            "data-site-block-preview": "",
+            BlockRender { slug: block.slug }
+          }
+        }
+        TabsContent { value: "code", active: !on_preview, class: "relative",
+          pre { class: "{CODE_BLOCK} max-h-[44rem]", tabindex: "0", "data-site-block-source": "",
+            code { "{block.source}" }
+          }
+          CopyButton { text: block.source.to_string(), label: "Copy {block.title} source" }
+        }
+      }
+      if let Some(reference) = reference {
+        div { class: PROSE, "data-site-reference": "", dangerous_inner_html: reference }
+      }
+    }
+  }
+}
+
+/// Renders a block in its own scope, so its hooks belong to it.
+#[component]
+fn BlockRender(slug: &'static str) -> Element {
+  match BLOCKS.iter().find(|block| block.slug == slug) {
+    Some(block) => (block.render)(),
+    None => rsx! {},
   }
 }
 

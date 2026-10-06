@@ -1,7 +1,9 @@
 //! The dioxus-shadcn component site (RFC 0052): the catalog, each component's
 //! page, and the setup and theming guides, built on the published components.
 
+mod blocks;
 mod catalog;
+mod components;
 mod examples;
 mod pages;
 mod themes;
@@ -11,7 +13,7 @@ use dioxus_shadcn::{
   Button, ButtonSize, ButtonVariant, NativeSelect, NativeSelectGroup, NativeSelectOption,
   SheetContent, SheetOverlay, SheetSide, SheetTitle, Theme, ThemeController,
 };
-use pages::{ComponentPage, GettingStarted, Home, NotFound, Theming};
+use pages::{BlockPage, Blocks, ComponentPage, GettingStarted, Home, NotFound, Theming};
 
 const SITE_CSS: Asset = asset!("/assets/site.generated.css");
 
@@ -27,6 +29,10 @@ pub enum Route {
     Theming {},
     #[route("/components/:slug")]
     ComponentPage { slug: String },
+    #[route("/blocks")]
+    Blocks {},
+    #[route("/blocks/:slug")]
+    BlockPage { slug: String },
     #[route("/:..segments")]
     NotFound { segments: Vec<String> },
 }
@@ -76,6 +82,7 @@ fn Shell() -> Element {
               to: Route::ComponentPage { slug: "button".to_string() },
               "Components"
             }
+            Link { class: "hover:text-foreground", to: Route::Blocks {}, "Blocks" }
             Link { class: "hover:text-foreground", to: Route::Theming {}, "Theming" }
           }
           div { class: "ml-auto flex items-center gap-2",
@@ -147,6 +154,18 @@ fn SiteNav() -> Element {
         Link { class: link, active_class: active, to: Route::Home {}, "Introduction" }
         Link { class: link, active_class: active, to: Route::GettingStarted {}, "Installation" }
         Link { class: link, active_class: active, to: Route::Theming {}, "Theming" }
+      }
+      section { class: "grid gap-1",
+        h2 { class: "px-2 text-sm font-semibold", "Blocks" }
+        for block in blocks::BLOCKS {
+          Link {
+            key: "{block.slug}",
+            class: link,
+            active_class: active,
+            to: Route::BlockPage { slug: block.slug.to_string() },
+            "{block.title}"
+          }
+        }
       }
       for category in catalog::CATEGORIES {
         section { key: "{category.id}", id: "category-{category.id}", class: "grid gap-1",

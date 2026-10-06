@@ -17,11 +17,18 @@ import {
 // pages in `presetPages`, chosen through the header theme menu.
 const server = serveDioxusWeb({ packageName: "dioxus-ui-site", port: 45241 });
 const viewport = { width: 1280, height: 900 };
+// Blocks (RFC 0073), one route each.
+const blockNames = readdirSync(new URL("../crates/dioxus-shadcn-cli/blocks/", import.meta.url))
+  .filter((file) => file.endsWith(".json"))
+  .map((file) => file.replace(/\.json$/, ""))
+  .sort();
 const routes = [
   { path: "/", page: "home" },
   { path: "/docs/getting-started", page: "getting-started" },
   { path: "/docs/theming", page: "theming" },
   ...buildDocsCatalog().catalog.map((item) => ({ path: `/components/${item.slug}`, page: "component", slug: item.slug })),
+  { path: "/blocks", page: "blocks" },
+  ...blockNames.map((name) => ({ path: `/blocks/${name}`, page: "block", block: name })),
 ];
 const missingRoutes = ["/no-such-page", "/components/no-such-component"];
 const presets = readdirSync(new URL("../crates/dioxus-shadcn-cli/themes/", import.meta.url))
@@ -29,7 +36,7 @@ const presets = readdirSync(new URL("../crates/dioxus-shadcn-cli/themes/", impor
   .map((file) => file.replace(/\.css$/, ""))
   .sort();
 // Pages with the most token pairs: the variants, status colors, and muted text.
-const presetPages = ["/", "/components/button", "/components/alert", "/components/badge", "/components/tabs"];
+const presetPages = ["/", "/components/button", "/components/alert", "/components/badge", "/components/tabs", "/blocks/dashboard"];
 // The examples each page should show, from the site's example list.
 const examplesSource = readFileSync(new URL("../site/src/examples/mod.rs", import.meta.url), "utf8");
 const examples = [...examplesSource.matchAll(/^\s*(\w+) => "([a-z-]+)", "([^"]+)";$/gm)].map((match) => ({
@@ -49,7 +56,16 @@ async function visit(page, path) {
   return article;
 }
 
-async function expectReadable(page, label, { audit = false } = {}) {
+// A block is a whole app screen with its own main and sidebar landmarks; on
+// the site it sits inside the page's main, which only the preview causes.
+const blockLandmarkRules = [
+  "landmark-main-is-top-level",
+  "landmark-no-duplicate-main",
+  "landmark-unique",
+  "landmark-complementary-is-top-level",
+];
+
+async function expectReadable(page, label, { audit = false, disabledRules = [] } = {}) {
   for (const dark of [false, true]) {
     await setDarkTheme(page, dark);
     const theme = dark ? "dark" : "light";
@@ -57,7 +73,7 @@ async function expectReadable(page, label, { audit = false } = {}) {
     if (failures.length > 0) {
       throw new Error(`${label} (${theme} theme): low contrast text: ${failures.slice(0, 5).join("; ")}`);
     }
-    const violations = audit ? await accessibilityViolations(page) : [];
+    const violations = audit ? await accessibilityViolations(page, { disabledRules }) : [];
     if (violations.length > 0) {
       throw new Error(`${label} (${theme} theme): accessibility violations: ${violations.join("; ")}`);
     }
@@ -118,6 +134,25 @@ async function expectExamples(page, route) {
   }
 }
 
+// A block page shows the block in a preview frame, its copied source on the
+// Code tab, and its docs page.
+async function expectBlock(page, route) {
+  const preview = page.locator("main [data-site-block-preview]");
+  await expect(preview).toBeVisible();
+  const drawn = await preview.evaluate((element) =>
+    [...element.querySelectorAll("*")].some((child) => child.getBoundingClientRect().width > 0),
+  );
+  if (!drawn) {
+    throw new Error(`${route.path}: the block renders nothing`);
+  }
+  const component = route.block.split("-").map((part) => part[0].toUpperCase() + part.slice(1)).join("");
+  const tabs = page.getByRole("tablist", { name: /block$/ });
+  await tabs.getByRole("tab", { name: "Code" }).click();
+  await expect(page.locator("main [data-site-block-source]")).toContainText(`pub fn ${component}Block(`);
+  await tabs.getByRole("tab", { name: "Preview" }).click();
+  await expect(page.locator("main [data-site-reference]").getByRole("heading", { name: "Behavior" })).toHaveCount(1);
+}
+
 async function run() {
   if (unknownExamples.length > 0) {
     throw new Error(`examples for components outside the catalog: ${unknownExamples.map((example) => example.module).join(", ")}`);
@@ -155,7 +190,13 @@ async function run() {
           await expect(reference.getByRole("heading", { name: heading, exact: true })).toHaveCount(1);
         }
       }
-      await expectReadable(page, route.path, { audit: true });
+      if (route.block) {
+        await expectBlock(page, route);
+      }
+      await expectReadable(page, route.path, {
+        audit: true,
+        disabledRules: route.block ? blockLandmarkRules : [],
+      });
       await expectNoSidewaysScroll(page, route.path);
       if (errors.length > 0) {
         throw new Error(`${route.path}: console errors: ${errors.join("; ")}`);
@@ -181,6 +222,38 @@ async function run() {
     const shown = await example.locator("[data-site-example-source]").textContent();
     await expect.poll(clipboard).toBe(shown);
     await expect(copySource).toHaveText("Copy", { timeout: 4000 });
+    // Blocks work as screens: the login block checks its fields, the
+    // settings block tracks unsaved changes, and the dashboard sorts orders.
+    await visit(page, "/blocks/login");
+    const login = page.locator("main [data-site-block-preview]");
+    await login.getByRole("button", { name: "Sign in", exact: true }).click();
+    const email = login.getByRole("textbox", { name: "Email", exact: true });
+    await expect(email).toHaveAttribute("aria-invalid", "true");
+    await expect(email).toHaveAccessibleDescription("Enter your email address.");
+    await email.fill("ada@acme.example");
+    await expect(email).toHaveAttribute("aria-invalid", "false");
+    await visit(page, "/blocks/settings");
+    const settings = page.locator("main [data-site-block-preview]");
+    const save = settings.getByRole("button", { name: "Save", exact: true });
+    await expect(save).toBeDisabled();
+    await settings.getByRole("textbox", { name: "Name", exact: true }).fill("");
+    await expect(settings.getByRole("status")).toHaveText("Unsaved changes");
+    await save.click();
+    await expect(settings.getByRole("textbox", { name: "Name", exact: true })).toHaveAttribute("aria-invalid", "true");
+    await settings.getByRole("textbox", { name: "Name", exact: true }).fill("Grace Hopper");
+    await save.click();
+    await expect(settings.getByRole("status")).toHaveText("All changes saved");
+    await visit(page, "/blocks/dashboard");
+    const dashboard = page.locator("main [data-site-block-preview]");
+    // The chart's fallback table also has rows; the orders table has a Customer column.
+    const orderRows = () => dashboard.locator("table", { hasText: "Customer" }).locator("tbody tr");
+    const firstOrder = () => orderRows().first();
+    await expect(firstOrder()).toContainText("#3210");
+    await dashboard.getByRole("button", { name: "Amount", exact: true }).click();
+    await expect(firstOrder()).toContainText("#3209");
+    await dashboard.getByRole("searchbox", { name: "Search customers" }).fill("sofia");
+    await expect(orderRows()).toHaveCount(1);
+
     // A link to another component's docs opens that page on the site.
     await visit(page, "/components/date-picker");
     await page.locator("[data-site-reference]").getByRole("link", { name: /Calendar/ }).first().click();
@@ -226,7 +299,9 @@ async function run() {
         if (failures.length > 0) {
           throw new Error(`${label}: low contrast text: ${failures.slice(0, 5).join("; ")}`);
         }
-        const violations = await accessibilityViolations(page);
+        const violations = await accessibilityViolations(page, {
+          disabledRules: path.startsWith("/blocks/") ? blockLandmarkRules : [],
+        });
         if (violations.length > 0) {
           throw new Error(`${label}: accessibility violations: ${violations.join("; ")}`);
         }
