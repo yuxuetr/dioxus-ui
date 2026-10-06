@@ -6,6 +6,8 @@ pub use dioxus_shadcn_primitives::{
 
 use crate::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
 use crate::hover_open::{HoverOpenOptions, use_hover_open};
+use crate::overlay_root::{OverlayRoot, use_overlay_root};
+use crate::root_state::use_root_context;
 
 pub const HOVER_CARD_CONTENT_BASE_CLASS: &str = "z-50 w-80 rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 pub const HOVER_CARD_HEADER_BASE_CLASS: &str = "grid gap-1";
@@ -46,32 +48,33 @@ pub fn hover_card_align_attribute(align: OverlayAlign) -> &'static str {
   }
 }
 
-#[derive(Clone, PartialEq)]
-struct HoverCardContext {
-  base_id: String,
-  on_open_change: Option<EventHandler<bool>>,
+/// What a `HoverCard` shares with its parts.
+#[derive(Clone, Copy)]
+struct HoverCardContext(OverlayRoot);
+
+fn use_hover_card(part: &str) -> OverlayRoot {
+  use_root_context::<HoverCardContext>(part, "HoverCard").0
 }
 
-impl HoverCardContext {
-  fn trigger_id(&self) -> String {
-    format!("{}-trigger", self.base_id)
-  }
-}
-
-/// Opens the card after `open_delay_ms` of hover, or at once on keyboard
-/// focus, and keeps it open while the pointer or focus is on the trigger or
-/// the card. It closes `close_delay_ms` after the pointer leaves both, or when
-/// focus leaves both. Trigger presses keep it open. Requests reach the app
-/// through `on_open_change`; the delays are read when the root mounts.
+/// The root of a hover card: it owns whether the card is open. It opens after
+/// `open_delay_ms` of hover, or at once on keyboard focus, and stays open
+/// while the pointer or focus is on the trigger or the card. It closes
+/// `close_delay_ms` after the pointer leaves both, or when focus leaves both.
+/// Trigger presses keep it open. Pass `open` to control it, or `default_open`
+/// to start it; `on_open_change` hears every change either way. The delays
+/// are read when the root mounts.
 #[component]
 pub fn HoverCard(
+  #[props(default)] open: ReadSignal<Option<bool>>,
+  #[props(default)] default_open: bool,
   #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default = 700)] open_delay_ms: u32,
   #[props(default = 300)] close_delay_ms: u32,
   children: Element,
 ) -> Element {
-  let base_id = use_hover_open(
-    on_open_change,
+  let root = use_overlay_root("hover-card", open, default_open, on_open_change);
+  let hover_id = use_hover_open(
+    Some(root.set_open),
     HoverOpenOptions {
       open_delay_ms,
       close_delay_ms,
@@ -79,18 +82,18 @@ pub fn HoverCard(
       describe_trigger: false,
     },
   );
-  use_context_provider(|| HoverCardContext { base_id: base_id.clone(), on_open_change });
+  use_context_provider(|| HoverCardContext(root));
 
   rsx! {
     div {
       style: "display: contents",
-      "data-dxui-hover-open": base_id,
+      "data-dxui-hover-open": hover_id,
       {children}
     }
   }
 }
 
-/// A link that opens the card. Use it inside `HoverCard`.
+/// A link that opens the card.
 #[component]
 pub fn HoverCardTrigger(
   href: String,
@@ -98,58 +101,56 @@ pub fn HoverCardTrigger(
   #[props(extends = GlobalAttributes, extends = a)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
-  let id = try_use_context::<HoverCardContext>().map(|context| context.trigger_id());
-  let is_part = id.is_some().then_some("");
+  let root = use_hover_card("HoverCardTrigger");
 
   rsx! {
     a {
       href,
-      id,
+      id: root.trigger_id(),
       class,
-      "data-dxui-hover-trigger": is_part,
+      "data-dxui-hover-trigger": "",
       ..attributes,
       {children}
     }
   }
 }
 
-/// Inside `HoverCard`, the content anchors to `HoverCardTrigger` and uses the
-/// root's `on_open_change` for dismissal unless `anchor_id` or
-/// `on_open_change` is set.
+/// The card anchors to `HoverCardTrigger` and closes per `dismiss`.
 #[component]
 pub fn HoverCardContent(
-  #[props(default)] open: bool,
   #[props(default = OverlaySide::Bottom)] side: OverlaySide,
   #[props(default)] align: OverlayAlign,
   #[props(default)] class: String,
-  #[props(default)] anchor_id: Option<String>,
   #[props(default = 4)] side_offset: i32,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default = DismissBehavior::popover_default())] dismiss: DismissBehavior,
   children: Element,
 ) -> Element {
+  let root = use_hover_card("HoverCardContent");
   let class = hover_card_content_class(&class);
-  let context = try_use_context::<HoverCardContext>();
-  let is_part = context.is_some().then_some("");
-  let anchor_id = anchor_id.or_else(|| context.as_ref().map(HoverCardContext::trigger_id));
-  let on_open_change =
-    on_open_change.or_else(|| context.as_ref().and_then(|context| context.on_open_change));
+  let open = root.is_open();
   let anchored = use_anchored_overlay(
     open,
-    AnchoredPlacement { anchor_id, anchor_point: None, side, align, side_offset },
+    AnchoredPlacement {
+      anchor_id: Some(root.trigger_id()),
+      anchor_point: None,
+      side,
+      align,
+      side_offset,
+    },
     dismiss,
-    on_open_change,
+    Some(root.set_open),
   );
 
   rsx! {
     div {
+      id: root.content_id(),
       class,
       hidden: !open,
       "data-align": hover_card_align_attribute(align),
       "data-side": hover_card_side_attribute(side),
       "data-state": if open { "open" } else { "closed" },
       "data-dxui-anchored": anchored,
-      "data-dxui-hover-content": is_part,
+      "data-dxui-hover-content": "",
       {children}
     }
   }
@@ -204,10 +205,15 @@ mod tests {
   #[test]
   fn ssr_trigger_renders_passed_attributes() {
     fn app() -> Element {
-      rsx! { HoverCardTrigger { href: "https://dioxuslabs.com", target: "_blank", rel: "noreferrer", "@dioxus" } }
+      rsx! {
+        HoverCard {
+          HoverCardTrigger { href: "https://dioxuslabs.com", target: "_blank", rel: "noreferrer", "@dioxus" }
+        }
+      }
     }
     let html = render(app);
 
+    assert!(html.contains(r#"id="dxui-hover-card-0-trigger""#), "{html}");
     assert!(html.contains(r#"target="_blank""#));
     assert!(html.contains(r#"rel="noreferrer""#));
   }
@@ -215,7 +221,11 @@ mod tests {
   #[test]
   fn ssr_content_renders_no_role() {
     fn app() -> Element {
-      rsx! { HoverCardContent { open: true, "Dioxus" } }
+      rsx! {
+        HoverCard { open: true,
+          HoverCardContent { "Dioxus" }
+        }
+      }
     }
     let html = render(app);
 
@@ -246,10 +256,17 @@ mod tests {
   }
 
   #[test]
-  fn hover_card_trigger_id_uses_the_root_id() {
-    let context = HoverCardContext { base_id: "dxui-hover-2".to_string(), on_open_change: None };
+  fn ssr_hover_card_part_outside_its_root_renders_nothing() {
+    fn app() -> Element {
+      rsx! {
+        p { "before" }
+        HoverCardContent { "Dioxus" }
+      }
+    }
+    let html = render(app);
 
-    assert_eq!(context.trigger_id(), "dxui-hover-2-trigger");
+    assert!(html.contains("before"));
+    assert!(!html.contains("Dioxus"), "{html}");
   }
 
   #[test]

@@ -20,10 +20,7 @@ fn Icon(path: &'static str) -> Element {
 pub fn FabSpeedDialDemo() -> Element {
   let mut open = use_signal(|| false);
   let mut last = use_signal(|| "Nothing yet".to_string());
-  let mut choose = move |action: &str| {
-    last.set(format!("Created a {action}"));
-    open.set(false);
-  };
+  let mut choose = move |action: &str| last.set(format!("Created a {action}"));
 
   let trigger_icon = if open() { "M6 6l12 12M18 6L6 18" } else { "M12 5v14M5 12h14" };
 

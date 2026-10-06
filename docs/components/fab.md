@@ -23,8 +23,6 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["fab"] 
 - `fab_action_class`
 
 ```rust
-let mut open = use_signal(|| false);
-
 rsx! {
   // A plain button.
   Fab { "aria-label": "Compose", icon: rsx! { PlusIcon {} }, onclick: move |_| compose() }
@@ -33,20 +31,21 @@ rsx! {
   Fab {
     "aria-label": "Create",
     icon: rsx! { PlusIcon {} },
-    open: open(),
-    on_open_change: move |next| open.set(next),
-    FabAction { label: "Photo", onclick: move |_| { take_photo(); open.set(false); }, CameraIcon {} }
-    FabAction { label: "Note", onclick: move |_| { new_note(); open.set(false); }, NoteIcon {} }
+    FabAction { label: "Photo", onclick: move |_| take_photo(), CameraIcon {} }
+    FabAction { label: "Note", onclick: move |_| new_note(), NoteIcon {} }
   }
 }
 ```
 
 The button is fixed to the bottom inline-end corner, above the home
-indicator; `fixed: false` keeps it in the flow. Without `on_open_change` it
-is a plain button and `onclick` runs. With it, a press calls
-`on_open_change`, `open` shows the actions stacked above the button, and the
-app closes the dial in each action's `onclick`. `icon` is the button's
-content.
+indicator; `fixed: false` keeps it in the flow. Without children it is a
+plain button and `onclick` runs. With `FabAction` children it is a speed dial
+that owns whether it is open (see
+[RFC 0077](../rfcs/0077-component-owned-state.md)): a press toggles it, the
+actions stack above the button while open, and an action's press runs its
+`onclick` and closes the dial. Pass `open` and `on_open_change` to control
+it, or `default_open` to start it open; `on_open_change` hears every change.
+`icon` is the button's content.
 
 ## Accessibility Notes
 

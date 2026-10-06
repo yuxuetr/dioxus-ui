@@ -1,6 +1,6 @@
 # Hover Card
 
-Hover Card shows controlled rich preview content for a link. It opens on
+Hover Card shows rich preview content for a link. It opens on
 hover and keyboard focus, and reuses popover primitive placement and
 dismissal defaults.
 
@@ -36,43 +36,40 @@ The module also re-exports `OverlaySide`, `OverlayAlign`, and
 
 ## Behavior
 
-`open` stays controlled by the app. Keep it, pass it to `HoverCardContent`,
-and handle `HoverCard` `on_open_change`:
+`HoverCard` owns whether the card is open and its parts read it, so they must
+sit inside it (see [RFC 0077](../rfcs/0077-component-owned-state.md)):
 
 ```rust
-let mut open = use_signal(|| false);
-
 rsx! {
   HoverCard {
-    on_open_change: move |next| open.set(next),
     HoverCardTrigger { href: "/users/dioxus", "@dioxus" }
-    HoverCardContent { open: open(), "Fullstack app framework for Rust." }
+    HoverCardContent { "Fullstack app framework for Rust." }
   }
 }
 ```
 
-- Hovering the trigger requests open after `open_delay_ms` (default `700`).
-  Keyboard focus on the trigger requests open at once.
+Pass `open` and `on_open_change` to control it, or `default_open` to start it
+open; `on_open_change` hears every change in both modes.
+
+- Hovering the trigger opens it after `open_delay_ms` (default `700`).
+  Keyboard focus on the trigger opens it at once.
 - The card stays open while the pointer or focus is on the trigger or the
   card, so the pointer can reach links inside it. Leaving both with the
-  pointer requests close after `close_delay_ms` (default `300`). Focus leaving
-  both requests close at once, unless the pointer is over them.
+  pointer closes it after `close_delay_ms` (default `300`). Focus leaving
+  both closes it at once, unless the pointer is over them.
 - A press on the trigger follows the link and keeps the card open.
 - Touch pointers do not open the card.
 - `HoverCardTrigger` renders an `a` with the required `href` and passes
   through anchor attributes such as `target` and `rel`.
-- Inside `HoverCard`, the content anchors to `HoverCardTrigger` and uses the
-  root's `on_open_change` for dismissal. `anchor_id` and `on_open_change` on
-  `HoverCardContent` override them.
+- The content anchors to `HoverCardTrigger`.
 - Content is placed next to its anchor using fixed positioning, flips to the
   opposite side when the preferred side lacks room, shifts to stay inside the
   viewport, and follows resize and scroll. `side_offset` defaults to `4`
-  pixels. Without an anchor, content renders in place.
+  pixels.
 - `side` defaults to `Bottom` and `align` to `Center`. The rendered
   `data-side` switches to the flipped side while placed.
-- Escape, a pointer press outside, and focus moving outside request close per
+- Escape, a pointer press outside, and focus moving outside close it per
   `dismiss` (default `DismissBehavior::popover_default()`).
-- Without `HoverCard`, the app wires its own trigger and passes `anchor_id`.
 
 The Web renderer is covered by `npm run verify:runtime-interactions`.
 

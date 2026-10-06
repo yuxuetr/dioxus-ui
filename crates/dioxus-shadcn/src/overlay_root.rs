@@ -1,5 +1,12 @@
 use dioxus::prelude::*;
 
+#[cfg(any(
+  feature = "alert-dialog",
+  feature = "dialog",
+  feature = "drawer",
+  feature = "popover",
+  feature = "sheet"
+))]
 use crate::default_attribute::default_attribute;
 use crate::element_id::next_element_id;
 use crate::root_state::{Controllable, use_controllable};
@@ -9,6 +16,9 @@ use crate::root_state::{Controllable, use_controllable};
 #[derive(Clone, Copy)]
 pub(crate) struct OverlayRoot {
   open: Controllable<bool>,
+  /// Takes a change the user made; it stays the same across renders, so
+  /// hooks that take an `on_open_change` can hold it.
+  pub(crate) set_open: Callback<bool>,
   kind: &'static str,
   id: usize,
 }
@@ -17,10 +27,6 @@ impl OverlayRoot {
   /// Whether the overlay is open, subscribing the reader to its changes.
   pub(crate) fn is_open(&self) -> bool {
     self.open.get()
-  }
-
-  pub(crate) fn set_open(&self, next: bool) {
-    self.open.set(next);
   }
 
   pub(crate) fn trigger_id(&self) -> String {
@@ -40,13 +46,21 @@ pub(crate) fn use_overlay_root(
   on_open_change: Option<EventHandler<bool>>,
 ) -> OverlayRoot {
   let open = use_controllable(move || open.cloned(), move || default_open, on_open_change);
+  let set_open = use_callback(move |next: bool| open.set(next));
   let id = use_hook(next_element_id);
-  OverlayRoot { open, kind, id }
+  OverlayRoot { open, set_open, kind, id }
 }
 
-/// The trigger every overlay renders: a button that toggles the root and
+/// The trigger of an overlay that opens on press: a button that toggles the root and
 /// points at the content. It has no styles of its own; the app passes them in
 /// `class`, as with `asChild` in shadcn/ui.
+#[cfg(any(
+  feature = "alert-dialog",
+  feature = "dialog",
+  feature = "drawer",
+  feature = "popover",
+  feature = "sheet"
+))]
 pub(crate) fn overlay_trigger(
   root: OverlayRoot,
   haspopup: &'static str,
@@ -68,7 +82,7 @@ pub(crate) fn overlay_trigger(
       "aria-expanded": open.to_string(),
       "aria-controls": root.content_id(),
       "data-state": if open { "open" } else { "closed" },
-      onclick: move |_| root.set_open(!open),
+      onclick: move |_| root.set_open.call(!open),
       ..attributes,
       {children}
     }

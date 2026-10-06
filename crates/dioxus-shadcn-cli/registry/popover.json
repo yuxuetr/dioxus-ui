@@ -9,8 +9,11 @@
   ],
   "dependencies": [
     "anchored-overlay",
+    "default-attribute",
     "dialog-labels",
     "overlay",
+    "overlay-root",
+    "root-state",
     "utils"
   ],
   "assets": []

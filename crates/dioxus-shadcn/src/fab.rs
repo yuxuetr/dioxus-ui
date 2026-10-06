@@ -3,7 +3,8 @@ use std::rc::Rc;
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
-use crate::element_id::next_element_id;
+use crate::overlay_root::{OverlayRoot, use_overlay_root};
+use crate::root_state::use_root_context;
 
 // The trigger comes first in source, so Tab reaches it before the actions,
 // and `flex-col-reverse` stacks the actions above it.
@@ -27,39 +28,47 @@ pub fn fab_action_class(class: &str) -> String {
   merge_classes(classes([Some(FAB_ACTION_CLASS)]), class)
 }
 
+/// What a speed dial `Fab` shares with its actions.
+#[derive(Clone, Copy)]
+struct FabContext(OverlayRoot);
+
 /// A floating action button, fixed to the bottom inline-end corner;
-/// `fixed: false` keeps it in the flow. Without `on_open_change` it is a
-/// plain button whose `onclick` runs the action. With it, it is a speed
-/// dial: a press calls `on_open_change`, `open` shows the `FabAction`
-/// children above it, and Escape closes it and returns focus to the trigger.
-/// `icon` is the trigger's content; name the trigger with `aria-label`.
+/// `fixed: false` keeps it in the flow. Without children it is a plain button
+/// whose `onclick` runs the action. With `FabAction` children it is a speed
+/// dial that owns whether it is open: a press toggles it, the actions show
+/// above it while open, and Escape closes it and returns focus to the
+/// trigger. Pass `open` to control it, or `default_open` to start it;
+/// `on_open_change` hears every change either way. `icon` is the trigger's
+/// content; name the trigger with `aria-label`.
 #[component]
 pub fn Fab(
   icon: Element,
-  #[props(default)] open: bool,
+  #[props(default)] open: ReadSignal<Option<bool>>,
+  #[props(default)] default_open: bool,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default = true)] fixed: bool,
   #[props(default)] class: String,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = fab_class(fixed, &class);
-  let actions_id = use_hook(|| format!("dxui-fab-{}", next_element_id()));
+  let root = use_overlay_root("fab", open, default_open, on_open_change);
+  use_context_provider(|| FabContext(root));
   let mut trigger = use_signal(|| None::<Rc<MountedData>>);
-  let dial = on_open_change.is_some();
+  // A Fab without children gets Dioxus's shared empty node.
+  let dial = children.as_ref().is_ok_and(|node| *node != VNode::placeholder());
+  let open = dial && root.is_open();
   let expanded = dial.then(|| open.to_string());
-  let controls = dial.then(|| actions_id.clone());
+  let controls = dial.then(|| root.content_id());
 
   rsx! {
     div {
       class,
       onkeydown: move |event| {
-        if dial && open && event.key() == Key::Escape {
+        if open && event.key() == Key::Escape {
           event.prevent_default();
-          if let Some(handler) = on_open_change {
-            handler.call(false);
-          }
+          root.set_open.call(false);
           if let Some(element) = trigger() {
             spawn(async move {
               // A failed focus leaves focus where it was; nothing to undo.
@@ -69,14 +78,15 @@ pub fn Fab(
         }
       },
       button {
+        id: root.trigger_id(),
         class: FAB_TRIGGER_CLASS,
         r#type: "button",
         "aria-expanded": expanded,
         "aria-controls": controls,
         onmounted: move |event| trigger.set(Some(event.data())),
         onclick: move |event| {
-          if let Some(handler) = on_open_change {
-            handler.call(!open);
+          if dial {
+            root.set_open.call(!open);
           } else if let Some(handler) = onclick {
             handler.call(event);
           }
@@ -87,7 +97,7 @@ pub fn Fab(
       // The container stays, hidden, so `aria-controls` always resolves;
       // the actions render only while open.
       if dial {
-        div { id: actions_id, class: FAB_ACTIONS_CLASS, role: "group", hidden: !open,
+        div { id: root.content_id(), class: FAB_ACTIONS_CLASS, role: "group", hidden: !open,
           if open {
             {children}
           }
@@ -98,7 +108,8 @@ pub fn Fab(
 }
 
 /// One speed dial action: a button with a visible `label` beside a round
-/// icon, so it needs no `aria-label`. Close the dial in its `onclick`.
+/// icon, so it needs no `aria-label`. A press runs `onclick` and closes the
+/// dial.
 #[component]
 pub fn FabAction(
   label: String,
@@ -107,6 +118,7 @@ pub fn FabAction(
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
+  let root = use_root_context::<FabContext>("FabAction", "Fab").0;
   let class = fab_action_class(&class);
 
   rsx! {
@@ -117,6 +129,7 @@ pub fn FabAction(
         if let Some(handler) = onclick {
           handler.call(event);
         }
+        root.set_open.call(false);
       },
       ..attributes,
       span { class: FAB_ACTION_LABEL_CLASS, "{label}" }
@@ -153,9 +166,8 @@ mod tests {
     fn app() -> Element {
       rsx! {
         Fab {
-          open: true,
+          default_open: true,
           fixed: false,
-          on_open_change: move |_| {},
           "aria-label": "Create",
           icon: rsx! { "+" },
           FabAction { label: "Photo", "P" }
@@ -165,7 +177,8 @@ mod tests {
     let html = render(app);
 
     assert!(html.contains("aria-expanded=\"true\""));
-    assert!(html.contains("aria-controls=\"dxui-fab-"));
+    assert!(html.contains("aria-controls=\"dxui-fab-0-content\""), "{html}");
+    assert!(html.contains("id=\"dxui-fab-0-content\""));
     assert!(html.contains("role=\"group\""));
     assert!(html.contains(">Photo</span>"));
     assert!(!html.contains("fixed end-6"));
@@ -176,7 +189,6 @@ mod tests {
     fn app() -> Element {
       rsx! {
         Fab {
-          on_open_change: move |_| {},
           icon: rsx! { "+" },
           FabAction { label: "Photo", "P" }
         }
@@ -187,5 +199,19 @@ mod tests {
     assert!(html.contains("aria-expanded=\"false\""));
     assert!(html.contains("role=\"group\" hidden"));
     assert!(!html.contains("Photo"));
+  }
+
+  #[test]
+  fn ssr_fab_action_outside_a_fab_renders_nothing() {
+    fn app() -> Element {
+      rsx! {
+        p { "before" }
+        FabAction { label: "Photo", "P" }
+      }
+    }
+    let html = render(app);
+
+    assert!(html.contains("before"));
+    assert!(!html.contains("Photo"), "{html}");
   }
 }

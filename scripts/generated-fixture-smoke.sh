@@ -152,7 +152,7 @@ mod components;
 
 use components::ui::button::Button;
 use components::ui::dialog::{Dialog, DialogClose, DialogContent, DialogOverlay, DialogTitle};
-use components::ui::popover::{PopoverContent, PopoverTitle};
+use components::ui::popover::{Popover, PopoverContent, PopoverTitle, PopoverTrigger};
 
 fn main() {
   dioxus::launch(App);
@@ -161,7 +161,6 @@ fn main() {
 #[component]
 fn App() -> Element {
   let mut rename = use_signal(|| false);
-  let mut share = use_signal(|| false);
   rsx! {
     Button { onclick: move |_| rename.set(true), "Rename" }
     Dialog { open: rename(), on_open_change: move |next| rename.set(next),
@@ -171,12 +170,9 @@ fn App() -> Element {
         DialogClose { "Cancel" }
       }
     }
-    button { id: "share-trigger", onclick: move |_| share.toggle(), "Share" }
-    PopoverContent {
-      open: share(),
-      anchor_id: "share-trigger",
-      on_open_change: move |next| share.set(next),
-      PopoverTitle { "Share link" }
+    Popover {
+      PopoverTrigger { "Share" }
+      PopoverContent { PopoverTitle { "Share link" } }
     }
   }
 }

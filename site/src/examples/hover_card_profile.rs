@@ -3,16 +3,14 @@ use dioxus_shadcn::{HoverCard, HoverCardContent, HoverCardDescription, HoverCard
 
 #[component]
 pub fn HoverCardProfileDemo() -> Element {
-  let mut open = use_signal(|| false);
-
   rsx! {
-    HoverCard { on_open_change: move |next| open.set(next),
+    HoverCard {
       HoverCardTrigger {
         href: "https://dioxuslabs.com",
         class: "text-sm font-medium underline underline-offset-4",
         "@dioxus"
       }
-      HoverCardContent { open: open(),
+      HoverCardContent {
         HoverCardHeader {
           HoverCardTitle { "Dioxus" }
           HoverCardDescription { "Fullstack app framework for Rust." }

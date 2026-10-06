@@ -153,10 +153,12 @@ primitive state model.
 Hover Card is non-modal preview content associated with a trigger. It is closer
 to Popover than Tooltip because it can contain rich content.
 
-Planned crate API:
+Crate API:
 
 ```rust
-HoverCardContent { open, side, align, class, children }
+HoverCard { open, default_open, on_open_change, open_delay_ms, close_delay_ms, children }
+HoverCardTrigger { href, class, children }
+HoverCardContent { side, align, class, children }
 HoverCardHeader { class, children }
 HoverCardTitle { class, children }
 HoverCardDescription { class, children }

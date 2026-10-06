@@ -59,7 +59,7 @@ const scenarios = [
   }],
   ["popover", async () => {
     const root = $('[data-interaction-target="popover"]');
-    const trigger = $("#interaction-popover-trigger");
+    const trigger = $('[data-interaction-control="popover-trigger"]');
     const content = root.querySelector("[data-dxui-anchored]");
     focus(trigger);
     trigger.click();

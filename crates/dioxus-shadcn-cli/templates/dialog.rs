@@ -90,7 +90,7 @@ pub fn DialogOverlay(
       "data-state": if open { "open" } else { "closed" },
       onclick: move |_| {
         if dismiss.outside_pointer {
-          root.set_open(false);
+          root.set_open.call(false);
         }
       },
     }
@@ -127,7 +127,7 @@ pub fn DialogContent(
       "data-dxui-focus-scope": focus_scope,
       onkeydown: move |event| {
         if event.key() == Key::Escape && dismiss.escape_key {
-          root.set_open(false);
+          root.set_open.call(false);
         }
       },
       ..attributes,
@@ -178,7 +178,7 @@ pub fn DialogClose(
       r#type: "button",
       class,
       disabled,
-      onclick: move |_| root.set_open(false),
+      onclick: move |_| root.set_open.call(false),
       {children}
     }
   }

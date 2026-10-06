@@ -31,6 +31,11 @@ for commit messages.
   and point `aria-controls` at the content; they render an unstyled button
   that takes `class`. `AlertDialogCancel` takes `onclick`, as
   `AlertDialogAction` does.
+- Popover gains a `Popover` root and a `PopoverTrigger` that anchors the
+  content; Tooltip and Hover Card roots own their open state and take
+  `open` and `default_open`; Fab owns its speed dial's open state, is a
+  speed dial exactly when it has `FabAction` children, and closes the dial
+  when an action is pressed.
 
 ### Fixed
 
@@ -75,6 +80,16 @@ for commit messages.
   move `open` and `on_open_change` to it, or drop them and open it with the
   new trigger part. Remove `open` and `on_open_change` from the overlay,
   content, and close parts (`AlertDialogCancel`, `AlertDialogAction`).
+- Popover: wrap the parts in `Popover`, replace the app's trigger button with
+  `PopoverTrigger`, and remove `open`, `anchor_id`, and `on_open_change` from
+  `PopoverContent`.
+- Tooltip, Hover Card: remove `open`, `anchor_id`, and `on_open_change` from
+  the content, and the signal that held `open`, unless you control it with
+  `open` on the root. Triggers and content outside their root no longer
+  render.
+- Fab: drop `open` and `on_open_change` unless you control the dial, and the
+  `open.set(false)` in each `FabAction` `onclick`. A plain Fab must have no
+  children.
 - Copy mode: re-copy components with `dxui add <name> --overwrite`. `utils`
   now brings two helpers, `class_merge` and `class_merge_table`; the second
   is generated from Tailwind and stores its names reversed so Tailwind

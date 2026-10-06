@@ -148,7 +148,7 @@ pub fn AlertDialogContent(
       "data-dxui-focus-scope": focus_scope,
       onkeydown: move |event| {
         if event.key() == Key::Escape && dismiss.escape_key {
-          root.set_open(false);
+          root.set_open.call(false);
         }
       },
       ..attributes,
@@ -229,7 +229,7 @@ pub fn AlertDialogAction(
         if let Some(handler) = onclick {
           handler.call(event);
         }
-        root.set_open(false);
+        root.set_open.call(false);
       },
       {children}
     }
@@ -255,7 +255,7 @@ pub fn AlertDialogCancel(
         if let Some(handler) = onclick {
           handler.call(event);
         }
-        root.set_open(false);
+        root.set_open.call(false);
       },
       {children}
     }

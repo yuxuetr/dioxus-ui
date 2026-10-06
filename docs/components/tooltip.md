@@ -26,41 +26,39 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["toolti
 
 ## Behavior
 
-`open` stays controlled by the app. Keep it, pass it to `TooltipContent`, and
-handle `Tooltip` `on_open_change`:
+`Tooltip` owns whether the tooltip is open and its parts read it, so they
+must sit inside it (see
+[RFC 0077](../rfcs/0077-component-owned-state.md)):
 
 ```rust
-let mut open = use_signal(|| false);
-
 rsx! {
   Tooltip {
-    on_open_change: move |next| open.set(next),
     TooltipTrigger { "Save" }
-    TooltipContent { open: open(), "Saved 2 minutes ago" }
+    TooltipContent { "Saved 2 minutes ago" }
   }
 }
 ```
 
-- Hovering the trigger requests open after `delay_ms` (default `700`). Keyboard
-  focus on the trigger requests open at once.
+Pass `open` and `on_open_change` to control it, or `default_open` to start it
+open; `on_open_change` hears every change in both modes.
+
+- Hovering the trigger opens it after `delay_ms` (default `700`). Keyboard
+  focus on the trigger opens it at once.
 - The tooltip stays open while the pointer moves from the trigger onto the
-  content. Leaving both requests close after a 100 ms grace period.
-- Blur requests close unless the pointer is over the trigger or content; then
-  pointer leave closes it. A press on the trigger requests close, and hover
+  content. Leaving both closes it after a 100 ms grace period.
+- Blur closes it unless the pointer is over the trigger or content; then
+  pointer leave closes it. A press on the trigger closes it, and hover
   does not reopen the tooltip until the pointer leaves the trigger.
 - Touch pointers do not open the tooltip.
 - While open, the trigger has `aria-describedby` pointing to the content.
-- Inside `Tooltip`, the content anchors to `TooltipTrigger` and uses the root's
-  `on_open_change` for Escape. `anchor_id` and `on_open_change` on
-  `TooltipContent` override them.
+- The content anchors to `TooltipTrigger`.
 - Content is placed next to its anchor using fixed positioning, flips to the
   opposite side when the preferred side lacks room, shifts to stay inside the
   viewport, and follows resize and scroll. `side_offset` defaults to `4`
-  pixels. Without an anchor, content renders in place.
+  pixels.
 - `side` defaults to `Top` and `align` to `Center`.
-- Escape requests close per `dismiss` (default
+- Escape closes it per `dismiss` (default
   `DismissBehavior::tooltip_default()`); outside pointer presses do not.
-- Without `Tooltip`, the app wires its own trigger and passes `anchor_id`.
 - `TooltipTrigger` takes `onclick` for its action and passes through other
   button attributes, such as `aria-label` for an icon-only trigger.
 

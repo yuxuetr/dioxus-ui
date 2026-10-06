@@ -36,15 +36,16 @@ use dioxus_shadcn::{
   ButtonSize, ButtonVariant, ChartColorToken, ChartDomain, ChartPoint, ChartScale, ChartSeries,
   Dialog, DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogTitle,
   DismissBehavior, MarkerVariant, MessageAlign, MessageScrollerIntent, MessageScrollerMetrics,
-  PopoverContent, PopoverDescription, PopoverTitle, TextDirection, Tooltip, TooltipContent,
-  TooltipTrigger, UiDensity, attachment_class, bubble_class, button_class, button_group_class,
-  chart_area_path, chart_area_series_class, chart_bar_rects, chart_bar_series_class, chart_class,
-  chart_fallback_rows, chart_line_path, chart_line_series_class, chart_view_box, collapsible_class,
-  direction_class, input_group_class, input_otp_class, marker_class, message_avatar_class,
-  message_class, message_content_class, message_footer_class, message_group_class,
-  message_header_class, message_scroller_class, message_scroller_intent_attribute,
-  message_scroller_is_at_bottom, message_scroller_jump_button_class,
-  message_scroller_show_unread_marker, otp_apply_paste_filtered, otp_slots,
+  Popover, PopoverContent, PopoverDescription, PopoverTitle, PopoverTrigger, TextDirection,
+  Tooltip, TooltipContent, TooltipTrigger, UiDensity, attachment_class, bubble_class, button_class,
+  button_group_class, chart_area_path, chart_area_series_class, chart_bar_rects,
+  chart_bar_series_class, chart_class, chart_fallback_rows, chart_line_path,
+  chart_line_series_class, chart_view_box, collapsible_class, direction_class, input_group_class,
+  input_otp_class, marker_class, message_avatar_class, message_class, message_content_class,
+  message_footer_class, message_group_class, message_header_class, message_scroller_class,
+  message_scroller_intent_attribute, message_scroller_is_at_bottom,
+  message_scroller_jump_button_class, message_scroller_show_unread_marker,
+  otp_apply_paste_filtered, otp_slots,
 };
 use dioxus_shadcn::{
   AttachmentAction, AttachmentTrigger, ButtonGroup, ButtonGroupItem, ComboboxTrigger, Field,
@@ -1397,22 +1398,21 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-interaction-target": "popover",
             "data-state": if popover_open() { "open" } else { "closed" },
             h2 { class: "text-sm font-medium", "Popover interaction" }
-            button {
-              id: "interaction-popover-trigger",
-              class: "{secondary_button_class} mt-3",
-              "aria-expanded": if popover_open() { "true" } else { "false" },
-              "data-interaction-control": "popover-trigger",
-              onclick: move |_| popover_open.toggle(),
-              "Toggle popover"
+            // Controlled: the trigger asks the app, which sets `open`.
+            Popover { open: popover_open(), on_open_change: move |open| popover_open.set(open),
+              PopoverTrigger {
+                class: "{secondary_button_class} mt-3",
+                "data-interaction-control": "popover-trigger",
+                "Toggle popover"
+              }
+              PopoverContent {
+                PopoverTitle { "Dimensions" }
+                PopoverDescription { "Placed below the trigger, or above it near the viewport bottom." }
+              }
             }
-            PopoverContent {
-              open: popover_open(),
-              anchor_id: "interaction-popover-trigger",
-              on_open_change: move |open| popover_open.set(open),
-              PopoverTitle { "Dimensions" }
-              PopoverDescription { "Placed below the trigger, or above it near the viewport bottom." }
+            Popover {
+              PopoverContent { "data-interaction-control": "plain-popover", "Plain popover" }
             }
-            PopoverContent { "data-interaction-control": "plain-popover", "Plain popover" }
           }
           article {
             class: "rounded-md border border-border p-4",
@@ -2315,25 +2315,10 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               class: "mt-3 w-fit",
               fixed: false,
               "aria-label": "Create",
-              open: fab_open(),
               on_open_change: move |open| fab_open.set(open),
               icon: rsx! { "+" },
-              FabAction {
-                label: "Photo",
-                onclick: move |_| {
-                  fab_action.set("photo".to_string());
-                  fab_open.set(false);
-                },
-                "P"
-              }
-              FabAction {
-                label: "Note",
-                onclick: move |_| {
-                  fab_action.set("note".to_string());
-                  fab_open.set(false);
-                },
-                "N"
-              }
+              FabAction { label: "Photo", onclick: move |_| fab_action.set("photo".to_string()), "P" }
+              FabAction { label: "Note", onclick: move |_| fab_action.set("note".to_string()), "N" }
             }
           }
           article {
@@ -2843,7 +2828,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             Tooltip {
               on_open_change: move |open| tooltip_open.set(open),
               TooltipTrigger { class: "{secondary_button_class} mt-3", "Hover for tooltip" }
-              TooltipContent { open: tooltip_open(), "Saved 2 minutes ago" }
+              TooltipContent { "Saved 2 minutes ago" }
             }
           }
           article {
@@ -2859,7 +2844,6 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 "@dioxus"
               }
               HoverCardContent {
-                open: hover_card_open(),
                 HoverCardHeader {
                   HoverCardTitle { "Dioxus" }
                   HoverCardDescription { "Fullstack app framework for Rust." }
@@ -2962,7 +2946,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                   onclick: move |_| last_part_action.set("tooltip".to_string()),
                   "Copy link"
                 }
-                TooltipContent { open: false, "Copied" }
+                TooltipContent { "Copied" }
               }
               Field { class: "max-w-56",
                 FieldLabel { r#for: "action-part-email", "Contact email" }

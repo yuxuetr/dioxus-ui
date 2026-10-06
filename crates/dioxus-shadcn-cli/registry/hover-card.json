@@ -11,6 +11,8 @@
     "anchored-overlay",
     "hover-open",
     "overlay",
+    "overlay-root",
+    "root-state",
     "utils"
   ],
   "assets": []

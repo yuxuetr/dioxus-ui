@@ -17,6 +17,8 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["popove
 
 ## API Surface
 
+- `Popover`
+- `PopoverTrigger`
 - `PopoverContent`
 - `PopoverHeader`
 - `PopoverTitle`
@@ -27,33 +29,37 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["popove
 
 ## Behavior
 
-`open` stays controlled by the app. Give the trigger an `id` and pass it as
-`anchor_id`:
+`Popover` owns whether the popover is open and its parts read it, so they
+must sit inside it (see
+[RFC 0077](../rfcs/0077-component-owned-state.md)). `PopoverTrigger` toggles
+it and anchors the content; it renders an unstyled `button`, so style it with
+`class`:
 
 ```rust
-let mut open = use_signal(|| false);
-
 rsx! {
-  button { id: "share-trigger", onclick: move |_| open.toggle(), "Share" }
-  PopoverContent {
-    open: open(),
-    anchor_id: "share-trigger",
-    on_open_change: move |next| open.set(next),
-    PopoverTitle { "Share link" }
+  Popover {
+    PopoverTrigger {
+      class: button_class(ButtonVariant::Outline, ButtonSize::Md, UiDensity::Comfortable, ""),
+      "Share"
+    }
+    PopoverContent { PopoverTitle { "Share link" } }
   }
 }
 ```
 
-- With `anchor_id`, content is placed on `side` (default `Bottom`) with `align`
+Pass `open` and `on_open_change` to control it, or `default_open` to start it
+open; `on_open_change` hears every change in both modes. The trigger sets
+`aria-expanded` and points `aria-controls` at the content.
+
+- Content is placed next to the trigger on `side` (default `Bottom`) with `align`
   (default `Center`) and `side_offset` (default `4`) pixels, using fixed
   positioning. It flips to the opposite side when the preferred side lacks room
   and shifts along the cross axis to stay 8 pixels inside the viewport. It
   follows window resize and scroll while open.
-- Without `anchor_id`, content renders in place as before.
-- Escape, a pointer press outside the content and anchor, and focus moving
-  outside request close per `dismiss` (default
-  `DismissBehavior::popover_default()`). Presses on the anchor are inside, so a
-  toggling trigger keeps working.
+- Escape, a pointer press outside the content and trigger, and focus moving
+  outside close it per `dismiss` (default
+  `DismissBehavior::popover_default()`). Presses on the trigger are inside, so it
+  keeps toggling.
 - Focus is not moved into the popover.
 
 The Web renderer is covered by `npm run verify:runtime-interactions` and the

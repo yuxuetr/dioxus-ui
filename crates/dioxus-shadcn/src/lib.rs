@@ -112,13 +112,26 @@ mod element_id;
   feature = "alert-dialog",
   feature = "dialog",
   feature = "drawer",
+  feature = "fab",
+  feature = "hover-card",
+  feature = "popover",
   feature = "select",
   feature = "sheet",
-  feature = "tabs"
+  feature = "tabs",
+  feature = "tooltip"
 ))]
 mod root_state;
 
-#[cfg(any(feature = "alert-dialog", feature = "dialog", feature = "drawer", feature = "sheet"))]
+#[cfg(any(
+  feature = "alert-dialog",
+  feature = "dialog",
+  feature = "drawer",
+  feature = "fab",
+  feature = "hover-card",
+  feature = "popover",
+  feature = "sheet",
+  feature = "tooltip"
+))]
 mod overlay_root;
 
 #[cfg(any(
@@ -183,6 +196,7 @@ mod dismiss_timer;
   feature = "drawer",
   feature = "message-scroller",
   feature = "pagination",
+  feature = "popover",
   feature = "scroll-area",
   feature = "select",
   feature = "sheet",
@@ -677,9 +691,10 @@ pub use pagination::{
 #[cfg(feature = "popover")]
 pub use popover::{
   DismissBehavior as PopoverDismissBehavior, OverlayAlign, OverlaySide, POPOVER_CONTENT_BASE_CLASS,
-  POPOVER_DESCRIPTION_BASE_CLASS, POPOVER_HEADER_BASE_CLASS, POPOVER_TITLE_BASE_CLASS,
+  POPOVER_DESCRIPTION_BASE_CLASS, POPOVER_HEADER_BASE_CLASS, POPOVER_TITLE_BASE_CLASS, Popover,
   PopoverContent, PopoverDescription, PopoverHeader, PopoverPrimitiveConfig, PopoverTitle,
-  popover_content_class, popover_description_class, popover_header_class, popover_title_class,
+  PopoverTrigger, popover_content_class, popover_description_class, popover_header_class,
+  popover_title_class,
 };
 #[cfg(feature = "progress")]
 pub use progress::{
