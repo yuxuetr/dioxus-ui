@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 36% (4 of 11 tasks)
+- Overall: 45% (5 of 11 tasks)
 - Current milestone: M210 (component-owned state)
-- Current task: M210.1 (M208.3, the 0.4.3 publish, waits for the release owner)
+- Current task: M210.2 (M208.3, the 0.4.3 publish, waits for the release owner)
 
 ## Backup
 
@@ -60,9 +60,10 @@
 
 ## M210 Component-Owned State
 
-- TODO M210.1 RFC and prototype on Select and Tabs
+- DONE M210.1 RFC and prototype on Select and Tabs
   - An RFC for roots that own state through context: `default_value` for uncontrolled use, `value` with `on_value_change` for controlled use, `open` likewise for overlays, and ids and anchors from `next_element_id()`. Parts read the root; a part outside its root fails to compile or is documented as unsupported, not silently inert. Prototype Select and Tabs in the crate and templates.
   - Exit: the Select and Tabs doc examples have no `anchor_id`, no per-item `selected` or `active`, and one `open`; existing browser checks for both pass unchanged in behavior; SSR renders the same ids twice; the RFC lists every stateful component and the batch it moves in.
+  - Done: RFC 0077; `Select` root (value or values, open, optional trigger `id` for a `Label`) and root-owned `Tabs`, through `use_controllable` in `root_state` (crate) and the `root-state` helper (copy mode). Parts outside their root panic with a message naming it; Dioxus 0.7 logs it and renders nothing for the part, which the tests assert. Site, settings block, and fixtures migrated; the fixtures cover controlled and uncontrolled. `verify:release`, `verify:browser-local`, and `verify:site` pass. The multiple Select browser check now waits for the list to be ready before its first key, as the single Select check did. Not run: the Desktop self-test fails at its `theme` scenario on this machine at `v0.4.2` too, because the system appearance is Dark, so no later scenario ran in Desktop; the iOS and Android self-tests were not run.
 - TODO M210.2 Move the overlay components
   - The overlays in the RFC's batch list (dialogs, sheets, drawers, popovers, menus, tooltips, hover cards, combobox, date picker, and the rest the RFC names) take the root-owned API.
   - Exit: their browser and SSR checks pass; the site and blocks use the new API; parity test passes.
