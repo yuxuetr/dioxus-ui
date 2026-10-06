@@ -332,6 +332,7 @@ only.
 - [RFC 0073: Blocks](docs/rfcs/0073-blocks.md)
 - [RFC 0074: Helper Templates](docs/rfcs/0074-helper-templates.md)
 - [RFC 0075: Render-Scoped Element Ids](docs/rfcs/0075-render-scoped-element-ids.md)
+- [RFC 0076: User Class Overrides](docs/rfcs/0076-user-class-overrides.md)
 
 ## Verification Shortcuts
 
