@@ -8,6 +8,8 @@ for commit messages.
 
 ## [Unreleased]
 
+## [0.4.2] - 2026-10-06
+
 ### Fixed
 
 - Server-rendered pages keep working after hydration. Generated element ids

@@ -79,7 +79,7 @@ cargo metadata --format-version 1 \
 
 ```css
 @import "tailwindcss";
-@source "/path/to/dioxus-shadcn-0.4.1/src";
+@source "/path/to/dioxus-shadcn-0.4.2/src";
 ```
 
 ## Theme
