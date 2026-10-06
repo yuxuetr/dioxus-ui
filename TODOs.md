@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 13% (3 of 23 tasks)
-- Current milestone: M196
-- Current task: M196.2
+- Overall: 17% (4 of 23 tasks)
+- Current milestone: M197
+- Current task: M197.1
 
 ## Backup
 
@@ -47,8 +47,9 @@
 - DONE M196.1 Dropdown checkbox, radio, and shortcut items
   - Same parts and behavior as Context Menu: `DropdownCheckboxItem`, `DropdownRadioGroup`, `DropdownRadioItem`, `DropdownShortcut`; runtime check.
   - Done: the four parts, `inset` on `DropdownItem`, and a shared `menu_marks` helper. Context Menu and Menubar checkable items drew no mark at all (checked state only in `aria-checked`); all three menus now draw a check or dot. Runtime fixture reverse-verified; site example checked in a screenshot in both themes.
-- TODO M196.2 Menu submenus
+- DONE M196.2 Menu submenus
   - RFC: `*Sub`, `*SubTrigger`, and `*SubContent` for Dropdown, Context Menu, and Menubar; ArrowRight opens (ArrowLeft in right-to-left), ArrowLeft and Escape close one level, hover opens with a short delay. Runtime check for each menu; the Desktop menu scenarios still pass.
+  - Done: RFC 0067. Hover opens at once without focus, as Radix does, rather than after a delay; no pointer grace area. The shared listbox script now scopes items by their closest `[data-dxui-listbox]`, so Select, Combobox, and Command run the changed script too and their checks still pass. Runtime checks for all three menus, reverse-verified; RTL checked in a scratch run.
 
 ## M197 Overlays and Layout
 
