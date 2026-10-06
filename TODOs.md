@@ -58,6 +58,19 @@
   - Only after the release owner confirms; then build fresh apps in both modes from crates.io.
   - Done: confirmed on 2026-10-06 once CI passed on `d064c6b`; the four crates are on crates.io at 0.4.0 in dependency order, tagged `v0.4.0`. The published `dxui` 0.4.0 copied Button, Dialog, Popover, and the dashboard block into a fresh app that built while denying warnings, and `dxui diff` reported every copy matching; a crate-mode app built against `dioxus-shadcn` 0.4.
 
+## M205 0.4.1 Diff Everything
+
+- TODO M205.1 `dxui diff` without names checks every copied entry
+  - With no names, `dxui diff` reads the modules declared in `src/components/ui/mod.rs` and `src/blocks/mod.rs`, keeps those that name a component or block (helpers come in as dependencies, app modules are skipped), and diffs them; with nothing copied it says so and exits 1. `dxui add` without names still fails.
+  - Exit: tests cover an app with an edited and a matching copy, an app module that is skipped, and an empty app; reverse-verify by dropping the blocks file.
+- TODO M205.2 Publish 0.4.1
+  - Confirmed by the release owner on 2026-10-06 once M205.1 is done and CI passes. CHANGELOG, versions, release gate, `cargo-semver-checks` against 0.4.0, then publish and check `dxui diff` from crates.io in a fresh app.
+
+## M206 Server-Rendered Element Ids
+
+- TODO M206.1 Check element ids across server rendering and hydration
+  - Components take element ids from process-wide counters, which grow across requests on a server and restart at 0 in the browser; Popover and menus find their anchor by id. Build a fullstack app, render two requests, open a Popover after hydration, and record whether it anchors. Fix if it fails, or document the verified case if it does not.
+
 ## Deferred (re-evaluate when)
 
 - Dioxus 0.8: when `cargo search dioxus --limit 1 --color never | grep -qE '^dioxus = "0\.8\.[0-9]+"'` exits 0 (a 0.8 release, not a pre-release). Checked 2026-10-06: exits 1 on 0.8.0-alpha.1.
