@@ -158,7 +158,7 @@ Owns:
 
 - `dxui init`
 - `dxui list`
-- `dxui add <component>`
+- `dxui add <component|block>...`
 - registry loading and validation
 - template copying
 

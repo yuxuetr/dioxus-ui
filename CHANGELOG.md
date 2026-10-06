@@ -8,6 +8,13 @@ for commit messages.
 
 ## [Unreleased]
 
+### Added
+
+- `dxui add` takes several names, components and blocks alike, as in
+  `dxui add button dialog login`. It checks every name before it writes
+  anything, so a misspelled name leaves the app untouched.
+- `dxui --version` and `dxui -V` print the CLI version.
+
 ### Changed
 
 - `dxui add` copies only the helpers a component uses, each in its own file

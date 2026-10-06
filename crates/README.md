@@ -19,8 +19,7 @@ Most apps need only `dioxus-shadcn-cli` or `dioxus-shadcn`.
 ```bash
 cargo install dioxus-shadcn-cli
 dxui init
-dxui add button
-dxui add dialog
+dxui add button dialog
 ```
 
 `dxui init` writes `assets/dioxus-shadcn.css` and `src/components/ui/mod.rs`,

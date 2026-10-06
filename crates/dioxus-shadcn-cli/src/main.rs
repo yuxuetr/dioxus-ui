@@ -171,6 +171,10 @@ where
     Some("add") => add_command(&args[1..]),
     Some("list") => list_command(&args[1..]),
     Some("theme") => theme_command(&args[1..]),
+    Some("--version") | Some("-V") => {
+      println!("dxui {}", env!("CARGO_PKG_VERSION"));
+      Ok(())
+    }
     Some("help") | Some("--help") | Some("-h") | None => {
       print_help();
       Ok(())
@@ -188,10 +192,10 @@ fn init_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
 }
 
 fn add_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
-  let (component_name, options) = parse_add_options(args)?;
+  let (names, options) = parse_add_options(args)?;
 
-  let block = add_component_with_options(&options.root, &component_name, options.overwrite)?;
-  println!("added {component_name} to {}", options.root.display());
+  let block = add_entries(&options.root, &names, options.overwrite)?;
+  println!("added {} to {}", names.join(", "), options.root.display());
   if block {
     println!("declare `mod blocks;` in src/main.rs to use it");
   }
@@ -355,8 +359,8 @@ fn parse_root(args: &[OsString], command: &str) -> Result<PathBuf, Box<dyn Error
   Ok(root)
 }
 
-fn parse_add_options(args: &[OsString]) -> Result<(String, AddOptions), Box<dyn Error>> {
-  let mut component_name = None;
+fn parse_add_options(args: &[OsString]) -> Result<(Vec<String>, AddOptions), Box<dyn Error>> {
+  let mut names = Vec::new();
   let mut root = env::current_dir()?;
   let mut overwrite = false;
   let mut index = 0;
@@ -376,19 +380,17 @@ fn parse_add_options(args: &[OsString]) -> Result<(String, AddOptions), Box<dyn 
         return Err(format!("unknown add option `{flag}`").into());
       }
       Some(value) => {
-        if component_name.is_some() {
-          return Err(format!("unexpected add argument `{value}`").into());
-        }
-
-        component_name = Some(value.to_string());
+        names.push(value.to_string());
         index += 1;
       }
       None => return Err("add argument is not valid UTF-8".into()),
     }
   }
 
-  let component_name = component_name.ok_or("missing component name")?;
-  Ok((component_name, AddOptions { root, overwrite }))
+  if names.is_empty() {
+    return Err("missing component name".into());
+  }
+  Ok((names, AddOptions { root, overwrite }))
 }
 
 /// Starts `src/components/ui/mod.rs`. Copied components are a library inside
@@ -415,49 +417,49 @@ fn init_project(root: &Path) -> Result<(), Box<dyn Error>> {
 
 #[cfg(test)]
 fn add_component(root: &Path, component_name: &str) -> Result<(), Box<dyn Error>> {
-  add_component_with_options(root, component_name, false).map(|_| ())
+  add_entries(root, &[component_name.to_string()], false).map(|_| ())
 }
 
-/// Adds a component, or a block with its components (RFC 0073). Returns
-/// whether `name` was a block.
-fn add_component_with_options(
-  root: &Path,
-  name: &str,
-  overwrite: bool,
-) -> Result<bool, Box<dyn Error>> {
-  init_project(root)?;
-
+/// Adds components, and blocks with their components (RFC 0073), in order.
+/// Every name is checked before anything is written. Returns whether any
+/// name was a block.
+fn add_entries(root: &Path, names: &[String], overwrite: bool) -> Result<bool, Box<dyn Error>> {
   let registry = load_registry()?;
+  let blocks = load_blocks()?;
+  let is_component = |name: &String| registry.iter().any(|component| &component.name == name);
+  if let Some(unknown) = names
+    .iter()
+    .find(|name| !is_component(name) && !blocks.iter().any(|block| &block.name == *name))
+  {
+    let blocks = blocks.iter().map(|block| block.name.as_str()).collect::<Vec<_>>().join(", ");
+    return Err(
+      format!("{}. available blocks: {blocks}", unknown_component_error(unknown, &registry)).into(),
+    );
+  }
+
+  init_project(root)?;
   // Dependencies name components or helpers (RFC 0074).
   let known = [registry.as_slice(), load_helpers()?.as_slice()].concat();
   let mut added = Vec::new();
-  let blocks = load_blocks()?;
-  let block = blocks.iter().find(|block| block.name == name);
-
-  match block {
-    Some(block) => {
-      for dependency in &block.dependencies {
-        add_component_recursive(root, dependency, &known, overwrite, &mut added)?;
+  let mut added_blocks = Vec::new();
+  for name in names {
+    match blocks.iter().find(|block| &block.name == name) {
+      Some(block) => {
+        for dependency in &block.dependencies {
+          add_component_recursive(root, dependency, &known, overwrite, &mut added)?;
+        }
+        copy_entry_files(root, block, overwrite)?;
+        added_blocks.push(block.name.clone());
       }
-      copy_entry_files(root, block, overwrite)?;
-      update_mod_file(
-        &root.join("src").join("blocks").join("mod.rs"),
-        std::slice::from_ref(&block.name),
-      )?;
-    }
-    None if registry.iter().any(|component| component.name == name) => {
-      add_component_recursive(root, name, &known, overwrite, &mut added)?;
-    }
-    None => {
-      let blocks = blocks.iter().map(|block| block.name.as_str()).collect::<Vec<_>>().join(", ");
-      return Err(
-        format!("{}. available blocks: {blocks}", unknown_component_error(name, &registry)).into(),
-      );
+      None => add_component_recursive(root, name, &known, overwrite, &mut added)?,
     }
   }
   update_ui_mod(root, &added)?;
+  if !added_blocks.is_empty() {
+    update_mod_file(&root.join("src").join("blocks").join("mod.rs"), &added_blocks)?;
+  }
 
-  Ok(block.is_some())
+  Ok(!added_blocks.is_empty())
 }
 
 fn add_component_recursive(
@@ -606,7 +608,7 @@ fn write_component_file(path: &Path, content: &str, overwrite: bool) -> Result<(
 
 fn print_help() {
   println!(
-    "dxui\n\nUsage:\n  dxui init [--root <path>]\n  dxui add <component|block> [--root <path>] [--overwrite]\n  dxui list [blocks]\n  dxui theme list\n  dxui theme add <theme>... [--root <path>]\n\nCommands:\n  init    Prepare a Dioxus project for dioxus-shadcn generated components\n  add     Copy a component, or a block with its components, into a project\n  list    List the components, or the blocks\n  theme   List theme presets, or add them to assets/dioxus-shadcn.css"
+    "dxui\n\nUsage:\n  dxui init [--root <path>]\n  dxui add <component|block>... [--root <path>] [--overwrite]\n  dxui list [blocks]\n  dxui theme list\n  dxui theme add <theme>... [--root <path>]\n  dxui --version\n\nCommands:\n  init    Prepare a Dioxus project for dioxus-shadcn generated components\n  add     Copy components, or blocks with their components, into a project\n  list    List the components, or the blocks\n  theme   List theme presets, or add them to assets/dioxus-shadcn.css"
   );
 }
 
@@ -819,7 +821,7 @@ mod tests {
     fs::create_dir_all(&ui_dir).expect("ui dir should be created");
     fs::write(ui_dir.join("button.rs"), "custom").expect("button should be written");
 
-    add_component_with_options(&root, "button", true).expect("add should succeed");
+    add_entries(&root, &["button".to_string()], true).expect("add should succeed");
 
     let button = fs::read_to_string(ui_dir.join("button.rs")).expect("button should be readable");
 
@@ -857,7 +859,7 @@ mod tests {
   fn add_block_copies_it_with_its_components() {
     let root = temp_project();
 
-    let block = add_component_with_options(&root, "login", false).expect("add should succeed");
+    let block = add_entries(&root, &["login".to_string()], false).expect("add should succeed");
 
     assert!(block);
     let source = fs::read_to_string(root.join("src").join("blocks").join("login.rs"))
@@ -872,7 +874,7 @@ mod tests {
       assert!(ui.contains(&format!("pub mod {module};")), "{module}");
     }
     // A component name is not a block.
-    assert!(!add_component_with_options(&root, "card", false).expect("add should succeed"));
+    assert!(!add_entries(&root, &["card".to_string()], false).expect("add should succeed"));
   }
 
   #[test]
@@ -924,10 +926,45 @@ mod tests {
       root.clone().into_os_string(),
     ];
 
-    let (component_name, options) = parse_add_options(&args).expect("options should parse");
+    let (names, options) = parse_add_options(&args).expect("options should parse");
 
-    assert_eq!(component_name, "button");
+    assert_eq!(names, ["button"]);
     assert_eq!(options.root, root);
     assert!(options.overwrite);
+  }
+
+  #[test]
+  fn add_takes_several_names() {
+    let args = ["button", "--overwrite", "dialog", "login"].map(OsString::from);
+    let (names, options) = parse_add_options(&args).expect("options should parse");
+    assert_eq!(names, ["button", "dialog", "login"]);
+    assert!(options.overwrite);
+    assert!(parse_add_options(&[]).is_err());
+
+    let root = temp_project();
+    let block = add_entries(&root, &names, false).expect("add should succeed");
+    assert!(block);
+    let ui = ui_files(&root);
+    for file in ["button.rs", "dialog.rs", "card.rs", "modal_focus.rs"] {
+      assert!(ui.iter().any(|name| name == file), "{file}");
+    }
+    let blocks = fs::read_to_string(root.join("src").join("blocks").join("mod.rs"))
+      .expect("blocks module should exist");
+    assert_eq!(blocks, "pub mod login;\n");
+  }
+
+  #[test]
+  fn add_checks_every_name_before_writing() {
+    let root = temp_project();
+    let names = ["button", "missing", "dialog"].map(String::from);
+    let error = add_entries(&root, &names, false).expect_err("an unknown name should fail");
+    assert!(error.to_string().contains("unknown component `missing`"));
+    assert!(!root.exists(), "nothing should be written");
+  }
+
+  #[test]
+  fn version_flags_are_commands() {
+    assert!(run(["--version"].map(OsString::from)).is_ok());
+    assert!(run(["-V"].map(OsString::from)).is_ok());
   }
 }

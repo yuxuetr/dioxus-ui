@@ -66,9 +66,7 @@ Example run commands are documented in [examples/README.md](examples/README.md).
 cargo install dioxus-shadcn-cli
 
 dxui init
-dxui add button
-dxui add dialog
-dxui add input
+dxui add button dialog input
 ```
 
 `dxui add` keeps existing component files by default. Use

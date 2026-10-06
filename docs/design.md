@@ -80,8 +80,11 @@ Commands:
 
 ```bash
 dxui init [--root <path>]
-dxui add <component> [--root <path>] [--overwrite]
-dxui list
+dxui add <component|block>... [--root <path>] [--overwrite]
+dxui list [blocks]
+dxui theme list
+dxui theme add <theme>... [--root <path>]
+dxui --version
 ```
 
 ## Registry and Templates
