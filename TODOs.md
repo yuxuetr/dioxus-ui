@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 43% (10 of 23 tasks)
-- Current milestone: M198
-- Current task: M198.3
+- Overall: 48% (11 of 23 tasks)
+- Current milestone: M199
+- Current task: M199.1
 
 ## Backup
 
@@ -74,8 +74,9 @@
 - DONE M198.2 Menu
   - Vertical navigation list with titles, active items, and nested collapsible groups.
   - Done: RFC 0072 (shared with M198.3); a `ul` list rather than `role="menu"`, controlled `MenuGroup`s. Runtime check reverse-verified; screenshot in both themes.
-- TODO M198.3 Mockup
+- DONE M198.3 Mockup
   - Browser, Window, Code, and Phone frames.
+  - Done: RFC 0072; five parts with hidden decorations, static (no runtime fixture), screenshots in both themes. The frames use semantic tokens, so the terminal and phone invert in the dark theme.
 
 ## M199 Site Documentation
 
