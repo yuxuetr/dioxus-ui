@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 26% (6 of 23 tasks)
+- Overall: 30% (7 of 23 tasks)
 - Current milestone: M197
-- Current task: M197.3
+- Current task: M197.4
 
 ## Backup
 
@@ -59,8 +59,9 @@
 - DONE M197.2 Sidebar off-canvas and shortcut
   - Below a breakpoint the Sidebar opens as a Sheet; an opt-in keyboard shortcut (Ctrl/Cmd+B in shadcn/ui) toggles it. Runtime check at phone width.
   - Done: RFC 0069; a `use_media_query` helper, and an opt-in off-canvas mode whose wrapper is a modal dialog below 768px (axe rejects a dialog role on `aside`). The viewport is known after the first render, so phones show the wide layout for one frame. Runtime check at both widths, reverse-verified.
-- TODO M197.3 Range slider
+- DONE M197.3 Range slider
   - Two thumbs on one track with `value: (f64, f64)` and a minimum gap, keyboard and pointer, without changing `Slider`'s API. Runtime check.
+  - Done: RFC 0070; `RangeSlider` with each thumb a WAI-ARIA slider bounded by the other, and `range_slider_values` with unit tests. Runtime check reverse-verified; site example "Price range".
 - TODO M197.4 Pagination range helper
   - `pagination_range(current, total, siblings)` returning pages and ellipses; unit tests, docs, and the site example switched to it.
 
