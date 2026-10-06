@@ -644,10 +644,11 @@ mod tests {
     let x_scale = ChartScale::new(ChartDomain::new(0.0, 2.0), ChartDomain::new(0.0, 200.0));
     let y_scale = ChartScale::new(ChartDomain::new(0.0, 30.0), ChartDomain::new(300.0, 0.0));
 
-    assert_eq!(chart_line_path(&series, x_scale, y_scale), "M 0 100 L 200 300");
+    // The y range runs from 300 at the bottom to 0 at the top.
+    assert_eq!(chart_line_path(&series, x_scale, y_scale), "M 0 200 L 200 0");
     assert_eq!(
       chart_area_path(&series, x_scale, y_scale, 0.0),
-      "M 0 100 L 200 300 L 200 0 L 0 0 Z"
+      "M 0 200 L 200 0 L 200 300 L 0 300 Z"
     );
   }
 
@@ -660,7 +661,8 @@ mod tests {
 
     assert_eq!(rects.len(), 2);
     assert_eq!(rects[0].x, -10.0);
-    assert_eq!(rects[0].y, 0.0);
+    // The bar rises from the baseline at the bottom (y 300) to its value.
+    assert_eq!(rects[0].y, 200.0);
     assert_eq!(rects[0].width, 20.0);
     assert_eq!(rects[0].height, 100.0);
   }

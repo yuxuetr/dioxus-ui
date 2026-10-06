@@ -50,8 +50,10 @@ pub struct ChartScale {
 }
 
 impl ChartScale {
+  /// Maps `domain` onto `range`, which keeps its direction: a range from 280
+  /// to 32 puts larger values higher in an SVG, whose y grows downward.
   pub fn new(domain: ChartDomain, range: ChartDomain) -> Self {
-    Self { domain: domain.normalized(), range: range.normalized() }
+    Self { domain: domain.normalized(), range: chart_range_finite(range) }
   }
 
   pub fn scale(self, value: f64) -> f64 {
@@ -118,9 +120,12 @@ pub fn chart_series_y_domain(series: &[ChartSeries]) -> ChartDomain {
   chart_domain(&values)
 }
 
+/// Maps `value` from `domain` onto `range`, from `range.min` at the domain's
+/// low end to `range.max` at its high end, so an inverted range flips the
+/// axis.
 pub fn chart_scale_value(value: f64, domain: ChartDomain, range: ChartDomain) -> f64 {
   let domain = domain.normalized();
-  let range = range.normalized();
+  let range = chart_range_finite(range);
 
   if !value.is_finite() {
     return range.min;
@@ -215,6 +220,12 @@ pub fn chart_domain_normalize(min: f64, max: f64) -> ChartDomain {
   if min <= max { ChartDomain::new(min, max) } else { ChartDomain::new(max, min) }
 }
 
+/// The range with non-finite ends replaced, keeping its direction.
+fn chart_range_finite(range: ChartDomain) -> ChartDomain {
+  let min = finite_or_default(range.min, 0.0);
+  ChartDomain::new(min, finite_or_default(range.max, min))
+}
+
 fn midpoint(domain: ChartDomain) -> f64 {
   domain.min + (domain.max - domain.min) / 2.0
 }
@@ -257,6 +268,18 @@ mod tests {
       chart_scale_value(10.0, ChartDomain::new(10.0, 10.0), ChartDomain::new(0.0, 100.0)),
       50.0
     );
+  }
+
+  #[test]
+  fn an_inverted_range_flips_the_axis() {
+    // SVG y grows downward, so a y range from 280 to 32 draws larger values higher.
+    let scale = ChartScale::new(ChartDomain::new(0.0, 24.0), ChartDomain::new(280.0, 32.0));
+
+    assert_eq!(scale.scale(0.0), 280.0);
+    assert_eq!(scale.scale(24.0), 32.0);
+    assert_eq!(scale.scale(12.0), 156.0);
+    assert!(scale.scale(18.0) < scale.scale(12.0));
+    assert_eq!(scale.scale(f64::NAN), 280.0);
   }
 
   #[test]
