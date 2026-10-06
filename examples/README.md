@@ -155,6 +155,20 @@ cargo test -p dioxus-ui-runtime-desktop-verification
 cargo run -p dioxus-ui-runtime-desktop-verification
 ```
 
+## Class Merge Gate
+
+```bash
+node scripts/class-merge-gate.mjs table tw-merge
+```
+
+`dioxus-ui-class-merge-gate` runs a class merge candidate over the RFC 0076
+corpus for `scripts/class-merge-gate.mjs`: `table`, classified by
+`src/classify/table.rs`, which `node scripts/class-merge-table.mjs
+examples/class-merge-gate/src/classify/table.rs` generates from Tailwind, or
+`tw-merge`, the `tw_merge` crate. The gate compares each with Tailwind's
+compiled output (see
+[RFC 0076](../docs/rfcs/0076-user-class-overrides.md#validation)).
+
 ## CLI Init Smoke
 
 ```bash

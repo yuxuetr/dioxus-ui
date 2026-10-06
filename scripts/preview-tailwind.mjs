@@ -62,7 +62,7 @@ const variantOf = (utility) => utility.slice(0, Math.max(utility.lastIndexOf(":"
 // The stylesheet `dxui init` writes, without the preview's scan roots: its
 // `@theme inline` block defines the token colors, so `bg-primary` compiles
 // like `bg-blue-500` instead of producing nothing.
-const themeInput = readFileSync(compiledStylesheets.preview.input, "utf8").replace(/^@source .*\n/gm, "");
+export const themeInput = readFileSync(compiledStylesheets.preview.input, "utf8").replace(/^@source .*\n/gm, "");
 
 async function declaredProperties(utility) {
   // A fresh compiler per utility, because build() accumulates candidates.

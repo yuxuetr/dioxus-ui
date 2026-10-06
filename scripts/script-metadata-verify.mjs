@@ -10,6 +10,7 @@ const helperOnlyNodeScripts = new Set([
   "scripts/docs-catalog-builder.mjs",
   "scripts/preview-tailwind.mjs",
   "scripts/browser-check-support.mjs",
+  "scripts/class-merge-truth.mjs",
   "scripts/oklch-contrast.mjs",
 ]);
 const failures = [];

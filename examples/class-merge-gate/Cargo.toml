@@ -1,0 +1,11 @@
+[package]
+name = "dioxus-ui-class-merge-gate"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+publish = false
+
+[dependencies]
+serde_json.workspace = true
+tw_merge = "0.1"

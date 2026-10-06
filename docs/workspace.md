@@ -54,6 +54,7 @@ members = [
   "examples/preview-states",
   "examples/runtime-web-verification",
   "examples/runtime-desktop-verification",
+  "examples/class-merge-gate",
   "site",
 ]
 
