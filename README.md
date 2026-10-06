@@ -8,7 +8,7 @@
 - a packaged crate for users who prefer dependency-based usage
 
 It ships 82 components, the `dxui` CLI, and a
-[component site](https://yuxuetr.github.io/dioxus-ui/). Version 0.2.0 is
+[component site](https://yuxuetr.github.io/dioxus-ui/). Version 0.3.0 is
 on crates.io as [`dioxus-shadcn`](https://crates.io/crates/dioxus-shadcn) and
 [`dioxus-shadcn-cli`](https://crates.io/crates/dioxus-shadcn-cli).
 

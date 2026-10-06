@@ -7,13 +7,14 @@
 - source-copy mode through `dxui add`
 - crate mode through `dioxus-shadcn` feature flags
 
-Both modes ship in 0.1.0 and 0.2.0. The `0.2.x` API surface is accepted;
+Both modes ship in 0.1.0, 0.2.0, and 0.3.0. The `0.3.x` API surface is accepted;
 before `1.0`, a breaking change bumps the minor version and comes with a
 changelog migration note.
 
 ## Package Set
 
-Published crates (0.1.0 and 0.2.0 on crates.io since 2026-10-05):
+Published crates (0.1.0 and 0.2.0 on crates.io since 2026-10-05, 0.3.0 since
+2026-10-06):
 
 ```text
 dioxus-shadcn-core
@@ -508,6 +509,20 @@ uploaded the four crates in dependency order. The published `dxui` lists 79
 components and 33 theme presets, and a fresh app built against
 `dioxus-shadcn` 0.2 from crates.io with copied Tags Input and Date Picker
 templates and an added `nord` preset.
+
+## 0.3.0 Publish
+
+The release owner confirmed 0.3.0 on 2026-10-06 after a review of the
+release: the release gate and dry run passed, and `cargo-semver-checks`
+against 0.2.0 found no breaking change in `dioxus-shadcn-core` or
+`dioxus-shadcn-primitives` and only new props fields in `dioxus-shadcn`,
+which the migration notes list. The review also fixed the crate README's
+`@source` path, which still named 0.1.0. The four crates were published one
+at a time in dependency order and tagged `v0.3.0`. The published `dxui`
+lists 82 components and 3 blocks; a fresh app built with the dashboard,
+login, and settings blocks copied, and another built against
+`dioxus-shadcn` 0.3 from crates.io with Theme Controller, Mockup, Menu, and
+`RangeSlider`.
 
 ## Known Pre-1.0 Limitations
 
