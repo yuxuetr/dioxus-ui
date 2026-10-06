@@ -57,8 +57,6 @@ pub fn select_separator_class(class: &str) -> String {
   merge_classes(classes([Some(SELECT_SEPARATOR_BASE_CLASS)]), class)
 }
 
-/// Click requests `!open` through `on_open_change`, and ArrowDown or ArrowUp
-/// on a closed trigger requests open. Pass `id` as the content's `anchor_id`.
 /// What a `Select` shares with its parts (RFC 0077).
 #[derive(Clone)]
 struct SelectContext {
@@ -145,6 +143,8 @@ pub fn Select(
   rsx! { {children} }
 }
 
+/// Click toggles the list, and ArrowDown or ArrowUp on a closed trigger opens
+/// it.
 #[component]
 pub fn SelectTrigger(
   #[props(default)] invalid: bool,

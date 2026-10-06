@@ -74,7 +74,7 @@ Source preview routes: 82
 | [Rating](rating.md) | /components/rating/source | crates/dioxus-shadcn-cli/templates/rating.rs | src/components/ui/rating.rs | rust | 56 | 2476 |
 | [Resizable](resizable.md) | /components/resizable/source | crates/dioxus-shadcn-cli/templates/resizable.rs | src/components/ui/resizable.rs | rust | 310 | 11140 |
 | [Scroll Area](scroll-area.md) | /components/scroll-area/source | crates/dioxus-shadcn-cli/templates/scroll_area.rs | src/components/ui/scroll_area.rs | rust | 145 | 4157 |
-| [Select](select.md) | /components/select/source | crates/dioxus-shadcn-cli/templates/select.rs | src/components/ui/select.rs | rust | 310 | 10513 |
+| [Select](select.md) | /components/select/source | crates/dioxus-shadcn-cli/templates/select.rs | src/components/ui/select.rs | rust | 310 | 10443 |
 | [Separator](separator.md) | /components/separator/source | crates/dioxus-shadcn-cli/templates/separator.rs | src/components/ui/separator.rs | rust | 52 | 1264 |
 | [Sheet](sheet.md) | /components/sheet/source | crates/dioxus-shadcn-cli/templates/sheet.rs | src/components/ui/sheet.rs | rust | 247 | 7065 |
 | [Sidebar](sidebar.md) | /components/sidebar/source | crates/dioxus-shadcn-cli/templates/sidebar.rs | src/components/ui/sidebar.rs | rust | 487 | 15691 |
