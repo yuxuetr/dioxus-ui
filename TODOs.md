@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 74% (17 of 23 tasks)
+- Overall: 96% (22 of 23 tasks)
 - Current milestone: M201
-- Current task: M201.1
+- Current task: M201.2 (waiting for the release owner)
 
 ## Backup
 
@@ -104,8 +104,9 @@
 
 ## M201 0.3.0 Release
 
-- TODO M201.1 Prepare 0.3.0
+- DONE M201.1 Prepare 0.3.0
   - CHANGELOG with migration notes, versions bumped, `Cargo.lock` on the latest Dioxus 0.7, release gate and publish dry run pass.
+  - Done: versions 0.3.0, snippets at 0.3, `[0.3.0]` notes with three migration entries, Dioxus 0.7.10 (works with the 0.7.9 CLI in every gate). `cargo publish --workspace --dry-run` packages and verifies all four crates. `cargo search` shows Dioxus 0.8.0-alpha.1, a pre-release, so the 0.8 item stays deferred.
 - TODO M201.2 Publish 0.3.0
   - Only after the release owner confirms.
 
