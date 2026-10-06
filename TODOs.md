@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 30% (7 of 23 tasks)
-- Current milestone: M197
-- Current task: M197.4
+- Overall: 35% (8 of 23 tasks)
+- Current milestone: M198
+- Current task: M198.1
 
 ## Backup
 
@@ -62,8 +62,9 @@
 - DONE M197.3 Range slider
   - Two thumbs on one track with `value: (f64, f64)` and a minimum gap, keyboard and pointer, without changing `Slider`'s API. Runtime check.
   - Done: RFC 0070; `RangeSlider` with each thumb a WAI-ARIA slider bounded by the other, and `range_slider_values` with unit tests. Runtime check reverse-verified; site example "Price range".
-- TODO M197.4 Pagination range helper
+- DONE M197.4 Pagination range helper
   - `pagination_range(current, total, siblings)` returning pages and ellipses; unit tests, docs, and the site example switched to it.
+  - Done: constant-length rows with an ellipsis only for gaps of two or more pages (the first draft hid a single page behind one; a test caught it). The old site example never showed pages 4 to 9.
 
 ## M198 daisyUI Components
 
