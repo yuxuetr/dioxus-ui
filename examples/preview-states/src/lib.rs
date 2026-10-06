@@ -14,14 +14,15 @@ use dioxus_shadcn::{
   CalendarNav, CalendarNavButton, CalendarNavDirection, CalendarRow, CalendarWeekday, Checkbox,
   ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList, ComboboxStatus, Command,
   CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandLabel, CommandList, CommandStatus,
-  ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, DatePickerContent,
-  DatePickerTrigger, DatePickerValue, DropdownContent, DropdownItem, DropdownSeparator, HoverCard,
-  HoverCardContent, HoverCardDescription, HoverCardHeader, HoverCardTitle, HoverCardTrigger, Label,
-  Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger, NavigationMenu,
-  NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList,
-  NavigationMenuTrigger, NavigationOrientation, RadioGroup, RadioGroupItem, SelectContent,
-  SelectItem, SelectTrigger, SelectValue, SonnerClose, SonnerContent, SonnerTitle, SonnerToast,
-  SonnerVariant, SonnerViewport, Switch, Tabs, TabsActivation, TabsContent, TabsList,
+  ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, ContextMenuSub,
+  ContextMenuSubContent, ContextMenuSubTrigger, DatePickerContent, DatePickerTrigger,
+  DatePickerValue, DropdownContent, DropdownItem, DropdownSeparator, HoverCard, HoverCardContent,
+  HoverCardDescription, HoverCardHeader, HoverCardTitle, HoverCardTrigger, Label, Menubar,
+  MenubarContent, MenubarItem, MenubarMenu, MenubarSub, MenubarSubContent, MenubarSubTrigger,
+  MenubarTrigger, NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink,
+  NavigationMenuList, NavigationMenuTrigger, NavigationOrientation, RadioGroup, RadioGroupItem,
+  SelectContent, SelectItem, SelectTrigger, SelectValue, SonnerClose, SonnerContent, SonnerTitle,
+  SonnerToast, SonnerVariant, SonnerViewport, Switch, Tabs, TabsActivation, TabsContent, TabsList,
   TabsOrientation, TabsTrigger, ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport,
   ToggleGroup, ToggleGroupItem, accordion_single_open, calendar_month_grid, calendar_move_date,
   command_matches, sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute,
@@ -59,7 +60,8 @@ use dioxus_shadcn::{
 use dioxus_shadcn::{DateOrder, DatePickerInput};
 use dioxus_shadcn::{Diff, DiffAfter, DiffBefore};
 use dioxus_shadcn::{
-  DropdownCheckboxItem, DropdownRadioGroup, DropdownRadioItem, DropdownShortcut,
+  DropdownCheckboxItem, DropdownRadioGroup, DropdownRadioItem, DropdownShortcut, DropdownSub,
+  DropdownSubContent, DropdownSubTrigger,
 };
 use dioxus_shadcn::{Fab, FabAction};
 use dioxus_shadcn::{
@@ -895,11 +897,15 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut dropdown_open = use_signal(|| false);
   let mut dropdown_action = use_signal(|| "none");
   let mut options_open = use_signal(|| false);
+  let mut file_open = use_signal(|| false);
+  let mut share_open = use_signal(|| false);
+  let mut file_action = use_signal(|| "none");
   let mut status_bar = use_signal(|| true);
   let mut minimap = use_signal(|| false);
   let mut panel = use_signal(|| "bottom");
   let mut menubar_active = use_signal(|| None::<&'static str>);
   let mut menubar_action = use_signal(|| "none");
+  let mut menubar_appearance = use_signal(|| false);
   let menubar_open = move |value: &str| menubar_active() == Some(value);
   let mut navigation_active = use_signal(String::new);
   let mut mega_active = use_signal(String::new);
@@ -964,6 +970,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut context_point = use_signal(|| (0.0, 0.0));
   let mut context_bookmarked = use_signal(|| false);
   let mut context_action = use_signal(|| "none");
+  let mut context_tools = use_signal(|| false);
   let mut date_open = use_signal(|| false);
   let mut date_month = use_signal(|| CalendarMonth::unchecked(2026, 10));
   let mut date_focused = use_signal(|| CalendarDate::unchecked(2026, 10, 15));
@@ -1732,6 +1739,35 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           }
           article {
             class: "rounded-md border border-border p-4",
+            "data-interaction-target": "dropdown-submenu",
+            "data-action": "{file_action}",
+            h2 { class: "text-sm font-medium", "Dropdown submenu interaction" }
+            button {
+              id: "interaction-dropdown-submenu-trigger",
+              class: "{secondary_button_class} mt-3",
+              "aria-haspopup": "menu",
+              "aria-expanded": if file_open() { "true" } else { "false" },
+              onclick: move |_| file_open.toggle(),
+              "File"
+            }
+            DropdownContent {
+              open: file_open(),
+              anchor_id: "interaction-dropdown-submenu-trigger",
+              align: dioxus_shadcn::DropdownAlign::Start,
+              on_open_change: move |open| file_open.set(open),
+              DropdownItem { onclick: move |_| file_action.set("new"), "New file" }
+              DropdownSub { on_open_change: move |open| share_open.set(open),
+                DropdownSubTrigger { open: share_open(), "Share" }
+                DropdownSubContent { open: share_open(),
+                  DropdownItem { onclick: move |_| file_action.set("copy"), "Copy link" }
+                  DropdownItem { onclick: move |_| file_action.set("email"), "Email" }
+                }
+              }
+              DropdownItem { onclick: move |_| file_action.set("print"), "Print" }
+            }
+          }
+          article {
+            class: "rounded-md border border-border p-4",
             "data-interaction-target": "menubar",
             "data-action": "{menubar_action}",
             h2 { class: "text-sm font-medium", "Menubar interaction" }
@@ -1792,6 +1828,15 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                   on_open_change: move |_| menubar_active.set(None),
                   MenubarItem { onclick: move |_| menubar_action.set("zoom-in"), "Zoom in" }
                   MenubarItem { onclick: move |_| menubar_action.set("zoom-out"), "Zoom out" }
+                  MenubarSub { on_open_change: move |open| menubar_appearance.set(open),
+                    MenubarSubTrigger { open: menubar_appearance(), "Appearance" }
+                    MenubarSubContent { open: menubar_appearance(),
+                      MenubarItem {
+                        onclick: move |_| menubar_action.set("fullscreen"),
+                        "Full screen"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -2579,6 +2624,12 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 disabled: true,
                 onclick: move |_| context_action.set("forward"),
                 "Forward"
+              }
+              ContextMenuSub { on_open_change: move |open| context_tools.set(open),
+                ContextMenuSubTrigger { open: context_tools(), "More tools" }
+                ContextMenuSubContent { open: context_tools(),
+                  ContextMenuItem { onclick: move |_| context_action.set("save"), "Save page" }
+                }
               }
             }
           }

@@ -13,6 +13,17 @@ for commit messages.
 - `DropdownCheckboxItem`, `DropdownRadioGroup`, `DropdownRadioItem`, and
   `DropdownShortcut`, as Context Menu and Menubar have, and `inset` on
   `DropdownItem` to line plain items up with them.
+- Submenus for Dropdown, Context Menu, and Menubar
+  ([RFC 0067](docs/rfcs/0067-menu-submenus.md)): `*Sub`, `*SubTrigger`, and
+  `*SubContent`, opened by ArrowRight, Enter, Space, click, or hover and
+  closed one level at a time by ArrowLeft or Escape, mirrored in
+  right-to-left.
+
+### Changed
+
+- The menu and list script reads only each menu's own items, ignores keys
+  from a nested menu, and stops when an ancestor is hidden, for Select,
+  Combobox, and Command as well as menus.
 
 ### Fixed
 

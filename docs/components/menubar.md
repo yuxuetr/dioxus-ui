@@ -28,6 +28,7 @@ dioxus-shadcn = { version = "0.2", default-features = false, features = ["menuba
 - `MenubarLabel`
 - `MenubarSeparator`
 - `MenubarShortcut`
+- `MenubarSub`, `MenubarSubTrigger`, `MenubarSubContent`
 - `MenubarPrimitiveConfig`
 - `MenubarDismissBehavior`, `MenubarAlign`, `MenubarSide`
 - `menubar_class`
@@ -35,6 +36,7 @@ dioxus-shadcn = { version = "0.2", default-features = false, features = ["menuba
 - `menubar_item_class`
 - `menubar_checkbox_item_class`
 - `menubar_radio_item_class`
+- `menubar_sub_trigger_class`
 
 The module also re-exports `DropdownPrimitiveConfig`, `DismissBehavior`,
 `OverlayAlign`, and `OverlaySide` for users importing from
@@ -99,13 +101,46 @@ Desktop renderer by `npm run verify:desktop-interactions`, and the iOS
 Simulator by `npm run verify:mobile-interactions`, and an Android emulator by
 `npm run verify:android-interactions`.
 
+
+### Submenus
+
+`MenubarSub` holds a nested menu ([RFC 0067](../rfcs/0067-menu-submenus.md)).
+Pass the same controlled `open` to its trigger and content:
+
+```rust
+let mut share = use_signal(|| false);
+
+rsx! {
+  MenubarSub { on_open_change: move |open| share.set(open),
+    MenubarSubTrigger { open: share(), "Share" }
+    MenubarSubContent { open: share(),
+      MenubarItem { onclick: move |_| copy_link(), "Copy link" }
+    }
+  }
+}
+```
+
+- ArrowRight (ArrowLeft in right-to-left), Enter, Space, or a click on the
+  trigger opens the submenu and focuses its first item; hovering the trigger
+  opens it without moving focus.
+- ArrowLeft (ArrowRight in right-to-left) or Escape inside the submenu closes
+  that level and returns focus to the trigger.
+- Choosing an item inside closes every level. Highlighting another item of
+  the outer menu, or closing the outer menu, closes the submenu.
+- The submenu opens at the trigger's inline end and flips when there is no
+  room. Moving the pointer diagonally across sibling items closes it; there
+  is no pointer grace area.
+
 ## Accessibility Notes
 
 Root uses `role="menubar"`, triggers use `role="menuitem"` with
 `aria-haspopup="menu"` and `aria-expanded`, and content uses `role="menu"`.
 The open menu moves DOM focus between items, so screen readers announce each
-item as it receives focus. Submenus and ArrowUp opening on the last item are
-not implemented (see [RFC 0015](../rfcs/0015-menubar-keyboard-behavior.md)).
+item as it receives focus. Sub triggers use `aria-haspopup="menu"`,
+`aria-expanded`, and `aria-controls`, and each submenu sits in a `group` and
+takes its name from its trigger (see
+[RFC 0067](../rfcs/0067-menu-submenus.md)). ArrowUp opening on the last item
+is not implemented (see [RFC 0015](../rfcs/0015-menubar-keyboard-behavior.md)).
 
 `Menubar` passes through attributes, so name the menu bar with `aria-label` (see
 [RFC 0040](../rfcs/0040-composite-widget-names.md)).

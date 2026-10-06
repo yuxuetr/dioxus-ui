@@ -26,6 +26,11 @@ const anchorRect = () =>
       : null;
 const padding = 8;
 const opposite = { top: "bottom", bottom: "top", left: "right", right: "left" };
+// A submenu (RFC 0067) asks for the right side, meaning its trigger's inline
+// end, so it opens to the left in right-to-left layouts.
+const mirrored =
+  content.hasAttribute("data-dxui-submenu") && anchor !== null && getComputedStyle(anchor).direction === "rtl";
+const preferred = mirrored ? opposite[preferredSide] || preferredSide : preferredSide;
 const vertical = (side) => side === "top" || side === "bottom";
 const cross = (start, anchorSize, size) =>
   align === "start" ? start : align === "end" ? start + anchorSize - size : start + (anchorSize - size) / 2;
@@ -33,7 +38,7 @@ const clamp = (value, size, viewportSize) =>
   Math.min(Math.max(value, padding), Math.max(padding, viewportSize - padding - size));
 const place = () => {
   const rect = anchorRect();
-  if (!rect || !(preferredSide in opposite)) return;
+  if (!rect || !(preferred in opposite)) return;
   // Fixed positioning and the anchor width (a minimum width for lists) can
   // change the content's size, so apply them before measuring.
   Object.assign(content.style, { position: "fixed", margin: "0" });
@@ -48,8 +53,8 @@ const place = () => {
     left: rect.left - padding,
     right: viewportWidth - padding - rect.right,
   };
-  const required = (vertical(preferredSide) ? height : width) + Math.max(offset, 0);
-  let side = preferredSide;
+  const required = (vertical(preferred) ? height : width) + Math.max(offset, 0);
+  let side = preferred;
   if (space[side] < required && space[opposite[side]] >= space[side]) side = opposite[side];
   let x;
   let y;

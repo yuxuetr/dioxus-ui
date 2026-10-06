@@ -1,7 +1,7 @@
 # Dropdown
 
 Dropdown provides primitive menu configuration with styled content, group,
-label, item, checkbox, radio, separator, and shortcut parts.
+label, item, checkbox, radio, submenu, separator, and shortcut parts.
 
 ## Source Copy
 
@@ -26,6 +26,7 @@ dioxus-shadcn = { version = "0.2", default-features = false, features = ["dropdo
 - `DropdownRadioItem`
 - `DropdownSeparator`
 - `DropdownShortcut`
+- `DropdownSub`, `DropdownSubTrigger`, `DropdownSubContent`
 - `DropdownPrimitiveConfig`
 - `DropdownDismissBehavior`, `DropdownSide`, `DropdownAlign`
 - `dropdown_content_class`
@@ -34,6 +35,7 @@ dioxus-shadcn = { version = "0.2", default-features = false, features = ["dropdo
 - `dropdown_checkbox_item_class`
 - `dropdown_radio_item_class`
 - `dropdown_shortcut_class`
+- `dropdown_sub_trigger_class`
 
 ## Behavior
 
@@ -79,6 +81,35 @@ inset before the label; pass `inset: true` to plain items to line them up.
   control. Tab moves focus out
   of the menu, which closes it.
 
+### Submenus
+
+`DropdownSub` holds a nested menu ([RFC 0067](../rfcs/0067-menu-submenus.md)).
+Pass the same controlled `open` to its trigger and content:
+
+```rust
+let mut share = use_signal(|| false);
+
+rsx! {
+  DropdownSub { on_open_change: move |open| share.set(open),
+    DropdownSubTrigger { open: share(), "Share" }
+    DropdownSubContent { open: share(),
+      DropdownItem { onclick: move |_| copy_link(), "Copy link" }
+    }
+  }
+}
+```
+
+- ArrowRight (ArrowLeft in right-to-left), Enter, Space, or a click on the
+  trigger opens the submenu and focuses its first item; hovering the trigger
+  opens it without moving focus.
+- ArrowLeft (ArrowRight in right-to-left) or Escape inside the submenu closes
+  that level and returns focus to the trigger.
+- Choosing an item inside closes every level. Highlighting another item of
+  the outer menu, or closing the outer menu, closes the submenu.
+- The submenu opens at the trigger's inline end and flips when there is no
+  room. Moving the pointer diagonally across sibling items closes it; there
+  is no pointer grace area.
+
 The Web renderer is covered by `npm run verify:runtime-interactions` and the
 Desktop renderer by `npm run verify:desktop-interactions`, and the iOS
 Simulator by `npm run verify:mobile-interactions`, and an Android emulator by
@@ -88,7 +119,9 @@ Simulator by `npm run verify:mobile-interactions`, and an Android emulator by
 
 Content uses menu semantics, and items use `menuitem`, `menuitemcheckbox`, or
 `menuitemradio` semantics with `aria-checked`, so the checked state is
-announced as well as drawn. The menu moves
+announced as well as drawn. Sub triggers use `aria-haspopup="menu"`,
+`aria-expanded`, and `aria-controls`, and each submenu sits in a `group` and
+takes its name from its trigger. The menu moves
 DOM focus between items, so screen readers announce each item as it receives
 focus. Destructive items need text that names the action, not only color.
 Disabled items set `aria-disabled` next to `data-disabled` (see

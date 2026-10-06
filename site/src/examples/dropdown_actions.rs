@@ -1,12 +1,13 @@
 use dioxus::prelude::*;
 use dioxus_shadcn::{
   Button, ButtonVariant, DropdownContent, DropdownGroup, DropdownItem, DropdownLabel,
-  DropdownSeparator,
+  DropdownSeparator, DropdownSub, DropdownSubContent, DropdownSubTrigger,
 };
 
 #[component]
 pub fn Demo() -> Element {
   let mut open = use_signal(|| false);
+  let mut share = use_signal(|| false);
   let mut action = use_signal(|| "none");
 
   rsx! {
@@ -27,6 +28,13 @@ pub fn Demo() -> Element {
         DropdownLabel { "Project" }
         DropdownItem { onclick: move |_| action.set("edit"), "Edit" }
         DropdownItem { onclick: move |_| action.set("duplicate"), "Duplicate" }
+        DropdownSub { on_open_change: move |next| share.set(next),
+          DropdownSubTrigger { open: share(), "Share" }
+          DropdownSubContent { open: share(),
+            DropdownItem { onclick: move |_| action.set("copy link"), "Copy link" }
+            DropdownItem { onclick: move |_| action.set("email"), "Email" }
+          }
+        }
         DropdownItem { disabled: true, "Archive" }
       }
       DropdownSeparator {}

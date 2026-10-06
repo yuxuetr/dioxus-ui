@@ -774,10 +774,90 @@ async function runBrowserAssertions() {
     await expect(optionsMenu).toBeHidden();
     await expect(options).toHaveAttribute("data-status-bar", "false");
 
+    const fileMenu = page.locator('[data-interaction-target="dropdown-submenu"]');
+    const fileTrigger = page.locator("#interaction-dropdown-submenu-trigger");
+    const fileContent = fileMenu.locator('[role="menu"]:not([data-dxui-submenu])');
+    const shareContent = fileMenu.locator("[data-dxui-submenu]");
+    const fileItem = (name) => fileMenu.getByRole("menuitem", { name, exact: true });
+    const openFile = async () => {
+      await fileTrigger.click();
+      await expectAnchoredReady(fileMenu);
+    };
+    await fileTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await openFile();
+    await expect(fileItem("New file")).toBeFocused();
+    await expect(fileItem("Share")).toHaveAttribute("aria-expanded", "false");
+    await expect(shareContent).toBeHidden();
+    // Arrow keys reach the sub trigger but not the hidden submenu's items.
+    await page.keyboard.press("ArrowDown");
+    await expect(fileItem("Share")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(shareContent).toBeVisible();
+    await expect(fileItem("Share")).toHaveAttribute("aria-expanded", "true");
+    await expect(fileItem("Copy link")).toBeFocused();
+    await expectAccessibleOpen(page, "open dropdown submenu");
+    // The submenu sits beside its trigger.
+    const shareBox = await fileItem("Share").boundingBox();
+    const submenuBox = await shareContent.boundingBox();
+    expect(Math.abs(submenuBox.x - (shareBox.x + shareBox.width))).toBeLessThan(16);
+    // The submenu's arrows move among its own items only.
+    await page.keyboard.press("ArrowDown");
+    await expect(fileItem("Email")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(fileItem("Copy link")).toBeFocused();
+    // ArrowLeft and Escape close one level.
+    await page.keyboard.press("ArrowLeft");
+    await expect(shareContent).toBeHidden();
+    await expect(fileContent).toBeVisible();
+    await expect(fileItem("Share")).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(fileItem("Copy link")).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(shareContent).toBeHidden();
+    await expect(fileContent).toBeVisible();
+    await expect(fileItem("Share")).toBeFocused();
+    // Choosing a nested item closes every level.
+    await page.keyboard.press("ArrowRight");
+    await expect(fileItem("Copy link")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("Enter");
+    await expect(fileContent).toBeHidden();
+    await expect(fileMenu).toHaveAttribute("data-action", "email");
+    await expect(fileTrigger).toBeFocused();
+    await openFile();
+    await expect(fileItem("Share")).toHaveAttribute("aria-expanded", "false");
+    await expect(shareContent).toBeHidden();
+    // Hover opens the submenu without taking focus; a sibling closes it.
+    await fileItem("Share").hover();
+    await expect(shareContent).toBeVisible();
+    await expect(fileItem("Share")).toBeFocused();
+    await fileItem("Print").hover();
+    await expect(shareContent).toBeHidden();
+    await fileItem("Share").hover();
+    await expect(shareContent).toBeVisible();
+    await fileItem("Copy link").hover();
+    await expect(fileItem("Copy link")).toBeFocused();
+    await fileItem("Copy link").click();
+    await expect(fileContent).toBeHidden();
+    await expect(fileMenu).toHaveAttribute("data-action", "copy");
+    // Closing the outer menu closes an open submenu, so it reopens closed.
+    await openFile();
+    await fileItem("Share").hover();
+    await expect(shareContent).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(fileContent).toBeHidden();
+    await openFile();
+    await expect(shareContent).toBeHidden();
+    await expect(fileItem("Share")).toHaveAttribute("aria-expanded", "false");
+    await fileItem("Print").click();
+    await expect(fileContent).toBeHidden();
+    await expect(fileMenu).toHaveAttribute("data-action", "print");
+
     const menubar = page.locator('[data-interaction-target="menubar"]');
     await expect(menubar.getByRole("menubar", { name: "Editor", exact: true })).toHaveCount(1);
     const menubarTrigger = (value) => page.locator(`#interaction-menubar-${value}`);
-    const menubarMenu = (value) => menubar.locator(`[data-value="${value}"] [role="menu"]`);
+    const menubarMenu = (value) =>
+      menubar.locator(`[data-value="${value}"] [role="menu"]:not([data-dxui-submenu])`);
     const menubarItem = (value, name) => menubarMenu(value).getByRole("menuitem", { name, exact: true });
     // Same readiness signal as expectAnchoredReady, for one menu of several.
     const expectMenubarOpen = async (value) => {
@@ -834,6 +914,29 @@ async function runBrowserAssertions() {
     await page.keyboard.press("Enter");
     await expectMenubarClosed();
     await expect(menubar).toHaveAttribute("data-action", "zoom-out");
+    await expect(menubarTrigger("view")).toBeFocused();
+    // In a submenu, ArrowLeft closes that level instead of switching menus,
+    // and ArrowRight on a plain item switches to the next menu.
+    await page.keyboard.press("Enter");
+    await expectMenubarOpen("view");
+    await page.keyboard.press("End");
+    await expect(menubarItem("view", "Appearance")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(menubarItem("view", "Full screen")).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expect(menubarItem("view", "Appearance")).toBeFocused();
+    await expectMenubarOpen("view");
+    await page.keyboard.press("ArrowRight");
+    await expect(menubarItem("view", "Full screen")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expectMenubarOpen("file");
+    await page.keyboard.press("ArrowLeft");
+    await expectMenubarOpen("view");
+    await page.keyboard.press("End");
+    await page.keyboard.press("ArrowRight");
+    await page.keyboard.press("Enter");
+    await expectMenubarClosed();
+    await expect(menubar).toHaveAttribute("data-action", "fullscreen");
     await expect(menubarTrigger("view")).toBeFocused();
     await menubarTrigger("file").hover();
     // Hovering switches menus only while one is open.
@@ -1943,7 +2046,7 @@ async function runBrowserAssertions() {
 
     const contextMenu = page.locator('[data-interaction-target="context-menu"]');
     const contextArea = page.locator('[data-interaction-control="context-area"]');
-    const contextContent = contextMenu.locator('[role="menu"]');
+    const contextContent = contextMenu.locator('[role="menu"]:not([data-dxui-submenu])');
     const contextItem = (name) => contextContent.locator('[role^="menuitem"]', { hasText: name });
     const openContextMenu = async (position) => {
       await contextArea.click({ button: "right", position });
@@ -1962,7 +2065,10 @@ async function runBrowserAssertions() {
     await page.keyboard.press("ArrowDown");
     await expect(contextItem("Bookmark")).toBeFocused();
     await page.keyboard.press("ArrowDown");
+    await expect(contextItem("More tools")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
     await expect(contextItem("Back")).toBeFocused();
+    await page.keyboard.press("ArrowUp");
     await page.keyboard.press("ArrowUp");
     await page.keyboard.press("Enter");
     await expect(contextContent).toBeHidden();
@@ -1978,6 +2084,15 @@ async function runBrowserAssertions() {
     await contextItem("Back").click();
     await expect(contextContent).toBeHidden();
     await expect(contextMenu).toHaveAttribute("data-action", "back");
+    // A submenu opens from the keyboard, and choosing in it closes both.
+    await openContextMenu({ x: 40, y: 30 });
+    await page.keyboard.press("End");
+    await expect(contextItem("More tools")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(contextMenu.getByRole("menuitem", { name: "Save page" })).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(contextContent).toBeHidden();
+    await expect(contextMenu).toHaveAttribute("data-action", "save");
     await contextArea.evaluate((element) => element.scrollIntoView({ block: "end" }));
     await openContextMenu({ x: 40, y: 90 });
     const flippedArea = await contextArea.boundingBox();
@@ -2274,7 +2389,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (47 fixtures)");
+  console.log("runtime interaction verification passed (48 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

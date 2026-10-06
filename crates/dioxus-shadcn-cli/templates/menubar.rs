@@ -1,8 +1,9 @@
 use std::sync::atomic::{AtomicUsize, Ordering};
 
 use super::utils::{
-  AnchoredPlacement, ListboxMode, MENU_CHECKBOX_MARK_CLASS, MENU_RADIO_MARK_CLASS, classes,
-  menu_mark_state_class, use_anchored_overlay, use_listbox,
+  AnchoredPlacement, ListboxMode, MENU_CHECKBOX_MARK_CLASS, MENU_RADIO_MARK_CLASS,
+  MENU_SUB_TRIGGER_CLASS, MenuSubContext, classes, menu_mark_state_class, use_anchored_overlay,
+  use_listbox, use_menu_sub, use_menu_sub_content,
 };
 pub use super::utils::{DismissBehavior, DropdownPrimitiveConfig, OverlayAlign, OverlaySide};
 use dioxus::prelude::*;
@@ -154,6 +155,11 @@ pub fn menubar_radio_item_class(checked: bool, class: &str) -> String {
   let mark =
     classes([Some(MENU_RADIO_MARK_CLASS), Some(menu_mark_state_class(checked)), Some(class)]);
   menubar_item_class(true, false, &mark)
+}
+
+/// A sub trigger: an item with a chevron at its end.
+pub fn menubar_sub_trigger_class(inset: bool, class: &str) -> String {
+  menubar_item_class(inset, false, &classes([Some(MENU_SUB_TRIGGER_CLASS), Some(class)]))
 }
 
 pub fn menubar_shortcut_class(class: &str) -> String {
@@ -406,6 +412,93 @@ pub fn MenubarRadioItem(
           handler.call(event);
         }
       },
+      {children}
+    }
+  }
+}
+
+/// A nested menu (RFC 0067). Put `MenubarSubTrigger` and `MenubarSubContent`
+/// inside and pass both the same `open`; `on_open_change` reports requests
+/// to open and close it.
+#[component]
+pub fn MenubarSub(
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
+  #[props(default)] class: String,
+  children: Element,
+) -> Element {
+  use_menu_sub(on_open_change);
+
+  rsx! {
+    div {
+      role: "group",
+      class,
+      {children}
+    }
+  }
+}
+
+/// Opens its submenu on click, Enter, Space, ArrowRight (ArrowLeft in
+/// right-to-left), or hover.
+#[component]
+pub fn MenubarSubTrigger(
+  #[props(default)] open: bool,
+  #[props(default)] inset: bool,
+  #[props(default)] disabled: bool,
+  #[props(default)] class: String,
+  children: Element,
+) -> Element {
+  let context = try_use_context::<MenuSubContext>();
+  let id = context.as_ref().map(MenuSubContext::trigger_id);
+  let controls = context.as_ref().map(MenuSubContext::content_id);
+  let on_open_change = context.and_then(|context| context.on_open_change);
+  let class = menubar_sub_trigger_class(inset, &class);
+
+  rsx! {
+    div {
+      role: "menuitem",
+      id,
+      class,
+      "aria-haspopup": "menu",
+      "aria-expanded": open.to_string(),
+      "aria-controls": controls,
+      "aria-disabled": disabled.to_string(),
+      "data-disabled": disabled.to_string(),
+      "data-state": if open { "open" } else { "closed" },
+      onclick: move |_| {
+        if let Some(handler) = on_open_change.filter(|_| !disabled) {
+          handler.call(true);
+        }
+      },
+      {children}
+    }
+  }
+}
+
+/// The submenu, placed at its trigger's inline end. ArrowLeft (ArrowRight in
+/// right-to-left) and Escape close it and return focus to the trigger;
+/// choosing an item closes every level.
+#[component]
+pub fn MenubarSubContent(
+  #[props(default)] open: bool,
+  #[props(default)] class: String,
+  children: Element,
+) -> Element {
+  let (context, listbox, anchored) = use_menu_sub_content(open);
+  let id = context.as_ref().map(MenuSubContext::content_id);
+  let labelledby = context.as_ref().map(MenuSubContext::trigger_id);
+  let class = menubar_content_class(&class);
+
+  rsx! {
+    div {
+      role: "menu",
+      id,
+      class,
+      hidden: !open,
+      "aria-labelledby": labelledby,
+      "data-state": if open { "open" } else { "closed" },
+      "data-dxui-submenu": "",
+      "data-dxui-anchored": anchored,
+      "data-dxui-listbox": listbox,
       {children}
     }
   }

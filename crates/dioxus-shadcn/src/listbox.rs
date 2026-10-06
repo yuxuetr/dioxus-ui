@@ -10,7 +10,9 @@ static NEXT_LISTBOX_ID: AtomicUsize = AtomicUsize::new(0);
 // the highlighted option through `aria-activedescendant`; menus move DOM focus
 // to the highlighted item instead. Items are read from the DOM on every key so
 // items re-rendered while filtering are picked up. Sends the chosen item's
-// `data-value`, empty for menu items.
+// `data-value`, empty for menu items. A submenu (RFC 0067) is a nested menu
+// with its own script: each script acts on the items whose closest
+// `[data-dxui-listbox]` is its own, and ignores keys from a nested menu.
 // Keep in sync with `LISTBOX_SCRIPT` in the CLI `utils.rs` template.
 pub(crate) const LISTBOX_SCRIPT: &str = r#"
 const [scopeId, anchorId, mode] = await dioxus.recv();
@@ -27,10 +29,16 @@ const resetsOnInput = mode === "command";
 const itemSelector = isMenu
   ? '[role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"]'
   : '[role="option"]';
+const isSubmenu = listbox.hasAttribute("data-dxui-submenu");
+const rtl = getComputedStyle(listbox).direction === "rtl";
+const forwardKey = rtl ? "ArrowLeft" : "ArrowRight";
+const backKey = rtl ? "ArrowRight" : "ArrowLeft";
+const owns = (element) => element.closest("[data-dxui-listbox]") === listbox;
+const opensSubmenu = (option) => isMenu && option?.getAttribute("aria-haspopup") === "menu";
 const enabled = (option) =>
   option.dataset.disabled !== "true" && option.getAttribute("aria-disabled") !== "true";
 const options = () => {
-  const all = Array.from(listbox.querySelectorAll(itemSelector));
+  const all = Array.from(listbox.querySelectorAll(itemSelector)).filter(owns);
   all.forEach((option, index) => {
     if (!option.id) option.id = `${scopeId}-option-${index}`;
     if (isMenu && !option.hasAttribute("tabindex")) option.tabIndex = -1;
@@ -67,6 +75,16 @@ const choose = (option) => {
 // A menu item is activated by clicking it, so its own click handler runs and
 // the click listener below reports the choice.
 const activate = (option) => (isMenu ? option.click() : choose(option));
+// A sub trigger's click asks the app to open its submenu, whose script then
+// focuses its first item; an already open one gets that focus here.
+const enterSubmenu = (trigger) => {
+  const submenu = document.getElementById(trigger.getAttribute("aria-controls") || "");
+  if (trigger.getAttribute("aria-expanded") !== "true" || !submenu) return trigger.click();
+  const first = Array.from(submenu.querySelectorAll(itemSelector)).find(
+    (option) => option.closest("[data-dxui-listbox]") === submenu && enabled(option),
+  );
+  if (first) first.focus({ preventScroll: true });
+};
 let buffer = "";
 let bufferedAt = 0;
 const typing = () => buffer !== "" && performance.now() - bufferedAt <= 500;
@@ -86,6 +104,16 @@ const typeahead = (character) => {
   }
 };
 const onKeyDown = (event) => {
+  if (event.defaultPrevented) return;
+  if (isMenu && event.target instanceof Element && !owns(event.target)) return;
+  if (isSubmenu && (event.key === backKey || event.key === "Escape")) {
+    // Closes this level only: the outer menu and the document-level
+    // Escape dismissal must not see the key.
+    event.preventDefault();
+    event.stopPropagation();
+    dioxus.send("");
+    return;
+  }
   const list = options();
   const index = list.indexOf(highlighted);
   const last = list.length - 1;
@@ -100,6 +128,8 @@ const onKeyDown = (event) => {
     highlight(list[0] || null);
   } else if (jumps && event.key === "End") {
     highlight(list[last] || null);
+  } else if (event.key === forwardKey && opensSubmenu(highlighted)) {
+    enterSubmenu(highlighted);
   } else if (event.key === "Enter" && highlighted) {
     activate(highlighted);
   } else if (searchesByKey && event.key === " " && highlighted && !typing()) {
@@ -111,18 +141,41 @@ const onKeyDown = (event) => {
   }
   if (handled) event.preventDefault();
 };
-const optionFrom = (target) => {
+// Any enabled item inside, nested menus included: choosing a nested item
+// closes this menu too.
+const itemFrom = (target) => {
   const option = target instanceof Element ? target.closest(itemSelector) : null;
   return option && listbox.contains(option) && enabled(option) ? option : null;
+};
+const optionFrom = (target) => {
+  const option = itemFrom(target);
+  return option && owns(option) ? option : null;
 };
 const onPointerMove = (event) => {
   const option = optionFrom(event.target);
   if (option && option !== highlighted) highlight(option);
+  if (opensSubmenu(option) && option.getAttribute("aria-expanded") !== "true") {
+    // Hover opens the submenu without moving focus into it.
+    option.dataset.dxuiPointerOpen = "";
+    option.click();
+  }
+};
+// Keeps the highlight on the focused item when focus arrives some other way,
+// such as from an outer menu entering this one.
+const onFocusIn = (event) => {
+  const option = optionFrom(event.target);
+  if (!option || option === highlighted) return;
+  if (highlighted) delete highlighted.dataset.highlighted;
+  highlighted = option;
+  option.dataset.highlighted = "";
 };
 // Keep focus where the keys are read (the anchor, or the highlighted menu
 // item) when the pointer presses inside.
 const onPointerDown = (event) => event.preventDefault();
-const onClick = (event) => choose(optionFrom(event.target));
+const onClick = (event) => {
+  const option = itemFrom(event.target);
+  if (!opensSubmenu(option)) choose(option);
+};
 const keySource = isMenu ? listbox : anchor;
 // Resets at once, and again on the next DOM change, which is the app's
 // re-render of the filtered list.
@@ -135,8 +188,10 @@ let finish;
 const ended = new Promise((resolve) => {
   finish = resolve;
 });
+// A menu inside a closed menu is hidden by its ancestor.
+const closed = () => !listbox.isConnected || listbox.closest("[hidden]") !== null;
 const observer = new MutationObserver(() => {
-  if (!listbox.isConnected || listbox.hidden) return finish();
+  if (closed()) return finish();
   if (resetPending) {
     resetPending = false;
     highlight(initial());
@@ -145,14 +200,17 @@ const observer = new MutationObserver(() => {
   }
 });
 await new Promise((resolve) => requestAnimationFrame(resolve));
-if (!listbox.isConnected || listbox.hidden) return;
-highlight(initial());
+if (closed()) return;
+const pointerOpened = isSubmenu && anchor !== null && "dxuiPointerOpen" in anchor.dataset;
+if (anchor) delete anchor.dataset.dxuiPointerOpen;
+if (!pointerOpened) highlight(initial());
 observer.observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ["hidden", "data-disabled", "aria-disabled"] });
 if (keySource) keySource.addEventListener("keydown", onKeyDown);
 if (resetsOnInput && anchor) anchor.addEventListener("input", onInput);
 listbox.addEventListener("pointermove", onPointerMove);
 listbox.addEventListener("pointerdown", onPointerDown);
 listbox.addEventListener("click", onClick);
+if (isMenu) listbox.addEventListener("focusin", onFocusIn);
 await ended;
 observer.disconnect();
 if (keySource) keySource.removeEventListener("keydown", onKeyDown);
@@ -160,7 +218,10 @@ if (resetsOnInput && anchor) anchor.removeEventListener("input", onInput);
 listbox.removeEventListener("pointermove", onPointerMove);
 listbox.removeEventListener("pointerdown", onPointerDown);
 listbox.removeEventListener("click", onClick);
+if (isMenu) listbox.removeEventListener("focusin", onFocusIn);
 highlight(null);
+// Closed with the menu around it: ask the app to close this one as well.
+if (isSubmenu && listbox.isConnected && !listbox.hidden) dioxus.send("");
 if (isMenu) {
   // Focus still inside the hidden menu, or blurred to the body, goes back to
   // the anchor (a menubar may have switched menus since this one opened), or

@@ -573,7 +573,7 @@ templates and an added `nord` preset.
   navigation (see RFC 0013), and Date Picker Input parses typed dates (see
   RFC 0064); source-copy date arithmetic is not included. Dropdown and Context Menu implement menu keyboard
   navigation and activation, and Context Menu opens at a point (see RFC 0014);
-  submenus are not implemented. Menubar implements roving triggers and menu
+  all three menus have submenus (see RFC 0067) without a pointer grace area. Menubar implements roving triggers and menu
   switching with Left, Right, and hover (see RFC 0015). Navigation Menu
   implements click, keyboard, and hover disclosure with dismissal and
   vertical submenus (see RFC 0016 and RFC 0063), but not viewport size
