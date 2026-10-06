@@ -49,6 +49,27 @@ for component in "${components[@]}"; do
   fi
 done
 
+# Blocks (RFC 0073) bring their components and land in src/blocks.
+mapfile -t blocks < <(cargo run -q -p dioxus-shadcn-cli -- list blocks)
+
+if [[ "${#blocks[@]}" -eq 0 ]]; then
+  echo "dxui list blocks returned no blocks" >&2
+  exit 1
+fi
+
+for block in "${blocks[@]}"; do
+  cargo run -q -p dioxus-shadcn-cli -- add "${block}" --root "${fixture_root}"
+  module="${block//-/_}"
+  if [[ ! -f "${fixture_root}/src/blocks/${module}.rs" ]]; then
+    echo "missing generated block file: ${module}" >&2
+    exit 1
+  fi
+  if ! grep -qx "pub mod ${module};" "${fixture_root}/src/blocks/mod.rs"; then
+    echo "missing generated block module declaration: ${module}" >&2
+    exit 1
+  fi
+done
+
 if [[ ! -f "${fixture_root}/src/components/ui/utils.rs" ]]; then
   echo "missing generated utils dependency" >&2
   exit 1
@@ -59,7 +80,7 @@ if ! grep -qx "pub mod utils;" "${fixture_root}/src/components/ui/mod.rs"; then
   exit 1
 fi
 
-if grep -R "dioxus_shadcn_core\|dioxus_shadcn_primitives" "${fixture_root}/src/components/ui"; then
+if grep -R "dioxus_shadcn_core\|dioxus_shadcn_primitives" "${fixture_root}/src/components/ui" "${fixture_root}/src/blocks"; then
   echo "generated components must not import dioxus-shadcn internal crates" >&2
   exit 1
 fi
@@ -80,6 +101,7 @@ pub mod ui;
 RS
 
 cat > "${fixture_root}/src/lib.rs" <<'RS'
+pub mod blocks;
 pub mod components;
 RS
 

@@ -319,6 +319,7 @@ only.
 - [RFC 0070: Range Slider](docs/rfcs/0070-range-slider.md)
 - [RFC 0071: Theme Controller](docs/rfcs/0071-theme-controller.md)
 - [RFC 0072: Menu and Mockup](docs/rfcs/0072-menu-and-mockup.md)
+- [RFC 0073: Blocks](docs/rfcs/0073-blocks.md)
 
 ## Verification Shortcuts
 

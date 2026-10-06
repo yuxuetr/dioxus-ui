@@ -41,6 +41,23 @@ fn main() -> Result<(), Box<dyn Error>> {
 
   registry_paths.sort();
 
+  // Blocks (RFC 0073): whole screens, in the registry format, kept apart from
+  // the component registry.
+  let blocks_dir = manifest_dir.join("blocks");
+  println!("cargo:rerun-if-changed={}", blocks_dir.display());
+  let mut block_paths = Vec::new();
+  for entry in fs::read_dir(&blocks_dir)? {
+    let path = entry?.path();
+    if path.extension().and_then(|extension| extension.to_str()) != Some("json") {
+      continue;
+    }
+    for source in registry_sources(&fs::read_to_string(&path)?)? {
+      asset_sources.insert(source);
+    }
+    block_paths.push(path);
+  }
+  block_paths.sort();
+
   let mut generated = String::new();
   generated.push_str("struct EmbeddedAsset {\n");
   generated.push_str("  source: &'static str,\n");
@@ -54,6 +71,13 @@ fn main() -> Result<(), Box<dyn Error>> {
     generated.push_str("\"),\n");
   }
 
+  generated.push_str("];\n\n");
+  generated.push_str("const EMBEDDED_BLOCK_JSON: &[&str] = &[\n");
+  for path in block_paths {
+    generated.push_str("  include_str!(\"");
+    generated.push_str(&escape_rust_string(&path));
+    generated.push_str("\"),\n");
+  }
   generated.push_str("];\n\n");
   generated.push_str("const EMBEDDED_ASSETS: &[EmbeddedAsset] = &[\n");
 

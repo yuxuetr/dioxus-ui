@@ -29,6 +29,10 @@ dxui add dialog
 you pass `--overwrite`. `dxui list` prints the 82 components. Copied
 components depend only on `dioxus`.
 
+`dxui add` also takes a block, a whole screen such as `login`: it copies the
+block to `src/blocks/` with the components it uses. `dxui list blocks`
+prints the blocks.
+
 Declare the modules once:
 
 ```rust

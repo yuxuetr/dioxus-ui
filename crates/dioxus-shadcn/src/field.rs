@@ -69,24 +69,34 @@ pub fn FieldLabel(
 }
 
 #[component]
-pub fn FieldDescription(#[props(default)] class: String, children: Element) -> Element {
+pub fn FieldDescription(
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = p)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
   let class = field_description_class(&class);
 
   rsx! {
     p {
       class,
+      ..attributes,
       {children}
     }
   }
 }
 
 #[component]
-pub fn FieldError(#[props(default)] class: String, children: Element) -> Element {
+pub fn FieldError(
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = p)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
   let class = field_error_class(&class);
 
   rsx! {
     p {
       class,
+      ..attributes,
       {children}
     }
   }
@@ -107,6 +117,23 @@ pub fn FieldGroup(#[props(default)] class: String, children: Element) -> Element
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  #[test]
+  fn ssr_description_and_error_take_ids_for_aria_describedby() {
+    fn app() -> Element {
+      rsx! {
+        FieldDescription { id: "email-hint", "We never share it." }
+        FieldError { id: "email-error", role: "alert", "Enter your email address." }
+      }
+    }
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    let html = dioxus_ssr::render(&dom);
+
+    assert!(html.contains(r#"id="email-hint""#));
+    assert!(html.contains(r#"id="email-error""#));
+    assert!(html.contains(r#"role="alert""#));
+  }
 
   fn render(app: fn() -> Element) -> String {
     let mut dom = VirtualDom::new(app);

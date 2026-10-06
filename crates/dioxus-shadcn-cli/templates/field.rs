@@ -69,24 +69,34 @@ pub fn FieldLabel(
 }
 
 #[component]
-pub fn FieldDescription(#[props(default)] class: String, children: Element) -> Element {
+pub fn FieldDescription(
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = p)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
   let class = field_description_class(&class);
 
   rsx! {
     p {
       class,
+      ..attributes,
       {children}
     }
   }
 }
 
 #[component]
-pub fn FieldError(#[props(default)] class: String, children: Element) -> Element {
+pub fn FieldError(
+  #[props(default)] class: String,
+  #[props(extends = GlobalAttributes, extends = p)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
   let class = field_error_class(&class);
 
   rsx! {
     p {
       class,
+      ..attributes,
       {children}
     }
   }

@@ -47,7 +47,7 @@ Source preview routes: 82
 | [Dropdown](dropdown.md) | /components/dropdown/source | crates/dioxus-shadcn-cli/templates/dropdown.rs | src/components/ui/dropdown.rs | rust | 358 | 10912 |
 | [Empty](empty.md) | /components/empty/source | crates/dioxus-shadcn-cli/templates/empty.rs | src/components/ui/empty.rs | rust | 106 | 2495 |
 | [Fab](fab.md) | /components/fab/source | crates/dioxus-shadcn-cli/templates/fab.rs | src/components/ui/fab.rs | rust | 128 | 5007 |
-| [Field](field.md) | /components/field/source | crates/dioxus-shadcn-cli/templates/field.rs | src/components/ui/field.rs | rust | 106 | 2574 |
+| [Field](field.md) | /components/field/source | crates/dioxus-shadcn-cli/templates/field.rs | src/components/ui/field.rs | rust | 116 | 2788 |
 | [File Input](file-input.md) | /components/file-input/source | crates/dioxus-shadcn-cli/templates/file_input.rs | src/components/ui/file_input.rs | rust | 45 | 1739 |
 | [Hover Card](hover-card.md) | /components/hover-card/source | crates/dioxus-shadcn-cli/templates/hover_card.rs | src/components/ui/hover_card.rs | rust | 190 | 5553 |
 | [Indicator](indicator.md) | /components/indicator/source | crates/dioxus-shadcn-cli/templates/indicator.rs | src/components/ui/indicator.rs | rust | 66 | 2042 |

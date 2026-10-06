@@ -37,5 +37,7 @@ dioxus-shadcn = { version = "0.2", default-features = false, features = ["field"
 - `FieldLabel` renders a native `label`. Pass `r#for` with the control's
   `id`, or wrap the control; an empty `for` is left out. Other attributes,
   such as `id`, pass through.
-- Apps own `aria-describedby`, `aria-invalid`, and live-region behavior on the
-  actual form control.
+- `FieldDescription` and `FieldError` pass other attributes through, so give
+  them an `id` and point the control's `aria-describedby` at it. Apps own
+  `aria-describedby`, `aria-invalid`, and live-region behavior on the actual
+  form control.

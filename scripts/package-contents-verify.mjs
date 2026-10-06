@@ -50,16 +50,19 @@ const packageFiles = (crateName) => {
 
 // The CLI build script embeds every registry entry and every file it maps,
 // so each of them must be inside the CLI package.
+// The CLI build script also embeds each block (RFC 0073) and its source.
 const cliEmbeddedAssets = () => {
   const assets = [];
-  for (const file of readdirSync(join(cliRoot, "registry")).sort()) {
-    if (!file.endsWith(".json") || file === "schema.json") {
-      continue;
-    }
-    assets.push(`registry/${file}`);
-    const entry = JSON.parse(readFileSync(join(cliRoot, "registry", file), "utf8"));
-    for (const mapping of [...(entry.files ?? []), ...(entry.assets ?? [])]) {
-      assets.push(mapping.source);
+  for (const dir of ["registry", "blocks"]) {
+    for (const file of readdirSync(join(cliRoot, dir)).sort()) {
+      if (!file.endsWith(".json") || file === "schema.json") {
+        continue;
+      }
+      assets.push(`${dir}/${file}`);
+      const entry = JSON.parse(readFileSync(join(cliRoot, dir, file), "utf8"));
+      for (const mapping of [...(entry.files ?? []), ...(entry.assets ?? [])]) {
+        assets.push(mapping.source);
+      }
     }
   }
   return assets;

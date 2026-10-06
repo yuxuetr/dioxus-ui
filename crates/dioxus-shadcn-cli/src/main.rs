@@ -169,7 +169,7 @@ where
   match args.first().and_then(|arg| arg.to_str()) {
     Some("init") => init_command(&args[1..]),
     Some("add") => add_command(&args[1..]),
-    Some("list") => list_command(),
+    Some("list") => list_command(&args[1..]),
     Some("theme") => theme_command(&args[1..]),
     Some("help") | Some("--help") | Some("-h") | None => {
       print_help();
@@ -190,18 +190,26 @@ fn init_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
 fn add_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
   let (component_name, options) = parse_add_options(args)?;
 
-  add_component_with_options(&options.root, &component_name, options.overwrite)?;
+  let block = add_component_with_options(&options.root, &component_name, options.overwrite)?;
   println!("added {component_name} to {}", options.root.display());
+  if block {
+    println!("declare `mod blocks;` in src/main.rs to use it");
+  }
   Ok(())
 }
 
-fn list_command() -> Result<(), Box<dyn Error>> {
-  for component in load_registry()? {
-    if component.name == "utils" {
-      continue;
+/// Prints one component per line, which scripts read, or with `blocks`, one
+/// block per line.
+fn list_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
+  let entries = match args.first().and_then(|arg| arg.to_str()) {
+    None => load_registry()?,
+    Some("blocks") => load_blocks()?,
+    Some(other) => {
+      return Err(format!("unknown list `{other}`; use `dxui list` or `dxui list blocks`").into());
     }
-
-    println!("{}", component.name);
+  };
+  for entry in entries.iter().filter(|entry| entry.name != "utils") {
+    println!("{}", entry.name);
   }
 
   Ok(())
@@ -383,23 +391,47 @@ fn init_project(root: &Path) -> Result<(), Box<dyn Error>> {
 
 #[cfg(test)]
 fn add_component(root: &Path, component_name: &str) -> Result<(), Box<dyn Error>> {
-  add_component_with_options(root, component_name, false)
+  add_component_with_options(root, component_name, false).map(|_| ())
 }
 
+/// Adds a component, or a block with its components (RFC 0073). Returns
+/// whether `name` was a block.
 fn add_component_with_options(
   root: &Path,
-  component_name: &str,
+  name: &str,
   overwrite: bool,
-) -> Result<(), Box<dyn Error>> {
+) -> Result<bool, Box<dyn Error>> {
   init_project(root)?;
 
   let registry = load_registry()?;
   let mut added = Vec::new();
+  let blocks = load_blocks()?;
+  let block = blocks.iter().find(|block| block.name == name);
 
-  add_component_recursive(root, component_name, &registry, overwrite, &mut added)?;
+  match block {
+    Some(block) => {
+      for dependency in &block.dependencies {
+        add_component_recursive(root, dependency, &registry, overwrite, &mut added)?;
+      }
+      copy_entry_files(root, block, overwrite)?;
+      update_mod_file(
+        &root.join("src").join("blocks").join("mod.rs"),
+        std::slice::from_ref(&block.name),
+      )?;
+    }
+    None if registry.iter().any(|component| component.name == name) => {
+      add_component_recursive(root, name, &registry, overwrite, &mut added)?;
+    }
+    None => {
+      let blocks = blocks.iter().map(|block| block.name.as_str()).collect::<Vec<_>>().join(", ");
+      return Err(
+        format!("{}. available blocks: {blocks}", unknown_component_error(name, &registry)).into(),
+      );
+    }
+  }
   update_ui_mod(root, &added)?;
 
-  Ok(())
+  Ok(block.is_some())
 }
 
 fn add_component_recursive(
@@ -422,29 +454,29 @@ fn add_component_recursive(
     add_component_recursive(root, dependency, registry, overwrite, added)?;
   }
 
-  for file in &component.files {
-    let target = root.join(&file.target);
-    let content = embedded_asset_content(&file.source)?;
-
-    if let Some(parent) = target.parent() {
-      fs::create_dir_all(parent)?;
-    }
-
-    write_component_file(&target, content, overwrite)?;
-  }
-
-  for asset in &component.assets {
-    let target = root.join(&asset.target);
-    let content = embedded_asset_content(&asset.source)?;
-
-    if let Some(parent) = target.parent() {
-      fs::create_dir_all(parent)?;
-    }
-
-    write_component_file(&target, content, overwrite)?;
-  }
-
+  copy_entry_files(root, component, overwrite)?;
   added.push(component.name.clone());
+  Ok(())
+}
+
+/// Copies an entry's files and assets to their targets under `root`.
+fn copy_entry_files(
+  root: &Path,
+  entry: &RegistryComponent,
+  overwrite: bool,
+) -> Result<(), Box<dyn Error>> {
+  let files = entry.files.iter().map(|file| (&file.source, &file.target));
+  let assets = entry.assets.iter().map(|asset| (&asset.source, &asset.target));
+  for (source, target) in files.chain(assets) {
+    let target = root.join(target);
+    let content = embedded_asset_content(source)?;
+
+    if let Some(parent) = target.parent() {
+      fs::create_dir_all(parent)?;
+    }
+
+    write_component_file(&target, content, overwrite)?;
+  }
   Ok(())
 }
 
@@ -460,7 +492,13 @@ fn unknown_component_error(component_name: &str, registry: &[RegistryComponent])
 }
 
 fn update_ui_mod(root: &Path, component_names: &[String]) -> Result<(), Box<dyn Error>> {
-  let mod_path = root.join("src").join("components").join("ui").join("mod.rs");
+  update_mod_file(&root.join("src").join("components").join("ui").join("mod.rs"), component_names)
+}
+
+/// Declares each name's module in the `mod.rs` at `mod_path`, keeping the
+/// existing declarations, sorted and unique.
+fn update_mod_file(mod_path: &Path, component_names: &[String]) -> Result<(), Box<dyn Error>> {
+  let mod_path = mod_path.to_path_buf();
   let existing = if mod_path.exists() { fs::read_to_string(&mod_path)? } else { String::new() };
   let mut modules = existing.lines().filter_map(parse_mod_line).collect::<Vec<_>>();
 
@@ -489,6 +527,15 @@ fn parse_mod_line(line: &str) -> Option<String> {
   let name = line.strip_prefix("pub mod ")?.strip_suffix(';')?.trim();
 
   if name.is_empty() { None } else { Some(name.to_string()) }
+}
+
+fn load_blocks() -> Result<Vec<RegistryComponent>, Box<dyn Error>> {
+  let mut blocks = EMBEDDED_BLOCK_JSON
+    .iter()
+    .map(|json| serde_json::from_str::<RegistryComponent>(json))
+    .collect::<Result<Vec<_>, _>>()?;
+  blocks.sort_by(|left, right| left.name.cmp(&right.name));
+  Ok(blocks)
 }
 
 fn load_registry() -> Result<Vec<RegistryComponent>, Box<dyn Error>> {
@@ -532,7 +579,7 @@ fn write_component_file(path: &Path, content: &str, overwrite: bool) -> Result<(
 
 fn print_help() {
   println!(
-    "dxui\n\nUsage:\n  dxui init [--root <path>]\n  dxui add <component> [--root <path>] [--overwrite]\n  dxui list\n  dxui theme list\n  dxui theme add <theme>... [--root <path>]\n\nCommands:\n  init    Prepare a Dioxus project for dioxus-shadcn generated components\n  add     Copy a component template into a project\n  list    List available registry components\n  theme   List theme presets, or add them to assets/dioxus-shadcn.css"
+    "dxui\n\nUsage:\n  dxui init [--root <path>]\n  dxui add <component|block> [--root <path>] [--overwrite]\n  dxui list [blocks]\n  dxui theme list\n  dxui theme add <theme>... [--root <path>]\n\nCommands:\n  init    Prepare a Dioxus project for dioxus-shadcn generated components\n  add     Copy a component, or a block with its components, into a project\n  list    List the components, or the blocks\n  theme   List theme presets, or add them to assets/dioxus-shadcn.css"
   );
 }
 
@@ -706,6 +753,43 @@ mod tests {
     assert!(message.contains("available components:"));
     assert!(message.contains("button"));
     assert!(!message.contains("utils"));
+    assert!(message.contains("available blocks: login"));
+  }
+
+  #[test]
+  fn add_block_copies_it_with_its_components() {
+    let root = temp_project();
+
+    let block = add_component_with_options(&root, "login", false).expect("add should succeed");
+
+    assert!(block);
+    let source = fs::read_to_string(root.join("src").join("blocks").join("login.rs"))
+      .expect("block file should exist");
+    assert!(source.contains("pub fn LoginBlock("));
+    let blocks = fs::read_to_string(root.join("src").join("blocks").join("mod.rs"))
+      .expect("blocks module should exist");
+    assert_eq!(blocks, "pub mod login;\n");
+    let ui = fs::read_to_string(root.join("src").join("components").join("ui").join("mod.rs"))
+      .expect("ui module should exist");
+    for module in ["button", "card", "checkbox", "field", "input", "label", "separator", "utils"] {
+      assert!(ui.contains(&format!("pub mod {module};")), "{module}");
+    }
+    // A component name is not a block.
+    assert!(!add_component_with_options(&root, "card", false).expect("add should succeed"));
+  }
+
+  #[test]
+  fn blocks_have_names_no_component_uses() {
+    let registry = load_registry().expect("registry should load");
+    let blocks = load_blocks().expect("blocks should load");
+
+    assert!(!blocks.is_empty());
+    for block in &blocks {
+      assert!(!registry.iter().any(|component| component.name == block.name), "{}", block.name);
+      for file in &block.files {
+        assert!(embedded_asset_content(&file.source).is_ok(), "{}", file.source);
+      }
+    }
   }
 
   #[test]

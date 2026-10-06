@@ -1,0 +1,20 @@
+{
+  "name": "login",
+  "description": "Sign-in page with checked email and password fields.",
+  "files": [
+    {
+      "source": "blocks/login.rs",
+      "target": "src/blocks/login.rs"
+    }
+  ],
+  "dependencies": [
+    "button",
+    "card",
+    "checkbox",
+    "field",
+    "input",
+    "label",
+    "separator"
+  ],
+  "assets": []
+}

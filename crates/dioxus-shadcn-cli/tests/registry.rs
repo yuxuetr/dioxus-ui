@@ -182,6 +182,54 @@ fn generated_templates_do_not_import_internal_crates() {
   }
 }
 
+/// Blocks (RFC 0073) live apart from the component registry: each copies
+/// one source into `src/blocks/`, names only known components, and imports
+/// no internal crate.
+#[test]
+fn block_entries_are_valid() {
+  let components = public_component_names(&load_registry_components());
+  let blocks_dir = cli_root().join("blocks");
+  let mut registered = BTreeSet::new();
+  for entry in fs::read_dir(&blocks_dir).expect("blocks directory should exist") {
+    let path = entry.expect("block entry").path();
+    if path.extension().is_none_or(|extension| extension != "json") {
+      continue;
+    }
+    let json = fs::read_to_string(&path).expect("block json should be readable");
+    let block: RegistryComponent = serde_json::from_str(&json).expect("block json should parse");
+    let module = component_name_to_module(&block.name);
+    assert!(!components.contains(&block.name), "{} shares a component name", block.name);
+    assert_eq!(block.files.len(), 1, "{} copies one source", block.name);
+    for file in &block.files {
+      assert_eq!(file.source, format!("blocks/{module}.rs"), "{}", block.name);
+      assert_eq!(file.target, format!("src/blocks/{module}.rs"), "{}", block.name);
+      let source = fs::read_to_string(cli_root().join(&file.source)).expect("block source exists");
+      assert!(!source.contains("dioxus_shadcn"), "{} imports an internal crate", block.name);
+      let name = block.name.split('-').map(|part| {
+        let mut chars = part.chars();
+        chars
+          .next()
+          .map(|first| first.to_uppercase().chain(chars).collect::<String>())
+          .unwrap_or_default()
+      });
+      let component = format!("pub fn {}Block(", name.collect::<String>());
+      assert!(source.contains(&component), "{} defines {component}", block.name);
+      registered.insert(file.source.clone());
+    }
+    for dependency in &block.dependencies {
+      assert!(components.contains(dependency), "{} needs unknown {dependency}", block.name);
+    }
+  }
+  let sources = fs::read_dir(&blocks_dir)
+    .expect("blocks directory should exist")
+    .filter_map(|entry| {
+      let name = entry.ok()?.file_name().into_string().ok()?;
+      name.ends_with(".rs").then(|| format!("blocks/{name}"))
+    })
+    .collect::<BTreeSet<_>>();
+  assert_eq!(sources, registered, "every block source should be registered");
+}
+
 #[test]
 fn template_overlay_scripts_match_crate_scripts() {
   for (crate_file, template_file, name) in [
