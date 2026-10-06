@@ -42,7 +42,11 @@ This verifies:
 - `dxui add` can add every public component.
 - generated `mod.rs` includes every public component and the helpers they use.
 - generated code does not import `dioxus-shadcn-core` or `dioxus-shadcn-primitives`.
-- generated source compiles with only `dioxus = "0.7"`.
+- generated source compiles with only `dioxus = "0.7"`, denying warnings once
+  the `allow(dead_code, unused_imports)` header of the generated `ui/mod.rs`
+  is removed, so an unused private helper or import in a template fails.
+- an app binary that uses Button, Dialog, and Popover builds while denying
+  warnings, with that header in place.
 
 ## Feature Gate
 

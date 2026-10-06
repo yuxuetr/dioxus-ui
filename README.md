@@ -165,7 +165,7 @@ div { "data-theme": "nord", class: "min-h-screen bg-background text-foreground",
 ```
 
 Crate-mode apps get the same stylesheet by running `dxui init`, which writes
-only `assets/dioxus-shadcn.css` and an empty `src/components/ui/mod.rs`. They
+only `assets/dioxus-shadcn.css` and `src/components/ui/mod.rs`. They
 also add an `@source` line for the crate's source after the import, since
 Tailwind generates only the classes it finds in scanned files (see
 [crates/README.md](crates/README.md#depend-on-the-crate)). The token blocks in

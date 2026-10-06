@@ -16,6 +16,14 @@ for commit messages.
   ([RFC 0074](docs/rfcs/0074-helper-templates.md)). `utils.rs` keeps
   `classes` and `UiDensity`. `dxui add button` now copies `button.rs` and a
   27-line `utils.rs`, and a new app using it prints 3 warnings instead of 66.
+- `dxui init` starts `src/components/ui/mod.rs` with
+  `#![allow(dead_code, unused_imports)]`, so an app that uses some variants,
+  props, and re-exports of a component builds without warnings.
+
+### Fixed
+
+- `dxui add` keeps the lines of `src/components/ui/mod.rs` that are not
+  module declarations, such as re-exports, instead of dropping them.
 
 ### Migration
 
@@ -27,6 +35,10 @@ for commit messages.
   while `utils.rs` holds the old helpers. Re-copy the older components with
   `dxui add <name> --overwrite`, which also replaces `utils.rs`; copy any
   edits you made to them first.
+- Apps set up by dxui 0.3 or earlier can add
+  `#![allow(dead_code, unused_imports)]` at the top of
+  `src/components/ui/mod.rs` to drop the warnings for component API they do
+  not use; `dxui init` writes it only for a new `mod.rs`.
 - Copied code that imported helpers or overlay types from `utils`, such as
   `components::ui::utils::DismissBehavior`, imports them from their new
   module, such as `components::ui::overlay::DismissBehavior`, once

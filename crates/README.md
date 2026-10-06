@@ -23,7 +23,10 @@ dxui add button
 dxui add dialog
 ```
 
-`dxui init` writes `assets/dioxus-shadcn.css` and `src/components/ui/mod.rs`.
+`dxui init` writes `assets/dioxus-shadcn.css` and `src/components/ui/mod.rs`,
+which starts with `#![allow(dead_code, unused_imports)]`: an app uses a few
+variants and props of each component, and without it a binary crate warns
+about the rest.
 `dxui add` copies each component, and the helper files it uses, into
 `src/components/ui/` and declares its module; it keeps existing files unless
 you pass `--overwrite`. `dxui list` prints the 82 components. Copied

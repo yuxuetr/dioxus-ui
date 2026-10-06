@@ -101,10 +101,87 @@ pub mod ui;
 RS
 
 cat > "${fixture_root}/src/lib.rs" <<'RS'
+#![deny(warnings)]
 pub mod blocks;
 pub mod components;
 RS
 
+# The library exports every component, so only real mistakes in the templates
+# warn, such as an unused private helper or import. Drop the header that lets
+# apps leave component API unused, so those fail here.
+ui_mod="${fixture_root}/src/components/ui/mod.rs"
+if ! grep -qx '#!\[allow(dead_code, unused_imports)\]' "${ui_mod}"; then
+  echo "missing the dead code allowance in the generated ui module" >&2
+  exit 1
+fi
+grep -vx '#!\[allow(dead_code, unused_imports)\]' "${ui_mod}" > "${ui_mod}.strict"
+mv "${ui_mod}.strict" "${ui_mod}"
+
 cargo check --manifest-path "${fixture_root}/Cargo.toml"
+
+# An app is a binary that uses a few components and leaves the rest of their
+# API unused; with the generated header it still builds without warnings.
+app_root="$(mktemp -d "${TMPDIR:-/tmp}/dxui-generated-app.XXXXXX")"
+echo "app: ${app_root}"
+cargo run -q -p dioxus-shadcn-cli -- init --root "${app_root}"
+for component in button dialog popover; do
+  cargo run -q -p dioxus-shadcn-cli -- add "${component}" --root "${app_root}" > /dev/null
+done
+
+cat > "${app_root}/Cargo.toml" <<'TOML'
+[package]
+name = "dxui-generated-app"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+dioxus = { version = "0.7", features = ["web"] }
+TOML
+
+cat > "${app_root}/src/components/mod.rs" <<'RS'
+pub mod ui;
+RS
+
+cat > "${app_root}/src/main.rs" <<'RS'
+#![deny(warnings)]
+
+use dioxus::prelude::*;
+
+mod components;
+
+use components::ui::button::Button;
+use components::ui::dialog::{DialogClose, DialogContent, DialogOverlay, DialogTitle};
+use components::ui::popover::{PopoverContent, PopoverTitle};
+
+fn main() {
+  dioxus::launch(App);
+}
+
+#[component]
+fn App() -> Element {
+  let mut rename = use_signal(|| false);
+  let mut share = use_signal(|| false);
+  rsx! {
+    Button { onclick: move |_| rename.set(true), "Rename" }
+    DialogOverlay { open: rename(), on_open_change: move |next| rename.set(next) }
+    DialogContent {
+      open: rename(),
+      on_open_change: move |next| rename.set(next),
+      DialogTitle { "Rename project" }
+      DialogClose { on_open_change: move |next| rename.set(next), "Cancel" }
+    }
+    button { id: "share-trigger", onclick: move |_| share.toggle(), "Share" }
+    PopoverContent {
+      open: share(),
+      anchor_id: "share-trigger",
+      on_open_change: move |next| share.set(next),
+      PopoverTitle { "Share link" }
+    }
+  }
+}
+RS
+
+cargo check --manifest-path "${app_root}/Cargo.toml"
 
 echo "generated fixture smoke passed"

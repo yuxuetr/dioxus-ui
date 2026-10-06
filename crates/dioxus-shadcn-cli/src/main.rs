@@ -391,6 +391,15 @@ fn parse_add_options(args: &[OsString]) -> Result<(String, AddOptions), Box<dyn 
   Ok((component_name, AddOptions { root, overwrite }))
 }
 
+/// Starts `src/components/ui/mod.rs`. Copied components are a library inside
+/// the app: a binary crate warns about every variant, prop, and re-export it
+/// does not use yet, which is not a mistake in the app.
+const UI_MOD_HEADER: &str =
+  "// Copied components keep the variants, props, and re-exports this app does
+// not use yet, as a library would.
+#![allow(dead_code, unused_imports)]
+";
+
 fn init_project(root: &Path) -> Result<(), Box<dyn Error>> {
   let assets_dir = root.join("assets");
   let ui_dir = root.join("src").join("components").join("ui");
@@ -399,7 +408,7 @@ fn init_project(root: &Path) -> Result<(), Box<dyn Error>> {
   fs::create_dir_all(&ui_dir)?;
 
   write_new_file(&assets_dir.join("dioxus-shadcn.css"), DEFAULT_CSS)?;
-  write_new_file(&ui_dir.join("mod.rs"), "")?;
+  write_new_file(&ui_dir.join("mod.rs"), UI_MOD_HEADER)?;
 
   Ok(())
 }
@@ -509,11 +518,14 @@ fn update_ui_mod(root: &Path, component_names: &[String]) -> Result<(), Box<dyn 
 }
 
 /// Declares each name's module in the `mod.rs` at `mod_path`, keeping the
-/// existing declarations, sorted and unique.
+/// existing declarations, sorted and unique, after the file's other lines.
 fn update_mod_file(mod_path: &Path, component_names: &[String]) -> Result<(), Box<dyn Error>> {
   let mod_path = mod_path.to_path_buf();
   let existing = if mod_path.exists() { fs::read_to_string(&mod_path)? } else { String::new() };
   let mut modules = existing.lines().filter_map(parse_mod_line).collect::<Vec<_>>();
+  let other_lines =
+    existing.lines().filter(|line| parse_mod_line(line).is_none()).collect::<Vec<_>>().join("\n");
+  let other_lines = other_lines.trim_end();
 
   for component_name in component_names {
     let module = component_name.replace('-', "_");
@@ -525,7 +537,9 @@ fn update_mod_file(mod_path: &Path, component_names: &[String]) -> Result<(), Bo
 
   modules.sort();
 
-  let content = modules.iter().map(|module| format!("pub mod {module};\n")).collect::<String>();
+  let mut content =
+    if other_lines.is_empty() { String::new() } else { format!("{other_lines}\n\n") };
+  content.extend(modules.iter().map(|module| format!("pub mod {module};\n")));
 
   if let Some(parent) = mod_path.parent() {
     fs::create_dir_all(parent)?;
@@ -709,7 +723,7 @@ mod tests {
     let modules = fs::read_to_string(root.join("src").join("components").join("ui").join("mod.rs"))
       .expect("mod file should be readable");
 
-    assert_eq!(modules, "pub mod button;\npub mod utils;\n");
+    assert_eq!(modules, format!("{UI_MOD_HEADER}\npub mod button;\npub mod utils;\n"));
   }
 
   fn ui_files(root: &Path) -> Vec<String> {
@@ -769,6 +783,20 @@ mod tests {
   }
 
   #[test]
+  fn add_component_keeps_other_lines_of_the_ui_module() {
+    let root = temp_project();
+    let ui_dir = root.join("src").join("components").join("ui");
+    fs::create_dir_all(&ui_dir).expect("ui dir should be created");
+    fs::write(ui_dir.join("mod.rs"), "pub mod card;\npub use card::Card;\n")
+      .expect("mod file should be written");
+
+    add_component(&root, "button").expect("add should succeed");
+
+    let modules = fs::read_to_string(ui_dir.join("mod.rs")).expect("mod file should be readable");
+    assert_eq!(modules, "pub use card::Card;\n\npub mod button;\npub mod card;\npub mod utils;\n");
+  }
+
+  #[test]
   fn add_component_does_not_overwrite_existing_template() {
     let root = temp_project();
     let ui_dir = root.join("src").join("components").join("ui");
@@ -809,7 +837,7 @@ mod tests {
     let modules = fs::read_to_string(root.join("src").join("components").join("ui").join("mod.rs"))
       .expect("mod file should be readable");
 
-    assert_eq!(modules, "pub mod button;\npub mod utils;\n");
+    assert_eq!(modules, format!("{UI_MOD_HEADER}\npub mod button;\npub mod utils;\n"));
   }
 
   #[test]
