@@ -233,8 +233,10 @@ pub fn InputOtpHiddenInput(
       "data-dxui-otp-input": scope_id,
       oninput: move |event: FormEvent| {
         let next = input_otp_sanitize(&event.value(), length, input_mode);
-        if next != current && let Some(handler) = on_value_change {
-          handler.call(next);
+        if next != current {
+          if let Some(handler) = on_value_change {
+            handler.call(next);
+          }
         }
       },
       ..attributes,

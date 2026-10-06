@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 pub const INPUT_BASE_CLASS: &str = "flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
 
@@ -34,7 +34,7 @@ pub fn Input(
       value,
       placeholder,
       disabled,
-      "aria-invalid": "{invalid}",
+      "aria-invalid": invalid.to_string(),
       oninput: move |event: FormEvent| {
         if let Some(handler) = on_value_change {
           handler.call(event.value());

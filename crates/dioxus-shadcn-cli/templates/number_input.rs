@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 // Dim the field only when the input is disabled, not when a button is at a
 // bound.

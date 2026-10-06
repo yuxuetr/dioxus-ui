@@ -74,10 +74,10 @@ pub(crate) fn use_dialog_label_part(part: DialogLabelPart) -> Option<String> {
   });
   use_drop(move || {
     // The content may already be gone when the whole dialog unmounts.
-    if let Some(labels) = labels
-      && let Ok(mut flag) = labels.flag(part).try_write()
-    {
-      *flag = false;
+    if let Some(labels) = labels {
+      if let Ok(mut flag) = labels.flag(part).try_write() {
+        *flag = false;
+      }
     }
   });
   labels.map(|labels| labels.part_id(part))

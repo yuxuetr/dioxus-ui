@@ -1,8 +1,8 @@
 use std::sync::atomic::{AtomicUsize, Ordering};
 
-use dioxus::prelude::*;
-use super::utils::classes;
 pub use super::utils::PopoverPrimitiveConfig;
+use super::utils::classes;
+use dioxus::prelude::*;
 
 static NEXT_NAVIGATION_MENU_ID: AtomicUsize = AtomicUsize::new(0);
 

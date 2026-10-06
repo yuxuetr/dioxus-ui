@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum StatGroupOrientation {
@@ -22,9 +22,12 @@ pub const STAT_GROUP_BASE_CLASS: &str =
 // The figure takes a second column spanning the rows, so the title can come
 // first in source order, as the `dl` needs.
 pub const STAT_BASE_CLASS: &str = "grid grid-cols-[1fr_auto] content-start gap-x-4 px-6 py-4";
-pub const STAT_TITLE_BASE_CLASS: &str = "col-start-1 text-sm whitespace-nowrap text-muted-foreground";
-pub const STAT_VALUE_BASE_CLASS: &str = "col-start-1 text-3xl font-bold tracking-tight whitespace-nowrap";
-pub const STAT_DESCRIPTION_BASE_CLASS: &str = "col-start-1 text-xs whitespace-nowrap text-muted-foreground";
+pub const STAT_TITLE_BASE_CLASS: &str =
+  "col-start-1 text-sm whitespace-nowrap text-muted-foreground";
+pub const STAT_VALUE_BASE_CLASS: &str =
+  "col-start-1 text-3xl font-bold tracking-tight whitespace-nowrap";
+pub const STAT_DESCRIPTION_BASE_CLASS: &str =
+  "col-start-1 text-xs whitespace-nowrap text-muted-foreground";
 pub const STAT_FIGURE_BASE_CLASS: &str = "col-start-2 row-span-3 row-start-1 self-center";
 
 pub fn stat_group_class(orientation: StatGroupOrientation, class: &str) -> String {

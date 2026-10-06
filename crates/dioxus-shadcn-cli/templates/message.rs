@@ -1,8 +1,9 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum MessageAlign {
+  #[default]
   Start,
   End,
 }
@@ -15,8 +16,10 @@ pub const MESSAGE_AVATAR_BASE_CLASS: &str = "flex h-8 w-8 shrink-0 items-center 
 pub const MESSAGE_CONTENT_BASE_CLASS: &str = "grid min-w-0 max-w-full flex-1 gap-1";
 pub const MESSAGE_CONTENT_ALIGN_START_CLASS: &str = "justify-items-start";
 pub const MESSAGE_CONTENT_ALIGN_END_CLASS: &str = "justify-items-end";
-pub const MESSAGE_HEADER_BASE_CLASS: &str = "flex min-w-0 items-center gap-2 text-xs text-muted-foreground";
-pub const MESSAGE_FOOTER_BASE_CLASS: &str = "flex min-w-0 items-center gap-2 text-xs text-muted-foreground";
+pub const MESSAGE_HEADER_BASE_CLASS: &str =
+  "flex min-w-0 items-center gap-2 text-xs text-muted-foreground";
+pub const MESSAGE_FOOTER_BASE_CLASS: &str =
+  "flex min-w-0 items-center gap-2 text-xs text-muted-foreground";
 
 impl MessageAlign {
   pub const fn class(self) -> &'static str {
@@ -54,11 +57,7 @@ pub fn message_avatar_class(class: &str) -> String {
 }
 
 pub fn message_content_class(align: MessageAlign, class: &str) -> String {
-  classes([
-    Some(MESSAGE_CONTENT_BASE_CLASS),
-    Some(align.content_class()),
-    Some(class),
-  ])
+  classes([Some(MESSAGE_CONTENT_BASE_CLASS), Some(align.content_class()), Some(class)])
 }
 
 pub fn message_header_class(class: &str) -> String {
@@ -71,7 +70,7 @@ pub fn message_footer_class(class: &str) -> String {
 
 #[component]
 pub fn Message(
-  #[props(default = MessageAlign::Start)] align: MessageAlign,
+  #[props(default)] align: MessageAlign,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
@@ -112,7 +111,7 @@ pub fn MessageAvatar(#[props(default)] class: String, children: Element) -> Elem
 
 #[component]
 pub fn MessageContent(
-  #[props(default = MessageAlign::Start)] align: MessageAlign,
+  #[props(default)] align: MessageAlign,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {

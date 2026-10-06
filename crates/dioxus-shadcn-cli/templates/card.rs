@@ -1,7 +1,8 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
-pub const CARD_BASE_CLASS: &str = "rounded-md border border-border bg-card text-card-foreground shadow-sm";
+pub const CARD_BASE_CLASS: &str =
+  "rounded-md border border-border bg-card text-card-foreground shadow-sm";
 pub const CARD_HEADER_BASE_CLASS: &str = "flex flex-col gap-1.5 p-6";
 pub const CARD_TITLE_BASE_CLASS: &str = "text-2xl font-semibold leading-none tracking-normal";
 pub const CARD_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";

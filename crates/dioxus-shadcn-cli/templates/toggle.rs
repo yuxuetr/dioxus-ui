@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ToggleVariant {
@@ -45,12 +45,7 @@ pub fn toggle_class(
   pressed: bool,
   class: &str,
 ) -> String {
-  classes([
-    Some(TOGGLE_BASE_CLASS),
-    Some(variant.class(pressed)),
-    Some(size.class()),
-    Some(class),
-  ])
+  classes([Some(TOGGLE_BASE_CLASS), Some(variant.class(pressed)), Some(size.class()), Some(class)])
 }
 
 /// A controlled toggle button. A click, Enter, or Space calls

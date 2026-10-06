@@ -1,7 +1,7 @@
 use std::sync::atomic::{AtomicUsize, Ordering};
 
-use dioxus::prelude::*;
 use super::utils::{classes, group_part_id, use_roving_group};
+use dioxus::prelude::*;
 
 static NEXT_ACCORDION_ID: AtomicUsize = AtomicUsize::new(0);
 
@@ -24,11 +24,7 @@ pub fn accordion_content_class(class: &str) -> String {
 /// Returns the open value of a single-open accordion after `toggled_value` is
 /// toggled. Toggling the open item closes it.
 pub fn accordion_single_open(current: Option<&str>, toggled_value: &str) -> Option<String> {
-  if current == Some(toggled_value) {
-    None
-  } else {
-    Some(toggled_value.to_string())
-  }
+  if current == Some(toggled_value) { None } else { Some(toggled_value.to_string()) }
 }
 
 /// Returns the open values of a multiple-open accordion after `toggled_value`
@@ -148,8 +144,8 @@ pub fn AccordionContent(
 ) -> Element {
   let class = accordion_content_class(&class);
   let ids = accordion_part_ids();
-  let (id, labelledby) = ids
-    .map_or((None, None), |(_, trigger_id, content_id)| (Some(content_id), Some(trigger_id)));
+  let (id, labelledby) =
+    ids.map_or((None, None), |(_, trigger_id, content_id)| (Some(content_id), Some(trigger_id)));
 
   rsx! {
     div {

@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 pub const ASPECT_RATIO_BASE_CLASS: &str = "relative w-full overflow-hidden";
 pub const DEFAULT_ASPECT_RATIO: f64 = 16.0 / 9.0;
@@ -15,11 +15,7 @@ pub fn aspect_ratio_style(ratio: f64) -> String {
 }
 
 pub fn aspect_ratio_value(ratio: f64) -> f64 {
-  if ratio.is_finite() && ratio > 0.0 {
-    ratio
-  } else {
-    DEFAULT_ASPECT_RATIO
-  }
+  if ratio.is_finite() && ratio > 0.0 { ratio } else { DEFAULT_ASPECT_RATIO }
 }
 
 #[component]

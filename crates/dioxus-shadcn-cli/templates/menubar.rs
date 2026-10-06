@@ -1,8 +1,8 @@
 use std::sync::atomic::{AtomicUsize, Ordering};
 
-use dioxus::prelude::*;
 use super::utils::{AnchoredPlacement, ListboxMode, classes, use_anchored_overlay, use_listbox};
 pub use super::utils::{DismissBehavior, DropdownPrimitiveConfig, OverlayAlign, OverlaySide};
+use dioxus::prelude::*;
 
 static NEXT_MENUBAR_ID: AtomicUsize = AtomicUsize::new(0);
 
@@ -90,7 +90,8 @@ await new Promise((resolve) => {
 });
 "#;
 
-pub const MENUBAR_BASE_CLASS: &str = "flex h-10 items-center gap-1 rounded-md border border-border bg-background p-1";
+pub const MENUBAR_BASE_CLASS: &str =
+  "flex h-10 items-center gap-1 rounded-md border border-border bg-background p-1";
 pub const MENUBAR_MENU_BASE_CLASS: &str = "relative";
 pub const MENUBAR_TRIGGER_BASE_CLASS: &str = "inline-flex h-8 items-center justify-center rounded-sm px-3 text-sm font-medium text-foreground transition-colors hover:bg-accent focus:bg-accent focus:outline-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
 pub const MENUBAR_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
@@ -98,7 +99,8 @@ pub const MENUBAR_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text
 pub const MENUBAR_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
 pub const MENUBAR_ITEM_INSET_CLASS: &str = "pl-8";
 pub const MENUBAR_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-border";
-pub const MENUBAR_SHORTCUT_BASE_CLASS: &str = "ml-auto text-xs tracking-normal text-muted-foreground";
+pub const MENUBAR_SHORTCUT_BASE_CLASS: &str =
+  "ml-auto text-xs tracking-normal text-muted-foreground";
 
 pub fn menubar_class(class: &str) -> String {
   classes([Some(MENUBAR_BASE_CLASS), Some(class)])
@@ -130,12 +132,7 @@ pub fn menubar_item_class(inset: bool, destructive: bool, class: &str) -> String
   };
   let inset_class = if inset { MENUBAR_ITEM_INSET_CLASS } else { "" };
 
-  classes([
-    Some(MENUBAR_ITEM_BASE_CLASS),
-    Some(variant_class),
-    Some(inset_class),
-    Some(class),
-  ])
+  classes([Some(MENUBAR_ITEM_BASE_CLASS), Some(variant_class), Some(inset_class), Some(class)])
 }
 
 pub fn menubar_separator_class(class: &str) -> String {

@@ -1,8 +1,8 @@
 use std::rc::Rc;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 static NEXT_FAB_ID: AtomicUsize = AtomicUsize::new(0);
 

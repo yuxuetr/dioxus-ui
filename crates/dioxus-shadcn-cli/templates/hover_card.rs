@@ -1,8 +1,8 @@
-use dioxus::prelude::*;
 use super::utils::{
   AnchoredPlacement, HoverOpenOptions, classes, use_anchored_overlay, use_hover_open,
 };
 pub use super::utils::{DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
+use dioxus::prelude::*;
 
 pub const HOVER_CARD_CONTENT_BASE_CLASS: &str = "z-50 w-80 rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 pub const HOVER_CARD_HEADER_BASE_CLASS: &str = "grid gap-1";
@@ -69,7 +69,12 @@ pub fn HoverCard(
 ) -> Element {
   let base_id = use_hover_open(
     on_open_change,
-    HoverOpenOptions { open_delay_ms, close_delay_ms, close_on_press: false, describe_trigger: false },
+    HoverOpenOptions {
+      open_delay_ms,
+      close_delay_ms,
+      close_on_press: false,
+      describe_trigger: false,
+    },
   );
   use_context_provider(|| HoverCardContext { base_id: base_id.clone(), on_open_change });
 

@@ -1,7 +1,7 @@
 use std::sync::atomic::{AtomicUsize, Ordering};
 
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum LayoutOrientation {
@@ -18,12 +18,8 @@ pub fn layout_orientation_attribute(orientation: LayoutOrientation) -> &'static 
 }
 
 pub fn resizable_clamp(size: f64, min_size: f64, max_size: f64) -> f64 {
-  let (min_size, max_size) = if min_size <= max_size {
-    (min_size, max_size)
-  } else {
-    (max_size, min_size)
-  };
-  let size = if size.is_finite() { size } else { min_size };
+  let (min_size, max_size) = ordered_bounds(min_size, max_size);
+  let size = finite_or_default(size, min_size);
 
   size.clamp(min_size, max_size)
 }
@@ -33,46 +29,47 @@ pub struct ResizablePanelState {
   pub size: f64,
   pub min_size: f64,
   pub max_size: f64,
+  pub collapsed: bool,
 }
 
 impl ResizablePanelState {
   pub fn new(size: f64, min_size: f64, max_size: f64) -> Self {
-    let (min_size, max_size) = if min_size <= max_size {
-      (min_size, max_size)
-    } else {
-      (max_size, min_size)
-    };
+    let (min_size, max_size) = ordered_bounds(min_size, max_size);
+    let size = resizable_clamp(size, min_size, max_size);
 
-    Self {
-      size: resizable_clamp(size, min_size, max_size),
-      min_size,
-      max_size,
-    }
+    Self { size, min_size, max_size, collapsed: false }
   }
 
   pub fn with_size(self, size: f64) -> Self {
-    Self {
-      size: resizable_clamp(size, self.min_size, self.max_size),
-      ..self
-    }
+    Self { size: resizable_clamp(size, self.min_size, self.max_size), ..self }
   }
 }
 
-/// Moves `delta` percent from the second panel to the first, within both
-/// panels' limits.
 pub fn resizable_resize_pair(
   first: ResizablePanelState,
   second: ResizablePanelState,
   delta: f64,
 ) -> (ResizablePanelState, ResizablePanelState) {
-  let delta = if delta.is_finite() { delta } else { 0.0 };
+  let delta = finite_or_default(delta, 0.0);
   let first_size = resizable_clamp(first.size + delta, first.min_size, first.max_size);
   let consumed_delta = first_size - first.size;
   let second_size = resizable_clamp(second.size - consumed_delta, second.min_size, second.max_size);
   let second_consumed_delta = second.size - second_size;
-  let first_size = resizable_clamp(first.size + second_consumed_delta, first.min_size, first.max_size);
+  let first_size =
+    resizable_clamp(first.size + second_consumed_delta, first.min_size, first.max_size);
 
   (first.with_size(first_size), second.with_size(second_size))
+}
+
+fn finite_or_default(value: f64, default: f64) -> f64 {
+  if value.is_finite() { value } else { default }
+}
+
+fn ordered_bounds(min_size: f64, max_size: f64) -> (f64, f64) {
+  let min_size = finite_or_default(min_size, 0.0);
+  let max_size = finite_or_default(max_size, min_size);
+
+  if min_size <= max_size { (min_size, max_size) } else { (max_size, min_size) }
 }
 
 static NEXT_RESIZABLE_HANDLE_ID: AtomicUsize = AtomicUsize::new(0);
@@ -125,7 +122,8 @@ await ended;
 observer.disconnect();
 "#;
 
-pub const RESIZABLE_PANEL_GROUP_BASE_CLASS: &str = "flex h-full w-full data-[orientation=vertical]:flex-col";
+pub const RESIZABLE_PANEL_GROUP_BASE_CLASS: &str =
+  "flex h-full w-full data-[orientation=vertical]:flex-col";
 pub const RESIZABLE_PANEL_BASE_CLASS: &str = "min-w-0 overflow-hidden";
 pub const RESIZABLE_HANDLE_BASE_CLASS: &str = "relative flex w-px cursor-col-resize touch-none items-center justify-center bg-border after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[orientation=vertical]:h-px data-[orientation=vertical]:w-full data-[orientation=vertical]:cursor-row-resize data-[orientation=vertical]:after:inset-x-0 data-[orientation=vertical]:after:top-1/2 data-[orientation=vertical]:after:h-1 data-[orientation=vertical]:after:w-full data-[orientation=vertical]:after:-translate-y-1/2 data-[disabled=true]:opacity-50";
 
@@ -135,19 +133,11 @@ pub fn resizable_panel_group_class(orientation: LayoutOrientation, class: &str) 
     LayoutOrientation::Vertical => "flex-col",
   };
 
-  classes([
-    Some(RESIZABLE_PANEL_GROUP_BASE_CLASS),
-    Some(orientation_class),
-    Some(class),
-  ])
+  classes([Some(RESIZABLE_PANEL_GROUP_BASE_CLASS), Some(orientation_class), Some(class)])
 }
 
 pub fn resizable_panel_class(collapsed: bool, class: &str) -> String {
-  classes([
-    Some(RESIZABLE_PANEL_BASE_CLASS),
-    collapsed.then_some("hidden"),
-    Some(class),
-  ])
+  classes([Some(RESIZABLE_PANEL_BASE_CLASS), collapsed.then_some("hidden"), Some(class)])
 }
 
 pub fn resizable_handle_class(disabled: bool, class: &str) -> String {

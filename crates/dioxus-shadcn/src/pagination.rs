@@ -152,8 +152,10 @@ fn pagination_control(
 ) -> Element {
   let aria_current = if active { "page" } else { "false" };
   let onclick = move |event: MouseEvent| {
-    if !disabled && let Some(handler) = onclick {
-      handler.call(event);
+    if !disabled {
+      if let Some(handler) = onclick {
+        handler.call(event);
+      }
     }
   };
 

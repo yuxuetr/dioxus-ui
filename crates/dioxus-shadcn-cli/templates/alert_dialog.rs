@@ -1,11 +1,14 @@
+use super::utils::{
+  DialogLabelPart, classes, use_dialog_label_part, use_dialog_labels, use_modal_focus_scope,
+};
 pub use super::utils::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
-use super::utils::{classes, use_dialog_label_part, use_dialog_labels, use_modal_focus_scope, DialogLabelPart};
 use dioxus::prelude::*;
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum AlertDialogActionVariant {
+  #[default]
   Default,
   Destructive,
 }
@@ -24,7 +27,8 @@ pub const ALERT_DIALOG_CONTENT_BASE_CLASS: &str = "fixed left-1/2 top-1/2 z-50 g
 pub const ALERT_DIALOG_HEADER_BASE_CLASS: &str = "flex flex-col gap-2 text-center sm:text-left";
 pub const ALERT_DIALOG_FOOTER_BASE_CLASS: &str =
   "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end";
-pub const ALERT_DIALOG_TITLE_BASE_CLASS: &str = "text-lg font-semibold leading-none text-foreground";
+pub const ALERT_DIALOG_TITLE_BASE_CLASS: &str =
+  "text-lg font-semibold leading-none text-foreground";
 pub const ALERT_DIALOG_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
 pub const ALERT_DIALOG_ACTION_BASE_CLASS: &str = "inline-flex h-10 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 pub const ALERT_DIALOG_CANCEL_BASE_CLASS: &str = "inline-flex h-10 items-center justify-center rounded-md border border-border bg-background px-4 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
@@ -167,7 +171,7 @@ pub fn AlertDialogDescription(#[props(default)] class: String, children: Element
 
 #[component]
 pub fn AlertDialogAction(
-  #[props(default = AlertDialogActionVariant::Default)] variant: AlertDialogActionVariant,
+  #[props(default)] variant: AlertDialogActionVariant,
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
   #[props(default)] onclick: Option<EventHandler<MouseEvent>>,

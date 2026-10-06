@@ -1,14 +1,16 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 pub const BREADCRUMB_BASE_CLASS: &str = "";
-pub const BREADCRUMB_LIST_BASE_CLASS: &str = "flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground";
+pub const BREADCRUMB_LIST_BASE_CLASS: &str =
+  "flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground";
 pub const BREADCRUMB_ITEM_BASE_CLASS: &str = "inline-flex items-center gap-1.5";
 pub const BREADCRUMB_LINK_BASE_CLASS: &str = "transition-colors hover:text-foreground";
 pub const BREADCRUMB_LINK_CURRENT_CLASS: &str = "font-normal text-foreground";
 pub const BREADCRUMB_PAGE_BASE_CLASS: &str = "font-normal text-foreground";
 pub const BREADCRUMB_SEPARATOR_BASE_CLASS: &str = "text-muted-foreground";
-pub const BREADCRUMB_ELLIPSIS_BASE_CLASS: &str = "flex h-9 w-9 items-center justify-center text-muted-foreground";
+pub const BREADCRUMB_ELLIPSIS_BASE_CLASS: &str =
+  "flex h-9 w-9 items-center justify-center text-muted-foreground";
 
 pub fn breadcrumb_class(class: &str) -> String {
   classes([Some(BREADCRUMB_BASE_CLASS), Some(class)])

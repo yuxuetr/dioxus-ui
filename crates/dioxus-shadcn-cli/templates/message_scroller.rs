@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::{classes, default_attribute};
+use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct MessageScrollerMetrics {
@@ -10,11 +10,7 @@ pub struct MessageScrollerMetrics {
 
 impl MessageScrollerMetrics {
   pub const fn new(scroll_top: f64, viewport_height: f64, content_height: f64) -> Self {
-    Self {
-      scroll_top,
-      viewport_height,
-      content_height,
-    }
+    Self { scroll_top, viewport_height, content_height }
   }
 }
 
@@ -27,25 +23,22 @@ pub enum MessageScrollerEvent {
   Reset,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum MessageScrollerIntent {
+  #[default]
   Follow,
   Hold,
   JumpToLatest,
 }
 
-pub const MESSAGE_SCROLLER_BASE_CLASS: &str = "relative flex min-h-0 w-full flex-col overflow-hidden";
+pub const MESSAGE_SCROLLER_BASE_CLASS: &str =
+  "relative flex min-h-0 w-full flex-col overflow-hidden";
 pub const MESSAGE_SCROLLER_VIEWPORT_BASE_CLASS: &str = "min-h-0 flex-1 overflow-y-auto overscroll-contain focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring";
 pub const MESSAGE_SCROLLER_CONTENT_BASE_CLASS: &str = "flex min-h-full flex-col gap-4";
 pub const MESSAGE_SCROLLER_BOTTOM_ANCHOR_BASE_CLASS: &str = "h-px w-full shrink-0 scroll-mb-4";
-pub const MESSAGE_SCROLLER_UNREAD_MARKER_BASE_CLASS: &str = "pointer-events-none absolute inset-x-0 bottom-4 z-10 flex justify-center";
+pub const MESSAGE_SCROLLER_UNREAD_MARKER_BASE_CLASS: &str =
+  "pointer-events-none absolute inset-x-0 bottom-4 z-10 flex justify-center";
 pub const MESSAGE_SCROLLER_JUMP_BUTTON_BASE_CLASS: &str = "inline-flex h-9 items-center justify-center rounded-md border border-border bg-background px-3 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
-
-impl Default for MessageScrollerIntent {
-  fn default() -> Self {
-    Self::Follow
-  }
-}
 
 pub const fn message_scroller_intent_attribute(intent: MessageScrollerIntent) -> &'static str {
   match intent {
@@ -56,10 +49,7 @@ pub const fn message_scroller_intent_attribute(intent: MessageScrollerIntent) ->
 }
 
 pub const fn message_scroller_is_following_intent(intent: MessageScrollerIntent) -> bool {
-  matches!(
-    intent,
-    MessageScrollerIntent::Follow | MessageScrollerIntent::JumpToLatest
-  )
+  matches!(intent, MessageScrollerIntent::Follow | MessageScrollerIntent::JumpToLatest)
 }
 
 pub fn message_scroller_distance_to_bottom(metrics: MessageScrollerMetrics) -> f64 {
@@ -79,10 +69,8 @@ pub fn message_scroller_should_follow(
   metrics: MessageScrollerMetrics,
   threshold: f64,
 ) -> bool {
-  matches!(
-    intent,
-    MessageScrollerIntent::Follow | MessageScrollerIntent::JumpToLatest
-  ) || message_scroller_is_at_bottom(metrics, threshold)
+  matches!(intent, MessageScrollerIntent::Follow | MessageScrollerIntent::JumpToLatest)
+    || message_scroller_is_at_bottom(metrics, threshold)
 }
 
 pub fn message_scroller_show_unread_marker(
@@ -106,10 +94,9 @@ pub fn message_scroller_next_intent(
       }
     }
     MessageScrollerEvent::MessageAppended => {
-      if at_bottom || matches!(
-        intent,
-        MessageScrollerIntent::Follow | MessageScrollerIntent::JumpToLatest
-      ) {
+      if at_bottom
+        || matches!(intent, MessageScrollerIntent::Follow | MessageScrollerIntent::JumpToLatest)
+      {
         MessageScrollerIntent::Follow
       } else {
         MessageScrollerIntent::Hold
@@ -155,11 +142,7 @@ pub fn message_scroller_jump_button_class(visible: bool, class: &str) -> String 
 }
 
 fn non_negative_finite(value: f64) -> f64 {
-  if value.is_finite() {
-    value.max(0.0)
-  } else {
-    0.0
-  }
+  if value.is_finite() { value.max(0.0) } else { 0.0 }
 }
 
 #[component]

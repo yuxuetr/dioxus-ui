@@ -1,5 +1,10 @@
 //! Styled Dioxus UI components.
 
+// Each module is copied as a source-copy template that must compile in
+// edition 2021 apps, which have no `if let` chains, and the template parity
+// test (RFC 0066) keeps the module and its template identical.
+#![allow(clippy::collapsible_if)]
+
 #[cfg(feature = "attachment")]
 pub mod attachment;
 

@@ -1,8 +1,8 @@
-use dioxus::prelude::*;
 use super::utils::{
   AnchoredPlacement, ListboxMode, classes, default_attribute, use_anchored_overlay, use_listbox,
 };
 pub use super::utils::{DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
+use dioxus::prelude::*;
 
 pub const COMBOBOX_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
 pub const COMBOBOX_INPUT_BASE_CLASS: &str = "flex h-10 w-full rounded-md bg-transparent px-3 py-2 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50";
@@ -21,11 +21,7 @@ pub fn combobox_trigger_class(invalid: bool, class: &str) -> String {
     "border-input focus-visible:ring-ring"
   };
 
-  classes([
-    Some(COMBOBOX_TRIGGER_BASE_CLASS),
-    Some(invalid_class),
-    Some(class),
-  ])
+  classes([Some(COMBOBOX_TRIGGER_BASE_CLASS), Some(invalid_class), Some(class)])
 }
 
 pub fn combobox_input_class(class: &str) -> String {
@@ -58,14 +54,11 @@ pub fn combobox_value_class(class: &str) -> String {
 
 pub fn combobox_item_class(active: bool, selected: bool, class: &str) -> String {
   let active_class = if active { "bg-accent text-accent-foreground" } else { "" };
-  let selected_class = if selected { "bg-accent" } else { "" };
+  // A selected option shows a check mark, distinct from the highlight
+  // (RFC 0062).
+  let selected_class = if selected { "after:opacity-100" } else { "after:opacity-0" };
 
-  classes([
-    Some(COMBOBOX_ITEM_BASE_CLASS),
-    Some(active_class),
-    Some(selected_class),
-    Some(class),
-  ])
+  classes([Some(COMBOBOX_ITEM_BASE_CLASS), Some(active_class), Some(selected_class), Some(class)])
 }
 
 #[component]
@@ -118,8 +111,9 @@ pub fn ComboboxInput(
 ) -> Element {
   let class = combobox_input_class(&class);
   let active_descendant = active_id.unwrap_or_default();
-  let controls =
-    id.as_ref().and_then(|id| default_attribute(&attributes, "aria-controls", format!("{id}-list")));
+  let controls = id
+    .as_ref()
+    .and_then(|id| default_attribute(&attributes, "aria-controls", format!("{id}-list")));
 
   rsx! {
     input {

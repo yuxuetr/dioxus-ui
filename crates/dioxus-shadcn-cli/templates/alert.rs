@@ -1,8 +1,9 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum AlertVariant {
+  #[default]
   Default,
   Destructive,
   Success,
@@ -49,7 +50,7 @@ pub fn alert_description_class(variant: AlertVariant, class: &str) -> String {
 
 #[component]
 pub fn Alert(
-  #[props(default = AlertVariant::Default)] variant: AlertVariant,
+  #[props(default)] variant: AlertVariant,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
@@ -78,7 +79,7 @@ pub fn AlertTitle(#[props(default)] class: String, children: Element) -> Element
 
 #[component]
 pub fn AlertDescription(
-  #[props(default = AlertVariant::Default)] variant: AlertVariant,
+  #[props(default)] variant: AlertVariant,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {

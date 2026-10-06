@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 pub const DIFF_BASE_CLASS: &str = "relative isolate grid overflow-hidden rounded-md select-none";
 pub const DIFF_LAYER_CLASS: &str = "col-start-1 row-start-1 [&>img]:size-full [&>img]:object-cover";

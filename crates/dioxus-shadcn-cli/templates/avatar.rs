@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 pub const AVATAR_BASE_CLASS: &str = "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full";
 pub const AVATAR_IMAGE_BASE_CLASS: &str = "aspect-square h-full w-full object-cover";

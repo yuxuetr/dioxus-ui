@@ -1,9 +1,10 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum KbdSize {
   Sm,
+  #[default]
   Md,
   Lg,
 }
@@ -26,7 +27,7 @@ pub fn kbd_class(size: KbdSize, class: &str) -> String {
 
 #[component]
 pub fn Kbd(
-  #[props(default = KbdSize::Md)] size: KbdSize,
+  #[props(default)] size: KbdSize,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {

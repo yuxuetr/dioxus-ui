@@ -1,6 +1,6 @@
-use dioxus::prelude::*;
 use super::utils::{AnchoredPlacement, ListboxMode, classes, use_anchored_overlay, use_listbox};
 pub use super::utils::{DismissBehavior, DropdownPrimitiveConfig, OverlayAlign, OverlaySide};
+use dioxus::prelude::*;
 
 pub const DROPDOWN_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
 pub const DROPDOWN_GROUP_BASE_CLASS: &str = "p-1";

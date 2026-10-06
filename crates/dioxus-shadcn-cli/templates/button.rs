@@ -1,8 +1,9 @@
+use super::utils::{UiDensity, classes};
 use dioxus::prelude::*;
-use super::utils::{classes, UiDensity};
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ButtonVariant {
+  #[default]
   Primary,
   Secondary,
   Destructive,
@@ -19,14 +20,17 @@ impl ButtonVariant {
       Self::Destructive => "bg-destructive text-destructive-foreground hover:bg-destructive/90",
       Self::Outline => "border border-input bg-background hover:bg-accent",
       Self::Ghost => "bg-transparent hover:bg-accent",
-      Self::Link => "bg-transparent text-foreground decoration-primary underline-offset-4 hover:underline",
+      Self::Link => {
+        "bg-transparent text-foreground decoration-primary underline-offset-4 hover:underline"
+      }
     }
   }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ButtonSize {
   Sm,
+  #[default]
   Md,
   Lg,
   Icon,
@@ -71,8 +75,8 @@ pub fn button_class(
 /// native `submit` type inside a form unless `r#type` says otherwise.
 #[component]
 pub fn Button(
-  #[props(default = ButtonVariant::Primary)] variant: ButtonVariant,
-  #[props(default = ButtonSize::Md)] size: ButtonSize,
+  #[props(default)] variant: ButtonVariant,
+  #[props(default)] size: ButtonSize,
   #[props(default)] density: UiDensity,
   #[props(default)] class: String,
   #[props(default)] disabled: bool,

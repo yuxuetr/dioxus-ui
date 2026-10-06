@@ -1,8 +1,8 @@
-use dioxus::prelude::*;
 use super::utils::{
   AnchoredPlacement, ListboxMode, classes, default_attribute, use_anchored_overlay, use_listbox,
 };
 pub use super::utils::{DismissBehavior, OverlayAlign, OverlaySide, SelectPrimitiveConfig};
+use dioxus::prelude::*;
 
 pub const SELECT_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
 pub const SELECT_VALUE_BASE_CLASS: &str = "truncate";
@@ -42,11 +42,7 @@ pub fn select_label_class(class: &str) -> String {
 }
 
 pub fn select_item_class(selected: bool, class: &str) -> String {
-  let selected_class = if selected {
-    "bg-accent text-accent-foreground"
-  } else {
-    "text-foreground"
-  };
+  let selected_class = if selected { "after:opacity-100" } else { "after:opacity-0" };
 
   classes([Some(SELECT_ITEM_BASE_CLASS), Some(selected_class), Some(class)])
 }
@@ -69,8 +65,9 @@ pub fn SelectTrigger(
   children: Element,
 ) -> Element {
   let class = select_trigger_class(invalid, &class);
-  let controls =
-    id.as_ref().and_then(|id| default_attribute(&attributes, "aria-controls", format!("{id}-content")));
+  let controls = id
+    .as_ref()
+    .and_then(|id| default_attribute(&attributes, "aria-controls", format!("{id}-content")));
 
   rsx! {
     button {

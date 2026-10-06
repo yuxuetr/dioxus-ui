@@ -1,8 +1,9 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum TextDirection {
+  #[default]
   Ltr,
   Rtl,
 }
@@ -24,7 +25,7 @@ pub fn direction_class(class: &str) -> String {
 
 #[component]
 pub fn Direction(
-  #[props(default = TextDirection::Ltr)] dir: TextDirection,
+  #[props(default)] dir: TextDirection,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {

@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 /// Remaining seconds split into days, hours, minutes, and seconds.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]

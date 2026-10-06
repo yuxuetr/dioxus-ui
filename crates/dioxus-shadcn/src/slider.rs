@@ -223,10 +223,10 @@ pub fn Slider(
         // Arrow, Page, Home, and End keys would otherwise scroll the page.
         event.prevent_default();
         let next = state.moved(movement).value;
-        if next != state.value
-          && let Some(handler) = on_value_change
-        {
-          handler.call(next);
+        if next != state.value {
+          if let Some(handler) = on_value_change {
+            handler.call(next);
+          }
         }
       },
       ..attributes,

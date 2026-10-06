@@ -1,12 +1,15 @@
+use super::utils::{
+  DialogLabelPart, classes, use_dialog_label_part, use_dialog_labels, use_modal_focus_scope,
+};
 pub use super::utils::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
-use super::utils::{classes, use_dialog_label_part, use_dialog_labels, use_modal_focus_scope, DialogLabelPart};
 use dioxus::prelude::*;
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum SheetSide {
   Top,
+  #[default]
   Right,
   Bottom,
   Left,
@@ -94,7 +97,7 @@ pub fn SheetOverlay(
 #[component]
 pub fn SheetContent(
   #[props(default)] open: bool,
-  #[props(default = SheetSide::Right)] side: SheetSide,
+  #[props(default)] side: SheetSide,
   #[props(default)] class: String,
   #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default = DismissBehavior::dialog_default())] dismiss: DismissBehavior,

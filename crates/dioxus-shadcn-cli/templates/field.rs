@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 pub const FIELD_BASE_CLASS: &str = "grid gap-2 data-[disabled=true]:opacity-50";
 pub const FIELD_INVALID_CLASS: &str = "data-[invalid=true]:text-destructive";
@@ -9,11 +9,7 @@ pub const FIELD_ERROR_BASE_CLASS: &str = "text-sm font-medium text-destructive";
 pub const FIELD_GROUP_BASE_CLASS: &str = "grid gap-4";
 
 pub fn field_class(invalid: bool, class: &str) -> String {
-  classes([
-    Some(FIELD_BASE_CLASS),
-    invalid.then_some(FIELD_INVALID_CLASS),
-    Some(class),
-  ])
+  classes([Some(FIELD_BASE_CLASS), invalid.then_some(FIELD_INVALID_CLASS), Some(class)])
 }
 
 pub fn field_label_class(class: &str) -> String {

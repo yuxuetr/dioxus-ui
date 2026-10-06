@@ -1368,7 +1368,10 @@ name = "dioxus-shadcn-cli"
 version = "0.2.0"
 dependencies = [
  "dioxus-shadcn-core",
+ "proc-macro2",
+ "quote",
  "serde_json",
+ "syn 2.0.118",
 ]
 
 [[package]]

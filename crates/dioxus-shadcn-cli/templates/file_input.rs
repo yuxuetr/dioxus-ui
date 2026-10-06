@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 pub const FILE_INPUT_BASE_CLASS: &str = "flex h-10 w-full cursor-pointer items-center overflow-hidden rounded-md border bg-background pe-3 text-sm text-muted-foreground transition-colors file:me-3 file:h-full file:cursor-pointer file:border-0 file:border-e file:border-solid file:border-input file:bg-secondary file:px-3 file:text-sm file:font-medium file:text-secondary-foreground hover:file:bg-secondary/80 focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
 

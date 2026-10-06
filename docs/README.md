@@ -103,7 +103,8 @@ Read in this order:
 96. [RFC 0063: Navigation Menu Submenus](rfcs/0063-navigation-menu-submenus.md)
 97. [RFC 0064: Typed Date Input](rfcs/0064-typed-date-input.md)
 98. [RFC 0065: Pie and Donut Charts](rfcs/0065-pie-and-donut-charts.md)
-99. [TODO Plan](../TODOs.md)
+99. [RFC 0066: Template Parity](rfcs/0066-template-parity.md)
+100. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 

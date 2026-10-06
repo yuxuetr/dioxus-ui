@@ -1,18 +1,20 @@
-use dioxus::prelude::*;
 use super::utils::{classes, use_dismiss_timer};
+use dioxus::prelude::*;
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ToastPlacement {
   TopLeft,
   TopCenter,
   TopRight,
   BottomLeft,
   BottomCenter,
+  #[default]
   BottomRight,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ToastVariant {
+  #[default]
   Default,
   Success,
   Info,
@@ -80,17 +82,11 @@ pub struct ToastQueue {
 
 impl ToastQueue {
   pub fn new(limit: usize) -> Self {
-    Self {
-      items: Vec::new(),
-      limit,
-    }
+    Self { items: Vec::new(), limit }
   }
 
   pub fn with_items(items: Vec<ToastItem>, limit: usize) -> Self {
-    Self {
-      items: toast_queue_limit(items, limit),
-      limit,
-    }
+    Self { items: toast_queue_limit(items, limit), limit }
   }
 
   pub fn push(self, item: ToastItem) -> Self {
@@ -102,7 +98,8 @@ impl ToastQueue {
   }
 }
 
-pub const TOAST_VIEWPORT_BASE_CLASS: &str = "fixed z-50 flex max-h-screen w-full flex-col gap-2 p-4 sm:max-w-sm";
+pub const TOAST_VIEWPORT_BASE_CLASS: &str =
+  "fixed z-50 flex max-h-screen w-full flex-col gap-2 p-4 sm:max-w-sm";
 pub const TOAST_ROOT_BASE_CLASS: &str = "pointer-events-auto relative grid w-full gap-1 overflow-hidden rounded-md border bg-popover p-4 pr-10 text-popover-foreground shadow-lg transition-all data-[state=closed]:opacity-0 data-[state=open]:opacity-100";
 pub const TOAST_TITLE_BASE_CLASS: &str = "text-sm font-semibold leading-none tracking-normal";
 pub const TOAST_DESCRIPTION_BASE_CLASS: &str = "text-sm";
@@ -149,19 +146,12 @@ pub fn toast_queue_push(queue: ToastQueue, item: ToastItem) -> ToastQueue {
 
   items.push(item);
 
-  ToastQueue {
-    items: toast_queue_limit(items, queue.limit),
-    limit: queue.limit,
-  }
+  ToastQueue { items: toast_queue_limit(items, queue.limit), limit: queue.limit }
 }
 
 pub fn toast_queue_dismiss(queue: ToastQueue, id: &str) -> ToastQueue {
   ToastQueue {
-    items: queue
-      .items
-      .into_iter()
-      .filter(|item| item.id != id)
-      .collect(),
+    items: queue.items.into_iter().filter(|item| item.id != id).collect(),
     limit: queue.limit,
   }
 }
@@ -173,11 +163,7 @@ pub fn toast_queue_limit(items: Vec<ToastItem>, limit: usize) -> Vec<ToastItem> 
 
   let len = items.len();
 
-  if len <= limit {
-    items
-  } else {
-    items.into_iter().skip(len - limit).collect()
-  }
+  if len <= limit { items } else { items.into_iter().skip(len - limit).collect() }
 }
 
 pub const fn toast_is_expired(elapsed_ms: u64, duration_ms: u64) -> bool {
@@ -194,11 +180,7 @@ pub fn toast_viewport_class(placement: ToastPlacement, class: &str) -> String {
     ToastPlacement::BottomRight => "bottom-0 right-0 sm:right-0",
   };
 
-  classes([
-    Some(TOAST_VIEWPORT_BASE_CLASS),
-    Some(placement_class),
-    Some(class),
-  ])
+  classes([Some(TOAST_VIEWPORT_BASE_CLASS), Some(placement_class), Some(class)])
 }
 
 pub fn toast_root_class(variant: ToastVariant, class: &str) -> String {
@@ -211,11 +193,7 @@ pub fn toast_root_class(variant: ToastVariant, class: &str) -> String {
     ToastVariant::Loading => "border-border text-foreground",
   };
 
-  classes([
-    Some(TOAST_ROOT_BASE_CLASS),
-    Some(variant_class),
-    Some(class),
-  ])
+  classes([Some(TOAST_ROOT_BASE_CLASS), Some(variant_class), Some(class)])
 }
 
 pub fn toast_title_class(class: &str) -> String {
@@ -231,11 +209,7 @@ pub fn toast_description_class(variant: ToastVariant, class: &str) -> String {
     ToastVariant::Error => "text-muted-foreground",
   };
 
-  classes([
-    Some(TOAST_DESCRIPTION_BASE_CLASS),
-    Some(variant_class),
-    Some(class),
-  ])
+  classes([Some(TOAST_DESCRIPTION_BASE_CLASS), Some(variant_class), Some(class)])
 }
 
 pub fn toast_action_class(disabled: bool, class: &str) -> String {
@@ -267,7 +241,7 @@ pub fn toast_live_attribute(variant: ToastVariant) -> &'static str {
 /// assistive technology announces them.
 #[component]
 pub fn ToastViewport(
-  #[props(default = ToastPlacement::BottomRight)] placement: ToastPlacement,
+  #[props(default)] placement: ToastPlacement,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
@@ -289,7 +263,7 @@ pub fn ToastViewport(
 /// the pointer is over the toast or focus is inside it. `0` disables the timer.
 #[component]
 pub fn ToastRoot(
-  #[props(default = ToastVariant::Default)] variant: ToastVariant,
+  #[props(default)] variant: ToastVariant,
   #[props(default = true)] open: bool,
   #[props(default)] class: String,
   #[props(default = 5000)] duration_ms: u64,
@@ -327,7 +301,7 @@ pub fn ToastTitle(#[props(default)] class: String, children: Element) -> Element
 
 #[component]
 pub fn ToastDescription(
-  #[props(default = ToastVariant::Default)] variant: ToastVariant,
+  #[props(default)] variant: ToastVariant,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {

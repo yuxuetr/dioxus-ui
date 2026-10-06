@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum StepsOrientation {
@@ -60,8 +60,7 @@ pub const STEPS_BASE_CLASS: &str =
 pub const STEP_BASE_CLASS: &str = "group/step flex flex-1 flex-col items-center gap-2 text-center text-sm [counter-increment:step] group-data-[orientation=vertical]/steps:flex-row group-data-[orientation=vertical]/steps:items-stretch group-data-[orientation=vertical]/steps:gap-3 group-data-[orientation=vertical]/steps:text-left";
 pub const STEP_TRACK_BASE_CLASS: &str = "flex w-full items-center before:h-0.5 before:flex-1 after:h-0.5 after:flex-1 group-first/step:before:invisible group-last/step:after:invisible group-data-[orientation=vertical]/steps:w-auto group-data-[orientation=vertical]/steps:flex-col group-data-[orientation=vertical]/steps:before:h-2 group-data-[orientation=vertical]/steps:before:w-0.5 group-data-[orientation=vertical]/steps:before:flex-none group-data-[orientation=vertical]/steps:after:h-auto group-data-[orientation=vertical]/steps:after:w-0.5";
 pub const STEP_INDICATOR_BASE_CLASS: &str = "flex size-8 shrink-0 items-center justify-center rounded-full border-2 text-sm font-medium before:content-[counter(step)]";
-pub const STEP_LABEL_BASE_CLASS: &str =
-  "px-2 group-data-[orientation=vertical]/steps:px-0 group-data-[orientation=vertical]/steps:pt-3 group-data-[orientation=vertical]/steps:pb-6";
+pub const STEP_LABEL_BASE_CLASS: &str = "px-2 group-data-[orientation=vertical]/steps:px-0 group-data-[orientation=vertical]/steps:pt-3 group-data-[orientation=vertical]/steps:pb-6";
 
 pub fn steps_class(class: &str) -> String {
   classes([Some(STEPS_BASE_CLASS), Some(class)])

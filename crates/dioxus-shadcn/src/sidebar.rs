@@ -214,8 +214,10 @@ pub fn SidebarItem(
   let aria_current = active.then_some("page");
   let has_onclick = onclick.is_some();
   let onclick = move |event: MouseEvent| {
-    if !disabled && let Some(handler) = onclick {
-      handler.call(event);
+    if !disabled {
+      if let Some(handler) = onclick {
+        handler.call(event);
+      }
     }
   };
 
@@ -281,8 +283,10 @@ pub fn SidebarTrigger(
       "aria-expanded": (!collapsed).to_string(),
       "data-collapsed": collapsed.to_string(),
       onclick: move |_| {
-        if !disabled && let Some(handler) = on_collapsed_change {
-          handler.call(!collapsed);
+        if !disabled {
+          if let Some(handler) = on_collapsed_change {
+            handler.call(!collapsed);
+          }
         }
       },
       ..attributes,

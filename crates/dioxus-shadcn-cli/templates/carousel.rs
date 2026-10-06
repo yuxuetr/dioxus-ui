@@ -1,8 +1,10 @@
-use dioxus::prelude::*;
 use super::utils::{classes, default_attribute};
+use dioxus::prelude::*;
+
+pub use self::LayoutOrientation as CarouselOrientation;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
-pub enum CarouselOrientation {
+pub enum LayoutOrientation {
   #[default]
   Horizontal,
   Vertical,
@@ -17,11 +19,7 @@ pub struct CarouselState {
 
 impl CarouselState {
   pub const fn new(index: usize, item_count: usize) -> Self {
-    Self {
-      index,
-      item_count,
-      looping: false,
-    }
+    Self { index, item_count, looping: false }
   }
 
   pub const fn with_looping(mut self, looping: bool) -> Self {
@@ -30,24 +28,15 @@ impl CarouselState {
   }
 
   pub fn clamped(self) -> Self {
-    Self {
-      index: carousel_clamp_index(self.index, self.item_count),
-      ..self
-    }
+    Self { index: carousel_clamp_index(self.index, self.item_count), ..self }
   }
 
   pub fn next(self) -> Self {
-    Self {
-      index: carousel_next(self.index, self.item_count, self.looping),
-      ..self
-    }
+    Self { index: carousel_next(self.index, self.item_count, self.looping), ..self }
   }
 
   pub fn previous(self) -> Self {
-    Self {
-      index: carousel_previous(self.index, self.item_count, self.looping),
-      ..self
-    }
+    Self { index: carousel_previous(self.index, self.item_count, self.looping), ..self }
   }
 }
 
@@ -66,11 +55,7 @@ pub fn carousel_orientation_attribute(orientation: CarouselOrientation) -> &'sta
 }
 
 pub fn carousel_clamp_index(index: usize, item_count: usize) -> usize {
-  if item_count == 0 {
-    0
-  } else {
-    index.min(item_count - 1)
-  }
+  if item_count == 0 { 0 } else { index.min(item_count - 1) }
 }
 
 pub fn carousel_can_go_next(index: usize, item_count: usize, looping: bool) -> bool {
@@ -127,11 +112,7 @@ pub fn carousel_content_class(orientation: CarouselOrientation, class: &str) -> 
     CarouselOrientation::Vertical => "-mt-4 flex-col",
   };
 
-  classes([
-    Some(CAROUSEL_CONTENT_BASE_CLASS),
-    Some(orientation_class),
-    Some(class),
-  ])
+  classes([Some(CAROUSEL_CONTENT_BASE_CLASS), Some(orientation_class), Some(class)])
 }
 
 pub fn carousel_item_class(

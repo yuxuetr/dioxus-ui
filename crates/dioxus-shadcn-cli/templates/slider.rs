@@ -1,7 +1,7 @@
 use std::sync::atomic::{AtomicUsize, Ordering};
 
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 static NEXT_SLIDER_ID: AtomicUsize = AtomicUsize::new(0);
 
@@ -63,7 +63,6 @@ await ended;
 observer.disconnect();
 "#;
 
-
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct SliderState {
   pub value: f64,
@@ -77,22 +76,14 @@ impl SliderState {
   pub fn new(value: f64, min: f64, max: f64, step: f64) -> Self {
     let (min, max) = ordered_bounds(min, max);
     let step = positive_or_default(step, 1.0);
+    let page_step = step * 10.0;
     let value = snap_value(value, min, max, step);
 
-    Self {
-      value,
-      min,
-      max,
-      step,
-      page_step: step * 10.0,
-    }
+    Self { value, min, max, step, page_step }
   }
 
   pub fn with_value(self, value: f64) -> Self {
-    Self {
-      value: snap_value(value, self.min, self.max, self.step),
-      ..self
-    }
+    Self { value: snap_value(value, self.min, self.max, self.step), ..self }
   }
 
   pub fn moved(self, movement: SliderKeyMove) -> Self {
@@ -144,8 +135,7 @@ pub struct SliderAriaAttributes {
 
 pub const SLIDER_ROOT_BASE_CLASS: &str =
   "relative flex touch-none select-none items-center disabled:opacity-50";
-pub const SLIDER_TRACK_BASE_CLASS: &str =
-  "relative grow overflow-hidden rounded-full bg-muted";
+pub const SLIDER_TRACK_BASE_CLASS: &str = "relative grow overflow-hidden rounded-full bg-muted";
 pub const SLIDER_RANGE_BASE_CLASS: &str = "absolute rounded-full bg-primary";
 pub const SLIDER_THUMB_BASE_CLASS: &str = "block h-5 w-5 rounded-full border-2 border-primary bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
@@ -240,12 +230,7 @@ pub fn slider_key_move(key: &str) -> Option<SliderKeyMove> {
   }
 }
 
-pub fn slider_aria_attributes(
-  value: f64,
-  min: f64,
-  max: f64,
-  step: f64,
-) -> SliderAriaAttributes {
+pub fn slider_aria_attributes(value: f64, min: f64, max: f64, step: f64) -> SliderAriaAttributes {
   slider_state(value, min, max, step).aria_attributes()
 }
 
@@ -260,38 +245,22 @@ fn snap_value(value: f64, min: f64, max: f64, step: f64) -> f64 {
 fn slider_clamp(value: f64, min: f64, max: f64) -> f64 {
   let (min, max) = ordered_bounds(min, max);
 
-  if value.is_finite() {
-    value.clamp(min, max)
-  } else {
-    min
-  }
+  if value.is_finite() { value.clamp(min, max) } else { min }
 }
 
 fn ordered_bounds(min: f64, max: f64) -> (f64, f64) {
   let min = finite_or_default(min, 0.0);
   let max = finite_or_default(max, min);
 
-  if min <= max {
-    (min, max)
-  } else {
-    (max, min)
-  }
+  if min <= max { (min, max) } else { (max, min) }
 }
 
 fn positive_or_default(value: f64, default: f64) -> f64 {
-  if value.is_finite() && value > 0.0 {
-    value
-  } else {
-    default
-  }
+  if value.is_finite() && value > 0.0 { value } else { default }
 }
 
 fn finite_or_default(value: f64, default: f64) -> f64 {
-  if value.is_finite() {
-    value
-  } else {
-    default
-  }
+  if value.is_finite() { value } else { default }
 }
 
 /// A controlled slider. Arrow, Page Up, Page Down, Home, and End keys and a

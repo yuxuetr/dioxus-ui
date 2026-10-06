@@ -1,5 +1,6 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
+use std::ops::Range;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum DataTableSortDirection {
@@ -15,17 +16,11 @@ pub struct DataTableSortState {
 
 impl DataTableSortState {
   pub fn ascending(column_id: impl Into<String>) -> Self {
-    Self {
-      column_id: column_id.into(),
-      direction: DataTableSortDirection::Ascending,
-    }
+    Self { column_id: column_id.into(), direction: DataTableSortDirection::Ascending }
   }
 
   pub fn descending(column_id: impl Into<String>) -> Self {
-    Self {
-      column_id: column_id.into(),
-      direction: DataTableSortDirection::Descending,
-    }
+    Self { column_id: column_id.into(), direction: DataTableSortDirection::Descending }
   }
 }
 
@@ -58,17 +53,22 @@ pub fn data_table_page_count(total_items: usize, page_size: usize) -> usize {
   total_items.div_ceil(page_size)
 }
 
-pub fn data_table_page_window(page: usize, page_size: usize, total_items: usize) -> std::ops::Range<usize> {
+pub fn data_table_page_window(page: usize, page_size: usize, total_items: usize) -> Range<usize> {
   if page_size == 0 || total_items == 0 {
     return 0..0;
   }
 
-  let page_count = data_table_page_count(total_items, page_size);
-  let page = if page_count == 0 { 0 } else { page.min(page_count - 1) };
+  let page = data_table_clamp_page(page, total_items, page_size);
   let start = page.saturating_mul(page_size).min(total_items);
   let end = start.saturating_add(page_size).min(total_items);
 
   start..end
+}
+
+pub fn data_table_clamp_page(page: usize, total_items: usize, page_size: usize) -> usize {
+  let page_count = data_table_page_count(total_items, page_size);
+
+  if page_count == 0 { 0 } else { page.min(page_count - 1) }
 }
 
 pub fn data_table_toggle_row(selected_ids: &[String], row_id: &str) -> Vec<String> {
@@ -84,9 +84,8 @@ pub fn data_table_toggle_row(selected_ids: &[String], row_id: &str) -> Vec<Strin
 }
 
 pub fn data_table_toggle_all_rows(selected_ids: &[String], visible_ids: &[String]) -> Vec<String> {
-  let all_visible_selected = visible_ids
-    .iter()
-    .all(|id| selected_ids.iter().any(|selected_id| selected_id == id));
+  let all_visible_selected =
+    visible_ids.iter().all(|id| selected_ids.iter().any(|selected_id| selected_id == id));
 
   let mut next = selected_ids.to_vec();
 
@@ -126,12 +125,15 @@ fn sorted_unique(mut values: Vec<String>) -> Vec<String> {
 }
 
 pub const DATA_TABLE_BASE_CLASS: &str = "grid gap-4";
-pub const DATA_TABLE_TOOLBAR_BASE_CLASS: &str = "flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between";
-pub const DATA_TABLE_CONTAINER_BASE_CLASS: &str = "relative w-full overflow-auto rounded-md border border-border";
+pub const DATA_TABLE_TOOLBAR_BASE_CLASS: &str =
+  "flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between";
+pub const DATA_TABLE_CONTAINER_BASE_CLASS: &str =
+  "relative w-full overflow-auto rounded-md border border-border";
 pub const DATA_TABLE_HEADER_CELL_BASE_CLASS: &str = "h-12 px-4 text-left align-middle text-sm font-medium data-[sort=ascending]:text-foreground data-[sort=descending]:text-foreground";
 pub const DATA_TABLE_ROW_BASE_CLASS: &str = "border-b transition-colors hover:bg-muted data-[selected=true]:bg-muted data-[disabled=true]:opacity-50";
 pub const DATA_TABLE_CELL_BASE_CLASS: &str = "p-4 align-middle text-sm";
-pub const DATA_TABLE_PAGINATION_BASE_CLASS: &str = "flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between";
+pub const DATA_TABLE_PAGINATION_BASE_CLASS: &str =
+  "flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between";
 pub const DATA_TABLE_SELECTED_COUNT_BASE_CLASS: &str = "text-sm text-muted-foreground";
 pub const DATA_TABLE_EMPTY_BASE_CLASS: &str = "py-10 text-center text-sm text-muted-foreground";
 pub const DATA_TABLE_LOADING_BASE_CLASS: &str = "py-10 text-center text-sm text-muted-foreground";
@@ -166,11 +168,7 @@ pub fn data_table_row_class(selected: bool, disabled: bool, class: &str) -> Stri
 }
 
 pub fn data_table_cell_class(hidden: bool, class: &str) -> String {
-  classes([
-    Some(DATA_TABLE_CELL_BASE_CLASS),
-    hidden.then_some("hidden"),
-    Some(class),
-  ])
+  classes([Some(DATA_TABLE_CELL_BASE_CLASS), hidden.then_some("hidden"), Some(class)])
 }
 
 pub fn data_table_pagination_class(class: &str) -> String {

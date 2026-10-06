@@ -39,7 +39,8 @@ pub enum UiDensity {
   Touch,
 }
 
-#[derive(Clone, Debug, Default, Eq, PartialEq)]
+/// Strategy for focusing content when an overlay opens.
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum FocusStrategy {
   #[default]
   FirstFocusable,
@@ -47,7 +48,8 @@ pub enum FocusStrategy {
   None,
 }
 
-#[derive(Clone, Debug, Default, Eq, PartialEq)]
+/// Strategy for returning focus when an overlay closes.
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum FocusReturn {
   #[default]
   Trigger,
@@ -63,27 +65,15 @@ pub struct DismissBehavior {
 
 impl DismissBehavior {
   pub const fn dialog_default() -> Self {
-    Self {
-      escape_key: true,
-      outside_pointer: false,
-      focus_outside: false,
-    }
+    Self { escape_key: true, outside_pointer: false, focus_outside: false }
   }
 
   pub const fn popover_default() -> Self {
-    Self {
-      escape_key: true,
-      outside_pointer: true,
-      focus_outside: true,
-    }
+    Self { escape_key: true, outside_pointer: true, focus_outside: true }
   }
 
   pub const fn tooltip_default() -> Self {
-    Self {
-      escape_key: true,
-      outside_pointer: false,
-      focus_outside: false,
-    }
+    Self { escape_key: true, outside_pointer: false, focus_outside: false }
   }
 }
 
@@ -1151,7 +1141,6 @@ pub fn use_hover_open(
 
 static NEXT_DIALOG_LABELS_ID: AtomicUsize = AtomicUsize::new(0);
 
-
 /// Links dialog content to the title and description mounted inside it. Each
 /// part sets its flag while mounted, so the content never points at a missing
 /// id.
@@ -1186,11 +1175,9 @@ impl DialogLabels {
   /// The content's `aria-labelledby` and `aria-describedby`. A passed
   /// `aria-labelledby` or `aria-label` replaces the first and a passed
   /// `aria-describedby` the second, so SSR writes a single value.
-  pub fn content_attributes(
-    self,
-    attributes: &[Attribute],
-  ) -> (Option<String>, Option<String>) {
-    let passed = |names: &[&str]| attributes.iter().any(|attribute| names.contains(&attribute.name));
+  pub fn content_attributes(self, attributes: &[Attribute]) -> (Option<String>, Option<String>) {
+    let passed =
+      |names: &[&str]| attributes.iter().any(|attribute| names.contains(&attribute.name));
     let labelledby = (!passed(&["aria-labelledby", "aria-label"]) && (self.has_title)())
       .then(|| self.part_id(DialogLabelPart::Title));
     let describedby = (!passed(&["aria-describedby"]) && (self.has_description)())

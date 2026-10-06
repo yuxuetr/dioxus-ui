@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::{classes, default_attribute};
+use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ScrollAreaOrientation {
@@ -43,11 +43,7 @@ pub fn scroll_area_scrollbar_class(orientation: ScrollAreaOrientation, class: &s
     ScrollAreaOrientation::Both => "h-full w-2.5 border-l border-l-transparent p-px",
   };
 
-  classes([
-    Some(SCROLL_AREA_SCROLLBAR_BASE_CLASS),
-    Some(orientation_class),
-    Some(class),
-  ])
+  classes([Some(SCROLL_AREA_SCROLLBAR_BASE_CLASS), Some(orientation_class), Some(class)])
 }
 
 pub fn scroll_area_thumb_class(class: &str) -> String {

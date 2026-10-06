@@ -1,8 +1,9 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ButtonGroupOrientation {
+  #[default]
   Horizontal,
   Vertical,
 }
@@ -57,7 +58,7 @@ pub fn button_group_item_class(class: &str) -> String {
 
 #[component]
 pub fn ButtonGroup(
-  #[props(default = ButtonGroupOrientation::Horizontal)] orientation: ButtonGroupOrientation,
+  #[props(default)] orientation: ButtonGroupOrientation,
   #[props(default = true)] attached: bool,
   #[props(default)] aria_label: String,
   #[props(default)] class: String,

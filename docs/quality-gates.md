@@ -19,10 +19,15 @@ Run after changes to CLI, registry, templates, or component dependencies:
 
 ```bash
 cargo test -p dioxus-shadcn-cli --test registry
+cargo test -p dioxus-shadcn-cli --test template_parity
 scripts/generated-fixture-smoke.sh
 ```
 
 This verifies:
+
+- every template item matches its crate module, or the primitive, core, or
+  shared helper it inlines, apart from the crate-only items the test lists
+  (see RFC 0066). A failure shows both copies at the first difference.
 
 - public registry component names match `dioxus-shadcn` crate feature names.
 - public registry components have docs pages and catalog entries.

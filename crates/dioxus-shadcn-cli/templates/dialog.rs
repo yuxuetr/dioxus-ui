@@ -1,8 +1,10 @@
-use dioxus::prelude::*;
-use super::utils::{classes, use_modal_focus_scope, use_dialog_labels, use_dialog_label_part, DialogLabelPart};
+use super::utils::{
+  DialogLabelPart, classes, use_dialog_label_part, use_dialog_labels, use_modal_focus_scope,
+};
 pub use super::utils::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
+use dioxus::prelude::*;
 
 pub const DIALOG_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";
 pub const DIALOG_CONTENT_BASE_CLASS: &str = "fixed left-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 rounded-md border border-border bg-background p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";

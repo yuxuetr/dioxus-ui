@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 pub const EMPTY_BASE_CLASS: &str = "flex min-h-40 flex-col items-center justify-center gap-6 rounded-md border border-dashed border-border p-8 text-center";
 pub const EMPTY_HEADER_BASE_CLASS: &str = "flex flex-col items-center gap-2";

@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 pub const DOCK_BASE_CLASS: &str = "z-40 flex h-16 items-stretch border-t border-border bg-background pb-[env(safe-area-inset-bottom)] text-foreground";
 pub const DOCK_FIXED_CLASS: &str = "fixed inset-x-0 bottom-0";

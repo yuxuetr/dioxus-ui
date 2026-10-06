@@ -1,7 +1,9 @@
+use super::utils::{
+  DialogLabelPart, classes, use_dialog_label_part, use_dialog_labels, use_modal_focus_scope,
+};
 pub use super::utils::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
-use super::utils::{classes, use_dialog_label_part, use_dialog_labels, use_modal_focus_scope, DialogLabelPart};
 use dioxus::prelude::*;
 
 pub const DRAWER_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";

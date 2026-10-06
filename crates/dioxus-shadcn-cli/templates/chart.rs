@@ -1,11 +1,12 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 pub const CHART_BASE_CLASS: &str = "relative w-full text-foreground";
 pub const CHART_SVG_BASE_CLASS: &str = "h-auto w-full overflow-visible";
 pub const CHART_TITLE_BASE_CLASS: &str = "text-sm font-medium text-foreground";
 pub const CHART_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
-pub const CHART_LEGEND_BASE_CLASS: &str = "mt-3 flex flex-wrap items-center gap-3 text-sm text-muted-foreground";
+pub const CHART_LEGEND_BASE_CLASS: &str =
+  "mt-3 flex flex-wrap items-center gap-3 text-sm text-muted-foreground";
 pub const CHART_FALLBACK_TABLE_BASE_CLASS: &str = "mt-4 w-full caption-bottom text-sm";
 pub const CHART_TOOLTIP_SLOT_BASE_CLASS: &str = "pointer-events-none absolute z-20 rounded-md border border-border bg-popover px-3 py-2 text-sm text-popover-foreground shadow-md";
 pub const CHART_LINE_SERIES_BASE_CLASS: &str = "fill-none stroke-current";
@@ -36,16 +37,8 @@ pub struct ChartSeries {
 }
 
 impl ChartSeries {
-  pub fn new(
-    id: impl Into<String>,
-    label: impl Into<String>,
-    points: Vec<ChartPoint>,
-  ) -> Self {
-    Self {
-      id: id.into(),
-      label: label.into(),
-      points,
-    }
+  pub fn new(id: impl Into<String>, label: impl Into<String>, points: Vec<ChartPoint>) -> Self {
+    Self { id: id.into(), label: label.into(), points }
   }
 }
 
@@ -73,10 +66,7 @@ pub struct ChartScale {
 
 impl ChartScale {
   pub fn new(domain: ChartDomain, range: ChartDomain) -> Self {
-    Self {
-      domain: domain.normalized(),
-      range: range.normalized(),
-    }
+    Self { domain: domain.normalized(), range: range.normalized() }
   }
 
   pub fn scale(self, value: f64) -> f64 {
@@ -144,35 +134,19 @@ pub fn chart_fallback_table_class(class: &str) -> String {
 }
 
 pub fn chart_tooltip_slot_class(visible: bool, class: &str) -> String {
-  classes([
-    Some(CHART_TOOLTIP_SLOT_BASE_CLASS),
-    (!visible).then_some("hidden"),
-    Some(class),
-  ])
+  classes([Some(CHART_TOOLTIP_SLOT_BASE_CLASS), (!visible).then_some("hidden"), Some(class)])
 }
 
 pub fn chart_line_series_class(color: ChartColorToken, class: &str) -> String {
-  classes([
-    Some(CHART_LINE_SERIES_BASE_CLASS),
-    Some(chart_color_class(color)),
-    Some(class),
-  ])
+  classes([Some(CHART_LINE_SERIES_BASE_CLASS), Some(chart_color_class(color)), Some(class)])
 }
 
 pub fn chart_area_series_class(color: ChartColorToken, class: &str) -> String {
-  classes([
-    Some(CHART_AREA_SERIES_BASE_CLASS),
-    Some(chart_color_class(color)),
-    Some(class),
-  ])
+  classes([Some(CHART_AREA_SERIES_BASE_CLASS), Some(chart_color_class(color)), Some(class)])
 }
 
 pub fn chart_bar_series_class(color: ChartColorToken, class: &str) -> String {
-  classes([
-    Some(CHART_BAR_SERIES_BASE_CLASS),
-    Some(chart_color_class(color)),
-    Some(class),
-  ])
+  classes([Some(CHART_BAR_SERIES_BASE_CLASS), Some(chart_color_class(color)), Some(class)])
 }
 
 pub fn chart_domain(values: &[f64]) -> ChartDomain {
@@ -192,10 +166,8 @@ pub fn chart_domain(values: &[f64]) -> ChartDomain {
 }
 
 pub fn chart_series_x_domain(series: &[ChartSeries]) -> ChartDomain {
-  let values = series
-    .iter()
-    .flat_map(|series| series.points.iter().map(|point| point.x))
-    .collect::<Vec<_>>();
+  let values =
+    series.iter().flat_map(|series| series.points.iter().map(|point| point.x)).collect::<Vec<_>>();
 
   chart_domain(&values)
 }
@@ -263,23 +235,14 @@ pub fn chart_color_attribute(token: ChartColorToken) -> &'static str {
 pub fn chart_summary(series: &[ChartSeries]) -> String {
   let series_count = series.len();
   let point_count = series.iter().map(|series| series.points.len()).sum::<usize>();
-  let missing_count = series
-    .iter()
-    .flat_map(|series| series.points.iter())
-    .filter(|point| point.y.is_none())
-    .count();
+  let missing_count =
+    series.iter().flat_map(|series| series.points.iter()).filter(|point| point.y.is_none()).count();
 
-  format!(
-    "{series_count} series, {point_count} points, {missing_count} missing values"
-  )
+  format!("{series_count} series, {point_count} points, {missing_count} missing values")
 }
 
 pub fn chart_series_label(series: &ChartSeries, token: ChartColorToken) -> String {
-  format!(
-    "{} ({})",
-    series.label,
-    chart_color_attribute(token)
-  )
+  format!("{} ({})", series.label, chart_color_attribute(token))
 }
 
 pub fn chart_value_label(series_label: &str, x_label: &str, y: Option<f64>) -> String {
@@ -297,10 +260,7 @@ pub fn chart_fallback_rows(series: &[ChartSeries]) -> Vec<ChartFallbackRow> {
         series_id: series.id.clone(),
         series_label: series.label.clone(),
         x_label: chart_number_label(point.x),
-        y_label: point
-          .y
-          .map(chart_number_label)
-          .unwrap_or_else(|| "missing".to_string()),
+        y_label: point.y.map(chart_number_label).unwrap_or_else(|| "missing".to_string()),
         missing: point.y.is_none(),
       })
     })
@@ -308,22 +268,14 @@ pub fn chart_fallback_rows(series: &[ChartSeries]) -> Vec<ChartFallbackRow> {
 }
 
 pub fn chart_number_label(value: f64) -> String {
-  if value.is_finite() {
-    value.to_string()
-  } else {
-    "missing".to_string()
-  }
+  if value.is_finite() { value.to_string() } else { "missing".to_string() }
 }
 
 pub fn chart_domain_normalize(min: f64, max: f64) -> ChartDomain {
   let min = finite_or_default(min, 0.0);
   let max = finite_or_default(max, min);
 
-  if min <= max {
-    ChartDomain::new(min, max)
-  } else {
-    ChartDomain::new(max, min)
-  }
+  if min <= max { ChartDomain::new(min, max) } else { ChartDomain::new(max, min) }
 }
 
 pub fn chart_view_box(width: f64, height: f64) -> String {
@@ -360,18 +312,12 @@ pub fn chart_area_path(
   let line = chart_line_path(series, x_scale, y_scale);
   let last_present = series.points.iter().rev().find_map(|point| {
     point.y.map(|_| {
-      (
-        chart_number_label(x_scale.scale(point.x)),
-        chart_number_label(y_scale.scale(baseline)),
-      )
+      (chart_number_label(x_scale.scale(point.x)), chart_number_label(y_scale.scale(baseline)))
     })
   });
   let first_present = series.points.iter().find_map(|point| {
     point.y.map(|_| {
-      (
-        chart_number_label(x_scale.scale(point.x)),
-        chart_number_label(y_scale.scale(baseline)),
-      )
+      (chart_number_label(x_scale.scale(point.x)), chart_number_label(y_scale.scale(baseline)))
     })
   });
 
@@ -416,19 +362,11 @@ fn midpoint(domain: ChartDomain) -> f64 {
 }
 
 fn finite_or_default(value: f64, default: f64) -> f64 {
-  if value.is_finite() {
-    value
-  } else {
-    default
-  }
+  if value.is_finite() { value } else { default }
 }
 
 fn non_negative_finite(value: f64) -> f64 {
-  if value.is_finite() {
-    value.max(0.0)
-  } else {
-    0.0
-  }
+  if value.is_finite() { value.max(0.0) } else { 0.0 }
 }
 
 #[component]
@@ -467,11 +405,7 @@ pub fn ChartSvg(
 }
 
 #[component]
-pub fn ChartTitle(
-  id: String,
-  #[props(default)] class: String,
-  children: Element,
-) -> Element {
+pub fn ChartTitle(id: String, #[props(default)] class: String, children: Element) -> Element {
   let class = chart_title_class(&class);
 
   rsx! {
@@ -484,11 +418,7 @@ pub fn ChartTitle(
 }
 
 #[component]
-pub fn ChartDescription(
-  id: String,
-  #[props(default)] class: String,
-  children: Element,
-) -> Element {
+pub fn ChartDescription(id: String, #[props(default)] class: String, children: Element) -> Element {
   let class = chart_description_class(&class);
 
   rsx! {
@@ -660,7 +590,12 @@ pub struct ChartSlice {
 }
 
 impl ChartSlice {
-  pub fn new(id: impl Into<String>, label: impl Into<String>, value: f64, color: ChartColorToken) -> Self {
+  pub fn new(
+    id: impl Into<String>,
+    label: impl Into<String>,
+    value: f64,
+    color: ChartColorToken,
+  ) -> Self {
     Self { id: id.into(), label: label.into(), value, color }
   }
 }
@@ -729,8 +664,16 @@ fn full_circle_path(center: (f64, f64), radius: f64, inner: f64) -> String {
 /// total, from the top, clockwise. Values that are negative, zero, or not
 /// finite count as zero and get an empty path; a zero total draws nothing.
 /// `inner_radius` above zero makes a donut.
-pub fn chart_pie_arcs(values: &[f64], center: (f64, f64), radius: f64, inner_radius: f64) -> Vec<ChartArc> {
-  let sizes = values.iter().map(|value| if value.is_finite() && *value > 0.0 { *value } else { 0.0 }).collect::<Vec<_>>();
+pub fn chart_pie_arcs(
+  values: &[f64],
+  center: (f64, f64),
+  radius: f64,
+  inner_radius: f64,
+) -> Vec<ChartArc> {
+  let sizes = values
+    .iter()
+    .map(|value| if value.is_finite() && *value > 0.0 { *value } else { 0.0 })
+    .collect::<Vec<_>>();
   let total = sizes.iter().sum::<f64>();
   let radius = non_negative_finite(radius);
   let inner = non_negative_finite(inner_radius).min(radius);

@@ -1,10 +1,11 @@
-use dioxus::prelude::*;
+use super::calendar::CalendarDate;
 use super::utils::{AnchoredPlacement, classes, use_anchored_overlay, use_modal_focus_scope};
 pub use super::utils::{DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
-use super::calendar::CalendarDate;
+use dioxus::prelude::*;
 
 pub const DATE_PICKER_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
-pub const DATE_PICKER_VALUE_BASE_CLASS: &str = "truncate text-left data-[placeholder=true]:text-muted-foreground";
+pub const DATE_PICKER_VALUE_BASE_CLASS: &str =
+  "truncate text-left data-[placeholder=true]:text-muted-foreground";
 pub const DATE_PICKER_CONTENT_BASE_CLASS: &str = "z-50 w-auto rounded-md border border-border bg-popover p-0 text-popover-foreground shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
 pub fn date_picker_trigger_class(invalid: bool, class: &str) -> String {
@@ -14,11 +15,7 @@ pub fn date_picker_trigger_class(invalid: bool, class: &str) -> String {
     "border-input focus-visible:ring-ring"
   };
 
-  classes([
-    Some(DATE_PICKER_TRIGGER_BASE_CLASS),
-    Some(invalid_class),
-    Some(class),
-  ])
+  classes([Some(DATE_PICKER_TRIGGER_BASE_CLASS), Some(invalid_class), Some(class)])
 }
 
 pub fn date_picker_value_class(class: &str) -> String {
@@ -182,11 +179,8 @@ impl DateOrder {
 /// otherwise `order` decides. Years need four digits, and impossible dates,
 /// such as February 30, are rejected.
 pub fn parse_date(text: &str, order: DateOrder) -> Option<CalendarDate> {
-  let parts = text
-    .trim()
-    .split(['-', '/', '.', ' '])
-    .filter(|part| !part.is_empty())
-    .collect::<Vec<_>>();
+  let parts =
+    text.trim().split(['-', '/', '.', ' ']).filter(|part| !part.is_empty()).collect::<Vec<_>>();
   let [first, second, third] = parts.as_slice() else {
     return None;
   };
@@ -205,21 +199,7 @@ pub fn parse_date(text: &str, order: DateOrder) -> Option<CalendarDate> {
   if year.len() != 4 {
     return None;
   }
-  checked_date(year.parse().ok()?, month.parse().ok()?, day.parse().ok()?)
-}
-
-// The Calendar template's `CalendarDate::new` does not validate, so typed
-// dates are checked here.
-fn checked_date(year: i32, month: u8, day: u8) -> Option<CalendarDate> {
-  let leap = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
-  let days = match month {
-    1 | 3 | 5 | 7 | 8 | 10 | 12 => 31,
-    4 | 6 | 9 | 11 => 30,
-    2 if leap => 29,
-    2 => 28,
-    _ => return None,
-  };
-  (1..=days).contains(&day).then(|| CalendarDate::new(year, month, day))
+  CalendarDate::new(year.parse().ok()?, month.parse().ok()?, day.parse().ok()?)
 }
 
 /// The date zero-padded in `order` with its separator.
@@ -275,7 +255,8 @@ pub fn DatePickerInput(
   let typed = text();
   let unparsed = !typed.trim().is_empty() && parse_date(&typed, order).is_none();
   let class = date_picker_input_class(invalid || unparsed, &class);
-  let placeholder = if placeholder.is_empty() { order.placeholder().to_string() } else { placeholder };
+  let placeholder =
+    if placeholder.is_empty() { order.placeholder().to_string() } else { placeholder };
 
   rsx! {
     input {

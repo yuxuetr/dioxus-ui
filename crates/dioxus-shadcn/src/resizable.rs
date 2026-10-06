@@ -202,10 +202,10 @@ pub fn ResizableHandle(
         };
         // Arrow, Home, and End keys would otherwise scroll the page.
         event.prevent_default();
-        if delta != 0.0
-          && let Some(handler) = on_resize
-        {
-          handler.call(delta);
+        if delta != 0.0 {
+          if let Some(handler) = on_resize {
+            handler.call(delta);
+          }
         }
       },
       ..attributes,

@@ -1,13 +1,11 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 pub const TAGS_INPUT_BASE_CLASS: &str = "flex min-h-10 w-full flex-wrap items-center gap-1.5 rounded-md border bg-background px-2 py-1.5 text-sm transition-colors focus-within:ring-2";
 pub const TAGS_INPUT_LIST_CLASS: &str = "flex flex-wrap gap-1.5";
-pub const TAGS_INPUT_TAG_CLASS: &str =
-  "inline-flex items-center gap-1 rounded-md bg-secondary py-0.5 ps-2 pe-1 text-xs font-medium text-secondary-foreground";
+pub const TAGS_INPUT_TAG_CLASS: &str = "inline-flex items-center gap-1 rounded-md bg-secondary py-0.5 ps-2 pe-1 text-xs font-medium text-secondary-foreground";
 pub const TAGS_INPUT_REMOVE_CLASS: &str = "inline-flex size-4 items-center justify-center rounded-sm text-secondary-foreground hover:bg-background/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none";
-pub const TAGS_INPUT_FIELD_CLASS: &str =
-  "min-w-24 flex-1 bg-transparent py-0.5 outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed";
+pub const TAGS_INPUT_FIELD_CLASS: &str = "min-w-24 flex-1 bg-transparent py-0.5 outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed";
 
 pub fn tags_input_class(invalid: bool, class: &str) -> String {
   let invalid_class = if invalid {
@@ -46,7 +44,12 @@ pub fn tags_input_commit(tags: &[String], text: &str) -> (Vec<String>, String) {
 }
 
 pub fn tags_input_remove(tags: &[String], index: usize) -> Vec<String> {
-  tags.iter().enumerate().filter(|(position, _)| *position != index).map(|(_, tag)| tag.clone()).collect()
+  tags
+    .iter()
+    .enumerate()
+    .filter(|(position, _)| *position != index)
+    .map(|(_, tag)| tag.clone())
+    .collect()
 }
 
 /// Tags as removable chips before a text input. Enter or a comma adds the

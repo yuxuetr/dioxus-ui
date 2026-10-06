@@ -218,8 +218,10 @@ pub fn CarouselPrevious(
       disabled,
       "aria-label": aria_label,
       onclick: move |event| {
-        if !disabled && let Some(handler) = onclick {
-          handler.call(event);
+        if !disabled {
+          if let Some(handler) = onclick {
+            handler.call(event);
+          }
         }
       },
       ..attributes,
@@ -246,8 +248,10 @@ pub fn CarouselNext(
       disabled,
       "aria-label": aria_label,
       onclick: move |event| {
-        if !disabled && let Some(handler) = onclick {
-          handler.call(event);
+        if !disabled {
+          if let Some(handler) = onclick {
+            handler.call(event);
+          }
         }
       },
       ..attributes,

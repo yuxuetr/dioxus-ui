@@ -1,7 +1,7 @@
 use std::sync::atomic::{AtomicUsize, Ordering};
 
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 static NEXT_INPUT_OTP_ID: AtomicUsize = AtomicUsize::new(0);
 
@@ -46,8 +46,9 @@ pub struct OtpSlotState {
   pub disabled: bool,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum InputOtpInputMode {
+  #[default]
   Numeric,
   Text,
 }
@@ -224,11 +225,7 @@ pub fn otp_clamp_value(value: &str, length: usize) -> String {
 }
 
 pub fn input_otp_class(disabled: bool, class: &str) -> String {
-  classes([
-    Some(INPUT_OTP_BASE_CLASS),
-    disabled.then_some(INPUT_OTP_DISABLED_CLASS),
-    Some(class),
-  ])
+  classes([Some(INPUT_OTP_BASE_CLASS), disabled.then_some(INPUT_OTP_DISABLED_CLASS), Some(class)])
 }
 
 pub fn input_otp_group_class(class: &str) -> String {
@@ -357,7 +354,7 @@ pub fn InputOtpHiddenInput(
   length: usize,
   #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(default)] name: Option<String>,
-  #[props(default = InputOtpInputMode::Numeric)] input_mode: InputOtpInputMode,
+  #[props(default)] input_mode: InputOtpInputMode,
   #[props(default = Some(String::from("one-time-code")))] autocomplete: Option<String>,
   #[props(default)] disabled: bool,
   #[props(default)] invalid: bool,

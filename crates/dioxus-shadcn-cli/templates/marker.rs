@@ -1,8 +1,9 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum MarkerVariant {
+  #[default]
   Default,
   Border,
   Separator,
@@ -11,8 +12,10 @@ pub enum MarkerVariant {
 pub const MARKER_BASE_CLASS: &str = "flex min-w-0 items-center gap-2 text-sm text-muted-foreground";
 pub const MARKER_DEFAULT_CLASS: &str = "rounded-md bg-muted px-3 py-2";
 pub const MARKER_BORDER_CLASS: &str = "rounded-md border border-border bg-background px-3 py-2";
-pub const MARKER_SEPARATOR_CLASS: &str = "w-full py-2 before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border";
-pub const MARKER_ICON_BASE_CLASS: &str = "flex shrink-0 items-center justify-center text-muted-foreground";
+pub const MARKER_SEPARATOR_CLASS: &str =
+  "w-full py-2 before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border";
+pub const MARKER_ICON_BASE_CLASS: &str =
+  "flex shrink-0 items-center justify-center text-muted-foreground";
 pub const MARKER_CONTENT_BASE_CLASS: &str = "min-w-0 truncate";
 
 impl MarkerVariant {
@@ -47,7 +50,7 @@ pub fn marker_content_class(class: &str) -> String {
 
 #[component]
 pub fn Marker(
-  #[props(default = MarkerVariant::Default)] variant: MarkerVariant,
+  #[props(default)] variant: MarkerVariant,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {

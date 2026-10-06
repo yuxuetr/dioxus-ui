@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::{classes, use_roving_group};
+use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum NavigationOrientation {
@@ -25,17 +25,11 @@ pub struct RovingFocusItem {
 
 impl RovingFocusItem {
   pub fn enabled(id: impl Into<String>) -> Self {
-    Self {
-      id: id.into(),
-      disabled: false,
-    }
+    Self { id: id.into(), disabled: false }
   }
 
   pub fn disabled(id: impl Into<String>) -> Self {
-    Self {
-      id: id.into(),
-      disabled: true,
-    }
+    Self { id: id.into(), disabled: true }
   }
 }
 
@@ -48,11 +42,7 @@ pub struct RovingFocusState {
 
 impl RovingFocusState {
   pub fn new(orientation: NavigationOrientation) -> Self {
-    Self {
-      active_id: None,
-      orientation,
-      looping: true,
-    }
+    Self { active_id: None, orientation, looping: true }
   }
 
   pub fn with_active_id(mut self, active_id: impl Into<String>) -> Self {
@@ -80,18 +70,11 @@ impl RovingFocusState {
 }
 
 fn first_enabled(items: &[RovingFocusItem]) -> Option<&str> {
-  items
-    .iter()
-    .find(|item| !item.disabled)
-    .map(|item| item.id.as_str())
+  items.iter().find(|item| !item.disabled).map(|item| item.id.as_str())
 }
 
 fn last_enabled(items: &[RovingFocusItem]) -> Option<&str> {
-  items
-    .iter()
-    .rev()
-    .find(|item| !item.disabled)
-    .map(|item| item.id.as_str())
+  items.iter().rev().find(|item| !item.disabled).map(|item| item.id.as_str())
 }
 
 fn move_by<'a>(
@@ -143,11 +126,7 @@ pub fn radio_group_class(orientation: NavigationOrientation, class: &str) -> Str
     NavigationOrientation::Vertical | NavigationOrientation::Both => "grid-flow-row",
   };
 
-  classes([
-    Some(RADIO_GROUP_BASE_CLASS),
-    Some(orientation_class),
-    Some(class),
-  ])
+  classes([Some(RADIO_GROUP_BASE_CLASS), Some(orientation_class), Some(class)])
 }
 
 pub fn radio_group_item_class(checked: bool, class: &str) -> String {
@@ -157,11 +136,7 @@ pub fn radio_group_item_class(checked: bool, class: &str) -> String {
     "border-input bg-background text-transparent"
   };
 
-  classes([
-    Some(RADIO_GROUP_ITEM_BASE_CLASS),
-    Some(checked_class),
-    Some(class),
-  ])
+  classes([Some(RADIO_GROUP_ITEM_BASE_CLASS), Some(checked_class), Some(class)])
 }
 
 pub fn radio_group_indicator_class(class: &str) -> String {
@@ -176,11 +151,7 @@ pub fn radio_group_orientation_attribute(orientation: NavigationOrientation) -> 
 }
 
 pub fn radio_group_item_tabindex(checked: bool, disabled: bool) -> i16 {
-  if checked && !disabled {
-    0
-  } else {
-    -1
-  }
+  if checked && !disabled { 0 } else { -1 }
 }
 
 pub fn radio_group_focus_state(
@@ -190,11 +161,7 @@ pub fn radio_group_focus_state(
 ) -> RovingFocusState {
   let state = RovingFocusState::new(orientation).with_looping(looping);
 
-  if let Some(value) = value {
-    state.with_active_id(value)
-  } else {
-    state
-  }
+  if let Some(value) = value { state.with_active_id(value) } else { state }
 }
 
 pub fn radio_group_move_value<'a>(

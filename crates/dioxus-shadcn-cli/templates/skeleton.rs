@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 pub const SKELETON_BASE_CLASS: &str = "animate-pulse rounded-md bg-accent";
 

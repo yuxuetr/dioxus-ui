@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::{classes, use_roving_group};
+use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum NavigationOrientation {
@@ -25,17 +25,11 @@ pub struct RovingFocusItem {
 
 impl RovingFocusItem {
   pub fn enabled(id: impl Into<String>) -> Self {
-    Self {
-      id: id.into(),
-      disabled: false,
-    }
+    Self { id: id.into(), disabled: false }
   }
 
   pub fn disabled(id: impl Into<String>) -> Self {
-    Self {
-      id: id.into(),
-      disabled: true,
-    }
+    Self { id: id.into(), disabled: true }
   }
 }
 
@@ -48,11 +42,7 @@ pub struct RovingFocusState {
 
 impl RovingFocusState {
   pub fn new(orientation: NavigationOrientation) -> Self {
-    Self {
-      active_id: None,
-      orientation,
-      looping: true,
-    }
+    Self { active_id: None, orientation, looping: true }
   }
 
   pub fn with_active_id(mut self, active_id: impl Into<String>) -> Self {
@@ -80,18 +70,11 @@ impl RovingFocusState {
 }
 
 fn first_enabled(items: &[RovingFocusItem]) -> Option<&str> {
-  items
-    .iter()
-    .find(|item| !item.disabled)
-    .map(|item| item.id.as_str())
+  items.iter().find(|item| !item.disabled).map(|item| item.id.as_str())
 }
 
 fn last_enabled(items: &[RovingFocusItem]) -> Option<&str> {
-  items
-    .iter()
-    .rev()
-    .find(|item| !item.disabled)
-    .map(|item| item.id.as_str())
+  items.iter().rev().find(|item| !item.disabled).map(|item| item.id.as_str())
 }
 
 fn move_by<'a>(
@@ -149,25 +132,14 @@ pub fn toggle_group_class(orientation: NavigationOrientation, class: &str) -> St
     NavigationOrientation::Horizontal | NavigationOrientation::Both => "flex-row items-center",
   };
 
-  classes([
-    Some(TOGGLE_GROUP_BASE_CLASS),
-    Some(orientation_class),
-    Some(class),
-  ])
+  classes([Some(TOGGLE_GROUP_BASE_CLASS), Some(orientation_class), Some(class)])
 }
 
 pub fn toggle_group_item_class(pressed: bool, class: &str) -> String {
-  let pressed_class = if pressed {
-    "bg-accent text-accent-foreground"
-  } else {
-    "bg-transparent hover:bg-accent"
-  };
+  let pressed_class =
+    if pressed { "bg-accent text-accent-foreground" } else { "bg-transparent hover:bg-accent" };
 
-  classes([
-    Some(TOGGLE_GROUP_ITEM_BASE_CLASS),
-    Some(pressed_class),
-    Some(class),
-  ])
+  classes([Some(TOGGLE_GROUP_ITEM_BASE_CLASS), Some(pressed_class), Some(class)])
 }
 
 pub fn toggle_group_orientation_attribute(orientation: NavigationOrientation) -> &'static str {
@@ -178,11 +150,7 @@ pub fn toggle_group_orientation_attribute(orientation: NavigationOrientation) ->
 }
 
 pub fn toggle_group_item_tabindex(pressed: bool, disabled: bool) -> i16 {
-  if pressed && !disabled {
-    0
-  } else {
-    -1
-  }
+  if pressed && !disabled { 0 } else { -1 }
 }
 
 pub fn toggle_group_focus_state(
@@ -192,11 +160,7 @@ pub fn toggle_group_focus_state(
 ) -> RovingFocusState {
   let state = RovingFocusState::new(orientation).with_looping(looping);
 
-  if let Some(active_value) = active_value {
-    state.with_active_id(active_value)
-  } else {
-    state
-  }
+  if let Some(active_value) = active_value { state.with_active_id(active_value) } else { state }
 }
 
 pub fn toggle_group_move_value<'a>(
@@ -210,11 +174,7 @@ pub fn toggle_group_move_value<'a>(
 }
 
 pub fn toggle_group_single_selection(current: Option<&str>, toggled_value: &str) -> Option<String> {
-  if current == Some(toggled_value) {
-    None
-  } else {
-    Some(toggled_value.to_string())
-  }
+  if current == Some(toggled_value) { None } else { Some(toggled_value.to_string()) }
 }
 
 pub fn toggle_group_multiple_selection(current: &[String], toggled_value: &str) -> Vec<String> {

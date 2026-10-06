@@ -1,8 +1,9 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum SeparatorOrientation {
+  #[default]
   Horizontal,
   Vertical,
 }
@@ -31,7 +32,7 @@ pub fn separator_class(orientation: SeparatorOrientation, class: &str) -> String
 
 #[component]
 pub fn Separator(
-  #[props(default = SeparatorOrientation::Horizontal)] orientation: SeparatorOrientation,
+  #[props(default)] orientation: SeparatorOrientation,
   #[props(default)] class: String,
   #[props(default)] decorative: bool,
 ) -> Element {

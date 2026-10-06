@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 pub const NATIVE_SELECT_BASE_CLASS: &str = "h-10 w-full rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
 pub const NATIVE_SELECT_GROUP_BASE_CLASS: &str = "text-sm font-medium text-foreground";

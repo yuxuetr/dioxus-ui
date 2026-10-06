@@ -1,8 +1,9 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum AttachmentState {
+  #[default]
   Idle,
   Uploading,
   Processing,
@@ -10,26 +11,30 @@ pub enum AttachmentState {
   Done,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum AttachmentSize {
+  #[default]
   Default,
   Sm,
   Xs,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum AttachmentOrientation {
+  #[default]
   Horizontal,
   Vertical,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum AttachmentMediaVariant {
+  #[default]
   Icon,
   Image,
 }
 
-pub const ATTACHMENT_BASE_CLASS: &str = "group flex min-w-0 rounded-md border text-foreground transition-colors";
+pub const ATTACHMENT_BASE_CLASS: &str =
+  "group flex min-w-0 rounded-md border text-foreground transition-colors";
 pub const ATTACHMENT_HORIZONTAL_CLASS: &str = "items-center gap-3 p-3";
 pub const ATTACHMENT_VERTICAL_CLASS: &str = "flex-col gap-3 p-3";
 pub const ATTACHMENT_SIZE_DEFAULT_CLASS: &str = "min-h-16 text-sm";
@@ -42,7 +47,8 @@ pub const ATTACHMENT_DONE_CLASS: &str = "border-success/30 bg-success/10";
 pub const ATTACHMENT_GROUP_BASE_CLASS: &str = "flex gap-2 overflow-x-auto";
 pub const ATTACHMENT_MEDIA_BASE_CLASS: &str = "flex shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-muted text-muted-foreground";
 pub const ATTACHMENT_MEDIA_ICON_CLASS: &str = "h-10 w-10";
-pub const ATTACHMENT_MEDIA_IMAGE_CLASS: &str = "h-14 w-14 [&>img]:h-full [&>img]:w-full [&>img]:object-cover";
+pub const ATTACHMENT_MEDIA_IMAGE_CLASS: &str =
+  "h-14 w-14 [&>img]:h-full [&>img]:w-full [&>img]:object-cover";
 pub const ATTACHMENT_CONTENT_BASE_CLASS: &str = "grid min-w-0 flex-1 gap-1";
 pub const ATTACHMENT_TITLE_BASE_CLASS: &str = "truncate font-medium text-foreground";
 pub const ATTACHMENT_DESCRIPTION_BASE_CLASS: &str = "line-clamp-2 text-xs text-muted-foreground";
@@ -142,11 +148,7 @@ pub fn attachment_group_class(class: &str) -> String {
 }
 
 pub fn attachment_media_class(variant: AttachmentMediaVariant, class: &str) -> String {
-  classes([
-    Some(ATTACHMENT_MEDIA_BASE_CLASS),
-    Some(variant.class()),
-    Some(class),
-  ])
+  classes([Some(ATTACHMENT_MEDIA_BASE_CLASS), Some(variant.class()), Some(class)])
 }
 
 pub fn attachment_content_class(class: &str) -> String {
@@ -175,9 +177,9 @@ pub fn attachment_trigger_class(class: &str) -> String {
 
 #[component]
 pub fn Attachment(
-  #[props(default = AttachmentState::Idle)] state: AttachmentState,
-  #[props(default = AttachmentSize::Default)] size: AttachmentSize,
-  #[props(default = AttachmentOrientation::Horizontal)] orientation: AttachmentOrientation,
+  #[props(default)] state: AttachmentState,
+  #[props(default)] size: AttachmentSize,
+  #[props(default)] orientation: AttachmentOrientation,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
@@ -208,7 +210,7 @@ pub fn AttachmentGroup(#[props(default)] class: String, children: Element) -> El
 
 #[component]
 pub fn AttachmentMedia(
-  #[props(default = AttachmentMediaVariant::Icon)] variant: AttachmentMediaVariant,
+  #[props(default)] variant: AttachmentMediaVariant,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {

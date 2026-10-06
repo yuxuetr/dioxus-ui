@@ -1,8 +1,8 @@
 use std::rc::Rc;
 use std::sync::atomic::{AtomicBool, Ordering};
 
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
 pub struct CalendarDate {
@@ -11,8 +11,34 @@ pub struct CalendarDate {
   pub day: u8,
 }
 
+pub fn days_in_month(year: i32, month: u8) -> u8 {
+  match month {
+    1 | 3 | 5 | 7 | 8 | 10 | 12 => 31,
+    4 | 6 | 9 | 11 => 30,
+    2 if is_leap_year(year) => 29,
+    2 => 28,
+    _ => 0,
+  }
+}
+
+pub fn is_leap_year(year: i32) -> bool {
+  (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
+}
+
 impl CalendarDate {
-  pub const fn new(year: i32, month: u8, day: u8) -> Self {
+  pub fn new(year: i32, month: u8, day: u8) -> Option<Self> {
+    if !(1..=12).contains(&month) {
+      return None;
+    }
+
+    if day == 0 || day > days_in_month(year, month) {
+      return None;
+    }
+
+    Some(Self { year, month, day })
+  }
+
+  pub const fn unchecked(year: i32, month: u8, day: u8) -> Self {
     Self { year, month, day }
   }
 }
@@ -48,18 +74,21 @@ pub enum CalendarNavDirection {
   Next,
 }
 
-pub const CALENDAR_BASE_CLASS: &str = "w-fit rounded-md border border-border bg-background p-3 text-foreground";
+pub const CALENDAR_BASE_CLASS: &str =
+  "w-fit rounded-md border border-border bg-background p-3 text-foreground";
 pub const CALENDAR_HEADER_BASE_CLASS: &str = "mb-3 flex items-center justify-between gap-2";
 pub const CALENDAR_CAPTION_BASE_CLASS: &str = "text-sm font-medium";
 pub const CALENDAR_NAV_BASE_CLASS: &str = "flex items-center gap-1";
 pub const CALENDAR_NAV_BUTTON_BASE_CLASS: &str = "inline-flex h-8 w-8 items-center justify-center rounded-md text-sm transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 pub const CALENDAR_GRID_BASE_CLASS: &str = "grid gap-1";
 pub const CALENDAR_HEAD_BASE_CLASS: &str = "grid grid-cols-7 gap-1";
-pub const CALENDAR_HEAD_CELL_BASE_CLASS: &str = "flex h-8 w-8 items-center justify-center text-xs font-medium text-muted-foreground";
+pub const CALENDAR_HEAD_CELL_BASE_CLASS: &str =
+  "flex h-8 w-8 items-center justify-center text-xs font-medium text-muted-foreground";
 pub const CALENDAR_BODY_BASE_CLASS: &str = "grid gap-1";
 pub const CALENDAR_ROW_BASE_CLASS: &str = "grid grid-cols-7 gap-1";
 pub const CALENDAR_DAY_BASE_CLASS: &str = "inline-flex h-8 w-8 items-center justify-center rounded-md text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
-pub const CALENDAR_DAY_SELECTED_CLASS: &str = "bg-primary text-primary-foreground hover:bg-primary/90";
+pub const CALENDAR_DAY_SELECTED_CLASS: &str =
+  "bg-primary text-primary-foreground hover:bg-primary/90";
 pub const CALENDAR_DAY_TODAY_CLASS: &str = "border border-input";
 pub const CALENDAR_DAY_OUTSIDE_CLASS: &str = "text-muted-foreground";
 pub const CALENDAR_DAY_RANGE_CLASS: &str = "bg-accent text-accent-foreground";

@@ -1,5 +1,5 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
 pub const ITEM_BASE_CLASS: &str = "flex items-start gap-3 rounded-md p-3 text-sm transition-colors data-[disabled=true]:opacity-50 data-[selected=true]:bg-accent";
 pub const ITEM_SELECTED_CLASS: &str = "bg-accent";

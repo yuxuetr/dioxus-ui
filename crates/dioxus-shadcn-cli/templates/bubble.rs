@@ -1,8 +1,9 @@
-use dioxus::prelude::*;
 use super::utils::classes;
+use dioxus::prelude::*;
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum BubbleVariant {
+  #[default]
   Default,
   Secondary,
   Muted,
@@ -12,21 +13,24 @@ pub enum BubbleVariant {
   Destructive,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum BubbleAlign {
+  #[default]
   Start,
   End,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum BubbleReactionSide {
+  #[default]
   Bottom,
   Top,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum BubbleReactionAlign {
   Start,
+  #[default]
   Center,
   End,
 }
@@ -42,8 +46,10 @@ pub const BUBBLE_MUTED_CLASS: &str = "bg-muted text-muted-foreground";
 pub const BUBBLE_TINTED_CLASS: &str = "bg-info/10 text-foreground";
 pub const BUBBLE_OUTLINE_CLASS: &str = "border border-border bg-background text-foreground";
 pub const BUBBLE_GHOST_CLASS: &str = "bg-transparent text-foreground";
-pub const BUBBLE_DESTRUCTIVE_CLASS: &str = "bg-destructive/10 text-foreground border border-destructive/30";
-pub const BUBBLE_REACTIONS_BASE_CLASS: &str = "flex items-center gap-1 text-xs text-muted-foreground";
+pub const BUBBLE_DESTRUCTIVE_CLASS: &str =
+  "bg-destructive/10 text-foreground border border-destructive/30";
+pub const BUBBLE_REACTIONS_BASE_CLASS: &str =
+  "flex items-center gap-1 text-xs text-muted-foreground";
 pub const BUBBLE_REACTIONS_TOP_CLASS: &str = "order-first mb-1";
 pub const BUBBLE_REACTIONS_BOTTOM_CLASS: &str = "order-last mt-1";
 pub const BUBBLE_REACTIONS_ALIGN_START_CLASS: &str = "self-start";
@@ -135,11 +141,7 @@ pub fn bubble_group_class(class: &str) -> String {
 }
 
 pub fn bubble_content_class(variant: BubbleVariant, class: &str) -> String {
-  classes([
-    Some(BUBBLE_CONTENT_BASE_CLASS),
-    Some(variant.class()),
-    Some(class),
-  ])
+  classes([Some(BUBBLE_CONTENT_BASE_CLASS), Some(variant.class()), Some(class)])
 }
 
 pub fn bubble_reactions_class(
@@ -147,18 +149,13 @@ pub fn bubble_reactions_class(
   align: BubbleReactionAlign,
   class: &str,
 ) -> String {
-  classes([
-    Some(BUBBLE_REACTIONS_BASE_CLASS),
-    Some(side.class()),
-    Some(align.class()),
-    Some(class),
-  ])
+  classes([Some(BUBBLE_REACTIONS_BASE_CLASS), Some(side.class()), Some(align.class()), Some(class)])
 }
 
 #[component]
 pub fn Bubble(
-  #[props(default = BubbleVariant::Default)] variant: BubbleVariant,
-  #[props(default = BubbleAlign::Start)] align: BubbleAlign,
+  #[props(default)] variant: BubbleVariant,
+  #[props(default)] align: BubbleAlign,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
@@ -188,7 +185,7 @@ pub fn BubbleGroup(#[props(default)] class: String, children: Element) -> Elemen
 
 #[component]
 pub fn BubbleContent(
-  #[props(default = BubbleVariant::Default)] variant: BubbleVariant,
+  #[props(default)] variant: BubbleVariant,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
@@ -205,8 +202,8 @@ pub fn BubbleContent(
 
 #[component]
 pub fn BubbleReactions(
-  #[props(default = BubbleReactionSide::Bottom)] side: BubbleReactionSide,
-  #[props(default = BubbleReactionAlign::Center)] align: BubbleReactionAlign,
+  #[props(default)] side: BubbleReactionSide,
+  #[props(default)] align: BubbleReactionAlign,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
