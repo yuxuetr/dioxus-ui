@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 57% (13 of 23 tasks)
+- Overall: 61% (14 of 23 tasks)
 - Current milestone: M200
-- Current task: M200.1
+- Current task: M200.2
 
 ## Backup
 
@@ -89,8 +89,9 @@
 
 ## M200 Blocks
 
-- TODO M200.1 Block registry and CLI
+- DONE M200.1 Block registry and CLI
   - RFC: a block is a registry item of kind `block` that copies one screen into `src/blocks/` and adds the components it uses; `dxui list` and `dxui add` handle blocks; a generated fixture app builds every block.
+  - Done: RFC 0073 chose a separate `blocks/` directory over a `kind` field, so component tooling and `RegistryComponent` are unchanged; `dxui list blocks` keeps `dxui list` script-stable. The login block (planned for M200.3) landed here to exercise the CLI end to end, and showed `FieldError` could not take an `id`.
 - TODO M200.2 Dashboard block
   - Sidebar (with off-canvas), header, stats, chart, and data table.
 - TODO M200.3 Login and settings blocks
