@@ -1,0 +1,12 @@
+{
+  "name": "hover-open",
+  "description": "Opens content on hover and focus after a delay.",
+  "files": [
+    {
+      "source": "templates/hover_open.rs",
+      "target": "src/components/ui/hover_open.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

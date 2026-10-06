@@ -4,12 +4,18 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)));
-const registryDir = join(repoRoot, "crates/dioxus-shadcn-cli/registry");
+const cliRoot = join(repoRoot, "crates/dioxus-shadcn-cli");
 const slugPattern = /^[a-z][a-z0-9-]*$/;
-const files = readdirSync(registryDir)
-  .filter((file) => file.endsWith(".json") && file !== "schema.json")
-  .sort();
-const registryNames = new Set(files.map((file) => file.slice(0, -".json".length)));
+// Components in `registry/`, and the helpers they share in `helpers/`
+// (RFC 0074), which `dxui list` does not show.
+const files = ["registry", "helpers"].flatMap((dir) =>
+  readdirSync(join(cliRoot, dir))
+    .filter((file) => file.endsWith(".json") && file !== "schema.json")
+    .sort()
+    .map((file) => `${dir}/${file}`),
+);
+const entryName = (file) => file.slice(file.indexOf("/") + 1, -".json".length);
+const registryNames = new Set(files.map(entryName));
 const seenNames = new Set();
 const seenTargets = new Map();
 const failures = [];
@@ -19,7 +25,7 @@ const isNonEmptyString = (value) => {
 };
 
 const readEntry = (file) => {
-  const path = join(registryDir, file);
+  const path = join(cliRoot, file);
   try {
     return JSON.parse(readFileSync(path, "utf8"));
   } catch (error) {
@@ -77,7 +83,7 @@ const validateMappings = (file, entryName, label, mappings, options = {}) => {
 };
 
 for (const file of files) {
-  const expectedName = file.slice(0, -".json".length);
+  const expectedName = entryName(file);
   const entry = readEntry(file);
   if (!entry) {
     continue;

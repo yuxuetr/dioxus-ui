@@ -26,7 +26,9 @@ dioxus-ui/
 │  │  └─ src/lib.rs
 │  └─ dioxus-shadcn-cli/
 │     ├─ Cargo.toml
-│     ├─ registry/
+│     ├─ registry/        # public components
+│     ├─ helpers/         # helpers components share (RFC 0074)
+│     ├─ blocks/
 │     ├─ templates/
 │     └─ src/main.rs
 ├─ examples/                # demos, preview fixtures, runtime verification
@@ -283,5 +285,5 @@ Before marking component tasks complete:
 - registry entry points to existing template files
 - public registry names match crate feature names
 - component docs and catalog entries match public registry entries
-- every template is registered exactly once, with `utils` kept as a support
-  template outside public component parity
+- every template is registered exactly once; helper templates are registered
+  in `helpers/`, outside the public component registry (RFC 0074)

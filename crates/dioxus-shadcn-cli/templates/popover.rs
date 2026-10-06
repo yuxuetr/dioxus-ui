@@ -1,8 +1,7 @@
-use super::utils::{
-  AnchoredPlacement, DialogLabelPart, classes, use_anchored_overlay, use_dialog_label_part,
-  use_dialog_labels,
-};
-pub use super::utils::{DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
+use super::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
+use super::dialog_labels::{DialogLabelPart, use_dialog_label_part, use_dialog_labels};
+pub use super::overlay::{DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
+use super::utils::classes;
 use dioxus::prelude::*;
 
 pub const POPOVER_CONTENT_BASE_CLASS: &str = "z-50 w-72 rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";

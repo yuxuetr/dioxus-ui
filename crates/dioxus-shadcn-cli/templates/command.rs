@@ -1,6 +1,7 @@
 use std::sync::atomic::{AtomicUsize, Ordering};
 
-use super::utils::{ListboxMode, classes, use_listbox};
+use super::listbox::{ListboxMode, use_listbox};
+use super::utils::classes;
 use dioxus::prelude::*;
 
 static NEXT_COMMAND_ID: AtomicUsize = AtomicUsize::new(0);

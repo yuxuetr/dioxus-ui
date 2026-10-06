@@ -1,0 +1,12 @@
+{
+  "name": "roving-group",
+  "description": "Arrow-key focus and one Tab stop for groups of items.",
+  "files": [
+    {
+      "source": "templates/roving_group.rs",
+      "target": "src/components/ui/roving_group.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

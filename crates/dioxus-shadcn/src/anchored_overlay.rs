@@ -10,7 +10,7 @@ static NEXT_ANCHORED_ID: AtomicUsize = AtomicUsize::new(0);
 // Places anchored content with the flip and shift rules of
 // `compute_overlay_placement`, done in the page to avoid a round trip per
 // layout change, and reports Escape and outside interactions to Rust.
-// Keep in sync with `ANCHORED_OVERLAY_SCRIPT` in the CLI `utils.rs` template.
+// Keep in sync with `ANCHORED_OVERLAY_SCRIPT` in the CLI `anchored_overlay.rs` template.
 pub(crate) const ANCHORED_OVERLAY_SCRIPT: &str = r#"
 const [scopeId, anchorId, preferredSide, align, offset, point] = await dioxus.recv();
 const content = document.querySelector(`[data-dxui-anchored="${scopeId}"]`);

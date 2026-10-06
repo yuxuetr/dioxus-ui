@@ -7,7 +7,7 @@ static NEXT_HOVER_OPEN_ID: AtomicUsize = AtomicUsize::new(0);
 // Runs for the root's lifetime and finds the trigger and content on every
 // event. Sends "open" or "close" only when the request changes the content's
 // `data-state`. Parts inside a nested root belong to that root.
-// Keep in sync with `HOVER_OPEN_SCRIPT` in the CLI `utils.rs` template.
+// Keep in sync with `HOVER_OPEN_SCRIPT` in the CLI `hover_open.rs` template.
 pub(crate) const HOVER_OPEN_SCRIPT: &str = r#"
 const [scopeId, openDelayMs, closeDelayMs, closeOnPress, describes] = await dioxus.recv();
 const root = document.querySelector(`[data-dxui-hover-open="${scopeId}"]`);

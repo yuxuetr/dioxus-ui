@@ -122,7 +122,8 @@ Derived catalog fields:
 
 Intentional exceptions:
 
-- `utils` remains a source-copy helper, not a catalog component page.
+- Helpers in `crates/dioxus-shadcn-cli/helpers/`, such as `utils`, are
+  source-copy support code, not catalog component pages.
 - Planning and strategy markdown files under `docs/components` are not component
   detail pages unless their basename matches a registry component.
 
@@ -226,7 +227,7 @@ repository root and returns:
 - `registryNames`, `templateNames`, `crateModuleNames`, `docsNames`,
   `featureNames`, and `libModuleNames`: source inventories used for drift checks
 - `publicComponentNames`: registry entries excluding source-copy helpers
-- `sourceCopyHelpers`: helper entries such as `utils`
+- `sourceCopyHelpers`: the helper entries in `helpers/`, such as `utils`
 - `summary`: stable counts for reporting
 
 The verification entry point remains:

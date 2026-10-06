@@ -1,0 +1,12 @@
+{
+  "name": "default-attribute",
+  "description": "Keeps a component's default attribute value only when the app passes none.",
+  "files": [
+    {
+      "source": "templates/default_attribute.rs",
+      "target": "src/components/ui/default_attribute.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

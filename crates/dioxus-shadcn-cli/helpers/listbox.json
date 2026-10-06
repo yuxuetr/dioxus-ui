@@ -1,0 +1,12 @@
+{
+  "name": "listbox",
+  "description": "Keyboard highlight, typeahead, and choice for listboxes and menus.",
+  "files": [
+    {
+      "source": "templates/listbox.rs",
+      "target": "src/components/ui/listbox.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

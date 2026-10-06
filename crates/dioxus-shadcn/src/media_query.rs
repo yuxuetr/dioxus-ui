@@ -10,7 +10,7 @@ static NEXT_MEDIA_QUERY_ID: AtomicUsize = AtomicUsize::new(0);
 
 // Reports whether the query matches, and again on every change, until the
 // element carrying the scope id is removed.
-// Keep in sync with `MEDIA_QUERY_SCRIPT` in the CLI `utils.rs` template.
+// Keep in sync with `MEDIA_QUERY_SCRIPT` in the CLI `media_query.rs` template.
 pub(crate) const MEDIA_QUERY_SCRIPT: &str = r#"
 const [scopeId, query] = await dioxus.recv();
 const present = () => document.querySelector(`[data-dxui-media="${scopeId}"]`) !== null;

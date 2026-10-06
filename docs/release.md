@@ -609,7 +609,7 @@ login, and settings blocks copied, and another built against
   and focus, inside persistent live region viewports (see RFC 0011). Screen
   reader announcements are not automated, and swipe to dismiss is not
   implemented.
-- Generated templates include a local `utils.rs` helper module and should not
+- Generated templates include the local helper modules they use and should not
   require `dioxus-shadcn-core` or `dioxus-shadcn-primitives` in source-copy mode.
 - Web has a rendered preview shell and screenshot procedure. Desktop has a
   rendered preview shell and structural gate, but Desktop WebView screenshot

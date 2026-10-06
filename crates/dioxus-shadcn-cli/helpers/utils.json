@@ -1,6 +1,6 @@
 {
   "name": "utils",
-  "description": "Local helpers shared by generated dioxus-shadcn components.",
+  "description": "Class composition and the density type shared by every copied component.",
   "files": [
     {
       "source": "templates/utils.rs",

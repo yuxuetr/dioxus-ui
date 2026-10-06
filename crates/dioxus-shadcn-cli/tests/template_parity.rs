@@ -130,7 +130,7 @@ fn items(path: &Path) -> BTreeMap<String, String> {
 
 /// Where a template item may come from besides its own crate module: the
 /// primitives and core crates, which templates cannot import, and the crate's
-/// other modules, whose shared helpers templates copy into `utils.rs`.
+/// other modules, whose items a template may inline.
 struct Sources {
   by_key: BTreeMap<String, Vec<(String, String)>>,
 }

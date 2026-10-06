@@ -1,0 +1,12 @@
+{
+  "name": "dismiss-timer",
+  "description": "Counts down a toast's dismissal, paused on hover and focus.",
+  "files": [
+    {
+      "source": "templates/dismiss_timer.rs",
+      "target": "src/components/ui/dismiss_timer.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

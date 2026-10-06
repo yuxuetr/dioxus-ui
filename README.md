@@ -81,10 +81,16 @@ Expected output in a Dioxus app:
 src/components/ui/mod.rs
 src/components/ui/button.rs
 src/components/ui/dialog.rs
+src/components/ui/dialog_labels.rs
 src/components/ui/input.rs
+src/components/ui/modal_focus.rs
+src/components/ui/overlay.rs
 src/components/ui/utils.rs
 assets/dioxus-shadcn.css
 ```
+
+Every component uses `utils.rs`; Dialog also brings the helpers it uses,
+each in its own file ([RFC 0074](docs/rfcs/0074-helper-templates.md)).
 
 For Tailwind CSS v4, `assets/dioxus-shadcn.css` should be an input stylesheet, not
 a precompiled full Tailwind output:
@@ -320,6 +326,7 @@ only.
 - [RFC 0071: Theme Controller](docs/rfcs/0071-theme-controller.md)
 - [RFC 0072: Menu and Mockup](docs/rfcs/0072-menu-and-mockup.md)
 - [RFC 0073: Blocks](docs/rfcs/0073-blocks.md)
+- [RFC 0074: Helper Templates](docs/rfcs/0074-helper-templates.md)
 
 ## Verification Shortcuts
 

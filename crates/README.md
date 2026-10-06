@@ -24,7 +24,7 @@ dxui add dialog
 ```
 
 `dxui init` writes `assets/dioxus-shadcn.css` and `src/components/ui/mod.rs`.
-`dxui add` copies each component, and the `utils.rs` they share, into
+`dxui add` copies each component, and the helper files it uses, into
 `src/components/ui/` and declares its module; it keeps existing files unless
 you pass `--overwrite`. `dxui list` prints the 82 components. Copied
 components depend only on `dioxus`.

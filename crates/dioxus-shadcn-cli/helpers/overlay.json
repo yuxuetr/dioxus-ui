@@ -1,0 +1,12 @@
+{
+  "name": "overlay",
+  "description": "Overlay types and primitive configs shared by overlay components.",
+  "files": [
+    {
+      "source": "templates/overlay.rs",
+      "target": "src/components/ui/overlay.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

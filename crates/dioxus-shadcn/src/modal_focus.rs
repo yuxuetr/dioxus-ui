@@ -8,7 +8,7 @@ static NEXT_FOCUS_SCOPE_ID: AtomicUsize = AtomicUsize::new(0);
 // when `open` turns false and when the app stops rendering the content. A
 // modal also locks page scroll (RFC 0068); nested modals share one lock,
 // counted on the root element, and the last to close restores it.
-// Keep in sync with `MODAL_FOCUS_SCOPE_SCRIPT` in the CLI `utils.rs` template.
+// Keep in sync with `MODAL_FOCUS_SCOPE_SCRIPT` in the CLI `modal_focus.rs` template.
 pub(crate) const MODAL_FOCUS_SCOPE_SCRIPT: &str = r#"
 const scope = document.querySelector('[data-dxui-focus-scope="__SCOPE_ID__"]');
 if (!scope) return;

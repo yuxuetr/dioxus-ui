@@ -1,7 +1,7 @@
-use super::utils::{
-  AnchoredPlacement, HoverOpenOptions, classes, use_anchored_overlay, use_hover_open,
-};
-pub use super::utils::{DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
+use super::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
+use super::hover_open::{HoverOpenOptions, use_hover_open};
+pub use super::overlay::{DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
+use super::utils::classes;
 use dioxus::prelude::*;
 
 pub const HOVER_CARD_CONTENT_BASE_CLASS: &str = "z-50 w-80 rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";

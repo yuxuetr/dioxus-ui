@@ -9,7 +9,7 @@ static NEXT_DISMISS_TIMER_ID: AtomicUsize = AtomicUsize::new(0);
 // Counts down only while the pointer is outside the toast and focus is not
 // inside it, and reports "timeout" once the remaining time runs out. Exits
 // quietly when the toast is hidden or removed first.
-// Keep in sync with `DISMISS_TIMER_SCRIPT` in the CLI `utils.rs` template.
+// Keep in sync with `DISMISS_TIMER_SCRIPT` in the CLI `dismiss_timer.rs` template.
 pub(crate) const DISMISS_TIMER_SCRIPT: &str = r#"
 const [scopeId, duration] = await dioxus.recv();
 const toast = document.querySelector(`[data-dxui-dismiss-timer="${scopeId}"]`);

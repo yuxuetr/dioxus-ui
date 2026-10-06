@@ -1,4 +1,5 @@
-use super::utils::{classes, use_dismiss_timer};
+use super::dismiss_timer::use_dismiss_timer;
+use super::utils::classes;
 use dioxus::prelude::*;
 
 pub use self::{

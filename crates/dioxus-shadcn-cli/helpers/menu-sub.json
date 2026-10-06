@@ -1,0 +1,16 @@
+{
+  "name": "menu-sub",
+  "description": "Submenus for Dropdown, Context Menu, and Menubar.",
+  "files": [
+    {
+      "source": "templates/menu_sub.rs",
+      "target": "src/components/ui/menu_sub.rs"
+    }
+  ],
+  "dependencies": [
+    "anchored-overlay",
+    "listbox",
+    "overlay"
+  ],
+  "assets": []
+}

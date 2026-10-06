@@ -23,7 +23,7 @@ fn main() {
   let slugs = fs::read_dir(&registry)
     .expect("read the CLI registry")
     .filter_map(|entry| entry.ok()?.path().file_stem()?.to_str().map(str::to_string))
-    .filter(|name| name != "utils" && name != "schema")
+    .filter(|name| name != "schema")
     .collect::<BTreeSet<_>>();
   let repository = env!("CARGO_PKG_REPOSITORY");
 

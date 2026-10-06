@@ -1,6 +1,7 @@
 use std::sync::atomic::{AtomicUsize, Ordering};
 
-use super::utils::{classes, group_part_id, use_roving_group};
+use super::roving_group::{group_part_id, use_roving_group};
+use super::utils::classes;
 use dioxus::prelude::*;
 
 static NEXT_ACCORDION_ID: AtomicUsize = AtomicUsize::new(0);

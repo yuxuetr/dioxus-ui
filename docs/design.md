@@ -282,7 +282,8 @@ Baseline requirements:
 
 Styled crate components build their behavior on `dioxus-shadcn-primitives`.
 Copied templates inline that behavior and depend only on `dioxus` and the
-shared `utils.rs`.
+helper templates they use, one per crate helper module
+([RFC 0074](rfcs/0074-helper-templates.md)).
 
 Focus, dismissal, and portal behavior are designed in
 [RFC 0006: Focus and Portal Primitives](rfcs/0006-focus-and-portal-primitives.md).

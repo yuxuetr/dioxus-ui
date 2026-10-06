@@ -1,4 +1,5 @@
-use super::utils::{classes, default_attribute};
+use super::default_attribute::default_attribute;
+use super::utils::classes;
 use dioxus::prelude::*;
 
 pub use self::LayoutOrientation as CarouselOrientation;

@@ -195,7 +195,22 @@ fn add_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
   if block {
     println!("declare `mod blocks;` in src/main.rs to use it");
   }
+  if has_legacy_utils(&options.root) {
+    println!("{LEGACY_UTILS_NOTE}");
+  }
   Ok(())
+}
+
+const LEGACY_UTILS_NOTE: &str = "note: src/components/ui/utils.rs comes from dxui 0.3 or earlier and \
+still holds the shared helpers, which now have their own files. Components copied before and after \
+this keep separate copies and can pick the same element ids; re-copy the older ones with \
+`dxui add <name> --overwrite`, which also replaces utils.rs.";
+
+/// Whether the app's `utils.rs` still defines the helper hooks that 0.3 and
+/// earlier kept there (RFC 0074).
+fn has_legacy_utils(root: &Path) -> bool {
+  fs::read_to_string(root.join("src").join("components").join("ui").join("utils.rs"))
+    .is_ok_and(|utils| utils.contains("fn use_"))
 }
 
 /// Prints one component per line, which scripts read, or with `blocks`, one
@@ -208,7 +223,7 @@ fn list_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
       return Err(format!("unknown list `{other}`; use `dxui list` or `dxui list blocks`").into());
     }
   };
-  for entry in entries.iter().filter(|entry| entry.name != "utils") {
+  for entry in &entries {
     println!("{}", entry.name);
   }
 
@@ -404,6 +419,8 @@ fn add_component_with_options(
   init_project(root)?;
 
   let registry = load_registry()?;
+  // Dependencies name components or helpers (RFC 0074).
+  let known = [registry.as_slice(), load_helpers()?.as_slice()].concat();
   let mut added = Vec::new();
   let blocks = load_blocks()?;
   let block = blocks.iter().find(|block| block.name == name);
@@ -411,7 +428,7 @@ fn add_component_with_options(
   match block {
     Some(block) => {
       for dependency in &block.dependencies {
-        add_component_recursive(root, dependency, &registry, overwrite, &mut added)?;
+        add_component_recursive(root, dependency, &known, overwrite, &mut added)?;
       }
       copy_entry_files(root, block, overwrite)?;
       update_mod_file(
@@ -420,7 +437,7 @@ fn add_component_with_options(
       )?;
     }
     None if registry.iter().any(|component| component.name == name) => {
-      add_component_recursive(root, name, &registry, overwrite, &mut added)?;
+      add_component_recursive(root, name, &known, overwrite, &mut added)?;
     }
     None => {
       let blocks = blocks.iter().map(|block| block.name.as_str()).collect::<Vec<_>>().join(", ");
@@ -437,7 +454,7 @@ fn add_component_with_options(
 fn add_component_recursive(
   root: &Path,
   component_name: &str,
-  registry: &[RegistryComponent],
+  known: &[RegistryComponent],
   overwrite: bool,
   added: &mut Vec<String>,
 ) -> Result<(), Box<dyn Error>> {
@@ -445,13 +462,13 @@ fn add_component_recursive(
     return Ok(());
   }
 
-  let component = registry
+  let component = known
     .iter()
     .find(|component| component.name == component_name)
-    .ok_or_else(|| unknown_component_error(component_name, registry))?;
+    .ok_or_else(|| format!("registry entry `{component_name}` was not found"))?;
 
   for dependency in &component.dependencies {
-    add_component_recursive(root, dependency, registry, overwrite, added)?;
+    add_component_recursive(root, dependency, known, overwrite, added)?;
   }
 
   copy_entry_files(root, component, overwrite)?;
@@ -481,12 +498,8 @@ fn copy_entry_files(
 }
 
 fn unknown_component_error(component_name: &str, registry: &[RegistryComponent]) -> String {
-  let available = registry
-    .iter()
-    .filter(|component| component.name != "utils")
-    .map(|component| component.name.as_str())
-    .collect::<Vec<_>>()
-    .join(", ");
+  let available =
+    registry.iter().map(|component| component.name.as_str()).collect::<Vec<_>>().join(", ");
 
   format!("unknown component `{component_name}`. available components: {available}")
 }
@@ -530,25 +543,25 @@ fn parse_mod_line(line: &str) -> Option<String> {
 }
 
 fn load_blocks() -> Result<Vec<RegistryComponent>, Box<dyn Error>> {
-  let mut blocks = EMBEDDED_BLOCK_JSON
-    .iter()
-    .map(|json| serde_json::from_str::<RegistryComponent>(json))
-    .collect::<Result<Vec<_>, _>>()?;
-  blocks.sort_by(|left, right| left.name.cmp(&right.name));
-  Ok(blocks)
+  load_entries(EMBEDDED_BLOCK_JSON)
+}
+
+fn load_helpers() -> Result<Vec<RegistryComponent>, Box<dyn Error>> {
+  load_entries(EMBEDDED_HELPER_JSON)
 }
 
 fn load_registry() -> Result<Vec<RegistryComponent>, Box<dyn Error>> {
-  let mut components = Vec::new();
+  load_entries(EMBEDDED_REGISTRY_JSON)
+}
 
-  for json in EMBEDDED_REGISTRY_JSON {
-    let component = serde_json::from_str::<RegistryComponent>(json)?;
-
-    components.push(component);
-  }
-
-  components.sort_by(|left, right| left.name.cmp(&right.name));
-  Ok(components)
+/// Parses embedded registry-format entries, sorted by name.
+fn load_entries(jsons: &[&str]) -> Result<Vec<RegistryComponent>, Box<dyn Error>> {
+  let mut entries = jsons
+    .iter()
+    .map(|json| serde_json::from_str::<RegistryComponent>(json))
+    .collect::<Result<Vec<_>, _>>()?;
+  entries.sort_by(|left, right| left.name.cmp(&right.name));
+  Ok(entries)
 }
 
 fn embedded_asset_content(source: &str) -> Result<&'static str, Box<dyn Error>> {
@@ -697,6 +710,62 @@ mod tests {
       .expect("mod file should be readable");
 
     assert_eq!(modules, "pub mod button;\npub mod utils;\n");
+  }
+
+  fn ui_files(root: &Path) -> Vec<String> {
+    let mut files = fs::read_dir(root.join("src").join("components").join("ui"))
+      .expect("ui dir should be readable")
+      .map(|entry| entry.expect("ui entry").file_name().to_string_lossy().into_owned())
+      .collect::<Vec<_>>();
+    files.sort();
+    files
+  }
+
+  #[test]
+  fn add_component_copies_only_the_helpers_it_uses() {
+    let root = temp_project();
+    add_component(&root, "button").expect("add should succeed");
+    assert_eq!(ui_files(&root), ["button.rs", "mod.rs", "utils.rs"]);
+
+    let root = temp_project();
+    add_component(&root, "dropdown").expect("add should succeed");
+    assert_eq!(
+      ui_files(&root),
+      [
+        "anchored_overlay.rs",
+        "dropdown.rs",
+        "listbox.rs",
+        "menu_marks.rs",
+        "menu_sub.rs",
+        "mod.rs",
+        "overlay.rs",
+        "utils.rs"
+      ]
+    );
+  }
+
+  #[test]
+  fn helpers_are_not_components() {
+    let root = temp_project();
+    let error = add_component(&root, "listbox").expect_err("a helper is not a component");
+    assert!(error.to_string().contains("unknown component `listbox`"));
+    assert!(!error.to_string().contains("modal-focus"));
+    let registry = load_registry().expect("registry should load");
+    for helper in load_helpers().expect("helpers should load") {
+      assert!(!registry.iter().any(|component| component.name == helper.name), "{}", helper.name);
+    }
+  }
+
+  #[test]
+  fn legacy_utils_is_detected() {
+    let root = temp_project();
+    add_component(&root, "button").expect("add should succeed");
+    assert!(!has_legacy_utils(&root));
+
+    let utils = root.join("src").join("components").join("ui").join("utils.rs");
+    fs::write(&utils, "pub fn classes() {}\npub fn use_listbox() {}\n")
+      .expect("utils should be written");
+    assert!(has_legacy_utils(&root));
   }
 
   #[test]

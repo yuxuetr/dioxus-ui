@@ -8,6 +8,30 @@ for commit messages.
 
 ## [Unreleased]
 
+### Changed
+
+- `dxui add` copies only the helpers a component uses, each in its own file
+  named after the crate module it copies, such as `listbox.rs` or
+  `modal_focus.rs`, instead of one 1435-line `utils.rs`
+  ([RFC 0074](docs/rfcs/0074-helper-templates.md)). `utils.rs` keeps
+  `classes` and `UiDensity`. `dxui add button` now copies `button.rs` and a
+  27-line `utils.rs`, and a new app using it prints 3 warnings instead of 66.
+
+### Migration
+
+- Apps that copied components with dxui 0.3 or earlier keep building: `dxui
+  add` keeps their `utils.rs` and writes the new helper files beside it. The
+  older components still use the helpers in `utils.rs`, though, and those
+  copies number element ids apart from the new files, so an older and a newer
+  overlay mounted together can pick the same id. `dxui add` prints a note
+  while `utils.rs` holds the old helpers. Re-copy the older components with
+  `dxui add <name> --overwrite`, which also replaces `utils.rs`; copy any
+  edits you made to them first.
+- Copied code that imported helpers or overlay types from `utils`, such as
+  `components::ui::utils::DismissBehavior`, imports them from their new
+  module, such as `components::ui::overlay::DismissBehavior`, once
+  `utils.rs` is replaced.
+
 ## [0.3.0] - 2026-10-06
 
 Version 0.3.0 moves from components to screens: submenus, scroll lock, an

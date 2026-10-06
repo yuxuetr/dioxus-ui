@@ -41,44 +41,19 @@ fn main() -> Result<(), Box<dyn Error>> {
 
   registry_paths.sort();
 
-  // Blocks (RFC 0073): whole screens, in the registry format, kept apart from
-  // the component registry.
-  let blocks_dir = manifest_dir.join("blocks");
-  println!("cargo:rerun-if-changed={}", blocks_dir.display());
-  let mut block_paths = Vec::new();
-  for entry in fs::read_dir(&blocks_dir)? {
-    let path = entry?.path();
-    if path.extension().and_then(|extension| extension.to_str()) != Some("json") {
-      continue;
-    }
-    for source in registry_sources(&fs::read_to_string(&path)?)? {
-      asset_sources.insert(source);
-    }
-    block_paths.push(path);
-  }
-  block_paths.sort();
+  // Blocks (RFC 0073) and helpers (RFC 0074), in the registry format, kept
+  // apart from the component registry.
+  let block_paths = entry_paths(&manifest_dir.join("blocks"), &mut asset_sources)?;
+  let helper_paths = entry_paths(&manifest_dir.join("helpers"), &mut asset_sources)?;
 
   let mut generated = String::new();
   generated.push_str("struct EmbeddedAsset {\n");
   generated.push_str("  source: &'static str,\n");
   generated.push_str("  content: &'static str,\n");
   generated.push_str("}\n\n");
-  generated.push_str("const EMBEDDED_REGISTRY_JSON: &[&str] = &[\n");
-
-  for path in registry_paths {
-    generated.push_str("  include_str!(\"");
-    generated.push_str(&escape_rust_string(&path));
-    generated.push_str("\"),\n");
-  }
-
-  generated.push_str("];\n\n");
-  generated.push_str("const EMBEDDED_BLOCK_JSON: &[&str] = &[\n");
-  for path in block_paths {
-    generated.push_str("  include_str!(\"");
-    generated.push_str(&escape_rust_string(&path));
-    generated.push_str("\"),\n");
-  }
-  generated.push_str("];\n\n");
+  push_json_list(&mut generated, "EMBEDDED_REGISTRY_JSON", &registry_paths);
+  push_json_list(&mut generated, "EMBEDDED_BLOCK_JSON", &block_paths);
+  push_json_list(&mut generated, "EMBEDDED_HELPER_JSON", &helper_paths);
   generated.push_str("const EMBEDDED_ASSETS: &[EmbeddedAsset] = &[\n");
 
   for source in asset_sources {
@@ -127,6 +102,38 @@ fn main() -> Result<(), Box<dyn Error>> {
 
   fs::write(generated_path, generated)?;
   Ok(())
+}
+
+/// The registry-format entries in `dir`, sorted, adding their sources to
+/// `asset_sources`.
+fn entry_paths(
+  dir: &Path,
+  asset_sources: &mut BTreeSet<String>,
+) -> Result<Vec<PathBuf>, Box<dyn Error>> {
+  println!("cargo:rerun-if-changed={}", dir.display());
+  let mut paths = Vec::new();
+  for entry in fs::read_dir(dir)? {
+    let path = entry?.path();
+    if path.extension().and_then(|extension| extension.to_str()) != Some("json") {
+      continue;
+    }
+    asset_sources.extend(registry_sources(&fs::read_to_string(&path)?)?);
+    paths.push(path);
+  }
+  paths.sort();
+  Ok(paths)
+}
+
+fn push_json_list(generated: &mut String, name: &str, paths: &[PathBuf]) {
+  generated.push_str("const ");
+  generated.push_str(name);
+  generated.push_str(": &[&str] = &[\n");
+  for path in paths {
+    generated.push_str("  include_str!(\"");
+    generated.push_str(&escape_rust_string(path));
+    generated.push_str("\"),\n");
+  }
+  generated.push_str("];\n\n");
 }
 
 fn registry_sources(json: &str) -> Result<Vec<String>, Box<dyn Error>> {

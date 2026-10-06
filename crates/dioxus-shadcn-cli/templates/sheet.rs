@@ -1,9 +1,9 @@
-use super::utils::{
-  DialogLabelPart, classes, use_dialog_label_part, use_dialog_labels, use_modal_focus_scope,
-};
-pub use super::utils::{
+use super::dialog_labels::{DialogLabelPart, use_dialog_label_part, use_dialog_labels};
+use super::modal_focus::use_modal_focus_scope;
+pub use super::overlay::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
+use super::utils::classes;
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]

@@ -1,0 +1,14 @@
+{
+  "name": "anchored-overlay",
+  "description": "Places anchored content next to its trigger and reports dismissal.",
+  "files": [
+    {
+      "source": "templates/anchored_overlay.rs",
+      "target": "src/components/ui/anchored_overlay.rs"
+    }
+  ],
+  "dependencies": [
+    "overlay"
+  ],
+  "assets": []
+}

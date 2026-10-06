@@ -19,7 +19,7 @@ fn cli_root() -> PathBuf {
 
 #[test]
 fn registry_entries_are_valid() {
-  let components = load_registry_components();
+  let components = all_entries();
 
   assert!(!components.is_empty(), "registry should contain components");
 
@@ -66,7 +66,7 @@ fn public_registry_components_have_docs_pages() {
   let root = workspace_root();
   let components = load_registry_components();
 
-  for (_, component) in public_components(&components) {
+  for (_, component) in &components {
     let docs_page = root.join("docs").join("components").join(format!("{}.md", component.name));
 
     assert!(
@@ -82,10 +82,8 @@ fn public_registry_components_have_docs_pages() {
 fn component_catalog_matches_public_registry() {
   let root = workspace_root();
   let components = load_registry_components();
-  let public_registry_names = public_components(&components)
-    .into_iter()
-    .map(|(_, component)| component.name.as_str())
-    .collect::<HashSet<_>>();
+  let public_registry_names =
+    components.iter().map(|(_, component)| component.name.as_str()).collect::<HashSet<_>>();
   let catalog_path = root.join("docs").join("components").join("README.md");
   let catalog = fs::read_to_string(&catalog_path).expect("component catalog should be readable");
   let catalog_names = parse_catalog_component_names(&catalog);
@@ -114,7 +112,7 @@ fn public_registry_components_match_crate_features() {
 
 #[test]
 fn registry_files_match_template_and_module_names() {
-  let components = load_registry_components();
+  let components = all_entries();
 
   for (path, component) in &components {
     let module_name = component_name_to_module(&component.name);
@@ -144,7 +142,7 @@ fn registry_files_match_template_and_module_names() {
 
 #[test]
 fn every_template_file_is_registered() {
-  let components = load_registry_components();
+  let components = all_entries();
   let registered_sources = components
     .iter()
     .flat_map(|(_, component)| component.files.iter().map(|file| file.source.as_str()))
@@ -164,6 +162,37 @@ fn every_template_file_is_registered() {
     template_sources,
     "every template should be owned by exactly one registry entry"
   );
+}
+
+/// A template imports sibling modules through `super::`. Each one must be a
+/// dependency, so `dxui add` copies it, and each helper dependency must be
+/// imported, so `dxui add` copies no helper the template does not use.
+/// Components may also depend on components they are composed with.
+#[test]
+fn template_imports_match_dependencies() {
+  let entries = all_entries();
+  let helpers =
+    load_entries("helpers").into_iter().map(|(_, helper)| helper.name).collect::<BTreeSet<_>>();
+  for (path, entry) in &entries {
+    let mut imported = BTreeSet::new();
+    for file in &entry.files {
+      let source = fs::read_to_string(cli_root().join(&file.source)).expect("template exists");
+      for (index, _) in source.match_indices("super::") {
+        let rest = &source[index + "super::".len()..];
+        let module = rest
+          .split(|character: char| !character.is_ascii_alphanumeric() && character != '_')
+          .next()
+          .unwrap_or_default();
+        imported.insert(module.replace('_', "-"));
+      }
+    }
+    for module in &imported {
+      assert!(entry.dependencies.contains(module), "{} imports {module}", path.display());
+    }
+    for dependency in entry.dependencies.iter().filter(|dependency| helpers.contains(*dependency)) {
+      assert!(imported.contains(dependency), "{} never imports {dependency}", path.display());
+    }
+  }
 }
 
 #[test]
@@ -233,17 +262,29 @@ fn block_entries_are_valid() {
 #[test]
 fn template_overlay_scripts_match_crate_scripts() {
   for (crate_file, template_file, name) in [
-    ("crates/dioxus-shadcn/src/modal_focus.rs", "templates/utils.rs", "MODAL_FOCUS_SCOPE_SCRIPT"),
+    (
+      "crates/dioxus-shadcn/src/modal_focus.rs",
+      "templates/modal_focus.rs",
+      "MODAL_FOCUS_SCOPE_SCRIPT",
+    ),
     (
       "crates/dioxus-shadcn/src/anchored_overlay.rs",
-      "templates/utils.rs",
+      "templates/anchored_overlay.rs",
       "ANCHORED_OVERLAY_SCRIPT",
     ),
-    ("crates/dioxus-shadcn/src/dismiss_timer.rs", "templates/utils.rs", "DISMISS_TIMER_SCRIPT"),
-    ("crates/dioxus-shadcn/src/listbox.rs", "templates/utils.rs", "LISTBOX_SCRIPT"),
-    ("crates/dioxus-shadcn/src/roving_group.rs", "templates/utils.rs", "ROVING_GROUP_SCRIPT"),
+    (
+      "crates/dioxus-shadcn/src/dismiss_timer.rs",
+      "templates/dismiss_timer.rs",
+      "DISMISS_TIMER_SCRIPT",
+    ),
+    ("crates/dioxus-shadcn/src/listbox.rs", "templates/listbox.rs", "LISTBOX_SCRIPT"),
+    (
+      "crates/dioxus-shadcn/src/roving_group.rs",
+      "templates/roving_group.rs",
+      "ROVING_GROUP_SCRIPT",
+    ),
     ("crates/dioxus-shadcn/src/menubar.rs", "templates/menubar.rs", "MENUBAR_SCRIPT"),
-    ("crates/dioxus-shadcn/src/hover_open.rs", "templates/utils.rs", "HOVER_OPEN_SCRIPT"),
+    ("crates/dioxus-shadcn/src/hover_open.rs", "templates/hover_open.rs", "HOVER_OPEN_SCRIPT"),
     ("crates/dioxus-shadcn/src/slider.rs", "templates/slider.rs", "SLIDER_POINTER_SCRIPT"),
     ("crates/dioxus-shadcn/src/resizable.rs", "templates/resizable.rs", "RESIZABLE_HANDLE_SCRIPT"),
     (
@@ -292,8 +333,18 @@ fn feature_check_script_covers_public_registry_features() {
   );
 }
 
+/// The public components.
 fn load_registry_components() -> Vec<(PathBuf, RegistryComponent)> {
-  let registry_dir = cli_root().join("registry");
+  load_entries("registry")
+}
+
+/// The components and the helpers they share (RFC 0074).
+fn all_entries() -> Vec<(PathBuf, RegistryComponent)> {
+  [load_entries("registry"), load_entries("helpers")].concat()
+}
+
+fn load_entries(dir: &str) -> Vec<(PathBuf, RegistryComponent)> {
+  let registry_dir = cli_root().join(dir);
   let entries = fs::read_dir(&registry_dir).expect("registry directory should exist");
   let mut components = Vec::new();
 
@@ -320,17 +371,7 @@ fn load_registry_components() -> Vec<(PathBuf, RegistryComponent)> {
 }
 
 fn public_component_names(components: &[(PathBuf, RegistryComponent)]) -> BTreeSet<String> {
-  public_components(components).into_iter().map(|(_, component)| component.name.clone()).collect()
-}
-
-fn public_components(
-  components: &[(PathBuf, RegistryComponent)],
-) -> Vec<(&PathBuf, &RegistryComponent)> {
-  components
-    .iter()
-    .filter(|(_, component)| component.name != "utils")
-    .map(|(path, component)| (path, component))
-    .collect()
+  components.iter().map(|(_, component)| component.name.clone()).collect()
 }
 
 fn component_name_to_module(name: &str) -> String {

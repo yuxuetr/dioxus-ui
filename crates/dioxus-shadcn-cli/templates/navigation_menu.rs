@@ -1,6 +1,6 @@
 use std::sync::atomic::{AtomicUsize, Ordering};
 
-pub use super::utils::PopoverPrimitiveConfig;
+pub use super::overlay::PopoverPrimitiveConfig;
 use super::utils::classes;
 use dioxus::prelude::*;
 

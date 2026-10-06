@@ -12,7 +12,7 @@ static NEXT_ROVING_GROUP_ID: AtomicUsize = AtomicUsize::new(0);
 // leaves `tabindex` alone, so every enabled item stays in the Tab order. Sends
 // the `data-value` of a clicked item, and of a newly focused item when
 // selection follows focus.
-// Keep in sync with `ROVING_GROUP_SCRIPT` in the CLI `utils.rs` template.
+// Keep in sync with `ROVING_GROUP_SCRIPT` in the CLI `roving_group.rs` template.
 pub(crate) const ROVING_GROUP_SCRIPT: &str = r#"
 const scopeId = await dioxus.recv();
 const root = document.querySelector(`[data-dxui-roving-group="${scopeId}"]`);

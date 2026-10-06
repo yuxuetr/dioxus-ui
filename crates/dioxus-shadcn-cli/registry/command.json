@@ -8,6 +8,7 @@
     }
   ],
   "dependencies": [
+    "listbox",
     "utils"
   ],
   "assets": []

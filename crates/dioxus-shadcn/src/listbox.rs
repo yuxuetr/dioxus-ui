@@ -13,7 +13,7 @@ static NEXT_LISTBOX_ID: AtomicUsize = AtomicUsize::new(0);
 // `data-value`, empty for menu items. A submenu (RFC 0067) is a nested menu
 // with its own script: each script acts on the items whose closest
 // `[data-dxui-listbox]` is its own, and ignores keys from a nested menu.
-// Keep in sync with `LISTBOX_SCRIPT` in the CLI `utils.rs` template.
+// Keep in sync with `LISTBOX_SCRIPT` in the CLI `listbox.rs` template.
 pub(crate) const LISTBOX_SCRIPT: &str = r#"
 const [scopeId, anchorId, mode] = await dioxus.recv();
 const listbox = document.querySelector(`[data-dxui-listbox="${scopeId}"]`);

@@ -1,9 +1,9 @@
-use super::utils::{
-  DialogLabelPart, classes, use_dialog_label_part, use_dialog_labels, use_modal_focus_scope,
-};
-pub use super::utils::{
+use super::dialog_labels::{DialogLabelPart, use_dialog_label_part, use_dialog_labels};
+use super::modal_focus::use_modal_focus_scope;
+pub use super::overlay::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
+use super::utils::classes;
 use dioxus::prelude::*;
 
 pub const DIALOG_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";

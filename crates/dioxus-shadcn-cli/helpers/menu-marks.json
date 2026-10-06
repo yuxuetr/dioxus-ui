@@ -1,0 +1,12 @@
+{
+  "name": "menu-marks",
+  "description": "Checkbox, radio, and sub trigger marks for menu items.",
+  "files": [
+    {
+      "source": "templates/menu_marks.rs",
+      "target": "src/components/ui/menu_marks.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

@@ -106,9 +106,6 @@ const categoryLabels = new Map(catalogCategories.map((category) => [category.id,
 // paths are relative to it.
 const cliRoot = "crates/dioxus-shadcn-cli";
 
-// Crate source files that are not public components.
-const internalCrateModules = new Set(["lib", "modal_focus", "anchored_overlay", "dismiss_timer", "listbox", "roving_group", "hover_open", "default_attribute", "dialog_labels", "menu_marks", "menu_sub", "media_query"]);
-
 function namesFromFiles(repoRoot, dir, extension) {
   return readdirSync(join(repoRoot, dir))
     .filter((file) => file.endsWith(extension))
@@ -214,13 +211,19 @@ function buildCatalogItems(repoRoot, publicComponentNames) {
 
 export function buildDocsCatalog(options = {}) {
   const repoRoot = options.repoRoot ?? defaultRepoRoot;
-  const sourceCopyHelpers = new Set(options.sourceCopyHelpers ?? ["utils"]);
-  const registryNames = namesFromFiles(repoRoot, `${cliRoot}/registry`, ".json")
-    .filter((name) => name !== "schema");
+  // Helpers (RFC 0074) are registry entries that `dxui list` does not show;
+  // most copy a crate module that is not a component.
+  const sourceCopyHelpers = new Set(
+    options.sourceCopyHelpers ?? namesFromFiles(repoRoot, `${cliRoot}/helpers`, ".json"),
+  );
+  const registryNames = [
+    ...namesFromFiles(repoRoot, `${cliRoot}/registry`, ".json").filter((name) => name !== "schema"),
+    ...sourceCopyHelpers,
+  ].sort();
   const templateNames = namesFromFiles(repoRoot, `${cliRoot}/templates`, ".rs").map(normalize);
   const crateModuleNames = namesFromFiles(repoRoot, "crates/dioxus-shadcn/src", ".rs")
-    .filter((name) => !internalCrateModules.has(name))
-    .map(normalize);
+    .map(normalize)
+    .filter((name) => name !== "lib" && !sourceCopyHelpers.has(name));
   const docsNames = namesFromFiles(repoRoot, "docs/components", ".md");
   const featureNames = parseCargoFeatures(repoRoot);
   const libModuleNames = parseLibModules(repoRoot);

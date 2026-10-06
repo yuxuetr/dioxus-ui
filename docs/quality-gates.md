@@ -32,12 +32,15 @@ This verifies:
 - public registry component names match `dioxus-shadcn` crate feature names.
 - public registry components have docs pages and catalog entries.
 - registry template source and target paths match generated module names.
-- every template file is registered exactly once, including `utils`.
+- every template file is registered exactly once, including the helpers in
+  `helpers/` (RFC 0074).
+- each template's `super::` imports are registry dependencies, and each
+  helper dependency is imported.
 - `scripts/feature-check.sh` covers every public component feature.
 - `dxui list` returns public components.
 - `dxui init` creates the generated project structure.
 - `dxui add` can add every public component.
-- generated `mod.rs` includes every public component and `utils`.
+- generated `mod.rs` includes every public component and the helpers they use.
 - generated code does not import `dioxus-shadcn-core` or `dioxus-shadcn-primitives`.
 - generated source compiles with only `dioxus = "0.7"`.
 

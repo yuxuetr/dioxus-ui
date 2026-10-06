@@ -1,0 +1,12 @@
+{
+  "name": "media-query",
+  "description": "Reports whether a viewport media query matches.",
+  "files": [
+    {
+      "source": "templates/media_query.rs",
+      "target": "src/components/ui/media_query.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

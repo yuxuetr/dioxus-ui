@@ -1,0 +1,12 @@
+{
+  "name": "modal-focus",
+  "description": "Traps focus in modal content and locks page scroll while it is open.",
+  "files": [
+    {
+      "source": "templates/modal_focus.rs",
+      "target": "src/components/ui/modal_focus.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

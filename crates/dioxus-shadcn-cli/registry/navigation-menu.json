@@ -8,6 +8,7 @@
     }
   ],
   "dependencies": [
+    "overlay",
     "utils"
   ],
   "assets": []

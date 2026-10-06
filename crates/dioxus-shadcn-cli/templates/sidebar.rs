@@ -2,7 +2,10 @@ use std::cell::RefCell;
 use std::rc::Rc;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
-use super::utils::{classes, default_attribute, use_media_query, use_modal_focus_scope};
+use super::default_attribute::default_attribute;
+use super::media_query::use_media_query;
+use super::modal_focus::use_modal_focus_scope;
+use super::utils::classes;
 use dioxus::prelude::*;
 
 static NEXT_SIDEBAR_ID: AtomicUsize = AtomicUsize::new(0);

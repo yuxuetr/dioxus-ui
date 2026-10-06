@@ -8,8 +8,11 @@
     }
   ],
   "dependencies": [
-    "utils",
-    "calendar"
+    "anchored-overlay",
+    "calendar",
+    "modal-focus",
+    "overlay",
+    "utils"
   ],
   "assets": []
 }

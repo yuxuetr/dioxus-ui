@@ -20,8 +20,8 @@ Use it with:
 | --- | ---: | --- | --- |
 | Styled component crate modules | 82 | Crate mode | Feature-gated modules under `crates/dioxus-shadcn/src`. |
 | Styled component features | 82 | Crate mode | Public Cargo feature names in `crates/dioxus-shadcn/Cargo.toml`. |
-| Source-copy templates | 83 | Source-copy mode | 82 component templates plus shared `utils.rs`. |
-| Registry entries | 83 | CLI/source-copy mode | 82 component entries plus `utils.json`. |
+| Source-copy templates | 95 | Source-copy mode | 82 component templates plus 13 helper templates (RFC 0074). |
+| Registry entries | 95 | CLI/source-copy mode | 82 component entries in `registry/` plus 13 helper entries in `helpers/`. |
 | Registry schema | 1 | Tooling metadata | `crates/dioxus-shadcn-cli/registry/schema.json` validates registry shape and is not a component. |
 | Primitive modules | 20 | Crate mode/internal behavior | Public helpers and config types in `dioxus-shadcn-primitives`. |
 | Core crate exports | 4 groups | Crate/tooling mode | `classes`, `UiDensity`, and registry data structs. |
@@ -123,6 +123,7 @@ Current source-copy templates:
 accordion
 alert
 alert_dialog
+anchored_overlay
 aspect_ratio
 attachment
 avatar
@@ -143,9 +144,12 @@ context_menu
 countdown
 data_table
 date_picker
+default_attribute
 dialog
+dialog_labels
 diff
 direction
+dismiss_timer
 dock
 drawer
 dropdown
@@ -154,6 +158,7 @@ fab
 field
 file_input
 hover_card
+hover_open
 indicator
 input
 input_group
@@ -161,13 +166,21 @@ input_otp
 item
 kbd
 label
+listbox
 marker
+media_query
+menu
+menu_marks
+menu_sub
 menubar
 message
 message_scroller
+mockup
+modal_focus
 native_select
 navigation_menu
 number_input
+overlay
 pagination
 popover
 progress
@@ -175,6 +188,7 @@ radial_progress
 radio_group
 rating
 resizable
+roving_group
 scroll_area
 select
 separator
@@ -193,6 +207,7 @@ table
 tabs
 tags_input
 textarea
+theme_controller
 timeline
 toast
 toggle
@@ -203,7 +218,8 @@ utils
 ```
 
 Source-copy users can edit generated files, but registry slugs, generated file
-paths, and shared `utils` behavior still form a CLI compatibility surface.
+paths, and the helper templates' behavior still form a CLI compatibility
+surface.
 
 ## Primitive Surface
 

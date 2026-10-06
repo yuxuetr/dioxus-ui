@@ -1,0 +1,12 @@
+{
+  "name": "dialog-labels",
+  "description": "Links dialog content to its mounted title and description.",
+  "files": [
+    {
+      "source": "templates/dialog_labels.rs",
+      "target": "src/components/ui/dialog_labels.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

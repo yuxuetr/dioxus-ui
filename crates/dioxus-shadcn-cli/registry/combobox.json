@@ -8,6 +8,10 @@
     }
   ],
   "dependencies": [
+    "anchored-overlay",
+    "default-attribute",
+    "listbox",
+    "overlay",
     "utils"
   ],
   "assets": []
