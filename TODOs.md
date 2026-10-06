@@ -76,8 +76,9 @@
 
 ## M207 0.4.2 Release
 
-- TODO M207.1 Publish 0.4.2
+- DONE M207.1 Publish 0.4.2
   - Confirmed by the release owner on 2026-10-06 after M206.1. CHANGELOG, versions, release gate, `cargo-semver-checks --release-type patch` against 0.4.1, CI, then publish and check from crates.io: a fullstack app on `dioxus-shadcn` 0.4.2 keeps the same ids across requests, and a copy app from `dxui` 0.4.2 gets the `element_id` helper.
+  - Done: confirmed by the release owner on 2026-10-06. Versions 0.4.2 and CHANGELOG [0.4.2]; semver checks against 0.4.1 need no update, `npm run verify:release` exits 0, the dry run verifies all four crates, and CI passed on `1e4fc53`. Published in dependency order and tagged `v0.4.2`. From crates.io: a fullstack app on `dioxus-shadcn` 0.4.2 wrote the same ids on three requests and ArrowRight moved focus and selection after hydration; `dxui` 0.4.2 copied Tabs with `element_id.rs` into an app that built while denying warnings, and `dxui diff` exited 0.
 
 ## Deferred (re-evaluate when)
 
