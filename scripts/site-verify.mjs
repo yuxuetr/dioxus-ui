@@ -149,6 +149,11 @@ async function run() {
       }
       if (route.slug) {
         await expectExamples(page, route);
+        // The docs page renders on the site, from its API Surface on.
+        const reference = article.locator("[data-site-reference]");
+        for (const heading of ["API Surface", "Accessibility Notes"]) {
+          await expect(reference.getByRole("heading", { name: heading, exact: true })).toHaveCount(1);
+        }
       }
       await expectReadable(page, route.path, { audit: true });
       await expectNoSidewaysScroll(page, route.path);
@@ -176,6 +181,10 @@ async function run() {
     const shown = await example.locator("[data-site-example-source]").textContent();
     await expect.poll(clipboard).toBe(shown);
     await expect(copySource).toHaveText("Copy", { timeout: 4000 });
+    // A link to another component's docs opens that page on the site.
+    await visit(page, "/components/date-picker");
+    await page.locator("[data-site-reference]").getByRole("link", { name: /Calendar/ }).first().click();
+    await expect(page.locator("main [data-site-page]")).toHaveAttribute("data-component", "calendar");
     // Version snippets follow the crate version.
     await visit(page, "/docs/getting-started");
     await expect(page.locator("main")).not.toContainText("0.1.0");

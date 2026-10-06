@@ -53,6 +53,9 @@ for commit messages.
 - The component site's header theme menu offers System, Light, Dark, and the
   presets, replacing the separate dark toggle, and applies them to the
   document root.
+- The component site renders each component's reference (API, behavior,
+  and accessibility notes) from its docs page at build time, with links to
+  other components kept on the site, instead of linking to GitHub.
 - The component site's code blocks and example sources have copy buttons,
   and its version snippets follow the crate version; the Installation page
   showed a `dioxus-shadcn-0.1.0` path.

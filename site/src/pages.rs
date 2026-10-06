@@ -26,6 +26,23 @@ fn find_component(slug: &str) -> Option<(&'static str, &'static Component)> {
   })
 }
 
+// `REFERENCES`: each component docs page from its API Surface section on,
+// rendered by `build.rs`.
+include!(concat!(env!("OUT_DIR"), "/references.rs"));
+
+/// Styles the rendered docs, which arrive as plain HTML elements.
+const PROSE: &str = "[&_h2]:mt-10 [&_h2]:border-b [&_h2]:border-border [&_h2]:pb-2 [&_h2]:text-xl [&_h2]:font-semibold [&_h3]:mt-8 [&_h3]:text-lg [&_h3]:font-semibold [&_p]:mt-4 [&_p]:leading-7 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:ps-6 [&_ol]:mt-4 [&_ol]:list-decimal [&_ol]:ps-6 [&_li]:mt-1.5 [&_li]:leading-7 [&_a]:font-medium [&_a]:underline [&_a]:underline-offset-4 [&_pre]:mt-4 [&_pre]:overflow-x-auto [&_pre]:rounded-md [&_pre]:border [&_pre]:border-border [&_pre]:bg-muted [&_pre]:p-4 [&_pre]:text-sm [&_code]:font-mono [&_code]:text-sm [&_:not(pre)>code]:rounded [&_:not(pre)>code]:bg-muted [&_:not(pre)>code]:px-1.5 [&_:not(pre)>code]:py-0.5 [&_:not(pre)>code]:[overflow-wrap:anywhere] [&_table]:mt-4 [&_table]:w-full [&_table]:text-sm [&_th]:border-b [&_th]:border-border [&_th]:py-2 [&_th]:text-start [&_td]:border-b [&_td]:border-border [&_td]:py-2";
+
+/// A component's rendered reference, with links to other component pages
+/// under the site's base path.
+fn reference_html(slug: &str) -> Option<String> {
+  let (_, html) = REFERENCES.iter().find(|(reference, _)| *reference == slug)?;
+  let base = dioxus::cli_config::base_path().unwrap_or_default();
+  let base = base.trim_matches('/');
+  let prefix = if base.is_empty() { String::new() } else { format!("/{base}") };
+  Some(html.replace("__SITE_BASE__", &prefix))
+}
+
 /// The crate version these pages document, such as `0.3.0`.
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
@@ -309,21 +326,14 @@ pub fn ComponentPage(slug: String) -> Element {
           ExampleCard { key: "{component.slug}-{example.title}", index }
         }
       }
-      h2 { class: H2, "Reference" }
-      ul { class: "mt-4 grid gap-2 text-sm",
-        li {
-          a {
-            class: "font-medium underline underline-offset-4",
-            href: "{DOCS_URL}/{component.slug}.md#api-surface",
-            "API surface and behavior"
-          }
-        }
-        li {
-          a {
-            class: "font-medium underline underline-offset-4",
-            href: "{DOCS_URL}/{component.slug}.md#accessibility-notes",
-            "Accessibility notes"
-          }
+      if let Some(reference) = reference_html(component.slug) {
+        div { class: PROSE, "data-site-reference": "", dangerous_inner_html: reference }
+      }
+      p { class: "mt-10 text-sm text-muted-foreground",
+        a {
+          class: "font-medium underline underline-offset-4",
+          href: "{DOCS_URL}/{component.slug}.md",
+          "View this page on GitHub"
         }
       }
     }
