@@ -2,7 +2,7 @@
 
 ## Progress
 
-- Overall: 96% (22 of 23 tasks)
+- Overall: 95% (18 of 19 tasks)
 - Current milestone: M201
 - Current task: M201.2 (waiting for the release owner)
 
