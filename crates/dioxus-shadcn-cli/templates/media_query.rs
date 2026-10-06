@@ -2,11 +2,10 @@
 
 use std::cell::Cell;
 use std::rc::Rc;
-use std::sync::atomic::{AtomicUsize, Ordering};
 
 use dioxus::prelude::*;
 
-static NEXT_MEDIA_QUERY_ID: AtomicUsize = AtomicUsize::new(0);
+use super::element_id::next_element_id;
 
 // Reports whether the query matches, and again on every change, until the
 // element carrying the scope id is removed.
@@ -37,8 +36,7 @@ list.removeEventListener("change", report);
 /// Returns the value and the `data-dxui-media` attribute for an element that
 /// stays mounted while the value is needed.
 pub(crate) fn use_media_query(query: &'static str, enabled: bool) -> (bool, String) {
-  let scope_id =
-    use_hook(|| format!("dxui-media-{}", NEXT_MEDIA_QUERY_ID.fetch_add(1, Ordering::Relaxed)));
+  let scope_id = use_hook(|| format!("dxui-media-{}", next_element_id()));
   let mut matches = use_signal(|| false);
   let started = use_hook(|| Rc::new(Cell::new(false)));
   let effect_scope_id = scope_id.clone();

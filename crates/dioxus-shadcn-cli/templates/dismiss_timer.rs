@@ -1,10 +1,9 @@
 use std::cell::Cell;
 use std::rc::Rc;
-use std::sync::atomic::{AtomicUsize, Ordering};
 
 use dioxus::prelude::*;
 
-static NEXT_DISMISS_TIMER_ID: AtomicUsize = AtomicUsize::new(0);
+use super::element_id::next_element_id;
 
 // Counts down only while the pointer is outside the toast and focus is not
 // inside it, and reports "timeout" once the remaining time runs out. Exits
@@ -84,8 +83,7 @@ pub(crate) fn use_dismiss_timer<R: Clone + 'static>(
   on_dismiss: Option<EventHandler<R>>,
   timeout_reason: R,
 ) -> String {
-  let scope_id =
-    use_hook(|| format!("dxui-timer-{}", NEXT_DISMISS_TIMER_ID.fetch_add(1, Ordering::Relaxed)));
+  let scope_id = use_hook(|| format!("dxui-timer-{}", next_element_id()));
   let was_open = use_hook(|| Rc::new(Cell::new(false)));
   let effect_scope_id = scope_id.clone();
 

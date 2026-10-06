@@ -1,10 +1,7 @@
-use std::sync::atomic::{AtomicUsize, Ordering};
-
+use super::element_id::next_element_id;
 use super::listbox::{ListboxMode, use_listbox};
 use super::utils::classes;
 use dioxus::prelude::*;
-
-static NEXT_COMMAND_ID: AtomicUsize = AtomicUsize::new(0);
 
 pub const COMMAND_BASE_CLASS: &str =
   "flex h-full w-full flex-col overflow-hidden rounded-md bg-background text-foreground";
@@ -96,8 +93,7 @@ pub fn Command(
   children: Element,
 ) -> Element {
   let class = command_class(&class);
-  let base_id =
-    use_hook(|| format!("dxui-command-{}", NEXT_COMMAND_ID.fetch_add(1, Ordering::Relaxed)));
+  let base_id = use_hook(|| format!("dxui-command-{}", next_element_id()));
   let context = use_context_provider(|| CommandContext { base_id });
   let listbox = use_listbox(true, Some(context.input_id()), ListboxMode::Command, on_select, None);
 

@@ -9,6 +9,7 @@
   ],
   "dependencies": [
     "default-attribute",
+    "element-id",
     "media-query",
     "modal-focus",
     "utils"

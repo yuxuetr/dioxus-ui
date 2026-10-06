@@ -1,5 +1,4 @@
-use std::sync::atomic::{AtomicUsize, Ordering};
-
+use super::element_id::next_element_id;
 use super::utils::classes;
 use dioxus::prelude::*;
 
@@ -71,8 +70,6 @@ fn ordered_bounds(min_size: f64, max_size: f64) -> (f64, f64) {
 
   if min_size <= max_size { (min_size, max_size) } else { (max_size, min_size) }
 }
-
-static NEXT_RESIZABLE_HANDLE_ID: AtomicUsize = AtomicUsize::new(0);
 
 // Runs for the handle's lifetime. A primary-button press captures the pointer
 // and records the pointer position and `aria-valuenow`; each move sends the
@@ -288,9 +285,7 @@ fn use_resizable_handle_pointer(
   disabled: bool,
   on_resize: Option<EventHandler<f64>>,
 ) -> String {
-  let scope_id = use_hook(|| {
-    format!("dxui-resizable-handle-{}", NEXT_RESIZABLE_HANDLE_ID.fetch_add(1, Ordering::Relaxed))
-  });
+  let scope_id = use_hook(|| format!("dxui-resizable-handle-{}", next_element_id()));
   // The receive loop outlives this render, so it reads the latest props here.
   let mut latest = use_hook(|| CopyValue::new((value, min, max, disabled)));
   latest.set((value, min, max, disabled));

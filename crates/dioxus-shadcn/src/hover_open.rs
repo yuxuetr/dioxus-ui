@@ -1,8 +1,6 @@
-use std::sync::atomic::{AtomicUsize, Ordering};
-
 use dioxus::prelude::*;
 
-static NEXT_HOVER_OPEN_ID: AtomicUsize = AtomicUsize::new(0);
+use crate::element_id::next_element_id;
 
 // Runs for the root's lifetime and finds the trigger and content on every
 // event. Sends "open" or "close" only when the request changes the content's
@@ -127,8 +125,7 @@ pub(crate) fn use_hover_open(
   on_open_change: Option<EventHandler<bool>>,
   options: HoverOpenOptions,
 ) -> String {
-  let scope_id =
-    use_hook(|| format!("dxui-hover-{}", NEXT_HOVER_OPEN_ID.fetch_add(1, Ordering::Relaxed)));
+  let scope_id = use_hook(|| format!("dxui-hover-{}", next_element_id()));
   let effect_scope_id = scope_id.clone();
 
   use_effect(move || {

@@ -1,9 +1,7 @@
-use std::sync::atomic::{AtomicUsize, Ordering};
-
 use dioxus::prelude::*;
 use dioxus_shadcn_core::classes;
 
-static NEXT_MENU_GROUP_ID: AtomicUsize = AtomicUsize::new(0);
+use crate::element_id::next_element_id;
 
 pub const MENU_BASE_CLASS: &str = "flex w-full flex-col gap-0.5 text-sm";
 pub const MENU_TITLE_BASE_CLASS: &str = "px-3 pb-1 pt-3 text-xs font-medium text-muted-foreground";
@@ -141,8 +139,7 @@ pub fn MenuGroup(
   #[props(default)] list_class: String,
   children: Element,
 ) -> Element {
-  let list_id =
-    use_hook(|| format!("dxui-menu-group-{}", NEXT_MENU_GROUP_ID.fetch_add(1, Ordering::Relaxed)));
+  let list_id = use_hook(|| format!("dxui-menu-group-{}", next_element_id()));
   let class = menu_item_class(false, &classes([Some(MENU_GROUP_TRIGGER_CLASS), Some(&class)]));
   let list_class = menu_group_list_class(&list_class);
   let state = if open { "open" } else { "closed" };

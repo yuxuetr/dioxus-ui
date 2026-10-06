@@ -1,10 +1,7 @@
-use std::sync::atomic::{AtomicUsize, Ordering};
-
+use super::element_id::next_element_id;
 use super::roving_group::{group_part_id, use_roving_group};
 use super::utils::classes;
 use dioxus::prelude::*;
-
-static NEXT_TABS_ID: AtomicUsize = AtomicUsize::new(0);
 
 pub const TABS_BASE_CLASS: &str =
   "data-[orientation=vertical]:flex data-[orientation=vertical]:gap-4";
@@ -95,7 +92,7 @@ pub fn Tabs(
   children: Element,
 ) -> Element {
   let class = tabs_class(&class);
-  let base_id = use_hook(|| format!("dxui-tabs-{}", NEXT_TABS_ID.fetch_add(1, Ordering::Relaxed)));
+  let base_id = use_hook(|| format!("dxui-tabs-{}", next_element_id()));
   use_context_provider(|| TabsContext { base_id, on_value_change, activation, orientation });
 
   rsx! {

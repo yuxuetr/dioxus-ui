@@ -7,6 +7,8 @@
       "target": "src/components/ui/roving_group.rs"
     }
   ],
-  "dependencies": [],
+  "dependencies": [
+    "element-id"
+  ],
   "assets": []
 }

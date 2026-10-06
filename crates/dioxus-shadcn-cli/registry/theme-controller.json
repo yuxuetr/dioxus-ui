@@ -7,6 +7,8 @@
       "target": "src/components/ui/theme_controller.rs"
     }
   ],
-  "dependencies": [],
+  "dependencies": [
+    "element-id"
+  ],
   "assets": []
 }

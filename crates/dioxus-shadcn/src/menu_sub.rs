@@ -1,14 +1,11 @@
 //! Submenus for Dropdown, Context Menu, and Menubar (RFC 0067).
 
-use std::sync::atomic::{AtomicUsize, Ordering};
-
 use dioxus::prelude::*;
 use dioxus_shadcn_primitives::{DismissBehavior, OverlayAlign, OverlaySide};
 
 use crate::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
+use crate::element_id::next_element_id;
 use crate::listbox::{ListboxMode, use_listbox};
-
-static NEXT_MENU_SUB_ID: AtomicUsize = AtomicUsize::new(0);
 
 /// What a submenu's trigger and content share: their ids and the app's open
 /// handler.
@@ -30,8 +27,7 @@ impl MenuSubContext {
 
 /// Provides the context the submenu's trigger and content read.
 pub fn use_menu_sub(on_open_change: Option<EventHandler<bool>>) {
-  let base_id =
-    use_hook(|| format!("dxui-menu-sub-{}", NEXT_MENU_SUB_ID.fetch_add(1, Ordering::Relaxed)));
+  let base_id = use_hook(|| format!("dxui-menu-sub-{}", next_element_id()));
   use_context_provider(|| MenuSubContext { base_id, on_open_change });
 }
 

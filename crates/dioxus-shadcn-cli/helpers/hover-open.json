@@ -7,6 +7,8 @@
       "target": "src/components/ui/hover_open.rs"
     }
   ],
-  "dependencies": [],
+  "dependencies": [
+    "element-id"
+  ],
   "assets": []
 }

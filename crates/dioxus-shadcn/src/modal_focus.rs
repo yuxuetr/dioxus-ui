@@ -1,8 +1,6 @@
-use std::sync::atomic::{AtomicUsize, Ordering};
-
 use dioxus::prelude::*;
 
-static NEXT_FOCUS_SCOPE_ID: AtomicUsize = AtomicUsize::new(0);
+use crate::element_id::next_element_id;
 
 // Runs until the scope element is hidden or removed, so focus is restored both
 // when `open` turns false and when the app stops rendering the content. A
@@ -96,8 +94,7 @@ pub(crate) fn modal_focus_scope_script(scope_id: &str, lock_scroll: bool) -> Str
 ///
 /// Returns the value for the content's `data-dxui-focus-scope` attribute.
 pub(crate) fn use_modal_focus_scope(open: bool, lock_scroll: bool) -> String {
-  let scope_id =
-    use_hook(|| format!("dxui-focus-{}", NEXT_FOCUS_SCOPE_ID.fetch_add(1, Ordering::Relaxed)));
+  let scope_id = use_hook(|| format!("dxui-focus-{}", next_element_id()));
   let script = modal_focus_scope_script(&scope_id, lock_scroll);
 
   use_effect(use_reactive((&open,), move |(open,)| {

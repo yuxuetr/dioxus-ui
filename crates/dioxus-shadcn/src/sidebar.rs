@@ -1,16 +1,14 @@
 use std::cell::RefCell;
 use std::rc::Rc;
-use std::sync::atomic::{AtomicUsize, Ordering};
 
 use dioxus::prelude::*;
 use dioxus_shadcn_core::classes;
 pub use dioxus_shadcn_primitives::{SidebarState, sidebar_toggle};
 
 use crate::default_attribute::default_attribute;
+use crate::element_id::next_element_id;
 use crate::media_query::use_media_query;
 use crate::modal_focus::use_modal_focus_scope;
-
-static NEXT_SIDEBAR_ID: AtomicUsize = AtomicUsize::new(0);
 
 /// Below this width a Sidebar with `on_mobile_open_change` is off-canvas.
 pub const SIDEBAR_MOBILE_QUERY: &str = "(max-width: 767px)";
@@ -169,8 +167,7 @@ pub fn Sidebar(
     use_media_query(SIDEBAR_MOBILE_QUERY, on_mobile_open_change.is_some());
   let modal = mobile && on_mobile_open_change.is_some();
   let focus_scope = use_modal_focus_scope(modal && mobile_open, true);
-  let scope_id =
-    use_hook(|| format!("dxui-sidebar-{}", NEXT_SIDEBAR_ID.fetch_add(1, Ordering::Relaxed)));
+  let scope_id = use_hook(|| format!("dxui-sidebar-{}", next_element_id()));
   // The shortcut handler outlives this render, so it reads the latest state.
   let latest = use_hook(|| Rc::new(RefCell::new(SidebarToggle::default())));
   *latest.borrow_mut() =

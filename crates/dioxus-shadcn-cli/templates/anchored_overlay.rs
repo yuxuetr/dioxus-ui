@@ -1,11 +1,9 @@
 use std::cell::Cell;
 use std::rc::Rc;
-use std::sync::atomic::{AtomicUsize, Ordering};
 
+use super::element_id::next_element_id;
 use super::overlay::{DismissBehavior, OverlayAlign, OverlaySide};
 use dioxus::prelude::*;
-
-static NEXT_ANCHORED_ID: AtomicUsize = AtomicUsize::new(0);
 
 // Places anchored content with the flip and shift rules of
 // `compute_overlay_placement`, done in the page to avoid a round trip per
@@ -153,8 +151,7 @@ pub(crate) fn use_anchored_overlay(
   dismiss: DismissBehavior,
   on_open_change: Option<EventHandler<bool>>,
 ) -> String {
-  let scope_id =
-    use_hook(|| format!("dxui-anchored-{}", NEXT_ANCHORED_ID.fetch_add(1, Ordering::Relaxed)));
+  let scope_id = use_hook(|| format!("dxui-anchored-{}", next_element_id()));
   let was_open = use_hook(|| Rc::new(Cell::new(false)));
   let effect_scope_id = scope_id.clone();
 

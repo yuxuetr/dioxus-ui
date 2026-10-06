@@ -1,9 +1,6 @@
-use std::sync::atomic::{AtomicUsize, Ordering};
-
+use super::element_id::next_element_id;
 use super::utils::classes;
 use dioxus::prelude::*;
-
-static NEXT_INPUT_OTP_ID: AtomicUsize = AtomicUsize::new(0);
 
 // Keep in sync with `INPUT_OTP_FILTER_SCRIPT` in the `dioxus-shadcn` crate.
 // Runs for the input's lifetime. Its listener on the input itself runs before
@@ -394,8 +391,7 @@ pub fn InputOtpHiddenInput(
 /// Runs the filter script for the input's lifetime and returns the value for
 /// its `data-dxui-otp-input` attribute.
 fn use_input_otp_filter() -> String {
-  let scope_id =
-    use_hook(|| format!("dxui-otp-{}", NEXT_INPUT_OTP_ID.fetch_add(1, Ordering::Relaxed)));
+  let scope_id = use_hook(|| format!("dxui-otp-{}", next_element_id()));
   let effect_scope_id = scope_id.clone();
 
   use_effect(move || {

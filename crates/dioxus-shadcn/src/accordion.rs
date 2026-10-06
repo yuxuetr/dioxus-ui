@@ -1,11 +1,8 @@
-use std::sync::atomic::{AtomicUsize, Ordering};
-
 use dioxus::prelude::*;
 use dioxus_shadcn_core::classes;
 
+use crate::element_id::next_element_id;
 use crate::roving_group::{group_part_id, use_roving_group};
-
-static NEXT_ACCORDION_ID: AtomicUsize = AtomicUsize::new(0);
 
 pub const ACCORDION_ITEM_BASE_CLASS: &str = "border-b border-border";
 pub const ACCORDION_TRIGGER_BASE_CLASS: &str = "flex w-full items-center justify-between py-4 text-left text-sm font-medium text-foreground transition-colors hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
@@ -74,8 +71,7 @@ pub fn Accordion(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let base_id =
-    use_hook(|| format!("dxui-accordion-{}", NEXT_ACCORDION_ID.fetch_add(1, Ordering::Relaxed)));
+  let base_id = use_hook(|| format!("dxui-accordion-{}", next_element_id()));
   use_context_provider(|| AccordionContext { base_id });
   let scope_id = use_roving_group(on_toggle);
 

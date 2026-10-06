@@ -8,6 +8,7 @@
     }
   ],
   "dependencies": [
+    "element-id",
     "listbox",
     "utils"
   ],

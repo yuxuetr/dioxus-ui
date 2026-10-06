@@ -1,11 +1,9 @@
 use std::cell::Cell;
 use std::rc::Rc;
-use std::sync::atomic::{AtomicUsize, Ordering};
 
+use super::element_id::next_element_id;
 use super::utils::classes;
 use dioxus::prelude::*;
-
-static NEXT_CHECKBOX_ID: AtomicUsize = AtomicUsize::new(0);
 
 // Sets the native `indeterminate` property, which has no HTML attribute.
 // Keep in sync with `CHECKBOX_INDETERMINATE_SCRIPT` in `dioxus-shadcn`'s `checkbox.rs`.
@@ -59,8 +57,7 @@ pub fn Checkbox(
   #[props(extends = GlobalAttributes, extends = input)] attributes: Vec<Attribute>,
 ) -> Element {
   let class = checkbox_class(checked || indeterminate, &class);
-  let scope_id =
-    use_hook(|| format!("dxui-checkbox-{}", NEXT_CHECKBOX_ID.fetch_add(1, Ordering::Relaxed)));
+  let scope_id = use_hook(|| format!("dxui-checkbox-{}", next_element_id()));
   // A click clears the native property before any handler runs; bumping this
   // re-runs the sync after the app's next render, in case it stays mixed.
   let mut changes = use_signal(|| 0_u32);

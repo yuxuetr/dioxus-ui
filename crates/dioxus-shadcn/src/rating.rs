@@ -1,9 +1,7 @@
-use std::sync::atomic::{AtomicUsize, Ordering};
-
 use dioxus::prelude::*;
 use dioxus_shadcn_core::classes;
 
-static NEXT_RATING_ID: AtomicUsize = AtomicUsize::new(0);
+use crate::element_id::next_element_id;
 
 pub const RATING_BASE_CLASS: &str = "inline-flex items-center gap-1";
 // The mask that draws the star would clip a focus outline, so the wrapper
@@ -29,8 +27,7 @@ pub fn Rating(
   #[props(extends = GlobalAttributes)] attributes: Vec<Attribute>,
 ) -> Element {
   let class = rating_class(&class);
-  let generated_name =
-    use_hook(|| format!("dxui-rating-{}", NEXT_RATING_ID.fetch_add(1, Ordering::Relaxed)));
+  let generated_name = use_hook(|| format!("dxui-rating-{}", next_element_id()));
   let name = name.unwrap_or(generated_name);
 
   rsx! {

@@ -879,6 +879,7 @@ mod tests {
       [
         "anchored_overlay.rs",
         "dropdown.rs",
+        "element_id.rs",
         "listbox.rs",
         "menu_marks.rs",
         "menu_sub.rs",

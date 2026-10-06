@@ -1,10 +1,8 @@
-use std::sync::atomic::{AtomicUsize, Ordering};
-
 use dioxus::prelude::*;
 use dioxus_shadcn_core::classes;
 pub use dioxus_shadcn_primitives::PopoverPrimitiveConfig;
 
-static NEXT_NAVIGATION_MENU_ID: AtomicUsize = AtomicUsize::new(0);
+use crate::element_id::next_element_id;
 
 // Runs for the menu's lifetime and reads items from the DOM on every event.
 // Sends the `NavigationMenuItem` value to open, or an empty string to close.
@@ -313,9 +311,7 @@ pub fn NavigationMenu(
   children: Element,
 ) -> Element {
   let class = navigation_menu_class(&class);
-  let scope_id = use_hook(|| {
-    format!("dxui-navigation-menu-{}", NEXT_NAVIGATION_MENU_ID.fetch_add(1, Ordering::Relaxed))
-  });
+  let scope_id = use_hook(|| format!("dxui-navigation-menu-{}", next_element_id()));
   let effect_scope_id = scope_id.clone();
 
   use_effect(move || {

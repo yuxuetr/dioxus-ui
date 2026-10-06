@@ -1,8 +1,6 @@
-use std::sync::atomic::{AtomicUsize, Ordering};
-
 use dioxus::prelude::*;
 
-static NEXT_DIALOG_LABELS_ID: AtomicUsize = AtomicUsize::new(0);
+use crate::element_id::next_element_id;
 
 /// Links dialog content to the title and description mounted inside it. Each
 /// part sets its flag while mounted, so the content never points at a missing
@@ -56,7 +54,7 @@ impl DialogLabels {
 /// description.
 pub(crate) fn use_dialog_labels() -> DialogLabels {
   let labels = use_hook(|| DialogLabels {
-    id: NEXT_DIALOG_LABELS_ID.fetch_add(1, Ordering::Relaxed),
+    id: next_element_id(),
     has_title: Signal::new(false),
     has_description: Signal::new(false),
   });

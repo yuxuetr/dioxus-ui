@@ -7,6 +7,8 @@
       "target": "src/components/ui/modal_focus.rs"
     }
   ],
-  "dependencies": [],
+  "dependencies": [
+    "element-id"
+  ],
   "assets": []
 }

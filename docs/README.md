@@ -113,7 +113,8 @@ Read in this order:
 106. [RFC 0072: Menu and Mockup](rfcs/0072-menu-and-mockup.md)
 107. [RFC 0073: Blocks](rfcs/0073-blocks.md)
 108. [RFC 0074: Helper Templates](rfcs/0074-helper-templates.md)
-108. [TODO Plan](../TODOs.md)
+109. [RFC 0075: Render-Scoped Element Ids](rfcs/0075-render-scoped-element-ids.md)
+110. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 

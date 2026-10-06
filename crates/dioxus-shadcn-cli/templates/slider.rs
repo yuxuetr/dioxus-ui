@@ -1,9 +1,6 @@
-use std::sync::atomic::{AtomicUsize, Ordering};
-
+use super::element_id::next_element_id;
 use super::utils::classes;
 use dioxus::prelude::*;
-
-static NEXT_SLIDER_ID: AtomicUsize = AtomicUsize::new(0);
 
 // Runs for the slider's lifetime. A primary-button press captures the pointer
 // and sends the value under it, and so does each move until release. Bounds
@@ -351,8 +348,7 @@ fn use_slider_pointer(
   disabled: bool,
   on_value_change: Option<EventHandler<f64>>,
 ) -> String {
-  let scope_id =
-    use_hook(|| format!("dxui-slider-{}", NEXT_SLIDER_ID.fetch_add(1, Ordering::Relaxed)));
+  let scope_id = use_hook(|| format!("dxui-slider-{}", next_element_id()));
   // The receive loop outlives this render, so it reads the latest props here.
   let mut latest = use_hook(|| CopyValue::new((state, disabled)));
   latest.set((state, disabled));
@@ -429,8 +425,6 @@ await ended;
 observer.disconnect();
 "#;
 
-static NEXT_RANGE_SLIDER_ID: AtomicUsize = AtomicUsize::new(0);
-
 /// The values after moving thumb `thumb` (0 for the lower, 1 for the upper)
 /// to `target`: snapped to `step` within `min..=max`, and kept `min_gap`
 /// away from the other thumb. The input pair is snapped and ordered first.
@@ -480,9 +474,7 @@ pub fn RangeSlider(
   let state = slider_state(min, min, max, step);
   let gap = f64::from(min_steps_between) * state.step;
   let values = range_slider_values(value, 0, value.0.min(value.1), min, max, step, gap);
-  let scope_id = use_hook(|| {
-    format!("dxui-range-slider-{}", NEXT_RANGE_SLIDER_ID.fetch_add(1, Ordering::Relaxed))
-  });
+  let scope_id = use_hook(|| format!("dxui-range-slider-{}", next_element_id()));
   // The receive loop outlives this render, so it reads the latest props here.
   let mut latest = use_hook(|| CopyValue::new((values, min, max, step, gap, disabled)));
   latest.set((values, min, max, step, gap, disabled));

@@ -1,10 +1,9 @@
 use std::cell::{Cell, RefCell};
 use std::rc::Rc;
-use std::sync::atomic::{AtomicUsize, Ordering};
 
 use dioxus::prelude::*;
 
-static NEXT_THEME_CONTROLLER_ID: AtomicUsize = AtomicUsize::new(0);
+use crate::element_id::next_element_id;
 
 /// Where `ThemeController` keeps the chosen theme unless told otherwise.
 pub const THEME_STORAGE_KEY: &str = "dxui-theme";
@@ -121,9 +120,7 @@ pub fn ThemeController(
   #[props(default = THEME_STORAGE_KEY.to_string())] storage_key: String,
   #[props(default)] on_theme_change: Option<EventHandler<Theme>>,
 ) -> Element {
-  let scope_id = use_hook(|| {
-    format!("dxui-theme-controller-{}", NEXT_THEME_CONTROLLER_ID.fetch_add(1, Ordering::Relaxed))
-  });
+  let scope_id = use_hook(|| format!("dxui-theme-controller-{}", next_element_id()));
   let channel = use_hook(|| Rc::new(Cell::new(None::<document::Eval>)));
   // The theme last given to the script, so the first render sends it once.
   let sent = use_hook(|| Rc::new(RefCell::new(None::<String>)));

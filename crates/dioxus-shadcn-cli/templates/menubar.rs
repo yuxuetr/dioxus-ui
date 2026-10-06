@@ -1,6 +1,5 @@
-use std::sync::atomic::{AtomicUsize, Ordering};
-
 use super::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
+use super::element_id::next_element_id;
 use super::listbox::{ListboxMode, use_listbox};
 use super::menu_marks::{
   MENU_CHECKBOX_MARK_CLASS, MENU_RADIO_MARK_CLASS, MENU_SUB_TRIGGER_CLASS, menu_mark_state_class,
@@ -9,8 +8,6 @@ use super::menu_sub::{MenuSubContext, use_menu_sub, use_menu_sub_content};
 pub use super::overlay::{DismissBehavior, DropdownPrimitiveConfig, OverlayAlign, OverlaySide};
 use super::utils::classes;
 use dioxus::prelude::*;
-
-static NEXT_MENUBAR_ID: AtomicUsize = AtomicUsize::new(0);
 
 // Runs for the bar's lifetime. Triggers are read from the DOM on every event
 // so triggers added or disabled later are picked up. Sends the `MenubarMenu`
@@ -180,8 +177,7 @@ pub fn Menubar(
   children: Element,
 ) -> Element {
   let class = menubar_class(&class);
-  let scope_id =
-    use_hook(|| format!("dxui-menubar-{}", NEXT_MENUBAR_ID.fetch_add(1, Ordering::Relaxed)));
+  let scope_id = use_hook(|| format!("dxui-menubar-{}", next_element_id()));
   let effect_scope_id = scope_id.clone();
 
   use_effect(move || {

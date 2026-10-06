@@ -1,8 +1,6 @@
-use std::sync::atomic::{AtomicUsize, Ordering};
-
 use dioxus::prelude::*;
 
-static NEXT_ROVING_GROUP_ID: AtomicUsize = AtomicUsize::new(0);
+use crate::element_id::next_element_id;
 
 // Runs for the group's lifetime and reads items from the DOM on every event.
 // The root sets `data-dxui-roving-orientation` (horizontal, vertical, or both),
@@ -140,9 +138,7 @@ pub(crate) fn group_part_id(base_id: &str, part: &str, value: &str) -> String {
 ///
 /// Returns the value for the root's `data-dxui-roving-group` attribute.
 pub(crate) fn use_roving_group(on_activate: Option<EventHandler<String>>) -> String {
-  let scope_id = use_hook(|| {
-    format!("dxui-roving-group-{}", NEXT_ROVING_GROUP_ID.fetch_add(1, Ordering::Relaxed))
-  });
+  let scope_id = use_hook(|| format!("dxui-roving-group-{}", next_element_id()));
   let effect_scope_id = scope_id.clone();
 
   use_effect(move || {

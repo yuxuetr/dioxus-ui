@@ -75,6 +75,40 @@ pub mod date_picker;
 pub mod dialog;
 
 #[cfg(any(
+  feature = "accordion",
+  feature = "alert-dialog",
+  feature = "checkbox",
+  feature = "combobox",
+  feature = "command",
+  feature = "context-menu",
+  feature = "date-picker",
+  feature = "dialog",
+  feature = "drawer",
+  feature = "dropdown",
+  feature = "fab",
+  feature = "hover-card",
+  feature = "input-otp",
+  feature = "menu",
+  feature = "menubar",
+  feature = "navigation-menu",
+  feature = "popover",
+  feature = "radio-group",
+  feature = "rating",
+  feature = "resizable",
+  feature = "select",
+  feature = "sheet",
+  feature = "sidebar",
+  feature = "slider",
+  feature = "sonner",
+  feature = "tabs",
+  feature = "theme-controller",
+  feature = "toast",
+  feature = "toggle-group",
+  feature = "tooltip"
+))]
+mod element_id;
+
+#[cfg(any(
   feature = "alert-dialog",
   feature = "date-picker",
   feature = "dialog",

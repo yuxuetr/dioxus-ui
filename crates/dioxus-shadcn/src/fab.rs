@@ -1,10 +1,9 @@
 use std::rc::Rc;
-use std::sync::atomic::{AtomicUsize, Ordering};
 
 use dioxus::prelude::*;
 use dioxus_shadcn_core::classes;
 
-static NEXT_FAB_ID: AtomicUsize = AtomicUsize::new(0);
+use crate::element_id::next_element_id;
 
 // The trigger comes first in source, so Tab reaches it before the actions,
 // and `flex-col-reverse` stacks the actions above it.
@@ -46,7 +45,7 @@ pub fn Fab(
   children: Element,
 ) -> Element {
   let class = fab_class(fixed, &class);
-  let actions_id = use_hook(|| format!("dxui-fab-{}", NEXT_FAB_ID.fetch_add(1, Ordering::Relaxed)));
+  let actions_id = use_hook(|| format!("dxui-fab-{}", next_element_id()));
   let mut trigger = use_signal(|| None::<Rc<MountedData>>);
   let dial = on_open_change.is_some();
   let expanded = dial.then(|| open.to_string());

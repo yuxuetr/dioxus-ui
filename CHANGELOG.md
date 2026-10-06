@@ -8,6 +8,22 @@ for commit messages.
 
 ## [Unreleased]
 
+### Fixed
+
+- Server-rendered pages keep working after hydration. Generated element ids
+  came from process-wide counters, so from the second request on a server
+  wrote ids the browser never generated, and the scripts behind keyboard
+  navigation, pointer dragging, and overlay placement found no element; Tabs
+  ignored arrow keys, for one. Ids are now numbered per virtual DOM (see
+  RFC 0075), so each request and the browser hydrating it number them alike.
+
+### Migration
+
+- Copy mode: components that generate ids now import the new `element_id`
+  helper. Re-copy them with `dxui add <name> --overwrite` (`dxui diff` lists
+  the files that changed); copies made before keep working in apps that
+  render only in the browser.
+
 ## [0.4.1] - 2026-10-06
 
 A CLI patch: no crate API or template changes.

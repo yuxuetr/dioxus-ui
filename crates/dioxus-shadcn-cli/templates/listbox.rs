@@ -1,10 +1,9 @@
 use std::cell::Cell;
 use std::rc::Rc;
-use std::sync::atomic::{AtomicUsize, Ordering};
 
 use dioxus::prelude::*;
 
-static NEXT_LISTBOX_ID: AtomicUsize = AtomicUsize::new(0);
+use super::element_id::next_element_id;
 
 // Select, Combobox, and Command keep focus on the anchor (trigger or input) and track
 // the highlighted option through `aria-activedescendant`; menus move DOM focus
@@ -284,8 +283,7 @@ pub(crate) fn use_listbox(
   on_value_change: Option<EventHandler<String>>,
   on_open_change: Option<EventHandler<bool>>,
 ) -> String {
-  let scope_id =
-    use_hook(|| format!("dxui-listbox-{}", NEXT_LISTBOX_ID.fetch_add(1, Ordering::Relaxed)));
+  let scope_id = use_hook(|| format!("dxui-listbox-{}", next_element_id()));
   let was_open = use_hook(|| Rc::new(Cell::new(false)));
   let effect_scope_id = scope_id.clone();
 

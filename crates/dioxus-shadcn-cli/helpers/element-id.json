@@ -1,0 +1,12 @@
+{
+  "name": "element-id",
+  "description": "Numbers element ids per render, so server-rendered pages hydrate with the same ids.",
+  "files": [
+    {
+      "source": "templates/element_id.rs",
+      "target": "src/components/ui/element_id.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

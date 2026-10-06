@@ -331,6 +331,7 @@ only.
 - [RFC 0072: Menu and Mockup](docs/rfcs/0072-menu-and-mockup.md)
 - [RFC 0073: Blocks](docs/rfcs/0073-blocks.md)
 - [RFC 0074: Helper Templates](docs/rfcs/0074-helper-templates.md)
+- [RFC 0075: Render-Scoped Element Ids](docs/rfcs/0075-render-scoped-element-ids.md)
 
 ## Verification Shortcuts
 
