@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 65% (15 of 23 tasks)
+- Overall: 70% (16 of 23 tasks)
 - Current milestone: M200
-- Current task: M200.3
+- Current task: M200.4
 
 ## Backup
 
@@ -95,8 +95,9 @@
 - DONE M200.2 Dashboard block
   - Sidebar (with off-canvas), header, stats, chart, and data table.
   - Done: `DashboardBlock` with search and sortable orders; compiles in the fixture app. The visual and interaction check is on the site in M200.4.
-- TODO M200.3 Login and settings blocks
+- DONE M200.3 Login and settings blocks
   - A sign-in form and a settings page with tabs and fields.
+  - Done: the login block came with M200.1; `SettingsBlock` with tabs, checked fields, switches, and save and reset compiles in the fixture app.
 - TODO M200.4 Blocks on the site
   - A Blocks page with a full-width preview, source, and the `dxui add` command for each block, audited in both themes and every preset.
 
