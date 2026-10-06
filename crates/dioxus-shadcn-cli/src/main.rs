@@ -169,6 +169,7 @@ where
   match args.first().and_then(|arg| arg.to_str()) {
     Some("init") => init_command(&args[1..]),
     Some("add") => add_command(&args[1..]),
+    Some("diff") => diff_command(&args[1..]),
     Some("list") => list_command(&args[1..]),
     Some("theme") => theme_command(&args[1..]),
     Some("--version") | Some("-V") => {
@@ -194,15 +195,75 @@ fn init_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
 fn add_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
   let (names, options) = parse_add_options(args)?;
 
-  let block = add_entries(&options.root, &names, options.overwrite)?;
+  let added = add_entries(&options.root, &names, options.overwrite)?;
   println!("added {} to {}", names.join(", "), options.root.display());
-  if block {
+  for (target, status) in &added.files {
+    let status = match status {
+      FileStatus::Written => "written",
+      FileStatus::Unchanged => "unchanged",
+      FileStatus::Kept => "kept, differs from the template",
+    };
+    println!("  {target}: {status}");
+  }
+  if added.files.iter().any(|(_, status)| *status == FileStatus::Kept) {
+    println!(
+      "see the differences with `dxui diff {}`, or replace kept files with --overwrite",
+      names.join(" ")
+    );
+  }
+  if added.block {
     println!("declare `mod blocks;` in src/main.rs to use it");
   }
   if has_legacy_utils(&options.root) {
     println!("{LEGACY_UTILS_NOTE}");
   }
   Ok(())
+}
+
+/// Prints a unified diff from each of the app's copies to the template
+/// `dxui add` would write, and fails when any copy differs or is missing, so
+/// CI can check that copies match the CLI.
+fn diff_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
+  let (names, options) = parse_add_options(args)?;
+  if options.overwrite {
+    return Err("unknown diff option `--overwrite`".into());
+  }
+
+  let mut differing = 0;
+  for (source, target) in entry_files(&resolve_entries(&names)?) {
+    let template = embedded_asset_content(source)?;
+    match fs::read_to_string(options.root.join(target)) {
+      Ok(copy) if copy == template => {}
+      Ok(copy) => {
+        differing += 1;
+        print!("{}", unified_diff(&copy, template, target));
+      }
+      Err(error) if error.kind() == std::io::ErrorKind::NotFound => {
+        differing += 1;
+        println!("{target}: not in the app; `dxui add` would write it");
+      }
+      Err(error) => return Err(format!("cannot read {target}: {error}").into()),
+    }
+  }
+
+  match differing {
+    0 => {
+      println!("the copies of {} match the templates", names.join(", "));
+      Ok(())
+    }
+    1 => Err("1 file differs from the templates".into()),
+    count => Err(format!("{count} files differ from the templates").into()),
+  }
+}
+
+/// The changes from the app's copy to the template, with three lines of
+/// context.
+fn unified_diff(copy: &str, template: &str, target: &str) -> String {
+  similar::TextDiff::from_lines(copy, template)
+    .unified_diff()
+    .context_radius(3)
+    .header(&format!("a/{target}"), &format!("b/{target}"))
+    .to_string()
 }
 
 const LEGACY_UTILS_NOTE: &str = "note: src/components/ui/utils.rs comes from dxui 0.3 or earlier and \
@@ -420,92 +481,119 @@ fn add_component(root: &Path, component_name: &str) -> Result<(), Box<dyn Error>
   add_entries(root, &[component_name.to_string()], false).map(|_| ())
 }
 
-/// Adds components, and blocks with their components (RFC 0073), in order.
-/// Every name is checked before anything is written. Returns whether any
-/// name was a block.
-fn add_entries(root: &Path, names: &[String], overwrite: bool) -> Result<bool, Box<dyn Error>> {
+/// The registry entries that `names`, components or blocks, stand for.
+struct Resolved {
+  /// Components and helpers, each after its dependencies, once each.
+  components: Vec<RegistryComponent>,
+  /// The named blocks (RFC 0073).
+  blocks: Vec<RegistryComponent>,
+}
+
+/// Resolves components and blocks with their dependencies, failing on the
+/// first name that is neither.
+fn resolve_entries(names: &[String]) -> Result<Resolved, Box<dyn Error>> {
   let registry = load_registry()?;
   let blocks = load_blocks()?;
-  let is_component = |name: &String| registry.iter().any(|component| &component.name == name);
-  if let Some(unknown) = names
-    .iter()
-    .find(|name| !is_component(name) && !blocks.iter().any(|block| &block.name == *name))
-  {
-    let blocks = blocks.iter().map(|block| block.name.as_str()).collect::<Vec<_>>().join(", ");
-    return Err(
-      format!("{}. available blocks: {blocks}", unknown_component_error(unknown, &registry)).into(),
-    );
-  }
-
-  init_project(root)?;
   // Dependencies name components or helpers (RFC 0074).
   let known = [registry.as_slice(), load_helpers()?.as_slice()].concat();
-  let mut added = Vec::new();
-  let mut added_blocks = Vec::new();
+  let mut resolved = Resolved { components: Vec::new(), blocks: Vec::new() };
+
   for name in names {
-    match blocks.iter().find(|block| &block.name == name) {
-      Some(block) => {
-        for dependency in &block.dependencies {
-          add_component_recursive(root, dependency, &known, overwrite, &mut added)?;
-        }
-        copy_entry_files(root, block, overwrite)?;
-        added_blocks.push(block.name.clone());
+    if let Some(block) = blocks.iter().find(|block| &block.name == name) {
+      for dependency in &block.dependencies {
+        collect_component(dependency, &known, &mut resolved.components)?;
       }
-      None => add_component_recursive(root, name, &known, overwrite, &mut added)?,
+      if !resolved.blocks.iter().any(|added| added.name == block.name) {
+        resolved.blocks.push(block.clone());
+      }
+    } else if registry.iter().any(|component| &component.name == name) {
+      collect_component(name, &known, &mut resolved.components)?;
+    } else {
+      let blocks = blocks.iter().map(|block| block.name.as_str()).collect::<Vec<_>>().join(", ");
+      return Err(
+        format!("{}. available blocks: {blocks}", unknown_component_error(name, &registry)).into(),
+      );
     }
   }
-  update_ui_mod(root, &added)?;
-  if !added_blocks.is_empty() {
-    update_mod_file(&root.join("src").join("blocks").join("mod.rs"), &added_blocks)?;
-  }
-
-  Ok(!added_blocks.is_empty())
+  Ok(resolved)
 }
 
-fn add_component_recursive(
-  root: &Path,
-  component_name: &str,
+/// Appends `name`'s entry to `collected` after its dependencies, unless it is
+/// already there.
+fn collect_component(
+  name: &str,
   known: &[RegistryComponent],
-  overwrite: bool,
-  added: &mut Vec<String>,
+  collected: &mut Vec<RegistryComponent>,
 ) -> Result<(), Box<dyn Error>> {
-  if added.iter().any(|name| name == component_name) {
+  if collected.iter().any(|component| component.name == name) {
     return Ok(());
   }
-
   let component = known
     .iter()
-    .find(|component| component.name == component_name)
-    .ok_or_else(|| format!("registry entry `{component_name}` was not found"))?;
-
+    .find(|component| component.name == name)
+    .ok_or_else(|| format!("registry entry `{name}` was not found"))?;
   for dependency in &component.dependencies {
-    add_component_recursive(root, dependency, known, overwrite, added)?;
+    collect_component(dependency, known, collected)?;
   }
-
-  copy_entry_files(root, component, overwrite)?;
-  added.push(component.name.clone());
+  collected.push(component.clone());
   Ok(())
 }
 
-/// Copies an entry's files and assets to their targets under `root`.
-fn copy_entry_files(
-  root: &Path,
-  entry: &RegistryComponent,
-  overwrite: bool,
-) -> Result<(), Box<dyn Error>> {
-  let files = entry.files.iter().map(|file| (&file.source, &file.target));
-  let assets = entry.assets.iter().map(|asset| (&asset.source, &asset.target));
-  for (source, target) in files.chain(assets) {
-    let target = root.join(target);
-    let content = embedded_asset_content(source)?;
+/// Each file and asset of the resolved entries, as (embedded source, target
+/// relative to the app root).
+fn entry_files(resolved: &Resolved) -> Vec<(&str, &str)> {
+  resolved
+    .components
+    .iter()
+    .chain(&resolved.blocks)
+    .flat_map(|entry| {
+      let files = entry.files.iter().map(|file| (file.source.as_str(), file.target.as_str()));
+      let assets = entry.assets.iter().map(|asset| (asset.source.as_str(), asset.target.as_str()));
+      files.chain(assets)
+    })
+    .collect()
+}
 
-    if let Some(parent) = target.parent() {
-      fs::create_dir_all(parent)?;
-    }
+/// What `dxui add` did with one file.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum FileStatus {
+  Written,
+  /// The app's copy already matched the template.
+  Unchanged,
+  /// The app's copy differs from the template and `--overwrite` was not set.
+  Kept,
+}
 
-    write_component_file(&target, content, overwrite)?;
+/// What `dxui add` did.
+#[derive(Debug)]
+struct Added {
+  /// Each target relative to the app root, in copy order.
+  files: Vec<(String, FileStatus)>,
+  /// Whether any name was a block.
+  block: bool,
+}
+
+/// Adds components, and blocks with their components, checking every name
+/// before anything is written.
+fn add_entries(root: &Path, names: &[String], overwrite: bool) -> Result<Added, Box<dyn Error>> {
+  let resolved = resolve_entries(names)?;
+
+  init_project(root)?;
+  let mut files = Vec::new();
+  for (source, target) in entry_files(&resolved) {
+    let status =
+      write_component_file(&root.join(target), embedded_asset_content(source)?, overwrite)?;
+    files.push((target.to_string(), status));
   }
-  Ok(())
+  let names_of = |entries: &[RegistryComponent]| {
+    entries.iter().map(|entry| entry.name.clone()).collect::<Vec<_>>()
+  };
+  update_ui_mod(root, &names_of(&resolved.components))?;
+  if !resolved.blocks.is_empty() {
+    update_mod_file(&root.join("src").join("blocks").join("mod.rs"), &names_of(&resolved.blocks))?;
+  }
+
+  Ok(Added { files, block: !resolved.blocks.is_empty() })
 }
 
 fn unknown_component_error(component_name: &str, registry: &[RegistryComponent]) -> String {
@@ -597,18 +685,31 @@ fn write_new_file(path: &Path, content: &str) -> Result<(), Box<dyn Error>> {
   Ok(())
 }
 
-fn write_component_file(path: &Path, content: &str, overwrite: bool) -> Result<(), Box<dyn Error>> {
-  if path.exists() && !overwrite {
-    return Ok(());
+/// Writes `content` to `path` unless the file already holds it, or holds
+/// something else and `overwrite` is not set.
+fn write_component_file(
+  path: &Path,
+  content: &str,
+  overwrite: bool,
+) -> Result<FileStatus, Box<dyn Error>> {
+  match fs::read_to_string(path) {
+    Ok(existing) if existing == content => return Ok(FileStatus::Unchanged),
+    Ok(_) if !overwrite => return Ok(FileStatus::Kept),
+    Ok(_) => {}
+    Err(error) if error.kind() == std::io::ErrorKind::NotFound => {}
+    Err(error) => return Err(format!("cannot read {}: {error}", path.display()).into()),
   }
 
+  if let Some(parent) = path.parent() {
+    fs::create_dir_all(parent)?;
+  }
   fs::write(path, content)?;
-  Ok(())
+  Ok(FileStatus::Written)
 }
 
 fn print_help() {
   println!(
-    "dxui\n\nUsage:\n  dxui init [--root <path>]\n  dxui add <component|block>... [--root <path>] [--overwrite]\n  dxui list [blocks]\n  dxui theme list\n  dxui theme add <theme>... [--root <path>]\n  dxui --version\n\nCommands:\n  init    Prepare a Dioxus project for dioxus-shadcn generated components\n  add     Copy components, or blocks with their components, into a project\n  list    List the components, or the blocks\n  theme   List theme presets, or add them to assets/dioxus-shadcn.css"
+    "dxui\n\nUsage:\n  dxui init [--root <path>]\n  dxui add <component|block>... [--root <path>] [--overwrite]\n  dxui diff <component|block>... [--root <path>]\n  dxui list [blocks]\n  dxui theme list\n  dxui theme add <theme>... [--root <path>]\n  dxui --version\n\nCommands:\n  init    Prepare a Dioxus project for dioxus-shadcn generated components\n  add     Copy components, or blocks with their components, into a project\n  diff    Show how the project's copies differ from the templates\n  list    List the components, or the blocks\n  theme   List theme presets, or add them to assets/dioxus-shadcn.css"
   );
 }
 
@@ -859,7 +960,8 @@ mod tests {
   fn add_block_copies_it_with_its_components() {
     let root = temp_project();
 
-    let block = add_entries(&root, &["login".to_string()], false).expect("add should succeed");
+    let block =
+      add_entries(&root, &["login".to_string()], false).expect("add should succeed").block;
 
     assert!(block);
     let source = fs::read_to_string(root.join("src").join("blocks").join("login.rs"))
@@ -874,7 +976,7 @@ mod tests {
       assert!(ui.contains(&format!("pub mod {module};")), "{module}");
     }
     // A component name is not a block.
-    assert!(!add_entries(&root, &["card".to_string()], false).expect("add should succeed"));
+    assert!(!add_entries(&root, &["card".to_string()], false).expect("add should succeed").block);
   }
 
   #[test]
@@ -942,7 +1044,7 @@ mod tests {
     assert!(parse_add_options(&[]).is_err());
 
     let root = temp_project();
-    let block = add_entries(&root, &names, false).expect("add should succeed");
+    let block = add_entries(&root, &names, false).expect("add should succeed").block;
     assert!(block);
     let ui = ui_files(&root);
     for file in ["button.rs", "dialog.rs", "card.rs", "modal_focus.rs"] {
@@ -960,6 +1062,63 @@ mod tests {
     let error = add_entries(&root, &names, false).expect_err("an unknown name should fail");
     assert!(error.to_string().contains("unknown component `missing`"));
     assert!(!root.exists(), "nothing should be written");
+  }
+
+  #[test]
+  fn add_reports_what_it_did_with_each_file() {
+    let root = temp_project();
+    let button = ["button".to_string()];
+    let statuses = |added: Added| added.files;
+    let written = statuses(add_entries(&root, &button, false).expect("add should succeed"));
+    assert_eq!(
+      written,
+      [
+        ("src/components/ui/utils.rs".to_string(), FileStatus::Written),
+        ("src/components/ui/button.rs".to_string(), FileStatus::Written)
+      ]
+    );
+
+    let again = statuses(add_entries(&root, &button, false).expect("add should succeed"));
+    assert!(again.iter().all(|(_, status)| *status == FileStatus::Unchanged), "{again:?}");
+
+    let button_path = root.join("src/components/ui/button.rs");
+    fs::write(&button_path, "custom").expect("button should be written");
+    let kept = statuses(add_entries(&root, &button, false).expect("add should succeed"));
+    assert_eq!(kept[0].1, FileStatus::Unchanged);
+    assert_eq!(kept[1].1, FileStatus::Kept);
+    assert_eq!(fs::read_to_string(&button_path).expect("button should be readable"), "custom");
+
+    let replaced = statuses(add_entries(&root, &button, true).expect("add should succeed"));
+    assert_eq!(replaced[1].1, FileStatus::Written);
+  }
+
+  #[test]
+  fn diff_fails_while_copies_differ_from_the_templates() {
+    let root = temp_project();
+    let args = |names: &[&str]| {
+      let mut args = names.iter().map(OsString::from).collect::<Vec<_>>();
+      args.extend([OsString::from("--root"), root.clone().into_os_string()]);
+      args
+    };
+    add_component(&root, "dialog").expect("add should succeed");
+    diff_command(&args(&["dialog"])).expect("fresh copies should match");
+
+    let dialog = root.join("src/components/ui/dialog.rs");
+    let template = fs::read_to_string(&dialog).expect("dialog should be readable");
+    fs::write(&dialog, template.replacen("pub fn Dialog", "pub fn MyDialog", 1))
+      .expect("dialog should be written");
+    fs::remove_file(root.join("src/components/ui/overlay.rs")).expect("overlay should be removed");
+    let error = diff_command(&args(&["dialog"])).expect_err("an edited copy should differ");
+    assert_eq!(error.to_string(), "2 files differ from the templates");
+    // utils.rs matches; button.rs was never added.
+    let error = diff_command(&args(&["button"])).expect_err("a missing copy should differ");
+    assert_eq!(error.to_string(), "1 file differs from the templates");
+    assert!(diff_command(&args(&["missing"])).is_err());
+
+    let diff =
+      unified_diff(&template.replacen("pub fn Dialog", "pub fn MyDialog", 1), &template, "x.rs");
+    assert!(diff.starts_with("--- a/x.rs\n+++ b/x.rs\n@@ "), "{diff}");
+    assert!(diff.contains("\n-pub fn MyDialog") && diff.contains("\n+pub fn Dialog"), "{diff}");
   }
 
   #[test]

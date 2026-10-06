@@ -16,6 +16,7 @@ path = "src/main.rs"
 [dependencies]
 dioxus-shadcn-core.workspace = true
 serde_json.workspace = true
+similar = "3"
 
 [build-dependencies]
 serde_json.workspace = true

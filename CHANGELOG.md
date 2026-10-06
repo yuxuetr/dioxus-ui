@@ -14,6 +14,11 @@ for commit messages.
   `dxui add button dialog login`. It checks every name before it writes
   anything, so a misspelled name leaves the app untouched.
 - `dxui --version` and `dxui -V` print the CLI version.
+- `dxui add` reports each file as written, unchanged, or kept because it
+  differs from the template, where it used to print "added" even when it
+  kept every file. `dxui diff <name>...` prints a unified diff from the app's
+  copies to the templates and exits with status 1 while any copy differs or
+  is missing, so CI can check that copies are current.
 
 ### Changed
 

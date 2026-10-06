@@ -159,6 +159,7 @@ Owns:
 - `dxui init`
 - `dxui list`
 - `dxui add <component|block>...`
+- `dxui diff <component|block>...`
 - registry loading and validation
 - template copying
 
@@ -166,6 +167,7 @@ May depend on:
 
 - `dioxus-shadcn-core` for shared registry types
 - `serde_json`; arguments are parsed by hand
+- `similar` for the unified diffs of `dxui diff`
 
 Must not depend on:
 

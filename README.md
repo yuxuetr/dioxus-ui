@@ -69,9 +69,12 @@ dxui init
 dxui add button dialog input
 ```
 
-`dxui add` keeps existing component files by default. Use
+`dxui add` keeps existing component files by default and reports each file
+as written, unchanged, or kept because it differs from the template. Use
 `dxui add button --overwrite` when you intentionally want to replace a
-previously generated component file.
+previously generated component file. `dxui diff button` prints a unified diff
+from your copies to the current templates and exits with status 1 while any
+copy differs or is missing, so CI can check that copies are current.
 
 Expected output in a Dioxus app:
 
