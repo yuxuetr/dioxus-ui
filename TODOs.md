@@ -74,6 +74,11 @@
   - Components take element ids from process-wide counters, which grow across requests on a server and restart at 0 in the browser; Popover and menus find their anchor by id. Build a fullstack app, render two requests, open a Popover after hydration, and record whether it anchors. Fix if it fails, or document the verified case if it does not.
   - Done: reproduced on Dioxus 0.7.9 fullstack with Tabs (Popover anchors to an app-given id, so Tabs' roving keys were the observable case): three requests wrote `dxui-roving-group-1`, `-2`, `-3`, hydration keeps server attribute values (`dioxus-web` `hydrate.rs`), and ArrowRight did nothing; the same app rendered in the browser only moved focus. Fixed with `next_element_id()` on a counter in the root context, replacing 24 process-wide counters (RFC 0075; `ScopeId` was rejected since reused slots could keep old id-matching scripts alive). Copy mode gets an `element-id` helper on 23 entries. An SSR test renders a page twice and expects the same HTML (fails on the old counters); after the fix three requests write the same ids and ArrowRight moves focus and selection after hydration. Feature check, fixture smoke, clippy, and `npm run verify:release` pass. Not published: a release needs the owner's confirmation.
 
+## M207 0.4.2 Release
+
+- TODO M207.1 Publish 0.4.2
+  - Confirmed by the release owner on 2026-10-06 after M206.1. CHANGELOG, versions, release gate, `cargo-semver-checks --release-type patch` against 0.4.1, CI, then publish and check from crates.io: a fullstack app on `dioxus-shadcn` 0.4.2 keeps the same ids across requests, and a copy app from `dxui` 0.4.2 gets the `element_id` helper.
+
 ## Deferred (re-evaluate when)
 
 - Dioxus 0.8: when `cargo search dioxus --limit 1 --color never | grep -qE '^dioxus = "0\.8\.[0-9]+"'` exits 0 (a 0.8 release, not a pre-release). Checked 2026-10-06: exits 1 on 0.8.0-alpha.1.
