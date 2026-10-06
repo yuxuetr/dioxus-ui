@@ -8,6 +8,13 @@ for commit messages.
 
 ## [Unreleased]
 
+### Changed
+
+- `dxui diff` without names checks every component and block declared in the
+  app's `src/components/ui/mod.rs` and `src/blocks/mod.rs`, with the helpers
+  they use, instead of failing with `missing component name`. Modules the app
+  wrote itself are skipped. `dxui add` still needs a name.
+
 ## [0.4.0] - 2026-10-06
 
 Version 0.4.0 makes copy mode clean: a copied component brings only the

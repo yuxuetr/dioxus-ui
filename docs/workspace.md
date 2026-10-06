@@ -160,7 +160,7 @@ Owns:
 - `dxui init`
 - `dxui list`
 - `dxui add <component|block>...`
-- `dxui diff <component|block>...`
+- `dxui diff [<component|block>...]`
 - registry loading and validation
 - template copying
 

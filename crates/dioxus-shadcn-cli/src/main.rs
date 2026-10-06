@@ -194,6 +194,9 @@ fn init_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
 
 fn add_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
   let (names, options) = parse_add_options(args)?;
+  if names.is_empty() {
+    return Err("missing component name".into());
+  }
 
   let added = add_entries(&options.root, &names, options.overwrite)?;
   println!("added {} to {}", names.join(", "), options.root.display());
@@ -228,6 +231,10 @@ fn diff_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
   if options.overwrite {
     return Err("unknown diff option `--overwrite`".into());
   }
+  let names = if names.is_empty() { copied_entries(&options.root)? } else { names };
+  if names.is_empty() {
+    return Err(format!("no components or blocks copied into {}", options.root.display()).into());
+  }
 
   let mut differing = 0;
   for (source, target) in entry_files(&resolve_entries(&names)?) {
@@ -258,6 +265,30 @@ fn diff_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
 
 /// The changes from the app's copy to the template, with three lines of
 /// context.
+/// The components and blocks declared in the app's `ui/mod.rs` and
+/// `blocks/mod.rs`. Helpers come back as their dependents' dependencies, and
+/// the app's own modules are not entries.
+fn copied_entries(root: &Path) -> Result<Vec<String>, Box<dyn Error>> {
+  let entries =
+    load_registry()?.into_iter().chain(load_blocks()?).map(|entry| entry.name).collect::<Vec<_>>();
+  let mut copied = Vec::new();
+  for mod_path in [root.join("src/components/ui/mod.rs"), root.join("src/blocks/mod.rs")] {
+    let declared = match fs::read_to_string(&mod_path) {
+      Ok(declared) => declared,
+      Err(error) if error.kind() == std::io::ErrorKind::NotFound => continue,
+      Err(error) => return Err(format!("cannot read {}: {error}", mod_path.display()).into()),
+    };
+    copied.extend(
+      declared
+        .lines()
+        .filter_map(parse_mod_line)
+        .map(|module| module.replace('_', "-"))
+        .filter(|name| entries.contains(name)),
+    );
+  }
+  Ok(copied)
+}
+
 fn unified_diff(copy: &str, template: &str, target: &str) -> String {
   similar::TextDiff::from_lines(copy, template)
     .unified_diff()
@@ -448,9 +479,6 @@ fn parse_add_options(args: &[OsString]) -> Result<(Vec<String>, AddOptions), Box
     }
   }
 
-  if names.is_empty() {
-    return Err("missing component name".into());
-  }
   Ok((names, AddOptions { root, overwrite }))
 }
 
@@ -709,7 +737,7 @@ fn write_component_file(
 
 fn print_help() {
   println!(
-    "dxui\n\nUsage:\n  dxui init [--root <path>]\n  dxui add <component|block>... [--root <path>] [--overwrite]\n  dxui diff <component|block>... [--root <path>]\n  dxui list [blocks]\n  dxui theme list\n  dxui theme add <theme>... [--root <path>]\n  dxui --version\n\nCommands:\n  init    Prepare a Dioxus project for dioxus-shadcn generated components\n  add     Copy components, or blocks with their components, into a project\n  diff    Show how the project's copies differ from the templates\n  list    List the components, or the blocks\n  theme   List theme presets, or add them to assets/dioxus-shadcn.css"
+    "dxui\n\nUsage:\n  dxui init [--root <path>]\n  dxui add <component|block>... [--root <path>] [--overwrite]\n  dxui diff [<component|block>...] [--root <path>]\n  dxui list [blocks]\n  dxui theme list\n  dxui theme add <theme>... [--root <path>]\n  dxui --version\n\nCommands:\n  init    Prepare a Dioxus project for dioxus-shadcn generated components\n  add     Copy components, or blocks with their components, into a project\n  diff    Show how the project's copies, or the named ones, differ from the templates\n  list    List the components, or the blocks\n  theme   List theme presets, or add them to assets/dioxus-shadcn.css"
   );
 }
 
@@ -1041,7 +1069,7 @@ mod tests {
     let (names, options) = parse_add_options(&args).expect("options should parse");
     assert_eq!(names, ["button", "dialog", "login"]);
     assert!(options.overwrite);
-    assert!(parse_add_options(&[]).is_err());
+    assert!(add_command(&[]).is_err(), "add needs a name");
 
     let root = temp_project();
     let block = add_entries(&root, &names, false).expect("add should succeed").block;
@@ -1119,6 +1147,32 @@ mod tests {
       unified_diff(&template.replacen("pub fn Dialog", "pub fn MyDialog", 1), &template, "x.rs");
     assert!(diff.starts_with("--- a/x.rs\n+++ b/x.rs\n@@ "), "{diff}");
     assert!(diff.contains("\n-pub fn MyDialog") && diff.contains("\n+pub fn Dialog"), "{diff}");
+  }
+
+  #[test]
+  fn diff_without_names_checks_every_copied_entry() {
+    let root = temp_project();
+    let args = vec![OsString::from("--root"), root.clone().into_os_string()];
+    let error = diff_command(&args).expect_err("an app without copies has nothing to check");
+    assert!(error.to_string().starts_with("no components or blocks"), "{error}");
+
+    add_entries(&root, &["button".to_string(), "dashboard".to_string()], false)
+      .expect("add should succeed");
+    // The app's own module is not an entry.
+    let ui_mod = root.join("src/components/ui/mod.rs");
+    let declared = fs::read_to_string(&ui_mod).expect("mod.rs should be readable");
+    fs::write(&ui_mod, format!("{declared}pub mod my_widget;\n"))
+      .expect("mod.rs should be written");
+    let copied = copied_entries(&root).expect("entries should be read");
+    assert!(copied.contains(&"button".to_string()) && copied.contains(&"dashboard".to_string()));
+    assert!(!copied.iter().any(|name| name == "utils" || name == "my-widget"), "{copied:?}");
+    diff_command(&args).expect("fresh copies should match");
+
+    let block = root.join("src/blocks/dashboard.rs");
+    let source = fs::read_to_string(&block).expect("block should be readable");
+    fs::write(&block, format!("// edited\n{source}")).expect("block should be written");
+    let error = diff_command(&args).expect_err("an edited block should differ");
+    assert_eq!(error.to_string(), "1 file differs from the templates");
   }
 
   #[test]

@@ -81,7 +81,7 @@ Commands:
 ```bash
 dxui init [--root <path>]
 dxui add <component|block>... [--root <path>] [--overwrite]
-dxui diff <component|block>... [--root <path>]
+dxui diff [<component|block>...] [--root <path>]
 dxui list [blocks]
 dxui theme list
 dxui theme add <theme>... [--root <path>]

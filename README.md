@@ -74,7 +74,10 @@ as written, unchanged, or kept because it differs from the template. Use
 `dxui add button --overwrite` when you intentionally want to replace a
 previously generated component file. `dxui diff button` prints a unified diff
 from your copies to the current templates and exits with status 1 while any
-copy differs or is missing, so CI can check that copies are current.
+copy differs or is missing, so CI can check that copies are current. Without
+names, `dxui diff` checks every component and block declared in
+`src/components/ui/mod.rs` and `src/blocks/mod.rs`, which shows what a new
+CLI version changed in your copies.
 
 Expected output in a Dioxus app:
 

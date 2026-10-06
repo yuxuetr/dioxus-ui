@@ -28,8 +28,9 @@ variants and props of each component, and without it a binary crate warns
 about the rest.
 `dxui add` copies each component, and the helper files it uses, into
 `src/components/ui/` and declares its module; it keeps existing files unless
-you pass `--overwrite`, and says which files it kept. `dxui diff <name>...`
-shows how your copies differ from the templates of the installed CLI.
+you pass `--overwrite`, and says which files it kept. `dxui diff [<name>...]`
+shows how your copies, all of them unless you name some, differ from the
+templates of the installed CLI.
 `dxui list` prints the 82 components. Copied
 components depend only on `dioxus`.
 
