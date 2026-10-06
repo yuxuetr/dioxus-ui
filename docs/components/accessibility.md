@@ -28,6 +28,7 @@ Statuses:
 | Indicator | Adds no semantics; the placed content, such as a count badge, carries the text. | Implemented |
 | Item | Exposes selected and disabled state attributes while apps own collection roles and actions. | Implemented |
 | Kbd | Uses native `kbd` semantics for keyboard hints. | Implemented |
+| Menu | Uses a list of links or buttons with aria-current; group buttons use aria-expanded and aria-controls. | Implemented |
 | Number Input | Uses a spinbutton role with value attributes, arrow keys, and Home and End. | Implemented |
 | Radial Progress | Uses progressbar semantics with value attributes; the ring is hidden from assistive technology. | Implemented |
 | Rating | Uses a named radio group, so arrow keys and form values work natively. | Implemented |

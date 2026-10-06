@@ -1,0 +1,14 @@
+{
+  "name": "menu",
+  "description": "Vertical navigation list with titles, active items, and collapsible groups.",
+  "files": [
+    {
+      "source": "templates/menu.rs",
+      "target": "src/components/ui/menu.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

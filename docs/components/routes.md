@@ -11,7 +11,7 @@ It does not create rendered routes, router code, screenshots, or generated JSON.
 For source preview route metadata, see the
 [Source Preview Manifest](source-preview.md).
 
-Component routes: 80
+Component routes: 81
 Category routes: 8
 
 ## Top-level Routes
@@ -82,6 +82,7 @@ Category routes: 8
 | [Kbd](kbd.md) | /components/kbd | docs/components/kbd.md | /components#category-actions | /components/kbd/source |
 | [Label](label.md) | /components/label | docs/components/label.md | /components#category-forms | /components/label/source |
 | [Marker](marker.md) | /components/marker | docs/components/marker.md | /components#category-messaging | /components/marker/source |
+| [Menu](menu.md) | /components/menu | docs/components/menu.md | /components#category-navigation | /components/menu/source |
 | [Menubar](menubar.md) | /components/menubar | docs/components/menubar.md | /components#category-overlays | /components/menubar/source |
 | [Message](message.md) | /components/message | docs/components/message.md | /components#category-messaging | /components/message/source |
 | [Message Scroller](message-scroller.md) | /components/message-scroller | docs/components/message-scroller.md | /components#category-messaging | /components/message-scroller/source |

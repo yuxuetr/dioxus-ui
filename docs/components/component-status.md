@@ -13,14 +13,14 @@ parity.
 
 ## Summary
 
-- Public components: 80
-- Registry entries: 81
+- Public components: 81
+- Registry entries: 82
 - Source-copy helpers: utils
-- Templates: 81
-- Crate modules: 80
-- Crate features: 80
-- Component docs pages: 80
-- Complete local wiring: 80
+- Templates: 82
+- Crate modules: 81
+- Crate features: 81
+- Component docs pages: 81
+- Complete local wiring: 81
 - Incomplete local wiring: 0
 
 ## Category Counts
@@ -30,7 +30,7 @@ parity.
 | Actions | 9 |
 | Forms | 18 |
 | Overlays | 11 |
-| Navigation | 7 |
+| Navigation | 8 |
 | Layout | 11 |
 | Data Display | 13 |
 | Feedback | 6 |
@@ -104,6 +104,7 @@ parity.
 | Message Scroller | Messaging | yes | yes | yes | yes | yes | yes | yes |
 | Breadcrumb | Navigation | yes | yes | yes | yes | yes | yes | yes |
 | Dock | Navigation | yes | yes | yes | yes | yes | yes | yes |
+| Menu | Navigation | yes | yes | yes | yes | yes | yes | yes |
 | Navigation Menu | Navigation | yes | yes | yes | yes | yes | yes | yes |
 | Pagination | Navigation | yes | yes | yes | yes | yes | yes | yes |
 | Sidebar | Navigation | yes | yes | yes | yes | yes | yes | yes |
@@ -189,6 +190,7 @@ parity.
 | Message Scroller | Messaging | [docs](message-scroller.md) | `dxui add message-scroller` | `message-scroller` | `crates/dioxus-shadcn-cli/templates/message_scroller.rs` | `src/components/ui/message_scroller.rs` |
 | Breadcrumb | Navigation | [docs](breadcrumb.md) | `dxui add breadcrumb` | `breadcrumb` | `crates/dioxus-shadcn-cli/templates/breadcrumb.rs` | `src/components/ui/breadcrumb.rs` |
 | Dock | Navigation | [docs](dock.md) | `dxui add dock` | `dock` | `crates/dioxus-shadcn-cli/templates/dock.rs` | `src/components/ui/dock.rs` |
+| Menu | Navigation | [docs](menu.md) | `dxui add menu` | `menu` | `crates/dioxus-shadcn-cli/templates/menu.rs` | `src/components/ui/menu.rs` |
 | Navigation Menu | Navigation | [docs](navigation-menu.md) | `dxui add navigation-menu` | `navigation-menu` | `crates/dioxus-shadcn-cli/templates/navigation_menu.rs` | `src/components/ui/navigation_menu.rs` |
 | Pagination | Navigation | [docs](pagination.md) | `dxui add pagination` | `pagination` | `crates/dioxus-shadcn-cli/templates/pagination.rs` | `src/components/ui/pagination.rs` |
 | Sidebar | Navigation | [docs](sidebar.md) | `dxui add sidebar` | `sidebar` | `crates/dioxus-shadcn-cli/templates/sidebar.rs` | `src/components/ui/sidebar.rs` |

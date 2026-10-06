@@ -746,6 +746,9 @@ pub mod fab;
 #[cfg(feature = "theme-controller")]
 pub mod theme_controller;
 
+#[cfg(feature = "menu")]
+pub mod menu;
+
 #[cfg(feature = "dock")]
 pub mod dock;
 
@@ -934,6 +937,12 @@ pub use fab::{
   FAB_ACTION_CLASS, FAB_ACTION_ICON_CLASS, FAB_ACTION_LABEL_CLASS, FAB_ACTIONS_CLASS,
   FAB_BASE_CLASS, FAB_FIXED_CLASS, FAB_STATIC_CLASS, FAB_TRIGGER_CLASS, Fab, FabAction,
   fab_action_class, fab_class,
+};
+#[cfg(feature = "menu")]
+pub use menu::{
+  MENU_BASE_CLASS, MENU_GROUP_LIST_BASE_CLASS, MENU_GROUP_TRIGGER_CLASS, MENU_ITEM_ACTIVE_CLASS,
+  MENU_ITEM_BASE_CLASS, MENU_TITLE_BASE_CLASS, Menu, MenuGroup, MenuItem, MenuTitle, menu_class,
+  menu_group_list_class, menu_item_class, menu_title_class,
 };
 #[cfg(feature = "theme-controller")]
 pub use theme_controller::{THEME_STORAGE_KEY, Theme, ThemeController, theme_init_script};

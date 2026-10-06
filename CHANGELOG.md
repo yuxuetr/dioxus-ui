@@ -10,8 +10,11 @@ for commit messages.
 
 ### Added
 
+- Menu ([RFC 0072](docs/rfcs/0072-menu-and-mockup.md)), ported from
+  daisyUI: `Menu`, `MenuTitle`, `MenuItem`, and `MenuGroup`, a vertical list
+  of links or buttons with `aria-current` and controlled collapsible groups.
 - Theme Controller ([RFC 0071](docs/rfcs/0071-theme-controller.md)), the
-  80th component: `ThemeController` applies `Theme::System`, `Light`,
+  component: `ThemeController` applies `Theme::System`, `Light`,
   `Dark`, or a preset to the document root, follows the system scheme by
   default, remembers the choice in `localStorage`, and reports a stored
   theme on mount; `theme_init_script` applies it before first paint. The

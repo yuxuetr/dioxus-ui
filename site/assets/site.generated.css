@@ -377,6 +377,9 @@
   .my-4 {
     margin-block: calc(var(--spacing) * 4);
   }
+  .ms-4 {
+    margin-inline-start: calc(var(--spacing) * 4);
+  }
   .-mt-4 {
     margin-top: calc(var(--spacing) * -4);
   }
@@ -1015,6 +1018,9 @@
   .gap-0 {
     gap: 0px;
   }
+  .gap-0\.5 {
+    gap: calc(var(--spacing) * 0.5);
+  }
   .gap-1 {
     gap: var(--spacing);
   }
@@ -1143,6 +1149,10 @@
   .border-\[3px\] {
     border-style: var(--tw-border-style);
     border-width: 3px;
+  }
+  .border-s {
+    border-inline-start-style: var(--tw-border-style);
+    border-inline-start-width: 1px;
   }
   .border-t {
     border-top-style: var(--tw-border-style);
@@ -1465,11 +1475,17 @@
   .pt-2 {
     padding-top: calc(var(--spacing) * 2);
   }
+  .pt-3 {
+    padding-top: calc(var(--spacing) * 3);
+  }
   .pt-4 {
     padding-top: calc(var(--spacing) * 4);
   }
   .pr-10 {
     padding-right: calc(var(--spacing) * 10);
+  }
+  .pb-1 {
+    padding-bottom: var(--spacing);
   }
   .pb-2 {
     padding-bottom: calc(var(--spacing) * 2);
@@ -1500,6 +1516,9 @@
   }
   .text-right {
     text-align: right;
+  }
+  .text-start {
+    text-align: start;
   }
   .align-middle {
     vertical-align: middle;
@@ -2199,6 +2218,16 @@
     content: var(--tw-content);
     opacity: 100%;
   }
+  .after\:transition-transform::after {
+    content: var(--tw-content);
+    transition-property: transform, translate, scale, rotate;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+  .after\:\[mask\:url\(data\:image\/svg\+xml\,\%3Csvg\%20xmlns\=\%27http\:\/\/www\.w3\.org\/2000\/svg\%27\%20viewBox\=\%270\%200\%2016\%2016\%27\%20fill\=\%27none\%27\%20stroke\=\%27black\%27\%20stroke-width\=\%272\%27\%20stroke-linecap\=\%27round\%27\%20stroke-linejoin\=\%27round\%27\%3E\%3Cpath\%20d\=\%27M3\.5\%206l4\.5\%204\.5\%204\.5-4\.5\%27\/\%3E\%3C\/svg\%3E\)_center\/contain_no-repeat\]::after {
+    content: var(--tw-content);
+    mask: url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27black%27%20stroke-width=%272%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M3.5%206l4.5%204.5%204.5-4.5%27/%3E%3C/svg%3E) center/contain no-repeat;
+  }
   .after\:\[mask\:url\(data\:image\/svg\+xml\,\%3Csvg\%20xmlns\=\%27http\:\/\/www\.w3\.org\/2000\/svg\%27\%20viewBox\=\%270\%200\%2016\%2016\%27\%20fill\=\%27none\%27\%20stroke\=\%27black\%27\%20stroke-width\=\%272\%27\%20stroke-linecap\=\%27round\%27\%20stroke-linejoin\=\%27round\%27\%3E\%3Cpath\%20d\=\%27M3\.5\%208\.5l3\%203\%206-7\%27\/\%3E\%3C\/svg\%3E\)_center\/contain_no-repeat\]::after {
     content: var(--tw-content);
     mask: url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27black%27%20stroke-width=%272%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M3.5%208.5l3%203%206-7%27/%3E%3C/svg%3E) center/contain no-repeat;
@@ -2556,6 +2585,10 @@
   }
   .data-\[state\=open\]\:opacity-100[data-state="open"] {
     opacity: 100%;
+  }
+  .data-\[state\=open\]\:after\:rotate-180[data-state="open"]::after {
+    content: var(--tw-content);
+    rotate: 180deg;
   }
   @media (prefers-reduced-motion: reduce) {
     .motion-reduce\:transition-none {

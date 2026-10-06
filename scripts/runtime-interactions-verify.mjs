@@ -1926,6 +1926,33 @@ async function runBrowserAssertions() {
     await page.mouse.up();
     await expect(resizeHandle).toBeFocused();
 
+    const menuFixture = page.locator('[data-interaction-target="menu"]');
+    const menuNav = menuFixture.getByRole("navigation", { name: "Workspace pages", exact: true });
+    const menuButton = (name) => menuNav.getByRole("button", { name, exact: true });
+    await menuNav.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await expect(menuNav.getByRole("list").first()).toBeVisible();
+    await expect(menuButton("Overview")).toHaveAttribute("aria-current", "page");
+    await expect(menuButton("Billing")).toBeDisabled();
+    // The group's button controls the nested list.
+    const reports = menuButton("Reports");
+    await expect(reports).toHaveAttribute("aria-expanded", "false");
+    const nestedId = await reports.getAttribute("aria-controls");
+    await expect(page.locator(`#${nestedId}`)).toBeHidden();
+    await reports.click();
+    await expect(reports).toHaveAttribute("aria-expanded", "true");
+    await expect(page.locator(`#${nestedId}`)).toBeVisible();
+    await menuButton("Sales").click();
+    await expect(menuFixture).toHaveAttribute("data-page", "sales");
+    await expect(menuButton("Sales")).toHaveAttribute("aria-current", "page");
+    await expect(menuButton("Overview")).not.toHaveAttribute("aria-current");
+    // Keyboard: Tab reaches the group button, Enter closes it.
+    await menuButton("Overview").focus();
+    await page.keyboard.press("Tab");
+    await expect(reports).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(reports).toHaveAttribute("aria-expanded", "false");
+    await expect(page.locator(`#${nestedId}`)).toBeHidden();
+
     const themeFixture = page.locator('[data-interaction-target="theme-controller"]');
     const themeButton = (name) => themeFixture.getByRole("button", { name, exact: true });
     const htmlRoot = page.locator("html");
@@ -2552,7 +2579,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (51 fixtures)");
+  console.log("runtime interaction verification passed (52 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

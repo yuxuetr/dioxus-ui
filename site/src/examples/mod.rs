@@ -32,6 +32,7 @@ examples! {
   button_group_basic => "button-group", "Orientation";
   command_palette => "command", "Command palette";
   kbd_shortcuts => "kbd", "Shortcuts";
+  menu_docs => "menu", "Docs navigation";
   theme_controller_picker => "theme-controller", "System, light, and dark";
   toggle_basic => "toggle", "Variants";
   toggle_group_single => "toggle-group", "Single selection";

@@ -77,6 +77,7 @@ const componentCategories = {
   textarea: "forms",
   toast: "feedback",
   "theme-controller": "actions",
+  menu: "navigation",
   toggle: "actions",
   "toggle-group": "actions",
   tooltip: "overlays",

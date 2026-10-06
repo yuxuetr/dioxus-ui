@@ -10,7 +10,7 @@ The catalog is derived from registry entries, templates, component docs,
 crate features, and crate modules. It intentionally does not include visual
 preview routes, screenshot artifacts, or generated JSON metadata.
 
-Public components: 80
+Public components: 81
 
 ## Groups
 
@@ -65,6 +65,7 @@ Public components: 80
 
 - [Breadcrumb](breadcrumb.md): Semantic breadcrumb navigation composition parts.
 - [Dock](dock.md): Styled bottom navigation bar of links or buttons.
+- [Menu](menu.md): Vertical navigation list with titles, active items, and collapsible groups.
 - [Navigation Menu](navigation-menu.md): Controlled navigation menu parts with navigation semantics.
 - [Pagination](pagination.md): Pagination component with link, item, and ellipsis parts.
 - [Sidebar](sidebar.md): Controlled sidebar shell and navigation composition parts.
@@ -164,6 +165,7 @@ Public components: 80
 | [Kbd](kbd.md) | Styled keyboard shortcut hint. | `dxui add kbd` | `kbd` | `crates/dioxus-shadcn-cli/templates/kbd.rs` | `src/components/ui/kbd.rs` |
 | [Label](label.md) | Label component for associating text with form controls. | `dxui add label` | `label` | `crates/dioxus-shadcn-cli/templates/label.rs` | `src/components/ui/label.rs` |
 | [Marker](marker.md) | Marker component for inline status, bordered rows, and labeled separators. | `dxui add marker` | `marker` | `crates/dioxus-shadcn-cli/templates/marker.rs` | `src/components/ui/marker.rs` |
+| [Menu](menu.md) | Vertical navigation list with titles, active items, and collapsible groups. | `dxui add menu` | `menu` | `crates/dioxus-shadcn-cli/templates/menu.rs` | `src/components/ui/menu.rs` |
 | [Menubar](menubar.md) | Controlled menubar parts backed by dropdown primitive configuration. | `dxui add menubar` | `menubar` | `crates/dioxus-shadcn-cli/templates/menubar.rs` | `src/components/ui/menubar.rs` |
 | [Message](message.md) | Message component for provider-neutral chat row layout. | `dxui add message` | `message` | `crates/dioxus-shadcn-cli/templates/message.rs` | `src/components/ui/message.rs` |
 | [Message Scroller](message-scroller.md) | Controlled message scroller composition parts with pure scroll intent helpers. | `dxui add message-scroller` | `message-scroller` | `crates/dioxus-shadcn-cli/templates/message_scroller.rs` | `src/components/ui/message_scroller.rs` |

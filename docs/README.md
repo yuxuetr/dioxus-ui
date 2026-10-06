@@ -109,7 +109,8 @@ Read in this order:
 102. [RFC 0069: Off-Canvas Sidebar and Shortcut](rfcs/0069-off-canvas-sidebar.md)
 103. [RFC 0070: Range Slider](rfcs/0070-range-slider.md)
 104. [RFC 0071: Theme Controller](rfcs/0071-theme-controller.md)
-105. [TODO Plan](../TODOs.md)
+105. [RFC 0072: Menu and Mockup](rfcs/0072-menu-and-mockup.md)
+106. [TODO Plan](../TODOs.md)
 
 ## Project Principles
 

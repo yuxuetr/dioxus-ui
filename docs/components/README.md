@@ -172,6 +172,7 @@ dioxus-shadcn = { version = "0.2", default-features = false, features = ["button
 | [Kbd](kbd.md) | `dxui add kbd` | `kbd` | Styled keyboard hint |
 | [Label](label.md) | `dxui add label` | `label` | Styled |
 | [Marker](marker.md) | `dxui add marker` | `marker` | Inline message marker parts |
+| [Menu](menu.md) | `dxui add menu` | `menu` | Vertical navigation list with collapsible groups |
 | [Menubar](menubar.md) | `dxui add menubar` | `menubar` | Dropdown-backed menubar parts |
 | [Message](message.md) | `dxui add message` | `message` | Provider-neutral message row parts |
 | [Message Scroller](message-scroller.md) | `dxui add message-scroller` | `message-scroller` | Controlled transcript viewport parts |

@@ -73,6 +73,7 @@ use dioxus_shadcn::{
   LayoutOrientation, ResizableHandle, ResizablePanel, ResizablePanelGroup, ResizablePanelState,
   resizable_resize_pair,
 };
+use dioxus_shadcn::{Menu, MenuGroup, MenuItem, MenuTitle};
 use dioxus_shadcn::{
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarItem, SidebarTrigger,
 };
@@ -455,6 +456,14 @@ pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
     test_id: "component-preview-marker",
     coverage_level: "app-owned",
     notes: "Composition target exists; domain behavior remains app-owned.",
+  },
+  ComponentPreviewTarget {
+    component: "menu",
+    label: "Menu",
+    panel: "navigation",
+    test_id: "component-preview-menu",
+    coverage_level: "controlled",
+    notes: "Controlled rendered state target; mutations remain app-owned.",
   },
   ComponentPreviewTarget {
     component: "menubar",
@@ -971,6 +980,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut shell_collapsed = use_signal(|| false);
   let mut price = use_signal(|| (20.0, 80.0));
   let mut chosen_theme = use_signal(|| Theme::System);
+  let mut menu_page = use_signal(|| "overview");
+  let mut menu_reports_open = use_signal(|| false);
   let mut controller_mounted = use_signal(|| true);
   let mut shell_mobile_open = use_signal(|| false);
   let mut sidebar_collapsed = use_signal(|| false);
@@ -2530,6 +2541,38 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 min_size: 20.0,
                 max_size: 80.0,
                 "Editor"
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "menu",
+            "data-page": "{menu_page}",
+            h2 { class: "text-sm font-medium", "Menu interaction" }
+            nav { class: "mt-3 w-56", "aria-label": "Workspace pages",
+              Menu {
+                MenuTitle { "Workspace" }
+                MenuItem {
+                  active: menu_page() == "overview",
+                  onclick: move |_| menu_page.set("overview"),
+                  "Overview"
+                }
+                MenuItem { disabled: true, onclick: move |_| menu_page.set("billing"), "Billing" }
+                MenuGroup {
+                  label: rsx! { "Reports" },
+                  open: menu_reports_open(),
+                  on_open_change: move |open| menu_reports_open.set(open),
+                  MenuItem {
+                    active: menu_page() == "sales",
+                    onclick: move |_| menu_page.set("sales"),
+                    "Sales"
+                  }
+                  MenuItem {
+                    active: menu_page() == "traffic",
+                    onclick: move |_| menu_page.set("traffic"),
+                    "Traffic"
+                  }
+                }
               }
             }
           }

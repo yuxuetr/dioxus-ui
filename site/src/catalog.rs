@@ -278,6 +278,12 @@ pub const CATEGORIES: &[Category] = &[
         feature: "dock",
       },
       Component {
+        slug: "menu",
+        title: "Menu",
+        description: "Vertical navigation list with titles, active items, and collapsible groups.",
+        feature: "menu",
+      },
+      Component {
         slug: "navigation-menu",
         title: "Navigation Menu",
         description: "Controlled navigation menu parts with navigation semantics.",
