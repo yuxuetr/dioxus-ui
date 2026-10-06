@@ -1,8 +1,11 @@
+use super::default_attribute::default_attribute;
 use super::dialog_labels::{DialogLabelPart, use_dialog_label_part, use_dialog_labels};
 use super::modal_focus::use_modal_focus_scope;
 pub use super::overlay::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
+use super::overlay_root::{OverlayRoot, overlay_trigger, use_overlay_root};
+use super::root_state::use_root_context;
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
@@ -65,12 +68,48 @@ pub fn alert_dialog_cancel_class(class: &str) -> String {
   merge_classes(classes([Some(ALERT_DIALOG_CANCEL_BASE_CLASS)]), class)
 }
 
+/// What an `AlertDialog` shares with its parts.
+#[derive(Clone, Copy)]
+struct AlertDialogContext(OverlayRoot);
+
+fn use_alert_dialog(part: &str) -> OverlayRoot {
+  use_root_context::<AlertDialogContext>(part, "AlertDialog").0
+}
+
+/// The root of an alert dialog: it owns whether it is open. Pass `open` to
+/// control it, or `default_open` to start it; `on_open_change` hears every
+/// change the user makes either way.
 #[component]
-pub fn AlertDialogOverlay(
-  #[props(default)] open: bool,
-  #[props(default)] class: String,
+pub fn AlertDialog(
+  #[props(default)] open: ReadSignal<Option<bool>>,
+  #[props(default)] default_open: bool,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
+  children: Element,
 ) -> Element {
+  let root = use_overlay_root("alert-dialog", open, default_open, on_open_change);
+  use_context_provider(|| AlertDialogContext(root));
+
+  rsx! { {children} }
+}
+
+/// A button that opens an alert dialog. Style it with `class`, such as
+/// `button_class(..)`.
+#[component]
+pub fn AlertDialogTrigger(
+  #[props(default)] class: String,
+  #[props(default)] disabled: bool,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
+  let root = use_alert_dialog("AlertDialogTrigger");
+  overlay_trigger(root, "dialog", class, disabled, attributes, children)
+}
+
+#[component]
+pub fn AlertDialogOverlay(#[props(default)] class: String) -> Element {
+  let root = use_alert_dialog("AlertDialogOverlay");
   let class = alert_dialog_overlay_class(&class);
+  let open = root.is_open();
 
   rsx! {
     div {
@@ -83,20 +122,22 @@ pub fn AlertDialogOverlay(
 
 #[component]
 pub fn AlertDialogContent(
-  #[props(default)] open: bool,
   #[props(default)] class: String,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default = DismissBehavior::dialog_default())] dismiss: DismissBehavior,
   #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
+  let root = use_alert_dialog("AlertDialogContent");
   let class = alert_dialog_content_class(&class);
+  let open = root.is_open();
+  let id = default_attribute(&attributes, "id", root.content_id());
   let (labelledby, describedby) = use_dialog_labels().content_attributes(&attributes);
   let focus_scope = use_modal_focus_scope(open, true);
 
   rsx! {
     div {
       role: "alertdialog",
+      id,
       class,
       "aria-labelledby": labelledby,
       "aria-describedby": describedby,
@@ -106,9 +147,8 @@ pub fn AlertDialogContent(
       "data-state": if open { "open" } else { "closed" },
       "data-dxui-focus-scope": focus_scope,
       onkeydown: move |event| {
-        let wants_close = event.key() == Key::Escape && dismiss.escape_key;
-        if let Some(handler) = on_open_change.filter(|_| wants_close) {
-          handler.call(false);
+        if event.key() == Key::Escape && dismiss.escape_key {
+          root.set_open(false);
         }
       },
       ..attributes,
@@ -175,9 +215,9 @@ pub fn AlertDialogAction(
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
   #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   children: Element,
 ) -> Element {
+  let root = use_alert_dialog("AlertDialogAction");
   let class = alert_dialog_action_class(variant, &class);
 
   rsx! {
@@ -189,9 +229,7 @@ pub fn AlertDialogAction(
         if let Some(handler) = onclick {
           handler.call(event);
         }
-        if let Some(handler) = on_open_change {
-          handler.call(false);
-        }
+        root.set_open(false);
       },
       {children}
     }
@@ -202,9 +240,10 @@ pub fn AlertDialogAction(
 pub fn AlertDialogCancel(
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
+  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
   children: Element,
 ) -> Element {
+  let root = use_alert_dialog("AlertDialogCancel");
   let class = alert_dialog_cancel_class(&class);
 
   rsx! {
@@ -212,10 +251,11 @@ pub fn AlertDialogCancel(
       r#type: "button",
       class,
       disabled,
-      onclick: move |_| {
-        if let Some(handler) = on_open_change {
-          handler.call(false);
+      onclick: move |event| {
+        if let Some(handler) = onclick {
+          handler.call(event);
         }
+        root.set_open(false);
       },
       {children}
     }

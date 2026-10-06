@@ -1,0 +1,16 @@
+{
+  "name": "overlay-root",
+  "description": "The open state an overlay root owns and the trigger that toggles it (RFC 0077).",
+  "files": [
+    {
+      "source": "templates/overlay_root.rs",
+      "target": "src/components/ui/overlay_root.rs"
+    }
+  ],
+  "dependencies": [
+    "default-attribute",
+    "element-id",
+    "root-state"
+  ],
+  "assets": []
+}

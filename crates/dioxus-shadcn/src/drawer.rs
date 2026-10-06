@@ -4,8 +4,11 @@ pub use dioxus_shadcn_primitives::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
 
+use crate::default_attribute::default_attribute;
 use crate::dialog_labels::{DialogLabelPart, use_dialog_label_part, use_dialog_labels};
 use crate::modal_focus::use_modal_focus_scope;
+use crate::overlay_root::{OverlayRoot, overlay_trigger, use_overlay_root};
+use crate::root_state::use_root_context;
 
 pub const DRAWER_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";
 pub const DRAWER_CONTENT_BASE_CLASS: &str = "fixed inset-x-0 bottom-0 z-50 grid max-h-[85vh] gap-4 rounded-t-md border border-border bg-background p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
@@ -43,14 +46,51 @@ pub fn drawer_close_class(class: &str) -> String {
   merge_classes(classes([Some(DRAWER_CLOSE_BASE_CLASS)]), class)
 }
 
+/// What a `Drawer` shares with its parts.
+#[derive(Clone, Copy)]
+struct DrawerContext(OverlayRoot);
+
+fn use_drawer(part: &str) -> OverlayRoot {
+  use_root_context::<DrawerContext>(part, "Drawer").0
+}
+
+/// The root of a drawer: it owns whether it is open. Pass `open` to control
+/// it, or `default_open` to start it; `on_open_change` hears every change the
+/// user makes either way.
+#[component]
+pub fn Drawer(
+  #[props(default)] open: ReadSignal<Option<bool>>,
+  #[props(default)] default_open: bool,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
+  children: Element,
+) -> Element {
+  let root = use_overlay_root("drawer", open, default_open, on_open_change);
+  use_context_provider(|| DrawerContext(root));
+
+  rsx! { {children} }
+}
+
+/// A button that opens a drawer. Style it with `class`, such as
+/// `button_class(..)`.
+#[component]
+pub fn DrawerTrigger(
+  #[props(default)] class: String,
+  #[props(default)] disabled: bool,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
+  let root = use_drawer("DrawerTrigger");
+  overlay_trigger(root, "dialog", class, disabled, attributes, children)
+}
+
 #[component]
 pub fn DrawerOverlay(
-  #[props(default)] open: bool,
   #[props(default)] class: String,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default = DismissBehavior::dialog_default())] dismiss: DismissBehavior,
 ) -> Element {
+  let root = use_drawer("DrawerOverlay");
   let class = drawer_overlay_class(&class);
+  let open = root.is_open();
 
   rsx! {
     div {
@@ -58,8 +98,8 @@ pub fn DrawerOverlay(
       hidden: !open,
       "data-state": if open { "open" } else { "closed" },
       onclick: move |_| {
-        if let Some(handler) = on_open_change.filter(|_| dismiss.outside_pointer) {
-          handler.call(false);
+        if dismiss.outside_pointer {
+          root.set_open(false);
         }
       },
     }
@@ -68,20 +108,22 @@ pub fn DrawerOverlay(
 
 #[component]
 pub fn DrawerContent(
-  #[props(default)] open: bool,
   #[props(default)] class: String,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default = DismissBehavior::dialog_default())] dismiss: DismissBehavior,
   #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
+  let root = use_drawer("DrawerContent");
   let class = drawer_content_class(&class);
+  let open = root.is_open();
+  let id = default_attribute(&attributes, "id", root.content_id());
   let (labelledby, describedby) = use_dialog_labels().content_attributes(&attributes);
   let focus_scope = use_modal_focus_scope(open, true);
 
   rsx! {
     div {
       role: "dialog",
+      id,
       class,
       "aria-labelledby": labelledby,
       "aria-describedby": describedby,
@@ -92,9 +134,8 @@ pub fn DrawerContent(
       "data-state": if open { "open" } else { "closed" },
       "data-dxui-focus-scope": focus_scope,
       onkeydown: move |event| {
-        let wants_close = event.key() == Key::Escape && dismiss.escape_key;
-        if let Some(handler) = on_open_change.filter(|_| wants_close) {
-          handler.call(false);
+        if event.key() == Key::Escape && dismiss.escape_key {
+          root.set_open(false);
         }
       },
       ..attributes,
@@ -159,9 +200,9 @@ pub fn DrawerDescription(#[props(default)] class: String, children: Element) -> 
 pub fn DrawerClose(
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   children: Element,
 ) -> Element {
+  let root = use_drawer("DrawerClose");
   let class = drawer_close_class(&class);
 
   rsx! {
@@ -169,11 +210,7 @@ pub fn DrawerClose(
       r#type: "button",
       class,
       disabled,
-      onclick: move |_| {
-        if let Some(handler) = on_open_change {
-          handler.call(false);
-        }
-      },
+      onclick: move |_| root.set_open(false),
       {children}
     }
   }
@@ -182,6 +219,44 @@ pub fn DrawerClose(
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  fn render(app: fn() -> Element) -> String {
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    dioxus_ssr::render(&dom)
+  }
+
+  #[test]
+  fn ssr_root_links_the_trigger_to_the_content() {
+    fn app() -> Element {
+      rsx! {
+        Drawer { default_open: true,
+          DrawerTrigger { "Open" }
+          DrawerContent { "Body" }
+        }
+      }
+    }
+    let html = render(app);
+
+    assert!(html.contains(r#"id="dxui-drawer-0-trigger""#), "{html}");
+    assert!(html.contains(r#"aria-expanded="true" aria-controls="dxui-drawer-0-content""#));
+    assert!(html.contains(r#"role="dialog" id="dxui-drawer-0-content""#), "{html}");
+    assert!(!html.contains(" hidden"), "{html}");
+  }
+
+  #[test]
+  fn ssr_part_outside_its_root_renders_nothing() {
+    fn app() -> Element {
+      rsx! {
+        p { "before" }
+        DrawerContent { "Body" }
+      }
+    }
+    let html = render(app);
+
+    assert!(html.contains("before"));
+    assert!(!html.contains("Body"), "{html}");
+  }
 
   #[test]
   fn drawer_content_class_appends_user_class() {

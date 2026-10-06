@@ -151,7 +151,7 @@ use dioxus::prelude::*;
 mod components;
 
 use components::ui::button::Button;
-use components::ui::dialog::{DialogClose, DialogContent, DialogOverlay, DialogTitle};
+use components::ui::dialog::{Dialog, DialogClose, DialogContent, DialogOverlay, DialogTitle};
 use components::ui::popover::{PopoverContent, PopoverTitle};
 
 fn main() {
@@ -164,12 +164,12 @@ fn App() -> Element {
   let mut share = use_signal(|| false);
   rsx! {
     Button { onclick: move |_| rename.set(true), "Rename" }
-    DialogOverlay { open: rename(), on_open_change: move |next| rename.set(next) }
-    DialogContent {
-      open: rename(),
-      on_open_change: move |next| rename.set(next),
-      DialogTitle { "Rename project" }
-      DialogClose { on_open_change: move |next| rename.set(next), "Cancel" }
+    Dialog { open: rename(), on_open_change: move |next| rename.set(next),
+      DialogOverlay {}
+      DialogContent {
+        DialogTitle { "Rename project" }
+        DialogClose { "Cancel" }
+      }
     }
     button { id: "share-trigger", onclick: move |_| share.toggle(), "Share" }
     PopoverContent {

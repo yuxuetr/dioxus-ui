@@ -8,9 +8,12 @@
     }
   ],
   "dependencies": [
+    "default-attribute",
     "dialog-labels",
     "modal-focus",
     "overlay",
+    "overlay-root",
+    "root-state",
     "utils"
   ],
   "assets": []

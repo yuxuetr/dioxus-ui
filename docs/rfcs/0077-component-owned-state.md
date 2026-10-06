@@ -98,6 +98,21 @@ issue that asks for it.
 `TabsTrigger` and `TabsContent` lose `active` and compare their `value` with
 the root's.
 
+### Overlays and triggers
+
+An overlay root takes `open`, `default_open`, and `on_open_change`. An
+uncontrolled overlay needs a part that opens it, so every overlay has a
+trigger part, as in shadcn/ui: `DialogTrigger`, `AlertDialogTrigger`,
+`SheetTrigger`, `DrawerTrigger`, and `PopoverTrigger` are new, and the
+existing triggers read the root. A trigger renders a `button`, toggles the
+root's `open`, and links itself to the content with `aria-haspopup`,
+`aria-expanded`, and `aria-controls`; an anchored content anchors to it.
+Dioxus has no `asChild`, so a trigger has no styles of its own and takes
+`class` and the button's attributes, such as `class: button_class(..)`.
+A controlled overlay may leave the trigger out and open from any app button;
+an anchored one, such as a Popover, keeps its trigger as the anchor. The
+content and close parts lose `open`, `on_open_change`, and `anchor_id`.
+
 ### Which components move
 
 | Batch | Components | State the root takes |

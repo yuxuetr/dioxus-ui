@@ -31,7 +31,7 @@ pub(crate) fn next_element_id() -> usize {
 mod tests {
   use crate::accordion::{Accordion, AccordionItem, AccordionTrigger};
   use crate::checkbox::Checkbox;
-  use crate::dialog::{DialogContent, DialogTitle};
+  use crate::dialog::{Dialog, DialogContent, DialogTitle};
   use crate::slider::Slider;
   use crate::tabs::{Tabs, TabsList, TabsTrigger};
   use dioxus::prelude::*;
@@ -46,7 +46,7 @@ mod tests {
       }
       Checkbox { indeterminate: true }
       Slider { value: 40.0, "aria-label": "Volume" }
-      DialogContent { open: true, DialogTitle { "Title" } }
+      Dialog { default_open: true, DialogContent { DialogTitle { "Title" } } }
     }
   }
 

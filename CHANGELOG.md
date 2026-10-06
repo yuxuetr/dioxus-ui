@@ -24,6 +24,13 @@ for commit messages.
   to control it, and its change callback hears every change either way. The
   parts read the root, link their ids themselves, and render nothing outside
   their root, where Dioxus logs which root they need.
+- Dialog, Alert Dialog, Sheet, and Drawer own their open state the same way,
+  through new `Dialog`, `AlertDialog`, `Sheet`, and `Drawer` roots with
+  `open`, `default_open`, and `on_open_change`. New `DialogTrigger`,
+  `AlertDialogTrigger`, `SheetTrigger`, and `DrawerTrigger` parts open them
+  and point `aria-controls` at the content; they render an unstyled button
+  that takes `class`. `AlertDialogCancel` takes `onclick`, as
+  `AlertDialogAction` does.
 
 ### Fixed
 
@@ -64,10 +71,15 @@ for commit messages.
 - Tabs: remove `active` from `TabsTrigger` and `TabsContent`, and pass
   `default_value` or `value` to `Tabs`. Tabs parts outside a `Tabs` no longer
   render.
+- Dialog, Alert Dialog, Sheet, Drawer: wrap the parts in the new root and
+  move `open` and `on_open_change` to it, or drop them and open it with the
+  new trigger part. Remove `open` and `on_open_change` from the overlay,
+  content, and close parts (`AlertDialogCancel`, `AlertDialogAction`).
 - Copy mode: re-copy components with `dxui add <name> --overwrite`. `utils`
   now brings two helpers, `class_merge` and `class_merge_table`; the second
   is generated from Tailwind and stores its names reversed so Tailwind
-  generates no CSS for them. Select and Tabs also bring `root_state`.
+  generates no CSS for them. Select and Tabs also bring `root_state`, and the moved overlays bring
+  `root_state`, `overlay_root`, and `default_attribute`.
 
 ## [0.4.2] - 2026-10-06
 

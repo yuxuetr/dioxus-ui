@@ -108,8 +108,18 @@ pub mod dialog;
 ))]
 mod element_id;
 
-#[cfg(any(feature = "select", feature = "tabs"))]
+#[cfg(any(
+  feature = "alert-dialog",
+  feature = "dialog",
+  feature = "drawer",
+  feature = "select",
+  feature = "sheet",
+  feature = "tabs"
+))]
 mod root_state;
+
+#[cfg(any(feature = "alert-dialog", feature = "dialog", feature = "drawer", feature = "sheet"))]
+mod overlay_root;
 
 #[cfg(any(
   feature = "alert-dialog",
@@ -166,12 +176,16 @@ mod media_query;
 mod dismiss_timer;
 
 #[cfg(any(
+  feature = "alert-dialog",
   feature = "carousel",
   feature = "combobox",
+  feature = "dialog",
+  feature = "drawer",
   feature = "message-scroller",
   feature = "pagination",
   feature = "scroll-area",
   feature = "select",
+  feature = "sheet",
   feature = "sidebar"
 ))]
 mod default_attribute;
@@ -305,9 +319,9 @@ pub use alert_dialog::{
   ALERT_DIALOG_ACTION_BASE_CLASS, ALERT_DIALOG_CANCEL_BASE_CLASS, ALERT_DIALOG_CONTENT_BASE_CLASS,
   ALERT_DIALOG_DESCRIPTION_BASE_CLASS, ALERT_DIALOG_FOOTER_BASE_CLASS,
   ALERT_DIALOG_HEADER_BASE_CLASS, ALERT_DIALOG_OVERLAY_BASE_CLASS, ALERT_DIALOG_TITLE_BASE_CLASS,
-  AlertDialogAction, AlertDialogActionVariant, AlertDialogCancel, AlertDialogContent,
+  AlertDialog, AlertDialogAction, AlertDialogActionVariant, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay,
-  AlertDialogTitle, DialogPrimitiveConfig as AlertDialogPrimitiveConfig,
+  AlertDialogTitle, AlertDialogTrigger, DialogPrimitiveConfig as AlertDialogPrimitiveConfig,
   DismissBehavior as AlertDialogDismissBehavior, FocusReturn as AlertDialogFocusReturn,
   FocusStrategy as AlertDialogFocusStrategy, PortalTarget as AlertDialogPortalTarget,
   alert_dialog_action_class, alert_dialog_cancel_class, alert_dialog_content_class,
@@ -496,10 +510,10 @@ pub use date_picker::{
 #[cfg(feature = "dialog")]
 pub use dialog::{
   DIALOG_CLOSE_BASE_CLASS, DIALOG_CONTENT_BASE_CLASS, DIALOG_DESCRIPTION_BASE_CLASS,
-  DIALOG_OVERLAY_BASE_CLASS, DIALOG_TITLE_BASE_CLASS, DialogClose, DialogContent,
-  DialogDescription, DialogOverlay, DialogPrimitiveConfig, DialogTitle, DismissBehavior,
-  FocusReturn, FocusStrategy, PortalTarget, dialog_close_class, dialog_content_class,
-  dialog_description_class, dialog_overlay_class, dialog_title_class,
+  DIALOG_OVERLAY_BASE_CLASS, DIALOG_TITLE_BASE_CLASS, Dialog, DialogClose, DialogContent,
+  DialogDescription, DialogOverlay, DialogPrimitiveConfig, DialogTitle, DialogTrigger,
+  DismissBehavior, FocusReturn, FocusStrategy, PortalTarget, dialog_close_class,
+  dialog_content_class, dialog_description_class, dialog_overlay_class, dialog_title_class,
 };
 #[cfg(any(feature = "radio-group", feature = "toggle-group"))]
 pub use dioxus_shadcn_primitives::{FocusMove, NavigationOrientation, RovingFocusItem};
@@ -512,11 +526,12 @@ pub use drawer::{
   DRAWER_CLOSE_BASE_CLASS, DRAWER_CONTENT_BASE_CLASS, DRAWER_DESCRIPTION_BASE_CLASS,
   DRAWER_FOOTER_BASE_CLASS, DRAWER_HEADER_BASE_CLASS, DRAWER_OVERLAY_BASE_CLASS,
   DRAWER_TITLE_BASE_CLASS, DialogPrimitiveConfig as DrawerPrimitiveConfig,
-  DismissBehavior as DrawerDismissBehavior, DrawerClose, DrawerContent, DrawerDescription,
-  DrawerFooter, DrawerHeader, DrawerOverlay, DrawerTitle, FocusReturn as DrawerFocusReturn,
-  FocusStrategy as DrawerFocusStrategy, PortalTarget as DrawerPortalTarget, drawer_close_class,
-  drawer_content_class, drawer_description_class, drawer_footer_class, drawer_header_class,
-  drawer_overlay_class, drawer_title_class,
+  DismissBehavior as DrawerDismissBehavior, Drawer, DrawerClose, DrawerContent, DrawerDescription,
+  DrawerFooter, DrawerHeader, DrawerOverlay, DrawerTitle, DrawerTrigger,
+  FocusReturn as DrawerFocusReturn, FocusStrategy as DrawerFocusStrategy,
+  PortalTarget as DrawerPortalTarget, drawer_close_class, drawer_content_class,
+  drawer_description_class, drawer_footer_class, drawer_header_class, drawer_overlay_class,
+  drawer_title_class,
 };
 #[cfg(feature = "dropdown")]
 pub use dropdown::{
@@ -713,10 +728,10 @@ pub use sheet::{
   FocusReturn as SheetFocusReturn, FocusStrategy as SheetFocusStrategy,
   PortalTarget as SheetPortalTarget, SHEET_CLOSE_BASE_CLASS, SHEET_CONTENT_BASE_CLASS,
   SHEET_DESCRIPTION_BASE_CLASS, SHEET_FOOTER_BASE_CLASS, SHEET_HEADER_BASE_CLASS,
-  SHEET_OVERLAY_BASE_CLASS, SHEET_TITLE_BASE_CLASS, SheetClose, SheetContent, SheetDescription,
-  SheetFooter, SheetHeader, SheetOverlay, SheetSide, SheetTitle, sheet_close_class,
-  sheet_content_class, sheet_description_class, sheet_footer_class, sheet_header_class,
-  sheet_overlay_class, sheet_title_class,
+  SHEET_OVERLAY_BASE_CLASS, SHEET_TITLE_BASE_CLASS, Sheet, SheetClose, SheetContent,
+  SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetSide, SheetTitle, SheetTrigger,
+  sheet_close_class, sheet_content_class, sheet_description_class, sheet_footer_class,
+  sheet_header_class, sheet_overlay_class, sheet_title_class,
 };
 #[cfg(feature = "sidebar")]
 pub use sidebar::{

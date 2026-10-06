@@ -14,9 +14,9 @@ parity.
 ## Summary
 
 - Public components: 82
-- Registry entries: 99
-- Source-copy helpers: anchored-overlay, class-merge, class-merge-table, default-attribute, dialog-labels, dismiss-timer, element-id, hover-open, listbox, media-query, menu-marks, menu-sub, modal-focus, overlay, root-state, roving-group, utils
-- Templates: 99
+- Registry entries: 100
+- Source-copy helpers: anchored-overlay, class-merge, class-merge-table, default-attribute, dialog-labels, dismiss-timer, element-id, hover-open, listbox, media-query, menu-marks, menu-sub, modal-focus, overlay, overlay-root, root-state, roving-group, utils
+- Templates: 100
 - Crate modules: 82
 - Crate features: 82
 - Component docs pages: 82

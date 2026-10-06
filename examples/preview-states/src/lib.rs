@@ -30,21 +30,21 @@ use dioxus_shadcn::{
   toggle_group_single_selection,
 };
 use dioxus_shadcn::{
-  AlertDialogAction, AlertDialogActionVariant, AlertDialogCancel, AlertDialogContent,
-  AlertDialogDescription, AlertDialogOverlay, AlertDialogTitle, AttachmentOrientation,
-  AttachmentSize, AttachmentState, BubbleAlign, ButtonGroupOrientation, ButtonSize, ButtonVariant,
-  ChartColorToken, ChartDomain, ChartPoint, ChartScale, ChartSeries, DialogClose, DialogContent,
-  DialogDescription, DialogOverlay, DialogTitle, DismissBehavior, MarkerVariant, MessageAlign,
-  MessageScrollerIntent, MessageScrollerMetrics, PopoverContent, PopoverDescription, PopoverTitle,
-  TextDirection, Tooltip, TooltipContent, TooltipTrigger, UiDensity, attachment_class,
-  bubble_class, button_class, button_group_class, chart_area_path, chart_area_series_class,
-  chart_bar_rects, chart_bar_series_class, chart_class, chart_fallback_rows, chart_line_path,
-  chart_line_series_class, chart_view_box, collapsible_class, direction_class, input_group_class,
-  input_otp_class, marker_class, message_avatar_class, message_class, message_content_class,
-  message_footer_class, message_group_class, message_header_class, message_scroller_class,
-  message_scroller_intent_attribute, message_scroller_is_at_bottom,
-  message_scroller_jump_button_class, message_scroller_show_unread_marker,
-  otp_apply_paste_filtered, otp_slots,
+  AlertDialog, AlertDialogAction, AlertDialogActionVariant, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogOverlay, AlertDialogTitle, AlertDialogTrigger,
+  AttachmentOrientation, AttachmentSize, AttachmentState, BubbleAlign, ButtonGroupOrientation,
+  ButtonSize, ButtonVariant, ChartColorToken, ChartDomain, ChartPoint, ChartScale, ChartSeries,
+  Dialog, DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogTitle,
+  DismissBehavior, MarkerVariant, MessageAlign, MessageScrollerIntent, MessageScrollerMetrics,
+  PopoverContent, PopoverDescription, PopoverTitle, TextDirection, Tooltip, TooltipContent,
+  TooltipTrigger, UiDensity, attachment_class, bubble_class, button_class, button_group_class,
+  chart_area_path, chart_area_series_class, chart_bar_rects, chart_bar_series_class, chart_class,
+  chart_fallback_rows, chart_line_path, chart_line_series_class, chart_view_box, collapsible_class,
+  direction_class, input_group_class, input_otp_class, marker_class, message_avatar_class,
+  message_class, message_content_class, message_footer_class, message_group_class,
+  message_header_class, message_scroller_class, message_scroller_intent_attribute,
+  message_scroller_is_at_bottom, message_scroller_jump_button_class,
+  message_scroller_show_unread_marker, otp_apply_paste_filtered, otp_slots,
 };
 use dioxus_shadcn::{
   AttachmentAction, AttachmentTrigger, ButtonGroup, ButtonGroupItem, ComboboxTrigger, Field,
@@ -2878,25 +2878,24 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-state": if alert_dialog_open() { "open" } else { "closed" },
             "data-result": "{alert_dialog_result}",
             h2 { class: "text-sm font-medium", "Alert dialog interaction" }
-            button {
-              class: "{secondary_button_class} mt-3",
-              "data-interaction-control": "alert-dialog-trigger",
-              onclick: move |_| alert_dialog_open.set(true),
-              "Delete project"
-            }
-            AlertDialogOverlay { open: alert_dialog_open() }
-            AlertDialogContent {
-              open: alert_dialog_open(),
-              on_open_change: move |open| alert_dialog_open.set(open),
-              "aria-label": "Confirm deletion",
-              AlertDialogTitle { "Delete project?" }
-              AlertDialogDescription { "This cannot be undone." }
-              AlertDialogCancel { on_open_change: move |open| alert_dialog_open.set(open), "Cancel" }
-              AlertDialogAction {
-                variant: AlertDialogActionVariant::Destructive,
-                onclick: move |_| alert_dialog_result.set("confirmed"),
-                on_open_change: move |open| alert_dialog_open.set(open),
-                "Delete"
+            // Uncontrolled: the root owns `open` and the article follows it
+            // through `on_open_change`.
+            AlertDialog { on_open_change: move |open| alert_dialog_open.set(open),
+              AlertDialogTrigger {
+                class: "{secondary_button_class} mt-3",
+                "data-interaction-control": "alert-dialog-trigger",
+                "Delete project"
+              }
+              AlertDialogOverlay {}
+              AlertDialogContent { "aria-label": "Confirm deletion",
+                AlertDialogTitle { "Delete project?" }
+                AlertDialogDescription { "This cannot be undone." }
+                AlertDialogCancel { "Cancel" }
+                AlertDialogAction {
+                  variant: AlertDialogActionVariant::Destructive,
+                  onclick: move |_| alert_dialog_result.set("confirmed"),
+                  "Delete"
+                }
               }
             }
           }
@@ -2911,24 +2910,20 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               onclick: move |_| dialog_open.set(true),
               "Open dialog"
             }
-            DialogOverlay {
-              open: dialog_open(),
-              on_open_change: move |open| dialog_open.set(open),
-              dismiss: DismissBehavior { outside_pointer: true, ..DismissBehavior::dialog_default() },
-            }
-            DialogContent {
-              open: dialog_open(),
-              on_open_change: move |open| dialog_open.set(open),
-              DialogTitle { "Rename project" }
-              DialogDescription { "Focus stays inside until the dialog closes." }
-              input {
-                class: "rounded-md border border-border px-2 py-1 text-sm",
-                "aria-label": "Project name",
-                "data-interaction-control": "dialog-input",
+            // Controlled: the app's button above opens it.
+            Dialog { open: dialog_open(), on_open_change: move |open| dialog_open.set(open),
+              DialogOverlay {
+                dismiss: DismissBehavior { outside_pointer: true, ..DismissBehavior::dialog_default() },
               }
-              DialogClose {
-                on_open_change: move |open| dialog_open.set(open),
-                "Cancel"
+              DialogContent {
+                DialogTitle { "Rename project" }
+                DialogDescription { "Focus stays inside until the dialog closes." }
+                input {
+                  class: "rounded-md border border-border px-2 py-1 text-sm",
+                  "aria-label": "Project name",
+                  "data-interaction-control": "dialog-input",
+                }
+                DialogClose { "Cancel" }
               }
             }
           }

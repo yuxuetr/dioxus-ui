@@ -1,8 +1,11 @@
+use super::default_attribute::default_attribute;
 use super::dialog_labels::{DialogLabelPart, use_dialog_label_part, use_dialog_labels};
 use super::modal_focus::use_modal_focus_scope;
 pub use super::overlay::{
   DialogPrimitiveConfig, DismissBehavior, FocusReturn, FocusStrategy, PortalTarget,
 };
+use super::overlay_root::{OverlayRoot, overlay_trigger, use_overlay_root};
+use super::root_state::use_root_context;
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
@@ -32,15 +35,53 @@ pub fn dialog_close_class(class: &str) -> String {
   merge_classes(classes([Some(DIALOG_CLOSE_BASE_CLASS)]), class)
 }
 
-/// Backdrop that requests close on click when `dismiss.outside_pointer` is set.
+/// What a `Dialog` shares with its parts.
+#[derive(Clone, Copy)]
+struct DialogContext(OverlayRoot);
+
+fn use_dialog(part: &str) -> OverlayRoot {
+  use_root_context::<DialogContext>(part, "Dialog").0
+}
+
+/// The root of a dialog: it owns whether the dialog is open. Pass `open` to
+/// control it, or `default_open` to start it; `on_open_change` hears every
+/// change the user makes either way.
+#[component]
+pub fn Dialog(
+  #[props(default)] open: ReadSignal<Option<bool>>,
+  #[props(default)] default_open: bool,
+  #[props(default)] on_open_change: Option<EventHandler<bool>>,
+  children: Element,
+) -> Element {
+  let root = use_overlay_root("dialog", open, default_open, on_open_change);
+  use_context_provider(|| DialogContext(root));
+
+  rsx! { {children} }
+}
+
+/// A button that opens the dialog. Style it with `class`, such as
+/// `button_class(..)`.
+#[component]
+pub fn DialogTrigger(
+  #[props(default)] class: String,
+  #[props(default)] disabled: bool,
+  #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
+  children: Element,
+) -> Element {
+  let root = use_dialog("DialogTrigger");
+  overlay_trigger(root, "dialog", class, disabled, attributes, children)
+}
+
+/// Backdrop that closes the dialog on click when `dismiss.outside_pointer` is
+/// set.
 #[component]
 pub fn DialogOverlay(
-  #[props(default)] open: bool,
   #[props(default)] class: String,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default = DismissBehavior::dialog_default())] dismiss: DismissBehavior,
 ) -> Element {
+  let root = use_dialog("DialogOverlay");
   let class = dialog_overlay_class(&class);
+  let open = root.is_open();
 
   rsx! {
     div {
@@ -48,8 +89,8 @@ pub fn DialogOverlay(
       hidden: !open,
       "data-state": if open { "open" } else { "closed" },
       onclick: move |_| {
-        if let Some(handler) = on_open_change.filter(|_| dismiss.outside_pointer) {
-          handler.call(false);
+        if dismiss.outside_pointer {
+          root.set_open(false);
         }
       },
     }
@@ -57,23 +98,25 @@ pub fn DialogOverlay(
 }
 
 /// Modal content that takes focus on open, keeps Tab inside, restores focus on
-/// close, and requests close on Escape when `dismiss.escape_key` is set.
+/// close, and closes on Escape when `dismiss.escape_key` is set.
 #[component]
 pub fn DialogContent(
-  #[props(default)] open: bool,
   #[props(default)] class: String,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default = DismissBehavior::dialog_default())] dismiss: DismissBehavior,
   #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
+  let root = use_dialog("DialogContent");
   let class = dialog_content_class(&class);
+  let open = root.is_open();
+  let id = default_attribute(&attributes, "id", root.content_id());
   let (labelledby, describedby) = use_dialog_labels().content_attributes(&attributes);
   let focus_scope = use_modal_focus_scope(open, true);
 
   rsx! {
     div {
       role: "dialog",
+      id,
       class,
       "aria-labelledby": labelledby,
       "aria-describedby": describedby,
@@ -83,9 +126,8 @@ pub fn DialogContent(
       "data-state": if open { "open" } else { "closed" },
       "data-dxui-focus-scope": focus_scope,
       onkeydown: move |event| {
-        let wants_close = event.key() == Key::Escape && dismiss.escape_key;
-        if let Some(handler) = on_open_change.filter(|_| wants_close) {
-          handler.call(false);
+        if event.key() == Key::Escape && dismiss.escape_key {
+          root.set_open(false);
         }
       },
       ..attributes,
@@ -126,9 +168,9 @@ pub fn DialogDescription(#[props(default)] class: String, children: Element) -> 
 pub fn DialogClose(
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
-  #[props(default)] on_open_change: Option<EventHandler<bool>>,
   children: Element,
 ) -> Element {
+  let root = use_dialog("DialogClose");
   let class = dialog_close_class(&class);
 
   rsx! {
@@ -136,11 +178,7 @@ pub fn DialogClose(
       r#type: "button",
       class,
       disabled,
-      onclick: move |_| {
-        if let Some(handler) = on_open_change {
-          handler.call(false);
-        }
-      },
+      onclick: move |_| root.set_open(false),
       {children}
     }
   }

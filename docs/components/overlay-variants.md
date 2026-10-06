@@ -21,9 +21,10 @@ remain self-contained and must not import internal crates.
 
 ## Shared Rules
 
-All overlay variants use controlled state first:
+Each overlay variant has a root that owns whether it is open, with `open`,
+`default_open`, and `on_open_change`, and a trigger part (see
+[RFC 0077](../rfcs/0077-component-owned-state.md)):
 
-- `open: bool`
 - typed variant props for side, size, and intent where needed
 - `class: String` on every styled part
 - `children: Element` for content slots
@@ -55,30 +56,31 @@ destructive, irreversible, or high-impact confirmation flows.
 Planned crate API:
 
 ```rust
-AlertDialogOverlay { open, class }
-AlertDialogContent { open, class, children }
+AlertDialog { open, default_open, on_open_change, children }
+AlertDialogTrigger { class, disabled, children }
+AlertDialogOverlay { class }
+AlertDialogContent { class, children }
 AlertDialogHeader { class, children }
 AlertDialogFooter { class, children }
 AlertDialogTitle { class, children }
 AlertDialogDescription { class, children }
 AlertDialogAction { variant, class, disabled, children }
-AlertDialogCancel { class, disabled, children }
+AlertDialogCancel { class, disabled, onclick, children }
 ```
 
 Behavior defaults:
 
 - `role="alertdialog"` on content
 - `aria-modal="true"` when open
-- `DialogPrimitiveConfig::controlled(open)` as the base primitive config
 - Escape dismissal enabled
 - outside pointer dismissal disabled
 - focus return to trigger
 - initial focus strategy stays `FirstFocusable`
 
 M135 adds Escape and overlay dismissal, initial focus, Tab wrap, and focus
-restore through `on_open_change` and a shared focus scope (see
-[RFC 0010](../rfcs/0010-overlay-interaction-behavior.md)). Trigger wiring stays
-with the app.
+restore through a shared focus scope (see
+[RFC 0010](../rfcs/0010-overlay-interaction-behavior.md)). Since 0.5.0 the
+`AlertDialog` root owns the open state and `AlertDialogTrigger` opens it.
 
 ## Sheet
 
@@ -90,8 +92,10 @@ Planned crate API:
 
 ```rust
 SheetSide::{Top, Right, Bottom, Left}
-SheetOverlay { open, class }
-SheetContent { open, side, class, children }
+Sheet { open, default_open, on_open_change, children }
+SheetTrigger { class, disabled, children }
+SheetOverlay { class }
+SheetContent { side, class, children }
 SheetHeader { class, children }
 SheetFooter { class, children }
 SheetTitle { class, children }
@@ -128,8 +132,10 @@ Planned approach:
 Planned crate API:
 
 ```rust
-DrawerOverlay { open, class }
-DrawerContent { open, class, children }
+Drawer { open, default_open, on_open_change, children }
+DrawerTrigger { class, disabled, children }
+DrawerOverlay { class }
+DrawerContent { class, children }
 DrawerHeader { class, children }
 DrawerFooter { class, children }
 DrawerTitle { class, children }

@@ -1,7 +1,7 @@
 # Dialog
 
-Dialog combines primitive configuration with styled overlay, content, title,
-description, and close parts.
+Dialog is a `Dialog` root that owns whether the dialog is open, with
+styled trigger, overlay, content, title, description, and close parts.
 
 ## Source Copy
 
@@ -17,6 +17,8 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["dialog
 
 ## API Surface
 
+- `Dialog`
+- `DialogTrigger`
 - `DialogOverlay`
 - `DialogContent`
 - `DialogTitle`
@@ -29,31 +31,56 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["dialog
 
 ## Behavior
 
-`open` stays controlled by the app. Pass the same `on_open_change` handler to
-`DialogOverlay`, `DialogContent`, and `DialogClose` to receive close requests:
+`Dialog` owns whether the dialog is open and its parts read it, so they
+must sit inside it (see
+[RFC 0077](../rfcs/0077-component-owned-state.md)). `DialogTrigger` opens
+it; it renders an unstyled `button`, so style it with `class`:
 
-While open, the dialog locks page scroll and pads the root element for the
-hidden scrollbar; nested modals share the lock, and the last to close
-restores scrolling (see [RFC 0068](../rfcs/0068-modal-scroll-lock.md)).
+```rust
+rsx! {
+  Dialog {
+    DialogTrigger {
+      class: button_class(ButtonVariant::Outline, ButtonSize::Md, UiDensity::Comfortable, ""),
+      "Rename project"
+    }
+    DialogOverlay {}
+    DialogContent {
+      DialogTitle { "Rename project" }
+      DialogClose { "Cancel" }
+    }
+  }
+}
+```
+
+`default_open` starts it open. To control it, pass `open` and
+`on_open_change`; then any app button can open or close it, and the trigger
+is optional:
 
 ```rust
 let mut open = use_signal(|| false);
 
 rsx! {
-  DialogOverlay { open: open(), on_open_change: move |next| open.set(next) }
-  DialogContent {
-    open: open(),
-    on_open_change: move |next| open.set(next),
-    DialogTitle { "Rename project" }
-    DialogClose { on_open_change: move |next| open.set(next), "Cancel" }
+  Dialog { open: open(), on_open_change: move |next| open.set(next),
+    DialogOverlay {}
+    DialogContent {
+      DialogTitle { "Rename project" }
+      Button { onclick: move |_| open.set(false), "Save" }
+    }
   }
 }
 ```
 
-- Escape on the content requests close when `dismiss.escape_key` is set.
-- A click on the overlay requests close when `dismiss.outside_pointer` is set.
+`on_open_change` hears every change the user makes, in both modes. The
+trigger points `aria-controls` at the content and sets `aria-expanded`.
+
+While open, the dialog locks page scroll and pads the root element for the
+hidden scrollbar; nested modals share the lock, and the last to close
+restores scrolling (see [RFC 0068](../rfcs/0068-modal-scroll-lock.md)).
+
+- Escape on the content closes it when `dismiss.escape_key` is set.
+- A click on the overlay closes it when `dismiss.outside_pointer` is set.
   The default `DismissBehavior::dialog_default()` leaves it off.
-- `DialogClose` always requests close.
+- `DialogClose` always closes it.
 - Opening focuses the element marked `data-dxui-autofocus`, such as a
   keyboard-managed Calendar day, otherwise the first focusable element, or the
   content itself.

@@ -17,6 +17,8 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["alert-
 
 ## API Surface
 
+- `AlertDialog`
+- `AlertDialogTrigger`
 - `AlertDialogOverlay`
 - `AlertDialogContent`
 - `AlertDialogHeader`
@@ -36,36 +38,38 @@ The module also re-exports `DialogPrimitiveConfig` for users importing from
 
 ## Behavior
 
-`open` stays controlled by the app. Pass the same `on_open_change` handler to
-`AlertDialogContent`, `AlertDialogCancel`, and `AlertDialogAction`:
+`AlertDialog` owns whether the alert dialog is open and its parts read it,
+so they must sit inside it (see
+[RFC 0077](../rfcs/0077-component-owned-state.md)). `AlertDialogTrigger`
+opens it; it renders an unstyled `button`, so style it with `class`. Pass
+`open` and `on_open_change` to control it instead, or `default_open` to
+start it open; `on_open_change` hears every change in both modes.
 
 While open, the alert dialog locks page scroll and pads the root element for the
 hidden scrollbar; nested modals share the lock, and the last to close
 restores scrolling (see [RFC 0068](../rfcs/0068-modal-scroll-lock.md)).
 
 ```rust
-let mut open = use_signal(|| false);
-
 rsx! {
-  AlertDialogOverlay { open: open() }
-  AlertDialogContent {
-    open: open(),
-    on_open_change: move |next| open.set(next),
-    AlertDialogTitle { "Delete project?" }
-    AlertDialogCancel { on_open_change: move |next| open.set(next), "Cancel" }
-    AlertDialogAction {
-      onclick: move |_| delete_project(),
-      on_open_change: move |next| open.set(next),
-      "Delete"
+  AlertDialog {
+    AlertDialogTrigger {
+      class: button_class(ButtonVariant::Destructive, ButtonSize::Md, UiDensity::Comfortable, ""),
+      "Delete project"
+    }
+    AlertDialogOverlay {}
+    AlertDialogContent {
+      AlertDialogTitle { "Delete project?" }
+      AlertDialogCancel { "Cancel" }
+      AlertDialogAction { onclick: move |_| delete_project(), "Delete" }
     }
   }
 }
 ```
 
-- Escape on the content requests close when `dismiss.escape_key` is set.
+- Escape on the content closes it when `dismiss.escape_key` is set.
 - The overlay never dismisses an alert dialog.
-- `AlertDialogCancel` requests close; `AlertDialogAction` runs `onclick` and
-  then requests close.
+- `AlertDialogCancel` and `AlertDialogAction` run their `onclick` and then
+  close it.
 - Opening focuses the element marked `data-dxui-autofocus`, such as a
   keyboard-managed Calendar day, otherwise the first focusable element, or the
   content itself.

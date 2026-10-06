@@ -10,7 +10,7 @@ mod themes;
 
 use dioxus::prelude::*;
 use dioxus_shadcn::{
-  Button, ButtonSize, ButtonVariant, NativeSelect, NativeSelectGroup, NativeSelectOption,
+  Button, ButtonSize, ButtonVariant, NativeSelect, NativeSelectGroup, NativeSelectOption, Sheet,
   SheetContent, SheetOverlay, SheetSide, SheetTitle, Theme, ThemeController,
 };
 use pages::{BlockPage, Blocks, ComponentPage, GettingStarted, Home, NotFound, Theming};
@@ -127,15 +127,13 @@ fn Shell() -> Element {
         }
         main { class: "min-w-0 flex-1 py-8", Outlet::<Route> {} }
       }
-      SheetOverlay { open: menu_open(), on_open_change: move |open| menu_open.set(open) }
-      SheetContent {
-        class: "overflow-y-auto",
-        open: menu_open(),
-        side: SheetSide::Left,
-        on_open_change: move |open| menu_open.set(open),
-        SheetTitle { class: "mb-4", "Components" }
-        // A followed link bubbles here, so the menu closes on navigation.
-        div { onclick: move |_| menu_open.set(false), SiteNav {} }
+      Sheet { open: menu_open(), on_open_change: move |open| menu_open.set(open),
+        SheetOverlay {}
+        SheetContent { class: "overflow-y-auto", side: SheetSide::Left,
+          SheetTitle { class: "mb-4", "Components" }
+          // A followed link bubbles here, so the menu closes on navigation.
+          div { onclick: move |_| menu_open.set(false), SiteNav {} }
+        }
       }
     }
   }
