@@ -196,9 +196,13 @@ pub fn GettingStarted() -> Element {
       p { class: P,
         "Crate mode also needs an "
         code { class: INLINE_CODE, "@source" }
-        " line for the crate's source after the import, since Tailwind generates only the classes it finds in scanned files. "
+        " line for the crate's source after the import, since Tailwind generates only the classes it finds in scanned files. In an app that depends on the crate, "
+        code { class: INLINE_CODE, "dxui init" }
+        " writes it from "
         code { class: INLINE_CODE, "cargo metadata" }
-        " shows where the crate lives:"
+        ". The path names one version, so run "
+        code { class: INLINE_CODE, "dxui init" }
+        " again after upgrading the crate:"
       }
       CodeBlock { code: format!("@import \"tailwindcss\";\n@source \"/path/to/dioxus-shadcn-{VERSION}/src\";") }
       p { class: P,

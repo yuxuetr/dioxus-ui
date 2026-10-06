@@ -8,6 +8,14 @@ for commit messages.
 
 ## [Unreleased]
 
+### Added
+
+- `dxui init` writes the `@source` line crate mode needs, from
+  `cargo metadata`, and running it again after a crate upgrade replaces the
+  line that names the previous version. Before, the crate README asked for a
+  hand-written path, which went stale on every upgrade and left Tailwind
+  scanning old source.
+
 ## [0.4.2] - 2026-10-06
 
 ### Fixed

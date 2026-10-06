@@ -85,9 +85,9 @@ shape, class names, variants, and local customization needs.
 ## Optional Crate Path Trial
 
 Crate mode can be evaluated with local path dependencies. Its API is the same
-as source-copy mode's, under the accepted `0.1.x` policy. Add an `@source` line
-for the crate's `src` directory to the stylesheet so Tailwind generates the
-component classes (see [crates/README.md](../crates/README.md)).
+as source-copy mode's, under the accepted `0.1.x` policy. `dxui init` writes the
+`@source` line for the crate's `src` directory into the stylesheet so Tailwind
+generates the component classes (see [crates/README.md](../crates/README.md)).
 
 Example trial app dependency:
 

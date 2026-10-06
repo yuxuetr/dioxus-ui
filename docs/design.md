@@ -267,7 +267,10 @@ For Tailwind CSS v4, the generated CSS entry should use CSS-first imports:
 ```
 
 `dxui init` may also add project-level theme variables or base selectors to that
-entry file. It should not treat `assets/dioxus-shadcn.css` as a precompiled complete
+entry file. In a crate-mode app it keeps one `@source` line per resolved
+`dioxus-shadcn` package, from `cargo metadata`, and replaces a line naming
+another version of the crate; a manifest Cargo cannot read is an error, not a
+skipped line. It should not treat `assets/dioxus-shadcn.css` as a precompiled complete
 Tailwind output. The final CSS output belongs to the user's app build, because
 Tailwind must scan the user's application and generated component files.
 

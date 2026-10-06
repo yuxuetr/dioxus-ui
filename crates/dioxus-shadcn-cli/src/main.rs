@@ -3,6 +3,7 @@ use std::error::Error;
 use std::ffi::OsString;
 use std::fs;
 use std::path::{Path, PathBuf};
+use std::process::Command;
 
 use dioxus_shadcn_core::RegistryComponent;
 
@@ -189,7 +190,142 @@ fn init_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
 
   init_project(&root)?;
   println!("initialized dioxus-shadcn in {}", root.display());
+
+  let sources = crate_sources(&root)?;
+  let path = stylesheet_path(&root);
+  let css = fs::read_to_string(&path)
+    .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
+  if let Some(refreshed) = refresh_crate_sources(&css, &sources) {
+    fs::write(&path, refreshed)?;
+    let previous = crate_source_paths(&css);
+    for stale in previous.iter().filter(|stale| !sources.contains(stale)) {
+      println!("removed @source \"{stale}\" from {}", path.display());
+    }
+    for source in sources.iter().filter(|source| !previous.contains(source)) {
+      println!("added @source \"{source}\" to {}", path.display());
+    }
+  }
   Ok(())
+}
+
+/// Returns the `src` directory of every `dioxus-shadcn` package in the
+/// dependency graph of the app at `root`, as `cargo metadata` resolves it.
+/// A directory without `Cargo.toml` has none; a manifest Cargo cannot read is
+/// an error, so a stale `@source` line is never kept without a word.
+fn crate_sources(root: &Path) -> Result<Vec<String>, Box<dyn Error>> {
+  let manifest = root.join("Cargo.toml");
+  if !manifest.is_file() {
+    return Ok(Vec::new());
+  }
+
+  let cargo = env::var_os("CARGO").unwrap_or_else(|| OsString::from("cargo"));
+  let output = Command::new(cargo)
+    .args(["metadata", "--format-version", "1", "--manifest-path"])
+    .arg(&manifest)
+    .output()
+    .map_err(|error| {
+      format!("cannot run cargo metadata: {error}; the @source line was not updated")
+    })?;
+  if !output.status.success() {
+    let stderr = String::from_utf8_lossy(&output.stderr);
+    return Err(
+      format!(
+        "cargo metadata failed for {}; the @source line was not updated:\n{}",
+        manifest.display(),
+        stderr.trim()
+      )
+      .into(),
+    );
+  }
+
+  crate_sources_from_metadata(&String::from_utf8_lossy(&output.stdout))
+}
+
+fn crate_sources_from_metadata(json: &str) -> Result<Vec<String>, Box<dyn Error>> {
+  let metadata: serde_json::Value = serde_json::from_str(json)?;
+  let packages = metadata["packages"].as_array().ok_or("cargo metadata has no packages")?;
+  let mut sources = Vec::new();
+
+  for package in packages.iter().filter(|package| package["name"] == "dioxus-shadcn") {
+    let manifest =
+      package["manifest_path"].as_str().ok_or("cargo metadata package has no manifest_path")?;
+    let dir =
+      Path::new(manifest).parent().ok_or("cargo metadata manifest_path has no directory")?;
+    // CSS strings treat `\` as an escape; Tailwind reads `/` on every platform.
+    let source = dir.join("src").to_string_lossy().replace('\\', "/");
+    if source.contains('"') {
+      return Err(
+        format!("cannot write an @source line for `{source}`, which contains a quote").into(),
+      );
+    }
+    sources.push(source);
+  }
+
+  sources.sort();
+  sources.dedup();
+  Ok(sources)
+}
+
+/// The path of an `@source` line that names a `dioxus-shadcn` source
+/// directory: `.../dioxus-shadcn/src` for path and git dependencies, or
+/// `.../dioxus-shadcn-<version>/src` for registry ones.
+fn crate_source_path(line: &str) -> Option<&str> {
+  let rest = line.trim().strip_prefix("@source")?.trim_start();
+  let quote = rest.chars().next().filter(|quote| *quote == '"' || *quote == '\'')?;
+  let path = rest[1..].strip_suffix(';')?.trim_end().strip_suffix(quote)?;
+  let mut components = path.trim_end_matches('/').rsplit('/');
+  let (Some("src"), Some(dir)) = (components.next(), components.next()) else {
+    return None;
+  };
+  let names_crate = dir == "dioxus-shadcn"
+    || dir
+      .strip_prefix("dioxus-shadcn-")
+      .is_some_and(|version| version.starts_with(|c: char| c.is_ascii_digit()));
+  names_crate.then_some(path)
+}
+
+fn crate_source_paths(css: &str) -> Vec<String> {
+  css.lines().filter_map(crate_source_path).map(str::to_string).collect()
+}
+
+/// Returns the stylesheet with its crate `@source` lines naming exactly
+/// `sources`, in place of the first such line or after the Tailwind import,
+/// or `None` when it already does. With no sources the stylesheet is left as
+/// it is: an app without the crate keeps whatever lines its author wrote.
+fn refresh_crate_sources(css: &str, sources: &[String]) -> Option<String> {
+  if sources.is_empty() || crate_source_paths(css) == sources {
+    return None;
+  }
+
+  let wanted = sources.iter().map(|source| format!("@source \"{source}\";\n")).collect::<String>();
+  let lines = css.split_inclusive('\n').collect::<Vec<_>>();
+  let anchor = lines.iter().position(|line| crate_source_path(line).is_some());
+  let after_import = lines.iter().position(|line| {
+    let line = line.trim();
+    line.starts_with("@import \"tailwindcss\"") || line.starts_with("@import 'tailwindcss'")
+  });
+  let mut refreshed = String::with_capacity(css.len() + wanted.len());
+
+  if anchor.is_none() && after_import.is_none() {
+    refreshed.push_str(&wanted);
+  }
+  for (index, line) in lines.iter().enumerate() {
+    if crate_source_path(line).is_some() {
+      if Some(index) == anchor {
+        refreshed.push_str(&wanted);
+      }
+      continue;
+    }
+    refreshed.push_str(line);
+    if anchor.is_none() && Some(index) == after_import {
+      if !line.ends_with('\n') {
+        refreshed.push('\n');
+      }
+      refreshed.push_str(&wanted);
+    }
+  }
+
+  Some(refreshed)
 }
 
 fn add_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
@@ -737,7 +873,7 @@ fn write_component_file(
 
 fn print_help() {
   println!(
-    "dxui\n\nUsage:\n  dxui init [--root <path>]\n  dxui add <component|block>... [--root <path>] [--overwrite]\n  dxui diff [<component|block>...] [--root <path>]\n  dxui list [blocks]\n  dxui theme list\n  dxui theme add <theme>... [--root <path>]\n  dxui --version\n\nCommands:\n  init    Prepare a Dioxus project for dioxus-shadcn generated components\n  add     Copy components, or blocks with their components, into a project\n  diff    Show how the project's copies, or the named ones, differ from the templates\n  list    List the components, or the blocks\n  theme   List theme presets, or add them to assets/dioxus-shadcn.css"
+    "dxui\n\nUsage:\n  dxui init [--root <path>]\n  dxui add <component|block>... [--root <path>] [--overwrite]\n  dxui diff [<component|block>...] [--root <path>]\n  dxui list [blocks]\n  dxui theme list\n  dxui theme add <theme>... [--root <path>]\n  dxui --version\n\nCommands:\n  init    Prepare a Dioxus project for dioxus-shadcn, and keep the crate's @source line current\n  add     Copy components, or blocks with their components, into a project\n  diff    Show how the project's copies, or the named ones, differ from the templates\n  list    List the components, or the blocks\n  theme   List theme presets, or add them to assets/dioxus-shadcn.css"
   );
 }
 
@@ -826,6 +962,99 @@ mod tests {
     };
     assert_eq!(scheme("cupcake"), Some("light"));
     assert_eq!(scheme("dracula"), Some("dark"));
+  }
+
+  const REGISTRY_SOURCE: &str =
+    "/home/me/.cargo/registry/src/index.crates.io-1/dioxus-shadcn-0.4.3/src";
+
+  #[test]
+  fn refresh_adds_the_crate_source_after_the_import() {
+    let css = "@import \"tailwindcss\";\n\n:root {}\n";
+    let refreshed =
+      refresh_crate_sources(css, &[REGISTRY_SOURCE.to_string()]).expect("line should be added");
+
+    assert_eq!(
+      refreshed,
+      format!("@import \"tailwindcss\";\n@source \"{REGISTRY_SOURCE}\";\n\n:root {{}}\n")
+    );
+  }
+
+  #[test]
+  fn refresh_replaces_a_stale_crate_source_in_place() {
+    let css = "@import \"tailwindcss\";\n@source \"../src\";\n@source \"/x/dioxus-shadcn-0.4.2/src\";\n@source '/y/dioxus-shadcn/src/';\n:root {}\n";
+    let refreshed =
+      refresh_crate_sources(css, &[REGISTRY_SOURCE.to_string()]).expect("line should be replaced");
+
+    assert_eq!(
+      refreshed,
+      format!(
+        "@import \"tailwindcss\";\n@source \"../src\";\n@source \"{REGISTRY_SOURCE}\";\n:root {{}}\n"
+      )
+    );
+  }
+
+  #[test]
+  fn refresh_leaves_a_current_crate_source_alone() {
+    let css = format!("@import \"tailwindcss\";\n@source \"{REGISTRY_SOURCE}\";\n");
+
+    assert_eq!(refresh_crate_sources(&css, &[REGISTRY_SOURCE.to_string()]), None);
+  }
+
+  #[test]
+  fn refresh_without_the_crate_changes_nothing() {
+    let css = "@import \"tailwindcss\";\n@source \"/x/dioxus-shadcn-0.4.2/src\";\n";
+
+    assert_eq!(refresh_crate_sources(css, &[]), None);
+  }
+
+  #[test]
+  fn crate_source_lines_name_only_the_styled_crate() {
+    for line in [
+      "@source \"/x/dioxus-shadcn-0.4.2/src\";",
+      "  @source '/x/crates/dioxus-shadcn/src' ;",
+      "@source \"C:/x/dioxus-shadcn-1.0.0-rc.1/src/\";",
+    ] {
+      assert!(crate_source_path(line).is_some(), "{line}");
+    }
+    for line in [
+      "@source \"/x/dioxus-shadcn-primitives-0.4.2/src\";",
+      "@source \"/x/dioxus-shadcn-cli/src\";",
+      "@source \"/x/dioxus-shadcn-0.4.2/templates\";",
+      "@source not \"/x/dioxus-shadcn-0.4.2/src\";",
+      "@source \"../src\";",
+    ] {
+      assert!(crate_source_path(line).is_none(), "{line}");
+    }
+  }
+
+  #[test]
+  fn metadata_yields_each_styled_crate_source() {
+    let json = r#"{"packages": [
+      {"name": "dioxus-shadcn-core", "manifest_path": "/r/dioxus-shadcn-core-0.4.3/Cargo.toml"},
+      {"name": "dioxus-shadcn", "manifest_path": "/r/dioxus-shadcn-0.4.3/Cargo.toml"},
+      {"name": "dioxus-shadcn", "manifest_path": "/r/dioxus-shadcn-0.4.2/Cargo.toml"}
+    ]}"#;
+
+    let sources = crate_sources_from_metadata(json).expect("metadata should parse");
+
+    assert_eq!(sources, ["/r/dioxus-shadcn-0.4.2/src", "/r/dioxus-shadcn-0.4.3/src"]);
+  }
+
+  #[test]
+  fn crate_sources_reads_this_workspace() {
+    let cli = Path::new(env!("CARGO_MANIFEST_DIR"));
+    let workspace = cli.parent().and_then(Path::parent).expect("cli crate should sit in crates/");
+
+    let sources = crate_sources(workspace).expect("cargo metadata should succeed");
+
+    assert_eq!(
+      sources,
+      [cli.with_file_name("dioxus-shadcn").join("src").to_string_lossy().replace('\\', "/")]
+    );
+    assert_eq!(
+      crate_sources(&temp_project()).expect("no manifest is no error"),
+      Vec::<String>::new()
+    );
   }
 
   #[test]

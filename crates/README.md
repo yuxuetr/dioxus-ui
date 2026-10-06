@@ -67,20 +67,22 @@ fn App() -> Element {
 }
 ```
 
-Run `dxui init` for the stylesheet. Tailwind generates only the classes it
-finds in scanned files, so add an `@source` line for the crate's source to the
-stylesheet. Cargo prints where the crate's `Cargo.toml` lives; use its
-directory plus `/src`:
-
-```bash
-cargo metadata --format-version 1 \
-  | jq -r '.packages[] | select(.name == "dioxus-shadcn") | .manifest_path'
-```
+Run `dxui init` in the app's directory for the stylesheet. Tailwind
+generates only the classes it finds in scanned files, so `dxui init` also
+writes an `@source` line for the crate's source, after the import, from
+`cargo metadata`:
 
 ```css
 @import "tailwindcss";
-@source "/path/to/dioxus-shadcn-0.4.2/src";
+@source "/home/me/.cargo/registry/src/index.crates.io-…/dioxus-shadcn-0.4.3/src";
 ```
+
+The path names one version, so run `dxui init` again after upgrading the
+crate: it replaces the line that names the previous version and says so.
+Without it Tailwind keeps scanning the old source and misses classes the new
+version added. `dxui init` manages the line only in
+`assets/dioxus-shadcn.css`; an app that compiles another stylesheet copies the
+line from there.
 
 ## Theme
 
