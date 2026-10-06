@@ -588,7 +588,7 @@ templates and an added `nord` preset.
   after a delay and on keyboard focus (see RFC 0022), and Hover Card does the
   same with a close delay (see RFC 0023); skipping delays between adjacent
   roots and touch opening are not implemented. There is no DOM portal (see
-  RFC 0010).
+  RFC 0010); modal overlays lock page scroll while open (see RFC 0068).
 - Toast and Sonner dismiss themselves after a countdown that pauses on hover
   and focus, inside persistent live region viewports (see RFC 0011). Screen
   reader announcements are not automated, and swipe to dismiss is not

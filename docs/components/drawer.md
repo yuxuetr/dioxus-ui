@@ -37,6 +37,10 @@ The module also re-exports `DialogPrimitiveConfig` for users importing from
 `open` stays controlled by the app. Pass the same `on_open_change` handler to
 `DrawerOverlay`, `DrawerContent`, and `DrawerClose` to receive close requests.
 
+While open, the drawer locks page scroll and pads the root element for the
+hidden scrollbar; nested modals share the lock, and the last to close
+restores scrolling (see [RFC 0068](../rfcs/0068-modal-scroll-lock.md)).
+
 - Escape on the content requests close when `dismiss.escape_key` is set.
 - A click on the overlay requests close when `dismiss.outside_pointer` is set.
   The default `DismissBehavior::dialog_default()` leaves it off.

@@ -106,7 +106,7 @@ pub fn SheetContent(
 ) -> Element {
   let class = sheet_content_class(side, &class);
   let (labelledby, describedby) = use_dialog_labels().content_attributes(&attributes);
-  let focus_scope = use_modal_focus_scope(open);
+  let focus_scope = use_modal_focus_scope(open, true);
 
   rsx! {
     div {

@@ -32,6 +32,10 @@ dioxus-shadcn = { version = "0.2", default-features = false, features = ["dialog
 `open` stays controlled by the app. Pass the same `on_open_change` handler to
 `DialogOverlay`, `DialogContent`, and `DialogClose` to receive close requests:
 
+While open, the dialog locks page scroll and pads the root element for the
+hidden scrollbar; nested modals share the lock, and the last to close
+restores scrolling (see [RFC 0068](../rfcs/0068-modal-scroll-lock.md)).
+
 ```rust
 let mut open = use_signal(|| false);
 

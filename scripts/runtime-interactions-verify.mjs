@@ -2351,6 +2351,37 @@ async function runBrowserAssertions() {
     await dialogClose.click();
     await expect(dialogContent).toBeHidden();
     await expect(dialogTrigger).toBeFocused();
+    // A modal locks page scroll and pads the root for the hidden scrollbar
+    // (RFC 0068), and closing restores both.
+    await dialogTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    const scrollState = () =>
+      page.evaluate(() => ({
+        y: Math.round(window.scrollY),
+        overflow: document.documentElement.style.overflow,
+        padding: parseFloat(getComputedStyle(document.documentElement).paddingRight),
+        locks: document.documentElement.dataset.dxuiScrollLocks ?? null,
+        scrollbar: window.innerWidth - document.documentElement.clientWidth,
+      }));
+    const beforeOpen = await scrollState();
+    await dialogTrigger.click();
+    await expect(dialogInput).toBeFocused();
+    await expect.poll(async () => (await scrollState()).locks).toBe("1");
+    const whileOpen = await scrollState();
+    expect(whileOpen.overflow).toBe("hidden");
+    expect(whileOpen.padding).toBe(beforeOpen.padding + beforeOpen.scrollbar);
+    await page.mouse.move(10, 10);
+    await page.mouse.wheel(0, 600);
+    await page.waitForTimeout(300);
+    expect((await scrollState()).y).toBe(beforeOpen.y);
+    await dialogClose.click();
+    await expect(dialogContent).toBeHidden();
+    await expect.poll(async () => (await scrollState()).locks).toBe(null);
+    const afterClose = await scrollState();
+    expect(afterClose.overflow).toBe("");
+    expect(afterClose.padding).toBe(beforeOpen.padding);
+    expect(afterClose.y).toBe(beforeOpen.y);
+    await page.mouse.wheel(0, 200);
+    await expect.poll(async () => (await scrollState()).y).toBeGreaterThan(beforeOpen.y);
     // Action parts run the app's onclick (RFC 0053).
     const actionParts = page.locator('[data-interaction-target="action-parts"]');
     const actionPart = (name) => actionParts.getByRole(name === "Fruit" ? "combobox" : "button", { name, exact: true });

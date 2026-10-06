@@ -314,6 +314,7 @@ only.
 - [RFC 0065: Pie and Donut Charts](docs/rfcs/0065-pie-and-donut-charts.md)
 - [RFC 0066: Template Parity](docs/rfcs/0066-template-parity.md)
 - [RFC 0067: Menu Submenus](docs/rfcs/0067-menu-submenus.md)
+- [RFC 0068: Modal Scroll Lock](docs/rfcs/0068-modal-scroll-lock.md)
 
 ## Verification Shortcuts
 

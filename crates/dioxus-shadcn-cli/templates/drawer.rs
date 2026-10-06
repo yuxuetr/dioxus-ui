@@ -76,7 +76,7 @@ pub fn DrawerContent(
 ) -> Element {
   let class = drawer_content_class(&class);
   let (labelledby, describedby) = use_dialog_labels().content_attributes(&attributes);
-  let focus_scope = use_modal_focus_scope(open);
+  let focus_scope = use_modal_focus_scope(open, true);
 
   rsx! {
     div {

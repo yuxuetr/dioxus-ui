@@ -120,7 +120,7 @@ pub fn DatePickerContent(
 ) -> Element {
   let class = date_picker_content_class(&class);
   let labelledby = anchor_id.clone();
-  let focus_scope = use_modal_focus_scope(open);
+  let focus_scope = use_modal_focus_scope(open, false);
   let anchored = use_anchored_overlay(
     open,
     AnchoredPlacement { anchor_id, anchor_point: None, side, align, side_offset },

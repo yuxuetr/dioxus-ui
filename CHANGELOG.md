@@ -18,6 +18,10 @@ for commit messages.
   `*SubContent`, opened by ArrowRight, Enter, Space, click, or hover and
   closed one level at a time by ArrowLeft or Escape, mirrored in
   right-to-left.
+- Scroll lock for Dialog, Alert Dialog, Sheet, and Drawer
+  ([RFC 0068](docs/rfcs/0068-modal-scroll-lock.md)): the page stops
+  scrolling while one is open, with the scrollbar's width kept as padding,
+  and nested modals share the lock.
 
 ### Changed
 

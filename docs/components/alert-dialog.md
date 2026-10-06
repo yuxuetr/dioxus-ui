@@ -39,6 +39,10 @@ The module also re-exports `DialogPrimitiveConfig` for users importing from
 `open` stays controlled by the app. Pass the same `on_open_change` handler to
 `AlertDialogContent`, `AlertDialogCancel`, and `AlertDialogAction`:
 
+While open, the alert dialog locks page scroll and pads the root element for the
+hidden scrollbar; nested modals share the lock, and the last to close
+restores scrolling (see [RFC 0068](../rfcs/0068-modal-scroll-lock.md)).
+
 ```rust
 let mut open = use_signal(|| false);
 
