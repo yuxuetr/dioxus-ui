@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 29% (2 of 7 tasks)
+- Overall: 43% (3 of 7 tasks)
 - Current milestone: M203
-- Current task: M203.1
+- Current task: M203.2
 
 ## Backup
 
@@ -42,8 +42,9 @@
 
 ## M203 CLI for Copy Users
 
-- TODO M203.1 Several names per add, and a version flag
+- DONE M203.1 Several names per add, and a version flag
   - `dxui add button dialog dashboard` adds each, components and blocks alike, and stops at the first unknown name before writing anything; `dxui --version` and `-V` print the version.
+  - Done: names are checked against components and blocks before `init`, which used to run first and write the stylesheet and `ui/mod.rs` even for an unknown name; tests cover several names with a block, an unknown name in the middle leaving the root absent (reverse-verified by writing first), and both version flags.
 - TODO M203.2 Report kept files and show template differences
   - `dxui add` reports each file as written, unchanged, or kept because it differs from the template, and suggests `dxui diff`. `dxui diff <name>...` prints a unified diff between the app's copies and the CLI's templates and exits 1 when any differ, so CI can check it.
 
