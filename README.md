@@ -334,6 +334,7 @@ only.
 - [RFC 0074: Helper Templates](docs/rfcs/0074-helper-templates.md)
 - [RFC 0075: Render-Scoped Element Ids](docs/rfcs/0075-render-scoped-element-ids.md)
 - [RFC 0076: User Class Overrides](docs/rfcs/0076-user-class-overrides.md)
+- [RFC 0077: Component-Owned State](docs/rfcs/0077-component-owned-state.md)
 
 ## Verification Shortcuts
 
