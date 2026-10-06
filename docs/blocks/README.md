@@ -20,4 +20,5 @@ added; it is your code from then on. `dxui list blocks` prints the blocks.
 
 | Block | Command | Screen |
 | --- | --- | --- |
+| [Dashboard](dashboard.md) | `dxui add dashboard` | App shell with sidebar, metrics, chart, and orders table |
 | [Login](login.md) | `dxui add login` | Sign-in form with checked fields |

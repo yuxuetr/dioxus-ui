@@ -12,8 +12,9 @@ for commit messages.
 
 - Blocks ([RFC 0073](docs/rfcs/0073-blocks.md)): `dxui add <block>` copies a
   whole screen to `src/blocks/` with the components it uses, and
-  `dxui list blocks` lists them. The first block is `login`, a sign-in page
-  with checked fields.
+  `dxui list blocks` lists them. `dashboard` is an app shell with an
+  off-canvas sidebar, metrics, a chart, and an orders table; `login` is a
+  sign-in page with checked fields.
 - Mockup ([RFC 0072](docs/rfcs/0072-menu-and-mockup.md)), ported from
   daisyUI: `MockupBrowser`, `MockupWindow`, `MockupCode` with
   `MockupCodeLine`, and `MockupPhone` frames whose decorations are hidden

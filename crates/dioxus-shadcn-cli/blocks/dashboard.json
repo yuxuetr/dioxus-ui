@@ -1,0 +1,20 @@
+{
+  "name": "dashboard",
+  "description": "App shell with an off-canvas sidebar, metrics, a chart, and an orders table.",
+  "files": [
+    {
+      "source": "blocks/dashboard.rs",
+      "target": "src/blocks/dashboard.rs"
+    }
+  ],
+  "dependencies": [
+    "badge",
+    "card",
+    "chart",
+    "data-table",
+    "input",
+    "sidebar",
+    "stat"
+  ],
+  "assets": []
+}
