@@ -4,7 +4,6 @@ use dioxus::prelude::*;
 /// it sets one, otherwise the root's own, which starts at the default. Parts
 /// read it through the root's context and change it through `set`.
 pub(crate) struct Controllable<T: 'static> {
-  current: Memo<T>,
   controlled: Memo<Option<T>>,
   own: Signal<T>,
   on_change: CopyValue<Option<Callback<T>>>,
@@ -19,9 +18,13 @@ impl<T: 'static> Clone for Controllable<T> {
 impl<T: 'static> Copy for Controllable<T> {}
 
 impl<T: Clone + PartialEq + 'static> Controllable<T> {
-  /// The current value, subscribing the reader to its changes.
+  /// The current value, subscribing the reader to its changes. It reads the
+  /// app's value and the root's own directly: a memo over the `controlled`
+  /// memo would only turn dirty once `controlled` recomputed, so an event
+  /// handler reading it right after the app changed its value got the old
+  /// one.
   pub(crate) fn get(&self) -> T {
-    (self.current)()
+    self.controlled.cloned().unwrap_or_else(|| self.own.cloned())
   }
 
   /// Takes a change the user made: the root keeps it unless the app controls
@@ -47,10 +50,9 @@ pub(crate) fn use_controllable<T: Clone + PartialEq + 'static>(
 ) -> Controllable<T> {
   let own = use_signal(default);
   let controlled = use_memo(controlled);
-  let current = use_memo(move || controlled().unwrap_or_else(|| own.cloned()));
   let mut handler = use_hook(|| CopyValue::new(on_change));
   handler.set(on_change);
-  Controllable { current, controlled, own, on_change: handler }
+  Controllable { controlled, own, on_change: handler }
 }
 
 /// The context of the root a part belongs to. A part outside its root
