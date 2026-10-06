@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 9% (2 of 23 tasks)
+- Overall: 13% (3 of 23 tasks)
 - Current milestone: M196
-- Current task: M196.1
+- Current task: M196.2
 
 ## Backup
 
@@ -18,7 +18,7 @@
 ## Evidence (measured 2026-10-06 at `v0.2.0`)
 
 - Adoption: 18 crates.io downloads, no stars, no issues. There is no outside demand signal yet, so priorities come from the library's own documented gaps and from building screens with it.
-- Docs: component pages on the site show live examples but not their source, and link to GitHub markdown for props. Copying an example means reading `site/src/examples` on GitHub. The Installation page still shows a `dioxus-shadcn-0.1.0` source path.
+- Docs: component pages on the site have Preview and Code tabs per example, but no copy button, and link to GitHub markdown for props. The Installation page still shows a `dioxus-shadcn-0.1.0` source path. (Corrected 2026-10-06: the first assessment missed the Code tab.)
 - Menus: Context Menu and Menubar have checkbox, radio, and shortcut items; Dropdown, the most used menu, has none. The release notes say menu submenus are not implemented, which shadcn/ui's Dropdown, Context Menu, and Menubar all have.
 - Overlays and layout: the release notes exclude scroll lock (the page scrolls behind an open Dialog, Sheet, or Drawer), Sidebar mobile off-canvas and keyboard shortcut, multi-thumb sliders, and a pagination range helper.
 - Themes: the release notes exclude a system color scheme default; the site forgets the chosen theme on reload. daisyUI ships a Theme Controller for this.
@@ -44,8 +44,9 @@
 
 ## M196 Menus
 
-- TODO M196.1 Dropdown checkbox, radio, and shortcut items
+- DONE M196.1 Dropdown checkbox, radio, and shortcut items
   - Same parts and behavior as Context Menu: `DropdownCheckboxItem`, `DropdownRadioGroup`, `DropdownRadioItem`, `DropdownShortcut`; runtime check.
+  - Done: the four parts, `inset` on `DropdownItem`, and a shared `menu_marks` helper. Context Menu and Menubar checkable items drew no mark at all (checked state only in `aria-checked`); all three menus now draw a check or dot. Runtime fixture reverse-verified; site example checked in a screenshot in both themes.
 - TODO M196.2 Menu submenus
   - RFC: `*Sub`, `*SubTrigger`, and `*SubContent` for Dropdown, Context Menu, and Menubar; ArrowRight opens (ArrowLeft in right-to-left), ArrowLeft and Escape close one level, hover opens with a short delay. Runtime check for each menu; the Desktop menu scenarios still pass.
 
@@ -71,8 +72,8 @@
 
 ## M199 Site Documentation
 
-- TODO M199.1 Example source on the site
-  - Every example has a Preview and Code view with a copy button, generated from the example file and kept in sync by a verifier. Fix the stale `0.1.0` path on the Installation page.
+- TODO M199.1 Copy example source on the site
+  - The existing Code tab gets a copy button, as do the install commands. Fix the stale `0.1.0` path on the Installation page. (Narrowed 2026-10-06: Preview and Code tabs already exist.)
 - TODO M199.2 API reference on the site
   - Each component page renders its docs page's API, behavior, and accessibility sections instead of linking to GitHub.
 
