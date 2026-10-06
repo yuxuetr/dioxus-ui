@@ -12,7 +12,7 @@ Use it with:
 - [Release Notes Evidence Checklist](release-notes-evidence-checklist.md)
 - [Release Notes Local Follow-up Map](release-notes-local-follow-up-map.md)
 - [Release Notes Readiness Metadata](release-notes-readiness-metadata.md)
-- [Changelog Metadata](changelog-metadata.md)
+- [Changelog Metadata](../../changelog-metadata.md)
 
 ## Current Blocker
 

@@ -20,13 +20,13 @@ publish order.
 The workspace dependency publish readiness gate should stay aligned with this
 publish order whenever internal project crate dependencies change.
 Use
-[Workspace Dependency Publish Readiness Preparation Plan](workspace-dependency-publish-readiness-preparation-plan.md)
+[Workspace Dependency Publish Readiness Preparation Plan](archive/first-publish/workspace-dependency-publish-readiness-preparation-plan.md)
 before changing dependency metadata.
-Use [Workspace Dependency Evidence Checklist](workspace-dependency-evidence-checklist.md)
+Use [Workspace Dependency Evidence Checklist](archive/first-publish/workspace-dependency-evidence-checklist.md)
 to record the approved dependency evidence before local follow-up.
-Use [Workspace Dependency Local Follow-up Map](workspace-dependency-local-follow-up-map.md)
+Use [Workspace Dependency Local Follow-up Map](archive/first-publish/workspace-dependency-local-follow-up-map.md)
 to keep approved manifest changes aligned with publish order.
-Use [Registry Availability Blocker Handoff](registry-availability-blocker-handoff.md)
+Use [Registry Availability Blocker Handoff](archive/first-publish/registry-availability-blocker-handoff.md)
 to record release-owner registry evidence before treating this order as
 externally publishable.
 

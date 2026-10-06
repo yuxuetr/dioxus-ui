@@ -71,7 +71,7 @@ Existing generated fixture smoke should continue to compile the copied source.
 ## Metadata Gate Changes
 
 After implementation, update
-[CLI Template Packaging Readiness Metadata](cli-template-packaging-readiness-metadata.md)
+[CLI Template Packaging Readiness Metadata](archive/first-publish/cli-template-packaging-readiness-metadata.md)
 and `scripts/cli-template-packaging-readiness-verify.mjs` so the focused gate
 checks the resolved state:
 
@@ -110,12 +110,10 @@ cargo test -p dioxus-shadcn-cli
 cargo test -p dioxus-shadcn-cli --test registry
 cargo run -p dioxus-shadcn-cli -- list
 scripts/generated-fixture-smoke.sh
-npm run verify:cli-template-packaging-readiness
+npm run verify:package-contents
 npm run verify:registry
 npm run verify:docs
 npm run verify:release-docs
-npm run verify:publish-readiness-blockers
-npm run verify:publish-readiness-coverage
 npm run verify:package-scripts
 npm run verify:repo-hygiene
 git diff --check

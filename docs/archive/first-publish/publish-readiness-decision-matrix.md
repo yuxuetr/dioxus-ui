@@ -19,7 +19,7 @@ Use it with:
 - [License Decision Preparation Plan](license-decision-preparation-plan.md)
 - [License Decision Record Template](license-decision-record-template.md)
 - [License Local Follow-up Map](license-local-follow-up-map.md)
-- [Public API Surface Inventory](public-api-surface-inventory.md)
+- [Public API Surface Inventory](../../public-api-surface-inventory.md)
 - [API Stability Review Checklist](api-stability-review-checklist.md)
 - [First Publish Maintainer Handoff Template](first-publish-maintainer-handoff-template.md)
 

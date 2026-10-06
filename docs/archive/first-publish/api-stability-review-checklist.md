@@ -11,7 +11,7 @@ Related documents:
 - [API Stability Decision Record Template](api-stability-decision-record-template.md)
 - [API Stability Local Follow-up Map](api-stability-local-follow-up-map.md)
 - [API Stability Blocker Handoff](api-stability-blocker-handoff.md)
-- [Public API Surface Inventory](public-api-surface-inventory.md)
+- [Public API Surface Inventory](../../public-api-surface-inventory.md)
 - [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
 
 ## Review Metadata
@@ -101,10 +101,10 @@ Required follow-up for `approved`:
 - update [API Stability Readiness Metadata](api-stability-readiness-metadata.md)
 - update [Publish Readiness Blockers](publish-readiness-blockers.md)
 - update [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
-- update [Release and Package Strategy](release.md)
-- update [Quality Gates](quality-gates.md)
-- update [README](../README.md)
-- update [Changelog Metadata](changelog-metadata.md) or `CHANGELOG.md` if
+- update [Release and Package Strategy](../../release.md)
+- update [Quality Gates](../../quality-gates.md)
+- update [README](../../../README.md)
+- update [Changelog Metadata](../../changelog-metadata.md) or `CHANGELOG.md` if
   release notes change
 - update `TODOs.md`
 

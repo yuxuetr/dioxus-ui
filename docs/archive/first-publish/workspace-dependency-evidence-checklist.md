@@ -10,8 +10,8 @@ Use this checklist with:
 - [Workspace Dependency Local Follow-up Map](workspace-dependency-local-follow-up-map.md)
 - [Workspace Dependency Publish Readiness Metadata](workspace-dependency-publish-readiness-metadata.md)
 - [Workspace Dependency Blocker Handoff](workspace-dependency-blocker-handoff.md)
-- [Publish Order Metadata](publish-order-metadata.md)
-- [Cargo Publish Metadata](cargo-publish-metadata.md)
+- [Publish Order Metadata](../../publish-order-metadata.md)
+- [Cargo Publish Metadata](../../cargo-publish-metadata.md)
 - [First Publish Local Implementation Map](first-publish-local-implementation-map.md)
 
 ## Evidence Rules

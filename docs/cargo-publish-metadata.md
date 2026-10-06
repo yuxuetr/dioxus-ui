@@ -16,7 +16,7 @@ dioxus-shadcn-cli
 The planned publish order is tracked in
 [Publish Order Metadata](publish-order-metadata.md).
 Registry name, ownership, credential, and publish-order evidence is tracked in
-[Registry Availability Blocker Handoff](registry-availability-blocker-handoff.md)
+[Registry Availability Blocker Handoff](archive/first-publish/registry-availability-blocker-handoff.md)
 before any publish readiness blocker is resolved.
 
 Example and verification crates under `examples/` remain application fixtures
@@ -57,25 +57,21 @@ include:
 This gate should make publish metadata reviewable. It does not claim the crates
 are ready to publish and does not check crates.io itself; the release owner
 recorded registry availability in
-[Registry Availability Readiness Metadata](registry-availability-readiness-metadata.md#resolution).
+[Registry Availability Readiness Metadata](archive/first-publish/registry-availability-readiness-metadata.md#resolution).
 First publish release notes are recorded in `CHANGELOG.md`. APIs remain
 pre-1.0, and the current `0.2.x` API surface is accepted
 under the pre-`1.0` breaking-change policy. The repository URL is approved as
 `https://github.com/yuxuetr/dioxus-ui`, and root MIT license text is committed
 in `LICENSE`. CLI template delivery now uses embedded registry/template assets
 and is tracked by
-[CLI Template Packaging Readiness Metadata](cli-template-packaging-readiness-metadata.md).
+[CLI Template Packaging Readiness Metadata](archive/first-publish/cli-template-packaging-readiness-metadata.md).
 The crates.io name and ownership review is resolved for the renamed
 `dioxus-shadcn` crates. Workspace
 dependency publish readiness is resolved: internal workspace dependencies
 declare crates.io-resolvable versions alongside local paths.
 
-Known blockers are tracked separately in
-[Publish Readiness Blockers](publish-readiness-blockers.md). Keep that
-inventory aligned when a maintainer intentionally resolves a blocker.
-Publish readiness coverage is tracked separately in
-[Publish Readiness Coverage Metadata](publish-readiness-coverage-metadata.md).
-Publish readiness resolution is tracked separately in
-[Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md).
-Workspace dependency publish readiness is tracked separately in
-[Workspace Dependency Publish Readiness Metadata](workspace-dependency-publish-readiness-metadata.md).
+The first publish's blocker inventory and its readiness gates are in the
+[First Publish Archive](archive/first-publish/README.md). This gate keeps the
+internal dependency versions equal to the workspace version, and
+`npm run verify:package-contents` keeps the embedded CLI assets and each
+crate's `LICENSE` in the packages.

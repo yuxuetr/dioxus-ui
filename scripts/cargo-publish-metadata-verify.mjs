@@ -110,6 +110,22 @@ if (!existsSync(rootCargoPath)) {
       failures.push('root [workspace.package] must set readme = "crates/README.md"');
     }
 
+    // Published crates resolve internal dependencies from crates.io by this
+    // version, so it must track the workspace version.
+    const workspaceVersion = getStringField(workspacePackage, "version");
+    const workspaceDependencies = getSection(rootCargo, "workspace.dependencies") ?? "";
+    for (const crateName of ["dioxus-shadcn-core", "dioxus-shadcn-primitives", "dioxus-shadcn"]) {
+      const entry = workspaceDependencies.match(new RegExp(`^\\s*${crateName}\\s*=\\s*\\{([^}]*)\\}`, "m"))?.[1];
+      const dependencyVersion = entry?.match(/\bversion\s*=\s*"([^"]+)"/)?.[1] ?? null;
+      if (entry === undefined || !entry.includes(`path = "crates/${crateName}"`)) {
+        failures.push(`root [workspace.dependencies] must declare ${crateName} with path = "crates/${crateName}"`);
+      } else if (dependencyVersion !== workspaceVersion) {
+        failures.push(
+          `root [workspace.dependencies] ${crateName} version "${dependencyVersion}" must match workspace version "${workspaceVersion}"`,
+        );
+      }
+    }
+
     for (const [field, expectedValues] of Object.entries(expectedWorkspaceArrays)) {
       const actualValues = getStringArrayField(workspacePackage, field);
       if (actualValues === null || actualValues.join("\0") !== expectedValues.join("\0")) {

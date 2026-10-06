@@ -51,7 +51,7 @@ Shared evidence for the whole publish:
 - credential readiness confirmed by the release owner, without committing or
   pasting tokens into the repository
 - publish order confirmation matching
-  [Publish Order Metadata](publish-order-metadata.md)
+  [Publish Order Metadata](../../publish-order-metadata.md)
 - named release owner responsible for the actual publish
 - confirmation that registry checks happened outside the repository-safe local
   metadata gates
@@ -63,7 +63,7 @@ blocker stays unresolved and a rename milestone is required before publish.
 
 M184 resolved this blocker on 2026-10-05. The first check found `dioxus-ui`
 taken by another owner's `dioxus_ui`, so M184 renamed the crates (see
-[RFC 0056](rfcs/0056-published-crate-names.md)), and the release owner
+[RFC 0056](../../rfcs/0056-published-crate-names.md)), and the release owner
 supplied this evidence:
 
 | Crate | crates.io on 2026-10-05 | Owners | Publish Position |

@@ -3,11 +3,11 @@
 Project-owned changelog structure is the release note baseline for this
 repository.
 First-publish release note readiness preparation is tracked in
-[Release Notes Readiness Preparation Plan](release-notes-readiness-preparation-plan.md).
+[Release Notes Readiness Preparation Plan](archive/first-publish/release-notes-readiness-preparation-plan.md).
 Maintainer evidence for publish-ready notes is tracked in
-[Release Notes Evidence Checklist](release-notes-evidence-checklist.md).
+[Release Notes Evidence Checklist](archive/first-publish/release-notes-evidence-checklist.md).
 Approved local follow-up is mapped in
-[Release Notes Local Follow-up Map](release-notes-local-follow-up-map.md).
+[Release Notes Local Follow-up Map](archive/first-publish/release-notes-local-follow-up-map.md).
 
 M98 defines the read-only contract for the project changelog. The repository
 already has `CHANGELOG.md`, but it must be owned by `dioxus-shadcn` rather than

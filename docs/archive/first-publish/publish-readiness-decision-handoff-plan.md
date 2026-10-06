@@ -4,7 +4,7 @@ M122 turns the known publish readiness blockers into a maintainer decision
 handoff. It is a planning artifact, not a publish authorization.
 
 The repository has already passed the local release gate in
-[Full Release Gate Audit](full-release-gate-audit.md). Passing that gate proves
+[Full Release Gate Audit](../../full-release-gate-audit.md). Passing that gate proves
 the current workspace is internally consistent; it does not resolve the
 publish blockers tracked in
 [Publish Readiness Blockers](publish-readiness-blockers.md).

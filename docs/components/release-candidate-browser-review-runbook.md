@@ -17,7 +17,7 @@ confidence beyond source-level metadata checks.
 - [Screenshot Artifact Retention](screenshot-artifact-retention.md)
 - [CI Browser Smoke Guide](../ci-browser-smoke.md)
 - [Release and Package Strategy](../release.md)
-- [Release Candidate Handoff Checklist](../release-candidate-handoff-checklist.md)
+- [Release Candidate Handoff Checklist](../archive/first-publish/release-candidate-handoff-checklist.md)
 - [Quality Gates](../quality-gates.md)
 
 ## Prerequisites

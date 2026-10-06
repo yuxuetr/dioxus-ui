@@ -7,12 +7,12 @@ It is a manual evidence checklist. It does not authorize publishing by itself.
 
 ## Related Documents
 
-- [Release and Package Strategy](release.md)
-- [Quality Gates](quality-gates.md)
-- [Release Gate Failure Triage Runbook](release-gate-failure-triage-runbook.md)
-- [Release Candidate Browser Review Runbook](components/release-candidate-browser-review-runbook.md)
-- [Release Screenshot Review Notes Template](components/release-screenshot-review-notes-template.md)
-- [Screenshot Artifact Retention](components/screenshot-artifact-retention.md)
+- [Release and Package Strategy](../../release.md)
+- [Quality Gates](../../quality-gates.md)
+- [Release Gate Failure Triage Runbook](../../release-gate-failure-triage-runbook.md)
+- [Release Candidate Browser Review Runbook](../../components/release-candidate-browser-review-runbook.md)
+- [Release Screenshot Review Notes Template](../../components/release-screenshot-review-notes-template.md)
+- [Screenshot Artifact Retention](../../components/screenshot-artifact-retention.md)
 - [Publish Readiness Blockers](publish-readiness-blockers.md)
 - [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
 - [Release Warning Inventory Metadata](release-warning-inventory-metadata.md)
@@ -56,7 +56,7 @@ Focused failures:
   - Owner:
   - Follow-up:
 
-Use [Release Gate Failure Triage Runbook](release-gate-failure-triage-runbook.md)
+Use [Release Gate Failure Triage Runbook](../../release-gate-failure-triage-runbook.md)
 to isolate the first failing release command before changing code or
 documentation.
 
@@ -74,9 +74,9 @@ Browser review is optional and remains outside default and release gates.
 - Visual non-blocking follow-ups:
 
 Use
-[Release Candidate Browser Review Runbook](components/release-candidate-browser-review-runbook.md)
+[Release Candidate Browser Review Runbook](../../components/release-candidate-browser-review-runbook.md)
 for command order and
-[Release Screenshot Review Notes Template](components/release-screenshot-review-notes-template.md)
+[Release Screenshot Review Notes Template](../../components/release-screenshot-review-notes-template.md)
 for screenshot metadata.
 
 ## Publish Readiness Evidence

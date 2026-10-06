@@ -88,10 +88,6 @@ const requiredSnippets = [
     snippet: "npm run verify:repo-hygiene",
   },
   {
-    label: "release candidate handoff focused gate",
-    snippet: "npm run verify:release-candidate-handoff",
-  },
-  {
     label: "README verification gate",
     snippet: "npm run verify:readme",
   },
@@ -114,10 +110,6 @@ const requiredSnippets = [
   {
     label: "release summary repository hygiene",
     snippet: "repository hygiene",
-  },
-  {
-    label: "release summary handoff metadata",
-    snippet: "release candidate handoff metadata",
   },
   {
     label: "release summary rendered coverage",

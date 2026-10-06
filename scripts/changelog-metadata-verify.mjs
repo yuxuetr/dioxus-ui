@@ -12,7 +12,6 @@ const changelog = readText("CHANGELOG.md");
 const changelogDoc = readText("docs/changelog-metadata.md");
 const releaseDoc = normalizeWhitespace(readText("docs/release.md"));
 const qualityDoc = normalizeWhitespace(readText("docs/quality-gates.md"));
-const blockersDoc = readText("docs/publish-readiness-blockers.md");
 const siteDoc = normalizeWhitespace(readText("docs/site.md"));
 const packageJson = JSON.parse(readText("package.json"));
 const scripts = packageJson.scripts ?? {};
@@ -83,11 +82,6 @@ requireIncludes("docs/quality-gates.md", qualityDoc, [
   "`npm run verify:changelog`",
   "project-owned changelog structure, Unreleased section, Keep a Changelog and Conventional Commits references, and stale template-link bans",
   "does not generate release notes, run git-cliff, derive changes from Git history, create tags, publish releases, or rewrite commit history",
-]);
-
-requireIncludes("docs/publish-readiness-blockers.md", blockersDoc, [
-  "Release notes not publish-ready",
-  "CHANGELOG.md",
 ]);
 
 requireIncludes("docs/site.md", siteDoc, [

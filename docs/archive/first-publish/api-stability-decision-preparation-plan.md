@@ -8,7 +8,7 @@ Use this plan with:
 
 - [API Stability Readiness Metadata](api-stability-readiness-metadata.md)
 - [API Stability Surface Audit Plan](api-stability-surface-audit-plan.md)
-- [Public API Surface Inventory](public-api-surface-inventory.md)
+- [Public API Surface Inventory](../../public-api-surface-inventory.md)
 - [API Stability Review Checklist](api-stability-review-checklist.md)
 - [API Stability Decision Record Template](api-stability-decision-record-template.md)
 - [API Stability Local Follow-up Map](api-stability-local-follow-up-map.md)

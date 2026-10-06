@@ -9,7 +9,7 @@ Use this guide with:
 - [Component Catalog](components/catalog.md)
 - [Component Status](components/component-status.md)
 - [Quality Gates](quality-gates.md)
-- [Publish Readiness Blockers](publish-readiness-blockers.md)
+- [Publish Readiness Blockers](archive/first-publish/publish-readiness-blockers.md)
 
 ## Trial Scope
 
@@ -144,7 +144,7 @@ Run these in the `dioxus-shadcn` repository before giving a commit to trial user
 ```bash
 npm run verify:docs
 npm run verify:registry
-npm run verify:cli-template-packaging-readiness
+npm run verify:package-contents
 scripts/generated-fixture-smoke.sh
 cargo test -p dioxus-shadcn-cli
 cargo check -p dioxus-shadcn-cli
@@ -196,11 +196,11 @@ in place:
 
 No publish blocker remains. Registry availability was resolved on 2026-10-05
 (see
-[Registry Availability Readiness Metadata](registry-availability-readiness-metadata.md#resolution)),
+[Registry Availability Readiness Metadata](archive/first-publish/registry-availability-readiness-metadata.md#resolution)),
 and 0.1.0 was published on 2026-10-05 (tag `v0.1.0`).
 
 When bumping the workspace version, update the internal dependency versions in
-the same change; `npm run verify:workspace-dependency-publish-readiness` fails
+the same change; `npm run verify:cargo-publish-metadata` fails
 if they drift.
 
 Do not run `cargo package`, `cargo publish`, create Git tags, create GitHub

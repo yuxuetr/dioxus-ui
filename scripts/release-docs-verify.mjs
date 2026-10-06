@@ -59,22 +59,6 @@ const requiredSnippets = [
     label: "browser smoke opt-in boundary",
     snippet: "not part of the release gate",
   },
-  {
-    label: "release candidate handoff checklist",
-    snippet: "docs/release-candidate-handoff-checklist.md",
-  },
-  {
-    label: "handoff checklist boundary",
-    snippet: "no package publishing",
-  },
-  {
-    label: "release candidate handoff focused gate",
-    snippet: "npm run verify:release-candidate-handoff",
-  },
-  {
-    label: "release candidate handoff metadata boundary",
-    snippet: "Release candidate handoff metadata checks are also read-only",
-  },
 ];
 
 const missingSnippets = requiredSnippets.filter(({ snippet }) => {

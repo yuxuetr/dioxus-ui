@@ -8,7 +8,7 @@ Use this map with:
 - [API Stability Decision Preparation Plan](api-stability-decision-preparation-plan.md)
 - [API Stability Decision Record Template](api-stability-decision-record-template.md)
 - [API Stability Readiness Metadata](api-stability-readiness-metadata.md)
-- [Public API Surface Inventory](public-api-surface-inventory.md)
+- [Public API Surface Inventory](../../public-api-surface-inventory.md)
 - [API Stability Review Checklist](api-stability-review-checklist.md)
 - [API Stability Blocker Handoff](api-stability-blocker-handoff.md)
 

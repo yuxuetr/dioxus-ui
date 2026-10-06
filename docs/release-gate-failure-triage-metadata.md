@@ -26,8 +26,6 @@ The runbook should group failures by:
 - source-copy generated fixture smoke
 - component feature checks
 - browser artifact policy metadata
-- release warning inventory metadata
-- release candidate handoff metadata
 - repository hygiene
 
 ## Required Guidance

@@ -10,7 +10,7 @@ Use this map with:
 - [Release Notes Evidence Checklist](release-notes-evidence-checklist.md)
 - [Release Notes Readiness Metadata](release-notes-readiness-metadata.md)
 - [Release Notes Blocker Handoff](release-notes-blocker-handoff.md)
-- [Changelog Metadata](changelog-metadata.md)
+- [Changelog Metadata](../../changelog-metadata.md)
 - [First Publish Local Implementation Map](first-publish-local-implementation-map.md)
 
 ## Outcome Map

@@ -83,7 +83,7 @@ descriptions and inherit shared workspace publish metadata. Example and
 verification crates should keep `publish = false`.
 
 The approved repository URL is tracked by
-[Repository Identity Readiness Metadata](repository-identity-readiness-metadata.md).
+[Repository Identity Readiness Metadata](archive/first-publish/repository-identity-readiness-metadata.md).
 Do not change it as a side effect of metadata verification; update it only as
 part of an explicit publish-readiness review.
 

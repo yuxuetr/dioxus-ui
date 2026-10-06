@@ -58,16 +58,16 @@ Keep this metadata gate aligned with:
 - [Publish Readiness Blockers](publish-readiness-blockers.md)
 - [Publish Readiness Coverage Metadata](publish-readiness-coverage-metadata.md)
 - [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
-- [Cargo Publish Metadata](cargo-publish-metadata.md)
-- [Publish Order Metadata](publish-order-metadata.md)
+- [Cargo Publish Metadata](../../cargo-publish-metadata.md)
+- [Publish Order Metadata](../../publish-order-metadata.md)
 - [Workspace Dependency Publish Readiness Preparation Plan](workspace-dependency-publish-readiness-preparation-plan.md)
 - [Workspace Dependency Evidence Checklist](workspace-dependency-evidence-checklist.md)
 - [Workspace Dependency Local Follow-up Map](workspace-dependency-local-follow-up-map.md)
-- [Release and Package Strategy](release.md)
-- [Quality Gates](quality-gates.md)
-- [Documentation Site Plan](site.md)
-- [Project README](../README.md)
-- [TODO Plan](../TODOs.md)
+- [Release and Package Strategy](../../release.md)
+- [Quality Gates](../../quality-gates.md)
+- [Documentation Site Plan](../../site.md)
+- [Project README](../../../README.md)
+- [TODO Plan](../../../TODOs.md)
 
 These files should be updated in the same change whenever the blocker is
 resolved, renamed, or replaced with a different publish dependency strategy.

@@ -107,18 +107,8 @@ cargo test -p dioxus-shadcn-cli --test registry
 cargo run -p dioxus-shadcn-cli -- list
 npm run verify:cargo-workspace
 npm run verify:cargo-publish-metadata
-npm run verify:publish-readiness-blockers
-npm run verify:release-notes-readiness
-npm run verify:license-readiness
-npm run verify:repository-identity-readiness
-npm run verify:api-stability-readiness
-npm run verify:cli-template-packaging-readiness
 npm run verify:package-contents
-npm run verify:registry-availability-readiness
-npm run verify:publish-readiness-coverage
-npm run verify:publish-readiness-runbook
 npm run verify:publish-order
-npm run verify:workspace-dependency-publish-readiness
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -146,8 +136,6 @@ npm run verify:ci-docs
 npm run verify:ci-plan
 npm run verify:ci-workflow-template
 npm run verify:browser-artifact-policy
-npm run verify:release-warning-inventory
-npm run verify:release-candidate-handoff
 npm run verify:repo-hygiene
 ```
 
@@ -183,127 +171,20 @@ Cargo publish metadata checks are read-only and validate only planned published
 crate descriptions, shared README/keywords/categories metadata, example
 `publish = false` boundaries, and release wiring; they do not run
 `cargo publish`, run `cargo package`, contact crates.io, replace repository URLs, or create package archives.
-Publish readiness blocker checks are read-only and validate only that the
-resolved placeholder repository URL, pre-1.0 API stability, release notes readiness,
-root license file readiness, crates.io review, and workspace dependency
-publish readiness blockers stay recorded as resolved; they do not replace repository URLs, check
-registries, run `cargo package`, run `cargo publish`, stabilize APIs, generate
-changelogs, generate license text, change embedded CLI template delivery, or
-change dependency versions.
-Release notes readiness checks are read-only and validate only that
-project-owned changelog structure exists and its `[0.1.0]` section records first publish included scope, excluded scope, and known warnings; they do not
-generate release notes, run git-cliff, derive changes from Git history, create
-tags, or publish releases.
-[Release Notes Readiness Preparation Plan](release-notes-readiness-preparation-plan.md)
-defines the repository-safe decision pass that preceded the first-publish
-release notes recorded in `CHANGELOG.md`.
-[Release Notes Evidence Checklist](release-notes-evidence-checklist.md)
-records included scope, excluded scope, known warnings, owners, and migration
-note evidence before local changelog follow-up.
-[Release Notes Local Follow-up Map](release-notes-local-follow-up-map.md)
-maps approved, blocked, and deferred release-note decisions to local files and
-gates without writing final notes.
-License readiness checks are read-only and validate only workspace MIT license
-metadata and committed root `LICENSE` file; they do not choose different
-license terms, generate replacement license text, change copyright holders, run
-`cargo package`, run `cargo publish`, or contact crates.io.
-[License Decision Preparation Plan](license-decision-preparation-plan.md)
-defines the repository-safe decision pass before maintainers accept, block, or
-defer root license file readiness.
-[License Decision Record Template](license-decision-record-template.md)
-provides copyable license file, copyright holder, expression confirmation, file
-commit approval, and rollback evidence fields.
-[License Local Follow-up Map](license-local-follow-up-map.md) maps license
-decision outcomes to local license file, metadata, and documentation follow-up
-without generating or committing license text by itself.
-Repository identity readiness checks are read-only and validate only that the
-approved repository URL remains in workspace metadata; they do not choose a
-different repository owner, change repository metadata, check crates.io
-availability, run `cargo package`, or run `cargo publish`.
-[Repository Identity Decision Preparation Plan](repository-identity-decision-preparation-plan.md)
-defines the repository-safe decision pass before maintainers accept, block, or
-defer the canonical repository owner and URL.
-[Repository Identity Decision Record Template](repository-identity-decision-record-template.md)
-provides copyable owner, URL, remote availability, metadata approval, and
-rollback evidence fields.
-[Repository Identity Local Follow-up Map](repository-identity-local-follow-up-map.md)
-maps identity decision outcomes to local metadata and documentation follow-up
-for any future identity change.
-API stability readiness checks are read-only and validate only workspace
-version `0.2.0` and the accepted `0.2.x` API policy; they do not
-stabilize component APIs, change crate versions, change the pre-`1.0`
-breaking-change policy, generate migration guides, run `cargo package`, or run
-`cargo publish`.
+They also require internal workspace dependencies
+to declare the workspace version alongside their local paths, since published
+crates resolve them from crates.io by that version.
 The [Public API Surface Inventory](public-api-surface-inventory.md) documents
 the component, primitive, core, feature, registry, and source-copy surfaces
 accepted for first publish.
-[API Stability Review Checklist](api-stability-review-checklist.md) provides
-the maintainer review steps to use for future API changes.
-[API Stability Decision Preparation Plan](api-stability-decision-preparation-plan.md)
-defines the repository-safe decision pass for accepting, blocking, or deferring
-the current `0.1.x` API surface.
-[API Stability Decision Record Template](api-stability-decision-record-template.md)
-provides the copyable maintainer record for that decision without resolving the
-blocker by itself.
-[API Stability Local Follow-up Map](api-stability-local-follow-up-map.md)
-maps approved, blocked, and deferred outcomes to local files and gates without
-applying API changes.
-CLI template packaging readiness checks are read-only. They validate that the
-CLI embeds registry and template assets at compile time; they do not run
-`cargo package`, run `cargo publish`, install the CLI, contact crates.io,
-create package archives, or change embedded template contents.
 `npm run verify:package-contents` runs `cargo package --list` for each
-publishable crate and checks that the CLI package contains
+publishable crate and checks that each package contains its `LICENSE` and the CLI package contains
 every registry entry and template the CLI embeds; it lists package contents only and does not build
 package archives, run `cargo publish`, or contact crates.io.
-Registry availability readiness checks are read-only. They validate that the
-crates.io name and ownership review stays recorded as resolved, with the
-release owner's per-crate evidence, and the checks themselves stay local; they do not contact crates.io, check crate name availability, check ownership, inspect
-credentials, run `cargo package`, run `cargo publish`, or create package
-archives.
-Publish readiness coverage checks are read-only. They validate that every
-current publish blocker has a focused readiness gate and resolved readiness
-items keep their focused gates; they do not resolve
-blockers, replace repository URLs, stabilize APIs, generate release notes,
-generate license text, change embedded CLI template delivery, change
-dependency versions, contact registries, inspect credentials, run
-`cargo package`, run `cargo publish`, or create package archives.
-Publish readiness runbook checks are read-only. They validate manual
-resolution evidence for every current publish blocker; they do not resolve
-blockers, replace repository URLs, stabilize APIs, generate release notes,
-generate license text, change embedded CLI template delivery, change
-dependency versions, contact registries, inspect credentials, run
-`cargo package`, run `cargo publish`, or create package archives.
-The [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
-records required maintainer decisions, evidence, local follow-up files, and
-safe validation commands before any blocker is resolved.
-[First Publish Readiness Plan](first-publish-readiness-plan.md) defines the
-repository-safe order for resolving those blockers without authorizing package
-or publish commands.
-[Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
-records the minimum maintainer evidence required before blocker-specific local
-follow-up starts.
-[First Publish Local Implementation Map](first-publish-local-implementation-map.md)
-maps approved blocker decisions to local files, gates, and rollback
-considerations.
 Publish order checks are read-only. They validate the planned crate publish
 order; they do not create package archives, run `cargo package`, run
 `cargo publish`, contact crates.io, check registry ownership, inspect
 credentials, change dependency versions, or authorize a release.
-Workspace dependency publish readiness checks are read-only. They validate
-that internal workspace dependencies declare versions matching the workspace
-version alongside local paths; they do not change dependency versions, run
-`cargo package`, run `cargo publish`, contact crates.io, check registry
-ownership, inspect credentials, create package archives, or authorize a
-release.
-[Workspace Dependency Publish Readiness Preparation Plan](workspace-dependency-publish-readiness-preparation-plan.md)
-defines the repository-safe decision pass before any internal dependency
-version metadata changes.
-[Workspace Dependency Evidence Checklist](workspace-dependency-evidence-checklist.md)
-records the maintainer evidence required before dependency metadata follow-up.
-[Workspace Dependency Local Follow-up Map](workspace-dependency-local-follow-up-map.md)
-maps approved dependency strategies to local manifest, metadata, and validation
-follow-up without applying changes.
 Cargo lock metadata checks are also part of the release aggregate, but they
 only compare committed `Cargo.lock` workspace package metadata and Cargo
 metadata output; they do not update the lockfile or contact crates.io.
@@ -352,17 +233,6 @@ committed artifact guidance, screenshot upload patterns, `.gitignore` coverage,
 repository hygiene boundaries, and release wiring; they do not launch browser
 automation, upload artifacts, delete local files, enforce remote retention, or
 validate screenshot pixels.
-Release warning inventory metadata checks are also read-only and validate only
-the documented `block` `0.1.6` Rust future-incompatibility warning inventory,
-Cargo lock evidence, quality gate notes, docs-site notes, and release wiring;
-they do not run Cargo, parse compiler output, upgrade dependencies, or suppress warnings.
-Release candidate handoff metadata checks are also read-only and validate only
-the handoff checklist sections, release gate evidence, optional browser review
-evidence, publish readiness blockers, warning inventory, artifact hygiene
-boundaries, and discoverability links; they do not run release gates, launch
-browser automation, capture screenshots, create artifacts, create Git tags,
-publish packages, activate CI workflows, generate docs output, change component
-APIs, or rewrite templates.
 Repository hygiene checks are read-only and report forbidden committed
 artifacts such as generated directories, screenshots, and inactive workflow
 files without deleting files.
@@ -402,8 +272,6 @@ npm run verify:package-scripts
 npm run verify:registry
 npm run verify:cargo-workspace
 npm run verify:cargo-publish-metadata
-npm run verify:publish-readiness-blockers
-npm run verify:release-notes-readiness
 npm run verify:cargo-lock
 npm run verify:pre-commit
 npm run verify:scripts
@@ -418,8 +286,6 @@ npm run verify:ci-docs
 npm run verify:ci-plan
 npm run verify:ci-workflow-template
 npm run verify:browser-artifact-policy
-npm run verify:release-warning-inventory
-npm run verify:release-candidate-handoff
 npm run verify:docs-status
 npm run verify:docs-structure
 npm run verify:docs-index
@@ -492,8 +358,8 @@ component site and checks every route for console errors, the right page,
 text contrast and an axe-core audit in both themes, and a 375px layout (see
 RFC 0052 and RFC 0054). The release
 gate runs `npm run verify:site-css` and `npm run verify:site-catalog`, which
-need no browser. The site is not deployed; hosting is a release-owner
-decision.
+need no browser. `.github/workflows/pages.yml` deploys the site to GitHub
+Pages on every push to `main`.
 
 `npm run verify:web-screenshot-smoke` is also opt-in and outside release gates.
 It starts the Web preview and checks desktop and mobile screenshot readiness
@@ -526,50 +392,7 @@ Use `docs/release-gate-failure-triage-runbook.md` when a release aggregate
 command fails and the maintainer needs to isolate the first failing focused
 gate without automatic repair behavior.
 
-## Release Candidate Handoff Checklist Plan
-
-M118 should add a final handoff checklist for a release candidate after the
-deterministic release gates and optional browser review have completed. The
-checklist should be a maintainer-facing summary, not another automation layer.
-The checklist lives at
-[`release-candidate-handoff-checklist.md`](release-candidate-handoff-checklist.md).
-Repository-root path: `docs/release-candidate-handoff-checklist.md`.
-
-Required handoff evidence:
-
-- release candidate identifier and branch or commit
-- `npm run verify:release` result or focused gate results
-- `npm run verify:browser-artifact-policy` result
-- `npm run verify:repo-hygiene` result
-- optional browser review runbook result
-- screenshot review notes location if screenshots were captured
-- screenshot retention outcome
-- publish readiness blocker status
-- release warning inventory status
-- unresolved follow-up tasks
-- final `git status --short` result
-
-The checklist should link to:
-
-- `docs/components/release-candidate-browser-review-runbook.md`
-- `docs/components/release-screenshot-review-notes-template.md`
-- `docs/components/screenshot-artifact-retention.md`
-- `docs/publish-readiness-blockers.md`
-- `docs/publish-readiness-resolution-runbook.md`
-- `docs/release-warning-inventory-metadata.md`
-- `docs/quality-gates.md`
-
-Repository-safe boundaries:
-
-- no package publishing
-- no Git tags
-- no release artifact creation
-- no committed screenshots
-- no artifact uploads
-- no CI workflow activation
-- no generated docs output
-- no component API changes
-- no source-copy template rewrites
+## Release Smoke Checks
 
 For CI setup options and non-blocking workflow policy, see
 `docs/ci-browser-smoke.md` and `docs/ci-browser-workflow-template.md`. Do not
@@ -626,11 +449,8 @@ directories at runtime. Both directories live inside the CLI crate so
 
 Cargo publish metadata is tracked by `npm run verify:cargo-publish-metadata`.
 That check keeps descriptions and shared README/keywords/categories metadata
-reviewable, but it does not replace a later publish-readiness review.
-Known blockers for that review are tracked by
-`npm run verify:publish-readiness-blockers`. The resolved CLI template
-packaging strategy remains covered by
-`npm run verify:cli-template-packaging-readiness`.
+reviewable, and `npm run verify:package-contents` checks that the CLI package
+contains every embedded registry entry and template.
 
 ## First Publish Dry Run
 
@@ -659,7 +479,7 @@ The release owner published 0.1.0 on 2026-10-05 with these steps, tagged as
 `v0.1.0`. The first attempt failed before any upload because the crates.io
 account had no verified email; verify it at crates.io/settings/profile before
 publishing. The steps require the crates.io evidence in
-[Registry Availability Readiness Metadata](registry-availability-readiness-metadata.md#resolution)
+[Registry Availability Readiness Metadata](archive/first-publish/registry-availability-readiness-metadata.md#resolution)
 first.
 
 1. Record the crates.io evidence and mark registry availability resolved.

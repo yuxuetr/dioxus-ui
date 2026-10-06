@@ -9,8 +9,8 @@ Use it with:
 
 - [Publish Blocker Resolution Tracker](publish-blocker-resolution-tracker.md)
 - [Registry Availability Readiness Metadata](registry-availability-readiness-metadata.md)
-- [Publish Order Metadata](publish-order-metadata.md)
-- [Cargo Publish Metadata](cargo-publish-metadata.md)
+- [Publish Order Metadata](../../publish-order-metadata.md)
+- [Cargo Publish Metadata](../../cargo-publish-metadata.md)
 - [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
 - [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)
 

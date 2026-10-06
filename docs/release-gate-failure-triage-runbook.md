@@ -7,11 +7,7 @@ It is a manual triage guide, not an automatic repair process.
 
 - [Release and Package Strategy](release.md)
 - [Quality Gates](quality-gates.md)
-- [Release Candidate Handoff Checklist](release-candidate-handoff-checklist.md)
-- [Release Candidate Handoff Metadata](release-candidate-handoff-metadata.md)
 - [Release Candidate Browser Review Runbook](components/release-candidate-browser-review-runbook.md)
-- [Publish Readiness Resolution Runbook](publish-readiness-resolution-runbook.md)
-- [Release Warning Inventory Metadata](release-warning-inventory-metadata.md)
 
 ## First Response
 
@@ -37,8 +33,8 @@ failure proves that work is required.
 | CLI registry test | `cargo test -p dioxus-shadcn-cli --test registry` | `registry/`, `templates/`, CLI registry loader | missing registry/template mapping |
 | CLI list smoke | `cargo run -p dioxus-shadcn-cli -- list` | CLI command output and registry names | command output and missing component |
 | Cargo metadata | `npm run verify:cargo-workspace` | workspace manifests and crate metadata docs | mismatched package field |
-| Publish readiness | `npm run verify:publish-readiness-blockers` | publish blocker docs and readiness metadata | unresolved blocker and expected evidence |
-| Publish runbook | `npm run verify:publish-readiness-runbook` | publish readiness resolution runbook | missing blocker guidance |
+| Cargo publish metadata | `npm run verify:cargo-publish-metadata` | crate manifests and workspace dependency versions | stale description or internal dependency version |
+| Package contents | `npm run verify:package-contents` | `cargo package --list` output, CLI `build.rs` assets | file missing from a package |
 | Cargo lock | `npm run verify:cargo-lock` | `Cargo.lock`, workspace manifests | package metadata drift |
 | Pre-commit metadata | `npm run verify:pre-commit` | `.pre-commit-config.yaml` and local hook config | missing hook or target |
 | Script metadata | `npm run verify:scripts` | `scripts/`, `package.json` | missing executable bit or script target |
@@ -63,8 +59,6 @@ failure proves that work is required.
 | CI plan | `npm run verify:ci-plan` | CI plan docs and RFC references | missing activation policy |
 | CI workflow template | `npm run verify:ci-workflow-template` | workflow template and RFC 0009 | unsafe workflow activation or broad upload |
 | Browser artifact policy | `npm run verify:browser-artifact-policy` | artifact policy docs, `.gitignore`, repo hygiene | upload or retention policy drift |
-| Release warning inventory | `npm run verify:release-warning-inventory` | warning metadata, Cargo lock evidence | missing known warning boundary |
-| Release candidate handoff | `npm run verify:release-candidate-handoff` | handoff checklist and handoff metadata | missing handoff evidence field |
 | Repository hygiene | `npm run verify:repo-hygiene` | tracked files and hygiene script | forbidden tracked artifact path |
 
 ## Evidence Template

@@ -59,7 +59,6 @@ const requiredLinks = [
       "workspace.md",
       "component-api.md",
       "release.md",
-      "release-candidate-handoff-checklist.md",
       "release-gate-failure-triage-runbook.md",
       "quality-gates.md",
       "components/README.md",

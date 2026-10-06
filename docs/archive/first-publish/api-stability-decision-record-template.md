@@ -8,7 +8,7 @@ Related documents:
 
 - [API Stability Decision Preparation Plan](api-stability-decision-preparation-plan.md)
 - [API Stability Readiness Metadata](api-stability-readiness-metadata.md)
-- [Public API Surface Inventory](public-api-surface-inventory.md)
+- [Public API Surface Inventory](../../public-api-surface-inventory.md)
 - [API Stability Review Checklist](api-stability-review-checklist.md)
 - [API Stability Local Follow-up Map](api-stability-local-follow-up-map.md)
 - [Blocker Resolution Evidence Checklist](blocker-resolution-evidence-checklist.md)

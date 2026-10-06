@@ -16,7 +16,8 @@ const qualityDoc = normalizeWhitespace(readText("docs/quality-gates.md"));
 const scripts = packageJson.scripts ?? {};
 const failures = [];
 
-// Files every published crate must ship, beyond its entry point.
+// Files every published crate must ship, beyond its entry point: the
+// manifest, the README, and the MIT notice its LICENSE link resolves to.
 const publishableCrates = [
   { name: "dioxus-shadcn-core", entry: "src/lib.rs" },
   { name: "dioxus-shadcn-primitives", entry: "src/lib.rs" },
@@ -77,7 +78,7 @@ for (const { name, entry } of publishableCrates) {
   if (files === null) {
     continue;
   }
-  for (const required of ["Cargo.toml", "README.md", entry]) {
+  for (const required of ["Cargo.toml", "README.md", "LICENSE", entry]) {
     if (!files.has(required)) {
       failures.push(`${name} package is missing ${required}`);
     }

@@ -6,7 +6,7 @@ surface was accepted for first publish under a pre-`1.0` breaking-change
 policy, and the same policy carries each minor release: the current `0.2.x` API surface is accepted, and 0.2.0 lists its breaking changes in the
 changelog's Migration section.
 The current audit inventory is tracked in
-[Public API Surface Inventory](public-api-surface-inventory.md).
+[Public API Surface Inventory](../../public-api-surface-inventory.md).
 The maintainer review checklist is tracked in
 [API Stability Review Checklist](api-stability-review-checklist.md).
 The maintainer decision preparation plan is tracked in

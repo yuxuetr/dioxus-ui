@@ -6,13 +6,13 @@ does not approve API stability.
 
 Use it with:
 
-- [API Stability Surface Audit Plan](api-stability-surface-audit-plan.md)
-- [API Stability Readiness Metadata](api-stability-readiness-metadata.md)
-- [API Stability Decision Preparation Plan](api-stability-decision-preparation-plan.md)
-- [API Stability Decision Record Template](api-stability-decision-record-template.md)
-- [API Stability Local Follow-up Map](api-stability-local-follow-up-map.md)
-- [API Stability Review Checklist](api-stability-review-checklist.md)
-- [Publish Readiness Decision Matrix](publish-readiness-decision-matrix.md)
+- [API Stability Surface Audit Plan](archive/first-publish/api-stability-surface-audit-plan.md)
+- [API Stability Readiness Metadata](archive/first-publish/api-stability-readiness-metadata.md)
+- [API Stability Decision Preparation Plan](archive/first-publish/api-stability-decision-preparation-plan.md)
+- [API Stability Decision Record Template](archive/first-publish/api-stability-decision-record-template.md)
+- [API Stability Local Follow-up Map](archive/first-publish/api-stability-local-follow-up-map.md)
+- [API Stability Review Checklist](archive/first-publish/api-stability-review-checklist.md)
+- [Publish Readiness Decision Matrix](archive/first-publish/publish-readiness-decision-matrix.md)
 
 ## Summary
 
@@ -273,12 +273,11 @@ external tooling integrations more than visual component usage.
 Use these commands after updating this inventory:
 
 ```bash
-npm run verify:api-stability-readiness
 npm run verify:docs
 npm run verify:release-docs
-npm run verify:publish-readiness-blockers
 npm run verify:package-scripts
 git diff --check
 ```
 
-This inventory intentionally leaves the API stability blocker unresolved.
+The API stability blocker this inventory supported was resolved for the first
+publish; see the [First Publish Archive](archive/first-publish/README.md).

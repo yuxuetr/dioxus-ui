@@ -12,8 +12,6 @@ const packageJson = JSON.parse(readText("package.json"));
 const publishOrderDoc = normalizeWhitespace(readText("docs/publish-order-metadata.md"));
 const releaseDoc = normalizeWhitespace(readText("docs/release.md"));
 const cargoPublishDoc = normalizeWhitespace(readText("docs/cargo-publish-metadata.md"));
-const registryAvailabilityDoc = normalizeWhitespace(readText("docs/registry-availability-readiness-metadata.md"));
-const runbookDoc = normalizeWhitespace(readText("docs/publish-readiness-resolution-runbook.md"));
 const qualityDoc = normalizeWhitespace(readText("docs/quality-gates.md"));
 const siteDoc = normalizeWhitespace(readText("docs/site.md"));
 const scripts = packageJson.scripts ?? {};
@@ -62,7 +60,6 @@ for (const [name, text] of [
   ["docs/publish-order-metadata.md", publishOrderDoc],
   ["docs/release.md", releaseDoc],
   ["docs/cargo-publish-metadata.md", cargoPublishDoc],
-  ["docs/registry-availability-readiness-metadata.md", registryAvailabilityDoc],
 ]) {
   requireOrder(name, text, publishOrder);
 }
@@ -71,11 +68,6 @@ requireIncludes("docs/publish-order-metadata.md", publishOrderDoc, [
   "Publish Order Metadata",
   "dependency crates come first",
   "must not create package archives, run `cargo package`, run `cargo publish`, contact crates.io, check registry ownership, inspect credentials, change dependency versions, or authorize a release",
-]);
-
-requireIncludes("docs/publish-readiness-resolution-runbook.md", runbookDoc, [
-  "publish order",
-  "Release owner confirms crates.io names, ownership, credentials, and publish order",
 ]);
 
 requireIncludes("docs/release.md", releaseDoc, [

@@ -23,13 +23,13 @@ maintainers, not a publish authorization.
 - Failure isolation:
   [Release Gate Failure Triage Runbook](release-gate-failure-triage-runbook.md)
 - Final handoff:
-  [Release Candidate Handoff Checklist](release-candidate-handoff-checklist.md)
+  [Release Candidate Handoff Checklist](archive/first-publish/release-candidate-handoff-checklist.md)
 - Browser review:
   [Release Candidate Browser Review Runbook](components/release-candidate-browser-review-runbook.md)
 - Artifact policy:
   [Browser Artifact Policy Metadata](browser-artifact-policy-metadata.md)
 - Known warning boundary:
-  [Release Warning Inventory Metadata](release-warning-inventory-metadata.md)
+  [Release Warning Inventory Metadata](archive/first-publish/release-warning-inventory-metadata.md)
 
 ## Evidence To Record
 
@@ -72,7 +72,7 @@ M121.2 result:
 - focused rerun: not needed
 - known warning observed: `block v0.1.6` Rust future-incompatibility warning
 - warning status: expected and covered by
-  [Release Warning Inventory Metadata](release-warning-inventory-metadata.md)
+  [Release Warning Inventory Metadata](archive/first-publish/release-warning-inventory-metadata.md)
 - generated fixture smoke: passed
 - release candidate handoff metadata: passed
 - repository hygiene inside release gate: passed

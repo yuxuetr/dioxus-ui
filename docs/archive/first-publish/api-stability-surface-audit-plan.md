@@ -8,7 +8,7 @@ The current publish blocker remains documented in
 workspace is still `0.1.0`, and maintainers still need to decide whether the
 crate-mode APIs are acceptable for a first publish.
 The current inventory is tracked in
-[Public API Surface Inventory](public-api-surface-inventory.md).
+[Public API Surface Inventory](../../public-api-surface-inventory.md).
 The maintainer review checklist is tracked in
 [API Stability Review Checklist](api-stability-review-checklist.md).
 The next decision preparation pass is tracked in
