@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Stat, StatDescription, StatFigure, StatGroup, StatTitle, StatValue};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn StatRevenueDemo() -> Element {
   rsx! {
     StatGroup { class: "max-w-full",
       Stat {

@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::AspectRatio;
 
 #[component]
-pub fn Demo() -> Element {
+pub fn AspectRatioBasicDemo() -> Element {
   rsx! {
     div { class: "grid max-w-md gap-4 sm:grid-cols-2",
       AspectRatio { ratio: 16.0 / 9.0, class: "rounded-md bg-muted",

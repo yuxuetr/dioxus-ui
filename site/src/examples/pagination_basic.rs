@@ -7,7 +7,7 @@ use dioxus_shadcn::{
 const LAST_PAGE: u32 = 10;
 
 #[component]
-pub fn Demo() -> Element {
+pub fn PaginationBasicDemo() -> Element {
   let mut page = use_signal(|| 1_u32);
   // The first and last page, one page on each side of the current one, and
   // ellipses for the gaps.

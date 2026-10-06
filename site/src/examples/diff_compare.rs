@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Diff, DiffAfter, DiffBefore};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn DiffCompareDemo() -> Element {
   let mut position = use_signal(|| 50.0);
 
   rsx! {

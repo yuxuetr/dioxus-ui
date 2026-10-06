@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{ToggleGroup, ToggleGroupItem, toggle_group_single_selection};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn ToggleGroupSingleDemo() -> Element {
   let mut alignment = use_signal(|| Some("left".to_string()));
   let pressed = move |value: &str| alignment().as_deref() == Some(value);
 

@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Input, Label, Switch};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn LabelBasicDemo() -> Element {
   let mut notify = use_signal(|| false);
 
   rsx! {

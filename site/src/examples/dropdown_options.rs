@@ -5,7 +5,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn DropdownOptionsDemo() -> Element {
   let mut open = use_signal(|| false);
   let mut status_bar = use_signal(|| true);
   let mut minimap = use_signal(|| false);

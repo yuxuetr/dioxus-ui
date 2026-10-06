@@ -8,7 +8,7 @@ const FRUITS: [(&str, &str, bool); 4] =
   [("apple", "Apple", false), ("banana", "Banana", false), ("cherry", "Cherry", true), ("grape", "Grape", false)];
 
 #[component]
-pub fn Demo() -> Element {
+pub fn SelectBasicDemo() -> Element {
   let mut open = use_signal(|| false);
   let mut value = use_signal(|| "banana".to_string());
   let label = FRUITS.iter().find(|(id, _, _)| *id == value()).map(|(_, label, _)| *label).unwrap_or("Pick a fruit");

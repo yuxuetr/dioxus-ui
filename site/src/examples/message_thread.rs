@@ -5,7 +5,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn MessageThreadDemo() -> Element {
   rsx! {
     MessageGroup { class: "max-w-lg",
       Message {

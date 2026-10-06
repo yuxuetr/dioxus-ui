@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Spinner, SpinnerSize};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn SpinnerSizesDemo() -> Element {
   rsx! {
     div { class: "flex items-center gap-4",
       Spinner { size: SpinnerSize::Sm }

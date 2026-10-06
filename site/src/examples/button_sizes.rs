@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Button, ButtonSize, ButtonVariant};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn ButtonSizesDemo() -> Element {
   let mut clicks = use_signal(|| 0);
 
   rsx! {

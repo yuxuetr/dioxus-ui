@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Button, ButtonVariant, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Input, Label};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn CardBasicDemo() -> Element {
   rsx! {
     Card { class: "max-w-sm",
       CardHeader {

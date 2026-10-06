@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Marker, MarkerContent, MarkerIcon, MarkerVariant};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn MarkerVariantsDemo() -> Element {
   rsx! {
     div { class: "grid max-w-md gap-3",
       Marker {

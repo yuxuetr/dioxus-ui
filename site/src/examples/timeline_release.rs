@@ -4,7 +4,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn TimelineReleaseDemo() -> Element {
   rsx! {
     div { class: "grid gap-10",
       Timeline { class: "max-w-md",

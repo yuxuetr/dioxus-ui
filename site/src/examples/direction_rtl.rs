@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Direction, TextDirection, Toggle};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn DirectionRtlDemo() -> Element {
   let mut rtl = use_signal(|| true);
   let dir = if rtl() { TextDirection::Rtl } else { TextDirection::Ltr };
 

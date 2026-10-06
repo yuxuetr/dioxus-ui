@@ -25,7 +25,7 @@ const TABS: [(&str, &str); 4] = [
 ];
 
 #[component]
-pub fn Demo() -> Element {
+pub fn DockPhoneDemo() -> Element {
   let mut current = use_signal(|| "Home");
 
   rsx! {

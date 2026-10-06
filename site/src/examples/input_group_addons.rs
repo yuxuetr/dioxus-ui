@@ -4,7 +4,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn InputGroupAddonsDemo() -> Element {
   let mut query = use_signal(|| "dialog".to_string());
 
   rsx! {

@@ -5,7 +5,7 @@ const PLANS: [(&str, &str, bool); 3] =
   [("free", "Free", false), ("pro", "Pro", false), ("team", "Team (sold out)", true)];
 
 #[component]
-pub fn Demo() -> Element {
+pub fn RadioGroupBasicDemo() -> Element {
   let mut plan = use_signal(|| Some("pro".to_string()));
 
   rsx! {

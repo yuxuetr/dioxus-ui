@@ -29,7 +29,7 @@ const AREAS: [Area; 3] = [
 ];
 
 #[component]
-pub fn Demo() -> Element {
+pub fn NavigationMenuMegaDemo() -> Element {
   let mut active = use_signal(String::new);
   let mut area = use_signal(|| "web".to_string());
 

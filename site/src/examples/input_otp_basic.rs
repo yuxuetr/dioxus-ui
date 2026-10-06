@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{InputOtp, InputOtpGroup, InputOtpHiddenInput, InputOtpSeparator, InputOtpSlot, Label, otp_slots};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn InputOtpBasicDemo() -> Element {
   let mut code = use_signal(|| "12".to_string());
   let filled = code().chars().count();
   let slots = otp_slots(&code(), 6, filled.min(5));

@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Button, ButtonSize, ButtonVariant, RadialProgress, RadialProgressSize};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn RadialProgressUsageDemo() -> Element {
   let mut value = use_signal(|| 40.0_f64);
 
   rsx! {

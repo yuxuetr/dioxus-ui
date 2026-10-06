@@ -17,7 +17,7 @@ fn Icon(path: &'static str) -> Element {
 }
 
 #[component]
-pub fn Demo() -> Element {
+pub fn FabSpeedDialDemo() -> Element {
   let mut open = use_signal(|| false);
   let mut last = use_signal(|| "Nothing yet".to_string());
   let mut choose = move |action: &str| {

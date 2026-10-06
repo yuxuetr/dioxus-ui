@@ -5,7 +5,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn BreadcrumbBasicDemo() -> Element {
   rsx! {
     Breadcrumb {
       BreadcrumbList {

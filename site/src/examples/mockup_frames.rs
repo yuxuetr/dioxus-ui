@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{MockupBrowser, MockupCode, MockupCodeLine, MockupPhone};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn MockupFramesDemo() -> Element {
   rsx! {
     div { class: "grid items-start gap-6 lg:grid-cols-[1fr_auto]",
       div { class: "grid gap-6",

@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Label, Switch};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn SwitchBasicDemo() -> Element {
   let mut wifi = use_signal(|| true);
 
   rsx! {

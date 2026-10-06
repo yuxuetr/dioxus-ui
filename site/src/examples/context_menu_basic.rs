@@ -5,7 +5,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn ContextMenuBasicDemo() -> Element {
   let mut open = use_signal(|| false);
   let mut point = use_signal(|| (0.0, 0.0));
   let mut bookmarked = use_signal(|| false);

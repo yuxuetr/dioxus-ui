@@ -39,10 +39,11 @@ const presets = readdirSync(new URL("../crates/dioxus-shadcn-cli/themes/", impor
 const presetPages = ["/", "/components/button", "/components/alert", "/components/badge", "/components/tabs", "/blocks/dashboard"];
 // The examples each page should show, from the site's example list.
 const examplesSource = readFileSync(new URL("../site/src/examples/mod.rs", import.meta.url), "utf8");
-const examples = [...examplesSource.matchAll(/^\s*(\w+) => "([a-z-]+)", "([^"]+)";$/gm)].map((match) => ({
+const examples = [...examplesSource.matchAll(/^\s*(\w+) => (\w+), "([a-z-]+)", "([^"]+)";$/gm)].map((match) => ({
   module: match[1],
-  slug: match[2],
-  title: match[3],
+  demo: match[2],
+  slug: match[3],
+  title: match[4],
 }));
 const unknownExamples = examples.filter((example) => !routes.some((route) => route.slug === example.slug));
 const componentsWithoutExamples = routes
@@ -102,15 +103,16 @@ async function expectNoSidewaysScroll(page, label) {
 }
 
 // Every listed example renders a preview, and its Code tab shows the source
-// that defines the rendered `Demo`.
+// that defines the rendered demo component.
 async function expectExamples(page, route) {
-  const expected = examples.filter((example) => example.slug === route.slug).map((example) => example.title);
+  const listed = examples.filter((example) => example.slug === route.slug);
+  const expected = listed.map((example) => example.title);
   const sections = page.locator("main [data-site-example]");
   const rendered = await sections.evaluateAll((elements) => elements.map((element) => element.dataset.siteExample));
   if (JSON.stringify(rendered) !== JSON.stringify(expected)) {
     throw new Error(`${route.path}: expected examples ${JSON.stringify(expected)}, got ${JSON.stringify(rendered)}`);
   }
-  for (const title of expected) {
+  for (const { title, demo } of listed) {
     const section = page.locator(`main [data-site-example="${title}"]`);
     // Scope to the card's own tabs; an example may render tabs of its own.
     const tabs = section.getByRole("tablist", { name: `${title} example`, exact: true });
@@ -125,7 +127,7 @@ async function expectExamples(page, route) {
     await tabs.getByRole("tab", { name: "Code" }).click();
     const source = section.locator("[data-site-example-source]");
     await expect(source).toBeVisible();
-    if (!(await source.textContent())?.includes("fn Demo()")) {
+    if (!(await source.textContent())?.includes(`fn ${demo}()`)) {
       throw new Error(`${route.path}: the ${title} example has no source`);
     }
     await expectReadable(page, `${route.path} ${title} source`);

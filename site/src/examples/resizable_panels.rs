@@ -5,7 +5,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn ResizablePanelsDemo() -> Element {
   let mut panels =
     use_signal(|| (ResizablePanelState::new(35.0, 20.0, 80.0), ResizablePanelState::new(65.0, 20.0, 80.0)));
 

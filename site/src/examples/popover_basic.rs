@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Button, ButtonVariant, Input, Label, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn PopoverBasicDemo() -> Element {
   let mut open = use_signal(|| false);
   let mut width = use_signal(|| "100%".to_string());
 

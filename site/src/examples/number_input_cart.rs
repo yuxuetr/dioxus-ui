@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Label, NumberInput};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn NumberInputCartDemo() -> Element {
   let mut quantity = use_signal(|| 1.0);
   let mut weight = use_signal(|| 2.5);
 

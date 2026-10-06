@@ -5,7 +5,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn MenubarEditorDemo() -> Element {
   let mut active = use_signal(|| None::<&'static str>);
   let mut action = use_signal(|| "none");
   let mut word_wrap = use_signal(|| true);

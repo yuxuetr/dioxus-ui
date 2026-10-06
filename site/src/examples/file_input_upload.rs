@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{FileInput, Label};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn FileInputUploadDemo() -> Element {
   let mut names = use_signal(Vec::<String>::new);
 
   rsx! {

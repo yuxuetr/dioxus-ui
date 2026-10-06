@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Label, TagsInput};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn TagsInputTopicsDemo() -> Element {
   let mut topics = use_signal(|| vec!["dioxus".to_string(), "rust".to_string()]);
 
   rsx! {

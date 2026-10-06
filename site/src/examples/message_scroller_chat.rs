@@ -6,7 +6,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn MessageScrollerChatDemo() -> Element {
   let mut messages = use_signal(|| (1..=8).map(|n| format!("Message {n}")).collect::<Vec<_>>());
   let mut unread = use_signal(|| false);
 

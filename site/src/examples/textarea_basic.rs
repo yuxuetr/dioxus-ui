@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Label, Textarea};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn TextareaBasicDemo() -> Element {
   let mut message = use_signal(String::new);
   let count = message().chars().count();
 

@@ -8,7 +8,7 @@ const INVOICES: [(&str, &str, &str, &str); 3] = [
 ];
 
 #[component]
-pub fn Demo() -> Element {
+pub fn TableInvoicesDemo() -> Element {
   rsx! {
     Table {
       TableCaption { "A list of your recent invoices." }

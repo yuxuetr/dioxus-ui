@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Label, Slider, SliderOrientation};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn SliderBasicDemo() -> Element {
   let mut volume = use_signal(|| 40.0);
   let mut balance = use_signal(|| 50.0);
 

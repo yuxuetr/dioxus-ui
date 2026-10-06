@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Badge, BadgeVariant};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn BadgeStatusDemo() -> Element {
   rsx! {
     div { class: "flex flex-wrap items-center gap-2",
       Badge { variant: BadgeVariant::Success, "Paid" }

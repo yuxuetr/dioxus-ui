@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Collapsible, CollapsibleContent, CollapsibleTrigger};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn CollapsibleBasicDemo() -> Element {
   let mut open = use_signal(|| false);
 
   rsx! {

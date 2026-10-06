@@ -6,7 +6,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn ChartRevenueDemo() -> Element {
   let revenue = ChartSeries::new(
     "revenue",
     "Revenue",

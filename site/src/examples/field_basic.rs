@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Field, FieldDescription, FieldError, FieldGroup, FieldLabel, Input};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn FieldBasicDemo() -> Element {
   let mut username = use_signal(|| "ab".to_string());
   let too_short = username().chars().count() < 3;
 

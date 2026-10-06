@@ -214,8 +214,8 @@ showing the file that runs), installation and theming guides, a dark
 theme toggle, and a menu of the theme presets
 ([RFC 0052](docs/rfcs/0052-component-site.md),
 [RFC 0057](docs/rfcs/0057-theme-presets.md)). To add an
-example, put a file with a `Demo` component under `site/src/examples/` and
-list it in `site/src/examples/mod.rs`. Run it locally with:
+example, put a file under `site/src/examples/` with a component named after
+it, such as `CalendarMonthDemo` in `calendar_month.rs`, and list it in `site/src/examples/mod.rs`. Run it locally with:
 
 ```bash
 dx serve --package dioxus-ui-site

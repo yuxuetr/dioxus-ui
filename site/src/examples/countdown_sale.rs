@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Countdown, countdown_parts};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn CountdownSaleDemo() -> Element {
   let mut remaining = use_signal(|| 2 * 86_400 + 10 * 3_600 + 24 * 60 + 59_u64);
 
   // The app owns the clock: wait a second in the page, then count down.

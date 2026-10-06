@@ -12,7 +12,7 @@ const USERS: [(&str, &str, u32); 4] = [
 ];
 
 #[component]
-pub fn Demo() -> Element {
+pub fn DataTableUsersDemo() -> Element {
   let mut query = use_signal(String::new);
   let mut selected = use_signal(Vec::<String>::new);
   let mut ascending = use_signal(|| true);

@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Button, Empty, EmptyActions, EmptyDescription, EmptyHeader, EmptyTitle};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn EmptyProjectsDemo() -> Element {
   rsx! {
     Empty {
       EmptyHeader {

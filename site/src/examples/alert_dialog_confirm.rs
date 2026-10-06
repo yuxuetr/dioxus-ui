@@ -6,7 +6,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn AlertDialogConfirmDemo() -> Element {
   let mut open = use_signal(|| false);
   let mut result = use_signal(|| "pending");
 

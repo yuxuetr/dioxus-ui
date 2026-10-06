@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Toggle, ToggleVariant};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn ToggleBasicDemo() -> Element {
   let mut bold = use_signal(|| false);
   let mut italic = use_signal(|| true);
 

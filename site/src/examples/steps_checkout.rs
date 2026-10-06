@@ -4,7 +4,7 @@ use dioxus_shadcn::{Button, ButtonVariant, Step, StepStatus, Steps, StepsOrienta
 const STEPS: [&str; 4] = ["Cart", "Shipping", "Payment", "Review"];
 
 #[component]
-pub fn Demo() -> Element {
+pub fn StepsCheckoutDemo() -> Element {
   let mut current = use_signal(|| 1_usize);
   let status = move |index: usize| {
     if index < current() {

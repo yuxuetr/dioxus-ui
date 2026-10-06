@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Input, Label};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn InputStatesDemo() -> Element {
   let mut email = use_signal(String::new);
 
   rsx! {

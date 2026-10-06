@@ -7,7 +7,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn DatePickerBasicDemo() -> Element {
   let mut open = use_signal(|| false);
   let mut month = use_signal(|| CalendarMonth::unchecked(2026, 10));
   let mut focused = use_signal(|| CalendarDate::unchecked(2026, 10, 15));

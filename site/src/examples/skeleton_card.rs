@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::Skeleton;
 
 #[component]
-pub fn Demo() -> Element {
+pub fn SkeletonCardDemo() -> Element {
   rsx! {
     div { class: "flex items-center gap-4", role: "status", "aria-busy": "true", "aria-label": "Loading profile",
       Skeleton { class: "h-12 w-12 rounded-full" }

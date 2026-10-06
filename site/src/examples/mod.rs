@@ -1,6 +1,8 @@
-//! Live examples (RFC 0052). Each example is one file whose `Demo` component
-//! the component page renders and whose text, read with `include_str!`, the
-//! page shows, so the shown source is the code that runs.
+//! Live examples (RFC 0052). Each example is one file whose component the
+//! component page renders and whose text, read with `include_str!`, the page
+//! shows, so the shown source is the code that runs. The component is named
+//! after the file, such as `CalendarMonthDemo` in `calendar_month.rs`, so
+//! examples copied into one app keep distinct names.
 
 use dioxus::prelude::*;
 
@@ -12,7 +14,7 @@ pub struct Example {
 }
 
 macro_rules! examples {
-  ($($module:ident => $slug:literal, $title:literal;)*) => {
+  ($($module:ident => $demo:ident, $slug:literal, $title:literal;)*) => {
     $(mod $module;)*
 
     pub const EXAMPLES: &[Example] = &[
@@ -20,102 +22,124 @@ macro_rules! examples {
         slug: $slug,
         title: $title,
         source: include_str!(concat!(stringify!($module), ".rs")),
-        render: $module::Demo,
+        render: $module::$demo,
       },)*
     ];
+
+    #[cfg(test)]
+    #[test]
+    fn demos_are_named_after_their_files() {
+      $(assert_eq!(demo_name(stringify!($module)), stringify!($demo));)*
+    }
   };
 }
 
 examples! {
-  button_variants => "button", "Variants";
-  button_sizes => "button", "Sizes and states";
-  button_group_basic => "button-group", "Orientation";
-  command_palette => "command", "Command palette";
-  kbd_shortcuts => "kbd", "Shortcuts";
-  menu_docs => "menu", "Docs navigation";
-  mockup_frames => "mockup", "Browser, code, and phone";
-  theme_controller_picker => "theme-controller", "System, light, and dark";
-  toggle_basic => "toggle", "Variants";
-  toggle_group_single => "toggle-group", "Single selection";
-  calendar_month => "calendar", "Month";
-  checkbox_basic => "checkbox", "States";
-  date_picker_basic => "date-picker", "Date picker";
-  date_picker_input => "date-picker", "Typed date";
-  field_basic => "field", "Description and error";
-  input_states => "input", "States";
-  input_group_addons => "input-group", "Addons";
-  input_otp_basic => "input-otp", "Six digits";
-  label_basic => "label", "Labels";
-  native_select_basic => "native-select", "Groups";
-  radio_group_basic => "radio-group", "Plan picker";
-  select_basic => "select", "Select";
-  select_multiple => "select", "Multiple";
-  slider_basic => "slider", "Orientation and states";
-  slider_range => "slider", "Price range";
-  switch_basic => "switch", "States";
-  textarea_basic => "textarea", "Character count";
-  alert_dialog_confirm => "alert-dialog", "Confirm deletion";
-  combobox_search => "combobox", "Search";
-  context_menu_basic => "context-menu", "Right-click menu";
-  dialog_form => "dialog", "Form in a dialog";
-  drawer_basic => "drawer", "Bottom drawer";
-  dropdown_actions => "dropdown", "Actions menu";
-  dropdown_options => "dropdown", "View options";
-  hover_card_profile => "hover-card", "Profile card";
-  menubar_editor => "menubar", "Editor menus";
-  popover_basic => "popover", "Form in a popover";
-  sheet_side => "sheet", "Sides";
-  tooltip_basic => "tooltip", "Tooltip";
-  breadcrumb_basic => "breadcrumb", "Collapsed path";
-  navigation_menu_basic => "navigation-menu", "Product menu";
-  navigation_menu_mega => "navigation-menu", "Mega menu";
-  pagination_basic => "pagination", "Pages";
-  sidebar_collapsible => "sidebar", "Collapsible";
-  tabs_account => "tabs", "Account settings";
-  accordion_faq => "accordion", "FAQ";
-  aspect_ratio_basic => "aspect-ratio", "Ratios";
-  card_basic => "card", "Form card";
-  carousel_basic => "carousel", "Slides";
-  collapsible_basic => "collapsible", "Show more";
-  direction_rtl => "direction", "Right to left";
-  item_list => "item", "People";
-  resizable_panels => "resizable", "Two panels";
-  scroll_area_tags => "scroll-area", "Tags";
-  separator_basic => "separator", "Orientation";
-  avatar_basic => "avatar", "Image and fallback";
-  badge_variants => "badge", "Variants";
-  badge_status => "badge", "Status";
-  stat_revenue => "stat", "Revenue";
-  timeline_release => "timeline", "Release history";
-  steps_checkout => "steps", "Checkout";
-  indicator_counts => "indicator", "Counts and presence";
-  status_presence => "status", "Service health";
-  radial_progress_usage => "radial-progress", "Sizes and labels";
-  countdown_sale => "countdown", "Sale timer";
-  diff_compare => "diff", "Design comparison";
-  rating_review => "rating", "Review";
-  number_input_cart => "number-input", "Quantity and weight";
-  tags_input_topics => "tags-input", "Topics";
-  file_input_upload => "file-input", "Documents";
-  swap_icons => "swap", "Icons and text";
-  dock_phone => "dock", "Phone tabs";
-  fab_speed_dial => "fab", "Speed dial";
-  chart_revenue => "chart", "Area and line";
-  chart_traffic => "chart", "Donut";
-  data_table_users => "data-table", "Filter, sort, and select";
-  empty_projects => "empty", "No projects";
-  progress_upload => "progress", "Upload";
-  table_invoices => "table", "Invoices";
-  typography_article => "typography", "Article";
-  alert_variants => "alert", "Variants";
-  alert_status => "alert", "Status";
-  skeleton_card => "skeleton", "Loading profile";
-  sonner_variants => "sonner", "Variants";
-  spinner_sizes => "spinner", "Sizes";
-  toast_undo => "toast", "Undo action";
-  attachment_states => "attachment", "Upload states";
-  bubble_chat => "bubble", "Variants";
-  marker_variants => "marker", "Variants";
-  message_thread => "message", "Thread";
-  message_scroller_chat => "message-scroller", "Follow new messages";
+  button_variants => ButtonVariantsDemo, "button", "Variants";
+  button_sizes => ButtonSizesDemo, "button", "Sizes and states";
+  button_group_basic => ButtonGroupBasicDemo, "button-group", "Orientation";
+  command_palette => CommandPaletteDemo, "command", "Command palette";
+  kbd_shortcuts => KbdShortcutsDemo, "kbd", "Shortcuts";
+  menu_docs => MenuDocsDemo, "menu", "Docs navigation";
+  mockup_frames => MockupFramesDemo, "mockup", "Browser, code, and phone";
+  theme_controller_picker => ThemeControllerPickerDemo, "theme-controller", "System, light, and dark";
+  toggle_basic => ToggleBasicDemo, "toggle", "Variants";
+  toggle_group_single => ToggleGroupSingleDemo, "toggle-group", "Single selection";
+  calendar_month => CalendarMonthDemo, "calendar", "Month";
+  checkbox_basic => CheckboxBasicDemo, "checkbox", "States";
+  date_picker_basic => DatePickerBasicDemo, "date-picker", "Date picker";
+  date_picker_input => DatePickerInputDemo, "date-picker", "Typed date";
+  field_basic => FieldBasicDemo, "field", "Description and error";
+  input_states => InputStatesDemo, "input", "States";
+  input_group_addons => InputGroupAddonsDemo, "input-group", "Addons";
+  input_otp_basic => InputOtpBasicDemo, "input-otp", "Six digits";
+  label_basic => LabelBasicDemo, "label", "Labels";
+  native_select_basic => NativeSelectBasicDemo, "native-select", "Groups";
+  radio_group_basic => RadioGroupBasicDemo, "radio-group", "Plan picker";
+  select_basic => SelectBasicDemo, "select", "Select";
+  select_multiple => SelectMultipleDemo, "select", "Multiple";
+  slider_basic => SliderBasicDemo, "slider", "Orientation and states";
+  slider_range => SliderRangeDemo, "slider", "Price range";
+  switch_basic => SwitchBasicDemo, "switch", "States";
+  textarea_basic => TextareaBasicDemo, "textarea", "Character count";
+  alert_dialog_confirm => AlertDialogConfirmDemo, "alert-dialog", "Confirm deletion";
+  combobox_search => ComboboxSearchDemo, "combobox", "Search";
+  context_menu_basic => ContextMenuBasicDemo, "context-menu", "Right-click menu";
+  dialog_form => DialogFormDemo, "dialog", "Form in a dialog";
+  drawer_basic => DrawerBasicDemo, "drawer", "Bottom drawer";
+  dropdown_actions => DropdownActionsDemo, "dropdown", "Actions menu";
+  dropdown_options => DropdownOptionsDemo, "dropdown", "View options";
+  hover_card_profile => HoverCardProfileDemo, "hover-card", "Profile card";
+  menubar_editor => MenubarEditorDemo, "menubar", "Editor menus";
+  popover_basic => PopoverBasicDemo, "popover", "Form in a popover";
+  sheet_side => SheetSideDemo, "sheet", "Sides";
+  tooltip_basic => TooltipBasicDemo, "tooltip", "Tooltip";
+  breadcrumb_basic => BreadcrumbBasicDemo, "breadcrumb", "Collapsed path";
+  navigation_menu_basic => NavigationMenuBasicDemo, "navigation-menu", "Product menu";
+  navigation_menu_mega => NavigationMenuMegaDemo, "navigation-menu", "Mega menu";
+  pagination_basic => PaginationBasicDemo, "pagination", "Pages";
+  sidebar_collapsible => SidebarCollapsibleDemo, "sidebar", "Collapsible";
+  tabs_account => TabsAccountDemo, "tabs", "Account settings";
+  accordion_faq => AccordionFaqDemo, "accordion", "FAQ";
+  aspect_ratio_basic => AspectRatioBasicDemo, "aspect-ratio", "Ratios";
+  card_basic => CardBasicDemo, "card", "Form card";
+  carousel_basic => CarouselBasicDemo, "carousel", "Slides";
+  collapsible_basic => CollapsibleBasicDemo, "collapsible", "Show more";
+  direction_rtl => DirectionRtlDemo, "direction", "Right to left";
+  item_list => ItemListDemo, "item", "People";
+  resizable_panels => ResizablePanelsDemo, "resizable", "Two panels";
+  scroll_area_tags => ScrollAreaTagsDemo, "scroll-area", "Tags";
+  separator_basic => SeparatorBasicDemo, "separator", "Orientation";
+  avatar_basic => AvatarBasicDemo, "avatar", "Image and fallback";
+  badge_variants => BadgeVariantsDemo, "badge", "Variants";
+  badge_status => BadgeStatusDemo, "badge", "Status";
+  stat_revenue => StatRevenueDemo, "stat", "Revenue";
+  timeline_release => TimelineReleaseDemo, "timeline", "Release history";
+  steps_checkout => StepsCheckoutDemo, "steps", "Checkout";
+  indicator_counts => IndicatorCountsDemo, "indicator", "Counts and presence";
+  status_presence => StatusPresenceDemo, "status", "Service health";
+  radial_progress_usage => RadialProgressUsageDemo, "radial-progress", "Sizes and labels";
+  countdown_sale => CountdownSaleDemo, "countdown", "Sale timer";
+  diff_compare => DiffCompareDemo, "diff", "Design comparison";
+  rating_review => RatingReviewDemo, "rating", "Review";
+  number_input_cart => NumberInputCartDemo, "number-input", "Quantity and weight";
+  tags_input_topics => TagsInputTopicsDemo, "tags-input", "Topics";
+  file_input_upload => FileInputUploadDemo, "file-input", "Documents";
+  swap_icons => SwapIconsDemo, "swap", "Icons and text";
+  dock_phone => DockPhoneDemo, "dock", "Phone tabs";
+  fab_speed_dial => FabSpeedDialDemo, "fab", "Speed dial";
+  chart_revenue => ChartRevenueDemo, "chart", "Area and line";
+  chart_traffic => ChartTrafficDemo, "chart", "Donut";
+  data_table_users => DataTableUsersDemo, "data-table", "Filter, sort, and select";
+  empty_projects => EmptyProjectsDemo, "empty", "No projects";
+  progress_upload => ProgressUploadDemo, "progress", "Upload";
+  table_invoices => TableInvoicesDemo, "table", "Invoices";
+  typography_article => TypographyArticleDemo, "typography", "Article";
+  alert_variants => AlertVariantsDemo, "alert", "Variants";
+  alert_status => AlertStatusDemo, "alert", "Status";
+  skeleton_card => SkeletonCardDemo, "skeleton", "Loading profile";
+  sonner_variants => SonnerVariantsDemo, "sonner", "Variants";
+  spinner_sizes => SpinnerSizesDemo, "spinner", "Sizes";
+  toast_undo => ToastUndoDemo, "toast", "Undo action";
+  attachment_states => AttachmentStatesDemo, "attachment", "Upload states";
+  bubble_chat => BubbleChatDemo, "bubble", "Variants";
+  marker_variants => MarkerVariantsDemo, "marker", "Variants";
+  message_thread => MessageThreadDemo, "message", "Thread";
+  message_scroller_chat => MessageScrollerChatDemo, "message-scroller", "Follow new messages";
+}
+
+#[cfg(test)]
+fn demo_name(module: &str) -> String {
+  let mut name: String = module
+    .split('_')
+    .map(|word| {
+      let mut chars = word.chars();
+      chars
+        .next()
+        .map(|first| first.to_ascii_uppercase().to_string() + chars.as_str())
+        .unwrap_or_default()
+    })
+    .collect();
+  name.push_str("Demo");
+  name
 }

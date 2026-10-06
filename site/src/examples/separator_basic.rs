@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Separator, SeparatorOrientation};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn SeparatorBasicDemo() -> Element {
   rsx! {
     div { class: "max-w-sm",
       h4 { class: "text-sm font-medium", "dioxus-shadcn" }

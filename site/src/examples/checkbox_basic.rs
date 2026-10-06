@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Checkbox, Label};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn CheckboxBasicDemo() -> Element {
   let mut terms = use_signal(|| true);
   let mut items = use_signal(|| [true, false]);
   let all = items().iter().all(|item| *item);

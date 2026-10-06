@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{ButtonGroup, ButtonGroupItem, ButtonGroupOrientation};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn ButtonGroupBasicDemo() -> Element {
   let mut align = use_signal(|| "left");
   let mut history = use_signal(|| vec!["Typed a heading"]);
   let mut undone = use_signal(Vec::<&str>::new);

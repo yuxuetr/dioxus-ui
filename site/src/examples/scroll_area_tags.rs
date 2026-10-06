@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{ScrollArea, ScrollAreaContent, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport, Separator};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn ScrollAreaTagsDemo() -> Element {
   rsx! {
     ScrollArea { class: "h-56 w-48 rounded-md border border-border",
       ScrollAreaViewport {

@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Bubble, BubbleAlign, BubbleContent, BubbleGroup, BubbleReactions, BubbleVariant};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn BubbleChatDemo() -> Element {
   rsx! {
     BubbleGroup { class: "max-w-md",
       Bubble { variant: BubbleVariant::Secondary,

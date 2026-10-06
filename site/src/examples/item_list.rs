@@ -8,7 +8,7 @@ const PEOPLE: [(&str, &str, &str); 3] = [
 ];
 
 #[component]
-pub fn Demo() -> Element {
+pub fn ItemListDemo() -> Element {
   rsx! {
     div { class: "grid max-w-md gap-1",
       for (initials, name, email) in PEOPLE {

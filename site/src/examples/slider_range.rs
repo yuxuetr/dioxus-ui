@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Label, RangeSlider};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn SliderRangeDemo() -> Element {
   let mut price = use_signal(|| (20.0, 80.0));
   let (low, high) = price();
 

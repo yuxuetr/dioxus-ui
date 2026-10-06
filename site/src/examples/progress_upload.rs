@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Button, ButtonVariant, Label, Progress};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn ProgressUploadDemo() -> Element {
   let mut uploaded = use_signal(|| 3.0_f32);
 
   rsx! {

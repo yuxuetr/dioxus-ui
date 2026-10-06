@@ -5,7 +5,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn SheetSideDemo() -> Element {
   let mut side = use_signal(|| None::<SheetSide>);
   let open = side().is_some();
 

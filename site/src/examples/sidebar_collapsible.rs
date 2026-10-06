@@ -5,7 +5,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn SidebarCollapsibleDemo() -> Element {
   let mut collapsed = use_signal(|| false);
   let mut mobile_open = use_signal(|| false);
   let mut section = use_signal(|| "inbox");

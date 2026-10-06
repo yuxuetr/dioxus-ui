@@ -5,7 +5,7 @@ const LANGUAGES: [(&str, &str); 5] =
   [("rust", "Rust"), ("go", "Go"), ("ts", "TypeScript"), ("python", "Python"), ("zig", "Zig")];
 
 #[component]
-pub fn Demo() -> Element {
+pub fn SelectMultipleDemo() -> Element {
   let mut open = use_signal(|| false);
   let mut values = use_signal(|| vec!["rust".to_string()]);
   let summary = match values().len() {

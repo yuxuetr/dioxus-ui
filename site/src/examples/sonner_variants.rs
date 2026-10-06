@@ -12,7 +12,7 @@ const VARIANTS: [(&str, SonnerVariant, &str); 4] = [
 ];
 
 #[component]
-pub fn Demo() -> Element {
+pub fn SonnerVariantsDemo() -> Element {
   let mut shown = use_signal(|| None::<usize>);
 
   rsx! {

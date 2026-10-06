@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Label, NativeSelect, NativeSelectGroup, NativeSelectOption};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn NativeSelectBasicDemo() -> Element {
   let mut timezone = use_signal(|| "utc".to_string());
 
   rsx! {

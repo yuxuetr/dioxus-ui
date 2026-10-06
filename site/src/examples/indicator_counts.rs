@@ -5,7 +5,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn IndicatorCountsDemo() -> Element {
   rsx! {
     div { class: "flex flex-wrap items-center gap-8 p-2",
       Indicator {

@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Button, ButtonVariant};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn ButtonVariantsDemo() -> Element {
   rsx! {
     div { class: "flex flex-wrap items-center gap-2",
       Button { "Primary" }

@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Menu, MenuGroup, MenuItem, MenuTitle};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn MenuDocsDemo() -> Element {
   let mut page = use_signal(|| "start");
   let mut components_open = use_signal(|| true);
 

@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Status, StatusVariant};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn StatusPresenceDemo() -> Element {
   rsx! {
     ul { class: "grid gap-3 text-sm",
       for (variant, text) in [

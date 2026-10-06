@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{HoverCard, HoverCardContent, HoverCardDescription, HoverCardHeader, HoverCardTitle, HoverCardTrigger};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn HoverCardProfileDemo() -> Element {
   let mut open = use_signal(|| false);
 
   rsx! {

@@ -13,7 +13,7 @@ const COMMANDS: [(&str, &str, &str, &str); 5] = [
 ];
 
 #[component]
-pub fn Demo() -> Element {
+pub fn CommandPaletteDemo() -> Element {
   let mut query = use_signal(String::new);
   let mut chosen = use_signal(|| "nothing".to_string());
   let visible = move |label: &str| command_matches(label, &query());

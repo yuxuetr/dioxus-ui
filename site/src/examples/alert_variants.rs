@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Alert, AlertDescription, AlertTitle, AlertVariant};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn AlertVariantsDemo() -> Element {
   rsx! {
     div { class: "grid max-w-lg gap-4",
       Alert {

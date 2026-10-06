@@ -12,7 +12,7 @@ const FILES: [(&str, &str, AttachmentState); 4] = [
 ];
 
 #[component]
-pub fn Demo() -> Element {
+pub fn AttachmentStatesDemo() -> Element {
   let mut files = use_signal(|| FILES.to_vec());
 
   rsx! {

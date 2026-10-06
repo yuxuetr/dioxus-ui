@@ -5,7 +5,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn TypographyArticleDemo() -> Element {
   rsx! {
     TypographyProse {
       TypographyH1 { "The Joke Tax" }

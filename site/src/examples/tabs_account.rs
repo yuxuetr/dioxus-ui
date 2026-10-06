@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Input, Label, Tabs, TabsContent, TabsList, TabsTrigger};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn TabsAccountDemo() -> Element {
   let mut tab = use_signal(|| "account".to_string());
   let active = move |value: &str| tab() == value;
 

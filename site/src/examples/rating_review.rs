@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Label, Rating};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn RatingReviewDemo() -> Element {
   let mut quality = use_signal(|| 4_u8);
   let mut service = use_signal(|| 0_u8);
 

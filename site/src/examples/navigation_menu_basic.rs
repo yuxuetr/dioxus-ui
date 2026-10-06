@@ -5,7 +5,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn NavigationMenuBasicDemo() -> Element {
   let mut active = use_signal(String::new);
   let open = move |value: &str| active() == value;
 

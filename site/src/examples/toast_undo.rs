@@ -5,7 +5,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn ToastUndoDemo() -> Element {
   let mut open = use_signal(|| false);
   let mut reason = use_signal(|| "none");
 

@@ -5,7 +5,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn ChartTrafficDemo() -> Element {
   let slices = vec![
     ChartSlice::new("direct", "Direct", 4_200.0, ChartColorToken::Chart1),
     ChartSlice::new("search", "Search", 3_100.0, ChartColorToken::Chart2),

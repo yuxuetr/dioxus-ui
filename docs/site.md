@@ -15,7 +15,8 @@ the reference; the site links to them rather than rendering them.
 ## M180 Component Pages
 
 Since M180 every component page shows live examples: each is one file under
-`site/src/examples/` whose `Demo` component the page renders and whose text
+`site/src/examples/` whose component, named after the file (`CalendarMonthDemo`
+in `calendar_month.rs`), the page renders and whose text
 the Code tab shows with `include_str!`. All 64 catalog components have at
 least one example (65 in all), and `npm run verify:site` fails when a
 component has none, a page does not render its listed examples, an example

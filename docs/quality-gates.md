@@ -483,7 +483,7 @@ violation of the WCAG 2.1 A and AA and best-practice rules in either theme
 ([RFC 0054](rfcs/0054-automated-accessibility-audit.md)), or a sideways
 scroll at 375px. Each component page must render exactly the examples
 `site/src/examples/mod.rs` lists for it, each with a drawn preview and a Code
-tab whose source defines the rendered `Demo`. Every catalog component must have at
+tab whose source defines the rendered demo component. Every catalog component must have at
 least one example, and no example may name a component outside the catalog. It also checks that unknown
 routes render the not found page,
 that the header toggle switches the theme, and that the catalog menu opens and

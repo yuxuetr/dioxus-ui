@@ -5,7 +5,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn DrawerBasicDemo() -> Element {
   let mut open = use_signal(|| false);
   let mut goal = use_signal(|| 350);
 

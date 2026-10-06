@@ -5,7 +5,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn DialogFormDemo() -> Element {
   let mut open = use_signal(|| false);
   let mut name = use_signal(|| "dioxus-shadcn".to_string());
 

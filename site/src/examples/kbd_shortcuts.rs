@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Kbd, KbdSize};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn KbdShortcutsDemo() -> Element {
   rsx! {
     div { class: "grid gap-3 text-sm",
       p { "Open the command menu with " Kbd { "Ctrl" } " + " Kbd { "K" } "." }

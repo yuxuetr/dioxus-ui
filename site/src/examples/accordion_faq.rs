@@ -8,7 +8,7 @@ const QUESTIONS: [(&str, &str, &str); 3] = [
 ];
 
 #[component]
-pub fn Demo() -> Element {
+pub fn AccordionFaqDemo() -> Element {
   let mut open = use_signal(|| Some("copy".to_string()));
   let is_open = move |value: &str| open().as_deref() == Some(value);
 

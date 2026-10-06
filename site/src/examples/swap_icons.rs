@@ -18,7 +18,7 @@ fn Icon(path: &'static str) -> Element {
 }
 
 #[component]
-pub fn Demo() -> Element {
+pub fn SwapIconsDemo() -> Element {
   let mut menu = use_signal(|| false);
   let mut liked = use_signal(|| false);
   let mut sound = use_signal(|| true);

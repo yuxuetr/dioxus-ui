@@ -5,7 +5,7 @@ use dioxus_shadcn::{
 };
 
 #[component]
-pub fn Demo() -> Element {
+pub fn DropdownActionsDemo() -> Element {
   let mut open = use_signal(|| false);
   let mut share = use_signal(|| false);
   let mut action = use_signal(|| "none");

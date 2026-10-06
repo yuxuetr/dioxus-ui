@@ -7,7 +7,7 @@ use dioxus_shadcn::{
 const SLIDES: usize = 4;
 
 #[component]
-pub fn Demo() -> Element {
+pub fn CarouselBasicDemo() -> Element {
   let mut state = use_signal(|| CarouselState::new(0, SLIDES));
   let index = state().index;
 

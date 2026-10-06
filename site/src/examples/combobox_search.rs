@@ -5,7 +5,7 @@ const FRAMEWORKS: [(&str, &str); 5] =
   [("dioxus", "Dioxus"), ("leptos", "Leptos"), ("yew", "Yew"), ("sycamore", "Sycamore"), ("iced", "Iced")];
 
 #[component]
-pub fn Demo() -> Element {
+pub fn ComboboxSearchDemo() -> Element {
   let mut query = use_signal(String::new);
   let mut open = use_signal(|| false);
   let mut value = use_signal(String::new);

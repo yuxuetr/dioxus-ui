@@ -5,7 +5,7 @@ use dioxus_shadcn::{Theme, ToggleGroup, ToggleGroupItem};
 /// and shares the theme signal through context; this picker sets it, so the
 /// whole site follows, and the choice is remembered on the next visit.
 #[component]
-pub fn Demo() -> Element {
+pub fn ThemeControllerPickerDemo() -> Element {
   let mut theme = use_context::<Signal<Theme>>();
 
   rsx! {

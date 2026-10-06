@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{Tooltip, TooltipContent, TooltipTrigger};
 
 #[component]
-pub fn Demo() -> Element {
+pub fn TooltipBasicDemo() -> Element {
   let mut open = use_signal(|| false);
   let mut copies = use_signal(|| 0);
 
