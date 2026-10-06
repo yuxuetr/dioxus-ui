@@ -566,6 +566,18 @@ the dashboard block, the published `dxui` 0.4.1 ran `dxui diff` without names
 and reported all 14 entries matching, then exited 1 after `dialog.rs` was
 edited.
 
+## 0.4.2 Publish
+
+The release owner confirmed 0.4.2 on 2026-10-06, for the element id fix
+(RFC 0075). The release gate and dry run passed, `cargo-semver-checks
+--release-type patch` against 0.4.1 required no version change, and CI passed
+on the release commit. The four crates were published in dependency order and
+tagged `v0.4.2`. A fullstack app on `dioxus-shadcn` 0.4.2 from crates.io wrote
+the same Tabs ids on three requests, and after hydration ArrowRight moved
+focus and selection to the next tab. The published `dxui` 0.4.2 copied Tabs
+with the `element_id` helper into a fresh app that built while denying
+warnings, and `dxui diff` reported every copy matching.
+
 ## Known Pre-1.0 Limitations
 
 - Dialog, Alert Dialog, Sheet, and Drawer implement Escape and overlay

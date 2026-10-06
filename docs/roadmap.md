@@ -328,4 +328,6 @@ the component API an app leaves unused. M203 added several names per
 `dxui add`, `dxui --version`, a per-file add report, and `dxui diff`. M204.1
 prepared 0.4.0, with `cargo-semver-checks` as a release step, and M204.2
 published it on 2026-10-06 (tag `v0.4.0`). 0.4.1, published the same day
-(tag `v0.4.1`), lets `dxui diff` without names check every copied entry.
+(tag `v0.4.1`), lets `dxui diff` without names check every copied entry, and 0.4.2
+(tag `v0.4.2`) numbers element ids per virtual DOM so server-rendered pages
+hydrate with the same ids ([RFC 0075](rfcs/0075-render-scoped-element-ids.md)).
