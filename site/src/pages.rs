@@ -1,5 +1,7 @@
 use dioxus::prelude::*;
-use dioxus_shadcn::{Badge, BadgeVariant, Tabs, TabsContent, TabsList, TabsTrigger};
+use dioxus_shadcn::{
+  Badge, BadgeVariant, Button, ButtonSize, ButtonVariant, Tabs, TabsContent, TabsList, TabsTrigger,
+};
 
 use crate::Route;
 use crate::catalog::{CATEGORIES, Component};
@@ -10,7 +12,7 @@ const H2: &str = "mt-10 border-b border-border pb-2 text-xl font-semibold";
 const LEAD: &str = "mt-2 text-lg text-muted-foreground";
 const P: &str = "mt-4 leading-7";
 const CODE_BLOCK: &str =
-  "mt-4 overflow-x-auto rounded-md border border-border bg-muted p-4 font-mono text-sm";
+  "overflow-x-auto rounded-md border border-border bg-muted p-4 pe-20 font-mono text-sm";
 const INLINE_CODE: &str = "rounded bg-muted px-1.5 py-0.5 font-mono text-sm";
 const DOCS_URL: &str = concat!(env!("CARGO_PKG_REPOSITORY"), "/blob/main/docs/components");
 
@@ -24,10 +26,66 @@ fn find_component(slug: &str) -> Option<(&'static str, &'static Component)> {
   })
 }
 
+/// The crate version these pages document, such as `0.3.0`.
+const VERSION: &str = env!("CARGO_PKG_VERSION");
+
+/// The version requirement for `Cargo.toml`, such as `0.3`.
+fn version_requirement() -> &'static str {
+  VERSION.rsplit_once('.').map_or(VERSION, |(requirement, _)| requirement)
+}
+
+// Copies the text it receives, reports whether that worked, and reports
+// again two seconds later so the button can show its label again.
+const COPY_SCRIPT: &str = r#"
+const text = await dioxus.recv();
+try {
+  await navigator.clipboard.writeText(text);
+  dioxus.send(true);
+} catch {
+  dioxus.send(false);
+  return;
+}
+await new Promise((resolve) => setTimeout(resolve, 2000));
+dioxus.send(false);
+"#;
+
+/// A button over a code block's corner that copies `text`; it reads
+/// "Copied" for two seconds, also announced through a status message.
+#[component]
+fn CopyButton(text: String, label: String) -> Element {
+  let mut copied = use_signal(|| false);
+
+  rsx! {
+    Button {
+      class: "absolute end-2 top-2",
+      variant: ButtonVariant::Outline,
+      size: ButtonSize::Sm,
+      "aria-label": "{label}",
+      "data-site-copy": "",
+      onclick: move |_| {
+        let text = text.clone();
+        spawn(async move {
+          let mut eval = document::eval(COPY_SCRIPT);
+          // A send error means the page already finished the script.
+          let _ = eval.send(text);
+          while let Ok(state) = eval.recv::<bool>().await {
+            copied.set(state);
+          }
+        });
+      },
+      if copied() { "Copied" } else { "Copy" }
+    }
+    span { class: "sr-only", role: "status", if copied() { "Copied to the clipboard" } }
+  }
+}
+
 #[component]
 fn CodeBlock(code: String) -> Element {
   rsx! {
-    pre { class: CODE_BLOCK, code { "{code}" } }
+    div { class: "relative mt-4",
+      pre { class: CODE_BLOCK, code { "{code}" } }
+      CopyButton { text: code.clone(), label: "Copy code" }
+    }
   }
 }
 
@@ -101,7 +159,10 @@ pub fn GettingStarted() -> Element {
       h2 { class: H2, "Crate mode" }
       p { class: P, "Enable one feature per component:" }
       CodeBlock {
-        code: "[dependencies]\ndioxus-shadcn = { version = \"0.2\", default-features = false, features = [\"button\", \"dialog\"] }"
+        code: format!(
+          "[dependencies]\ndioxus-shadcn = {{ version = \"{}\", default-features = false, features = [\"button\", \"dialog\"] }}",
+          version_requirement()
+        )
           .to_string()
       }
       CodeBlock { code: "use dioxus_shadcn::{Button, ButtonVariant};".to_string() }
@@ -121,7 +182,7 @@ pub fn GettingStarted() -> Element {
         code { class: INLINE_CODE, "cargo metadata" }
         " shows where the crate lives:"
       }
-      CodeBlock { code: "@import \"tailwindcss\";\n@source \"/path/to/dioxus-shadcn-0.1.0/src\";".to_string() }
+      CodeBlock { code: format!("@import \"tailwindcss\";\n@source \"/path/to/dioxus-shadcn-{VERSION}/src\";") }
       p { class: P,
         "Continue with "
         Link { class: "font-medium underline underline-offset-4", to: Route::Theming {}, "Theming" }
@@ -236,7 +297,11 @@ pub fn ComponentPage(slug: String) -> Element {
       CodeBlock { code: "dxui add {component.slug}" }
       p { class: P, "Or enable the crate feature:" }
       CodeBlock {
-        code: format!("dioxus-shadcn = {{ version = \"0.2\", features = [\"{}\"] }}", component.feature)
+        code: format!(
+          "dioxus-shadcn = {{ version = \"{}\", features = [\"{}\"] }}",
+          version_requirement(),
+          component.feature
+        )
       }
       if has_examples {
         h2 { class: H2, "Examples" }
@@ -288,10 +353,11 @@ fn ExampleCard(index: usize) -> Element {
           class: "rounded-md border border-border p-6",
           div { "data-site-example-preview": "", ExampleRender { index } }
         }
-        TabsContent { value: "code", active: !on_preview,
+        TabsContent { value: "code", active: !on_preview, class: "relative",
           pre { class: "{CODE_BLOCK} max-h-[32rem]", "data-site-example-source": "",
             code { "{example.source}" }
           }
+          CopyButton { text: example.source.to_string(), label: "Copy {example.title} source" }
         }
       }
     }

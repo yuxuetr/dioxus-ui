@@ -254,6 +254,9 @@
   .end-0 {
     inset-inline-end: calc(var(--spacing) * 0);
   }
+  .end-2 {
+    inset-inline-end: calc(var(--spacing) * 2);
+  }
   .end-6 {
     inset-inline-end: calc(var(--spacing) * 6);
   }
@@ -1497,6 +1500,9 @@
   }
   .pe-8 {
     padding-inline-end: calc(var(--spacing) * 8);
+  }
+  .pe-20 {
+    padding-inline-end: calc(var(--spacing) * 20);
   }
   .pt-0 {
     padding-top: 0px;

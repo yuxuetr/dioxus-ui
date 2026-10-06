@@ -127,7 +127,9 @@ async function run() {
   }
   const browser = await launchBrowser("scripts/site-verify.mjs");
   try {
-    const page = await (await browser.newContext({ viewport })).newPage();
+    const page = await (
+      await browser.newContext({ viewport, permissions: ["clipboard-read", "clipboard-write"] })
+    ).newPage();
     const errors = [];
     page.on("console", (message) => {
       if (message.type() === "error") {
@@ -159,6 +161,24 @@ async function run() {
       const article = await visit(page, path);
       await expect(article).toHaveAttribute("data-site-page", "not-found");
     }
+
+    // Code blocks and example sources copy to the clipboard.
+    await visit(page, "/components/button");
+    const clipboard = () => page.evaluate(() => navigator.clipboard.readText());
+    await page.getByRole("button", { name: "Copy code", exact: true }).first().click();
+    await expect.poll(clipboard).toBe("dxui add button");
+    const example = page.locator("[data-site-example]").first();
+    await example.getByRole("tab", { name: "Code", exact: true }).click();
+    const copySource = example.getByRole("button", { name: /^Copy .+ source$/ });
+    await copySource.click();
+    await expect(copySource).toHaveText("Copied");
+    await expect(example.getByRole("status")).toHaveText("Copied to the clipboard");
+    const shown = await example.locator("[data-site-example-source]").textContent();
+    await expect.poll(clipboard).toBe(shown);
+    await expect(copySource).toHaveText("Copy", { timeout: 4000 });
+    // Version snippets follow the crate version.
+    await visit(page, "/docs/getting-started");
+    await expect(page.locator("main")).not.toContainText("0.1.0");
 
     // The theme menu applies a scheme or preset to the document root through
     // the ThemeController (RFC 0071), which remembers it across visits and

@@ -53,6 +53,9 @@ for commit messages.
 - The component site's header theme menu offers System, Light, Dark, and the
   presets, replacing the separate dark toggle, and applies them to the
   document root.
+- The component site's code blocks and example sources have copy buttons,
+  and its version snippets follow the crate version; the Installation page
+  showed a `dioxus-shadcn-0.1.0` path.
 - The menu and list script reads only each menu's own items, ignores keys
   from a nested menu, and stops when an ancestor is hidden, for Select,
   Combobox, and Command as well as menus.
