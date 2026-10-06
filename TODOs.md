@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 22% (5 of 23 tasks)
+- Overall: 26% (6 of 23 tasks)
 - Current milestone: M197
-- Current task: M197.2
+- Current task: M197.3
 
 ## Backup
 
@@ -56,8 +56,9 @@
 - DONE M197.1 Scroll lock for modal overlays
   - Dialog, Alert Dialog, Sheet, and Drawer stop page scroll while open and restore it, scrollbar width compensated, nested modals counted. Runtime check of `scrollY` under an open dialog.
   - Done: RFC 0068; the lock lives in the modal focus scope script behind a flag (Date Picker passes false). Runtime check reverse-verified; the nested count is exercised only by code review, since no fixture nests modals.
-- TODO M197.2 Sidebar off-canvas and shortcut
+- DONE M197.2 Sidebar off-canvas and shortcut
   - Below a breakpoint the Sidebar opens as a Sheet; an opt-in keyboard shortcut (Ctrl/Cmd+B in shadcn/ui) toggles it. Runtime check at phone width.
+  - Done: RFC 0069; a `use_media_query` helper, and an opt-in off-canvas mode whose wrapper is a modal dialog below 768px (axe rejects a dialog role on `aside`). The viewport is known after the first render, so phones show the wide layout for one frame. Runtime check at both widths, reverse-verified.
 - TODO M197.3 Range slider
   - Two thumbs on one track with `value: (f64, f64)` and a minimum gap, keyboard and pointer, without changing `Slider`'s API. Runtime check.
 - TODO M197.4 Pagination range helper
