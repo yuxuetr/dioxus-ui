@@ -42,21 +42,21 @@ must have used it. Measured on 2026-10-06 at `v0.4.2`:
 
 ## Stage 11: 0.4.x Crate-Mode Setup and Theme Marks
 
-Goal: fix the two non-breaking defects found in the 0.4.2 review.
+Goal: fix the non-breaking defects found in the 0.4.2 review.
 
 Deliverables:
 
 - `dxui` writes and refreshes the crate's `@source` line from
   `cargo metadata`, so a crate upgrade cannot leave Tailwind scanning the
   previous version's source
-- Checkbox marks drawn in the theme's foreground color, so presets with a
-  light primary color keep readable marks
+- known limitations that match the release: the Checkbox mark limitation
+  was stale, since the marks have followed `--primary-foreground` since 0.2.0
 
 Exit criteria:
 
 - a crate-mode app that bumps `dioxus-shadcn` gets the new path from one
   `dxui` command, which replaces the stale path
-- the contrast gate covers Checkbox marks under every preset
+- the browser check and the preset contrast gate cover the Checkbox marks
 
 ## Stage 12: 0.5.0 Overrides, Owned State, and Density
 

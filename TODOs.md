@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 9% (1 of 11 tasks)
+- Overall: 18% (2 of 11 tasks)
 - Current milestone: M208 (0.4.3)
-- Current task: M208.2
+- Current task: M208.3
 
 ## Backup
 
@@ -19,7 +19,7 @@
 
 - Adoption: 18 to 30 downloads per crate and no issues or pull requests, so breaking changes cost nothing yet and cost much more after 1.0.
 - Crate mode: `crates/README.md` tells apps to write `@source "/path/to/dioxus-shadcn-0.4.2/src"`. After a crate upgrade the line still names the old version's directory, which stays in Cargo's cache, so Tailwind keeps scanning old source and misses classes the new version added.
-- Theme: Checkbox marks are white images that follow only the default light and dark `--primary-foreground` (known limitations, `docs/release.md`).
+- Theme: the known limitations in `docs/release.md` said Checkbox marks are white images that follow only the default light and dark `--primary-foreground`. Corrected in M208.2: the marks have followed `--primary-foreground` since 0.2.0.
 - Overrides: 352 call sites in 81 crate modules append the user class, and a user class does not win by position (RFC 0076). The maintainer decided on 2026-10-06 that the last class wins and that the merge must not cause hidden bugs.
 - State: the Select doc example passes `open` twice, matches `anchor_id` to the trigger id by hand, and computes `selected` per item; Tabs computes `active` per trigger and per panel. 25 crate modules take `open: bool` and 25 take per-part `active`, `selected`, `checked`, or `pressed`.
 - Density: `UiDensity` is public, and Button is the only component of 82 that takes it.
@@ -39,9 +39,10 @@
   - In an app that depends on `dioxus-shadcn`, `dxui init` writes the `@source` line for the resolved crate's `src` from `cargo metadata`, and running it again after an upgrade replaces a line that names another version. An app that does not depend on the crate gets no line. `crates/README.md` drops the manual `cargo metadata | jq` step.
   - Exit: tests cover a new line, a replaced stale line, a current line left alone, and an app without the crate; in a scratch crate-mode app, bumping the version and rerunning `dxui init` makes a class only the new version uses appear in the compiled CSS. Reverse-verify by leaving the stale line.
   - Done: `dxui init` reads `cargo metadata` and replaces crate `@source` lines (`dioxus-shadcn/src` or `dioxus-shadcn-<version>/src`) in `assets/dioxus-shadcn.css`; an unreadable manifest fails the command. Unit tests cover the four cases plus line matching and this workspace's metadata. In a scratch app on 0.2.0, the stale line after bumping to 0.3.0 compiled without `rounded-b-xl` and `w-28` (0.3.0-only Mockup classes); after `dxui init` both appeared, and a rerun changed nothing.
-- TODO M208.2 Checkbox marks follow the theme
+- DONE M208.2 Checkbox marks follow the theme
   - The check and indeterminate marks take the color of the token the checked box uses for its foreground, in the crate and the template, instead of fixed white and dark images.
   - Exit: `npm run verify:theme-presets` checks mark contrast against the checked background for every preset and fails on the old white mark under a light-primary preset such as `cupcake`; the browser check sees the mark color change with `data-theme`.
+  - Done: no code change needed. The premise came from a stale known limitation: since 0.2.0 (`87f4ffb`) the marks are masks filled with `--primary-foreground` in the crate and the template. The browser check in `verify:runtime-interactions` already asserts the mark color equals `--primary-foreground` under light, dark, and an overridden token, and `verify:theme-presets` checks `primary-foreground` on `primary` for all 33 presets. Corrected the known limitation in `docs/release.md`.
 - TODO M208.3 Publish 0.4.3
   - After M208.1 and M208.2 and the release owner's confirmation: CHANGELOG, versions, release gate, `cargo-semver-checks --release-type patch` against 0.4.2, CI, publish, then check both modes from crates.io.
 
