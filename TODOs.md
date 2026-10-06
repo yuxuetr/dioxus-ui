@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 70% (16 of 23 tasks)
-- Current milestone: M200
-- Current task: M200.4
+- Overall: 74% (17 of 23 tasks)
+- Current milestone: M201
+- Current task: M201.1
 
 ## Backup
 
@@ -98,8 +98,9 @@
 - DONE M200.3 Login and settings blocks
   - A sign-in form and a settings page with tabs and fields.
   - Done: the login block came with M200.1; `SettingsBlock` with tabs, checked fields, switches, and save and reset compiles in the fixture app.
-- TODO M200.4 Blocks on the site
+- DONE M200.4 Blocks on the site
   - A Blocks page with a full-width preview, source, and the `dxui add` command for each block, audited in both themes and every preset.
+  - Done: index and per-block pages compiled from the copied sources through a `components::ui` shim; site-verify audits them (dashboard with every preset) and exercises each block. Screenshots found two library bugs, fixed in their own commits: every chart drew upside down (`ChartScale` normalized its range), and an off-canvas Sidebar did not stretch on wide screens.
 
 ## M201 0.3.0 Release
 
