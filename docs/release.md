@@ -623,13 +623,13 @@ warnings, and `dxui diff` reported every copy matching.
   CSS in the Desktop and Mobile self-tests is not covered. Class functions do
   not join conflicting utilities (see RFC 0044); a user class that sets a
   property the component sets needs Tailwind's important modifier. Checkbox
-  draws its box and marks (see RFC 0045); the marks are white images, so
-  custom mark colors and forced-colors marks are not included. Select and
+  draws its box and marks (see RFC 0045); the marks are masks filled with
+  `--primary-foreground`, so they follow every theme (see RFC 0057), and
+  forced-colors marks are not included. Select and
   Combobox lists are at least as wide as their trigger (see RFC 0046); other
   anchored content sizes to its content. Component classes use the shadcn/ui
-  semantic color tokens (see RFC 0051), which crate-mode apps must define;
-  the Checkbox marks follow the default light and dark
-  `--primary-foreground` only. The dark theme is an opt-in `.dark`
+  semantic color tokens (see RFC 0051), which crate-mode apps must define.
+  The dark theme is an opt-in `.dark`
   class that redefines only the tokens (see RFC 0047 and RFC 0051);
   `ThemeController` defaults it to the system preference and remembers the
   choice (see RFC 0071), and app palette classes do not follow it. Pagination content wraps in narrow containers (see
