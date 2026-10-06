@@ -10,7 +10,7 @@ The catalog is derived from registry entries, templates, component docs,
 crate features, and crate modules. It intentionally does not include visual
 preview routes, screenshot artifacts, or generated JSON metadata.
 
-Public components: 81
+Public components: 82
 
 ## Groups
 
@@ -82,6 +82,7 @@ Public components: 81
 - [Direction](direction.md): Direction component for scoped native ltr/rtl text direction.
 - [Indicator](indicator.md): Styled corner indicator wrapper and placed item.
 - [Item](item.md): Generic list item composition parts.
+- [Mockup](mockup.md): Browser, window, code, and phone frames for showing content.
 - [Resizable](resizable.md): Controlled resizable panel group, panel, and handle parts.
 - [Scroll Area](scroll-area.md): Native scroll area wrapper with styled viewport and scrollbar parts.
 - [Separator](separator.md): Separator component for visual or semantic content division.
@@ -169,6 +170,7 @@ Public components: 81
 | [Menubar](menubar.md) | Controlled menubar parts backed by dropdown primitive configuration. | `dxui add menubar` | `menubar` | `crates/dioxus-shadcn-cli/templates/menubar.rs` | `src/components/ui/menubar.rs` |
 | [Message](message.md) | Message component for provider-neutral chat row layout. | `dxui add message` | `message` | `crates/dioxus-shadcn-cli/templates/message.rs` | `src/components/ui/message.rs` |
 | [Message Scroller](message-scroller.md) | Controlled message scroller composition parts with pure scroll intent helpers. | `dxui add message-scroller` | `message-scroller` | `crates/dioxus-shadcn-cli/templates/message_scroller.rs` | `src/components/ui/message_scroller.rs` |
+| [Mockup](mockup.md) | Browser, window, code, and phone frames for showing content. | `dxui add mockup` | `mockup` | `crates/dioxus-shadcn-cli/templates/mockup.rs` | `src/components/ui/mockup.rs` |
 | [Native Select](native-select.md) | Styled native select, optgroup, and option components. | `dxui add native-select` | `native-select` | `crates/dioxus-shadcn-cli/templates/native_select.rs` | `src/components/ui/native_select.rs` |
 | [Navigation Menu](navigation-menu.md) | Controlled navigation menu parts with navigation semantics. | `dxui add navigation-menu` | `navigation-menu` | `crates/dioxus-shadcn-cli/templates/navigation_menu.rs` | `src/components/ui/navigation_menu.rs` |
 | [Number Input](number-input.md) | Styled number field with stepping buttons and spinbutton keys. | `dxui add number-input` | `number-input` | `crates/dioxus-shadcn-cli/templates/number_input.rs` | `src/components/ui/number_input.rs` |

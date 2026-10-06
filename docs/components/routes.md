@@ -11,7 +11,7 @@ It does not create rendered routes, router code, screenshots, or generated JSON.
 For source preview route metadata, see the
 [Source Preview Manifest](source-preview.md).
 
-Component routes: 81
+Component routes: 82
 Category routes: 8
 
 ## Top-level Routes
@@ -86,6 +86,7 @@ Category routes: 8
 | [Menubar](menubar.md) | /components/menubar | docs/components/menubar.md | /components#category-overlays | /components/menubar/source |
 | [Message](message.md) | /components/message | docs/components/message.md | /components#category-messaging | /components/message/source |
 | [Message Scroller](message-scroller.md) | /components/message-scroller | docs/components/message-scroller.md | /components#category-messaging | /components/message-scroller/source |
+| [Mockup](mockup.md) | /components/mockup | docs/components/mockup.md | /components#category-layout | /components/mockup/source |
 | [Native Select](native-select.md) | /components/native-select | docs/components/native-select.md | /components#category-forms | /components/native-select/source |
 | [Navigation Menu](navigation-menu.md) | /components/navigation-menu | docs/components/navigation-menu.md | /components#category-navigation | /components/navigation-menu/source |
 | [Number Input](number-input.md) | /components/number-input | docs/components/number-input.md | /components#category-forms | /components/number-input/source |

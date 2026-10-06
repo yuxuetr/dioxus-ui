@@ -368,6 +368,12 @@ pub const CATEGORIES: &[Category] = &[
         feature: "item",
       },
       Component {
+        slug: "mockup",
+        title: "Mockup",
+        description: "Browser, window, code, and phone frames for showing content.",
+        feature: "mockup",
+      },
+      Component {
         slug: "resizable",
         title: "Resizable",
         description: "Controlled resizable panel group, panel, and handle parts.",

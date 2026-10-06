@@ -1,0 +1,14 @@
+{
+  "name": "mockup",
+  "description": "Browser, window, code, and phone frames for showing content.",
+  "files": [
+    {
+      "source": "templates/mockup.rs",
+      "target": "src/components/ui/mockup.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

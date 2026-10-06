@@ -78,6 +78,7 @@ const componentCategories = {
   toast: "feedback",
   "theme-controller": "actions",
   menu: "navigation",
+  mockup: "layout",
   toggle: "actions",
   "toggle-group": "actions",
   tooltip: "overlays",

@@ -13,14 +13,14 @@ parity.
 
 ## Summary
 
-- Public components: 81
-- Registry entries: 82
+- Public components: 82
+- Registry entries: 83
 - Source-copy helpers: utils
-- Templates: 82
-- Crate modules: 81
-- Crate features: 81
-- Component docs pages: 81
-- Complete local wiring: 81
+- Templates: 83
+- Crate modules: 82
+- Crate features: 82
+- Component docs pages: 82
+- Complete local wiring: 82
 - Incomplete local wiring: 0
 
 ## Category Counts
@@ -31,7 +31,7 @@ parity.
 | Forms | 18 |
 | Overlays | 11 |
 | Navigation | 8 |
-| Layout | 11 |
+| Layout | 12 |
 | Data Display | 13 |
 | Feedback | 6 |
 | Messaging | 5 |
@@ -94,6 +94,7 @@ parity.
 | Direction | Layout | yes | yes | yes | yes | yes | yes | yes |
 | Indicator | Layout | yes | yes | yes | yes | yes | yes | yes |
 | Item | Layout | yes | yes | yes | yes | yes | yes | yes |
+| Mockup | Layout | yes | yes | yes | yes | yes | yes | yes |
 | Resizable | Layout | yes | yes | yes | yes | yes | yes | yes |
 | Scroll Area | Layout | yes | yes | yes | yes | yes | yes | yes |
 | Separator | Layout | yes | yes | yes | yes | yes | yes | yes |
@@ -180,6 +181,7 @@ parity.
 | Direction | Layout | [docs](direction.md) | `dxui add direction` | `direction` | `crates/dioxus-shadcn-cli/templates/direction.rs` | `src/components/ui/direction.rs` |
 | Indicator | Layout | [docs](indicator.md) | `dxui add indicator` | `indicator` | `crates/dioxus-shadcn-cli/templates/indicator.rs` | `src/components/ui/indicator.rs` |
 | Item | Layout | [docs](item.md) | `dxui add item` | `item` | `crates/dioxus-shadcn-cli/templates/item.rs` | `src/components/ui/item.rs` |
+| Mockup | Layout | [docs](mockup.md) | `dxui add mockup` | `mockup` | `crates/dioxus-shadcn-cli/templates/mockup.rs` | `src/components/ui/mockup.rs` |
 | Resizable | Layout | [docs](resizable.md) | `dxui add resizable` | `resizable` | `crates/dioxus-shadcn-cli/templates/resizable.rs` | `src/components/ui/resizable.rs` |
 | Scroll Area | Layout | [docs](scroll-area.md) | `dxui add scroll-area` | `scroll-area` | `crates/dioxus-shadcn-cli/templates/scroll_area.rs` | `src/components/ui/scroll_area.rs` |
 | Separator | Layout | [docs](separator.md) | `dxui add separator` | `separator` | `crates/dioxus-shadcn-cli/templates/separator.rs` | `src/components/ui/separator.rs` |

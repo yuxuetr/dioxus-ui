@@ -490,6 +490,14 @@ pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
     notes: "Composition target exists; domain behavior remains app-owned.",
   },
   ComponentPreviewTarget {
+    component: "mockup",
+    label: "Mockup",
+    panel: "layout",
+    test_id: "component-preview-mockup",
+    coverage_level: "static",
+    notes: "Rendered markup and class-state coverage target.",
+  },
+  ComponentPreviewTarget {
     component: "native-select",
     label: "Native Select",
     panel: "forms",

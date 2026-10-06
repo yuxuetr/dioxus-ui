@@ -10,6 +10,10 @@ for commit messages.
 
 ### Added
 
+- Mockup ([RFC 0072](docs/rfcs/0072-menu-and-mockup.md)), ported from
+  daisyUI: `MockupBrowser`, `MockupWindow`, `MockupCode` with
+  `MockupCodeLine`, and `MockupPhone` frames whose decorations are hidden
+  from assistive technology. The library has 82 components.
 - Menu ([RFC 0072](docs/rfcs/0072-menu-and-mockup.md)), ported from
   daisyUI: `Menu`, `MenuTitle`, `MenuItem`, and `MenuGroup`, a vertical list
   of links or buttons with `aria-current` and controlled collapsible groups.

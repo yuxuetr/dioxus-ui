@@ -176,6 +176,7 @@ dioxus-shadcn = { version = "0.2", default-features = false, features = ["button
 | [Menubar](menubar.md) | `dxui add menubar` | `menubar` | Dropdown-backed menubar parts |
 | [Message](message.md) | `dxui add message` | `message` | Provider-neutral message row parts |
 | [Message Scroller](message-scroller.md) | `dxui add message-scroller` | `message-scroller` | Controlled transcript viewport parts |
+| [Mockup](mockup.md) | `dxui add mockup` | `mockup` | Browser, window, code, and phone frames |
 | [Native Select](native-select.md) | `dxui add native-select` | `native-select` | Styled native form select |
 | [Navigation Menu](navigation-menu.md) | `dxui add navigation-menu` | `navigation-menu` | Navigation-oriented disclosure parts |
 | [Number Input](number-input.md) | `dxui add number-input` | `number-input` | Spinbutton number field |

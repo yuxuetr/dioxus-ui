@@ -749,6 +749,9 @@ pub mod theme_controller;
 #[cfg(feature = "menu")]
 pub mod menu;
 
+#[cfg(feature = "mockup")]
+pub mod mockup;
+
 #[cfg(feature = "dock")]
 pub mod dock;
 
@@ -943,6 +946,15 @@ pub use menu::{
   MENU_BASE_CLASS, MENU_GROUP_LIST_BASE_CLASS, MENU_GROUP_TRIGGER_CLASS, MENU_ITEM_ACTIVE_CLASS,
   MENU_ITEM_BASE_CLASS, MENU_TITLE_BASE_CLASS, Menu, MenuGroup, MenuItem, MenuTitle, menu_class,
   menu_group_list_class, menu_item_class, menu_title_class,
+};
+#[cfg(feature = "mockup")]
+pub use mockup::{
+  MOCKUP_ADDRESS_BASE_CLASS, MOCKUP_CODE_BASE_CLASS, MOCKUP_CODE_LINE_BASE_CLASS,
+  MOCKUP_CODE_LINE_HIGHLIGHT_CLASS, MOCKUP_CODE_PREFIX_CLASS, MOCKUP_CONTENT_BASE_CLASS,
+  MOCKUP_DOT_CLASS, MOCKUP_FRAME_BASE_CLASS, MOCKUP_PHONE_BASE_CLASS,
+  MOCKUP_PHONE_DISPLAY_BASE_CLASS, MOCKUP_PHONE_NOTCH_CLASS, MOCKUP_TOOLBAR_BASE_CLASS,
+  MockupBrowser, MockupCode, MockupCodeLine, MockupPhone, MockupWindow, mockup_code_class,
+  mockup_code_line_class, mockup_frame_class, mockup_phone_class,
 };
 #[cfg(feature = "theme-controller")]
 pub use theme_controller::{THEME_STORAGE_KEY, Theme, ThemeController, theme_init_script};

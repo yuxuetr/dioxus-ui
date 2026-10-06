@@ -10,7 +10,7 @@ The manifest defines template metadata for future source preview routes.
 It does not embed full template source, syntax highlighting, rendered routes,
 screenshots, or generated JSON.
 
-Source preview routes: 81
+Source preview routes: 82
 
 ## Source Preview Routes
 
@@ -62,6 +62,7 @@ Source preview routes: 81
 | [Menubar](menubar.md) | /components/menubar/source | crates/dioxus-shadcn-cli/templates/menubar.rs | src/components/ui/menubar.rs | rust | 530 | 16993 |
 | [Message](message.md) | /components/message/source | crates/dioxus-shadcn-cli/templates/message.rs | src/components/ui/message.rs | rust | 152 | 3767 |
 | [Message Scroller](message-scroller.md) | /components/message-scroller/source | crates/dioxus-shadcn-cli/templates/message_scroller.rs | src/components/ui/message_scroller.rs | rust | 255 | 7454 |
+| [Mockup](mockup.md) | /components/mockup/source | crates/dioxus-shadcn-cli/templates/mockup.rs | src/components/ui/mockup.rs | rust | 163 | 5102 |
 | [Native Select](native-select.md) | /components/native-select/source | crates/dioxus-shadcn-cli/templates/native_select.rs | src/components/ui/native_select.rs | rust | 93 | 2513 |
 | [Navigation Menu](navigation-menu.md) | /components/navigation-menu/source | crates/dioxus-shadcn-cli/templates/navigation_menu.rs | src/components/ui/navigation_menu.rs | rust | 477 | 17709 |
 | [Number Input](number-input.md) | /components/number-input/source | crates/dioxus-shadcn-cli/templates/number_input.rs | src/components/ui/number_input.rs | rust | 158 | 5761 |
