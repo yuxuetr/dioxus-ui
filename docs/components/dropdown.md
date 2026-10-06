@@ -1,7 +1,7 @@
 # Dropdown
 
 Dropdown provides primitive menu configuration with styled content, group,
-label, item, and separator parts.
+label, item, checkbox, radio, separator, and shortcut parts.
 
 ## Source Copy
 
@@ -21,16 +21,42 @@ dioxus-shadcn = { version = "0.2", default-features = false, features = ["dropdo
 - `DropdownGroup`
 - `DropdownLabel`
 - `DropdownItem`
+- `DropdownCheckboxItem`
+- `DropdownRadioGroup`
+- `DropdownRadioItem`
 - `DropdownSeparator`
+- `DropdownShortcut`
 - `DropdownPrimitiveConfig`
 - `DropdownDismissBehavior`, `DropdownSide`, `DropdownAlign`
 - `dropdown_content_class`
 - `dropdown_item_class`
+- `dropdown_inset_item_class`
+- `dropdown_checkbox_item_class`
+- `dropdown_radio_item_class`
+- `dropdown_shortcut_class`
 
 ## Behavior
 
 `open` stays controlled by the app. Give the trigger an `id`, pass it as
-`anchor_id`, and pass `on_open_change` to `DropdownContent`.
+`anchor_id`, and pass `on_open_change` to `DropdownContent`. Checkbox and
+radio state stay controlled too: an item's `onclick` reports activation, and
+the app flips `checked`:
+
+```rust
+let mut status_bar = use_signal(|| true);
+
+rsx! {
+  DropdownCheckboxItem {
+    checked: status_bar(),
+    onclick: move |_| status_bar.toggle(),
+    "Status bar"
+    DropdownShortcut { "Ctrl+/" }
+  }
+}
+```
+
+Checkbox items show a check mark and radio items a dot while checked, in an
+inset before the label; pass `inset: true` to plain items to line them up.
 
 - With `anchor_id`, content is placed next to the element with that id using
   fixed positioning, flips to the opposite side when the preferred side lacks
@@ -45,8 +71,9 @@ dioxus-shadcn = { version = "0.2", default-features = false, features = ["dropdo
 - Opening focuses the first enabled item. ArrowDown and ArrowUp move focus
   and wrap at the ends, skipping disabled items; Home and End jump to the
   first and last item; typing a prefix focuses the next matching item.
-- Enter, Space, or a click on an enabled item calls the item's `onclick` and
-  then requests close. Disabled items do not call `onclick`.
+- Enter, Space, or a click on an enabled item, including checkbox and radio
+  items, calls the item's `onclick` and then requests close. Disabled items
+  do not call `onclick`.
 - Closing returns focus to the `anchor_id` element, or without one to the
   element focused before opening, unless focus already moved to another
   control. Tab moves focus out
@@ -59,7 +86,9 @@ Simulator by `npm run verify:mobile-interactions`, and an Android emulator by
 
 ## Accessibility Notes
 
-Content uses menu semantics and items use menuitem semantics. The menu moves
+Content uses menu semantics, and items use `menuitem`, `menuitemcheckbox`, or
+`menuitemradio` semantics with `aria-checked`, so the checked state is
+announced as well as drawn. The menu moves
 DOM focus between items, so screen readers announce each item as it receives
 focus. Destructive items need text that names the action, not only color.
 Disabled items set `aria-disabled` next to `data-disabled` (see

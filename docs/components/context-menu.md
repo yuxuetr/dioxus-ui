@@ -30,6 +30,8 @@ dioxus-shadcn = { version = "0.2", default-features = false, features = ["contex
 - `ContextMenuDismissBehavior`, `ContextMenuSide`, `ContextMenuAlign`
 - `context_menu_content_class`
 - `context_menu_item_class`
+- `context_menu_checkbox_item_class`
+- `context_menu_radio_item_class`
 
 The module also re-exports `DropdownPrimitiveConfig` for users importing from
 `dioxus_shadcn::context_menu`.
@@ -37,7 +39,8 @@ The module also re-exports `DropdownPrimitiveConfig` for users importing from
 ## Behavior
 
 `open`, the pointer position, and checkbox or radio state stay controlled by
-the app. Open the menu from `oncontextmenu` and pass the position as
+the app. Checked checkbox items show a check mark and checked radio items a
+dot in their inset. Open the menu from `oncontextmenu` and pass the position as
 `anchor_point`:
 
 ```rust

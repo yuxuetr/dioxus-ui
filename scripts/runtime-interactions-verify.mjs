@@ -728,6 +728,52 @@ async function runBrowserAssertions() {
     await expect(dropdown).toHaveAttribute("data-action", "edit");
     await expect(dropdownTrigger).toBeFocused();
 
+    const options = page.locator('[data-interaction-target="dropdown-options"]');
+    const optionsTrigger = page.locator("#interaction-dropdown-options-trigger");
+    const optionsMenu = options.locator('[role="menu"]');
+    const optionCheckbox = (name) => optionsMenu.getByRole("menuitemcheckbox", { name, exact: false });
+    const optionRadio = (name) => optionsMenu.getByRole("menuitemradio", { name, exact: true });
+    const markOpacity = (locator) =>
+      locator.evaluate((element) => getComputedStyle(element, "::before").opacity);
+    const openOptions = async () => {
+      await optionsTrigger.click();
+      await expectAnchoredReady(options);
+    };
+    await optionsTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await openOptions();
+    await expectAccessibleOpen(page, "open dropdown options");
+    // Checkbox and radio items are menu items for focus movement.
+    await expect(optionCheckbox("Status bar")).toBeFocused();
+    await expect(optionCheckbox("Status bar")).toHaveAttribute("aria-checked", "true");
+    await expect(optionCheckbox("Minimap")).toHaveAttribute("aria-checked", "false");
+    expect(await markOpacity(optionCheckbox("Status bar"))).toBe("1");
+    expect(await markOpacity(optionCheckbox("Minimap"))).toBe("0");
+    expect(await markOpacity(optionRadio("Panel bottom"))).toBe("1");
+    expect(await markOpacity(optionRadio("Panel right"))).toBe("0");
+    await expect(optionsMenu.getByText("Ctrl+/", { exact: true })).toBeVisible();
+    await page.keyboard.press("ArrowDown");
+    await expect(optionCheckbox("Minimap")).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(optionsMenu).toBeHidden();
+    await expect(options).toHaveAttribute("data-minimap", "true");
+    await expect(optionsTrigger).toBeFocused();
+    await openOptions();
+    await expect(optionCheckbox("Minimap")).toHaveAttribute("aria-checked", "true");
+    expect(await markOpacity(optionCheckbox("Minimap"))).toBe("1");
+    await page.keyboard.press("End");
+    await expect(optionRadio("Panel right")).toBeFocused();
+    await page.keyboard.press(" ");
+    await expect(optionsMenu).toBeHidden();
+    await expect(options).toHaveAttribute("data-panel", "right");
+    await openOptions();
+    await expect(optionRadio("Panel right")).toHaveAttribute("aria-checked", "true");
+    await expect(optionRadio("Panel bottom")).toHaveAttribute("aria-checked", "false");
+    expect(await markOpacity(optionRadio("Panel right"))).toBe("1");
+    expect(await markOpacity(optionRadio("Panel bottom"))).toBe("0");
+    await optionCheckbox("Status bar").click();
+    await expect(optionsMenu).toBeHidden();
+    await expect(options).toHaveAttribute("data-status-bar", "false");
+
     const menubar = page.locator('[data-interaction-target="menubar"]');
     await expect(menubar.getByRole("menubar", { name: "Editor", exact: true })).toHaveCount(1);
     const menubarTrigger = (value) => page.locator(`#interaction-menubar-${value}`);
@@ -2228,7 +2274,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (46 fixtures)");
+  console.log("runtime interaction verification passed (47 fixtures)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

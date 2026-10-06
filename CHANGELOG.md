@@ -8,7 +8,17 @@ for commit messages.
 
 ## [Unreleased]
 
+### Added
+
+- `DropdownCheckboxItem`, `DropdownRadioGroup`, `DropdownRadioItem`, and
+  `DropdownShortcut`, as Context Menu and Menubar have, and `inset` on
+  `DropdownItem` to line plain items up with them.
+
 ### Fixed
+
+- Checked checkbox and radio items in Context Menu and Menubar now show a
+  check mark or a dot; they were inset for one but drew nothing, so the
+  checked state was only announced, not seen.
 
 - Source-copy templates had drifted from the crate
   ([RFC 0066](docs/rfcs/0066-template-parity.md)); a test now compares them

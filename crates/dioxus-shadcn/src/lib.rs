@@ -115,6 +115,9 @@ mod anchored_overlay;
 ))]
 mod listbox;
 
+#[cfg(any(feature = "context-menu", feature = "dropdown", feature = "menubar"))]
+mod menu_marks;
+
 #[cfg(any(feature = "sonner", feature = "toast"))]
 mod dismiss_timer;
 
@@ -413,9 +416,9 @@ pub use context_menu::{
   ContextMenuItem, ContextMenuLabel, ContextMenuRadioGroup, ContextMenuRadioItem,
   ContextMenuSeparator, ContextMenuShortcut, DismissBehavior as ContextMenuDismissBehavior,
   DropdownPrimitiveConfig as ContextMenuPrimitiveConfig, OverlayAlign as ContextMenuAlign,
-  OverlaySide as ContextMenuSide, context_menu_content_class, context_menu_group_class,
-  context_menu_item_class, context_menu_label_class, context_menu_separator_class,
-  context_menu_shortcut_class,
+  OverlaySide as ContextMenuSide, context_menu_checkbox_item_class, context_menu_content_class,
+  context_menu_group_class, context_menu_item_class, context_menu_label_class,
+  context_menu_radio_item_class, context_menu_separator_class, context_menu_shortcut_class,
 };
 #[cfg(feature = "data-table")]
 pub use data_table::{
@@ -471,11 +474,14 @@ pub use drawer::{
 #[cfg(feature = "dropdown")]
 pub use dropdown::{
   DROPDOWN_CONTENT_BASE_CLASS, DROPDOWN_GROUP_BASE_CLASS, DROPDOWN_ITEM_BASE_CLASS,
-  DROPDOWN_LABEL_BASE_CLASS, DROPDOWN_SEPARATOR_BASE_CLASS,
-  DismissBehavior as DropdownDismissBehavior, DropdownContent, DropdownGroup, DropdownItem,
-  DropdownLabel, DropdownPrimitiveConfig, DropdownSeparator, OverlayAlign as DropdownAlign,
-  OverlaySide as DropdownSide, dropdown_content_class, dropdown_group_class, dropdown_item_class,
-  dropdown_label_class, dropdown_separator_class,
+  DROPDOWN_ITEM_INSET_CLASS, DROPDOWN_LABEL_BASE_CLASS, DROPDOWN_SEPARATOR_BASE_CLASS,
+  DROPDOWN_SHORTCUT_BASE_CLASS, DismissBehavior as DropdownDismissBehavior, DropdownCheckboxItem,
+  DropdownContent, DropdownGroup, DropdownItem, DropdownLabel, DropdownPrimitiveConfig,
+  DropdownRadioGroup, DropdownRadioItem, DropdownSeparator, DropdownShortcut,
+  OverlayAlign as DropdownAlign, OverlaySide as DropdownSide, dropdown_checkbox_item_class,
+  dropdown_content_class, dropdown_group_class, dropdown_inset_item_class, dropdown_item_class,
+  dropdown_label_class, dropdown_radio_item_class, dropdown_separator_class,
+  dropdown_shortcut_class,
 };
 #[cfg(feature = "empty")]
 pub use empty::{
@@ -548,9 +554,10 @@ pub use menubar::{
   MENUBAR_SEPARATOR_BASE_CLASS, MENUBAR_SHORTCUT_BASE_CLASS, MENUBAR_TRIGGER_BASE_CLASS, Menubar,
   MenubarCheckboxItem, MenubarContent, MenubarItem, MenubarLabel, MenubarMenu, MenubarRadioGroup,
   MenubarRadioItem, MenubarSeparator, MenubarShortcut, MenubarTrigger,
-  OverlayAlign as MenubarAlign, OverlaySide as MenubarSide, menubar_class, menubar_content_class,
-  menubar_item_class, menubar_label_class, menubar_menu_class, menubar_separator_class,
-  menubar_shortcut_class, menubar_trigger_class,
+  OverlayAlign as MenubarAlign, OverlaySide as MenubarSide, menubar_checkbox_item_class,
+  menubar_class, menubar_content_class, menubar_item_class, menubar_label_class,
+  menubar_menu_class, menubar_radio_item_class, menubar_separator_class, menubar_shortcut_class,
+  menubar_trigger_class,
 };
 #[cfg(feature = "message")]
 pub use message::{

@@ -56,6 +56,7 @@ examples! {
   dialog_form => "dialog", "Form in a dialog";
   drawer_basic => "drawer", "Bottom drawer";
   dropdown_actions => "dropdown", "Actions menu";
+  dropdown_options => "dropdown", "View options";
   hover_card_profile => "hover-card", "Profile card";
   menubar_editor => "menubar", "Editor menus";
   popover_basic => "popover", "Form in a popover";

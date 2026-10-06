@@ -33,12 +33,17 @@ dioxus-shadcn = { version = "0.2", default-features = false, features = ["menuba
 - `menubar_class`
 - `menubar_trigger_class`
 - `menubar_item_class`
+- `menubar_checkbox_item_class`
+- `menubar_radio_item_class`
 
 The module also re-exports `DropdownPrimitiveConfig`, `DismissBehavior`,
 `OverlayAlign`, and `OverlaySide` for users importing from
 `dioxus_shadcn::menubar`.
 
 ## Behavior
+
+Checked `MenubarCheckboxItem`s show a check mark and checked
+`MenubarRadioItem`s a dot in their inset; the app controls `checked`.
 
 The open menu stays controlled by the app. Keep the open menu's value, give
 each `MenubarMenu` a `value`, give each trigger an `id`, and pass it as the

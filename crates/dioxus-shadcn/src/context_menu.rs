@@ -6,6 +6,7 @@ pub use dioxus_shadcn_primitives::{
 
 use crate::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
 use crate::listbox::{ListboxMode, use_listbox};
+use crate::menu_marks::{MENU_CHECKBOX_MARK_CLASS, MENU_RADIO_MARK_CLASS, menu_mark_state_class};
 
 pub const CONTEXT_MENU_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
 pub const CONTEXT_MENU_GROUP_BASE_CLASS: &str = "p-1";
@@ -42,6 +43,20 @@ pub fn context_menu_item_class(inset: bool, destructive: bool, class: &str) -> S
 
 pub fn context_menu_separator_class(class: &str) -> String {
   classes([Some(CONTEXT_MENU_SEPARATOR_BASE_CLASS), Some(class)])
+}
+
+/// An inset item with a check mark shown while `checked`.
+pub fn context_menu_checkbox_item_class(checked: bool, class: &str) -> String {
+  let mark =
+    classes([Some(MENU_CHECKBOX_MARK_CLASS), Some(menu_mark_state_class(checked)), Some(class)]);
+  context_menu_item_class(true, false, &mark)
+}
+
+/// An inset item with a dot shown while `checked`.
+pub fn context_menu_radio_item_class(checked: bool, class: &str) -> String {
+  let mark =
+    classes([Some(MENU_RADIO_MARK_CLASS), Some(menu_mark_state_class(checked)), Some(class)]);
+  context_menu_item_class(true, false, &mark)
 }
 
 pub fn context_menu_shortcut_class(class: &str) -> String {
@@ -148,7 +163,7 @@ pub fn ContextMenuCheckboxItem(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = context_menu_item_class(true, false, &class);
+  let class = context_menu_checkbox_item_class(checked, &class);
 
   rsx! {
     div {
@@ -192,7 +207,7 @@ pub fn ContextMenuRadioItem(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = context_menu_item_class(true, false, &class);
+  let class = context_menu_radio_item_class(checked, &class);
 
   rsx! {
     div {

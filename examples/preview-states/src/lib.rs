@@ -58,6 +58,9 @@ use dioxus_shadcn::{
 };
 use dioxus_shadcn::{DateOrder, DatePickerInput};
 use dioxus_shadcn::{Diff, DiffAfter, DiffBefore};
+use dioxus_shadcn::{
+  DropdownCheckboxItem, DropdownRadioGroup, DropdownRadioItem, DropdownShortcut,
+};
 use dioxus_shadcn::{Fab, FabAction};
 use dioxus_shadcn::{
   InputOtp, InputOtpGroup, InputOtpHiddenInput, InputOtpSlot, Pagination, PaginationContent,
@@ -891,6 +894,10 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   };
   let mut dropdown_open = use_signal(|| false);
   let mut dropdown_action = use_signal(|| "none");
+  let mut options_open = use_signal(|| false);
+  let mut status_bar = use_signal(|| true);
+  let mut minimap = use_signal(|| false);
+  let mut panel = use_signal(|| "bottom");
   let mut menubar_active = use_signal(|| None::<&'static str>);
   let mut menubar_action = use_signal(|| "none");
   let menubar_open = move |value: &str| menubar_active() == Some(value);
@@ -1675,6 +1682,51 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 destructive: true,
                 onclick: move |_| dropdown_action.set("delete"),
                 "Delete"
+              }
+            }
+          }
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "dropdown-options",
+            "data-status-bar": "{status_bar}",
+            "data-minimap": "{minimap}",
+            "data-panel": "{panel}",
+            h2 { class: "text-sm font-medium", "Dropdown options interaction" }
+            button {
+              id: "interaction-dropdown-options-trigger",
+              class: "{secondary_button_class} mt-3",
+              "aria-haspopup": "menu",
+              "aria-expanded": if options_open() { "true" } else { "false" },
+              onclick: move |_| options_open.toggle(),
+              "View"
+            }
+            DropdownContent {
+              open: options_open(),
+              anchor_id: "interaction-dropdown-options-trigger",
+              on_open_change: move |open| options_open.set(open),
+              DropdownCheckboxItem {
+                checked: status_bar(),
+                onclick: move |_| status_bar.toggle(),
+                "Status bar"
+                DropdownShortcut { "Ctrl+/" }
+              }
+              DropdownCheckboxItem {
+                checked: minimap(),
+                onclick: move |_| minimap.toggle(),
+                "Minimap"
+              }
+              DropdownSeparator {}
+              DropdownRadioGroup { value: panel(),
+                DropdownRadioItem {
+                  checked: panel() == "bottom",
+                  onclick: move |_| panel.set("bottom"),
+                  "Panel bottom"
+                }
+                DropdownRadioItem {
+                  checked: panel() == "right",
+                  onclick: move |_| panel.set("right"),
+                  "Panel right"
+                }
               }
             }
           }
