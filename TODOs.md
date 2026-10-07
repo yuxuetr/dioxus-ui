@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 82% (9 of 11 tasks)
+- Overall: 100% (11 of 11 tasks)
 - Current milestone: M212 (0.5.0 release)
-- Current task: M212.2 and M208.3, the 0.5.0 and 0.4.3 publishes, wait for the release owner
+- Current task: none; 0.5.0 is published, and Stages 13 to 15 need tasks planned
 
 ## Backup
 
@@ -43,9 +43,10 @@
   - The check and indeterminate marks take the color of the token the checked box uses for its foreground, in the crate and the template, instead of fixed white and dark images.
   - Exit: `npm run verify:theme-presets` checks mark contrast against the checked background for every preset and fails on the old white mark under a light-primary preset such as `cupcake`; the browser check sees the mark color change with `data-theme`.
   - Done: no code change needed. The premise came from a stale known limitation: since 0.2.0 (`87f4ffb`) the marks are masks filled with `--primary-foreground` in the crate and the template. The browser check in `verify:runtime-interactions` already asserts the mark color equals `--primary-foreground` under light, dark, and an overridden token, and `verify:theme-presets` checks `primary-foreground` on `primary` for all 33 presets. Corrected the known limitation in `docs/release.md`.
-- TODO M208.3 Publish 0.4.3
+- DONE M208.3 Publish 0.4.3
   - After M208.1 and M208.2 and the release owner's confirmation: CHANGELOG, versions, release gate, `cargo-semver-checks --release-type patch` against 0.4.2, CI, publish, then check both modes from crates.io.
   - Cut from the local `release/0.4` branch (`117c4a4`), since `main` carries the 0.5.0 class merge; bumping it to 0.4.3 matches the crate README's `@source` example, then merge the `[0.4.3]` notes back into `main`.
+  - Done: not published. The release owner chose to ship M208 in 0.5.0 instead (2026-10-07); `release/0.4` is an ancestor of `main`, and the 0.5.0 notes carry its changes.
 
 ## M209 User Class Overrides (RFC 0076)
 
@@ -85,8 +86,9 @@
 - DONE M212.1 Prepare 0.5.0
   - CHANGELOG with a Migration note per breaking change from M209 to M211, versions, release gate, `cargo-semver-checks --release-type minor` against 0.4.3, publish dry run.
   - Done (332ddcf): versions 0.5.0, CHANGELOG `[0.5.0] - 2026-10-07` with an introduction and a Migration note per breaking change. `cargo-semver-checks --release-type minor` against 0.4.3 (`--baseline-rev release/0.4`, since 0.4.3 is unpublished) finds nothing in core and primitives, and in `dioxus-shadcn` only changes the Migration section covers. `verify:release` and `cargo publish --workspace --dry-run` pass. If 0.4.3 is published first, its class-merge entry also stays in the 0.5.0 notes.
-- TODO M212.2 Publish 0.5.0
+- DONE M212.2 Publish 0.5.0
   - Only after the release owner confirms; then build fresh apps in both modes from crates.io, including a class override and an uncontrolled Select.
+  - Done (5e70067): semver baseline moved to the published 0.4.2 (cf590f3); CI's release gate got Playwright Chromium (283b209) and passed; the four crates published in dependency order and tagged `v0.5.0`. Fresh apps from crates.io in crate mode and with the published `dxui` render `Button { class: "px-2" }` without `px-4` and a `default_value` Select showing and checking its value; the copy-mode app builds while denying warnings.
 
 ## Deferred (re-evaluate when)
 
