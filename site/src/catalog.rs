@@ -34,7 +34,7 @@ pub const CATEGORIES: &[Category] = &[
       Component {
         slug: "command",
         title: "Command",
-        description: "Controlled command palette parts with active descendant semantics.",
+        description: "Command list whose root links the input to the list and highlights options.",
         feature: "command",
       },
       Component {
@@ -70,7 +70,7 @@ pub const CATEGORIES: &[Category] = &[
       Component {
         slug: "toggle-group",
         title: "Toggle Group",
-        description: "Toggle Group component for grouped single or multiple pressed states.",
+        description: "Toggle Group whose root owns the pressed item, or items.",
         feature: "toggle-group",
       },
     ],
@@ -124,7 +124,7 @@ pub const CATEGORIES: &[Category] = &[
       Component {
         slug: "input-otp",
         title: "Input OTP",
-        description: "Input OTP component with controlled visual slots and native input support.",
+        description: "One-time code input whose root owns the code.",
         feature: "input-otp",
       },
       Component {
@@ -148,7 +148,7 @@ pub const CATEGORIES: &[Category] = &[
       Component {
         slug: "radio-group",
         title: "Radio Group",
-        description: "Radio Group component for single-choice grouped selection.",
+        description: "Radio Group whose root owns the checked value.",
         feature: "radio-group",
       },
       Component {
@@ -298,7 +298,7 @@ pub const CATEGORIES: &[Category] = &[
       Component {
         slug: "sidebar",
         title: "Sidebar",
-        description: "Controlled sidebar shell and navigation composition parts.",
+        description: "Sidebar shell whose provider owns the collapsed and off-canvas state, with navigation parts.",
         feature: "sidebar",
       },
       Component {
@@ -322,7 +322,7 @@ pub const CATEGORIES: &[Category] = &[
       Component {
         slug: "accordion",
         title: "Accordion",
-        description: "Accordion components with controlled open state.",
+        description: "Accordion whose root owns which items are open.",
         feature: "accordion",
       },
       Component {
@@ -340,13 +340,13 @@ pub const CATEGORIES: &[Category] = &[
       Component {
         slug: "carousel",
         title: "Carousel",
-        description: "Controlled carousel composition parts and index helpers.",
+        description: "Carousel whose root owns the selected slide.",
         feature: "carousel",
       },
       Component {
         slug: "collapsible",
         title: "Collapsible",
-        description: "Collapsible component for controlled disclosure content.",
+        description: "Collapsible section whose root owns whether it is open.",
         feature: "collapsible",
       },
       Component {
