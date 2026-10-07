@@ -90,7 +90,9 @@ export function serveDioxusWeb({ packageName, bin, port }) {
     url,
     async ready() {
       const startedAt = Date.now();
-      while (Date.now() - startedAt < 120000) {
+      // A cold fullstack build (server and wasm) took about 105 s on the CI
+      // runner and once passed 120 s; a failed build still ends the wait at once.
+      while (Date.now() - startedAt < 300000) {
         if (exited()) {
           throw new Error(`dx serve exited before ${packageName} became ready.\n${output}`);
         }
