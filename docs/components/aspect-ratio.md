@@ -12,7 +12,7 @@ dxui add aspect-ratio
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.4", default-features = false, features = ["aspect-ratio"] }
+dioxus-shadcn = { version = "0.5", default-features = false, features = ["aspect-ratio"] }
 ```
 
 ## API Surface

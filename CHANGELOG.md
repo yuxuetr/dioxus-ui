@@ -8,8 +8,20 @@ for commit messages.
 
 ## [Unreleased]
 
-### Changed
+## [0.5.0] - 2026-10-07
 
+Version 0.5.0 lets a class passed to a component win (RFC 0076), moves the
+state of compound components into their roots (RFC 0077), and takes density
+from a `DensityProvider` so every control offers a touch target under
+`Touch` (RFC 0078). Most stateful components change: parts lose their
+per-part state props, sit inside a root, and stop rendering outside it.
+`cargo-semver-checks` against 0.4.3 (the `release/0.4` branch) finds no
+breaking change in `dioxus-shadcn-core` or `dioxus-shadcn-primitives`; every
+finding in `dioxus-shadcn` (removed props fields, the removed accordion and
+toggle group helpers, `command_item_class`'s parameters, and new props
+fields) is covered under Migration.
+
+### Changed
 - A class passed to a component now wins as the last class does in
   shadcn/ui: it replaces each component utility whose properties it sets in
   full, under the same variants and importance, so `Button { class: "px-2" }`
@@ -194,6 +206,8 @@ for commit messages.
 - Button: remove `density` and wrap the app, or the part of it, in
   `DensityProvider { density }`. `button_class` keeps its density argument;
   pass `use_density()` to follow the provider.
+- Props structs gain fields for the new root props. Code that builds a
+  `*Props` struct by literal, rather than through `rsx!`, adds them.
 - Copy mode: re-copy components with `dxui add <name> --overwrite`. `utils`
   now brings two helpers, `class_merge` and `class_merge_table`; the second
   is generated from Tailwind and stores its names reversed so Tailwind

@@ -18,7 +18,7 @@ src/components/ui/breadcrumb.rs
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.4", default-features = false, features = ["breadcrumb"] }
+dioxus-shadcn = { version = "0.5", default-features = false, features = ["breadcrumb"] }
 ```
 
 ## API Surface

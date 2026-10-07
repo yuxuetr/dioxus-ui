@@ -12,7 +12,7 @@ dxui add typography
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.4", default-features = false, features = ["typography"] }
+dioxus-shadcn = { version = "0.5", default-features = false, features = ["typography"] }
 ```
 
 ## API Surface

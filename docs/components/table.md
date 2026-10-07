@@ -11,7 +11,7 @@ dxui add table
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.4", default-features = false, features = ["table"] }
+dioxus-shadcn = { version = "0.5", default-features = false, features = ["table"] }
 ```
 
 ## API Surface

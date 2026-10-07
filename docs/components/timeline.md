@@ -12,7 +12,7 @@ dxui add timeline
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.4", default-features = false, features = ["timeline"] }
+dioxus-shadcn = { version = "0.5", default-features = false, features = ["timeline"] }
 ```
 
 ## API Surface

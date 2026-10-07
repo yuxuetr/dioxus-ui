@@ -12,7 +12,7 @@ dxui add context-menu
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.4", default-features = false, features = ["context-menu"] }
+dioxus-shadcn = { version = "0.5", default-features = false, features = ["context-menu"] }
 ```
 
 ## API Surface

@@ -12,7 +12,7 @@ dxui add swap
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.4", default-features = false, features = ["swap"] }
+dioxus-shadcn = { version = "0.5", default-features = false, features = ["swap"] }
 ```
 
 ## API Surface

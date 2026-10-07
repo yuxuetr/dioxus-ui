@@ -19,7 +19,7 @@ src/components/ui/item.rs
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.4", default-features = false, features = ["item"] }
+dioxus-shadcn = { version = "0.5", default-features = false, features = ["item"] }
 ```
 
 ## API Surface

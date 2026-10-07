@@ -13,7 +13,7 @@ dxui add slider
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.4", default-features = false, features = ["slider"] }
+dioxus-shadcn = { version = "0.5", default-features = false, features = ["slider"] }
 ```
 
 ## API Surface

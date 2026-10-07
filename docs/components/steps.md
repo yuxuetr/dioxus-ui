@@ -12,7 +12,7 @@ dxui add steps
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.4", default-features = false, features = ["steps"] }
+dioxus-shadcn = { version = "0.5", default-features = false, features = ["steps"] }
 ```
 
 ## API Surface

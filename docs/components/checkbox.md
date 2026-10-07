@@ -12,7 +12,7 @@ dxui add checkbox
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.4", default-features = false, features = ["checkbox"] }
+dioxus-shadcn = { version = "0.5", default-features = false, features = ["checkbox"] }
 ```
 
 ## API Surface
