@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50% (3 of 6 tasks)
-- Current milestone: M213 (0.6.0 public surface)
-- Current task: M213.4
+- Overall: 67% (4 of 6 tasks)
+- Current milestone: M214 (0.6.0 release)
+- Current task: M214.1
 
 ## Backup
 
@@ -45,9 +45,10 @@
   - Same for the primitives crate under RFC 0079's decision on its promise; the styled crate keeps compiling against it.
   - Exit: `#![deny(missing_docs)]` passes; the crates README and `docs/public-api-surface-inventory.md` state what the primitives crate promises.
   - Done (efec746): the compiler showed which of the 22 unnamed items nothing calls; the `dismissal` and `typeahead` modules, the toast/Sonner runtime request helpers, `slider_snap`, and `slider_percent` are removed, three crate-only helpers are private, and the rest stay as types of called functions. 569 doc comments; primitives and core deny `missing_docs`, `cargo doc -D warnings` passes, and 288 primitive doc blocks were copied into the templates that inline them. The crates README and the inventory state the primitives crate's own semver promise. Release gate, site, runtime interactions, and fixture smoke pass.
-- TODO M213.4 `cargo-semver-checks` in the release gate
+- DONE M213.4 `cargo-semver-checks` in the release gate
   - `npm run verify:release` compares the three library crates against the last published version, with the release type taken from the version bump, and `docs/release.md` drops the manual step.
   - Exit: the gate fails when a public function is removed without a minor bump and passes with the bump (reverse-verify both on a scratch branch); CI runs it.
+  - Done (0d14a37): `scripts/semver-verify.mjs` (`npm run verify:semver`, last step of `verify:release`) compares against the last reachable `v*` tag with `--baseline-rev`, offline. On the tree at 0.5.0 it fails on the real RFC 0079 removals (primitives 5, styled 4 major findings) and passes in a scratch worktree bumped to 0.6.0; core passes unbumped since nothing in it broke. CI fetches tags and installs the tool. `docs/release.md` keeps the forced-lint command for listing Migration findings. `verify:release` is red until M214.1 bumps the version.
 
 ## M214 0.6.0 Release
 
