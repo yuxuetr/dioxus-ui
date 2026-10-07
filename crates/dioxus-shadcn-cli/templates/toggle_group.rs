@@ -5,6 +5,121 @@ use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub enum NavigationOrientation {
+  Horizontal,
+  Vertical,
+  #[default]
+  Both,
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum FocusMove {
+  Next,
+  Previous,
+  First,
+  Last,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct RovingFocusItem {
+  pub id: String,
+  pub disabled: bool,
+}
+
+impl RovingFocusItem {
+  pub fn enabled(id: impl Into<String>) -> Self {
+    Self { id: id.into(), disabled: false }
+  }
+
+  pub fn disabled(id: impl Into<String>) -> Self {
+    Self { id: id.into(), disabled: true }
+  }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct RovingFocusState {
+  pub active_id: Option<String>,
+  pub orientation: NavigationOrientation,
+  pub looping: bool,
+}
+
+impl RovingFocusState {
+  pub fn new(orientation: NavigationOrientation) -> Self {
+    Self { active_id: None, orientation, looping: true }
+  }
+
+  pub fn with_active_id(mut self, active_id: impl Into<String>) -> Self {
+    self.active_id = Some(active_id.into());
+    self
+  }
+
+  pub const fn with_looping(mut self, looping: bool) -> Self {
+    self.looping = looping;
+    self
+  }
+
+  pub fn move_focus<'a>(
+    &self,
+    items: &'a [RovingFocusItem],
+    focus_move: FocusMove,
+  ) -> Option<&'a str> {
+    match focus_move {
+      FocusMove::First => first_enabled(items),
+      FocusMove::Last => last_enabled(items),
+      FocusMove::Next => move_by(items, self.active_id.as_deref(), 1, self.looping),
+      FocusMove::Previous => move_by(items, self.active_id.as_deref(), -1, self.looping),
+    }
+  }
+}
+
+fn first_enabled(items: &[RovingFocusItem]) -> Option<&str> {
+  items.iter().find(|item| !item.disabled).map(|item| item.id.as_str())
+}
+
+fn last_enabled(items: &[RovingFocusItem]) -> Option<&str> {
+  items.iter().rev().find(|item| !item.disabled).map(|item| item.id.as_str())
+}
+
+fn move_by<'a>(
+  items: &'a [RovingFocusItem],
+  active_id: Option<&str>,
+  step: isize,
+  looping: bool,
+) -> Option<&'a str> {
+  if items.is_empty() {
+    return None;
+  }
+
+  let start = active_id
+    .and_then(|id| items.iter().position(|item| item.id == id))
+    .unwrap_or_else(|| if step > 0 { 0 } else { items.len().saturating_sub(1) });
+
+  if active_id.is_none() && !items[start].disabled {
+    return Some(items[start].id.as_str());
+  }
+
+  let mut index = start as isize;
+
+  for _ in 0..items.len() {
+    index += step;
+
+    if looping {
+      index = index.rem_euclid(items.len() as isize);
+    } else if index < 0 || index >= items.len() as isize {
+      return None;
+    }
+
+    let item = &items[index as usize];
+
+    if !item.disabled {
+      return Some(item.id.as_str());
+    }
+  }
+
+  None
+}
+
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ToggleGroupType {
   #[default]
   Single,
