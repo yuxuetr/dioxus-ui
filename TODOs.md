@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 64% (7 of 11 tasks)
-- Current milestone: M210 (component-owned state)
-- Current task: M211.1 (M208.3, the 0.4.3 publish, waits for the release owner)
+- Overall: 73% (8 of 11 tasks)
+- Current milestone: M212 (0.5.0 release)
+- Current task: M212.1 (M208.3, the 0.4.3 publish, waits for the release owner)
 
 ## Backup
 
@@ -75,9 +75,10 @@
 
 ## M211 Density Decision
 
-- TODO M211.1 Measure touch targets and decide
+- DONE M211.1 Measure touch targets and decide
   - In the Mobile self-test (iOS Simulator, RFC 0018), record the rendered size of every interactive control at defaults. If any is below 44 by 44 CSS pixels, density comes from a root context and the interactive components take it; otherwise `UiDensity` and Button's `density` prop are removed. Either way the design docs say what was measured.
   - Exit: the measurement table is in the decision record; the chosen path is implemented in crate and templates with tests, or removed with a Migration note.
+  - Done: on an iPhone 17 Pro simulator (iOS 26.3) 124 of 134 controls were under 44 by 44 at defaults (table in RFC 0078, f2cf88e), so density comes from `DensityProvider` and the interactive components read it (1ef4575): a Touch height floor for controls with text, a centered `after:` hit area for controls drawn small, Button without its `density` prop. The Mobile preview renders under Touch and the Mobile self-test fails on any control under 44 by 44 (inline text links exempt); it reports 0 of 131 now and went red at 52, 17, and 1 while classes were missing. `verify:release`, `verify:runtime-interactions`, and `verify:mobile-interactions` pass; Desktop and Android self-tests not run.
 
 ## M212 0.5.0 Release
 
