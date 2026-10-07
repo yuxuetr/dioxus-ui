@@ -1,7 +1,8 @@
 # Accordion
 
-Accordion provides controlled styled root, item, trigger, and content parts
-for collapsible content sections.
+Accordion provides styled root, item, trigger, and content parts for
+collapsible content sections. The root owns which items are open
+([RFC 0077](../rfcs/0077-component-owned-state.md)).
 
 ## Source Copy
 
@@ -24,45 +25,42 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["accord
 - `accordion_item_class`
 - `accordion_trigger_class`
 - `accordion_content_class`
-- `accordion_single_open`
-- `accordion_multiple_open`
 
 ## Behavior
 
-The open items stay controlled by the app. Keep the open value, pass `open` to
-each trigger and content part, and handle `Accordion` `on_toggle`, which
-reports the toggled item's value:
+`Accordion` opens one item at a time. Start it with `default_value`, or
+control it with `value`; the empty string means every item is closed.
+`on_value_change` hears every change the user makes, including `""` when the
+open item closes:
 
 ```rust
-let mut open = use_signal(|| None::<String>);
-let is_open = move |value: &str| open().as_deref() == Some(value);
-
 rsx! {
-  Accordion {
-    on_toggle: move |value: String| open.set(accordion_single_open(open().as_deref(), &value)),
+  Accordion { default_value: "shipping",
     AccordionItem { value: "shipping",
-      AccordionTrigger { open: is_open("shipping"), "Shipping" }
-      AccordionContent { open: is_open("shipping"), "Ships in two days." }
+      AccordionTrigger { "Shipping" }
+      AccordionContent { "Ships in two days." }
     }
     AccordionItem { value: "returns",
-      AccordionTrigger { open: is_open("returns"), "Returns" }
-      AccordionContent { open: is_open("returns"), "Returns within 30 days." }
+      AccordionTrigger { "Returns" }
+      AccordionContent { "Returns within 30 days." }
     }
   }
 }
 ```
 
-- `accordion_single_open` keeps at most one item open; toggling the open item
-  closes it. `accordion_multiple_open` adds or removes the toggled value from a
-  list.
-- A click, Enter, or Space on a trigger calls `on_toggle` with its item's
-  value.
+- With `multiple: true`, any number of items open; the root takes `values`,
+  `default_values`, and `on_values_change` instead.
+- A click, Enter, or Space on a trigger opens its item, or closes it when
+  open.
 - Up and Down move focus between enabled triggers and wrap; Home and End jump
   to the first and last. Moving focus does not toggle.
 - Every enabled trigger stays in the Tab order.
-- `AccordionItem` takes a required `value`. Inside `Accordion`, each trigger
-  renders `aria-controls` and each content region renders `aria-labelledby`.
-  Without `Accordion`, the parts render no ids and report nothing.
+- `AccordionItem` takes a required `value`. Each trigger renders
+  `aria-controls` and each content region renders `aria-labelledby`, with ids
+  the root generates.
+- `AccordionItem` must be inside `Accordion`, and a trigger or content inside
+  an `AccordionItem`; otherwise the part renders nothing and logs which root
+  it is missing.
 
 The Web renderer is covered by `npm run verify:runtime-interactions`.
 

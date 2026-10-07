@@ -1,5 +1,6 @@
-//! The value, or values with `multiple`, a Select or Combobox root owns
-//! (RFC 0077).
+//! The value, or values with `multiple`, a Select, Combobox, Accordion, or
+//! Toggle Group root owns (RFC 0077). A single choice holds the empty string
+//! while nothing is chosen, as in Radix.
 
 use super::root_state::{Controllable, use_controllable};
 use dioxus::prelude::*;
@@ -17,7 +18,18 @@ pub(crate) struct Choice {
 impl Choice {
   /// The chosen values, subscribing the reader to their changes.
   pub(crate) fn chosen(&self) -> Vec<String> {
-    if self.multiple { self.many.get() } else { self.single.get().into_iter().collect() }
+    if self.multiple {
+      self.many.get()
+    } else {
+      self.single.get().into_iter().filter(|value| !value.is_empty()).collect()
+    }
+  }
+
+  /// As `choose`, except that pressing the one chosen value of a single
+  /// choice clears it, so its root hears the empty string.
+  pub(crate) fn toggle(&self, value: String) {
+    let clears = !self.multiple && self.single.get().as_deref() == Some(value.as_str());
+    self.choose.call(if clears { String::new() } else { value });
   }
 }
 

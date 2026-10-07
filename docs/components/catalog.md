@@ -74,11 +74,11 @@ Public components: 82
 
 ### Layout
 
-- [Accordion](accordion.md): Accordion components with controlled open state.
+- [Accordion](accordion.md): Accordion whose root owns which items are open.
 - [Aspect Ratio](aspect-ratio.md): Fixed-ratio media and content slot.
 - [Card](card.md): Card component with header, content, and footer parts.
 - [Carousel](carousel.md): Controlled carousel composition parts and index helpers.
-- [Collapsible](collapsible.md): Collapsible component for controlled disclosure content.
+- [Collapsible](collapsible.md): Collapsible section whose root owns whether it is open.
 - [Direction](direction.md): Direction component for scoped native ltr/rtl text direction.
 - [Indicator](indicator.md): Styled corner indicator wrapper and placed item.
 - [Item](item.md): Generic list item composition parts.
@@ -124,7 +124,7 @@ Public components: 82
 
 | Component | Description | CLI | Feature | Template | Source Target |
 | --- | --- | --- | --- | --- | --- |
-| [Accordion](accordion.md) | Accordion components with controlled open state. | `dxui add accordion` | `accordion` | `crates/dioxus-shadcn-cli/templates/accordion.rs` | `src/components/ui/accordion.rs` |
+| [Accordion](accordion.md) | Accordion whose root owns which items are open. | `dxui add accordion` | `accordion` | `crates/dioxus-shadcn-cli/templates/accordion.rs` | `src/components/ui/accordion.rs` |
 | [Alert](alert.md) | Alert component with title and description parts. | `dxui add alert` | `alert` | `crates/dioxus-shadcn-cli/templates/alert.rs` | `src/components/ui/alert.rs` |
 | [Alert Dialog](alert-dialog.md) | Alert dialog confirmation components backed by dialog primitive configuration. | `dxui add alert-dialog` | `alert-dialog` | `crates/dioxus-shadcn-cli/templates/alert_dialog.rs` | `src/components/ui/alert_dialog.rs` |
 | [Aspect Ratio](aspect-ratio.md) | Fixed-ratio media and content slot. | `dxui add aspect-ratio` | `aspect-ratio` | `crates/dioxus-shadcn-cli/templates/aspect_ratio.rs` | `src/components/ui/aspect_ratio.rs` |
@@ -140,7 +140,7 @@ Public components: 82
 | [Carousel](carousel.md) | Controlled carousel composition parts and index helpers. | `dxui add carousel` | `carousel` | `crates/dioxus-shadcn-cli/templates/carousel.rs` | `src/components/ui/carousel.rs` |
 | [Chart](chart.md) | Source-copy friendly SVG chart composition parts. | `dxui add chart` | `chart` | `crates/dioxus-shadcn-cli/templates/chart.rs` | `src/components/ui/chart.rs` |
 | [Checkbox](checkbox.md) | Checkbox component with checked and disabled states. | `dxui add checkbox` | `checkbox` | `crates/dioxus-shadcn-cli/templates/checkbox.rs` | `src/components/ui/checkbox.rs` |
-| [Collapsible](collapsible.md) | Collapsible component for controlled disclosure content. | `dxui add collapsible` | `collapsible` | `crates/dioxus-shadcn-cli/templates/collapsible.rs` | `src/components/ui/collapsible.rs` |
+| [Collapsible](collapsible.md) | Collapsible section whose root owns whether it is open. | `dxui add collapsible` | `collapsible` | `crates/dioxus-shadcn-cli/templates/collapsible.rs` | `src/components/ui/collapsible.rs` |
 | [Combobox](combobox.md) | Controlled searchable selection parts backed by popover primitive configuration. | `dxui add combobox` | `combobox` | `crates/dioxus-shadcn-cli/templates/combobox.rs` | `src/components/ui/combobox.rs` |
 | [Command](command.md) | Controlled command palette parts with active descendant semantics. | `dxui add command` | `command` | `crates/dioxus-shadcn-cli/templates/command.rs` | `src/components/ui/command.rs` |
 | [Context Menu](context-menu.md) | Controlled context menu parts backed by dropdown primitive configuration. | `dxui add context-menu` | `context-menu` | `crates/dioxus-shadcn-cli/templates/context_menu.rs` | `src/components/ui/context_menu.rs` |

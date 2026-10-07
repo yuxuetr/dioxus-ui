@@ -78,6 +78,7 @@ pub mod dialog;
   feature = "accordion",
   feature = "alert-dialog",
   feature = "checkbox",
+  feature = "collapsible",
   feature = "combobox",
   feature = "command",
   feature = "context-menu",
@@ -109,7 +110,9 @@ pub mod dialog;
 mod element_id;
 
 #[cfg(any(
+  feature = "accordion",
   feature = "alert-dialog",
+  feature = "collapsible",
   feature = "combobox",
   feature = "context-menu",
   feature = "date-picker",
@@ -118,6 +121,7 @@ mod element_id;
   feature = "dropdown",
   feature = "fab",
   feature = "hover-card",
+  feature = "menu",
   feature = "menubar",
   feature = "navigation-menu",
   feature = "popover",
@@ -130,6 +134,7 @@ mod root_state;
 
 #[cfg(any(
   feature = "alert-dialog",
+  feature = "collapsible",
   feature = "context-menu",
   feature = "dialog",
   feature = "drawer",
@@ -185,7 +190,12 @@ mod anchored_overlay;
 ))]
 mod listbox;
 
-#[cfg(any(feature = "combobox", feature = "select"))]
+#[cfg(any(
+  feature = "accordion",
+  feature = "combobox",
+  feature = "select",
+  feature = "toggle-group"
+))]
 mod choice;
 
 #[cfg(any(feature = "context-menu", feature = "dropdown", feature = "menubar"))]
@@ -206,6 +216,7 @@ mod dismiss_timer;
 #[cfg(any(
   feature = "alert-dialog",
   feature = "carousel",
+  feature = "collapsible",
   feature = "combobox",
   feature = "dialog",
   feature = "drawer",
@@ -337,7 +348,7 @@ pub mod table;
 pub use accordion::{
   ACCORDION_CONTENT_BASE_CLASS, ACCORDION_ITEM_BASE_CLASS, ACCORDION_TRIGGER_BASE_CLASS, Accordion,
   AccordionContent, AccordionItem, AccordionTrigger, accordion_content_class, accordion_item_class,
-  accordion_multiple_open, accordion_single_open, accordion_trigger_class,
+  accordion_trigger_class,
 };
 #[cfg(feature = "alert")]
 pub use alert::{

@@ -2,6 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
 use crate::element_id::next_element_id;
+use crate::root_state::use_controllable;
 
 pub const MENU_BASE_CLASS: &str = "flex w-full flex-col gap-0.5 text-sm";
 pub const MENU_TITLE_BASE_CLASS: &str = "px-3 pb-1 pt-3 text-xs font-medium text-muted-foreground";
@@ -127,19 +128,23 @@ pub fn MenuItem(
   }
 }
 
-/// A collapsible group of items. Its button shows `label`, reports the
-/// requested state through `on_open_change`, and controls the nested list,
-/// which is hidden while `open` is false.
+/// A collapsible group of items. Its button shows `label` and toggles the
+/// nested list, which is hidden while closed. The group owns whether it is
+/// open (RFC 0077): pass `open` to control it, or `default_open` to start it;
+/// `on_open_change` hears every change the user makes either way.
 #[component]
 pub fn MenuGroup(
   label: Element,
-  #[props(default)] open: bool,
+  #[props(default)] open: ReadSignal<Option<bool>>,
+  #[props(default)] default_open: bool,
   #[props(default)] disabled: bool,
   #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default)] class: String,
   #[props(default)] list_class: String,
   children: Element,
 ) -> Element {
+  let group = use_controllable(move || open.cloned(), move || default_open, on_open_change);
+  let open = group.get();
   let list_id = use_hook(|| format!("dxui-menu-group-{}", next_element_id()));
   let class =
     menu_item_class(false, &merge_classes(classes([Some(MENU_GROUP_TRIGGER_CLASS)]), &class));
@@ -156,8 +161,8 @@ pub fn MenuGroup(
         "aria-controls": list_id.clone(),
         "data-state": state,
         onclick: move |_| {
-          if let Some(handler) = on_open_change.filter(|_| !disabled) {
-            handler.call(!open);
+          if !disabled {
+            group.set(!group.get());
           }
         },
         {label}
@@ -182,6 +187,24 @@ mod tests {
     assert!(menu_item_class(true, "gap-3").contains(MENU_ITEM_ACTIVE_CLASS));
     assert!(!menu_item_class(false, "").contains(MENU_ITEM_ACTIVE_CLASS));
     assert!(menu_item_class(false, "gap-3").ends_with("gap-3"));
+  }
+
+  #[test]
+  fn ssr_a_group_starts_from_default_open_unless_controlled() {
+    fn app() -> Element {
+      rsx! {
+        Menu {
+          MenuGroup { label: rsx! { "Open" }, default_open: true, MenuItem { "A" } }
+          MenuGroup { label: rsx! { "Closed" }, open: false, default_open: true, MenuItem { "B" } }
+        }
+      }
+    }
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    let html = dioxus_ssr::render(&dom);
+
+    assert_eq!(html.matches(r#"aria-expanded="true""#).count(), 1, "{html}");
+    assert_eq!(html.matches(r#"aria-expanded="false""#).count(), 1);
   }
 
   #[test]

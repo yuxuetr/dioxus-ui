@@ -6,18 +6,16 @@ pub fn CollapsibleBasicDemo() -> Element {
   let mut open = use_signal(|| false);
 
   rsx! {
-    Collapsible { class: "max-w-sm", open: open(),
+    // The app reads `open` for the trigger label, so it controls the root.
+    Collapsible { class: "max-w-sm", open: open(), on_open_change: move |next| open.set(next),
       div { class: "flex items-center justify-between",
         span { class: "text-sm font-semibold", "@ada starred 3 repositories" }
         CollapsibleTrigger {
-          open: open(),
-          controls: "collapsible-basic-content",
-          on_open_change: move |next| open.set(next),
           if open() { "Hide" } else { "Show" }
         }
       }
       div { class: "rounded-md border border-border px-4 py-2 font-mono text-sm", "dioxus-shadcn" }
-      CollapsibleContent { open: open(), id: "collapsible-basic-content",
+      CollapsibleContent {
         div { class: "grid gap-2",
           div { class: "rounded-md border border-border px-4 py-2 font-mono text-sm", "dioxus" }
           div { class: "rounded-md border border-border px-4 py-2 font-mono text-sm", "tailwindcss" }

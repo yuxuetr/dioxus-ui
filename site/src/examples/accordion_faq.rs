@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_shadcn::{Accordion, AccordionContent, AccordionItem, AccordionTrigger, accordion_single_open};
+use dioxus_shadcn::{Accordion, AccordionContent, AccordionItem, AccordionTrigger};
 
 const QUESTIONS: [(&str, &str, &str); 3] = [
   ("copy", "Can I edit the components?", "Yes. dxui add copies the source into your app, and you own it."),
@@ -9,17 +9,12 @@ const QUESTIONS: [(&str, &str, &str); 3] = [
 
 #[component]
 pub fn AccordionFaqDemo() -> Element {
-  let mut open = use_signal(|| Some("copy".to_string()));
-  let is_open = move |value: &str| open().as_deref() == Some(value);
-
   rsx! {
-    Accordion {
-      class: "max-w-md",
-      on_toggle: move |value: String| open.set(accordion_single_open(open().as_deref(), &value)),
+    Accordion { class: "max-w-md", default_value: "copy",
       for (value, question, answer) in QUESTIONS {
         AccordionItem { key: "{value}", value,
-          AccordionTrigger { open: is_open(value), "{question}" }
-          AccordionContent { open: is_open(value), "{answer}" }
+          AccordionTrigger { "{question}" }
+          AccordionContent { "{answer}" }
         }
       }
     }

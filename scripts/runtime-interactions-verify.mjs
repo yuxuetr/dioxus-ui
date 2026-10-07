@@ -1755,16 +1755,18 @@ async function runBrowserAssertions() {
 
     const collapsibleSelect = page.locator('[data-interaction-target="collapsible-select"]');
     const details = collapsibleSelect.getByRole("button", { name: "Details", exact: true });
-    const detailsContent = collapsibleSelect.locator("#interaction-collapsible-details");
+    const detailsContent = collapsibleSelect.getByRole("region", { name: "Details content", exact: true });
     const size = collapsibleSelect.getByLabel("Size", { exact: true });
     await details.evaluate((element) => element.scrollIntoView({ block: "center" }));
     await expect(details).toHaveAttribute("title", "Show details");
-    await expect(details).toHaveAttribute("aria-controls", "interaction-collapsible-details");
+    // The trigger points at the content only while the content is rendered.
+    await expect(details).not.toHaveAttribute("aria-controls");
     await expect(details).toHaveAttribute("aria-expanded", "false");
     await expect(detailsContent).toHaveCount(0);
     await details.click();
     await expect(collapsibleSelect).toHaveAttribute("data-open", "true");
     await expect(details).toHaveAttribute("aria-expanded", "true");
+    await expect(details).toHaveAttribute("aria-controls", await detailsContent.getAttribute("id"));
     await expect(detailsContent).toHaveText("More information");
     await expect(collapsibleSelect.getByRole("region", { name: "Details content" })).toBeVisible();
     await expect(collapsibleSelect.locator('[title="Details section"]')).toHaveAttribute(

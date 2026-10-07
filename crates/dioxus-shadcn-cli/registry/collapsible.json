@@ -1,6 +1,6 @@
 {
   "name": "collapsible",
-  "description": "Collapsible component for controlled disclosure content.",
+  "description": "Collapsible section whose root owns whether it is open.",
   "files": [
     {
       "source": "templates/collapsible.rs",
@@ -8,6 +8,9 @@
     }
   ],
   "dependencies": [
+    "default-attribute",
+    "overlay-root",
+    "root-state",
     "utils"
   ],
   "assets": []

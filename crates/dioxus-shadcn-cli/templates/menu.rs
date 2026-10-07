@@ -1,4 +1,5 @@
 use super::element_id::next_element_id;
+use super::root_state::use_controllable;
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
@@ -126,21 +127,26 @@ pub fn MenuItem(
   }
 }
 
-/// A collapsible group of items. Its button shows `label`, reports the
-/// requested state through `on_open_change`, and controls the nested list,
-/// which is hidden while `open` is false.
+/// A collapsible group of items. Its button shows `label` and toggles the
+/// nested list, which is hidden while closed. The group owns whether it is
+/// open (RFC 0077): pass `open` to control it, or `default_open` to start it;
+/// `on_open_change` hears every change the user makes either way.
 #[component]
 pub fn MenuGroup(
   label: Element,
-  #[props(default)] open: bool,
+  #[props(default)] open: ReadSignal<Option<bool>>,
+  #[props(default)] default_open: bool,
   #[props(default)] disabled: bool,
   #[props(default)] on_open_change: Option<EventHandler<bool>>,
   #[props(default)] class: String,
   #[props(default)] list_class: String,
   children: Element,
 ) -> Element {
+  let group = use_controllable(move || open.cloned(), move || default_open, on_open_change);
+  let open = group.get();
   let list_id = use_hook(|| format!("dxui-menu-group-{}", next_element_id()));
-  let class = menu_item_class(false, &merge_classes(classes([Some(MENU_GROUP_TRIGGER_CLASS)]), &class));
+  let class =
+    menu_item_class(false, &merge_classes(classes([Some(MENU_GROUP_TRIGGER_CLASS)]), &class));
   let list_class = menu_group_list_class(&list_class);
   let state = if open { "open" } else { "closed" };
 
@@ -154,8 +160,8 @@ pub fn MenuGroup(
         "aria-controls": list_id.clone(),
         "data-state": state,
         onclick: move |_| {
-          if let Some(handler) = on_open_change.filter(|_| !disabled) {
-            handler.call(!open);
+          if !disabled {
+            group.set(!group.get());
           }
         },
         {label}

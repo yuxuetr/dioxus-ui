@@ -9,6 +9,7 @@
   ],
   "dependencies": [
     "element-id",
+    "root-state",
     "utils"
   ],
   "assets": []

@@ -1,7 +1,8 @@
 # Collapsible
 
-Collapsible provides controlled disclosure parts for content that can be shown
-or hidden by the consuming app.
+Collapsible provides disclosure parts for content that can be shown or hidden.
+The root owns whether it is open
+([RFC 0077](../rfcs/0077-component-owned-state.md)).
 
 ## Source Copy
 
@@ -27,33 +28,28 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["collap
 ## Open Events
 
 ```rust
-let mut open = use_signal(|| false);
-
 rsx! {
-  Collapsible { open: open(),
-    CollapsibleTrigger {
-      open: open(),
-      controls: "details",
-      on_open_change: move |next| open.set(next),
-      "Details"
-    }
-    CollapsibleContent { open: open(), id: "details", "More information" }
+  Collapsible {
+    CollapsibleTrigger { "Details" }
+    CollapsibleContent { "More information" }
   }
 }
 ```
 
-`CollapsibleContent` renders nothing while closed. Set `force_mount: true`
-(default `false`) to keep it in the DOM, hidden, for example so the trigger's
-`aria-controls` always points at an element.
+`Collapsible` starts closed, or open with `default_open: true`. Pass `open`
+to control it, for example to show the state in the trigger label;
+`on_open_change` hears every change the user makes either way. A click,
+Enter, or Space on `CollapsibleTrigger` toggles the root. `disabled` on the
+root or on the trigger disables the trigger.
 
-A click, Enter, or Space on `CollapsibleTrigger` calls `on_open_change` with
-the requested state, `!open`. Pass the value back as `open` to every part. A
-disabled trigger does not call it. All three parts pass other attributes, such
-as `aria-label` and `data-*`, to their element.
+`CollapsibleContent` renders nothing while closed. Set `force_mount: true`
+(default `false`) to keep it in the DOM, hidden. All three parts pass other
+attributes, such as `aria-label` and `data-*`, to their element. The trigger
+and content must be inside `Collapsible`; otherwise they render nothing and
+log which root they are missing.
 
 ## Accessibility Notes
 
-`CollapsibleTrigger` renders a native button with `aria-expanded`. Pass matching
-`controls` and content `id` values when the app needs explicit trigger/content
-association. Open state, animation timing, and measured-height transitions stay
-app-owned.
+`CollapsibleTrigger` renders a native button with `aria-expanded`, and with
+`aria-controls` pointing at the content while it shows; the root generates
+the ids. Animation timing and measured-height transitions stay app-owned.

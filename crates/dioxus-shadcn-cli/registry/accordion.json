@@ -1,6 +1,6 @@
 {
   "name": "accordion",
-  "description": "Accordion components with controlled open state.",
+  "description": "Accordion whose root owns which items are open.",
   "files": [
     {
       "source": "templates/accordion.rs",
@@ -8,8 +8,10 @@
     }
   ],
   "dependencies": [
+    "choice",
     "element-id",
     "roving-group",
+    "root-state",
     "utils"
   ],
   "assets": []

@@ -46,6 +46,12 @@ for commit messages.
   Date Picker gains a `DatePicker` root that owns the open state and names
   the trigger. `NavigationMenu` owns which item is open through `value`,
   `default_value`, and `on_value_change`.
+- Accordion, Collapsible, and Menu's `MenuGroup` own which items are open.
+  `Accordion` takes `value`, `default_value`, and `on_value_change` for the
+  one open item, the empty string while all are closed, or with `multiple`,
+  `values`, `default_values`, and `on_values_change`. `Collapsible` and
+  `MenuGroup` take `open`, `default_open`, and `on_open_change`; the
+  Collapsible trigger points `aria-controls` at the content while it shows.
 
 ### Fixed
 
@@ -125,6 +131,15 @@ for commit messages.
 - Navigation Menu: remove `open` from triggers, contents, the viewport, and
   the indicator; keep the open item in `NavigationMenu { value,
   on_value_change }` or let it hold it.
+- Accordion: remove `open` from triggers and contents and replace
+  `on_toggle` with `default_value` or `value` and `on_value_change` on
+  `Accordion` (`multiple: true` with the `values` props for several open
+  items). `accordion_single_open` and `accordion_multiple_open` are removed.
+- Collapsible: move `open` and `on_open_change` from the trigger to
+  `Collapsible`, or drop them and let it hold the state; remove `open` from
+  the content and `controls` and the content `id`, which the root now links.
+- `MenuGroup`: pass `default_open` instead of an `open` the app never
+  changes; `open` with `on_open_change` still controls it.
 - Copy mode: re-copy components with `dxui add <name> --overwrite`. `utils`
   now brings two helpers, `class_merge` and `class_merge_table`; the second
   is generated from Tailwind and stores its names reversed so Tailwind

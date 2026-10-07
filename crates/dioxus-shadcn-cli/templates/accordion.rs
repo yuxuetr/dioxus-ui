@@ -1,4 +1,6 @@
+use super::choice::{Choice, use_choice};
 use super::element_id::next_element_id;
+use super::root_state::use_root_context;
 use super::roving_group::{group_part_id, use_roving_group};
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
@@ -19,29 +21,10 @@ pub fn accordion_content_class(class: &str) -> String {
   merge_classes(classes([Some(ACCORDION_CONTENT_BASE_CLASS)]), class)
 }
 
-/// Returns the open value of a single-open accordion after `toggled_value` is
-/// toggled. Toggling the open item closes it.
-pub fn accordion_single_open(current: Option<&str>, toggled_value: &str) -> Option<String> {
-  if current == Some(toggled_value) { None } else { Some(toggled_value.to_string()) }
-}
-
-/// Returns the open values of a multiple-open accordion after `toggled_value`
-/// is toggled.
-pub fn accordion_multiple_open(current: &[String], toggled_value: &str) -> Vec<String> {
-  let mut next = current.to_vec();
-
-  if let Some(index) = next.iter().position(|value| value == toggled_value) {
-    next.remove(index);
-  } else {
-    next.push(toggled_value.to_string());
-  }
-
-  next
-}
-
-#[derive(Clone, PartialEq)]
+#[derive(Clone)]
 struct AccordionContext {
   base_id: String,
+  open: Choice,
 }
 
 #[derive(Clone, PartialEq)]
@@ -49,30 +32,60 @@ struct AccordionItemContext {
   value: String,
 }
 
-/// Returns the trigger and content ids for the enclosing item, when the part is
-/// inside both `Accordion` and `AccordionItem`.
-fn accordion_part_ids() -> Option<(String, String, String)> {
-  let base_id = try_use_context::<AccordionContext>()?.base_id;
-  let value = try_use_context::<AccordionItemContext>()?.value;
-  let trigger_id = group_part_id(&base_id, "trigger", &value);
-  let content_id = group_part_id(&base_id, "content", &value);
-
-  Some((value, trigger_id, content_id))
+/// What a trigger or content shares with its item: whether the item is open,
+/// and the trigger and content ids.
+struct AccordionPart {
+  open: bool,
+  value: String,
+  trigger_id: String,
+  content_id: String,
 }
 
-/// Links each trigger to its content by id and reports toggles: a click on a
-/// trigger, including Enter and Space, calls `on_toggle` with its item's
-/// `value`. Up and Down move focus between enabled triggers and wrap; Home and
-/// End jump to the first and last. Every enabled trigger stays a Tab stop.
+fn use_accordion_part(part: &str) -> AccordionPart {
+  let context = use_root_context::<AccordionContext>(part, "Accordion");
+  let value = use_root_context::<AccordionItemContext>(part, "AccordionItem").value;
+
+  AccordionPart {
+    open: context.open.chosen().contains(&value),
+    trigger_id: group_part_id(&context.base_id, "trigger", &value),
+    content_id: group_part_id(&context.base_id, "content", &value),
+    value,
+  }
+}
+
+/// The root of an accordion: it owns which items are open and links each
+/// trigger to its content (RFC 0077). One item is open at a time, named by
+/// `value` (controlled) or `default_value`, the empty string while all are
+/// closed; with `multiple`, any number, named by `values` or
+/// `default_values`. A click on a trigger, including Enter and Space, opens
+/// its item, or closes it when open. Up and Down move focus between enabled
+/// triggers and wrap; Home and End jump to the first and last. Every enabled
+/// trigger stays a Tab stop.
 #[component]
 pub fn Accordion(
-  #[props(default)] on_toggle: Option<EventHandler<String>>,
+  #[props(default)] multiple: bool,
+  #[props(default)] value: ReadSignal<Option<String>>,
+  #[props(default)] default_value: String,
+  #[props(default)] on_value_change: Option<EventHandler<String>>,
+  #[props(default)] values: ReadSignal<Option<Vec<String>>>,
+  #[props(default)] default_values: Vec<String>,
+  #[props(default)] on_values_change: Option<EventHandler<Vec<String>>>,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
   let base_id = use_hook(|| format!("dxui-accordion-{}", next_element_id()));
-  use_context_provider(|| AccordionContext { base_id });
-  let scope_id = use_roving_group(on_toggle);
+  let open = use_choice(
+    multiple,
+    value,
+    Some(default_value),
+    on_value_change,
+    values,
+    default_values,
+    on_values_change,
+  );
+  use_context_provider(|| AccordionContext { base_id, open });
+  let toggle = use_callback(move |value: String| open.toggle(value));
+  let scope_id = use_roving_group(Some(toggle));
 
   rsx! {
     div {
@@ -88,12 +101,15 @@ pub fn Accordion(
 
 #[component]
 pub fn AccordionItem(value: String, #[props(default)] class: String, children: Element) -> Element {
+  let context = use_root_context::<AccordionContext>("AccordionItem", "Accordion");
   let class = accordion_item_class(&class);
+  let open = context.open.chosen().contains(&value);
   use_context_provider(|| AccordionItemContext { value: value.clone() });
 
   rsx! {
     div {
       class,
+      "data-state": if open { "open" } else { "closed" },
       "data-value": value,
       {children}
     }
@@ -102,31 +118,26 @@ pub fn AccordionItem(value: String, #[props(default)] class: String, children: E
 
 #[component]
 pub fn AccordionTrigger(
-  #[props(default)] open: bool,
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
   let class = accordion_trigger_class(&class);
-  let ids = accordion_part_ids();
-  let is_item = ids.is_some().then_some("");
-  let (value, id, controls) = ids.map_or((None, None, None), |(value, trigger_id, content_id)| {
-    (Some(value), Some(trigger_id), Some(content_id))
-  });
+  let part = use_accordion_part("AccordionTrigger");
 
   rsx! {
     h3 {
       class: "flex",
       button {
         r#type: "button",
-        id,
+        id: part.trigger_id,
         class,
         disabled,
-        "aria-expanded": open.to_string(),
-        "aria-controls": controls,
-        "data-state": if open { "open" } else { "closed" },
-        "data-value": value,
-        "data-dxui-roving-item": is_item,
+        "aria-expanded": part.open.to_string(),
+        "aria-controls": part.content_id,
+        "data-state": if part.open { "open" } else { "closed" },
+        "data-value": part.value,
+        "data-dxui-roving-item": "",
         {children}
       }
     }
@@ -134,24 +145,18 @@ pub fn AccordionTrigger(
 }
 
 #[component]
-pub fn AccordionContent(
-  #[props(default)] open: bool,
-  #[props(default)] class: String,
-  children: Element,
-) -> Element {
+pub fn AccordionContent(#[props(default)] class: String, children: Element) -> Element {
   let class = accordion_content_class(&class);
-  let ids = accordion_part_ids();
-  let (id, labelledby) =
-    ids.map_or((None, None), |(_, trigger_id, content_id)| (Some(content_id), Some(trigger_id)));
+  let part = use_accordion_part("AccordionContent");
 
   rsx! {
     div {
       role: "region",
-      id,
+      id: part.content_id,
       class,
-      hidden: !open,
-      "aria-labelledby": labelledby,
-      "data-state": if open { "open" } else { "closed" },
+      hidden: !part.open,
+      "aria-labelledby": part.trigger_id,
+      "data-state": if part.open { "open" } else { "closed" },
       {children}
     }
   }

@@ -25,8 +25,6 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["menu"]
 - `menu_item_class`
 
 ```rust
-let mut components_open = use_signal(|| true);
-
 rsx! {
   nav { "aria-label": "Documentation",
     Menu {
@@ -35,8 +33,7 @@ rsx! {
       MenuItem { href: "/docs/theming", "Theming" }
       MenuGroup {
         label: rsx! { "Components" },
-        open: components_open(),
-        on_open_change: move |open| components_open.set(open),
+        default_open: true,
         MenuItem { href: "/components/button", "Button" }
         MenuItem { href: "/components/dialog", "Dialog" }
       }
@@ -55,8 +52,10 @@ See [RFC 0072](../rfcs/0072-menu-and-mockup.md).
   otherwise it wraps the app's own link or button. A disabled link drops
   its `href` and a disabled button is `disabled`, so neither takes focus or
   calls `onclick`.
-- `MenuGroup`'s `open` stays controlled: its button calls
-  `on_open_change(!open)`, and the nested list is hidden while closed. Its
+- `MenuGroup` owns whether it is open: it starts from `default_open`, or
+  follows `open` when the app controls it, and `on_open_change` hears every
+  change the user makes. Its button toggles it, and the nested list is hidden
+  while closed. Its
   chevron points down when closed and up when open.
 - Groups nest: a `MenuGroup` can hold another.
 

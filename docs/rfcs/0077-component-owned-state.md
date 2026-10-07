@@ -127,6 +127,21 @@ In every menu, a radio group owns its value (`value`, `default_value`,
 and a submenu root owns its open state the same way as an overlay root. A
 checkbox item keeps `checked`: each item is its own state, as a Checkbox is.
 
+### Disclosure
+
+`Accordion` owns its open items as `Select` owns its chosen values: one
+item, named by `value`, `default_value`, and `on_value_change`, or with
+`multiple`, any number, named by `values`, `default_values`, and
+`on_values_change`. Pressing the open item of a single accordion closes it
+and reports the empty string, as Radix does with `collapsible`; the crate's
+accordion always behaved so. Triggers and contents read their item's value
+from `AccordionItem`, which must be inside `Accordion`.
+
+`Collapsible` and Menu's `MenuGroup` take `open`, `default_open`, and
+`on_open_change` like an overlay root. `MenuGroup` is one component, so it
+only gains the uncontrolled mode. The Collapsible trigger points
+`aria-controls` at the content only while the content renders.
+
 ### Which components move
 
 | Batch | Components | State the root takes |

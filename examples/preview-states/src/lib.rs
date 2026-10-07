@@ -26,7 +26,7 @@ use dioxus_shadcn::{
   SelectTrigger, SonnerClose, SonnerContent, SonnerTitle, SonnerToast, SonnerVariant,
   SonnerViewport, Switch, Tabs, TabsActivation, TabsContent, TabsList, TabsOrientation,
   TabsTrigger, ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport, ToggleGroup,
-  ToggleGroupItem, accordion_single_open, calendar_month_grid, calendar_move_date, command_matches,
+  ToggleGroupItem, calendar_month_grid, calendar_move_date, command_matches,
   sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute, toggle_group_single_selection,
 };
 use dioxus_shadcn::{
@@ -988,8 +988,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut resizable_panels = use_signal(|| {
     (ResizablePanelState::new(30.0, 20.0, 80.0), ResizablePanelState::new(70.0, 20.0, 80.0))
   });
-  let mut accordion_value = use_signal(|| None::<String>);
-  let accordion_open = move |value: &str| accordion_value().as_deref() == Some(value);
+  let mut accordion_value = use_signal(String::new);
   let mut context_bookmarked = use_signal(|| false);
   let mut context_action = use_signal(|| "none");
   let mut date_open = use_signal(|| false);
@@ -2249,18 +2248,13 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-open": "{details_open}",
             "data-size": "{size_value}",
             h2 { class: "text-sm font-medium", "Collapsible and native select interaction" }
-            Collapsible { class: "mt-3", open: details_open(),
+            // Uncontrolled: the root owns open and the fixture only records it.
+            Collapsible {
+              class: "mt-3",
+              on_open_change: move |open| details_open.set(open),
               title: "Details section",
-              CollapsibleTrigger {
-                open: details_open(),
-                controls: "interaction-collapsible-details",
-                title: "Show details",
-                on_open_change: move |open| details_open.set(open),
-                "Details"
-              }
+              CollapsibleTrigger { title: "Show details", "Details" }
               CollapsibleContent {
-                open: details_open(),
-                id: "interaction-collapsible-details",
                 role: "region",
                 "aria-label": "Details content",
                 "More information"
@@ -2605,28 +2599,27 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           article {
             class: "rounded-md border border-border p-4",
             "data-interaction-target": "accordion",
-            "data-value": accordion_value().unwrap_or_else(|| "none".to_string()),
+            "data-value": if accordion_value().is_empty() { "none".to_string() } else { accordion_value() },
             h2 { class: "text-sm font-medium", "Accordion interaction" }
             Accordion {
               class: "mt-3",
-              on_toggle: move |value: String| {
-                accordion_value.set(accordion_single_open(accordion_value().as_deref(), &value))
-              },
+              // Uncontrolled: the root owns the open item and the fixture records it.
+              on_value_change: move |value| accordion_value.set(value),
               AccordionItem { value: "shipping",
-                AccordionTrigger { open: accordion_open("shipping"), "Shipping" }
-                AccordionContent { open: accordion_open("shipping"), "Ships in two days." }
+                AccordionTrigger { "Shipping" }
+                AccordionContent { "Ships in two days." }
               }
               AccordionItem { value: "returns",
-                AccordionTrigger { open: accordion_open("returns"), disabled: true, "Returns" }
-                AccordionContent { open: accordion_open("returns"), "Returns within 30 days." }
+                AccordionTrigger { disabled: true, "Returns" }
+                AccordionContent { "Returns within 30 days." }
               }
               AccordionItem { value: "warranty",
-                AccordionTrigger { open: accordion_open("warranty"), "Warranty" }
-                AccordionContent { open: accordion_open("warranty"), "Covered for one year." }
+                AccordionTrigger { "Warranty" }
+                AccordionContent { "Covered for one year." }
               }
               AccordionItem { value: "support",
-                AccordionTrigger { open: accordion_open("support"), "Support" }
-                AccordionContent { open: accordion_open("support"), "Email us any time." }
+                AccordionTrigger { "Support" }
+                AccordionContent { "Email us any time." }
               }
             }
           }
