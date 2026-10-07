@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 17% (1 of 6 tasks)
+- Overall: 33% (2 of 6 tasks)
 - Current milestone: M215 (Dioxus 0.8 readiness)
-- Current task: M215.2
+- Current task: M215.3
 
 ## Backup
 
@@ -39,9 +39,10 @@
   - `serveDioxusWeb` turns hot-patching off in the form the installed `dx` accepts (a bare flag stays off on 0.7; `--hot-patch false` on 0.8), and `ready()` waits until the server answers with the app rather than the CLI's build placeholder, failing with `dx`'s output when the build fails.
   - Exit: `npm run verify:runtime-interactions` passes with `dx` 0.7.9 on the main tree and with `dx` 0.8.0-alpha.1 on a scratch 0.8 tree; a build that fails under `dx` 0.8 makes `ready()` throw with the build error instead of a `page.goto` timeout (reverse-verify by leaving hot-patching on).
   - Done (f005db4): both `dx` lines answer 200 with a placeholder ("dx is not serving a web app") before the first build, so `ready()` now waits for the page that loads `/wasm/`; `dx --version` picks `--hot-patch false` on 0.8 and nothing on 0.7. The screenshot, rendered DOM, and mobile browser smokes dropped their own `dx serve` copies for `serveDioxusWeb`. All four browser checks (`verify:browser-local`) pass on `dx` 0.7.9 and, from a cold `dx` output directory, on `dx` 0.8.0-alpha.1 with Dioxus 0.8.0-alpha.1; with hot-patching left on, `ready()` fails after 5 s with `dx serve could not build` and dx's `Build failed` output.
-- TODO M215.2 Fullstack hydration check in the release gate
+- DONE M215.2 Fullstack hydration check in the release gate
   - A fullstack example renders Tabs and one more component with generated ids on the server; a script serves it, compares the ids across three requests, hydrates the page in Chromium, and checks that ArrowRight moves focus between tabs. `npm run verify:release` and CI run it; the Deferred entry for it is removed.
   - Exit: the check passes on Dioxus 0.7, and fails when `next_element_id()` is replaced with a process-wide counter (RFC 0075's failing case).
+  - Done (2b9c64e): `examples/fullstack-hydration` renders Tabs and Select; `npm run verify:fullstack-hydration` compares 19 generated ids across three requests, then after hydration ArrowRight moves focus to and selects the second tab and the Select list opens under its trigger, with no console errors. It runs in `verify:release` (which passes) and in CI, which installs `wasm32-unknown-unknown` and `dioxus-cli` at the `Cargo.lock` Dioxus version through cargo-binstall. `deny.toml` allows `webpki-roots` (CDLA-Permissive-2.0) and `xxhash-rust` (BSL-1.0), which only `dioxus-fullstack` brings. With a process-wide counter in `next_element_id()`, request 2 writes `dxui-tabs-10-*` against request 1, and with the request check skipped the hydrated ArrowRight no longer moves focus.
 - TODO M215.3 `npm run verify:dioxus-next`
   - A script copies the tree into a scratch worktree, pins `dioxus` and `dioxus-ssr` to the newest 0.8 pre-release on crates.io, and runs the workspace tests, Clippy, the generated fixture smoke, the fullstack check, and the browser interactions with a `dx` of the same version, which it names when it is missing. `docs/release.md` records each run's result.
   - Exit: it passes on `0.8.0-alpha.1`, fails with the compiler error when a template is given a type error (reverse-verify), and leaves the main tree unchanged.
@@ -63,7 +64,6 @@
 - Form state and validation, chart tooltips, swipe gestures, DOM portal, Command fuzzy ranking, editing an Input OTP slot in the middle, and right-to-left Slider, Resizable, and Calendar keys: when `gh issue list -R yuxuetr/dioxus-ui --state all --search "<topic>" --json number -q length` prints more than 0, or a block needs one.
 - More blocks: when an issue asks for a screen, by the same command.
 - Generating templates from the crate: when `CRATE_ONLY` in `crates/dioxus-shadcn-cli/tests/template_parity.rs` passes 10 entries, or M210 needs a template difference the parity rules cannot express. Checked 2026-10-07: 1 entry.
-- A fullstack hydration app in CI: M215.2.
 
 ## Status Rules
 
