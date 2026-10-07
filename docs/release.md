@@ -7,7 +7,7 @@
 - source-copy mode through `dxui add`
 - crate mode through `dioxus-shadcn` feature flags
 
-Both modes ship in 0.1.0, 0.2.0, 0.3.0, 0.4.0, 0.4.1, 0.4.2, and 0.5.0. The `0.5.x` API surface is accepted;
+Both modes ship in 0.1.0, 0.2.0, 0.3.0, 0.4.0, 0.4.1, 0.4.2, and 0.5.0. The `0.6.x` API surface is accepted;
 before `1.0`, a breaking change bumps the minor version and comes with a
 changelog migration note.
 
@@ -37,7 +37,7 @@ The styled crate should keep `default = []`.
 Users opt into components:
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["button", "dialog"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["button", "dialog"] }
 ```
 
 Feature names should match registry names where possible:
@@ -116,7 +116,12 @@ its changes shipped in 0.5.0) it found none in the core and primitives
 crates and, in `dioxus-shadcn`, the removed per-part state props, the
 removed accordion and toggle group selection helpers,
 `command_item_class`'s parameters, and new props fields, all covered by the
-Migration section.
+Migration section. For 0.6.0 against 0.5.0 it found
+none in the core crate; in the primitives crate, the removed `dismissal` and
+`typeahead` modules and helpers; and in `dioxus-shadcn`, the class
+functions, helpers, constants, and structs RFC 0079 made private and
+`message_scroller_class`'s parameter count, all covered by the Migration
+section.
 
 ## Release Gates
 

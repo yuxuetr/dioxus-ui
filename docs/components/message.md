@@ -12,7 +12,7 @@ dxui add message
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["message"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["message"] }
 ```
 
 ## API Surface

@@ -13,7 +13,7 @@ dxui add resizable
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["resizable"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["resizable"] }
 ```
 
 ## API Surface

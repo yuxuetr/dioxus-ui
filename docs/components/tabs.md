@@ -12,7 +12,7 @@ dxui add tabs
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["tabs"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["tabs"] }
 ```
 
 ## API Surface

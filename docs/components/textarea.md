@@ -12,7 +12,7 @@ dxui add textarea
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["textarea"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["textarea"] }
 ```
 
 ## API Surface

@@ -12,7 +12,7 @@ dxui add menu
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["menu"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["menu"] }
 ```
 
 ## API Surface

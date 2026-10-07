@@ -123,7 +123,7 @@ dxui add button
 ## Install by Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["button"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["button"] }
 ```
 
 ## Component Catalog

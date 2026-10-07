@@ -13,7 +13,7 @@ dxui add command
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["command"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["command"] }
 ```
 
 ## API Surface

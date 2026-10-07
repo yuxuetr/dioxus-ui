@@ -14,7 +14,7 @@ dxui add carousel
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["carousel"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["carousel"] }
 ```
 
 ## API Surface

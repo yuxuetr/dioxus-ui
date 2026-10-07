@@ -12,7 +12,7 @@ dxui add rating
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["rating"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["rating"] }
 ```
 
 ## API Surface

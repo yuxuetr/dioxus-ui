@@ -72,7 +72,7 @@ The consuming app owns:
 Crate feature:
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["attachment"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["attachment"] }
 ```
 
 Source-copy command:
@@ -156,7 +156,7 @@ Rules:
 Crate feature:
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["bubble"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["bubble"] }
 ```
 
 Source-copy command:
@@ -211,7 +211,7 @@ Rules:
 Crate feature:
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["message"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["message"] }
 ```
 
 Source-copy command:
@@ -274,7 +274,7 @@ Rules:
 Crate feature:
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["marker"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["marker"] }
 ```
 
 Source-copy command:

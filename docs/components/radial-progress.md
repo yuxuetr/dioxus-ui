@@ -12,7 +12,7 @@ dxui add radial-progress
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["radial-progress"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["radial-progress"] }
 ```
 
 ## API Surface

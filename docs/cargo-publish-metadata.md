@@ -59,7 +59,7 @@ are ready to publish and does not check crates.io itself; the release owner
 recorded registry availability in
 [Registry Availability Readiness Metadata](archive/first-publish/registry-availability-readiness-metadata.md#resolution).
 First publish release notes are recorded in `CHANGELOG.md`. APIs remain
-pre-1.0, and the current `0.5.x` API surface is accepted
+pre-1.0, and the current `0.6.x` API surface is accepted
 under the pre-`1.0` breaking-change policy. The repository URL is approved as
 `https://github.com/yuxuetr/dioxus-ui`, and root MIT license text is committed
 in `LICENSE`. CLI template delivery now uses embedded registry/template assets

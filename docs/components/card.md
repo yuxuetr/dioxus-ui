@@ -12,7 +12,7 @@ dxui add card
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["card"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["card"] }
 ```
 
 ## API Surface

@@ -12,7 +12,7 @@ dxui add toggle-group
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["toggle-group"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["toggle-group"] }
 ```
 
 ## API Surface

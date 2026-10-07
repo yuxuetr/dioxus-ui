@@ -12,7 +12,7 @@ dxui add dropdown
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["dropdown"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["dropdown"] }
 ```
 
 ## API Surface

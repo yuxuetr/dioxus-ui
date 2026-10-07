@@ -59,7 +59,7 @@ use components::ui::button::{Button, ButtonVariant};
 
 ```toml
 [dependencies]
-dioxus-shadcn = { version = "0.5", features = ["button", "dialog"] }
+dioxus-shadcn = { version = "0.6", features = ["button", "dialog"] }
 ```
 
 ```rust
@@ -80,7 +80,7 @@ writes an `@source` line for the crate's source, after the import, from
 
 ```css
 @import "tailwindcss";
-@source "/home/me/.cargo/registry/src/index.crates.io-…/dioxus-shadcn-0.5.0/src";
+@source "/home/me/.cargo/registry/src/index.crates.io-…/dioxus-shadcn-0.6.0/src";
 ```
 
 The path names one version, so run `dxui init` again after upgrading the

@@ -11,7 +11,7 @@ dxui add file-input
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["file-input"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["file-input"] }
 ```
 
 ## API Surface

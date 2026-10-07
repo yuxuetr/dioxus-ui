@@ -197,7 +197,7 @@ dxui add tabs
 Crate mode:
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["button", "dialog"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["button", "dialog"] }
 ```
 
 Module layout:

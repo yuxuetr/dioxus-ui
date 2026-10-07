@@ -11,7 +11,7 @@ dxui add pagination
 ## Crate Feature
 
 ```toml
-dioxus-shadcn = { version = "0.5", default-features = false, features = ["pagination"] }
+dioxus-shadcn = { version = "0.6", default-features = false, features = ["pagination"] }
 ```
 
 ## API Surface

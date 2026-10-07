@@ -8,6 +8,17 @@ for commit messages.
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-10-07
+
+Version 0.6.0 commits to the API apps use (RFC 0079). `dioxus-shadcn` keeps
+public the components, their props, the class functions component pages list,
+and the helpers the docs use; class constants and internal helpers are
+private. The primitives crate keeps its own semver promise and drops what
+nothing used. Every public item in the three library crates has a doc
+comment, and the release gate now runs `cargo-semver-checks` against the last
+release. Components and props do not change, so apps that use components
+through their props need no changes.
+
 ### Changed
 - `dioxus-shadcn` keeps public only what its docs show (RFC 0079): the
   components and their props, the enums props take, the class functions a
@@ -54,6 +65,15 @@ for commit messages.
   `slider_range_style`, `slider_state`, `slider_thumb_style`,
   `switch_state`, and the `tags_input_*` helpers, with `ChartBarRect` and
   `ChartArc`.
+- Helpers no page named are private, since the component sets what they
+  compute: `carousel_item_transform`, `carousel_orientation_attribute`,
+  `data_table_sort_attribute`, `date_picker_align_attribute`,
+  `date_picker_side_attribute`, `message_scroller_intent_attribute`,
+  `message_scroller_is_following_intent`, `radio_group_focus_state`,
+  `radio_group_orientation_attribute`, `sidebar_side_attribute`,
+  `sonner_live_attribute`, `toast_live_attribute`, and
+  `toggle_group_orientation_attribute`, with the constants
+  `DEFAULT_ASPECT_RATIO` and `CAROUSEL_INDEX_PROPERTY`.
 - `message_scroller_class` takes only `class`; drop the intent argument,
   which never changed the classes.
 - `dioxus-shadcn` no longer re-exports `carousel_clamp_index`,
