@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 67% (4 of 6 tasks)
+- Overall: 83% (5 of 6 tasks)
 - Current milestone: M214 (0.6.0 release)
-- Current task: M214.1
+- Current task: M214.2
 
 ## Backup
 
@@ -52,8 +52,9 @@
 
 ## M214 0.6.0 Release
 
-- TODO M214.1 Prepare 0.6.0
+- DONE M214.1 Prepare 0.6.0
   - CHANGELOG with a Migration note per item M213 made private or removed, versions, release gate, publish dry run.
+  - Done (79f9895): versions 0.6.0; CHANGELOG `[0.6.0] - 2026-10-07` with an introduction; the forced-lint listing against `v0.5.0` found 13 unlisted helpers and 2 constants the Migration section did not name yet, now covered. `verify:release` (with `verify:semver` passing as a major change) and `cargo publish --workspace --dry-run` pass.
 - TODO M214.2 Publish 0.6.0
   - Push, CI, publish in dependency order, annotated tag `v0.6.0`, then build fresh apps in both modes from crates.io that use a component, a class override, and a state callback.
 
