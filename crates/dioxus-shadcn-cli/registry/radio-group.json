@@ -1,6 +1,6 @@
 {
   "name": "radio-group",
-  "description": "Radio Group component for single-choice grouped selection.",
+  "description": "Radio Group whose root owns the checked value.",
   "files": [
     {
       "source": "templates/radio_group.rs",
@@ -9,6 +9,7 @@
   ],
   "dependencies": [
     "roving-group",
+    "root-state",
     "utils"
   ],
   "assets": []

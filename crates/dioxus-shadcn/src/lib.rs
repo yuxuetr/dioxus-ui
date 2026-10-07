@@ -125,9 +125,11 @@ mod element_id;
   feature = "menubar",
   feature = "navigation-menu",
   feature = "popover",
+  feature = "radio-group",
   feature = "select",
   feature = "sheet",
   feature = "tabs",
+  feature = "toggle-group",
   feature = "tooltip"
 ))]
 mod root_state;
@@ -924,8 +926,7 @@ pub use toggle::{TOGGLE_BASE_CLASS, Toggle, ToggleSize, ToggleVariant, toggle_cl
 pub use toggle_group::{
   TOGGLE_GROUP_BASE_CLASS, TOGGLE_GROUP_ITEM_BASE_CLASS, ToggleGroup, ToggleGroupItem,
   ToggleGroupType, toggle_group_class, toggle_group_focus_state, toggle_group_item_class,
-  toggle_group_item_tabindex, toggle_group_move_value, toggle_group_multiple_selection,
-  toggle_group_orientation_attribute, toggle_group_single_selection,
+  toggle_group_item_tabindex, toggle_group_move_value, toggle_group_orientation_attribute,
 };
 #[cfg(feature = "tooltip")]
 pub use tooltip::{

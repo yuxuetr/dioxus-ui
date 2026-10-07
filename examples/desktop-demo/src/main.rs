@@ -66,8 +66,8 @@ use dioxus_shadcn::{
   table_row_class, tabs_content_class, tabs_list_class, tabs_trigger_class, textarea_class,
   toast_action_class, toast_close_class, toast_is_expired, toast_queue_push, toast_root_class,
   toast_viewport_class, toggle_class, toggle_group_class, toggle_group_item_class,
-  toggle_group_move_value, toggle_group_single_selection, tooltip_content_class,
-  typography_h2_class, typography_inline_code_class, typography_p_class,
+  toggle_group_move_value, tooltip_content_class, typography_h2_class,
+  typography_inline_code_class, typography_p_class,
 };
 
 fn main() {
@@ -459,10 +459,6 @@ fn main() {
       NavigationOrientation::Vertical,
       true,
     )
-  );
-  println!(
-    "dioxus-shadcn desktop demo toggle group value: {:?}",
-    toggle_group_single_selection(Some("left"), "right")
   );
   println!(
     "dioxus-shadcn desktop demo separator class: {}",

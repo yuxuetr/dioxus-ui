@@ -1,121 +1,8 @@
+use super::choice::{Choice, use_choice};
+use super::root_state::use_root_context;
 use super::roving_group::use_roving_group;
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
-
-#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
-pub enum NavigationOrientation {
-  Horizontal,
-  Vertical,
-  #[default]
-  Both,
-}
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub enum FocusMove {
-  Next,
-  Previous,
-  First,
-  Last,
-}
-
-#[derive(Clone, Debug, Eq, PartialEq)]
-pub struct RovingFocusItem {
-  pub id: String,
-  pub disabled: bool,
-}
-
-impl RovingFocusItem {
-  pub fn enabled(id: impl Into<String>) -> Self {
-    Self { id: id.into(), disabled: false }
-  }
-
-  pub fn disabled(id: impl Into<String>) -> Self {
-    Self { id: id.into(), disabled: true }
-  }
-}
-
-#[derive(Clone, Debug, Eq, PartialEq)]
-pub struct RovingFocusState {
-  pub active_id: Option<String>,
-  pub orientation: NavigationOrientation,
-  pub looping: bool,
-}
-
-impl RovingFocusState {
-  pub fn new(orientation: NavigationOrientation) -> Self {
-    Self { active_id: None, orientation, looping: true }
-  }
-
-  pub fn with_active_id(mut self, active_id: impl Into<String>) -> Self {
-    self.active_id = Some(active_id.into());
-    self
-  }
-
-  pub const fn with_looping(mut self, looping: bool) -> Self {
-    self.looping = looping;
-    self
-  }
-
-  pub fn move_focus<'a>(
-    &self,
-    items: &'a [RovingFocusItem],
-    focus_move: FocusMove,
-  ) -> Option<&'a str> {
-    match focus_move {
-      FocusMove::First => first_enabled(items),
-      FocusMove::Last => last_enabled(items),
-      FocusMove::Next => move_by(items, self.active_id.as_deref(), 1, self.looping),
-      FocusMove::Previous => move_by(items, self.active_id.as_deref(), -1, self.looping),
-    }
-  }
-}
-
-fn first_enabled(items: &[RovingFocusItem]) -> Option<&str> {
-  items.iter().find(|item| !item.disabled).map(|item| item.id.as_str())
-}
-
-fn last_enabled(items: &[RovingFocusItem]) -> Option<&str> {
-  items.iter().rev().find(|item| !item.disabled).map(|item| item.id.as_str())
-}
-
-fn move_by<'a>(
-  items: &'a [RovingFocusItem],
-  active_id: Option<&str>,
-  step: isize,
-  looping: bool,
-) -> Option<&'a str> {
-  if items.is_empty() {
-    return None;
-  }
-
-  let start = active_id
-    .and_then(|id| items.iter().position(|item| item.id == id))
-    .unwrap_or_else(|| if step > 0 { 0 } else { items.len().saturating_sub(1) });
-
-  if active_id.is_none() && !items[start].disabled {
-    return Some(items[start].id.as_str());
-  }
-
-  let mut index = start as isize;
-
-  for _ in 0..items.len() {
-    index += step;
-
-    if looping {
-      index = index.rem_euclid(items.len() as isize);
-    } else if index < 0 || index >= items.len() as isize {
-      return None;
-    }
-
-    let item = &items[index as usize];
-
-    if !item.disabled {
-      return Some(item.id.as_str());
-    }
-  }
-
-  None
-}
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ToggleGroupType {
@@ -174,40 +61,47 @@ pub fn toggle_group_move_value<'a>(
   toggle_group_focus_state(orientation, looping, active_value).move_focus(items, focus_move)
 }
 
-pub fn toggle_group_single_selection(current: Option<&str>, toggled_value: &str) -> Option<String> {
-  if current == Some(toggled_value) { None } else { Some(toggled_value.to_string()) }
-}
-
-pub fn toggle_group_multiple_selection(current: &[String], toggled_value: &str) -> Vec<String> {
-  let mut next = current.to_vec();
-
-  if let Some(index) = next.iter().position(|value| value == toggled_value) {
-    next.remove(index);
-  } else {
-    next.push(toggled_value.to_string());
-  }
-
-  next
+#[derive(Clone, Copy)]
+struct ToggleGroupContext {
+  pressed: Choice,
 }
 
 /// Keeps one Tab stop on the item that last had focus, or the first pressed
 /// or enabled item. Arrow keys for `orientation` move focus between enabled
 /// items without pressing them, wrapping when `looping`, and Home and End jump
-/// to the first and last. A click calls `on_toggle` with the item's `value`;
-/// `toggle_group_single_selection` and `toggle_group_multiple_selection`
-/// compute the next selection from it.
+/// to the first and last. The group owns which items are pressed (RFC 0077):
+/// one, named by `value` (controlled) or `default_value`, the empty string
+/// while none is; with `ToggleGroupType::Multiple`, any number, named by
+/// `values` or `default_values`. A click presses an item, or releases it when
+/// pressed, and the change callback hears it either way.
 #[component]
 pub fn ToggleGroup(
   #[props(default)] selection_type: ToggleGroupType,
   #[props(default)] orientation: NavigationOrientation,
   #[props(default = true)] looping: bool,
-  #[props(default)] on_toggle: Option<EventHandler<String>>,
+  #[props(default)] value: ReadSignal<Option<String>>,
+  #[props(default)] default_value: String,
+  #[props(default)] on_value_change: Option<EventHandler<String>>,
+  #[props(default)] values: ReadSignal<Option<Vec<String>>>,
+  #[props(default)] default_values: Vec<String>,
+  #[props(default)] on_values_change: Option<EventHandler<Vec<String>>>,
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = toggle_group_class(orientation, &class);
-  let scope_id = use_roving_group(on_toggle);
+  let pressed = use_choice(
+    selection_type == ToggleGroupType::Multiple,
+    value,
+    Some(default_value),
+    on_value_change,
+    values,
+    default_values,
+    on_values_change,
+  );
+  use_context_provider(|| ToggleGroupContext { pressed });
+  let toggle = use_callback(move |value: String| pressed.toggle(value));
+  let scope_id = use_roving_group(Some(toggle));
   let roving_orientation = match orientation {
     NavigationOrientation::Horizontal => "horizontal",
     NavigationOrientation::Vertical => "vertical",
@@ -238,11 +132,12 @@ pub fn ToggleGroup(
 #[component]
 pub fn ToggleGroupItem(
   value: String,
-  #[props(default)] pressed: bool,
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
+  let context = use_root_context::<ToggleGroupContext>("ToggleGroupItem", "ToggleGroup");
+  let pressed = context.pressed.chosen().contains(&value);
   let class = toggle_group_item_class(pressed, &class);
 
   rsx! {

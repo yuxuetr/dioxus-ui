@@ -16,7 +16,7 @@ Source preview routes: 82
 
 | Component | Route | Template | Target | Language | Lines | Bytes |
 | --- | --- | --- | --- | --- | --- | --- |
-| [Accordion](accordion.md) | /components/accordion/source | crates/dioxus-shadcn-cli/templates/accordion.rs | src/components/ui/accordion.rs | rust | 164 | 5232 |
+| [Accordion](accordion.md) | /components/accordion/source | crates/dioxus-shadcn-cli/templates/accordion.rs | src/components/ui/accordion.rs | rust | 164 | 5225 |
 | [Alert](alert.md) | /components/alert/source | crates/dioxus-shadcn-cli/templates/alert.rs | src/components/ui/alert.rs | rust | 95 | 2510 |
 | [Alert Dialog](alert-dialog.md) | /components/alert-dialog/source | crates/dioxus-shadcn-cli/templates/alert_dialog.rs | src/components/ui/alert_dialog.rs | rust | 264 | 8338 |
 | [Aspect Ratio](aspect-ratio.md) | /components/aspect-ratio/source | crates/dioxus-shadcn-cli/templates/aspect_ratio.rs | src/components/ui/aspect_ratio.rs | rust | 38 | 892 |
@@ -70,7 +70,7 @@ Source preview routes: 82
 | [Popover](popover.md) | /components/popover/source | crates/dioxus-shadcn-cli/templates/popover.rs | src/components/ui/popover.rs | rust | 154 | 4849 |
 | [Progress](progress.md) | /components/progress/source | crates/dioxus-shadcn-cli/templates/progress.rs | src/components/ui/progress.rs | rust | 52 | 1461 |
 | [Radial Progress](radial-progress.md) | /components/radial-progress/source | crates/dioxus-shadcn-cli/templates/radial_progress.rs | src/components/ui/radial_progress.rs | rust | 111 | 3549 |
-| [Radio Group](radio-group.md) | /components/radio-group/source | crates/dioxus-shadcn-cli/templates/radio_group.rs | src/components/ui/radio_group.rs | rust | 247 | 7221 |
+| [Radio Group](radio-group.md) | /components/radio-group/source | crates/dioxus-shadcn-cli/templates/radio_group.rs | src/components/ui/radio_group.rs | rust | 265 | 8128 |
 | [Rating](rating.md) | /components/rating/source | crates/dioxus-shadcn-cli/templates/rating.rs | src/components/ui/rating.rs | rust | 56 | 2476 |
 | [Resizable](resizable.md) | /components/resizable/source | crates/dioxus-shadcn-cli/templates/resizable.rs | src/components/ui/resizable.rs | rust | 310 | 11140 |
 | [Scroll Area](scroll-area.md) | /components/scroll-area/source | crates/dioxus-shadcn-cli/templates/scroll_area.rs | src/components/ui/scroll_area.rs | rust | 145 | 4157 |
@@ -95,6 +95,6 @@ Source preview routes: 82
 | [Timeline](timeline.md) | /components/timeline/source | crates/dioxus-shadcn-cli/templates/timeline.rs | src/components/ui/timeline.rs | rust | 127 | 5239 |
 | [Toast](toast.md) | /components/toast/source | crates/dioxus-shadcn-cli/templates/toast.rs | src/components/ui/toast.rs | rust | 363 | 10687 |
 | [Toggle](toggle.md) | /components/toggle/source | crates/dioxus-shadcn-cli/templates/toggle.rs | src/components/ui/toggle.rs | rust | 84 | 2399 |
-| [Toggle Group](toggle-group.md) | /components/toggle-group/source | crates/dioxus-shadcn-cli/templates/toggle_group.rs | src/components/ui/toggle_group.rs | rust | 260 | 7538 |
+| [Toggle Group](toggle-group.md) | /components/toggle-group/source | crates/dioxus-shadcn-cli/templates/toggle_group.rs | src/components/ui/toggle_group.rs | rust | 155 | 5459 |
 | [Tooltip](tooltip.md) | /components/tooltip/source | crates/dioxus-shadcn-cli/templates/tooltip.rs | src/components/ui/tooltip.rs | rust | 128 | 3825 |
 | [Typography](typography.md) | /components/typography/source | crates/dioxus-shadcn-cli/templates/typography.rs | src/components/ui/typography.rs | rust | 108 | 3804 |

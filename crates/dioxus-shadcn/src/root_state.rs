@@ -58,10 +58,54 @@ pub(crate) fn use_controllable<T: Clone + PartialEq + 'static>(
 /// The context of the root a part belongs to. A part outside its root
 /// panics here, naming both, instead of rendering without its state; Dioxus
 /// logs the panic and renders nothing for the part.
+#[cfg(any(
+  feature = "accordion",
+  feature = "alert-dialog",
+  feature = "collapsible",
+  feature = "combobox",
+  feature = "context-menu",
+  feature = "date-picker",
+  feature = "dialog",
+  feature = "drawer",
+  feature = "dropdown",
+  feature = "fab",
+  feature = "hover-card",
+  feature = "menubar",
+  feature = "navigation-menu",
+  feature = "popover",
+  feature = "select",
+  feature = "sheet",
+  feature = "radio-group",
+  feature = "tabs",
+  feature = "toggle-group",
+  feature = "tooltip"
+))]
 pub(crate) fn use_root_context<T: Clone + 'static>(part: &str, root: &str) -> T {
   root_context_or_panic(try_use_context::<T>(), part, root)
 }
 
+#[cfg(any(
+  feature = "accordion",
+  feature = "alert-dialog",
+  feature = "collapsible",
+  feature = "combobox",
+  feature = "context-menu",
+  feature = "date-picker",
+  feature = "dialog",
+  feature = "drawer",
+  feature = "dropdown",
+  feature = "fab",
+  feature = "hover-card",
+  feature = "menubar",
+  feature = "navigation-menu",
+  feature = "popover",
+  feature = "select",
+  feature = "sheet",
+  feature = "radio-group",
+  feature = "tabs",
+  feature = "toggle-group",
+  feature = "tooltip"
+))]
 fn root_context_or_panic<T>(context: Option<T>, part: &str, root: &str) -> T {
   context.unwrap_or_else(|| panic!("`{part}` must be inside a `{root}` (RFC 0077)"))
 }
@@ -94,6 +138,28 @@ mod tests {
     assert_eq!(SEEN.with(|seen| seen.borrow().clone()), [1, 2]);
   }
 
+  #[cfg(any(
+    feature = "accordion",
+    feature = "alert-dialog",
+    feature = "collapsible",
+    feature = "combobox",
+    feature = "context-menu",
+    feature = "date-picker",
+    feature = "dialog",
+    feature = "drawer",
+    feature = "dropdown",
+    feature = "fab",
+    feature = "hover-card",
+    feature = "menubar",
+    feature = "navigation-menu",
+    feature = "popover",
+    feature = "select",
+    feature = "sheet",
+    feature = "radio-group",
+    feature = "tabs",
+    feature = "toggle-group",
+    feature = "tooltip"
+  ))]
   #[test]
   fn a_missing_root_names_the_part_and_the_root() {
     let payload =

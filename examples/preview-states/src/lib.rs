@@ -27,7 +27,7 @@ use dioxus_shadcn::{
   SonnerViewport, Switch, Tabs, TabsActivation, TabsContent, TabsList, TabsOrientation,
   TabsTrigger, ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport, ToggleGroup,
   ToggleGroupItem, calendar_month_grid, calendar_move_date, command_matches,
-  sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute, toggle_group_single_selection,
+  sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute,
 };
 use dioxus_shadcn::{
   AlertDialog, AlertDialogAction, AlertDialogActionVariant, AlertDialogCancel, AlertDialogContent,
@@ -936,9 +936,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut tabs_value = use_signal(|| "account".to_string());
   let mut settings_tab = use_signal(|| "general".to_string());
   let mut radio_value = use_signal(|| None::<String>);
-  let radio_checked = move |value: &str| radio_value().as_deref() == Some(value);
-  let mut toggle_value = use_signal(|| None::<String>);
-  let toggle_pressed = move |value: &str| toggle_value().as_deref() == Some(value);
+  let mut toggle_value = use_signal(String::new);
   let mut wifi_enabled = use_signal(|| false);
   let mut terms_accepted = use_signal(|| false);
   let mut disabled_changes = use_signal(|| 0_u32);
@@ -1936,27 +1934,20 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               value: radio_value(),
               "aria-label": "Size",
               on_value_change: move |value: String| radio_value.set(Some(value)),
-              RadioGroupItem {
-                id: "interaction-radio-small",
-                value: "small",
-                checked: radio_checked("small"),
-              }
+              RadioGroupItem { id: "interaction-radio-small", value: "small" }
               Label { r#for: "interaction-radio-small", "Small" }
               RadioGroupItem {
                 value: "medium",
                 "aria-label": "Medium",
-                checked: radio_checked("medium"),
                 disabled: true,
               }
               RadioGroupItem {
                 value: "large",
                 "aria-label": "Large",
-                checked: radio_checked("large"),
               }
               RadioGroupItem {
                 value: "x-large",
                 "aria-label": "Extra large",
-                checked: radio_checked("x-large"),
               }
             }
           }
@@ -1974,24 +1965,18 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           article {
             class: "rounded-md border border-border p-4",
             "data-interaction-target": "toggle-group",
-            "data-value": toggle_value().unwrap_or_else(|| "none".to_string()),
+            "data-value": if toggle_value().is_empty() { "none".to_string() } else { toggle_value() },
             h2 { class: "text-sm font-medium", "Toggle group interaction" }
             ToggleGroup {
               class: "mt-3",
               "aria-label": "Text style",
               orientation: NavigationOrientation::Horizontal,
-              on_toggle: move |value: String| {
-                toggle_value.set(toggle_group_single_selection(toggle_value().as_deref(), &value))
-              },
-              ToggleGroupItem { value: "bold", pressed: toggle_pressed("bold"), "Bold" }
-              ToggleGroupItem { value: "italic", pressed: toggle_pressed("italic"), "Italic" }
-              ToggleGroupItem {
-                value: "strike",
-                pressed: toggle_pressed("strike"),
-                disabled: true,
-                "Strike"
-              }
-              ToggleGroupItem { value: "underline", pressed: toggle_pressed("underline"), "Underline" }
+              // Uncontrolled: the group owns the pressed item and the fixture records it.
+              on_value_change: move |value| toggle_value.set(value),
+              ToggleGroupItem { value: "bold", "Bold" }
+              ToggleGroupItem { value: "italic", "Italic" }
+              ToggleGroupItem { value: "strike", disabled: true, "Strike" }
+              ToggleGroupItem { value: "underline", "Underline" }
             }
           }
           article {

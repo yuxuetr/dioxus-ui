@@ -1,3 +1,4 @@
+use super::root_state::{Controllable, use_controllable, use_root_context};
 use super::roving_group::use_roving_group;
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
@@ -175,14 +176,22 @@ pub fn radio_group_move_value<'a>(
   radio_group_focus_state(orientation, looping, value).move_focus(items, focus_move)
 }
 
-/// Keeps one Tab stop on the checked item, or the first enabled item when
-/// none is checked. Arrow keys for `orientation` move between enabled items,
-/// wrapping when `looping`, and Home and End jump to the first and last. A
-/// click, or an arrow, Home, or End key that moves focus to another item,
-/// calls `on_value_change` with that item's `value`.
+#[derive(Clone, Copy)]
+struct RadioGroupContext {
+  value: Controllable<Option<String>>,
+}
+
+/// The root of a radio group: it owns the checked value (RFC 0077). Pass
+/// `value` to control it, or `default_value` to start it; `on_value_change`
+/// hears every change the user makes either way. Keeps one Tab stop on the
+/// checked item, or the first enabled item when none is checked. Arrow keys
+/// for `orientation` move between enabled items, wrapping when `looping`, and
+/// Home and End jump to the first and last. A click, or an arrow, Home, or
+/// End key that moves focus to another item, checks that item.
 #[component]
 pub fn RadioGroup(
-  #[props(default)] value: Option<String>,
+  #[props(default)] value: ReadSignal<Option<String>>,
+  #[props(default)] default_value: Option<String>,
   #[props(default)] orientation: NavigationOrientation,
   #[props(default = true)] looping: bool,
   #[props(default)] on_value_change: Option<EventHandler<String>>,
@@ -191,7 +200,15 @@ pub fn RadioGroup(
   children: Element,
 ) -> Element {
   let class = radio_group_class(orientation, &class);
-  let scope_id = use_roving_group(on_value_change);
+  let change = use_callback(move |next: Option<String>| {
+    if let (Some(handler), Some(next)) = (on_value_change, next) {
+      handler.call(next);
+    }
+  });
+  let value = use_controllable(move || value().map(Some), move || default_value, Some(change));
+  use_context_provider(|| RadioGroupContext { value });
+  let check = use_callback(move |next: String| value.set(Some(next)));
+  let scope_id = use_roving_group(Some(check));
   let roving_orientation = match orientation {
     NavigationOrientation::Horizontal => "horizontal",
     NavigationOrientation::Vertical => "vertical",
@@ -204,7 +221,7 @@ pub fn RadioGroup(
       role: "radiogroup",
       class,
       "aria-orientation": orientation,
-      "data-value": value.unwrap_or_default(),
+      "data-value": value.get().unwrap_or_default(),
       "data-looping": looping.to_string(),
       "data-dxui-roving-group": scope_id,
       "data-dxui-roving-orientation": roving_orientation,
@@ -219,11 +236,12 @@ pub fn RadioGroup(
 #[component]
 pub fn RadioGroupItem(
   value: String,
-  #[props(default)] checked: bool,
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
 ) -> Element {
+  let context = use_root_context::<RadioGroupContext>("RadioGroupItem", "RadioGroup");
+  let checked = context.value.get().as_deref() == Some(value.as_str());
   let class = radio_group_item_class(checked, &class);
   let indicator_class = radio_group_indicator_class("");
 

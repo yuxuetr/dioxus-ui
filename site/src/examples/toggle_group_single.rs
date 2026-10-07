@@ -1,24 +1,23 @@
 use dioxus::prelude::*;
-use dioxus_shadcn::{ToggleGroup, ToggleGroupItem, toggle_group_single_selection};
+use dioxus_shadcn::{ToggleGroup, ToggleGroupItem};
 
 #[component]
 pub fn ToggleGroupSingleDemo() -> Element {
-  let mut alignment = use_signal(|| Some("left".to_string()));
-  let pressed = move |value: &str| alignment().as_deref() == Some(value);
+  let mut alignment = use_signal(|| "left".to_string());
 
   rsx! {
+    // The group owns the pressed item; the app only shows it.
     ToggleGroup {
       "aria-label": "Text alignment",
-      on_toggle: move |value: String| {
-        alignment.set(toggle_group_single_selection(alignment().as_deref(), &value))
-      },
-      ToggleGroupItem { value: "left", pressed: pressed("left"), "Left" }
-      ToggleGroupItem { value: "center", pressed: pressed("center"), "Center" }
-      ToggleGroupItem { value: "right", pressed: pressed("right"), "Right" }
-      ToggleGroupItem { value: "justify", pressed: pressed("justify"), disabled: true, "Justify" }
+      default_value: "left",
+      on_value_change: move |value| alignment.set(value),
+      ToggleGroupItem { value: "left", "Left" }
+      ToggleGroupItem { value: "center", "Center" }
+      ToggleGroupItem { value: "right", "Right" }
+      ToggleGroupItem { value: "justify", disabled: true, "Justify" }
     }
     p { class: "mt-3 text-sm text-muted-foreground",
-      "Alignment: {alignment().unwrap_or_else(|| \"none\".to_string())}"
+      if alignment().is_empty() { "Alignment: none" } else { "Alignment: {alignment}" }
     }
   }
 }

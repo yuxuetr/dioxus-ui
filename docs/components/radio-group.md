@@ -28,18 +28,17 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["radio-
 
 ## Behavior
 
-The checked value stays controlled by the app. Pass `checked` to each item and
-handle `on_value_change`:
+`RadioGroup` owns the checked value
+([RFC 0077](../rfcs/0077-component-owned-state.md)). Start it with
+`default_value`, or control it with `value`; `on_value_change` hears every
+change the user makes either way. Items compare their `value` with the
+group's:
 
 ```rust
-let mut size = use_signal(|| None::<String>);
-
 rsx! {
-  RadioGroup {
-    value: size(),
-    on_value_change: move |value: String| size.set(Some(value)),
-    RadioGroupItem { value: "small", checked: size().as_deref() == Some("small") }
-    RadioGroupItem { value: "large", checked: size().as_deref() == Some("large") }
+  RadioGroup { default_value: "small",
+    RadioGroupItem { value: "small", "aria-label": "Small" }
+    RadioGroupItem { value: "large", "aria-label": "Large" }
   }
 }
 ```
@@ -48,11 +47,12 @@ rsx! {
   when none is checked.
 - Arrow keys for `orientation` move focus between enabled items, wrapping when
   `looping` is on; the default `Both` accepts all four arrows. Home and End
-  jump to the first and last. Moving focus calls `on_value_change` with the
-  focused item's value.
+  jump to the first and last. Moving focus checks the focused item.
 - In a right-to-left layout, ArrowLeft moves to the next item and ArrowRight
   to the previous one. Up and Down do not change.
-- A click or Space on an item calls `on_value_change` with its value.
+- A click or Space on an item checks it.
+- A `RadioGroupItem` outside a `RadioGroup` renders nothing and logs which
+  root it is missing.
 
 The Web renderer is covered by `npm run verify:runtime-interactions`.
 `radio_group_move_value` and `radio_group_item_tabindex` remain for apps that
@@ -71,8 +71,8 @@ Items have no text of their own, so name each one. `RadioGroup` and
 ```rust
 rsx! {
   Label { id: "size-label", "Size" }
-  RadioGroup { "aria-labelledby": "size-label", value: size(), on_value_change: move |value| size.set(Some(value)),
-    RadioGroupItem { id: "size-small", value: "small", checked: size().as_deref() == Some("small") }
+  RadioGroup { "aria-labelledby": "size-label", default_value: "small",
+    RadioGroupItem { id: "size-small", value: "small" }
     Label { r#for: "size-small", "Small" }
   }
 }

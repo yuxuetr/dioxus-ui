@@ -33,12 +33,17 @@ rsx! {
   }
   ToggleGroup {
     "aria-label": "Theme",
-    on_toggle: move |value: String| theme.set(Theme::parse(&value)),
+    value: theme().as_str().to_string(),
+    // Pressing the current theme again asks to clear it; a theme stays set.
+    on_value_change: move |value: String| {
+      if !value.is_empty() {
+        theme.set(Theme::parse(&value));
+      }
+    },
     for (option, label) in [(Theme::System, "System"), (Theme::Light, "Light"), (Theme::Dark, "Dark")] {
       ToggleGroupItem {
         key: "{label}",
         value: option.as_str().to_string(),
-        pressed: theme() == option,
         "{label}"
       }
     }

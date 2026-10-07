@@ -142,6 +142,15 @@ from `AccordionItem`, which must be inside `Accordion`.
 only gains the uncontrolled mode. The Collapsible trigger points
 `aria-controls` at the content only while the content renders.
 
+### Groups
+
+`RadioGroup` takes `value`, `default_value`, and `on_value_change`, as
+`Tabs` does; its items lose `checked`. `ToggleGroup` owns its pressed items
+as `Accordion` owns its open items, choosing single or multiple with its
+existing `selection_type`; its items lose `pressed`, and pressing the
+pressed item of a single group releases it and reports the empty string, as
+in Radix.
+
 ### Which components move
 
 | Batch | Components | State the root takes |

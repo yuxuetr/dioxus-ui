@@ -22,8 +22,6 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["toggle
 - `ToggleGroupType`
 - `toggle_group_class`
 - `toggle_group_item_class`
-- `toggle_group_single_selection`
-- `toggle_group_multiple_selection`
 - `toggle_group_move_value`
 - `NavigationOrientation`
 - `RovingFocusItem`
@@ -31,22 +29,24 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["toggle
 
 ## Behavior
 
-The pressed items stay controlled by the app. Pass `pressed` to each item and
-handle `on_toggle`, which receives the toggled item's value:
+`ToggleGroup` owns which items are pressed
+([RFC 0077](../rfcs/0077-component-owned-state.md)). In the default single
+mode one item is pressed, named by `default_value` or, to control it,
+`value`; the empty string means none. `on_value_change` hears every change,
+including `""` when the pressed item is released:
 
 ```rust
-let mut align = use_signal(|| Some("left".to_string()));
-
 rsx! {
-  ToggleGroup {
-    on_toggle: move |value: String| {
-      align.set(toggle_group_single_selection(align().as_deref(), &value))
-    },
-    ToggleGroupItem { value: "left", pressed: align().as_deref() == Some("left"), "Left" }
-    ToggleGroupItem { value: "right", pressed: align().as_deref() == Some("right"), "Right" }
+  ToggleGroup { "aria-label": "Alignment", default_value: "left",
+    ToggleGroupItem { value: "left", "Left" }
+    ToggleGroupItem { value: "right", "Right" }
   }
 }
 ```
+
+With `selection_type: ToggleGroupType::Multiple`, any number of items are
+pressed, and the group takes `values`, `default_values`, and
+`on_values_change` instead.
 
 - The items form one Tab stop: the item that last had focus, or the first
   pressed item, or the first enabled item.
@@ -55,9 +55,10 @@ rsx! {
   four arrows. Home and End jump to the first and last.
 - In a right-to-left layout, ArrowLeft moves to the next item and ArrowRight
   to the previous one. Up and Down do not change.
-- A click, Enter, or Space on an item calls `on_toggle` with its value. Use
-  `toggle_group_single_selection` or `toggle_group_multiple_selection` to
-  compute the next selection.
+- A click, Enter, or Space on an item presses it, or releases it when
+  pressed.
+- A `ToggleGroupItem` outside a `ToggleGroup` renders nothing and logs which
+  root it is missing.
 
 The Web renderer is covered by `npm run verify:runtime-interactions`.
 

@@ -24,7 +24,7 @@ Public components: 82
 - [Swap](swap.md): Styled toggle button that swaps between two elements.
 - [Theme Controller](theme-controller.md): Applies, follows, and remembers the color theme on the document root.
 - [Toggle](toggle.md): Toggle component for controlled pressed button states.
-- [Toggle Group](toggle-group.md): Toggle Group component for grouped single or multiple pressed states.
+- [Toggle Group](toggle-group.md): Toggle Group whose root owns the pressed item, or items.
 
 ### Forms
 
@@ -39,7 +39,7 @@ Public components: 82
 - [Label](label.md): Label component for associating text with form controls.
 - [Native Select](native-select.md): Styled native select, optgroup, and option components.
 - [Number Input](number-input.md): Styled number field with stepping buttons and spinbutton keys.
-- [Radio Group](radio-group.md): Radio Group component for single-choice grouped selection.
+- [Radio Group](radio-group.md): Radio Group whose root owns the checked value.
 - [Rating](rating.md): Styled star rating built on a native radio group.
 - [Select](select.md): Select components backed by primitive configuration types.
 - [Slider](slider.md): Slider component for controlled horizontal numeric values.
@@ -178,7 +178,7 @@ Public components: 82
 | [Popover](popover.md) | Popover content components backed by primitive configuration types. | `dxui add popover` | `popover` | `crates/dioxus-shadcn-cli/templates/popover.rs` | `src/components/ui/popover.rs` |
 | [Progress](progress.md) | Progress component with accessible value semantics. | `dxui add progress` | `progress` | `crates/dioxus-shadcn-cli/templates/progress.rs` | `src/components/ui/progress.rs` |
 | [Radial Progress](radial-progress.md) | Styled circular progress bar with a centered label. | `dxui add radial-progress` | `radial-progress` | `crates/dioxus-shadcn-cli/templates/radial_progress.rs` | `src/components/ui/radial_progress.rs` |
-| [Radio Group](radio-group.md) | Radio Group component for single-choice grouped selection. | `dxui add radio-group` | `radio-group` | `crates/dioxus-shadcn-cli/templates/radio_group.rs` | `src/components/ui/radio_group.rs` |
+| [Radio Group](radio-group.md) | Radio Group whose root owns the checked value. | `dxui add radio-group` | `radio-group` | `crates/dioxus-shadcn-cli/templates/radio_group.rs` | `src/components/ui/radio_group.rs` |
 | [Rating](rating.md) | Styled star rating built on a native radio group. | `dxui add rating` | `rating` | `crates/dioxus-shadcn-cli/templates/rating.rs` | `src/components/ui/rating.rs` |
 | [Resizable](resizable.md) | Controlled resizable panel group, panel, and handle parts. | `dxui add resizable` | `resizable` | `crates/dioxus-shadcn-cli/templates/resizable.rs` | `src/components/ui/resizable.rs` |
 | [Scroll Area](scroll-area.md) | Native scroll area wrapper with styled viewport and scrollbar parts. | `dxui add scroll-area` | `scroll-area` | `crates/dioxus-shadcn-cli/templates/scroll_area.rs` | `src/components/ui/scroll_area.rs` |
@@ -203,6 +203,6 @@ Public components: 82
 | [Timeline](timeline.md) | Styled ordered timeline with time, marker, and content parts. | `dxui add timeline` | `timeline` | `crates/dioxus-shadcn-cli/templates/timeline.rs` | `src/components/ui/timeline.rs` |
 | [Toast](toast.md) | Controlled toast notification parts and queue helpers. | `dxui add toast` | `toast` | `crates/dioxus-shadcn-cli/templates/toast.rs` | `src/components/ui/toast.rs` |
 | [Toggle](toggle.md) | Toggle component for controlled pressed button states. | `dxui add toggle` | `toggle` | `crates/dioxus-shadcn-cli/templates/toggle.rs` | `src/components/ui/toggle.rs` |
-| [Toggle Group](toggle-group.md) | Toggle Group component for grouped single or multiple pressed states. | `dxui add toggle-group` | `toggle-group` | `crates/dioxus-shadcn-cli/templates/toggle_group.rs` | `src/components/ui/toggle_group.rs` |
+| [Toggle Group](toggle-group.md) | Toggle Group whose root owns the pressed item, or items. | `dxui add toggle-group` | `toggle-group` | `crates/dioxus-shadcn-cli/templates/toggle_group.rs` | `src/components/ui/toggle_group.rs` |
 | [Tooltip](tooltip.md) | Tooltip content component backed by primitive configuration types. | `dxui add tooltip` | `tooltip` | `crates/dioxus-shadcn-cli/templates/tooltip.rs` | `src/components/ui/tooltip.rs` |
 | [Typography](typography.md) | Styled semantic typography parts. | `dxui add typography` | `typography` | `crates/dioxus-shadcn-cli/templates/typography.rs` | `src/components/ui/typography.rs` |

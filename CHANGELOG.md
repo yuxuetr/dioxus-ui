@@ -52,6 +52,11 @@ for commit messages.
   `values`, `default_values`, and `on_values_change`. `Collapsible` and
   `MenuGroup` take `open`, `default_open`, and `on_open_change`; the
   Collapsible trigger points `aria-controls` at the content while it shows.
+- Radio Group and Toggle Group own their value. `RadioGroup` takes `value`,
+  `default_value`, and `on_value_change`; `ToggleGroup` takes the same for
+  its one pressed item, the empty string while none is, or with
+  `ToggleGroupType::Multiple`, `values`, `default_values`, and
+  `on_values_change`.
 
 ### Fixed
 
@@ -140,6 +145,12 @@ for commit messages.
   the content and `controls` and the content `id`, which the root now links.
 - `MenuGroup`: pass `default_open` instead of an `open` the app never
   changes; `open` with `on_open_change` still controls it.
+- Radio Group: remove `checked` from items; `RadioGroup { value }` takes a
+  plain value or signal to control it, or use `default_value`.
+- Toggle Group: remove `pressed` from items and replace `on_toggle` with
+  `default_value` or `value` and `on_value_change` (the `values` props for a
+  multiple group). `toggle_group_single_selection` and
+  `toggle_group_multiple_selection` are removed.
 - Copy mode: re-copy components with `dxui add <name> --overwrite`. `utils`
   now brings two helpers, `class_merge` and `class_merge_table`; the second
   is generated from Tailwind and stores its names reversed so Tailwind

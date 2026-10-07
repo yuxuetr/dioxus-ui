@@ -1,6 +1,6 @@
 {
   "name": "toggle-group",
-  "description": "Toggle Group component for grouped single or multiple pressed states.",
+  "description": "Toggle Group whose root owns the pressed item, or items.",
   "files": [
     {
       "source": "templates/toggle_group.rs",
@@ -8,7 +8,9 @@
     }
   ],
   "dependencies": [
+    "choice",
     "roving-group",
+    "root-state",
     "utils"
   ],
   "assets": []

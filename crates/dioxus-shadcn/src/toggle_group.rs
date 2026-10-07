@@ -4,6 +4,8 @@ use dioxus_shadcn_primitives::{
   FocusMove, NavigationOrientation, RovingFocusItem, RovingFocusState,
 };
 
+use crate::choice::{Choice, use_choice};
+use crate::root_state::use_root_context;
 use crate::roving_group::use_roving_group;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -63,40 +65,47 @@ pub fn toggle_group_move_value<'a>(
   toggle_group_focus_state(orientation, looping, active_value).move_focus(items, focus_move)
 }
 
-pub fn toggle_group_single_selection(current: Option<&str>, toggled_value: &str) -> Option<String> {
-  if current == Some(toggled_value) { None } else { Some(toggled_value.to_string()) }
-}
-
-pub fn toggle_group_multiple_selection(current: &[String], toggled_value: &str) -> Vec<String> {
-  let mut next = current.to_vec();
-
-  if let Some(index) = next.iter().position(|value| value == toggled_value) {
-    next.remove(index);
-  } else {
-    next.push(toggled_value.to_string());
-  }
-
-  next
+#[derive(Clone, Copy)]
+struct ToggleGroupContext {
+  pressed: Choice,
 }
 
 /// Keeps one Tab stop on the item that last had focus, or the first pressed
 /// or enabled item. Arrow keys for `orientation` move focus between enabled
 /// items without pressing them, wrapping when `looping`, and Home and End jump
-/// to the first and last. A click calls `on_toggle` with the item's `value`;
-/// `toggle_group_single_selection` and `toggle_group_multiple_selection`
-/// compute the next selection from it.
+/// to the first and last. The group owns which items are pressed (RFC 0077):
+/// one, named by `value` (controlled) or `default_value`, the empty string
+/// while none is; with `ToggleGroupType::Multiple`, any number, named by
+/// `values` or `default_values`. A click presses an item, or releases it when
+/// pressed, and the change callback hears it either way.
 #[component]
 pub fn ToggleGroup(
   #[props(default)] selection_type: ToggleGroupType,
   #[props(default)] orientation: NavigationOrientation,
   #[props(default = true)] looping: bool,
-  #[props(default)] on_toggle: Option<EventHandler<String>>,
+  #[props(default)] value: ReadSignal<Option<String>>,
+  #[props(default)] default_value: String,
+  #[props(default)] on_value_change: Option<EventHandler<String>>,
+  #[props(default)] values: ReadSignal<Option<Vec<String>>>,
+  #[props(default)] default_values: Vec<String>,
+  #[props(default)] on_values_change: Option<EventHandler<Vec<String>>>,
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
   let class = toggle_group_class(orientation, &class);
-  let scope_id = use_roving_group(on_toggle);
+  let pressed = use_choice(
+    selection_type == ToggleGroupType::Multiple,
+    value,
+    Some(default_value),
+    on_value_change,
+    values,
+    default_values,
+    on_values_change,
+  );
+  use_context_provider(|| ToggleGroupContext { pressed });
+  let toggle = use_callback(move |value: String| pressed.toggle(value));
+  let scope_id = use_roving_group(Some(toggle));
   let roving_orientation = match orientation {
     NavigationOrientation::Horizontal => "horizontal",
     NavigationOrientation::Vertical => "vertical",
@@ -127,11 +136,12 @@ pub fn ToggleGroup(
 #[component]
 pub fn ToggleGroupItem(
   value: String,
-  #[props(default)] pressed: bool,
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
+  let context = use_root_context::<ToggleGroupContext>("ToggleGroupItem", "ToggleGroup");
+  let pressed = context.pressed.chosen().contains(&value);
   let class = toggle_group_item_class(pressed, &class);
 
   rsx! {
@@ -155,6 +165,45 @@ mod tests {
     let mut dom = VirtualDom::new(app);
     dom.rebuild_in_place();
     dioxus_ssr::render(&dom)
+  }
+
+  fn styles() -> Element {
+    rsx! {
+      ToggleGroupItem { value: "bold", "Bold" }
+      ToggleGroupItem { value: "italic", "Italic" }
+    }
+  }
+
+  #[test]
+  fn ssr_presses_the_defaults_unless_controlled() {
+    fn app() -> Element {
+      rsx! {
+        ToggleGroup { default_value: "italic", {styles()} }
+        ToggleGroup { value: String::new(), default_value: "italic", {styles()} }
+        ToggleGroup {
+          selection_type: ToggleGroupType::Multiple,
+          default_values: vec!["bold".to_string(), "italic".to_string()],
+          {styles()}
+        }
+      }
+    }
+    let html = render(app);
+
+    assert_eq!(html.matches(r#"aria-pressed="true""#).count(), 3, "{html}");
+    assert_eq!(html.matches(r#"aria-pressed="false""#).count(), 3);
+  }
+
+  #[test]
+  fn an_item_outside_its_group_renders_nothing() {
+    fn app() -> Element {
+      rsx! {
+        p { "before" }
+        ToggleGroupItem { value: "bold", "Bold" }
+        p { "after" }
+      }
+    }
+
+    assert_eq!(render(app), "<p>before</p><p>after</p>");
   }
 
   #[test]
@@ -206,26 +255,5 @@ mod tests {
     );
 
     assert_eq!(next, Some("underline"));
-  }
-
-  #[test]
-  fn single_selection_toggles_current_value() {
-    assert_eq!(toggle_group_single_selection(None, "bold").as_deref(), Some("bold"));
-    assert_eq!(toggle_group_single_selection(Some("bold"), "bold"), None);
-    assert_eq!(
-      toggle_group_single_selection(Some("bold"), "underline").as_deref(),
-      Some("underline")
-    );
-  }
-
-  #[test]
-  fn multiple_selection_toggles_membership() {
-    let current = vec!["bold".to_string(), "italic".to_string()];
-
-    assert_eq!(toggle_group_multiple_selection(&current, "italic"), vec!["bold".to_string()]);
-    assert_eq!(
-      toggle_group_multiple_selection(&current, "underline"),
-      vec!["bold".to_string(), "italic".to_string(), "underline".to_string()]
-    );
   }
 }
