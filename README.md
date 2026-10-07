@@ -335,6 +335,7 @@ only.
 - [RFC 0075: Render-Scoped Element Ids](docs/rfcs/0075-render-scoped-element-ids.md)
 - [RFC 0076: User Class Overrides](docs/rfcs/0076-user-class-overrides.md)
 - [RFC 0077: Component-Owned State](docs/rfcs/0077-component-owned-state.md)
+- [RFC 0078: Touch Density](docs/rfcs/0078-touch-density.md)
 
 ## Verification Shortcuts
 

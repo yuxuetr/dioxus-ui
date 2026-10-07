@@ -1,7 +1,8 @@
 // Interaction self-test for the Desktop and Mobile previews (RFC 0017,
 // RFC 0018). Runs inside the app's own WebView through `document::eval` and
 // sends one result:
-// `{ ok, passed, error }`. Dispatched events are untrusted, so browser default
+// `{ ok, passed, targets, error }`, where `targets` holds the rendered size of
+// each interactive control at defaults. Dispatched events are untrusted, so browser default
 // actions (Tab movement, Enter clicking a button) do not run; the scenarios
 // exercise the interaction scripts and Rust handlers instead.
 const overallTimeoutMs = 60000;
@@ -188,17 +189,56 @@ const scenarios = [
   }],
 ];
 
+// Rendered size of every visible interactive control in the interaction
+// fixtures, measured before any scenario runs, so at defaults (M211.1).
+const interactiveSelector = [
+  "button",
+  "a[href]",
+  "input:not([type=hidden])",
+  "select",
+  "textarea",
+  "summary",
+  '[role="button"]',
+  '[role="checkbox"]',
+  '[role="radio"]',
+  '[role="switch"]',
+  '[role="tab"]',
+  '[role="slider"]',
+  '[role="combobox"]',
+  '[role="menuitem"]',
+  '[role="option"]',
+  '[tabindex]:not([tabindex="-1"])',
+].join(", ");
+const measureTargets = () =>
+  Array.from(document.querySelectorAll(`[data-interaction-target] :is(${interactiveSelector})`))
+    .filter((element) => element.getClientRects().length > 0)
+    .map((element) => {
+      const { width, height } = element.getBoundingClientRect();
+      const name = (element.getAttribute("aria-label") || element.textContent || element.getAttribute("placeholder") || "")
+        .trim()
+        .replace(/\s+/g, " ")
+        .slice(0, 32);
+      return {
+        target: element.closest("[data-interaction-target]").dataset.interactionTarget,
+        control: element.getAttribute("role") || element.tagName.toLowerCase(),
+        name,
+        width: Math.round(width * 10) / 10,
+        height: Math.round(height * 10) / 10,
+      };
+    });
+
 const run = async () => {
+  const targets = measureTargets();
   const passed = [];
   for (const [name, scenario] of scenarios) {
     try {
       await scenario();
     } catch (error) {
-      return { ok: false, passed, error: `${name}: ${error instanceof Error ? error.message : error}` };
+      return { ok: false, passed, targets, error: `${name}: ${error instanceof Error ? error.message : error}` };
     }
     passed.push(name);
   }
-  return { ok: true, passed, error: null };
+  return { ok: true, passed, targets, error: null };
 };
 const timeout = sleep(overallTimeoutMs).then(() => ({
   ok: false,

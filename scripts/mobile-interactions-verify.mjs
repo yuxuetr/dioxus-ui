@@ -97,7 +97,9 @@ try {
 }
 
 // simctl does not report the app's exit status, so the printed line decides.
-const lines = launch.output.split(/\r?\n/).filter((line) => line.includes("interaction verification") || line.includes("passed before"));
+const lines = launch.output
+  .split(/\r?\n/)
+  .filter((line) => ["interaction verification", "passed before", "touch target"].some((text) => line.includes(text)));
 if (lines.some((line) => line.includes(passLine))) {
   console.log(lines.join("\n"));
 } else {
