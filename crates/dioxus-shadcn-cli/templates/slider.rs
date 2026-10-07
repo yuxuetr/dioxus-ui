@@ -63,16 +63,23 @@ await ended;
 observer.disconnect();
 "#;
 
+/// A slider's value and range. Built through `new`, the value is snapped to a step and inside
+/// `min..=max`.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct SliderState {
+  /// Current value, snapped to `min + n * step` and clamped to the range.
   pub value: f64,
   pub min: f64,
   pub max: f64,
   pub step: f64,
+  /// Distance Page Up and Page Down move; always positive, 10 steps by default.
   pub page_step: f64,
 }
 
 impl SliderState {
+  /// A slider with `value` snapped and clamped. Swapped bounds are put in order; a non-finite
+  /// `min` becomes 0 and a non-finite `max` becomes `min`. A `step` that is not a positive
+  /// finite number becomes 1, and a non-finite `value` becomes `min`.
   pub fn new(value: f64, min: f64, max: f64, step: f64) -> Self {
     let (min, max) = ordered_bounds(min, max);
     let step = positive_or_default(step, 1.0);
@@ -82,10 +89,12 @@ impl SliderState {
     Self { value, min, max, step, page_step }
   }
 
+  /// The same slider at `value`, snapped and clamped.
   pub fn with_value(self, value: f64) -> Self {
     Self { value: snap_value(value, self.min, self.max, self.step), ..self }
   }
 
+  /// The slider after a keyboard move, snapped and clamped.
   pub fn moved(self, movement: SliderKeyMove) -> Self {
     let value = match movement {
       SliderKeyMove::Decrement => self.value - self.step,
@@ -99,6 +108,7 @@ impl SliderState {
     self.with_value(value)
   }
 
+  /// How far the value sits along the range, from 0 to 100; 0 when the range is empty.
   pub fn percent(self) -> f64 {
     if self.max <= self.min {
       return 0.0;
@@ -107,6 +117,7 @@ impl SliderState {
     ((self.value - self.min) / (self.max - self.min) * 100.0).clamp(0.0, 100.0)
   }
 
+  /// The `aria-valuemin`, `aria-valuemax`, and `aria-valuenow` values for the thumb.
   pub fn aria_attributes(self) -> SliderAriaAttributes {
     SliderAriaAttributes {
       aria_valuemin: self.min,
@@ -116,20 +127,30 @@ impl SliderState {
   }
 }
 
+/// A keyboard move on a focused slider, as in the WAI-ARIA slider pattern.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum SliderKeyMove {
+  /// One step down (Left or Down arrow).
   Decrement,
+  /// One step up (Right or Up arrow).
   Increment,
+  /// One page step down (Page Down).
   PageDecrement,
+  /// One page step up (Page Up).
   PageIncrement,
+  /// Jump to `min` (Home).
   Home,
   End,
 }
 
+/// The ARIA range values a slider thumb reports.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct SliderAriaAttributes {
+  /// `aria-valuemin`.
   pub aria_valuemin: f64,
+  /// `aria-valuemax`.
   pub aria_valuemax: f64,
+  /// `aria-valuenow`.
   pub aria_valuenow: f64,
 }
 

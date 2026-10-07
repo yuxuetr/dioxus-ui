@@ -5,47 +5,71 @@ use super::utils::{classes, merge_classes};
 use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
+/// Which viewport corner or edge toasts stack in.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ToastPlacement {
+  /// Top-left corner.
   TopLeft,
+  /// Top edge, centered.
   TopCenter,
+  /// Top-right corner.
   TopRight,
+  /// Bottom-left corner.
   BottomLeft,
+  /// Bottom edge, centered.
   BottomCenter,
+  /// Bottom-right corner.
   #[default]
   BottomRight,
 }
 
+/// The tone of a toast, which picks its icon and colors.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ToastVariant {
+  /// Neutral message.
   #[default]
   Default,
   Success,
+  /// Informational notice.
   Info,
   Warning,
+  /// Failed action.
   Error,
+  /// Work still in progress.
   Loading,
 }
 
+/// Why a toast went away.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum ToastDismissReason {
+  /// The user clicked the toast's action button.
   Action,
+  /// The user clicked the close button.
   Close,
+  /// The toast's duration ran out.
   Timeout,
+  /// Application code dismissed it.
   Programmatic,
 }
 
+/// One toast notification.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct ToastItem {
   pub id: String,
+  /// Headline text.
   pub title: String,
+  /// Secondary text under the title; `None` shows none.
   pub description: Option<String>,
+  /// Tone of the toast.
   pub variant: ToastVariant,
+  /// How long the toast stays, in milliseconds; 0 keeps it until dismissed.
   pub duration_ms: u64,
+  /// Whether the user can close it.
   pub dismissible: bool,
 }
 
 impl ToastItem {
+  /// A dismissible default toast that stays for 5000 ms.
   pub fn new(id: impl Into<String>, title: impl Into<String>) -> Self {
     Self {
       id: id.into(),
@@ -57,46 +81,57 @@ impl ToastItem {
     }
   }
 
+  /// Sets the secondary text.
   pub fn with_description(mut self, description: impl Into<String>) -> Self {
     self.description = Some(description.into());
     self
   }
 
+  /// Sets the tone.
   pub const fn with_variant(mut self, variant: ToastVariant) -> Self {
     self.variant = variant;
     self
   }
 
+  /// Sets how long it stays, in milliseconds; 0 keeps it until dismissed.
   pub const fn with_duration_ms(mut self, duration_ms: u64) -> Self {
     self.duration_ms = duration_ms;
     self
   }
 
+  /// Sets whether the user can close it.
   pub const fn with_dismissible(mut self, dismissible: bool) -> Self {
     self.dismissible = dismissible;
     self
   }
 }
 
+/// The visible toasts, oldest first, capped at a limit.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct ToastQueue {
+  /// Visible toasts, oldest first.
   pub items: Vec<ToastItem>,
+  /// Maximum number of visible toasts; 0 shows none.
   pub limit: usize,
 }
 
 impl ToastQueue {
+  /// An empty queue that shows at most `limit` toasts.
   pub fn new(limit: usize) -> Self {
     Self { items: Vec::new(), limit }
   }
 
+  /// A queue holding the newest `limit` of `items`.
   pub fn with_items(items: Vec<ToastItem>, limit: usize) -> Self {
     Self { items: toast_queue_limit(items, limit), limit }
   }
 
+  /// Adds a toast; see [`toast_queue_push`].
   pub fn push(self, item: ToastItem) -> Self {
     toast_queue_push(self, item)
   }
 
+  /// Removes the toast with `id`; see [`toast_queue_dismiss`].
   pub fn dismiss(self, id: &str) -> Self {
     toast_queue_dismiss(self, id)
   }
@@ -110,6 +145,7 @@ const TOAST_DESCRIPTION_BASE_CLASS: &str = "text-sm";
 const TOAST_ACTION_BASE_CLASS: &str = "inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-border bg-transparent px-3 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 const TOAST_CLOSE_BASE_CLASS: &str = "absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
+/// The `data-placement` value for a placement, such as `top-center`.
 pub fn toast_placement_attribute(placement: ToastPlacement) -> &'static str {
   match placement {
     ToastPlacement::TopLeft => "top-left",
@@ -121,6 +157,7 @@ pub fn toast_placement_attribute(placement: ToastPlacement) -> &'static str {
   }
 }
 
+/// The `data-variant` value for a tone, such as `warning`.
 pub fn toast_variant_attribute(variant: ToastVariant) -> &'static str {
   match variant {
     ToastVariant::Default => "default",
@@ -132,6 +169,7 @@ pub fn toast_variant_attribute(variant: ToastVariant) -> &'static str {
   }
 }
 
+/// The attribute value for a dismissal reason, such as `timeout`.
 pub fn toast_dismiss_reason_attribute(reason: ToastDismissReason) -> &'static str {
   match reason {
     ToastDismissReason::Action => "action",
@@ -141,6 +179,8 @@ pub fn toast_dismiss_reason_attribute(reason: ToastDismissReason) -> &'static st
   }
 }
 
+/// Appends `item` as the newest toast, first removing any toast with the
+/// same id, then drops the oldest toasts beyond the limit.
 pub fn toast_queue_push(queue: ToastQueue, item: ToastItem) -> ToastQueue {
   let mut items = queue.items;
 
@@ -153,6 +193,7 @@ pub fn toast_queue_push(queue: ToastQueue, item: ToastItem) -> ToastQueue {
   ToastQueue { items: toast_queue_limit(items, queue.limit), limit: queue.limit }
 }
 
+/// Removes the toast with `id`; an unknown id leaves the queue unchanged.
 pub fn toast_queue_dismiss(queue: ToastQueue, id: &str) -> ToastQueue {
   ToastQueue {
     items: queue.items.into_iter().filter(|item| item.id != id).collect(),
@@ -160,6 +201,8 @@ pub fn toast_queue_dismiss(queue: ToastQueue, id: &str) -> ToastQueue {
   }
 }
 
+/// Keeps the newest `limit` items, dropping from the front; empty when
+/// `limit` is 0.
 pub fn toast_queue_limit(items: Vec<ToastItem>, limit: usize) -> Vec<ToastItem> {
   if limit == 0 {
     return Vec::new();
@@ -170,6 +213,8 @@ pub fn toast_queue_limit(items: Vec<ToastItem>, limit: usize) -> Vec<ToastItem> 
   if len <= limit { items } else { items.into_iter().skip(len - limit).collect() }
 }
 
+/// Whether a toast shown for `elapsed_ms` has outlived `duration_ms`; a
+/// duration of 0 never expires.
 pub const fn toast_is_expired(elapsed_ms: u64, duration_ms: u64) -> bool {
   duration_ms > 0 && elapsed_ms >= duration_ms
 }

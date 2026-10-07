@@ -23,8 +23,8 @@ Use it with:
 | Source-copy templates | 95 | Source-copy mode | 82 component templates plus 13 helper templates (RFC 0074). |
 | Registry entries | 95 | CLI/source-copy mode | 82 component entries in `registry/` plus 13 helper entries in `helpers/`. |
 | Registry schema | 1 | Tooling metadata | `crates/dioxus-shadcn-cli/registry/schema.json` validates registry shape and is not a component. |
-| Primitive modules | 20 | Crate mode/internal behavior | Public helpers and config types in `dioxus-shadcn-primitives`. |
-| Core crate exports | 4 groups | Crate/tooling mode | `classes`, `UiDensity`, and registry data structs. |
+| Primitive modules | 18 | Crate mode | Public helpers, config types, and runtime adapter traits in `dioxus-shadcn-primitives`, under its own semver promise (RFC 0079). |
+| Core crate exports | 4 groups | Crate/tooling mode | `classes`, `merge_classes`, `UiDensity`, and registry data structs. |
 
 ## Styled Component Features
 
@@ -231,7 +231,6 @@ calendar
 chart
 data_table
 dialog
-dismissal
 dropdown
 feedback
 input_otp
@@ -245,7 +244,6 @@ runtime
 select
 slider
 tooltip
-typeahead
 ```
 
 High-risk primitive surfaces:
@@ -257,15 +255,20 @@ High-risk primitive surfaces:
 - data table, message scroller, input OTP, calendar, carousel, slider, and
   resizable state helpers
 
-These APIs are likely to be reused directly by application code. Before first
-publish, maintainers should decide whether they are provisional `0.1.x` APIs
-or need a stabilization pass.
+The primitives crate keeps a semver promise of its own and documents every
+public item (RFC 0079): an app may depend on it directly, for example to
+implement the runtime adapter traits. 0.6.0 removed what nothing used: the
+`dismissal` and `typeahead` modules, the toast and Sonner runtime request
+helpers, and `slider_snap` and `slider_percent`.
+`node scripts/public-surface.mjs` lists the current items and where each is
+used.
 
 ## Core Surface
 
 Current core exports:
 
 - `classes`
+- `merge_classes`
 - `UiDensity`
 - `RegistryComponent`
 - `RegistryFile`
@@ -280,7 +283,7 @@ external tooling integrations more than visual component usage.
 | --- | --- |
 | Visual-only composition components | `low` unless prop naming is inconsistent. |
 | Feature flags and registry slugs | `medium` because downstream imports and CLI commands depend on them. |
-| Class helper functions and constants | `medium` because crate-mode users may import them directly. |
+| Class helper functions | `medium` because crate-mode users may import the ones component pages list; class constants are private (RFC 0079). |
 | Overlay, focus, placement, runtime, and selection primitives | `high` because they shape app behavior contracts. |
 | Source-copy template internals | `medium` for generated file layout, `low` for editable styling details. |
 

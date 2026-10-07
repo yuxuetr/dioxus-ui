@@ -15,8 +15,19 @@ for commit messages.
   a page lists or a public signature needs. Class constants are private,
   except `CHART_COLOR_CLASSES`. Every public item has a doc comment, and the
   crate denies `missing_docs`.
+- `dioxus-shadcn-primitives` and `dioxus-shadcn-core` document every public
+  item and deny `missing_docs`; the primitives crate keeps its own semver
+  promise (RFC 0079).
 
 ### Removed
+- From `dioxus-shadcn-primitives`, what nothing used: the `dismissal` module
+  (`DismissalEvent`, `DismissalDecision`, `DismissBehavior::should_dismiss`
+  and `dismissal_decision`), the `typeahead` module, the toast and Sonner
+  runtime request helpers (`toast_timer_request`, `sonner_timer_request`,
+  `toast_live_region_request`, `sonner_live_region_request`), and
+  `slider_snap` and `slider_percent`. `slider_clamp`,
+  `chart_domain_normalize`, and `data_table_clamp_page` are private; the
+  methods that call them stay.
 - Helpers no component used since RFC 0077: `toggle_group_move_value`,
   `toggle_group_item_tabindex`, `toggle_group_focus_state`,
   `slider_percent`, `slider_aria_attributes`,
@@ -46,11 +57,12 @@ for commit messages.
 - `message_scroller_class` takes only `class`; drop the intent argument,
   which never changed the classes.
 - `dioxus-shadcn` no longer re-exports `carousel_clamp_index`,
-  `chart_domain_normalize`, `chart_number_label`, `data_table_clamp_page`,
-  `layout_orientation_attribute`, `SliderAriaAttributes`, or Sonner's
-  `sonner_placement_attribute`, `sonner_queue_limit`, and
-  `sonner_variant_attribute`; import them from `dioxus-shadcn-primitives`
-  (Sonner's under their `toast_` names).
+  `chart_number_label`, `layout_orientation_attribute`,
+  `SliderAriaAttributes`, or Sonner's `sonner_placement_attribute`,
+  `sonner_queue_limit`, and `sonner_variant_attribute`; import them from
+  `dioxus-shadcn-primitives` (Sonner's under their `toast_` names).
+  `chart_domain_normalize` and `data_table_clamp_page` are no longer public;
+  call `ChartDomain::normalized` and `DataTablePaginationState::clamped_page`.
 
 ## [0.5.0] - 2026-10-07
 

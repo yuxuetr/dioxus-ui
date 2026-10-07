@@ -1,18 +1,31 @@
+//! Default configuration for a controlled popover, used by the styled `Popover`,
+//! `HoverCard`, `Combobox`, `DatePicker`, and `NavigationMenu` components.
+
 use crate::{DismissBehavior, FocusReturn, FocusStrategy, OverlayAlign, OverlaySide, PortalTarget};
 
 /// Initial controlled popover primitive configuration.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct PopoverPrimitiveConfig {
+  /// Whether the popover is open.
   pub open: bool,
+  /// Where focus moves when the content opens.
   pub focus_strategy: FocusStrategy,
+  /// Where focus goes when the content closes.
   pub focus_return: FocusReturn,
+  /// Which user actions close the content.
   pub dismiss: DismissBehavior,
+  /// Where the content renders in the tree.
   pub portal_target: PortalTarget,
+  /// Side of the trigger the content opens on.
   pub side: OverlaySide,
+  /// Alignment of the content along the trigger's edge.
   pub align: OverlayAlign,
 }
 
 impl PopoverPrimitiveConfig {
+  /// Config for a popover the app controls: focus stays put on open and returns to the
+  /// trigger on close, outside clicks, focus leaving, and Escape close it, and it opens
+  /// below the trigger, centered.
   pub fn controlled(open: bool) -> Self {
     Self {
       open,

@@ -1,42 +1,58 @@
-use crate::{FocusReturn, FocusStrategy, PortalTarget, ToastItem, ToastVariant};
+//! Platform-neutral requests and command traits for focus, portals, timers, live regions,
+//! measurement, pointer input, and gestures. A platform adapter implements the traits; each
+//! `*Unsupported` type stands in where no adapter is installed.
+
+use crate::{FocusReturn, FocusStrategy, PortalTarget};
 
 /// Result of a runtime focus command.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum FocusCommandResult {
+  /// The adapter carried out the command.
   Applied,
+  /// The node to focus or trap within was not found.
   MissingTarget,
+  /// No focus adapter is installed for this platform.
   Unsupported,
 }
 
 /// Request metadata for runtime focus commands.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct FocusRuntimeRequest {
+  /// Where focus moves when the overlay opens.
   pub strategy: FocusStrategy,
+  /// Where focus goes when the overlay closes.
   pub return_policy: FocusReturn,
+  /// Whether focus stays trapped inside the overlay.
   pub modal: bool,
 }
 
 impl FocusRuntimeRequest {
+  /// A request with every field given.
   pub const fn new(strategy: FocusStrategy, return_policy: FocusReturn, modal: bool) -> Self {
     Self { strategy, return_policy, modal }
   }
 
+  /// A request that traps focus inside the overlay.
   pub const fn modal(strategy: FocusStrategy, return_policy: FocusReturn) -> Self {
     Self::new(strategy, return_policy, true)
   }
 
+  /// A request that leaves focus free to leave the overlay.
   pub const fn non_modal(strategy: FocusStrategy, return_policy: FocusReturn) -> Self {
     Self::new(strategy, return_policy, false)
   }
 
+  /// The dialog policy: modal, focus the first focusable element, return to the trigger.
   pub const fn dialog_default() -> Self {
     Self::modal(FocusStrategy::FirstFocusable, FocusReturn::Trigger)
   }
 
+  /// The popover policy: non-modal, no initial focus, no focus return.
   pub const fn popover_default() -> Self {
     Self::non_modal(FocusStrategy::None, FocusReturn::None)
   }
 
+  /// A request built from an overlay config's focus fields; same as `new`.
   pub const fn from_policy(
     strategy: FocusStrategy,
     return_policy: FocusReturn,
@@ -45,14 +61,17 @@ impl FocusRuntimeRequest {
     Self::new(strategy, return_policy, modal)
   }
 
+  /// Whether opening should move focus, false for `FocusStrategy::None`.
   pub const fn should_focus_initial(self) -> bool {
     !matches!(self.strategy, FocusStrategy::None)
   }
 
+  /// Whether closing should move focus back, false for `FocusReturn::None`.
   pub const fn should_restore_focus(self) -> bool {
     !matches!(self.return_policy, FocusReturn::None)
   }
 
+  /// Whether focus should be trapped; the `modal` flag.
   pub const fn should_trap_focus(self) -> bool {
     self.modal
   }
@@ -60,13 +79,19 @@ impl FocusRuntimeRequest {
 
 /// Runtime focus command surface.
 pub trait FocusRuntime {
+  /// The platform's handle for an element, such as a DOM element id.
   type NodeId;
 
+  /// Moves focus into `scope` as `request.strategy` says, and reports whether it did.
   fn focus_initial(&self, scope: &Self::NodeId, request: FocusRuntimeRequest)
   -> FocusCommandResult;
 
+  /// Keeps Tab and Shift+Tab cycling inside `scope` until the overlay closes, and reports
+  /// whether the trap took hold.
   fn trap_focus(&self, scope: &Self::NodeId, request: FocusRuntimeRequest) -> FocusCommandResult;
 
+  /// Moves focus back to `target` (usually the trigger) after the overlay closes, and
+  /// reports whether it did.
   fn restore_focus(
     &self,
     target: &Self::NodeId,
@@ -105,44 +130,57 @@ impl FocusRuntime for FocusRuntimeUnsupported {
 /// Result of resolving a runtime portal target.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum PortalMountResult<MountId> {
+  /// Content mounts under this platform node.
   Mounted(MountId),
+  /// Content renders in place; no portal is needed.
   Inline,
+  /// The requested target, such as a selector, matched nothing.
   MissingTarget,
+  /// No portal adapter is installed for this platform.
   Unsupported,
 }
 
 /// Request metadata for runtime portal mounting.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct PortalRuntimeRequest {
+  /// Where the overlay content should render.
   pub target: PortalTarget,
+  /// Whether the overlay is modal.
   pub modal: bool,
 }
 
 impl PortalRuntimeRequest {
+  /// A request with every field given.
   pub fn new(target: PortalTarget, modal: bool) -> Self {
     Self { target, modal }
   }
 
+  /// A request to render the content in place.
   pub fn inline(modal: bool) -> Self {
     Self::new(PortalTarget::Inline, modal)
   }
 
+  /// A request to mount the content under the document body.
   pub fn body(modal: bool) -> Self {
     Self::new(PortalTarget::Body, modal)
   }
 
+  /// A request to mount the content under the element `selector` matches.
   pub fn selector(selector: impl Into<String>, modal: bool) -> Self {
     Self::new(PortalTarget::Selector(selector.into()), modal)
   }
 
+  /// A request built from an overlay config's portal target; same as `new`.
   pub fn from_policy(target: PortalTarget, modal: bool) -> Self {
     Self::new(target, modal)
   }
 
+  /// Whether the content needs a portal, false for `Inline`.
   pub fn should_mount(&self) -> bool {
     !matches!(self.target, PortalTarget::Inline)
   }
 
+  /// Whether the target is the document body.
   pub fn is_body_target(&self) -> bool {
     matches!(self.target, PortalTarget::Body)
   }
@@ -150,8 +188,11 @@ impl PortalRuntimeRequest {
 
 /// Runtime portal command surface.
 pub trait PortalRuntime {
+  /// The platform's handle for the node content mounts under.
   type MountId;
 
+  /// Resolves `request.target` to a mount node. Returns `Inline` for an inline target and
+  /// `MissingTarget` when the target does not exist.
   fn mount_target(&self, request: &PortalRuntimeRequest) -> PortalMountResult<Self::MountId>;
 }
 
@@ -174,45 +215,59 @@ impl PortalRuntime for PortalRuntimeUnsupported {
 /// Runtime timer use case.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum TimerReason {
+  /// Auto-dismissing a toast.
   ToastDismiss,
+  /// Auto-dismissing a Sonner toast.
   SonnerDismiss,
+  /// Delaying a tooltip's open or close.
   TooltipDelay,
+  /// Delaying a hover card's open or close.
   HoverCardDelay,
+  /// Advancing a carousel slide.
   CarouselAutoplay,
 }
 
 /// Request metadata for a one-shot runtime timer.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct TimerRuntimeRequest {
+  /// Delay before the timer fires, in milliseconds; 0 disables it.
   pub delay_ms: u64,
+  /// What the timer is for.
   pub reason: TimerReason,
 }
 
 impl TimerRuntimeRequest {
+  /// A request with every field given.
   pub const fn new(delay_ms: u64, reason: TimerReason) -> Self {
     Self { delay_ms, reason }
   }
 
+  /// A toast auto-dismiss timer.
   pub const fn toast_dismiss(delay_ms: u64) -> Self {
     Self::new(delay_ms, TimerReason::ToastDismiss)
   }
 
+  /// A Sonner toast auto-dismiss timer.
   pub const fn sonner_dismiss(delay_ms: u64) -> Self {
     Self::new(delay_ms, TimerReason::SonnerDismiss)
   }
 
+  /// A tooltip open or close delay.
   pub const fn tooltip_delay(delay_ms: u64) -> Self {
     Self::new(delay_ms, TimerReason::TooltipDelay)
   }
 
+  /// A hover card open or close delay.
   pub const fn hover_card_delay(delay_ms: u64) -> Self {
     Self::new(delay_ms, TimerReason::HoverCardDelay)
   }
 
+  /// A carousel autoplay step.
   pub const fn carousel_autoplay(delay_ms: u64) -> Self {
     Self::new(delay_ms, TimerReason::CarouselAutoplay)
   }
 
+  /// Whether the timer should run: `delay_ms` above 0.
   pub const fn is_enabled(self) -> bool {
     self.delay_ms > 0
   }
@@ -221,18 +276,27 @@ impl TimerRuntimeRequest {
 /// Result of a runtime timer command.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum TimerRuntimeResult<TimerId> {
+  /// The timer is running; pass this id to `cancel`.
   Scheduled(TimerId),
+  /// The timer was stopped before it fired.
   Cancelled,
+  /// No running timer has that id.
   Missing,
+  /// The request had a zero delay, so nothing was scheduled.
   Disabled,
+  /// No timer adapter is installed for this platform.
   Unsupported,
 }
 
 /// Runtime timer command surface.
 pub trait TimerRuntime {
+  /// The platform's handle for a scheduled timer.
   type TimerId;
 
+  /// Schedules one firing after `request.delay_ms`. Returns `Disabled` without
+  /// scheduling when the delay is 0.
   fn schedule_once(&self, request: &TimerRuntimeRequest) -> TimerRuntimeResult<Self::TimerId>;
+  /// Stops the timer `id` if it has not fired. Returns `Missing` when it is not running.
   fn cancel(&self, id: &Self::TimerId) -> TimerRuntimeResult<Self::TimerId>;
 }
 
@@ -256,37 +320,37 @@ impl TimerRuntime for TimerRuntimeUnsupported {
   }
 }
 
-pub const fn toast_timer_request(item: &ToastItem) -> TimerRuntimeRequest {
-  TimerRuntimeRequest::toast_dismiss(item.duration_ms)
-}
-
-pub const fn sonner_timer_request(item: &ToastItem) -> TimerRuntimeRequest {
-  TimerRuntimeRequest::sonner_dismiss(item.duration_ms)
-}
-
 /// Live-region announcement urgency.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum AnnouncementPriority {
+  /// Read when the screen reader is idle (`aria-live="polite"`).
   Polite,
+  /// Read at once, interrupting (`aria-live="assertive"`).
   Assertive,
 }
 
 /// Duplicate handling policy for consecutive announcements.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum DuplicateAnnouncementPolicy {
+  /// Announce every message, even a repeat.
   Allow,
+  /// Skip a message identical to the one just announced.
   SuppressConsecutive,
 }
 
 /// Request metadata for a runtime live-region announcement.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct LiveRegionRuntimeRequest {
+  /// Text for the screen reader to announce.
   pub message: String,
+  /// How urgently to announce it.
   pub priority: AnnouncementPriority,
+  /// Whether to skip a repeat of the last message.
   pub duplicate_policy: DuplicateAnnouncementPolicy,
 }
 
 impl LiveRegionRuntimeRequest {
+  /// A request with every field given.
   pub fn new(
     message: impl Into<String>,
     priority: AnnouncementPriority,
@@ -295,6 +359,7 @@ impl LiveRegionRuntimeRequest {
     Self { message: message.into(), priority, duplicate_policy }
   }
 
+  /// A polite announcement that skips consecutive repeats.
   pub fn polite(message: impl Into<String>) -> Self {
     Self::new(
       message,
@@ -303,6 +368,7 @@ impl LiveRegionRuntimeRequest {
     )
   }
 
+  /// An assertive announcement that skips consecutive repeats.
   pub fn assertive(message: impl Into<String>) -> Self {
     Self::new(
       message,
@@ -311,20 +377,25 @@ impl LiveRegionRuntimeRequest {
     )
   }
 
+  /// Announces the message even when it repeats.
   pub fn allow_duplicates(mut self) -> Self {
     self.duplicate_policy = DuplicateAnnouncementPolicy::Allow;
     self
   }
 
+  /// Skips the message when it matches the previous one.
   pub fn suppress_consecutive_duplicates(mut self) -> Self {
     self.duplicate_policy = DuplicateAnnouncementPolicy::SuppressConsecutive;
     self
   }
 
+  /// Whether the message is empty or only whitespace.
   pub fn is_empty(&self) -> bool {
     self.message.trim().is_empty()
   }
 
+  /// Whether to skip this message: the policy suppresses repeats and it equals
+  /// `previous_message` exactly. `None` means nothing was announced before.
   pub fn should_suppress_duplicate(&self, previous_message: Option<&str>) -> bool {
     matches!(self.duplicate_policy, DuplicateAnnouncementPolicy::SuppressConsecutive)
       && previous_message == Some(self.message.as_str())
@@ -334,14 +405,21 @@ impl LiveRegionRuntimeRequest {
 /// Result of a runtime live-region announcement command.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum LiveRegionRuntimeResult {
+  /// The message was handed to the live region.
   Queued,
+  /// The message repeated the previous one and was skipped.
   SuppressedDuplicate,
+  /// The message was blank and was skipped.
   EmptyMessage,
+  /// No live-region adapter is installed for this platform.
   Unsupported,
 }
 
 /// Runtime live-region command surface.
 pub trait LiveRegionRuntime {
+  /// Sends `request.message` to a live region at its priority. Should return
+  /// `EmptyMessage` for a blank message and `SuppressedDuplicate` when
+  /// `should_suppress_duplicate` holds for the last message announced.
   fn announce(&self, request: &LiveRegionRuntimeRequest) -> LiveRegionRuntimeResult;
 }
 
@@ -362,25 +440,33 @@ impl LiveRegionRuntime for LiveRegionRuntimeUnsupported {
 /// Renderer-independent rectangle reported by measurement runtimes.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct RuntimeRect {
+  /// Left edge, in logical pixels.
   pub x: f64,
+  /// Top edge, in logical pixels.
   pub y: f64,
+  /// Width, in logical pixels.
   pub width: f64,
+  /// Height, in logical pixels.
   pub height: f64,
 }
 
 impl RuntimeRect {
+  /// A rectangle from its origin and size.
   pub const fn new(x: f64, y: f64, width: f64, height: f64) -> Self {
     Self { x, y, width, height }
   }
 
+  /// Right edge: `x + width`.
   pub fn right(&self) -> f64 {
     self.x + self.width
   }
 
+  /// Bottom edge: `y + height`.
   pub fn bottom(&self) -> f64 {
     self.y + self.height
   }
 
+  /// Whether the width or height is zero or negative.
   pub fn is_empty(&self) -> bool {
     self.width <= 0.0 || self.height <= 0.0
   }
@@ -389,22 +475,30 @@ impl RuntimeRect {
 /// Request for runtime measurement.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum MeasurementRuntimeRequest<NodeId> {
+  /// Measure this element's bounding box.
   Node(NodeId),
+  /// Measure the visible viewport.
   Viewport,
 }
 
 /// Result of a runtime measurement command.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum MeasurementRuntimeResult {
+  /// The measured rectangle.
   Rect(RuntimeRect),
+  /// The element was not found.
   Missing,
+  /// No measurement adapter is installed for this platform.
   Unsupported,
 }
 
 /// Runtime measurement command surface.
 pub trait MeasurementRuntime {
+  /// The platform's handle for an element.
   type NodeId;
 
+  /// Returns the requested rectangle in logical pixels, or `Missing` when the element
+  /// is not found.
   fn measure(&self, request: &MeasurementRuntimeRequest<Self::NodeId>) -> MeasurementRuntimeResult;
 }
 
@@ -426,19 +520,24 @@ impl MeasurementRuntime for MeasurementRuntimeUnsupported {
 /// Renderer-independent pointer delta in logical pixels.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct PointerDelta {
+  /// Horizontal movement, in logical pixels; positive is rightward.
   pub delta_x: f64,
+  /// Vertical movement, in logical pixels; positive is downward.
   pub delta_y: f64,
 }
 
 impl PointerDelta {
+  /// A delta from its two components.
   pub const fn new(delta_x: f64, delta_y: f64) -> Self {
     Self { delta_x, delta_y }
   }
 
+  /// No movement.
   pub const fn zero() -> Self {
     Self::new(0.0, 0.0)
   }
 
+  /// The component along `orientation`: `delta_x` for horizontal, `delta_y` for vertical.
   pub fn primary_delta(&self, orientation: crate::LayoutOrientation) -> f64 {
     match orientation {
       crate::LayoutOrientation::Horizontal => self.delta_x,
@@ -446,6 +545,7 @@ impl PointerDelta {
     }
   }
 
+  /// Whether both components are exactly zero.
   pub fn is_zero(&self) -> bool {
     self.delta_x == 0.0 && self.delta_y == 0.0
   }
@@ -454,40 +554,52 @@ impl PointerDelta {
 /// Normalized pointer interaction phase.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum PointerPhase {
+  /// The pointer went down.
   Start,
+  /// The pointer moved while down.
   Move,
+  /// The pointer was released.
   End,
+  /// The platform cancelled the interaction.
   Cancel,
 }
 
 /// Request metadata for runtime pointer handling.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct PointerRuntimeRequest {
+  /// Which part of the interaction this is.
   pub phase: PointerPhase,
+  /// Movement since the previous event; zero outside `Move`.
   pub delta: PointerDelta,
 }
 
 impl PointerRuntimeRequest {
+  /// A request with every field given.
   pub const fn new(phase: PointerPhase, delta: PointerDelta) -> Self {
     Self { phase, delta }
   }
 
+  /// A pointer-down with no movement.
   pub const fn start() -> Self {
     Self::new(PointerPhase::Start, PointerDelta::zero())
   }
 
+  /// A move by `delta`.
   pub const fn move_by(delta: PointerDelta) -> Self {
     Self::new(PointerPhase::Move, delta)
   }
 
+  /// A pointer release with no movement.
   pub const fn end() -> Self {
     Self::new(PointerPhase::End, PointerDelta::zero())
   }
 
+  /// A cancellation with no movement.
   pub const fn cancel() -> Self {
     Self::new(PointerPhase::Cancel, PointerDelta::zero())
   }
 
+  /// Whether the interaction is over: `End` or `Cancel`.
   pub const fn is_terminal(&self) -> bool {
     matches!(self.phase, PointerPhase::End | PointerPhase::Cancel)
   }
@@ -496,15 +608,21 @@ impl PointerRuntimeRequest {
 /// Result of a runtime pointer command.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum PointerRuntimeResult {
+  /// The adapter began tracking the pointer.
   Started,
+  /// The pointer moved by this delta.
   Moved(PointerDelta),
+  /// Tracking stopped on release.
   Ended,
+  /// Tracking stopped on cancellation.
   Cancelled,
+  /// No pointer adapter is installed for this platform.
   Unsupported,
 }
 
 /// Runtime pointer command surface.
 pub trait PointerRuntime {
+  /// Handles one pointer event and returns the result matching its phase.
   fn handle_pointer(&self, request: &PointerRuntimeRequest) -> PointerRuntimeResult;
 }
 
@@ -521,12 +639,15 @@ impl PointerRuntime for PointerRuntimeUnsupported {
 /// Axis used by normalized gesture adapters.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum GestureAxis {
+  /// Swipes run left and right.
   #[default]
   Horizontal,
+  /// Swipes run up and down.
   Vertical,
 }
 
 impl GestureAxis {
+  /// The axis matching a layout orientation.
   pub const fn from_orientation(orientation: crate::LayoutOrientation) -> Self {
     match orientation {
       crate::LayoutOrientation::Horizontal => Self::Horizontal,
@@ -534,6 +655,7 @@ impl GestureAxis {
     }
   }
 
+  /// The layout orientation matching this axis.
   pub const fn orientation(self) -> crate::LayoutOrientation {
     match self {
       Self::Horizontal => crate::LayoutOrientation::Horizontal,
@@ -545,24 +667,31 @@ impl GestureAxis {
 /// Normalized gesture state in logical pixels and pixels per second.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GestureState {
+  /// Axis the gesture runs along.
   pub axis: GestureAxis,
+  /// Distance travelled along the axis, in logical pixels; negative is left or up.
   pub distance: f64,
+  /// Speed along the axis, in pixels per second; negative is left or up.
   pub velocity: f64,
 }
 
 impl GestureState {
+  /// A state with every field given.
   pub const fn new(axis: GestureAxis, distance: f64, velocity: f64) -> Self {
     Self { axis, distance, velocity }
   }
 
+  /// A horizontal gesture.
   pub const fn horizontal(distance: f64, velocity: f64) -> Self {
     Self::new(GestureAxis::Horizontal, distance, velocity)
   }
 
+  /// A vertical gesture.
   pub const fn vertical(distance: f64, velocity: f64) -> Self {
     Self::new(GestureAxis::Vertical, distance, velocity)
   }
 
+  /// `distance` as a pointer delta on the gesture's axis.
   pub fn primary_delta(&self) -> PointerDelta {
     match self.axis {
       GestureAxis::Horizontal => PointerDelta::new(self.distance, 0.0),
@@ -570,6 +699,7 @@ impl GestureState {
     }
   }
 
+  /// Whether distance and velocity are both exactly zero.
   pub fn is_stationary(&self) -> bool {
     self.distance == 0.0 && self.velocity == 0.0
   }
@@ -578,12 +708,16 @@ impl GestureState {
 /// Normalized result of a completed gesture.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum GestureOutcome {
+  /// Advance to the next item (a swipe left or up).
   CommitNext,
+  /// Go back to the previous item (a swipe right or down).
   CommitPrevious,
+  /// Snap back to the current item.
   Cancel,
 }
 
 impl GestureOutcome {
+  /// Whether the gesture moves to another item.
   pub const fn is_commit(self) -> bool {
     matches!(self, Self::CommitNext | Self::CommitPrevious)
   }
@@ -592,16 +726,23 @@ impl GestureOutcome {
 /// Request metadata for runtime gesture recognition.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GestureRuntimeRequest {
+  /// The gesture as it stood on release.
   pub state: GestureState,
+  /// Distance, in logical pixels, that commits the gesture; 0 or
+  /// non-finite turns the distance check off.
   pub distance_threshold: f64,
+  /// Speed, in pixels per second, that commits the gesture; 0 or
+  /// non-finite turns the velocity check off.
   pub velocity_threshold: f64,
 }
 
 impl GestureRuntimeRequest {
+  /// A request with every field given.
   pub const fn new(state: GestureState, distance_threshold: f64, velocity_threshold: f64) -> Self {
     Self { state, distance_threshold, velocity_threshold }
   }
 
+  /// A request for a horizontal gesture.
   pub const fn horizontal(
     distance: f64,
     velocity: f64,
@@ -611,6 +752,7 @@ impl GestureRuntimeRequest {
     Self::new(GestureState::horizontal(distance, velocity), distance_threshold, velocity_threshold)
   }
 
+  /// A request for a vertical gesture.
   pub const fn vertical(
     distance: f64,
     velocity: f64,
@@ -620,6 +762,9 @@ impl GestureRuntimeRequest {
     Self::new(GestureState::vertical(distance, velocity), distance_threshold, velocity_threshold)
   }
 
+  /// Commits when the distance, or failing that the velocity, reaches its threshold
+  /// (compared by magnitude), in the direction of that motion; otherwise `Cancel`.
+  /// Non-finite distance or velocity counts as zero.
   pub fn resolve_outcome(&self) -> GestureOutcome {
     let distance_threshold = finite_threshold(self.distance_threshold);
     let velocity_threshold = finite_threshold(self.velocity_threshold);
@@ -639,12 +784,15 @@ impl GestureRuntimeRequest {
 /// Result of a runtime gesture command.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum GestureRuntimeResult {
+  /// The adapter's outcome for the gesture.
   Resolved(GestureOutcome),
+  /// No gesture adapter is installed for this platform.
   Unsupported,
 }
 
 /// Runtime gesture command surface.
 pub trait GestureRuntime {
+  /// Decides what a finished gesture does; `resolve_outcome` is the reference rule.
   fn resolve_gesture(&self, request: &GestureRuntimeRequest) -> GestureRuntimeResult;
 }
 
@@ -686,34 +834,6 @@ fn finite_threshold(value: f64) -> f64 {
 
 fn finite_or_zero(value: f64) -> f64 {
   if value.is_finite() { value } else { 0.0 }
-}
-
-pub fn toast_live_region_request(item: &ToastItem) -> LiveRegionRuntimeRequest {
-  feedback_live_region_request(item)
-}
-
-pub fn sonner_live_region_request(item: &ToastItem) -> LiveRegionRuntimeRequest {
-  feedback_live_region_request(item)
-}
-
-fn feedback_live_region_request(item: &ToastItem) -> LiveRegionRuntimeRequest {
-  let message = feedback_announcement_message(item);
-
-  match item.variant {
-    ToastVariant::Warning | ToastVariant::Error => LiveRegionRuntimeRequest::assertive(message),
-    ToastVariant::Default | ToastVariant::Success | ToastVariant::Info | ToastVariant::Loading => {
-      LiveRegionRuntimeRequest::polite(message)
-    }
-  }
-}
-
-fn feedback_announcement_message(item: &ToastItem) -> String {
-  match item.description.as_deref().map(str::trim) {
-    Some(description) if !description.is_empty() => {
-      format!("{} {}", item.title.trim(), description)
-    }
-    _ => item.title.trim().to_string(),
-  }
 }
 
 #[cfg(test)]
@@ -909,56 +1029,6 @@ mod tests {
     let request = LiveRegionRuntimeRequest::polite(" ");
 
     assert_eq!(runtime.announce(&request), LiveRegionRuntimeResult::EmptyMessage);
-  }
-
-  #[test]
-  fn toast_timer_request_uses_toast_dismiss_reason() {
-    let item = crate::ToastItem::new("one", "Saved").with_duration_ms(3000);
-    let request = toast_timer_request(&item);
-
-    assert_eq!(request.delay_ms, 3000);
-    assert_eq!(request.reason, TimerReason::ToastDismiss);
-  }
-
-  #[test]
-  fn sonner_timer_request_uses_sonner_dismiss_reason() {
-    let item = crate::ToastItem::new("one", "Saved").with_duration_ms(4000);
-    let request = sonner_timer_request(&item);
-
-    assert_eq!(request.delay_ms, 4000);
-    assert_eq!(request.reason, TimerReason::SonnerDismiss);
-  }
-
-  #[test]
-  fn toast_live_region_request_maps_error_to_assertive() {
-    let item = crate::ToastItem::new("upload", "Upload failed")
-      .with_description("Try again")
-      .with_variant(crate::ToastVariant::Error);
-    let request = toast_live_region_request(&item);
-
-    assert_eq!(request.message, "Upload failed Try again");
-    assert_eq!(request.priority, AnnouncementPriority::Assertive);
-    assert_eq!(request.duplicate_policy, DuplicateAnnouncementPolicy::SuppressConsecutive);
-  }
-
-  #[test]
-  fn sonner_live_region_request_maps_success_to_polite() {
-    let item = crate::ToastItem::new("saved", "Saved")
-      .with_description("Settings updated")
-      .with_variant(crate::ToastVariant::Success);
-    let request = sonner_live_region_request(&item);
-
-    assert_eq!(request.message, "Saved Settings updated");
-    assert_eq!(request.priority, AnnouncementPriority::Polite);
-  }
-
-  #[test]
-  fn feedback_live_region_request_trims_empty_description() {
-    let item = crate::ToastItem::new("saved", " Saved ").with_description("  ");
-    let request = toast_live_region_request(&item);
-
-    assert_eq!(request.message, "Saved");
-    assert_eq!(request.priority, AnnouncementPriority::Polite);
   }
 
   #[test]

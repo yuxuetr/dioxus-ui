@@ -1,18 +1,30 @@
+//! Default configuration for a controlled select listbox, used by the styled
+//! `Select` component.
+
 use crate::{DismissBehavior, FocusStrategy, OverlayAlign, OverlaySide, PortalTarget};
 
 /// Initial controlled select primitive configuration.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct SelectPrimitiveConfig {
+  /// Whether the listbox is open.
   pub open: bool,
+  /// Selected option value; `None` when nothing is selected.
   pub value: Option<String>,
+  /// Where focus moves when the content opens.
   pub focus_strategy: FocusStrategy,
+  /// Which user actions close the content.
   pub dismiss: DismissBehavior,
+  /// Where the content renders in the tree.
   pub portal_target: PortalTarget,
+  /// Side of the trigger the content opens on.
   pub side: OverlaySide,
+  /// Alignment of the content along the trigger's edge.
   pub align: OverlayAlign,
 }
 
 impl SelectPrimitiveConfig {
+  /// Config for a select the app controls: focus goes to the listbox, outside clicks,
+  /// focus leaving, and Escape close it, and it opens below the trigger, start-aligned.
   pub fn controlled(open: bool, value: Option<String>) -> Self {
     Self {
       open,

@@ -1,74 +1,123 @@
+//! Overlay positioning: where to put floating content next to its anchor so it stays inside
+//! the viewport, flipping to the opposite side or sliding along the edge on collision.
+//! Coordinates are CSS pixels in the same space as the anchor and viewport rects.
+
 use crate::{OverlayAlign, OverlaySide};
 
+/// A rectangle in CSS pixels, positioned by its top-left corner.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct OverlayRect {
+  /// Left edge.
   pub x: i32,
+  /// Top edge.
   pub y: i32,
+  /// Width.
   pub width: i32,
+  /// Height.
   pub height: i32,
 }
 
 impl OverlayRect {
+  /// The right edge: `x + width`.
   pub const fn right(self) -> i32 {
     self.x + self.width
   }
 
+  /// The bottom edge: `y + height`.
   pub const fn bottom(self) -> i32 {
     self.y + self.height
   }
 }
 
+/// The measured size of the overlay content, in CSS pixels.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct OverlaySize {
+  /// Width.
   pub width: i32,
+  /// Height.
   pub height: i32,
 }
 
+/// Extra distance, in CSS pixels, between the overlay and its anchor.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct OverlayOffset {
+  /// Gap away from the anchor along the side's axis; negative values overlap the anchor.
   pub main_axis: i16,
+  /// Slide along the anchor's edge, added after alignment (right or down when positive).
   pub cross_axis: i16,
 }
 
+/// Margin, in CSS pixels, kept between the overlay and each viewport edge when checking for
+/// collisions.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct CollisionPadding {
+  /// Margin from the top edge.
   pub top: u16,
+  /// Margin from the right edge.
   pub right: u16,
+  /// Margin from the bottom edge.
   pub bottom: u16,
+  /// Margin from the left edge.
   pub left: u16,
 }
 
+/// What to do when the overlay would not fit inside the padded viewport.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum CollisionStrategy {
+  /// Keep the requested position even if it overflows.
   #[default]
   None,
+  /// Move to the opposite side when the requested side lacks room.
   Flip,
+  /// Slide along the anchor's edge to stay inside the viewport.
   Shift,
+  /// Flip first, then shift.
   FlipShift,
 }
 
+/// Everything `compute_overlay_placement` needs. All rects and sizes are CSS pixels.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct OverlayPlacementInput {
+  /// The trigger element's rect.
   pub anchor: OverlayRect,
+  /// The overlay content's size.
   pub overlay: OverlaySize,
+  /// The area the overlay must stay inside, before collision padding.
   pub viewport: OverlayRect,
+  /// Requested side of the anchor.
   pub side: OverlaySide,
+  /// Requested alignment along the anchor's edge.
   pub align: OverlayAlign,
+  /// Gap and slide away from the aligned position.
   pub offset: OverlayOffset,
+  /// Margin kept from the viewport edges during collision handling.
   pub collision_padding: CollisionPadding,
+  /// How to react when the overlay would overflow.
   pub collision_strategy: CollisionStrategy,
 }
 
+/// Where the overlay ends up, and whether collision handling moved it.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct OverlayPlacement {
+  /// Left edge of the overlay, in CSS pixels.
   pub x: i32,
+  /// Top edge of the overlay, in CSS pixels.
   pub y: i32,
+  /// The side actually used, which differs from the requested one after a flip.
   pub side: OverlaySide,
+  /// The requested alignment, unchanged.
   pub align: OverlayAlign,
+  /// The overlay moved to the opposite side.
   pub flipped: bool,
+  /// The overlay slid along the anchor's edge to stay inside the viewport.
   pub shifted: bool,
 }
 
+/// Positions the overlay on its requested side and alignment, then applies the collision
+/// strategy. A flip happens only when the requested side lacks room for the overlay plus a
+/// positive main-axis offset and the opposite side has at least as much room. A shift clamps
+/// the cross axis into the padded viewport, pinning to its start edge when the overlay is too
+/// big to fit. `OverlaySide::Inline` is never flipped or shifted.
 pub fn compute_overlay_placement(input: OverlayPlacementInput) -> OverlayPlacement {
   let side = resolved_side(input);
   let (mut x, mut y) = base_position(input, side);

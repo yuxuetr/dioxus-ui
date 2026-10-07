@@ -14,6 +14,12 @@ crate and enable only the components you use.
 
 Most apps need only `dioxus-shadcn-cli` or `dioxus-shadcn`.
 
+Each library crate follows semver on its whole public API, and every public
+item has a doc comment. `dioxus-shadcn-primitives` makes the same promise as
+`dioxus-shadcn`, so an app may depend on it directly, for example to
+implement the runtime adapter traits; `dioxus-shadcn` re-exports the
+primitive types its components take ([RFC 0079](https://github.com/yuxuetr/dioxus-ui/blob/main/docs/rfcs/0079-public-surface.md)).
+
 ## Copy the source
 
 ```bash

@@ -1,5 +1,8 @@
 //! Shared foundation types and utilities for dioxus-shadcn.
 
+// Every public item says what it is for (RFC 0079).
+#![deny(missing_docs)]
+
 mod class;
 mod class_merge;
 #[rustfmt::skip]

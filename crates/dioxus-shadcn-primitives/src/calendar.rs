@@ -1,11 +1,20 @@
+//! Pure date arithmetic and month-grid state for the styled `Calendar` and
+//! `DatePicker` components: validation, keyboard moves, and range marking.
+
+/// A day in the proleptic Gregorian calendar, ordered chronologically.
 #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
 pub struct CalendarDate {
+  /// Calendar year; may be zero or negative.
   pub year: i32,
+  /// Month of the year, 1 (January) to 12 (December).
   pub month: u8,
+  /// Day of the month, starting at 1.
   pub day: u8,
 }
 
 impl CalendarDate {
+  /// Builds a date, or `None` when the month is outside 1..=12 or the day
+  /// does not exist in that month (Feb 29 in a common year, say).
   pub fn new(year: i32, month: u8, day: u8) -> Option<Self> {
     if !(1..=12).contains(&month) {
       return None;
@@ -18,46 +27,60 @@ impl CalendarDate {
     Some(Self { year, month, day })
   }
 
+  /// Builds a date without validating it; for constants known to be valid.
   pub const fn unchecked(year: i32, month: u8, day: u8) -> Self {
     Self { year, month, day }
   }
 
+  /// The day of the week this date falls on.
   pub fn weekday(self) -> CalendarWeekday {
     weekday(self)
   }
 
+  /// Steps forward (or backward, when negative) by whole days, crossing month
+  /// and year boundaries.
   pub fn add_days(self, days: i32) -> Self {
     add_days(self, days)
   }
 
+  /// Steps by whole months, clamping the day to the target month's last day
+  /// (Jan 31 plus one month is Feb 28 or 29).
   pub fn add_months(self, months: i32) -> Self {
     add_months(self, months)
   }
 
+  /// Steps by whole years, clamping Feb 29 to Feb 28 in a common year.
   pub fn add_years(self, years: i32) -> Self {
     add_months(self, years.saturating_mul(12))
   }
 }
 
+/// A month of a year, the unit a calendar grid displays.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct CalendarMonth {
+  /// Calendar year.
   pub year: i32,
+  /// Month of the year, 1 to 12.
   pub month: u8,
 }
 
 impl CalendarMonth {
+  /// Builds a month, or `None` when `month` is outside 1..=12.
   pub fn new(year: i32, month: u8) -> Option<Self> {
     if (1..=12).contains(&month) { Some(Self { year, month }) } else { None }
   }
 
+  /// Builds a month without validating it; for constants known to be valid.
   pub const fn unchecked(year: i32, month: u8) -> Self {
     Self { year, month }
   }
 
+  /// The first day of the month.
   pub fn first_day(self) -> CalendarDate {
     CalendarDate::unchecked(self.year, self.month, 1)
   }
 
+  /// Steps by whole months, rolling over into adjacent years.
   pub fn add_months(self, months: i32) -> Self {
     let date = self.first_day().add_months(months);
 
@@ -65,18 +88,27 @@ impl CalendarMonth {
   }
 }
 
+/// A day of the week, used to pick the first column of a calendar grid.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum CalendarWeekday {
+  /// Sunday.
   Sunday,
+  /// Monday.
   Monday,
+  /// Tuesday.
   Tuesday,
+  /// Wednesday.
   Wednesday,
+  /// Thursday.
   Thursday,
+  /// Friday.
   Friday,
+  /// Saturday.
   Saturday,
 }
 
 impl CalendarWeekday {
+  /// Zero-based index counting from Sunday (0) to Saturday (6).
   pub const fn number_from_sunday(self) -> u8 {
     match self {
       Self::Sunday => 0,
@@ -90,50 +122,79 @@ impl CalendarWeekday {
   }
 }
 
+/// Where a day sits relative to a selected date range, for range styling.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum CalendarRangeState {
+  /// Not in the range.
   #[default]
   Outside,
+  /// The range starts and ends on this day.
   Single,
+  /// First day of a multi-day range.
   Start,
+  /// Strictly between the range's first and last day.
   Middle,
+  /// Last day of a multi-day range.
   End,
 }
 
+/// A keyboard navigation step through the calendar grid.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum CalendarKeyMove {
+  /// One day back (Left arrow).
   PreviousDay,
+  /// One day forward (Right arrow).
   NextDay,
+  /// Seven days back (Up arrow).
   PreviousWeek,
+  /// Seven days forward (Down arrow).
   NextWeek,
+  /// One month back, with the day clamped (Page Up).
   PreviousMonth,
+  /// One month forward, with the day clamped (Page Down).
   NextMonth,
+  /// One year back, with the day clamped (Shift+Page Up).
   PreviousYear,
+  /// One year forward, with the day clamped (Shift+Page Down).
   NextYear,
+  /// First day of the current week (Home).
   StartOfWeek,
+  /// Last day of the current week (End).
   EndOfWeek,
 }
 
+/// One cell of a month grid, with the state the styled `Calendar` renders.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct CalendarDay {
+  /// The date this cell shows.
   pub date: CalendarDate,
+  /// Whether the date belongs to the previous or next month (padding cells).
   pub outside_month: bool,
+  /// Whether the date is the `today` passed to the grid.
   pub today: bool,
+  /// Whether the date is the selected date or falls inside the selected range.
   pub selected: bool,
+  /// Whether the date is in the disabled list.
   pub disabled: bool,
+  /// Position relative to the selected range.
   pub range_state: CalendarRangeState,
 }
 
+/// A six-week grid of days covering a month, padded with neighboring days.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct CalendarMonthGrid {
+  /// The month the grid shows.
   pub month: CalendarMonth,
+  /// Six rows of seven days each, starting on the requested first weekday.
   pub weeks: Vec<Vec<CalendarDay>>,
 }
 
+/// Whether `year` is a Gregorian leap year.
 pub fn is_leap_year(year: i32) -> bool {
   (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
 }
 
+/// Number of days in `month` of `year`, or 0 when the month is outside 1..=12.
 pub fn days_in_month(year: i32, month: u8) -> u8 {
   match month {
     1 | 3 | 5 | 7 | 8 | 10 | 12 => 31,
@@ -144,6 +205,8 @@ pub fn days_in_month(year: i32, month: u8) -> u8 {
   }
 }
 
+/// The date a keyboard step lands on; `first_weekday` decides where
+/// `StartOfWeek` and `EndOfWeek` land.
 pub fn calendar_move_date(
   date: CalendarDate,
   key_move: CalendarKeyMove,
@@ -169,6 +232,10 @@ pub fn calendar_move_date(
   }
 }
 
+/// Where `date` sits in the range from `range_start` to `range_end`.
+///
+/// The ends may come in either order. With only a start, that day is `Single`;
+/// with no start, every day is `Outside`.
 pub fn calendar_range_state(
   date: CalendarDate,
   range_start: Option<CalendarDate>,
@@ -194,6 +261,11 @@ pub fn calendar_range_state(
   }
 }
 
+/// Builds the six-week grid the styled `Calendar` renders for `month`.
+///
+/// Rows start on `first_weekday`. `today`, `selected`, and the range ends mark
+/// matching cells when `Some`; `None` marks nothing. Dates in `disabled_dates`
+/// are flagged but still placed in the grid.
 pub fn calendar_month_grid(
   month: CalendarMonth,
   first_weekday: CalendarWeekday,

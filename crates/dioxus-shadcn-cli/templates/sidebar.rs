@@ -53,6 +53,7 @@ pub enum SidebarSide {
   Right,
 }
 
+/// The collapsed state after a toggle: the opposite of `collapsed`.
 pub const fn sidebar_toggle(collapsed: bool) -> bool {
   !collapsed
 }

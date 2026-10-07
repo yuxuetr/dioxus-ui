@@ -6,6 +6,7 @@ use super::utils::{classes, merge_classes};
 use super::density::{density_hit_area_class, use_density, with_density};
 use dioxus::prelude::*;
 
+/// Axis used for arrow-key navigation in composite widgets.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum NavigationOrientation {
   Horizontal,
@@ -14,14 +15,20 @@ pub enum NavigationOrientation {
   Both,
 }
 
+/// Direction for moving active focus within an ordered collection.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum FocusMove {
+  /// The next enabled item after the active one.
   Next,
+  /// The previous enabled item before the active one.
   Previous,
+  /// The first enabled item.
   First,
+  /// The last enabled item.
   Last,
 }
 
+/// Item metadata used by roving focus calculations.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct RovingFocusItem {
   pub id: String,
@@ -29,15 +36,18 @@ pub struct RovingFocusItem {
 }
 
 impl RovingFocusItem {
+  /// An item that can take focus.
   pub fn enabled(id: impl Into<String>) -> Self {
     Self { id: id.into(), disabled: false }
   }
 
+  /// An item that moves skip.
   pub fn disabled(id: impl Into<String>) -> Self {
     Self { id: id.into(), disabled: true }
   }
 }
 
+/// Pure state for roving focus.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct RovingFocusState {
   pub active_id: Option<String>,
@@ -46,10 +56,12 @@ pub struct RovingFocusState {
 }
 
 impl RovingFocusState {
+  /// State with no active item that loops at the ends.
   pub fn new(orientation: NavigationOrientation) -> Self {
     Self { active_id: None, orientation, looping: true }
   }
 
+  /// Sets the active item.
   pub fn with_active_id(mut self, active_id: impl Into<String>) -> Self {
     self.active_id = Some(active_id.into());
     self
@@ -60,6 +72,10 @@ impl RovingFocusState {
     self
   }
 
+  /// The id of the item `focus_move` lands on, skipping disabled items.
+  /// With no active item, `Next` starts from the first item and `Previous` from the last.
+  /// `None` when `items` has no enabled item, or when looping is off and the move
+  /// would go past an end.
   pub fn move_focus<'a>(
     &self,
     items: &'a [RovingFocusItem],

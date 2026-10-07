@@ -150,3 +150,11 @@ orphaned by RFC 0077 (`toggle_group_move_value`, `slider_aria_attributes`,
 the active-descendant wrappers, and others); they are removed, as is
 `message_scroller_class`'s intent parameter, which never changed the
 classes.
+
+Result in `dioxus-shadcn-primitives` (M213.3): 174 items, all documented. Of
+the 22 named nowhere, the compiler showed which nothing calls: the
+`dismissal` and `typeahead` modules, the toast and Sonner runtime request
+helpers, and two slider helpers are removed (17 tests with them), and three
+helpers only the crate calls are private. The rest stay: they are the types
+of public functions the styled crate calls, such as the placement input and
+result of `compute_overlay_placement`.

@@ -5,6 +5,7 @@ use super::element_id::next_element_id;
 use super::utils::{UiDensity, classes, merge_classes};
 use dioxus::prelude::*;
 
+/// The direction a resizable panel group or carousel lays out its children.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum LayoutOrientation {
   #[default]
@@ -12,6 +13,7 @@ pub enum LayoutOrientation {
   Vertical,
 }
 
+/// The `data-orientation` value for a layout: `horizontal` or `vertical`.
 pub fn layout_orientation_attribute(orientation: LayoutOrientation) -> &'static str {
   match orientation {
     LayoutOrientation::Horizontal => "horizontal",
@@ -19,6 +21,8 @@ pub fn layout_orientation_attribute(orientation: LayoutOrientation) -> &'static 
   }
 }
 
+/// `size` clamped to `min_size..=max_size`, with the same ordering and non-finite handling as
+/// `ResizablePanelState::new`.
 pub fn resizable_clamp(size: f64, min_size: f64, max_size: f64) -> f64 {
   let (min_size, max_size) = ordered_bounds(min_size, max_size);
   let size = finite_or_default(size, min_size);
@@ -26,15 +30,22 @@ pub fn resizable_clamp(size: f64, min_size: f64, max_size: f64) -> f64 {
   size.clamp(min_size, max_size)
 }
 
+/// One resizable panel's size and limits, in percent of its panel group.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct ResizablePanelState {
+  /// Current size, kept within `min_size..=max_size`.
   pub size: f64,
+  /// Smallest size the panel can be dragged to.
   pub min_size: f64,
+  /// Largest size the panel can be dragged to.
   pub max_size: f64,
   pub collapsed: bool,
 }
 
 impl ResizablePanelState {
+  /// A panel with `size` clamped to its bounds. Swapped bounds are put in order; a non-finite
+  /// `min_size` becomes 0, a non-finite `max_size` becomes `min_size`, and a non-finite `size`
+  /// becomes `min_size`. Starts expanded.
   pub fn new(size: f64, min_size: f64, max_size: f64) -> Self {
     let (min_size, max_size) = ordered_bounds(min_size, max_size);
     let size = resizable_clamp(size, min_size, max_size);
@@ -42,11 +53,16 @@ impl ResizablePanelState {
     Self { size, min_size, max_size, collapsed: false }
   }
 
+  /// The same panel resized to `size`, clamped to its bounds.
   pub fn with_size(self, size: f64) -> Self {
     Self { size: resizable_clamp(size, self.min_size, self.max_size), ..self }
   }
 }
 
+/// Resizes two adjacent panels by dragging the handle between them `delta` percent (positive
+/// grows `first`). Each panel stays within its own bounds, and whatever one panel cannot
+/// absorb the other gives back, so the pair's total size never changes. A non-finite `delta`
+/// is treated as 0.
 pub fn resizable_resize_pair(
   first: ResizablePanelState,
   second: ResizablePanelState,

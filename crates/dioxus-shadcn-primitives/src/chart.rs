@@ -1,51 +1,73 @@
+//! Data, domain, and scale helpers for the styled `Chart` components: linear
+//! scales, color tokens, and the accessible labels and fallback table rows.
+
+/// One data point: an x position and a y value that may be missing.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct ChartPoint {
+  /// Position along the x axis.
   pub x: f64,
+  /// Value along the y axis; `None` marks a gap in the series.
   pub y: Option<f64>,
 }
 
 impl ChartPoint {
+  /// A point with a value.
   pub const fn new(x: f64, y: f64) -> Self {
     Self { x, y: Some(y) }
   }
 
+  /// A point at `x` with no value, drawn as a gap and listed as missing.
   pub const fn missing(x: f64) -> Self {
     Self { x, y: None }
   }
 }
 
+/// A named line or set of bars in a chart.
 #[derive(Clone, Debug, PartialEq)]
 pub struct ChartSeries {
+  /// Stable identifier, used for keys and fallback table rows.
   pub id: String,
+  /// Human-readable name shown in legends and accessible labels.
   pub label: String,
+  /// Data points in drawing order.
   pub points: Vec<ChartPoint>,
 }
 
 impl ChartSeries {
+  /// Builds a series from its id, label, and points.
   pub fn new(id: impl Into<String>, label: impl Into<String>, points: Vec<ChartPoint>) -> Self {
     Self { id: id.into(), label: label.into(), points }
   }
 }
 
+/// A closed numeric interval, used both for data domains and pixel ranges.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct ChartDomain {
+  /// Lower end of the interval.
   pub min: f64,
+  /// Upper end of the interval.
   pub max: f64,
 }
 
 impl ChartDomain {
+  /// Builds an interval as given, without reordering or validating its ends.
   pub const fn new(min: f64, max: f64) -> Self {
     Self { min, max }
   }
 
+  /// The same interval with non-finite ends replaced (min by 0, max by min)
+  /// and the ends swapped if reversed.
   pub fn normalized(self) -> Self {
     chart_domain_normalize(self.min, self.max)
   }
 }
 
+/// A linear mapping from data values to pixel positions.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct ChartScale {
+  /// Data interval, normalized so `min <= max`.
   pub domain: ChartDomain,
+  /// Output interval in pixels; may run high to low to flip an axis.
   pub range: ChartDomain,
 }
 
@@ -56,38 +78,59 @@ impl ChartScale {
     Self { domain: domain.normalized(), range: chart_range_finite(range) }
   }
 
+  /// Maps a data value to a pixel position; see [`chart_scale_value`].
   pub fn scale(self, value: f64) -> f64 {
     chart_scale_value(value, self.domain, self.range)
   }
 }
 
+/// A theme color for a chart series, mapped to a text class and a data
+/// attribute; the SVG draws with `currentColor`.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ChartColorToken {
+  /// The theme's primary color.
   #[default]
   Primary,
+  /// Muted foreground color.
   Secondary,
+  /// Success color.
   Success,
+  /// Warning color.
   Warning,
+  /// Destructive color.
   Destructive,
+  /// Plain foreground color.
   Neutral,
   /// The `--chart-1` to `--chart-5` palette, for series and slices that sit
   /// side by side (RFC 0065).
   Chart1,
+  /// The `--chart-2` palette color.
   Chart2,
+  /// The `--chart-3` palette color.
   Chart3,
+  /// The `--chart-4` palette color.
   Chart4,
+  /// The `--chart-5` palette color.
   Chart5,
 }
 
+/// One row of the table that stands in for a chart for screen readers.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct ChartFallbackRow {
+  /// Id of the series the point belongs to.
   pub series_id: String,
+  /// Label of the series the point belongs to.
   pub series_label: String,
+  /// The point's x value as text.
   pub x_label: String,
+  /// The point's y value as text, or `"missing"`.
   pub y_label: String,
+  /// Whether the point has no y value.
   pub missing: bool,
 }
 
+/// The smallest interval containing every finite value, ignoring NaN and
+/// infinities; `0..0` when there are no finite values.
 pub fn chart_domain(values: &[f64]) -> ChartDomain {
   let mut min = f64::INFINITY;
   let mut max = f64::NEG_INFINITY;
@@ -104,6 +147,7 @@ pub fn chart_domain(values: &[f64]) -> ChartDomain {
   }
 }
 
+/// The interval spanned by every point's x across all series.
 pub fn chart_series_x_domain(series: &[ChartSeries]) -> ChartDomain {
   let values =
     series.iter().flat_map(|series| series.points.iter().map(|point| point.x)).collect::<Vec<_>>();
@@ -111,6 +155,8 @@ pub fn chart_series_x_domain(series: &[ChartSeries]) -> ChartDomain {
   chart_domain(&values)
 }
 
+/// The interval spanned by every present y across all series; missing
+/// values are skipped.
 pub fn chart_series_y_domain(series: &[ChartSeries]) -> ChartDomain {
   let values = series
     .iter()
@@ -142,6 +188,7 @@ pub fn chart_scale_value(value: f64, domain: ChartDomain, range: ChartDomain) ->
   range.min + ratio * (range.max - range.min)
 }
 
+/// The Tailwind text color class for a color token, such as `text-chart-1`.
 pub fn chart_color_class(token: ChartColorToken) -> &'static str {
   match token {
     ChartColorToken::Primary => "text-primary",
@@ -158,6 +205,7 @@ pub fn chart_color_class(token: ChartColorToken) -> &'static str {
   }
 }
 
+/// The `data-*` attribute value for a color token, such as `chart-1`.
 pub fn chart_color_attribute(token: ChartColorToken) -> &'static str {
   match token {
     ChartColorToken::Primary => "primary",
@@ -174,6 +222,8 @@ pub fn chart_color_attribute(token: ChartColorToken) -> &'static str {
   }
 }
 
+/// A one-line description of the chart's size for `aria-label`s, like
+/// `2 series, 10 points, 1 missing values`.
 pub fn chart_summary(series: &[ChartSeries]) -> String {
   let series_count = series.len();
   let point_count = series.iter().map(|series| series.points.len()).sum::<usize>();
@@ -183,10 +233,13 @@ pub fn chart_summary(series: &[ChartSeries]) -> String {
   format!("{series_count} series, {point_count} points, {missing_count} missing values")
 }
 
+/// A series label with its color name appended, like `Revenue (primary)`.
 pub fn chart_series_label(series: &ChartSeries, token: ChartColorToken) -> String {
   format!("{} ({})", series.label, chart_color_attribute(token))
 }
 
+/// An accessible label for one value, like `Revenue at Jan: 42`, or
+/// `missing` in place of the value when `y` is `None`.
 pub fn chart_value_label(series_label: &str, x_label: &str, y: Option<f64>) -> String {
   match y {
     Some(y) => format!("{series_label} at {x_label}: {y}"),
@@ -194,6 +247,7 @@ pub fn chart_value_label(series_label: &str, x_label: &str, y: Option<f64>) -> S
   }
 }
 
+/// One fallback table row per point across all series, in order.
 pub fn chart_fallback_rows(series: &[ChartSeries]) -> Vec<ChartFallbackRow> {
   series
     .iter()
@@ -209,11 +263,12 @@ pub fn chart_fallback_rows(series: &[ChartSeries]) -> Vec<ChartFallbackRow> {
     .collect()
 }
 
+/// Formats a number for labels; NaN and infinities read as `missing`.
 pub fn chart_number_label(value: f64) -> String {
   if value.is_finite() { value.to_string() } else { "missing".to_string() }
 }
 
-pub fn chart_domain_normalize(min: f64, max: f64) -> ChartDomain {
+pub(crate) fn chart_domain_normalize(min: f64, max: f64) -> ChartDomain {
   let min = finite_or_default(min, 0.0);
   let max = finite_or_default(max, min);
 

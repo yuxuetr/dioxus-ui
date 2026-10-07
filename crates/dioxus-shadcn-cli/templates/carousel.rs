@@ -9,6 +9,7 @@ use dioxus::prelude::*;
 
 pub use self::LayoutOrientation as CarouselOrientation;
 
+/// The direction a resizable panel group or carousel lays out its children.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum LayoutOrientation {
   #[default]
@@ -16,14 +17,17 @@ pub enum LayoutOrientation {
   Vertical,
 }
 
+/// Which carousel slide is showing, out of how many.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct CarouselState {
   pub index: usize,
+  /// Number of slides.
   pub item_count: usize,
   pub looping: bool,
 }
 
 impl CarouselState {
+  /// A carousel at `index`, not looping. The index is not clamped; call `clamped` for that.
   pub const fn new(index: usize, item_count: usize) -> Self {
     Self { index, item_count, looping: false }
   }
@@ -33,14 +37,17 @@ impl CarouselState {
     self
   }
 
+  /// The same carousel with `index` clamped to the last slide (0 when there are none).
   pub fn clamped(self) -> Self {
     Self { index: carousel_clamp_index(self.index, self.item_count), ..self }
   }
 
+  /// The carousel moved one slide forward; see `carousel_next`.
   pub fn next(self) -> Self {
     Self { index: carousel_next(self.index, self.item_count, self.looping), ..self }
   }
 
+  /// The carousel moved one slide back; see `carousel_previous`.
   pub fn previous(self) -> Self {
     Self { index: carousel_previous(self.index, self.item_count, self.looping), ..self }
   }
@@ -60,18 +67,25 @@ fn carousel_orientation_attribute(orientation: CarouselOrientation) -> &'static 
   }
 }
 
+/// `index` clamped to the last slide, or 0 when there are no slides.
 pub fn carousel_clamp_index(index: usize, item_count: usize) -> usize {
   if item_count == 0 { 0 } else { index.min(item_count - 1) }
 }
 
+/// Whether a next button should be enabled: needs at least two slides, and either looping or
+/// a slide after `index`.
 pub fn carousel_can_go_next(index: usize, item_count: usize, looping: bool) -> bool {
   item_count > 1 && (looping || index + 1 < item_count)
 }
 
+/// Whether a previous button should be enabled: needs at least two slides, and either
+/// looping or a slide before `index`.
 pub fn carousel_can_go_previous(index: usize, item_count: usize, looping: bool) -> bool {
   item_count > 1 && (looping || index > 0)
 }
 
+/// The slide after `index` (clamped first). At the last slide it wraps to 0 when looping and
+/// stays put otherwise; 0 when there are no slides.
 pub fn carousel_next(index: usize, item_count: usize, looping: bool) -> usize {
   if item_count == 0 {
     return 0;
@@ -88,6 +102,8 @@ pub fn carousel_next(index: usize, item_count: usize, looping: bool) -> usize {
   }
 }
 
+/// The slide before `index` (clamped first). At the first slide it wraps to the last when
+/// looping and stays put otherwise; 0 when there are no slides.
 pub fn carousel_previous(index: usize, item_count: usize, looping: bool) -> usize {
   if item_count == 0 {
     return 0;

@@ -7,13 +7,16 @@ use super::utils::{classes, merge_classes};
 use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
+/// A day in the proleptic Gregorian calendar, ordered chronologically.
 #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
 pub struct CalendarDate {
   pub year: i32,
   pub month: u8,
+  /// Day of the month, starting at 1.
   pub day: u8,
 }
 
+/// Number of days in `month` of `year`, or 0 when the month is outside 1..=12.
 pub fn days_in_month(year: i32, month: u8) -> u8 {
   match month {
     1 | 3 | 5 | 7 | 8 | 10 | 12 => 31,
@@ -24,11 +27,14 @@ pub fn days_in_month(year: i32, month: u8) -> u8 {
   }
 }
 
+/// Whether `year` is a Gregorian leap year.
 pub fn is_leap_year(year: i32) -> bool {
   (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
 }
 
 impl CalendarDate {
+  /// Builds a date, or `None` when the month is outside 1..=12 or the day
+  /// does not exist in that month (Feb 29 in a common year, say).
   pub fn new(year: i32, month: u8, day: u8) -> Option<Self> {
     if !(1..=12).contains(&month) {
       return None;
@@ -41,32 +47,48 @@ impl CalendarDate {
     Some(Self { year, month, day })
   }
 
+  /// Builds a date without validating it; for constants known to be valid.
   pub const fn unchecked(year: i32, month: u8, day: u8) -> Self {
     Self { year, month, day }
   }
 }
 
+/// Where a day sits relative to a selected date range, for range styling.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum CalendarRangeState {
+  /// Not in the range.
   #[default]
   Outside,
+  /// The range starts and ends on this day.
   Single,
   Start,
+  /// Strictly between the range's first and last day.
   Middle,
   End,
 }
 
+/// A keyboard navigation step through the calendar grid.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum CalendarKeyMove {
+  /// One day back (Left arrow).
   PreviousDay,
+  /// One day forward (Right arrow).
   NextDay,
+  /// Seven days back (Up arrow).
   PreviousWeek,
+  /// Seven days forward (Down arrow).
   NextWeek,
+  /// One month back, with the day clamped (Page Up).
   PreviousMonth,
+  /// One month forward, with the day clamped (Page Down).
   NextMonth,
+  /// One year back, with the day clamped (Shift+Page Up).
   PreviousYear,
+  /// One year forward, with the day clamped (Shift+Page Down).
   NextYear,
+  /// First day of the current week (Home).
   StartOfWeek,
+  /// Last day of the current week (End).
   EndOfWeek,
 }
 

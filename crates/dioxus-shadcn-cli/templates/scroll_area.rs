@@ -4,6 +4,7 @@ use super::default_attribute::default_attribute;
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
+/// Which directions a scroll area scrolls in, written to its `data-orientation`.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ScrollAreaOrientation {
   Vertical,
@@ -12,6 +13,7 @@ pub enum ScrollAreaOrientation {
   Both,
 }
 
+/// The `data-orientation` value for a scroll area: `vertical`, `horizontal`, or `both`.
 pub fn scroll_area_orientation_attribute(orientation: ScrollAreaOrientation) -> &'static str {
   match orientation {
     ScrollAreaOrientation::Vertical => "vertical",

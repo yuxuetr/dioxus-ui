@@ -7,6 +7,7 @@ use super::utils::{classes, merge_classes};
 use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
+/// Axis used for arrow-key navigation in composite widgets.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum NavigationOrientation {
   Horizontal,

@@ -1,17 +1,28 @@
+//! Default configuration for a controlled dropdown menu, used by the styled
+//! `DropdownMenu`, `ContextMenu`, and `Menubar` components.
+
 use crate::{DismissBehavior, FocusStrategy, OverlayAlign, OverlaySide, PortalTarget};
 
 /// Initial controlled dropdown menu primitive configuration.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct DropdownPrimitiveConfig {
+  /// Whether the menu is open.
   pub open: bool,
+  /// Where focus moves when the content opens.
   pub focus_strategy: FocusStrategy,
+  /// Which user actions close the content.
   pub dismiss: DismissBehavior,
+  /// Where the content renders in the tree.
   pub portal_target: PortalTarget,
+  /// Side of the trigger the content opens on.
   pub side: OverlaySide,
+  /// Alignment of the content along the trigger's edge.
   pub align: OverlayAlign,
 }
 
 impl DropdownPrimitiveConfig {
+  /// Config for a menu the app controls: focus goes to the menu, outside clicks, focus
+  /// leaving, and Escape close it, and it opens below the trigger, end-aligned.
   pub fn controlled(open: bool) -> Self {
     Self {
       open,

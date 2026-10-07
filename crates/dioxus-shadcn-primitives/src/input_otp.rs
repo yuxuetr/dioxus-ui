@@ -1,15 +1,27 @@
+//! Slot state and editing rules for the styled `InputOtp` component: typing,
+//! deleting, pasting, and caret movement within a fixed-length code.
+
+/// The render state of one one-time-code input slot.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct OtpSlotState {
+  /// Zero-based position of the slot.
   pub index: usize,
+  /// The character in the slot, or `None` when empty.
   pub value: Option<char>,
+  /// Whether the slot has the caret; never true for a disabled slot.
   pub active: bool,
+  /// Whether the slot rejects input.
   pub disabled: bool,
 }
 
+/// Slot states for `length` slots holding `value`, with the caret at
+/// `active_index`; characters past `length` are ignored.
 pub fn otp_slots(value: &str, length: usize, active_index: usize) -> Vec<OtpSlotState> {
   otp_slots_with_disabled(value, length, active_index, &[])
 }
 
+/// Like [`otp_slots`], but marks the slots at `disabled_indices` disabled and
+/// keeps the caret off them.
 pub fn otp_slots_with_disabled(
   value: &str,
   length: usize,
@@ -32,14 +44,22 @@ pub fn otp_slots_with_disabled(
     .collect()
 }
 
+/// Whether `value` has at least `length` characters.
 pub fn otp_is_complete(value: &str, length: usize) -> bool {
   value.chars().take(length.saturating_add(1)).count() >= length
 }
 
+/// Writes `ch` at slot `index`, replacing what is there; see
+/// [`otp_insert_char_filtered`].
 pub fn otp_insert_char(value: &str, index: usize, ch: char, length: usize) -> String {
   otp_insert_char_filtered(value, index, ch, length, |_| true)
 }
 
+/// Writes `ch` at slot `index`, replacing what is there.
+///
+/// An index past the end appends, so the code never has holes. Returns the
+/// value cut to `length` characters, unchanged otherwise when `allow_char`
+/// rejects `ch` or `length` is 0.
 pub fn otp_insert_char_filtered<F>(
   value: &str,
   index: usize,
@@ -66,6 +86,8 @@ where
   chars.into_iter().take(length).collect()
 }
 
+/// Removes the character at `index`, shifting later ones left; an index past
+/// the end changes nothing.
 pub fn otp_delete_char(value: &str, index: usize) -> String {
   let mut chars: Vec<char> = value.chars().collect();
 
@@ -76,10 +98,18 @@ pub fn otp_delete_char(value: &str, index: usize) -> String {
   chars.into_iter().collect()
 }
 
+/// Writes pasted text starting at slot `index`; see
+/// [`otp_apply_paste_filtered`].
 pub fn otp_apply_paste(value: &str, index: usize, paste: &str, length: usize) -> String {
   otp_apply_paste_filtered(value, index, paste, length, |_| true)
 }
 
+/// Writes the characters of `paste` that `allow_char` accepts into
+/// consecutive slots from `index`, overwriting existing ones.
+///
+/// Characters that do not fit in `length` slots are dropped. When nothing in
+/// `paste` is accepted, returns the value cut to `length`; when `length` is 0,
+/// returns an empty string.
 pub fn otp_apply_paste_filtered<F>(
   value: &str,
   index: usize,
@@ -119,6 +149,9 @@ where
   chars.into_iter().take(length).collect()
 }
 
+/// The slot the caret moves to after typing at `index`: the first empty slot
+/// or the next one, whichever is later, capped at the last slot. Returns 0
+/// when `length` is 0.
 pub fn otp_next_index(value: &str, index: usize, length: usize) -> usize {
   if length == 0 {
     return 0;
@@ -134,10 +167,12 @@ pub fn otp_next_index(value: &str, index: usize, length: usize) -> usize {
   next.min(length - 1)
 }
 
+/// The slot before `index`, stopping at 0.
 pub const fn otp_previous_index(index: usize) -> usize {
   index.saturating_sub(1)
 }
 
+/// `value` cut to its first `length` characters.
 pub fn otp_clamp_value(value: &str, length: usize) -> String {
   value.chars().take(length).collect()
 }

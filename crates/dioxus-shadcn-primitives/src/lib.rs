@@ -1,12 +1,14 @@
 //! Unstyled behavior primitives for dioxus-shadcn components.
 
+// Every public item says what it is for (RFC 0079).
+#![deny(missing_docs)]
+
 pub mod active_descendant;
 pub mod calendar;
 pub mod chart;
 pub mod data_table;
 #[cfg(feature = "dialog")]
 pub mod dialog;
-pub mod dismissal;
 #[cfg(feature = "dropdown")]
 pub mod dropdown;
 pub mod feedback;
@@ -25,7 +27,6 @@ pub mod select;
 pub mod slider;
 #[cfg(feature = "tooltip")]
 pub mod tooltip;
-pub mod typeahead;
 
 pub use active_descendant::{
   ActiveDescendantContainerAttributes, ActiveDescendantItemAttributes, ActiveDescendantState,
@@ -37,18 +38,17 @@ pub use calendar::{
 };
 pub use chart::{
   ChartColorToken, ChartDomain, ChartFallbackRow, ChartPoint, ChartScale, ChartSeries,
-  chart_color_attribute, chart_color_class, chart_domain, chart_domain_normalize,
-  chart_fallback_rows, chart_number_label, chart_scale_value, chart_series_label,
-  chart_series_x_domain, chart_series_y_domain, chart_summary, chart_value_label,
+  chart_color_attribute, chart_color_class, chart_domain, chart_fallback_rows, chart_number_label,
+  chart_scale_value, chart_series_label, chart_series_x_domain, chart_series_y_domain,
+  chart_summary, chart_value_label,
 };
 pub use data_table::{
   DataTableColumnState, DataTablePaginationState, DataTableSelectionState, DataTableSortDirection,
-  DataTableSortState, data_table_clamp_page, data_table_is_column_visible, data_table_page_count,
-  data_table_page_window, data_table_toggle_all_rows, data_table_toggle_column,
-  data_table_toggle_row, data_table_toggle_sort,
+  DataTableSortState, data_table_is_column_visible, data_table_page_count, data_table_page_window,
+  data_table_toggle_all_rows, data_table_toggle_column, data_table_toggle_row,
+  data_table_toggle_sort,
 };
 pub use dioxus_shadcn_core::UiDensity;
-pub use dismissal::{DismissalDecision, DismissalEvent};
 pub use feedback::{
   ToastDismissReason, ToastItem, ToastPlacement, ToastQueue, ToastVariant,
   toast_dismiss_reason_attribute, toast_is_expired, toast_placement_attribute, toast_queue_dismiss,
@@ -89,13 +89,9 @@ pub use runtime::{
   PointerRuntime, PointerRuntimeRequest, PointerRuntimeResult, PointerRuntimeUnsupported,
   PortalMountResult, PortalRuntime, PortalRuntimeRequest, PortalRuntimeUnsupported, RuntimeRect,
   TimerReason, TimerRuntime, TimerRuntimeRequest, TimerRuntimeResult, TimerRuntimeUnsupported,
-  carousel_apply_gesture, sonner_live_region_request, sonner_timer_request,
-  toast_live_region_request, toast_timer_request,
+  carousel_apply_gesture,
 };
-pub use slider::{
-  SliderAriaAttributes, SliderKeyMove, SliderState, slider_clamp, slider_percent, slider_snap,
-};
-pub use typeahead::{TypeaheadItem, TypeaheadState, match_typeahead};
+pub use slider::{SliderAriaAttributes, SliderKeyMove, SliderState};
 
 #[cfg(feature = "dialog")]
 pub use dialog::DialogPrimitiveConfig;

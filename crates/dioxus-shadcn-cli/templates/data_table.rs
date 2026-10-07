@@ -4,28 +4,38 @@ use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 use std::ops::Range;
 
+/// Which way a sorted column orders its rows.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum DataTableSortDirection {
+  /// Smallest first.
   Ascending,
+  /// Largest first.
   Descending,
 }
 
+/// The column a table is sorted by, and in which direction. No sort is `None`.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct DataTableSortState {
+  /// Id of the sorted column.
   pub column_id: String,
+  /// Sort direction.
   pub direction: DataTableSortDirection,
 }
 
 impl DataTableSortState {
+  /// Sort `column_id` ascending.
   pub fn ascending(column_id: impl Into<String>) -> Self {
     Self { column_id: column_id.into(), direction: DataTableSortDirection::Ascending }
   }
 
+  /// Sort `column_id` descending.
   pub fn descending(column_id: impl Into<String>) -> Self {
     Self { column_id: column_id.into(), direction: DataTableSortDirection::Descending }
   }
 }
 
+/// The sort after clicking `column_id`'s header. A column cycles ascending, descending, then
+/// unsorted (`None`); clicking a different column starts it at ascending.
 pub fn data_table_toggle_sort(
   current: Option<&DataTableSortState>,
   column_id: &str,
@@ -47,6 +57,8 @@ pub fn data_table_toggle_sort(
   }
 }
 
+/// Number of pages for `total_items` rows, rounding up. 0 when there are no rows or
+/// `page_size` is 0.
 pub fn data_table_page_count(total_items: usize, page_size: usize) -> usize {
   if page_size == 0 || total_items == 0 {
     return 0;
@@ -55,6 +67,9 @@ pub fn data_table_page_count(total_items: usize, page_size: usize) -> usize {
   total_items.div_ceil(page_size)
 }
 
+/// Indexes of the rows on `page`, for slicing the full row list. `page` is clamped to the last
+/// page, the last page may be short, and the range is empty when there are no rows or
+/// `page_size` is 0.
 pub fn data_table_page_window(page: usize, page_size: usize, total_items: usize) -> Range<usize> {
   if page_size == 0 || total_items == 0 {
     return 0..0;
@@ -73,6 +88,7 @@ pub fn data_table_clamp_page(page: usize, total_items: usize, page_size: usize) 
   if page_count == 0 { 0 } else { page.min(page_count - 1) }
 }
 
+/// `selected_ids` with `row_id` added, or removed if present; sorted and deduplicated.
 pub fn data_table_toggle_row(selected_ids: &[String], row_id: &str) -> Vec<String> {
   let mut next = selected_ids.to_vec();
 
@@ -85,6 +101,9 @@ pub fn data_table_toggle_row(selected_ids: &[String], row_id: &str) -> Vec<Strin
   sorted_unique(next)
 }
 
+/// `selected_ids` after the header checkbox: removes every id in `visible_ids` when all are
+/// already selected, otherwise adds the missing ones. The result is sorted and deduplicated;
+/// an empty `visible_ids` counts as all selected and changes nothing.
 pub fn data_table_toggle_all_rows(selected_ids: &[String], visible_ids: &[String]) -> Vec<String> {
   let all_visible_selected =
     visible_ids.iter().all(|id| selected_ids.iter().any(|selected_id| selected_id == id));
@@ -104,6 +123,7 @@ pub fn data_table_toggle_all_rows(selected_ids: &[String], visible_ids: &[String
   sorted_unique(next)
 }
 
+/// `hidden_ids` with `column_id` added, or removed if present; sorted and deduplicated.
 pub fn data_table_toggle_column(hidden_ids: &[String], column_id: &str) -> Vec<String> {
   let mut next = hidden_ids.to_vec();
 
@@ -116,6 +136,7 @@ pub fn data_table_toggle_column(hidden_ids: &[String], column_id: &str) -> Vec<S
   sorted_unique(next)
 }
 
+/// Whether `column_id` is absent from `hidden_ids`.
 pub fn data_table_is_column_visible(hidden_ids: &[String], column_id: &str) -> bool {
   !hidden_ids.iter().any(|id| id == column_id)
 }
