@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0% (0 of 6 tasks)
+- Overall: 17% (1 of 6 tasks)
 - Current milestone: M213 (0.6.0 public surface)
-- Current task: M213.1
+- Current task: M213.2
 
 ## Backup
 
@@ -33,9 +33,10 @@
 
 ## M213 Public Surface (RFC 0079)
 
-- TODO M213.1 Measure the surface and decide what stays public
+- DONE M213.1 Measure the surface and decide what stays public
   - A script lists every public item of the three library crates from rustdoc JSON with its kind and where it is named outside its own module (other crate modules, templates, site, examples, docs pages, scripts). RFC 0079 sets a rule per kind (component, props, class function, class constant, state helper, primitive re-export, primitive crate item) from those counts, and decides whether `dioxus-shadcn-primitives` keeps a semver promise of its own.
   - Exit: the script's counts are in RFC 0079 and match `missing_docs` within the items rustdoc and the lint both see; every rule names the evidence behind it and the condition that would reverse it.
+  - Done (40b724b): `scripts/public-surface.mjs` matches `missing_docs` exactly (1139 styled, 605 primitives; rustdoc also shows 1381 macro-generated props fields the lint cannot see). RFC 0079 keeps public what a page lists or docs, the site, a block, or the CLI show: in `dioxus-shadcn` 443 class constants, 222 class functions, 17 functions, 2 constants, and 1 struct go private, and unlisted primitive re-exports go unless a public signature needs them; the primitives crate keeps its own promise, drops the 22 items nothing names, and documents the rest; every library crate denies `missing_docs`.
 - TODO M213.2 Narrow and document `dioxus-shadcn`
   - Apply RFC 0079 to the styled crate and its templates (same visibility, so the parity test stays green), drop re-exports the rule removes, move demos and fixtures off them, and give every remaining public item a doc comment or a docs page. `#![deny(missing_docs)]` in `lib.rs`.
   - Exit: `cargo check -p dioxus-shadcn --all-features` passes under the deny; the per-feature build, the generated fixture app, the site, and the examples build; class merge, conflict, and parity scripts still find every class function (reverse-verify by hiding one).
