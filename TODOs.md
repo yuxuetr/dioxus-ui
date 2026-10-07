@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 42% (5 of 12 tasks)
-- Current milestone: M217 (1.0 readiness)
-- Current task: M217.3 (M216 waits for the Stage 14 gate)
+- Overall: 50% (6 of 12 tasks)
+- Current milestone: M216 (0.7.0, Dioxus 0.8)
+- Current task: none until the Stage 14 gate exits 0 (then M216.1); M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -78,9 +78,10 @@
   - A "Compatibility" section (README and `docs/release.md`) says what 1.x keeps: the public API of the three library crates, the templates through parity, the `dxui` commands and flags, and how a new Dioxus line or Rust floor is released. `rust-version` is set to the lowest Rust that builds the published crates, and CI checks them with that toolchain.
   - Exit: `cargo +<floor> check` of the four published crates passes in CI, and one Rust below fails locally (reverse-verify); the docs checks pass.
   - Done (025ea13, a31c17d): the floor is 1.88, not 1.85: Dioxus 0.7.10's `const-serialize-macro` uses let chains, so 1.87 fails with E0658 inside it, and 1.88 builds all four crates with the locked dependencies. `rust-version = "1.88"` is in `[workspace.package]`, each published crate inherits it (the publish metadata check requires that), and CI's "Check the published crates on the Rust floor" step reads it from `cargo metadata` and passes. On 1.87 cargo now stops with "requires rustc 1.88". Clippy's `incompatible_msrv` then flagged `floor_char_boundary` (1.91) in the parity test, fixed in a31c17d. `docs/release.md` and the README have a Compatibility section: the three crate APIs, templates through parity, the `dxui` commands; a new Dioxus line is a new major version, and a minor release may raise the Rust floor.
-- TODO M217.3 Feedback intake
+- DONE M217.3 Feedback intake
   - GitHub issue forms for a bug and for `rc` feedback (crate version, crate or copy mode, platform, Dioxus version, what was built), an `rc-feedback` label, and a triage rule in `docs/release.md`: fix in the next `rc`, or defer with a reason in Deferred.
   - Exit: a test issue filed through the form gets the label and is closed with the triage note, and the M219 gate command counts it only when it is not the owner's.
+  - Done (16ffdd8): `.github/ISSUE_TEMPLATE` has `bug.yml` (label `bug`), `rc-feedback.yml` (label `rc-feedback`: rc version, mode, platform, Dioxus version, what was built, what got in the way), and `config.yml`; all three validate against the SchemaStore issue-form schemas, and a dropdown without options fails them. The `rc-feedback` label exists. `docs/release.md` "Release Candidate Feedback" gives the three closing notes and the two gate commands. GitHub's GraphQL `issueTemplates` lists only Markdown templates, so the forms were checked by schema, not by filing through the web form: test issue #1 was filed with the label and the form's sections and closed as Deferred, and the gate then counts 1 `rc-feedback` issue, 0 from outside, 0 open (the search index lagged about 20 s after closing).
 
 ## M218 1.0.0 Release Candidates (starts when `git tag -l v0.7.0 | grep -q .` exits 0)
 
