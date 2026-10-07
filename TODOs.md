@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 17% (1 of 6 tasks)
+- Overall: 33% (2 of 6 tasks)
 - Current milestone: M213 (0.6.0 public surface)
-- Current task: M213.2
+- Current task: M213.3
 
 ## Backup
 
@@ -37,9 +37,10 @@
   - A script lists every public item of the three library crates from rustdoc JSON with its kind and where it is named outside its own module (other crate modules, templates, site, examples, docs pages, scripts). RFC 0079 sets a rule per kind (component, props, class function, class constant, state helper, primitive re-export, primitive crate item) from those counts, and decides whether `dioxus-shadcn-primitives` keeps a semver promise of its own.
   - Exit: the script's counts are in RFC 0079 and match `missing_docs` within the items rustdoc and the lint both see; every rule names the evidence behind it and the condition that would reverse it.
   - Done (40b724b): `scripts/public-surface.mjs` matches `missing_docs` exactly (1139 styled, 605 primitives; rustdoc also shows 1381 macro-generated props fields the lint cannot see). RFC 0079 keeps public what a page lists or docs, the site, a block, or the CLI show: in `dioxus-shadcn` 443 class constants, 222 class functions, 17 functions, 2 constants, and 1 struct go private, and unlisted primitive re-exports go unless a public signature needs them; the primitives crate keeps its own promise, drops the 22 items nothing names, and documents the rest; every library crate denies `missing_docs`.
-- TODO M213.2 Narrow and document `dioxus-shadcn`
+- DONE M213.2 Narrow and document `dioxus-shadcn`
   - Apply RFC 0079 to the styled crate and its templates (same visibility, so the parity test stays green), drop re-exports the rule removes, move demos and fixtures off them, and give every remaining public item a doc comment or a docs page. `#![deny(missing_docs)]` in `lib.rs`.
   - Exit: `cargo check -p dioxus-shadcn --all-features` passes under the deny; the per-feature build, the generated fixture app, the site, and the examples build; class merge, conflict, and parity scripts still find every class function (reverse-verify by hiding one).
+  - Done (30120db): 443 class constants, 164 unlisted class functions, and 46 listed-only or unused helpers private; 9 unlisted re-exports dropped; 7 helpers orphaned by RFC 0077 and `message_scroller_class`'s unused parameter removed. 491 doc comments (written per module, copied to templates by anchor); `#![deny(missing_docs)]` passes. `public-surface.mjs` now finds no unlisted class constant, class function, or re-export and nothing undocumented. Demos dropped narrowed prints; the preview chart uses Chart components. The merge check went red on a now-private class function appending `class` and green when restored; the conflict check still sees 688 class functions. Release gate, site, runtime interactions (52), preview, examples, per-feature clippy, and fixture smoke pass.
 - TODO M213.3 Narrow and document `dioxus-shadcn-primitives`
   - Same for the primitives crate under RFC 0079's decision on its promise; the styled crate keeps compiling against it.
   - Exit: `#![deny(missing_docs)]` passes; the crates README and `docs/public-api-surface-inventory.md` state what the primitives crate promises.
