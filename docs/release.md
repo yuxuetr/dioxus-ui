@@ -7,14 +7,14 @@
 - source-copy mode through `dxui add`
 - crate mode through `dioxus-shadcn` feature flags
 
-Both modes ship in 0.1.0, 0.2.0, 0.3.0, 0.4.0, 0.4.1, and 0.4.2. The `0.5.x` API surface is accepted;
+Both modes ship in 0.1.0, 0.2.0, 0.3.0, 0.4.0, 0.4.1, 0.4.2, and 0.5.0. The `0.5.x` API surface is accepted;
 before `1.0`, a breaking change bumps the minor version and comes with a
 changelog migration note.
 
 ## Package Set
 
 Published crates (0.1.0 and 0.2.0 on crates.io since 2026-10-05, 0.3.0,
-0.4.0, 0.4.1, and 0.4.2 since 2026-10-06):
+0.4.0, 0.4.1, and 0.4.2 since 2026-10-06, 0.5.0 since 2026-10-07):
 
 ```text
 dioxus-shadcn-core
@@ -584,6 +584,21 @@ the same Tabs ids on three requests, and after hydration ArrowRight moved
 focus and selection to the next tab. The published `dxui` 0.4.2 copied Tabs
 with the `element_id` helper into a fresh app that built while denying
 warnings, and `dxui diff` reported every copy matching.
+
+## 0.5.0 Publish
+
+The release owner confirmed 0.5.0 on 2026-10-07, once the work planned for
+0.5.0 was done, and chose not to publish 0.4.3: its changes ship in 0.5.0.
+`cargo-semver-checks --release-type minor` against 0.4.2 found only the
+changes the Migration section covers, and the release gate and dry run
+passed. CI first failed on the release commit because the release gate job
+had no Chromium for the class merge checks M209.2 added; with the browser
+installed, CI passed. The four crates were published in dependency order and
+tagged `v0.5.0`. In a fresh app on `dioxus-shadcn` 0.5.0 from crates.io,
+`Button { class: "px-2" }` rendered `px-2` without `px-4`, and a `Select`
+with only `default_value: "system"` showed and checked `system`. The
+published `dxui` 0.5.0 copied Button and Select with their helpers into a
+fresh app that rendered the same output and built while denying warnings.
 
 ## Known Pre-1.0 Limitations
 
