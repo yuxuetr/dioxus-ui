@@ -8,6 +8,13 @@ for commit messages.
 
 ## [Unreleased]
 
+### Added
+- The four published crates declare `rust-version = "1.88"`, the lowest Rust
+  that builds them (Dioxus 0.7's dependencies need it), and CI checks them
+  with that toolchain. An older Rust now stops with "requires rustc 1.88"
+  instead of a compile error inside a dependency. The release docs state what
+  1.x will keep ([Compatibility](docs/release.md#compatibility)).
+
 ## [0.6.0] - 2026-10-07
 
 Version 0.6.0 commits to the API apps use (RFC 0079). `dioxus-shadcn` keeps

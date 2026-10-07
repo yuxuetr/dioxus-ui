@@ -56,6 +56,13 @@ jobs:
       - name: Run Clippy
         run: cargo clippy --workspace --all-targets --all-features -- -D warnings
 
+      # The published crates promise the rust-version in Cargo.toml.
+      - name: Check the published crates on the Rust floor
+        run: |
+          floor="$(cargo metadata --format-version 1 --no-deps | jq -r '.packages[] | select(.name == "dioxus-shadcn") | .rust_version')"
+          rustup toolchain install "$floor" --profile minimal
+          cargo "+$floor" check --locked --all-features -p dioxus-shadcn-core -p dioxus-shadcn-primitives -p dioxus-shadcn -p dioxus-shadcn-cli
+
       # Pull requests run the default CI set from docs/quality-gates.md; the
       # release aggregate adds the slow per-feature builds, so it runs on main.
       - name: Run the pull request checks

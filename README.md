@@ -189,6 +189,14 @@ dioxus-shadcn = { version = "0.6", default-features = false, features = ["button
 use dioxus_shadcn::{Button, DialogContent, DialogTitle, Input};
 ```
 
+## Compatibility
+
+The crates need Rust 1.88 or newer (`rust-version`). Before 1.0, a minor
+release may break the API, with a Migration note in the changelog. From 1.0,
+1.x keeps the crate API, the templates, and the `dxui` commands; a new Dioxus
+line comes in a new major version. See
+[Compatibility](docs/release.md#compatibility).
+
 ## Component Scope
 
 The 82 components are listed in

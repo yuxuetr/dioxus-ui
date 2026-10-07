@@ -87,7 +87,7 @@ const expectedDescriptions = {
   "dioxus-shadcn": "Tailwind-styled Dioxus UI components with source-copy friendly APIs.",
   "dioxus-shadcn-cli": "Command-line tool for adding dioxus-shadcn components to Dioxus projects.",
 };
-const inheritedPublishFields = ["version", "edition", "license", "repository", "readme", "keywords", "categories"];
+const inheritedPublishFields = ["version", "edition", "rust-version", "license", "repository", "readme", "keywords", "categories"];
 
 const scripts = packageJson.scripts ?? {};
 if (scripts["verify:cargo-publish-metadata"] !== "node scripts/cargo-publish-metadata-verify.mjs") {

@@ -130,6 +130,27 @@ functions, helpers, constants, and structs RFC 0079 made private and
 `message_scroller_class`'s parameter count, all covered by the Migration
 section.
 
+## Compatibility
+
+From 1.0, a 1.x release keeps working for code written against an earlier
+1.x release:
+
+| Kept | Checked by |
+| --- | --- |
+| The public API of `dioxus-shadcn-core`, `dioxus-shadcn-primitives`, and `dioxus-shadcn` | `npm run verify:semver` against the last tag; an `rc` may not break it either |
+| The source-copy templates | The template parity test, which holds each template equal to its crate module, so the semver check covers them |
+| The `dxui` commands and flags (`init`, `add`, `list`, `diff`, `--root`, `--overwrite`) | The CLI tests and `scripts/generated-fixture-smoke.sh` |
+
+Two dependencies are released differently:
+
+- **Dioxus.** Props use Dioxus types such as `Element` and `EventHandler`, so
+  a new Dioxus line (0.8 to 0.9) is a breaking change here and comes in a new
+  major version. A 1.x series stays on one Dioxus line.
+- **Rust.** The crates declare the lowest Rust that builds them as
+  `rust-version` (1.88, set by Dioxus 0.7's dependencies), and CI checks the
+  four published crates with that toolchain. A minor release may raise it,
+  with a changelog note; a patch release does not.
+
 ## Release Gates
 
 Before publishing any crate:

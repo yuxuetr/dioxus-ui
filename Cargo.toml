@@ -19,6 +19,8 @@ members = [
 [workspace.package]
 version = "0.6.0"
 edition = "2024"
+# The lowest Rust that builds the published crates; CI checks it.
+rust-version = "1.88"
 license = "MIT"
 repository = "https://github.com/yuxuetr/dioxus-ui"
 readme = "crates/README.md"

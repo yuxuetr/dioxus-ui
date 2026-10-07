@@ -3,6 +3,7 @@ name = "dioxus-shadcn-primitives"
 description = "Unstyled primitive state and accessibility helpers for dioxus-shadcn."
 version.workspace = true
 edition.workspace = true
+rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
 readme.workspace = true
