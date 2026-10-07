@@ -151,6 +151,27 @@ Two dependencies are released differently:
   four published crates with that toolchain. A minor release may raise it,
   with a changelog note; a patch release does not.
 
+## Release Candidate Feedback
+
+Feedback on a `1.0.0-rc` comes in through the "Release candidate feedback"
+issue form, which labels it `rc-feedback`; bugs use the "Bug report" form.
+Each `rc-feedback` issue is closed with one of these notes:
+
+- **Fixed in `rc.N`.** A bug or docs fix, released in the next `rc`, which
+  may not break the API (`npm run verify:semver`).
+- **Breaking, accepted.** The release owner accepts an API change; it ships
+  in the next `rc` with `SEMVER_RC_BREAK=1`, and the rc period restarts.
+- **Deferred.** Not for 1.0; the reason and a re-evaluate command go in the
+  TODO plan's Deferred list.
+
+1.0.0 is released when an issue from outside the project exists and none is
+open:
+
+```bash
+gh issue list -R yuxuetr/dioxus-ui --label rc-feedback --state all --json author -q '[.[]|select(.author.login!="yuxuetr")]|length'
+gh issue list -R yuxuetr/dioxus-ui --label rc-feedback --state open --json number -q length
+```
+
 ## Release Gates
 
 Before publishing any crate:

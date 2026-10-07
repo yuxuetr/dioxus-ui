@@ -1,0 +1,53 @@
+name: Bug report
+description: A component, the dxui CLI, or the docs do something wrong.
+labels: ["bug"]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: dioxus-shadcn or dxui version
+      placeholder: "0.6.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Mode
+      options:
+        - Crate mode (dioxus-shadcn dependency)
+        - Source-copy mode (dxui add)
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      multiple: true
+      options:
+        - Web
+        - Fullstack
+        - Desktop
+        - Mobile
+    validations:
+      required: true
+  - type: input
+    id: dioxus
+    attributes:
+      label: Dioxus version
+      placeholder: "0.7.10"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: The smallest component code or dxui command that shows it.
+      render: rust
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Expected and actual result
+    validations:
+      required: true

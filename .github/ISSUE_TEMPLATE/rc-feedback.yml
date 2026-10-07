@@ -1,0 +1,60 @@
+name: Release candidate feedback
+description: You built something with a 1.0.0-rc release; tell us what worked and what got in the way.
+labels: ["rc-feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The 1.0.0 API is frozen after the rc period. Feedback here decides
+        whether anything changes before then; see the Compatibility section of
+        docs/release.md for what 1.x keeps.
+  - type: input
+    id: version
+    attributes:
+      label: rc version
+      placeholder: "1.0.0-rc.1"
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Mode
+      multiple: true
+      options:
+        - Crate mode (dioxus-shadcn dependency)
+        - Source-copy mode (dxui add)
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      multiple: true
+      options:
+        - Web
+        - Fullstack
+        - Desktop
+        - Mobile
+    validations:
+      required: true
+  - type: input
+    id: dioxus
+    attributes:
+      label: Dioxus version
+      placeholder: "0.8.0"
+    validations:
+      required: true
+  - type: textarea
+    id: built
+    attributes:
+      label: What you built
+      description: The app or screen, and the components it uses. A link helps if it is public.
+    validations:
+      required: true
+  - type: textarea
+    id: feedback
+    attributes:
+      label: What worked and what got in the way
+      description: Props you had to work around, missing pieces, confusing docs.
+    validations:
+      required: true
