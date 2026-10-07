@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50% (3 of 6 tasks)
-- Current milestone: M215 (Dioxus 0.8 readiness)
-- Current task: none until the Stage 14 gate exits 0 (then M216.1)
+- Overall: 25% (3 of 12 tasks)
+- Current milestone: M217 (1.0 readiness)
+- Current task: M217.1 (M216 waits for the Stage 14 gate)
 
 ## Backup
 
@@ -13,7 +13,7 @@
 
 ## Goals
 
-- Follow [the roadmap](docs/roadmap.md) to 1.0. This plan covers Stage 14 (0.7.0, Dioxus 0.8). M215 needs no Dioxus release and starts now; M216 starts when the Stage 14 gate in Deferred exits 0. Stage 15 needs Stage 14 and outside use, so it gets no tasks yet.
+- Follow [the roadmap](docs/roadmap.md) to 1.0. This plan covers Stage 14 (0.7.0, Dioxus 0.8) and Stage 15 (1.0). M215 and M217 need no Dioxus release; M216 starts when the Stage 14 gate in Deferred exits 0, M218 when `v0.7.0` is tagged, and M219 when outside feedback on an `rc` is in and closed.
 
 ## Evidence (measured 2026-10-07 at `v0.6.0`, in a scratch worktree on `dioxus` and `dioxus-ssr` `=0.8.0-alpha.1`)
 
@@ -25,6 +25,14 @@
 - Five files pin or link Dioxus 0.7 outside the archive, RFCs, and CHANGELOG: `Cargo.toml`, `README.md`, `docs/quality-gates.md`, `docs/workspace.md`, `scripts/generated-fixture-smoke.sh`.
 - Users: 67 to 130 downloads per crate, no issues.
 
+## Stage 15 Evidence (measured 2026-10-07 at `086e7de`)
+
+- `verify:semver` lets an `rc` break the API: in a scratch crate, removing a public function between `1.0.0-rc.1` and `1.0.0-rc.2` is checked as a "major change" and passes ("no semver update required"); with `--release-type minor` the same change fails (exit 100). Stage 15's "no breaking change during the `rc` period" has no gate yet.
+- The templates are covered by the crate check: the template parity test compares every template item with the crate module token by token (`CRATE_ONLY`: 1 entry), so a template API change is a crate API change.
+- No crate declares `rust-version`. The published crates need Rust 1.85 (edition 2024; the highest dependency floor is 1.85 in both the `dioxus-shadcn` and `dxui` trees), and CI builds only on stable (1.99 locally), so nothing shows whether the code itself needs more.
+- No place for outside feedback: no `.github/ISSUE_TEMPLATE`, no labels for it, and the docs do not say what 1.x promises.
+- Users: 67 to 130 downloads per crate, 0 issues. The roadmap's exit needs an app outside this repository on an `rc`; only the community call can bring one.
+
 ## Scope Rules
 
 - A task lands complete: crate, templates, registry, docs, site, and tests together. What cannot meet this is cut, not stubbed.
@@ -32,6 +40,8 @@
 - The Dioxus 0.8 move is the only breaking change in 0.7.0, with a Migration note in the CHANGELOG.
 - No new components or blocks without an issue or a block that needs them.
 - Publish 0.7.0 once every task before M216.3 is done (the release owner's direction of 2026-10-07).
+- During the `rc` period only bug and docs changes land; a needed breaking change ends the period (another `rc` after it, and the exit's "no breaking change" restarts).
+- Posting the community call is outward-facing: the release owner posts it or approves the exact text first.
 
 ## M215 Dioxus 0.8 Readiness
 
@@ -57,6 +67,31 @@
   - CHANGELOG with the Dioxus 0.8 Migration note and any API change 0.8 forced, versions, release gate (with `verify:semver` against `v0.6.0`), publish dry run.
 - TODO M216.3 Publish 0.7.0
   - Push, CI, publish in dependency order, annotated tag `v0.7.0`, then build fresh apps in both modes from crates.io on Dioxus 0.8 that use a component, a class override, and a state callback.
+
+## M217 1.0 Readiness (needs no Dioxus release)
+
+- TODO M217.1 `verify:semver` holds `rc` versions to no breaking change
+  - When the workspace version is a pre-release of the same major as the baseline tag, or the baseline is a pre-release and the version is its release (`1.0.0-rc.N` to `rc.N+1` or to `1.0.0`), run cargo-semver-checks with `--release-type minor`; other bumps keep the derived type.
+  - Exit: in a scratch worktree tagged `v1.0.0-rc.1`, removing a public item and bumping to `1.0.0-rc.2` fails the gate and an added item passes; `0.6.0` to `0.7.0` still checks as a minor bump before 1.0 (breaking allowed).
+- TODO M217.2 State the 1.x promise and the Rust floor
+  - A "Compatibility" section (README and `docs/release.md`) says what 1.x keeps: the public API of the three library crates, the templates through parity, the `dxui` commands and flags, and how a new Dioxus line or Rust floor is released. `rust-version` is set to the lowest Rust that builds the published crates, and CI checks them with that toolchain.
+  - Exit: `cargo +<floor> check` of the four published crates passes in CI, and one Rust below fails locally (reverse-verify); the docs checks pass.
+- TODO M217.3 Feedback intake
+  - GitHub issue forms for a bug and for `rc` feedback (crate version, crate or copy mode, platform, Dioxus version, what was built), an `rc-feedback` label, and a triage rule in `docs/release.md`: fix in the next `rc`, or defer with a reason in Deferred.
+  - Exit: a test issue filed through the form gets the label and is closed with the triage note, and the M219 gate command counts it only when it is not the owner's.
+
+## M218 1.0.0 Release Candidates (starts when `git tag -l v0.7.0 | grep -q .` exits 0)
+
+- TODO M218.1 Publish `1.0.0-rc.1`
+  - Versions, CHANGELOG (no API change from 0.7.0), release gate with `verify:semver` against `v0.7.0`, publish in dependency order, annotated tag, then fresh apps in both modes from crates.io.
+- TODO M218.2 Call for feedback
+  - Draft the call (what 1.0 promises, how to try the `rc`, where to report) in `docs/release.md`; the release owner posts it in the Dioxus community. Each later `rc` repeats M218.1 with only bug and docs changes.
+
+## M219 1.0.0 (starts when outside `rc` feedback exists and none is open)
+
+- TODO M219.1 Publish 1.0.0
+  - Starts when `gh issue list -R yuxuetr/dioxus-ui --label rc-feedback --state all --json author -q '[.[]|select(.author.login!="yuxuetr")]|length'` prints more than 0 and the same query with `--state open` prints 0.
+  - Release from the last `rc` with no API change (`verify:semver` passes under M217.1's rule), CHANGELOG entry closing the `rc` period, publish, annotated tag `v1.0.0`, roadmap Stage 15 marked complete.
 
 ## Deferred (re-evaluate when)
 

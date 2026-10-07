@@ -136,6 +136,12 @@ Exit criteria:
   issues are closed or deferred with a reason
 - no breaking change was needed during the `rc` period
 
+Measured on 2026-10-07 at `086e7de`: `verify:semver` treats `1.0.0-rc.1` to
+`rc.2` as a major change and lets it break the API, no crate declares a Rust
+floor, and there is no issue form for outside feedback. These are fixed before
+Stage 14 ends; the `rc` releases start after `v0.7.0` (M217 to M219 in the
+[TODO Plan](../TODOs.md)).
+
 ## Not Planned Before 1.0
 
 Each item is re-evaluated by the command in the
