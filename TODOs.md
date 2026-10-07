@@ -99,7 +99,7 @@
 ## Deferred (re-evaluate when)
 
 - Dioxus 0.8 (Stage 14, M216): when `cargo search dioxus --limit 1 --color never | grep -qE '^dioxus = "0\.8\.[0-9]+"'` exits 0 (a 0.8 release, not a pre-release). Checked 2026-10-07: exits 1 on 0.8.0-alpha.1.
-- iOS 27 launch failure (Dioxus 0.7 lacks the UIScene lifecycle): when `gh release view -R DioxusLabs/dioxus --json body -q .body | grep -qi uiscene` exits 0.
+- iOS 27 launch failure (Dioxus 0.7 lacks the UIScene lifecycle): when `gh api repos/DioxusLabs/dioxus/releases --jq '.[0:10][].body' | grep -qiE 'pull/5893|uiscene'` exits 0. The fix is DioxusLabs/dioxus#5893 (open since 2026-10-05, against `v0.7`), titled "launch with the iOS 27 SDK (... scene manifest ...)" without the word UIScene, so the old check (`gh release view` body contains `uiscene`) would have missed its release; it also read only the newest release. Checked 2026-10-07: exits 1; with a released PR number (5570) in place of 5893 it exits 0.
 - Form state and validation, chart tooltips, swipe gestures, DOM portal, Command fuzzy ranking, editing an Input OTP slot in the middle, and right-to-left Slider, Resizable, and Calendar keys: when `gh issue list -R yuxuetr/dioxus-ui --state all --search "<topic>" --json number -q length` prints more than 0, or a block needs one.
 - More blocks: when an issue asks for a screen, by the same command.
 - Generating templates from the crate: when `CRATE_ONLY` in `crates/dioxus-shadcn-cli/tests/template_parity.rs` passes 10 entries, or M210 needs a template difference the parity rules cannot express. Checked 2026-10-07: 1 entry.
