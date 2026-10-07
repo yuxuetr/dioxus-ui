@@ -89,27 +89,32 @@ Patch releases should be limited to:
 - non-breaking class additions
 - registry metadata fixes
 
-Before each release, compare the three library crates with the last
-release, after the version bump. 0.4.3 was not published, since its changes
-ship in 0.5.0, so the 0.5.0 baseline is 0.4.2:
+`npm run verify:semver`, the last step of `npm run verify:release`, compares
+the three library crates with the last release tag reachable from `HEAD`
+(RFC 0079). It builds the baseline from the tag (`--baseline-rev`), so it
+needs no network, and lets `cargo-semver-checks` take the release type from
+the version bump: a breaking change fails until the version is bumped for it,
+which before 1.0 means a minor bump. Install the tool once with
+`cargo binstall cargo-semver-checks`; CI installs it in the release gate job.
+
+After a minor bump the check allows any change, so it no longer lists what
+broke. To write the Migration section, list the findings by forcing the
+breaking-change lints:
 
 ```bash
-cargo binstall cargo-semver-checks   # once
 for crate in dioxus-shadcn-core dioxus-shadcn-primitives dioxus-shadcn; do
-  cargo semver-checks -p "$crate" --baseline-version 0.4.2 --all-features --release-type minor
+  cargo semver-checks -p "$crate" --baseline-rev "$(git describe --tags --abbrev=0)" --all-features --release-type minor
 done
 ```
 
-`--release-type minor` runs the breaking-change lints even though a pre-1.0
-minor bump allows breaking changes; without it every lint is skipped. Each
-finding goes in the changelog's Migration section. The check compares crate
-APIs only: copy-mode changes such as template files and the `dxui` command
-line need their own notes. For 0.3.0 it found new props fields in
-`dioxus-shadcn`; for 0.4.0 it found none. A patch release compares against
-the previous patch with `--release-type patch`; for 0.4.1 against 0.4.0 and 0.4.2
-against 0.4.1 it found none. For 0.5.0 against 0.4.2 it found none in the
-core and primitives crates and, in `dioxus-shadcn`, the removed per-part state
-props, the removed accordion and toggle group selection helpers,
+Each finding goes in the changelog's Migration section. The check compares
+crate APIs only: copy-mode changes such as template files and the `dxui`
+command line need their own notes. For 0.3.0 it found new props fields in
+`dioxus-shadcn`; for 0.4.0 it found none; for 0.4.1 and 0.4.2, compared with
+the previous patch, none. For 0.5.0 against 0.4.2 (0.4.3 was not published;
+its changes shipped in 0.5.0) it found none in the core and primitives
+crates and, in `dioxus-shadcn`, the removed per-part state props, the
+removed accordion and toggle group selection helpers,
 `command_item_class`'s parameters, and new props fields, all covered by the
 Migration section.
 
@@ -164,6 +169,7 @@ npm run verify:ci-plan
 npm run verify:ci-workflow-template
 npm run verify:browser-artifact-policy
 npm run verify:repo-hygiene
+npm run verify:semver
 ```
 
 For routine local handoff before release-specific gates, this deterministic

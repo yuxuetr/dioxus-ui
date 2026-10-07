@@ -21,6 +21,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # The semver check builds its baseline from the last release tag.
+          fetch-depth: 0
 
       # The Desktop examples link the system WebView, as in the Dioxus Linux setup.
       - name: Install Linux WebView libraries
@@ -66,6 +69,12 @@ jobs:
       - name: Install Playwright Chromium
         if: github.event_name == 'push'
         run: npx playwright install --with-deps chromium
+
+      - name: Install cargo-semver-checks
+        if: github.event_name == 'push'
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-semver-checks
 
       - name: Run the release gate
         if: github.event_name == 'push'
