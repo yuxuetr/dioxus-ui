@@ -174,9 +174,11 @@ fn first_difference(template: &str, source: &str) -> String {
     .map(|((index, _), _)| index)
     .unwrap_or_else(|| template.len().min(source.len()));
   let window = |text: &str| -> String {
-    let from = text.floor_char_boundary(start.saturating_sub(40));
-    let to = text.ceil_char_boundary((start + 60).min(text.len()));
-    text[from..to].to_string()
+    text
+      .char_indices()
+      .filter(|(index, _)| index + 40 >= start && *index < start + 60)
+      .map(|(_, character)| character)
+      .collect()
   };
   format!("\n    template: ...{}...\n    source:   ...{}...", window(template), window(source))
 }
