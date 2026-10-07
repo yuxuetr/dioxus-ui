@@ -74,6 +74,8 @@ export function serveDioxusWeb({ packageName, bin, port }) {
   args.push(
     "--port", String(port), "--addr", host, "--open", "false",
     "--hot-reload", "false", "--watch", "false", "--interactive", "false",
+    // Build steps in the output, which a failed or stuck build prints.
+    "--verbose",
     ...hotPatchOffArgs(),
   );
   let output = "";
