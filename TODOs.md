@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 25% (3 of 12 tasks)
+- Overall: 33% (4 of 12 tasks)
 - Current milestone: M217 (1.0 readiness)
-- Current task: M217.1 (M216 waits for the Stage 14 gate)
+- Current task: M217.2 (M216 waits for the Stage 14 gate)
 
 ## Backup
 
@@ -70,9 +70,10 @@
 
 ## M217 1.0 Readiness (needs no Dioxus release)
 
-- TODO M217.1 `verify:semver` holds `rc` versions to no breaking change
+- DONE M217.1 `verify:semver` holds `rc` versions to no breaking change
   - When the workspace version is a pre-release of the same major as the baseline tag, or the baseline is a pre-release and the version is its release (`1.0.0-rc.N` to `rc.N+1` or to `1.0.0`), run cargo-semver-checks with `--release-type minor`; other bumps keep the derived type.
   - Exit: in a scratch worktree tagged `v1.0.0-rc.1`, removing a public item and bumping to `1.0.0-rc.2` fails the gate and an added item passes; `0.6.0` to `0.7.0` still checks as a minor bump before 1.0 (breaking allowed).
+  - Done (014320c): `semver-verify.mjs` reads the `[workspace.package]` version and passes `--release-type minor` when the major is at least 1, equals the tag's, and either side is a pre-release. In a local clone tagged `v1.0.0-rc.1`: removing a public function at `rc.2` fails ("1.0.0-rc.2 must not break the API of v1.0.0-rc.1"), adding one passes, and removing one at `1.0.0` fails; from `v0.6.0`, a new public field passes at `0.7.0` and at `1.0.0-rc.1` and fails without a bump. A deliberate break between `rc`s needs `SEMVER_RC_BREAK=1` (the Scope Rules' restart), which lets it through. The main tree still passes against `v0.6.0`.
 - TODO M217.2 State the 1.x promise and the Rust floor
   - A "Compatibility" section (README and `docs/release.md`) says what 1.x keeps: the public API of the three library crates, the templates through parity, the `dxui` commands and flags, and how a new Dioxus line or Rust floor is released. `rust-version` is set to the lowest Rust that builds the published crates, and CI checks them with that toolchain.
   - Exit: `cargo +<floor> check` of the four published crates passes in CI, and one Rust below fails locally (reverse-verify); the docs checks pass.
