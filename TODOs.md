@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 33% (2 of 6 tasks)
+- Overall: 50% (3 of 6 tasks)
 - Current milestone: M213 (0.6.0 public surface)
-- Current task: M213.3
+- Current task: M213.4
 
 ## Backup
 
@@ -41,9 +41,10 @@
   - Apply RFC 0079 to the styled crate and its templates (same visibility, so the parity test stays green), drop re-exports the rule removes, move demos and fixtures off them, and give every remaining public item a doc comment or a docs page. `#![deny(missing_docs)]` in `lib.rs`.
   - Exit: `cargo check -p dioxus-shadcn --all-features` passes under the deny; the per-feature build, the generated fixture app, the site, and the examples build; class merge, conflict, and parity scripts still find every class function (reverse-verify by hiding one).
   - Done (30120db): 443 class constants, 164 unlisted class functions, and 46 listed-only or unused helpers private; 9 unlisted re-exports dropped; 7 helpers orphaned by RFC 0077 and `message_scroller_class`'s unused parameter removed. 491 doc comments (written per module, copied to templates by anchor); `#![deny(missing_docs)]` passes. `public-surface.mjs` now finds no unlisted class constant, class function, or re-export and nothing undocumented. Demos dropped narrowed prints; the preview chart uses Chart components. The merge check went red on a now-private class function appending `class` and green when restored; the conflict check still sees 688 class functions. Release gate, site, runtime interactions (52), preview, examples, per-feature clippy, and fixture smoke pass.
-- TODO M213.3 Narrow and document `dioxus-shadcn-primitives`
+- DONE M213.3 Narrow and document `dioxus-shadcn-primitives`
   - Same for the primitives crate under RFC 0079's decision on its promise; the styled crate keeps compiling against it.
   - Exit: `#![deny(missing_docs)]` passes; the crates README and `docs/public-api-surface-inventory.md` state what the primitives crate promises.
+  - Done (efec746): the compiler showed which of the 22 unnamed items nothing calls; the `dismissal` and `typeahead` modules, the toast/Sonner runtime request helpers, `slider_snap`, and `slider_percent` are removed, three crate-only helpers are private, and the rest stay as types of called functions. 569 doc comments; primitives and core deny `missing_docs`, `cargo doc -D warnings` passes, and 288 primitive doc blocks were copied into the templates that inline them. The crates README and the inventory state the primitives crate's own semver promise. Release gate, site, runtime interactions, and fixture smoke pass.
 - TODO M213.4 `cargo-semver-checks` in the release gate
   - `npm run verify:release` compares the three library crates against the last published version, with the release type taken from the version bump, and `docs/release.md` drops the manual step.
   - Exit: the gate fails when a public function is removed without a minor bump and passes with the bump (reverse-verify both on a scratch branch); CI runs it.
