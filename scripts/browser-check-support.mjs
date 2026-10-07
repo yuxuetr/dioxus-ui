@@ -74,7 +74,9 @@ export function serveDioxusWeb({ packageName, bin, port }) {
   args.push(
     "--port", String(port), "--addr", host, "--open", "false",
     "--hot-reload", "false", "--watch", "false", "--interactive", "false",
-    // Build steps in the output, which a failed or stuck build prints.
+    // Build steps in the output, which a failed or stuck build prints. On
+    // CI, dx 0.7.10 without it twice printed nothing after its tooling
+    // installs and never served; with it the same cached state served in 13 s.
     "--verbose",
     ...hotPatchOffArgs(),
   );
