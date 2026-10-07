@@ -40,20 +40,13 @@ if (!scripts["verify:release"]?.includes("npm run verify:mobile-browser-metadata
 }
 
 const smokeFragments = [
-  'const host = "127.0.0.1";',
   "const port = 45237;",
   "const mobileViewport = { width: 390, height: 844 };",
   'const installHint = "npx playwright install chromium";',
   "DIOXUS_UI_BROWSER_EXECUTABLE",
   "DIOXUS_UI_MOBILE_BROWSER_SCREENSHOT",
   "dioxus-ui-mobile-browser-preview-",
-  "dx",
-  "serve",
-  "--web",
-  "--package",
-  "dioxus-ui-web-demo",
-  "--bin",
-  "preview",
+  'serveDioxusWeb({ packageName: "dioxus-ui-web-demo", bin: "preview", port })',
   "devices[\"iPhone 12\"]",
   "data-preview-root=\"web\"",
   "data-preview-panel=\"mobile-profile\"",

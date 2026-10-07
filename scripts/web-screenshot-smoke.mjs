@@ -1,15 +1,11 @@
 #!/usr/bin/env node
-import { request } from "node:http";
-import { once } from "node:events";
-import { spawn } from "node:child_process";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
+import { serveDioxusWeb } from "./browser-check-support.mjs";
 import { chromium, devices } from "@playwright/test";
 
 const repoRoot = new URL("..", import.meta.url).pathname;
-const host = "127.0.0.1";
 const port = 45240;
-const previewUrl = `http://${host}:${port}`;
 const installHint = "npx playwright install chromium";
 const executablePath = process.env.DIOXUS_UI_BROWSER_EXECUTABLE;
 const desktopViewport = { width: 1280, height: 900 };
@@ -18,8 +14,8 @@ const shouldCaptureScreenshot = ["1", "true", "yes"].includes(
   String(process.env.DIOXUS_UI_WEB_SCREENSHOT ?? "").toLowerCase(),
 );
 
-let server;
-let serverOutput = "";
+const server = serveDioxusWeb({ packageName: "dioxus-ui-web-demo", bin: "preview", port });
+const previewUrl = server.url;
 
 function validateBrowserConfig() {
   if (!executablePath) {
@@ -79,107 +75,6 @@ function readPngMetadata(path, viewport) {
   }
 
   return { width, height, bytes: stat.size };
-}
-
-function startServer() {
-  server = spawn(
-    "dx",
-    [
-      "serve",
-      "--web",
-      "--package",
-      "dioxus-ui-web-demo",
-      "--bin",
-      "preview",
-      "--port",
-      String(port),
-      "--addr",
-      host,
-      "--open",
-      "false",
-      "--hot-reload",
-      "false",
-      "--watch",
-      "false",
-      "--interactive",
-      "false",
-    ],
-    {
-      cwd: repoRoot,
-      stdio: ["ignore", "pipe", "pipe"],
-    },
-  );
-
-  server.stdout.on("data", (chunk) => {
-    serverOutput += chunk.toString();
-  });
-
-  server.stderr.on("data", (chunk) => {
-    serverOutput += chunk.toString();
-  });
-}
-
-async function stopServer() {
-  if (!server) {
-    return;
-  }
-
-  if (server.exitCode !== null || server.signalCode !== null) {
-    return;
-  }
-
-  server.kill("SIGINT");
-
-  const timeout = setTimeout(() => {
-    if (server.exitCode === null && server.signalCode === null) {
-      server.kill("SIGTERM");
-    }
-  }, 3000);
-
-  try {
-    await once(server, "exit");
-  } finally {
-    clearTimeout(timeout);
-  }
-}
-
-function requestPreview() {
-  return new Promise((resolve) => {
-    const req = request(previewUrl, { method: "GET", timeout: 1000 }, (res) => {
-      res.resume();
-      resolve(res.statusCode === 200);
-    });
-
-    req.on("timeout", () => {
-      req.destroy();
-      resolve(false);
-    });
-
-    req.on("error", () => {
-      resolve(false);
-    });
-
-    req.end();
-  });
-}
-
-async function waitForPreview() {
-  const startedAt = Date.now();
-  const timeoutMs = 120000;
-
-  while (Date.now() - startedAt < timeoutMs) {
-    if (server.exitCode !== null || server.signalCode !== null) {
-      throw new Error(`dx serve exited before preview became ready.\n${serverOutput}`);
-    }
-
-    if (await requestPreview()) {
-      return;
-    }
-
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-  }
-
-  throw new Error(`Timed out waiting for ${previewUrl}.\n${serverOutput}`);
 }
 
 function isMissingBrowserError(error) {
@@ -301,13 +196,12 @@ async function runBrowserAssertions() {
 
 try {
   validateBrowserConfig();
-  startServer();
-  await waitForPreview();
+  await server.ready();
   await runBrowserAssertions();
   console.log("web screenshot smoke passed (2 viewports)");
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
 } finally {
-  await stopServer();
+  await server.stop();
 }

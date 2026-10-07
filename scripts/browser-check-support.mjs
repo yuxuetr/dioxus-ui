@@ -2,7 +2,7 @@
 // `dx serve`, launching Chromium, and measuring text contrast.
 import { request } from "node:http";
 import { once } from "node:events";
-import { spawn } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { chromium } from "@playwright/test";
@@ -29,11 +29,18 @@ export async function launchBrowser(scriptName) {
   }
 }
 
-const respondsOk = (url) =>
+// Before its first build, `dx serve` answers 200 with a placeholder page
+// ("dx is not serving a web app"); only the built app loads a bundle from
+// /wasm/, so readiness waits for that.
+const servesApp = (url) =>
   new Promise((resolve) => {
     const req = request(url, { method: "GET", timeout: 1000 }, (res) => {
-      res.resume();
-      resolve(res.statusCode === 200);
+      let body = "";
+      res.setEncoding("utf8");
+      res.on("data", (chunk) => {
+        body += chunk;
+      });
+      res.on("end", () => resolve(res.statusCode === 200 && body.includes("/wasm/")));
     });
     req.on("timeout", () => {
       req.destroy();
@@ -43,8 +50,21 @@ const respondsOk = (url) =>
     req.end();
   });
 
+// dx 0.8 hot-patches unless told `--hot-patch false`, and its fat-binary link
+// fails on this workspace; dx 0.7 takes `--hot-patch` as a bare flag that is
+// off by default and rejects a value.
+function hotPatchOffArgs() {
+  const version = spawnSync("dx", ["--version"], { encoding: "utf8" });
+  const match = /(\d+)\.(\d+)\./.exec(version.stdout ?? "");
+  if (version.status !== 0 || !match) {
+    throw new Error(`could not read the dx version: ${version.error?.message ?? version.stderr ?? ""}`);
+  }
+  const [major, minor] = [Number(match[1]), Number(match[2])];
+  return major > 0 || minor >= 8 ? ["--hot-patch", "false"] : [];
+}
+
 // Serves one Dioxus Web package without hot reload or watching. `ready()`
-// resolves once the server answers; `stop()` shuts it down.
+// resolves once the server serves the built app; `stop()` shuts it down.
 export function serveDioxusWeb({ packageName, bin, port }) {
   const url = `http://${host}:${port}`;
   const args = ["serve", "--web", "--package", packageName];
@@ -54,6 +74,7 @@ export function serveDioxusWeb({ packageName, bin, port }) {
   args.push(
     "--port", String(port), "--addr", host, "--open", "false",
     "--hot-reload", "false", "--watch", "false", "--interactive", "false",
+    ...hotPatchOffArgs(),
   );
   let output = "";
   const server = spawn("dx", args, { cwd: repoRoot, stdio: ["ignore", "pipe", "pipe"] });
@@ -73,7 +94,11 @@ export function serveDioxusWeb({ packageName, bin, port }) {
         if (exited()) {
           throw new Error(`dx serve exited before ${packageName} became ready.\n${output}`);
         }
-        if (await respondsOk(url)) {
+        // dx keeps serving the placeholder after a failed build.
+        if (output.includes("Build failed")) {
+          throw new Error(`dx serve could not build ${packageName}.\n${output}`);
+        }
+        if (await servesApp(url)) {
           return;
         }
         await new Promise((resolve) => setTimeout(resolve, 1000));
