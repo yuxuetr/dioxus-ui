@@ -1,0 +1,17 @@
+[package]
+name = "dioxus-ui-fullstack-hydration"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+publish = false
+
+[dependencies]
+dioxus = { workspace = true, features = ["fullstack"] }
+dioxus-shadcn = { workspace = true, features = ["tabs", "select"] }
+
+# `dx serve` builds the server with `server` and the browser bundle with `web`.
+[features]
+default = []
+web = ["dioxus/web"]
+server = ["dioxus/server"]

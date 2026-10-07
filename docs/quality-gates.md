@@ -155,6 +155,7 @@ npm run verify
 npm run verify:changelog
 scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
+npm run verify:fullstack-hydration
 npm run verify:release-docs
 npm run verify:package-scripts
 npm run verify:package-lock
@@ -499,6 +500,13 @@ with `landmark-unique` disabled because the preview repeats landmark components
 write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.
+
+`npm run verify:fullstack-hydration` serves `examples/fullstack-hydration`
+with `dx serve` and runs in the release gate. It fails when three requests
+write different element ids, or when, after hydration, ArrowRight does not
+move focus between tabs or the Select list does not open under its trigger
+([RFC 0075](rfcs/0075-render-scoped-element-ids.md)). It needs `dx` for the
+locked Dioxus version and the `wasm32-unknown-unknown` target.
 
 `npm run verify:site` serves the component site with `dx serve` (see
 [RFC 0052](rfcs/0052-component-site.md)) and visits the home, installation,

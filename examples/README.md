@@ -93,6 +93,17 @@ Set `DIOXUS_UI_ANDROID_SERIAL` or `DIOXUS_UI_ANDROID_AVD` to choose the device.
 Dioxus 0.7 apps stop at launch on iOS 27 because they do not adopt the UIScene
 lifecycle.
 
+## Fullstack Hydration
+
+`examples/fullstack-hydration` (`dioxus-ui-fullstack-hydration`) is a
+server-rendered page with Tabs and Select that the browser hydrates. The
+release gate serves it and checks that each request writes the same element
+ids and that the hydrated parts find each other by them (RFC 0075):
+
+```bash
+npm run verify:fullstack-hydration
+```
+
 ## Preview State Metadata
 
 ```bash

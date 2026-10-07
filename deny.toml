@@ -29,7 +29,13 @@ allow = [
   "CC0-1.0",
 ]
 confidence-threshold = 0.8
-exceptions = []
+# Only dioxus-fullstack pulls these in, for examples/fullstack-hydration: the
+# Mozilla root certificates (CDLA-Permissive-2.0) and xxhash (BSL-1.0). Both
+# are permissive; they stay scoped to the crate rather than allowed for all.
+exceptions = [
+  { allow = ["CDLA-Permissive-2.0"], crate = "webpki-roots" },
+  { allow = ["BSL-1.0"], crate = "xxhash-rust" },
+]
 
 [licenses.private]
 ignore = false

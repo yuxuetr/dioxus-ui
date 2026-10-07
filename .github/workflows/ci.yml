@@ -35,6 +35,8 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
+          # The fullstack hydration check builds a browser bundle.
+          targets: wasm32-unknown-unknown
 
       - name: Cache Rust build
         uses: Swatinem/rust-cache@v2
@@ -75,6 +77,20 @@ jobs:
         uses: taiki-e/install-action@v2
         with:
           tool: cargo-semver-checks
+
+      - name: Install cargo-binstall
+        if: github.event_name == 'push'
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-binstall
+
+      # The fullstack hydration check serves its example with the dx that
+      # matches the locked Dioxus version.
+      - name: Install dx
+        if: github.event_name == 'push'
+        run: |
+          version="$(awk '/^name = "dioxus"$/ { getline; gsub(/"/, "", $3); print $3 }' Cargo.lock)"
+          cargo binstall "dioxus-cli@${version}" --no-confirm
 
       - name: Run the release gate
         if: github.event_name == 'push'

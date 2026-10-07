@@ -167,6 +167,7 @@ npm run verify
 npm run verify:changelog
 scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
+npm run verify:fullstack-hydration
 npm run verify:release-docs
 npm run verify:package-scripts
 npm run verify:package-lock
@@ -399,6 +400,14 @@ RFC 0052 and RFC 0054). The release
 gate runs `npm run verify:site-css` and `npm run verify:site-catalog`, which
 need no browser. `.github/workflows/pages.yml` deploys the site to GitHub
 Pages on every push to `main`.
+
+`npm run verify:fullstack-hydration` is in the release gate. It serves
+`examples/fullstack-hydration` with `dx serve`, checks that three requests
+write the same element ids, and after hydration checks that ArrowRight moves
+focus between tabs and that the Select list opens under its trigger, both of
+which find their parts by those ids (RFC 0075). It needs `dx` for the Dioxus
+version in `Cargo.lock` and the `wasm32-unknown-unknown` target; CI installs
+both in the release gate job.
 
 `npm run verify:web-screenshot-smoke` is also opt-in and outside release gates.
 It starts the Web preview and checks desktop and mobile screenshot readiness
