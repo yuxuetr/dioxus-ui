@@ -90,14 +90,13 @@ Patch releases should be limited to:
 - registry metadata fixes
 
 Before each release, compare the three library crates with the last
-release, after the version bump. For 0.5.0 the baseline is 0.4.3, which is
-the `release/0.4` branch until it is published, so `--baseline-rev
-release/0.4` stands in for `--baseline-version`:
+release, after the version bump. 0.4.3 was not published, since its changes
+ship in 0.5.0, so the 0.5.0 baseline is 0.4.2:
 
 ```bash
 cargo binstall cargo-semver-checks   # once
 for crate in dioxus-shadcn-core dioxus-shadcn-primitives dioxus-shadcn; do
-  cargo semver-checks -p "$crate" --baseline-rev release/0.4 --all-features --release-type minor
+  cargo semver-checks -p "$crate" --baseline-version 0.4.2 --all-features --release-type minor
 done
 ```
 
@@ -108,7 +107,7 @@ APIs only: copy-mode changes such as template files and the `dxui` command
 line need their own notes. For 0.3.0 it found new props fields in
 `dioxus-shadcn`; for 0.4.0 it found none. A patch release compares against
 the previous patch with `--release-type patch`; for 0.4.1 against 0.4.0 and 0.4.2
-against 0.4.1 it found none. For 0.5.0 against 0.4.3 it found none in the
+against 0.4.1 it found none. For 0.5.0 against 0.4.2 it found none in the
 core and primitives crates and, in `dioxus-shadcn`, the removed per-part state
 props, the removed accordion and toggle group selection helpers,
 `command_item_class`'s parameters, and new props fields, all covered by the

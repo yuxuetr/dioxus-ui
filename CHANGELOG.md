@@ -15,11 +15,12 @@ state of compound components into their roots (RFC 0077), and takes density
 from a `DensityProvider` so every control offers a touch target under
 `Touch` (RFC 0078). Most stateful components change: parts lose their
 per-part state props, sit inside a root, and stop rendering outside it.
-`cargo-semver-checks` against 0.4.3 (the `release/0.4` branch) finds no
-breaking change in `dioxus-shadcn-core` or `dioxus-shadcn-primitives`; every
-finding in `dioxus-shadcn` (removed props fields, the removed accordion and
-toggle group helpers, `command_item_class`'s parameters, and new props
-fields) is covered under Migration.
+It also carries the crate-mode setup fixes planned for 0.4.3, which was not
+published. `cargo-semver-checks` against 0.4.2 finds no breaking change in
+`dioxus-shadcn-core` or `dioxus-shadcn-primitives`; every finding in
+`dioxus-shadcn` (removed props fields, the removed accordion and toggle
+group helpers, `command_item_class`'s parameters, and new props fields) is
+covered under Migration.
 
 ### Changed
 - A class passed to a component now wins as the last class does in
