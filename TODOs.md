@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 33% (2 of 6 tasks)
+- Overall: 50% (3 of 6 tasks)
 - Current milestone: M215 (Dioxus 0.8 readiness)
-- Current task: M215.3
+- Current task: none until the Stage 14 gate exits 0 (then M216.1)
 
 ## Backup
 
@@ -43,9 +43,10 @@
   - A fullstack example renders Tabs and one more component with generated ids on the server; a script serves it, compares the ids across three requests, hydrates the page in Chromium, and checks that ArrowRight moves focus between tabs. `npm run verify:release` and CI run it; the Deferred entry for it is removed.
   - Exit: the check passes on Dioxus 0.7, and fails when `next_element_id()` is replaced with a process-wide counter (RFC 0075's failing case).
   - Done (2b9c64e): `examples/fullstack-hydration` renders Tabs and Select; `npm run verify:fullstack-hydration` compares 19 generated ids across three requests, then after hydration ArrowRight moves focus to and selects the second tab and the Select list opens under its trigger, with no console errors. It runs in `verify:release` (which passes) and in CI, which installs `wasm32-unknown-unknown` and `dioxus-cli` at the `Cargo.lock` Dioxus version through cargo-binstall. `deny.toml` allows `webpki-roots` (CDLA-Permissive-2.0) and `xxhash-rust` (BSL-1.0), which only `dioxus-fullstack` brings. With a process-wide counter in `next_element_id()`, request 2 writes `dxui-tabs-10-*` against request 1, and with the request check skipped the hydrated ArrowRight no longer moves focus.
-- TODO M215.3 `npm run verify:dioxus-next`
+- DONE M215.3 `npm run verify:dioxus-next`
   - A script copies the tree into a scratch worktree, pins `dioxus` and `dioxus-ssr` to the newest 0.8 pre-release on crates.io, and runs the workspace tests, Clippy, the generated fixture smoke, the fullstack check, and the browser interactions with a `dx` of the same version, which it names when it is missing. `docs/release.md` records each run's result.
   - Exit: it passes on `0.8.0-alpha.1`, fails with the compiler error when a template is given a type error (reverse-verify), and leaves the main tree unchanged.
+  - Done (e2a6a85): the newest 0.8 version comes from the crates.io versions list; a `dx` of another version fails with an install hint and `DIOXUS_NEXT_DX`; builds go to `<target>/dioxus-next` so dx never serves a 0.7 bundle. On `0.8.0-alpha.1` all five steps pass (recorded in `docs/release.md`, Dioxus Next). A type error added to the Button template alone fails the template parity test; added to the crate module and the template, it fails the workspace tests with `error[E0308]`. Each run removes its worktree and leaves `git status` unchanged.
 
 ## M216 0.7.0 Dioxus 0.8 (starts when the Stage 14 gate exits 0)
 
