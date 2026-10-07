@@ -17,7 +17,7 @@
 
 ## Evidence (measured 2026-10-07 at `v0.5.0`)
 
-- Undocumented public items (`RUSTFLAGS="-W missing_docs" cargo check --all-features`): 0 in `dioxus-shadcn-core`, 605 in `dioxus-shadcn-primitives`, 1599 in `dioxus-shadcn` (444 functions, 442 constants, 226 variants, 159 fields, 103 methods, 101 modules).
+- Undocumented public items (`RUSTFLAGS="-W missing_docs" cargo check --all-features`): 0 in `dioxus-shadcn-core`, 605 in `dioxus-shadcn-primitives`, 1139 in `dioxus-shadcn` (442 constants, 382 functions, 125 variants, 82 modules, 51 methods, 39 enums; first recorded as 1599, which included the primitives crate's warnings).
 - `dioxus-shadcn` declares 451 `pub const`s; 10 are named anywhere outside its `src` (site, examples, docs, scripts, CLI tests), 7 of those only in RFC prose. It declares 424 snake-case `pub fn`s, 359 of them `*_class`.
 - `dioxus-shadcn` re-exports 196 primitive items from 28 modules; the demos and fixtures name many of them (calendar math, carousel and chart helpers, primitive configs), several of which predate root-owned state (RFC 0077), such as `carousel_next`, `SidebarState`, and `ActiveDescendantState`.
 - `cargo-semver-checks` is a manual step in `docs/release.md`, not part of `npm run verify:release`.

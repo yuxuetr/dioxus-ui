@@ -117,6 +117,7 @@ Read in this order:
 110. [RFC 0076: User Class Overrides](rfcs/0076-user-class-overrides.md)
 111. [RFC 0077: Component-Owned State](rfcs/0077-component-owned-state.md)
 112. [RFC 0078: Touch Density](rfcs/0078-touch-density.md)
+113. [RFC 0079: Public Surface](rfcs/0079-public-surface.md)
 112. [TODO Plan](../TODOs.md)
 
 ## Project Principles

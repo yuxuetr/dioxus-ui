@@ -336,6 +336,7 @@ only.
 - [RFC 0076: User Class Overrides](docs/rfcs/0076-user-class-overrides.md)
 - [RFC 0077: Component-Owned State](docs/rfcs/0077-component-owned-state.md)
 - [RFC 0078: Touch Density](docs/rfcs/0078-touch-density.md)
+- [RFC 0079: Public Surface](docs/rfcs/0079-public-surface.md)
 
 ## Verification Shortcuts
 
