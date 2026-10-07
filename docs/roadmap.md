@@ -106,6 +106,14 @@ that is about to be replaced.
 Starts when `cargo search dioxus --limit 1 --color never | grep -qE '^dioxus = "0\.8\.[0-9]+"'`
 exits 0.
 
+Measured on 2026-10-07 at `v0.6.0` against `0.8.0-alpha.1`: the crates,
+templates, blocks, site, and demos build and test without a source change,
+and the browser interactions pass once `dx` 0.8's default hot-patching is
+turned off. Before the release, the browser checks learn both `dx` lines, the
+fullstack hydration check becomes a script in the release gate, and
+`npm run verify:dioxus-next` reruns this measurement on each 0.8
+pre-release (M215 in the [TODO Plan](../TODOs.md)).
+
 Exit criteria:
 
 - release gate, browser checks, Desktop and Mobile self-tests, and a
