@@ -76,7 +76,8 @@ use dioxus_shadcn::{
 };
 use dioxus_shadcn::{Menu, MenuGroup, MenuItem, MenuTitle};
 use dioxus_shadcn::{
-  Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarItem, SidebarTrigger,
+  Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarItem, SidebarProvider,
+  SidebarTrigger,
 };
 use dioxus_shadcn::{Swap, SwapEffect};
 use dioxus_shadcn::{Theme, ThemeController};
@@ -2485,25 +2486,20 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-collapsed": "{shell_collapsed}",
             "data-mobile-open": "{shell_mobile_open}",
             h2 { class: "text-sm font-medium", "Off-canvas sidebar interaction" }
-            SidebarTrigger {
-              "aria-controls": "interaction-sidebar-mobile",
+            // Controlled: items close the panel. The sidebar's own id needs a
+            // matching `aria-controls` on the trigger.
+            SidebarProvider {
               collapsed: shell_collapsed(),
               on_collapsed_change: move |next| shell_collapsed.set(next),
+              off_canvas: true,
               mobile_open: shell_mobile_open(),
               on_mobile_open_change: move |next| shell_mobile_open.set(next),
-              "Toggle navigation"
-            }
-            Sidebar {
-              id: "interaction-sidebar-mobile",
-              "aria-label": "Navigation",
-              collapsed: shell_collapsed(),
-              on_collapsed_change: move |next| shell_collapsed.set(next),
-              mobile_open: shell_mobile_open(),
-              on_mobile_open_change: move |next| shell_mobile_open.set(next),
-              shortcut: 'b',
-              SidebarContent {
-                SidebarItem { onclick: move |_| shell_mobile_open.set(false), "Projects" }
-                SidebarItem { onclick: move |_| shell_mobile_open.set(false), "Reports" }
+              SidebarTrigger { "aria-controls": "interaction-sidebar-mobile", "Toggle navigation" }
+              Sidebar { id: "interaction-sidebar-mobile", "aria-label": "Navigation", shortcut: 'b',
+                SidebarContent {
+                  SidebarItem { onclick: move |_| shell_mobile_open.set(false), "Projects" }
+                  SidebarItem { onclick: move |_| shell_mobile_open.set(false), "Reports" }
+                }
               }
             }
           }
@@ -2514,42 +2510,37 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-section": "{sidebar_section}",
             "data-disabled-clicks": "{sidebar_disabled_clicks}",
             h2 { class: "text-sm font-medium", "Sidebar interaction" }
-            SidebarTrigger {
-              "aria-controls": "interaction-sidebar",
-              collapsed: sidebar_collapsed(),
-              on_collapsed_change: move |next| sidebar_collapsed.set(next),
-              "Toggle sidebar"
-            }
-            Sidebar {
-              id: "interaction-sidebar",
-              "aria-label": "Workspace",
-              collapsed: sidebar_collapsed(),
-              SidebarContent {
-                SidebarGroup { role: "group", "aria-labelledby": "interaction-sidebar-group",
-                  SidebarGroupLabel { id: "interaction-sidebar-group", "Sections" }
-                  SidebarItem {
-                    active: sidebar_section() == "inbox",
-                    onclick: move |_| sidebar_section.set("inbox"),
-                    "Inbox"
+            // Uncontrolled: the provider owns collapsed and links the trigger.
+            SidebarProvider { on_collapsed_change: move |next| sidebar_collapsed.set(next),
+              SidebarTrigger { "Toggle sidebar" }
+              Sidebar { "aria-label": "Workspace",
+                SidebarContent {
+                  SidebarGroup { role: "group", "aria-labelledby": "interaction-sidebar-group",
+                    SidebarGroupLabel { id: "interaction-sidebar-group", "Sections" }
+                    SidebarItem {
+                      active: sidebar_section() == "inbox",
+                      onclick: move |_| sidebar_section.set("inbox"),
+                      "Inbox"
+                    }
+                    SidebarItem {
+                      active: sidebar_section() == "drafts",
+                      onclick: move |_| sidebar_section.set("drafts"),
+                      "Drafts"
+                    }
+                    SidebarItem { href: "#sidebar-settings", title: "Open settings", "Settings" }
+                    SidebarItem {
+                      href: "#sidebar-archive",
+                      disabled: true,
+                      onclick: move |_| sidebar_disabled_clicks += 1,
+                      "Archive"
+                    }
+                    SidebarItem {
+                      disabled: true,
+                      onclick: move |_| sidebar_disabled_clicks += 1,
+                      "Trash"
+                    }
+                    SidebarItem { title: "Help wrapper", "Help" }
                   }
-                  SidebarItem {
-                    active: sidebar_section() == "drafts",
-                    onclick: move |_| sidebar_section.set("drafts"),
-                    "Drafts"
-                  }
-                  SidebarItem { href: "#sidebar-settings", title: "Open settings", "Settings" }
-                  SidebarItem {
-                    href: "#sidebar-archive",
-                    disabled: true,
-                    onclick: move |_| sidebar_disabled_clicks += 1,
-                    "Archive"
-                  }
-                  SidebarItem {
-                    disabled: true,
-                    onclick: move |_| sidebar_disabled_clicks += 1,
-                    "Trash"
-                  }
-                  SidebarItem { title: "Help wrapper", "Help" }
                 }
               }
             }

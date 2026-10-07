@@ -1,6 +1,6 @@
 {
   "name": "sidebar",
-  "description": "Controlled sidebar shell and navigation composition parts.",
+  "description": "Sidebar shell whose provider owns the collapsed and off-canvas state, with navigation parts.",
   "files": [
     {
       "source": "templates/sidebar.rs",
@@ -12,6 +12,7 @@
     "element-id",
     "media-query",
     "modal-focus",
+    "root-state",
     "utils"
   ],
   "assets": []

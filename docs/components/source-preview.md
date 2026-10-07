@@ -77,7 +77,7 @@ Source preview routes: 82
 | [Select](select.md) | /components/select/source | crates/dioxus-shadcn-cli/templates/select.rs | src/components/ui/select.rs | rust | 283 | 9654 |
 | [Separator](separator.md) | /components/separator/source | crates/dioxus-shadcn-cli/templates/separator.rs | src/components/ui/separator.rs | rust | 52 | 1264 |
 | [Sheet](sheet.md) | /components/sheet/source | crates/dioxus-shadcn-cli/templates/sheet.rs | src/components/ui/sheet.rs | rust | 247 | 7080 |
-| [Sidebar](sidebar.md) | /components/sidebar/source | crates/dioxus-shadcn-cli/templates/sidebar.rs | src/components/ui/sidebar.rs | rust | 487 | 15691 |
+| [Sidebar](sidebar.md) | /components/sidebar/source | crates/dioxus-shadcn-cli/templates/sidebar.rs | src/components/ui/sidebar.rs | rust | 510 | 16928 |
 | [Skeleton](skeleton.md) | /components/skeleton/source | crates/dioxus-shadcn-cli/templates/skeleton.rs | src/components/ui/skeleton.rs | rust | 21 | 444 |
 | [Slider](slider.md) | /components/slider/source | crates/dioxus-shadcn-cli/templates/slider.rs | src/components/ui/slider.rs | rust | 571 | 20942 |
 | [Sonner](sonner.md) | /components/sonner/source | crates/dioxus-shadcn-cli/templates/sonner.rs | src/components/ui/sonner.rs | rust | 420 | 12637 |
@@ -95,6 +95,6 @@ Source preview routes: 82
 | [Timeline](timeline.md) | /components/timeline/source | crates/dioxus-shadcn-cli/templates/timeline.rs | src/components/ui/timeline.rs | rust | 127 | 5239 |
 | [Toast](toast.md) | /components/toast/source | crates/dioxus-shadcn-cli/templates/toast.rs | src/components/ui/toast.rs | rust | 363 | 10687 |
 | [Toggle](toggle.md) | /components/toggle/source | crates/dioxus-shadcn-cli/templates/toggle.rs | src/components/ui/toggle.rs | rust | 84 | 2399 |
-| [Toggle Group](toggle-group.md) | /components/toggle-group/source | crates/dioxus-shadcn-cli/templates/toggle_group.rs | src/components/ui/toggle_group.rs | rust | 155 | 5459 |
+| [Toggle Group](toggle-group.md) | /components/toggle-group/source | crates/dioxus-shadcn-cli/templates/toggle_group.rs | src/components/ui/toggle_group.rs | rust | 270 | 8102 |
 | [Tooltip](tooltip.md) | /components/tooltip/source | crates/dioxus-shadcn-cli/templates/tooltip.rs | src/components/ui/tooltip.rs | rust | 128 | 3825 |
 | [Typography](typography.md) | /components/typography/source | crates/dioxus-shadcn-cli/templates/typography.rs | src/components/ui/typography.rs | rust | 108 | 3804 |

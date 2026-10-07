@@ -63,7 +63,11 @@ for commit messages.
   `Command` links its input and list and its parts no longer take highlight
   props. `InputOtp` takes the code `length` and `value`, `default_value`,
   and `on_value_change`; its slots show the code by `index`.
-
+- Sidebar gains a `SidebarProvider` root, as in shadcn/ui, that owns the
+  collapsed state (`collapsed`, `default_collapsed`, `on_collapsed_change`)
+  and, with `off_canvas`, the off-canvas panel (`mobile_open`,
+  `on_mobile_open_change`). `Sidebar`, `SidebarRail`, and `SidebarTrigger`
+  read it, and the trigger points `aria-controls` at the sidebar.
 ### Fixed
 
 - The Message Scroller jump button hides when there is nothing to jump to;
@@ -170,6 +174,13 @@ for commit messages.
   the input and `value`, `active`, and `invalid` from slots (the root's
   `disabled` and `invalid` reach them), and render one `InputOtpSlot` per
   `index` instead of mapping `otp_slots`.
+- Sidebar: wrap the sidebar and its trigger in `SidebarProvider` and move
+  `collapsed`, `on_collapsed_change`, `mobile_open`, and
+  `on_mobile_open_change` there from `Sidebar`, `SidebarTrigger`, and
+  `SidebarRail` (drop them to let it hold the state); replace "pass
+  `on_mobile_open_change` for off-canvas" with `off_canvas: true`. The
+  trigger's `aria-controls` is no longer needed unless the sidebar has its
+  own `id`.
 - Copy mode: re-copy components with `dxui add <name> --overwrite`. `utils`
   now brings two helpers, `class_merge` and `class_merge_table`; the second
   is generated from Tailwind and stores its names reversed so Tailwind

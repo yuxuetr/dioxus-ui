@@ -131,6 +131,7 @@ mod element_id;
   feature = "radio-group",
   feature = "select",
   feature = "sheet",
+  feature = "sidebar",
   feature = "tabs",
   feature = "toggle-group",
   feature = "tooltip"
@@ -787,10 +788,11 @@ pub use sidebar::{
   SIDEBAR_ITEM_BASE_CLASS, SIDEBAR_MOBILE_PANEL_CLASS, SIDEBAR_MOBILE_QUERY,
   SIDEBAR_OVERLAY_BASE_CLASS, SIDEBAR_RAIL_BASE_CLASS, SIDEBAR_TRIGGER_BASE_CLASS, Sidebar,
   SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarItem,
-  SidebarRail, SidebarSide, SidebarState, SidebarTrigger, sidebar_class, sidebar_content_class,
-  sidebar_footer_class, sidebar_group_class, sidebar_group_label_class, sidebar_header_class,
-  sidebar_item_class, sidebar_mobile_class, sidebar_mobile_panel_class, sidebar_overlay_class,
-  sidebar_rail_class, sidebar_side_attribute, sidebar_toggle, sidebar_trigger_class,
+  SidebarProvider, SidebarRail, SidebarSide, SidebarState, SidebarTrigger, sidebar_class,
+  sidebar_content_class, sidebar_footer_class, sidebar_group_class, sidebar_group_label_class,
+  sidebar_header_class, sidebar_item_class, sidebar_mobile_class, sidebar_mobile_panel_class,
+  sidebar_overlay_class, sidebar_rail_class, sidebar_side_attribute, sidebar_toggle,
+  sidebar_trigger_class,
 };
 #[cfg(feature = "skeleton")]
 pub use skeleton::{SKELETON_BASE_CLASS, Skeleton, skeleton_class};

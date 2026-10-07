@@ -1,14 +1,15 @@
-use std::cell::RefCell;
+use std::cell::Cell;
 use std::rc::Rc;
 
 use super::default_attribute::default_attribute;
 use super::element_id::next_element_id;
 use super::media_query::use_media_query;
 use super::modal_focus::use_modal_focus_scope;
+use super::root_state::{Controllable, use_controllable, use_root_context};
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
-/// Below this width a Sidebar with `on_mobile_open_change` is off-canvas.
+/// Below this width the sidebar of an `off_canvas` provider is off-canvas.
 pub const SIDEBAR_MOBILE_QUERY: &str = "(max-width: 767px)";
 
 // Sends a message for Ctrl or Command and the shortcut key, until the
@@ -137,58 +138,109 @@ pub fn sidebar_trigger_class(class: &str) -> String {
   merge_classes(classes([Some(SIDEBAR_TRIGGER_BASE_CLASS)]), class)
 }
 
-/// The sidebar is an `aside` that `collapsed` narrows. With
-/// `on_mobile_open_change` it is off-canvas below `SIDEBAR_MOBILE_QUERY`: a
-/// modal panel shown while `mobile_open`, over an overlay, that traps focus,
-/// locks page scroll, and asks to close on Escape or an overlay press. With
-/// `shortcut`, Ctrl or Command and that key toggle it: `mobile_open` when
-/// off-canvas, `collapsed` through `on_collapsed_change` otherwise.
+#[derive(Clone, Copy)]
+struct SidebarContext {
+  collapsed: Controllable<bool>,
+  mobile_open: Controllable<bool>,
+  off_canvas: bool,
+  id: usize,
+}
+
+impl SidebarContext {
+  fn panel_id(&self) -> String {
+    format!("dxui-sidebar-{}-panel", self.id)
+  }
+
+  /// Toggles what the sidebar shows: the off-canvas panel while it is
+  /// modal, else its width.
+  fn toggle(&self, modal: bool) {
+    let state = if modal { self.mobile_open } else { self.collapsed };
+    state.set(!state.get());
+  }
+}
+
+fn use_sidebar(part: &str) -> SidebarContext {
+  use_root_context::<Signal<SidebarContext>>(part, "SidebarProvider").cloned()
+}
+
+/// The root of a sidebar layout: it owns whether the sidebar is collapsed and,
+/// with `off_canvas`, whether its off-canvas panel is open (RFC 0077), and
+/// shares that with `Sidebar`, `SidebarRail`, and `SidebarTrigger`, which may
+/// sit anywhere inside it. Pass `collapsed` or `mobile_open` to control
+/// either, or `default_collapsed` to start collapsed; the change callbacks
+/// hear every change the user makes. It renders no element of its own.
+#[component]
+pub fn SidebarProvider(
+  #[props(default)] collapsed: ReadSignal<Option<bool>>,
+  #[props(default)] default_collapsed: bool,
+  #[props(default)] on_collapsed_change: Option<EventHandler<bool>>,
+  #[props(default)] off_canvas: bool,
+  #[props(default)] mobile_open: ReadSignal<Option<bool>>,
+  #[props(default)] on_mobile_open_change: Option<EventHandler<bool>>,
+  children: Element,
+) -> Element {
+  let collapsed =
+    use_controllable(move || collapsed.cloned(), move || default_collapsed, on_collapsed_change);
+  let mobile_open = use_controllable(move || mobile_open.cloned(), || false, on_mobile_open_change);
+  let id = use_hook(next_element_id);
+  let context = SidebarContext { collapsed, mobile_open, off_canvas, id };
+  // `off_canvas` may change, so the context is refreshed on every render.
+  let mut shared = use_context_provider(|| Signal::new(context));
+  if shared.peek().off_canvas != off_canvas {
+    shared.set(context);
+  }
+
+  rsx! { {children} }
+}
+
+/// The sidebar is an `aside` that the provider's collapsed state narrows.
+/// With an `off_canvas` provider it is off-canvas below
+/// `SIDEBAR_MOBILE_QUERY`: a modal panel shown while the provider's
+/// `mobile_open`, over an overlay, that traps focus, locks page scroll, and
+/// closes on Escape or an overlay press. With `shortcut`, Ctrl or Command and
+/// that key toggle it: the panel when off-canvas, the width otherwise.
 #[component]
 pub fn Sidebar(
-  #[props(default)] collapsed: bool,
   #[props(default)] side: SidebarSide,
-  #[props(default)] on_collapsed_change: Option<EventHandler<bool>>,
-  #[props(default)] mobile_open: bool,
-  #[props(default)] on_mobile_open_change: Option<EventHandler<bool>>,
   #[props(default)] shortcut: Option<char>,
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = aside)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
-  let (mobile, media_scope) =
-    use_media_query(SIDEBAR_MOBILE_QUERY, on_mobile_open_change.is_some());
-  let modal = mobile && on_mobile_open_change.is_some();
+  let sidebar = use_sidebar("Sidebar");
+  let collapsed = sidebar.collapsed.get();
+  let mobile_open = sidebar.mobile_open.get();
+  let (mobile, media_scope) = use_media_query(SIDEBAR_MOBILE_QUERY, sidebar.off_canvas);
+  let modal = mobile && sidebar.off_canvas;
   let focus_scope = use_modal_focus_scope(modal && mobile_open, true);
-  let scope_id = use_hook(|| format!("dxui-sidebar-{}", next_element_id()));
-  // The shortcut handler outlives this render, so it reads the latest state.
-  let latest = use_hook(|| Rc::new(RefCell::new(SidebarToggle::default())));
-  *latest.borrow_mut() =
-    SidebarToggle { modal, collapsed, mobile_open, on_collapsed_change, on_mobile_open_change };
+  let scope_id = use_hook(|| format!("dxui-sidebar-scope-{}", next_element_id()));
+  // The shortcut handler outlives this render, so it reads the latest mode.
+  let latest_modal = use_hook(|| Rc::new(Cell::new(false)));
+  latest_modal.set(modal);
   let effect_scope_id = scope_id.clone();
   use_effect(use_reactive((&shortcut,), move |(shortcut,)| {
     let Some(key) = shortcut else {
       return;
     };
-    let latest = latest.clone();
+    let latest_modal = latest_modal.clone();
     let mut eval = document::eval(SIDEBAR_SHORTCUT_SCRIPT);
     // A send error means the page already finished the script; nothing to track.
     let _ = eval.send((effect_scope_id.as_str(), key.to_ascii_lowercase().to_string()));
     spawn(async move {
       while eval.recv::<()>().await.is_ok() {
-        latest.borrow().toggle();
+        sidebar.toggle(latest_modal.get());
       }
     });
   }));
-  let close = move |_| {
-    if let Some(handler) = on_mobile_open_change {
-      handler.call(false);
-    }
-  };
+  let close = move |_| sidebar.mobile_open.set(false);
+  let generated_id = sidebar.panel_id();
 
-  if on_mobile_open_change.is_none() {
+  if !sidebar.off_canvas {
     let class = sidebar_class(collapsed, side, &class);
+    let id = default_attribute(&attributes, "id", generated_id);
     return rsx! {
       aside {
+        id,
         class,
         "data-collapsed": collapsed.to_string(),
         "data-side": sidebar_side_attribute(side),
@@ -209,7 +261,6 @@ pub fn Sidebar(
       _ => None,
     },
   );
-  let generated_id = format!("{scope_id}-panel");
   let label_id = passed_id.unwrap_or_else(|| generated_id.clone());
   let id = default_attribute(&attributes, "id", generated_id);
   let panel_class =
@@ -254,30 +305,9 @@ pub fn Sidebar(
   }
 }
 
-/// What the shortcut toggles, as of the latest render.
-#[derive(Clone, Default)]
-struct SidebarToggle {
-  modal: bool,
-  collapsed: bool,
-  mobile_open: bool,
-  on_collapsed_change: Option<EventHandler<bool>>,
-  on_mobile_open_change: Option<EventHandler<bool>>,
-}
-
-impl SidebarToggle {
-  fn toggle(&self) {
-    if self.modal {
-      if let Some(handler) = self.on_mobile_open_change {
-        handler.call(!self.mobile_open);
-      }
-    } else if let Some(handler) = self.on_collapsed_change {
-      handler.call(!self.collapsed);
-    }
-  }
-}
-
 #[component]
-pub fn SidebarRail(#[props(default)] collapsed: bool, #[props(default)] class: String) -> Element {
+pub fn SidebarRail(#[props(default)] class: String) -> Element {
+  let collapsed = use_sidebar("SidebarRail").collapsed.get();
   let class = sidebar_rail_class(collapsed, &class);
 
   rsx! {
@@ -440,25 +470,23 @@ pub fn SidebarItem(
   }
 }
 
-/// Toggles `collapsed`, or with `on_mobile_open_change` below
-/// `SIDEBAR_MOBILE_QUERY`, `mobile_open`; `aria-expanded` follows whichever
-/// it toggles.
+/// Toggles the provider's collapsed state, or below `SIDEBAR_MOBILE_QUERY`
+/// with an `off_canvas` provider, its off-canvas panel; `aria-expanded`
+/// follows whichever it toggles, and `aria-controls` names the sidebar.
 #[component]
 pub fn SidebarTrigger(
-  #[props(default)] collapsed: bool,
   #[props(default)] disabled: bool,
-  #[props(default)] on_collapsed_change: Option<EventHandler<bool>>,
-  #[props(default)] mobile_open: bool,
-  #[props(default)] on_mobile_open_change: Option<EventHandler<bool>>,
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
+  let sidebar = use_sidebar("SidebarTrigger");
   let class = sidebar_trigger_class(&class);
-  let (mobile, media_scope) =
-    use_media_query(SIDEBAR_MOBILE_QUERY, on_mobile_open_change.is_some());
-  let modal = mobile && on_mobile_open_change.is_some();
-  let expanded = if modal { mobile_open } else { !collapsed };
+  let (mobile, media_scope) = use_media_query(SIDEBAR_MOBILE_QUERY, sidebar.off_canvas);
+  let modal = mobile && sidebar.off_canvas;
+  let collapsed = sidebar.collapsed.get();
+  let expanded = if modal { sidebar.mobile_open.get() } else { !collapsed };
+  let controls = default_attribute(&attributes, "aria-controls", sidebar.panel_id());
 
   rsx! {
     button {
@@ -466,17 +494,12 @@ pub fn SidebarTrigger(
       class,
       disabled,
       "aria-expanded": expanded.to_string(),
+      "aria-controls": controls,
       "data-collapsed": collapsed.to_string(),
       "data-dxui-media": media_scope,
       onclick: move |_| {
         if !disabled {
-          if modal {
-            if let Some(handler) = on_mobile_open_change {
-              handler.call(!mobile_open);
-            }
-          } else if let Some(handler) = on_collapsed_change {
-            handler.call(!collapsed);
-          }
+          sidebar.toggle(modal);
         }
       },
       ..attributes,

@@ -162,6 +162,18 @@ kept the highlighted option in its script; its parts lose the highlight
 props they no longer used, and the query stays with the app, which filters
 the items it renders, as with Combobox.
 
+### Sidebar
+
+The sidebar and its trigger usually sit apart, the trigger in the page
+header, so they share no part of the tree but the layout around both. A new
+`SidebarProvider` around that layout, as in shadcn/ui, owns `collapsed`
+(`default_collapsed`, `on_collapsed_change`) and, with `off_canvas`, the
+off-canvas panel's `mobile_open` (`on_mobile_open_change`); it renders no
+element. `Sidebar`, `SidebarRail`, and `SidebarTrigger` read it. Off-canvas
+mode used to follow from passing `on_mobile_open_change`; with the state in
+the provider it takes the explicit `off_canvas` flag. Which item is current
+still follows the app's route.
+
 ### Which components move
 
 | Batch | Components | State the root takes |
@@ -173,15 +185,18 @@ the items it renders, as with Combobox.
 | M210.2 | Date Picker | open |
 | M210.3 | Accordion, Collapsible, Menu groups | open items |
 | M210.3 | Radio Group, Toggle Group, Carousel, Command, Input OTP | value, selected or active item |
+| M210.3 | Sidebar (new `SidebarProvider`) | collapsed; off-canvas open |
 
 Kept as they are, on purpose:
 
 | Components | Why |
 | --- | --- |
-| Checkbox, Switch, Toggle, Swap, Slider, Number Input, Input, Textarea, Native Select, Resizable | One element holds the state, as with native form controls; there are no parts to share it with |
+| Checkbox, Switch, Toggle, Swap, Slider, Number Input, Rating, Input, Textarea, Native Select, Resizable | One element holds the state, as with native form controls; there are no parts to share it with |
+| Command and Combobox input text | The app filters the items it renders by it, so it keeps the query, as with an Input |
+| Toast and Sonner `open` | Each toast is its own root; whether it shows follows the app's queue of toasts |
 | Menu checkbox items (Dropdown, Context Menu, Menubar) | Each item is its own state, as a Checkbox is |
 | Date Picker's date | The app builds the Calendar inside from it, as with Calendar days |
-| Breadcrumb, Pagination, Sidebar, Dock, Menu items, Navigation Menu links, Data Table rows, Item, Calendar days | The current item follows the app's route or data, which the component cannot know |
+| Breadcrumb, Pagination, Sidebar items, Dock, Menu items, Navigation Menu links, Data Table rows, Item, Calendar days | The current item follows the app's route or data, which the component cannot know |
 | Chart, Progress, Radial Progress | They display a value the app owns |
 
 A component keeps a per-part state prop only if this table says so; M210.3

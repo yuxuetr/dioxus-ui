@@ -68,7 +68,7 @@ Public components: 82
 - [Menu](menu.md): Vertical navigation list with titles, active items, and collapsible groups.
 - [Navigation Menu](navigation-menu.md): Controlled navigation menu parts with navigation semantics.
 - [Pagination](pagination.md): Pagination component with link, item, and ellipsis parts.
-- [Sidebar](sidebar.md): Controlled sidebar shell and navigation composition parts.
+- [Sidebar](sidebar.md): Sidebar shell whose provider owns the collapsed and off-canvas state, with navigation parts.
 - [Steps](steps.md): Styled numbered steps with complete, current, and upcoming states.
 - [Tabs](tabs.md): Tabs components with controlled active state.
 
@@ -185,7 +185,7 @@ Public components: 82
 | [Select](select.md) | Select components backed by primitive configuration types. | `dxui add select` | `select` | `crates/dioxus-shadcn-cli/templates/select.rs` | `src/components/ui/select.rs` |
 | [Separator](separator.md) | Separator component for visual or semantic content division. | `dxui add separator` | `separator` | `crates/dioxus-shadcn-cli/templates/separator.rs` | `src/components/ui/separator.rs` |
 | [Sheet](sheet.md) | Side sheet overlay components backed by dialog primitive configuration. | `dxui add sheet` | `sheet` | `crates/dioxus-shadcn-cli/templates/sheet.rs` | `src/components/ui/sheet.rs` |
-| [Sidebar](sidebar.md) | Controlled sidebar shell and navigation composition parts. | `dxui add sidebar` | `sidebar` | `crates/dioxus-shadcn-cli/templates/sidebar.rs` | `src/components/ui/sidebar.rs` |
+| [Sidebar](sidebar.md) | Sidebar shell whose provider owns the collapsed and off-canvas state, with navigation parts. | `dxui add sidebar` | `sidebar` | `crates/dioxus-shadcn-cli/templates/sidebar.rs` | `src/components/ui/sidebar.rs` |
 | [Skeleton](skeleton.md) | Skeleton component for loading placeholders. | `dxui add skeleton` | `skeleton` | `crates/dioxus-shadcn-cli/templates/skeleton.rs` | `src/components/ui/skeleton.rs` |
 | [Slider](slider.md) | Slider component for controlled horizontal numeric values. | `dxui add slider` | `slider` | `crates/dioxus-shadcn-cli/templates/slider.rs` | `src/components/ui/slider.rs` |
 | [Sonner](sonner.md) | Opinionated toast notification parts and queue helpers. | `dxui add sonner` | `sonner` | `crates/dioxus-shadcn-cli/templates/sonner.rs` | `src/components/ui/sonner.rs` |

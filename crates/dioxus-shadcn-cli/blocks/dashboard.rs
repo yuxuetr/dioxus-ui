@@ -14,7 +14,7 @@ use crate::components::ui::data_table::{
 use crate::components::ui::input::Input;
 use crate::components::ui::sidebar::{
   Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader,
-  SidebarItem, SidebarTrigger,
+  SidebarItem, SidebarProvider, SidebarTrigger,
 };
 use crate::components::ui::stat::{Stat, StatDescription, StatGroup, StatTitle, StatValue};
 
@@ -79,143 +79,139 @@ pub fn DashboardBlock() -> Element {
 
   rsx! {
     // A full-height shell: the sidebar fills it and the content scrolls.
-    div { class: "flex h-screen bg-background text-foreground",
-      Sidebar {
-        id: "dashboard-sidebar",
-        "aria-label": "Main",
-        collapsed: collapsed(),
-        on_collapsed_change: move |next| collapsed.set(next),
-        mobile_open: mobile_open(),
-        on_mobile_open_change: move |next| mobile_open.set(next),
-        shortcut: 'b',
-        SidebarHeader { span { class: "truncate font-semibold", "Acme" } }
-        SidebarContent {
-          SidebarGroup { role: "group", "aria-labelledby": "dashboard-nav-label",
-            SidebarGroupLabel { id: "dashboard-nav-label", class: if collapsed() { "sr-only" } else { "" },
-              "Workspace"
-            }
-            for (value, label) in SECTIONS {
-              SidebarItem {
-                key: "{value}",
-                active: section() == value,
-                title: "{label}",
-                onclick: move |_| {
-                  section.set(value);
-                  mobile_open.set(false);
-                },
-                span { class: "w-4 shrink-0 text-center font-medium", "aria-hidden": "true",
-                  "{label.chars().next().unwrap_or(' ')}"
+    // The labels read `collapsed` and items close the panel, so the app
+    // controls both.
+    SidebarProvider {
+      collapsed: collapsed(),
+      on_collapsed_change: move |next| collapsed.set(next),
+      off_canvas: true,
+      mobile_open: mobile_open(),
+      on_mobile_open_change: move |next| mobile_open.set(next),
+      div { class: "flex h-screen bg-background text-foreground",
+        Sidebar { "aria-label": "Main", shortcut: 'b',
+          SidebarHeader { span { class: "truncate font-semibold", "Acme" } }
+          SidebarContent {
+            SidebarGroup { role: "group", "aria-labelledby": "dashboard-nav-label",
+              SidebarGroupLabel { id: "dashboard-nav-label", class: if collapsed() { "sr-only" } else { "" },
+                "Workspace"
+              }
+              for (value, label) in SECTIONS {
+                SidebarItem {
+                  key: "{value}",
+                  active: section() == value,
+                  title: "{label}",
+                  onclick: move |_| {
+                    section.set(value);
+                    mobile_open.set(false);
+                  },
+                  span { class: "w-4 shrink-0 text-center font-medium", "aria-hidden": "true",
+                    "{label.chars().next().unwrap_or(' ')}"
+                  }
+                  span { class: if collapsed() { "sr-only" } else { "truncate" }, "{label}" }
                 }
-                span { class: if collapsed() { "sr-only" } else { "truncate" }, "{label}" }
               }
             }
           }
-        }
-        SidebarFooter {
-          span { class: if collapsed() { "sr-only" } else { "truncate text-xs text-muted-foreground" },
-            "ada@acme.example"
-          }
-        }
-      }
-      div { class: "flex min-w-0 flex-1 flex-col overflow-y-auto",
-        header { class: "flex h-14 items-center gap-3 border-b border-border px-4",
-          SidebarTrigger {
-            "aria-controls": "dashboard-sidebar",
-            "aria-label": "Toggle sidebar",
-            collapsed: collapsed(),
-            on_collapsed_change: move |next| collapsed.set(next),
-            mobile_open: mobile_open(),
-            on_mobile_open_change: move |next| mobile_open.set(next),
-            span { "aria-hidden": "true", "☰" }
-          }
-          h1 { class: "text-lg font-semibold", "Overview" }
-          div { class: "ms-auto w-full max-w-56",
-            Input {
-              r#type: "search",
-              "aria-label": "Search customers",
-              placeholder: "Search customers...",
-              value: query(),
-              on_value_change: move |value| query.set(value),
+          SidebarFooter {
+            span { class: if collapsed() { "sr-only" } else { "truncate text-xs text-muted-foreground" },
+              "ada@acme.example"
             }
           }
         }
-        main { class: "grid min-w-0 gap-6 p-4 md:p-6",
-          StatGroup { class: "w-full", tabindex: "0", "aria-label": "Key metrics",
-            Stat {
-              StatTitle { "Revenue" }
-              StatValue { "$36,240" }
-              StatDescription { "+16% from last month" }
+        div { class: "flex min-w-0 flex-1 flex-col overflow-y-auto",
+          header { class: "flex h-14 items-center gap-3 border-b border-border px-4",
+            SidebarTrigger { "aria-label": "Toggle sidebar",
+              span { "aria-hidden": "true", "☰" }
             }
-            Stat {
-              StatTitle { "Orders" }
-              StatValue { "1,284" }
-              StatDescription { "+8% from last month" }
-            }
-            Stat {
-              StatTitle { "Customers" }
-              StatValue { "932" }
-              StatDescription { "+42 this week" }
-            }
-            Stat {
-              StatTitle { "Refund rate" }
-              StatValue { "1.4%" }
-              StatDescription { "-0.3% from last month" }
-            }
-          }
-          Card {
-            CardHeader {
-              CardTitle { "Revenue" }
-              CardDescription { "Thousands of dollars per month, January to June." }
-            }
-            CardContent {
-              ChartRoot {
-                ChartTitle { id: "dashboard-revenue-title", class: "sr-only", "Revenue" }
-                ChartDescription { id: "dashboard-revenue-description", class: "sr-only",
-                  "Monthly revenue in thousands of dollars, January to June."
-                }
-                ChartSvg { title_id: "dashboard-revenue-title", description_id: "dashboard-revenue-description",
-                  ChartAreaSeries { series: revenue.clone(), x_scale: x, y_scale: y, color: ChartColorToken::Primary, baseline: 0.0 }
-                  ChartLineSeries { series: revenue.clone(), x_scale: x, y_scale: y, color: ChartColorToken::Primary }
-                }
-                div { class: "sr-only", ChartFallbackTable { rows, caption: "Revenue by month" } }
+            h1 { class: "text-lg font-semibold", "Overview" }
+            div { class: "ms-auto w-full max-w-56",
+              Input {
+                r#type: "search",
+                "aria-label": "Search customers",
+                placeholder: "Search customers...",
+                value: query(),
+                on_value_change: move |value| query.set(value),
               }
             }
           }
-          Card {
-            CardHeader {
-              CardTitle { "Recent orders" }
-              CardDescription { "The last five orders, by amount." }
+          main { class: "grid min-w-0 gap-6 p-4 md:p-6",
+            StatGroup { class: "w-full", tabindex: "0", "aria-label": "Key metrics",
+              Stat {
+                StatTitle { "Revenue" }
+                StatValue { "$36,240" }
+                StatDescription { "+16% from last month" }
+              }
+              Stat {
+                StatTitle { "Orders" }
+                StatValue { "1,284" }
+                StatDescription { "+8% from last month" }
+              }
+              Stat {
+                StatTitle { "Customers" }
+                StatValue { "932" }
+                StatDescription { "+42 this week" }
+              }
+              Stat {
+                StatTitle { "Refund rate" }
+                StatValue { "1.4%" }
+                StatDescription { "-0.3% from last month" }
+              }
             }
-            CardContent {
-              DataTable {
-                DataTableContainer {
-                  table { class: "w-full text-sm",
-                    thead {
-                      tr {
-                        DataTableHeaderCell { "Order" }
-                        DataTableHeaderCell { "Customer" }
-                        DataTableHeaderCell { "Status" }
-                        DataTableHeaderCell { sorted: true, direction,
-                          button { class: "font-medium", onclick: move |_| ascending.toggle(), "Amount" }
+            Card {
+              CardHeader {
+                CardTitle { "Revenue" }
+                CardDescription { "Thousands of dollars per month, January to June." }
+              }
+              CardContent {
+                ChartRoot {
+                  ChartTitle { id: "dashboard-revenue-title", class: "sr-only", "Revenue" }
+                  ChartDescription { id: "dashboard-revenue-description", class: "sr-only",
+                    "Monthly revenue in thousands of dollars, January to June."
+                  }
+                  ChartSvg { title_id: "dashboard-revenue-title", description_id: "dashboard-revenue-description",
+                    ChartAreaSeries { series: revenue.clone(), x_scale: x, y_scale: y, color: ChartColorToken::Primary, baseline: 0.0 }
+                    ChartLineSeries { series: revenue.clone(), x_scale: x, y_scale: y, color: ChartColorToken::Primary }
+                  }
+                  div { class: "sr-only", ChartFallbackTable { rows, caption: "Revenue by month" } }
+                }
+              }
+            }
+            Card {
+              CardHeader {
+                CardTitle { "Recent orders" }
+                CardDescription { "The last five orders, by amount." }
+              }
+              CardContent {
+                DataTable {
+                  DataTableContainer {
+                    table { class: "w-full text-sm",
+                      thead {
+                        tr {
+                          DataTableHeaderCell { "Order" }
+                          DataTableHeaderCell { "Customer" }
+                          DataTableHeaderCell { "Status" }
+                          DataTableHeaderCell { sorted: true, direction,
+                            button { class: "font-medium", onclick: move |_| ascending.toggle(), "Amount" }
+                          }
                         }
                       }
-                    }
-                    tbody {
-                      for (id, customer, status, amount) in orders {
-                        DataTableRow { key: "{id}",
-                          DataTableCell { class: "font-medium", "{id}" }
-                          DataTableCell { "{customer}" }
-                          DataTableCell {
-                            Badge {
-                              variant: match status {
-                                "Paid" => BadgeVariant::Success,
-                                "Pending" => BadgeVariant::Warning,
-                                _ => BadgeVariant::Secondary,
-                              },
-                              "{status}"
+                      tbody {
+                        for (id, customer, status, amount) in orders {
+                          DataTableRow { key: "{id}",
+                            DataTableCell { class: "font-medium", "{id}" }
+                            DataTableCell { "{customer}" }
+                            DataTableCell {
+                              Badge {
+                                variant: match status {
+                                  "Paid" => BadgeVariant::Success,
+                                  "Pending" => BadgeVariant::Warning,
+                                  _ => BadgeVariant::Secondary,
+                                },
+                                "{status}"
+                              }
                             }
+                            DataTableCell { "${amount}" }
                           }
-                          DataTableCell { "${amount}" }
                         }
                       }
                     }

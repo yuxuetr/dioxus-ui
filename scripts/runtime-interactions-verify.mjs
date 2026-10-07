@@ -2099,8 +2099,8 @@ async function runBrowserAssertions() {
     const sidebarButton = (name) => sidebar.getByRole("button", { name, exact: true });
     await sidebarTrigger.evaluate((element) => element.scrollIntoView({ block: "center" }));
     await expect(sidebarTrigger).toHaveAttribute("aria-expanded", "true");
-    await expect(sidebarTrigger).toHaveAttribute("aria-controls", "interaction-sidebar");
-    await expect(sidebarLandmark).toHaveAttribute("id", "interaction-sidebar");
+    // The provider names the sidebar and points the trigger at it.
+    await expect(sidebarTrigger).toHaveAttribute("aria-controls", await sidebarLandmark.getAttribute("id"));
     await sidebarTrigger.click();
     await expect(sidebar).toHaveAttribute("data-collapsed", "true");
     await expect(sidebarTrigger).toHaveAttribute("aria-expanded", "false");
