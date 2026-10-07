@@ -1,3 +1,5 @@
+//! Sheet: a modal panel that slides in from an edge of the screen, for settings,
+//! secondary forms, and contextual workflows.
 use super::default_attribute::default_attribute;
 use super::dialog_labels::{DialogLabelPart, use_dialog_label_part, use_dialog_labels};
 use super::modal_focus::use_modal_focus_scope;
@@ -10,16 +12,22 @@ use super::utils::{classes, merge_classes};
 use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
+/// The screen edge a sheet attaches to.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum SheetSide {
+  /// Spans the top edge, as tall as its content.
   Top,
+  /// Full height on the right, three quarters wide up to a small maximum.
   #[default]
   Right,
+  /// Spans the bottom edge, as tall as its content.
   Bottom,
+  /// Full height on the left, three quarters wide up to a small maximum.
   Left,
 }
 
 impl SheetSide {
+  /// The position, size, and inner border for this edge.
   pub const fn class(self) -> &'static str {
     match self {
       Self::Top => "inset-x-0 top-0 h-auto border-b",
@@ -29,6 +37,7 @@ impl SheetSide {
     }
   }
 
+  /// The value for the content's `data-side` attribute.
   pub const fn attribute(self) -> &'static str {
     match self {
       Self::Top => "top",
@@ -39,39 +48,43 @@ impl SheetSide {
   }
 }
 
-pub const SHEET_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";
-pub const SHEET_CONTENT_BASE_CLASS: &str = "fixed z-50 gap-4 border-border bg-background p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
-pub const SHEET_HEADER_BASE_CLASS: &str = "flex flex-col gap-2 text-left";
-pub const SHEET_FOOTER_BASE_CLASS: &str = "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end";
-pub const SHEET_TITLE_BASE_CLASS: &str = "text-lg font-semibold leading-none text-foreground";
-pub const SHEET_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
-pub const SHEET_CLOSE_BASE_CLASS: &str = "absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none";
+const SHEET_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";
+const SHEET_CONTENT_BASE_CLASS: &str = "fixed z-50 gap-4 border-border bg-background p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+const SHEET_HEADER_BASE_CLASS: &str = "flex flex-col gap-2 text-left";
+const SHEET_FOOTER_BASE_CLASS: &str = "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end";
+const SHEET_TITLE_BASE_CLASS: &str = "text-lg font-semibold leading-none text-foreground";
+const SHEET_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
+const SHEET_CLOSE_BASE_CLASS: &str = "absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none";
 
+/// Classes for the backdrop behind the sheet: base classes with `class` merged over
+/// them.
 pub fn sheet_overlay_class(class: &str) -> String {
   merge_classes(classes([Some(SHEET_OVERLAY_BASE_CLASS)]), class)
 }
 
+/// Classes for the panel: base classes, the side's position and size, then `class`
+/// merged over them.
 pub fn sheet_content_class(side: SheetSide, class: &str) -> String {
   merge_classes(classes([Some(SHEET_CONTENT_BASE_CLASS), Some(side.class())]), class)
 }
 
-pub fn sheet_header_class(class: &str) -> String {
+fn sheet_header_class(class: &str) -> String {
   merge_classes(classes([Some(SHEET_HEADER_BASE_CLASS)]), class)
 }
 
-pub fn sheet_footer_class(class: &str) -> String {
+fn sheet_footer_class(class: &str) -> String {
   merge_classes(classes([Some(SHEET_FOOTER_BASE_CLASS)]), class)
 }
 
-pub fn sheet_title_class(class: &str) -> String {
+fn sheet_title_class(class: &str) -> String {
   merge_classes(classes([Some(SHEET_TITLE_BASE_CLASS)]), class)
 }
 
-pub fn sheet_description_class(class: &str) -> String {
+fn sheet_description_class(class: &str) -> String {
   merge_classes(classes([Some(SHEET_DESCRIPTION_BASE_CLASS)]), class)
 }
 
-pub fn sheet_close_class(class: &str) -> String {
+fn sheet_close_class(class: &str) -> String {
   merge_classes(classes([Some(SHEET_CLOSE_BASE_CLASS)]), class)
 }
 

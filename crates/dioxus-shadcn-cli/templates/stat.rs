@@ -1,14 +1,20 @@
+//! Stat: key numbers, such as revenue or sign-ups, each with a title, an optional
+//! description, and an optional figure.
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
+/// Which way a `StatGroup` lays out its stats.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum StatGroupOrientation {
+  /// Side by side in one row, divided by vertical rules; scrolls when too wide.
   #[default]
   Horizontal,
+  /// Stacked in one column, divided by horizontal rules.
   Vertical,
 }
 
 impl StatGroupOrientation {
+  /// The grid flow and dividers for this orientation.
   pub const fn class(self) -> &'static str {
     match self {
       Self::Horizontal => "grid-flow-col divide-x overflow-x-auto",
@@ -17,39 +23,47 @@ impl StatGroupOrientation {
   }
 }
 
-pub const STAT_GROUP_BASE_CLASS: &str =
+const STAT_GROUP_BASE_CLASS: &str =
   "inline-grid divide-border rounded-lg border border-border bg-card text-card-foreground";
 // The figure takes a second column spanning the rows, so the title can come
 // first in source order, as the `dl` needs.
-pub const STAT_BASE_CLASS: &str = "grid grid-cols-[1fr_auto] content-start gap-x-4 px-6 py-4";
-pub const STAT_TITLE_BASE_CLASS: &str =
+const STAT_BASE_CLASS: &str = "grid grid-cols-[1fr_auto] content-start gap-x-4 px-6 py-4";
+const STAT_TITLE_BASE_CLASS: &str =
   "col-start-1 text-sm whitespace-nowrap text-muted-foreground";
-pub const STAT_VALUE_BASE_CLASS: &str =
+const STAT_VALUE_BASE_CLASS: &str =
   "col-start-1 text-3xl font-bold tracking-tight whitespace-nowrap";
-pub const STAT_DESCRIPTION_BASE_CLASS: &str =
+const STAT_DESCRIPTION_BASE_CLASS: &str =
   "col-start-1 text-xs whitespace-nowrap text-muted-foreground";
-pub const STAT_FIGURE_BASE_CLASS: &str = "col-start-2 row-span-3 row-start-1 self-center";
+const STAT_FIGURE_BASE_CLASS: &str = "col-start-2 row-span-3 row-start-1 self-center";
 
+/// Classes for the group: base classes, the orientation's, then `class` merged over
+/// them.
 pub fn stat_group_class(orientation: StatGroupOrientation, class: &str) -> String {
   merge_classes(classes([Some(STAT_GROUP_BASE_CLASS), Some(orientation.class())]), class)
 }
 
+/// Classes for one stat: base classes with `class` merged over them.
 pub fn stat_class(class: &str) -> String {
   merge_classes(classes([Some(STAT_BASE_CLASS)]), class)
 }
 
+/// Classes for the title: base classes with `class` merged over them.
 pub fn stat_title_class(class: &str) -> String {
   merge_classes(classes([Some(STAT_TITLE_BASE_CLASS)]), class)
 }
 
+/// Classes for the value: base classes with `class` merged over them.
 pub fn stat_value_class(class: &str) -> String {
   merge_classes(classes([Some(STAT_VALUE_BASE_CLASS)]), class)
 }
 
+/// Classes for the description: base classes with `class` merged over them.
 pub fn stat_description_class(class: &str) -> String {
   merge_classes(classes([Some(STAT_DESCRIPTION_BASE_CLASS)]), class)
 }
 
+/// Classes for the figure beside the text: base classes with `class` merged over
+/// them.
 pub fn stat_figure_class(class: &str) -> String {
   merge_classes(classes([Some(STAT_FIGURE_BASE_CLASS)]), class)
 }

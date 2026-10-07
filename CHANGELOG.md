@@ -8,6 +8,50 @@ for commit messages.
 
 ## [Unreleased]
 
+### Changed
+- `dioxus-shadcn` keeps public only what its docs show (RFC 0079): the
+  components and their props, the enums props take, the class functions a
+  component page lists, the helpers docs text uses, and the primitive types
+  a page lists or a public signature needs. Class constants are private,
+  except `CHART_COLOR_CLASSES`. Every public item has a doc comment, and the
+  crate denies `missing_docs`.
+
+### Removed
+- Helpers no component used since RFC 0077: `toggle_group_move_value`,
+  `toggle_group_item_tabindex`, `toggle_group_focus_state`,
+  `slider_percent`, `slider_aria_attributes`,
+  `command_active_descendant_state`, and
+  `combobox_active_descendant_state`.
+
+### Migration
+- A class constant (`BUTTON_BASE_CLASS` and the like): pass `class` to the
+  component, call the part's class function where its page lists one, or
+  copy the string.
+- A class function its page does not list (such as `card_title_class` or
+  `select_content_class`): render the part with `class`, or copy the
+  component with `dxui add` and use the copy.
+- These helpers are private, since the component does their work:
+  `aspect_ratio_value`, `calendar_range_attribute`, `carousel_key_step`,
+  `chart_area_path`, `chart_bar_rects`, `chart_line_path`,
+  `chart_pie_arcs`, `checkbox_requested_state`, `checkbox_state`,
+  `countdown_segments`, `diff_position`, `hover_card_align_attribute`,
+  `hover_card_side_attribute`, `input_otp_slot_display`, the
+  `number_input_*` helpers, `progress_percent`,
+  `radial_progress_geometry`, `radial_progress_value`,
+  `range_slider_values`, `resizable_handle_key_delta`,
+  `resizable_panel_style`, `resizable_separator_orientation`,
+  `slider_range_style`, `slider_state`, `slider_thumb_style`,
+  `switch_state`, and the `tags_input_*` helpers, with `ChartBarRect` and
+  `ChartArc`.
+- `message_scroller_class` takes only `class`; drop the intent argument,
+  which never changed the classes.
+- `dioxus-shadcn` no longer re-exports `carousel_clamp_index`,
+  `chart_domain_normalize`, `chart_number_label`, `data_table_clamp_page`,
+  `layout_orientation_attribute`, `SliderAriaAttributes`, or Sonner's
+  `sonner_placement_attribute`, `sonner_queue_limit`, and
+  `sonner_variant_attribute`; import them from `dioxus-shadcn-primitives`
+  (Sonner's under their `toast_` names).
+
 ## [0.5.0] - 2026-10-07
 
 Version 0.5.0 lets a class passed to a component win (RFC 0076), moves the

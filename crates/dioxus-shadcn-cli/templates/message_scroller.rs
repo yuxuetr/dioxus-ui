@@ -1,3 +1,5 @@
+//! Message Scroller: controlled transcript viewport parts and pure scroll intent
+//! helpers for chat, logs, and message feeds.
 use super::default_attribute::default_attribute;
 use super::density::{density_control_class, use_density, with_density};
 use super::utils::{classes, merge_classes};
@@ -33,16 +35,16 @@ pub enum MessageScrollerIntent {
   JumpToLatest,
 }
 
-pub const MESSAGE_SCROLLER_BASE_CLASS: &str =
+const MESSAGE_SCROLLER_BASE_CLASS: &str =
   "relative flex min-h-0 w-full flex-col overflow-hidden";
-pub const MESSAGE_SCROLLER_VIEWPORT_BASE_CLASS: &str = "min-h-0 flex-1 overflow-y-auto overscroll-contain focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring";
-pub const MESSAGE_SCROLLER_CONTENT_BASE_CLASS: &str = "flex min-h-full flex-col gap-4";
-pub const MESSAGE_SCROLLER_BOTTOM_ANCHOR_BASE_CLASS: &str = "h-px w-full shrink-0 scroll-mb-4";
-pub const MESSAGE_SCROLLER_UNREAD_MARKER_BASE_CLASS: &str =
+const MESSAGE_SCROLLER_VIEWPORT_BASE_CLASS: &str = "min-h-0 flex-1 overflow-y-auto overscroll-contain focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring";
+const MESSAGE_SCROLLER_CONTENT_BASE_CLASS: &str = "flex min-h-full flex-col gap-4";
+const MESSAGE_SCROLLER_BOTTOM_ANCHOR_BASE_CLASS: &str = "h-px w-full shrink-0 scroll-mb-4";
+const MESSAGE_SCROLLER_UNREAD_MARKER_BASE_CLASS: &str =
   "pointer-events-none absolute inset-x-0 bottom-4 z-10 justify-center";
-pub const MESSAGE_SCROLLER_JUMP_BUTTON_BASE_CLASS: &str = "h-9 items-center justify-center rounded-md border border-border bg-background px-3 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+const MESSAGE_SCROLLER_JUMP_BUTTON_BASE_CLASS: &str = "h-9 items-center justify-center rounded-md border border-border bg-background px-3 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
-pub const fn message_scroller_intent_attribute(intent: MessageScrollerIntent) -> &'static str {
+const fn message_scroller_intent_attribute(intent: MessageScrollerIntent) -> &'static str {
   match intent {
     MessageScrollerIntent::Follow => "follow",
     MessageScrollerIntent::Hold => "hold",
@@ -50,7 +52,7 @@ pub const fn message_scroller_intent_attribute(intent: MessageScrollerIntent) ->
   }
 }
 
-pub const fn message_scroller_is_following_intent(intent: MessageScrollerIntent) -> bool {
+const fn message_scroller_is_following_intent(intent: MessageScrollerIntent) -> bool {
   matches!(intent, MessageScrollerIntent::Follow | MessageScrollerIntent::JumpToLatest)
 }
 
@@ -111,26 +113,34 @@ pub fn message_scroller_next_intent(
   }
 }
 
-pub fn message_scroller_class(_intent: MessageScrollerIntent, class: &str) -> String {
+/// Classes for the outer frame, with `class` merged over them.
+pub fn message_scroller_class(class: &str) -> String {
   merge_classes(classes([Some(MESSAGE_SCROLLER_BASE_CLASS)]), class)
 }
 
+/// Classes for the scrolling viewport and its focus ring, with `class` merged over them.
 pub fn message_scroller_viewport_class(class: &str) -> String {
   merge_classes(classes([Some(MESSAGE_SCROLLER_VIEWPORT_BASE_CLASS)]), class)
 }
 
+/// Classes for the column that holds the messages, with `class` merged over them.
 pub fn message_scroller_content_class(class: &str) -> String {
   merge_classes(classes([Some(MESSAGE_SCROLLER_CONTENT_BASE_CLASS)]), class)
 }
 
+/// Classes for the one-pixel anchor at the end of the content, with `class` merged over them.
 pub fn message_scroller_bottom_anchor_class(class: &str) -> String {
   merge_classes(classes([Some(MESSAGE_SCROLLER_BOTTOM_ANCHOR_BASE_CLASS)]), class)
 }
 
+/// Classes for the unread marker over the bottom edge: hidden unless `visible`, then
+/// `class` merged over them.
 pub fn message_scroller_unread_marker_class(visible: bool, class: &str) -> String {
   merge_classes(classes([Some(MESSAGE_SCROLLER_UNREAD_MARKER_BASE_CLASS), Some(if visible { "flex" } else { "hidden" })]), class)
 }
 
+/// Classes for the jump-to-latest button: hidden unless `visible`, then `class` merged
+/// over them.
 pub fn message_scroller_jump_button_class(visible: bool, class: &str) -> String {
   merge_classes(classes([Some(MESSAGE_SCROLLER_JUMP_BUTTON_BASE_CLASS), Some(if visible { "inline-flex" } else { "hidden" })]), class)
 }
@@ -146,7 +156,7 @@ pub fn MessageScroller(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = message_scroller_class(intent, &class);
+  let class = message_scroller_class(&class);
   let following = message_scroller_is_following_intent(intent).to_string();
   let unread = has_unread.to_string();
 

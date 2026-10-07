@@ -1,3 +1,5 @@
+//! Combobox: searchable selection. A trigger and text input filter a listbox
+//! of options shown in a popover.
 use super::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
 use super::choice::{Choice, use_choice};
 use super::default_attribute::default_attribute;
@@ -9,16 +11,18 @@ use super::utils::{classes, merge_classes};
 use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
-pub const COMBOBOX_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
-pub const COMBOBOX_INPUT_BASE_CLASS: &str = "flex h-10 w-full rounded-md bg-transparent px-3 py-2 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50";
-pub const COMBOBOX_CONTENT_BASE_CLASS: &str = "z-50 max-h-96 min-w-[max(8rem,var(--dxui-anchor-width,0px))] overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
-pub const COMBOBOX_LIST_BASE_CLASS: &str = "max-h-80 overflow-y-auto overflow-x-hidden";
-pub const COMBOBOX_EMPTY_BASE_CLASS: &str = "py-6 text-center text-sm text-muted-foreground";
-pub const COMBOBOX_STATUS_BASE_CLASS: &str = "sr-only";
-pub const COMBOBOX_GROUP_BASE_CLASS: &str = "overflow-hidden p-1 text-foreground";
-pub const COMBOBOX_VALUE_BASE_CLASS: &str = "truncate";
-pub const COMBOBOX_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[active=true]:bg-accent data-[active=true]:text-accent-foreground data-highlighted:bg-accent data-highlighted:text-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 pe-8 after:absolute after:end-2 after:size-4 after:bg-current after:[mask:url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27black%27%20stroke-width=%272%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M3.5%208.5l3%203%206-7%27/%3E%3C/svg%3E)_center/contain_no-repeat]";
+const COMBOBOX_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
+const COMBOBOX_INPUT_BASE_CLASS: &str = "flex h-10 w-full rounded-md bg-transparent px-3 py-2 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50";
+const COMBOBOX_CONTENT_BASE_CLASS: &str = "z-50 max-h-96 min-w-[max(8rem,var(--dxui-anchor-width,0px))] overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
+const COMBOBOX_LIST_BASE_CLASS: &str = "max-h-80 overflow-y-auto overflow-x-hidden";
+const COMBOBOX_EMPTY_BASE_CLASS: &str = "py-6 text-center text-sm text-muted-foreground";
+const COMBOBOX_STATUS_BASE_CLASS: &str = "sr-only";
+const COMBOBOX_GROUP_BASE_CLASS: &str = "overflow-hidden p-1 text-foreground";
+const COMBOBOX_VALUE_BASE_CLASS: &str = "truncate";
+const COMBOBOX_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[active=true]:bg-accent data-[active=true]:text-accent-foreground data-highlighted:bg-accent data-highlighted:text-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 pe-8 after:absolute after:end-2 after:size-4 after:bg-current after:[mask:url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27black%27%20stroke-width=%272%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M3.5%208.5l3%203%206-7%27/%3E%3C/svg%3E)_center/contain_no-repeat]";
 
+/// Classes for the trigger: base classes, a destructive border and ring when
+/// `invalid`, then `class` merged over them.
 pub fn combobox_trigger_class(invalid: bool, class: &str) -> String {
   let invalid_class = if invalid {
     "border-destructive focus-visible:ring-destructive"
@@ -29,34 +33,37 @@ pub fn combobox_trigger_class(invalid: bool, class: &str) -> String {
   merge_classes(classes([Some(COMBOBOX_TRIGGER_BASE_CLASS), Some(invalid_class)]), class)
 }
 
+/// Classes for the search input, with `class` merged over them.
 pub fn combobox_input_class(class: &str) -> String {
   merge_classes(classes([Some(COMBOBOX_INPUT_BASE_CLASS)]), class)
 }
 
-pub fn combobox_content_class(class: &str) -> String {
+fn combobox_content_class(class: &str) -> String {
   merge_classes(classes([Some(COMBOBOX_CONTENT_BASE_CLASS)]), class)
 }
 
-pub fn combobox_list_class(class: &str) -> String {
+fn combobox_list_class(class: &str) -> String {
   merge_classes(classes([Some(COMBOBOX_LIST_BASE_CLASS)]), class)
 }
 
-pub fn combobox_empty_class(class: &str) -> String {
+fn combobox_empty_class(class: &str) -> String {
   merge_classes(classes([Some(COMBOBOX_EMPTY_BASE_CLASS)]), class)
 }
 
-pub fn combobox_status_class(class: &str) -> String {
+fn combobox_status_class(class: &str) -> String {
   merge_classes(classes([Some(COMBOBOX_STATUS_BASE_CLASS)]), class)
 }
 
-pub fn combobox_group_class(class: &str) -> String {
+fn combobox_group_class(class: &str) -> String {
   merge_classes(classes([Some(COMBOBOX_GROUP_BASE_CLASS)]), class)
 }
 
-pub fn combobox_value_class(class: &str) -> String {
+fn combobox_value_class(class: &str) -> String {
   merge_classes(classes([Some(COMBOBOX_VALUE_BASE_CLASS)]), class)
 }
 
+/// Classes for an option: base classes, the accent background when `active`,
+/// a visible check mark when `selected`, then `class` merged over them.
 pub fn combobox_item_class(active: bool, selected: bool, class: &str) -> String {
   let active_class = if active { "bg-accent text-accent-foreground" } else { "" };
   // A selected option shows a check mark, distinct from the highlight

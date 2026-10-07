@@ -1,3 +1,6 @@
+//! Dialog: a modal window with a trigger, overlay, content, title, description, and
+//! close button, whose root owns whether it is open.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
@@ -11,29 +14,31 @@ use crate::modal_focus::use_modal_focus_scope;
 use crate::overlay_root::{OverlayRoot, overlay_trigger, use_overlay_root};
 use crate::root_state::use_root_context;
 
-pub const DIALOG_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";
-pub const DIALOG_CONTENT_BASE_CLASS: &str = "fixed left-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 rounded-md border border-border bg-background p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
-pub const DIALOG_TITLE_BASE_CLASS: &str = "text-lg font-semibold leading-none text-foreground";
-pub const DIALOG_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
-pub const DIALOG_CLOSE_BASE_CLASS: &str = "absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none";
+const DIALOG_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";
+const DIALOG_CONTENT_BASE_CLASS: &str = "fixed left-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 rounded-md border border-border bg-background p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+const DIALOG_TITLE_BASE_CLASS: &str = "text-lg font-semibold leading-none text-foreground";
+const DIALOG_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
+const DIALOG_CLOSE_BASE_CLASS: &str = "absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none";
 
+/// Classes for the overlay: the dimmed full-screen backdrop, then `class` merged over it.
 pub fn dialog_overlay_class(class: &str) -> String {
   merge_classes(classes([Some(DIALOG_OVERLAY_BASE_CLASS)]), class)
 }
 
+/// Classes for the content: the centered panel, then `class` merged over it.
 pub fn dialog_content_class(class: &str) -> String {
   merge_classes(classes([Some(DIALOG_CONTENT_BASE_CLASS)]), class)
 }
 
-pub fn dialog_title_class(class: &str) -> String {
+fn dialog_title_class(class: &str) -> String {
   merge_classes(classes([Some(DIALOG_TITLE_BASE_CLASS)]), class)
 }
 
-pub fn dialog_description_class(class: &str) -> String {
+fn dialog_description_class(class: &str) -> String {
   merge_classes(classes([Some(DIALOG_DESCRIPTION_BASE_CLASS)]), class)
 }
 
-pub fn dialog_close_class(class: &str) -> String {
+fn dialog_close_class(class: &str) -> String {
   merge_classes(classes([Some(DIALOG_CLOSE_BASE_CLASS)]), class)
 }
 

@@ -1,3 +1,6 @@
+//! Menu: a vertical navigation list with section titles, items that mark the current page,
+//! and collapsible groups of nested items.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
@@ -5,30 +8,33 @@ use crate::density::{density_control_class, use_density, with_density};
 use crate::element_id::next_element_id;
 use crate::root_state::use_controllable;
 
-pub const MENU_BASE_CLASS: &str = "flex w-full flex-col gap-0.5 text-sm";
-pub const MENU_TITLE_BASE_CLASS: &str = "px-3 pb-1 pt-3 text-xs font-medium text-muted-foreground";
-pub const MENU_ITEM_BASE_CLASS: &str = "flex w-full items-center gap-2 rounded-md px-3 py-2 text-start transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
-pub const MENU_ITEM_ACTIVE_CLASS: &str = "bg-accent font-medium text-accent-foreground";
+const MENU_BASE_CLASS: &str = "flex w-full flex-col gap-0.5 text-sm";
+const MENU_TITLE_BASE_CLASS: &str = "px-3 pb-1 pt-3 text-xs font-medium text-muted-foreground";
+const MENU_ITEM_BASE_CLASS: &str = "flex w-full items-center gap-2 rounded-md px-3 py-2 text-start transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
+const MENU_ITEM_ACTIVE_CLASS: &str = "bg-accent font-medium text-accent-foreground";
 /// A down chevron at the end of a group's button that turns up while it is
 /// open; up and down need no mirroring in right-to-left.
-pub const MENU_GROUP_TRIGGER_CLASS: &str = "after:ms-auto after:size-4 after:shrink-0 after:bg-current after:transition-transform data-[state=open]:after:rotate-180 after:[mask:url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27black%27%20stroke-width=%272%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M3.5%206l4.5%204.5%204.5-4.5%27/%3E%3C/svg%3E)_center/contain_no-repeat]";
-pub const MENU_GROUP_LIST_BASE_CLASS: &str =
+const MENU_GROUP_TRIGGER_CLASS: &str = "after:ms-auto after:size-4 after:shrink-0 after:bg-current after:transition-transform data-[state=open]:after:rotate-180 after:[mask:url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27black%27%20stroke-width=%272%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M3.5%206l4.5%204.5%204.5-4.5%27/%3E%3C/svg%3E)_center/contain_no-repeat]";
+const MENU_GROUP_LIST_BASE_CLASS: &str =
   "ms-4 mt-0.5 flex flex-col gap-0.5 border-s border-border ps-2";
 
+/// Classes for the list, with `class` merged over them.
 pub fn menu_class(class: &str) -> String {
   merge_classes(classes([Some(MENU_BASE_CLASS)]), class)
 }
 
-pub fn menu_title_class(class: &str) -> String {
+fn menu_title_class(class: &str) -> String {
   merge_classes(classes([Some(MENU_TITLE_BASE_CLASS)]), class)
 }
 
+/// Classes for the item: base classes, plus the accent background while `active`, with `class`
+/// merged over them.
 pub fn menu_item_class(active: bool, class: &str) -> String {
   let state_class = if active { MENU_ITEM_ACTIVE_CLASS } else { "text-foreground" };
   merge_classes(classes([Some(MENU_ITEM_BASE_CLASS), Some(state_class)]), class)
 }
 
-pub fn menu_group_list_class(class: &str) -> String {
+fn menu_group_list_class(class: &str) -> String {
   merge_classes(classes([Some(MENU_GROUP_LIST_BASE_CLASS)]), class)
 }
 

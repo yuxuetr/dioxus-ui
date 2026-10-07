@@ -1,3 +1,5 @@
+//! Toggle group: a set of pressed buttons with single or multiple selection and
+//! roving arrow-key focus.
 use super::choice::{Choice, use_choice};
 use super::root_state::use_root_context;
 use super::roving_group::use_roving_group;
@@ -13,123 +15,21 @@ pub enum NavigationOrientation {
   Both,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub enum FocusMove {
-  Next,
-  Previous,
-  First,
-  Last,
-}
-
-#[derive(Clone, Debug, Eq, PartialEq)]
-pub struct RovingFocusItem {
-  pub id: String,
-  pub disabled: bool,
-}
-
-impl RovingFocusItem {
-  pub fn enabled(id: impl Into<String>) -> Self {
-    Self { id: id.into(), disabled: false }
-  }
-
-  pub fn disabled(id: impl Into<String>) -> Self {
-    Self { id: id.into(), disabled: true }
-  }
-}
-
-#[derive(Clone, Debug, Eq, PartialEq)]
-pub struct RovingFocusState {
-  pub active_id: Option<String>,
-  pub orientation: NavigationOrientation,
-  pub looping: bool,
-}
-
-impl RovingFocusState {
-  pub fn new(orientation: NavigationOrientation) -> Self {
-    Self { active_id: None, orientation, looping: true }
-  }
-
-  pub fn with_active_id(mut self, active_id: impl Into<String>) -> Self {
-    self.active_id = Some(active_id.into());
-    self
-  }
-
-  pub const fn with_looping(mut self, looping: bool) -> Self {
-    self.looping = looping;
-    self
-  }
-
-  pub fn move_focus<'a>(
-    &self,
-    items: &'a [RovingFocusItem],
-    focus_move: FocusMove,
-  ) -> Option<&'a str> {
-    match focus_move {
-      FocusMove::First => first_enabled(items),
-      FocusMove::Last => last_enabled(items),
-      FocusMove::Next => move_by(items, self.active_id.as_deref(), 1, self.looping),
-      FocusMove::Previous => move_by(items, self.active_id.as_deref(), -1, self.looping),
-    }
-  }
-}
-
-fn first_enabled(items: &[RovingFocusItem]) -> Option<&str> {
-  items.iter().find(|item| !item.disabled).map(|item| item.id.as_str())
-}
-
-fn last_enabled(items: &[RovingFocusItem]) -> Option<&str> {
-  items.iter().rev().find(|item| !item.disabled).map(|item| item.id.as_str())
-}
-
-fn move_by<'a>(
-  items: &'a [RovingFocusItem],
-  active_id: Option<&str>,
-  step: isize,
-  looping: bool,
-) -> Option<&'a str> {
-  if items.is_empty() {
-    return None;
-  }
-
-  let start = active_id
-    .and_then(|id| items.iter().position(|item| item.id == id))
-    .unwrap_or_else(|| if step > 0 { 0 } else { items.len().saturating_sub(1) });
-
-  if active_id.is_none() && !items[start].disabled {
-    return Some(items[start].id.as_str());
-  }
-
-  let mut index = start as isize;
-
-  for _ in 0..items.len() {
-    index += step;
-
-    if looping {
-      index = index.rem_euclid(items.len() as isize);
-    } else if index < 0 || index >= items.len() as isize {
-      return None;
-    }
-
-    let item = &items[index as usize];
-
-    if !item.disabled {
-      return Some(item.id.as_str());
-    }
-  }
-
-  None
-}
-
+/// How many items can be pressed at once.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ToggleGroupType {
+  /// At most one; pressing an item releases the others.
   #[default]
   Single,
+  /// Any number, each toggled on its own.
   Multiple,
 }
 
-pub const TOGGLE_GROUP_BASE_CLASS: &str = "inline-flex gap-1";
-pub const TOGGLE_GROUP_ITEM_BASE_CLASS: &str = "inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+const TOGGLE_GROUP_BASE_CLASS: &str = "inline-flex gap-1";
+const TOGGLE_GROUP_ITEM_BASE_CLASS: &str = "inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
+/// Classes for the group: base classes, a column when vertical or a row otherwise,
+/// then `class` merged over them.
 pub fn toggle_group_class(orientation: NavigationOrientation, class: &str) -> String {
   let orientation_class = match orientation {
     NavigationOrientation::Vertical => "flex-col items-start",
@@ -139,6 +39,8 @@ pub fn toggle_group_class(orientation: NavigationOrientation, class: &str) -> St
   merge_classes(classes([Some(TOGGLE_GROUP_BASE_CLASS), Some(orientation_class)]), class)
 }
 
+/// Classes for an item: base classes, the pressed or unpressed colors, then `class`
+/// merged over them.
 pub fn toggle_group_item_class(pressed: bool, class: &str) -> String {
   let pressed_class =
     if pressed { "bg-accent text-accent-foreground" } else { "bg-transparent hover:bg-accent" };
@@ -146,35 +48,11 @@ pub fn toggle_group_item_class(pressed: bool, class: &str) -> String {
   merge_classes(classes([Some(TOGGLE_GROUP_ITEM_BASE_CLASS), Some(pressed_class)]), class)
 }
 
-pub fn toggle_group_orientation_attribute(orientation: NavigationOrientation) -> &'static str {
+fn toggle_group_orientation_attribute(orientation: NavigationOrientation) -> &'static str {
   match orientation {
     NavigationOrientation::Horizontal | NavigationOrientation::Both => "horizontal",
     NavigationOrientation::Vertical => "vertical",
   }
-}
-
-pub fn toggle_group_item_tabindex(pressed: bool, disabled: bool) -> i16 {
-  if pressed && !disabled { 0 } else { -1 }
-}
-
-pub fn toggle_group_focus_state(
-  orientation: NavigationOrientation,
-  looping: bool,
-  active_value: Option<&str>,
-) -> RovingFocusState {
-  let state = RovingFocusState::new(orientation).with_looping(looping);
-
-  if let Some(active_value) = active_value { state.with_active_id(active_value) } else { state }
-}
-
-pub fn toggle_group_move_value<'a>(
-  active_value: Option<&str>,
-  items: &'a [RovingFocusItem],
-  focus_move: FocusMove,
-  orientation: NavigationOrientation,
-  looping: bool,
-) -> Option<&'a str> {
-  toggle_group_focus_state(orientation, looping, active_value).move_focus(items, focus_move)
 }
 
 #[derive(Clone, Copy)]

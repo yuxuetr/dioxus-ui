@@ -1,3 +1,5 @@
+//! Fab: a floating action button for a screen's main action, which can open a speed
+//! dial of related actions.
 use std::rc::Rc;
 
 use super::overlay_root::{OverlayRoot, use_overlay_root};
@@ -7,22 +9,25 @@ use dioxus::prelude::*;
 
 // The trigger comes first in source, so Tab reaches it before the actions,
 // and `flex-col-reverse` stacks the actions above it.
-pub const FAB_BASE_CLASS: &str = "z-40 flex flex-col-reverse items-end gap-3";
-pub const FAB_FIXED_CLASS: &str = "fixed end-6 bottom-[calc(1.5rem+env(safe-area-inset-bottom))]";
-pub const FAB_STATIC_CLASS: &str = "relative";
-pub const FAB_TRIGGER_CLASS: &str = "inline-flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background [&_svg]:size-6";
-pub const FAB_ACTIONS_CLASS: &str = "flex flex-col items-end gap-3";
-pub const FAB_ACTION_CLASS: &str =
+const FAB_BASE_CLASS: &str = "z-40 flex flex-col-reverse items-end gap-3";
+const FAB_FIXED_CLASS: &str = "fixed end-6 bottom-[calc(1.5rem+env(safe-area-inset-bottom))]";
+const FAB_STATIC_CLASS: &str = "relative";
+const FAB_TRIGGER_CLASS: &str = "inline-flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background [&_svg]:size-6";
+const FAB_ACTIONS_CLASS: &str = "flex flex-col items-end gap-3";
+const FAB_ACTION_CLASS: &str =
   "group/fab-action inline-flex items-center gap-3 text-sm font-medium focus-visible:outline-none";
-pub const FAB_ACTION_LABEL_CLASS: &str =
+const FAB_ACTION_LABEL_CLASS: &str =
   "rounded-md border border-border bg-popover px-2 py-1 text-popover-foreground shadow-md";
-pub const FAB_ACTION_ICON_CLASS: &str = "inline-flex size-11 items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow-md group-focus-visible/fab-action:ring-2 group-focus-visible/fab-action:ring-ring [&_svg]:size-5";
+const FAB_ACTION_ICON_CLASS: &str = "inline-flex size-11 items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow-md group-focus-visible/fab-action:ring-2 group-focus-visible/fab-action:ring-ring [&_svg]:size-5";
 
+/// Classes for the wrapper: fixed to the bottom inline-end corner when `fixed`, in the
+/// flow otherwise, then `class` merged over them.
 pub fn fab_class(fixed: bool, class: &str) -> String {
   let position = if fixed { FAB_FIXED_CLASS } else { FAB_STATIC_CLASS };
   merge_classes(classes([Some(FAB_BASE_CLASS), Some(position)]), class)
 }
 
+/// Classes for a speed dial action, the label and icon in a row, with `class` merged over them.
 pub fn fab_action_class(class: &str) -> String {
   merge_classes(classes([Some(FAB_ACTION_CLASS)]), class)
 }

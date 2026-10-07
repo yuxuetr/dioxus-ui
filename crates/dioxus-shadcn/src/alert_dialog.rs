@@ -1,3 +1,6 @@
+//! Alert dialog: a modal that asks the user to confirm a destructive or
+//! high-impact action before it happens.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
@@ -10,14 +13,18 @@ use crate::modal_focus::use_modal_focus_scope;
 use crate::overlay_root::{OverlayRoot, overlay_trigger, use_overlay_root};
 use crate::root_state::use_root_context;
 
+/// The look of `AlertDialogAction`.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum AlertDialogActionVariant {
+  /// The primary button look.
   #[default]
   Default,
+  /// The destructive color, for an action that deletes or cannot be undone.
   Destructive,
 }
 
 impl AlertDialogActionVariant {
+  /// The background, text, and hover colors of this variant.
   pub const fn class(self) -> &'static str {
     match self {
       Self::Default => "bg-primary text-primary-foreground hover:bg-primary/90",
@@ -26,46 +33,49 @@ impl AlertDialogActionVariant {
   }
 }
 
-pub const ALERT_DIALOG_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";
-pub const ALERT_DIALOG_CONTENT_BASE_CLASS: &str = "fixed left-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 rounded-md border border-border bg-background p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
-pub const ALERT_DIALOG_HEADER_BASE_CLASS: &str = "flex flex-col gap-2 text-center sm:text-left";
-pub const ALERT_DIALOG_FOOTER_BASE_CLASS: &str =
+const ALERT_DIALOG_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";
+const ALERT_DIALOG_CONTENT_BASE_CLASS: &str = "fixed left-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 rounded-md border border-border bg-background p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+const ALERT_DIALOG_HEADER_BASE_CLASS: &str = "flex flex-col gap-2 text-center sm:text-left";
+const ALERT_DIALOG_FOOTER_BASE_CLASS: &str =
   "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end";
-pub const ALERT_DIALOG_TITLE_BASE_CLASS: &str =
-  "text-lg font-semibold leading-none text-foreground";
-pub const ALERT_DIALOG_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
-pub const ALERT_DIALOG_ACTION_BASE_CLASS: &str = "inline-flex h-10 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
-pub const ALERT_DIALOG_CANCEL_BASE_CLASS: &str = "inline-flex h-10 items-center justify-center rounded-md border border-border bg-background px-4 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+const ALERT_DIALOG_TITLE_BASE_CLASS: &str = "text-lg font-semibold leading-none text-foreground";
+const ALERT_DIALOG_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
+const ALERT_DIALOG_ACTION_BASE_CLASS: &str = "inline-flex h-10 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+const ALERT_DIALOG_CANCEL_BASE_CLASS: &str = "inline-flex h-10 items-center justify-center rounded-md border border-border bg-background px-4 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
+/// Classes for the overlay: the dimmed full-screen backdrop, then `class` merged over it.
 pub fn alert_dialog_overlay_class(class: &str) -> String {
   merge_classes(classes([Some(ALERT_DIALOG_OVERLAY_BASE_CLASS)]), class)
 }
 
+/// Classes for the content: the centered panel, then `class` merged over it.
 pub fn alert_dialog_content_class(class: &str) -> String {
   merge_classes(classes([Some(ALERT_DIALOG_CONTENT_BASE_CLASS)]), class)
 }
 
-pub fn alert_dialog_header_class(class: &str) -> String {
+fn alert_dialog_header_class(class: &str) -> String {
   merge_classes(classes([Some(ALERT_DIALOG_HEADER_BASE_CLASS)]), class)
 }
 
-pub fn alert_dialog_footer_class(class: &str) -> String {
+fn alert_dialog_footer_class(class: &str) -> String {
   merge_classes(classes([Some(ALERT_DIALOG_FOOTER_BASE_CLASS)]), class)
 }
 
-pub fn alert_dialog_title_class(class: &str) -> String {
+fn alert_dialog_title_class(class: &str) -> String {
   merge_classes(classes([Some(ALERT_DIALOG_TITLE_BASE_CLASS)]), class)
 }
 
-pub fn alert_dialog_description_class(class: &str) -> String {
+fn alert_dialog_description_class(class: &str) -> String {
   merge_classes(classes([Some(ALERT_DIALOG_DESCRIPTION_BASE_CLASS)]), class)
 }
 
+/// Classes for the action button: base classes, the variant's colors, then `class`
+/// merged over them.
 pub fn alert_dialog_action_class(variant: AlertDialogActionVariant, class: &str) -> String {
   merge_classes(classes([Some(ALERT_DIALOG_ACTION_BASE_CLASS), Some(variant.class())]), class)
 }
 
-pub fn alert_dialog_cancel_class(class: &str) -> String {
+fn alert_dialog_cancel_class(class: &str) -> String {
   merge_classes(classes([Some(ALERT_DIALOG_CANCEL_BASE_CLASS)]), class)
 }
 

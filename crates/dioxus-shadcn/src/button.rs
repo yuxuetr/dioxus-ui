@@ -1,19 +1,28 @@
+//! Button: the main control for actions and form submission.
 use crate::density::use_density;
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{UiDensity, classes, merge_classes};
 
+/// The look of a `Button`.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ButtonVariant {
+  /// The primary fill, for the main action.
   #[default]
   Primary,
+  /// The secondary fill, for other actions.
   Secondary,
+  /// The destructive fill, for actions that delete or cannot be undone.
   Destructive,
+  /// A border on the background.
   Outline,
+  /// No fill until hovered.
   Ghost,
+  /// Looks like a link, underlined on hover.
   Link,
 }
 
 impl ButtonVariant {
+  /// The variant's color and hover classes.
   pub const fn class(self) -> &'static str {
     match self {
       Self::Primary => "bg-primary text-primary-foreground hover:bg-primary/90",
@@ -28,16 +37,22 @@ impl ButtonVariant {
   }
 }
 
+/// The height and padding of a `Button`.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ButtonSize {
+  /// Small: 32 pixels high.
   Sm,
+  /// Medium: 40 pixels high.
   #[default]
   Md,
+  /// Large: 48 pixels high.
   Lg,
+  /// A 40 pixel square, for a button that holds only an icon.
   Icon,
 }
 
 impl ButtonSize {
+  /// The size's height, padding, and text size classes.
   pub const fn class(self) -> &'static str {
     match self {
       Self::Sm => "h-8 px-3 text-sm",
@@ -48,8 +63,10 @@ impl ButtonSize {
   }
 }
 
-pub const BUTTON_BASE_CLASS: &str = "inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50";
+const BUTTON_BASE_CLASS: &str = "inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50";
 
+/// Classes for the button: base classes, the variant's, the size's, a minimum
+/// height for `density` (and a minimum width at Touch), then `class` merged over them.
 pub fn button_class(
   variant: ButtonVariant,
   size: ButtonSize,

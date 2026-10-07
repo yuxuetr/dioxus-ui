@@ -1,3 +1,5 @@
+//! Slider: a controlled numeric value on a horizontal or vertical track, and
+//! `RangeSlider`, a controlled pair of values with two thumbs.
 use super::density::{density_control_class, density_hit_area_class, use_density, with_density};
 use super::element_id::next_element_id;
 use super::utils::{classes, merge_classes};
@@ -131,44 +133,44 @@ pub struct SliderAriaAttributes {
   pub aria_valuenow: f64,
 }
 
-pub const SLIDER_ROOT_BASE_CLASS: &str =
+const SLIDER_ROOT_BASE_CLASS: &str =
   "relative flex touch-none select-none items-center disabled:opacity-50";
-pub const SLIDER_TRACK_BASE_CLASS: &str = "relative grow overflow-hidden rounded-full bg-muted";
-pub const SLIDER_RANGE_BASE_CLASS: &str = "absolute rounded-full bg-primary";
-pub const SLIDER_THUMB_BASE_CLASS: &str = "block h-5 w-5 rounded-full border-2 border-primary bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+const SLIDER_TRACK_BASE_CLASS: &str = "relative grow overflow-hidden rounded-full bg-muted";
+const SLIDER_RANGE_BASE_CLASS: &str = "absolute rounded-full bg-primary";
+const SLIDER_THUMB_BASE_CLASS: &str = "block h-5 w-5 rounded-full border-2 border-primary bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
-pub fn slider_root_class(class: &str) -> String {
+fn slider_root_class(class: &str) -> String {
   merge_classes(classes([Some(SLIDER_ROOT_BASE_CLASS)]), class)
 }
 
-pub fn slider_track_class(class: &str) -> String {
+fn slider_track_class(class: &str) -> String {
   merge_classes(classes([Some(SLIDER_TRACK_BASE_CLASS)]), class)
 }
 
-pub fn slider_range_class(class: &str) -> String {
+fn slider_range_class(class: &str) -> String {
   merge_classes(classes([Some(SLIDER_RANGE_BASE_CLASS)]), class)
 }
 
-pub fn slider_thumb_class(class: &str) -> String {
+fn slider_thumb_class(class: &str) -> String {
   merge_classes(classes([Some(SLIDER_THUMB_BASE_CLASS)]), class)
 }
 
-pub fn slider_state(value: f64, min: f64, max: f64, step: f64) -> SliderState {
+fn slider_state(value: f64, min: f64, max: f64, step: f64) -> SliderState {
   SliderState::new(value, min, max, step)
 }
 
-pub fn slider_percent(value: f64, min: f64, max: f64, step: f64) -> f64 {
-  slider_state(value, min, max, step).percent()
-}
-
+/// The direction a slider's track runs.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum SliderOrientation {
+  /// Runs left to right.
   #[default]
   Horizontal,
+  /// Runs bottom to top.
   Vertical,
 }
 
 impl SliderOrientation {
+  /// The `aria-orientation` and `data-orientation` value: `horizontal` or `vertical`.
   pub fn attribute(self) -> &'static str {
     match self {
       Self::Horizontal => "horizontal",
@@ -177,7 +179,7 @@ impl SliderOrientation {
   }
 }
 
-pub fn slider_range_style(orientation: SliderOrientation, percent: f64) -> String {
+fn slider_range_style(orientation: SliderOrientation, percent: f64) -> String {
   let percent = percent.clamp(0.0, 100.0);
 
   match orientation {
@@ -188,7 +190,7 @@ pub fn slider_range_style(orientation: SliderOrientation, percent: f64) -> Strin
 
 /// Centers the thumb on the value along the root. The position is inline so
 /// it does not depend on compiled Tailwind classes.
-pub fn slider_thumb_style(orientation: SliderOrientation, percent: f64) -> String {
+fn slider_thumb_style(orientation: SliderOrientation, percent: f64) -> String {
   let percent = percent.clamp(0.0, 100.0);
 
   match orientation {
@@ -226,10 +228,6 @@ pub fn slider_key_move(key: &str) -> Option<SliderKeyMove> {
     "End" => Some(SliderKeyMove::End),
     _ => None,
   }
-}
-
-pub fn slider_aria_attributes(value: f64, min: f64, max: f64, step: f64) -> SliderAriaAttributes {
-  slider_state(value, min, max, step).aria_attributes()
 }
 
 fn snap_value(value: f64, min: f64, max: f64, step: f64) -> f64 {
@@ -433,7 +431,7 @@ observer.disconnect();
 /// The values after moving thumb `thumb` (0 for the lower, 1 for the upper)
 /// to `target`: snapped to `step` within `min..=max`, and kept `min_gap`
 /// away from the other thumb. The input pair is snapped and ordered first.
-pub fn range_slider_values(
+fn range_slider_values(
   values: (f64, f64),
   thumb: usize,
   target: f64,

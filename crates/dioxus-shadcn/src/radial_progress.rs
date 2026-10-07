@@ -1,15 +1,23 @@
+//! Radial Progress: a value from 0 to 100 drawn as a ring, with the percentage or a custom
+//! label in the middle.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
+/// How large the ring and its label are.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum RadialProgressSize {
+  /// A small ring with extra-small text.
   Sm,
+  /// The standard ring.
   #[default]
   Md,
+  /// A large ring with base-size text.
   Lg,
 }
 
 impl RadialProgressSize {
+  /// The size's width, height, and text size classes.
   pub const fn class(self) -> &'static str {
     match self {
       Self::Sm => "size-12 text-xs",
@@ -28,26 +36,27 @@ impl RadialProgressSize {
   }
 }
 
-pub const RADIAL_PROGRESS_BASE_CLASS: &str =
+const RADIAL_PROGRESS_BASE_CLASS: &str =
   "relative inline-grid shrink-0 place-items-center font-medium tabular-nums";
-pub const RADIAL_PROGRESS_TRACK_CLASS: &str = "stroke-muted";
-pub const RADIAL_PROGRESS_INDICATOR_CLASS: &str =
+const RADIAL_PROGRESS_TRACK_CLASS: &str = "stroke-muted";
+const RADIAL_PROGRESS_INDICATOR_CLASS: &str =
   "stroke-primary transition-[stroke-dashoffset] duration-300";
 // Children fill the slot; while it is empty the default percentage shows.
-pub const RADIAL_PROGRESS_SLOT_CLASS: &str = "peer relative empty:hidden";
-pub const RADIAL_PROGRESS_DEFAULT_LABEL_CLASS: &str = "relative hidden peer-empty:inline";
+const RADIAL_PROGRESS_SLOT_CLASS: &str = "peer relative empty:hidden";
+const RADIAL_PROGRESS_DEFAULT_LABEL_CLASS: &str = "relative hidden peer-empty:inline";
 
+/// Classes for the root: base classes and the size's, with `class` merged over them.
 pub fn radial_progress_class(size: RadialProgressSize, class: &str) -> String {
   merge_classes(classes([Some(RADIAL_PROGRESS_BASE_CLASS), Some(size.class())]), class)
 }
 
 /// The value clamped to 0 through 100; anything that is not a number is 0.
-pub fn radial_progress_value(value: f64) -> f64 {
+fn radial_progress_value(value: f64) -> f64 {
   if value.is_nan() { 0.0 } else { value.clamp(0.0, 100.0) }
 }
 
 /// The ring's radius and the dash offset that leaves `value` percent drawn.
-pub fn radial_progress_geometry(value: f64, stroke_width: f64) -> (f64, f64, f64) {
+fn radial_progress_geometry(value: f64, stroke_width: f64) -> (f64, f64, f64) {
   let radius = 50.0 - stroke_width / 2.0;
   let circumference = 2.0 * std::f64::consts::PI * radius;
   let offset = circumference * (1.0 - radial_progress_value(value) / 100.0);

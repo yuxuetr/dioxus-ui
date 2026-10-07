@@ -1,3 +1,6 @@
+//! Theme Controller: applies the color theme to the document root, follows the
+//! system's light or dark scheme while the theme is `System`, and remembers the
+//! choice across visits.
 use std::cell::{Cell, RefCell};
 use std::rc::Rc;
 
@@ -12,10 +15,14 @@ pub const THEME_STORAGE_KEY: &str = "dxui-theme";
 /// preset that brings its own scheme (RFC 0057).
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub enum Theme {
+  /// Follows the system's light or dark scheme.
   #[default]
   System,
+  /// The light scheme.
   Light,
+  /// The dark scheme.
   Dark,
+  /// A named preset that brings its own scheme.
   Preset(String),
 }
 

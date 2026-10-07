@@ -1,12 +1,19 @@
+//! Indicator: places a badge, dot, or other small element on a corner of another
+//! element, such as an unread count on a button.
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
+/// The corner an `IndicatorItem` sits on, in logical directions.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum IndicatorPlacement {
+  /// Top corner at the inline end: top right, or top left in right-to-left.
   #[default]
   TopEnd,
+  /// Top corner at the inline start.
   TopStart,
+  /// Bottom corner at the inline end.
   BottomEnd,
+  /// Bottom corner at the inline start.
   BottomStart,
 }
 
@@ -23,13 +30,17 @@ impl IndicatorPlacement {
   }
 }
 
-pub const INDICATOR_BASE_CLASS: &str = "relative inline-flex";
-pub const INDICATOR_ITEM_BASE_CLASS: &str = "absolute z-10";
+const INDICATOR_BASE_CLASS: &str = "relative inline-flex";
+const INDICATOR_ITEM_BASE_CLASS: &str = "absolute z-10";
 
+/// Classes for the wrapper: a positioning context for its items, then `class` merged
+/// over it.
 pub fn indicator_class(class: &str) -> String {
   merge_classes(classes([Some(INDICATOR_BASE_CLASS)]), class)
 }
 
+/// Classes for an item: absolute positioning, the placement's corner, then `class`
+/// merged over them.
 pub fn indicator_item_class(placement: IndicatorPlacement, class: &str) -> String {
   merge_classes(classes([Some(INDICATOR_ITEM_BASE_CLASS), Some(placement.class())]), class)
 }

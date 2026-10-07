@@ -1,3 +1,6 @@
+//! Carousel: slides shown one at a time, with previous, next, and indicator
+//! controls. The app owns the selected index; the parts show it and report clicks
+//! and arrow keys.
 use super::default_attribute::default_attribute;
 use super::root_state::{Controllable, use_controllable, use_root_context};
 use super::utils::{classes, merge_classes};
@@ -43,14 +46,14 @@ impl CarouselState {
   }
 }
 
-pub const CAROUSEL_BASE_CLASS: &str = "relative";
-pub const CAROUSEL_VIEWPORT_BASE_CLASS: &str = "overflow-hidden";
-pub const CAROUSEL_CONTENT_BASE_CLASS: &str = "flex data-[orientation=horizontal]:-ml-4 data-[orientation=vertical]:-mt-4 data-[orientation=vertical]:flex-col";
-pub const CAROUSEL_ITEM_BASE_CLASS: &str = "min-w-0 shrink-0 grow-0 basis-full transition-transform duration-300 motion-reduce:transition-none data-[orientation=horizontal]:pl-4 data-[orientation=vertical]:pt-4";
-pub const CAROUSEL_CONTROL_BASE_CLASS: &str = "inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background text-sm shadow-sm transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
-pub const CAROUSEL_INDICATOR_BASE_CLASS: &str = "h-2 w-2 rounded-full transition-colors";
+const CAROUSEL_BASE_CLASS: &str = "relative";
+const CAROUSEL_VIEWPORT_BASE_CLASS: &str = "overflow-hidden";
+const CAROUSEL_CONTENT_BASE_CLASS: &str = "flex data-[orientation=horizontal]:-ml-4 data-[orientation=vertical]:-mt-4 data-[orientation=vertical]:flex-col";
+const CAROUSEL_ITEM_BASE_CLASS: &str = "min-w-0 shrink-0 grow-0 basis-full transition-transform duration-300 motion-reduce:transition-none data-[orientation=horizontal]:pl-4 data-[orientation=vertical]:pt-4";
+const CAROUSEL_CONTROL_BASE_CLASS: &str = "inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background text-sm shadow-sm transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+const CAROUSEL_INDICATOR_BASE_CLASS: &str = "h-2 w-2 rounded-full transition-colors";
 
-pub fn carousel_orientation_attribute(orientation: CarouselOrientation) -> &'static str {
+fn carousel_orientation_attribute(orientation: CarouselOrientation) -> &'static str {
   match orientation {
     CarouselOrientation::Horizontal => "horizontal",
     CarouselOrientation::Vertical => "vertical",
@@ -101,15 +104,15 @@ pub fn carousel_previous(index: usize, item_count: usize, looping: bool) -> usiz
   }
 }
 
-pub fn carousel_class(class: &str) -> String {
+fn carousel_class(class: &str) -> String {
   merge_classes(classes([Some(CAROUSEL_BASE_CLASS)]), class)
 }
 
-pub fn carousel_viewport_class(class: &str) -> String {
+fn carousel_viewport_class(class: &str) -> String {
   merge_classes(classes([Some(CAROUSEL_VIEWPORT_BASE_CLASS)]), class)
 }
 
-pub fn carousel_content_class(orientation: CarouselOrientation, class: &str) -> String {
+fn carousel_content_class(orientation: CarouselOrientation, class: &str) -> String {
   let orientation_class = match orientation {
     CarouselOrientation::Horizontal => "-ml-4",
     CarouselOrientation::Vertical => "-mt-4 flex-col",
@@ -118,7 +121,7 @@ pub fn carousel_content_class(orientation: CarouselOrientation, class: &str) -> 
   merge_classes(classes([Some(CAROUSEL_CONTENT_BASE_CLASS), Some(orientation_class)]), class)
 }
 
-pub fn carousel_item_class(
+fn carousel_item_class(
   orientation: CarouselOrientation,
   selected: bool,
   class: &str,
@@ -131,23 +134,25 @@ pub fn carousel_item_class(
   merge_classes(classes([Some(CAROUSEL_ITEM_BASE_CLASS), Some(orientation_class), selected.then_some("data-selected")]), class)
 }
 
-pub fn carousel_control_class(disabled: bool, class: &str) -> String {
+fn carousel_control_class(disabled: bool, class: &str) -> String {
   merge_classes(classes([Some(CAROUSEL_CONTROL_BASE_CLASS), disabled.then_some("pointer-events-none opacity-50")]), class)
 }
 
-pub fn carousel_indicator_class(selected: bool, class: &str) -> String {
+fn carousel_indicator_class(selected: bool, class: &str) -> String {
   merge_classes(classes([Some(CAROUSEL_INDICATOR_BASE_CLASS), Some(if selected { "bg-primary" } else { "bg-muted-foreground/40" })]), class)
 }
 
 /// A slide step requested from the keyboard.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum CarouselStep {
+  /// Back one slide.
   Previous,
+  /// Forward one slide.
   Next,
 }
 
 /// Maps an arrow key to a step along the carousel's orientation.
-pub fn carousel_key_step(key: &str, orientation: CarouselOrientation) -> Option<CarouselStep> {
+fn carousel_key_step(key: &str, orientation: CarouselOrientation) -> Option<CarouselStep> {
   match (orientation, key) {
     (CarouselOrientation::Horizontal, "ArrowLeft") | (CarouselOrientation::Vertical, "ArrowUp") => {
       Some(CarouselStep::Previous)
@@ -160,11 +165,11 @@ pub fn carousel_key_step(key: &str, orientation: CarouselOrientation) -> Option<
 
 /// The custom property that carries the selected index from the content to
 /// its items.
-pub const CAROUSEL_INDEX_PROPERTY: &str = "--dxui-carousel-index";
+const CAROUSEL_INDEX_PROPERTY: &str = "--dxui-carousel-index";
 
 /// A percentage translate is relative to the item itself, so every item
 /// moves by `index` item sizes whatever its basis.
-pub fn carousel_item_transform(orientation: CarouselOrientation) -> &'static str {
+fn carousel_item_transform(orientation: CarouselOrientation) -> &'static str {
   match orientation {
     CarouselOrientation::Horizontal => "translateX(calc(var(--dxui-carousel-index, 0) * -100%))",
     CarouselOrientation::Vertical => "translateY(calc(var(--dxui-carousel-index, 0) * -100%))",

@@ -1,19 +1,23 @@
+//! Progress: a bar that shows how much of a bounded task is done.
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
-pub const PROGRESS_BASE_CLASS: &str = "relative h-4 w-full overflow-hidden rounded-full bg-muted";
-pub const PROGRESS_INDICATOR_BASE_CLASS: &str =
+const PROGRESS_BASE_CLASS: &str = "relative h-4 w-full overflow-hidden rounded-full bg-muted";
+const PROGRESS_INDICATOR_BASE_CLASS: &str =
   "h-full w-full flex-1 bg-primary transition-transform";
 
+/// Classes for the track: base classes with `class` merged over them.
 pub fn progress_class(class: &str) -> String {
   merge_classes(classes([Some(PROGRESS_BASE_CLASS)]), class)
 }
 
+/// Classes for the filled indicator inside the track: base classes with `class`
+/// merged over them.
 pub fn progress_indicator_class(class: &str) -> String {
   merge_classes(classes([Some(PROGRESS_INDICATOR_BASE_CLASS)]), class)
 }
 
-pub fn progress_percent(value: f32, max: f32) -> f32 {
+fn progress_percent(value: f32, max: f32) -> f32 {
   if max <= 0.0 {
     return 0.0;
   }

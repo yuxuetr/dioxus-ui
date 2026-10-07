@@ -1,3 +1,5 @@
+//! Resizable: controlled panel group, panel, and handle parts. The app owns the
+//! panel sizes in percent; the handle reports resizes as a delta.
 use super::density::{use_density, with_density};
 use super::element_id::next_element_id;
 use super::utils::{UiDensity, classes, merge_classes};
@@ -120,12 +122,12 @@ await ended;
 observer.disconnect();
 "#;
 
-pub const RESIZABLE_PANEL_GROUP_BASE_CLASS: &str =
+const RESIZABLE_PANEL_GROUP_BASE_CLASS: &str =
   "flex h-full w-full data-[orientation=vertical]:flex-col";
-pub const RESIZABLE_PANEL_BASE_CLASS: &str = "min-w-0 overflow-hidden";
-pub const RESIZABLE_HANDLE_BASE_CLASS: &str = "relative flex w-px cursor-col-resize touch-none items-center justify-center bg-border after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[orientation=vertical]:h-px data-[orientation=vertical]:w-full data-[orientation=vertical]:cursor-row-resize data-[orientation=vertical]:after:inset-x-0 data-[orientation=vertical]:after:top-1/2 data-[orientation=vertical]:after:h-1 data-[orientation=vertical]:after:w-full data-[orientation=vertical]:after:-translate-y-1/2 data-[disabled=true]:opacity-50";
+const RESIZABLE_PANEL_BASE_CLASS: &str = "min-w-0 overflow-hidden";
+const RESIZABLE_HANDLE_BASE_CLASS: &str = "relative flex w-px cursor-col-resize touch-none items-center justify-center bg-border after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[orientation=vertical]:h-px data-[orientation=vertical]:w-full data-[orientation=vertical]:cursor-row-resize data-[orientation=vertical]:after:inset-x-0 data-[orientation=vertical]:after:top-1/2 data-[orientation=vertical]:after:h-1 data-[orientation=vertical]:after:w-full data-[orientation=vertical]:after:-translate-y-1/2 data-[disabled=true]:opacity-50";
 
-pub fn resizable_panel_group_class(orientation: LayoutOrientation, class: &str) -> String {
+fn resizable_panel_group_class(orientation: LayoutOrientation, class: &str) -> String {
   let orientation_class = match orientation {
     LayoutOrientation::Horizontal => "flex-row",
     LayoutOrientation::Vertical => "flex-col",
@@ -134,27 +136,27 @@ pub fn resizable_panel_group_class(orientation: LayoutOrientation, class: &str) 
   merge_classes(classes([Some(RESIZABLE_PANEL_GROUP_BASE_CLASS), Some(orientation_class)]), class)
 }
 
-pub fn resizable_panel_class(collapsed: bool, class: &str) -> String {
+fn resizable_panel_class(collapsed: bool, class: &str) -> String {
   merge_classes(classes([Some(RESIZABLE_PANEL_BASE_CLASS), collapsed.then_some("hidden")]), class)
 }
 
 /// The Touch hit area of a handle: its `after:` strip widens to 44 CSS
 /// pixels across the line (RFC 0078).
-pub const RESIZABLE_HANDLE_TOUCH_CLASS: &str =
+const RESIZABLE_HANDLE_TOUCH_CLASS: &str =
   "after:w-11 data-[orientation=vertical]:after:h-11";
 
-pub fn resizable_handle_class(disabled: bool, class: &str) -> String {
+fn resizable_handle_class(disabled: bool, class: &str) -> String {
   merge_classes(classes([Some(RESIZABLE_HANDLE_BASE_CLASS), disabled.then_some("pointer-events-none opacity-50")]), class)
 }
 
-pub fn resizable_panel_style(size: f64, min_size: f64, max_size: f64) -> String {
+fn resizable_panel_style(size: f64, min_size: f64, max_size: f64) -> String {
   let size = resizable_clamp(size, min_size, max_size);
 
   format!("flex-basis: {size}%;")
 }
 
 /// ARIA orients a separator by its line, which runs across the group.
-pub fn resizable_separator_orientation(orientation: LayoutOrientation) -> &'static str {
+fn resizable_separator_orientation(orientation: LayoutOrientation) -> &'static str {
   match orientation {
     LayoutOrientation::Horizontal => "vertical",
     LayoutOrientation::Vertical => "horizontal",
@@ -163,7 +165,7 @@ pub fn resizable_separator_orientation(orientation: LayoutOrientation) -> &'stat
 
 /// The size delta a key requests for the panel before the handle, or `None`
 /// for keys the handle ignores.
-pub fn resizable_handle_key_delta(
+fn resizable_handle_key_delta(
   key: &str,
   orientation: LayoutOrientation,
   value: f64,

@@ -638,9 +638,6 @@
   .h-64 {
     height: calc(var(--spacing) * 64);
   }
-  .h-72 {
-    height: calc(var(--spacing) * 72);
-  }
   .h-80 {
     height: calc(var(--spacing) * 80);
   }
@@ -1469,9 +1466,6 @@
   .stroke-primary {
     stroke: var(--primary);
   }
-  .stroke-2 {
-    stroke-width: 2;
-  }
   .object-cover {
     object-fit: cover;
   }
@@ -1821,12 +1815,6 @@
   }
   .opacity-0 {
     opacity: 0%;
-  }
-  .opacity-15 {
-    opacity: 15%;
-  }
-  .opacity-20 {
-    opacity: 20%;
   }
   .opacity-50 {
     opacity: 50%;

@@ -1,3 +1,5 @@
+//! Command: a command palette or searchable action list. Focus stays in the input
+//! while the arrow keys move the highlight; filtering stays with the app.
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::ActiveDescendantState;
@@ -6,56 +8,59 @@ use crate::density::{density_control_class, use_density, with_density};
 use crate::element_id::next_element_id;
 use crate::listbox::{ListboxMode, use_listbox};
 use crate::root_state::use_root_context;
-pub const COMMAND_BASE_CLASS: &str =
+const COMMAND_BASE_CLASS: &str =
   "flex h-full w-full flex-col overflow-hidden rounded-md bg-background text-foreground";
-pub const COMMAND_INPUT_BASE_CLASS: &str = "flex h-11 w-full rounded-md bg-transparent px-3 py-2 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50";
-pub const COMMAND_LIST_BASE_CLASS: &str = "max-h-80 overflow-y-auto overflow-x-hidden";
-pub const COMMAND_EMPTY_BASE_CLASS: &str = "py-6 text-center text-sm text-muted-foreground";
-pub const COMMAND_STATUS_BASE_CLASS: &str = "sr-only";
-pub const COMMAND_GROUP_BASE_CLASS: &str = "overflow-hidden p-1 text-foreground";
-pub const COMMAND_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-muted-foreground";
-pub const COMMAND_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-highlighted:bg-accent data-highlighted:text-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
-pub const COMMAND_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-border";
-pub const COMMAND_SHORTCUT_BASE_CLASS: &str =
-  "ml-auto text-xs tracking-normal text-muted-foreground";
+const COMMAND_INPUT_BASE_CLASS: &str = "flex h-11 w-full rounded-md bg-transparent px-3 py-2 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50";
+const COMMAND_LIST_BASE_CLASS: &str = "max-h-80 overflow-y-auto overflow-x-hidden";
+const COMMAND_EMPTY_BASE_CLASS: &str = "py-6 text-center text-sm text-muted-foreground";
+const COMMAND_STATUS_BASE_CLASS: &str = "sr-only";
+const COMMAND_GROUP_BASE_CLASS: &str = "overflow-hidden p-1 text-foreground";
+const COMMAND_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-muted-foreground";
+const COMMAND_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-highlighted:bg-accent data-highlighted:text-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
+const COMMAND_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-border";
+const COMMAND_SHORTCUT_BASE_CLASS: &str = "ml-auto text-xs tracking-normal text-muted-foreground";
 
+/// Classes for the palette's column, with `class` merged over them.
 pub fn command_class(class: &str) -> String {
   merge_classes(classes([Some(COMMAND_BASE_CLASS)]), class)
 }
 
+/// Classes for the borderless search input, with `class` merged over them.
 pub fn command_input_class(class: &str) -> String {
   merge_classes(classes([Some(COMMAND_INPUT_BASE_CLASS)]), class)
 }
 
-pub fn command_list_class(class: &str) -> String {
+fn command_list_class(class: &str) -> String {
   merge_classes(classes([Some(COMMAND_LIST_BASE_CLASS)]), class)
 }
 
-pub fn command_empty_class(class: &str) -> String {
+fn command_empty_class(class: &str) -> String {
   merge_classes(classes([Some(COMMAND_EMPTY_BASE_CLASS)]), class)
 }
 
-pub fn command_status_class(class: &str) -> String {
+fn command_status_class(class: &str) -> String {
   merge_classes(classes([Some(COMMAND_STATUS_BASE_CLASS)]), class)
 }
 
-pub fn command_group_class(class: &str) -> String {
+fn command_group_class(class: &str) -> String {
   merge_classes(classes([Some(COMMAND_GROUP_BASE_CLASS)]), class)
 }
 
-pub fn command_label_class(class: &str) -> String {
+fn command_label_class(class: &str) -> String {
   merge_classes(classes([Some(COMMAND_LABEL_BASE_CLASS)]), class)
 }
 
+/// Classes for an item: the highlighted and disabled states' styles, then `class` merged
+/// over them.
 pub fn command_item_class(class: &str) -> String {
   merge_classes(classes([Some(COMMAND_ITEM_BASE_CLASS)]), class)
 }
 
-pub fn command_separator_class(class: &str) -> String {
+fn command_separator_class(class: &str) -> String {
   merge_classes(classes([Some(COMMAND_SEPARATOR_BASE_CLASS)]), class)
 }
 
-pub fn command_shortcut_class(class: &str) -> String {
+fn command_shortcut_class(class: &str) -> String {
   merge_classes(classes([Some(COMMAND_SHORTCUT_BASE_CLASS)]), class)
 }
 
@@ -65,10 +70,6 @@ pub fn command_matches(label: &str, query: &str) -> bool {
   let query = query.trim();
 
   query.is_empty() || label.to_lowercase().contains(&query.to_lowercase())
-}
-
-pub fn command_active_descendant_state(active_id: Option<String>) -> ActiveDescendantState {
-  ActiveDescendantState::new(active_id)
 }
 
 #[derive(Clone, PartialEq)]
@@ -333,12 +334,5 @@ mod tests {
   fn command_item_value_falls_back_to_id() {
     assert_eq!(command_item_value("command-calendar", None), "command-calendar");
     assert_eq!(command_item_value("command-calendar", Some("calendar".to_string())), "calendar");
-  }
-
-  #[test]
-  fn command_active_descendant_helper_reuses_primitive_state() {
-    let state = command_active_descendant_state(Some("item-1".to_string()));
-
-    assert_eq!(state.container_attributes().aria_activedescendant.as_deref(), Some("item-1"));
   }
 }

@@ -1,3 +1,6 @@
+//! Input OTP: visual slots for a one-time code, backed by a native input for
+//! forms, mobile keyboards, and assistive technology.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
@@ -42,26 +45,29 @@ await ended;
 observer.disconnect();
 "#;
 
+/// Which characters a code accepts, and which keyboard phones show.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum InputOtpInputMode {
+  /// Digits only, with a numeric keyboard.
   #[default]
   Numeric,
+  /// Letters and digits.
   Text,
 }
 
-pub const INPUT_OTP_BASE_CLASS: &str = "relative flex items-center gap-2";
-pub const INPUT_OTP_DISABLED_CLASS: &str = "opacity-50";
-pub const INPUT_OTP_GROUP_BASE_CLASS: &str = "flex items-center gap-1";
-pub const INPUT_OTP_SLOT_BASE_CLASS: &str = "relative flex h-10 w-10 items-center justify-center rounded-md border text-sm font-medium transition-colors";
-pub const INPUT_OTP_SLOT_ACTIVE_CLASS: &str = "border-ring ring-2 ring-ring";
-pub const INPUT_OTP_SLOT_INVALID_CLASS: &str = "border-destructive ring-2 ring-destructive";
-pub const INPUT_OTP_SLOT_DISABLED_CLASS: &str = "cursor-not-allowed bg-muted text-muted-foreground";
-pub const INPUT_OTP_SLOT_EMPTY_CLASS: &str = "text-muted-foreground";
-pub const INPUT_OTP_SEPARATOR_BASE_CLASS: &str = "flex items-center px-1 text-muted-foreground";
-pub const INPUT_OTP_HIDDEN_INPUT_BASE_CLASS: &str =
+const INPUT_OTP_BASE_CLASS: &str = "relative flex items-center gap-2";
+const INPUT_OTP_DISABLED_CLASS: &str = "opacity-50";
+const INPUT_OTP_GROUP_BASE_CLASS: &str = "flex items-center gap-1";
+const INPUT_OTP_SLOT_BASE_CLASS: &str = "relative flex h-10 w-10 items-center justify-center rounded-md border text-sm font-medium transition-colors";
+const INPUT_OTP_SLOT_ACTIVE_CLASS: &str = "border-ring ring-2 ring-ring";
+const INPUT_OTP_SLOT_INVALID_CLASS: &str = "border-destructive ring-2 ring-destructive";
+const INPUT_OTP_SLOT_DISABLED_CLASS: &str = "cursor-not-allowed bg-muted text-muted-foreground";
+const INPUT_OTP_SEPARATOR_BASE_CLASS: &str = "flex items-center px-1 text-muted-foreground";
+const INPUT_OTP_HIDDEN_INPUT_BASE_CLASS: &str =
   "absolute inset-0 h-full w-full cursor-text opacity-0 disabled:cursor-not-allowed";
 
 impl InputOtpInputMode {
+  /// The input's `inputmode` value: `numeric` or `text`.
   pub const fn attribute(self) -> &'static str {
     match self {
       Self::Numeric => "numeric",
@@ -84,6 +90,8 @@ pub fn input_otp_sanitize(value: &str, length: usize, input_mode: InputOtpInputM
   value.chars().filter(|ch| input_mode.allows(*ch)).take(length).collect()
 }
 
+/// Classes for the root: base classes, dimmed when `disabled`, then `class`
+/// merged over them.
 pub fn input_otp_class(disabled: bool, class: &str) -> String {
   merge_classes(
     classes([Some(INPUT_OTP_BASE_CLASS), disabled.then_some(INPUT_OTP_DISABLED_CLASS)]),
@@ -91,10 +99,13 @@ pub fn input_otp_class(disabled: bool, class: &str) -> String {
   )
 }
 
+/// Classes for a group of slots, with `class` merged over them.
 pub fn input_otp_group_class(class: &str) -> String {
   merge_classes(classes([Some(INPUT_OTP_GROUP_BASE_CLASS)]), class)
 }
 
+/// Classes for one slot: base classes, a ring when `invalid` (destructive) or
+/// `active`, muted colors when `disabled`, then `class` merged over them.
 pub fn input_otp_slot_class(active: bool, invalid: bool, disabled: bool, class: &str) -> String {
   merge_classes(
     classes([
@@ -112,14 +123,17 @@ pub fn input_otp_slot_class(active: bool, invalid: bool, disabled: bool, class: 
   )
 }
 
-pub fn input_otp_slot_display(value: Option<char>) -> String {
+fn input_otp_slot_display(value: Option<char>) -> String {
   value.map(|ch| ch.to_string()).unwrap_or_default()
 }
 
+/// Classes for the separator between groups, with `class` merged over them.
 pub fn input_otp_separator_class(class: &str) -> String {
   merge_classes(classes([Some(INPUT_OTP_SEPARATOR_BASE_CLASS)]), class)
 }
 
+/// Classes for the transparent native input laid over the slots, with `class`
+/// merged over them.
 pub fn input_otp_hidden_input_class(class: &str) -> String {
   merge_classes(classes([Some(INPUT_OTP_HIDDEN_INPUT_BASE_CLASS)]), class)
 }

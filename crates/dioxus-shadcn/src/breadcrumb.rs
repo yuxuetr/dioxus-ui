@@ -1,29 +1,37 @@
+//! Breadcrumb: semantic parts for a navigation trail. It owns structure and
+//! styling; routing, links, and which page is current stay with the app.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
-pub const BREADCRUMB_BASE_CLASS: &str = "";
-pub const BREADCRUMB_LIST_BASE_CLASS: &str =
+const BREADCRUMB_BASE_CLASS: &str = "";
+const BREADCRUMB_LIST_BASE_CLASS: &str =
   "flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground";
-pub const BREADCRUMB_ITEM_BASE_CLASS: &str = "inline-flex items-center gap-1.5";
-pub const BREADCRUMB_LINK_BASE_CLASS: &str = "transition-colors hover:text-foreground";
-pub const BREADCRUMB_LINK_CURRENT_CLASS: &str = "font-normal text-foreground";
-pub const BREADCRUMB_PAGE_BASE_CLASS: &str = "font-normal text-foreground";
-pub const BREADCRUMB_SEPARATOR_BASE_CLASS: &str = "text-muted-foreground";
-pub const BREADCRUMB_ELLIPSIS_BASE_CLASS: &str =
+const BREADCRUMB_ITEM_BASE_CLASS: &str = "inline-flex items-center gap-1.5";
+const BREADCRUMB_LINK_BASE_CLASS: &str = "transition-colors hover:text-foreground";
+const BREADCRUMB_LINK_CURRENT_CLASS: &str = "font-normal text-foreground";
+const BREADCRUMB_PAGE_BASE_CLASS: &str = "font-normal text-foreground";
+const BREADCRUMB_SEPARATOR_BASE_CLASS: &str = "text-muted-foreground";
+const BREADCRUMB_ELLIPSIS_BASE_CLASS: &str =
   "flex h-9 w-9 items-center justify-center text-muted-foreground";
 
+/// Classes for the `nav` root; it has no base classes, so this is `class`.
 pub fn breadcrumb_class(class: &str) -> String {
   merge_classes(classes([Some(BREADCRUMB_BASE_CLASS)]), class)
 }
 
+/// Classes for the list: a wrapping row of muted text, with `class` merged over it.
 pub fn breadcrumb_list_class(class: &str) -> String {
   merge_classes(classes([Some(BREADCRUMB_LIST_BASE_CLASS)]), class)
 }
 
+/// Classes for one item in the trail, with `class` merged over them.
 pub fn breadcrumb_item_class(class: &str) -> String {
   merge_classes(classes([Some(BREADCRUMB_ITEM_BASE_CLASS)]), class)
 }
 
+/// Classes for a link: base classes, foreground text when it is the `current`
+/// page, then `class` merged over them.
 pub fn breadcrumb_link_class(current: bool, class: &str) -> String {
   merge_classes(
     classes([Some(BREADCRUMB_LINK_BASE_CLASS), current.then_some(BREADCRUMB_LINK_CURRENT_CLASS)]),
@@ -31,14 +39,18 @@ pub fn breadcrumb_link_class(current: bool, class: &str) -> String {
   )
 }
 
+/// Classes for the current page's text, with `class` merged over them.
 pub fn breadcrumb_page_class(class: &str) -> String {
   merge_classes(classes([Some(BREADCRUMB_PAGE_BASE_CLASS)]), class)
 }
 
+/// Classes for the separator between items, with `class` merged over them.
 pub fn breadcrumb_separator_class(class: &str) -> String {
   merge_classes(classes([Some(BREADCRUMB_SEPARATOR_BASE_CLASS)]), class)
 }
 
+/// Classes for the ellipsis that stands in for collapsed items, with `class`
+/// merged over them.
 pub fn breadcrumb_ellipsis_class(class: &str) -> String {
   merge_classes(classes([Some(BREADCRUMB_ELLIPSIS_BASE_CLASS)]), class)
 }

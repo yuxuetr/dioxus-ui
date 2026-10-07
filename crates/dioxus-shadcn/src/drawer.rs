@@ -1,3 +1,6 @@
+//! Drawer: a bottom modal for task flows on phones. It reuses the dialog
+//! primitive's defaults with bottom-first sizing.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
@@ -10,39 +13,43 @@ use crate::modal_focus::use_modal_focus_scope;
 use crate::overlay_root::{OverlayRoot, overlay_trigger, use_overlay_root};
 use crate::root_state::use_root_context;
 
-pub const DRAWER_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";
-pub const DRAWER_CONTENT_BASE_CLASS: &str = "fixed inset-x-0 bottom-0 z-50 grid max-h-[85vh] gap-4 rounded-t-md border border-border bg-background p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
-pub const DRAWER_HEADER_BASE_CLASS: &str = "flex flex-col gap-2 text-center";
-pub const DRAWER_FOOTER_BASE_CLASS: &str = "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end";
-pub const DRAWER_TITLE_BASE_CLASS: &str = "text-lg font-semibold leading-none text-foreground";
-pub const DRAWER_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
-pub const DRAWER_CLOSE_BASE_CLASS: &str = "absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none";
+const DRAWER_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";
+const DRAWER_CONTENT_BASE_CLASS: &str = "fixed inset-x-0 bottom-0 z-50 grid max-h-[85vh] gap-4 rounded-t-md border border-border bg-background p-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+const DRAWER_HEADER_BASE_CLASS: &str = "flex flex-col gap-2 text-center";
+const DRAWER_FOOTER_BASE_CLASS: &str = "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end";
+const DRAWER_TITLE_BASE_CLASS: &str = "text-lg font-semibold leading-none text-foreground";
+const DRAWER_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
+const DRAWER_CLOSE_BASE_CLASS: &str = "absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none";
 
+/// Classes for the dimmed backdrop behind the drawer, with `class` merged over
+/// them.
 pub fn drawer_overlay_class(class: &str) -> String {
   merge_classes(classes([Some(DRAWER_OVERLAY_BASE_CLASS)]), class)
 }
 
+/// Classes for the panel fixed to the bottom of the screen, with `class` merged
+/// over them.
 pub fn drawer_content_class(class: &str) -> String {
   merge_classes(classes([Some(DRAWER_CONTENT_BASE_CLASS)]), class)
 }
 
-pub fn drawer_header_class(class: &str) -> String {
+fn drawer_header_class(class: &str) -> String {
   merge_classes(classes([Some(DRAWER_HEADER_BASE_CLASS)]), class)
 }
 
-pub fn drawer_footer_class(class: &str) -> String {
+fn drawer_footer_class(class: &str) -> String {
   merge_classes(classes([Some(DRAWER_FOOTER_BASE_CLASS)]), class)
 }
 
-pub fn drawer_title_class(class: &str) -> String {
+fn drawer_title_class(class: &str) -> String {
   merge_classes(classes([Some(DRAWER_TITLE_BASE_CLASS)]), class)
 }
 
-pub fn drawer_description_class(class: &str) -> String {
+fn drawer_description_class(class: &str) -> String {
   merge_classes(classes([Some(DRAWER_DESCRIPTION_BASE_CLASS)]), class)
 }
 
-pub fn drawer_close_class(class: &str) -> String {
+fn drawer_close_class(class: &str) -> String {
   merge_classes(classes([Some(DRAWER_CLOSE_BASE_CLASS)]), class)
 }
 

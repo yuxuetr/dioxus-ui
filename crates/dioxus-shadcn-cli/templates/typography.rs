@@ -1,54 +1,56 @@
+//! Typography: styled semantic text parts, such as headings, paragraphs, and
+//! lists. It does not parse Markdown or manage heading hierarchy.
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
-pub const TYPOGRAPHY_PROSE_BASE_CLASS: &str = "max-w-none text-foreground";
-pub const TYPOGRAPHY_H1_BASE_CLASS: &str =
+const TYPOGRAPHY_PROSE_BASE_CLASS: &str = "max-w-none text-foreground";
+const TYPOGRAPHY_H1_BASE_CLASS: &str =
   "scroll-m-20 text-4xl font-extrabold tracking-normal text-foreground";
-pub const TYPOGRAPHY_H2_BASE_CLASS: &str =
+const TYPOGRAPHY_H2_BASE_CLASS: &str =
   "scroll-m-20 border-b border-border pb-2 text-3xl font-semibold tracking-normal text-foreground";
-pub const TYPOGRAPHY_H3_BASE_CLASS: &str =
+const TYPOGRAPHY_H3_BASE_CLASS: &str =
   "scroll-m-20 text-2xl font-semibold tracking-normal text-foreground";
-pub const TYPOGRAPHY_P_BASE_CLASS: &str = "leading-7 text-foreground";
-pub const TYPOGRAPHY_LEAD_BASE_CLASS: &str = "text-xl text-muted-foreground";
-pub const TYPOGRAPHY_MUTED_BASE_CLASS: &str = "text-sm text-muted-foreground";
-pub const TYPOGRAPHY_BLOCKQUOTE_BASE_CLASS: &str =
+const TYPOGRAPHY_P_BASE_CLASS: &str = "leading-7 text-foreground";
+const TYPOGRAPHY_LEAD_BASE_CLASS: &str = "text-xl text-muted-foreground";
+const TYPOGRAPHY_MUTED_BASE_CLASS: &str = "text-sm text-muted-foreground";
+const TYPOGRAPHY_BLOCKQUOTE_BASE_CLASS: &str =
   "mt-6 border-l-2 border-border pl-6 italic text-foreground";
-pub const TYPOGRAPHY_INLINE_CODE_BASE_CLASS: &str =
+const TYPOGRAPHY_INLINE_CODE_BASE_CLASS: &str =
   "relative rounded bg-muted px-1.5 py-0.5 font-mono text-sm text-foreground";
 
-pub fn typography_prose_class(class: &str) -> String {
+fn typography_prose_class(class: &str) -> String {
   merge_classes(classes([Some(TYPOGRAPHY_PROSE_BASE_CLASS)]), class)
 }
 
-pub fn typography_h1_class(class: &str) -> String {
+fn typography_h1_class(class: &str) -> String {
   merge_classes(classes([Some(TYPOGRAPHY_H1_BASE_CLASS)]), class)
 }
 
-pub fn typography_h2_class(class: &str) -> String {
+fn typography_h2_class(class: &str) -> String {
   merge_classes(classes([Some(TYPOGRAPHY_H2_BASE_CLASS)]), class)
 }
 
-pub fn typography_h3_class(class: &str) -> String {
+fn typography_h3_class(class: &str) -> String {
   merge_classes(classes([Some(TYPOGRAPHY_H3_BASE_CLASS)]), class)
 }
 
-pub fn typography_p_class(class: &str) -> String {
+fn typography_p_class(class: &str) -> String {
   merge_classes(classes([Some(TYPOGRAPHY_P_BASE_CLASS)]), class)
 }
 
-pub fn typography_lead_class(class: &str) -> String {
+fn typography_lead_class(class: &str) -> String {
   merge_classes(classes([Some(TYPOGRAPHY_LEAD_BASE_CLASS)]), class)
 }
 
-pub fn typography_muted_class(class: &str) -> String {
+fn typography_muted_class(class: &str) -> String {
   merge_classes(classes([Some(TYPOGRAPHY_MUTED_BASE_CLASS)]), class)
 }
 
-pub fn typography_blockquote_class(class: &str) -> String {
+fn typography_blockquote_class(class: &str) -> String {
   merge_classes(classes([Some(TYPOGRAPHY_BLOCKQUOTE_BASE_CLASS)]), class)
 }
 
-pub fn typography_inline_code_class(class: &str) -> String {
+fn typography_inline_code_class(class: &str) -> String {
   merge_classes(classes([Some(TYPOGRAPHY_INLINE_CODE_BASE_CLASS)]), class)
 }
 

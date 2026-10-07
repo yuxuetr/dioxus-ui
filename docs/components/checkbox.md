@@ -19,7 +19,6 @@ dioxus-shadcn = { version = "0.5", default-features = false, features = ["checkb
 
 - `Checkbox`
 - `checkbox_class`
-- `checkbox_state`, `checkbox_requested_state`
 
 ## Change Events
 

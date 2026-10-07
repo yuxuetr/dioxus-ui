@@ -1,3 +1,6 @@
+//! Calendar: styled parts for a month grid of dates, with month navigation and single
+//! or range selection that the app controls.
+
 use std::rc::Rc;
 use std::sync::atomic::{AtomicBool, Ordering};
 
@@ -10,49 +13,51 @@ pub use dioxus_shadcn_primitives::{
   calendar_range_state, days_in_month, is_leap_year,
 };
 
-pub const CALENDAR_BASE_CLASS: &str =
+const CALENDAR_BASE_CLASS: &str =
   "w-fit rounded-md border border-border bg-background p-3 text-foreground";
-pub const CALENDAR_HEADER_BASE_CLASS: &str = "mb-3 flex items-center justify-between gap-2";
-pub const CALENDAR_CAPTION_BASE_CLASS: &str = "text-sm font-medium";
-pub const CALENDAR_NAV_BASE_CLASS: &str = "flex items-center gap-1";
-pub const CALENDAR_NAV_BUTTON_BASE_CLASS: &str = "inline-flex h-8 w-8 items-center justify-center rounded-md text-sm transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
-pub const CALENDAR_GRID_BASE_CLASS: &str = "grid gap-1";
-pub const CALENDAR_HEAD_BASE_CLASS: &str = "grid grid-cols-7 gap-1";
-pub const CALENDAR_HEAD_CELL_BASE_CLASS: &str =
+const CALENDAR_HEADER_BASE_CLASS: &str = "mb-3 flex items-center justify-between gap-2";
+const CALENDAR_CAPTION_BASE_CLASS: &str = "text-sm font-medium";
+const CALENDAR_NAV_BASE_CLASS: &str = "flex items-center gap-1";
+const CALENDAR_NAV_BUTTON_BASE_CLASS: &str = "inline-flex h-8 w-8 items-center justify-center rounded-md text-sm transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+const CALENDAR_GRID_BASE_CLASS: &str = "grid gap-1";
+const CALENDAR_HEAD_BASE_CLASS: &str = "grid grid-cols-7 gap-1";
+const CALENDAR_HEAD_CELL_BASE_CLASS: &str =
   "flex h-8 w-8 items-center justify-center text-xs font-medium text-muted-foreground";
-pub const CALENDAR_BODY_BASE_CLASS: &str = "grid gap-1";
-pub const CALENDAR_ROW_BASE_CLASS: &str = "grid grid-cols-7 gap-1";
-pub const CALENDAR_DAY_BASE_CLASS: &str = "inline-flex h-8 w-8 items-center justify-center rounded-md text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
-pub const CALENDAR_DAY_SELECTED_CLASS: &str =
-  "bg-primary text-primary-foreground hover:bg-primary/90";
-pub const CALENDAR_DAY_TODAY_CLASS: &str = "border border-input";
-pub const CALENDAR_DAY_OUTSIDE_CLASS: &str = "text-muted-foreground";
-pub const CALENDAR_DAY_RANGE_CLASS: &str = "bg-accent text-accent-foreground";
+const CALENDAR_BODY_BASE_CLASS: &str = "grid gap-1";
+const CALENDAR_ROW_BASE_CLASS: &str = "grid grid-cols-7 gap-1";
+const CALENDAR_DAY_BASE_CLASS: &str = "inline-flex h-8 w-8 items-center justify-center rounded-md text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+const CALENDAR_DAY_SELECTED_CLASS: &str = "bg-primary text-primary-foreground hover:bg-primary/90";
+const CALENDAR_DAY_TODAY_CLASS: &str = "border border-input";
+const CALENDAR_DAY_OUTSIDE_CLASS: &str = "text-muted-foreground";
+const CALENDAR_DAY_RANGE_CLASS: &str = "bg-accent text-accent-foreground";
 
+/// Which way a `CalendarNavButton` moves the month.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum CalendarNavDirection {
+  /// Back to the previous month.
   #[default]
   Previous,
+  /// On to the next month.
   Next,
 }
 
-pub fn calendar_class(class: &str) -> String {
+fn calendar_class(class: &str) -> String {
   merge_classes(classes([Some(CALENDAR_BASE_CLASS)]), class)
 }
 
-pub fn calendar_header_class(class: &str) -> String {
+fn calendar_header_class(class: &str) -> String {
   merge_classes(classes([Some(CALENDAR_HEADER_BASE_CLASS)]), class)
 }
 
-pub fn calendar_caption_class(class: &str) -> String {
+fn calendar_caption_class(class: &str) -> String {
   merge_classes(classes([Some(CALENDAR_CAPTION_BASE_CLASS)]), class)
 }
 
-pub fn calendar_nav_class(class: &str) -> String {
+fn calendar_nav_class(class: &str) -> String {
   merge_classes(classes([Some(CALENDAR_NAV_BASE_CLASS)]), class)
 }
 
-pub fn calendar_nav_button_class(disabled: bool, class: &str) -> String {
+fn calendar_nav_button_class(disabled: bool, class: &str) -> String {
   merge_classes(
     classes([
       Some(CALENDAR_NAV_BUTTON_BASE_CLASS),
@@ -62,27 +67,27 @@ pub fn calendar_nav_button_class(disabled: bool, class: &str) -> String {
   )
 }
 
-pub fn calendar_grid_class(class: &str) -> String {
+fn calendar_grid_class(class: &str) -> String {
   merge_classes(classes([Some(CALENDAR_GRID_BASE_CLASS)]), class)
 }
 
-pub fn calendar_head_class(class: &str) -> String {
+fn calendar_head_class(class: &str) -> String {
   merge_classes(classes([Some(CALENDAR_HEAD_BASE_CLASS)]), class)
 }
 
-pub fn calendar_head_cell_class(class: &str) -> String {
+fn calendar_head_cell_class(class: &str) -> String {
   merge_classes(classes([Some(CALENDAR_HEAD_CELL_BASE_CLASS)]), class)
 }
 
-pub fn calendar_body_class(class: &str) -> String {
+fn calendar_body_class(class: &str) -> String {
   merge_classes(classes([Some(CALENDAR_BODY_BASE_CLASS)]), class)
 }
 
-pub fn calendar_row_class(class: &str) -> String {
+fn calendar_row_class(class: &str) -> String {
   merge_classes(classes([Some(CALENDAR_ROW_BASE_CLASS)]), class)
 }
 
-pub fn calendar_day_class(
+fn calendar_day_class(
   selected: bool,
   today: bool,
   outside_month: bool,
@@ -135,7 +140,7 @@ pub fn calendar_key_move(key: &Key, shift: bool) -> Option<CalendarKeyMove> {
   }
 }
 
-pub fn calendar_range_attribute(range_state: CalendarRangeState) -> &'static str {
+fn calendar_range_attribute(range_state: CalendarRangeState) -> &'static str {
   match range_state {
     CalendarRangeState::Outside => "outside",
     CalendarRangeState::Single => "single",

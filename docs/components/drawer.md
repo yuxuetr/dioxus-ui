@@ -18,6 +18,8 @@ dioxus-shadcn = { version = "0.5", default-features = false, features = ["drawer
 
 ## API Surface
 
+- `Drawer`
+- `DrawerTrigger`
 - `DrawerOverlay`
 - `DrawerContent`
 - `DrawerHeader`

@@ -1,3 +1,6 @@
+//! Toast: notification parts and pure queue helpers. The app owns the queue; each
+//! `ToastRoot` runs its own dismiss countdown inside a polite live region.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
@@ -9,15 +12,15 @@ pub use dioxus_shadcn_primitives::{
 use crate::density::{density_control_class, use_density, with_density};
 use crate::dismiss_timer::use_dismiss_timer;
 
-pub const TOAST_VIEWPORT_BASE_CLASS: &str =
+const TOAST_VIEWPORT_BASE_CLASS: &str =
   "fixed z-50 flex max-h-screen w-full flex-col gap-2 p-4 sm:max-w-sm";
-pub const TOAST_ROOT_BASE_CLASS: &str = "pointer-events-auto relative grid w-full gap-1 overflow-hidden rounded-md border bg-popover p-4 pr-10 text-popover-foreground shadow-lg transition-all data-[state=closed]:opacity-0 data-[state=open]:opacity-100";
-pub const TOAST_TITLE_BASE_CLASS: &str = "text-sm font-semibold leading-none tracking-normal";
-pub const TOAST_DESCRIPTION_BASE_CLASS: &str = "text-sm";
-pub const TOAST_ACTION_BASE_CLASS: &str = "inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-border bg-transparent px-3 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
-pub const TOAST_CLOSE_BASE_CLASS: &str = "absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+const TOAST_ROOT_BASE_CLASS: &str = "pointer-events-auto relative grid w-full gap-1 overflow-hidden rounded-md border bg-popover p-4 pr-10 text-popover-foreground shadow-lg transition-all data-[state=closed]:opacity-0 data-[state=open]:opacity-100";
+const TOAST_TITLE_BASE_CLASS: &str = "text-sm font-semibold leading-none tracking-normal";
+const TOAST_DESCRIPTION_BASE_CLASS: &str = "text-sm";
+const TOAST_ACTION_BASE_CLASS: &str = "inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-border bg-transparent px-3 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+const TOAST_CLOSE_BASE_CLASS: &str = "absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
-pub fn toast_viewport_class(placement: ToastPlacement, class: &str) -> String {
+fn toast_viewport_class(placement: ToastPlacement, class: &str) -> String {
   let placement_class = match placement {
     ToastPlacement::TopLeft => "left-0 top-0 sm:left-0",
     ToastPlacement::TopCenter => "top-0 sm:left-1/2 sm:-translate-x-1/2",
@@ -30,7 +33,7 @@ pub fn toast_viewport_class(placement: ToastPlacement, class: &str) -> String {
   merge_classes(classes([Some(TOAST_VIEWPORT_BASE_CLASS), Some(placement_class)]), class)
 }
 
-pub fn toast_root_class(variant: ToastVariant, class: &str) -> String {
+fn toast_root_class(variant: ToastVariant, class: &str) -> String {
   let variant_class = match variant {
     ToastVariant::Default => "border-border",
     ToastVariant::Success => "border-success/50",
@@ -43,11 +46,11 @@ pub fn toast_root_class(variant: ToastVariant, class: &str) -> String {
   merge_classes(classes([Some(TOAST_ROOT_BASE_CLASS), Some(variant_class)]), class)
 }
 
-pub fn toast_title_class(class: &str) -> String {
+fn toast_title_class(class: &str) -> String {
   merge_classes(classes([Some(TOAST_TITLE_BASE_CLASS)]), class)
 }
 
-pub fn toast_description_class(variant: ToastVariant, class: &str) -> String {
+fn toast_description_class(variant: ToastVariant, class: &str) -> String {
   let variant_class = match variant {
     ToastVariant::Default | ToastVariant::Loading => "text-muted-foreground",
     ToastVariant::Success => "text-muted-foreground",
@@ -59,21 +62,21 @@ pub fn toast_description_class(variant: ToastVariant, class: &str) -> String {
   merge_classes(classes([Some(TOAST_DESCRIPTION_BASE_CLASS), Some(variant_class)]), class)
 }
 
-pub fn toast_action_class(disabled: bool, class: &str) -> String {
+fn toast_action_class(disabled: bool, class: &str) -> String {
   merge_classes(
     classes([Some(TOAST_ACTION_BASE_CLASS), disabled.then_some("pointer-events-none opacity-50")]),
     class,
   )
 }
 
-pub fn toast_close_class(disabled: bool, class: &str) -> String {
+fn toast_close_class(disabled: bool, class: &str) -> String {
   merge_classes(
     classes([Some(TOAST_CLOSE_BASE_CLASS), disabled.then_some("pointer-events-none opacity-50")]),
     class,
   )
 }
 
-pub fn toast_live_attribute(variant: ToastVariant) -> &'static str {
+fn toast_live_attribute(variant: ToastVariant) -> &'static str {
   match variant {
     ToastVariant::Error | ToastVariant::Warning => "assertive",
     ToastVariant::Default | ToastVariant::Success | ToastVariant::Info | ToastVariant::Loading => {

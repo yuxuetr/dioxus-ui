@@ -20,7 +20,6 @@ dioxus-shadcn = { version = "0.5", default-features = false, features = ["countd
 - `Countdown`
 - `CountdownParts`
 - `countdown_parts`
-- `countdown_segments`
 - `countdown_class`
 
 ```rust

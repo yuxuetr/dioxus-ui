@@ -1,8 +1,10 @@
+//! Label: consistent text styling for the label of a form control.
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
-pub const LABEL_BASE_CLASS: &str = "text-sm font-medium leading-none text-foreground peer-disabled:cursor-not-allowed peer-disabled:opacity-70";
+const LABEL_BASE_CLASS: &str = "text-sm font-medium leading-none text-foreground peer-disabled:cursor-not-allowed peer-disabled:opacity-70";
 
+/// Classes for the label, dimmed when its peer control is disabled, with `class` merged over them.
 pub fn label_class(class: &str) -> String {
   merge_classes(classes([Some(LABEL_BASE_CLASS)]), class)
 }

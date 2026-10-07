@@ -191,23 +191,11 @@ fn describe(key: &str, tokens: &str, mismatched: &[(String, String)]) -> String 
 }
 
 /// Crate items templates leave out on purpose: (template, item, reason).
-const CRATE_ONLY: &[(&str, &str, &str)] = &[
-  (
-    "chart.rs",
-    "CHART_COLOR_CLASSES",
-    "lists classes for Tailwind's crate scan; templates inline the primitive that spells them",
-  ),
-  (
-    "combobox.rs",
-    "combobox_active_descendant_state",
-    "wraps the primitives' ActiveDescendantState, which templates do not inline",
-  ),
-  (
-    "command.rs",
-    "command_active_descendant_state",
-    "wraps the primitives' ActiveDescendantState, which templates do not inline",
-  ),
-];
+const CRATE_ONLY: &[(&str, &str, &str)] = &[(
+  "chart.rs",
+  "CHART_COLOR_CLASSES",
+  "lists classes for Tailwind's crate scan; templates inline the primitive that spells them",
+)];
 
 #[test]
 fn templates_match_crate_modules() {

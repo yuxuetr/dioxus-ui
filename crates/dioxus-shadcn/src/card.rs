@@ -1,35 +1,39 @@
+//! Card: a container that groups related content, with optional header, title,
+//! description, content, and footer sections.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
-pub const CARD_BASE_CLASS: &str =
+const CARD_BASE_CLASS: &str =
   "rounded-md border border-border bg-card text-card-foreground shadow-sm";
-pub const CARD_HEADER_BASE_CLASS: &str = "flex flex-col gap-1.5 p-6";
-pub const CARD_TITLE_BASE_CLASS: &str = "text-2xl font-semibold leading-none tracking-normal";
-pub const CARD_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
-pub const CARD_CONTENT_BASE_CLASS: &str = "p-6 pt-0";
-pub const CARD_FOOTER_BASE_CLASS: &str = "flex items-center p-6 pt-0";
+const CARD_HEADER_BASE_CLASS: &str = "flex flex-col gap-1.5 p-6";
+const CARD_TITLE_BASE_CLASS: &str = "text-2xl font-semibold leading-none tracking-normal";
+const CARD_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
+const CARD_CONTENT_BASE_CLASS: &str = "p-6 pt-0";
+const CARD_FOOTER_BASE_CLASS: &str = "flex items-center p-6 pt-0";
 
+/// Classes for the card's bordered surface, with `class` merged over them.
 pub fn card_class(class: &str) -> String {
   merge_classes(classes([Some(CARD_BASE_CLASS)]), class)
 }
 
-pub fn card_header_class(class: &str) -> String {
+fn card_header_class(class: &str) -> String {
   merge_classes(classes([Some(CARD_HEADER_BASE_CLASS)]), class)
 }
 
-pub fn card_title_class(class: &str) -> String {
+fn card_title_class(class: &str) -> String {
   merge_classes(classes([Some(CARD_TITLE_BASE_CLASS)]), class)
 }
 
-pub fn card_description_class(class: &str) -> String {
+fn card_description_class(class: &str) -> String {
   merge_classes(classes([Some(CARD_DESCRIPTION_BASE_CLASS)]), class)
 }
 
-pub fn card_content_class(class: &str) -> String {
+fn card_content_class(class: &str) -> String {
   merge_classes(classes([Some(CARD_CONTENT_BASE_CLASS)]), class)
 }
 
-pub fn card_footer_class(class: &str) -> String {
+fn card_footer_class(class: &str) -> String {
   merge_classes(classes([Some(CARD_FOOTER_BASE_CLASS)]), class)
 }
 

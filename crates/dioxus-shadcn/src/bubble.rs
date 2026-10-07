@@ -1,62 +1,83 @@
+//! Bubble: provider-neutral message surfaces for chat or activity UIs, with
+//! reactions placed above or below the message.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
+/// The color treatment of a bubble's content.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum BubbleVariant {
+  /// Primary background and text.
   #[default]
   Default,
+  /// Secondary background.
   Secondary,
+  /// Muted background and text.
   Muted,
+  /// A light info tint.
   Tinted,
+  /// A bordered bubble on the page background.
   Outline,
+  /// No background or border.
   Ghost,
+  /// A light destructive tint with a border, for failed or flagged messages.
   Destructive,
 }
 
+/// Which side of the conversation a bubble sits on.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum BubbleAlign {
+  /// Sits at the start of the row.
   #[default]
   Start,
+  /// Sits at the end of the row.
   End,
 }
 
+/// Whether reactions show below or above the bubble's content.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum BubbleReactionSide {
+  /// Below the content.
   #[default]
   Bottom,
+  /// Above the content.
   Top,
 }
 
+/// Where reactions line up along the bubble.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum BubbleReactionAlign {
+  /// At the start edge.
   Start,
+  /// Centered.
   #[default]
   Center,
+  /// At the end edge.
   End,
 }
 
-pub const BUBBLE_BASE_CLASS: &str = "group flex max-w-full flex-col gap-1";
-pub const BUBBLE_ALIGN_START_CLASS: &str = "items-start";
-pub const BUBBLE_ALIGN_END_CLASS: &str = "items-end";
-pub const BUBBLE_GROUP_BASE_CLASS: &str = "flex flex-col gap-2";
-pub const BUBBLE_CONTENT_BASE_CLASS: &str = "min-w-0 rounded-md px-3 py-2 text-sm leading-6";
-pub const BUBBLE_DEFAULT_CLASS: &str = "bg-primary text-primary-foreground";
-pub const BUBBLE_SECONDARY_CLASS: &str = "bg-secondary text-secondary-foreground";
-pub const BUBBLE_MUTED_CLASS: &str = "bg-muted text-muted-foreground";
-pub const BUBBLE_TINTED_CLASS: &str = "bg-info/10 text-foreground";
-pub const BUBBLE_OUTLINE_CLASS: &str = "border border-border bg-background text-foreground";
-pub const BUBBLE_GHOST_CLASS: &str = "bg-transparent text-foreground";
-pub const BUBBLE_DESTRUCTIVE_CLASS: &str =
+const BUBBLE_BASE_CLASS: &str = "group flex max-w-full flex-col gap-1";
+const BUBBLE_ALIGN_START_CLASS: &str = "items-start";
+const BUBBLE_ALIGN_END_CLASS: &str = "items-end";
+const BUBBLE_GROUP_BASE_CLASS: &str = "flex flex-col gap-2";
+const BUBBLE_CONTENT_BASE_CLASS: &str = "min-w-0 rounded-md px-3 py-2 text-sm leading-6";
+const BUBBLE_DEFAULT_CLASS: &str = "bg-primary text-primary-foreground";
+const BUBBLE_SECONDARY_CLASS: &str = "bg-secondary text-secondary-foreground";
+const BUBBLE_MUTED_CLASS: &str = "bg-muted text-muted-foreground";
+const BUBBLE_TINTED_CLASS: &str = "bg-info/10 text-foreground";
+const BUBBLE_OUTLINE_CLASS: &str = "border border-border bg-background text-foreground";
+const BUBBLE_GHOST_CLASS: &str = "bg-transparent text-foreground";
+const BUBBLE_DESTRUCTIVE_CLASS: &str =
   "bg-destructive/10 text-foreground border border-destructive/30";
-pub const BUBBLE_REACTIONS_BASE_CLASS: &str =
-  "flex items-center gap-1 text-xs text-muted-foreground";
-pub const BUBBLE_REACTIONS_TOP_CLASS: &str = "order-first mb-1";
-pub const BUBBLE_REACTIONS_BOTTOM_CLASS: &str = "order-last mt-1";
-pub const BUBBLE_REACTIONS_ALIGN_START_CLASS: &str = "self-start";
-pub const BUBBLE_REACTIONS_ALIGN_CENTER_CLASS: &str = "self-center";
-pub const BUBBLE_REACTIONS_ALIGN_END_CLASS: &str = "self-end";
+const BUBBLE_REACTIONS_BASE_CLASS: &str = "flex items-center gap-1 text-xs text-muted-foreground";
+const BUBBLE_REACTIONS_TOP_CLASS: &str = "order-first mb-1";
+const BUBBLE_REACTIONS_BOTTOM_CLASS: &str = "order-last mt-1";
+const BUBBLE_REACTIONS_ALIGN_START_CLASS: &str = "self-start";
+const BUBBLE_REACTIONS_ALIGN_CENTER_CLASS: &str = "self-center";
+const BUBBLE_REACTIONS_ALIGN_END_CLASS: &str = "self-end";
 
 impl BubbleVariant {
+  /// The background, text, and border classes for this variant.
   pub const fn class(self) -> &'static str {
     match self {
       Self::Default => BUBBLE_DEFAULT_CLASS,
@@ -69,6 +90,7 @@ impl BubbleVariant {
     }
   }
 
+  /// The `data-variant` value for this variant.
   pub const fn attribute(self) -> &'static str {
     match self {
       Self::Default => "default",
@@ -83,6 +105,7 @@ impl BubbleVariant {
 }
 
 impl BubbleAlign {
+  /// The flex alignment class that puts the bubble at this side.
   pub const fn class(self) -> &'static str {
     match self {
       Self::Start => BUBBLE_ALIGN_START_CLASS,
@@ -90,6 +113,7 @@ impl BubbleAlign {
     }
   }
 
+  /// The `data-align` value for this side.
   pub const fn attribute(self) -> &'static str {
     match self {
       Self::Start => "start",
@@ -99,6 +123,7 @@ impl BubbleAlign {
 }
 
 impl BubbleReactionSide {
+  /// The order and margin classes that put reactions on this side.
   pub const fn class(self) -> &'static str {
     match self {
       Self::Top => BUBBLE_REACTIONS_TOP_CLASS,
@@ -106,6 +131,7 @@ impl BubbleReactionSide {
     }
   }
 
+  /// The `data-side` value for this side.
   pub const fn attribute(self) -> &'static str {
     match self {
       Self::Top => "top",
@@ -115,6 +141,7 @@ impl BubbleReactionSide {
 }
 
 impl BubbleReactionAlign {
+  /// The self-alignment class for this position.
   pub const fn class(self) -> &'static str {
     match self {
       Self::Start => BUBBLE_REACTIONS_ALIGN_START_CLASS,
@@ -123,6 +150,7 @@ impl BubbleReactionAlign {
     }
   }
 
+  /// The `data-align` value for this position.
   pub const fn attribute(self) -> &'static str {
     match self {
       Self::Start => "start",
@@ -132,18 +160,25 @@ impl BubbleReactionAlign {
   }
 }
 
+/// Classes for the bubble's column: base classes, the `align` side's, then
+/// `class` merged over them.
 pub fn bubble_class(align: BubbleAlign, class: &str) -> String {
   merge_classes(classes([Some(BUBBLE_BASE_CLASS), Some(align.class())]), class)
 }
 
+/// Classes for a group of consecutive bubbles, with `class` merged over them.
 pub fn bubble_group_class(class: &str) -> String {
   merge_classes(classes([Some(BUBBLE_GROUP_BASE_CLASS)]), class)
 }
 
+/// Classes for the message surface: base classes, the `variant`'s colors, then
+/// `class` merged over them.
 pub fn bubble_content_class(variant: BubbleVariant, class: &str) -> String {
   merge_classes(classes([Some(BUBBLE_CONTENT_BASE_CLASS), Some(variant.class())]), class)
 }
 
+/// Classes for the reactions row: base classes, the `side` and `align`
+/// placement, then `class` merged over them.
 pub fn bubble_reactions_class(
   side: BubbleReactionSide,
   align: BubbleReactionAlign,

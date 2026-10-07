@@ -1,39 +1,41 @@
+//! Data Table: controlled parts and pure state helpers for sortable, selectable,
+//! paginated tables. The app owns the rows, fetching, and filtering.
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
   DataTableColumnState, DataTablePaginationState, DataTableSelectionState, DataTableSortDirection,
-  DataTableSortState, data_table_clamp_page, data_table_is_column_visible, data_table_page_count,
-  data_table_page_window, data_table_toggle_all_rows, data_table_toggle_column,
-  data_table_toggle_row, data_table_toggle_sort,
+  DataTableSortState, data_table_is_column_visible, data_table_page_count, data_table_page_window,
+  data_table_toggle_all_rows, data_table_toggle_column, data_table_toggle_row,
+  data_table_toggle_sort,
 };
 
-pub const DATA_TABLE_BASE_CLASS: &str = "grid gap-4";
-pub const DATA_TABLE_TOOLBAR_BASE_CLASS: &str =
+const DATA_TABLE_BASE_CLASS: &str = "grid gap-4";
+const DATA_TABLE_TOOLBAR_BASE_CLASS: &str =
   "flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between";
-pub const DATA_TABLE_CONTAINER_BASE_CLASS: &str =
+const DATA_TABLE_CONTAINER_BASE_CLASS: &str =
   "relative w-full overflow-auto rounded-md border border-border";
-pub const DATA_TABLE_HEADER_CELL_BASE_CLASS: &str = "h-12 px-4 text-left align-middle text-sm font-medium data-[sort=ascending]:text-foreground data-[sort=descending]:text-foreground";
-pub const DATA_TABLE_ROW_BASE_CLASS: &str = "border-b transition-colors hover:bg-muted data-[selected=true]:bg-muted data-[disabled=true]:opacity-50";
-pub const DATA_TABLE_CELL_BASE_CLASS: &str = "p-4 align-middle text-sm";
-pub const DATA_TABLE_PAGINATION_BASE_CLASS: &str =
+const DATA_TABLE_HEADER_CELL_BASE_CLASS: &str = "h-12 px-4 text-left align-middle text-sm font-medium data-[sort=ascending]:text-foreground data-[sort=descending]:text-foreground";
+const DATA_TABLE_ROW_BASE_CLASS: &str = "border-b transition-colors hover:bg-muted data-[selected=true]:bg-muted data-[disabled=true]:opacity-50";
+const DATA_TABLE_CELL_BASE_CLASS: &str = "p-4 align-middle text-sm";
+const DATA_TABLE_PAGINATION_BASE_CLASS: &str =
   "flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between";
-pub const DATA_TABLE_SELECTED_COUNT_BASE_CLASS: &str = "text-sm text-muted-foreground";
-pub const DATA_TABLE_EMPTY_BASE_CLASS: &str = "py-10 text-center text-sm text-muted-foreground";
-pub const DATA_TABLE_LOADING_BASE_CLASS: &str = "py-10 text-center text-sm text-muted-foreground";
+const DATA_TABLE_SELECTED_COUNT_BASE_CLASS: &str = "text-sm text-muted-foreground";
+const DATA_TABLE_EMPTY_BASE_CLASS: &str = "py-10 text-center text-sm text-muted-foreground";
+const DATA_TABLE_LOADING_BASE_CLASS: &str = "py-10 text-center text-sm text-muted-foreground";
 
-pub fn data_table_class(class: &str) -> String {
+fn data_table_class(class: &str) -> String {
   merge_classes(classes([Some(DATA_TABLE_BASE_CLASS)]), class)
 }
 
-pub fn data_table_toolbar_class(class: &str) -> String {
+fn data_table_toolbar_class(class: &str) -> String {
   merge_classes(classes([Some(DATA_TABLE_TOOLBAR_BASE_CLASS)]), class)
 }
 
-pub fn data_table_container_class(class: &str) -> String {
+fn data_table_container_class(class: &str) -> String {
   merge_classes(classes([Some(DATA_TABLE_CONTAINER_BASE_CLASS)]), class)
 }
 
-pub fn data_table_header_cell_class(sorted: bool, class: &str) -> String {
+fn data_table_header_cell_class(sorted: bool, class: &str) -> String {
   merge_classes(
     classes([
       Some(DATA_TABLE_HEADER_CELL_BASE_CLASS),
@@ -43,7 +45,7 @@ pub fn data_table_header_cell_class(sorted: bool, class: &str) -> String {
   )
 }
 
-pub fn data_table_row_class(selected: bool, disabled: bool, class: &str) -> String {
+fn data_table_row_class(selected: bool, disabled: bool, class: &str) -> String {
   merge_classes(
     classes([
       Some(DATA_TABLE_ROW_BASE_CLASS),
@@ -54,27 +56,27 @@ pub fn data_table_row_class(selected: bool, disabled: bool, class: &str) -> Stri
   )
 }
 
-pub fn data_table_cell_class(hidden: bool, class: &str) -> String {
+fn data_table_cell_class(hidden: bool, class: &str) -> String {
   merge_classes(classes([Some(DATA_TABLE_CELL_BASE_CLASS), hidden.then_some("hidden")]), class)
 }
 
-pub fn data_table_pagination_class(class: &str) -> String {
+fn data_table_pagination_class(class: &str) -> String {
   merge_classes(classes([Some(DATA_TABLE_PAGINATION_BASE_CLASS)]), class)
 }
 
-pub fn data_table_selected_count_class(class: &str) -> String {
+fn data_table_selected_count_class(class: &str) -> String {
   merge_classes(classes([Some(DATA_TABLE_SELECTED_COUNT_BASE_CLASS)]), class)
 }
 
-pub fn data_table_empty_class(class: &str) -> String {
+fn data_table_empty_class(class: &str) -> String {
   merge_classes(classes([Some(DATA_TABLE_EMPTY_BASE_CLASS)]), class)
 }
 
-pub fn data_table_loading_class(class: &str) -> String {
+fn data_table_loading_class(class: &str) -> String {
   merge_classes(classes([Some(DATA_TABLE_LOADING_BASE_CLASS)]), class)
 }
 
-pub fn data_table_sort_attribute(direction: Option<DataTableSortDirection>) -> &'static str {
+fn data_table_sort_attribute(direction: Option<DataTableSortDirection>) -> &'static str {
   match direction {
     Some(DataTableSortDirection::Ascending) => "ascending",
     Some(DataTableSortDirection::Descending) => "descending",

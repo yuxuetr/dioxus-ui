@@ -1,11 +1,15 @@
+//! Native Select: a styled wrapper around the platform `select`, `optgroup`,
+//! and `option` elements, for simple forms and native form submission.
 use super::utils::{UiDensity, classes, merge_classes};
 use super::density::{use_density, with_density};
 use dioxus::prelude::*;
 
-pub const NATIVE_SELECT_BASE_CLASS: &str = "h-10 w-full rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
-pub const NATIVE_SELECT_GROUP_BASE_CLASS: &str = "text-sm font-medium text-foreground";
-pub const NATIVE_SELECT_OPTION_BASE_CLASS: &str = "text-sm text-foreground";
+const NATIVE_SELECT_BASE_CLASS: &str = "h-10 w-full rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
+const NATIVE_SELECT_GROUP_BASE_CLASS: &str = "text-sm font-medium text-foreground";
+const NATIVE_SELECT_OPTION_BASE_CLASS: &str = "text-sm text-foreground";
 
+/// Classes for the `select`: base classes, a destructive border and ring when
+/// `invalid`, then `class` merged over them.
 pub fn native_select_class(invalid: bool, class: &str) -> String {
   let invalid_class = if invalid {
     "border-destructive focus-visible:ring-destructive"
@@ -16,10 +20,12 @@ pub fn native_select_class(invalid: bool, class: &str) -> String {
   merge_classes(classes([Some(NATIVE_SELECT_BASE_CLASS), Some(invalid_class)]), class)
 }
 
+/// Classes for an `optgroup`, with `class` merged over them.
 pub fn native_select_group_class(class: &str) -> String {
   merge_classes(classes([Some(NATIVE_SELECT_GROUP_BASE_CLASS)]), class)
 }
 
+/// Classes for an `option`, with `class` merged over them.
 pub fn native_select_option_class(class: &str) -> String {
   merge_classes(classes([Some(NATIVE_SELECT_OPTION_BASE_CLASS)]), class)
 }

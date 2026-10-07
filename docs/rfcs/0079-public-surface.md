@@ -7,7 +7,7 @@
 
 0.6.0 keeps public only what a docs page, the site, a block, or the CLI
 shows, and documents all of it. In `dioxus-shadcn` that makes 443 class
-constants, 222 class functions, and 20 other items private and drops the
+constants, 164 class functions, and 57 other items private and drops the
 primitive re-exports nothing shows; `dioxus-shadcn-primitives` keeps a semver
 promise of its own, loses the items nothing uses, and documents the rest.
 Every library crate denies `missing_docs`.
@@ -21,30 +21,31 @@ component page's text or example, the site, a block, the styled crate (for
 the other crates), the CLI, an example app, a script, another module of the
 same crate, or nowhere. A name in a page's "API Surface" list is counted
 apart, as "listed", since a list promises an item whether or not anything
-uses it. Measured at `v0.5.0`:
+uses it: every name that opens a code span in a page's "API Surface", and
+every class function of a page that lists "class helpers for every part". Measured at `v0.5.0`:
 
 | Crate | Kind | Items | Undocumented | Undocumented parts | Listed | docs | site | blocks | styled | cli | examples | scripts | crate | nowhere |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | dioxus-shadcn | class constant | 444 | 441 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 444 |
-| dioxus-shadcn | class function | 358 | 344 | 0 | 134 | 18 | 0 | 0 | 0 | 0 | 158 | 0 | 1 | 181 |
-| dioxus-shadcn | component | 381 | 0 | 0 | 342 | 345 | 36 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| dioxus-shadcn | class function | 358 | 344 | 0 | 192 | 18 | 0 | 0 | 0 | 0 | 158 | 0 | 1 | 181 |
+| dioxus-shadcn | component | 381 | 0 | 0 | 377 | 345 | 36 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | dioxus-shadcn | constant | 4 | 1 | 0 | 2 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
 | dioxus-shadcn | enum | 45 | 39 | 176 | 45 | 26 | 15 | 0 | 0 | 0 | 2 | 0 | 0 | 2 |
-| dioxus-shadcn | function | 67 | 38 | 0 | 44 | 12 | 2 | 0 | 0 | 0 | 18 | 0 | 0 | 35 |
-| dioxus-shadcn | module | 83 | 82 | 0 | 0 | 83 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| dioxus-shadcn | function | 67 | 38 | 0 | 51 | 12 | 2 | 0 | 0 | 0 | 18 | 0 | 0 | 35 |
+| dioxus-shadcn | module | 83 | 82 | 0 | 1 | 83 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | dioxus-shadcn | props | 381 | 0 | 1381 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 380 |
-| dioxus-shadcn | re-export | 169 | 169 | 0 | 90 | 113 | 2 | 0 | 0 | 0 | 17 | 0 | 23 | 14 |
-| dioxus-shadcn | struct | 4 | 1 | 17 | 2 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 3 |
+| dioxus-shadcn | re-export | 169 | 169 | 0 | 138 | 113 | 2 | 0 | 0 | 0 | 17 | 0 | 23 | 14 |
+| dioxus-shadcn | struct | 4 | 1 | 17 | 4 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 3 |
 | dioxus-shadcn-core | class function | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| dioxus-shadcn-core | enum | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| dioxus-shadcn-core | enum | 1 | 0 | 0 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | dioxus-shadcn-core | function | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | dioxus-shadcn-core | struct | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 2 |
-| dioxus-shadcn-primitives | class function | 1 | 1 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| dioxus-shadcn-primitives | enum | 36 | 14 | 153 | 12 | 30 | 1 | 0 | 3 | 0 | 0 | 0 | 0 | 2 |
-| dioxus-shadcn-primitives | function | 67 | 65 | 0 | 26 | 49 | 0 | 0 | 11 | 0 | 0 | 0 | 0 | 7 |
+| dioxus-shadcn-primitives | class function | 1 | 1 | 0 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| dioxus-shadcn-primitives | enum | 36 | 14 | 153 | 18 | 30 | 1 | 0 | 3 | 0 | 0 | 0 | 0 | 2 |
+| dioxus-shadcn-primitives | function | 67 | 65 | 0 | 39 | 49 | 0 | 0 | 11 | 0 | 0 | 0 | 0 | 7 |
 | dioxus-shadcn-primitives | module | 20 | 20 | 0 | 0 | 18 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
-| dioxus-shadcn-primitives | re-export | 1 | 1 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| dioxus-shadcn-primitives | struct | 58 | 30 | 308 | 21 | 39 | 0 | 0 | 8 | 0 | 0 | 0 | 0 | 11 |
+| dioxus-shadcn-primitives | re-export | 1 | 1 | 0 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| dioxus-shadcn-primitives | struct | 58 | 30 | 308 | 23 | 39 | 0 | 0 | 8 | 0 | 0 | 0 | 0 | 11 |
 | dioxus-shadcn-primitives | trait | 7 | 0 | 14 | 0 | 7 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 
 Parts are fields, variants, inherent methods, and trait items. The counts
@@ -61,16 +62,18 @@ What the counts say:
 
 - Class constants are a component's own pieces: 444 of 444 are named only in
   their own file. One, `CHART_COLOR_CLASSES`, is listed on the Chart page.
-- Class functions split. 136 are listed or used in docs text, the kind of
+- Class functions split. 194 are listed or used in docs text, the kind of
   use shadcn/ui's `buttonVariants` serves (styling a link as a button). The
-  other 222 are named only by the desktop and web demos, which print class
+  other 164 are named only by the desktop and web demos, which print class
   strings as a smoke check, or nowhere.
-- Other functions are mostly state and attribute helpers: 50 are listed or
-  shown; 17 are named only by examples or nowhere.
-- Of 169 primitive re-exports, 136 are listed or shown; the 17 names that
-  are not include calendar math (`days_in_month`, `is_leap_year`), clamps
-  (`carousel_clamp_index`, `data_table_clamp_page`), and Sonner attribute
-  helpers.
+- Other functions are mostly state and attribute helpers: 52 are listed or
+  shown, but 38 of those only in a page's list, where the component does
+  their work itself (`chart_line_path`, `slider_thumb_style`,
+  `number_input_parse`, `tags_input_add`); 15 more are named only by
+  examples or nowhere.
+- Of 169 primitive re-exports, 160 are listed or shown; the 9 names that
+  are not are clamps (`carousel_clamp_index`, `data_table_clamp_page`),
+  chart number helpers, Sonner attribute helpers, and `SliderAriaAttributes`.
 - In the primitives crate, 126 of 190 items are named by the styled crate.
   The runtime adapter traits (`FocusRuntime`, `PortalRuntime`, and the
   others) are named by the runtime verification apps and two component
@@ -88,7 +91,7 @@ site, a block, or the CLI names it. Each kind follows from that:
 | Module | Public, with a `//!` line that says what the component is. |
 | Class constant | Private (`const`, or `pub(crate)` when another module reads it), except a listed one. |
 | Class function | Public when listed or shown; otherwise private or `pub(crate)`. |
-| State and attribute function | Public when listed or shown and still needed: a helper whose work a root does since RFC 0077 (such as stepping a Carousel the root already steps) is removed even when listed, with a Migration note. |
+| State and attribute function | Public when docs text, the site, a block, or the CLI uses it. A helper only a page's list names is a step of the component's own work (path geometry, style strings, key handling, value parsing, or state a root owns since RFC 0077) and goes private, with a Migration note: 38 of the 52 listed or shown. |
 | Primitive re-export | Kept when listed or shown, or when a public signature names the type; otherwise removed. |
 | Primitives crate item | Public when the styled crate, an example, or a page names it; removed when nothing does. |
 
@@ -139,3 +142,11 @@ show do not change.
 - `node scripts/public-surface.mjs` reports no class constant other than
   the listed one and no class function or re-export that is neither listed
   nor shown.
+
+Result in `dioxus-shadcn` (M213.2): 1 class constant, 194 class functions,
+14 other functions, 2 constants, 2 structs, and 160 re-exports stay public,
+all documented. Narrowing left seven helpers with no caller at all, already
+orphaned by RFC 0077 (`toggle_group_move_value`, `slider_aria_attributes`,
+the active-descendant wrappers, and others); they are removed, as is
+`message_scroller_class`'s intent parameter, which never changed the
+classes.

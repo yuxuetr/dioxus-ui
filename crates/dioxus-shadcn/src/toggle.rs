@@ -1,15 +1,21 @@
+//! Toggle: a controlled pressed button for compact commands and formatting
+//! controls.
 use crate::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
+/// The look of a `Toggle`.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ToggleVariant {
+  /// No fill until hovered or pressed.
   #[default]
   Default,
+  /// A border, filled when pressed.
   Outline,
 }
 
 impl ToggleVariant {
+  /// The variant's colors, pressed or not.
   pub const fn class(self, pressed: bool) -> &'static str {
     match (self, pressed) {
       (Self::Default, true) => "bg-accent text-accent-foreground",
@@ -20,15 +26,20 @@ impl ToggleVariant {
   }
 }
 
+/// The height and padding of a `Toggle`.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ToggleSize {
+  /// Small: 32 pixels high.
   Sm,
+  /// Medium: 40 pixels high.
   #[default]
   Md,
+  /// Large: 44 pixels high.
   Lg,
 }
 
 impl ToggleSize {
+  /// The size's height, padding, and text size classes.
   pub const fn class(self) -> &'static str {
     match self {
       Self::Sm => "h-8 px-2 text-sm",
@@ -38,8 +49,10 @@ impl ToggleSize {
   }
 }
 
-pub const TOGGLE_BASE_CLASS: &str = "inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+const TOGGLE_BASE_CLASS: &str = "inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
+/// Classes for the toggle: base classes, the variant's for `pressed`, the size's,
+/// then `class` merged over them.
 pub fn toggle_class(
   variant: ToggleVariant,
   size: ToggleSize,

@@ -22,14 +22,8 @@ dioxus-shadcn = { version = "0.5", default-features = false, features = ["slider
 - `SliderOrientation`
 - `SliderState`
 - `SliderKeyMove`
-- `slider_state`
 - `slider_key_move`
-- `slider_percent`
-- `slider_range_style`
-- `slider_thumb_style`
-- `slider_aria_attributes`
 - `RangeSlider`
-- `range_slider_values`
 
 ## Keyboard And Pointer Input
 

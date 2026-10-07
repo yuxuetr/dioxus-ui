@@ -1,24 +1,32 @@
+//! Marker: an inline status, bordered row, or labeled separator for message or activity
+//! interfaces.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
+/// How the marker is drawn.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum MarkerVariant {
+  /// A muted, filled pill.
   #[default]
   Default,
+  /// A bordered row on the background.
   Border,
+  /// A full-width label between two rules.
   Separator,
 }
 
-pub const MARKER_BASE_CLASS: &str = "flex min-w-0 items-center gap-2 text-sm text-muted-foreground";
-pub const MARKER_DEFAULT_CLASS: &str = "rounded-md bg-muted px-3 py-2";
-pub const MARKER_BORDER_CLASS: &str = "rounded-md border border-border bg-background px-3 py-2";
-pub const MARKER_SEPARATOR_CLASS: &str =
+const MARKER_BASE_CLASS: &str = "flex min-w-0 items-center gap-2 text-sm text-muted-foreground";
+const MARKER_DEFAULT_CLASS: &str = "rounded-md bg-muted px-3 py-2";
+const MARKER_BORDER_CLASS: &str = "rounded-md border border-border bg-background px-3 py-2";
+const MARKER_SEPARATOR_CLASS: &str =
   "w-full py-2 before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border";
-pub const MARKER_ICON_BASE_CLASS: &str =
+const MARKER_ICON_BASE_CLASS: &str =
   "flex shrink-0 items-center justify-center text-muted-foreground";
-pub const MARKER_CONTENT_BASE_CLASS: &str = "min-w-0 truncate";
+const MARKER_CONTENT_BASE_CLASS: &str = "min-w-0 truncate";
 
 impl MarkerVariant {
+  /// The variant's surface or rule classes.
   pub const fn class(self) -> &'static str {
     match self {
       Self::Default => MARKER_DEFAULT_CLASS,
@@ -27,6 +35,7 @@ impl MarkerVariant {
     }
   }
 
+  /// The value for the marker's `data-variant` attribute.
   pub const fn attribute(self) -> &'static str {
     match self {
       Self::Default => "default",
@@ -36,14 +45,17 @@ impl MarkerVariant {
   }
 }
 
+/// Classes for the marker: base classes and the variant's, with `class` merged over them.
 pub fn marker_class(variant: MarkerVariant, class: &str) -> String {
   merge_classes(classes([Some(MARKER_BASE_CLASS), Some(variant.class())]), class)
 }
 
+/// Classes for the leading icon.
 pub fn marker_icon_class(class: &str) -> String {
   merge_classes(classes([Some(MARKER_ICON_BASE_CLASS)]), class)
 }
 
+/// Classes for the text, truncated to one line.
 pub fn marker_content_class(class: &str) -> String {
   merge_classes(classes([Some(MARKER_CONTENT_BASE_CLASS)]), class)
 }

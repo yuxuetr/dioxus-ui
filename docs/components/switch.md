@@ -18,7 +18,6 @@ dioxus-shadcn = { version = "0.5", default-features = false, features = ["switch
 
 - `Switch`
 - `switch_class`
-- `switch_state`
 - `switch_thumb_class`
 
 ## Change Events

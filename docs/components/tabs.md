@@ -1,6 +1,7 @@
 # Tabs
 
-Tabs provides controlled styled root, list, trigger, and content parts.
+Tabs provides styled root, list, trigger, and content parts; the `Tabs` root
+owns the selected tab, or follows `value` when the app controls it.
 
 ## Source Copy
 

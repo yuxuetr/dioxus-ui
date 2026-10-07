@@ -1,3 +1,5 @@
+//! Tabs: a list of triggers that each select one content panel.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
@@ -6,11 +8,10 @@ use crate::element_id::next_element_id;
 use crate::root_state::{Controllable, use_controllable, use_root_context};
 use crate::roving_group::{group_part_id, use_roving_group};
 
-pub const TABS_BASE_CLASS: &str =
-  "data-[orientation=vertical]:flex data-[orientation=vertical]:gap-4";
-pub const TABS_LIST_BASE_CLASS: &str = "inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground data-[orientation=vertical]:h-auto data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch data-[orientation=vertical]:justify-start";
-pub const TABS_TRIGGER_BASE_CLASS: &str = "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
-pub const TABS_CONTENT_BASE_CLASS: &str = "mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[orientation=vertical]:mt-0";
+const TABS_BASE_CLASS: &str = "data-[orientation=vertical]:flex data-[orientation=vertical]:gap-4";
+const TABS_LIST_BASE_CLASS: &str = "inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground data-[orientation=vertical]:h-auto data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch data-[orientation=vertical]:justify-start";
+const TABS_TRIGGER_BASE_CLASS: &str = "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+const TABS_CONTENT_BASE_CLASS: &str = "mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[orientation=vertical]:mt-0";
 
 /// Whether moving focus to a trigger also selects it.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
@@ -52,14 +53,18 @@ impl TabsOrientation {
   }
 }
 
+/// Classes for the root, which lays the list beside the panels when vertical.
 pub fn tabs_class(class: &str) -> String {
   merge_classes(classes([Some(TABS_BASE_CLASS)]), class)
 }
 
+/// Classes for the list that holds the triggers.
 pub fn tabs_list_class(class: &str) -> String {
   merge_classes(classes([Some(TABS_LIST_BASE_CLASS)]), class)
 }
 
+/// Classes for the trigger: base classes, raised while `active` and muted otherwise, with `class`
+/// merged over them.
 pub fn tabs_trigger_class(active: bool, class: &str) -> String {
   let active_class = if active {
     "bg-background text-foreground shadow-sm"
@@ -70,6 +75,7 @@ pub fn tabs_trigger_class(active: bool, class: &str) -> String {
   merge_classes(classes([Some(TABS_TRIGGER_BASE_CLASS), Some(active_class)]), class)
 }
 
+/// Classes for the content panel.
 pub fn tabs_content_class(class: &str) -> String {
   merge_classes(classes([Some(TABS_CONTENT_BASE_CLASS)]), class)
 }

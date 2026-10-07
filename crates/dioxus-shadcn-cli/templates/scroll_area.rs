@@ -1,3 +1,5 @@
+//! Scroll area: styled parts around native scrolling, with a viewport, scrollbars,
+//! a thumb, and a corner.
 use super::default_attribute::default_attribute;
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
@@ -18,26 +20,26 @@ pub fn scroll_area_orientation_attribute(orientation: ScrollAreaOrientation) -> 
   }
 }
 
-pub const SCROLL_AREA_BASE_CLASS: &str = "relative overflow-hidden";
-pub const SCROLL_AREA_VIEWPORT_BASE_CLASS: &str = "h-full w-full overflow-auto rounded-inherit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring";
-pub const SCROLL_AREA_CONTENT_BASE_CLASS: &str = "min-w-full";
-pub const SCROLL_AREA_SCROLLBAR_BASE_CLASS: &str = "flex touch-none select-none transition-colors data-[orientation=horizontal]:h-2.5 data-[orientation=horizontal]:flex-col data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2.5";
-pub const SCROLL_AREA_THUMB_BASE_CLASS: &str = "relative flex-1 rounded-full bg-border";
-pub const SCROLL_AREA_CORNER_BASE_CLASS: &str = "bg-accent";
+const SCROLL_AREA_BASE_CLASS: &str = "relative overflow-hidden";
+const SCROLL_AREA_VIEWPORT_BASE_CLASS: &str = "h-full w-full overflow-auto rounded-inherit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring";
+const SCROLL_AREA_CONTENT_BASE_CLASS: &str = "min-w-full";
+const SCROLL_AREA_SCROLLBAR_BASE_CLASS: &str = "flex touch-none select-none transition-colors data-[orientation=horizontal]:h-2.5 data-[orientation=horizontal]:flex-col data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2.5";
+const SCROLL_AREA_THUMB_BASE_CLASS: &str = "relative flex-1 rounded-full bg-border";
+const SCROLL_AREA_CORNER_BASE_CLASS: &str = "bg-accent";
 
-pub fn scroll_area_class(class: &str) -> String {
+fn scroll_area_class(class: &str) -> String {
   merge_classes(classes([Some(SCROLL_AREA_BASE_CLASS)]), class)
 }
 
-pub fn scroll_area_viewport_class(class: &str) -> String {
+fn scroll_area_viewport_class(class: &str) -> String {
   merge_classes(classes([Some(SCROLL_AREA_VIEWPORT_BASE_CLASS)]), class)
 }
 
-pub fn scroll_area_content_class(class: &str) -> String {
+fn scroll_area_content_class(class: &str) -> String {
   merge_classes(classes([Some(SCROLL_AREA_CONTENT_BASE_CLASS)]), class)
 }
 
-pub fn scroll_area_scrollbar_class(orientation: ScrollAreaOrientation, class: &str) -> String {
+fn scroll_area_scrollbar_class(orientation: ScrollAreaOrientation, class: &str) -> String {
   let orientation_class = match orientation {
     ScrollAreaOrientation::Vertical => "h-full w-2.5 border-l border-l-transparent p-px",
     ScrollAreaOrientation::Horizontal => "h-2.5 flex-col border-t border-t-transparent p-px",
@@ -47,11 +49,11 @@ pub fn scroll_area_scrollbar_class(orientation: ScrollAreaOrientation, class: &s
   merge_classes(classes([Some(SCROLL_AREA_SCROLLBAR_BASE_CLASS), Some(orientation_class)]), class)
 }
 
-pub fn scroll_area_thumb_class(class: &str) -> String {
+fn scroll_area_thumb_class(class: &str) -> String {
   merge_classes(classes([Some(SCROLL_AREA_THUMB_BASE_CLASS)]), class)
 }
 
-pub fn scroll_area_corner_class(class: &str) -> String {
+fn scroll_area_corner_class(class: &str) -> String {
   merge_classes(classes([Some(SCROLL_AREA_CORNER_BASE_CLASS)]), class)
 }
 

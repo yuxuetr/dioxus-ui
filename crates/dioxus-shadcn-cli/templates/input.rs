@@ -1,9 +1,12 @@
+//! Input: a styled single-line text field with an invalid state.
 use super::utils::{classes, merge_classes};
 use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
-pub const INPUT_BASE_CLASS: &str = "flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
+const INPUT_BASE_CLASS: &str = "flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
 
+/// Classes for the field: base classes, a destructive border and ring when `invalid`,
+/// then `class` merged over them.
 pub fn input_class(invalid: bool, class: &str) -> String {
   let invalid_class = if invalid {
     "border-destructive focus-visible:ring-destructive"

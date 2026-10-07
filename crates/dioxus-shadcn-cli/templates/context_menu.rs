@@ -1,3 +1,5 @@
+//! Context Menu: a menu of application commands opened from a right click, with checkbox,
+//! radio, and shortcut parts. It reuses the dropdown primitive's defaults.
 use super::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
 use super::listbox::{ListboxMode, use_listbox};
 use super::menu_marks::{
@@ -12,28 +14,31 @@ use super::utils::{classes, merge_classes};
 use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
-pub const CONTEXT_MENU_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
-pub const CONTEXT_MENU_GROUP_BASE_CLASS: &str = "p-1";
-pub const CONTEXT_MENU_LABEL_BASE_CLASS: &str =
+const CONTEXT_MENU_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
+const CONTEXT_MENU_GROUP_BASE_CLASS: &str = "p-1";
+const CONTEXT_MENU_LABEL_BASE_CLASS: &str =
   "px-2 py-1.5 text-xs font-medium text-muted-foreground";
-pub const CONTEXT_MENU_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
-pub const CONTEXT_MENU_ITEM_INSET_CLASS: &str = "pl-8";
-pub const CONTEXT_MENU_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-border";
-pub const CONTEXT_MENU_SHORTCUT_BASE_CLASS: &str =
+const CONTEXT_MENU_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
+const CONTEXT_MENU_ITEM_INSET_CLASS: &str = "pl-8";
+const CONTEXT_MENU_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-border";
+const CONTEXT_MENU_SHORTCUT_BASE_CLASS: &str =
   "ml-auto text-xs tracking-normal text-muted-foreground";
 
+/// Classes for the menu's popover surface, with `class` merged over them.
 pub fn context_menu_content_class(class: &str) -> String {
   merge_classes(classes([Some(CONTEXT_MENU_CONTENT_BASE_CLASS)]), class)
 }
 
-pub fn context_menu_group_class(class: &str) -> String {
+fn context_menu_group_class(class: &str) -> String {
   merge_classes(classes([Some(CONTEXT_MENU_GROUP_BASE_CLASS)]), class)
 }
 
-pub fn context_menu_label_class(class: &str) -> String {
+fn context_menu_label_class(class: &str) -> String {
   merge_classes(classes([Some(CONTEXT_MENU_LABEL_BASE_CLASS)]), class)
 }
 
+/// Classes for the item: base classes, destructive or plain colors, and extra left padding when
+/// `inset`, with `class` merged over them.
 pub fn context_menu_item_class(inset: bool, destructive: bool, class: &str) -> String {
   let variant_class = if destructive {
     "text-destructive focus:bg-destructive/10 focus:text-destructive"
@@ -48,7 +53,7 @@ pub fn context_menu_item_class(inset: bool, destructive: bool, class: &str) -> S
   )
 }
 
-pub fn context_menu_separator_class(class: &str) -> String {
+fn context_menu_separator_class(class: &str) -> String {
   merge_classes(classes([Some(CONTEXT_MENU_SEPARATOR_BASE_CLASS)]), class)
 }
 
@@ -79,7 +84,7 @@ pub fn context_menu_sub_trigger_class(inset: bool, class: &str) -> String {
   )
 }
 
-pub fn context_menu_shortcut_class(class: &str) -> String {
+fn context_menu_shortcut_class(class: &str) -> String {
   merge_classes(classes([Some(CONTEXT_MENU_SHORTCUT_BASE_CLASS)]), class)
 }
 

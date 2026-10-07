@@ -1,3 +1,5 @@
+//! Select: a root that owns the chosen value and open state, with styled
+//! trigger, value, content, group, label, item, and separator parts.
 use super::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
 use super::choice::{Choice, use_choice};
 use super::default_attribute::default_attribute;
@@ -9,17 +11,19 @@ use super::utils::{classes, merge_classes};
 use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
-pub const SELECT_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
-pub const SELECT_VALUE_BASE_CLASS: &str = "truncate";
-pub const SELECT_CONTENT_BASE_CLASS: &str = "z-50 max-h-96 min-w-[max(8rem,var(--dxui-anchor-width,0px))] overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
-pub const SELECT_GROUP_BASE_CLASS: &str = "p-1";
-pub const SELECT_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-muted-foreground";
+const SELECT_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
+const SELECT_VALUE_BASE_CLASS: &str = "truncate";
+const SELECT_CONTENT_BASE_CLASS: &str = "z-50 max-h-96 min-w-[max(8rem,var(--dxui-anchor-width,0px))] overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
+const SELECT_GROUP_BASE_CLASS: &str = "p-1";
+const SELECT_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-muted-foreground";
 // A selected option shows a check mark at the inline end, so it stays
 // distinct from the highlighted one, which takes the accent background
 // (RFC 0062).
-pub const SELECT_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm text-foreground outline-none transition-colors focus:bg-accent data-highlighted:bg-accent data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 pe-8 after:absolute after:end-2 after:size-4 after:bg-current after:[mask:url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27black%27%20stroke-width=%272%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M3.5%208.5l3%203%206-7%27/%3E%3C/svg%3E)_center/contain_no-repeat]";
-pub const SELECT_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-border";
+const SELECT_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm text-foreground outline-none transition-colors focus:bg-accent data-highlighted:bg-accent data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 pe-8 after:absolute after:end-2 after:size-4 after:bg-current after:[mask:url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20stroke=%27black%27%20stroke-width=%272%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cpath%20d=%27M3.5%208.5l3%203%206-7%27/%3E%3C/svg%3E)_center/contain_no-repeat]";
+const SELECT_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-border";
 
+/// Classes for the trigger: base classes, a destructive border and ring when
+/// `invalid`, then `class` merged over them.
 pub fn select_trigger_class(invalid: bool, class: &str) -> String {
   let invalid_class = if invalid {
     "border-destructive focus-visible:ring-destructive"
@@ -30,29 +34,31 @@ pub fn select_trigger_class(invalid: bool, class: &str) -> String {
   merge_classes(classes([Some(SELECT_TRIGGER_BASE_CLASS), Some(invalid_class)]), class)
 }
 
-pub fn select_value_class(class: &str) -> String {
+fn select_value_class(class: &str) -> String {
   merge_classes(classes([Some(SELECT_VALUE_BASE_CLASS)]), class)
 }
 
-pub fn select_content_class(class: &str) -> String {
+fn select_content_class(class: &str) -> String {
   merge_classes(classes([Some(SELECT_CONTENT_BASE_CLASS)]), class)
 }
 
-pub fn select_group_class(class: &str) -> String {
+fn select_group_class(class: &str) -> String {
   merge_classes(classes([Some(SELECT_GROUP_BASE_CLASS)]), class)
 }
 
-pub fn select_label_class(class: &str) -> String {
+fn select_label_class(class: &str) -> String {
   merge_classes(classes([Some(SELECT_LABEL_BASE_CLASS)]), class)
 }
 
+/// Classes for an option: base classes, a visible check mark when `selected`,
+/// then `class` merged over them.
 pub fn select_item_class(selected: bool, class: &str) -> String {
   let selected_class = if selected { "after:opacity-100" } else { "after:opacity-0" };
 
   merge_classes(classes([Some(SELECT_ITEM_BASE_CLASS), Some(selected_class)]), class)
 }
 
-pub fn select_separator_class(class: &str) -> String {
+fn select_separator_class(class: &str) -> String {
   merge_classes(classes([Some(SELECT_SEPARATOR_BASE_CLASS)]), class)
 }
 

@@ -1,22 +1,26 @@
+//! Pagination: styled navigation parts for paged result sets, and the page range
+//! they show.
 use super::default_attribute::default_attribute;
 use super::utils::{classes, merge_classes};
 use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
-pub const PAGINATION_BASE_CLASS: &str = "mx-auto flex w-full justify-center";
-pub const PAGINATION_CONTENT_BASE_CLASS: &str =
+const PAGINATION_BASE_CLASS: &str = "mx-auto flex w-full justify-center";
+const PAGINATION_CONTENT_BASE_CLASS: &str =
   "flex flex-row flex-wrap items-center justify-center gap-1";
-pub const PAGINATION_ITEM_BASE_CLASS: &str = "";
-pub const PAGINATION_LINK_BASE_CLASS: &str = "inline-flex h-10 min-w-10 items-center justify-center rounded-md px-3 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
-pub const PAGINATION_LINK_ACTIVE_CLASS: &str = "border border-border bg-background";
-pub const PAGINATION_LINK_DISABLED_CLASS: &str = "pointer-events-none opacity-50";
-pub const PAGINATION_ELLIPSIS_BASE_CLASS: &str =
+const PAGINATION_ITEM_BASE_CLASS: &str = "";
+const PAGINATION_LINK_BASE_CLASS: &str = "inline-flex h-10 min-w-10 items-center justify-center rounded-md px-3 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+const PAGINATION_LINK_ACTIVE_CLASS: &str = "border border-border bg-background";
+const PAGINATION_LINK_DISABLED_CLASS: &str = "pointer-events-none opacity-50";
+const PAGINATION_ELLIPSIS_BASE_CLASS: &str =
   "flex h-10 w-10 items-center justify-center text-sm text-muted-foreground";
 
 /// One entry of a pagination row: a page number or an ellipsis.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum PaginationRangeItem {
+  /// A link to this page number, 1-based.
   Page(u32),
+  /// Stands for the skipped pages in a gap.
   Ellipsis,
 }
 
@@ -51,23 +55,25 @@ pub fn pagination_range(current: u32, total: u32, siblings: u32) -> Vec<Paginati
   }
 }
 
-pub fn pagination_class(class: &str) -> String {
+fn pagination_class(class: &str) -> String {
   merge_classes(classes([Some(PAGINATION_BASE_CLASS)]), class)
 }
 
-pub fn pagination_content_class(class: &str) -> String {
+fn pagination_content_class(class: &str) -> String {
   merge_classes(classes([Some(PAGINATION_CONTENT_BASE_CLASS)]), class)
 }
 
-pub fn pagination_item_class(class: &str) -> String {
+fn pagination_item_class(class: &str) -> String {
   merge_classes(classes([Some(PAGINATION_ITEM_BASE_CLASS)]), class)
 }
 
+/// Classes for a page link: base classes, a border when `active`, dimmed and inert when
+/// `disabled`, then `class` merged over them.
 pub fn pagination_link_class(active: bool, disabled: bool, class: &str) -> String {
   merge_classes(classes([Some(PAGINATION_LINK_BASE_CLASS), active.then_some(PAGINATION_LINK_ACTIVE_CLASS), disabled.then_some(PAGINATION_LINK_DISABLED_CLASS)]), class)
 }
 
-pub fn pagination_ellipsis_class(class: &str) -> String {
+fn pagination_ellipsis_class(class: &str) -> String {
   merge_classes(classes([Some(PAGINATION_ELLIPSIS_BASE_CLASS)]), class)
 }
 

@@ -1,14 +1,21 @@
+//! Separator: a thin line that divides content, exposed as a separator or hidden
+//! as decoration.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
+/// Which way the line runs.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum SeparatorOrientation {
+  /// A full-width line between stacked content.
   #[default]
   Horizontal,
+  /// A full-height line between side-by-side content.
   Vertical,
 }
 
 impl SeparatorOrientation {
+  /// The line's size: one pixel thick, full length.
   pub const fn class(self) -> &'static str {
     match self {
       Self::Horizontal => "h-px w-full",
@@ -16,6 +23,7 @@ impl SeparatorOrientation {
     }
   }
 
+  /// The `aria-orientation` value: `horizontal` or `vertical`.
   pub const fn aria_orientation(self) -> &'static str {
     match self {
       Self::Horizontal => "horizontal",
@@ -24,8 +32,10 @@ impl SeparatorOrientation {
   }
 }
 
-pub const SEPARATOR_BASE_CLASS: &str = "shrink-0 bg-border";
+const SEPARATOR_BASE_CLASS: &str = "shrink-0 bg-border";
 
+/// Classes for the line: border color, the orientation's size, then `class` merged
+/// over them.
 pub fn separator_class(orientation: SeparatorOrientation, class: &str) -> String {
   merge_classes(classes([Some(SEPARATOR_BASE_CLASS), Some(orientation.class())]), class)
 }

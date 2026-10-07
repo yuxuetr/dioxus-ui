@@ -20,8 +20,6 @@ dioxus-shadcn = { version = "0.5", default-features = false, features = ["radial
 - `RadialProgress`
 - `RadialProgressSize`
 - `radial_progress_class`
-- `radial_progress_value`
-- `radial_progress_geometry`
 
 ```rust
 rsx! {

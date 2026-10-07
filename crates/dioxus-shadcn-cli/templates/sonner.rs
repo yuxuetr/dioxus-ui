@@ -1,3 +1,5 @@
+//! Sonner: toast notifications that dismiss themselves after a countdown, which
+//! pauses on hover and focus, plus pure helpers for the toast queue.
 use super::dismiss_timer::use_dismiss_timer;
 use super::utils::{classes, merge_classes};
 use super::density::{density_control_class, use_density, with_density};
@@ -173,17 +175,17 @@ pub fn toast_variant_attribute(variant: ToastVariant) -> &'static str {
   }
 }
 
-pub const SONNER_VIEWPORT_BASE_CLASS: &str =
+const SONNER_VIEWPORT_BASE_CLASS: &str =
   "fixed z-50 flex max-h-screen w-full flex-col gap-2 p-4 sm:max-w-sm";
-pub const SONNER_TOAST_BASE_CLASS: &str = "pointer-events-auto relative grid w-full grid-cols-[auto_1fr_auto] items-start gap-3 overflow-hidden rounded-md border p-4 shadow-lg transition-all";
-pub const SONNER_ICON_BASE_CLASS: &str = "mt-0.5 h-2.5 w-2.5 rounded-full";
-pub const SONNER_CONTENT_BASE_CLASS: &str = "grid gap-1";
-pub const SONNER_TITLE_BASE_CLASS: &str = "text-sm font-semibold leading-none tracking-normal";
-pub const SONNER_DESCRIPTION_BASE_CLASS: &str = "text-sm";
-pub const SONNER_ACTION_BASE_CLASS: &str = "inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-border bg-transparent px-3 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
-pub const SONNER_CLOSE_BASE_CLASS: &str = "inline-flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+const SONNER_TOAST_BASE_CLASS: &str = "pointer-events-auto relative grid w-full grid-cols-[auto_1fr_auto] items-start gap-3 overflow-hidden rounded-md border p-4 shadow-lg transition-all";
+const SONNER_ICON_BASE_CLASS: &str = "mt-0.5 h-2.5 w-2.5 rounded-full";
+const SONNER_CONTENT_BASE_CLASS: &str = "grid gap-1";
+const SONNER_TITLE_BASE_CLASS: &str = "text-sm font-semibold leading-none tracking-normal";
+const SONNER_DESCRIPTION_BASE_CLASS: &str = "text-sm";
+const SONNER_ACTION_BASE_CLASS: &str = "inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-border bg-transparent px-3 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+const SONNER_CLOSE_BASE_CLASS: &str = "inline-flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
-pub fn sonner_viewport_class(placement: SonnerPlacement, class: &str) -> String {
+fn sonner_viewport_class(placement: SonnerPlacement, class: &str) -> String {
   let placement_class = match placement {
     SonnerPlacement::TopLeft => "left-0 top-0 sm:left-0",
     SonnerPlacement::TopCenter => "top-0 sm:left-1/2 sm:-translate-x-1/2",
@@ -196,7 +198,7 @@ pub fn sonner_viewport_class(placement: SonnerPlacement, class: &str) -> String 
   merge_classes(classes([Some(SONNER_VIEWPORT_BASE_CLASS), Some(placement_class)]), class)
 }
 
-pub fn sonner_toast_class(variant: SonnerVariant, class: &str) -> String {
+fn sonner_toast_class(variant: SonnerVariant, class: &str) -> String {
   let variant_class = match variant {
     SonnerVariant::Default => "border-border bg-popover text-popover-foreground",
     SonnerVariant::Success => "border-success/50 bg-popover text-popover-foreground",
@@ -209,7 +211,7 @@ pub fn sonner_toast_class(variant: SonnerVariant, class: &str) -> String {
   merge_classes(classes([Some(SONNER_TOAST_BASE_CLASS), Some(variant_class)]), class)
 }
 
-pub fn sonner_icon_class(variant: SonnerVariant, class: &str) -> String {
+fn sonner_icon_class(variant: SonnerVariant, class: &str) -> String {
   let variant_class = match variant {
     SonnerVariant::Default => "bg-muted-foreground",
     SonnerVariant::Success => "bg-success",
@@ -222,15 +224,15 @@ pub fn sonner_icon_class(variant: SonnerVariant, class: &str) -> String {
   merge_classes(classes([Some(SONNER_ICON_BASE_CLASS), Some(variant_class)]), class)
 }
 
-pub fn sonner_content_class(class: &str) -> String {
+fn sonner_content_class(class: &str) -> String {
   merge_classes(classes([Some(SONNER_CONTENT_BASE_CLASS)]), class)
 }
 
-pub fn sonner_title_class(class: &str) -> String {
+fn sonner_title_class(class: &str) -> String {
   merge_classes(classes([Some(SONNER_TITLE_BASE_CLASS)]), class)
 }
 
-pub fn sonner_description_class(variant: SonnerVariant, class: &str) -> String {
+fn sonner_description_class(variant: SonnerVariant, class: &str) -> String {
   let variant_class = match variant {
     SonnerVariant::Default | SonnerVariant::Loading => "text-muted-foreground",
     SonnerVariant::Success => "text-muted-foreground",
@@ -242,15 +244,15 @@ pub fn sonner_description_class(variant: SonnerVariant, class: &str) -> String {
   merge_classes(classes([Some(SONNER_DESCRIPTION_BASE_CLASS), Some(variant_class)]), class)
 }
 
-pub fn sonner_action_class(disabled: bool, class: &str) -> String {
+fn sonner_action_class(disabled: bool, class: &str) -> String {
   merge_classes(classes([Some(SONNER_ACTION_BASE_CLASS), disabled.then_some("pointer-events-none opacity-50")]), class)
 }
 
-pub fn sonner_close_class(disabled: bool, class: &str) -> String {
+fn sonner_close_class(disabled: bool, class: &str) -> String {
   merge_classes(classes([Some(SONNER_CLOSE_BASE_CLASS), disabled.then_some("pointer-events-none opacity-50")]), class)
 }
 
-pub fn sonner_live_attribute(variant: SonnerVariant) -> &'static str {
+fn sonner_live_attribute(variant: SonnerVariant) -> &'static str {
   match variant {
     SonnerVariant::Error | SonnerVariant::Warning => "assertive",
     SonnerVariant::Default

@@ -1,29 +1,35 @@
+//! Diff: a side-by-side comparison of two versions of an image or element, split
+//! by a divider the user drags.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
-pub const DIFF_BASE_CLASS: &str = "relative isolate grid overflow-hidden rounded-md select-none";
-pub const DIFF_LAYER_CLASS: &str = "col-start-1 row-start-1 [&>img]:size-full [&>img]:object-cover";
+const DIFF_BASE_CLASS: &str = "relative isolate grid overflow-hidden rounded-md select-none";
+const DIFF_LAYER_CLASS: &str = "col-start-1 row-start-1 [&>img]:size-full [&>img]:object-cover";
 // The after layer shows right of the divider: the frame sets
 // `--diff-position`, so the parts need no props.
-pub const DIFF_AFTER_CLASS: &str = "[clip-path:inset(0_0_0_var(--diff-position))]";
+const DIFF_AFTER_CLASS: &str = "[clip-path:inset(0_0_0_var(--diff-position))]";
 // The range input covers the frame, invisible, so dragging, clicking, and the
 // arrow keys all move the divider; the handle after it shows its focus.
-pub const DIFF_INPUT_CLASS: &str =
+const DIFF_INPUT_CLASS: &str =
   "peer absolute inset-0 z-20 size-full cursor-ew-resize appearance-none opacity-0";
-pub const DIFF_DIVIDER_CLASS: &str = "pointer-events-none absolute inset-y-0 left-(--diff-position) z-10 w-0.5 -translate-x-1/2 bg-background shadow-[0_0_0_1px_var(--color-border)]";
-pub const DIFF_HANDLE_CLASS: &str = "pointer-events-none absolute top-1/2 left-(--diff-position) z-10 grid size-8 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-border bg-background text-xs text-muted-foreground shadow-sm peer-focus-visible:ring-2 peer-focus-visible:ring-ring";
+const DIFF_DIVIDER_CLASS: &str = "pointer-events-none absolute inset-y-0 left-(--diff-position) z-10 w-0.5 -translate-x-1/2 bg-background shadow-[0_0_0_1px_var(--color-border)]";
+const DIFF_HANDLE_CLASS: &str = "pointer-events-none absolute top-1/2 left-(--diff-position) z-10 grid size-8 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-border bg-background text-xs text-muted-foreground shadow-sm peer-focus-visible:ring-2 peer-focus-visible:ring-ring";
 
+/// Classes for the frame: base classes with `class` merged over them.
 pub fn diff_class(class: &str) -> String {
   merge_classes(classes([Some(DIFF_BASE_CLASS)]), class)
 }
 
+/// Classes for a layer: the shared stacking classes, plus the clip that shows it
+/// right of the divider when `after`, then `class` merged over them.
 pub fn diff_layer_class(after: bool, class: &str) -> String {
   merge_classes(classes([Some(DIFF_LAYER_CLASS), after.then_some(DIFF_AFTER_CLASS)]), class)
 }
 
 /// The divider position clamped to 0 through 100; anything that is not a
 /// number is the middle.
-pub fn diff_position(position: f64) -> f64 {
+fn diff_position(position: f64) -> f64 {
   if position.is_nan() { 50.0 } else { position.clamp(0.0, 100.0) }
 }
 

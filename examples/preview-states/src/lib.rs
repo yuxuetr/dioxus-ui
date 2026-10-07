@@ -12,10 +12,12 @@ use dioxus_shadcn::TagsInput;
 use dioxus_shadcn::{
   Accordion, AccordionContent, AccordionItem, AccordionTrigger, Calendar, CalendarBody,
   CalendarCaption, CalendarDate, CalendarDay, CalendarGrid, CalendarHeader, CalendarMonth,
-  CalendarNav, CalendarNavButton, CalendarNavDirection, CalendarRow, CalendarWeekday, Checkbox,
-  Combobox, ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList, ComboboxStatus, Command,
-  CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandLabel, CommandList, CommandStatus,
-  ContextMenu, ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, ContextMenuSub,
+  CalendarNav, CalendarNavButton, CalendarNavDirection, CalendarRow, CalendarWeekday,
+  ChartAreaSeries, ChartBarSeries, ChartDescription, ChartFallbackTable, ChartLegend,
+  ChartLineSeries, ChartRoot, ChartSvg, ChartTitle, Checkbox, Combobox, ComboboxContent,
+  ComboboxInput, ComboboxItem, ComboboxList, ComboboxStatus, Command, CommandEmpty, CommandGroup,
+  CommandInput, CommandItem, CommandLabel, CommandList, CommandStatus, ContextMenu,
+  ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, ContextMenuSub,
   ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger, DatePicker, DatePickerContent,
   DatePickerTrigger, DatePickerValue, Dropdown, DropdownContent, DropdownItem, DropdownSeparator,
   HoverCard, HoverCardContent, HoverCardDescription, HoverCardHeader, HoverCardTitle,
@@ -38,14 +40,12 @@ use dioxus_shadcn::{
   DismissBehavior, MarkerVariant, MessageAlign, MessageScrollerIntent, MessageScrollerMetrics,
   Popover, PopoverContent, PopoverDescription, PopoverTitle, PopoverTrigger, TextDirection,
   Tooltip, TooltipContent, TooltipTrigger, UiDensity, attachment_class, bubble_class, button_class,
-  button_group_class, chart_area_path, chart_area_series_class, chart_bar_rects,
-  chart_bar_series_class, chart_class, chart_fallback_rows, chart_line_path,
-  chart_line_series_class, chart_view_box, collapsible_class, density_control_class,
-  direction_class, input_group_class, input_otp_class, marker_class, message_avatar_class,
-  message_class, message_content_class, message_footer_class, message_group_class,
-  message_header_class, message_scroller_class, message_scroller_intent_attribute,
-  message_scroller_is_at_bottom, message_scroller_jump_button_class,
-  message_scroller_show_unread_marker, otp_apply_paste_filtered, otp_slots, use_density,
+  button_group_class, chart_fallback_rows, chart_view_box, collapsible_class,
+  density_control_class, direction_class, input_group_class, input_otp_class, marker_class,
+  message_avatar_class, message_class, message_content_class, message_footer_class,
+  message_group_class, message_header_class, message_scroller_class, message_scroller_is_at_bottom,
+  message_scroller_jump_button_class, message_scroller_show_unread_marker,
+  otp_apply_paste_filtered, otp_slots, use_density,
 };
 use dioxus_shadcn::{
   AttachmentAction, AttachmentTrigger, ButtonGroup, ButtonGroupItem, ComboboxTrigger, Field,
@@ -791,8 +791,6 @@ pub fn preview_lines(target: PreviewTarget) -> Vec<PreviewLine> {
     |ch| ch.is_ascii_digit(),
   );
   let chart_series = ChartSeries::new(config.chart_id, config.chart_label, config.chart_points);
-  let chart_x = ChartScale::new(config.chart_x_domain, config.chart_x_range);
-  let chart_y = ChartScale::new(config.chart_y_domain, config.chart_y_range);
   let metrics =
     MessageScrollerMetrics::new(config.scroll_top, config.viewport_height, config.content_height);
   let unread_visible = message_scroller_show_unread_marker(config.scroll_intent, config.unread);
@@ -838,10 +836,9 @@ pub fn preview_lines(target: PreviewTarget) -> Vec<PreviewLine> {
     PreviewLine {
       label: "message scroller helper",
       value: format!(
-        "{}/{}/{}",
+        "{}/{}",
         message_scroller_is_at_bottom(metrics, config.bottom_threshold),
-        message_scroller_jump_button_class(unread_visible, config.jump_button_class),
-        message_scroller_intent_attribute(config.scroll_intent)
+        message_scroller_jump_button_class(unread_visible, config.jump_button_class)
       ),
     },
     PreviewLine {
@@ -851,9 +848,8 @@ pub fn preview_lines(target: PreviewTarget) -> Vec<PreviewLine> {
     PreviewLine {
       label: "chart helper",
       value: format!(
-        "{}/{}/{}",
+        "{}/{}",
         chart_view_box(config.chart_width, config.chart_height),
-        chart_line_path(&chart_series, chart_x, chart_y),
         chart_fallback_rows(&[chart_series]).len()
       ),
     },
@@ -1036,7 +1032,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   );
   let bubble = bubble_class(BubbleAlign::Start, "rounded-xl bg-secondary p-3");
   let marker = marker_class(MarkerVariant::Border, "text-primary");
-  let scroller = message_scroller_class(MessageScrollerIntent::Hold, "h-64 overflow-auto");
+  let scroller = message_scroller_class("h-64 overflow-auto");
   let chart_series = ChartSeries::new(
     "revenue",
     "Revenue",
@@ -1050,10 +1046,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let chart_x = ChartScale::new(ChartDomain::new(0.0, 3.0), ChartDomain::new(40.0, 600.0));
   let chart_y = ChartScale::new(ChartDomain::new(0.0, 24.0), ChartDomain::new(260.0, 32.0));
   let view_box = chart_view_box(640.0, 300.0);
-  let line_path = chart_line_path(&chart_series, chart_x, chart_y);
-  let area_path = chart_area_path(&chart_series, chart_x, chart_y, 0.0);
-  let bar_rects = chart_bar_rects(&chart_series, chart_x, chart_y, 0.0, 24.0);
-  let fallback_rows = chart_fallback_rows(&[chart_series]);
+  let fallback_rows = chart_fallback_rows(std::slice::from_ref(&chart_series));
 
   rsx! {
     document::Stylesheet { href: PREVIEW_CSS }
@@ -1215,54 +1208,31 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           }
         }
         section {
-          class: "{chart_class(\"rounded-md border border-border p-4\")}",
+          class: "rounded-md border border-border p-4",
           "data-preview-panel": "chart",
           h2 { class: "text-sm font-medium", "Chart states" }
           p { class: "mt-1 text-sm text-muted-foreground", "Line, area, bar, legend, and fallback table targets." }
-          div {
-            class: "mt-3 flex flex-wrap gap-3 text-sm text-muted-foreground",
-            span { "Revenue" }
-            span { "Area" }
-            span { "Bars" }
-          }
-          svg {
-            class: "mt-4 h-auto w-full overflow-visible",
-            role: "img",
-            view_box: "{view_box}",
-            "aria-label": "Revenue preview chart",
-            path {
-              class: "{chart_area_series_class(ChartColorToken::Primary, \"opacity-15\")}",
-              d: "{area_path}",
+          ChartRoot { class: "mt-3",
+            ChartLegend {
+              span { "Revenue" }
+              span { "Area" }
+              span { "Bars" }
             }
-            path {
-              class: "{chart_line_series_class(ChartColorToken::Primary, \"stroke-2\")}",
-              d: "{line_path}",
-            }
-            g {
-              class: "{chart_bar_series_class(ChartColorToken::Secondary, \"opacity-60\")}",
-              for rect in bar_rects {
-                rect {
-                  x: "{rect.x}",
-                  y: "{rect.y}",
-                  width: "{rect.width}",
-                  height: "{rect.height}",
-                  rx: "2",
-                }
+            ChartSvg { view_box: view_box, title_id: "preview-chart-title", description_id: "preview-chart-description", class: "mt-4",
+              ChartTitle { id: "preview-chart-title", "Revenue preview chart" }
+              ChartDescription { id: "preview-chart-description", "Revenue over four periods, one missing." }
+              ChartAreaSeries { series: chart_series.clone(), x_scale: chart_x, y_scale: chart_y }
+              ChartLineSeries { series: chart_series.clone(), x_scale: chart_x, y_scale: chart_y }
+              ChartBarSeries {
+                series: chart_series,
+                x_scale: chart_x,
+                y_scale: chart_y,
+                color: ChartColorToken::Secondary,
+                bar_width: 24.0,
+                class: "opacity-60",
               }
             }
-          }
-          table {
-            class: "mt-4 w-full text-left text-sm",
-            caption { class: "sr-only", "Chart fallback data" }
-            tbody {
-              for row in fallback_rows {
-                tr {
-                  td { class: "border-t border-border py-1", "{row.series_label}" }
-                  td { class: "border-t border-border py-1", "{row.x_label}" }
-                  td { class: "border-t border-border py-1", "{row.y_label}" }
-                }
-              }
-            }
+            ChartFallbackTable { rows: fallback_rows, caption: "Chart fallback data", class: "mt-4" }
           }
         }
         section {
@@ -2903,10 +2873,6 @@ struct PreviewConfig {
   chart_id: &'static str,
   chart_label: &'static str,
   chart_points: Vec<ChartPoint>,
-  chart_x_domain: ChartDomain,
-  chart_x_range: ChartDomain,
-  chart_y_domain: ChartDomain,
-  chart_y_range: ChartDomain,
   chart_width: f64,
   chart_height: f64,
   direction: TextDirection,
@@ -2955,10 +2921,6 @@ impl PreviewConfig {
           ChartPoint::missing(2.0),
           ChartPoint::new(3.0, 24.0),
         ],
-        chart_x_domain: ChartDomain::new(0.0, 3.0),
-        chart_x_range: ChartDomain::new(32.0, 608.0),
-        chart_y_domain: ChartDomain::new(0.0, 24.0),
-        chart_y_range: ChartDomain::new(288.0, 32.0),
         chart_width: 640.0,
         chart_height: 320.0,
         direction: TextDirection::Rtl,
@@ -3004,10 +2966,6 @@ impl PreviewConfig {
           ChartPoint::new(2.0, 10.0),
           ChartPoint::new(3.0, 13.0),
         ],
-        chart_x_domain: ChartDomain::new(0.0, 3.0),
-        chart_x_range: ChartDomain::new(24.0, 456.0),
-        chart_y_domain: ChartDomain::new(0.0, 16.0),
-        chart_y_range: ChartDomain::new(220.0, 24.0),
         chart_width: 480.0,
         chart_height: 240.0,
         direction: TextDirection::Ltr,

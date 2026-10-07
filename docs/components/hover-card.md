@@ -28,8 +28,6 @@ dioxus-shadcn = { version = "0.5", default-features = false, features = ["hover-
 - `HoverCardAlign`
 - `HoverCardPrimitiveConfig`
 - `hover_card_content_class`
-- `hover_card_side_attribute`
-- `hover_card_align_attribute`
 
 The module also re-exports `OverlaySide`, `OverlayAlign`, and
 `PopoverPrimitiveConfig` for users importing from `dioxus_shadcn::hover_card`.

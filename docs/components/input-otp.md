@@ -39,7 +39,6 @@ dioxus-shadcn = { version = "0.5", default-features = false, features = ["input-
 - `input_otp_class`
 - `input_otp_group_class`
 - `input_otp_slot_class`
-- `input_otp_slot_display`
 - `input_otp_separator_class`
 - `input_otp_hidden_input_class`
 

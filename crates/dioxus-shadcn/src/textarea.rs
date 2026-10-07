@@ -1,9 +1,13 @@
+//! Textarea: a styled multi-line text field.
+
 use crate::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
-pub const TEXTAREA_BASE_CLASS: &str = "flex min-h-24 w-full rounded-md border bg-background px-3 py-2 text-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
+const TEXTAREA_BASE_CLASS: &str = "flex min-h-24 w-full rounded-md border bg-background px-3 py-2 text-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
 
+/// Classes for the textarea: base classes, the destructive border and ring when
+/// `invalid` or the plain ones otherwise, then `class` merged over them.
 pub fn textarea_class(invalid: bool, class: &str) -> String {
   let invalid_class = if invalid {
     "border-destructive focus-visible:ring-destructive"

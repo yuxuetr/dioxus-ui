@@ -1,3 +1,5 @@
+//! Menubar: a horizontal bar of menus for application commands. It reuses the dropdown
+//! primitive's defaults and shares item semantics with Context Menu.
 use super::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
 use super::element_id::next_element_id;
 use super::listbox::{ListboxMode, use_listbox};
@@ -96,40 +98,45 @@ await new Promise((resolve) => {
 });
 "#;
 
-pub const MENUBAR_BASE_CLASS: &str =
+const MENUBAR_BASE_CLASS: &str =
   "flex h-10 items-center gap-1 rounded-md border border-border bg-background p-1";
-pub const MENUBAR_MENU_BASE_CLASS: &str = "relative";
-pub const MENUBAR_TRIGGER_BASE_CLASS: &str = "inline-flex h-8 items-center justify-center rounded-sm px-3 text-sm font-medium text-foreground transition-colors hover:bg-accent focus:bg-accent focus:outline-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
-pub const MENUBAR_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
-pub const MENUBAR_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-muted-foreground";
-pub const MENUBAR_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
-pub const MENUBAR_ITEM_INSET_CLASS: &str = "pl-8";
-pub const MENUBAR_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-border";
-pub const MENUBAR_SHORTCUT_BASE_CLASS: &str =
+const MENUBAR_MENU_BASE_CLASS: &str = "relative";
+const MENUBAR_TRIGGER_BASE_CLASS: &str = "inline-flex h-8 items-center justify-center rounded-sm px-3 text-sm font-medium text-foreground transition-colors hover:bg-accent focus:bg-accent focus:outline-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
+const MENUBAR_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
+const MENUBAR_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-muted-foreground";
+const MENUBAR_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
+const MENUBAR_ITEM_INSET_CLASS: &str = "pl-8";
+const MENUBAR_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-border";
+const MENUBAR_SHORTCUT_BASE_CLASS: &str =
   "ml-auto text-xs tracking-normal text-muted-foreground";
 
+/// Classes for the bar that holds the menus, with `class` merged over them.
 pub fn menubar_class(class: &str) -> String {
   merge_classes(classes([Some(MENUBAR_BASE_CLASS)]), class)
 }
 
-pub fn menubar_menu_class(class: &str) -> String {
+fn menubar_menu_class(class: &str) -> String {
   merge_classes(classes([Some(MENUBAR_MENU_BASE_CLASS)]), class)
 }
 
+/// Classes for the trigger: base classes, plus the accent background while `open`, with `class`
+/// merged over them.
 pub fn menubar_trigger_class(open: bool, class: &str) -> String {
   let state_class = if open { "bg-accent" } else { "" };
 
   merge_classes(classes([Some(MENUBAR_TRIGGER_BASE_CLASS), Some(state_class)]), class)
 }
 
-pub fn menubar_content_class(class: &str) -> String {
+fn menubar_content_class(class: &str) -> String {
   merge_classes(classes([Some(MENUBAR_CONTENT_BASE_CLASS)]), class)
 }
 
-pub fn menubar_label_class(class: &str) -> String {
+fn menubar_label_class(class: &str) -> String {
   merge_classes(classes([Some(MENUBAR_LABEL_BASE_CLASS)]), class)
 }
 
+/// Classes for the item: base classes, destructive or plain colors, and extra left padding when
+/// `inset`, with `class` merged over them.
 pub fn menubar_item_class(inset: bool, destructive: bool, class: &str) -> String {
   let variant_class = if destructive {
     "text-destructive focus:bg-destructive/10 focus:text-destructive"
@@ -144,7 +151,7 @@ pub fn menubar_item_class(inset: bool, destructive: bool, class: &str) -> String
   )
 }
 
-pub fn menubar_separator_class(class: &str) -> String {
+fn menubar_separator_class(class: &str) -> String {
   merge_classes(classes([Some(MENUBAR_SEPARATOR_BASE_CLASS)]), class)
 }
 
@@ -171,7 +178,7 @@ pub fn menubar_sub_trigger_class(inset: bool, class: &str) -> String {
   menubar_item_class(inset, false, &merge_classes(classes([Some(MENU_SUB_TRIGGER_CLASS)]), class))
 }
 
-pub fn menubar_shortcut_class(class: &str) -> String {
+fn menubar_shortcut_class(class: &str) -> String {
   merge_classes(classes([Some(MENUBAR_SHORTCUT_BASE_CLASS)]), class)
 }
 

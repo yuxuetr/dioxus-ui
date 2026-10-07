@@ -20,7 +20,6 @@ dioxus-shadcn = { version = "0.5", default-features = false, features = ["aspect
 - `AspectRatio`
 - `aspect_ratio_class`
 - `aspect_ratio_style`
-- `aspect_ratio_value`
 
 ## Accessibility Notes
 

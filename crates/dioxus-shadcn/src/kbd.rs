@@ -1,15 +1,22 @@
+//! Kbd: an inline hint that shows a keyboard key or shortcut.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
+/// How large a key hint renders: its height, padding, and text size.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum KbdSize {
+  /// Small, for dense menus and tooltips.
   Sm,
+  /// Medium, for body text.
   #[default]
   Md,
+  /// Large, for headings and prominent hints.
   Lg,
 }
 
 impl KbdSize {
+  /// The height, padding, and text size for this size.
   pub const fn class(self) -> &'static str {
     match self {
       Self::Sm => "min-h-5 px-1 text-[11px]",
@@ -19,8 +26,9 @@ impl KbdSize {
   }
 }
 
-pub const KBD_BASE_CLASS: &str = "inline-flex items-center justify-center rounded border border-border bg-muted font-mono font-medium text-muted-foreground shadow-sm";
+const KBD_BASE_CLASS: &str = "inline-flex items-center justify-center rounded border border-border bg-muted font-mono font-medium text-muted-foreground shadow-sm";
 
+/// Classes for the key: base classes, the size's, then `class` merged over them.
 pub fn kbd_class(size: KbdSize, class: &str) -> String {
   merge_classes(classes([Some(KBD_BASE_CLASS), Some(size.class())]), class)
 }

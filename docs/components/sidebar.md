@@ -1,7 +1,8 @@
 # Sidebar
 
-Sidebar provides controlled app shell and navigation composition parts, an
-opt-in off-canvas panel for phones, and an opt-in keyboard shortcut. It does
+Sidebar provides app shell and navigation composition parts under a
+`SidebarProvider` that owns the collapsed and mobile-open state, an opt-in
+off-canvas panel for phones, and an opt-in keyboard shortcut. It does
 not own routing or persistence.
 
 ## Source Copy

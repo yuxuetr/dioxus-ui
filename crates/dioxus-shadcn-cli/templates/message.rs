@@ -1,27 +1,33 @@
+//! Message: chat row layout for an avatar, header metadata, content, and footer
+//! actions, independent of any chat provider.
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
+/// Which side of the conversation a message sits on.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum MessageAlign {
+  /// At the start of the row, avatar first, as for the other party.
   #[default]
   Start,
+  /// At the end of the row, avatar last, as for the user's own messages.
   End,
 }
 
-pub const MESSAGE_BASE_CLASS: &str = "flex w-full min-w-0 gap-3 text-sm";
-pub const MESSAGE_ALIGN_START_CLASS: &str = "items-start justify-start";
-pub const MESSAGE_ALIGN_END_CLASS: &str = "items-start justify-end flex-row-reverse";
-pub const MESSAGE_GROUP_BASE_CLASS: &str = "flex flex-col gap-4";
-pub const MESSAGE_AVATAR_BASE_CLASS: &str = "flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted text-xs font-medium text-foreground";
-pub const MESSAGE_CONTENT_BASE_CLASS: &str = "grid min-w-0 max-w-full flex-1 gap-1";
-pub const MESSAGE_CONTENT_ALIGN_START_CLASS: &str = "justify-items-start";
-pub const MESSAGE_CONTENT_ALIGN_END_CLASS: &str = "justify-items-end";
-pub const MESSAGE_HEADER_BASE_CLASS: &str =
+const MESSAGE_BASE_CLASS: &str = "flex w-full min-w-0 gap-3 text-sm";
+const MESSAGE_ALIGN_START_CLASS: &str = "items-start justify-start";
+const MESSAGE_ALIGN_END_CLASS: &str = "items-start justify-end flex-row-reverse";
+const MESSAGE_GROUP_BASE_CLASS: &str = "flex flex-col gap-4";
+const MESSAGE_AVATAR_BASE_CLASS: &str = "flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted text-xs font-medium text-foreground";
+const MESSAGE_CONTENT_BASE_CLASS: &str = "grid min-w-0 max-w-full flex-1 gap-1";
+const MESSAGE_CONTENT_ALIGN_START_CLASS: &str = "justify-items-start";
+const MESSAGE_CONTENT_ALIGN_END_CLASS: &str = "justify-items-end";
+const MESSAGE_HEADER_BASE_CLASS: &str =
   "flex min-w-0 items-center gap-2 text-xs text-muted-foreground";
-pub const MESSAGE_FOOTER_BASE_CLASS: &str =
+const MESSAGE_FOOTER_BASE_CLASS: &str =
   "flex min-w-0 items-center gap-2 text-xs text-muted-foreground";
 
 impl MessageAlign {
+  /// The row's justification and order for this side.
   pub const fn class(self) -> &'static str {
     match self {
       Self::Start => MESSAGE_ALIGN_START_CLASS,
@@ -29,6 +35,7 @@ impl MessageAlign {
     }
   }
 
+  /// The content column's item alignment for this side.
   pub const fn content_class(self) -> &'static str {
     match self {
       Self::Start => MESSAGE_CONTENT_ALIGN_START_CLASS,
@@ -36,6 +43,7 @@ impl MessageAlign {
     }
   }
 
+  /// The `data-align` value: `start` or `end`.
   pub const fn attribute(self) -> &'static str {
     match self {
       Self::Start => "start",
@@ -44,26 +52,34 @@ impl MessageAlign {
   }
 }
 
+/// Classes for the row: base classes, the alignment's, then `class` merged over them.
 pub fn message_class(align: MessageAlign, class: &str) -> String {
   merge_classes(classes([Some(MESSAGE_BASE_CLASS), Some(align.class())]), class)
 }
 
+/// Classes for a group of messages stacked with a gap, then `class` merged over them.
 pub fn message_group_class(class: &str) -> String {
   merge_classes(classes([Some(MESSAGE_GROUP_BASE_CLASS)]), class)
 }
 
+/// Classes for the avatar: a small muted circle, then `class` merged over it.
 pub fn message_avatar_class(class: &str) -> String {
   merge_classes(classes([Some(MESSAGE_AVATAR_BASE_CLASS)]), class)
 }
 
+/// Classes for the content column: base classes, the alignment's, then `class`
+/// merged over them.
 pub fn message_content_class(align: MessageAlign, class: &str) -> String {
   merge_classes(classes([Some(MESSAGE_CONTENT_BASE_CLASS), Some(align.content_class())]), class)
 }
 
+/// Classes for the header: a row of small muted metadata, then `class` merged over it.
 pub fn message_header_class(class: &str) -> String {
   merge_classes(classes([Some(MESSAGE_HEADER_BASE_CLASS)]), class)
 }
 
+/// Classes for the footer: a row of small muted actions or metadata, then `class`
+/// merged over it.
 pub fn message_footer_class(class: &str) -> String {
   merge_classes(classes([Some(MESSAGE_FOOTER_BASE_CLASS)]), class)
 }

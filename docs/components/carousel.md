@@ -1,8 +1,9 @@
 # Carousel
 
-Carousel provides controlled slide composition parts and pure index helpers.
-The app owns the selected index; the parts show it and report clicks and arrow
-keys. It does not own gesture recognition, autoplay, or scroll snapping.
+Carousel provides slide composition parts and pure index helpers. The
+`Carousel` root owns the selected slide, or follows `index` when the app
+controls it; the parts show it and step it on clicks and arrow keys. It does
+not own gesture recognition, autoplay, or scroll snapping.
 
 ## Source Copy
 
@@ -27,7 +28,6 @@ dioxus-shadcn = { version = "0.5", default-features = false, features = ["carous
 - `CarouselIndicator`
 - `CarouselOrientation`
 - `CarouselStep`
-- `carousel_key_step`
 - `carousel_next`
 - `carousel_previous`
 - `carousel_can_go_next`

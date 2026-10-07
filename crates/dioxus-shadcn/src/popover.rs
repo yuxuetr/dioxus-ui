@@ -1,3 +1,6 @@
+//! Popover: a non-modal panel anchored to a trigger, with header, title, and
+//! description parts.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
@@ -10,24 +13,25 @@ use crate::dialog_labels::{DialogLabelPart, use_dialog_label_part, use_dialog_la
 use crate::overlay_root::{OverlayRoot, overlay_trigger, use_overlay_root};
 use crate::root_state::use_root_context;
 
-pub const POPOVER_CONTENT_BASE_CLASS: &str = "z-50 w-72 rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
-pub const POPOVER_HEADER_BASE_CLASS: &str = "grid gap-1";
-pub const POPOVER_TITLE_BASE_CLASS: &str = "font-medium leading-none text-foreground";
-pub const POPOVER_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
+const POPOVER_CONTENT_BASE_CLASS: &str = "z-50 w-72 rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+const POPOVER_HEADER_BASE_CLASS: &str = "grid gap-1";
+const POPOVER_TITLE_BASE_CLASS: &str = "font-medium leading-none text-foreground";
+const POPOVER_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
 
+/// Classes for the panel: base classes with `class` merged over them.
 pub fn popover_content_class(class: &str) -> String {
   merge_classes(classes([Some(POPOVER_CONTENT_BASE_CLASS)]), class)
 }
 
-pub fn popover_header_class(class: &str) -> String {
+fn popover_header_class(class: &str) -> String {
   merge_classes(classes([Some(POPOVER_HEADER_BASE_CLASS)]), class)
 }
 
-pub fn popover_title_class(class: &str) -> String {
+fn popover_title_class(class: &str) -> String {
   merge_classes(classes([Some(POPOVER_TITLE_BASE_CLASS)]), class)
 }
 
-pub fn popover_description_class(class: &str) -> String {
+fn popover_description_class(class: &str) -> String {
   merge_classes(classes([Some(POPOVER_DESCRIPTION_BASE_CLASS)]), class)
 }
 

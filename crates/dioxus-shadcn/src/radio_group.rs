@@ -1,3 +1,6 @@
+//! Radio Group: a controlled single choice among options, with radio semantics
+//! and arrow-key focus that moves the selection.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 use dioxus_shadcn_primitives::{
@@ -8,10 +11,12 @@ use crate::density::{density_hit_area_class, use_density, with_density};
 use crate::root_state::{Controllable, use_controllable, use_root_context};
 use crate::roving_group::use_roving_group;
 
-pub const RADIO_GROUP_BASE_CLASS: &str = "grid gap-2";
-pub const RADIO_GROUP_ITEM_BASE_CLASS: &str = "inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50";
-pub const RADIO_GROUP_INDICATOR_BASE_CLASS: &str = "h-2 w-2 rounded-full bg-background";
+const RADIO_GROUP_BASE_CLASS: &str = "grid gap-2";
+const RADIO_GROUP_ITEM_BASE_CLASS: &str = "inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50";
+const RADIO_GROUP_INDICATOR_BASE_CLASS: &str = "h-2 w-2 rounded-full bg-background";
 
+/// Classes for the group: base classes, a row for horizontal orientation or a column
+/// otherwise, then `class` merged over them.
 pub fn radio_group_class(orientation: NavigationOrientation, class: &str) -> String {
   let orientation_class = match orientation {
     NavigationOrientation::Horizontal => "grid-flow-col auto-cols-max items-center",
@@ -21,6 +26,8 @@ pub fn radio_group_class(orientation: NavigationOrientation, class: &str) -> Str
   merge_classes(classes([Some(RADIO_GROUP_BASE_CLASS), Some(orientation_class)]), class)
 }
 
+/// Classes for a radio: base classes, the filled colors when `checked` or the empty
+/// ones otherwise, then `class` merged over them.
 pub fn radio_group_item_class(checked: bool, class: &str) -> String {
   let checked_class = if checked {
     "border-primary bg-primary text-primary-foreground"
@@ -31,22 +38,24 @@ pub fn radio_group_item_class(checked: bool, class: &str) -> String {
   merge_classes(classes([Some(RADIO_GROUP_ITEM_BASE_CLASS), Some(checked_class)]), class)
 }
 
-pub fn radio_group_indicator_class(class: &str) -> String {
+fn radio_group_indicator_class(class: &str) -> String {
   merge_classes(classes([Some(RADIO_GROUP_INDICATOR_BASE_CLASS)]), class)
 }
 
-pub fn radio_group_orientation_attribute(orientation: NavigationOrientation) -> &'static str {
+fn radio_group_orientation_attribute(orientation: NavigationOrientation) -> &'static str {
   match orientation {
     NavigationOrientation::Horizontal => "horizontal",
     NavigationOrientation::Vertical | NavigationOrientation::Both => "vertical",
   }
 }
 
+/// The radio's tab index: 0 for the checked, enabled radio, so Tab lands on it, and
+/// -1 for the rest.
 pub fn radio_group_item_tabindex(checked: bool, disabled: bool) -> i16 {
   if checked && !disabled { 0 } else { -1 }
 }
 
-pub fn radio_group_focus_state(
+fn radio_group_focus_state(
   orientation: NavigationOrientation,
   looping: bool,
   value: Option<&str>,
@@ -56,6 +65,8 @@ pub fn radio_group_focus_state(
   if let Some(value) = value { state.with_active_id(value) } else { state }
 }
 
+/// The value an arrow-key `focus_move` selects from `value` among `items`, skipping
+/// disabled ones and wrapping when `looping`; `None` when nothing can take it.
 pub fn radio_group_move_value<'a>(
   value: Option<&str>,
   items: &'a [RovingFocusItem],

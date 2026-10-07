@@ -1,3 +1,6 @@
+//! Accordion: collapsible content sections. The root owns which items are open
+//! (RFC 0077); items, triggers, and content are styled parts.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
@@ -7,18 +10,22 @@ use crate::element_id::next_element_id;
 use crate::root_state::use_root_context;
 use crate::roving_group::{group_part_id, use_roving_group};
 
-pub const ACCORDION_ITEM_BASE_CLASS: &str = "border-b border-border";
-pub const ACCORDION_TRIGGER_BASE_CLASS: &str = "flex w-full items-center justify-between py-4 text-left text-sm font-medium text-foreground transition-colors hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
-pub const ACCORDION_CONTENT_BASE_CLASS: &str = "overflow-hidden pb-4 text-sm text-muted-foreground";
+const ACCORDION_ITEM_BASE_CLASS: &str = "border-b border-border";
+const ACCORDION_TRIGGER_BASE_CLASS: &str = "flex w-full items-center justify-between py-4 text-left text-sm font-medium text-foreground transition-colors hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+const ACCORDION_CONTENT_BASE_CLASS: &str = "overflow-hidden pb-4 text-sm text-muted-foreground";
 
+/// Classes for an item: its bottom border, with `class` merged over it.
 pub fn accordion_item_class(class: &str) -> String {
   merge_classes(classes([Some(ACCORDION_ITEM_BASE_CLASS)]), class)
 }
 
+/// Classes for the trigger button that opens and closes an item, with `class`
+/// merged over them.
 pub fn accordion_trigger_class(class: &str) -> String {
   merge_classes(classes([Some(ACCORDION_TRIGGER_BASE_CLASS)]), class)
 }
 
+/// Classes for an item's content panel, with `class` merged over them.
 pub fn accordion_content_class(class: &str) -> String {
   merge_classes(classes([Some(ACCORDION_CONTENT_BASE_CLASS)]), class)
 }

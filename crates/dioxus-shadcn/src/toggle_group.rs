@@ -1,24 +1,30 @@
+//! Toggle group: a set of pressed buttons with single or multiple selection and
+//! roving arrow-key focus.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
-use dioxus_shadcn_primitives::{
-  FocusMove, NavigationOrientation, RovingFocusItem, RovingFocusState,
-};
+use dioxus_shadcn_primitives::NavigationOrientation;
 
 use crate::choice::{Choice, use_choice};
 use crate::density::{density_control_class, use_density, with_density};
 use crate::root_state::use_root_context;
 use crate::roving_group::use_roving_group;
 
+/// How many items can be pressed at once.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ToggleGroupType {
+  /// At most one; pressing an item releases the others.
   #[default]
   Single,
+  /// Any number, each toggled on its own.
   Multiple,
 }
 
-pub const TOGGLE_GROUP_BASE_CLASS: &str = "inline-flex gap-1";
-pub const TOGGLE_GROUP_ITEM_BASE_CLASS: &str = "inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+const TOGGLE_GROUP_BASE_CLASS: &str = "inline-flex gap-1";
+const TOGGLE_GROUP_ITEM_BASE_CLASS: &str = "inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
+/// Classes for the group: base classes, a column when vertical or a row otherwise,
+/// then `class` merged over them.
 pub fn toggle_group_class(orientation: NavigationOrientation, class: &str) -> String {
   let orientation_class = match orientation {
     NavigationOrientation::Vertical => "flex-col items-start",
@@ -28,6 +34,8 @@ pub fn toggle_group_class(orientation: NavigationOrientation, class: &str) -> St
   merge_classes(classes([Some(TOGGLE_GROUP_BASE_CLASS), Some(orientation_class)]), class)
 }
 
+/// Classes for an item: base classes, the pressed or unpressed colors, then `class`
+/// merged over them.
 pub fn toggle_group_item_class(pressed: bool, class: &str) -> String {
   let pressed_class =
     if pressed { "bg-accent text-accent-foreground" } else { "bg-transparent hover:bg-accent" };
@@ -35,35 +43,11 @@ pub fn toggle_group_item_class(pressed: bool, class: &str) -> String {
   merge_classes(classes([Some(TOGGLE_GROUP_ITEM_BASE_CLASS), Some(pressed_class)]), class)
 }
 
-pub fn toggle_group_orientation_attribute(orientation: NavigationOrientation) -> &'static str {
+fn toggle_group_orientation_attribute(orientation: NavigationOrientation) -> &'static str {
   match orientation {
     NavigationOrientation::Horizontal | NavigationOrientation::Both => "horizontal",
     NavigationOrientation::Vertical => "vertical",
   }
-}
-
-pub fn toggle_group_item_tabindex(pressed: bool, disabled: bool) -> i16 {
-  if pressed && !disabled { 0 } else { -1 }
-}
-
-pub fn toggle_group_focus_state(
-  orientation: NavigationOrientation,
-  looping: bool,
-  active_value: Option<&str>,
-) -> RovingFocusState {
-  let state = RovingFocusState::new(orientation).with_looping(looping);
-
-  if let Some(active_value) = active_value { state.with_active_id(active_value) } else { state }
-}
-
-pub fn toggle_group_move_value<'a>(
-  active_value: Option<&str>,
-  items: &'a [RovingFocusItem],
-  focus_move: FocusMove,
-  orientation: NavigationOrientation,
-  looping: bool,
-) -> Option<&'a str> {
-  toggle_group_focus_state(orientation, looping, active_value).move_focus(items, focus_move)
 }
 
 #[derive(Clone, Copy)]
@@ -219,14 +203,6 @@ mod tests {
     assert!(html.contains(r#"data-orientation="vertical""#));
   }
 
-  fn items() -> Vec<RovingFocusItem> {
-    vec![
-      RovingFocusItem::enabled("bold"),
-      RovingFocusItem::disabled("italic"),
-      RovingFocusItem::enabled("underline"),
-    ]
-  }
-
   #[test]
   fn toggle_group_item_class_reflects_pressed_state() {
     let actual = toggle_group_item_class(true, "min-w-10");
@@ -243,19 +219,5 @@ mod tests {
     assert_eq!(actual, "inline-flex flex-col items-start gap-2");
     assert!(actual.contains("flex-col items-start"));
     assert!(actual.ends_with("gap-2"));
-  }
-
-  #[test]
-  fn toggle_group_move_value_reuses_roving_focus() {
-    let items = items();
-    let next = toggle_group_move_value(
-      Some("bold"),
-      &items,
-      FocusMove::Next,
-      NavigationOrientation::Horizontal,
-      true,
-    );
-
-    assert_eq!(next, Some("underline"));
   }
 }

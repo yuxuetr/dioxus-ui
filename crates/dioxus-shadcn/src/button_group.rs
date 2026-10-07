@@ -1,21 +1,27 @@
+//! Button Group: a grouped layout for related command buttons, spaced apart or attached.
+
 use crate::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
+/// The direction the buttons run.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum ButtonGroupOrientation {
+  /// Side by side in a row.
   #[default]
   Horizontal,
+  /// Stacked in a column.
   Vertical,
 }
 
-pub const BUTTON_GROUP_BASE_CLASS: &str = "inline-flex items-stretch";
-pub const BUTTON_GROUP_GAP_CLASS: &str = "gap-1";
-pub const BUTTON_GROUP_ATTACHED_HORIZONTAL_CLASS: &str = "gap-0 [&>button:not(:first-child)]:rounded-l-none [&>button:not(:first-child)]:border-l-0 [&>button:not(:last-child)]:rounded-r-none";
-pub const BUTTON_GROUP_ATTACHED_VERTICAL_CLASS: &str = "gap-0 [&>button:not(:first-child)]:rounded-t-none [&>button:not(:first-child)]:border-t-0 [&>button:not(:last-child)]:rounded-b-none";
-pub const BUTTON_GROUP_ITEM_BASE_CLASS: &str = "inline-flex items-center justify-center rounded-md border border-input bg-background px-3 py-2 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+const BUTTON_GROUP_BASE_CLASS: &str = "inline-flex items-stretch";
+const BUTTON_GROUP_GAP_CLASS: &str = "gap-1";
+const BUTTON_GROUP_ATTACHED_HORIZONTAL_CLASS: &str = "gap-0 [&>button:not(:first-child)]:rounded-l-none [&>button:not(:first-child)]:border-l-0 [&>button:not(:last-child)]:rounded-r-none";
+const BUTTON_GROUP_ATTACHED_VERTICAL_CLASS: &str = "gap-0 [&>button:not(:first-child)]:rounded-t-none [&>button:not(:first-child)]:border-t-0 [&>button:not(:last-child)]:rounded-b-none";
+const BUTTON_GROUP_ITEM_BASE_CLASS: &str = "inline-flex items-center justify-center rounded-md border border-input bg-background px-3 py-2 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
 
 impl ButtonGroupOrientation {
+  /// The orientation's flex direction class.
   pub const fn class(self) -> &'static str {
     match self {
       Self::Horizontal => "flex-row",
@@ -23,6 +29,7 @@ impl ButtonGroupOrientation {
     }
   }
 
+  /// The value for the group's `data-orientation` attribute.
   pub const fn attribute(self) -> &'static str {
     match self {
       Self::Horizontal => "horizontal",
@@ -31,6 +38,8 @@ impl ButtonGroupOrientation {
   }
 }
 
+/// Classes for the group: base classes and the orientation's direction; `attached` joins the
+/// buttons' borders instead of spacing them, then `class` is merged over them.
 pub fn button_group_class(
   orientation: ButtonGroupOrientation,
   attached: bool,
@@ -51,6 +60,7 @@ pub fn button_group_class(
   )
 }
 
+/// Classes for the bordered button inside the group.
 pub fn button_group_item_class(class: &str) -> String {
   merge_classes(classes([Some(BUTTON_GROUP_ITEM_BASE_CLASS)]), class)
 }

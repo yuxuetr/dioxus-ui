@@ -33,15 +33,10 @@ dioxus-shadcn = { version = "0.5", default-features = false, features = ["chart"
 - `ChartScale`
 - `ChartColorToken`
 - `ChartFallbackRow` (`ChartFallbackTable`'s `rows`)
-- `ChartBarRect` (what `chart_bar_rects` returns)
-- `chart_line_path`
-- `chart_area_path`
-- `chart_bar_rects`
 - `chart_fallback_rows`
 - `chart_summary`
 - `chart_domain`, `chart_scale_value`, `chart_view_box`
-- `ChartPieSeries`, `ChartSlice`, `ChartArc` (what `chart_pie_arcs` returns)
-- `chart_pie_arcs`
+- `ChartPieSeries`, `ChartSlice`
 - `CHART_COLOR_CLASSES`
 
 ### Pie and donut charts

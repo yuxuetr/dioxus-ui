@@ -19,11 +19,6 @@ dioxus-shadcn = { version = "0.5", default-features = false, features = ["number
 
 - `NumberInput`
 - `number_input_class`
-- `number_input_clamp`
-- `number_input_round`
-- `number_input_step`
-- `number_input_format`
-- `number_input_parse`
 
 ```rust
 let mut quantity = use_signal(|| 1.0);

@@ -58,7 +58,6 @@ Primitive helpers:
 - `calendar_range_state(...)`
 - `days_in_month(year, month)`
 - `is_leap_year(year)`
-- `calendar_range_attribute(range_state)`
 
 ## Keyboard Behavior
 

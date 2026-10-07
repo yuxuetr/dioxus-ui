@@ -1,3 +1,6 @@
+//! Tooltip: a short supplemental description shown on hover or focus of its
+//! trigger.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
@@ -9,8 +12,9 @@ use crate::hover_open::{HoverOpenOptions, use_hover_open};
 use crate::overlay_root::{OverlayRoot, use_overlay_root};
 use crate::root_state::use_root_context;
 
-pub const TOOLTIP_CONTENT_BASE_CLASS: &str = "z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground shadow-md";
+const TOOLTIP_CONTENT_BASE_CLASS: &str = "z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground shadow-md";
 
+/// Classes for the tooltip bubble, with `class` merged over them.
 pub fn tooltip_content_class(class: &str) -> String {
   merge_classes(classes([Some(TOOLTIP_CONTENT_BASE_CLASS)]), class)
 }

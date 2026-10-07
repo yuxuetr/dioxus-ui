@@ -1,13 +1,18 @@
+//! Number input: a field for a number, such as a quantity, with buttons and arrow keys
+//! that step it within optional bounds.
+
 use crate::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
 // Dim the field only when the input is disabled, not when a button is at a
 // bound.
-pub const NUMBER_INPUT_BASE_CLASS: &str = "flex h-10 w-full items-stretch overflow-hidden rounded-md border bg-background text-sm transition-colors focus-within:ring-2 has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-50";
-pub const NUMBER_INPUT_FIELD_CLASS: &str = "min-w-0 flex-1 bg-transparent px-2 text-center tabular-nums outline-none disabled:cursor-not-allowed";
-pub const NUMBER_INPUT_BUTTON_CLASS: &str = "flex w-10 shrink-0 items-center justify-center text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50";
+const NUMBER_INPUT_BASE_CLASS: &str = "flex h-10 w-full items-stretch overflow-hidden rounded-md border bg-background text-sm transition-colors focus-within:ring-2 has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-50";
+const NUMBER_INPUT_FIELD_CLASS: &str = "min-w-0 flex-1 bg-transparent px-2 text-center tabular-nums outline-none disabled:cursor-not-allowed";
+const NUMBER_INPUT_BUTTON_CLASS: &str = "flex w-10 shrink-0 items-center justify-center text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50";
 
+/// Classes for the field: base classes, the invalid or normal border and focus ring,
+/// then `class` merged over them.
 pub fn number_input_class(invalid: bool, class: &str) -> String {
   let invalid_class = if invalid {
     "border-destructive focus-within:ring-destructive"
@@ -19,13 +24,13 @@ pub fn number_input_class(invalid: bool, class: &str) -> String {
 }
 
 /// The value kept within the optional bounds.
-pub fn number_input_clamp(value: f64, min: Option<f64>, max: Option<f64>) -> f64 {
+fn number_input_clamp(value: f64, min: Option<f64>, max: Option<f64>) -> f64 {
   let value = min.map_or(value, |min| value.max(min));
   max.map_or(value, |max| value.min(max))
 }
 
 /// Rounds to the step's decimals, so 0.1 + 0.2 reads 0.3.
-pub fn number_input_round(value: f64, step: f64) -> f64 {
+fn number_input_round(value: f64, step: f64) -> f64 {
   let step_text = step.to_string();
   let decimals = step_text.split_once('.').map_or(0, |(_, fraction)| fraction.len()).min(12);
   let scale = 10_f64.powi(decimals as i32);
@@ -33,7 +38,7 @@ pub fn number_input_round(value: f64, step: f64) -> f64 {
 }
 
 /// One step up (`direction` 1) or down (-1), rounded and clamped.
-pub fn number_input_step(
+fn number_input_step(
   value: f64,
   step: f64,
   direction: f64,
@@ -44,12 +49,12 @@ pub fn number_input_step(
 }
 
 /// The text for a value: no trailing `.0`.
-pub fn number_input_format(value: f64) -> String {
+fn number_input_format(value: f64) -> String {
   value.to_string()
 }
 
 /// A number from typed text, if it is a complete, finite number.
-pub fn number_input_parse(text: &str) -> Option<f64> {
+fn number_input_parse(text: &str) -> Option<f64> {
   text.trim().parse::<f64>().ok().filter(|value| value.is_finite())
 }
 

@@ -23,11 +23,8 @@ dioxus-shadcn = { version = "0.5", default-features = false, features = ["resiza
 - `ResizableHandle`
 - `LayoutOrientation`
 - `ResizablePanelState`
-- `resizable_panel_style`
 - `resizable_clamp`
 - `resizable_resize_pair`
-- `resizable_handle_key_delta`
-- `resizable_separator_orientation`
 
 ## Resizing
 

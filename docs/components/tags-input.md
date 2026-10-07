@@ -19,9 +19,6 @@ dioxus-shadcn = { version = "0.5", default-features = false, features = ["tags-i
 
 - `TagsInput`
 - `tags_input_class`
-- `tags_input_add`
-- `tags_input_commit`
-- `tags_input_remove`
 
 ```rust
 let mut topics = use_signal(Vec::<String>::new);

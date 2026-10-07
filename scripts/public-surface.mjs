@@ -42,13 +42,18 @@ const filesUnder = (dir) =>
 // "API Surface", which is a promise whether or not the page uses the name.
 const wordFiles = new Map();
 const listed = new Set();
+const listedModules = new Set();
 const API_SURFACE = /^## API Surface\n([\s\S]*?)(?=^## |(?![\s\S]))/m;
 for (const file of ["README.md", "crates/README.md", ...["docs", "site/src", "examples", "scripts", "crates"].flatMap(filesUnder)]) {
   // A crate's lib.rs only re-exports its modules' items.
   if (!/\.(rs|md|mjs|js)$/.test(file) || file.startsWith("docs/archive/") || file.includes("/templates/") || /^crates\/[^/]+\/src\/lib\.rs$/.test(file)) continue;
   let text = readFileSync(join(repoRoot, file), "utf8");
   if (file.startsWith("docs/components/")) {
-    for (const [, name] of text.match(API_SURFACE)?.[1].matchAll(/^- `([A-Za-z_][A-Za-z0-9_]*)`/gm) ?? []) listed.add(name);
+    const section = text.match(API_SURFACE)?.[1] ?? "";
+    // Every name that opens a code span: `Name`, `name(args)`, `Name { props }`.
+    for (const [, name] of section.matchAll(/`([A-Za-z_][A-Za-z0-9_]*)/g)) listed.add(name);
+    // "class helpers for every part" lists the module's class functions.
+    if (/^- class helpers for every part$/m.test(section)) listedModules.add(file.slice("docs/components/".length, -3).replaceAll("-", "_"));
     text = text.replace(API_SURFACE, "");
   }
   for (const word of new Set(text.match(/[A-Za-z_][A-Za-z0-9_]*/g) ?? [])) {
@@ -106,7 +111,9 @@ for (const crate of crates) {
       kind,
       file,
       documented: Boolean(item.docs),
-      listed: listed.has(item.name),
+      listed:
+        listed.has(item.name) ||
+        (kind === "class function" && listedModules.has(file.split("/").pop().replace(/\.rs$/, ""))),
       undocumentedParts: parts.filter((part) => part && (part.visibility === "public" || "variant" in part.inner) && !part.docs && !isHidden(part)).length,
       usedIn: usedIn ?? (inCrate ? "crate" : "nowhere"),
       namedIn,

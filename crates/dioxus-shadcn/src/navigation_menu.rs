@@ -1,3 +1,6 @@
+//! Navigation Menu: site navigation with triggers that open content panels,
+//! keeping navigation semantics rather than command-menu roles.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::PopoverPrimitiveConfig;
@@ -221,8 +224,10 @@ document.removeEventListener("pointerdown", onOutside, true);
 document.removeEventListener("focusin", onOutside);
 "#;
 
+/// How a navigation menu lays out its triggers.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum NavigationMenuOrientation {
+  /// Triggers in a row, with contents below them.
   #[default]
   Horizontal,
   /// A submenu inside another menu's content: triggers in a column, with
@@ -231,6 +236,7 @@ pub enum NavigationMenuOrientation {
 }
 
 impl NavigationMenuOrientation {
+  /// The `data-orientation` value: `horizontal` or `vertical`.
   pub const fn as_str(self) -> &'static str {
     match self {
       Self::Horizontal => "horizontal",
@@ -241,49 +247,55 @@ impl NavigationMenuOrientation {
 
 // The parts read a vertical menu's orientation through the
 // `navigation-menu` group.
-pub const NAVIGATION_MENU_BASE_CLASS: &str = "group/navigation-menu relative z-10 flex max-w-max flex-1 items-center justify-center data-[orientation=vertical]:max-w-none data-[orientation=vertical]:items-start data-[orientation=vertical]:justify-start data-[orientation=vertical]:gap-4";
-pub const NAVIGATION_MENU_LIST_BASE_CLASS: &str = "group flex flex-1 list-none items-center justify-center gap-1 group-data-[orientation=vertical]/navigation-menu:flex-none group-data-[orientation=vertical]/navigation-menu:flex-col group-data-[orientation=vertical]/navigation-menu:items-stretch";
-pub const NAVIGATION_MENU_ITEM_BASE_CLASS: &str = "relative";
-pub const NAVIGATION_MENU_TRIGGER_BASE_CLASS: &str = "inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent focus:bg-accent focus:outline-none disabled:pointer-events-none disabled:opacity-50 group-data-[orientation=vertical]/navigation-menu:w-full group-data-[orientation=vertical]/navigation-menu:justify-start";
-pub const NAVIGATION_MENU_CONTENT_BASE_CLASS: &str = "left-0 top-full mt-1.5 w-full rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-md md:absolute md:w-auto group-data-[orientation=vertical]/navigation-menu:static group-data-[orientation=vertical]/navigation-menu:mt-0 group-data-[orientation=vertical]/navigation-menu:border-0 group-data-[orientation=vertical]/navigation-menu:p-0 group-data-[orientation=vertical]/navigation-menu:shadow-none";
-pub const NAVIGATION_MENU_LINK_BASE_CLASS: &str = "block select-none rounded-md p-3 text-sm leading-none text-foreground no-underline outline-none transition-colors hover:bg-accent focus:bg-accent data-[active=true]:bg-accent data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
-pub const NAVIGATION_MENU_VIEWPORT_BASE_CLASS: &str = "absolute left-0 top-full flex h-[var(--navigation-menu-viewport-height)] w-full justify-center overflow-hidden rounded-md border border-border bg-popover text-popover-foreground shadow md:w-[var(--navigation-menu-viewport-width)]";
-pub const NAVIGATION_MENU_INDICATOR_BASE_CLASS: &str =
+const NAVIGATION_MENU_BASE_CLASS: &str = "group/navigation-menu relative z-10 flex max-w-max flex-1 items-center justify-center data-[orientation=vertical]:max-w-none data-[orientation=vertical]:items-start data-[orientation=vertical]:justify-start data-[orientation=vertical]:gap-4";
+const NAVIGATION_MENU_LIST_BASE_CLASS: &str = "group flex flex-1 list-none items-center justify-center gap-1 group-data-[orientation=vertical]/navigation-menu:flex-none group-data-[orientation=vertical]/navigation-menu:flex-col group-data-[orientation=vertical]/navigation-menu:items-stretch";
+const NAVIGATION_MENU_ITEM_BASE_CLASS: &str = "relative";
+const NAVIGATION_MENU_TRIGGER_BASE_CLASS: &str = "inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent focus:bg-accent focus:outline-none disabled:pointer-events-none disabled:opacity-50 group-data-[orientation=vertical]/navigation-menu:w-full group-data-[orientation=vertical]/navigation-menu:justify-start";
+const NAVIGATION_MENU_CONTENT_BASE_CLASS: &str = "left-0 top-full mt-1.5 w-full rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-md md:absolute md:w-auto group-data-[orientation=vertical]/navigation-menu:static group-data-[orientation=vertical]/navigation-menu:mt-0 group-data-[orientation=vertical]/navigation-menu:border-0 group-data-[orientation=vertical]/navigation-menu:p-0 group-data-[orientation=vertical]/navigation-menu:shadow-none";
+const NAVIGATION_MENU_LINK_BASE_CLASS: &str = "block select-none rounded-md p-3 text-sm leading-none text-foreground no-underline outline-none transition-colors hover:bg-accent focus:bg-accent data-[active=true]:bg-accent data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
+const NAVIGATION_MENU_VIEWPORT_BASE_CLASS: &str = "absolute left-0 top-full flex h-[var(--navigation-menu-viewport-height)] w-full justify-center overflow-hidden rounded-md border border-border bg-popover text-popover-foreground shadow md:w-[var(--navigation-menu-viewport-width)]";
+const NAVIGATION_MENU_INDICATOR_BASE_CLASS: &str =
   "top-full z-10 flex h-2 items-end justify-center overflow-hidden";
 
+/// Classes for the root, including its vertical layout, with `class` merged over
+/// them.
 pub fn navigation_menu_class(class: &str) -> String {
   merge_classes(classes([Some(NAVIGATION_MENU_BASE_CLASS)]), class)
 }
 
-pub fn navigation_menu_list_class(class: &str) -> String {
+fn navigation_menu_list_class(class: &str) -> String {
   merge_classes(classes([Some(NAVIGATION_MENU_LIST_BASE_CLASS)]), class)
 }
 
-pub fn navigation_menu_item_class(class: &str) -> String {
+fn navigation_menu_item_class(class: &str) -> String {
   merge_classes(classes([Some(NAVIGATION_MENU_ITEM_BASE_CLASS)]), class)
 }
 
+/// Classes for a trigger: base classes, the accent background when `open`,
+/// then `class` merged over them.
 pub fn navigation_menu_trigger_class(open: bool, class: &str) -> String {
   let state_class = if open { "bg-accent" } else { "bg-background" };
 
   merge_classes(classes([Some(NAVIGATION_MENU_TRIGGER_BASE_CLASS), Some(state_class)]), class)
 }
 
-pub fn navigation_menu_content_class(class: &str) -> String {
+fn navigation_menu_content_class(class: &str) -> String {
   merge_classes(classes([Some(NAVIGATION_MENU_CONTENT_BASE_CLASS)]), class)
 }
 
+/// Classes for a link: base classes, the accent background when `active`,
+/// then `class` merged over them.
 pub fn navigation_menu_link_class(active: bool, class: &str) -> String {
   let state_class = if active { "bg-accent" } else { "" };
 
   merge_classes(classes([Some(NAVIGATION_MENU_LINK_BASE_CLASS), Some(state_class)]), class)
 }
 
-pub fn navigation_menu_viewport_class(class: &str) -> String {
+fn navigation_menu_viewport_class(class: &str) -> String {
   merge_classes(classes([Some(NAVIGATION_MENU_VIEWPORT_BASE_CLASS)]), class)
 }
 
-pub fn navigation_menu_indicator_class(open: bool, class: &str) -> String {
+fn navigation_menu_indicator_class(open: bool, class: &str) -> String {
   let state_class = if open { "opacity-100" } else { "opacity-0" };
 
   merge_classes(classes([Some(NAVIGATION_MENU_INDICATOR_BASE_CLASS), Some(state_class)]), class)

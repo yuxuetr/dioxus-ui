@@ -1,8 +1,10 @@
+//! Skeleton: an animated placeholder for content that is still loading.
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
-pub const SKELETON_BASE_CLASS: &str = "animate-pulse rounded-md bg-accent";
+const SKELETON_BASE_CLASS: &str = "animate-pulse rounded-md bg-accent";
 
+/// Classes for the pulsing placeholder, with `class` merged over them; set its size with `class`.
 pub fn skeleton_class(class: &str) -> String {
   merge_classes(classes([Some(SKELETON_BASE_CLASS)]), class)
 }

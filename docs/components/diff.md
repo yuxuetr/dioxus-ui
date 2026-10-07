@@ -22,7 +22,6 @@ dioxus-shadcn = { version = "0.5", default-features = false, features = ["diff"]
 - `DiffAfter`
 - `diff_class`
 - `diff_layer_class`
-- `diff_position`
 
 ```rust
 let mut position = use_signal(|| 50.0);

@@ -199,6 +199,21 @@ let class = classes([
 preserves duplicate tokens so later user classes can override earlier defaults
 where Tailwind ordering allows it.
 
+## Public Surface
+
+A component module makes public only what an app uses
+([RFC 0079](rfcs/0079-public-surface.md)):
+
+- the components, their props, and the enums the props take
+- a class function, when the component page lists it under API Surface, for
+  styling an element the component does not render
+- a helper, when the page's text or an example uses it
+
+Class constants, the class functions of parts no page lists, and helpers for
+the component's own work (geometry, style strings, key handling, parsing)
+stay private, or `pub(crate)` when another module needs them. Every public
+item has a doc comment: the crate denies `missing_docs`.
+
 ## Attribute Forwarding
 
 A component or part that renders a native interactive element (a button,

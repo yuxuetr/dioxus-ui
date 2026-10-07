@@ -1,3 +1,6 @@
+//! Collapsible: a trigger that shows or hides a region of content. The root owns whether it
+//! is open (RFC 0077).
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
@@ -6,12 +9,14 @@ use crate::density::{density_control_class, use_density, with_density};
 use crate::overlay_root::{OverlayRoot, use_overlay_root};
 use crate::root_state::use_root_context;
 
-pub const COLLAPSIBLE_BASE_CLASS: &str = "grid gap-2 data-[disabled=true]:opacity-50";
-pub const COLLAPSIBLE_TRIGGER_BASE_CLASS: &str = "inline-flex items-center justify-between gap-2 rounded-md text-sm font-medium text-foreground transition-colors hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
-pub const COLLAPSIBLE_CONTENT_BASE_CLASS: &str = "overflow-hidden text-sm text-muted-foreground";
-pub const COLLAPSIBLE_CONTENT_OPEN_CLASS: &str = "block";
-pub const COLLAPSIBLE_CONTENT_CLOSED_CLASS: &str = "hidden";
+const COLLAPSIBLE_BASE_CLASS: &str = "grid gap-2 data-[disabled=true]:opacity-50";
+const COLLAPSIBLE_TRIGGER_BASE_CLASS: &str = "inline-flex items-center justify-between gap-2 rounded-md text-sm font-medium text-foreground transition-colors hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+const COLLAPSIBLE_CONTENT_BASE_CLASS: &str = "overflow-hidden text-sm text-muted-foreground";
+const COLLAPSIBLE_CONTENT_OPEN_CLASS: &str = "block";
+const COLLAPSIBLE_CONTENT_CLOSED_CLASS: &str = "hidden";
 
+/// Classes for the root: base classes, plus no pointer events while `disabled`, with `class`
+/// merged over them.
 pub fn collapsible_class(disabled: bool, class: &str) -> String {
   merge_classes(
     classes([Some(COLLAPSIBLE_BASE_CLASS), disabled.then_some("pointer-events-none")]),
@@ -19,10 +24,13 @@ pub fn collapsible_class(disabled: bool, class: &str) -> String {
   )
 }
 
+/// Classes for the trigger button, with `class` merged over them.
 pub fn collapsible_trigger_class(class: &str) -> String {
   merge_classes(classes([Some(COLLAPSIBLE_TRIGGER_BASE_CLASS)]), class)
 }
 
+/// Classes for the content: base classes, shown while `open` and hidden otherwise, with `class`
+/// merged over them.
 pub fn collapsible_content_class(open: bool, class: &str) -> String {
   let state_class =
     if open { COLLAPSIBLE_CONTENT_OPEN_CLASS } else { COLLAPSIBLE_CONTENT_CLOSED_CLASS };

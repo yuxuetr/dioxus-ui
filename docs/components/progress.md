@@ -19,7 +19,6 @@ dioxus-shadcn = { version = "0.5", default-features = false, features = ["progre
 - `Progress`
 - `progress_class`
 - `progress_indicator_class`
-- `progress_percent`
 
 ## Accessibility Notes
 

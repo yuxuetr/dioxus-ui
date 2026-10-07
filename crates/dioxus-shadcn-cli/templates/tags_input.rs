@@ -1,13 +1,17 @@
+//! Tags input: collects a list of short values, such as topics or email recipients,
+//! shown as removable chips.
 use super::utils::{classes, merge_classes};
 use super::density::{density_control_class, density_hit_area_class, use_density, with_density};
 use dioxus::prelude::*;
 
-pub const TAGS_INPUT_BASE_CLASS: &str = "flex min-h-10 w-full flex-wrap items-center gap-1.5 rounded-md border bg-background px-2 py-1.5 text-sm transition-colors focus-within:ring-2";
-pub const TAGS_INPUT_LIST_CLASS: &str = "flex flex-wrap gap-1.5";
-pub const TAGS_INPUT_TAG_CLASS: &str = "inline-flex items-center gap-1 rounded-md bg-secondary py-0.5 ps-2 pe-1 text-xs font-medium text-secondary-foreground";
-pub const TAGS_INPUT_REMOVE_CLASS: &str = "inline-flex size-4 items-center justify-center rounded-sm text-secondary-foreground hover:bg-background/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none";
-pub const TAGS_INPUT_FIELD_CLASS: &str = "min-w-24 flex-1 bg-transparent py-0.5 outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed";
+const TAGS_INPUT_BASE_CLASS: &str = "flex min-h-10 w-full flex-wrap items-center gap-1.5 rounded-md border bg-background px-2 py-1.5 text-sm transition-colors focus-within:ring-2";
+const TAGS_INPUT_LIST_CLASS: &str = "flex flex-wrap gap-1.5";
+const TAGS_INPUT_TAG_CLASS: &str = "inline-flex items-center gap-1 rounded-md bg-secondary py-0.5 ps-2 pe-1 text-xs font-medium text-secondary-foreground";
+const TAGS_INPUT_REMOVE_CLASS: &str = "inline-flex size-4 items-center justify-center rounded-sm text-secondary-foreground hover:bg-background/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none";
+const TAGS_INPUT_FIELD_CLASS: &str = "min-w-24 flex-1 bg-transparent py-0.5 outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed";
 
+/// Classes for the field: base classes, the invalid or normal border and focus ring,
+/// then `class` merged over them.
 pub fn tags_input_class(invalid: bool, class: &str) -> String {
   let invalid_class = if invalid {
     "border-destructive focus-within:ring-destructive"
@@ -19,7 +23,7 @@ pub fn tags_input_class(invalid: bool, class: &str) -> String {
 }
 
 /// The tags with `draft` added, trimmed, unless it is empty or already there.
-pub fn tags_input_add(tags: &[String], draft: &str) -> Option<Vec<String>> {
+fn tags_input_add(tags: &[String], draft: &str) -> Option<Vec<String>> {
   let tag = draft.trim();
   if tag.is_empty() || tags.iter().any(|existing| existing == tag) {
     return None;
@@ -31,7 +35,7 @@ pub fn tags_input_add(tags: &[String], draft: &str) -> Option<Vec<String>> {
 
 /// Typed or pasted text with commas: every segment before the last comma
 /// becomes a tag, and the rest stays as the draft.
-pub fn tags_input_commit(tags: &[String], text: &str) -> (Vec<String>, String) {
+fn tags_input_commit(tags: &[String], text: &str) -> (Vec<String>, String) {
   let Some((complete, draft)) = text.rsplit_once(',') else {
     return (tags.to_vec(), text.to_string());
   };
@@ -44,7 +48,7 @@ pub fn tags_input_commit(tags: &[String], text: &str) -> (Vec<String>, String) {
   (next, draft.trim_start().to_string())
 }
 
-pub fn tags_input_remove(tags: &[String], index: usize) -> Vec<String> {
+fn tags_input_remove(tags: &[String], index: usize) -> Vec<String> {
   tags
     .iter()
     .enumerate()

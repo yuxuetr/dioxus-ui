@@ -1,14 +1,17 @@
+//! Rating: lets the user pick a score from one to five stars, or to another
+//! maximum.
 use super::density::{density_hit_area_class, use_density};
 use super::element_id::next_element_id;
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
-pub const RATING_BASE_CLASS: &str = "inline-flex items-center gap-1";
+const RATING_BASE_CLASS: &str = "inline-flex items-center gap-1";
 // The mask that draws the star would clip a focus outline, so the wrapper
 // shows the ring for the focused radio.
-pub const RATING_STAR_WRAPPER_CLASS: &str = "inline-flex rounded-sm has-focus-visible:ring-2 has-focus-visible:ring-ring has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-background";
-pub const RATING_STAR_CLASS: &str = "size-6 cursor-pointer appearance-none bg-muted-foreground/40 [mask:url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2024%2024%27%3E%3Cpath%20d=%27M12%202l3.09%206.26L22%209.27l-5%204.87%201.18%206.88L12%2017.77l-6.18%203.25L7%2014.14%202%209.27l6.91-1.01L12%202z%27/%3E%3C/svg%3E)_center/contain_no-repeat] focus-visible:outline-none data-[filled=true]:bg-warning disabled:cursor-not-allowed disabled:opacity-50";
+const RATING_STAR_WRAPPER_CLASS: &str = "inline-flex rounded-sm has-focus-visible:ring-2 has-focus-visible:ring-ring has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-background";
+const RATING_STAR_CLASS: &str = "size-6 cursor-pointer appearance-none bg-muted-foreground/40 [mask:url(data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2024%2024%27%3E%3Cpath%20d=%27M12%202l3.09%206.26L22%209.27l-5%204.87%201.18%206.88L12%2017.77l-6.18%203.25L7%2014.14%202%209.27l6.91-1.01L12%202z%27/%3E%3C/svg%3E)_center/contain_no-repeat] focus-visible:outline-none data-[filled=true]:bg-warning disabled:cursor-not-allowed disabled:opacity-50";
 
+/// Classes for the row of stars, with `class` merged over them.
 pub fn rating_class(class: &str) -> String {
   merge_classes(classes([Some(RATING_BASE_CLASS)]), class)
 }

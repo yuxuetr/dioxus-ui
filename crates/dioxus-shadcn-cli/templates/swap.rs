@@ -1,12 +1,18 @@
+//! Swap: a toggle button that switches between two elements, such as a menu icon
+//! that becomes a close icon.
 use super::utils::{classes, merge_classes};
 use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
+/// How a `Swap` moves from one layer to the other.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum SwapEffect {
+  /// Cross-fades the layers.
   #[default]
   Fade,
+  /// Turns the layers a quarter turn as they fade.
   Rotate,
+  /// Flips the layers like a card.
   Flip,
 }
 
@@ -24,13 +30,15 @@ impl SwapEffect {
   }
 }
 
-pub const SWAP_BASE_CLASS: &str = "relative inline-grid cursor-pointer place-items-center rounded-md [perspective:600px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
-pub const SWAP_LAYER_BASE_CLASS: &str = "col-start-1 row-start-1 transition duration-300 [backface-visibility:hidden] motion-reduce:transition-none";
+const SWAP_BASE_CLASS: &str = "relative inline-grid cursor-pointer place-items-center rounded-md [perspective:600px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50";
+const SWAP_LAYER_BASE_CLASS: &str = "col-start-1 row-start-1 transition duration-300 [backface-visibility:hidden] motion-reduce:transition-none";
 
+/// Classes for the button that stacks both layers in one cell, with `class` merged over them.
 pub fn swap_class(class: &str) -> String {
   merge_classes(classes([Some(SWAP_BASE_CLASS)]), class)
 }
 
+/// Classes for a layer: the shared transition, then `effect`'s shown or hidden state.
 pub fn swap_layer_class(effect: SwapEffect, shown: bool) -> String {
   classes([Some(SWAP_LAYER_BASE_CLASS), Some(effect.layer_class(shown))])
 }

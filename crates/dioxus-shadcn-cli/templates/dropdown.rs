@@ -1,3 +1,5 @@
+//! Dropdown: a menu opened from a trigger, with group, label, item, checkbox,
+//! radio, submenu, separator, and shortcut parts.
 use super::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
 use super::listbox::{ListboxMode, use_listbox};
 use super::menu_marks::{
@@ -12,27 +14,30 @@ use super::utils::{classes, merge_classes};
 use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
-pub const DROPDOWN_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
-pub const DROPDOWN_GROUP_BASE_CLASS: &str = "p-1";
-pub const DROPDOWN_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-muted-foreground";
-pub const DROPDOWN_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
-pub const DROPDOWN_ITEM_INSET_CLASS: &str = "pl-8";
-pub const DROPDOWN_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-border";
-pub const DROPDOWN_SHORTCUT_BASE_CLASS: &str =
+const DROPDOWN_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
+const DROPDOWN_GROUP_BASE_CLASS: &str = "p-1";
+const DROPDOWN_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-muted-foreground";
+const DROPDOWN_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
+const DROPDOWN_ITEM_INSET_CLASS: &str = "pl-8";
+const DROPDOWN_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-border";
+const DROPDOWN_SHORTCUT_BASE_CLASS: &str =
   "ml-auto text-xs tracking-normal text-muted-foreground";
 
+/// Classes for the menu panel: base classes with `class` merged over them.
 pub fn dropdown_content_class(class: &str) -> String {
   merge_classes(classes([Some(DROPDOWN_CONTENT_BASE_CLASS)]), class)
 }
 
-pub fn dropdown_group_class(class: &str) -> String {
+fn dropdown_group_class(class: &str) -> String {
   merge_classes(classes([Some(DROPDOWN_GROUP_BASE_CLASS)]), class)
 }
 
-pub fn dropdown_label_class(class: &str) -> String {
+fn dropdown_label_class(class: &str) -> String {
   merge_classes(classes([Some(DROPDOWN_LABEL_BASE_CLASS)]), class)
 }
 
+/// Classes for an item: base classes, the destructive colors when `destructive` or
+/// the plain ones otherwise, then `class` merged over them.
 pub fn dropdown_item_class(destructive: bool, class: &str) -> String {
   let variant_class = if destructive {
     "text-destructive focus:bg-destructive/10 focus:text-destructive"
@@ -69,7 +74,7 @@ pub fn dropdown_radio_item_class(checked: bool, class: &str) -> String {
   dropdown_inset_item_class(false, &mark)
 }
 
-pub fn dropdown_separator_class(class: &str) -> String {
+fn dropdown_separator_class(class: &str) -> String {
   merge_classes(classes([Some(DROPDOWN_SEPARATOR_BASE_CLASS)]), class)
 }
 
@@ -79,6 +84,8 @@ pub fn dropdown_sub_trigger_class(inset: bool, class: &str) -> String {
   if inset { dropdown_inset_item_class(false, &class) } else { dropdown_item_class(false, &class) }
 }
 
+/// Classes for the shortcut hint at an item's end: base classes with `class` merged
+/// over them.
 pub fn dropdown_shortcut_class(class: &str) -> String {
   merge_classes(classes([Some(DROPDOWN_SHORTCUT_BASE_CLASS)]), class)
 }

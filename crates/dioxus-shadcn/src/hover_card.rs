@@ -1,3 +1,6 @@
+//! Hover Card: rich preview content for a link, opened on hover and keyboard
+//! focus and placed like a popover.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
@@ -9,28 +12,29 @@ use crate::hover_open::{HoverOpenOptions, use_hover_open};
 use crate::overlay_root::{OverlayRoot, use_overlay_root};
 use crate::root_state::use_root_context;
 
-pub const HOVER_CARD_CONTENT_BASE_CLASS: &str = "z-50 w-80 rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
-pub const HOVER_CARD_HEADER_BASE_CLASS: &str = "grid gap-1";
-pub const HOVER_CARD_TITLE_BASE_CLASS: &str = "font-medium leading-none text-foreground";
-pub const HOVER_CARD_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
+const HOVER_CARD_CONTENT_BASE_CLASS: &str = "z-50 w-80 rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+const HOVER_CARD_HEADER_BASE_CLASS: &str = "grid gap-1";
+const HOVER_CARD_TITLE_BASE_CLASS: &str = "font-medium leading-none text-foreground";
+const HOVER_CARD_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
 
+/// Classes for the card that holds the preview, with `class` merged over them.
 pub fn hover_card_content_class(class: &str) -> String {
   merge_classes(classes([Some(HOVER_CARD_CONTENT_BASE_CLASS)]), class)
 }
 
-pub fn hover_card_header_class(class: &str) -> String {
+fn hover_card_header_class(class: &str) -> String {
   merge_classes(classes([Some(HOVER_CARD_HEADER_BASE_CLASS)]), class)
 }
 
-pub fn hover_card_title_class(class: &str) -> String {
+fn hover_card_title_class(class: &str) -> String {
   merge_classes(classes([Some(HOVER_CARD_TITLE_BASE_CLASS)]), class)
 }
 
-pub fn hover_card_description_class(class: &str) -> String {
+fn hover_card_description_class(class: &str) -> String {
   merge_classes(classes([Some(HOVER_CARD_DESCRIPTION_BASE_CLASS)]), class)
 }
 
-pub fn hover_card_side_attribute(side: OverlaySide) -> &'static str {
+fn hover_card_side_attribute(side: OverlaySide) -> &'static str {
   match side {
     OverlaySide::Top => "top",
     OverlaySide::Right => "right",
@@ -40,7 +44,7 @@ pub fn hover_card_side_attribute(side: OverlaySide) -> &'static str {
   }
 }
 
-pub fn hover_card_align_attribute(align: OverlayAlign) -> &'static str {
+fn hover_card_align_attribute(align: OverlayAlign) -> &'static str {
   match align {
     OverlayAlign::Start => "start",
     OverlayAlign::Center => "center",

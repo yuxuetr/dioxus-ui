@@ -22,7 +22,6 @@ dioxus-shadcn = { version = "0.5", default-features = false, features = ["toggle
 - `ToggleGroupType`
 - `toggle_group_class`
 - `toggle_group_item_class`
-- `toggle_group_move_value`
 - `NavigationOrientation`
 - `RovingFocusItem`
 - `FocusMove`

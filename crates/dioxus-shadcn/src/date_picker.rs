@@ -1,3 +1,6 @@
+//! Date Picker: a trigger, value, and anchored dialog for picking a date from
+//! a Calendar, plus a text field that parses typed dates.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
@@ -12,11 +15,13 @@ use crate::element_id::next_element_id;
 use crate::modal_focus::use_modal_focus_scope;
 use crate::root_state::{Controllable, use_controllable, use_root_context};
 
-pub const DATE_PICKER_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
-pub const DATE_PICKER_VALUE_BASE_CLASS: &str =
+const DATE_PICKER_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
+const DATE_PICKER_VALUE_BASE_CLASS: &str =
   "truncate text-left data-[placeholder=true]:text-muted-foreground";
-pub const DATE_PICKER_CONTENT_BASE_CLASS: &str = "z-50 w-auto rounded-md border border-border bg-popover p-0 text-popover-foreground shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+const DATE_PICKER_CONTENT_BASE_CLASS: &str = "z-50 w-auto rounded-md border border-border bg-popover p-0 text-popover-foreground shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
+/// Classes for the trigger: base classes, a destructive border and ring when
+/// `invalid`, then `class` merged over them.
 pub fn date_picker_trigger_class(invalid: bool, class: &str) -> String {
   let invalid_class = if invalid {
     "border-destructive focus-visible:ring-destructive"
@@ -27,15 +32,19 @@ pub fn date_picker_trigger_class(invalid: bool, class: &str) -> String {
   merge_classes(classes([Some(DATE_PICKER_TRIGGER_BASE_CLASS), Some(invalid_class)]), class)
 }
 
+/// Classes for the value text, muted while it shows the placeholder, with
+/// `class` merged over them.
 pub fn date_picker_value_class(class: &str) -> String {
   merge_classes(classes([Some(DATE_PICKER_VALUE_BASE_CLASS)]), class)
 }
 
+/// Classes for the popover that holds the calendar, with `class` merged over
+/// them.
 pub fn date_picker_content_class(class: &str) -> String {
   merge_classes(classes([Some(DATE_PICKER_CONTENT_BASE_CLASS)]), class)
 }
 
-pub fn date_picker_side_attribute(side: OverlaySide) -> &'static str {
+fn date_picker_side_attribute(side: OverlaySide) -> &'static str {
   match side {
     OverlaySide::Top => "top",
     OverlaySide::Right => "right",
@@ -45,7 +54,7 @@ pub fn date_picker_side_attribute(side: OverlaySide) -> &'static str {
   }
 }
 
-pub fn date_picker_align_attribute(align: OverlayAlign) -> &'static str {
+fn date_picker_align_attribute(align: OverlayAlign) -> &'static str {
   match align {
     OverlayAlign::Start => "start",
     OverlayAlign::Center => "center",
@@ -199,6 +208,7 @@ pub enum DateOrder {
 }
 
 impl DateOrder {
+  /// The input placeholder that shows this order, such as `MM/DD/YYYY`.
   pub const fn placeholder(self) -> &'static str {
     match self {
       Self::YearMonthDay => "YYYY-MM-DD",
@@ -207,6 +217,7 @@ impl DateOrder {
     }
   }
 
+  /// The character `format_date` puts between parts: `-` for ISO, else `/`.
   pub const fn separator(self) -> char {
     match self {
       Self::YearMonthDay => '-',
@@ -254,8 +265,10 @@ pub fn format_date(date: CalendarDate, order: DateOrder) -> String {
   }
 }
 
-pub const DATE_PICKER_INPUT_BASE_CLASS: &str = "flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm tabular-nums transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
+const DATE_PICKER_INPUT_BASE_CLASS: &str = "flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm tabular-nums transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
 
+/// Classes for the date text field: base classes, a destructive border and ring
+/// when `invalid`, then `class` merged over them.
 pub fn date_picker_input_class(invalid: bool, class: &str) -> String {
   let invalid_class = if invalid {
     "border-destructive focus-visible:ring-destructive"

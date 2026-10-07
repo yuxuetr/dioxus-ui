@@ -1,3 +1,7 @@
+//! Sidebar: app shell and navigation parts, with an opt-in off-canvas panel
+//! for phones and an opt-in keyboard shortcut. Routing and persistence stay
+//! with the app.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{SidebarState, sidebar_toggle};
@@ -40,36 +44,38 @@ await new Promise((resolve) => {
 window.removeEventListener("keydown", onKeyDown);
 "#;
 
+/// Which edge of the screen the sidebar sits on.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub enum SidebarSide {
+  /// The left edge.
   #[default]
   Left,
+  /// The right edge.
   Right,
 }
 
-pub const SIDEBAR_BASE_CLASS: &str = "flex h-full flex-col border-sidebar-border bg-sidebar text-sidebar-foreground transition-[width] data-[side=left]:border-r data-[side=right]:border-l";
-pub const SIDEBAR_RAIL_BASE_CLASS: &str = "absolute inset-y-0 z-10 w-3 -translate-x-1/2 transition-colors hover:bg-sidebar-accent data-[collapsed=true]:block";
-pub const SIDEBAR_HEADER_BASE_CLASS: &str =
+const SIDEBAR_BASE_CLASS: &str = "flex h-full flex-col border-sidebar-border bg-sidebar text-sidebar-foreground transition-[width] data-[side=left]:border-r data-[side=right]:border-l";
+const SIDEBAR_RAIL_BASE_CLASS: &str = "absolute inset-y-0 z-10 w-3 -translate-x-1/2 transition-colors hover:bg-sidebar-accent data-[collapsed=true]:block";
+const SIDEBAR_HEADER_BASE_CLASS: &str =
   "flex min-h-14 items-center gap-2 border-b border-sidebar-border px-3";
-pub const SIDEBAR_CONTENT_BASE_CLASS: &str = "flex-1 overflow-auto p-2";
-pub const SIDEBAR_FOOTER_BASE_CLASS: &str = "border-t border-sidebar-border p-2";
-pub const SIDEBAR_GROUP_BASE_CLASS: &str = "grid gap-1 py-2";
-pub const SIDEBAR_GROUP_LABEL_BASE_CLASS: &str =
-  "px-2 py-1 text-xs font-medium text-muted-foreground";
-pub const SIDEBAR_ITEM_BASE_CLASS: &str = "flex min-h-9 items-center gap-2 rounded-md px-2 text-sm transition-colors hover:bg-sidebar-accent data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
-pub const SIDEBAR_MOBILE_PANEL_CLASS: &str =
+const SIDEBAR_CONTENT_BASE_CLASS: &str = "flex-1 overflow-auto p-2";
+const SIDEBAR_FOOTER_BASE_CLASS: &str = "border-t border-sidebar-border p-2";
+const SIDEBAR_GROUP_BASE_CLASS: &str = "grid gap-1 py-2";
+const SIDEBAR_GROUP_LABEL_BASE_CLASS: &str = "px-2 py-1 text-xs font-medium text-muted-foreground";
+const SIDEBAR_ITEM_BASE_CLASS: &str = "flex min-h-9 items-center gap-2 rounded-md px-2 text-sm transition-colors hover:bg-sidebar-accent data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
+const SIDEBAR_MOBILE_PANEL_CLASS: &str =
   "fixed inset-y-0 z-50 flex w-72 max-w-[85vw] shadow-lg outline-none";
-pub const SIDEBAR_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-40 bg-black/50";
-pub const SIDEBAR_TRIGGER_BASE_CLASS: &str = "inline-flex h-9 w-9 items-center justify-center rounded-md text-sm transition-colors hover:bg-sidebar-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring disabled:pointer-events-none disabled:opacity-50";
+const SIDEBAR_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-40 bg-black/50";
+const SIDEBAR_TRIGGER_BASE_CLASS: &str = "inline-flex h-9 w-9 items-center justify-center rounded-md text-sm transition-colors hover:bg-sidebar-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring disabled:pointer-events-none disabled:opacity-50";
 
-pub fn sidebar_side_attribute(side: SidebarSide) -> &'static str {
+fn sidebar_side_attribute(side: SidebarSide) -> &'static str {
   match side {
     SidebarSide::Left => "left",
     SidebarSide::Right => "right",
   }
 }
 
-pub fn sidebar_class(collapsed: bool, side: SidebarSide, class: &str) -> String {
+fn sidebar_class(collapsed: bool, side: SidebarSide, class: &str) -> String {
   let side_class = match side {
     SidebarSide::Left => "border-r",
     SidebarSide::Right => "border-l",
@@ -106,38 +112,40 @@ pub fn sidebar_mobile_class(side: SidebarSide, class: &str) -> String {
   merge_classes(classes([Some(SIDEBAR_BASE_CLASS), Some(side_class), Some("w-full")]), class)
 }
 
+/// Classes for the dimmed backdrop behind the off-canvas panel, with `class`
+/// merged over them.
 pub fn sidebar_overlay_class(class: &str) -> String {
   merge_classes(classes([Some(SIDEBAR_OVERLAY_BASE_CLASS)]), class)
 }
 
-pub fn sidebar_rail_class(collapsed: bool, class: &str) -> String {
+fn sidebar_rail_class(collapsed: bool, class: &str) -> String {
   merge_classes(
     classes([Some(SIDEBAR_RAIL_BASE_CLASS), Some(if collapsed { "block" } else { "hidden" })]),
     class,
   )
 }
 
-pub fn sidebar_header_class(class: &str) -> String {
+fn sidebar_header_class(class: &str) -> String {
   merge_classes(classes([Some(SIDEBAR_HEADER_BASE_CLASS)]), class)
 }
 
-pub fn sidebar_content_class(class: &str) -> String {
+fn sidebar_content_class(class: &str) -> String {
   merge_classes(classes([Some(SIDEBAR_CONTENT_BASE_CLASS)]), class)
 }
 
-pub fn sidebar_footer_class(class: &str) -> String {
+fn sidebar_footer_class(class: &str) -> String {
   merge_classes(classes([Some(SIDEBAR_FOOTER_BASE_CLASS)]), class)
 }
 
-pub fn sidebar_group_class(class: &str) -> String {
+fn sidebar_group_class(class: &str) -> String {
   merge_classes(classes([Some(SIDEBAR_GROUP_BASE_CLASS)]), class)
 }
 
-pub fn sidebar_group_label_class(class: &str) -> String {
+fn sidebar_group_label_class(class: &str) -> String {
   merge_classes(classes([Some(SIDEBAR_GROUP_LABEL_BASE_CLASS)]), class)
 }
 
-pub fn sidebar_item_class(active: bool, disabled: bool, class: &str) -> String {
+fn sidebar_item_class(active: bool, disabled: bool, class: &str) -> String {
   merge_classes(
     classes([
       Some(SIDEBAR_ITEM_BASE_CLASS),
@@ -148,7 +156,7 @@ pub fn sidebar_item_class(active: bool, disabled: bool, class: &str) -> String {
   )
 }
 
-pub fn sidebar_trigger_class(class: &str) -> String {
+fn sidebar_trigger_class(class: &str) -> String {
   merge_classes(classes([Some(SIDEBAR_TRIGGER_BASE_CLASS)]), class)
 }
 

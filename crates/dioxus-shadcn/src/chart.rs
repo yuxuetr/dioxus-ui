@@ -1,81 +1,87 @@
+//! Chart: SVG parts for simple line, bar, area, and pie charts, with a table
+//! fallback for the data.
+
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
+use dioxus_shadcn_primitives::chart_number_label;
 pub use dioxus_shadcn_primitives::{
   ChartColorToken, ChartDomain, ChartFallbackRow, ChartPoint, ChartScale, ChartSeries,
-  chart_color_attribute, chart_color_class, chart_domain, chart_domain_normalize,
-  chart_fallback_rows, chart_number_label, chart_scale_value, chart_series_label,
-  chart_series_x_domain, chart_series_y_domain, chart_summary, chart_value_label,
+  chart_color_attribute, chart_color_class, chart_domain, chart_fallback_rows, chart_scale_value,
+  chart_series_label, chart_series_x_domain, chart_series_y_domain, chart_summary,
+  chart_value_label,
 };
 
-pub const CHART_BASE_CLASS: &str = "relative w-full text-foreground";
-pub const CHART_SVG_BASE_CLASS: &str = "h-auto w-full overflow-visible";
-pub const CHART_TITLE_BASE_CLASS: &str = "text-sm font-medium text-foreground";
-pub const CHART_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
-pub const CHART_LEGEND_BASE_CLASS: &str =
+const CHART_BASE_CLASS: &str = "relative w-full text-foreground";
+const CHART_SVG_BASE_CLASS: &str = "h-auto w-full overflow-visible";
+const CHART_TITLE_BASE_CLASS: &str = "text-sm font-medium text-foreground";
+const CHART_DESCRIPTION_BASE_CLASS: &str = "text-sm text-muted-foreground";
+const CHART_LEGEND_BASE_CLASS: &str =
   "mt-3 flex flex-wrap items-center gap-3 text-sm text-muted-foreground";
-pub const CHART_FALLBACK_TABLE_BASE_CLASS: &str = "mt-4 w-full caption-bottom text-sm";
-pub const CHART_TOOLTIP_SLOT_BASE_CLASS: &str = "pointer-events-none absolute z-20 rounded-md border border-border bg-popover px-3 py-2 text-sm text-popover-foreground shadow-md";
-pub const CHART_LINE_SERIES_BASE_CLASS: &str = "fill-none stroke-current";
-pub const CHART_AREA_SERIES_BASE_CLASS: &str = "fill-current stroke-current";
-pub const CHART_BAR_SERIES_BASE_CLASS: &str = "fill-current";
+const CHART_FALLBACK_TABLE_BASE_CLASS: &str = "mt-4 w-full caption-bottom text-sm";
+const CHART_TOOLTIP_SLOT_BASE_CLASS: &str = "pointer-events-none absolute z-20 rounded-md border border-border bg-popover px-3 py-2 text-sm text-popover-foreground shadow-md";
+const CHART_LINE_SERIES_BASE_CLASS: &str = "fill-none stroke-current";
+const CHART_AREA_SERIES_BASE_CLASS: &str = "fill-current stroke-current";
+const CHART_BAR_SERIES_BASE_CLASS: &str = "fill-current";
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub struct ChartBarRect {
+struct ChartBarRect {
   pub x: f64,
   pub y: f64,
   pub width: f64,
   pub height: f64,
 }
 
-pub fn chart_class(class: &str) -> String {
+fn chart_class(class: &str) -> String {
   merge_classes(classes([Some(CHART_BASE_CLASS)]), class)
 }
 
-pub fn chart_svg_class(class: &str) -> String {
+fn chart_svg_class(class: &str) -> String {
   merge_classes(classes([Some(CHART_SVG_BASE_CLASS)]), class)
 }
 
-pub fn chart_title_class(class: &str) -> String {
+fn chart_title_class(class: &str) -> String {
   merge_classes(classes([Some(CHART_TITLE_BASE_CLASS)]), class)
 }
 
-pub fn chart_description_class(class: &str) -> String {
+fn chart_description_class(class: &str) -> String {
   merge_classes(classes([Some(CHART_DESCRIPTION_BASE_CLASS)]), class)
 }
 
-pub fn chart_legend_class(class: &str) -> String {
+fn chart_legend_class(class: &str) -> String {
   merge_classes(classes([Some(CHART_LEGEND_BASE_CLASS)]), class)
 }
 
-pub fn chart_fallback_table_class(class: &str) -> String {
+fn chart_fallback_table_class(class: &str) -> String {
   merge_classes(classes([Some(CHART_FALLBACK_TABLE_BASE_CLASS)]), class)
 }
 
-pub fn chart_tooltip_slot_class(visible: bool, class: &str) -> String {
+fn chart_tooltip_slot_class(visible: bool, class: &str) -> String {
   merge_classes(
     classes([Some(CHART_TOOLTIP_SLOT_BASE_CLASS), (!visible).then_some("hidden")]),
     class,
   )
 }
 
-pub fn chart_line_series_class(color: ChartColorToken, class: &str) -> String {
+fn chart_line_series_class(color: ChartColorToken, class: &str) -> String {
   merge_classes(
     classes([Some(CHART_LINE_SERIES_BASE_CLASS), Some(chart_color_class(color))]),
     class,
   )
 }
 
-pub fn chart_area_series_class(color: ChartColorToken, class: &str) -> String {
+fn chart_area_series_class(color: ChartColorToken, class: &str) -> String {
   merge_classes(
     classes([Some(CHART_AREA_SERIES_BASE_CLASS), Some(chart_color_class(color))]),
     class,
   )
 }
 
-pub fn chart_bar_series_class(color: ChartColorToken, class: &str) -> String {
+fn chart_bar_series_class(color: ChartColorToken, class: &str) -> String {
   merge_classes(classes([Some(CHART_BAR_SERIES_BASE_CLASS), Some(chart_color_class(color))]), class)
 }
 
+/// The SVG `viewBox` for a chart `width` by `height`; a negative or non-finite size
+/// counts as 0.
 pub fn chart_view_box(width: f64, height: f64) -> String {
   format!(
     "0 0 {} {}",
@@ -84,7 +90,7 @@ pub fn chart_view_box(width: f64, height: f64) -> String {
   )
 }
 
-pub fn chart_line_path(series: &ChartSeries, x_scale: ChartScale, y_scale: ChartScale) -> String {
+fn chart_line_path(series: &ChartSeries, x_scale: ChartScale, y_scale: ChartScale) -> String {
   let mut segments = Vec::new();
 
   for point in &series.points {
@@ -101,7 +107,7 @@ pub fn chart_line_path(series: &ChartSeries, x_scale: ChartScale, y_scale: Chart
   segments.join(" ")
 }
 
-pub fn chart_area_path(
+fn chart_area_path(
   series: &ChartSeries,
   x_scale: ChartScale,
   y_scale: ChartScale,
@@ -127,7 +133,7 @@ pub fn chart_area_path(
   }
 }
 
-pub fn chart_bar_rects(
+fn chart_bar_rects(
   series: &ChartSeries,
   x_scale: ChartScale,
   y_scale: ChartScale,
@@ -368,7 +374,7 @@ pub fn ChartBarSeries(
   }
 }
 
-pub const CHART_PIE_SERIES_BASE_CLASS: &str = "stroke-background";
+const CHART_PIE_SERIES_BASE_CLASS: &str = "stroke-background";
 
 /// Every class `chart_color_class` returns. Apps point Tailwind's `@source`
 /// at this crate, not at the primitives crate that maps the tokens, so the
@@ -390,13 +396,18 @@ pub const CHART_COLOR_CLASSES: [&str; 11] = [
 /// One pie or donut slice to draw.
 #[derive(Clone, Debug, PartialEq)]
 pub struct ChartSlice {
+  /// Identifies the slice among its siblings.
   pub id: String,
+  /// The name shown for the slice.
   pub label: String,
+  /// The slice's amount; its share of the total sets its angle.
   pub value: f64,
+  /// The color the slice is filled with.
   pub color: ChartColorToken,
 }
 
 impl ChartSlice {
+  /// A slice from its id, label, value, and color.
   pub fn new(
     id: impl Into<String>,
     label: impl Into<String>,
@@ -410,7 +421,7 @@ impl ChartSlice {
 /// A slice's SVG path, its angles in radians from the top, clockwise, and
 /// its share of the total.
 #[derive(Clone, Debug, PartialEq)]
-pub struct ChartArc {
+struct ChartArc {
   pub path: String,
   pub start_angle: f64,
   pub end_angle: f64,
@@ -471,7 +482,7 @@ fn full_circle_path(center: (f64, f64), radius: f64, inner: f64) -> String {
 /// total, from the top, clockwise. Values that are negative, zero, or not
 /// finite count as zero and get an empty path; a zero total draws nothing.
 /// `inner_radius` above zero makes a donut.
-pub fn chart_pie_arcs(
+fn chart_pie_arcs(
   values: &[f64],
   center: (f64, f64),
   radius: f64,
@@ -506,7 +517,7 @@ pub fn chart_pie_arcs(
     .collect()
 }
 
-pub fn chart_pie_series_class(class: &str) -> String {
+fn chart_pie_series_class(class: &str) -> String {
   merge_classes(classes([Some(CHART_PIE_SERIES_BASE_CLASS)]), class)
 }
 

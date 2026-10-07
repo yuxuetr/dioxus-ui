@@ -18,6 +18,8 @@ dioxus-shadcn = { version = "0.5", default-features = false, features = ["sheet"
 
 ## API Surface
 
+- `Sheet`
+- `SheetTrigger`
 - `SheetOverlay`
 - `SheetContent`
 - `SheetHeader`
