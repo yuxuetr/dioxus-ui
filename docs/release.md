@@ -14,7 +14,8 @@ changelog migration note.
 ## Package Set
 
 Published crates (0.1.0 and 0.2.0 on crates.io since 2026-10-05, 0.3.0,
-0.4.0, 0.4.1, and 0.4.2 since 2026-10-06, 0.5.0 since 2026-10-07):
+0.4.0, 0.4.1, and 0.4.2 since 2026-10-06, 0.5.0 and 0.6.0 since
+2026-10-07):
 
 ```text
 dioxus-shadcn-core
@@ -610,6 +611,20 @@ tagged `v0.5.0`. In a fresh app on `dioxus-shadcn` 0.5.0 from crates.io,
 with only `default_value: "system"` showed and checked `system`. The
 published `dxui` 0.5.0 copied Button and Select with their helpers into a
 fresh app that rendered the same output and built while denying warnings.
+
+## 0.6.0 Publish
+
+0.6.0 was published on 2026-10-07, once M213 and M214.1 were done, as the
+release owner directed for planned versions. `npm run verify:release`, whose
+last step compares the three library crates with `v0.5.0`, and the dry run
+passed, and CI passed on the release commit. The four crates were published
+in dependency order and tagged `v0.6.0`, an annotated tag. A fresh app on
+`dioxus-shadcn` 0.6.0 from crates.io rendered `Button { class: "px-2" }`
+with `px-2` and without `px-4`, showed and checked `system` in a `Select`
+with only `default_value: "system"`, and built a `Switch` whose
+`on_checked_change` sets a signal while denying warnings. The published
+`dxui` 0.6.0 copied Button, Select, and Switch with their helpers into a
+fresh app that built while denying warnings and rendered the same output.
 
 ## Known Pre-1.0 Limitations
 
