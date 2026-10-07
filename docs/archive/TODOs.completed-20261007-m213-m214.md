@@ -13,7 +13,7 @@
 
 ## Goals
 
-- Follow [the roadmap](docs/roadmap.md) to 1.0. This plan covers Stage 13 (0.6.0). Stage 14 waits for a Dioxus 0.8 release (see Deferred), and Stage 15 needs Stage 14 and outside use, so neither gets tasks yet.
+- Follow [the roadmap](../roadmap.md) to 1.0. This plan covers Stage 13 (0.6.0). Stage 14 waits for a Dioxus 0.8 release (see Deferred), and Stage 15 needs Stage 14 and outside use, so neither gets tasks yet.
 
 ## Evidence (measured 2026-10-07 at `v0.5.0`)
 
