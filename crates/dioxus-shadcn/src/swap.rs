@@ -1,3 +1,4 @@
+use crate::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
@@ -48,7 +49,7 @@ pub fn Swap(
   #[props(default)] on_active_change: Option<EventHandler<bool>>,
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
 ) -> Element {
-  let class = swap_class(&class);
+  let class = swap_class(&with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {

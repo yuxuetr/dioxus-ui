@@ -1,5 +1,6 @@
 use super::dismiss_timer::use_dismiss_timer;
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
 pub use self::{
@@ -373,7 +374,7 @@ pub fn SonnerAction(
   #[props(default)] on_dismiss: Option<EventHandler<SonnerDismissReason>>,
   children: Element,
 ) -> Element {
-  let class = sonner_action_class(disabled, &class);
+  let class = sonner_action_class(disabled, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {
@@ -400,7 +401,7 @@ pub fn SonnerClose(
   #[props(default)] on_dismiss: Option<EventHandler<SonnerDismissReason>>,
   children: Element,
 ) -> Element {
-  let class = sonner_close_class(disabled, &class);
+  let class = sonner_close_class(disabled, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {

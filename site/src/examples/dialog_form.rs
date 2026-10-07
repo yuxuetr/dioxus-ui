@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use dioxus_shadcn::{
   Button, ButtonSize, ButtonVariant, Dialog, DialogClose, DialogContent, DialogDescription,
-  DialogOverlay, DialogTitle, DialogTrigger, Input, Label, UiDensity, button_class,
+  DialogOverlay, DialogTitle, DialogTrigger, Input, Label, button_class, use_density,
 };
 
 #[component]
@@ -12,7 +12,7 @@ pub fn DialogFormDemo() -> Element {
   rsx! {
     Dialog { open: open(), on_open_change: move |next| open.set(next),
       DialogTrigger {
-        class: button_class(ButtonVariant::Outline, ButtonSize::Md, UiDensity::Comfortable, ""),
+        class: button_class(ButtonVariant::Outline, ButtonSize::Md, use_density(), ""),
         "Rename project"
       }
       p { class: "mt-3 text-sm text-muted-foreground", "Project: {name}" }

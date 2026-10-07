@@ -121,9 +121,19 @@ from a root context and the interactive components take it.
 - `Button` loses its `density` prop and reads the provider. `button_class`
   keeps its density argument for elements styled as buttons, such as the
   RFC 0077 triggers: `button_class(variant, size, use_density(), "")`.
+- Where a component's own box is not the target, the parts inside take the
+  floor: the Number Input buttons and field, the Tags Input field (its remove
+  buttons get a hit area), and the root of a Slider, which a press anywhere
+  on moves. A Native Select takes `h-11` instead, since WebKit keeps a native
+  select's height over a `min-height`. The Resizable handle widens its
+  existing `after:` strip to 44 pixels across the line, and Rating wraps each
+  star in a `label`, so its hit area presses the radio.
+- An element the app renders, such as the input inside an `InputGroup`,
+  takes `density_control_class(use_density())` in its own class.
 - The Mobile preview renders under `Touch`, and the Mobile self-test fails
-  when any measured control's target, its box or its hit area, is under 44
-  by 44.
+  when any measured control's target, its box or its hit area (or its
+  label's), is under 44 by 44. A link inside a line of text is exempt, as in
+  WCAG 2.5.8, and a tab panel is not a press target.
 
 ## Alternatives
 
@@ -140,8 +150,20 @@ from a root context and the interactive components take it.
   part of it, in `DensityProvider` instead.
 - Copy mode gains a `density` helper that the interactive components import.
 
+Hit areas of neighbors can overlap, for example the stars of a Rating or a
+column of radio items with a small gap; a press in the overlap goes to the
+later control. A pseudo-element on a native `input`, which Checkbox and
+Rating's radios are, renders in WebKit and Blink, the engines of the iOS and
+Android WebViews, but not in Firefox.
+
 ## Validation
 
 M211.1 is done when this record holds the table above, the components named
 here append the density classes in crate and templates with tests, and the
 Mobile self-test under Touch reports no control under 44 by 44.
+
+Measured on 2026-10-07 on the same simulator after the change: 0 of 131
+controls under 44 by 44 under `Touch` (one fewer control, since the hover
+card link now sits in a line of text). The gate went red while components
+were still missing their class: 52, then 17, then 1 control under the
+target.

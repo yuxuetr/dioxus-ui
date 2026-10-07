@@ -1,5 +1,6 @@
 use super::dismiss_timer::use_dismiss_timer;
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -316,7 +317,7 @@ pub fn ToastAction(
   #[props(default)] on_dismiss: Option<EventHandler<ToastDismissReason>>,
   children: Element,
 ) -> Element {
-  let class = toast_action_class(disabled, &class);
+  let class = toast_action_class(disabled, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {
@@ -343,7 +344,7 @@ pub fn ToastClose(
   #[props(default)] on_dismiss: Option<EventHandler<ToastDismissReason>>,
   children: Element,
 ) -> Element {
-  let class = toast_close_class(disabled, &class);
+  let class = toast_close_class(disabled, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {

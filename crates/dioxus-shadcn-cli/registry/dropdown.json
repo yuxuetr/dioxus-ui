@@ -9,6 +9,7 @@
   ],
   "dependencies": [
     "anchored-overlay",
+    "density",
     "listbox",
     "menu-marks",
     "menu-radio",

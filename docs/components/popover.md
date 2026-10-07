@@ -39,7 +39,7 @@ it and anchors the content; it renders an unstyled `button`, so style it with
 rsx! {
   Popover {
     PopoverTrigger {
-      class: button_class(ButtonVariant::Outline, ButtonSize::Md, UiDensity::Comfortable, ""),
+      class: button_class(ButtonVariant::Outline, ButtonSize::Md, use_density(), ""),
       "Share"
     }
     PopoverContent { PopoverTitle { "Share link" } }

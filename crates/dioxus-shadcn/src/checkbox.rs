@@ -4,6 +4,7 @@ use std::rc::Rc;
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
+use crate::density::{density_hit_area_class, use_density, with_density};
 use crate::element_id::next_element_id;
 
 // Sets the native `indeterminate` property, which has no HTML attribute.
@@ -57,7 +58,10 @@ pub fn Checkbox(
   #[props(default)] on_checked_change: Option<EventHandler<bool>>,
   #[props(extends = GlobalAttributes, extends = input)] attributes: Vec<Attribute>,
 ) -> Element {
-  let class = checkbox_class(checked || indeterminate, &class);
+  let class = checkbox_class(
+    checked || indeterminate,
+    &with_density(density_hit_area_class(use_density()), &class),
+  );
   let scope_id = use_hook(|| format!("dxui-checkbox-{}", next_element_id()));
   // A click clears the native property before any handler runs; bumping this
   // re-runs the sync after the app's next render, in case it stays mixed.
@@ -100,6 +104,20 @@ pub fn Checkbox(
 #[cfg(test)]
 mod tests {
   use super::*;
+  use crate::density::DensityProvider;
+  use dioxus_shadcn_core::UiDensity;
+
+  #[test]
+  fn touch_gives_the_checkbox_a_hit_area_without_resizing_it() {
+    fn app() -> Element {
+      rsx! { DensityProvider { density: UiDensity::Touch, Checkbox { "aria-label": "Accept" } } }
+    }
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    let html = dioxus_ssr::render(&dom);
+
+    assert!(html.contains("after:size-11") && html.contains("h-4 w-4"), "{html}");
+  }
 
   #[test]
   fn a_mixed_checkbox_requests_checked() {

@@ -1,4 +1,5 @@
-use super::utils::{classes, merge_classes};
+use super::utils::{UiDensity, classes, merge_classes};
+use super::density::{use_density, with_density};
 use dioxus::prelude::*;
 
 pub const NATIVE_SELECT_BASE_CLASS: &str = "h-10 w-full rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
@@ -35,7 +36,12 @@ pub fn NativeSelect(
   #[props(extends = GlobalAttributes, extends = select)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
-  let class = native_select_class(invalid, &class);
+  // WebKit keeps a native select's height over a `min-height`.
+  let touch_class = match use_density() {
+    UiDensity::Touch => "h-11",
+    UiDensity::Compact | UiDensity::Comfortable => "",
+  };
+  let class = native_select_class(invalid, &with_density(touch_class, &class));
 
   rsx! {
     select {

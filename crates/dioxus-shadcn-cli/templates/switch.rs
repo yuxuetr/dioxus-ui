@@ -1,4 +1,5 @@
 use super::utils::{classes, merge_classes};
+use super::density::{density_hit_area_class, use_density, with_density};
 use dioxus::prelude::*;
 
 pub const SWITCH_BASE_CLASS: &str = "inline-flex h-6 w-11 shrink-0 items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50";
@@ -34,7 +35,7 @@ pub fn Switch(
   #[props(default)] on_checked_change: Option<EventHandler<bool>>,
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
 ) -> Element {
-  let class = switch_class(checked, &class);
+  let class = switch_class(checked, &with_density(density_hit_area_class(use_density()), &class));
   let thumb_class = switch_thumb_class(checked);
   let state = switch_state(checked);
 

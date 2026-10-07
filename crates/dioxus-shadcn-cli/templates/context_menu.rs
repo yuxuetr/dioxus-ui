@@ -9,6 +9,7 @@ pub use super::overlay::{DismissBehavior, DropdownPrimitiveConfig, OverlayAlign,
 use super::overlay_root::{OverlayRoot, use_overlay_root};
 use super::root_state::use_root_context;
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
 pub const CONTEXT_MENU_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
@@ -218,7 +219,7 @@ pub fn ContextMenuItem(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = context_menu_item_class(inset, destructive, &class);
+  let class = context_menu_item_class(inset, destructive, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     div {
@@ -244,7 +245,7 @@ pub fn ContextMenuCheckboxItem(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = context_menu_checkbox_item_class(checked, &class);
+  let class = context_menu_checkbox_item_class(checked, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     div {
@@ -299,7 +300,7 @@ pub fn ContextMenuRadioItem(
 ) -> Element {
   let group = use_menu_radio_item("ContextMenuRadioItem", "ContextMenuRadioGroup");
   let checked = group.value().as_ref() == Some(&value);
-  let class = context_menu_radio_item_class(checked, &class);
+  let class = context_menu_radio_item_class(checked, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     div {
@@ -356,7 +357,7 @@ pub fn ContextMenuSubTrigger(
 ) -> Element {
   let sub = use_menu_sub_part("ContextMenuSubTrigger", "ContextMenuSub");
   let open = sub.is_open();
-  let class = context_menu_sub_trigger_class(inset, &class);
+  let class = context_menu_sub_trigger_class(inset, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     div {

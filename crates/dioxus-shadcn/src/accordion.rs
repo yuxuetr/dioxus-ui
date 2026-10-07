@@ -2,6 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
 use crate::choice::{Choice, use_choice};
+use crate::density::{density_control_class, use_density, with_density};
 use crate::element_id::next_element_id;
 use crate::root_state::use_root_context;
 use crate::roving_group::{group_part_id, use_roving_group};
@@ -123,7 +124,7 @@ pub fn AccordionTrigger(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = accordion_trigger_class(&class);
+  let class = accordion_trigger_class(&with_density(density_control_class(use_density()), &class));
   let part = use_accordion_part("AccordionTrigger");
 
   rsx! {

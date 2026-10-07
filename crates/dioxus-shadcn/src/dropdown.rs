@@ -5,6 +5,7 @@ pub use dioxus_shadcn_primitives::{
 };
 
 use crate::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
+use crate::density::{density_control_class, use_density, with_density};
 use crate::listbox::{ListboxMode, use_listbox};
 use crate::menu_marks::{
   MENU_CHECKBOX_MARK_CLASS, MENU_RADIO_MARK_CLASS, MENU_SUB_TRIGGER_CLASS, menu_mark_state_class,
@@ -194,6 +195,7 @@ pub fn DropdownItem(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
+  let class = with_density(density_control_class(use_density()), &class);
   let class = if inset {
     dropdown_inset_item_class(destructive, &class)
   } else {
@@ -226,7 +228,10 @@ pub fn DropdownCheckboxItem(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = dropdown_checkbox_item_class(checked, &class);
+  let class = dropdown_checkbox_item_class(
+    checked,
+    &with_density(density_control_class(use_density()), &class),
+  );
 
   rsx! {
     div {
@@ -281,7 +286,8 @@ pub fn DropdownRadioItem(
 ) -> Element {
   let group = use_menu_radio_item("DropdownRadioItem", "DropdownRadioGroup");
   let checked = group.value().as_ref() == Some(&value);
-  let class = dropdown_radio_item_class(checked, &class);
+  let class =
+    dropdown_radio_item_class(checked, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     div {
@@ -338,7 +344,8 @@ pub fn DropdownSubTrigger(
 ) -> Element {
   let sub = use_menu_sub_part("DropdownSubTrigger", "DropdownSub");
   let open = sub.is_open();
-  let class = dropdown_sub_trigger_class(inset, &class);
+  let class =
+    dropdown_sub_trigger_class(inset, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     div {

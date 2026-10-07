@@ -1,4 +1,5 @@
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -48,7 +49,7 @@ pub fn Swap(
   #[props(default)] on_active_change: Option<EventHandler<bool>>,
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
 ) -> Element {
-  let class = swap_class(&class);
+  let class = swap_class(&with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {

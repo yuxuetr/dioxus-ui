@@ -2,6 +2,7 @@ use super::choice::{Choice, use_choice};
 use super::root_state::use_root_context;
 use super::roving_group::use_roving_group;
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -253,7 +254,7 @@ pub fn ToggleGroupItem(
 ) -> Element {
   let context = use_root_context::<ToggleGroupContext>("ToggleGroupItem", "ToggleGroup");
   let pressed = context.pressed.chosen().contains(&value);
-  let class = toggle_group_item_class(pressed, &class);
+  let class = toggle_group_item_class(pressed, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {

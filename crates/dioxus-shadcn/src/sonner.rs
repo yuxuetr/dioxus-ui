@@ -9,6 +9,7 @@ pub use dioxus_shadcn_primitives::{
   toast_queue_push as sonner_queue_push, toast_variant_attribute as sonner_variant_attribute,
 };
 
+use crate::density::{density_control_class, use_density, with_density};
 use crate::dismiss_timer::use_dismiss_timer;
 
 pub const SONNER_VIEWPORT_BASE_CLASS: &str =
@@ -218,7 +219,8 @@ pub fn SonnerAction(
   #[props(default)] on_dismiss: Option<EventHandler<SonnerDismissReason>>,
   children: Element,
 ) -> Element {
-  let class = sonner_action_class(disabled, &class);
+  let class =
+    sonner_action_class(disabled, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {
@@ -245,7 +247,8 @@ pub fn SonnerClose(
   #[props(default)] on_dismiss: Option<EventHandler<SonnerDismissReason>>,
   children: Element,
 ) -> Element {
-  let class = sonner_close_class(disabled, &class);
+  let class =
+    sonner_close_class(disabled, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {

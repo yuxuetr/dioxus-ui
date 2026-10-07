@@ -8,6 +8,7 @@
     }
   ],
   "dependencies": [
+    "density",
     "utils"
   ],
   "assets": []

@@ -7,6 +7,7 @@ pub use dioxus_shadcn_primitives::{
 };
 
 use crate::default_attribute::default_attribute;
+use crate::density::{density_control_class, use_density, with_density};
 
 pub const MESSAGE_SCROLLER_BASE_CLASS: &str =
   "relative flex min-h-0 w-full flex-col overflow-hidden";
@@ -155,7 +156,10 @@ pub fn MessageScrollerJumpButton(
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
-  let class = message_scroller_jump_button_class(visible, &class);
+  let class = message_scroller_jump_button_class(
+    visible,
+    &with_density(density_control_class(use_density()), &class),
+  );
 
   rsx! {
     button {

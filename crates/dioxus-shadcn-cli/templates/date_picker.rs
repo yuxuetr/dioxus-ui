@@ -5,6 +5,7 @@ use super::modal_focus::use_modal_focus_scope;
 pub use super::overlay::{DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
 use super::root_state::{Controllable, use_controllable, use_root_context};
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
 pub const DATE_PICKER_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
@@ -96,7 +97,7 @@ pub fn DatePickerTrigger(
   children: Element,
 ) -> Element {
   let context = use_date_picker("DatePickerTrigger");
-  let class = date_picker_trigger_class(invalid, &class);
+  let class = date_picker_trigger_class(invalid, &with_density(density_control_class(use_density()), &class));
   let open = context.open.get();
   let set_open = context.set_open;
 
@@ -289,7 +290,7 @@ pub fn DatePickerInput(
 
   let typed = text();
   let unparsed = !typed.trim().is_empty() && parse_date(&typed, order).is_none();
-  let class = date_picker_input_class(invalid || unparsed, &class);
+  let class = date_picker_input_class(invalid || unparsed, &with_density(density_control_class(use_density()), &class));
   let placeholder =
     if placeholder.is_empty() { order.placeholder().to_string() } else { placeholder };
 

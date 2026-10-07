@@ -9,6 +9,7 @@ use super::menu_sub::{use_menu_sub, use_menu_sub_content, use_menu_sub_part};
 pub use super::overlay::{DismissBehavior, DropdownPrimitiveConfig, OverlayAlign, OverlaySide};
 use super::root_state::{Controllable, use_controllable, use_root_context};
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
 // Runs for the bar's lifetime. Triggers are read from the DOM on every event
@@ -293,7 +294,7 @@ pub fn MenubarTrigger(
   let menu = use_menubar_menu("MenubarTrigger");
   let open = menu.is_open();
   let set_open = menu.set_open;
-  let class = menubar_trigger_class(open, &class);
+  let class = menubar_trigger_class(open, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {
@@ -385,7 +386,7 @@ pub fn MenubarItem(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = menubar_item_class(inset, destructive, &class);
+  let class = menubar_item_class(inset, destructive, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     div {
@@ -411,7 +412,7 @@ pub fn MenubarCheckboxItem(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = menubar_checkbox_item_class(checked, &class);
+  let class = menubar_checkbox_item_class(checked, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     div {
@@ -466,7 +467,7 @@ pub fn MenubarRadioItem(
 ) -> Element {
   let group = use_menu_radio_item("MenubarRadioItem", "MenubarRadioGroup");
   let checked = group.value().as_ref() == Some(&value);
-  let class = menubar_radio_item_class(checked, &class);
+  let class = menubar_radio_item_class(checked, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     div {
@@ -523,7 +524,7 @@ pub fn MenubarSubTrigger(
 ) -> Element {
   let sub = use_menu_sub_part("MenubarSubTrigger", "MenubarSub");
   let open = sub.is_open();
-  let class = menubar_sub_trigger_class(inset, &class);
+  let class = menubar_sub_trigger_class(inset, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     div {

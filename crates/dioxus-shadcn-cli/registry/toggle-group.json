@@ -9,8 +9,9 @@
   ],
   "dependencies": [
     "choice",
-    "roving-group",
+    "density",
     "root-state",
+    "roving-group",
     "utils"
   ],
   "assets": []

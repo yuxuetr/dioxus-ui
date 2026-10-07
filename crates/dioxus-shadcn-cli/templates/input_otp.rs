@@ -1,6 +1,7 @@
 use super::element_id::next_element_id;
 use super::root_state::{Controllable, use_controllable, use_root_context};
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
 // Keep in sync with `INPUT_OTP_FILTER_SCRIPT` in the `dioxus-shadcn` crate.
@@ -343,7 +344,7 @@ pub fn InputOtpSlot(
   let disabled = disabled || otp.disabled;
   let active = slot.is_some_and(|slot| slot.active) && !disabled;
   let invalid = otp.invalid;
-  let class = input_otp_slot_class(active, invalid, disabled, &class);
+  let class = input_otp_slot_class(active, invalid, disabled, &with_density(density_control_class(use_density()), &class));
   let display = input_otp_slot_display(value);
 
   rsx! {

@@ -5,6 +5,7 @@ pub use dioxus_shadcn_primitives::{
 };
 
 use crate::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
+use crate::density::{density_control_class, use_density, with_density};
 use crate::element_id::next_element_id;
 use crate::listbox::{ListboxMode, use_listbox};
 use crate::menu_marks::{
@@ -296,7 +297,8 @@ pub fn MenubarTrigger(
   let menu = use_menubar_menu("MenubarTrigger");
   let open = menu.is_open();
   let set_open = menu.set_open;
-  let class = menubar_trigger_class(open, &class);
+  let class =
+    menubar_trigger_class(open, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {
@@ -388,7 +390,11 @@ pub fn MenubarItem(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = menubar_item_class(inset, destructive, &class);
+  let class = menubar_item_class(
+    inset,
+    destructive,
+    &with_density(density_control_class(use_density()), &class),
+  );
 
   rsx! {
     div {
@@ -414,7 +420,10 @@ pub fn MenubarCheckboxItem(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = menubar_checkbox_item_class(checked, &class);
+  let class = menubar_checkbox_item_class(
+    checked,
+    &with_density(density_control_class(use_density()), &class),
+  );
 
   rsx! {
     div {
@@ -469,7 +478,8 @@ pub fn MenubarRadioItem(
 ) -> Element {
   let group = use_menu_radio_item("MenubarRadioItem", "MenubarRadioGroup");
   let checked = group.value().as_ref() == Some(&value);
-  let class = menubar_radio_item_class(checked, &class);
+  let class =
+    menubar_radio_item_class(checked, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     div {
@@ -526,7 +536,8 @@ pub fn MenubarSubTrigger(
 ) -> Element {
   let sub = use_menu_sub_part("MenubarSubTrigger", "MenubarSub");
   let open = sub.is_open();
-  let class = menubar_sub_trigger_class(inset, &class);
+  let class =
+    menubar_sub_trigger_class(inset, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     div {

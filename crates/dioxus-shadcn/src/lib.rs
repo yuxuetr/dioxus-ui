@@ -840,6 +840,8 @@ pub mod tooltip;
 #[cfg(feature = "typography")]
 pub mod typography;
 
+pub mod density;
+pub use density::{DensityProvider, density_control_class, density_hit_area_class, use_density};
 pub use dioxus_shadcn_core::UiDensity;
 #[cfg(feature = "fab")]
 pub mod fab;

@@ -56,7 +56,7 @@ let mut status_bar = use_signal(|| true);
 rsx! {
   Dropdown {
     DropdownTrigger {
-      class: button_class(ButtonVariant::Outline, ButtonSize::Md, UiDensity::Comfortable, ""),
+      class: button_class(ButtonVariant::Outline, ButtonSize::Md, use_density(), ""),
       "View"
     }
     DropdownContent {

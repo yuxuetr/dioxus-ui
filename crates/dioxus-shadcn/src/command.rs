@@ -2,6 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::ActiveDescendantState;
 
+use crate::density::{density_control_class, use_density, with_density};
 use crate::element_id::next_element_id;
 use crate::listbox::{ListboxMode, use_listbox};
 use crate::root_state::use_root_context;
@@ -122,7 +123,7 @@ pub fn CommandInput(
   #[props(default)] class: String,
 ) -> Element {
   let context = use_root_context::<CommandContext>("CommandInput", "Command");
-  let class = command_input_class(&class);
+  let class = command_input_class(&with_density(density_control_class(use_density()), &class));
 
   rsx! {
     input {
@@ -229,7 +230,7 @@ pub fn CommandItem(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = command_item_class(&class);
+  let class = command_item_class(&with_density(density_control_class(use_density()), &class));
   let value = command_item_value(&id, value);
 
   rsx! {

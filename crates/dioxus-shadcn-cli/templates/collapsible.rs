@@ -2,6 +2,7 @@ use super::default_attribute::default_attribute;
 use super::overlay_root::{OverlayRoot, use_overlay_root};
 use super::root_state::use_root_context;
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
 pub const COLLAPSIBLE_BASE_CLASS: &str = "grid gap-2 data-[disabled=true]:opacity-50";
@@ -75,7 +76,7 @@ pub fn CollapsibleTrigger(
 ) -> Element {
   let context = use_root_context::<CollapsibleContext>("CollapsibleTrigger", "Collapsible");
   let root = context.root;
-  let class = collapsible_trigger_class(&class);
+  let class = collapsible_trigger_class(&with_density(density_control_class(use_density()), &class));
   let disabled = disabled || context.disabled;
   let open = root.is_open();
   let id = default_attribute(&attributes, "id", root.trigger_id());

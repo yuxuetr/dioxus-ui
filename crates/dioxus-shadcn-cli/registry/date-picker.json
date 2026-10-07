@@ -10,6 +10,7 @@
   "dependencies": [
     "anchored-overlay",
     "calendar",
+    "density",
     "element-id",
     "modal-focus",
     "overlay",

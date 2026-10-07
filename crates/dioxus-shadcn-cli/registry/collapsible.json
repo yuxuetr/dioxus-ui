@@ -9,6 +9,7 @@
   ],
   "dependencies": [
     "default-attribute",
+    "density",
     "overlay-root",
     "root-state",
     "utils"

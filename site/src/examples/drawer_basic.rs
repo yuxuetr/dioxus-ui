@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use dioxus_shadcn::{
   Button, ButtonSize, ButtonVariant, Drawer, DrawerClose, DrawerContent, DrawerDescription,
-  DrawerFooter, DrawerHeader, DrawerOverlay, DrawerTitle, DrawerTrigger, UiDensity, button_class,
+  DrawerFooter, DrawerHeader, DrawerOverlay, DrawerTitle, DrawerTrigger, button_class, use_density,
 };
 
 #[component]
@@ -12,7 +12,7 @@ pub fn DrawerBasicDemo() -> Element {
   rsx! {
     Drawer { open: open(), on_open_change: move |next| open.set(next),
       DrawerTrigger {
-        class: button_class(ButtonVariant::Outline, ButtonSize::Md, UiDensity::Comfortable, ""),
+        class: button_class(ButtonVariant::Outline, ButtonSize::Md, use_density(), ""),
         "Set daily goal"
       }
       DrawerOverlay {}

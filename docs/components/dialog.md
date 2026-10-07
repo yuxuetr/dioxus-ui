@@ -40,7 +40,7 @@ it; it renders an unstyled `button`, so style it with `class`:
 rsx! {
   Dialog {
     DialogTrigger {
-      class: button_class(ButtonVariant::Outline, ButtonSize::Md, UiDensity::Comfortable, ""),
+      class: button_class(ButtonVariant::Outline, ButtonSize::Md, use_density(), ""),
       "Rename project"
     }
     DialogOverlay {}

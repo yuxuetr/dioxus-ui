@@ -2,6 +2,7 @@ use super::element_id::next_element_id;
 use super::listbox::{ListboxMode, use_listbox};
 use super::root_state::use_root_context;
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
 pub const COMMAND_BASE_CLASS: &str =
@@ -117,7 +118,7 @@ pub fn CommandInput(
   #[props(default)] class: String,
 ) -> Element {
   let context = use_root_context::<CommandContext>("CommandInput", "Command");
-  let class = command_input_class(&class);
+  let class = command_input_class(&with_density(density_control_class(use_density()), &class));
 
   rsx! {
     input {
@@ -224,7 +225,7 @@ pub fn CommandItem(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = command_item_class(&class);
+  let class = command_item_class(&with_density(density_control_class(use_density()), &class));
   let value = command_item_value(&id, value);
 
   rsx! {

@@ -1,3 +1,4 @@
+use crate::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
@@ -66,7 +67,12 @@ pub fn Toggle(
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
-  let class = toggle_class(variant, size, pressed, &class);
+  let class = toggle_class(
+    variant,
+    size,
+    pressed,
+    &with_density(density_control_class(use_density()), &class),
+  );
 
   rsx! {
     button {

@@ -1,3 +1,4 @@
+use crate::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
@@ -283,7 +284,7 @@ pub fn AttachmentAction(
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
-  let class = attachment_action_class(&class);
+  let class = attachment_action_class(&with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {
@@ -309,7 +310,7 @@ pub fn AttachmentTrigger(
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
-  let class = attachment_trigger_class(&class);
+  let class = attachment_trigger_class(&with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {

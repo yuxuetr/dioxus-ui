@@ -1,5 +1,6 @@
+use super::density::{use_density, with_density};
 use super::element_id::next_element_id;
-use super::utils::{classes, merge_classes};
+use super::utils::{UiDensity, classes, merge_classes};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -137,6 +138,11 @@ pub fn resizable_panel_class(collapsed: bool, class: &str) -> String {
   merge_classes(classes([Some(RESIZABLE_PANEL_BASE_CLASS), collapsed.then_some("hidden")]), class)
 }
 
+/// The Touch hit area of a handle: its `after:` strip widens to 44 CSS
+/// pixels across the line (RFC 0078).
+pub const RESIZABLE_HANDLE_TOUCH_CLASS: &str =
+  "after:w-11 data-[orientation=vertical]:after:h-11";
+
 pub fn resizable_handle_class(disabled: bool, class: &str) -> String {
   merge_classes(classes([Some(RESIZABLE_HANDLE_BASE_CLASS), disabled.then_some("pointer-events-none opacity-50")]), class)
 }
@@ -234,7 +240,11 @@ pub fn ResizableHandle(
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
 ) -> Element {
-  let class = resizable_handle_class(disabled, &class);
+  let touch_class = match use_density() {
+    UiDensity::Touch => RESIZABLE_HANDLE_TOUCH_CLASS,
+    UiDensity::Compact | UiDensity::Comfortable => "",
+  };
+  let class = resizable_handle_class(disabled, &with_density(touch_class, &class));
   let scope_id = use_resizable_handle_pointer(value, min, max, disabled, on_resize);
 
   rsx! {

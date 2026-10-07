@@ -11,6 +11,7 @@
     "anchored-overlay",
     "choice",
     "default-attribute",
+    "density",
     "element-id",
     "listbox",
     "overlay",

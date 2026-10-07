@@ -1,3 +1,4 @@
+use super::density::{density_control_class, use_density, with_density};
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
@@ -106,7 +107,7 @@ pub fn InputGroupAction(
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
-  let class = input_group_action_class(&class);
+  let class = input_group_action_class(&with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {

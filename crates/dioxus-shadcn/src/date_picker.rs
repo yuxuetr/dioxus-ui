@@ -7,6 +7,7 @@ pub use dioxus_shadcn_primitives::{
 use dioxus_shadcn_primitives::CalendarDate;
 
 use crate::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
+use crate::density::{density_control_class, use_density, with_density};
 use crate::element_id::next_element_id;
 use crate::modal_focus::use_modal_focus_scope;
 use crate::root_state::{Controllable, use_controllable, use_root_context};
@@ -100,7 +101,8 @@ pub fn DatePickerTrigger(
   children: Element,
 ) -> Element {
   let context = use_date_picker("DatePickerTrigger");
-  let class = date_picker_trigger_class(invalid, &class);
+  let class =
+    date_picker_trigger_class(invalid, &with_density(density_control_class(use_density()), &class));
   let open = context.open.get();
   let set_open = context.set_open;
 
@@ -293,7 +295,10 @@ pub fn DatePickerInput(
 
   let typed = text();
   let unparsed = !typed.trim().is_empty() && parse_date(&typed, order).is_none();
-  let class = date_picker_input_class(invalid || unparsed, &class);
+  let class = date_picker_input_class(
+    invalid || unparsed,
+    &with_density(density_control_class(use_density()), &class),
+  );
   let placeholder =
     if placeholder.is_empty() { order.placeholder().to_string() } else { placeholder };
 

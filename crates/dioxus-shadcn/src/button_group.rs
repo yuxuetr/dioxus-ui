@@ -1,3 +1,4 @@
+use crate::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
@@ -84,7 +85,7 @@ pub fn ButtonGroupItem(
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
-  let class = button_group_item_class(&class);
+  let class = button_group_item_class(&with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {

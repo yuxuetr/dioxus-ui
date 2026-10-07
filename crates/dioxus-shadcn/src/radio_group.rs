@@ -4,6 +4,7 @@ use dioxus_shadcn_primitives::{
   FocusMove, NavigationOrientation, RovingFocusItem, RovingFocusState,
 };
 
+use crate::density::{density_hit_area_class, use_density, with_density};
 use crate::root_state::{Controllable, use_controllable, use_root_context};
 use crate::roving_group::use_roving_group;
 
@@ -131,7 +132,8 @@ pub fn RadioGroupItem(
 ) -> Element {
   let context = use_root_context::<RadioGroupContext>("RadioGroupItem", "RadioGroup");
   let checked = context.value.get().as_deref() == Some(value.as_str());
-  let class = radio_group_item_class(checked, &class);
+  let class =
+    radio_group_item_class(checked, &with_density(density_hit_area_class(use_density()), &class));
   let indicator_class = radio_group_indicator_class("");
 
   rsx! {

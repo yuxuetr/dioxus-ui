@@ -2,6 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
 use crate::default_attribute::default_attribute;
+use crate::density::{density_control_class, use_density, with_density};
 use crate::overlay_root::{OverlayRoot, use_overlay_root};
 use crate::root_state::use_root_context;
 
@@ -76,7 +77,8 @@ pub fn CollapsibleTrigger(
 ) -> Element {
   let context = use_root_context::<CollapsibleContext>("CollapsibleTrigger", "Collapsible");
   let root = context.root;
-  let class = collapsible_trigger_class(&class);
+  let class =
+    collapsible_trigger_class(&with_density(density_control_class(use_density()), &class));
   let disabled = disabled || context.disabled;
   let open = root.is_open();
   let id = default_attribute(&attributes, "id", root.trigger_id());

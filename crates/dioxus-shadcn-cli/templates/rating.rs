@@ -1,3 +1,4 @@
+use super::density::{density_hit_area_class, use_density};
 use super::element_id::next_element_id;
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
@@ -26,13 +27,16 @@ pub fn Rating(
   #[props(extends = GlobalAttributes)] attributes: Vec<Attribute>,
 ) -> Element {
   let class = rating_class(&class);
+  // A label passes a press on the star's hit area to its radio (RFC 0078).
+  let star_class =
+    merge_classes(classes([Some(RATING_STAR_WRAPPER_CLASS)]), density_hit_area_class(use_density()));
   let generated_name = use_hook(|| format!("dxui-rating-{}", next_element_id()));
   let name = name.unwrap_or(generated_name);
 
   rsx! {
     div { class, role: "radiogroup", ..attributes,
       for star in 1..=max {
-        span { key: "{star}", class: RATING_STAR_WRAPPER_CLASS,
+        label { key: "{star}", class: star_class.clone(),
           input {
             class: RATING_STAR_CLASS,
             r#type: "radio",

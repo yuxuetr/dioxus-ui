@@ -15,7 +15,6 @@ rsx! {
   Button {
     variant: ButtonVariant::Primary,
     size: ButtonSize::Md,
-    density: UiDensity::Comfortable,
     class: "w-full",
     "Save changes"
   }
@@ -117,8 +116,10 @@ application or platform profile.
 
 ### `density`
 
-Components whose spacing depends on the platform take a `density: UiDensity`
-prop; `Button` does today.
+Density is the platform profile, so it comes from one root,
+`DensityProvider { density }`, and interactive components read it with
+`use_density()` ([RFC 0078](rfcs/0078-touch-density.md)); without a provider
+they render at `Comfortable`.
 
 ```rust
 pub enum UiDensity {
@@ -128,8 +129,11 @@ pub enum UiDensity {
 }
 ```
 
-There is no global density context; each component takes the prop, and new
-components should not make it hard to add.
+Under `Touch` every interactive control offers a 44 by 44 CSS pixel target:
+a new control that holds text appends `density_control_class(use_density())`
+before the app's class, and one drawn smaller appends
+`density_hit_area_class(use_density())`. A component never takes a
+`density` prop.
 
 ### State Props
 

@@ -1,0 +1,14 @@
+{
+  "name": "density",
+  "description": "The density interactive components take from DensityProvider (RFC 0078).",
+  "files": [
+    {
+      "source": "templates/density.rs",
+      "target": "src/components/ui/density.rs"
+    }
+  ],
+  "dependencies": [
+    "utils"
+  ],
+  "assets": []
+}

@@ -1,3 +1,4 @@
+use super::density::{density_control_class, use_density, with_density};
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
@@ -275,7 +276,7 @@ pub fn AttachmentAction(
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
-  let class = attachment_action_class(&class);
+  let class = attachment_action_class(&with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {
@@ -301,7 +302,7 @@ pub fn AttachmentTrigger(
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
-  let class = attachment_trigger_class(&class);
+  let class = attachment_trigger_class(&with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {

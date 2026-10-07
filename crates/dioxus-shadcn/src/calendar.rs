@@ -1,6 +1,7 @@
 use std::rc::Rc;
 use std::sync::atomic::{AtomicBool, Ordering};
 
+use crate::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
@@ -205,7 +206,10 @@ pub fn CalendarNavButton(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = calendar_nav_button_class(disabled, &class);
+  let class = calendar_nav_button_class(
+    disabled,
+    &with_density(density_control_class(use_density()), &class),
+  );
   let label = match direction {
     CalendarNavDirection::Previous => "Go to previous month",
     CalendarNavDirection::Next => "Go to next month",
@@ -319,7 +323,14 @@ pub fn CalendarDay(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = calendar_day_class(selected, today, outside_month, disabled, range_state, &class);
+  let class = calendar_day_class(
+    selected,
+    today,
+    outside_month,
+    disabled,
+    range_state,
+    &with_density(density_control_class(use_density()), &class),
+  );
   let keyboard_managed = on_key_move.is_some();
   let mut mounted = use_signal(|| None::<Rc<MountedData>>);
 

@@ -1,4 +1,5 @@
 use dioxus::prelude::*;
+use dioxus_shadcn::{DensityProvider, UiDensity};
 use dioxus_ui_preview_states::{InteractionSelfTest, PreviewSurface, PreviewTarget};
 
 fn main() {
@@ -12,9 +13,13 @@ fn PreviewApp() -> Element {
   let self_test = use_hook(self_test_requested);
 
   rsx! {
-    PreviewSurface {
-      target: PreviewTarget::Mobile,
-      title: "dioxus-shadcn Mobile Preview".to_string(),
+    // A phone is a touch screen, so every control offers a 44 pixel target
+    // (RFC 0078).
+    DensityProvider { density: UiDensity::Touch,
+      PreviewSurface {
+        target: PreviewTarget::Mobile,
+        title: "dioxus-shadcn Mobile Preview".to_string(),
+      }
     }
     if self_test {
       InteractionSelfTest { label: "mobile" }

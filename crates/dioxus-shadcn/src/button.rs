@@ -1,3 +1,4 @@
+use crate::density::use_density;
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{UiDensity, classes, merge_classes};
 
@@ -58,7 +59,7 @@ pub fn button_class(
   let density_class = match density {
     UiDensity::Compact => "min-h-8",
     UiDensity::Comfortable => "min-h-10",
-    UiDensity::Touch => "min-h-12",
+    UiDensity::Touch => "min-h-12 min-w-11",
   };
 
   merge_classes(
@@ -72,21 +73,21 @@ pub fn button_class(
   )
 }
 
-/// Calls `onclick` on a click, Enter, or Space. Other attributes, such as
+/// Takes its density from the nearest `DensityProvider` (RFC 0078). Calls
+/// `onclick` on a click, Enter, or Space. Other attributes, such as
 /// `type`, `name`, and `aria-label`, are passed to the button, which keeps the
 /// native `submit` type inside a form unless `r#type` says otherwise.
 #[component]
 pub fn Button(
   #[props(default)] variant: ButtonVariant,
   #[props(default)] size: ButtonSize,
-  #[props(default)] density: UiDensity,
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
   #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
-  let class = button_class(variant, size, density, &class);
+  let class = button_class(variant, size, use_density(), &class);
 
   rsx! {
     button {
@@ -106,6 +107,23 @@ pub fn Button(
 #[cfg(test)]
 mod tests {
   use super::*;
+  use crate::density::DensityProvider;
+
+  #[test]
+  fn button_takes_its_density_from_the_provider() {
+    fn app() -> Element {
+      rsx! {
+        Button { "Plain" }
+        DensityProvider { density: UiDensity::Touch, Button { "Touch" } }
+      }
+    }
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    let html = dioxus_ssr::render(&dom);
+
+    assert_eq!(html.matches("min-h-12").count(), 1, "{html}");
+    assert_eq!(html.matches("min-h-10").count(), 1);
+  }
 
   #[test]
   fn button_class_includes_variant_size_density_and_user_class() {

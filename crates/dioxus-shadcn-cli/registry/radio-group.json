@@ -8,8 +8,9 @@
     }
   ],
   "dependencies": [
-    "roving-group",
+    "density",
     "root-state",
+    "roving-group",
     "utils"
   ],
   "assets": []

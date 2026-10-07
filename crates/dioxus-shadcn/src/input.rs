@@ -1,3 +1,4 @@
+use crate::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
@@ -26,7 +27,7 @@ pub fn Input(
   #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(extends = GlobalAttributes, extends = input)] attributes: Vec<Attribute>,
 ) -> Element {
-  let class = input_class(invalid, &class);
+  let class = input_class(invalid, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     input {
@@ -48,6 +49,26 @@ pub fn Input(
 #[cfg(test)]
 mod tests {
   use super::*;
+  use crate::density::DensityProvider;
+  use dioxus_shadcn_core::UiDensity;
+
+  #[test]
+  fn touch_raises_the_input_to_a_touch_target_and_the_app_class_wins() {
+    fn app() -> Element {
+      rsx! {
+        DensityProvider { density: UiDensity::Touch,
+          Input { "aria-label": "Name" }
+          Input { "aria-label": "Code", class: "min-h-8" }
+        }
+      }
+    }
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    let html = dioxus_ssr::render(&dom);
+
+    assert_eq!(html.matches("min-h-11").count(), 1, "{html}");
+    assert!(html.contains("min-h-8"));
+  }
 
   #[test]
   fn input_class_adds_invalid_state() {

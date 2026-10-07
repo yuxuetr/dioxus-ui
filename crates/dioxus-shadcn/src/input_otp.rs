@@ -6,6 +6,7 @@ pub use dioxus_shadcn_primitives::{
   otp_slots, otp_slots_with_disabled,
 };
 
+use crate::density::{density_control_class, use_density, with_density};
 use crate::element_id::next_element_id;
 use crate::root_state::{Controllable, use_controllable, use_root_context};
 // Keep in sync with `INPUT_OTP_FILTER_SCRIPT` in the CLI `input_otp.rs` template.
@@ -206,7 +207,12 @@ pub fn InputOtpSlot(
   let disabled = disabled || otp.disabled;
   let active = slot.is_some_and(|slot| slot.active) && !disabled;
   let invalid = otp.invalid;
-  let class = input_otp_slot_class(active, invalid, disabled, &class);
+  let class = input_otp_slot_class(
+    active,
+    invalid,
+    disabled,
+    &with_density(density_control_class(use_density()), &class),
+  );
   let display = input_otp_slot_display(value);
 
   rsx! {

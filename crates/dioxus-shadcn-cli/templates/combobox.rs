@@ -6,6 +6,7 @@ use super::listbox::{ListboxMode, use_listbox};
 pub use super::overlay::{DismissBehavior, OverlayAlign, OverlaySide, PopoverPrimitiveConfig};
 use super::root_state::{Controllable, use_controllable, use_root_context};
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
 pub const COMBOBOX_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
@@ -141,7 +142,7 @@ pub fn ComboboxTrigger(
   children: Element,
 ) -> Element {
   let context = use_combobox("ComboboxTrigger");
-  let class = combobox_trigger_class(invalid, &class);
+  let class = combobox_trigger_class(invalid, &with_density(density_control_class(use_density()), &class));
   let open = context.open.get();
   let set_open = context.set_open;
   // A trigger may sit in a combobox without a list, so it names the list
@@ -185,7 +186,7 @@ pub fn ComboboxInput(
   #[props(extends = GlobalAttributes, extends = input)] attributes: Vec<Attribute>,
 ) -> Element {
   let context = use_combobox("ComboboxInput");
-  let class = combobox_input_class(&class);
+  let class = combobox_input_class(&with_density(density_control_class(use_density()), &class));
   let open = context.open.get();
   let set_open = context.set_open;
   let controls = default_attribute(&attributes, "aria-controls", context.list_id());
@@ -349,7 +350,7 @@ pub fn ComboboxItem(
 ) -> Element {
   let context = use_combobox("ComboboxItem");
   let selected = context.choice.chosen().contains(&value);
-  let class = combobox_item_class(false, selected, &class);
+  let class = combobox_item_class(false, selected, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     div {

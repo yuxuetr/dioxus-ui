@@ -5,6 +5,7 @@ pub use dioxus_shadcn_primitives::{
 };
 
 use crate::default_attribute::default_attribute;
+use crate::density::{density_control_class, use_density, with_density};
 use crate::dialog_labels::{DialogLabelPart, use_dialog_label_part, use_dialog_labels};
 use crate::modal_focus::use_modal_focus_scope;
 use crate::overlay_root::{OverlayRoot, overlay_trigger, use_overlay_root};
@@ -172,7 +173,7 @@ pub fn DialogClose(
   children: Element,
 ) -> Element {
   let root = use_dialog("DialogClose");
-  let class = dialog_close_class(&class);
+  let class = dialog_close_class(&with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {

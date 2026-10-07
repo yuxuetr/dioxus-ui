@@ -1,3 +1,4 @@
+use crate::density::{density_hit_area_class, use_density, with_density};
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
@@ -34,7 +35,7 @@ pub fn Switch(
   #[props(default)] on_checked_change: Option<EventHandler<bool>>,
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
 ) -> Element {
-  let class = switch_class(checked, &class);
+  let class = switch_class(checked, &with_density(density_hit_area_class(use_density()), &class));
   let thumb_class = switch_thumb_class(checked);
   let state = switch_state(checked);
 

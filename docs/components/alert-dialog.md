@@ -53,7 +53,7 @@ restores scrolling (see [RFC 0068](../rfcs/0068-modal-scroll-lock.md)).
 rsx! {
   AlertDialog {
     AlertDialogTrigger {
-      class: button_class(ButtonVariant::Destructive, ButtonSize::Md, UiDensity::Comfortable, ""),
+      class: button_class(ButtonVariant::Destructive, ButtonSize::Md, use_density(), ""),
       "Delete project"
     }
     AlertDialogOverlay {}

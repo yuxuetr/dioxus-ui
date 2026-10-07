@@ -2,6 +2,7 @@ use super::element_id::next_element_id;
 use super::root_state::{Controllable, use_controllable, use_root_context};
 use super::roving_group::{group_part_id, use_roving_group};
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
 pub const TABS_BASE_CLASS: &str =
@@ -151,7 +152,7 @@ pub fn TabsTrigger(
 ) -> Element {
   let context = use_root_context::<TabsContext>("TabsTrigger", "Tabs");
   let active = context.value.get().as_deref() == Some(value.as_str());
-  let class = tabs_trigger_class(active, &class);
+  let class = tabs_trigger_class(active, &with_density(density_control_class(use_density()), &class));
   let id = group_part_id(&context.base_id, "trigger", &value);
   let controls = group_part_id(&context.base_id, "content", &value);
 

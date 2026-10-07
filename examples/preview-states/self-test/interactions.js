@@ -189,8 +189,9 @@ const scenarios = [
   }],
 ];
 
-// Rendered size of every visible interactive control in the interaction
-// fixtures, measured before any scenario runs, so at defaults (M211.1).
+// Target size of every visible interactive control in the interaction
+// fixtures, measured before any scenario runs: its box, or the RFC 0078 hit
+// area of the control or the label around it, whichever is larger.
 const interactiveSelector = [
   "button",
   "a[href]",
@@ -209,11 +210,24 @@ const interactiveSelector = [
   '[role="option"]',
   '[tabindex]:not([tabindex="-1"])',
 ].join(", ");
+const hitArea = (element) => {
+  const after = element ? getComputedStyle(element, "::after") : null;
+  if (!after || after.position !== "absolute" || after.content === "none") return [0, 0];
+  return [parseFloat(after.width) || 0, parseFloat(after.height) || 0];
+};
 const measureTargets = () =>
   Array.from(document.querySelectorAll(`[data-interaction-target] :is(${interactiveSelector})`))
+    // A tab panel takes focus for its content, not presses, and a link inside
+    // a line of text is exempt (WCAG 2.5.8).
+    .filter((element) => element.getAttribute("role") !== "tabpanel")
+    .filter((element) => !(element.tagName === "A" && getComputedStyle(element).display === "inline"))
     .filter((element) => element.getClientRects().length > 0)
     .map((element) => {
-      const { width, height } = element.getBoundingClientRect();
+      const box = element.getBoundingClientRect();
+      const [ownWidth, ownHeight] = hitArea(element);
+      const [labelWidth, labelHeight] = hitArea(element.closest("label"));
+      const width = Math.max(box.width, ownWidth, labelWidth);
+      const height = Math.max(box.height, ownHeight, labelHeight);
       const name = (element.getAttribute("aria-label") || element.textContent || element.getAttribute("placeholder") || "")
         .trim()
         .replace(/\s+/g, " ")

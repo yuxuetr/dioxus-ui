@@ -1,3 +1,4 @@
+use crate::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
@@ -25,7 +26,8 @@ pub fn FileInput(
   #[props(default)] onchange: Option<EventHandler<FormEvent>>,
   #[props(extends = GlobalAttributes, extends = input)] attributes: Vec<Attribute>,
 ) -> Element {
-  let class = file_input_class(invalid, &class);
+  let class =
+    file_input_class(invalid, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     input {

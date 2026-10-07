@@ -7,6 +7,7 @@ pub use dioxus_shadcn_primitives::{
 use crate::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
 use crate::choice::{Choice, use_choice};
 use crate::default_attribute::default_attribute;
+use crate::density::{density_control_class, use_density, with_density};
 use crate::element_id::next_element_id;
 use crate::listbox::{ListboxMode, use_listbox};
 use crate::root_state::{Controllable, use_controllable, use_root_context};
@@ -127,7 +128,8 @@ pub fn SelectTrigger(
   children: Element,
 ) -> Element {
   let context = use_root_context::<SelectContext>("SelectTrigger", "Select");
-  let class = select_trigger_class(invalid, &class);
+  let class =
+    select_trigger_class(invalid, &with_density(density_control_class(use_density()), &class));
   let open = context.open.get();
   let set_open = context.set_open;
   let controls = default_attribute(&attributes, "aria-controls", context.content_id());
@@ -257,7 +259,8 @@ pub fn SelectItem(
 ) -> Element {
   let context = use_root_context::<SelectContext>("SelectItem", "Select");
   let selected = context.choice.chosen().contains(&value);
-  let class = select_item_class(selected, &class);
+  let class =
+    select_item_class(selected, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     div {

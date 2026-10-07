@@ -40,12 +40,12 @@ use dioxus_shadcn::{
   Tooltip, TooltipContent, TooltipTrigger, UiDensity, attachment_class, bubble_class, button_class,
   button_group_class, chart_area_path, chart_area_series_class, chart_bar_rects,
   chart_bar_series_class, chart_class, chart_fallback_rows, chart_line_path,
-  chart_line_series_class, chart_view_box, collapsible_class, direction_class, input_group_class,
-  input_otp_class, marker_class, message_avatar_class, message_class, message_content_class,
-  message_footer_class, message_group_class, message_header_class, message_scroller_class,
-  message_scroller_intent_attribute, message_scroller_is_at_bottom,
-  message_scroller_jump_button_class, message_scroller_show_unread_marker,
-  otp_apply_paste_filtered, otp_slots,
+  chart_line_series_class, chart_view_box, collapsible_class, density_control_class,
+  direction_class, input_group_class, input_otp_class, marker_class, message_avatar_class,
+  message_class, message_content_class, message_footer_class, message_group_class,
+  message_header_class, message_scroller_class, message_scroller_intent_attribute,
+  message_scroller_is_at_bottom, message_scroller_jump_button_class,
+  message_scroller_show_unread_marker, otp_apply_paste_filtered, otp_slots, use_density,
 };
 use dioxus_shadcn::{
   AttachmentAction, AttachmentTrigger, ButtonGroup, ButtonGroupItem, ComboboxTrigger, Field,
@@ -1018,9 +1018,9 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let command_active_value = command_active();
   let scroll_status_value = scroll_status();
   let primary_button_class =
-    button_class(ButtonVariant::Primary, ButtonSize::Md, UiDensity::Comfortable, "");
+    button_class(ButtonVariant::Primary, ButtonSize::Md, use_density(), "");
   let secondary_button_class =
-    button_class(ButtonVariant::Secondary, ButtonSize::Sm, UiDensity::Compact, "");
+    button_class(ButtonVariant::Secondary, ButtonSize::Sm, use_density(), "");
   let form_group_class = input_group_class(false, false, "max-w-sm");
   let otp_class = input_otp_class(false, "max-w-xs");
   let message_group = message_group_class("max-w-2xl");
@@ -2695,10 +2695,10 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             h2 { class: "text-sm font-medium", "Hover card interaction" }
             HoverCard {
               on_open_change: move |open| hover_card_open.set(open),
-              HoverCardTrigger {
-                href: "#hover-card-dioxus",
-                class: "mt-3 inline-block text-sm font-medium underline",
-                "@dioxus"
+              // A link in a line of text, which the touch target size exempts.
+              p { class: "mt-3 text-sm",
+                "Built with "
+                HoverCardTrigger { href: "#hover-card-dioxus", class: "font-medium underline", "@dioxus" }
               }
               HoverCardContent {
                 HoverCardHeader {
@@ -2785,7 +2785,11 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               }
               InputGroup { class: "max-w-56",
                 InputGroupControl {
-                  input { class: "h-10 w-full px-3 outline-none", "aria-label": "Part search" }
+                  // An element the app renders takes the density itself (RFC 0078).
+                  input {
+                    class: "h-10 w-full px-3 outline-none {density_control_class(use_density())}",
+                    "aria-label": "Part search",
+                  }
                 }
                 InputGroupAction { onclick: move |_| last_part_action.set("input-group".to_string()), "Clear" }
               }

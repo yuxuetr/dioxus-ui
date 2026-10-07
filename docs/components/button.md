@@ -20,7 +20,7 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["button
 - `ButtonVariant`
 - `ButtonSize`
 - `button_class`
-
+- `DensityProvider`, `use_density`, `UiDensity`
 `ButtonVariant::Link` draws foreground-colored text with a primary underline
 on hover, so link buttons stay readable in theme presets with a light primary
 color ([RFC 0057](../rfcs/0057-theme-presets.md)).
@@ -38,6 +38,24 @@ A click, Enter, or Space calls `onclick` with the mouse event. Other
 attributes, such as `type`, `name`, and `aria-label`, are passed to the
 button. Inside a form the button keeps the native `submit` type; pass
 `r#type: "button"` for a button that should not submit.
+
+## Density
+
+`Button` takes its density from the nearest `DensityProvider`
+([RFC 0078](../rfcs/0078-touch-density.md)), `Comfortable` without one. Under
+`Touch` it is at least 48 CSS pixels high and 44 wide, a touch target:
+
+```rust
+rsx! {
+  DensityProvider { density: UiDensity::Touch,
+    Button { "Save" }
+  }
+}
+```
+
+An element styled as a button, such as an overlay trigger, passes the same
+density to `button_class(variant, size, use_density(), "")`. Every
+interactive component follows the provider the same way.
 
 ## Accessibility Notes
 

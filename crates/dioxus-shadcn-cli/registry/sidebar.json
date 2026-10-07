@@ -9,6 +9,7 @@
   ],
   "dependencies": [
     "default-attribute",
+    "density",
     "element-id",
     "media-query",
     "modal-focus",

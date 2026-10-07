@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{
   AlertDialog, AlertDialogAction, AlertDialogActionVariant, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay,
-  AlertDialogTitle, AlertDialogTrigger, ButtonSize, ButtonVariant, UiDensity, button_class,
+  AlertDialogTitle, AlertDialogTrigger, ButtonSize, ButtonVariant, button_class, use_density,
 };
 
 #[component]
@@ -12,7 +12,7 @@ pub fn AlertDialogConfirmDemo() -> Element {
   rsx! {
     AlertDialog {
       AlertDialogTrigger {
-        class: button_class(ButtonVariant::Destructive, ButtonSize::Md, UiDensity::Comfortable, ""),
+        class: button_class(ButtonVariant::Destructive, ButtonSize::Md, use_density(), ""),
         "Delete project"
       }
       p { class: "mt-3 text-sm text-muted-foreground", "Result: {result}" }

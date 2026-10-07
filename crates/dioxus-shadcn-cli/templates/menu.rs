@@ -1,3 +1,4 @@
+use super::density::{density_control_class, use_density, with_density};
 use super::element_id::next_element_id;
 use super::root_state::use_controllable;
 use super::utils::{classes, merge_classes};
@@ -79,7 +80,7 @@ pub fn MenuItem(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = menu_item_class(active, &class);
+  let class = menu_item_class(active, &with_density(density_control_class(use_density()), &class));
   let aria_current = active.then_some("page");
   let has_onclick = onclick.is_some();
   let onclick = move |event: MouseEvent| {
@@ -145,6 +146,7 @@ pub fn MenuGroup(
   let group = use_controllable(move || open.cloned(), move || default_open, on_open_change);
   let open = group.get();
   let list_id = use_hook(|| format!("dxui-menu-group-{}", next_element_id()));
+  let class = with_density(density_control_class(use_density()), &class);
   let class =
     menu_item_class(false, &merge_classes(classes([Some(MENU_GROUP_TRIGGER_CLASS)]), &class));
   let list_class = menu_group_list_class(&list_class);

@@ -1,10 +1,11 @@
 use dioxus::prelude::*;
-use dioxus_shadcn_core::{classes, merge_classes};
+use dioxus_shadcn_core::{UiDensity, classes, merge_classes};
 pub use dioxus_shadcn_primitives::{
   LayoutOrientation, ResizablePanelState, layout_orientation_attribute, resizable_clamp,
   resizable_resize_pair,
 };
 
+use crate::density::{use_density, with_density};
 use crate::element_id::next_element_id;
 
 // Runs for the handle's lifetime. A primary-button press captures the pointer
@@ -72,6 +73,10 @@ pub fn resizable_panel_group_class(orientation: LayoutOrientation, class: &str) 
 pub fn resizable_panel_class(collapsed: bool, class: &str) -> String {
   merge_classes(classes([Some(RESIZABLE_PANEL_BASE_CLASS), collapsed.then_some("hidden")]), class)
 }
+
+/// The Touch hit area of a handle: its `after:` strip widens to 44 CSS
+/// pixels across the line (RFC 0078).
+pub const RESIZABLE_HANDLE_TOUCH_CLASS: &str = "after:w-11 data-[orientation=vertical]:after:h-11";
 
 pub fn resizable_handle_class(disabled: bool, class: &str) -> String {
   merge_classes(
@@ -176,7 +181,11 @@ pub fn ResizableHandle(
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
 ) -> Element {
-  let class = resizable_handle_class(disabled, &class);
+  let touch_class = match use_density() {
+    UiDensity::Touch => RESIZABLE_HANDLE_TOUCH_CLASS,
+    UiDensity::Compact | UiDensity::Comfortable => "",
+  };
+  let class = resizable_handle_class(disabled, &with_density(touch_class, &class));
   let scope_id = use_resizable_handle_pointer(value, min, max, disabled, on_resize);
 
   rsx! {

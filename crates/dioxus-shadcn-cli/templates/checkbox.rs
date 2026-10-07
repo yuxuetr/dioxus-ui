@@ -3,6 +3,7 @@ use std::rc::Rc;
 
 use super::element_id::next_element_id;
 use super::utils::{classes, merge_classes};
+use super::density::{density_hit_area_class, use_density, with_density};
 use dioxus::prelude::*;
 
 // Sets the native `indeterminate` property, which has no HTML attribute.
@@ -56,7 +57,7 @@ pub fn Checkbox(
   #[props(default)] on_checked_change: Option<EventHandler<bool>>,
   #[props(extends = GlobalAttributes, extends = input)] attributes: Vec<Attribute>,
 ) -> Element {
-  let class = checkbox_class(checked || indeterminate, &class);
+  let class = checkbox_class(checked || indeterminate, &with_density(density_hit_area_class(use_density()), &class));
   let scope_id = use_hook(|| format!("dxui-checkbox-{}", next_element_id()));
   // A click clears the native property before any handler runs; bumping this
   // re-runs the sync after the app's next render, in case it stays mixed.

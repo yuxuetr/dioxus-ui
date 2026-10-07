@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use dioxus_shadcn::{
   ButtonSize, ButtonVariant, Input, Label, Popover, PopoverContent, PopoverDescription,
-  PopoverHeader, PopoverTitle, PopoverTrigger, UiDensity, button_class,
+  PopoverHeader, PopoverTitle, PopoverTrigger, button_class, use_density,
 };
 
 #[component]
@@ -11,7 +11,7 @@ pub fn PopoverBasicDemo() -> Element {
   rsx! {
     Popover {
       PopoverTrigger {
-        class: button_class(ButtonVariant::Outline, ButtonSize::Md, UiDensity::Comfortable, ""),
+        class: button_class(ButtonVariant::Outline, ButtonSize::Md, use_density(), ""),
         "Dimensions"
       }
       PopoverContent {

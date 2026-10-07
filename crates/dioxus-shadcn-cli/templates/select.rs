@@ -6,6 +6,7 @@ use super::listbox::{ListboxMode, use_listbox};
 pub use super::overlay::{DismissBehavior, OverlayAlign, OverlaySide, SelectPrimitiveConfig};
 use super::root_state::{Controllable, use_controllable, use_root_context};
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
 pub const SELECT_TRIGGER_BASE_CLASS: &str = "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
@@ -124,7 +125,7 @@ pub fn SelectTrigger(
   children: Element,
 ) -> Element {
   let context = use_root_context::<SelectContext>("SelectTrigger", "Select");
-  let class = select_trigger_class(invalid, &class);
+  let class = select_trigger_class(invalid, &with_density(density_control_class(use_density()), &class));
   let open = context.open.get();
   let set_open = context.set_open;
   let controls = default_attribute(&attributes, "aria-controls", context.content_id());
@@ -254,7 +255,7 @@ pub fn SelectItem(
 ) -> Element {
   let context = use_root_context::<SelectContext>("SelectItem", "Select");
   let selected = context.choice.chosen().contains(&value);
-  let class = select_item_class(selected, &class);
+  let class = select_item_class(selected, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     div {

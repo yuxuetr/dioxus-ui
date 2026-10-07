@@ -2,6 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 pub use dioxus_shadcn_primitives::PopoverPrimitiveConfig;
 
+use crate::density::{density_control_class, use_density, with_density};
 use crate::element_id::next_element_id;
 use crate::root_state::{Controllable, use_controllable, use_root_context};
 
@@ -389,7 +390,10 @@ pub fn NavigationMenuTrigger(
   let item =
     use_root_context::<NavigationMenuItemContext>("NavigationMenuTrigger", "NavigationMenuItem");
   let open = menu.get() == item.0;
-  let class = navigation_menu_trigger_class(open, &class);
+  let class = navigation_menu_trigger_class(
+    open,
+    &with_density(density_control_class(use_density()), &class),
+  );
 
   rsx! {
     button {
@@ -438,7 +442,8 @@ pub fn NavigationMenuLink(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = navigation_menu_link_class(active, &class);
+  let class =
+    navigation_menu_link_class(active, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     a {

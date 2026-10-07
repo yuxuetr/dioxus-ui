@@ -7,6 +7,7 @@ use super::media_query::use_media_query;
 use super::modal_focus::use_modal_focus_scope;
 use super::root_state::{Controllable, use_controllable, use_root_context};
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
 /// Below this width the sidebar of an `off_canvas` provider is off-canvas.
@@ -416,7 +417,7 @@ pub fn SidebarItem(
   #[props(extends = GlobalAttributes, extends = a)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
-  let class = sidebar_item_class(active, disabled, &class);
+  let class = sidebar_item_class(active, disabled, &with_density(density_control_class(use_density()), &class));
   let aria_current = active.then_some("page");
   let has_onclick = onclick.is_some();
   let onclick = move |event: MouseEvent| {
@@ -481,7 +482,7 @@ pub fn SidebarTrigger(
   children: Element,
 ) -> Element {
   let sidebar = use_sidebar("SidebarTrigger");
-  let class = sidebar_trigger_class(&class);
+  let class = sidebar_trigger_class(&with_density(density_control_class(use_density()), &class));
   let (mobile, media_scope) = use_media_query(SIDEBAR_MOBILE_QUERY, sidebar.off_canvas);
   let modal = mobile && sidebar.off_canvas;
   let collapsed = sidebar.collapsed.get();

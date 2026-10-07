@@ -1,4 +1,5 @@
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, density_hit_area_class, use_density, with_density};
 use dioxus::prelude::*;
 
 pub const TAGS_INPUT_BASE_CLASS: &str = "flex min-h-10 w-full flex-wrap items-center gap-1.5 rounded-md border bg-background px-2 py-1.5 text-sm transition-colors focus-within:ring-2";
@@ -68,6 +69,7 @@ pub fn TagsInput(
   #[props(extends = GlobalAttributes, extends = input)] attributes: Vec<Attribute>,
 ) -> Element {
   let class = tags_input_class(invalid, &class);
+  let density = use_density();
   let mut draft = use_signal(String::new);
   let emit = move |next: Vec<String>| {
     if let Some(handler) = on_tags_change {
@@ -85,7 +87,7 @@ pub fn TagsInput(
             li { key: "{tag}", class: TAGS_INPUT_TAG_CLASS,
               span { "{tag}" }
               button {
-                class: TAGS_INPUT_REMOVE_CLASS,
+                class: with_density(density_hit_area_class(density), TAGS_INPUT_REMOVE_CLASS),
                 r#type: "button",
                 disabled,
                 "aria-label": "{remove_label} {tag}",
@@ -100,7 +102,7 @@ pub fn TagsInput(
         }
       }
       input {
-        class: TAGS_INPUT_FIELD_CLASS,
+        class: with_density(density_control_class(density), TAGS_INPUT_FIELD_CLASS),
         r#type: "text",
         autocomplete: "off",
         disabled,

@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{
   ButtonSize, ButtonVariant, Dropdown, DropdownContent, DropdownGroup, DropdownItem, DropdownLabel,
   DropdownSeparator, DropdownSub, DropdownSubContent, DropdownSubTrigger, DropdownTrigger,
-  UiDensity, button_class,
+  button_class, use_density,
 };
 
 #[component]
@@ -12,7 +12,7 @@ pub fn DropdownActionsDemo() -> Element {
   rsx! {
     Dropdown {
       DropdownTrigger {
-        class: button_class(ButtonVariant::Outline, ButtonSize::Md, UiDensity::Comfortable, ""),
+        class: button_class(ButtonVariant::Outline, ButtonSize::Md, use_density(), ""),
         "Actions"
       }
       p { class: "mt-3 text-sm text-muted-foreground", "Last action: {action}" }

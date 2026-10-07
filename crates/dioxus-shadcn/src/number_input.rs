@@ -1,3 +1,4 @@
+use crate::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
@@ -72,6 +73,7 @@ pub fn NumberInput(
   #[props(extends = GlobalAttributes, extends = input)] attributes: Vec<Attribute>,
 ) -> Element {
   let class = number_input_class(invalid, &class);
+  let density = use_density();
   let mut text = use_signal(|| number_input_format(value));
 
   // Follow a new value from the app unless the text already means it, so
@@ -97,7 +99,7 @@ pub fn NumberInput(
   rsx! {
     div { class,
       button {
-        class: NUMBER_INPUT_BUTTON_CLASS,
+        class: with_density(density_control_class(density), NUMBER_INPUT_BUTTON_CLASS),
         r#type: "button",
         tabindex: "-1",
         "aria-label": decrement_label,
@@ -106,7 +108,7 @@ pub fn NumberInput(
         "−"
       }
       input {
-        class: NUMBER_INPUT_FIELD_CLASS,
+        class: with_density(density_control_class(density), NUMBER_INPUT_FIELD_CLASS),
         r#type: "text",
         inputmode: "decimal",
         role: "spinbutton",
@@ -144,7 +146,7 @@ pub fn NumberInput(
         ..attributes,
       }
       button {
-        class: NUMBER_INPUT_BUTTON_CLASS,
+        class: with_density(density_control_class(density), NUMBER_INPUT_BUTTON_CLASS),
         r#type: "button",
         tabindex: "-1",
         "aria-label": increment_label,

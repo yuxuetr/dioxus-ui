@@ -1,6 +1,7 @@
 use super::default_attribute::default_attribute;
 use super::root_state::{Controllable, use_controllable, use_root_context};
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, density_hit_area_class, use_density, with_density};
 use dioxus::prelude::*;
 
 pub use self::LayoutOrientation as CarouselOrientation;
@@ -327,7 +328,7 @@ pub fn CarouselPrevious(
   let carousel = use_carousel("CarouselPrevious");
   let disabled =
     disabled || !carousel_can_go_previous(carousel.current(), carousel.count, carousel.looping);
-  let class = carousel_control_class(disabled, &class);
+  let class = carousel_control_class(disabled, &with_density(density_control_class(use_density()), &class));
   let aria_label = default_attribute(&attributes, "aria-label", "Previous slide");
 
   rsx! {
@@ -359,7 +360,7 @@ pub fn CarouselNext(
   let carousel = use_carousel("CarouselNext");
   let disabled =
     disabled || !carousel_can_go_next(carousel.current(), carousel.count, carousel.looping);
-  let class = carousel_control_class(disabled, &class);
+  let class = carousel_control_class(disabled, &with_density(density_control_class(use_density()), &class));
   let aria_label = default_attribute(&attributes, "aria-label", "Next slide");
 
   rsx! {
@@ -388,7 +389,7 @@ pub fn CarouselIndicator(
 ) -> Element {
   let carousel = use_carousel("CarouselIndicator");
   let selected = carousel.current() == index;
-  let class = carousel_indicator_class(selected, &class);
+  let class = carousel_indicator_class(selected, &with_density(density_hit_area_class(use_density()), &class));
   let aria_label = default_attribute(&attributes, "aria-label", "Go to slide");
 
   rsx! {

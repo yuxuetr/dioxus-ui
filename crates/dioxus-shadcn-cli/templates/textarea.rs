@@ -1,4 +1,5 @@
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
 pub const TEXTAREA_BASE_CLASS: &str = "flex min-h-24 w-full rounded-md border bg-background px-3 py-2 text-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50";
@@ -26,7 +27,7 @@ pub fn Textarea(
   #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(extends = GlobalAttributes, extends = textarea)] attributes: Vec<Attribute>,
 ) -> Element {
-  let class = textarea_class(invalid, &class);
+  let class = textarea_class(invalid, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     textarea {

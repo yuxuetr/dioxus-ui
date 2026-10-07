@@ -68,6 +68,16 @@ for commit messages.
   and, with `off_canvas`, the off-canvas panel (`mobile_open`,
   `on_mobile_open_change`). `Sidebar`, `SidebarRail`, and `SidebarTrigger`
   read it, and the trigger points `aria-controls` at the sidebar.
+- Density comes from a new `DensityProvider` root (RFC 0078), read with
+  `use_density()`. Under `UiDensity::Touch` every interactive control offers
+  a 44 by 44 CSS pixel target: buttons, inputs, triggers, tabs, menu and
+  list items, and the like grow to that height, and checkboxes, radio items,
+  switches, slider thumbs, carousel indicators, rating stars, and resizable
+  handles keep their look with a centered hit area.
+  `density_control_class` and `density_hit_area_class` give an app's own
+  elements the same classes. The Mobile preview renders under Touch, and its
+  self-test fails when a control is under the target; measured at defaults,
+  124 of 134 controls were.
 ### Fixed
 
 - The Message Scroller jump button hides when there is nothing to jump to;
@@ -181,12 +191,16 @@ for commit messages.
   `on_mobile_open_change` for off-canvas" with `off_canvas: true`. The
   trigger's `aria-controls` is no longer needed unless the sidebar has its
   own `id`.
+- Button: remove `density` and wrap the app, or the part of it, in
+  `DensityProvider { density }`. `button_class` keeps its density argument;
+  pass `use_density()` to follow the provider.
 - Copy mode: re-copy components with `dxui add <name> --overwrite`. `utils`
   now brings two helpers, `class_merge` and `class_merge_table`; the second
   is generated from Tailwind and stores its names reversed so Tailwind
-  generates no CSS for them. Select and Tabs also bring `root_state`, and the moved overlays bring
-  `root_state`, `overlay_root`, and `default_attribute`, menus
-  `menu_radio`, and Select and Combobox `choice`.
+  generates no CSS for them. The components that own state bring
+  `root_state`, the overlays also `overlay_root` and `default_attribute`,
+  menus `menu_radio`, and Select, Combobox, Accordion, and Toggle Group
+  `choice`. Every interactive component brings `density`.
 
 ## [0.4.2] - 2026-10-06
 

@@ -9,6 +9,7 @@
   ],
   "dependencies": [
     "default-attribute",
+    "density",
     "dialog-labels",
     "modal-focus",
     "overlay",

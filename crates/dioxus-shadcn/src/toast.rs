@@ -6,6 +6,7 @@ pub use dioxus_shadcn_primitives::{
   toast_queue_limit, toast_queue_push, toast_variant_attribute,
 };
 
+use crate::density::{density_control_class, use_density, with_density};
 use crate::dismiss_timer::use_dismiss_timer;
 
 pub const TOAST_VIEWPORT_BASE_CLASS: &str =
@@ -167,7 +168,8 @@ pub fn ToastAction(
   #[props(default)] on_dismiss: Option<EventHandler<ToastDismissReason>>,
   children: Element,
 ) -> Element {
-  let class = toast_action_class(disabled, &class);
+  let class =
+    toast_action_class(disabled, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {
@@ -194,7 +196,8 @@ pub fn ToastClose(
   #[props(default)] on_dismiss: Option<EventHandler<ToastDismissReason>>,
   children: Element,
 ) -> Element {
-  let class = toast_close_class(disabled, &class);
+  let class =
+    toast_close_class(disabled, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {

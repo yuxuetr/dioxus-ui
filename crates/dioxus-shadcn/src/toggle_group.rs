@@ -5,6 +5,7 @@ use dioxus_shadcn_primitives::{
 };
 
 use crate::choice::{Choice, use_choice};
+use crate::density::{density_control_class, use_density, with_density};
 use crate::root_state::use_root_context;
 use crate::roving_group::use_roving_group;
 
@@ -142,7 +143,8 @@ pub fn ToggleGroupItem(
 ) -> Element {
   let context = use_root_context::<ToggleGroupContext>("ToggleGroupItem", "ToggleGroup");
   let pressed = context.pressed.chosen().contains(&value);
-  let class = toggle_group_item_class(pressed, &class);
+  let class =
+    toggle_group_item_class(pressed, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {

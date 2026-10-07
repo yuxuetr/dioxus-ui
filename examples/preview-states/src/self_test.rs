@@ -8,7 +8,8 @@ pub const INTERACTION_SELF_TEST_SCRIPT: &str = include_str!("../self-test/intera
 
 /// Runs the interaction scenarios once, prints the result prefixed with
 /// `label`, and exits the process with status 0 when every scenario passed.
-/// The Mobile preview also prints each control's size at defaults (M211.1).
+/// The Mobile preview also prints each control's target size and fails when
+/// one is under 44 by 44 (RFC 0078).
 #[component]
 pub fn InteractionSelfTest(label: &'static str) -> Element {
   use_effect(move || {
@@ -16,10 +17,15 @@ pub fn InteractionSelfTest(label: &'static str) -> Element {
       let mut eval = document::eval(INTERACTION_SELF_TEST_SCRIPT);
       let code = match eval.recv::<Value>().await {
         Ok(result) => {
-          if label == "mobile" {
-            report_touch_targets(&result);
+          // The Mobile preview renders under Touch density (RFC 0078), so
+          // every control must offer a 44 by 44 target.
+          let small = if label == "mobile" { report_touch_targets(&result) } else { 0 };
+          if small > 0 {
+            eprintln!("{label} interaction verification failed: {small} controls under 44x44");
+            1
+          } else {
+            report(label, &result)
           }
-          report(label, &result)
         }
         Err(error) => {
           eprintln!("{label} interaction verification failed: {error}");
@@ -63,8 +69,8 @@ fn report(label: &str, result: &Value) -> i32 {
 const TOUCH_TARGET: f64 = 44.0;
 
 /// Prints one `touch target` line per control, smallest first, then a count
-/// of the controls under 44 by 44 CSS pixels.
-fn report_touch_targets(result: &Value) {
+/// of the controls under 44 by 44 CSS pixels, which it returns.
+fn report_touch_targets(result: &Value) -> usize {
   let mut targets: Vec<(&str, &str, &str, f64, f64)> = result["targets"]
     .as_array()
     .map(|targets| {
@@ -89,4 +95,5 @@ fn report_touch_targets(result: &Value) {
   let small =
     targets.iter().filter(|target| target.3 < TOUCH_TARGET || target.4 < TOUCH_TARGET).count();
   println!("touch targets: {small} of {} controls under 44x44", targets.len());
+  small
 }

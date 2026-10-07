@@ -7,6 +7,7 @@ pub use super::overlay::{
 use super::overlay_root::{OverlayRoot, overlay_trigger, use_overlay_root};
 use super::root_state::use_root_context;
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -232,7 +233,7 @@ pub fn SheetClose(
   children: Element,
 ) -> Element {
   let root = use_sheet("SheetClose");
-  let class = sheet_close_class(&class);
+  let class = sheet_close_class(&with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {

@@ -8,4 +8,5 @@ publish = false
 
 [dependencies]
 dioxus = { workspace = true, features = ["mobile"] }
+dioxus-shadcn = { workspace = true }
 dioxus-ui-preview-states = { path = "../preview-states" }

@@ -7,6 +7,7 @@ pub use dioxus_shadcn_primitives::{
 use crate::anchored_overlay::{AnchoredPlacement, use_anchored_overlay};
 use crate::choice::{Choice, use_choice};
 use crate::default_attribute::default_attribute;
+use crate::density::{density_control_class, use_density, with_density};
 use crate::element_id::next_element_id;
 use crate::listbox::{ListboxMode, use_listbox};
 use crate::root_state::{Controllable, use_controllable, use_root_context};
@@ -148,7 +149,8 @@ pub fn ComboboxTrigger(
   children: Element,
 ) -> Element {
   let context = use_combobox("ComboboxTrigger");
-  let class = combobox_trigger_class(invalid, &class);
+  let class =
+    combobox_trigger_class(invalid, &with_density(density_control_class(use_density()), &class));
   let open = context.open.get();
   let set_open = context.set_open;
   // A trigger may sit in a combobox without a list, so it names the list
@@ -192,7 +194,7 @@ pub fn ComboboxInput(
   #[props(extends = GlobalAttributes, extends = input)] attributes: Vec<Attribute>,
 ) -> Element {
   let context = use_combobox("ComboboxInput");
-  let class = combobox_input_class(&class);
+  let class = combobox_input_class(&with_density(density_control_class(use_density()), &class));
   let open = context.open.get();
   let set_open = context.set_open;
   let controls = default_attribute(&attributes, "aria-controls", context.list_id());
@@ -356,7 +358,11 @@ pub fn ComboboxItem(
 ) -> Element {
   let context = use_combobox("ComboboxItem");
   let selected = context.choice.chosen().contains(&value);
-  let class = combobox_item_class(false, selected, &class);
+  let class = combobox_item_class(
+    false,
+    selected,
+    &with_density(density_control_class(use_density()), &class),
+  );
 
   rsx! {
     div {

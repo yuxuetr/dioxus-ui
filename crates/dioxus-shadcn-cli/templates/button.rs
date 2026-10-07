@@ -1,3 +1,4 @@
+use super::density::use_density;
 use super::utils::{UiDensity, classes, merge_classes};
 use dioxus::prelude::*;
 
@@ -58,27 +59,27 @@ pub fn button_class(
   let density_class = match density {
     UiDensity::Compact => "min-h-8",
     UiDensity::Comfortable => "min-h-10",
-    UiDensity::Touch => "min-h-12",
+    UiDensity::Touch => "min-h-12 min-w-11",
   };
 
   merge_classes(classes([Some(BUTTON_BASE_CLASS), Some(variant.class()), Some(size.class()), Some(density_class)]), class)
 }
 
-/// Calls `onclick` on a click, Enter, or Space. Other attributes, such as
+/// Takes its density from the nearest `DensityProvider` (RFC 0078). Calls
+/// `onclick` on a click, Enter, or Space. Other attributes, such as
 /// `type`, `name`, and `aria-label`, are passed to the button, which keeps the
 /// native `submit` type inside a form unless `r#type` says otherwise.
 #[component]
 pub fn Button(
   #[props(default)] variant: ButtonVariant,
   #[props(default)] size: ButtonSize,
-  #[props(default)] density: UiDensity,
   #[props(default)] class: String,
   #[props(default)] disabled: bool,
   #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
-  let class = button_class(variant, size, density, &class);
+  let class = button_class(variant, size, use_density(), &class);
 
   rsx! {
     button {

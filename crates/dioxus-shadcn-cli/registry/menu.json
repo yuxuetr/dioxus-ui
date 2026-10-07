@@ -8,6 +8,7 @@
     }
   ],
   "dependencies": [
+    "density",
     "element-id",
     "root-state",
     "utils"

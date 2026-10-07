@@ -1,3 +1,4 @@
+use super::density::{density_control_class, density_hit_area_class, use_density, with_density};
 use super::element_id::next_element_id;
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
@@ -286,10 +287,14 @@ pub fn Slider(
   let aria = state.aria_attributes();
   let (root_orientation, track_orientation, range_orientation) =
     slider_orientation_classes(orientation);
-  let root_class = slider_root_class(&merge_classes(classes([root_orientation]), class.as_str()));
+  let root_class = slider_root_class(&merge_classes(
+    classes([root_orientation, Some(density_control_class(use_density()))]),
+    class.as_str(),
+  ));
   let track_class = slider_track_class(&merge_classes(classes([track_orientation]), track_class.as_str()));
   let range_class = slider_range_class(&merge_classes(classes([range_orientation]), range_class.as_str()));
-  let thumb_class = slider_thumb_class(&thumb_class);
+  let thumb_class =
+    slider_thumb_class(&with_density(density_hit_area_class(use_density()), &thumb_class));
   let range_style = slider_range_style(orientation, percent);
   let thumb_style = slider_thumb_style(orientation, percent);
 
@@ -501,10 +506,14 @@ pub fn RangeSlider(
   let high = slider_state(values.1, min, max, step).percent();
   let (root_orientation, track_orientation, range_orientation) =
     slider_orientation_classes(orientation);
-  let root_class = slider_root_class(&merge_classes(classes([root_orientation]), class.as_str()));
+  let root_class = slider_root_class(&merge_classes(
+    classes([root_orientation, Some(density_control_class(use_density()))]),
+    class.as_str(),
+  ));
   let track_class = slider_track_class(&merge_classes(classes([track_orientation]), track_class.as_str()));
   let range_class = slider_range_class(&merge_classes(classes([range_orientation]), range_class.as_str()));
-  let thumb_class = slider_thumb_class(&thumb_class);
+  let thumb_class =
+    slider_thumb_class(&with_density(density_hit_area_class(use_density()), &thumb_class));
   let range_style = match orientation {
     SliderOrientation::Horizontal => format!("left: {low}%; width: {}%;", high - low),
     SliderOrientation::Vertical => format!("bottom: {low}%; height: {}%;", high - low),

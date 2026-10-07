@@ -1,5 +1,6 @@
 use super::default_attribute::default_attribute;
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
 pub const PAGINATION_BASE_CLASS: &str = "mx-auto flex w-full justify-center";
@@ -118,7 +119,7 @@ pub fn PaginationLink(
   #[props(extends = GlobalAttributes, extends = a)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
-  let class = pagination_link_class(active, disabled, &class);
+  let class = pagination_link_class(active, disabled, &with_density(density_control_class(use_density()), &class));
 
   pagination_control(href, active, disabled, onclick, class, None, attributes, children)
 }
@@ -131,7 +132,7 @@ pub fn PaginationPrevious(
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = a)] attributes: Vec<Attribute>,
 ) -> Element {
-  let class = pagination_link_class(false, disabled, &class);
+  let class = pagination_link_class(false, disabled, &with_density(density_control_class(use_density()), &class));
 
   pagination_control(
     href,
@@ -153,7 +154,7 @@ pub fn PaginationNext(
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = a)] attributes: Vec<Attribute>,
 ) -> Element {
-  let class = pagination_link_class(false, disabled, &class);
+  let class = pagination_link_class(false, disabled, &with_density(density_control_class(use_density()), &class));
 
   pagination_control(
     href,

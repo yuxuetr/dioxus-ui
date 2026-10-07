@@ -7,6 +7,7 @@ pub use super::overlay::{
 use super::overlay_root::{OverlayRoot, overlay_trigger, use_overlay_root};
 use super::root_state::use_root_context;
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
 pub const DIALOG_OVERLAY_BASE_CLASS: &str = "fixed inset-0 z-50 bg-black/50";
@@ -171,7 +172,7 @@ pub fn DialogClose(
   children: Element,
 ) -> Element {
   let root = use_dialog("DialogClose");
-  let class = dialog_close_class(&class);
+  let class = dialog_close_class(&with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {

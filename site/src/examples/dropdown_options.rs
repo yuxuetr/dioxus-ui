@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn::{
   ButtonSize, ButtonVariant, Dropdown, DropdownAlign, DropdownCheckboxItem, DropdownContent,
   DropdownLabel, DropdownRadioGroup, DropdownRadioItem, DropdownSeparator, DropdownShortcut,
-  DropdownTrigger, UiDensity, button_class,
+  DropdownTrigger, button_class, use_density,
 };
 
 #[component]
@@ -13,7 +13,7 @@ pub fn DropdownOptionsDemo() -> Element {
   rsx! {
     Dropdown {
       DropdownTrigger {
-        class: button_class(ButtonVariant::Outline, ButtonSize::Md, UiDensity::Comfortable, ""),
+        class: button_class(ButtonVariant::Outline, ButtonSize::Md, use_density(), ""),
         "View"
       }
       DropdownContent { align: DropdownAlign::Start, class: "w-56",

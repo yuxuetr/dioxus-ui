@@ -1,4 +1,5 @@
 use super::default_attribute::default_attribute;
+use super::density::{density_control_class, use_density, with_density};
 use super::utils::{classes, merge_classes};
 use dioxus::prelude::*;
 
@@ -228,7 +229,7 @@ pub fn MessageScrollerJumpButton(
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
-  let class = message_scroller_jump_button_class(visible, &class);
+  let class = message_scroller_jump_button_class(visible, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     button {

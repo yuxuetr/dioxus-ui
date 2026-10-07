@@ -9,6 +9,7 @@ pub use super::overlay::{DismissBehavior, DropdownPrimitiveConfig, OverlayAlign,
 use super::overlay_root::{OverlayRoot, overlay_trigger, use_overlay_root};
 use super::root_state::use_root_context;
 use super::utils::{classes, merge_classes};
+use super::density::{density_control_class, use_density, with_density};
 use dioxus::prelude::*;
 
 pub const DROPDOWN_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
@@ -191,6 +192,7 @@ pub fn DropdownItem(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
+  let class = with_density(density_control_class(use_density()), &class);
   let class = if inset {
     dropdown_inset_item_class(destructive, &class)
   } else {
@@ -223,7 +225,7 @@ pub fn DropdownCheckboxItem(
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = dropdown_checkbox_item_class(checked, &class);
+  let class = dropdown_checkbox_item_class(checked, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     div {
@@ -278,7 +280,7 @@ pub fn DropdownRadioItem(
 ) -> Element {
   let group = use_menu_radio_item("DropdownRadioItem", "DropdownRadioGroup");
   let checked = group.value().as_ref() == Some(&value);
-  let class = dropdown_radio_item_class(checked, &class);
+  let class = dropdown_radio_item_class(checked, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     div {
@@ -335,7 +337,7 @@ pub fn DropdownSubTrigger(
 ) -> Element {
   let sub = use_menu_sub_part("DropdownSubTrigger", "DropdownSub");
   let open = sub.is_open();
-  let class = dropdown_sub_trigger_class(inset, &class);
+  let class = dropdown_sub_trigger_class(inset, &with_density(density_control_class(use_density()), &class));
 
   rsx! {
     div {
