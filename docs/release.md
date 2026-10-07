@@ -95,8 +95,14 @@ the three library crates with the last release tag reachable from `HEAD`
 (RFC 0079). It builds the baseline from the tag (`--baseline-rev`), so it
 needs no network, and lets `cargo-semver-checks` take the release type from
 the version bump: a breaking change fails until the version is bumped for it,
-which before 1.0 means a minor bump. Install the tool once with
-`cargo binstall cargo-semver-checks`; CI installs it in the release gate job.
+which before 1.0 means a minor bump. From 1.0 on, a pre-release on either
+side of a same-major bump (`1.0.0-rc.1` to `rc.2`, or to `1.0.0`) is checked
+as a minor bump, so neither an `rc` nor the release it leads to may break the
+API; the tool alone reads such a bump as major and allows anything. A
+breaking change the release owner accepts goes out as the next `rc` with
+`SEMVER_RC_BREAK=1`, and the rc period's "no breaking change" restarts there. Install
+the tool once with `cargo binstall cargo-semver-checks`; CI installs it in the
+release gate job.
 
 After a minor bump the check allows any change, so it no longer lists what
 broke. To write the Migration section, list the findings by forcing the

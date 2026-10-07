@@ -5,9 +5,16 @@
 // The baseline is built from the tag in this repository, so the check needs
 // no network and runs against what was published from that tag.
 //
+// From 1.0 on, a pre-release on either side holds the bump to no breaking
+// change: cargo-semver-checks reads `1.0.0-rc.1` to `1.0.0-rc.2` as a major
+// change, while 1.x promises that neither an `rc` nor the release it leads
+// to breaks the API. A breaking change the release owner accepts restarts the
+// rc period; SEMVER_RC_BREAK=1 lets that one release through.
+//
 // Usage: node scripts/semver-verify.mjs
 import { spawnSync } from "node:child_process";
-import { dirname } from "node:path";
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -29,21 +36,48 @@ if (tag.status !== 0) {
 }
 const baseline = tag.stdout.trim();
 
+const parseVersion = (text) => {
+  const match = /^v?(\d+)\.\d+\.\d+(-[0-9A-Za-z.-]+)?$/.exec(text);
+  if (!match) {
+    console.error(`not a version: ${text}`);
+    process.exit(1);
+  }
+  return { major: Number(match[1]), prerelease: Boolean(match[2]) };
+};
+const workspaceVersion = /^\[workspace\.package\][^[]*?^version = "([^"]+)"/m.exec(
+  readFileSync(join(repoRoot, "Cargo.toml"), "utf8"),
+)?.[1];
+if (!workspaceVersion) {
+  console.error("Cargo.toml has no [workspace.package] version");
+  process.exit(1);
+}
+const current = parseVersion(workspaceVersion);
+const previous = parseVersion(baseline);
+const releaseTypeArgs =
+  process.env.SEMVER_RC_BREAK !== "1" &&
+  current.major >= 1 &&
+  current.major === previous.major &&
+  (current.prerelease || previous.prerelease)
+    ? ["--release-type", "minor"]
+    : [];
+
 const failures = [];
 for (const crate of crates) {
   const result = run(
     "cargo",
-    ["semver-checks", "-p", crate, "--baseline-rev", baseline, "--all-features", "--color", "never"],
+    ["semver-checks", "-p", crate, "--baseline-rev", baseline, "--all-features", "--color", "never", ...releaseTypeArgs],
     { stdio: ["ignore", "inherit", "inherit"] },
   );
   if (result.status !== 0) failures.push(crate);
 }
 
 if (failures.length > 0) {
-  console.error(
-    `semver verification failed against ${baseline}: ${failures.join(", ")}. ` +
-      "Bump the version for the change, and add a Migration note for each breaking finding.",
-  );
+  const advice =
+    releaseTypeArgs.length > 0
+      ? `${workspaceVersion} must not break the API of ${baseline}. Undo the breaking change, or accept it and restart the rc period with SEMVER_RC_BREAK=1.`
+      : "Bump the version for the change, and add a Migration note for each breaking finding.";
+  console.error(`semver verification failed against ${baseline}: ${failures.join(", ")}. ${advice}`);
   process.exit(1);
 }
-console.log(`semver verification passed against ${baseline} (${crates.length} crates)`);
+const releaseType = releaseTypeArgs.length > 0 ? ", no breaking change" : "";
+console.log(`semver verification passed against ${baseline} (${crates.length} crates${releaseType})`);
