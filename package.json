@@ -59,6 +59,7 @@
     "verify:runtime-interactions": "node scripts/runtime-interactions-verify.mjs",
     "verify:site": "node scripts/site-verify.mjs",
     "verify:fullstack-hydration": "node scripts/fullstack-hydration-verify.mjs",
+    "verify:dioxus-next": "node scripts/dioxus-next-verify.mjs",
     "verify:repo-hygiene": "node scripts/repo-hygiene-verify.mjs",
     "verify:semver": "node scripts/semver-verify.mjs",
     "verify:ci-docs": "node scripts/ci-docs-verify.mjs",

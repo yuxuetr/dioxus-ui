@@ -635,6 +635,16 @@ with only `default_value: "system"`, and built a `Switch` whose
 `dxui` 0.6.0 copied Button, Select, and Switch with their helpers into a
 fresh app that built while denying warnings and rendered the same output.
 
+## Dioxus Next
+
+`npm run verify:dioxus-next` runs the Stage 14 checks against the newest
+Dioxus 0.8 version (see [Quality Gates](quality-gates.md)). Each run is
+recorded here until 0.7.0 moves to Dioxus 0.8.
+
+| Date | Dioxus | `dx` | Result |
+| --- | --- | --- | --- |
+| 2026-10-07 | 0.8.0-alpha.1 | 0.8.0-alpha.1 | Passed with no source change: workspace tests, Clippy, the generated fixture with every template and block, fullstack hydration (19 ids), and 52 browser interactions |
+
 ## Known Pre-1.0 Limitations
 
 - Dialog, Alert Dialog, Sheet, and Drawer implement Escape and overlay

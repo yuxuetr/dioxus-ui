@@ -508,6 +508,14 @@ move focus between tabs or the Select list does not open under its trigger
 ([RFC 0075](rfcs/0075-render-scoped-element-ids.md)). It needs `dx` for the
 locked Dioxus version and the `wasm32-unknown-unknown` target.
 
+`npm run verify:dioxus-next` is opt-in and outside release gates. It copies
+the tree into a scratch worktree, pins `dioxus` and `dioxus-ssr` to the newest
+Dioxus 0.8 version on crates.io, and runs the workspace tests, Clippy, the
+generated fixture smoke, `verify:fullstack-hydration`, and
+`verify:runtime-interactions` there, with a `dx` of the same version
+(`DIOXUS_NEXT_DX` names one apart from the `dx` on `PATH`). It stops at the
+first failing step and leaves the main tree unchanged.
+
 `npm run verify:site` serves the component site with `dx serve` (see
 [RFC 0052](rfcs/0052-component-site.md)) and visits the home, installation,
 and theming pages and every catalog component page. It fails on a console
