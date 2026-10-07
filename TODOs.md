@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 55% (6 of 11 tasks)
+- Overall: 64% (7 of 11 tasks)
 - Current milestone: M210 (component-owned state)
-- Current task: M210.3 (M208.3, the 0.4.3 publish, waits for the release owner)
+- Current task: M211.1 (M208.3, the 0.4.3 publish, waits for the release owner)
 
 ## Backup
 
@@ -68,9 +68,10 @@
   - The overlays in the RFC's batch list (dialogs, sheets, drawers, popovers, menus, tooltips, hover cards, combobox, date picker, and the rest the RFC names) take the root-owned API.
   - Exit: their browser and SSR checks pass; the site and blocks use the new API; parity test passes.
   - Done: roots with `open`, `default_open`, and `on_open_change` for Dialog, Alert Dialog, Sheet, Drawer, Popover, Tooltip, Hover Card, Fab, Dropdown, Context Menu, and Date Picker, through a shared `overlay_root` helper; new trigger parts (unstyled buttons that take `class`, recorded in RFC 0077) and a `ContextMenuTrigger` area. Menubar and Navigation Menu own the open item's `value`; menu radio groups (`menu_radio`) and submenus own their state; Combobox owns value(s) and open through a `choice` helper shared with Select. Date Picker keeps the date with the app and menu checkbox items keep `checked` (RFC keep table). Fixed in passing: `Controllable::get` returned a stale controlled value in event handlers (c294e5b; its message wrongly blames the menubar flake, which was a missing focus wait, fixed in 72ee72f). `verify:release`, `verify:runtime-interactions`, and `verify:site` pass; Desktop, iOS, and Android self-tests not run (Desktop blocked as in M210.1).
-- TODO M210.3 Move the group and disclosure components
+- DONE M210.3 Move the group and disclosure components
   - The groups in the RFC's batch list (accordion, collapsible, radio group, toggle group, menubar, navigation menu, carousel, and the rest the RFC names) take the root-owned API.
   - Exit: as M210.2, and no crate module still takes a per-part state prop the RFC did not keep on purpose.
+  - Done: Accordion (value or values with `multiple`; `Choice::toggle` clears a single choice), Collapsible (overlay root, `aria-controls` only while the content renders), and `MenuGroup` (`default_open`) in c34336d; Radio Group and Toggle Group in 3227879; Carousel (`count`, `index`, items and indicators by `index`), Command (highlight already in its script; per-part highlight props removed), and Input OTP (`length`, code on the root, slots by `index`) in 015a68a; Sidebar gained `SidebarProvider` with `off_canvas` (1571a15), added to the RFC batch table since the trigger and sidebar duplicated four props. The RFC keep table now also names Rating, the Command and Combobox query, and toast `open`; a resurvey of the crate finds no other per-part state prop. Fixed in passing: roving-group tests did not build with radio-group or toggle-group alone (30bba72); 3227879 dropped the toggle-group template's inlined primitives (bc95e22, caught by generated-fixture-smoke); per-feature clippy had been checked through a grep that ANSI colors blinded, and a clean rerun passes for every feature. `verify:release`, `verify:runtime-interactions` (one reverse check went red), and `verify:site` pass; Desktop, iOS, and Android self-tests not run.
 
 ## M211 Density Decision
 
