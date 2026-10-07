@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 0% (0 of 6 tasks)
+- Overall: 17% (1 of 6 tasks)
 - Current milestone: M215 (Dioxus 0.8 readiness)
-- Current task: M215.1
+- Current task: M215.2
 
 ## Backup
 
@@ -35,9 +35,10 @@
 
 ## M215 Dioxus 0.8 Readiness
 
-- TODO M215.1 Browser checks on both `dx` lines
+- DONE M215.1 Browser checks on both `dx` lines
   - `serveDioxusWeb` turns hot-patching off in the form the installed `dx` accepts (a bare flag stays off on 0.7; `--hot-patch false` on 0.8), and `ready()` waits until the server answers with the app rather than the CLI's build placeholder, failing with `dx`'s output when the build fails.
   - Exit: `npm run verify:runtime-interactions` passes with `dx` 0.7.9 on the main tree and with `dx` 0.8.0-alpha.1 on a scratch 0.8 tree; a build that fails under `dx` 0.8 makes `ready()` throw with the build error instead of a `page.goto` timeout (reverse-verify by leaving hot-patching on).
+  - Done (f005db4): both `dx` lines answer 200 with a placeholder ("dx is not serving a web app") before the first build, so `ready()` now waits for the page that loads `/wasm/`; `dx --version` picks `--hot-patch false` on 0.8 and nothing on 0.7. The screenshot, rendered DOM, and mobile browser smokes dropped their own `dx serve` copies for `serveDioxusWeb`. All four browser checks (`verify:browser-local`) pass on `dx` 0.7.9 and, from a cold `dx` output directory, on `dx` 0.8.0-alpha.1 with Dioxus 0.8.0-alpha.1; with hot-patching left on, `ready()` fails after 5 s with `dx serve could not build` and dx's `Build failed` output.
 - TODO M215.2 Fullstack hydration check in the release gate
   - A fullstack example renders Tabs and one more component with generated ids on the server; a script serves it, compares the ids across three requests, hydrates the page in Chromium, and checks that ArrowRight moves focus between tabs. `npm run verify:release` and CI run it; the Deferred entry for it is removed.
   - Exit: the check passes on Dioxus 0.7, and fails when `next_element_id()` is replaced with a process-wide counter (RFC 0075's failing case).
