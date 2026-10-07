@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 73% (8 of 11 tasks)
+- Overall: 82% (9 of 11 tasks)
 - Current milestone: M212 (0.5.0 release)
-- Current task: M212.1 (M208.3, the 0.4.3 publish, waits for the release owner)
+- Current task: M212.2 and M208.3, the 0.5.0 and 0.4.3 publishes, wait for the release owner
 
 ## Backup
 
@@ -82,8 +82,9 @@
 
 ## M212 0.5.0 Release
 
-- TODO M212.1 Prepare 0.5.0
+- DONE M212.1 Prepare 0.5.0
   - CHANGELOG with a Migration note per breaking change from M209 to M211, versions, release gate, `cargo-semver-checks --release-type minor` against 0.4.3, publish dry run.
+  - Done (332ddcf): versions 0.5.0, CHANGELOG `[0.5.0] - 2026-10-07` with an introduction and a Migration note per breaking change. `cargo-semver-checks --release-type minor` against 0.4.3 (`--baseline-rev release/0.4`, since 0.4.3 is unpublished) finds nothing in core and primitives, and in `dioxus-shadcn` only changes the Migration section covers. `verify:release` and `cargo publish --workspace --dry-run` pass. If 0.4.3 is published first, its class-merge entry also stays in the 0.5.0 notes.
 - TODO M212.2 Publish 0.5.0
   - Only after the release owner confirms; then build fresh apps in both modes from crates.io, including a class override and an uncontrolled Select.
 
