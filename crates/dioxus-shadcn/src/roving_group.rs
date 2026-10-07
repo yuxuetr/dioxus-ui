@@ -157,7 +157,9 @@ pub(crate) fn use_roving_group(on_activate: Option<EventHandler<String>>) -> Str
   scope_id
 }
 
+// The tests cover `group_part_id`, which only Accordion and Tabs build.
 #[cfg(test)]
+#[cfg(any(feature = "accordion", feature = "tabs"))]
 mod tests {
   use super::*;
 
