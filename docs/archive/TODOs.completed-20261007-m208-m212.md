@@ -13,7 +13,7 @@
 
 ## Goals
 
-- Follow [the roadmap](docs/roadmap.md) from 0.4.2 to 1.0. This plan covers Stage 11 (0.4.3) and Stage 12 (0.5.0); Stages 13 to 15 get tasks once 0.5.0 ships, since their scope depends on the 0.5.0 API.
+- Follow [the roadmap](../roadmap.md) from 0.4.2 to 1.0. This plan covers Stage 11 (0.4.3) and Stage 12 (0.5.0); Stages 13 to 15 get tasks once 0.5.0 ships, since their scope depends on the 0.5.0 API.
 
 ## Evidence (measured 2026-10-06 at `v0.4.2`)
 
