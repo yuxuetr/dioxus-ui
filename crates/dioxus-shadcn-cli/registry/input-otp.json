@@ -1,6 +1,6 @@
 {
   "name": "input-otp",
-  "description": "Input OTP component with controlled visual slots and native input support.",
+  "description": "One-time code input whose root owns the code.",
   "files": [
     {
       "source": "templates/input_otp.rs",
@@ -9,6 +9,7 @@
   ],
   "dependencies": [
     "element-id",
+    "root-state",
     "utils"
   ],
   "assets": []

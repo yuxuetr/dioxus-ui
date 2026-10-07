@@ -70,7 +70,7 @@ Statuses:
 | Calendar | Exposes grid, row, columnheader, gridcell, selected, disabled, today, and range state attributes; the grid takes `aria-labelledby` pointing at a caption `id`; browser-verified on Web. | Implemented |
 | Calendar | Keyboard-managed days use roving tabindex, map arrow, Page, Home, and End keys to moves, and follow the focused date with DOM focus; browser-verified on Web inside Date Picker. | Implemented |
 | Calendar | Right-to-left arrow mirroring and disabled date skipping remain app-owned. | Planned |
-| Collapsible | Uses native trigger button with expanded state and optional trigger/content association; `on_open_change` sends the requested state on click, Enter, and Space, and every part passes attributes through; browser-verified on Web. | Implemented |
+| Collapsible | Uses native trigger button with expanded state, pointing `aria-controls` at the content while it shows; click, Enter, and Space toggle the root, and every part passes attributes through; browser-verified on Web. | Implemented |
 | Command | Uses combobox, listbox, option, and active descendant semantics. | Implemented |
 | Command | Under `Command`, focus stays in the input, Up, Down, Home, and End move the highlight, a query change returns it to the first match, and Enter or a click chooses; the input controls the list; browser-verified on Web. | Implemented |
 | Command | `CommandStatus` is a polite status region for result counts; the app gives the wording; browser-verified on Web. | Implemented |
@@ -156,7 +156,7 @@ Statuses:
 | Sonner | Exposes status semantics, decorative variant icons, close/action native controls, and queue state helpers. | Implemented |
 | Sonner | Persistent polite viewport region, countdown that pauses on hover and focus, and dismiss reasons; browser-verified on Web. | Implemented |
 | Sonner | Needs app-level promise orchestration, announcement wording, portal mounting, and focus policy verification. | Planned |
-| Carousel | Exposes carousel region, slide group semantics, selected indicator state, and disabled native controls; the content shows the selected index, controls report `onclick`, arrow keys report `on_key_step`, and passed labels name each control; browser-verified on Web. | Implemented |
+| Carousel | Exposes carousel region, slide group semantics, selected indicator state, and disabled native controls; the root owns the selected index, which the controls, indicators, and arrow keys change, and passed labels name each control; browser-verified on Web. | Implemented |
 | Carousel | Needs off-screen slide hiding, gesture behavior, and autoplay verification. | Planned |
 | Scroll Area | Keeps native scrolling behavior and exposes presentational scrollbar hooks. | Implemented |
 | Resizable | Handles are focusable window splitters with `aria-valuenow` and a separator-line `aria-orientation`; arrow, Home, and End keys and pointer drags report `on_resize`; browser-verified on Web. | Implemented |

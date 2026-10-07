@@ -4,7 +4,7 @@ pub use dioxus_shadcn_primitives::ActiveDescendantState;
 
 use crate::element_id::next_element_id;
 use crate::listbox::{ListboxMode, use_listbox};
-
+use crate::root_state::use_root_context;
 pub const COMMAND_BASE_CLASS: &str =
   "flex h-full w-full flex-col overflow-hidden rounded-md bg-background text-foreground";
 pub const COMMAND_INPUT_BASE_CLASS: &str = "flex h-11 w-full rounded-md bg-transparent px-3 py-2 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50";
@@ -13,7 +13,7 @@ pub const COMMAND_EMPTY_BASE_CLASS: &str = "py-6 text-center text-sm text-muted-
 pub const COMMAND_STATUS_BASE_CLASS: &str = "sr-only";
 pub const COMMAND_GROUP_BASE_CLASS: &str = "overflow-hidden p-1 text-foreground";
 pub const COMMAND_LABEL_BASE_CLASS: &str = "px-2 py-1.5 text-xs font-medium text-muted-foreground";
-pub const COMMAND_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[active=true]:bg-accent data-[active=true]:text-accent-foreground data-highlighted:bg-accent data-highlighted:text-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[selected=true]:bg-accent";
+pub const COMMAND_ITEM_BASE_CLASS: &str = "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-highlighted:bg-accent data-highlighted:text-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50";
 pub const COMMAND_SEPARATOR_BASE_CLASS: &str = "-mx-1 my-1 h-px bg-border";
 pub const COMMAND_SHORTCUT_BASE_CLASS: &str =
   "ml-auto text-xs tracking-normal text-muted-foreground";
@@ -46,14 +46,8 @@ pub fn command_label_class(class: &str) -> String {
   merge_classes(classes([Some(COMMAND_LABEL_BASE_CLASS)]), class)
 }
 
-pub fn command_item_class(active: bool, selected: bool, class: &str) -> String {
-  let active_class = if active { "bg-accent text-accent-foreground" } else { "" };
-  let selected_class = if selected { "bg-accent" } else { "" };
-
-  merge_classes(
-    classes([Some(COMMAND_ITEM_BASE_CLASS), Some(active_class), Some(selected_class)]),
-    class,
-  )
+pub fn command_item_class(class: &str) -> String {
+  merge_classes(classes([Some(COMMAND_ITEM_BASE_CLASS)]), class)
 }
 
 pub fn command_separator_class(class: &str) -> String {
@@ -91,7 +85,9 @@ impl CommandContext {
   }
 }
 
-/// Keeps focus in `CommandInput` and highlights options from there: the first
+/// The root of a command list: it owns which option is highlighted (RFC 0077).
+/// Keeps focus in `CommandInput` and highlights options from there, pointing
+/// the input's `aria-activedescendant` at the highlighted one: the first
 /// option starts highlighted, Up, Down, Home, and End move the highlight, and
 /// a query change moves it back to the first option. Enter or a click on an
 /// option calls `on_select` with its value.
@@ -121,29 +117,24 @@ pub fn Command(
 pub fn CommandInput(
   #[props(default)] value: String,
   #[props(default)] placeholder: String,
-  #[props(default)] active_id: Option<String>,
   #[props(default)] disabled: bool,
   #[props(default)] oninput: Option<EventHandler<FormEvent>>,
   #[props(default)] class: String,
 ) -> Element {
+  let context = use_root_context::<CommandContext>("CommandInput", "Command");
   let class = command_input_class(&class);
-  let active_descendant = active_id.unwrap_or_default();
-  let context = try_use_context::<CommandContext>();
-  let id = context.as_ref().map(CommandContext::input_id);
-  let controls = context.as_ref().map(CommandContext::list_id);
 
   rsx! {
     input {
       role: "combobox",
-      id,
+      id: context.input_id(),
       class,
       value,
       placeholder,
       disabled,
       autocomplete: "off",
-      "aria-activedescendant": active_descendant,
       "aria-autocomplete": "list",
-      "aria-controls": controls,
+      "aria-controls": context.list_id(),
       "aria-expanded": "true",
       oninput: move |event| {
         if let Some(handler) = oninput {
@@ -155,21 +146,15 @@ pub fn CommandInput(
 }
 
 #[component]
-pub fn CommandList(
-  #[props(default)] active_id: Option<String>,
-  #[props(default)] class: String,
-  children: Element,
-) -> Element {
+pub fn CommandList(#[props(default)] class: String, children: Element) -> Element {
+  let context = use_root_context::<CommandContext>("CommandList", "Command");
   let class = command_list_class(&class);
-  let active_descendant = active_id.unwrap_or_default();
-  let id = try_use_context::<CommandContext>().map(|context| context.list_id());
 
   rsx! {
     div {
       role: "listbox",
-      id,
+      id: context.list_id(),
       class,
-      "aria-activedescendant": active_descendant,
       {children}
     }
   }
@@ -234,18 +219,17 @@ fn command_item_value(id: &str, value: Option<String>) -> String {
   value.unwrap_or_else(|| id.to_string())
 }
 
-/// Reports `value`, or its `id` without one, when chosen inside `Command`.
+/// Reports `value`, or its `id` without one, when chosen; `data-highlighted`
+/// marks it while highlighted.
 #[component]
 pub fn CommandItem(
   id: String,
   #[props(default)] value: Option<String>,
-  #[props(default)] active: bool,
-  #[props(default)] selected: bool,
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
   children: Element,
 ) -> Element {
-  let class = command_item_class(active, selected, &class);
+  let class = command_item_class(&class);
   let value = command_item_value(&id, value);
 
   rsx! {
@@ -254,10 +238,7 @@ pub fn CommandItem(
       role: "option",
       class,
       "aria-disabled": disabled.to_string(),
-      "aria-selected": selected.to_string(),
-      "data-active": active.to_string(),
       "data-disabled": disabled.to_string(),
-      "data-selected": selected.to_string(),
       "data-value": value,
       {children}
     }
@@ -292,13 +273,50 @@ pub fn CommandShortcut(#[props(default)] class: String, children: Element) -> El
 mod tests {
   use super::*;
 
-  #[test]
-  fn command_item_class_reflects_active_and_selected_state() {
-    let actual = command_item_class(true, true, "gap-2");
+  fn render(app: fn() -> Element) -> String {
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    dioxus_ssr::render(&dom)
+  }
 
-    assert!(actual.contains(COMMAND_ITEM_BASE_CLASS));
-    assert!(actual.contains("bg-accent text-accent-foreground"));
+  #[test]
+  fn command_item_class_appends_user_class() {
+    let actual = command_item_class("gap-2");
+
+    assert!(actual.contains("data-highlighted:bg-accent"));
     assert!(actual.ends_with("gap-2"));
+  }
+
+  #[test]
+  fn ssr_the_root_links_the_input_to_the_list() {
+    fn app() -> Element {
+      rsx! {
+        Command {
+          CommandInput {}
+          CommandList { CommandItem { id: "open", "Open" } }
+        }
+      }
+    }
+    let html = render(app);
+
+    assert!(html.contains(r#"id="dxui-command-0-input""#), "{html}");
+    assert!(html.contains(r#"aria-controls="dxui-command-0-list""#));
+    assert!(html.contains(r#"id="dxui-command-0-list""#));
+    assert!(!html.contains("aria-activedescendant") && !html.contains("aria-selected"));
+  }
+
+  #[test]
+  fn an_input_outside_its_command_renders_nothing() {
+    fn app() -> Element {
+      rsx! {
+        p { "before" }
+        CommandInput {}
+        CommandList { "Results" }
+        p { "after" }
+      }
+    }
+
+    assert_eq!(render(app), "<p>before</p><p>after</p>");
   }
 
   #[test]

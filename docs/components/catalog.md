@@ -18,7 +18,7 @@ Public components: 82
 
 - [Button](button.md): Button component with variants, sizes, and density-aware spacing.
 - [Button Group](button-group.md): Button Group component for grouped command buttons.
-- [Command](command.md): Controlled command palette parts with active descendant semantics.
+- [Command](command.md): Command list whose root links the input to the list and highlights options.
 - [Fab](fab.md): Styled floating action button with an optional speed dial.
 - [Kbd](kbd.md): Styled keyboard shortcut hint.
 - [Swap](swap.md): Styled toggle button that swaps between two elements.
@@ -35,7 +35,7 @@ Public components: 82
 - [File Input](file-input.md): Styled native file input that passes the change event through.
 - [Input](input.md): Input component with disabled and invalid states.
 - [Input Group](input-group.md): Input Group component for addons, controls, and actions around inputs.
-- [Input OTP](input-otp.md): Input OTP component with controlled visual slots and native input support.
+- [Input OTP](input-otp.md): One-time code input whose root owns the code.
 - [Label](label.md): Label component for associating text with form controls.
 - [Native Select](native-select.md): Styled native select, optgroup, and option components.
 - [Number Input](number-input.md): Styled number field with stepping buttons and spinbutton keys.
@@ -77,7 +77,7 @@ Public components: 82
 - [Accordion](accordion.md): Accordion whose root owns which items are open.
 - [Aspect Ratio](aspect-ratio.md): Fixed-ratio media and content slot.
 - [Card](card.md): Card component with header, content, and footer parts.
-- [Carousel](carousel.md): Controlled carousel composition parts and index helpers.
+- [Carousel](carousel.md): Carousel whose root owns the selected slide.
 - [Collapsible](collapsible.md): Collapsible section whose root owns whether it is open.
 - [Direction](direction.md): Direction component for scoped native ltr/rtl text direction.
 - [Indicator](indicator.md): Styled corner indicator wrapper and placed item.
@@ -137,12 +137,12 @@ Public components: 82
 | [Button Group](button-group.md) | Button Group component for grouped command buttons. | `dxui add button-group` | `button-group` | `crates/dioxus-shadcn-cli/templates/button_group.rs` | `src/components/ui/button_group.rs` |
 | [Calendar](calendar.md) | Calendar components backed by pure date grid primitives. | `dxui add calendar` | `calendar` | `crates/dioxus-shadcn-cli/templates/calendar.rs` | `src/components/ui/calendar.rs` |
 | [Card](card.md) | Card component with header, content, and footer parts. | `dxui add card` | `card` | `crates/dioxus-shadcn-cli/templates/card.rs` | `src/components/ui/card.rs` |
-| [Carousel](carousel.md) | Controlled carousel composition parts and index helpers. | `dxui add carousel` | `carousel` | `crates/dioxus-shadcn-cli/templates/carousel.rs` | `src/components/ui/carousel.rs` |
+| [Carousel](carousel.md) | Carousel whose root owns the selected slide. | `dxui add carousel` | `carousel` | `crates/dioxus-shadcn-cli/templates/carousel.rs` | `src/components/ui/carousel.rs` |
 | [Chart](chart.md) | Source-copy friendly SVG chart composition parts. | `dxui add chart` | `chart` | `crates/dioxus-shadcn-cli/templates/chart.rs` | `src/components/ui/chart.rs` |
 | [Checkbox](checkbox.md) | Checkbox component with checked and disabled states. | `dxui add checkbox` | `checkbox` | `crates/dioxus-shadcn-cli/templates/checkbox.rs` | `src/components/ui/checkbox.rs` |
 | [Collapsible](collapsible.md) | Collapsible section whose root owns whether it is open. | `dxui add collapsible` | `collapsible` | `crates/dioxus-shadcn-cli/templates/collapsible.rs` | `src/components/ui/collapsible.rs` |
 | [Combobox](combobox.md) | Controlled searchable selection parts backed by popover primitive configuration. | `dxui add combobox` | `combobox` | `crates/dioxus-shadcn-cli/templates/combobox.rs` | `src/components/ui/combobox.rs` |
-| [Command](command.md) | Controlled command palette parts with active descendant semantics. | `dxui add command` | `command` | `crates/dioxus-shadcn-cli/templates/command.rs` | `src/components/ui/command.rs` |
+| [Command](command.md) | Command list whose root links the input to the list and highlights options. | `dxui add command` | `command` | `crates/dioxus-shadcn-cli/templates/command.rs` | `src/components/ui/command.rs` |
 | [Context Menu](context-menu.md) | Controlled context menu parts backed by dropdown primitive configuration. | `dxui add context-menu` | `context-menu` | `crates/dioxus-shadcn-cli/templates/context_menu.rs` | `src/components/ui/context_menu.rs` |
 | [Countdown](countdown.md) | Styled countdown timer for app-owned remaining seconds. | `dxui add countdown` | `countdown` | `crates/dioxus-shadcn-cli/templates/countdown.rs` | `src/components/ui/countdown.rs` |
 | [Data Table](data-table.md) | Controlled Data Table composition parts and state helpers. | `dxui add data-table` | `data-table` | `crates/dioxus-shadcn-cli/templates/data_table.rs` | `src/components/ui/data_table.rs` |
@@ -161,7 +161,7 @@ Public components: 82
 | [Indicator](indicator.md) | Styled corner indicator wrapper and placed item. | `dxui add indicator` | `indicator` | `crates/dioxus-shadcn-cli/templates/indicator.rs` | `src/components/ui/indicator.rs` |
 | [Input](input.md) | Input component with disabled and invalid states. | `dxui add input` | `input` | `crates/dioxus-shadcn-cli/templates/input.rs` | `src/components/ui/input.rs` |
 | [Input Group](input-group.md) | Input Group component for addons, controls, and actions around inputs. | `dxui add input-group` | `input-group` | `crates/dioxus-shadcn-cli/templates/input_group.rs` | `src/components/ui/input_group.rs` |
-| [Input OTP](input-otp.md) | Input OTP component with controlled visual slots and native input support. | `dxui add input-otp` | `input-otp` | `crates/dioxus-shadcn-cli/templates/input_otp.rs` | `src/components/ui/input_otp.rs` |
+| [Input OTP](input-otp.md) | One-time code input whose root owns the code. | `dxui add input-otp` | `input-otp` | `crates/dioxus-shadcn-cli/templates/input_otp.rs` | `src/components/ui/input_otp.rs` |
 | [Item](item.md) | Generic list item composition parts. | `dxui add item` | `item` | `crates/dioxus-shadcn-cli/templates/item.rs` | `src/components/ui/item.rs` |
 | [Kbd](kbd.md) | Styled keyboard shortcut hint. | `dxui add kbd` | `kbd` | `crates/dioxus-shadcn-cli/templates/kbd.rs` | `src/components/ui/kbd.rs` |
 | [Label](label.md) | Label component for associating text with form controls. | `dxui add label` | `label` | `crates/dioxus-shadcn-cli/templates/label.rs` | `src/components/ui/label.rs` |

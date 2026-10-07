@@ -151,6 +151,17 @@ existing `selection_type`; its items lose `pressed`, and pressing the
 pressed item of a single group releases it and reports the empty string, as
 in Radix.
 
+`Carousel` takes `index`, `default_index`, and `on_index_change`, and the
+slide `count`, which it cannot read from its children; items and indicators
+take their `index` as an item takes its `value`. Previous and Next step the
+index and disable themselves at the ends, and lose `onclick` (RFC 0053: the
+change callback reports the step). `InputOtp` takes the code as `value`,
+`default_value`, and `on_value_change`, with its `length`; each slot reads
+its character by `index`, and the input writes the code. `Command` already
+kept the highlighted option in its script; its parts lose the highlight
+props they no longer used, and the query stays with the app, which filters
+the items it renders, as with Combobox.
+
 ### Which components move
 
 | Batch | Components | State the root takes |

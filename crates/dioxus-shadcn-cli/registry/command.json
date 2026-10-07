@@ -1,6 +1,6 @@
 {
   "name": "command",
-  "description": "Controlled command palette parts with active descendant semantics.",
+  "description": "Command list whose root links the input to the list and highlights options.",
   "files": [
     {
       "source": "templates/command.rs",
@@ -10,6 +10,7 @@
   "dependencies": [
     "element-id",
     "listbox",
+    "root-state",
     "utils"
   ],
   "assets": []

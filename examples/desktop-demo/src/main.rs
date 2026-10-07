@@ -483,10 +483,7 @@ fn main() {
   );
   println!("dioxus-shadcn desktop demo command class: {}", command_class("max-w-sm"));
   println!("dioxus-shadcn desktop demo command input class: {}", command_input_class("h-9"));
-  println!(
-    "dioxus-shadcn desktop demo command item class: {}",
-    command_item_class(false, true, "")
-  );
+  println!("dioxus-shadcn desktop demo command item class: {}", command_item_class(""));
   println!(
     "dioxus-shadcn desktop demo command active descendant: {:?}",
     command_active_descendant_state(Some("quick-open".to_string())).active_id

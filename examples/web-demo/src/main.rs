@@ -459,7 +459,7 @@ fn main() {
   );
   println!("dioxus-shadcn web demo command class: {}", command_class("max-w-md"));
   println!("dioxus-shadcn web demo command input class: {}", command_input_class(""));
-  println!("dioxus-shadcn web demo command item class: {}", command_item_class(true, false, ""));
+  println!("dioxus-shadcn web demo command item class: {}", command_item_class(""));
   println!(
     "dioxus-shadcn web demo command active descendant: {:?}",
     command_active_descendant_state(Some("open-file".to_string())).active_id

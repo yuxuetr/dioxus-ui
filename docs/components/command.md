@@ -38,8 +38,10 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["comman
 
 ## Behavior
 
-The query and the chosen item stay with the app. Keep the query, filter the
-items you render, and handle `Command` `on_select`:
+`Command` owns which option is highlighted and links the input to the list
+([RFC 0077](../rfcs/0077-component-owned-state.md)). The query stays with the
+app, which filters the items it renders, and `Command` reports the chosen
+item through `on_select`:
 
 ```rust
 let mut query = use_signal(String::new);
@@ -62,7 +64,7 @@ rsx! {
 }
 ```
 
-- The selected option, or else the first enabled option, starts highlighted.
+- The first enabled option starts highlighted.
   The input's `aria-activedescendant` names it and the item has
   `data-highlighted`.
 - ArrowDown and ArrowUp move to the next or previous enabled option and stop
@@ -77,9 +79,9 @@ rsx! {
   `aria-activedescendant` and Enter does nothing.
 - `command_matches(label, query)` is true when the trimmed query is empty or
   the label contains it, ignoring case.
-- Inside `Command`, the input has an id and `aria-controls` naming the list.
-- Without `Command`, the parts render state only and the app wires keys
-  itself with `active_id`, `active`, and `selected`.
+- The input has an id and `aria-controls` naming the list, both generated.
+- `CommandInput` and `CommandList` must be inside `Command`; otherwise they
+  render nothing and log which root they are missing.
 
 To announce how many items match, render `CommandStatus` every time and
 change only its text; an empty text says nothing:

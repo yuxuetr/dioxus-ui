@@ -1,32 +1,26 @@
 use dioxus::prelude::*;
-use dioxus_shadcn::{InputOtp, InputOtpGroup, InputOtpHiddenInput, InputOtpSeparator, InputOtpSlot, Label, otp_slots};
+use dioxus_shadcn::{InputOtp, InputOtpGroup, InputOtpHiddenInput, InputOtpSeparator, InputOtpSlot, Label};
 
 #[component]
 pub fn InputOtpBasicDemo() -> Element {
   let mut code = use_signal(|| "12".to_string());
   let filled = code().chars().count();
-  let slots = otp_slots(&code(), 6, filled.min(5));
 
   rsx! {
     Label { id: "input-otp-basic-label", "Verification code" }
-    InputOtp { class: "mt-2",
+    InputOtp { class: "mt-2", length: 6, value: code(), on_value_change: move |value| code.set(value),
       InputOtpGroup {
-        for slot in slots.iter().take(3).cloned() {
-          InputOtpSlot { key: "{slot.index}", index: slot.index, value: slot.value, active: slot.active }
+        for index in 0..3 {
+          InputOtpSlot { key: "{index}", index }
         }
       }
       InputOtpSeparator {}
       InputOtpGroup {
-        for slot in slots.iter().skip(3).cloned() {
-          InputOtpSlot { key: "{slot.index}", index: slot.index, value: slot.value, active: slot.active }
+        for index in 3..6 {
+          InputOtpSlot { key: "{index}", index }
         }
       }
-      InputOtpHiddenInput {
-        "aria-labelledby": "input-otp-basic-label",
-        value: code(),
-        length: 6,
-        on_value_change: move |value| code.set(value),
-      }
+      InputOtpHiddenInput { "aria-labelledby": "input-otp-basic-label" }
     }
     p { class: "mt-3 text-sm text-muted-foreground", "Entered {filled} of 6 digits." }
   }

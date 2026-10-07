@@ -1,6 +1,6 @@
 {
   "name": "carousel",
-  "description": "Controlled carousel composition parts and index helpers.",
+  "description": "Carousel whose root owns the selected slide.",
   "files": [
     {
       "source": "templates/carousel.rs",
@@ -9,6 +9,7 @@
   ],
   "dependencies": [
     "default-attribute",
+    "root-state",
     "utils"
   ],
   "assets": []

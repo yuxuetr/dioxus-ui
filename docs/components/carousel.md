@@ -26,7 +26,6 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["carous
 - `CarouselNext`
 - `CarouselIndicator`
 - `CarouselOrientation`
-- `CarouselState`
 - `CarouselStep`
 - `carousel_key_step`
 - `carousel_next`
@@ -36,39 +35,31 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["carous
 
 ## Slide Changes
 
-`CarouselContent` takes the selected `index`, and its items shift to show it.
-The controls take `onclick`, and the root reports arrow keys through
-`on_key_step`:
+`Carousel` owns the selected slide
+([RFC 0077](../rfcs/0077-component-owned-state.md)). Give it the number of
+slides in `count`, and each `CarouselItem` and `CarouselIndicator` its
+`index`. The root starts at `default_index`, or follows `index` when the app
+controls it; `on_index_change` hears every change the user makes:
 
 ```rust
-let mut state = use_signal(|| CarouselState::new(0, 3));
-
 rsx! {
-  Carousel {
-    "aria-label": "Featured",
-    on_key_step: move |step| state.set(match step {
-      CarouselStep::Previous => state().previous(),
-      CarouselStep::Next => state().next(),
-    }),
+  Carousel { "aria-label": "Featured", count: 3,
     CarouselViewport {
-      CarouselContent { index: state().index,
+      CarouselContent {
         for slide in 0..3 {
-          CarouselItem { key: "{slide}", selected: state().index == slide, "aria-label": "{slide + 1} of 3", "Slide {slide + 1}" }
+          CarouselItem { key: "{slide}", index: slide, "aria-label": "{slide + 1} of 3", "Slide {slide + 1}" }
         }
       }
     }
-    CarouselPrevious {
-      disabled: !carousel_can_go_previous(state().index, 3, false),
-      onclick: move |_| state.set(state().previous()),
-    }
-    CarouselNext {
-      disabled: !carousel_can_go_next(state().index, 3, false),
-      onclick: move |_| state.set(state().next()),
-    }
+    CarouselPrevious {}
+    CarouselNext {}
   }
 }
 ```
 
+- Previous and Next step the index and disable themselves at the ends, unless
+  `looping` is set; `disabled` disables either one as well. An indicator
+  selects its slide and sets `aria-current` while it is selected.
 - Each item translates by `index` times its own size, so `basis-1/2` and other
   multi-item views work without measurement. The transition is turned off for
   reduced motion.
@@ -78,7 +69,8 @@ rsx! {
 - ArrowLeft and ArrowRight step a horizontal carousel, ArrowUp and ArrowDown a
   vertical one, while focus is anywhere inside the root, including fields in a
   slide.
-- A disabled Previous or Next does not call `onclick`.
+- The parts must be inside `Carousel`; otherwise they render nothing and log
+  which root they are missing.
 - Global and element attributes pass through every part. A passed
   `aria-label` replaces the English default on Previous, Next, and
   Indicator, so each indicator can say which slide it shows.

@@ -45,26 +45,23 @@ dioxus-shadcn = { version = "0.4", default-features = false, features = ["input-
 
 ## Value Changes
 
-`InputOtpHiddenInput` holds the whole code. It takes the code `length` and
-calls `on_value_change` with the cleaned code when it changes:
+`InputOtp` owns the code
+([RFC 0077](../rfcs/0077-component-owned-state.md)). Give it the code
+`length`; it starts from `default_value`, or follows `value` when the app
+controls it, and `on_value_change` hears every change with the cleaned code.
+Each `InputOtpSlot` shows the character at its `index`, and
+`InputOtpHiddenInput` takes the typing:
 
 ```rust
-let mut code = use_signal(String::new);
-
 rsx! {
   Label { id: "code-label", "Verification code" }
-  InputOtp {
+  InputOtp { length: 6, on_value_change: move |code: String| verify(&code),
     InputOtpGroup {
-      for slot in otp_slots(&code(), 6, code().chars().count().min(5)) {
-        InputOtpSlot { key: "{slot.index}", index: slot.index, value: slot.value, active: slot.active }
+      for index in 0..6 {
+        InputOtpSlot { key: "{index}", index }
       }
     }
-    InputOtpHiddenInput {
-      "aria-labelledby": "code-label",
-      value: code(),
-      length: 6,
-      on_value_change: move |value| code.set(value),
-    }
+    InputOtpHiddenInput { "aria-labelledby": "code-label" }
   }
 }
 ```
@@ -75,8 +72,11 @@ rsx! {
 - Typing appends, Backspace removes the last character, and a paste or
   platform autofill inserts the code. Editing a slot in the middle is not
   supported.
-- The input stays controlled: pass the received code back as `value`. The
-  slots mirror it, and the app picks the active slot.
+- The slot the next character goes to is active, or the last slot when the
+  code is full. `disabled` and `invalid` on the root reach every slot and the
+  input; `disabled` on a slot disables that slot alone.
+- The parts must be inside `InputOtp`; otherwise they render nothing and log
+  which root they are missing.
 - A page script filters the native value before Dioxus reads it, so a
   rejected character never stays in the input for Backspace to remove.
 - A disabled input fires no event.
@@ -92,7 +92,7 @@ keyboards have a real control.
 
 The input covers the slots with zero opacity, so a press anywhere on them
 focuses it. Render it inside `InputOtp`, whose root is `relative`. Visual
-slots are presentation mirrors of the controlled value. Keep validation,
+slots are presentation mirrors of the code. Keep validation,
 submission, and resend timers in the application.
 
 ## Pure Helpers

@@ -112,8 +112,10 @@ mod element_id;
 #[cfg(any(
   feature = "accordion",
   feature = "alert-dialog",
+  feature = "carousel",
   feature = "collapsible",
   feature = "combobox",
+  feature = "command",
   feature = "context-menu",
   feature = "date-picker",
   feature = "dialog",
@@ -121,6 +123,7 @@ mod element_id;
   feature = "dropdown",
   feature = "fab",
   feature = "hover-card",
+  feature = "input-otp",
   feature = "menu",
   feature = "menubar",
   feature = "navigation-menu",

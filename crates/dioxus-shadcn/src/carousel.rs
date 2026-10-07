@@ -2,6 +2,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
 use crate::default_attribute::default_attribute;
+use crate::root_state::{Controllable, use_controllable, use_root_context};
 pub use dioxus_shadcn_primitives::{
   CarouselState, LayoutOrientation as CarouselOrientation, carousel_can_go_next,
   carousel_can_go_previous, carousel_clamp_index, carousel_next, carousel_previous,
@@ -110,14 +111,54 @@ pub fn carousel_item_transform(orientation: CarouselOrientation) -> &'static str
   }
 }
 
+#[derive(Clone, Copy)]
+struct CarouselContext {
+  index: Controllable<usize>,
+  count: usize,
+  looping: bool,
+  orientation: CarouselOrientation,
+}
+
+impl CarouselContext {
+  fn current(&self) -> usize {
+    carousel_clamp_index(self.index.get(), self.count)
+  }
+
+  fn step(&self, step: CarouselStep) {
+    let current = self.current();
+    self.index.set(match step {
+      CarouselStep::Previous => carousel_previous(current, self.count, self.looping),
+      CarouselStep::Next => carousel_next(current, self.count, self.looping),
+    });
+  }
+}
+
+/// The root of a carousel of `count` slides: it owns the selected slide's
+/// index (RFC 0077). Pass `index` to control it, or `default_index` to start
+/// it; `on_index_change` hears every change the user makes either way. The
+/// arrow keys along `orientation` step it, as the previous and next buttons
+/// do, wrapping when `looping`.
 #[component]
 pub fn Carousel(
+  count: usize,
+  #[props(default)] index: ReadSignal<Option<usize>>,
+  #[props(default)] default_index: usize,
+  #[props(default)] on_index_change: Option<EventHandler<usize>>,
+  #[props(default)] looping: bool,
   #[props(default)] orientation: CarouselOrientation,
-  #[props(default)] on_key_step: Option<EventHandler<CarouselStep>>,
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
+  let index = use_controllable(move || index.cloned(), move || default_index, on_index_change);
+  let context = CarouselContext { index, count, looping, orientation };
+  // `count`, `looping`, and `orientation` may change, so the context is
+  // refreshed on every render.
+  let mut shared = use_context_provider(|| Signal::new(context));
+  let stale = *shared.peek();
+  if (stale.count, stale.looping, stale.orientation) != (count, looping, orientation) {
+    shared.set(context);
+  }
   let class = carousel_class(&class);
 
   rsx! {
@@ -130,15 +171,17 @@ pub fn Carousel(
         if let Some(step) = carousel_key_step(&event.key().to_string(), orientation) {
           // Up and Down would otherwise scroll the page.
           event.prevent_default();
-          if let Some(handler) = on_key_step {
-            handler.call(step);
-          }
+          shared.peek().step(step);
         }
       },
       ..attributes,
       {children}
     }
   }
+}
+
+fn use_carousel(part: &str) -> CarouselContext {
+  use_root_context::<Signal<CarouselContext>>(part, "Carousel").cloned()
 }
 
 #[component]
@@ -160,36 +203,43 @@ pub fn CarouselViewport(
 
 #[component]
 pub fn CarouselContent(
-  #[props(default)] orientation: CarouselOrientation,
-  #[props(default)] index: usize,
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
-  let class = carousel_content_class(orientation, &class);
+  let carousel = use_carousel("CarouselContent");
+  let class = carousel_content_class(carousel.orientation, &class);
   // A style property merges with any `style` the app passes, where a `style`
   // string would replace it.
   let mut attributes = attributes;
-  attributes.push(Attribute::new(CAROUSEL_INDEX_PROPERTY, index.to_string(), Some("style"), false));
+  attributes.push(Attribute::new(
+    CAROUSEL_INDEX_PROPERTY,
+    carousel.current().to_string(),
+    Some("style"),
+    false,
+  ));
 
   rsx! {
     div {
       class,
-      "data-orientation": carousel_orientation_attribute(orientation),
+      "data-orientation": carousel_orientation_attribute(carousel.orientation),
       ..attributes,
       {children}
     }
   }
 }
 
+/// The slide at `index`, counting from zero.
 #[component]
 pub fn CarouselItem(
-  #[props(default)] orientation: CarouselOrientation,
-  #[props(default)] selected: bool,
+  index: usize,
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
+  let carousel = use_carousel("CarouselItem");
+  let orientation = carousel.orientation;
+  let selected = carousel.current() == index;
   let class = carousel_item_class(orientation, selected, &class);
 
   rsx! {
@@ -206,14 +256,18 @@ pub fn CarouselItem(
   }
 }
 
+/// Steps to the previous slide; disabled on the first unless the carousel
+/// loops, or with `disabled`.
 #[component]
 pub fn CarouselPrevious(
   #[props(default)] disabled: bool,
-  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
+  let carousel = use_carousel("CarouselPrevious");
+  let disabled =
+    disabled || !carousel_can_go_previous(carousel.current(), carousel.count, carousel.looping);
   let class = carousel_control_class(disabled, &class);
   let aria_label = default_attribute(&attributes, "aria-label", "Previous slide");
 
@@ -223,11 +277,9 @@ pub fn CarouselPrevious(
       class,
       disabled,
       "aria-label": aria_label,
-      onclick: move |event| {
+      onclick: move |_| {
         if !disabled {
-          if let Some(handler) = onclick {
-            handler.call(event);
-          }
+          carousel.step(CarouselStep::Previous);
         }
       },
       ..attributes,
@@ -236,14 +288,18 @@ pub fn CarouselPrevious(
   }
 }
 
+/// Steps to the next slide; disabled on the last unless the carousel loops,
+/// or with `disabled`.
 #[component]
 pub fn CarouselNext(
   #[props(default)] disabled: bool,
-  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
+  let carousel = use_carousel("CarouselNext");
+  let disabled =
+    disabled || !carousel_can_go_next(carousel.current(), carousel.count, carousel.looping);
   let class = carousel_control_class(disabled, &class);
   let aria_label = default_attribute(&attributes, "aria-label", "Next slide");
 
@@ -253,11 +309,9 @@ pub fn CarouselNext(
       class,
       disabled,
       "aria-label": aria_label,
-      onclick: move |event| {
+      onclick: move |_| {
         if !disabled {
-          if let Some(handler) = onclick {
-            handler.call(event);
-          }
+          carousel.step(CarouselStep::Next);
         }
       },
       ..attributes,
@@ -266,13 +320,15 @@ pub fn CarouselNext(
   }
 }
 
+/// Selects the slide at `index`, and shows whether it is selected.
 #[component]
 pub fn CarouselIndicator(
-  #[props(default)] selected: bool,
-  #[props(default)] onclick: Option<EventHandler<MouseEvent>>,
+  index: usize,
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = button)] attributes: Vec<Attribute>,
 ) -> Element {
+  let carousel = use_carousel("CarouselIndicator");
+  let selected = carousel.current() == index;
   let class = carousel_indicator_class(selected, &class);
   let aria_label = default_attribute(&attributes, "aria-label", "Go to slide");
 
@@ -283,11 +339,7 @@ pub fn CarouselIndicator(
       "aria-current": selected.to_string(),
       "aria-label": aria_label,
       "data-selected": selected.to_string(),
-      onclick: move |event| {
-        if let Some(handler) = onclick {
-          handler.call(event);
-        }
-      },
+      onclick: move |_| carousel.index.set(index),
       ..attributes,
     }
   }
@@ -311,9 +363,11 @@ mod tests {
   fn ssr_renders_only_a_passed_aria_label() {
     fn app() -> Element {
       rsx! {
-        CarouselPrevious { "aria-label": "Diapositive précédente" }
-        CarouselNext { "aria-label": "Diapositive suivante" }
-        CarouselIndicator { "aria-label": "Show product 1" }
+        Carousel { count: 2,
+          CarouselPrevious { "aria-label": "Diapositive précédente" }
+          CarouselNext { "aria-label": "Diapositive suivante" }
+          CarouselIndicator { index: 0, "aria-label": "Show product 1" }
+        }
       }
     }
 
@@ -327,13 +381,70 @@ mod tests {
   fn ssr_renders_the_default_attribute() {
     fn app() -> Element {
       rsx! {
-        CarouselPrevious {}
-        CarouselNext {}
-        CarouselIndicator {}
+        Carousel { count: 2,
+          CarouselPrevious {}
+          CarouselNext {}
+          CarouselIndicator { index: 0 }
+        }
       }
     }
 
     assert_eq!(aria_labels(&render(app)), ["Previous slide", "Next slide", "Go to slide"]);
+  }
+
+  fn slides() -> Element {
+    rsx! {
+      CarouselContent {
+        CarouselItem { index: 0, "One" }
+        CarouselItem { index: 1, "Two" }
+        CarouselItem { index: 2, "Three" }
+      }
+      CarouselPrevious {}
+      CarouselNext {}
+      CarouselIndicator { index: 2 }
+    }
+  }
+
+  #[test]
+  fn ssr_the_root_selects_its_default_slide() {
+    fn app() -> Element {
+      rsx! { Carousel { count: 3, default_index: 2, {slides()} } }
+    }
+    let html = render(app);
+
+    assert!(html.contains("--dxui-carousel-index:2"), "{html}");
+    assert_eq!(html.matches(r#"data-selected="true""#).count(), 2);
+    assert!(html.contains(r#"aria-current="true""#));
+    // The last slide disables Next, and Previous stays enabled.
+    let disabled = |label: &str| {
+      html.split("<button").any(|button| {
+        button.contains(&format!(r#"aria-label="{label}""#))
+          && button.split(' ').any(|token| token == "disabled" || token.starts_with("disabled="))
+      })
+    };
+    assert!(disabled("Next slide") && !disabled("Previous slide"), "{html}");
+  }
+
+  #[test]
+  fn ssr_a_controlled_index_wins_and_is_clamped() {
+    fn app() -> Element {
+      rsx! { Carousel { count: 3, index: 7, default_index: 0, {slides()} } }
+    }
+
+    assert!(render(app).contains("--dxui-carousel-index:2"));
+  }
+
+  #[test]
+  fn a_part_outside_its_carousel_renders_nothing() {
+    fn app() -> Element {
+      rsx! {
+        p { "before" }
+        CarouselItem { index: 0, "One" }
+        p { "after" }
+      }
+    }
+
+    assert_eq!(render(app), "<p>before</p><p>after</p>");
   }
 
   #[test]

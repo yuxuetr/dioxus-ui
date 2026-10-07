@@ -57,7 +57,7 @@ use dioxus_shadcn::{
 };
 use dioxus_shadcn::{
   Carousel, CarouselContent, CarouselIndicator, CarouselItem, CarouselNext, CarouselPrevious,
-  CarouselState, CarouselStep, CarouselViewport, carousel_can_go_next, carousel_can_go_previous,
+  CarouselViewport,
 };
 use dioxus_shadcn::{DateOrder, DatePickerInput};
 use dioxus_shadcn::{Diff, DiffAfter, DiffBefore};
@@ -972,7 +972,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut disabled_link_clicks = use_signal(|| 0);
   let mut last_part_action = use_signal(String::new);
   let mut part_form_submits = use_signal(|| 0);
-  let mut carousel_state = use_signal(|| CarouselState::new(0, 3));
+  let mut carousel_index = use_signal(|| 0_usize);
   let mut shell_collapsed = use_signal(|| false);
   let mut price = use_signal(|| (20.0, 80.0));
   let mut chosen_theme = use_signal(|| Theme::System);
@@ -2263,26 +2263,18 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
             "data-code": "{otp_code}",
             h2 { class: "text-sm font-medium", "Input OTP interaction" }
             Label { id: "interaction-otp-label", "Verification code" }
+            // Uncontrolled: the root owns the code and the fixture records it.
             InputOtp {
               class: "mt-3",
               title: "Verification code slots",
+              length: 6,
+              on_value_change: move |value| otp_code.set(value),
               InputOtpGroup {
-                for slot in otp_slots(&otp_code(), 6, otp_code().chars().count().min(5)) {
-                  InputOtpSlot {
-                    key: "{slot.index}",
-                    index: slot.index,
-                    value: slot.value,
-                    active: slot.active,
-                  }
+                for index in 0..6_usize {
+                  InputOtpSlot { key: "{index}", index }
                 }
               }
-              InputOtpHiddenInput {
-                "aria-labelledby": "interaction-otp-label",
-                name: "code",
-                value: otp_code(),
-                length: 6,
-                on_value_change: move |value| otp_code.set(value),
-              }
+              InputOtpHiddenInput { "aria-labelledby": "interaction-otp-label", name: "code" }
             }
           }
           article {
@@ -2338,50 +2330,31 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
           article {
             class: "rounded-md border border-border p-4",
             "data-interaction-target": "carousel",
-            "data-index": "{carousel_state().index}",
+            "data-index": "{carousel_index}",
             h2 { class: "text-sm font-medium", "Carousel interaction" }
+            // Controlled: the fixture owns the index and the root steps it.
             Carousel {
               class: "mt-3",
               "aria-label": "Featured products",
-              on_key_step: move |step| {
-                carousel_state
-                  .set(
-                    match step {
-                      CarouselStep::Previous => carousel_state().previous(),
-                      CarouselStep::Next => carousel_state().next(),
-                    },
-                  )
-              },
+              count: 3,
+              index: carousel_index(),
+              on_index_change: move |index| carousel_index.set(index),
               CarouselViewport { width: "240px",
-                CarouselContent { index: carousel_state().index,
+                CarouselContent {
                   for slide in 0..3_usize {
-                    CarouselItem {
-                      key: "{slide}",
-                      selected: carousel_state().index == slide,
-                      "aria-label": "{slide + 1} of 3",
+                    CarouselItem { key: "{slide}", index: slide, "aria-label": "{slide + 1} of 3",
                       "Product {slide + 1}"
                     }
                   }
                 }
               }
-              CarouselPrevious {
-                disabled: !carousel_can_go_previous(carousel_state().index, 3, false),
-                title: "Previous product",
-                onclick: move |_| carousel_state.set(carousel_state().previous()),
-                "‹"
-              }
-              CarouselNext {
-                disabled: !carousel_can_go_next(carousel_state().index, 3, false),
-                title: "Next product",
-                onclick: move |_| carousel_state.set(carousel_state().next()),
-                "›"
-              }
+              CarouselPrevious { title: "Previous product", "‹" }
+              CarouselNext { title: "Next product", "›" }
               for slide in 0..3_usize {
                 CarouselIndicator {
                   key: "{slide}",
-                  selected: carousel_state().index == slide,
+                  index: slide,
                   "aria-label": "Show product {slide + 1}",
-                  onclick: move |_| carousel_state.set(CarouselState::new(slide, 3)),
                 }
               }
             }

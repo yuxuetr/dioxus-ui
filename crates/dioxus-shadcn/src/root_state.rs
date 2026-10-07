@@ -3,6 +3,7 @@ use dioxus::prelude::*;
 /// State a compound component's root owns (RFC 0077): the app's value while
 /// it sets one, otherwise the root's own, which starts at the default. Parts
 /// read it through the root's context and change it through `set`.
+#[cfg_attr(feature = "command", allow(dead_code))] // Command keeps no state here.
 pub(crate) struct Controllable<T: 'static> {
   controlled: Memo<Option<T>>,
   own: Signal<T>,
@@ -17,6 +18,7 @@ impl<T: 'static> Clone for Controllable<T> {
 
 impl<T: 'static> Copy for Controllable<T> {}
 
+#[cfg_attr(feature = "command", allow(dead_code))]
 impl<T: Clone + PartialEq + 'static> Controllable<T> {
   /// The current value, subscribing the reader to its changes. It reads the
   /// app's value and the root's own directly: a memo over the `controlled`
@@ -43,6 +45,7 @@ impl<T: Clone + PartialEq + 'static> Controllable<T> {
 /// `controlled` reads the app's value, `None` while the app leaves the state
 /// to the root; `on_change` is the app's change callback, kept current across
 /// renders.
+#[cfg_attr(feature = "command", allow(dead_code))]
 pub(crate) fn use_controllable<T: Clone + PartialEq + 'static>(
   controlled: impl Fn() -> Option<T> + 'static,
   default: impl FnOnce() -> T,
@@ -58,54 +61,12 @@ pub(crate) fn use_controllable<T: Clone + PartialEq + 'static>(
 /// The context of the root a part belongs to. A part outside its root
 /// panics here, naming both, instead of rendering without its state; Dioxus
 /// logs the panic and renders nothing for the part.
-#[cfg(any(
-  feature = "accordion",
-  feature = "alert-dialog",
-  feature = "collapsible",
-  feature = "combobox",
-  feature = "context-menu",
-  feature = "date-picker",
-  feature = "dialog",
-  feature = "drawer",
-  feature = "dropdown",
-  feature = "fab",
-  feature = "hover-card",
-  feature = "menubar",
-  feature = "navigation-menu",
-  feature = "popover",
-  feature = "select",
-  feature = "sheet",
-  feature = "radio-group",
-  feature = "tabs",
-  feature = "toggle-group",
-  feature = "tooltip"
-))]
+#[cfg_attr(feature = "menu", allow(dead_code))] // MenuGroup has no parts.
 pub(crate) fn use_root_context<T: Clone + 'static>(part: &str, root: &str) -> T {
   root_context_or_panic(try_use_context::<T>(), part, root)
 }
 
-#[cfg(any(
-  feature = "accordion",
-  feature = "alert-dialog",
-  feature = "collapsible",
-  feature = "combobox",
-  feature = "context-menu",
-  feature = "date-picker",
-  feature = "dialog",
-  feature = "drawer",
-  feature = "dropdown",
-  feature = "fab",
-  feature = "hover-card",
-  feature = "menubar",
-  feature = "navigation-menu",
-  feature = "popover",
-  feature = "select",
-  feature = "sheet",
-  feature = "radio-group",
-  feature = "tabs",
-  feature = "toggle-group",
-  feature = "tooltip"
-))]
+#[cfg_attr(feature = "menu", allow(dead_code))]
 fn root_context_or_panic<T>(context: Option<T>, part: &str, root: &str) -> T {
   context.unwrap_or_else(|| panic!("`{part}` must be inside a `{root}` (RFC 0077)"))
 }
@@ -138,28 +99,6 @@ mod tests {
     assert_eq!(SEEN.with(|seen| seen.borrow().clone()), [1, 2]);
   }
 
-  #[cfg(any(
-    feature = "accordion",
-    feature = "alert-dialog",
-    feature = "collapsible",
-    feature = "combobox",
-    feature = "context-menu",
-    feature = "date-picker",
-    feature = "dialog",
-    feature = "drawer",
-    feature = "dropdown",
-    feature = "fab",
-    feature = "hover-card",
-    feature = "menubar",
-    feature = "navigation-menu",
-    feature = "popover",
-    feature = "select",
-    feature = "sheet",
-    feature = "radio-group",
-    feature = "tabs",
-    feature = "toggle-group",
-    feature = "tooltip"
-  ))]
   #[test]
   fn a_missing_root_names_the_part_and_the_root() {
     let payload =

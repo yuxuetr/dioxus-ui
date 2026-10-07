@@ -7,7 +7,7 @@ pub use dioxus_shadcn_primitives::{
 };
 
 use crate::element_id::next_element_id;
-
+use crate::root_state::{Controllable, use_controllable, use_root_context};
 // Keep in sync with `INPUT_OTP_FILTER_SCRIPT` in the CLI `input_otp.rs` template.
 // Runs for the input's lifetime. Its listener on the input itself runs before
 // the delegated Dioxus handler, so it can drop rejected characters from the
@@ -123,14 +123,43 @@ pub fn input_otp_hidden_input_class(class: &str) -> String {
   merge_classes(classes([Some(INPUT_OTP_HIDDEN_INPUT_BASE_CLASS)]), class)
 }
 
+#[derive(Clone, Copy)]
+struct InputOtpContext {
+  value: Controllable<String>,
+  length: usize,
+  disabled: bool,
+  invalid: bool,
+}
+
+fn use_input_otp(part: &str) -> InputOtpContext {
+  use_root_context::<Signal<InputOtpContext>>(part, "InputOtp").cloned()
+}
+
+/// The root of a one-time code of `length` characters: it owns the code
+/// (RFC 0077). Pass `value` to control it, or `default_value` to start it;
+/// `on_value_change` hears every change the user makes either way. The slots
+/// show it and `InputOtpHiddenInput` takes the typing.
 #[component]
 pub fn InputOtp(
+  length: usize,
+  #[props(default)] value: ReadSignal<Option<String>>,
+  #[props(default)] default_value: String,
+  #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(default)] disabled: bool,
   #[props(default)] invalid: bool,
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = div)] attributes: Vec<Attribute>,
   children: Element,
 ) -> Element {
+  let value = use_controllable(move || value.cloned(), move || default_value, on_value_change);
+  let context = InputOtpContext { value, length, disabled, invalid };
+  // `length`, `disabled`, and `invalid` may change, so the context is
+  // refreshed on every render.
+  let mut shared = use_context_provider(|| Signal::new(context));
+  let stale = *shared.peek();
+  if (stale.length, stale.disabled, stale.invalid) != (length, disabled, invalid) {
+    shared.set(context);
+  }
   let class = input_otp_class(disabled, &class);
 
   rsx! {
@@ -159,15 +188,24 @@ pub fn InputOtpGroup(#[props(default)] class: String, children: Element) -> Elem
   }
 }
 
+/// Shows the code's character at `index`, counting from zero. The slot the
+/// next character goes to is active; `disabled` disables this slot alone.
 #[component]
 pub fn InputOtpSlot(
   index: usize,
-  #[props(default)] value: Option<char>,
-  #[props(default)] active: bool,
-  #[props(default)] invalid: bool,
   #[props(default)] disabled: bool,
   #[props(default)] class: String,
 ) -> Element {
+  let otp = use_input_otp("InputOtpSlot");
+  let code = otp.value.get();
+  let filled = code.chars().count();
+  let slot = otp_slots(&code, otp.length, filled.min(otp.length.saturating_sub(1)))
+    .into_iter()
+    .find(|slot| slot.index == index);
+  let value = slot.as_ref().and_then(|slot| slot.value);
+  let disabled = disabled || otp.disabled;
+  let active = slot.is_some_and(|slot| slot.active) && !disabled;
+  let invalid = otp.invalid;
   let class = input_otp_slot_class(active, invalid, disabled, &class);
   let display = input_otp_slot_display(value);
 
@@ -204,22 +242,23 @@ pub fn InputOtpSeparator(
   }
 }
 
+/// The transparent input over the slots that takes the typing, a paste, or
+/// an autofill, keeping the characters `input_mode` allows. Name it with
+/// `aria-label` or `aria-labelledby`.
 #[component]
 pub fn InputOtpHiddenInput(
-  value: String,
-  length: usize,
-  #[props(default)] on_value_change: Option<EventHandler<String>>,
   #[props(default)] name: Option<String>,
   #[props(default)] input_mode: InputOtpInputMode,
   #[props(default = Some(String::from("one-time-code")))] autocomplete: Option<String>,
-  #[props(default)] disabled: bool,
-  #[props(default)] invalid: bool,
   #[props(default)] class: String,
   #[props(extends = GlobalAttributes, extends = input)] attributes: Vec<Attribute>,
 ) -> Element {
+  let otp = use_input_otp("InputOtpHiddenInput");
   let class = input_otp_hidden_input_class(&class);
   let inputmode = input_mode.attribute();
+  let value = otp.value.get();
   let current = value.clone();
+  let length = otp.length;
   let scope_id = use_input_otp_filter();
 
   rsx! {
@@ -230,16 +269,14 @@ pub fn InputOtpHiddenInput(
       name,
       inputmode,
       autocomplete,
-      disabled,
-      "aria-invalid": invalid.to_string(),
+      disabled: otp.disabled,
+      "aria-invalid": otp.invalid.to_string(),
       "data-length": length.to_string(),
       "data-dxui-otp-input": scope_id,
       oninput: move |event: FormEvent| {
         let next = input_otp_sanitize(&event.value(), length, input_mode);
         if next != current {
-          if let Some(handler) = on_value_change {
-            handler.call(next);
-          }
+          otp.value.set(next);
         }
       },
       ..attributes,
@@ -266,6 +303,57 @@ fn use_input_otp_filter() -> String {
 mod tests {
   use super::*;
 
+  fn render(app: fn() -> Element) -> String {
+    let mut dom = VirtualDom::new(app);
+    dom.rebuild_in_place();
+    dioxus_ssr::render(&dom)
+  }
+
+  fn slots() -> Element {
+    rsx! {
+      for index in 0..4 {
+        InputOtpSlot { key: "{index}", index }
+      }
+      InputOtpHiddenInput { "aria-label": "Code" }
+    }
+  }
+
+  #[test]
+  fn ssr_slots_show_the_default_code_and_mark_the_next_slot() {
+    fn app() -> Element {
+      rsx! { InputOtp { length: 4, default_value: "12", {slots()} } }
+    }
+    let html = render(app);
+
+    assert!(html.contains(r#"value="12""#), "{html}");
+    assert!(html.contains(r#"data-length="4""#));
+    assert_eq!(html.matches(r#"data-active="true""#).count(), 1);
+    assert!(html.contains(r#"data-index="2" data-active="true""#), "{html}");
+  }
+
+  #[test]
+  fn ssr_a_full_controlled_code_keeps_the_last_slot_active() {
+    fn app() -> Element {
+      rsx! { InputOtp { length: 4, value: "1234", default_value: "1", {slots()} } }
+    }
+    let html = render(app);
+
+    assert!(html.contains(r#"value="1234""#));
+    assert!(html.contains(r#"data-index="3" data-active="true""#), "{html}");
+  }
+
+  #[test]
+  fn a_slot_outside_its_root_renders_nothing() {
+    fn app() -> Element {
+      rsx! {
+        p { "before" }
+        InputOtpSlot { index: 0 }
+        p { "after" }
+      }
+    }
+
+    assert_eq!(render(app), "<p>before</p><p>after</p>");
+  }
   #[test]
   fn root_class_reflects_disabled_state() {
     let actual = input_otp_class(true, "w-full");

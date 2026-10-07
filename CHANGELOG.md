@@ -57,6 +57,12 @@ for commit messages.
   its one pressed item, the empty string while none is, or with
   `ToggleGroupType::Multiple`, `values`, `default_values`, and
   `on_values_change`.
+- Carousel, Command, and Input OTP own their state. `Carousel` takes the
+  slide `count` and `index`, `default_index`, and `on_index_change`, and its
+  Previous, Next, and indicator parts step and disable themselves.
+  `Command` links its input and list and its parts no longer take highlight
+  props. `InputOtp` takes the code `length` and `value`, `default_value`,
+  and `on_value_change`; its slots show the code by `index`.
 
 ### Fixed
 
@@ -151,6 +157,19 @@ for commit messages.
   `default_value` or `value` and `on_value_change` (the `values` props for a
   multiple group). `toggle_group_single_selection` and
   `toggle_group_multiple_selection` are removed.
+- Carousel: give `Carousel` the slide `count` (and `index` with
+  `on_index_change` to control it, or `default_index`), replace `selected`
+  with `index` on items and indicators, and remove `on_key_step`, `index`
+  and `orientation` from `CarouselContent`, `orientation` from items, and
+  `onclick` and the computed `disabled` from the controls and indicators.
+- Command: remove `active_id` from `CommandInput` and `CommandList` and
+  `active` and `selected` from `CommandItem`; `command_item_class` takes
+  only the class. The input and list must be inside `Command`.
+- Input OTP: move `value`, `length`, and `on_value_change` from
+  `InputOtpHiddenInput` to `InputOtp`, drop `disabled` and `invalid` from
+  the input and `value`, `active`, and `invalid` from slots (the root's
+  `disabled` and `invalid` reach them), and render one `InputOtpSlot` per
+  `index` instead of mapping `otp_slots`.
 - Copy mode: re-copy components with `dxui add <name> --overwrite`. `utils`
   now brings two helpers, `class_merge` and `class_merge_table`; the second
   is generated from Tailwind and stores its names reversed so Tailwind

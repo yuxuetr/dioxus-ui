@@ -55,13 +55,13 @@ form control by itself.
 Implemented crate API:
 
 ```rust
-Command { class, children }
-CommandInput { value, active_id, disabled, class }
-CommandList { active_id, class, children }
+Command { on_select, class, children }
+CommandInput { value, placeholder, disabled, oninput, class }
+CommandList { class, children }
 CommandEmpty { class, children }
 CommandGroup { class, children }
 CommandLabel { class, children }
-CommandItem { id, active, selected, disabled, class, children }
+CommandItem { id, value, disabled, class, children }
 CommandSeparator { class }
 CommandShortcut { class, children }
 ```
@@ -71,11 +71,10 @@ Behavior defaults:
 - input uses `role="combobox"`
 - list uses `role="listbox"`
 - item uses `role="option"`
-- active item state maps to `aria-activedescendant` and `data-active`
-- selected item state maps to `aria-selected` and `data-selected`
+- the highlighted item maps to the input's `aria-activedescendant` and the
+  item's `data-highlighted`; `Command` owns it (RFC 0077)
 
-The first implementation exposes pure helpers and styled parts. Filtering,
-keyboard events, and command execution are owned by the consuming app.
+Filtering and command execution are owned by the consuming app.
 
 ## Combobox
 
