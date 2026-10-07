@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 33% (4 of 12 tasks)
+- Overall: 42% (5 of 12 tasks)
 - Current milestone: M217 (1.0 readiness)
-- Current task: M217.2 (M216 waits for the Stage 14 gate)
+- Current task: M217.3 (M216 waits for the Stage 14 gate)
 
 ## Backup
 
@@ -74,9 +74,10 @@
   - When the workspace version is a pre-release of the same major as the baseline tag, or the baseline is a pre-release and the version is its release (`1.0.0-rc.N` to `rc.N+1` or to `1.0.0`), run cargo-semver-checks with `--release-type minor`; other bumps keep the derived type.
   - Exit: in a scratch worktree tagged `v1.0.0-rc.1`, removing a public item and bumping to `1.0.0-rc.2` fails the gate and an added item passes; `0.6.0` to `0.7.0` still checks as a minor bump before 1.0 (breaking allowed).
   - Done (014320c): `semver-verify.mjs` reads the `[workspace.package]` version and passes `--release-type minor` when the major is at least 1, equals the tag's, and either side is a pre-release. In a local clone tagged `v1.0.0-rc.1`: removing a public function at `rc.2` fails ("1.0.0-rc.2 must not break the API of v1.0.0-rc.1"), adding one passes, and removing one at `1.0.0` fails; from `v0.6.0`, a new public field passes at `0.7.0` and at `1.0.0-rc.1` and fails without a bump. A deliberate break between `rc`s needs `SEMVER_RC_BREAK=1` (the Scope Rules' restart), which lets it through. The main tree still passes against `v0.6.0`.
-- TODO M217.2 State the 1.x promise and the Rust floor
+- DONE M217.2 State the 1.x promise and the Rust floor
   - A "Compatibility" section (README and `docs/release.md`) says what 1.x keeps: the public API of the three library crates, the templates through parity, the `dxui` commands and flags, and how a new Dioxus line or Rust floor is released. `rust-version` is set to the lowest Rust that builds the published crates, and CI checks them with that toolchain.
   - Exit: `cargo +<floor> check` of the four published crates passes in CI, and one Rust below fails locally (reverse-verify); the docs checks pass.
+  - Done (025ea13, a31c17d): the floor is 1.88, not 1.85: Dioxus 0.7.10's `const-serialize-macro` uses let chains, so 1.87 fails with E0658 inside it, and 1.88 builds all four crates with the locked dependencies. `rust-version = "1.88"` is in `[workspace.package]`, each published crate inherits it (the publish metadata check requires that), and CI's "Check the published crates on the Rust floor" step reads it from `cargo metadata` and passes. On 1.87 cargo now stops with "requires rustc 1.88". Clippy's `incompatible_msrv` then flagged `floor_char_boundary` (1.91) in the parity test, fixed in a31c17d. `docs/release.md` and the README have a Compatibility section: the three crate APIs, templates through parity, the `dxui` commands; a new Dioxus line is a new major version, and a minor release may raise the Rust floor.
 - TODO M217.3 Feedback intake
   - GitHub issue forms for a bug and for `rc` feedback (crate version, crate or copy mode, platform, Dioxus version, what was built), an `rc-feedback` label, and a triage rule in `docs/release.md`: fix in the next `rc`, or defer with a reason in Deferred.
   - Exit: a test issue filed through the form gets the label and is closed with the triage note, and the M219 gate command counts it only when it is not the owner's.
