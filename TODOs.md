@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 64% (16 of 25 tasks)
+- Overall: 68% (17 of 25 tasks)
 - Current milestone: M221 (0.6.2, hardening)
-- Current task: M221.5; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
+- Current task: M221.6; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -109,9 +109,10 @@
   - Every write and directory creation refuses a symlink on the path under `--root` (FB-11); `@source` is written relative to the stylesheet when the crate is under the app's directory or Cargo home is shared, with the absolute path kept and a note otherwise (FB-01).
   - Exit: CLI tests: a symlinked `src/components` fails with the path named and writes nothing; `@source` in a fixture is relative and Tailwind still finds the crate's classes (`verify:css-inputs`).
   - Done (6a7e3ea): `app_path` joins a relative target onto `--root` and refuses it when a part below the root is a symbolic link; `init`, `add` (every target checked before the first write), the `mod.rs` updates, and `theme add` write only through it. CLI tests: a symlinked `src/components` fails naming `components` with the outside directory still empty and no `assets/` written; a symlinked `button.rs` under `--overwrite` fails naming it with the outside file unchanged and no `utils.rs` written; with the check disabled both fail. `@source`: a registry crate is in a different place on every machine, so no path to it carries over and the line stays absolute, with the crate README telling Docker and CI builds to run `dxui init` as a build step; a crate inside the app (vendored or a path dependency) is written relative to the stylesheet. In a scratch app that `cargo vendor`ed `dioxus-shadcn` 0.6.1, `dxui init` run from the app wrote `@source "../vendor/dioxus-shadcn/src";`, Tailwind found `data-[state=indeterminate]:border-primary` with it and not without it, and found it again after the app was copied elsewhere. (`dxui` must run from the app's directory for Cargo to read the app's `.cargo/config.toml`.) This workspace's own crate now gets `../crates/dioxus-shadcn/src`. `verify:css-inputs`, the CLI tests, Clippy, and the fixture smoke pass.
-- TODO M221.5 Table border color
+- DONE M221.5 Table border color
   - Table row, header, and footer borders use `border-border` (FB-15), crate and template.
   - Exit: a rendered DOM check reads the row border color as the `--border` token in both themes.
+  - Done (61f5bab): Table rows and footer, and Data Table rows (the same missing color), add `border-border`, in the crate and the templates. The preview had no rendered Table (its catalog entry is a label), so a "table-borders" fixture with header, body, and footer rows joins the interaction panel (54 fixtures), and the interaction check compares each rule line with a `border border-border` probe in the light and dark themes: before the change it failed with `oklch(0.141 0.005 285.823)` (the text color) instead of `oklch(0.92 0.004 286.32)`. `verify:browser-local`, `verify:csp`, the parity test, the stylesheet and class checks, and the docs checks pass.
 - TODO M221.6 Security notes
   - A Security section in the README and `docs/component-api.md`: the URL schemes components keep, that children and rich content are not sanitized, the CSP the components need (RFC 0080), the theme storage key rule, and Button's native `submit` type in a form (FB-09, FB-10).
   - Exit: the docs checks pass.
