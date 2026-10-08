@@ -2462,6 +2462,31 @@ async function runBrowserAssertions() {
     await expect(sonnerToast).toHaveCount(0);
     await expect(sonner).toHaveAttribute("data-reason", "close");
 
+    // Table rule lines are drawn in the border token, not the text color.
+    const tableBorders = page.locator('[data-interaction-target="table-borders"]');
+    for (const dark of [false, true]) {
+      await setDarkTheme(page, dark);
+      const colors = await tableBorders.evaluate((fixture) => {
+        const probe = document.createElement("div");
+        probe.className = "border border-border";
+        fixture.append(probe);
+        const token = getComputedStyle(probe).borderTopColor;
+        probe.remove();
+        const lines = [
+          ...[...fixture.querySelectorAll("thead tr, tbody tr:not(:last-child)")].map(
+            (row) => getComputedStyle(row).borderBottomColor,
+          ),
+          getComputedStyle(fixture.querySelector("tfoot")).borderTopColor,
+        ];
+        return { token, lines };
+      });
+      const off = colors.lines.filter((color) => color !== colors.token);
+      if (off.length > 0) {
+        throw new Error(`table borders (${dark ? "dark" : "light"}): ${off.join(", ")} instead of ${colors.token}`);
+      }
+    }
+    await setDarkTheme(page, false);
+
     // Escape in a Popover inside a Dialog closes the Popover; the next one
     // closes the Dialog.
     const layers = page.locator('[data-interaction-target="nested-layers"]');
@@ -2638,7 +2663,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log(`runtime interaction verification passed (53 fixtures${strictCsp ? ", strict CSP" : ""})`);
+  console.log(`runtime interaction verification passed (54 fixtures${strictCsp ? ", strict CSP" : ""})`);
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

@@ -38,14 +38,14 @@ use dioxus_shadcn::{
   ButtonSize, ButtonVariant, ChartColorToken, ChartDomain, ChartPoint, ChartScale, ChartSeries,
   Dialog, DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogTitle, DialogTrigger,
   DismissBehavior, MarkerVariant, MessageAlign, MessageScrollerIntent, MessageScrollerMetrics,
-  Popover, PopoverContent, PopoverDescription, PopoverTitle, PopoverTrigger, TextDirection,
-  Tooltip, TooltipContent, TooltipTrigger, UiDensity, attachment_class, bubble_class, button_class,
-  button_group_class, chart_fallback_rows, chart_view_box, collapsible_class,
-  density_control_class, direction_class, input_group_class, input_otp_class, marker_class,
-  message_avatar_class, message_class, message_content_class, message_footer_class,
-  message_group_class, message_header_class, message_scroller_class, message_scroller_is_at_bottom,
-  message_scroller_jump_button_class, message_scroller_show_unread_marker,
-  otp_apply_paste_filtered, otp_slots, use_density,
+  Popover, PopoverContent, PopoverDescription, PopoverTitle, PopoverTrigger, Table, TableBody,
+  TableCell, TableFooter, TableHead, TableHeader, TableRow, TextDirection, Tooltip, TooltipContent,
+  TooltipTrigger, UiDensity, attachment_class, bubble_class, button_class, button_group_class,
+  chart_fallback_rows, chart_view_box, collapsible_class, density_control_class, direction_class,
+  input_group_class, input_otp_class, marker_class, message_avatar_class, message_class,
+  message_content_class, message_footer_class, message_group_class, message_header_class,
+  message_scroller_class, message_scroller_is_at_bottom, message_scroller_jump_button_class,
+  message_scroller_show_unread_marker, otp_apply_paste_filtered, otp_slots, use_density,
 };
 use dioxus_shadcn::{
   AttachmentAction, AttachmentTrigger, ButtonGroup, ButtonGroupItem, ComboboxTrigger, Field,
@@ -2738,6 +2738,20 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 }
                 DialogClose { "Cancel" }
               }
+            }
+          }
+          // Table rule lines take the border token in both themes.
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "table-borders",
+            h2 { class: "text-sm font-medium", "Table border interaction" }
+            Table {
+              TableHeader { TableRow { TableHead { "Plan" } TableHead { "Seats" } } }
+              TableBody {
+                TableRow { TableCell { "Team" } TableCell { "5" } }
+                TableRow { TableCell { "Business" } TableCell { "20" } }
+              }
+              TableFooter { TableRow { TableCell { "Total" } TableCell { "25" } } }
             }
           }
           // One Escape closes only the overlay opened last.

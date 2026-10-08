@@ -153,7 +153,7 @@ const DATA_TABLE_TOOLBAR_BASE_CLASS: &str =
 const DATA_TABLE_CONTAINER_BASE_CLASS: &str =
   "relative w-full overflow-auto rounded-md border border-border";
 const DATA_TABLE_HEADER_CELL_BASE_CLASS: &str = "h-12 px-4 text-left align-middle text-sm font-medium data-[sort=ascending]:text-foreground data-[sort=descending]:text-foreground";
-const DATA_TABLE_ROW_BASE_CLASS: &str = "border-b transition-colors hover:bg-muted data-[selected=true]:bg-muted data-[disabled=true]:opacity-50";
+const DATA_TABLE_ROW_BASE_CLASS: &str = "border-b border-border transition-colors hover:bg-muted data-[selected=true]:bg-muted data-[disabled=true]:opacity-50";
 const DATA_TABLE_CELL_BASE_CLASS: &str = "p-4 align-middle text-sm";
 const DATA_TABLE_PAGINATION_BASE_CLASS: &str =
   "flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between";

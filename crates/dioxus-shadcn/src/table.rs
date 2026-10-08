@@ -7,8 +7,9 @@ const TABLE_CONTAINER_BASE_CLASS: &str = "relative w-full overflow-auto";
 const TABLE_BASE_CLASS: &str = "w-full caption-bottom text-sm";
 const TABLE_HEADER_BASE_CLASS: &str = "[&_tr]:border-b";
 const TABLE_BODY_BASE_CLASS: &str = "[&_tr:last-child]:border-0";
-const TABLE_FOOTER_BASE_CLASS: &str = "border-t bg-muted font-medium [&>tr]:last:border-b-0";
-const TABLE_ROW_BASE_CLASS: &str = "border-b transition-colors hover:bg-muted";
+const TABLE_FOOTER_BASE_CLASS: &str =
+  "border-t border-border bg-muted font-medium [&>tr]:last:border-b-0";
+const TABLE_ROW_BASE_CLASS: &str = "border-b border-border transition-colors hover:bg-muted";
 const TABLE_HEAD_BASE_CLASS: &str =
   "h-12 px-4 text-left align-middle font-medium text-muted-foreground";
 const TABLE_CELL_BASE_CLASS: &str = "p-4 align-middle";

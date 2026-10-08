@@ -37,7 +37,7 @@ Source preview routes: 82
 | [Command](command.md) | /components/command/source | crates/dioxus-shadcn-cli/templates/command.rs | src/components/ui/command.rs | rust | 273 | 8141 |
 | [Context Menu](context-menu.md) | /components/context-menu/source | crates/dioxus-shadcn-cli/templates/context_menu.rs | src/components/ui/context_menu.rs | rust | 436 | 13645 |
 | [Countdown](countdown.md) | /components/countdown/source | crates/dioxus-shadcn-cli/templates/countdown.rs | src/components/ui/countdown.rs | rust | 76 | 2519 |
-| [Data Table](data-table.md) | /components/data-table/source | crates/dioxus-shadcn-cli/templates/data_table.rs | src/components/ui/data_table.rs | rust | 357 | 10350 |
+| [Data Table](data-table.md) | /components/data-table/source | crates/dioxus-shadcn-cli/templates/data_table.rs | src/components/ui/data_table.rs | rust | 357 | 10364 |
 | [Date Picker](date-picker.md) | /components/date-picker/source | crates/dioxus-shadcn-cli/templates/date_picker.rs | src/components/ui/date_picker.rs | rust | 338 | 12546 |
 | [Dialog](dialog.md) | /components/dialog/source | crates/dioxus-shadcn-cli/templates/dialog.rs | src/components/ui/dialog.rs | rust | 194 | 6409 |
 | [Diff](diff.md) | /components/diff/source | crates/dioxus-shadcn-cli/templates/diff.rs | src/components/ui/diff.rs | rust | 101 | 3983 |
@@ -87,7 +87,7 @@ Source preview routes: 82
 | [Steps](steps.md) | /components/steps/source | crates/dioxus-shadcn-cli/templates/steps.rs | src/components/ui/steps.rs | rust | 152 | 5928 |
 | [Swap](swap.md) | /components/swap/source | crates/dioxus-shadcn-cli/templates/swap.rs | src/components/ui/swap.rs | rust | 88 | 3128 |
 | [Switch](switch.md) | /components/switch/source | crates/dioxus-shadcn-cli/templates/switch.rs | src/components/ui/switch.rs | rust | 67 | 2525 |
-| [Table](table.md) | /components/table/source | crates/dioxus-shadcn-cli/templates/table.rs | src/components/ui/table.rs | rust | 152 | 3586 |
+| [Table](table.md) | /components/table/source | crates/dioxus-shadcn-cli/templates/table.rs | src/components/ui/table.rs | rust | 152 | 3614 |
 | [Tabs](tabs.md) | /components/tabs/source | crates/dioxus-shadcn-cli/templates/tabs.rs | src/components/ui/tabs.rs | rust | 203 | 6959 |
 | [Tags Input](tags-input.md) | /components/tags-input/source | crates/dioxus-shadcn-cli/templates/tags_input.rs | src/components/ui/tags_input.rs | rust | 141 | 5351 |
 | [Textarea](textarea.md) | /components/textarea/source | crates/dioxus-shadcn-cli/templates/textarea.rs | src/components/ui/textarea.rs | rust | 51 | 1911 |

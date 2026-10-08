@@ -28,6 +28,9 @@ for commit messages.
   `layer.rs` helper.
 - The Sidebar shortcut (Ctrl or Command and B) is left to inputs, text areas,
   selects, and editable content, where it means bold in an editor.
+- Table and Data Table rule lines use the border token (`border-border`);
+  they were drawn in the text color, since Tailwind 4 borders default to
+  `currentColor`.
 - `dxui` refuses to write through a symbolic link under the app's root,
   such as a linked `src/components`, and writes nothing in that run.
 - `dxui init` writes the `@source` line relative to the stylesheet when the
