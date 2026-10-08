@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 32% (8 of 25 tasks)
+- Overall: 36% (9 of 25 tasks)
 - Current milestone: M220 (0.6.1, page scripts without eval)
-- Current task: M220.3; M221 follows `v0.6.1`; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
+- Current task: M220.4; M221 follows `v0.6.1`; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -75,9 +75,10 @@
   - `component_script!` and `Script` (RFC 0080) in `dioxus-shadcn`, with `serde` and, on `wasm32`, `serde_json` and `wasm-bindgen`; the `script.rs` template and `script` helper entry; `dxui add` names the crates the app's `Cargo.toml` lacks when it writes the helper; the generated fixture declares them.
   - Exit: unit tests for the eval source and the export check; in a browser test page a script receives what Rust sends, its messages arrive in order, and `recv` returns `Finished` when it ends; the parity test and the generated fixture smoke pass.
   - Done (6876e90): `script.rs` in the crate and as a template, `helpers/script.json`, and `serde` plus `wasm32` `serde_json` and `wasm-bindgen` in `dioxus-shadcn`. The helper had no user without a component, so Checkbox's script moved onto it here (out of M220.4); its browser check is the "receives what Rust sends" page: with `send` made a no-op the `indeterminate` check fails, restored it passes. Ordered messages and `Finished` were shown in the RFC probe and come with M220.3's scripts that send. Each macro module carries a `source_exports_run` test, and `eval_source` has a unit test. The parity test keys a macro invocation by macro and first token (`component_script!(checkbox_indeterminate_script)`), and changing the template's script alone fails it; its class lint now ignores an indented `#[cfg(test)]`. `dxui add` reads the app's dependencies with `cargo metadata --no-deps` (canonical paths, since macOS names `/var` through a symlink) and prints the missing lines; the fixture smoke declares them, checks that nothing is named, checks that an app without a manifest is told `wasm-bindgen = "0.2"`, and runs `cargo check --target wasm32-unknown-unknown` on the fixture. `verify:browser-local`, the Desktop interaction self-test, Clippy, `cargo deny`, the feature check, and the docs checks pass.
-- TODO M220.3 Overlay, focus, and roving scripts on `Script`
+- DONE M220.3 Overlay, focus, and roving scripts on `Script`
   - Modal Focus, Anchored Overlay, Listbox, Hover Open, Dismiss Timer, and Roving Group, in the crate and the templates, with their entries listing `script`. These carry Dialog, Sheet, Drawer, Alert Dialog, Popover, Dropdown, Select, Tooltip, Command, Combobox, Hover Card, Toast, Tabs, Toggle Group, and Accordion.
   - Exit: `verify:csp` passes the checks of those components; `verify:browser-local`, the Desktop interaction self-test, and the fullstack hydration check pass.
+  - Done (4872447): the six scripts became `component_script!` modules (body wrapped in `export async function run(dioxus)`, call sites start the module and send as before); Modal Focus receives `[scopeId, locksScroll]` instead of `__SCOPE_ID__` and `__LOCK_SCROLL__`, so its string-building helper and its test went away. The six helper entries list `script`, `mod script` is built for every feature that uses one, and the old raw-string comparison in the registry test lost the six entries the parity test now covers. `verify:browser-local` (52 interaction fixtures, which run these scripts as snippets), the Desktop interaction self-test (the eval transport: dialog, popover, select, dropdown, toast, date picker, menubar, navigation menu), the fullstack hydration check (Tabs and Select after hydration), Clippy on both targets, and the workspace tests pass. `verify:csp` cannot yet show these components: a script still on eval runs at mount, its refusal panics the wasm module (`unreachable`), and the page stops before the first fixture; it is measured with M220.4.
 - TODO M220.4 The other scripts on `Script`
   - Checkbox, Input OTP, Media Query, Menubar, Navigation Menu, Resizable, Sidebar, Slider, and Theme Controller; no `document::eval` is left in the crate or the templates. `verify:csp` joins `verify:release` and CI.
   - Exit: `verify:csp` passes; a `document::eval` put back into one component fails it (reverse-verify); `grep -rn 'document::eval' crates/dioxus-shadcn/src crates/dioxus-shadcn-cli/templates` prints nothing; the Desktop self-test and the browser checks pass.
