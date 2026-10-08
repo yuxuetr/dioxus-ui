@@ -8,6 +8,13 @@ for commit messages.
 
 ## [Unreleased]
 
+## [0.6.2] - 2026-10-08
+
+Version 0.6.2 hardens the components against values from app data, from an
+audit by an app migrating to the crate. The API does not change; copied
+components that take link URLs or stack overlays bring two new helpers,
+`safe_url.rs` and `layer.rs`.
+
 ### Added
 - A Security section in the README and Security Rules in
   `docs/component-api.md`: what the components escape and check, and what
