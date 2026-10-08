@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 60% (15 of 25 tasks)
+- Overall: 64% (16 of 25 tasks)
 - Current milestone: M221 (0.6.2, hardening)
-- Current task: M221.4; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
+- Current task: M221.5; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -105,9 +105,10 @@
   - The anchored overlay and Navigation Menu scripts skip an Escape whose `defaultPrevented` is set and prevent the one they act on; Dialog, Sheet, Drawer, and Alert Dialog skip a prevented Escape (FB-07). The Sidebar shortcut ignores inputs, `select`, and editable content (FB-08).
   - Exit: browser checks: Escape in a Popover inside a Dialog closes only the Popover, a second Escape closes the Dialog; Ctrl+B in a text input leaves the Sidebar as it was. Both fail before the change.
   - Done (ec8784f): the `defaultPrevented` route does not work: Dioxus handles `onkeydown` at its root element, before the scripts' `document` listeners run, so the Dialog closes before a popover could mark the event. Instead a `layer` helper (crate and template) keeps the open overlays of a virtual DOM in opening order; Dialog, Sheet, Drawer, and Alert Dialog close on Escape only when they are the last opened (`Layer::is_top`), and anchored overlays register so a dialog under them waits. Anchored overlays themselves keep their Escape: with the check applied to them too, the dropdown check "Escape with a hovered submenu closes the whole menu" failed, and menus already share Escape through their scripts. Navigation Menu was left out: its script reports every close the same way, and it is not modal. The Sidebar shortcut skips a prevented event and targets inside `input`, `textarea`, `select`, or editable content. A nested-layers fixture (Dialog with a Popover) joins the preview (53 fixtures). With `is_top` always true the first Escape closes the Dialog too, and without the editing check Ctrl+B in "Contact email" collapses the Sidebar; both checks fail that way and pass with the change. The workspace tests, the feature check, the fixture smoke, `verify:browser-local`, the Desktop self-test, and `verify:csp` pass.
-- TODO M221.4 `dxui` writes stay in the app
+- DONE M221.4 `dxui` writes stay in the app
   - Every write and directory creation refuses a symlink on the path under `--root` (FB-11); `@source` is written relative to the stylesheet when the crate is under the app's directory or Cargo home is shared, with the absolute path kept and a note otherwise (FB-01).
   - Exit: CLI tests: a symlinked `src/components` fails with the path named and writes nothing; `@source` in a fixture is relative and Tailwind still finds the crate's classes (`verify:css-inputs`).
+  - Done (6a7e3ea): `app_path` joins a relative target onto `--root` and refuses it when a part below the root is a symbolic link; `init`, `add` (every target checked before the first write), the `mod.rs` updates, and `theme add` write only through it. CLI tests: a symlinked `src/components` fails naming `components` with the outside directory still empty and no `assets/` written; a symlinked `button.rs` under `--overwrite` fails naming it with the outside file unchanged and no `utils.rs` written; with the check disabled both fail. `@source`: a registry crate is in a different place on every machine, so no path to it carries over and the line stays absolute, with the crate README telling Docker and CI builds to run `dxui init` as a build step; a crate inside the app (vendored or a path dependency) is written relative to the stylesheet. In a scratch app that `cargo vendor`ed `dioxus-shadcn` 0.6.1, `dxui init` run from the app wrote `@source "../vendor/dioxus-shadcn/src";`, Tailwind found `data-[state=indeterminate]:border-primary` with it and not without it, and found it again after the app was copied elsewhere. (`dxui` must run from the app's directory for Cargo to read the app's `.cargo/config.toml`.) This workspace's own crate now gets `../crates/dioxus-shadcn/src`. `verify:css-inputs`, the CLI tests, Clippy, and the fixture smoke pass.
 - TODO M221.5 Table border color
   - Table row, header, and footer borders use `border-border` (FB-15), crate and template.
   - Exit: a rendered DOM check reads the row border color as the `--border` token in both themes.
