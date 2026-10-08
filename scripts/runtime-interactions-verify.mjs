@@ -2003,6 +2003,12 @@ async function runBrowserAssertions() {
     // Back to the system scheme for the checks that follow.
     await themeButton("System").click();
     await expect(htmlRoot).not.toHaveClass(/\bdark\b/);
+    // A stored value that is not a theme name is neither applied nor reported.
+    await themeButton("Unmount controller").click();
+    await page.evaluate(() => window.localStorage.setItem("dxui-preview-theme", 'x"><script>'));
+    await themeButton("Mount controller").click();
+    await expect(themeFixture).toHaveAttribute("data-theme-choice", "system");
+    await expect(htmlRoot).not.toHaveAttribute("data-theme");
     await page.evaluate(() => window.localStorage.removeItem("dxui-preview-theme"));
 
     const range = page.locator('[data-interaction-target="range-slider"]');

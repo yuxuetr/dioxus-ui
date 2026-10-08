@@ -82,8 +82,10 @@ export async function run(dioxus) {
       if (storageKey) window.localStorage.setItem(storageKey, theme);
     } catch {}
   };
+  // Only a theme name is applied; anything else in storage, which any
+  // script on the origin can write, is ignored.
   const stored = read();
-  if (stored !== null && stored !== theme) {
+  if (stored !== null && /^[A-Za-z0-9_-]{1,64}$/.test(stored) && stored !== theme) {
     theme = stored;
     dioxus.send(stored);
   }
@@ -114,11 +116,30 @@ export async function run(dioxus) {
 
 /// A script for the page's `<head>` that applies the stored theme before the
 /// app renders, so a dark or preset theme does not flash light first. Use
-/// the `storage_key` the `ThemeController` uses.
+/// the `storage_key` the `ThemeController` uses. A stored value that is not
+/// a theme name is ignored, as the controller ignores it.
 pub fn theme_init_script(storage_key: &str) -> String {
+  let storage_key = js_string(storage_key);
   format!(
-    r#"(() => {{ try {{ const t = localStorage.getItem({storage_key:?}) || "system"; const r = document.documentElement; const p = !["system", "light", "dark"].includes(t); if (p) r.dataset.theme = t; r.classList.toggle("dark", !p && (t === "dark" || (t === "system" && matchMedia("(prefers-color-scheme: dark)").matches))); }} catch {{}} }})();"#
+    r#"(() => {{ try {{ const s = localStorage.getItem({storage_key}); const t = s && /^[A-Za-z0-9_-]{{1,64}}$/.test(s) ? s : "system"; const r = document.documentElement; const p = !["system", "light", "dark"].includes(t); if (p) r.dataset.theme = t; r.classList.toggle("dark", !p && (t === "dark" || (t === "system" && matchMedia("(prefers-color-scheme: dark)").matches))); }} catch {{}} }})();"#
   )
+}
+
+/// `text` as a JavaScript string literal that is safe inside an inline
+/// `<script>`: every character but ASCII letters, digits, `-`, and `_` is a
+/// `\u` escape, so no quote, `</script>`, or line separator gets through.
+fn js_string(text: &str) -> String {
+  let mut literal = String::from("\"");
+  for unit in text.encode_utf16() {
+    match char::from_u32(u32::from(unit)) {
+      Some(character) if character.is_ascii_alphanumeric() || matches!(character, '-' | '_') => {
+        literal.push(character);
+      }
+      _ => literal.push_str(&format!("\\u{unit:04x}")),
+    }
+  }
+  literal.push('"');
+  literal
 }
 
 /// Applies `theme` to the document root and keeps it there: `data-theme`
@@ -177,6 +198,21 @@ mod tests {
       assert_eq!(Theme::parse(theme.as_str()), theme);
     }
     assert_eq!(Theme::parse(""), Theme::System);
+  }
+
+  #[test]
+  fn init_script_escapes_the_key() {
+    let script = theme_init_script("</script><script>alert(\"x\")//\u{2028}");
+
+    assert!(!script.contains('<') && !script.contains('\u{2028}'), "{script}");
+    assert!(script.contains(r#"localStorage.getItem("\u003c\u002fscript\u003e"#), "{script}");
+  }
+
+  #[test]
+  fn init_script_ignores_a_stored_value_that_is_not_a_theme_name() {
+    assert!(
+      theme_init_script("app-theme").contains(r#"/^[A-Za-z0-9_-]{1,64}$/.test(s) ? s : "system""#)
+    );
   }
 
   #[test]

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <!-- theme_init_script(THEME_STORAGE_KEY) (RFC 0071): applies the stored theme before the app loads. -->
-    <script>(() => { try { const t = localStorage.getItem("dxui-theme") || "system"; const r = document.documentElement; const p = !["system", "light", "dark"].includes(t); if (p) r.dataset.theme = t; r.classList.toggle("dark", !p && (t === "dark" || (t === "system" && matchMedia("(prefers-color-scheme: dark)").matches))); } catch {} })();</script>
+    <script>(() => { try { const s = localStorage.getItem("dxui-theme"); const t = s && /^[A-Za-z0-9_-]{1,64}$/.test(s) ? s : "system"; const r = document.documentElement; const p = !["system", "light", "dark"].includes(t); if (p) r.dataset.theme = t; r.classList.toggle("dark", !p && (t === "dark" || (t === "system" && matchMedia("(prefers-color-scheme: dark)").matches))); } catch {} })();</script>
   </head>
   <body>
     <div id="main"></div>

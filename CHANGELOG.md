@@ -17,6 +17,11 @@ for commit messages.
   `safe_url.rs` helper.
 - A disabled `NavigationMenuLink` drops its `href`, as disabled Menu,
   Pagination, and Sidebar links already did.
+- `ThemeController` and `theme_init_script` apply a stored theme only when
+  it is a theme name (letters, digits, `-`, and `_`); any other stored value
+  is ignored and the theme stays as the app set it. `theme_init_script`
+  writes its storage key as an escaped JavaScript string, so no key can end
+  the inline script.
 
 ## [0.6.1] - 2026-10-08
 
