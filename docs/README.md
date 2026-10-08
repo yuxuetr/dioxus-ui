@@ -118,6 +118,7 @@ Read in this order:
 111. [RFC 0077: Component-Owned State](rfcs/0077-component-owned-state.md)
 112. [RFC 0078: Touch Density](rfcs/0078-touch-density.md)
 113. [RFC 0079: Public Surface](rfcs/0079-public-surface.md)
+114. [RFC 0080: Page Scripts Without Eval](rfcs/0080-page-scripts-without-eval.md)
 112. [TODO Plan](../TODOs.md)
 
 ## Project Principles
