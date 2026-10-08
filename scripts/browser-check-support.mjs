@@ -1,10 +1,11 @@
 // Shared pieces of the browser checks: serving a Dioxus Web package with
 // `dx serve`, launching Chromium, and measuring text contrast.
 import { createHash } from "node:crypto";
-import { request } from "node:http";
+import { createServer, request } from "node:http";
 import { once } from "node:events";
 import { spawn, spawnSync } from "node:child_process";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
+import { extname, join, normalize } from "node:path";
 import { createRequire } from "node:module";
 import { chromium } from "@playwright/test";
 
@@ -263,62 +264,86 @@ export async function accessibilityViolations(page, { disabledRules = [] } = {})
 }
 
 // The policy RFC 0080 holds the components to: scripts from the page's
-// origin and WebAssembly, never a string evaluated as code.
-const strictPolicy = (scriptHashes) =>
-  [
+// origin and WebAssembly, never a string evaluated as code. The page's own
+// inline scripts are allowed by hash, as a deployment would allow its own.
+function strictPolicy(html) {
+  const scriptHashes = [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)].map(
+    ([, source]) => `'sha256-${createHash("sha256").update(source).digest("base64")}'`,
+  );
+  return [
     "default-src 'self'",
-    `script-src 'self' 'wasm-unsafe-eval' ${scriptHashes.join(" ")}`.trim(),
+    ["script-src 'self' 'wasm-unsafe-eval'", ...scriptHashes].join(" "),
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data:",
     "font-src 'self' data:",
   ].join("; ");
+}
 
-// Serves every page the browser loads with the strict policy and records
-// what it refuses. The page's own inline scripts, such as the one `dx serve`
-// adds, are allowed by hash, as a deployment would allow its own; a script
-// a component evaluates is not. `violations()` lists what was refused.
-export async function enforceStrictCsp(page) {
+const contentTypes = {
+  ".css": "text/css",
+  ".html": "text/html",
+  ".js": "text/javascript",
+  ".json": "application/json",
+  ".png": "image/png",
+  ".svg": "image/svg+xml",
+  ".wasm": "application/wasm",
+  ".woff2": "font/woff2",
+};
+
+// Builds one Dioxus Web package with `dx build` and serves the output from
+// a static server that sends every page with the strict policy. Unlike
+// `dx serve`, which in the release gate held the page request (RFC 0080
+// check, 2026-10-08), the static server answers at once.
+export function serveDioxusWebWithStrictCsp({ packageName, bin, port }) {
+  const url = `http://${host}:${port}`;
+  let server = null;
+  return {
+    url,
+    async ready() {
+      if (await answers(url)) {
+        throw new Error(`${url} already answers before the server started; stop the process listening on port ${port}.`);
+      }
+      const args = ["build", "--web", "--package", packageName, ...(bin ? ["--bin", bin] : [])];
+      const build = spawnSync("dx", args, { cwd: repoRoot, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
+      const output = `${build.stdout ?? ""}${build.stderr ?? ""}`;
+      // dx ends a build with `path="<public dir>"`; its log has color codes.
+      const root = [...output.replace(/\x1b\[[0-9;]*m/g, "").matchAll(/path="([^"]+)"/g)].at(-1)?.[1];
+      if (build.status !== 0 || !root || !existsSync(join(root, "index.html"))) {
+        throw new Error(`dx build could not build ${packageName}.\n${output}`);
+      }
+      server = createServer((request, response) => {
+        const requested = join(root, normalize(decodeURIComponent(request.url.split("?")[0])));
+        const file = requested.startsWith(root) && existsSync(requested) && statSync(requested).isFile()
+          ? requested
+          : join(root, "index.html");
+        const body = readFileSync(file);
+        const headers = { "content-type": contentTypes[extname(file)] ?? "application/octet-stream" };
+        if (file.endsWith(".html")) {
+          headers["content-security-policy"] = strictPolicy(body.toString("utf8"));
+        }
+        response.writeHead(200, headers);
+        response.end(body);
+      });
+      server.listen(port, host);
+      await once(server, "listening");
+    },
+    async stop() {
+      if (server) {
+        await new Promise((resolve) => server.close(resolve));
+      }
+    },
+  };
+}
+
+// Records what the browser refuses under a Content Security Policy, and
+// page errors; `violations()` lists both.
+export async function watchCspViolations(page) {
   const pageErrors = [];
   page.on("pageerror", (error) => pageErrors.push(error.message.split("\n")[0]));
   await page.addInitScript(() => {
     window.__cspViolations = [];
     document.addEventListener("securitypolicyviolation", (event) => {
       window.__cspViolations.push(`${event.violatedDirective} refused ${event.blockedURI || "inline"} (${event.sourceFile || "page"}:${event.lineNumber})`);
-    });
-  });
-  await page.route("**/*", async (route) => {
-    if (route.request().resourceType() !== "document") {
-      await route.fallback();
-      return;
-    }
-    // `dx serve` 0.7.9 holds the first `Accept: text/html` request after a
-    // build open (no answer in 90 s, measured) and answers the next one at
-    // once, so a fetch gets a short limit and another try. A failure here
-    // fails the page load rather than escaping as an unhandled rejection,
-    // which would end the run before `dx serve` is stopped.
-    let response;
-    let body;
-    let failure;
-    for (let attempt = 0; attempt < 3 && body === undefined; attempt += 1) {
-      try {
-        response = await route.fetch({ timeout: 5000 });
-        body = await response.text();
-      } catch (error) {
-        failure = error;
-      }
-    }
-    if (body === undefined) {
-      pageErrors.push(`could not serve ${route.request().url()} with the policy: ${failure?.message.split("\n")[0]}`);
-      await route.abort().catch(() => {});
-      return;
-    }
-    const scriptHashes = [...body.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)].map(
-      ([, source]) => `'sha256-${createHash("sha256").update(source).digest("base64")}'`,
-    );
-    await route.fulfill({
-      response,
-      body,
-      headers: { ...response.headers(), "content-security-policy": strictPolicy(scriptHashes) },
     });
   });
   return {

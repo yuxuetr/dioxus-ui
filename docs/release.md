@@ -459,8 +459,8 @@ version in `Cargo.lock` and the `wasm32-unknown-unknown` target; CI installs
 both in the release gate job.
 
 `npm run verify:csp` is in the release gate. It runs the runtime
-interaction checks with the Web preview served under `script-src 'self'
-'wasm-unsafe-eval'` and fails on any script the browser refuses (RFC 0080),
+interaction checks on a `dx build` of the Web preview served under
+`script-src 'self' 'wasm-unsafe-eval'` and fails on any script the browser refuses (RFC 0080),
 so a component that evaluates a string as JavaScript fails the release. It
 needs `dx` and Playwright Chromium, which CI installs in the release gate job.
 

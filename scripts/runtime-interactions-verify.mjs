@@ -3,18 +3,23 @@ import { expect } from "@playwright/test";
 import { compilePreviewCss, utilityConflicts } from "./preview-tailwind.mjs";
 import {
   accessibilityViolations,
-  enforceStrictCsp,
   launchBrowser,
   lowContrastText,
   serveDioxusWeb,
+  serveDioxusWebWithStrictCsp,
   setDarkTheme,
+  watchCspViolations,
 } from "./browser-check-support.mjs";
 
 const viewport = { width: 1280, height: 900 };
 // `--csp` runs the same checks under the strict Content Security Policy
 // (RFC 0080) and fails on anything the browser refuses.
 const strictCsp = process.argv.includes("--csp");
-const server = serveDioxusWeb({ packageName: "dioxus-ui-web-demo", bin: "preview", port: 45239 });
+const server = (strictCsp ? serveDioxusWebWithStrictCsp : serveDioxusWeb)({
+  packageName: "dioxus-ui-web-demo",
+  bin: "preview",
+  port: 45239,
+});
 const previewUrl = server.url;
 
 async function expectFocused(page, selector, label) {
@@ -182,7 +187,7 @@ async function runBrowserAssertions() {
   try {
     const context = await browser.newContext({ viewport });
     const page = await context.newPage();
-    csp = strictCsp ? await enforceStrictCsp(page) : null;
+    csp = strictCsp ? await watchCspViolations(page) : null;
     const previewCss = await compilePreviewCss();
     // dx serves the stylesheet uncompiled; answer it with compiled Tailwind so
     // class-based layout takes part in every check below.

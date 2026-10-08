@@ -502,10 +502,12 @@ write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.
 
-`npm run verify:csp` runs the same checks with the page served under
-`script-src 'self' 'wasm-unsafe-eval'` (RFC 0080), the page's own inline
-scripts allowed by hash, and fails on anything the browser refuses or any
-page error, naming the refused source. It runs in the release gate and
+`npm run verify:csp` runs the same checks on a `dx build` of the preview,
+served by a static server under `script-src 'self' 'wasm-unsafe-eval'`
+(RFC 0080) with the page's own inline scripts allowed by hash, and fails on
+anything the browser refuses or any page error, naming the refused source.
+It does not use `dx serve`, which in the release gate held the page request
+until the run gave up. It runs in the release gate and
 CI. The preview takes its title and `lang` from
 `examples/web-demo/Dioxus.toml` and `index.html`, so what it reports is the
 components'.
