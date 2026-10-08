@@ -710,6 +710,19 @@ Tabs into a fresh app, named the three crates its `Cargo.toml` lacked and
 none once they were added, and the app built while denying warnings and
 passed the same check.
 
+## 0.6.2 Publish
+
+0.6.2 was published on 2026-10-08 with the hardening from the migrating
+app's audit (M221). `npm run verify:release` passed, its semver step finding
+no change against `v0.6.1`, as did the dry run and CI on the release commit.
+The four crates were published one by one in dependency order, each after
+the index listed what it depends on, and tagged `v0.6.2`, an annotated tag.
+A fresh web app on `dioxus-shadcn` 0.6.2 from crates.io passed the strict
+Content Security Policy check (Dialog with focus inside, closed on Escape;
+Tabs moved with ArrowRight). The published `dxui` 0.6.2 copied Dialog and
+Tabs with the new `layer.rs`, and the app built while denying warnings and
+passed the same check.
+
 ## Dioxus Next
 
 `npm run verify:dioxus-next` runs the Stage 14 checks against the newest

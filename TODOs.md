@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 72% (18 of 25 tasks)
-- Current milestone: M221 (0.6.2, hardening)
-- Current task: M221.7; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
+- Overall: 76% (19 of 25 tasks)
+- Current milestone: M216 (0.7.0, Dioxus 0.8)
+- Current task: none until the Stage 14 gate exits 0 (then M216.1); M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -117,8 +117,9 @@
   - A Security section in the README and `docs/component-api.md`: the URL schemes components keep, that children and rich content are not sanitized, the CSP the components need (RFC 0080), the theme storage key rule, and Button's native `submit` type in a form (FB-09, FB-10).
   - Exit: the docs checks pass.
   - Done (68b102b): README "Security" (Dioxus escapes text and children and no component sets `dangerous_inner_html`, so an app's own markup is its to sanitize; the link schemes kept, and that an `href` passed as a raw attribute is not checked; stored themes and the escaped storage key; no eval (CSP section); Button's native `submit` type; `dxui` writes only inside the app) and "Security Rules" in `docs/component-api.md` for component authors. A "report a vulnerability privately" link was left out: the repository has private vulnerability reporting off (`gh api .../private-vulnerability-reporting` → `enabled: false`), and turning it on is the release owner's setting. The docs, changelog, and README checks pass.
-- TODO M221.7 Publish 0.6.2
+- DONE M221.7 Publish 0.6.2
   - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.1`, publish in dependency order, annotated tag `v0.6.2`.
+  - Done (117f810, tag `v0.6.2`): the full release gate passed (54 fixtures under the strict policy; `verify:semver` no change against `v0.6.1`), then the dry run and CI on 117f810. Each crate was published after `cargo search` listed its dependency, avoiding 0.6.1's index timeout. A fresh crates.io 0.6.2 app passed the strict-CSP check, and the published `dxui` 0.6.2 copied Dialog and Tabs (with `layer.rs`) into an app that built under `#![deny(warnings)]` and passed it too. Recorded in `docs/release.md` (0.6.2 Publish).
 
 ## M215 Dioxus 0.8 Readiness
 
