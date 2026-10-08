@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 52% (13 of 25 tasks)
+- Overall: 56% (14 of 25 tasks)
 - Current milestone: M221 (0.6.2, hardening)
-- Current task: M221.2; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
+- Current task: M221.3; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -97,9 +97,10 @@
   - One helper keeps relative URLs, fragments, and `http:`, `https:`, `mailto:`, and `tel:`, and turns anything else into no `href`; every component in FB-03 uses it, in the crate and the templates. A disabled `NavigationMenuLink` drops its `href` (FB-06).
   - Exit: unit tests for the schemes (including `JavaScript:`, leading spaces, and control characters); an SSR test renders each FB-03 component with `javascript:alert(1)` and finds no such `href`.
   - Done (df77955): `safe_href` (crate module and `safe-url` helper template) strips surrounding spaces and control characters and every tab and line break, reads a scheme as a letter followed by letters, digits, `+`, `-`, or `.`, and keeps the URL when it has no scheme or one of `http`, `https`, `mailto`, `tel` (case-insensitive). Unit tests keep 11 forms (empty, `#`, `/a:b`, `HTTP://`, `mailto:`, `tel:`) and drop 8 (`JavaScript:`, leading spaces, `\u{1}`, a tab or newline inside `javascript`, `data:`, `vbscript:`). The SSR test renders all seven components with `javascript:alert(1)` plus a disabled Navigation Menu link and finds no `javascript:` and no `/retired`; with Breadcrumb passing `href` through it fails. Disabled links that drop `href` also get `role="link"`, as in Menu. The workspace tests, parity, Clippy, the feature check, the generated fixture smoke, and `verify:browser-local` pass.
-- TODO M221.2 Theme storage
+- DONE M221.2 Theme storage
   - `theme_init_script` refuses a `storage_key` outside `[A-Za-z0-9_-]` (FB-04); the controller and the init script apply a stored theme only when it is `system`, `light`, `dark`, or a preset the app lists, else `system` (FB-05).
   - Exit: unit tests for both; the theme controller browser check passes, and a stored `x"><script>` leaves `data-theme` unset.
+  - Done (226e562): rather than refusing a key, `theme_init_script` writes it as a JavaScript string in which everything but ASCII letters, digits, `-`, and `_` is a `\u` escape, so every key still works and none can close the script (unit test: `</script><script>alert("x")//` plus U+2028 leaves no `<` and no U+2028). Rather than a list of the app's presets, which needs a new `ThemeController` prop, both scripts apply a stored value only when it matches `^[A-Za-z0-9_-]{1,64}$` (every preset name does), so a stored `x"><script>` is ignored: the interaction check stores it, remounts the controller, and finds `data-theme-choice` still `system` and no `data-theme`; without the check in the controller script it reports `x\"><script>`. The site's `index.html` carries the new init script (its test compares it). The workspace tests, parity, Clippy, and `verify:runtime-interactions` pass.
 - TODO M221.3 One Escape closes one layer
   - The anchored overlay and Navigation Menu scripts skip an Escape whose `defaultPrevented` is set and prevent the one they act on; Dialog, Sheet, Drawer, and Alert Dialog skip a prevented Escape (FB-07). The Sidebar shortcut ignores inputs, `select`, and editable content (FB-08).
   - Exit: browser checks: Escape in a Popover inside a Dialog closes only the Popover, a second Escape closes the Dialog; Ctrl+B in a text input leaves the Sidebar as it was. Both fail before the change.
