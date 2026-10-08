@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 68% (17 of 25 tasks)
+- Overall: 72% (18 of 25 tasks)
 - Current milestone: M221 (0.6.2, hardening)
-- Current task: M221.6; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
+- Current task: M221.7; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -113,9 +113,10 @@
   - Table row, header, and footer borders use `border-border` (FB-15), crate and template.
   - Exit: a rendered DOM check reads the row border color as the `--border` token in both themes.
   - Done (61f5bab): Table rows and footer, and Data Table rows (the same missing color), add `border-border`, in the crate and the templates. The preview had no rendered Table (its catalog entry is a label), so a "table-borders" fixture with header, body, and footer rows joins the interaction panel (54 fixtures), and the interaction check compares each rule line with a `border border-border` probe in the light and dark themes: before the change it failed with `oklch(0.141 0.005 285.823)` (the text color) instead of `oklch(0.92 0.004 286.32)`. `verify:browser-local`, `verify:csp`, the parity test, the stylesheet and class checks, and the docs checks pass.
-- TODO M221.6 Security notes
+- DONE M221.6 Security notes
   - A Security section in the README and `docs/component-api.md`: the URL schemes components keep, that children and rich content are not sanitized, the CSP the components need (RFC 0080), the theme storage key rule, and Button's native `submit` type in a form (FB-09, FB-10).
   - Exit: the docs checks pass.
+  - Done (68b102b): README "Security" (Dioxus escapes text and children and no component sets `dangerous_inner_html`, so an app's own markup is its to sanitize; the link schemes kept, and that an `href` passed as a raw attribute is not checked; stored themes and the escaped storage key; no eval (CSP section); Button's native `submit` type; `dxui` writes only inside the app) and "Security Rules" in `docs/component-api.md` for component authors. A "report a vulnerability privately" link was left out: the repository has private vulnerability reporting off (`gh api .../private-vulnerability-reporting` → `enabled: false`), and turning it on is the release owner's setting. The docs, changelog, and README checks pass.
 - TODO M221.7 Publish 0.6.2
   - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.1`, publish in dependency order, annotated tag `v0.6.2`.
 
