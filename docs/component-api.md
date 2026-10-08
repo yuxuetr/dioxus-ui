@@ -365,6 +365,16 @@ Dialog is controlled: the app owns `open`, renders its own trigger, and passes
 - `DialogDescription`
 - `DialogClose`
 
+## Page Scripts
+
+A component that needs the browser beyond Dioxus events, such as focus
+trapping, anchored placement, or pointer capture, runs a page script through
+the `script` helper's `component_script!`: a wasm-bindgen snippet on the web
+and `document::eval` on Desktop and Mobile
+([RFC 0080](rfcs/0080-page-scripts-without-eval.md)). Components never call
+`document::eval` directly, so they work under a Content Security Policy
+without `'unsafe-eval'`; `npm run verify:csp` fails when one does.
+
 ## Compatibility Notes
 
 The copied-source API and crate API should stay as close as practical. If they

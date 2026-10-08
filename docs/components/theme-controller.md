@@ -78,7 +78,8 @@ theme would flash light first. Put the output of
 `theme_init_script(THEME_STORAGE_KEY)` in a `<script>` in the page's `<head>`
 to apply it before the app loads. In a Dioxus web app, add it to the
 `index.html` template; Desktop and Mobile apps can pass it to the WebView's
-custom head.
+custom head. Under a Content Security Policy, allow the inline script by its
+hash or a nonce ([Content Security Policy](../../README.md#content-security-policy)).
 
 ## Accessibility Notes
 

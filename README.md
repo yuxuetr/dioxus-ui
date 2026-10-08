@@ -84,17 +84,38 @@ Expected output in a Dioxus app:
 ```text
 src/components/ui/mod.rs
 src/components/ui/button.rs
+src/components/ui/class_merge.rs
+src/components/ui/class_merge_table.rs
+src/components/ui/default_attribute.rs
+src/components/ui/density.rs
 src/components/ui/dialog.rs
 src/components/ui/dialog_labels.rs
+src/components/ui/element_id.rs
 src/components/ui/input.rs
 src/components/ui/modal_focus.rs
 src/components/ui/overlay.rs
+src/components/ui/overlay_root.rs
+src/components/ui/root_state.rs
+src/components/ui/script.rs
 src/components/ui/utils.rs
 assets/dioxus-shadcn.css
 ```
 
 Every component uses `utils.rs`; Dialog also brings the helpers it uses,
 each in its own file ([RFC 0074](docs/rfcs/0074-helper-templates.md)).
+Components with a page script, such as Dialog, menus, Tabs, and Slider, copy
+`script.rs`, which runs the script without eval on the web
+([Content Security Policy](#content-security-policy)) and needs these crates
+in the app's `Cargo.toml`; `dxui add` prints the lines the app lacks:
+
+```toml
+[dependencies]
+serde = "1"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+serde_json = "1"
+wasm-bindgen = "0.2"
+```
 
 For Tailwind CSS v4, `assets/dioxus-shadcn.css` should be an input stylesheet, not
 a precompiled full Tailwind output:
@@ -196,6 +217,29 @@ release may break the API, with a Migration note in the changelog. From 1.0,
 1.x keeps the crate API, the templates, and the `dxui` commands; a new Dioxus
 line comes in a new major version. See
 [Compatibility](docs/release.md#compatibility).
+
+## Content Security Policy
+
+On the web the components run their page scripts as wasm-bindgen snippets
+served from the app's origin, never by evaluating a string, so they work
+under
+
+```text
+script-src 'self' 'wasm-unsafe-eval'
+```
+
+([RFC 0080](docs/rfcs/0080-page-scripts-without-eval.md));
+`npm run verify:csp` checks each release against that policy. What else a
+page needs comes from the app and Dioxus:
+
+- `theme_init_script` returns an inline script; allow it by its hash or a
+  nonce.
+- `document::eval` and `document::Title` in app code go through eval in
+  Dioxus 0.7 and need `'unsafe-eval'`. Set the page title with
+  `[web.app] title` in `Dioxus.toml` instead.
+- A fullstack server writes inline hydration scripts that change with every
+  request and carry no nonce (Dioxus 0.7.10), so a fullstack page also needs
+  `'unsafe-inline'` in `script-src`, or a proxy that adds a nonce.
 
 ## Component Scope
 

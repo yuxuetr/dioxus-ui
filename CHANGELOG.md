@@ -8,6 +8,22 @@ for commit messages.
 
 ## [Unreleased]
 
+### Fixed
+- The interactive components work under a Content Security Policy without
+  `'unsafe-eval'` (RFC 0080). Their page scripts ran through
+  `document::eval`, which Dioxus Web turns into `new Function`; a page served
+  with `script-src 'self' 'wasm-unsafe-eval'` refused it, and the wasm module
+  then stopped. They now run as wasm-bindgen snippets on the web, and through
+  `document::eval` on Desktop and Mobile as before. `npm run verify:csp` runs
+  the interaction checks under that policy in the release gate.
+
+### Changed
+- Copied components with a page script bring a `script.rs` helper, which
+  needs `serde`, and on `wasm32` `serde_json` and `wasm-bindgen`, in the
+  app's `Cargo.toml`; `dxui add` prints the lines the app lacks.
+  `dioxus-shadcn` depends on the same crates, which Dioxus Web already
+  brings.
+
 ### Added
 - The four published crates declare `rust-version = "1.88"`, the lowest Rust
   that builds them (Dioxus 0.7's dependencies need it), and CI checks them
