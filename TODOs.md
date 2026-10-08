@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 36% (9 of 25 tasks)
+- Overall: 40% (10 of 25 tasks)
 - Current milestone: M220 (0.6.1, page scripts without eval)
-- Current task: M220.4; M221 follows `v0.6.1`; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
+- Current task: M220.5; M221 follows `v0.6.1`; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -79,9 +79,10 @@
   - Modal Focus, Anchored Overlay, Listbox, Hover Open, Dismiss Timer, and Roving Group, in the crate and the templates, with their entries listing `script`. These carry Dialog, Sheet, Drawer, Alert Dialog, Popover, Dropdown, Select, Tooltip, Command, Combobox, Hover Card, Toast, Tabs, Toggle Group, and Accordion.
   - Exit: `verify:csp` passes the checks of those components; `verify:browser-local`, the Desktop interaction self-test, and the fullstack hydration check pass.
   - Done (4872447): the six scripts became `component_script!` modules (body wrapped in `export async function run(dioxus)`, call sites start the module and send as before); Modal Focus receives `[scopeId, locksScroll]` instead of `__SCOPE_ID__` and `__LOCK_SCROLL__`, so its string-building helper and its test went away. The six helper entries list `script`, `mod script` is built for every feature that uses one, and the old raw-string comparison in the registry test lost the six entries the parity test now covers. `verify:browser-local` (52 interaction fixtures, which run these scripts as snippets), the Desktop interaction self-test (the eval transport: dialog, popover, select, dropdown, toast, date picker, menubar, navigation menu), the fullstack hydration check (Tabs and Select after hydration), Clippy on both targets, and the workspace tests pass. `verify:csp` cannot yet show these components: a script still on eval runs at mount, its refusal panics the wasm module (`unreachable`), and the page stops before the first fixture; it is measured with M220.4.
-- TODO M220.4 The other scripts on `Script`
+- DONE M220.4 The other scripts on `Script`
   - Checkbox, Input OTP, Media Query, Menubar, Navigation Menu, Resizable, Sidebar, Slider, and Theme Controller; no `document::eval` is left in the crate or the templates. `verify:csp` joins `verify:release` and CI.
   - Exit: `verify:csp` passes; a `document::eval` put back into one component fails it (reverse-verify); `grep -rn 'document::eval' crates/dioxus-shadcn/src crates/dioxus-shadcn-cli/templates` prints nothing; the Desktop self-test and the browser checks pass.
+  - Done (2019138, with b7e9694): the eight modules (nine scripts; Checkbox went in M220.2) run on `component_script!`. `Script::recv` takes `&self` (on Desktop it copies the `Eval` handle), so the theme controller keeps one `Rc<Script>` for later sends and its receive loop, as it kept a copyable `Eval`. `verify:csp` passes all 52 fixtures under the strict policy and is in `verify:release` (so CI) and the release and quality-gate docs; with `document::eval("void 0")` put back into Checkbox it fails with `script-src refused eval`. The grep prints only `script.rs`, whose eval is the Desktop and Mobile transport. `verify:browser-local`, the Desktop interaction self-test, the fullstack hydration check, the generated fixture smoke (wasm32 included), Clippy on both targets, the feature check, and the docs checks pass. On the way: `mod script`'s feature list in M220.3 had been read too widely (a regex spanning several `cfg` blocks) and now lists the 27 features whose modules start a script. Two faults in the browser checks were found and fixed in b7e9694: a `dx serve` left by a crashed run kept port 45239 and answered later runs with its older build (now `serveDioxusWeb` refuses a port that already answers), and `dx serve` 0.7.9 holds the first `Accept: text/html` request after a build open for over 90 s (the CSP route retries with a 5 s limit).
 - TODO M220.5 CSP docs
   - README and `docs/component-api.md`: the policy the components need, the theme init script's hash or nonce, the copy-mode crates, and that app code using `document::eval` or `document::Title` still needs `'unsafe-eval'`. CHANGELOG `[Unreleased]`.
   - Exit: the docs checks pass.
