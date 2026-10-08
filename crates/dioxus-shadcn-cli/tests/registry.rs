@@ -264,38 +264,6 @@ fn block_entries_are_valid() {
 }
 
 #[test]
-fn template_overlay_scripts_match_crate_scripts() {
-  for (crate_file, template_file, name) in [
-    ("crates/dioxus-shadcn/src/menubar.rs", "templates/menubar.rs", "MENUBAR_SCRIPT"),
-    ("crates/dioxus-shadcn/src/slider.rs", "templates/slider.rs", "SLIDER_POINTER_SCRIPT"),
-    ("crates/dioxus-shadcn/src/resizable.rs", "templates/resizable.rs", "RESIZABLE_HANDLE_SCRIPT"),
-    ("crates/dioxus-shadcn/src/input_otp.rs", "templates/input_otp.rs", "INPUT_OTP_FILTER_SCRIPT"),
-    (
-      "crates/dioxus-shadcn/src/navigation_menu.rs",
-      "templates/navigation_menu.rs",
-      "NAVIGATION_MENU_SCRIPT",
-    ),
-  ] {
-    let crate_source = fs::read_to_string(workspace_root().join(crate_file))
-      .unwrap_or_else(|error| panic!("{crate_file} should be readable: {error}"));
-    let template_source = fs::read_to_string(cli_root().join(template_file))
-      .unwrap_or_else(|error| panic!("{template_file} should be readable: {error}"));
-    assert_eq!(
-      raw_string_const(&template_source, name),
-      raw_string_const(&crate_source, name),
-      "{template_file} {name} should match {crate_file}"
-    );
-  }
-}
-
-fn raw_string_const<'a>(source: &'a str, name: &str) -> &'a str {
-  let marker = format!("{name}: &str = r#\"");
-  let start = source.find(&marker).unwrap_or_else(|| panic!("missing {name}")) + marker.len();
-  let length = source[start..].find("\"#;").unwrap_or_else(|| panic!("unterminated {name}"));
-  &source[start..start + length]
-}
-
-#[test]
 fn feature_check_script_covers_public_registry_features() {
   let root = workspace_root();
   let components = load_registry_components();

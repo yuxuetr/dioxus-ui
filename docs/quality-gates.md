@@ -156,6 +156,7 @@ npm run verify:changelog
 scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
 npm run verify:fullstack-hydration
+npm run verify:csp
 npm run verify:release-docs
 npm run verify:package-scripts
 npm run verify:package-lock
@@ -504,9 +505,10 @@ behavior, or claim visual parity.
 `npm run verify:csp` runs the same checks with the page served under
 `script-src 'self' 'wasm-unsafe-eval'` (RFC 0080), the page's own inline
 scripts allowed by hash, and fails on anything the browser refuses or any
-page error, naming the refused source. The preview takes its title and
-`lang` from `examples/web-demo/Dioxus.toml` and `index.html`, so what it
-reports is the components'.
+page error, naming the refused source. It runs in the release gate and
+CI. The preview takes its title and `lang` from
+`examples/web-demo/Dioxus.toml` and `index.html`, so what it reports is the
+components'.
 
 `npm run verify:fullstack-hydration` serves `examples/fullstack-hydration`
 with `dx serve` and runs in the release gate. It fails when three requests

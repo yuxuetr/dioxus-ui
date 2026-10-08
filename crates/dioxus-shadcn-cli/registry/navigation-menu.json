@@ -12,6 +12,7 @@
     "element-id",
     "overlay",
     "root-state",
+    "script",
     "utils"
   ],
   "assets": []

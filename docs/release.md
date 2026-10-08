@@ -216,6 +216,7 @@ npm run verify:changelog
 scripts/feature-check.sh
 scripts/generated-fixture-smoke.sh
 npm run verify:fullstack-hydration
+npm run verify:csp
 npm run verify:release-docs
 npm run verify:package-scripts
 npm run verify:package-lock
@@ -456,6 +457,12 @@ focus between tabs and that the Select list opens under its trigger, both of
 which find their parts by those ids (RFC 0075). It needs `dx` for the Dioxus
 version in `Cargo.lock` and the `wasm32-unknown-unknown` target; CI installs
 both in the release gate job.
+
+`npm run verify:csp` is in the release gate. It runs the runtime
+interaction checks with the Web preview served under `script-src 'self'
+'wasm-unsafe-eval'` and fails on any script the browser refuses (RFC 0080),
+so a component that evaluates a string as JavaScript fails the release. It
+needs `dx` and Playwright Chromium, which CI installs in the release gate job.
 
 `npm run verify:web-screenshot-smoke` is also opt-in and outside release gates.
 It starts the Web preview and checks desktop and mobile screenshot readiness

@@ -8,7 +8,8 @@
     }
   ],
   "dependencies": [
-    "element-id"
+    "element-id",
+    "script"
   ],
   "assets": []
 }

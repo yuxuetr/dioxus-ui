@@ -134,7 +134,7 @@ pub(crate) fn use_hover_open(
   let effect_scope_id = scope_id.clone();
 
   use_effect(move || {
-    let mut script = hover_open_script::start();
+    let script = hover_open_script::start();
     // A send error means the page already finished the script; nothing to track.
     let _ = script.send((
       effect_scope_id.as_str(),

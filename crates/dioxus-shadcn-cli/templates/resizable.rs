@@ -3,6 +3,7 @@
 use super::density::{use_density, with_density};
 use super::element_id::next_element_id;
 use super::utils::{UiDensity, classes, merge_classes};
+use super::script::{Script, component_script};
 use dioxus::prelude::*;
 
 /// The direction a resizable panel group or carousel lays out its children.
@@ -95,48 +96,50 @@ fn ordered_bounds(min_size: f64, max_size: f64) -> (f64, f64) {
 // target size of the panel before the handle, from the pointer offset over the
 // group (the handle's parent) size along `data-orientation`. Sending targets
 // instead of per-move deltas keeps the edge under the pointer after a limit.
-// Keep in sync with `RESIZABLE_HANDLE_SCRIPT` in `dioxus-shadcn`'s `resizable.rs`.
-pub(crate) const RESIZABLE_HANDLE_SCRIPT: &str = r#"
-const scopeId = await dioxus.recv();
-const handle = document.querySelector(`[data-dxui-resizable-handle="${scopeId}"]`);
-if (!handle) return;
-const vertical = () => handle.dataset.orientation === "vertical";
-const position = (event) => (vertical() ? event.clientY : event.clientX);
-let start = null;
-const onPointerDown = (event) => {
-  if (handle.getAttribute("aria-disabled") === "true" || event.button !== 0) return;
-  // Keeps the press from selecting text; focus moves explicitly instead.
-  event.preventDefault();
-  handle.setPointerCapture(event.pointerId);
-  handle.focus();
-  start = { pointer: position(event), value: Number(handle.getAttribute("aria-valuenow")) };
-};
-const onPointerMove = (event) => {
-  if (!start || !handle.hasPointerCapture(event.pointerId)) return;
-  const rect = handle.parentElement.getBoundingClientRect();
-  const size = vertical() ? rect.height : rect.width;
-  if (size <= 0) return;
-  dioxus.send(start.value + ((position(event) - start.pointer) / size) * 100);
-};
-const onPointerUp = (event) => {
-  if (handle.hasPointerCapture(event.pointerId)) handle.releasePointerCapture(event.pointerId);
-  start = null;
-};
-let finish;
-const ended = new Promise((resolve) => {
-  finish = resolve;
-});
-const observer = new MutationObserver(() => {
-  if (!handle.isConnected) finish();
-});
-observer.observe(document.documentElement, { subtree: true, childList: true });
-handle.addEventListener("pointerdown", onPointerDown);
-handle.addEventListener("pointermove", onPointerMove);
-handle.addEventListener("pointerup", onPointerUp);
-handle.addEventListener("pointercancel", onPointerUp);
-await ended;
-observer.disconnect();
-"#;
+// Keep in sync with `resizable_handle_script` in `dioxus-shadcn`'s `resizable.rs`.
+component_script!(resizable_handle_script = r#"
+export async function run(dioxus) {
+  const scopeId = await dioxus.recv();
+  const handle = document.querySelector(`[data-dxui-resizable-handle="${scopeId}"]`);
+  if (!handle) return;
+  const vertical = () => handle.dataset.orientation === "vertical";
+  const position = (event) => (vertical() ? event.clientY : event.clientX);
+  let start = null;
+  const onPointerDown = (event) => {
+    if (handle.getAttribute("aria-disabled") === "true" || event.button !== 0) return;
+    // Keeps the press from selecting text; focus moves explicitly instead.
+    event.preventDefault();
+    handle.setPointerCapture(event.pointerId);
+    handle.focus();
+    start = { pointer: position(event), value: Number(handle.getAttribute("aria-valuenow")) };
+  };
+  const onPointerMove = (event) => {
+    if (!start || !handle.hasPointerCapture(event.pointerId)) return;
+    const rect = handle.parentElement.getBoundingClientRect();
+    const size = vertical() ? rect.height : rect.width;
+    if (size <= 0) return;
+    dioxus.send(start.value + ((position(event) - start.pointer) / size) * 100);
+  };
+  const onPointerUp = (event) => {
+    if (handle.hasPointerCapture(event.pointerId)) handle.releasePointerCapture(event.pointerId);
+    start = null;
+  };
+  let finish;
+  const ended = new Promise((resolve) => {
+    finish = resolve;
+  });
+  const observer = new MutationObserver(() => {
+    if (!handle.isConnected) finish();
+  });
+  observer.observe(document.documentElement, { subtree: true, childList: true });
+  handle.addEventListener("pointerdown", onPointerDown);
+  handle.addEventListener("pointermove", onPointerMove);
+  handle.addEventListener("pointerup", onPointerUp);
+  handle.addEventListener("pointercancel", onPointerUp);
+  await ended;
+  observer.disconnect();
+}
+"#);
 
 const RESIZABLE_PANEL_GROUP_BASE_CLASS: &str =
   "flex h-full w-full data-[orientation=vertical]:flex-col";
@@ -316,11 +319,11 @@ fn use_resizable_handle_pointer(
   let effect_scope_id = scope_id.clone();
 
   use_effect(move || {
-    let mut eval = document::eval(RESIZABLE_HANDLE_SCRIPT);
+    let script = resizable_handle_script::start();
     // A send error means the page already finished the script; nothing to track.
-    let _ = eval.send(effect_scope_id.as_str());
+    let _ = script.send(effect_scope_id.as_str());
     spawn(async move {
-      while let Ok(target) = eval.recv::<f64>().await {
+      while let Ok(target) = script.recv::<f64>().await {
         let (value, min, max, disabled) = latest();
         let delta = resizable_clamp(target, min, max) - value;
         if disabled || delta == 0.0 {

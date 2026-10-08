@@ -296,7 +296,7 @@ pub(crate) fn use_listbox(
       if open == was_open.replace(open) || !open || (anchor_id.is_none() && mode.needs_anchor()) {
         return;
       }
-      let mut script = listbox_script::start();
+      let script = listbox_script::start();
       // A send error means the page already finished the script; nothing to track.
       let _ = script.send((effect_scope_id.as_str(), anchor_id.as_deref(), mode.name()));
       spawn(async move {

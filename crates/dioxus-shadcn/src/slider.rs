@@ -6,64 +6,69 @@ use dioxus_shadcn_primitives::{SliderKeyMove, SliderState};
 
 use crate::density::{density_control_class, density_hit_area_class, use_density, with_density};
 use crate::element_id::next_element_id;
+use crate::script::{Script, component_script};
 
 // Runs for the slider's lifetime. A primary-button press captures the pointer
 // and sends the value under it, and so does each move until release. Bounds
 // and step are read from the root at event time, so prop changes apply
 // without a restart.
-// Keep in sync with `SLIDER_POINTER_SCRIPT` in the CLI `slider.rs` template.
-pub(crate) const SLIDER_POINTER_SCRIPT: &str = r#"
-const scopeId = await dioxus.recv();
-const root = document.querySelector(`[data-dxui-slider="${scopeId}"]`);
-if (!root) return;
-const disabled = () => root.getAttribute("aria-disabled") === "true";
-const valueAt = (event) => {
-  const min = Number(root.getAttribute("aria-valuemin"));
-  const max = Number(root.getAttribute("aria-valuemax"));
-  const step = Number(root.dataset.step) || 1;
-  const rect = root.getBoundingClientRect();
-  // A vertical slider grows from the bottom.
-  const vertical = root.dataset.orientation === "vertical";
-  const size = vertical ? rect.height : rect.width;
-  if (size <= 0 || max <= min) return min;
-  const offset = vertical ? rect.bottom - event.clientY : event.clientX - rect.left;
-  const ratio = Math.min(1, Math.max(0, offset / size));
-  const value = min + Math.round((ratio * (max - min)) / step) * step;
-  return Math.min(max, Math.max(min, value));
-};
-const send = (event) => {
-  const value = valueAt(event);
-  if (value !== Number(root.getAttribute("aria-valuenow"))) dioxus.send(value);
-};
-const onPointerDown = (event) => {
-  if (disabled() || event.button !== 0) return;
-  // Keeps the press from selecting text; focus moves explicitly instead.
-  event.preventDefault();
-  root.setPointerCapture(event.pointerId);
-  root.focus();
-  send(event);
-};
-const onPointerMove = (event) => {
-  if (root.hasPointerCapture(event.pointerId)) send(event);
-};
-const onPointerUp = (event) => {
-  if (root.hasPointerCapture(event.pointerId)) root.releasePointerCapture(event.pointerId);
-};
-let finish;
-const ended = new Promise((resolve) => {
-  finish = resolve;
-});
-const observer = new MutationObserver(() => {
-  if (!root.isConnected) finish();
-});
-observer.observe(document.documentElement, { subtree: true, childList: true });
-root.addEventListener("pointerdown", onPointerDown);
-root.addEventListener("pointermove", onPointerMove);
-root.addEventListener("pointerup", onPointerUp);
-root.addEventListener("pointercancel", onPointerUp);
-await ended;
-observer.disconnect();
-"#;
+// Keep in sync with `slider_pointer_script` in the CLI `slider.rs` template.
+component_script!(
+  slider_pointer_script = r#"
+export async function run(dioxus) {
+  const scopeId = await dioxus.recv();
+  const root = document.querySelector(`[data-dxui-slider="${scopeId}"]`);
+  if (!root) return;
+  const disabled = () => root.getAttribute("aria-disabled") === "true";
+  const valueAt = (event) => {
+    const min = Number(root.getAttribute("aria-valuemin"));
+    const max = Number(root.getAttribute("aria-valuemax"));
+    const step = Number(root.dataset.step) || 1;
+    const rect = root.getBoundingClientRect();
+    // A vertical slider grows from the bottom.
+    const vertical = root.dataset.orientation === "vertical";
+    const size = vertical ? rect.height : rect.width;
+    if (size <= 0 || max <= min) return min;
+    const offset = vertical ? rect.bottom - event.clientY : event.clientX - rect.left;
+    const ratio = Math.min(1, Math.max(0, offset / size));
+    const value = min + Math.round((ratio * (max - min)) / step) * step;
+    return Math.min(max, Math.max(min, value));
+  };
+  const send = (event) => {
+    const value = valueAt(event);
+    if (value !== Number(root.getAttribute("aria-valuenow"))) dioxus.send(value);
+  };
+  const onPointerDown = (event) => {
+    if (disabled() || event.button !== 0) return;
+    // Keeps the press from selecting text; focus moves explicitly instead.
+    event.preventDefault();
+    root.setPointerCapture(event.pointerId);
+    root.focus();
+    send(event);
+  };
+  const onPointerMove = (event) => {
+    if (root.hasPointerCapture(event.pointerId)) send(event);
+  };
+  const onPointerUp = (event) => {
+    if (root.hasPointerCapture(event.pointerId)) root.releasePointerCapture(event.pointerId);
+  };
+  let finish;
+  const ended = new Promise((resolve) => {
+    finish = resolve;
+  });
+  const observer = new MutationObserver(() => {
+    if (!root.isConnected) finish();
+  });
+  observer.observe(document.documentElement, { subtree: true, childList: true });
+  root.addEventListener("pointerdown", onPointerDown);
+  root.addEventListener("pointermove", onPointerMove);
+  root.addEventListener("pointerup", onPointerUp);
+  root.addEventListener("pointercancel", onPointerUp);
+  await ended;
+  observer.disconnect();
+}
+"#
+);
 
 const SLIDER_ROOT_BASE_CLASS: &str =
   "relative flex touch-none select-none items-center disabled:opacity-50";
@@ -263,11 +268,11 @@ fn use_slider_pointer(
   let effect_scope_id = scope_id.clone();
 
   use_effect(move || {
-    let mut eval = document::eval(SLIDER_POINTER_SCRIPT);
+    let script = slider_pointer_script::start();
     // A send error means the page already finished the script; nothing to track.
-    let _ = eval.send(effect_scope_id.as_str());
+    let _ = script.send(effect_scope_id.as_str());
     spawn(async move {
-      while let Ok(value) = eval.recv::<f64>().await {
+      while let Ok(value) = script.recv::<f64>().await {
         let (state, disabled) = latest();
         let next = state.with_value(value).value;
         if disabled || next == state.value {
@@ -287,56 +292,60 @@ fn use_slider_pointer(
 // nearer thumb (the upper one when the press is above both), captures the
 // pointer, and sends `[thumb, value]` for the press and each move until
 // release.
-// Keep in sync with `RANGE_SLIDER_POINTER_SCRIPT` in the CLI `slider.rs` template.
-pub(crate) const RANGE_SLIDER_POINTER_SCRIPT: &str = r#"
-const scopeId = await dioxus.recv();
-const root = document.querySelector(`[data-dxui-range-slider="${scopeId}"]`);
-if (!root) return;
-const thumbs = () => Array.from(root.querySelectorAll('[role="slider"]'));
-const valueAt = (event) => {
-  const min = Number(root.dataset.min);
-  const max = Number(root.dataset.max);
-  const step = Number(root.dataset.step) || 1;
-  const rect = root.getBoundingClientRect();
-  const vertical = root.dataset.orientation === "vertical";
-  const size = vertical ? rect.height : rect.width;
-  if (size <= 0 || max <= min) return min;
-  const offset = vertical ? rect.bottom - event.clientY : event.clientX - rect.left;
-  const ratio = Math.min(1, Math.max(0, offset / size));
-  return Math.min(max, Math.max(min, min + Math.round((ratio * (max - min)) / step) * step));
-};
-let active = 0;
-const onPointerDown = (event) => {
-  if (root.dataset.disabled === "true" || event.button !== 0) return;
-  event.preventDefault();
-  const value = valueAt(event);
-  const [low, high] = thumbs().map((thumb) => Number(thumb.getAttribute("aria-valuenow")));
-  active = Math.abs(value - low) < Math.abs(value - high) || value < low ? 0 : 1;
-  root.setPointerCapture(event.pointerId);
-  thumbs()[active]?.focus();
-  dioxus.send([active, value]);
-};
-const onPointerMove = (event) => {
-  if (root.hasPointerCapture(event.pointerId)) dioxus.send([active, valueAt(event)]);
-};
-const onPointerUp = (event) => {
-  if (root.hasPointerCapture(event.pointerId)) root.releasePointerCapture(event.pointerId);
-};
-let finish;
-const ended = new Promise((resolve) => {
-  finish = resolve;
-});
-const observer = new MutationObserver(() => {
-  if (!root.isConnected) finish();
-});
-observer.observe(document.documentElement, { subtree: true, childList: true });
-root.addEventListener("pointerdown", onPointerDown);
-root.addEventListener("pointermove", onPointerMove);
-root.addEventListener("pointerup", onPointerUp);
-root.addEventListener("pointercancel", onPointerUp);
-await ended;
-observer.disconnect();
-"#;
+// Keep in sync with `range_slider_pointer_script` in the CLI `slider.rs` template.
+component_script!(
+  range_slider_pointer_script = r#"
+export async function run(dioxus) {
+  const scopeId = await dioxus.recv();
+  const root = document.querySelector(`[data-dxui-range-slider="${scopeId}"]`);
+  if (!root) return;
+  const thumbs = () => Array.from(root.querySelectorAll('[role="slider"]'));
+  const valueAt = (event) => {
+    const min = Number(root.dataset.min);
+    const max = Number(root.dataset.max);
+    const step = Number(root.dataset.step) || 1;
+    const rect = root.getBoundingClientRect();
+    const vertical = root.dataset.orientation === "vertical";
+    const size = vertical ? rect.height : rect.width;
+    if (size <= 0 || max <= min) return min;
+    const offset = vertical ? rect.bottom - event.clientY : event.clientX - rect.left;
+    const ratio = Math.min(1, Math.max(0, offset / size));
+    return Math.min(max, Math.max(min, min + Math.round((ratio * (max - min)) / step) * step));
+  };
+  let active = 0;
+  const onPointerDown = (event) => {
+    if (root.dataset.disabled === "true" || event.button !== 0) return;
+    event.preventDefault();
+    const value = valueAt(event);
+    const [low, high] = thumbs().map((thumb) => Number(thumb.getAttribute("aria-valuenow")));
+    active = Math.abs(value - low) < Math.abs(value - high) || value < low ? 0 : 1;
+    root.setPointerCapture(event.pointerId);
+    thumbs()[active]?.focus();
+    dioxus.send([active, value]);
+  };
+  const onPointerMove = (event) => {
+    if (root.hasPointerCapture(event.pointerId)) dioxus.send([active, valueAt(event)]);
+  };
+  const onPointerUp = (event) => {
+    if (root.hasPointerCapture(event.pointerId)) root.releasePointerCapture(event.pointerId);
+  };
+  let finish;
+  const ended = new Promise((resolve) => {
+    finish = resolve;
+  });
+  const observer = new MutationObserver(() => {
+    if (!root.isConnected) finish();
+  });
+  observer.observe(document.documentElement, { subtree: true, childList: true });
+  root.addEventListener("pointerdown", onPointerDown);
+  root.addEventListener("pointermove", onPointerMove);
+  root.addEventListener("pointerup", onPointerUp);
+  root.addEventListener("pointercancel", onPointerUp);
+  await ended;
+  observer.disconnect();
+}
+"#
+);
 
 /// The values after moving thumb `thumb` (0 for the lower, 1 for the upper)
 /// to `target`: snapped to `step` within `min..=max`, and kept `min_gap`
@@ -393,11 +402,11 @@ pub fn RangeSlider(
   latest.set((values, min, max, step, gap, disabled));
   let effect_scope_id = scope_id.clone();
   use_effect(move || {
-    let mut eval = document::eval(RANGE_SLIDER_POINTER_SCRIPT);
+    let script = range_slider_pointer_script::start();
     // A send error means the page already finished the script; nothing to track.
-    let _ = eval.send(effect_scope_id.as_str());
+    let _ = script.send(effect_scope_id.as_str());
     spawn(async move {
-      while let Ok((thumb, target)) = eval.recv::<(usize, f64)>().await {
+      while let Ok((thumb, target)) = script.recv::<(usize, f64)>().await {
         let (values, min, max, step, gap, disabled) = latest();
         let next = range_slider_values(values, thumb, target, min, max, step, gap);
         if disabled || next == values {

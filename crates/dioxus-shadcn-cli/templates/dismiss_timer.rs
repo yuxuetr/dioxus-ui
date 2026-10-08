@@ -97,7 +97,7 @@ pub(crate) fn use_dismiss_timer<R: Clone + 'static>(
         return;
       }
       let timeout_reason = timeout_reason.clone();
-      let mut script = dismiss_timer_script::start();
+      let script = dismiss_timer_script::start();
       // A send error means the page already finished the script; nothing to time.
       let _ = script.send((effect_scope_id.as_str(), duration_ms));
       spawn(async move {

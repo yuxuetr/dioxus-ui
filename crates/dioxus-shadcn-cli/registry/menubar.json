@@ -17,6 +17,7 @@
     "menu-sub",
     "overlay",
     "root-state",
+    "script",
     "utils"
   ],
   "assets": []

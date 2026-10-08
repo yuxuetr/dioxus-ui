@@ -14,35 +14,40 @@ use crate::element_id::next_element_id;
 use crate::media_query::use_media_query;
 use crate::modal_focus::use_modal_focus_scope;
 use crate::root_state::{Controllable, use_controllable, use_root_context};
+use crate::script::{Script, component_script};
 /// Below this width the sidebar of an `off_canvas` provider is off-canvas.
 pub const SIDEBAR_MOBILE_QUERY: &str = "(max-width: 767px)";
 
 // Sends a message for Ctrl or Command and the shortcut key, until the
 // sidebar is removed.
-// Keep in sync with `SIDEBAR_SHORTCUT_SCRIPT` in the CLI `sidebar.rs` template.
-pub(crate) const SIDEBAR_SHORTCUT_SCRIPT: &str = r#"
-const [scopeId, key] = await dioxus.recv();
-const present = () => document.querySelector(`[data-dxui-sidebar="${scopeId}"]`) !== null;
-const onKeyDown = (event) => {
-  if (event.key.toLowerCase() !== key || event.altKey || event.shiftKey) return;
-  if (!event.ctrlKey && !event.metaKey) return;
-  event.preventDefault();
-  dioxus.send(null);
-};
-await new Promise((resolve) => requestAnimationFrame(resolve));
-if (!present()) return;
-window.addEventListener("keydown", onKeyDown);
-await new Promise((resolve) => {
-  const observer = new MutationObserver(() => {
-    if (!present()) {
-      observer.disconnect();
-      resolve();
-    }
+// Keep in sync with `sidebar_shortcut_script` in the CLI `sidebar.rs` template.
+component_script!(
+  sidebar_shortcut_script = r#"
+export async function run(dioxus) {
+  const [scopeId, key] = await dioxus.recv();
+  const present = () => document.querySelector(`[data-dxui-sidebar="${scopeId}"]`) !== null;
+  const onKeyDown = (event) => {
+    if (event.key.toLowerCase() !== key || event.altKey || event.shiftKey) return;
+    if (!event.ctrlKey && !event.metaKey) return;
+    event.preventDefault();
+    dioxus.send(null);
+  };
+  await new Promise((resolve) => requestAnimationFrame(resolve));
+  if (!present()) return;
+  window.addEventListener("keydown", onKeyDown);
+  await new Promise((resolve) => {
+    const observer = new MutationObserver(() => {
+      if (!present()) {
+        observer.disconnect();
+        resolve();
+      }
+    });
+    observer.observe(document.documentElement, { subtree: true, childList: true });
   });
-  observer.observe(document.documentElement, { subtree: true, childList: true });
-});
-window.removeEventListener("keydown", onKeyDown);
-"#;
+  window.removeEventListener("keydown", onKeyDown);
+}
+"#
+);
 
 /// Which edge of the screen the sidebar sits on.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -245,11 +250,11 @@ pub fn Sidebar(
       return;
     };
     let latest_modal = latest_modal.clone();
-    let mut eval = document::eval(SIDEBAR_SHORTCUT_SCRIPT);
+    let script = sidebar_shortcut_script::start();
     // A send error means the page already finished the script; nothing to track.
-    let _ = eval.send((effect_scope_id.as_str(), key.to_ascii_lowercase().to_string()));
+    let _ = script.send((effect_scope_id.as_str(), key.to_ascii_lowercase().to_string()));
     spawn(async move {
-      while eval.recv::<()>().await.is_ok() {
+      while script.recv::<()>().await.is_ok() {
         sidebar.toggle(latest_modal.get());
       }
     });

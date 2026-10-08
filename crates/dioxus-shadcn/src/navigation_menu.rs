@@ -8,221 +8,226 @@ pub use dioxus_shadcn_primitives::PopoverPrimitiveConfig;
 use crate::density::{density_control_class, use_density, with_density};
 use crate::element_id::next_element_id;
 use crate::root_state::{Controllable, use_controllable, use_root_context};
+use crate::script::{Script, component_script};
 
 // Runs for the menu's lifetime and reads items from the DOM on every event.
 // Sends the `NavigationMenuItem` value to open, or an empty string to close.
-// Keep in sync with `NAVIGATION_MENU_SCRIPT` in the CLI `navigation_menu.rs` template.
-pub(crate) const NAVIGATION_MENU_SCRIPT: &str = r#"
-const scopeId = await dioxus.recv();
-const root = document.querySelector(`[data-dxui-navigation-menu="${scopeId}"]`);
-if (!root) return;
-const itemSelector = "[data-dxui-navigation-item]";
-const triggerSelector = "[data-dxui-navigation-trigger]";
-const contentSelector = "[data-dxui-navigation-content]";
-// A vertical menu is a submenu inside another menu's content (RFC 0063).
-const vertical = root.dataset.orientation === "vertical";
-const openDelay = vertical ? 0 : 200;
-const closeDelay = 300;
-const enabled = (element) => !element.disabled && element.getAttribute("aria-disabled") !== "true";
-const inside = (target) => target instanceof Node && root.contains(target);
-// An element belongs to the menu whose root is its closest menu ancestor, so
-// a nested menu's items are left to its own script.
-const owned = (element) => element.closest("[data-dxui-navigation-menu]") === root;
-const ownedIn = (scope, selector) => Array.from(scope.querySelectorAll(selector)).filter(owned);
-const ownContent = (element) => {
-  const content = element.closest(contentSelector);
-  return content && owned(content) ? content : null;
-};
-// The closest item this menu owns, skipping a nested menu's items.
-const ownItem = (element) => {
-  let item = element.closest(itemSelector);
-  while (item && !owned(item)) item = item.parentElement ? item.parentElement.closest(itemSelector) : null;
-  return item;
-};
-// A vertical menu's contents sit beside its list and pair with items by value.
-const itemOf = (element) => {
-  const item = ownItem(element);
-  if (item) return item;
-  const content = ownContent(element);
-  if (!content) return null;
-  return ownedIn(root, itemSelector).find((candidate) => candidate.dataset.value === content.dataset.value) || null;
-};
-const triggerOf = (item) => ownedIn(item, triggerSelector)[0] || null;
-const contentOf = (item) =>
-  ownedIn(item, contentSelector)[0] ||
-  ownedIn(root, contentSelector).find((content) => !ownItem(content) && content.dataset.value === item.dataset.value) ||
-  null;
-const linksOf = (content) => ownedIn(content, "a").filter(enabled);
-// Top-level items are triggers and links outside content.
-const topLevel = () =>
-  ownedIn(root, `${triggerSelector}, a`).filter((element) => enabled(element) && !ownContent(element));
-const openItem = () => {
-  const content = ownedIn(root, contentSelector).find((element) => !element.hidden);
-  return content ? itemOf(content) : null;
-};
-const open = (item) => dioxus.send(item.dataset.value || "");
-const close = () => dioxus.send("");
-const step = (list, current, key, nextKey, previousKey) => {
-  const index = list.indexOf(current);
-  if (index < 0) return null;
-  if (key === nextKey) return list[(index + 1) % list.length];
-  if (key === previousKey) return list[(index - 1 + list.length) % list.length];
-  if (key === "Home") return list[0];
-  if (key === "End") return list[list.length - 1];
-  return null;
-};
-// ArrowDown on a closed trigger opens it; its first link takes focus once
-// the content is shown.
-let pendingFocus = null;
-const focusFirstLink = (item) => {
-  const content = contentOf(item);
-  const first = content ? linksOf(content)[0] : null;
-  if (first) first.focus();
-};
-// In a right-to-left layout, ArrowLeft points at the next item.
-const visualKey = (key) => {
-  if (getComputedStyle(root).direction !== "rtl") return key;
-  if (key === "ArrowLeft") return "ArrowRight";
-  if (key === "ArrowRight") return "ArrowLeft";
-  return key;
-};
-// A horizontal menu enters content with ArrowDown and moves along with Left
-// and Right; a vertical one enters with the arrow pointing at its panels and
-// moves with Down and Up.
-const enterKey = vertical ? "ArrowRight" : "ArrowDown";
-const onKeyDown = (event) => {
-  if (event.defaultPrevented || !(event.target instanceof Element)) return;
-  const target = event.target;
-  const key = visualKey(event.key);
-  const content = ownContent(target);
-  let next = null;
-  if (content) {
-    if (vertical && key === "ArrowLeft") {
-      next = triggerOf(itemOf(content));
+// Keep in sync with `navigation_menu_script` in the CLI `navigation_menu.rs` template.
+component_script!(
+  navigation_menu_script = r#"
+export async function run(dioxus) {
+  const scopeId = await dioxus.recv();
+  const root = document.querySelector(`[data-dxui-navigation-menu="${scopeId}"]`);
+  if (!root) return;
+  const itemSelector = "[data-dxui-navigation-item]";
+  const triggerSelector = "[data-dxui-navigation-trigger]";
+  const contentSelector = "[data-dxui-navigation-content]";
+  // A vertical menu is a submenu inside another menu's content (RFC 0063).
+  const vertical = root.dataset.orientation === "vertical";
+  const openDelay = vertical ? 0 : 200;
+  const closeDelay = 300;
+  const enabled = (element) => !element.disabled && element.getAttribute("aria-disabled") !== "true";
+  const inside = (target) => target instanceof Node && root.contains(target);
+  // An element belongs to the menu whose root is its closest menu ancestor, so
+  // a nested menu's items are left to its own script.
+  const owned = (element) => element.closest("[data-dxui-navigation-menu]") === root;
+  const ownedIn = (scope, selector) => Array.from(scope.querySelectorAll(selector)).filter(owned);
+  const ownContent = (element) => {
+    const content = element.closest(contentSelector);
+    return content && owned(content) ? content : null;
+  };
+  // The closest item this menu owns, skipping a nested menu's items.
+  const ownItem = (element) => {
+    let item = element.closest(itemSelector);
+    while (item && !owned(item)) item = item.parentElement ? item.parentElement.closest(itemSelector) : null;
+    return item;
+  };
+  // A vertical menu's contents sit beside its list and pair with items by value.
+  const itemOf = (element) => {
+    const item = ownItem(element);
+    if (item) return item;
+    const content = ownContent(element);
+    if (!content) return null;
+    return ownedIn(root, itemSelector).find((candidate) => candidate.dataset.value === content.dataset.value) || null;
+  };
+  const triggerOf = (item) => ownedIn(item, triggerSelector)[0] || null;
+  const contentOf = (item) =>
+    ownedIn(item, contentSelector)[0] ||
+    ownedIn(root, contentSelector).find((content) => !ownItem(content) && content.dataset.value === item.dataset.value) ||
+    null;
+  const linksOf = (content) => ownedIn(content, "a").filter(enabled);
+  // Top-level items are triggers and links outside content.
+  const topLevel = () =>
+    ownedIn(root, `${triggerSelector}, a`).filter((element) => enabled(element) && !ownContent(element));
+  const openItem = () => {
+    const content = ownedIn(root, contentSelector).find((element) => !element.hidden);
+    return content ? itemOf(content) : null;
+  };
+  const open = (item) => dioxus.send(item.dataset.value || "");
+  const close = () => dioxus.send("");
+  const step = (list, current, key, nextKey, previousKey) => {
+    const index = list.indexOf(current);
+    if (index < 0) return null;
+    if (key === nextKey) return list[(index + 1) % list.length];
+    if (key === previousKey) return list[(index - 1 + list.length) % list.length];
+    if (key === "Home") return list[0];
+    if (key === "End") return list[list.length - 1];
+    return null;
+  };
+  // ArrowDown on a closed trigger opens it; its first link takes focus once
+  // the content is shown.
+  let pendingFocus = null;
+  const focusFirstLink = (item) => {
+    const content = contentOf(item);
+    const first = content ? linksOf(content)[0] : null;
+    if (first) first.focus();
+  };
+  // In a right-to-left layout, ArrowLeft points at the next item.
+  const visualKey = (key) => {
+    if (getComputedStyle(root).direction !== "rtl") return key;
+    if (key === "ArrowLeft") return "ArrowRight";
+    if (key === "ArrowRight") return "ArrowLeft";
+    return key;
+  };
+  // A horizontal menu enters content with ArrowDown and moves along with Left
+  // and Right; a vertical one enters with the arrow pointing at its panels and
+  // moves with Down and Up.
+  const enterKey = vertical ? "ArrowRight" : "ArrowDown";
+  const onKeyDown = (event) => {
+    if (event.defaultPrevented || !(event.target instanceof Element)) return;
+    const target = event.target;
+    const key = visualKey(event.key);
+    const content = ownContent(target);
+    let next = null;
+    if (content) {
+      if (vertical && key === "ArrowLeft") {
+        next = triggerOf(itemOf(content));
+      } else {
+        next = step(linksOf(content), target, event.key, "ArrowDown", "ArrowUp");
+      }
+    } else if (target.matches(triggerSelector) && owned(target) && key === enterKey) {
+      event.preventDefault();
+      const item = itemOf(target);
+      const itemContent = contentOf(item);
+      if (itemContent && !itemContent.hidden) {
+        focusFirstLink(item);
+      } else {
+        pendingFocus = item;
+        open(item);
+      }
+      return;
+    } else if (vertical) {
+      next = step(topLevel(), target, event.key, "ArrowDown", "ArrowUp");
     } else {
-      next = step(linksOf(content), target, event.key, "ArrowDown", "ArrowUp");
+      next = step(topLevel(), target, key, "ArrowRight", "ArrowLeft");
     }
-  } else if (target.matches(triggerSelector) && owned(target) && key === enterKey) {
-    event.preventDefault();
-    const item = itemOf(target);
-    const itemContent = contentOf(item);
-    if (itemContent && !itemContent.hidden) {
+    if (next) {
+      event.preventDefault();
+      next.focus();
+    }
+  };
+  let openTimer = 0;
+  let pendingOpen = null;
+  let closeTimer = 0;
+  // A trigger closed by a click stays closed under the pointer until it leaves.
+  let clickClosed = null;
+  const cancelOpen = () => {
+    clearTimeout(openTimer);
+    pendingOpen = null;
+  };
+  const cancelClose = () => {
+    clearTimeout(closeTimer);
+    closeTimer = 0;
+  };
+  const onClick = (event) => {
+    if (!(event.target instanceof Element) || !inside(event.target)) return;
+    const trigger = event.target.closest(triggerSelector);
+    if (trigger && owned(trigger) && enabled(trigger)) {
+      const item = itemOf(trigger);
+      cancelOpen();
+      if (item === openItem()) {
+        clickClosed = item;
+        close();
+      } else {
+        open(item);
+      }
+      return;
+    }
+    const link = event.target.closest("a");
+    if (link && enabled(link) && link.closest(contentSelector)) close();
+  };
+  // Pointer movement, not pointerover: Chrome also sends pointerover when the
+  // layout shifts under a resting cursor, such as when content opens.
+  const onPointerMove = (event) => {
+    if (event.pointerType !== "mouse") return;
+    const target = event.target instanceof Element && inside(event.target) ? event.target : null;
+    const closestTrigger = target ? target.closest(triggerSelector) : null;
+    const trigger = closestTrigger && owned(closestTrigger) ? closestTrigger : null;
+    const item = target ? itemOf(target) : null;
+    const current = openItem();
+    if (clickClosed && trigger !== triggerOf(clickClosed)) clickClosed = null;
+    if (trigger && enabled(trigger)) {
+      cancelClose();
+      if (item === current || item === clickClosed || item === pendingOpen) return;
+      cancelOpen();
+      pendingOpen = item;
+      openTimer = setTimeout(() => {
+        pendingOpen = null;
+        open(item);
+      }, current ? 0 : openDelay);
+      return;
+    }
+    cancelOpen();
+    if (current && item === current && ownContent(target)) return cancelClose();
+    // A vertical menu keeps its panel; leaving it would leave an empty area.
+    if (current && !closeTimer && !vertical) {
+      closeTimer = setTimeout(() => {
+        closeTimer = 0;
+        close();
+      }, closeDelay);
+    }
+  };
+  const onDocumentKeyDown = (event) => {
+    const item = event.key === "Escape" ? openItem() : null;
+    if (!item) return;
+    const focusInside = inside(document.activeElement);
+    close();
+    if (focusInside) triggerOf(item)?.focus();
+  };
+  const onOutside = (event) => {
+    if (!vertical && openItem() && !inside(event.target)) close();
+  };
+  let finish;
+  const ended = new Promise((resolve) => {
+    finish = resolve;
+  });
+  const observer = new MutationObserver(() => {
+    if (!root.isConnected) return finish();
+    const content = pendingFocus ? contentOf(pendingFocus) : null;
+    if (content && !content.hidden) {
+      const item = pendingFocus;
+      pendingFocus = null;
       focusFirstLink(item);
-    } else {
-      pendingFocus = item;
-      open(item);
     }
-    return;
-  } else if (vertical) {
-    next = step(topLevel(), target, event.key, "ArrowDown", "ArrowUp");
-  } else {
-    next = step(topLevel(), target, key, "ArrowRight", "ArrowLeft");
-  }
-  if (next) {
-    event.preventDefault();
-    next.focus();
-  }
-};
-let openTimer = 0;
-let pendingOpen = null;
-let closeTimer = 0;
-// A trigger closed by a click stays closed under the pointer until it leaves.
-let clickClosed = null;
-const cancelOpen = () => {
-  clearTimeout(openTimer);
-  pendingOpen = null;
-};
-const cancelClose = () => {
-  clearTimeout(closeTimer);
-  closeTimer = 0;
-};
-const onClick = (event) => {
-  if (!(event.target instanceof Element) || !inside(event.target)) return;
-  const trigger = event.target.closest(triggerSelector);
-  if (trigger && owned(trigger) && enabled(trigger)) {
-    const item = itemOf(trigger);
-    cancelOpen();
-    if (item === openItem()) {
-      clickClosed = item;
-      close();
-    } else {
-      open(item);
-    }
-    return;
-  }
-  const link = event.target.closest("a");
-  if (link && enabled(link) && link.closest(contentSelector)) close();
-};
-// Pointer movement, not pointerover: Chrome also sends pointerover when the
-// layout shifts under a resting cursor, such as when content opens.
-const onPointerMove = (event) => {
-  if (event.pointerType !== "mouse") return;
-  const target = event.target instanceof Element && inside(event.target) ? event.target : null;
-  const closestTrigger = target ? target.closest(triggerSelector) : null;
-  const trigger = closestTrigger && owned(closestTrigger) ? closestTrigger : null;
-  const item = target ? itemOf(target) : null;
-  const current = openItem();
-  if (clickClosed && trigger !== triggerOf(clickClosed)) clickClosed = null;
-  if (trigger && enabled(trigger)) {
-    cancelClose();
-    if (item === current || item === clickClosed || item === pendingOpen) return;
-    cancelOpen();
-    pendingOpen = item;
-    openTimer = setTimeout(() => {
-      pendingOpen = null;
-      open(item);
-    }, current ? 0 : openDelay);
-    return;
-  }
+  });
+  observer.observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ["hidden"] });
+  root.addEventListener("keydown", onKeyDown);
+  root.addEventListener("click", onClick);
+  document.addEventListener("pointermove", onPointerMove);
+  document.addEventListener("keydown", onDocumentKeyDown);
+  document.addEventListener("pointerdown", onOutside, true);
+  document.addEventListener("focusin", onOutside);
+  await ended;
+  observer.disconnect();
   cancelOpen();
-  if (current && item === current && ownContent(target)) return cancelClose();
-  // A vertical menu keeps its panel; leaving it would leave an empty area.
-  if (current && !closeTimer && !vertical) {
-    closeTimer = setTimeout(() => {
-      closeTimer = 0;
-      close();
-    }, closeDelay);
-  }
-};
-const onDocumentKeyDown = (event) => {
-  const item = event.key === "Escape" ? openItem() : null;
-  if (!item) return;
-  const focusInside = inside(document.activeElement);
-  close();
-  if (focusInside) triggerOf(item)?.focus();
-};
-const onOutside = (event) => {
-  if (!vertical && openItem() && !inside(event.target)) close();
-};
-let finish;
-const ended = new Promise((resolve) => {
-  finish = resolve;
-});
-const observer = new MutationObserver(() => {
-  if (!root.isConnected) return finish();
-  const content = pendingFocus ? contentOf(pendingFocus) : null;
-  if (content && !content.hidden) {
-    const item = pendingFocus;
-    pendingFocus = null;
-    focusFirstLink(item);
-  }
-});
-observer.observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ["hidden"] });
-root.addEventListener("keydown", onKeyDown);
-root.addEventListener("click", onClick);
-document.addEventListener("pointermove", onPointerMove);
-document.addEventListener("keydown", onDocumentKeyDown);
-document.addEventListener("pointerdown", onOutside, true);
-document.addEventListener("focusin", onOutside);
-await ended;
-observer.disconnect();
-cancelOpen();
-cancelClose();
-document.removeEventListener("pointermove", onPointerMove);
-document.removeEventListener("keydown", onDocumentKeyDown);
-document.removeEventListener("pointerdown", onOutside, true);
-document.removeEventListener("focusin", onOutside);
-"#;
+  cancelClose();
+  document.removeEventListener("pointermove", onPointerMove);
+  document.removeEventListener("keydown", onDocumentKeyDown);
+  document.removeEventListener("pointerdown", onOutside, true);
+  document.removeEventListener("focusin", onOutside);
+}
+"#
+);
 
 /// How a navigation menu lays out its triggers.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -335,11 +340,11 @@ pub fn NavigationMenu(
   let effect_scope_id = scope_id.clone();
 
   use_effect(move || {
-    let mut eval = document::eval(NAVIGATION_MENU_SCRIPT);
+    let script = navigation_menu_script::start();
     // A send error means the page already finished the script; nothing to track.
-    let _ = eval.send(effect_scope_id.as_str());
+    let _ = script.send(effect_scope_id.as_str());
     spawn(async move {
-      while let Ok(value) = eval.recv::<String>().await {
+      while let Ok(value) = script.recv::<String>().await {
         open.set(value);
       }
     });

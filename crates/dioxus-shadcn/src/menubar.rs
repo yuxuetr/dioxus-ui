@@ -17,90 +17,95 @@ use crate::menu_marks::{
 use crate::menu_radio::{use_menu_radio_group, use_menu_radio_item};
 use crate::menu_sub::{use_menu_sub, use_menu_sub_content, use_menu_sub_part};
 use crate::root_state::{Controllable, use_controllable, use_root_context};
+use crate::script::{Script, component_script};
 
 // Runs for the bar's lifetime. Triggers are read from the DOM on every event
 // so triggers added or disabled later are picked up. Sends the `MenubarMenu`
 // value of the menu to open.
-// Keep in sync with `MENUBAR_SCRIPT` in the CLI `menubar.rs` template.
-pub(crate) const MENUBAR_SCRIPT: &str = r#"
-const scopeId = await dioxus.recv();
-const root = document.querySelector(`[data-dxui-menubar="${scopeId}"]`);
-if (!root) return;
-const triggerSelector = "[data-dxui-menubar-trigger]";
-const enabledTriggers = () =>
-  Array.from(root.querySelectorAll(triggerSelector)).filter((trigger) => !trigger.disabled);
-const menuOf = (element) => element.closest("[data-dxui-menubar-menu]");
-// One Tab stop: the trigger that last had focus, or the first enabled one.
-const setTabStop = (current) => {
-  const enabled = enabledTriggers();
-  const stop = enabled.includes(current) ? current : enabled[0];
-  root.querySelectorAll(triggerSelector).forEach((trigger) => {
-    trigger.tabIndex = trigger === stop ? 0 : -1;
+// Keep in sync with `menubar_script` in the CLI `menubar.rs` template.
+component_script!(
+  menubar_script = r#"
+export async function run(dioxus) {
+  const scopeId = await dioxus.recv();
+  const root = document.querySelector(`[data-dxui-menubar="${scopeId}"]`);
+  if (!root) return;
+  const triggerSelector = "[data-dxui-menubar-trigger]";
+  const enabledTriggers = () =>
+    Array.from(root.querySelectorAll(triggerSelector)).filter((trigger) => !trigger.disabled);
+  const menuOf = (element) => element.closest("[data-dxui-menubar-menu]");
+  // One Tab stop: the trigger that last had focus, or the first enabled one.
+  const setTabStop = (current) => {
+    const enabled = enabledTriggers();
+    const stop = enabled.includes(current) ? current : enabled[0];
+    root.querySelectorAll(triggerSelector).forEach((trigger) => {
+      trigger.tabIndex = trigger === stop ? 0 : -1;
+    });
+  };
+  const step = (trigger, key) => {
+    const enabled = enabledTriggers();
+    const index = enabled.indexOf(trigger);
+    const count = enabled.length;
+    if (index < 0) return null;
+    if (key === "ArrowRight") return enabled[(index + 1) % count];
+    if (key === "ArrowLeft") return enabled[(index - 1 + count) % count];
+    if (key === "Home") return enabled[0];
+    if (key === "End") return enabled[count - 1];
+    return null;
+  };
+  const open = (trigger) => {
+    const menu = menuOf(trigger);
+    if (menu) dioxus.send(menu.dataset.value || "");
+  };
+  // In a right-to-left layout, ArrowLeft points at the next item.
+  const visualKey = (key) => {
+    if (getComputedStyle(root).direction !== "rtl") return key;
+    if (key === "ArrowLeft") return "ArrowRight";
+    if (key === "ArrowRight") return "ArrowLeft";
+    return key;
+  };
+  const onKeyDown = (event) => {
+    if (event.defaultPrevented || !(event.target instanceof Element)) return;
+    const menu = menuOf(event.target);
+    const trigger = menu && root.contains(menu) ? menu.querySelector(triggerSelector) : null;
+    if (!trigger) return;
+    const onTrigger = event.target === trigger;
+    // Inside an open menu only Left and Right leave it; the menu itself
+    // handles the other keys.
+    if (!onTrigger && event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+    const next = step(trigger, visualKey(event.key));
+    if (!next || next === trigger) return;
+    event.preventDefault();
+    if (onTrigger) next.focus();
+    else open(next);
+  };
+  // Pointer movement, not pointerover: Chrome also sends pointerover when the
+  // layout shifts under a resting cursor, such as while a menu is placed, which
+  // would switch back to the menu under the cursor.
+  const onPointerMove = (event) => {
+    const trigger = event.target instanceof Element ? event.target.closest(triggerSelector) : null;
+    if (!trigger || trigger.disabled || !root.contains(trigger)) return;
+    const content = menuOf(trigger)?.querySelector('[role="menu"]');
+    if (content && content.hidden && root.querySelector('[role="menu"]:not([hidden])')) open(trigger);
+  };
+  const onFocusIn = (event) => {
+    if (event.target instanceof Element && event.target.matches(triggerSelector)) setTabStop(event.target);
+  };
+  setTabStop(null);
+  root.addEventListener("keydown", onKeyDown);
+  root.addEventListener("pointermove", onPointerMove);
+  root.addEventListener("focusin", onFocusIn);
+  await new Promise((resolve) => {
+    const observer = new MutationObserver(() => {
+      if (!root.isConnected) {
+        observer.disconnect();
+        resolve();
+      }
+    });
+    observer.observe(document.documentElement, { subtree: true, childList: true });
   });
-};
-const step = (trigger, key) => {
-  const enabled = enabledTriggers();
-  const index = enabled.indexOf(trigger);
-  const count = enabled.length;
-  if (index < 0) return null;
-  if (key === "ArrowRight") return enabled[(index + 1) % count];
-  if (key === "ArrowLeft") return enabled[(index - 1 + count) % count];
-  if (key === "Home") return enabled[0];
-  if (key === "End") return enabled[count - 1];
-  return null;
-};
-const open = (trigger) => {
-  const menu = menuOf(trigger);
-  if (menu) dioxus.send(menu.dataset.value || "");
-};
-// In a right-to-left layout, ArrowLeft points at the next item.
-const visualKey = (key) => {
-  if (getComputedStyle(root).direction !== "rtl") return key;
-  if (key === "ArrowLeft") return "ArrowRight";
-  if (key === "ArrowRight") return "ArrowLeft";
-  return key;
-};
-const onKeyDown = (event) => {
-  if (event.defaultPrevented || !(event.target instanceof Element)) return;
-  const menu = menuOf(event.target);
-  const trigger = menu && root.contains(menu) ? menu.querySelector(triggerSelector) : null;
-  if (!trigger) return;
-  const onTrigger = event.target === trigger;
-  // Inside an open menu only Left and Right leave it; the menu itself
-  // handles the other keys.
-  if (!onTrigger && event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
-  const next = step(trigger, visualKey(event.key));
-  if (!next || next === trigger) return;
-  event.preventDefault();
-  if (onTrigger) next.focus();
-  else open(next);
-};
-// Pointer movement, not pointerover: Chrome also sends pointerover when the
-// layout shifts under a resting cursor, such as while a menu is placed, which
-// would switch back to the menu under the cursor.
-const onPointerMove = (event) => {
-  const trigger = event.target instanceof Element ? event.target.closest(triggerSelector) : null;
-  if (!trigger || trigger.disabled || !root.contains(trigger)) return;
-  const content = menuOf(trigger)?.querySelector('[role="menu"]');
-  if (content && content.hidden && root.querySelector('[role="menu"]:not([hidden])')) open(trigger);
-};
-const onFocusIn = (event) => {
-  if (event.target instanceof Element && event.target.matches(triggerSelector)) setTabStop(event.target);
-};
-setTabStop(null);
-root.addEventListener("keydown", onKeyDown);
-root.addEventListener("pointermove", onPointerMove);
-root.addEventListener("focusin", onFocusIn);
-await new Promise((resolve) => {
-  const observer = new MutationObserver(() => {
-    if (!root.isConnected) {
-      observer.disconnect();
-      resolve();
-    }
-  });
-  observer.observe(document.documentElement, { subtree: true, childList: true });
-});
-"#;
+}
+"#
+);
 
 const MENUBAR_BASE_CLASS: &str =
   "flex h-10 items-center gap-1 rounded-md border border-border bg-background p-1";
@@ -239,11 +244,11 @@ pub fn Menubar(
   let effect_scope_id = scope_id.clone();
 
   use_effect(move || {
-    let mut eval = document::eval(MENUBAR_SCRIPT);
+    let script = menubar_script::start();
     // A send error means the page already finished the script; nothing to track.
-    let _ = eval.send(effect_scope_id.as_str());
+    let _ = script.send(effect_scope_id.as_str());
     spawn(async move {
-      while let Ok(value) = eval.recv::<String>().await {
+      while let Ok(value) = script.recv::<String>().await {
         bar.set(value);
       }
     });

@@ -168,7 +168,7 @@ pub(crate) fn use_anchored_overlay(
       if open == was_open.replace(open) || !open {
         return;
       }
-      let mut script = anchored_overlay_script::start();
+      let script = anchored_overlay_script::start();
       // A send error means the page already finished the script; nothing to place.
       let _ = script.send((
         effect_scope_id.as_str(),

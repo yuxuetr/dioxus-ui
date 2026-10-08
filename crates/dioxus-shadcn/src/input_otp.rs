@@ -12,38 +12,43 @@ pub use dioxus_shadcn_primitives::{
 use crate::density::{density_control_class, use_density, with_density};
 use crate::element_id::next_element_id;
 use crate::root_state::{Controllable, use_controllable, use_root_context};
-// Keep in sync with `INPUT_OTP_FILTER_SCRIPT` in the CLI `input_otp.rs` template.
+use crate::script::{Script, component_script};
+// Keep in sync with `input_otp_filter_script` in the CLI `input_otp.rs` template.
 // Runs for the input's lifetime. Its listener on the input itself runs before
 // the delegated Dioxus handler, so it can drop rejected characters from the
 // native value first. Without it the input would keep characters the app
 // never saw, and Backspace would remove those instead of the last digit.
-pub(crate) const INPUT_OTP_FILTER_SCRIPT: &str = r#"
-const scopeId = await dioxus.recv();
-const input = document.querySelector(`[data-dxui-otp-input="${scopeId}"]`);
-if (!input) return;
-// Mirrors `InputOtpInputMode::allows`.
-const allowed = { numeric: /[0-9]/, text: /[\p{Alphabetic}\p{N}]/u };
-const onInput = () => {
-  const pattern = allowed[input.inputMode] || allowed.text;
-  const length = Number(input.dataset.length) || 0;
-  const next = Array.from(input.value)
-    .filter((ch) => pattern.test(ch))
-    .slice(0, length)
-    .join("");
-  if (next !== input.value) input.value = next;
-};
-let finish;
-const ended = new Promise((resolve) => {
-  finish = resolve;
-});
-const observer = new MutationObserver(() => {
-  if (!input.isConnected) finish();
-});
-observer.observe(document.documentElement, { subtree: true, childList: true });
-input.addEventListener("input", onInput);
-await ended;
-observer.disconnect();
-"#;
+component_script!(
+  input_otp_filter_script = r#"
+export async function run(dioxus) {
+  const scopeId = await dioxus.recv();
+  const input = document.querySelector(`[data-dxui-otp-input="${scopeId}"]`);
+  if (!input) return;
+  // Mirrors `InputOtpInputMode::allows`.
+  const allowed = { numeric: /[0-9]/, text: /[\p{Alphabetic}\p{N}]/u };
+  const onInput = () => {
+    const pattern = allowed[input.inputMode] || allowed.text;
+    const length = Number(input.dataset.length) || 0;
+    const next = Array.from(input.value)
+      .filter((ch) => pattern.test(ch))
+      .slice(0, length)
+      .join("");
+    if (next !== input.value) input.value = next;
+  };
+  let finish;
+  const ended = new Promise((resolve) => {
+    finish = resolve;
+  });
+  const observer = new MutationObserver(() => {
+    if (!input.isConnected) finish();
+  });
+  observer.observe(document.documentElement, { subtree: true, childList: true });
+  input.addEventListener("input", onInput);
+  await ended;
+  observer.disconnect();
+}
+"#
+);
 
 /// Which characters a code accepts, and which keyboard phones show.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -311,9 +316,9 @@ fn use_input_otp_filter() -> String {
   let effect_scope_id = scope_id.clone();
 
   use_effect(move || {
-    let eval = document::eval(INPUT_OTP_FILTER_SCRIPT);
+    let script = input_otp_filter_script::start();
     // A send error means the page already finished the script; nothing to track.
-    let _ = eval.send(effect_scope_id.as_str());
+    let _ = script.send(effect_scope_id.as_str());
   });
 
   scope_id

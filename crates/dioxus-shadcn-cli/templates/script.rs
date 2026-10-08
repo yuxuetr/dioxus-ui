@@ -74,11 +74,14 @@ impl Script {
 
   // Send-only scripts, such as Checkbox's, never call it.
   #[allow(dead_code)]
-  pub(crate) async fn recv<T: DeserializeOwned>(&mut self) -> Result<T, EvalError> {
+  // Takes `&self`, so one handle can both send and wait, as a shared
+  // `Rc<Script>` does in the theme controller.
+  pub(crate) async fn recv<T: DeserializeOwned>(&self) -> Result<T, EvalError> {
     #[cfg(target_arch = "wasm32")]
     return self.channel.recv().await;
+    // `Eval` is a copyable handle to the same evaluator.
     #[cfg(not(target_arch = "wasm32"))]
-    return self.eval.recv().await;
+    return { self.eval }.recv().await;
   }
 }
 
@@ -208,7 +211,7 @@ export function channel(onSend, onClose) {
       Ok(())
     }
 
-    pub(super) async fn recv<T: DeserializeOwned>(&mut self) -> Result<T, EvalError> {
+    pub(super) async fn recv<T: DeserializeOwned>(&self) -> Result<T, EvalError> {
       let json = std::future::poll_fn(|context| {
         let mut inbox = self.inbox.borrow_mut();
         match inbox.messages.pop_front() {

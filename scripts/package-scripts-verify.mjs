@@ -112,6 +112,7 @@ const aggregateScriptRequirements = {
     "npm run verify:changelog",
     "scripts/feature-check.sh",
     "scripts/generated-fixture-smoke.sh",
+    "npm run verify:csp",
     "npm run verify:release-docs",
     "npm run verify:package-scripts",
     "npm run verify:package-lock",
