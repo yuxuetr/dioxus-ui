@@ -7,6 +7,7 @@ use dioxus_shadcn_core::{classes, merge_classes};
 use crate::density::{density_control_class, use_density, with_density};
 use crate::element_id::next_element_id;
 use crate::root_state::use_controllable;
+use crate::safe_url::safe_href;
 
 const MENU_BASE_CLASS: &str = "flex w-full flex-col gap-0.5 text-sm";
 const MENU_TITLE_BASE_CLASS: &str = "px-3 pb-1 pt-3 text-xs font-medium text-muted-foreground";
@@ -103,7 +104,7 @@ pub fn MenuItem(
       if !href.is_empty() {
         a {
           class,
-          href: (!disabled).then_some(href),
+          href: (!disabled).then_some(href).and_then(safe_href),
           role: disabled.then_some("link"),
           "aria-current": aria_current,
           "aria-disabled": disabled.then_some("true"),

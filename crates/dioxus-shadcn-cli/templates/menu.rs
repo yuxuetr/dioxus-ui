@@ -4,6 +4,7 @@ use super::density::{density_control_class, use_density, with_density};
 use super::element_id::next_element_id;
 use super::root_state::use_controllable;
 use super::utils::{classes, merge_classes};
+use super::safe_url::safe_href;
 use dioxus::prelude::*;
 
 const MENU_BASE_CLASS: &str = "flex w-full flex-col gap-0.5 text-sm";
@@ -101,7 +102,7 @@ pub fn MenuItem(
       if !href.is_empty() {
         a {
           class,
-          href: (!disabled).then_some(href),
+          href: (!disabled).then_some(href).and_then(safe_href),
           role: disabled.then_some("link"),
           "aria-current": aria_current,
           "aria-disabled": disabled.then_some("true"),

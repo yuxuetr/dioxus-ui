@@ -6,6 +6,7 @@ pub use super::overlay::{DismissBehavior, OverlayAlign, OverlaySide, PopoverPrim
 use super::overlay_root::{OverlayRoot, use_overlay_root};
 use super::root_state::use_root_context;
 use super::utils::{classes, merge_classes};
+use super::safe_url::safe_href;
 use dioxus::prelude::*;
 
 const HOVER_CARD_CONTENT_BASE_CLASS: &str = "z-50 w-80 rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
@@ -105,7 +106,7 @@ pub fn HoverCardTrigger(
 
   rsx! {
     a {
-      href,
+      href: safe_href(href),
       id: root.trigger_id(),
       class,
       "data-dxui-hover-trigger": "",

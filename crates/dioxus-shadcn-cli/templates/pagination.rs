@@ -3,6 +3,7 @@
 use super::default_attribute::default_attribute;
 use super::utils::{classes, merge_classes};
 use super::density::{density_control_class, use_density, with_density};
+use super::safe_url::safe_href;
 use dioxus::prelude::*;
 
 const PAGINATION_BASE_CLASS: &str = "mx-auto flex w-full justify-center";
@@ -215,7 +216,7 @@ fn pagination_control(
     rsx! {
       a {
         class,
-        href: (!disabled).then_some(href),
+        href: (!disabled).then_some(href).and_then(safe_href),
         role: disabled.then_some("link"),
         "aria-label": aria_label,
         "aria-current": aria_current,

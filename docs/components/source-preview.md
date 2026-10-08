@@ -23,7 +23,7 @@ Source preview routes: 82
 | [Attachment](attachment.md) | /components/attachment/source | crates/dioxus-shadcn-cli/templates/attachment.rs | src/components/ui/attachment.rs | rust | 358 | 10932 |
 | [Avatar](avatar.md) | /components/avatar/source | crates/dioxus-shadcn-cli/templates/avatar.rs | src/components/ui/avatar.rs | rust | 65 | 1750 |
 | [Badge](badge.md) | /components/badge/source | crates/dioxus-shadcn-cli/templates/badge.rs | src/components/ui/badge.rs | rust | 63 | 1875 |
-| [Breadcrumb](breadcrumb.md) | /components/breadcrumb/source | crates/dioxus-shadcn-cli/templates/breadcrumb.rs | src/components/ui/breadcrumb.rs | rust | 152 | 4286 |
+| [Breadcrumb](breadcrumb.md) | /components/breadcrumb/source | crates/dioxus-shadcn-cli/templates/breadcrumb.rs | src/components/ui/breadcrumb.rs | rust | 153 | 4335 |
 | [Bubble](bubble.md) | /components/bubble/source | crates/dioxus-shadcn-cli/templates/bubble.rs | src/components/ui/bubble.rs | rust | 256 | 7293 |
 | [Button](button.md) | /components/button/source | crates/dioxus-shadcn-cli/templates/button.rs | src/components/ui/button.rs | rust | 115 | 3654 |
 | [Button Group](button-group.md) | /components/button-group/source | crates/dioxus-shadcn-cli/templates/button_group.rs | src/components/ui/button_group.rs | rust | 111 | 3717 |
@@ -42,14 +42,14 @@ Source preview routes: 82
 | [Dialog](dialog.md) | /components/dialog/source | crates/dioxus-shadcn-cli/templates/dialog.rs | src/components/ui/dialog.rs | rust | 191 | 6251 |
 | [Diff](diff.md) | /components/diff/source | crates/dioxus-shadcn-cli/templates/diff.rs | src/components/ui/diff.rs | rust | 101 | 3983 |
 | [Direction](direction.md) | /components/direction/source | crates/dioxus-shadcn-cli/templates/direction.rs | src/components/ui/direction.rs | rust | 52 | 1163 |
-| [Dock](dock.md) | /components/dock/source | crates/dioxus-shadcn-cli/templates/dock.rs | src/components/ui/dock.rs | rust | 91 | 3648 |
+| [Dock](dock.md) | /components/dock/source | crates/dioxus-shadcn-cli/templates/dock.rs | src/components/ui/dock.rs | rust | 92 | 3697 |
 | [Drawer](drawer.md) | /components/drawer/source | crates/dioxus-shadcn-cli/templates/drawer.rs | src/components/ui/drawer.rs | rust | 223 | 6694 |
 | [Dropdown](dropdown.md) | /components/dropdown/source | crates/dioxus-shadcn-cli/templates/dropdown.rs | src/components/ui/dropdown.rs | rust | 419 | 13587 |
 | [Empty](empty.md) | /components/empty/source | crates/dioxus-shadcn-cli/templates/empty.rs | src/components/ui/empty.rs | rust | 114 | 3066 |
 | [Fab](fab.md) | /components/fab/source | crates/dioxus-shadcn-cli/templates/fab.rs | src/components/ui/fab.rs | rust | 144 | 5875 |
 | [Field](field.md) | /components/field/source | crates/dioxus-shadcn-cli/templates/field.rs | src/components/ui/field.rs | rust | 124 | 3255 |
 | [File Input](file-input.md) | /components/file-input/source | crates/dioxus-shadcn-cli/templates/file_input.rs | src/components/ui/file_input.rs | rust | 49 | 2112 |
-| [Hover Card](hover-card.md) | /components/hover-card/source | crates/dioxus-shadcn-cli/templates/hover_card.rs | src/components/ui/hover_card.rs | rust | 194 | 5678 |
+| [Hover Card](hover-card.md) | /components/hover-card/source | crates/dioxus-shadcn-cli/templates/hover_card.rs | src/components/ui/hover_card.rs | rust | 195 | 5727 |
 | [Indicator](indicator.md) | /components/indicator/source | crates/dioxus-shadcn-cli/templates/indicator.rs | src/components/ui/indicator.rs | rust | 77 | 2667 |
 | [Input](input.md) | /components/input/source | crates/dioxus-shadcn-cli/templates/input.rs | src/components/ui/input.rs | rust | 51 | 1867 |
 | [Input Group](input-group.md) | /components/input-group/source | crates/dioxus-shadcn-cli/templates/input_group.rs | src/components/ui/input_group.rs | rust | 141 | 4901 |
@@ -58,15 +58,15 @@ Source preview routes: 82
 | [Kbd](kbd.md) | /components/kbd/source | crates/dioxus-shadcn-cli/templates/kbd.rs | src/components/ui/kbd.rs | rust | 50 | 1321 |
 | [Label](label.md) | /components/label/source | crates/dioxus-shadcn-cli/templates/label.rs | src/components/ui/label.rs | rust | 34 | 1059 |
 | [Marker](marker.md) | /components/marker/source | crates/dioxus-shadcn-cli/templates/marker.rs | src/components/ui/marker.rs | rust | 107 | 2890 |
-| [Menu](menu.md) | /components/menu/source | crates/dioxus-shadcn-cli/templates/menu.rs | src/components/ui/menu.rs | rust | 186 | 6554 |
+| [Menu](menu.md) | /components/menu/source | crates/dioxus-shadcn-cli/templates/menu.rs | src/components/ui/menu.rs | rust | 187 | 6606 |
 | [Menubar](menubar.md) | /components/menubar/source | crates/dioxus-shadcn-cli/templates/menubar.rs | src/components/ui/menubar.rs | rust | 608 | 20711 |
 | [Message](message.md) | /components/message/source | crates/dioxus-shadcn-cli/templates/message.rs | src/components/ui/message.rs | rust | 168 | 4829 |
 | [Message Scroller](message-scroller.md) | /components/message-scroller/source | crates/dioxus-shadcn-cli/templates/message_scroller.rs | src/components/ui/message_scroller.rs | rust | 284 | 9866 |
 | [Mockup](mockup.md) | /components/mockup/source | crates/dioxus-shadcn-cli/templates/mockup.rs | src/components/ui/mockup.rs | rust | 165 | 5469 |
 | [Native Select](native-select.md) | /components/native-select/source | crates/dioxus-shadcn-cli/templates/native_select.rs | src/components/ui/native_select.rs | rust | 105 | 3228 |
-| [Navigation Menu](navigation-menu.md) | /components/navigation-menu/source | crates/dioxus-shadcn-cli/templates/navigation_menu.rs | src/components/ui/navigation_menu.rs | rust | 500 | 19846 |
+| [Navigation Menu](navigation-menu.md) | /components/navigation-menu/source | crates/dioxus-shadcn-cli/templates/navigation_menu.rs | src/components/ui/navigation_menu.rs | rust | 501 | 19895 |
 | [Number Input](number-input.md) | /components/number-input/source | crates/dioxus-shadcn-cli/templates/number_input.rs | src/components/ui/number_input.rs | rust | 164 | 6246 |
-| [Pagination](pagination.md) | /components/pagination/source | crates/dioxus-shadcn-cli/templates/pagination.rs | src/components/ui/pagination.rs | rust | 243 | 7596 |
+| [Pagination](pagination.md) | /components/pagination/source | crates/dioxus-shadcn-cli/templates/pagination.rs | src/components/ui/pagination.rs | rust | 244 | 7648 |
 | [Popover](popover.md) | /components/popover/source | crates/dioxus-shadcn-cli/templates/popover.rs | src/components/ui/popover.rs | rust | 157 | 4993 |
 | [Progress](progress.md) | /components/progress/source | crates/dioxus-shadcn-cli/templates/progress.rs | src/components/ui/progress.rs | rust | 56 | 1690 |
 | [Radial Progress](radial-progress.md) | /components/radial-progress/source | crates/dioxus-shadcn-cli/templates/radial_progress.rs | src/components/ui/radial_progress.rs | rust | 119 | 3928 |
@@ -77,7 +77,7 @@ Source preview routes: 82
 | [Select](select.md) | /components/select/source | crates/dioxus-shadcn-cli/templates/select.rs | src/components/ui/select.rs | rust | 290 | 10166 |
 | [Separator](separator.md) | /components/separator/source | crates/dioxus-shadcn-cli/templates/separator.rs | src/components/ui/separator.rs | rust | 61 | 1710 |
 | [Sheet](sheet.md) | /components/sheet/source | crates/dioxus-shadcn-cli/templates/sheet.rs | src/components/ui/sheet.rs | rust | 261 | 7895 |
-| [Sidebar](sidebar.md) | /components/sidebar/source | crates/dioxus-shadcn-cli/templates/sidebar.rs | src/components/ui/sidebar.rs | rust | 523 | 17574 |
+| [Sidebar](sidebar.md) | /components/sidebar/source | crates/dioxus-shadcn-cli/templates/sidebar.rs | src/components/ui/sidebar.rs | rust | 524 | 17626 |
 | [Skeleton](skeleton.md) | /components/skeleton/source | crates/dioxus-shadcn-cli/templates/skeleton.rs | src/components/ui/skeleton.rs | rust | 23 | 612 |
 | [Slider](slider.md) | /components/slider/source | crates/dioxus-shadcn-cli/templates/slider.rs | src/components/ui/slider.rs | rust | 604 | 22750 |
 | [Sonner](sonner.md) | /components/sonner/source | crates/dioxus-shadcn-cli/templates/sonner.rs | src/components/ui/sonner.rs | rust | 468 | 14895 |

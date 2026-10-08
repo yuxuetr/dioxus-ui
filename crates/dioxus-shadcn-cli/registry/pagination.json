@@ -10,6 +10,7 @@
   "dependencies": [
     "default-attribute",
     "density",
+    "safe-url",
     "utils"
   ],
   "assets": []

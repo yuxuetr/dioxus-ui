@@ -1,6 +1,7 @@
 //! Breadcrumb: semantic parts for a navigation trail. It owns structure and
 //! styling; routing, links, and which page is current stay with the app.
 
+use crate::safe_url::safe_href;
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
@@ -105,7 +106,7 @@ pub fn BreadcrumbLink(
   rsx! {
     a {
       class,
-      href,
+      href: safe_href(href),
       "aria-current": if current { "page" } else { "false" },
       ..attributes,
       {children}

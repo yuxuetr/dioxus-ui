@@ -6,6 +6,7 @@ use super::root_state::{Controllable, use_controllable, use_root_context};
 use super::utils::{classes, merge_classes};
 use super::density::{density_control_class, use_density, with_density};
 use super::script::{Script, component_script};
+use super::safe_url::safe_href;
 use dioxus::prelude::*;
 
 // Runs for the menu's lifetime and reads items from the DOM on every event.
@@ -456,7 +457,9 @@ pub fn NavigationMenuLink(
 
   rsx! {
     a {
-      href,
+      // A disabled link is not followed, as in Menu and Pagination.
+      href: (!disabled).then_some(href).and_then(safe_href),
+      role: disabled.then_some("link"),
       class,
       "aria-current": if active { "page" } else { "false" },
       "aria-disabled": disabled.to_string(),

@@ -1,0 +1,12 @@
+{
+  "name": "safe-url",
+  "description": "Keeps a link's href only when it is relative or uses http, https, mailto, or tel.",
+  "files": [
+    {
+      "source": "templates/safe_url.rs",
+      "target": "src/components/ui/safe_url.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

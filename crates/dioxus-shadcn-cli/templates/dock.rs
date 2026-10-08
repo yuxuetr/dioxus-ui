@@ -1,6 +1,7 @@
 //! Dock: a bottom navigation bar for phone layouts, with an icon and a label per
 //! destination.
 use super::utils::{classes, merge_classes};
+use super::safe_url::safe_href;
 use dioxus::prelude::*;
 
 const DOCK_BASE_CLASS: &str = "z-40 flex h-16 items-stretch border-t border-border bg-background pb-[env(safe-area-inset-bottom)] text-foreground";
@@ -69,7 +70,7 @@ pub fn DockItem(
 
   rsx! {
     if let Some(href) = href {
-      a { class, href, "aria-current": current, onclick: click, ..attributes, {children} }
+      a { class, href: safe_href(href), "aria-current": current, onclick: click, ..attributes, {children} }
     } else {
       button { class, r#type: "button", "aria-current": current, onclick: click, ..attributes, {children} }
     }

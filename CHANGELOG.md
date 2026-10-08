@@ -8,6 +8,16 @@ for commit messages.
 
 ## [Unreleased]
 
+### Fixed
+- Components that take a link's URL (Breadcrumb, Dock, Hover Card, Menu,
+  Navigation Menu, Pagination, and Sidebar links) render no `href` for a
+  scheme other than `http`, `https`, `mailto`, and `tel`, so a
+  `javascript:` URL from app data cannot run when the link is followed.
+  Relative URLs and fragments are kept. Copied components bring a
+  `safe_url.rs` helper.
+- A disabled `NavigationMenuLink` drops its `href`, as disabled Menu,
+  Pagination, and Sidebar links already did.
+
 ## [0.6.1] - 2026-10-08
 
 Version 0.6.1 makes the interactive components work under a Content Security

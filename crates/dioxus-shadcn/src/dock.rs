@@ -1,6 +1,7 @@
 //! Dock: a bottom navigation bar for phone layouts, with an icon and a label per
 //! destination.
 
+use crate::safe_url::safe_href;
 use dioxus::prelude::*;
 use dioxus_shadcn_core::{classes, merge_classes};
 
@@ -70,7 +71,7 @@ pub fn DockItem(
 
   rsx! {
     if let Some(href) = href {
-      a { class, href, "aria-current": current, onclick: click, ..attributes, {children} }
+      a { class, href: safe_href(href), "aria-current": current, onclick: click, ..attributes, {children} }
     } else {
       button { class, r#type: "button", "aria-current": current, onclick: click, ..attributes, {children} }
     }

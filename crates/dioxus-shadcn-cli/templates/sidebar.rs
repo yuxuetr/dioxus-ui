@@ -12,6 +12,7 @@ use super::root_state::{Controllable, use_controllable, use_root_context};
 use super::utils::{classes, merge_classes};
 use super::density::{density_control_class, use_density, with_density};
 use super::script::{Script, component_script};
+use super::safe_url::safe_href;
 use dioxus::prelude::*;
 
 /// Below this width the sidebar of an `off_canvas` provider is off-canvas.
@@ -444,7 +445,7 @@ pub fn SidebarItem(
     rsx! {
       a {
         class,
-        href: (!disabled).then_some(href),
+        href: (!disabled).then_some(href).and_then(safe_href),
         role: disabled.then_some("link"),
         "aria-current": aria_current,
         "aria-disabled": disabled.to_string(),

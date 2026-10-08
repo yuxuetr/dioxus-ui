@@ -250,6 +250,16 @@ mod hover_open;
 ))]
 mod roving_group;
 #[cfg(any(
+  feature = "breadcrumb",
+  feature = "dock",
+  feature = "hover-card",
+  feature = "menu",
+  feature = "navigation-menu",
+  feature = "pagination",
+  feature = "sidebar"
+))]
+mod safe_url;
+#[cfg(any(
   feature = "accordion",
   feature = "alert-dialog",
   feature = "checkbox",

@@ -14,6 +14,7 @@ use crate::element_id::next_element_id;
 use crate::media_query::use_media_query;
 use crate::modal_focus::use_modal_focus_scope;
 use crate::root_state::{Controllable, use_controllable, use_root_context};
+use crate::safe_url::safe_href;
 use crate::script::{Script, component_script};
 /// Below this width the sidebar of an `off_canvas` provider is off-canvas.
 pub const SIDEBAR_MOBILE_QUERY: &str = "(max-width: 767px)";
@@ -462,7 +463,7 @@ pub fn SidebarItem(
     rsx! {
       a {
         class,
-        href: (!disabled).then_some(href),
+        href: (!disabled).then_some(href).and_then(safe_href),
         role: disabled.then_some("link"),
         "aria-current": aria_current,
         "aria-disabled": disabled.to_string(),

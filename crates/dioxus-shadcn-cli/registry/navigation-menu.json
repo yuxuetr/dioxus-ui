@@ -12,6 +12,7 @@
     "element-id",
     "overlay",
     "root-state",
+    "safe-url",
     "script",
     "utils"
   ],
