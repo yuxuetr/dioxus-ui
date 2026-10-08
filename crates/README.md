@@ -90,6 +90,17 @@ version added. `dxui init` manages the line only in
 `assets/dioxus-shadcn.css`; an app that compiles another stylesheet copies the
 line from there.
 
+A crate from Cargo's registry lives in a different place on each machine,
+so the path does not carry over to a Docker image or a CI runner: run
+`dxui init` there before Tailwind, as a build step, and it rewrites the line
+for that machine. A crate inside the app's directory, such as one
+`cargo vendor` placed in `vendor/` or a path dependency, gets a path relative
+to the stylesheet (`@source "../vendor/dioxus-shadcn/src";`), which holds
+wherever the app is checked out.
+
+`dxui` writes only inside the app: it refuses to write through a symbolic
+link under `--root`, such as a linked `src/components`, and names it.
+
 ## Theme
 
 `assets/dioxus-shadcn.css` is a Tailwind v4 input stylesheet. It defines the

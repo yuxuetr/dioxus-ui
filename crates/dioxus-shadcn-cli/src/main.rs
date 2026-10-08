@@ -192,7 +192,7 @@ fn init_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
   println!("initialized dioxus-shadcn in {}", root.display());
 
   let sources = crate_sources(&root)?;
-  let path = stylesheet_path(&root);
+  let path = app_path(&root, Path::new("assets/dioxus-shadcn.css"))?;
   let css = fs::read_to_string(&path)
     .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
   if let Some(refreshed) = refresh_crate_sources(&css, &sources) {
@@ -238,10 +238,16 @@ fn crate_sources(root: &Path) -> Result<Vec<String>, Box<dyn Error>> {
     );
   }
 
-  crate_sources_from_metadata(&String::from_utf8_lossy(&output.stdout))
+  let root = fs::canonicalize(root).unwrap_or_else(|_| root.to_path_buf());
+  crate_sources_from_metadata(&String::from_utf8_lossy(&output.stdout), &root)
 }
 
-fn crate_sources_from_metadata(json: &str) -> Result<Vec<String>, Box<dyn Error>> {
+/// The `@source` path of each `dioxus-shadcn` package in `json`: relative to
+/// the stylesheet in `assets/` when the package is inside the app at `root`,
+/// such as a vendored or path dependency, so it holds wherever the app is
+/// checked out; absolute otherwise, as for a crate in Cargo's registry,
+/// whose place differs between machines.
+fn crate_sources_from_metadata(json: &str, root: &Path) -> Result<Vec<String>, Box<dyn Error>> {
   let metadata: serde_json::Value = serde_json::from_str(json)?;
   let packages = metadata["packages"].as_array().ok_or("cargo metadata has no packages")?;
   let mut sources = Vec::new();
@@ -251,8 +257,13 @@ fn crate_sources_from_metadata(json: &str) -> Result<Vec<String>, Box<dyn Error>
       package["manifest_path"].as_str().ok_or("cargo metadata package has no manifest_path")?;
     let dir =
       Path::new(manifest).parent().ok_or("cargo metadata manifest_path has no directory")?;
+    let dir = fs::canonicalize(dir).unwrap_or_else(|_| dir.to_path_buf());
+    let source = match dir.strip_prefix(root) {
+      Ok(inside) => Path::new("..").join(inside).join("src"),
+      Err(_) => dir.join("src"),
+    };
     // CSS strings treat `\` as an escape; Tailwind reads `/` on every platform.
-    let source = dir.join("src").to_string_lossy().replace('\\', "/");
+    let source = source.to_string_lossy().replace('\\', "/");
     if source.contains('"') {
       return Err(
         format!("cannot write an @source line for `{source}`, which contains a quote").into(),
@@ -603,6 +614,27 @@ fn stylesheet_path(root: &Path) -> PathBuf {
   root.join("assets").join("dioxus-shadcn.css")
 }
 
+/// `relative` under the app's `root`, refused when a part of it below `root`
+/// is a symbolic link: a write through one, such as a linked
+/// `src/components`, would land outside the app.
+fn app_path(root: &Path, relative: &Path) -> Result<PathBuf, Box<dyn Error>> {
+  let mut path = root.to_path_buf();
+  for component in relative.components() {
+    path.push(component);
+    if fs::symlink_metadata(&path).is_ok_and(|metadata| metadata.file_type().is_symlink()) {
+      return Err(
+        format!(
+          "{} is a symbolic link; dxui writes only inside {}",
+          path.display(),
+          root.display()
+        )
+        .into(),
+      );
+    }
+  }
+  Ok(path)
+}
+
 /// Appends each preset not already in the stylesheet, after its marker check,
 /// and returns the names it added. Unknown names fail before any write.
 fn add_themes(root: &Path, names: &[String]) -> Result<Vec<String>, Box<dyn Error>> {
@@ -616,7 +648,7 @@ fn add_themes(root: &Path, names: &[String]) -> Result<Vec<String>, Box<dyn Erro
     presets.push((name, preset));
   }
 
-  let path = stylesheet_path(root);
+  let path = app_path(root, Path::new("assets/dioxus-shadcn.css"))?;
   let mut css = fs::read_to_string(&path)
     .map_err(|error| format!("cannot read {}: {error}; run `dxui init` first", path.display()))?;
   let mut added = Vec::new();
@@ -706,14 +738,14 @@ const UI_MOD_HEADER: &str =
 ";
 
 fn init_project(root: &Path) -> Result<(), Box<dyn Error>> {
-  let assets_dir = root.join("assets");
-  let ui_dir = root.join("src").join("components").join("ui");
+  let assets_dir = app_path(root, Path::new("assets"))?;
+  let ui_dir = app_path(root, Path::new("src/components/ui"))?;
 
   fs::create_dir_all(&assets_dir)?;
   fs::create_dir_all(&ui_dir)?;
 
-  write_new_file(&assets_dir.join("dioxus-shadcn.css"), DEFAULT_CSS)?;
-  write_new_file(&ui_dir.join("mod.rs"), UI_MOD_HEADER)?;
+  write_new_file(&app_path(root, Path::new("assets/dioxus-shadcn.css"))?, DEFAULT_CSS)?;
+  write_new_file(&app_path(root, Path::new("src/components/ui/mod.rs"))?, UI_MOD_HEADER)?;
 
   Ok(())
 }
@@ -819,12 +851,16 @@ struct Added {
 /// before anything is written.
 fn add_entries(root: &Path, names: &[String], overwrite: bool) -> Result<Added, Box<dyn Error>> {
   let resolved = resolve_entries(names)?;
+  // Every target is checked before anything is written.
+  let targets = entry_files(&resolved)
+    .into_iter()
+    .map(|(source, target)| Ok((source, target, app_path(root, Path::new(target))?)))
+    .collect::<Result<Vec<_>, Box<dyn Error>>>()?;
 
   init_project(root)?;
   let mut files = Vec::new();
-  for (source, target) in entry_files(&resolved) {
-    let status =
-      write_component_file(&root.join(target), embedded_asset_content(source)?, overwrite)?;
+  for (source, target, path) in targets {
+    let status = write_component_file(&path, embedded_asset_content(source)?, overwrite)?;
     files.push((target.to_string(), status));
   }
   let names_of = |entries: &[RegistryComponent]| {
@@ -832,7 +868,7 @@ fn add_entries(root: &Path, names: &[String], overwrite: bool) -> Result<Added, 
   };
   update_ui_mod(root, &names_of(&resolved.components))?;
   if !resolved.blocks.is_empty() {
-    update_mod_file(&root.join("src").join("blocks").join("mod.rs"), &names_of(&resolved.blocks))?;
+    update_mod_file(&app_path(root, Path::new("src/blocks/mod.rs"))?, &names_of(&resolved.blocks))?;
   }
 
   Ok(Added { files, block: !resolved.blocks.is_empty() })
@@ -846,7 +882,7 @@ fn unknown_component_error(component_name: &str, registry: &[RegistryComponent])
 }
 
 fn update_ui_mod(root: &Path, component_names: &[String]) -> Result<(), Box<dyn Error>> {
-  update_mod_file(&root.join("src").join("components").join("ui").join("mod.rs"), component_names)
+  update_mod_file(&app_path(root, Path::new("src/components/ui/mod.rs"))?, component_names)
 }
 
 /// Declares each name's module in the `mod.rs` at `mod_path`, keeping the
@@ -990,6 +1026,44 @@ mod tests {
   }
 
   #[test]
+  #[cfg(unix)]
+  fn add_refuses_a_symlinked_directory_and_writes_nothing() {
+    let root = temp_project();
+    let outside = temp_project();
+    fs::create_dir_all(root.join("src")).expect("src should be created");
+    fs::create_dir_all(&outside).expect("outside dir should be created");
+    std::os::unix::fs::symlink(&outside, root.join("src").join("components"))
+      .expect("symlink should be created");
+
+    let error = add_component(&root, "button").expect_err("a symlinked directory is refused");
+
+    assert!(error.to_string().contains("symbolic link"), "{error}");
+    assert!(error.to_string().contains("components"), "{error}");
+    assert_eq!(fs::read_dir(&outside).expect("outside dir").count(), 0);
+    assert!(!root.join("assets").exists(), "nothing is written");
+  }
+
+  #[test]
+  #[cfg(unix)]
+  fn add_refuses_a_symlinked_file_and_writes_nothing() {
+    let root = temp_project();
+    let outside = temp_project();
+    let ui = root.join("src").join("components").join("ui");
+    fs::create_dir_all(&ui).expect("ui dir should be created");
+    fs::create_dir_all(&outside).expect("outside dir should be created");
+    fs::write(outside.join("secret.rs"), "kept").expect("outside file should be written");
+    std::os::unix::fs::symlink(outside.join("secret.rs"), ui.join("button.rs"))
+      .expect("symlink should be created");
+
+    let error =
+      add_entries(&root, &["button".to_string()], true).expect_err("a symlinked file is refused");
+
+    assert!(error.to_string().contains("button.rs"), "{error}");
+    assert_eq!(fs::read_to_string(outside.join("secret.rs")).expect("outside file"), "kept");
+    assert!(!ui.join("utils.rs").exists(), "nothing is written");
+  }
+
+  #[test]
   fn init_project_creates_css_and_ui_module() {
     let root = temp_project();
 
@@ -1129,9 +1203,26 @@ mod tests {
       {"name": "dioxus-shadcn", "manifest_path": "/r/dioxus-shadcn-0.4.2/Cargo.toml"}
     ]}"#;
 
-    let sources = crate_sources_from_metadata(json).expect("metadata should parse");
+    let sources =
+      crate_sources_from_metadata(json, Path::new("/app")).expect("metadata should parse");
 
     assert_eq!(sources, ["/r/dioxus-shadcn-0.4.2/src", "/r/dioxus-shadcn-0.4.3/src"]);
+  }
+
+  #[test]
+  fn a_crate_inside_the_app_gets_a_relative_source() {
+    let json = r#"{"packages": [
+      {"name": "dioxus-shadcn", "manifest_path": "/app/vendor/dioxus-shadcn/Cargo.toml"}
+    ]}"#;
+
+    let sources =
+      crate_sources_from_metadata(json, Path::new("/app")).expect("metadata should parse");
+
+    assert_eq!(sources, ["../vendor/dioxus-shadcn/src"]);
+    assert_eq!(
+      crate_source_path(r#"@source "../vendor/dioxus-shadcn/src";"#),
+      Some("../vendor/dioxus-shadcn/src")
+    );
   }
 
   #[test]
@@ -1141,10 +1232,8 @@ mod tests {
 
     let sources = crate_sources(workspace).expect("cargo metadata should succeed");
 
-    assert_eq!(
-      sources,
-      [cli.with_file_name("dioxus-shadcn").join("src").to_string_lossy().replace('\\', "/")]
-    );
+    // The workspace's own crate is inside it, so the path is relative.
+    assert_eq!(sources, ["../crates/dioxus-shadcn/src"]);
     assert_eq!(
       crate_sources(&temp_project()).expect("no manifest is no error"),
       Vec::<String>::new()

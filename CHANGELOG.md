@@ -28,6 +28,12 @@ for commit messages.
   `layer.rs` helper.
 - The Sidebar shortcut (Ctrl or Command and B) is left to inputs, text areas,
   selects, and editable content, where it means bold in an editor.
+- `dxui` refuses to write through a symbolic link under the app's root,
+  such as a linked `src/components`, and writes nothing in that run.
+- `dxui init` writes the `@source` line relative to the stylesheet when the
+  crate is inside the app's directory (a vendored or path dependency), so it
+  holds in Docker and CI; a registry crate keeps the absolute path, and the
+  crate README says to run `dxui init` as a build step there.
 
 ## [0.6.1] - 2026-10-08
 
