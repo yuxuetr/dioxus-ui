@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 44% (11 of 25 tasks)
-- Current milestone: M220 (0.6.1, page scripts without eval)
-- Current task: M220.6; M221 follows `v0.6.1`; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
+- Overall: 48% (12 of 25 tasks)
+- Current milestone: M221 (0.6.2, hardening)
+- Current task: M221.1; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -87,8 +87,9 @@
   - README and `docs/component-api.md`: the policy the components need, the theme init script's hash or nonce, the copy-mode crates, and that app code using `document::eval` or `document::Title` still needs `'unsafe-eval'`. CHANGELOG `[Unreleased]`.
   - Exit: the docs checks pass.
   - Done (dfc3cc1): README "Content Security Policy" (the policy, the theme init script, app eval and `Title` with `[web.app] title` as the alternative, and Dioxus fullstack's per-request inline hydration scripts, which carry no nonce in 0.7.10 (`dioxus-server` `ssr.rs:736`; measured: three inline scripts on the fullstack example's page)), the copy-mode crate lines next to the `dxui add` output (whose file list was refreshed from a real run; it had been missing six helpers), "Page Scripts" in `docs/component-api.md`, a CSP note on the theme controller page, and CHANGELOG `Fixed` and `Changed`. The docs, changelog, and README checks pass.
-- TODO M220.6 Publish 0.6.1
+- DONE M220.6 Publish 0.6.1
   - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.0`, publish in dependency order, annotated tag `v0.6.1`, then a fresh web app from crates.io served with the strict policy opens a Dialog and switches Tabs with no violation.
+  - Done (3d04850, tag `v0.6.1`; record 79024b5): the release gate's `verify:csp` first failed because `dx serve` held the page request (three tries, then with `Accept: */*` the app never started), so the check now serves a `dx build` from a static server (5058245); the rest of the gate, `verify:semver` against `v0.6.0` (no change), the dry run, and CI on 3d04850 passed. `cargo publish --workspace` timed out waiting for the index after `dioxus-shadcn-core`; primitives, CLI, and `dioxus-shadcn` were then published one by one. A fresh app on crates.io 0.6.1 under the strict policy opened a Dialog (focus inside, Escape closed it) and moved Tabs with ArrowRight with nothing refused; on 0.6.0 the same check fails with the refused eval. The published `dxui` 0.6.1 copied Dialog and Tabs, named the three missing crates, and the app built under `#![deny(warnings)]` and passed the same check. Recorded in `docs/release.md` (0.6.1 Publish).
 
 ## M221 0.6.2 Hardening (starts when `git tag -l v0.6.1 | grep -q .` exits 0)
 
