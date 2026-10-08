@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 28% (7 of 25 tasks)
+- Overall: 32% (8 of 25 tasks)
 - Current milestone: M220 (0.6.1, page scripts without eval)
-- Current task: M220.2; M221 follows `v0.6.1`; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
+- Current task: M220.3; M221 follows `v0.6.1`; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -71,9 +71,10 @@
   - `npm run verify:csp` serves the web preview with `script-src 'self' 'wasm-unsafe-eval'` (the served page's own inline scripts allowed by hash) and runs the runtime interaction checks, failing on any `securitypolicyviolation` or page error. The preview gets `lang` and its title from a web demo `index.html` instead of an eval and `document::Title`, so what fails is the components.
   - Exit: it fails on the current components and names the eval; without the policy the same run passes. Not yet in CI or `verify:release` (it stays red until M220.4).
   - Done (eeaef10): `--csp` mode of the interaction checks: a route serves each document with the policy plus hashes of its inline scripts (dx serve's toast script), an init script records `securitypolicyviolation`, and refusals and page errors fail the run and are appended to the failure that a refused script causes. On the current components it fails at the theme toggle with `script-src refused eval (.../wasm/preview.js:1134)` and the wasm `unreachable` panic; without the policy `verify:browser-local` passes all four checks, including the title checks against the `Dioxus.toml` title. axe is now evaluated, not added as an inline script tag.
-- TODO M220.2 `script` helper
+- DONE M220.2 `script` helper
   - `component_script!` and `Script` (RFC 0080) in `dioxus-shadcn`, with `serde` and, on `wasm32`, `serde_json` and `wasm-bindgen`; the `script.rs` template and `script` helper entry; `dxui add` names the crates the app's `Cargo.toml` lacks when it writes the helper; the generated fixture declares them.
   - Exit: unit tests for the eval source and the export check; in a browser test page a script receives what Rust sends, its messages arrive in order, and `recv` returns `Finished` when it ends; the parity test and the generated fixture smoke pass.
+  - Done (6876e90): `script.rs` in the crate and as a template, `helpers/script.json`, and `serde` plus `wasm32` `serde_json` and `wasm-bindgen` in `dioxus-shadcn`. The helper had no user without a component, so Checkbox's script moved onto it here (out of M220.4); its browser check is the "receives what Rust sends" page: with `send` made a no-op the `indeterminate` check fails, restored it passes. Ordered messages and `Finished` were shown in the RFC probe and come with M220.3's scripts that send. Each macro module carries a `source_exports_run` test, and `eval_source` has a unit test. The parity test keys a macro invocation by macro and first token (`component_script!(checkbox_indeterminate_script)`), and changing the template's script alone fails it; its class lint now ignores an indented `#[cfg(test)]`. `dxui add` reads the app's dependencies with `cargo metadata --no-deps` (canonical paths, since macOS names `/var` through a symlink) and prints the missing lines; the fixture smoke declares them, checks that nothing is named, checks that an app without a manifest is told `wasm-bindgen = "0.2"`, and runs `cargo check --target wasm32-unknown-unknown` on the fixture. `verify:browser-local`, the Desktop interaction self-test, Clippy, `cargo deny`, the feature check, and the docs checks pass.
 - TODO M220.3 Overlay, focus, and roving scripts on `Script`
   - Modal Focus, Anchored Overlay, Listbox, Hover Open, Dismiss Timer, and Roving Group, in the crate and the templates, with their entries listing `script`. These carry Dialog, Sheet, Drawer, Alert Dialog, Popover, Dropdown, Select, Tooltip, Command, Combobox, Hover Card, Toast, Tabs, Toggle Group, and Accordion.
   - Exit: `verify:csp` passes the checks of those components; `verify:browser-local`, the Desktop interaction self-test, and the fullstack hydration check pass.
