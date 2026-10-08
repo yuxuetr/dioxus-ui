@@ -8,6 +8,13 @@ for commit messages.
 
 ## [Unreleased]
 
+## [0.6.1] - 2026-10-08
+
+Version 0.6.1 makes the interactive components work under a Content Security
+Policy without `'unsafe-eval'`. The API does not change; apps that copy
+components add three crates to `Cargo.toml` when they re-copy one with a page
+script.
+
 ### Fixed
 - The interactive components work under a Content Security Policy without
   `'unsafe-eval'` (RFC 0080). Their page scripts ran through
