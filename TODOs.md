@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 24% (6 of 25 tasks)
+- Overall: 28% (7 of 25 tasks)
 - Current milestone: M220 (0.6.1, page scripts without eval)
-- Current task: M220.1; M221 follows `v0.6.1`; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
+- Current task: M220.2; M221 follows `v0.6.1`; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -67,9 +67,10 @@
 
 ## M220 0.6.1 Page Scripts Without Eval (RFC 0080)
 
-- TODO M220.1 Strict-CSP browser run
+- DONE M220.1 Strict-CSP browser run
   - `npm run verify:csp` serves the web preview with `script-src 'self' 'wasm-unsafe-eval'` (the served page's own inline scripts allowed by hash) and runs the runtime interaction checks, failing on any `securitypolicyviolation` or page error. The preview gets `lang` and its title from a web demo `index.html` instead of an eval and `document::Title`, so what fails is the components.
   - Exit: it fails on the current components and names the eval; without the policy the same run passes. Not yet in CI or `verify:release` (it stays red until M220.4).
+  - Done (eeaef10): `--csp` mode of the interaction checks: a route serves each document with the policy plus hashes of its inline scripts (dx serve's toast script), an init script records `securitypolicyviolation`, and refusals and page errors fail the run and are appended to the failure that a refused script causes. On the current components it fails at the theme toggle with `script-src refused eval (.../wasm/preview.js:1134)` and the wasm `unreachable` panic; without the policy `verify:browser-local` passes all four checks, including the title checks against the `Dioxus.toml` title. axe is now evaluated, not added as an inline script tag.
 - TODO M220.2 `script` helper
   - `component_script!` and `Script` (RFC 0080) in `dioxus-shadcn`, with `serde` and, on `wasm32`, `serde_json` and `wasm-bindgen`; the `script.rs` template and `script` helper entry; `dxui add` names the crates the app's `Cargo.toml` lacks when it writes the helper; the generated fixture declares them.
   - Exit: unit tests for the eval source and the export check; in a browser test page a script receives what Rust sends, its messages arrive in order, and `recv` returns `Finished` when it ends; the parity test and the generated fixture smoke pass.
