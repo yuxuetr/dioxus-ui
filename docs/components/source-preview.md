@@ -31,7 +31,7 @@ Source preview routes: 82
 | [Card](card.md) | /components/card/source | crates/dioxus-shadcn-cli/templates/card.rs | src/components/ui/card.rs | rust | 112 | 2701 |
 | [Carousel](carousel.md) | /components/carousel/source | crates/dioxus-shadcn-cli/templates/carousel.rs | src/components/ui/carousel.rs | rust | 428 | 14205 |
 | [Chart](chart.md) | /components/chart/source | crates/dioxus-shadcn-cli/templates/chart.rs | src/components/ui/chart.rs | rust | 806 | 23715 |
-| [Checkbox](checkbox.md) | /components/checkbox/source | crates/dioxus-shadcn-cli/templates/checkbox.rs | src/components/ui/checkbox.rs | rust | 103 | 4810 |
+| [Checkbox](checkbox.md) | /components/checkbox/source | crates/dioxus-shadcn-cli/templates/checkbox.rs | src/components/ui/checkbox.rs | rust | 105 | 4805 |
 | [Collapsible](collapsible.md) | /components/collapsible/source | crates/dioxus-shadcn-cli/templates/collapsible.rs | src/components/ui/collapsible.rs | rust | 135 | 4893 |
 | [Combobox](combobox.md) | /components/combobox/source | crates/dioxus-shadcn-cli/templates/combobox.rs | src/components/ui/combobox.rs | rust | 375 | 13399 |
 | [Command](command.md) | /components/command/source | crates/dioxus-shadcn-cli/templates/command.rs | src/components/ui/command.rs | rust | 273 | 8141 |

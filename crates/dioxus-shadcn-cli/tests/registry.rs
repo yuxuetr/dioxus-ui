@@ -183,7 +183,11 @@ fn template_imports_match_dependencies() {
           .split(|character: char| !character.is_ascii_alphanumeric() && character != '_')
           .next()
           .unwrap_or_default();
-        imported.insert(module.replace('_', "-"));
+        // Modules are snake case; `super::Script` in the `script` helper's
+        // macro names a type of the calling module.
+        if module.starts_with(|character: char| character.is_ascii_lowercase()) {
+          imported.insert(module.replace('_', "-"));
+        }
       }
     }
     for module in &imported {
@@ -287,11 +291,6 @@ fn template_overlay_scripts_match_crate_scripts() {
     ("crates/dioxus-shadcn/src/hover_open.rs", "templates/hover_open.rs", "HOVER_OPEN_SCRIPT"),
     ("crates/dioxus-shadcn/src/slider.rs", "templates/slider.rs", "SLIDER_POINTER_SCRIPT"),
     ("crates/dioxus-shadcn/src/resizable.rs", "templates/resizable.rs", "RESIZABLE_HANDLE_SCRIPT"),
-    (
-      "crates/dioxus-shadcn/src/checkbox.rs",
-      "templates/checkbox.rs",
-      "CHECKBOX_INDETERMINATE_SCRIPT",
-    ),
     ("crates/dioxus-shadcn/src/input_otp.rs", "templates/input_otp.rs", "INPUT_OTP_FILTER_SCRIPT"),
     (
       "crates/dioxus-shadcn/src/navigation_menu.rs",

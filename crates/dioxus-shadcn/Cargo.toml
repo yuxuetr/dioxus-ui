@@ -99,6 +99,12 @@ tooltip = ["dioxus-shadcn-primitives/tooltip"]
 dioxus.workspace = true
 dioxus-shadcn-core.workspace = true
 dioxus-shadcn-primitives.workspace = true
+serde.workspace = true
+
+# Page scripts load as wasm-bindgen snippets on the web (RFC 0080).
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+serde_json.workspace = true
+wasm-bindgen.workspace = true
 
 [dev-dependencies]
 dioxus-ssr = "0.7.9"

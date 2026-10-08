@@ -114,7 +114,23 @@ fn items(path: &Path) -> BTreeMap<String, String> {
       syn::Item::Const(item) => item.ident.to_string(),
       syn::Item::Enum(item) => item.ident.to_string(),
       syn::Item::Fn(item) => item.sig.ident.to_string(),
-      syn::Item::Macro(item) => item.ident.as_ref().map(ToString::to_string).unwrap_or_default(),
+      // `macro_rules! name` by its name; an invocation such as
+      // `component_script!(name = ...)` by the macro and its first token.
+      syn::Item::Macro(item) => match &item.ident {
+        Some(ident) => ident.to_string(),
+        None => format!(
+          "{}!({})",
+          item.mac.path.to_token_stream(),
+          item
+            .mac
+            .tokens
+            .clone()
+            .into_iter()
+            .next()
+            .map(|token| token.to_string())
+            .unwrap_or_default()
+        ),
+      },
       syn::Item::Mod(item) => item.ident.to_string(),
       syn::Item::Static(item) => item.ident.to_string(),
       syn::Item::Struct(item) => item.ident.to_string(),
@@ -299,7 +315,9 @@ fn class_functions_merge_the_user_class() {
     for path in rust_files(&root.join(dir)) {
       let source = fs::read_to_string(&path)
         .unwrap_or_else(|error| panic!("read {}: {error}", path.display()));
-      let source = source.split("#[cfg(test)]").next().unwrap_or_default();
+      // The test module starts at a line's start; a `#[cfg(test)]` inside a
+      // macro, such as `component_script!`'s, is indented.
+      let source = source.split("\n#[cfg(test)]").next().unwrap_or_default();
       let tokens = source
         .parse::<TokenStream>()
         .unwrap_or_else(|error| panic!("lex {}: {error}", path.display()));

@@ -94,7 +94,13 @@ publish = false
 
 [dependencies]
 dioxus = "0.7"
+serde = "1"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+serde_json = "1"
+wasm-bindgen = "0.2"
 TOML
+
 
 cat > "${fixture_root}/src/components/mod.rs" <<'RS'
 pub mod ui;
@@ -105,6 +111,13 @@ cat > "${fixture_root}/src/lib.rs" <<'RS'
 pub mod blocks;
 pub mod components;
 RS
+
+# The fixture declares the crates the `script` helper uses (RFC 0080), so
+# `dxui add` names none of them.
+if cargo run -q -p dioxus-shadcn-cli -- add checkbox --root "${fixture_root}" | grep -q "need these crates"; then
+  echo "dxui add named script crates the fixture declares" >&2
+  exit 1
+fi
 
 # The library exports every component, so only real mistakes in the templates
 # warn, such as an unused private helper or import. Drop the header that lets
@@ -118,6 +131,8 @@ grep -vx '#!\[allow(dead_code, unused_imports)\]' "${ui_mod}" > "${ui_mod}.stric
 mv "${ui_mod}.strict" "${ui_mod}"
 
 cargo check --manifest-path "${fixture_root}/Cargo.toml"
+# The web build runs the page scripts as wasm-bindgen snippets.
+cargo check --manifest-path "${fixture_root}/Cargo.toml" --target wasm32-unknown-unknown
 
 # An app is a binary that uses a few components and leaves the rest of their
 # API unused; with the generated header it still builds without warnings.
@@ -127,6 +142,11 @@ cargo run -q -p dioxus-shadcn-cli -- init --root "${app_root}"
 for component in button dialog popover; do
   cargo run -q -p dioxus-shadcn-cli -- add "${component}" --root "${app_root}" > /dev/null
 done
+# Without a manifest yet, `dxui add` names every crate the page scripts need.
+if ! cargo run -q -p dioxus-shadcn-cli -- add checkbox --root "${app_root}" | grep -qx '  wasm-bindgen = "0.2"'; then
+  echo "dxui add did not name the script crates the app lacks" >&2
+  exit 1
+fi
 
 cat > "${app_root}/Cargo.toml" <<'TOML'
 [package]
@@ -137,6 +157,11 @@ publish = false
 
 [dependencies]
 dioxus = { version = "0.7", features = ["web"] }
+serde = "1"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+serde_json = "1"
+wasm-bindgen = "0.2"
 TOML
 
 cat > "${app_root}/src/components/mod.rs" <<'RS'

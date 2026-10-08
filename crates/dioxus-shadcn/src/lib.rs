@@ -249,6 +249,8 @@ mod hover_open;
   feature = "toggle-group"
 ))]
 mod roving_group;
+#[cfg(feature = "checkbox")]
+mod script;
 
 #[cfg(feature = "direction")]
 pub mod direction;

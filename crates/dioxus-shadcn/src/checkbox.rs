@@ -9,14 +9,18 @@ use dioxus_shadcn_core::{classes, merge_classes};
 
 use crate::density::{density_hit_area_class, use_density, with_density};
 use crate::element_id::next_element_id;
+use crate::script::{Script, component_script};
 
 // Sets the native `indeterminate` property, which has no HTML attribute.
-// Keep in sync with `CHECKBOX_INDETERMINATE_SCRIPT` in the CLI `checkbox.rs` template.
-pub(crate) const CHECKBOX_INDETERMINATE_SCRIPT: &str = r#"
-const [scopeId, indeterminate] = await dioxus.recv();
-const input = document.querySelector(`[data-dxui-checkbox="${scopeId}"]`);
-if (input) input.indeterminate = indeterminate;
-"#;
+component_script!(
+  checkbox_indeterminate_script = r#"
+export async function run(dioxus) {
+  const [scopeId, indeterminate] = await dioxus.recv();
+  const input = document.querySelector(`[data-dxui-checkbox="${scopeId}"]`);
+  if (input) input.indeterminate = indeterminate;
+}
+"#
+);
 
 // The input draws its own box, so `appearance-none` drops the native control.
 // The checked and mixed marks are a `::before` masked to the mark's shape and
@@ -80,9 +84,9 @@ pub fn Checkbox(
       return;
     }
     ever_mixed.set(true);
-    let eval = document::eval(CHECKBOX_INDETERMINATE_SCRIPT);
+    let script = checkbox_indeterminate_script::start();
     // A send error means the page already finished the script; nothing to set.
-    let _ = eval.send((effect_scope_id.as_str(), indeterminate));
+    let _ = script.send((effect_scope_id.as_str(), indeterminate));
   }));
 
   rsx! {

@@ -1600,6 +1600,9 @@ dependencies = [
  "dioxus-shadcn-core",
  "dioxus-shadcn-primitives",
  "dioxus-ssr",
+ "serde",
+ "serde_json",
+ "wasm-bindgen",
 ]
 
 [[package]]

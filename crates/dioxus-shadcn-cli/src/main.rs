@@ -328,6 +328,81 @@ fn refresh_crate_sources(css: &str, sources: &[String]) -> Option<String> {
   Some(refreshed)
 }
 
+/// Where `dxui add` copies the `script` helper.
+const SCRIPT_TARGET: &str = "src/components/ui/script.rs";
+
+/// The crates the `script` helper uses (RFC 0080): its line in `Cargo.toml`,
+/// and whether only `wasm32` needs it.
+const SCRIPT_CRATES: &[(&str, &str, bool)] = &[
+  ("serde", "serde = \"1\"", false),
+  ("serde_json", "serde_json = \"1\"", true),
+  ("wasm-bindgen", "wasm-bindgen = \"0.2\"", true),
+];
+
+/// Names the `script` helper's crates that the app does not declare, with
+/// the lines to add.
+fn print_missing_script_crates(declared: &[String]) {
+  let missing = |wasm_only: bool| {
+    SCRIPT_CRATES
+      .iter()
+      .filter(|(name, _, wasm)| {
+        *wasm == wasm_only && !declared.iter().any(|declared| declared == name)
+      })
+      .map(|(_, line, _)| *line)
+      .collect::<Vec<_>>()
+  };
+  let (everywhere, wasm) = (missing(false), missing(true));
+  if everywhere.is_empty() && wasm.is_empty() {
+    return;
+  }
+  println!("the copied page scripts need these crates; add them to Cargo.toml:");
+  if !everywhere.is_empty() {
+    println!("  [dependencies]");
+    everywhere.iter().for_each(|line| println!("  {line}"));
+  }
+  if !wasm.is_empty() {
+    println!("  [target.'cfg(target_arch = \"wasm32\")'.dependencies]");
+    wasm.iter().for_each(|line| println!("  {line}"));
+  }
+}
+
+/// The dependencies the app at `root` declares, on any target, by crate
+/// name. Without a manifest Cargo can read, it is none, so every needed
+/// crate is named.
+fn declared_dependencies(root: &Path) -> Vec<String> {
+  let manifest = root.join("Cargo.toml");
+  let cargo = env::var_os("CARGO").unwrap_or_else(|| OsString::from("cargo"));
+  let output = Command::new(cargo)
+    .args(["metadata", "--format-version", "1", "--no-deps", "--manifest-path"])
+    .arg(&manifest)
+    .output();
+  match output {
+    Ok(output) if output.status.success() => {
+      let manifest = fs::canonicalize(&manifest).unwrap_or(manifest);
+      declared_dependencies_from_metadata(&String::from_utf8_lossy(&output.stdout), &manifest)
+    }
+    _ => Vec::new(),
+  }
+}
+
+fn declared_dependencies_from_metadata(json: &str, manifest: &Path) -> Vec<String> {
+  let Ok(metadata) = serde_json::from_str::<serde_json::Value>(json) else {
+    return Vec::new();
+  };
+  let packages = metadata["packages"].as_array().map(Vec::as_slice).unwrap_or_default();
+  packages
+    .iter()
+    // Cargo may name the manifest through a symlink, such as macOS's `/var`.
+    .filter(|package| {
+      package["manifest_path"].as_str().is_some_and(|path| {
+        fs::canonicalize(path).unwrap_or_else(|_| PathBuf::from(path)) == manifest
+      })
+    })
+    .flat_map(|package| package["dependencies"].as_array().map(Vec::as_slice).unwrap_or_default())
+    .filter_map(|dependency| dependency["name"].as_str().map(str::to_string))
+    .collect()
+}
+
 fn add_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
   let (names, options) = parse_add_options(args)?;
   if names.is_empty() {
@@ -349,6 +424,9 @@ fn add_command(args: &[OsString]) -> Result<(), Box<dyn Error>> {
       "see the differences with `dxui diff {}`, or replace kept files with --overwrite",
       names.join(" ")
     );
+  }
+  if added.files.iter().any(|(target, _)| target == SCRIPT_TARGET) {
+    print_missing_script_crates(&declared_dependencies(&options.root));
   }
   if added.block {
     println!("declare `mod blocks;` in src/main.rs to use it");
@@ -880,6 +958,22 @@ fn print_help() {
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  #[test]
+  fn declared_dependencies_come_from_the_app_package() {
+    let json = r#"{"packages": [
+      {"manifest_path": "/app/Cargo.toml", "dependencies": [{"name": "dioxus"}, {"name": "serde"}, {"name": "wasm-bindgen"}]},
+      {"manifest_path": "/app/other/Cargo.toml", "dependencies": [{"name": "serde_json"}]}
+    ]}"#;
+
+    assert_eq!(
+      declared_dependencies_from_metadata(json, Path::new("/app/Cargo.toml")),
+      ["dioxus", "serde", "wasm-bindgen"]
+    );
+    assert!(
+      declared_dependencies_from_metadata("not json", Path::new("/app/Cargo.toml")).is_empty()
+    );
+  }
   use std::sync::atomic::{AtomicU64, Ordering};
   use std::time::{SystemTime, UNIX_EPOCH};
 

@@ -10,6 +10,7 @@
   "dependencies": [
     "density",
     "element-id",
+    "script",
     "utils"
   ],
   "assets": []

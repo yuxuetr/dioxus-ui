@@ -1,0 +1,12 @@
+{
+  "name": "script",
+  "description": "Runs a component's page script without eval on the web, so a strict Content Security Policy allows it.",
+  "files": [
+    {
+      "source": "templates/script.rs",
+      "target": "src/components/ui/script.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}
