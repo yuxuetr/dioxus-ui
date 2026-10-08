@@ -8,6 +8,11 @@ for commit messages.
 
 ## [Unreleased]
 
+### Added
+- A Security section in the README and Security Rules in
+  `docs/component-api.md`: what the components escape and check, and what
+  is left to the app.
+
 ### Fixed
 - Components that take a link's URL (Breadcrumb, Dock, Hover Card, Menu,
   Navigation Menu, Pagination, and Sidebar links) render no `href` for a

@@ -375,6 +375,25 @@ and `document::eval` on Desktop and Mobile
 `document::eval` directly, so they work under a Content Security Policy
 without `'unsafe-eval'`; `npm run verify:csp` fails when one does.
 
+## Security Rules
+
+- A prop that takes a link's URL passes it through the `safe-url` helper's
+  `safe_href`, which keeps relative URLs, fragments, and `http`, `https`,
+  `mailto`, and `tel`, and renders no `href` otherwise. A disabled link drops
+  its `href` and keeps `role="link"`.
+- No component sets `dangerous_inner_html`; text and children go through
+  Dioxus, which escapes them.
+- A value a component writes into script source is a JavaScript string with
+  `\u` escapes (`theme_init_script`), and a value read back from storage is
+  checked against the form it should have before it is applied.
+- Escape closes the overlay opened last: Dialog, Sheet, Drawer, and Alert
+  Dialog consult the `layer` helper before closing.
+- Shortcuts a component registers on the page leave inputs, selects, and
+  editable content alone.
+
+See the README's [Security](../README.md#security) section for what apps
+are told.
+
 ## Compatibility Notes
 
 The copied-source API and crate API should stay as close as practical. If they

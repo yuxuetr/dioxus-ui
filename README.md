@@ -241,6 +241,28 @@ page needs comes from the app and Dioxus:
   request and carry no nonce (Dioxus 0.7.10), so a fullstack page also needs
   `'unsafe-inline'` in `script-src`, or a proxy that adds a nonce.
 
+## Security
+
+What the components do with values an app passes from users or a server:
+
+- Text and children render through Dioxus, which escapes them; no component
+  sets `dangerous_inner_html`. Markup an app renders itself, such as a chat
+  message's rich content, is the app's to sanitize.
+- Props that take a link's URL (Breadcrumb, Dock, Hover Card, Menu,
+  Navigation Menu, Pagination, and Sidebar links) keep relative URLs,
+  fragments, and `http`, `https`, `mailto`, and `tel`, and render no `href`
+  for any other scheme, such as `javascript:`. An `href` passed as a raw
+  attribute through `..attributes` is not checked.
+- The theme controller and `theme_init_script` apply a stored theme only
+  when it is a theme name (letters, digits, `-`, and `_`), and
+  `theme_init_script` escapes its storage key.
+- Page scripts never evaluate strings on the web, so the components need no
+  `'unsafe-eval'` ([Content Security Policy](#content-security-policy)).
+- `Button` keeps the native `submit` type inside a form, as an HTML button
+  does; pass `r#type: "button"` for one that should not submit.
+- `dxui` writes only inside the app's root and refuses a path through a
+  symbolic link.
+
 ## Component Scope
 
 The 82 components are listed in
