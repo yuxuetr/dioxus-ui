@@ -1223,6 +1223,7 @@ mod tests {
         "overlay.rs",
         "overlay_root.rs",
         "root_state.rs",
+        "script.rs",
         "utils.rs"
       ]
     );

@@ -4,73 +4,76 @@ use std::rc::Rc;
 use dioxus::prelude::*;
 
 use super::element_id::next_element_id;
+use super::script::{Script, component_script};
 
 // Counts down only while the pointer is outside the toast and focus is not
 // inside it, and reports "timeout" once the remaining time runs out. Exits
 // quietly when the toast is hidden or removed first.
-pub(crate) const DISMISS_TIMER_SCRIPT: &str = r#"
-const [scopeId, duration] = await dioxus.recv();
-const toast = document.querySelector(`[data-dxui-dismiss-timer="${scopeId}"]`);
-if (!toast) return;
-await new Promise((resolve) => requestAnimationFrame(resolve));
-if (!toast.isConnected || toast.hidden) return;
-let remaining = duration;
-let startedAt = 0;
-let timer = null;
-let hovered = false;
-let focused = false;
-let finish;
-const ended = new Promise((resolve) => {
-  finish = resolve;
-});
-const resume = () => {
-  if (timer !== null || hovered || focused) return;
-  startedAt = performance.now();
-  timer = setTimeout(() => finish("timeout"), remaining);
-};
-const pause = () => {
-  if (timer === null) return;
+component_script!(dismiss_timer_script = r#"
+export async function run(dioxus) {
+  const [scopeId, duration] = await dioxus.recv();
+  const toast = document.querySelector(`[data-dxui-dismiss-timer="${scopeId}"]`);
+  if (!toast) return;
+  await new Promise((resolve) => requestAnimationFrame(resolve));
+  if (!toast.isConnected || toast.hidden) return;
+  let remaining = duration;
+  let startedAt = 0;
+  let timer = null;
+  let hovered = false;
+  let focused = false;
+  let finish;
+  const ended = new Promise((resolve) => {
+    finish = resolve;
+  });
+  const resume = () => {
+    if (timer !== null || hovered || focused) return;
+    startedAt = performance.now();
+    timer = setTimeout(() => finish("timeout"), remaining);
+  };
+  const pause = () => {
+    if (timer === null) return;
+    clearTimeout(timer);
+    timer = null;
+    remaining -= performance.now() - startedAt;
+  };
+  const onPointerEnter = () => {
+    hovered = true;
+    pause();
+  };
+  const onPointerLeave = () => {
+    hovered = false;
+    resume();
+  };
+  const onFocusIn = () => {
+    focused = true;
+    pause();
+  };
+  const onFocusOut = (event) => {
+    if (toast.contains(event.relatedTarget)) return;
+    focused = false;
+    resume();
+  };
+  const observer = new MutationObserver(() => {
+    if (!toast.isConnected || toast.hidden) finish("closed");
+  });
+  observer.observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ["hidden"] });
+  toast.addEventListener("pointerenter", onPointerEnter);
+  toast.addEventListener("pointerleave", onPointerLeave);
+  toast.addEventListener("focusin", onFocusIn);
+  toast.addEventListener("focusout", onFocusOut);
+  toast.dataset.timer = "running";
+  resume();
+  const reason = await ended;
   clearTimeout(timer);
-  timer = null;
-  remaining -= performance.now() - startedAt;
-};
-const onPointerEnter = () => {
-  hovered = true;
-  pause();
-};
-const onPointerLeave = () => {
-  hovered = false;
-  resume();
-};
-const onFocusIn = () => {
-  focused = true;
-  pause();
-};
-const onFocusOut = (event) => {
-  if (toast.contains(event.relatedTarget)) return;
-  focused = false;
-  resume();
-};
-const observer = new MutationObserver(() => {
-  if (!toast.isConnected || toast.hidden) finish("closed");
-});
-observer.observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ["hidden"] });
-toast.addEventListener("pointerenter", onPointerEnter);
-toast.addEventListener("pointerleave", onPointerLeave);
-toast.addEventListener("focusin", onFocusIn);
-toast.addEventListener("focusout", onFocusOut);
-toast.dataset.timer = "running";
-resume();
-const reason = await ended;
-clearTimeout(timer);
-observer.disconnect();
-toast.removeEventListener("pointerenter", onPointerEnter);
-toast.removeEventListener("pointerleave", onPointerLeave);
-toast.removeEventListener("focusin", onFocusIn);
-toast.removeEventListener("focusout", onFocusOut);
-delete toast.dataset.timer;
-if (reason === "timeout") dioxus.send("timeout");
-"#;
+  observer.disconnect();
+  toast.removeEventListener("pointerenter", onPointerEnter);
+  toast.removeEventListener("pointerleave", onPointerLeave);
+  toast.removeEventListener("focusin", onFocusIn);
+  toast.removeEventListener("focusout", onFocusOut);
+  delete toast.dataset.timer;
+  if (reason === "timeout") dioxus.send("timeout");
+}
+"#);
 
 /// Starts the dismiss countdown each time `open` turns true with a non-zero
 /// `duration_ms`, and calls `on_dismiss(timeout_reason)` when it runs out. The
@@ -94,11 +97,11 @@ pub(crate) fn use_dismiss_timer<R: Clone + 'static>(
         return;
       }
       let timeout_reason = timeout_reason.clone();
-      let mut eval = document::eval(DISMISS_TIMER_SCRIPT);
+      let mut script = dismiss_timer_script::start();
       // A send error means the page already finished the script; nothing to time.
-      let _ = eval.send((effect_scope_id.as_str(), duration_ms));
+      let _ = script.send((effect_scope_id.as_str(), duration_ms));
       spawn(async move {
-        let timed_out = matches!(eval.recv::<String>().await, Ok(message) if message == "timeout");
+        let timed_out = matches!(script.recv::<String>().await, Ok(message) if message == "timeout");
         if let Some(handler) = on_dismiss.filter(|_| timed_out) {
           handler.call(timeout_reason);
         }

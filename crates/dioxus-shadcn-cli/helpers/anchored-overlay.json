@@ -9,7 +9,8 @@
   ],
   "dependencies": [
     "element-id",
-    "overlay"
+    "overlay",
+    "script"
   ],
   "assets": []
 }

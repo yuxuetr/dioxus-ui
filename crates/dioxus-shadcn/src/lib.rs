@@ -249,7 +249,43 @@ mod hover_open;
   feature = "toggle-group"
 ))]
 mod roving_group;
-#[cfg(feature = "checkbox")]
+#[cfg(any(
+  feature = "accordion",
+  feature = "alert-dialog",
+  feature = "carousel",
+  feature = "checkbox",
+  feature = "collapsible",
+  feature = "combobox",
+  feature = "command",
+  feature = "context-menu",
+  feature = "date-picker",
+  feature = "dialog",
+  feature = "drawer",
+  feature = "dropdown",
+  feature = "fab",
+  feature = "hover-card",
+  feature = "input-otp",
+  feature = "menu",
+  feature = "menubar",
+  feature = "message-scroller",
+  feature = "navigation-menu",
+  feature = "pagination",
+  feature = "popover",
+  feature = "radio-group",
+  feature = "rating",
+  feature = "resizable",
+  feature = "scroll-area",
+  feature = "select",
+  feature = "sheet",
+  feature = "sidebar",
+  feature = "slider",
+  feature = "sonner",
+  feature = "tabs",
+  feature = "theme-controller",
+  feature = "toast",
+  feature = "toggle-group",
+  feature = "tooltip"
+))]
 mod script;
 
 #[cfg(feature = "direction")]

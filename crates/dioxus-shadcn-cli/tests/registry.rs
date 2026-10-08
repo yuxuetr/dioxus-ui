@@ -266,29 +266,7 @@ fn block_entries_are_valid() {
 #[test]
 fn template_overlay_scripts_match_crate_scripts() {
   for (crate_file, template_file, name) in [
-    (
-      "crates/dioxus-shadcn/src/modal_focus.rs",
-      "templates/modal_focus.rs",
-      "MODAL_FOCUS_SCOPE_SCRIPT",
-    ),
-    (
-      "crates/dioxus-shadcn/src/anchored_overlay.rs",
-      "templates/anchored_overlay.rs",
-      "ANCHORED_OVERLAY_SCRIPT",
-    ),
-    (
-      "crates/dioxus-shadcn/src/dismiss_timer.rs",
-      "templates/dismiss_timer.rs",
-      "DISMISS_TIMER_SCRIPT",
-    ),
-    ("crates/dioxus-shadcn/src/listbox.rs", "templates/listbox.rs", "LISTBOX_SCRIPT"),
-    (
-      "crates/dioxus-shadcn/src/roving_group.rs",
-      "templates/roving_group.rs",
-      "ROVING_GROUP_SCRIPT",
-    ),
     ("crates/dioxus-shadcn/src/menubar.rs", "templates/menubar.rs", "MENUBAR_SCRIPT"),
-    ("crates/dioxus-shadcn/src/hover_open.rs", "templates/hover_open.rs", "HOVER_OPEN_SCRIPT"),
     ("crates/dioxus-shadcn/src/slider.rs", "templates/slider.rs", "SLIDER_POINTER_SCRIPT"),
     ("crates/dioxus-shadcn/src/resizable.rs", "templates/resizable.rs", "RESIZABLE_HANDLE_SCRIPT"),
     ("crates/dioxus-shadcn/src/input_otp.rs", "templates/input_otp.rs", "INPUT_OTP_FILTER_SCRIPT"),

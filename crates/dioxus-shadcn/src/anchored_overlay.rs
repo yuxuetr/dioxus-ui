@@ -5,103 +5,108 @@ use dioxus::prelude::*;
 use dioxus_shadcn_primitives::{DismissBehavior, OverlayAlign, OverlaySide};
 
 use crate::element_id::next_element_id;
+use crate::script::{Script, component_script};
 
 // Places anchored content with the flip and shift rules of
 // `compute_overlay_placement`, done in the page to avoid a round trip per
 // layout change, and reports Escape and outside interactions to Rust.
-// Keep in sync with `ANCHORED_OVERLAY_SCRIPT` in the CLI `anchored_overlay.rs` template.
-pub(crate) const ANCHORED_OVERLAY_SCRIPT: &str = r#"
-const [scopeId, anchorId, preferredSide, align, offset, point] = await dioxus.recv();
-const content = document.querySelector(`[data-dxui-anchored="${scopeId}"]`);
-if (!content) return;
-const anchor = anchorId ? document.getElementById(anchorId) : null;
-// Without an anchor element, a viewport point (a context menu's pointer
-// position) acts as a zero-size anchor.
-const anchorRect = () =>
-  anchor
-    ? anchor.getBoundingClientRect()
-    : point
-      ? { left: point[0], top: point[1], right: point[0], bottom: point[1], width: 0, height: 0 }
-      : null;
-const padding = 8;
-const opposite = { top: "bottom", bottom: "top", left: "right", right: "left" };
-// A submenu (RFC 0067) asks for the right side, meaning its trigger's inline
-// end, so it opens to the left in right-to-left layouts.
-const mirrored =
-  content.hasAttribute("data-dxui-submenu") && anchor !== null && getComputedStyle(anchor).direction === "rtl";
-const preferred = mirrored ? opposite[preferredSide] || preferredSide : preferredSide;
-const vertical = (side) => side === "top" || side === "bottom";
-const cross = (start, anchorSize, size) =>
-  align === "start" ? start : align === "end" ? start + anchorSize - size : start + (anchorSize - size) / 2;
-const clamp = (value, size, viewportSize) =>
-  Math.min(Math.max(value, padding), Math.max(padding, viewportSize - padding - size));
-const place = () => {
-  const rect = anchorRect();
-  if (!rect || !(preferred in opposite)) return;
-  // Fixed positioning and the anchor width (a minimum width for lists) can
-  // change the content's size, so apply them before measuring.
-  Object.assign(content.style, { position: "fixed", margin: "0" });
-  content.style.setProperty("--dxui-anchor-width", `${rect.width}px`);
-  const width = content.offsetWidth;
-  const height = content.offsetHeight;
-  const viewportWidth = document.documentElement.clientWidth;
-  const viewportHeight = document.documentElement.clientHeight;
-  const space = {
-    top: rect.top - padding,
-    bottom: viewportHeight - padding - rect.bottom,
-    left: rect.left - padding,
-    right: viewportWidth - padding - rect.right,
-  };
-  const required = (vertical(preferred) ? height : width) + Math.max(offset, 0);
-  let side = preferred;
-  if (space[side] < required && space[opposite[side]] >= space[side]) side = opposite[side];
-  let x;
-  let y;
-  if (vertical(side)) {
-    x = clamp(cross(rect.left, rect.width, width), width, viewportWidth);
-    y = side === "top" ? rect.top - height - offset : rect.bottom + offset;
-  } else {
-    x = side === "left" ? rect.left - width - offset : rect.right + offset;
-    y = clamp(cross(rect.top, rect.height, height), height, viewportHeight);
-  }
-  Object.assign(content.style, { left: `${Math.round(x)}px`, top: `${Math.round(y)}px` });
-  content.dataset.side = side;
-};
-const inside = (target) => content.contains(target) || (anchor !== null && anchor.contains(target));
-const onPointerDown = (event) => {
-  if (!inside(event.target)) dioxus.send("pointer-outside");
-};
-const onFocusIn = (event) => {
-  if (!inside(event.target)) dioxus.send("focus-outside");
-};
-const onKeyDown = (event) => {
-  if (event.key === "Escape") dioxus.send("escape");
-};
-await new Promise((resolve) => requestAnimationFrame(resolve));
-if (!content.isConnected || content.hidden) return;
-place();
-window.addEventListener("resize", place);
-window.addEventListener("scroll", place, true);
-document.addEventListener("pointerdown", onPointerDown, true);
-document.addEventListener("focusin", onFocusIn);
-document.addEventListener("keydown", onKeyDown);
-await new Promise((resolve) => {
-  const observer = new MutationObserver(() => {
-    if (!content.isConnected || content.hidden) {
-      observer.disconnect();
-      resolve();
+// Keep in sync with `anchored_overlay_script` in the CLI `anchored_overlay.rs` template.
+component_script!(
+  anchored_overlay_script = r#"
+export async function run(dioxus) {
+  const [scopeId, anchorId, preferredSide, align, offset, point] = await dioxus.recv();
+  const content = document.querySelector(`[data-dxui-anchored="${scopeId}"]`);
+  if (!content) return;
+  const anchor = anchorId ? document.getElementById(anchorId) : null;
+  // Without an anchor element, a viewport point (a context menu's pointer
+  // position) acts as a zero-size anchor.
+  const anchorRect = () =>
+    anchor
+      ? anchor.getBoundingClientRect()
+      : point
+        ? { left: point[0], top: point[1], right: point[0], bottom: point[1], width: 0, height: 0 }
+        : null;
+  const padding = 8;
+  const opposite = { top: "bottom", bottom: "top", left: "right", right: "left" };
+  // A submenu (RFC 0067) asks for the right side, meaning its trigger's inline
+  // end, so it opens to the left in right-to-left layouts.
+  const mirrored =
+    content.hasAttribute("data-dxui-submenu") && anchor !== null && getComputedStyle(anchor).direction === "rtl";
+  const preferred = mirrored ? opposite[preferredSide] || preferredSide : preferredSide;
+  const vertical = (side) => side === "top" || side === "bottom";
+  const cross = (start, anchorSize, size) =>
+    align === "start" ? start : align === "end" ? start + anchorSize - size : start + (anchorSize - size) / 2;
+  const clamp = (value, size, viewportSize) =>
+    Math.min(Math.max(value, padding), Math.max(padding, viewportSize - padding - size));
+  const place = () => {
+    const rect = anchorRect();
+    if (!rect || !(preferred in opposite)) return;
+    // Fixed positioning and the anchor width (a minimum width for lists) can
+    // change the content's size, so apply them before measuring.
+    Object.assign(content.style, { position: "fixed", margin: "0" });
+    content.style.setProperty("--dxui-anchor-width", `${rect.width}px`);
+    const width = content.offsetWidth;
+    const height = content.offsetHeight;
+    const viewportWidth = document.documentElement.clientWidth;
+    const viewportHeight = document.documentElement.clientHeight;
+    const space = {
+      top: rect.top - padding,
+      bottom: viewportHeight - padding - rect.bottom,
+      left: rect.left - padding,
+      right: viewportWidth - padding - rect.right,
+    };
+    const required = (vertical(preferred) ? height : width) + Math.max(offset, 0);
+    let side = preferred;
+    if (space[side] < required && space[opposite[side]] >= space[side]) side = opposite[side];
+    let x;
+    let y;
+    if (vertical(side)) {
+      x = clamp(cross(rect.left, rect.width, width), width, viewportWidth);
+      y = side === "top" ? rect.top - height - offset : rect.bottom + offset;
+    } else {
+      x = side === "left" ? rect.left - width - offset : rect.right + offset;
+      y = clamp(cross(rect.top, rect.height, height), height, viewportHeight);
     }
+    Object.assign(content.style, { left: `${Math.round(x)}px`, top: `${Math.round(y)}px` });
+    content.dataset.side = side;
+  };
+  const inside = (target) => content.contains(target) || (anchor !== null && anchor.contains(target));
+  const onPointerDown = (event) => {
+    if (!inside(event.target)) dioxus.send("pointer-outside");
+  };
+  const onFocusIn = (event) => {
+    if (!inside(event.target)) dioxus.send("focus-outside");
+  };
+  const onKeyDown = (event) => {
+    if (event.key === "Escape") dioxus.send("escape");
+  };
+  await new Promise((resolve) => requestAnimationFrame(resolve));
+  if (!content.isConnected || content.hidden) return;
+  place();
+  window.addEventListener("resize", place);
+  window.addEventListener("scroll", place, true);
+  document.addEventListener("pointerdown", onPointerDown, true);
+  document.addEventListener("focusin", onFocusIn);
+  document.addEventListener("keydown", onKeyDown);
+  await new Promise((resolve) => {
+    const observer = new MutationObserver(() => {
+      if (!content.isConnected || content.hidden) {
+        observer.disconnect();
+        resolve();
+      }
+    });
+    observer.observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ["hidden"] });
   });
-  observer.observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ["hidden"] });
-});
-window.removeEventListener("resize", place);
-window.removeEventListener("scroll", place, true);
-document.removeEventListener("pointerdown", onPointerDown, true);
-document.removeEventListener("focusin", onFocusIn);
-document.removeEventListener("keydown", onKeyDown);
-Object.assign(content.style, { position: "", margin: "", left: "", top: "" });
-content.style.removeProperty("--dxui-anchor-width");
-"#;
+  window.removeEventListener("resize", place);
+  window.removeEventListener("scroll", place, true);
+  document.removeEventListener("pointerdown", onPointerDown, true);
+  document.removeEventListener("focusin", onFocusIn);
+  document.removeEventListener("keydown", onKeyDown);
+  Object.assign(content.style, { position: "", margin: "", left: "", top: "" });
+  content.style.removeProperty("--dxui-anchor-width");
+}
+"#
+);
 
 /// Where anchored content goes relative to the element with id `anchor_id`, or
 /// to the viewport point `anchor_point` when there is no anchor element.
@@ -132,7 +137,7 @@ fn align_name(align: OverlayAlign) -> &'static str {
   }
 }
 
-/// Whether a message from `ANCHORED_OVERLAY_SCRIPT` should close the overlay.
+/// Whether a message from `anchored_overlay_script` should close the overlay.
 fn dismisses(dismiss: &DismissBehavior, message: &str) -> bool {
   match message {
     "escape" => dismiss.escape_key,
@@ -163,9 +168,9 @@ pub(crate) fn use_anchored_overlay(
       if open == was_open.replace(open) || !open {
         return;
       }
-      let mut eval = document::eval(ANCHORED_OVERLAY_SCRIPT);
+      let mut script = anchored_overlay_script::start();
       // A send error means the page already finished the script; nothing to place.
-      let _ = eval.send((
+      let _ = script.send((
         effect_scope_id.as_str(),
         placement.anchor_id.as_deref(),
         side_name(placement.side),
@@ -174,7 +179,7 @@ pub(crate) fn use_anchored_overlay(
         placement.anchor_point,
       ));
       spawn(async move {
-        while let Ok(message) = eval.recv::<String>().await {
+        while let Ok(message) = script.recv::<String>().await {
           if let Some(handler) = on_open_change.filter(|_| dismisses(&dismiss, &message)) {
             handler.call(false);
           }
