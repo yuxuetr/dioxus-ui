@@ -36,7 +36,7 @@ use dioxus_shadcn::{
   AlertDialogDescription, AlertDialogOverlay, AlertDialogTitle, AlertDialogTrigger,
   AttachmentOrientation, AttachmentSize, AttachmentState, BubbleAlign, ButtonGroupOrientation,
   ButtonSize, ButtonVariant, ChartColorToken, ChartDomain, ChartPoint, ChartScale, ChartSeries,
-  Dialog, DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogTitle,
+  Dialog, DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogTitle, DialogTrigger,
   DismissBehavior, MarkerVariant, MessageAlign, MessageScrollerIntent, MessageScrollerMetrics,
   Popover, PopoverContent, PopoverDescription, PopoverTitle, PopoverTrigger, TextDirection,
   Tooltip, TooltipContent, TooltipTrigger, UiDensity, attachment_class, bubble_class, button_class,
@@ -2737,6 +2737,24 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                   "data-interaction-control": "dialog-input",
                 }
                 DialogClose { "Cancel" }
+              }
+            }
+          }
+          // One Escape closes only the overlay opened last.
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "nested-layers",
+            h2 { class: "text-sm font-medium", "Nested layer interaction" }
+            Dialog {
+              DialogTrigger { class: "{secondary_button_class} mt-3", "Open settings" }
+              DialogOverlay {}
+              DialogContent {
+                DialogTitle { "Settings" }
+                Popover {
+                  PopoverTrigger { class: "{secondary_button_class}", "Sharing" }
+                  PopoverContent { PopoverTitle { "Share link" } }
+                }
+                DialogClose { "Done" }
               }
             }
           }

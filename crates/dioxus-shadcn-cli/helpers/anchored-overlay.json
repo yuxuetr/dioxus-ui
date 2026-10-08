@@ -9,6 +9,7 @@
   ],
   "dependencies": [
     "element-id",
+    "layer",
     "overlay",
     "script"
   ],

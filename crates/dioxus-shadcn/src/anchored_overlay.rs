@@ -5,6 +5,7 @@ use dioxus::prelude::*;
 use dioxus_shadcn_primitives::{DismissBehavior, OverlayAlign, OverlaySide};
 
 use crate::element_id::next_element_id;
+use crate::layer::use_layer;
 use crate::script::{Script, component_script};
 
 // Places anchored content with the flip and shift rules of
@@ -160,6 +161,9 @@ pub(crate) fn use_anchored_overlay(
 ) -> String {
   let scope_id = use_hook(|| format!("dxui-anchored-{}", next_element_id()));
   let was_open = use_hook(|| Rc::new(Cell::new(false)));
+  // Counted among the open overlays, so a dialog under it leaves Escape to
+  // it; menus and submenus share Escape through their own scripts.
+  use_layer(open);
   let effect_scope_id = scope_id.clone();
 
   use_effect(use_reactive(

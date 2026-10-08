@@ -2076,6 +2076,11 @@ async function runBrowserAssertions() {
     await page.keyboard.press("Control+b");
     await expect(shell).toHaveAttribute("data-collapsed", "false");
     await expect(shell).toHaveAttribute("data-mobile-open", "false");
+    // Ctrl+B in a text field stays with the field, as bold in an editor.
+    await page.getByRole("textbox", { name: "Contact email", exact: true }).focus();
+    await page.keyboard.press("Control+b");
+    await page.waitForTimeout(300);
+    await expect(shell).toHaveAttribute("data-collapsed", "false");
     // Narrow: off-canvas, opened as a modal panel over an overlay.
     await page.setViewportSize({ width: 375, height: 800 });
     await expect(shellPanel).toHaveAttribute("data-mobile", "true");
@@ -2457,6 +2462,23 @@ async function runBrowserAssertions() {
     await expect(sonnerToast).toHaveCount(0);
     await expect(sonner).toHaveAttribute("data-reason", "close");
 
+    // Escape in a Popover inside a Dialog closes the Popover; the next one
+    // closes the Dialog.
+    const layers = page.locator('[data-interaction-target="nested-layers"]');
+    const settings = layers.getByRole("dialog", { name: "Settings", exact: true });
+    const sharing = layers.getByRole("dialog", { name: "Share link", exact: true });
+    await layers.getByRole("button", { name: "Open settings", exact: true }).click();
+    await expect(settings).toBeVisible();
+    await settings.getByRole("button", { name: "Sharing", exact: true }).click();
+    await expect(sharing).toBeVisible();
+    await expectAnchoredReady(layers);
+    await page.keyboard.press("Escape");
+    await expect(sharing).toBeHidden();
+    await page.waitForTimeout(300);
+    await expect(settings).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(settings).toBeHidden();
+
     const alertDialog = page.locator('[data-interaction-target="alert-dialog"]');
     const alertDialogTrigger = page.locator('[data-interaction-control="alert-dialog-trigger"]');
     const alertDialogContent = alertDialog.locator('[role="alertdialog"]');
@@ -2616,7 +2638,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log(`runtime interaction verification passed (52 fixtures${strictCsp ? ", strict CSP" : ""})`);
+  console.log(`runtime interaction verification passed (53 fixtures${strictCsp ? ", strict CSP" : ""})`);
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

@@ -11,6 +11,7 @@
     "default-attribute",
     "density",
     "dialog-labels",
+    "layer",
     "modal-focus",
     "overlay",
     "overlay-root",

@@ -1215,6 +1215,7 @@ mod tests {
         "density.rs",
         "dropdown.rs",
         "element_id.rs",
+        "layer.rs",
         "listbox.rs",
         "menu_marks.rs",
         "menu_radio.rs",

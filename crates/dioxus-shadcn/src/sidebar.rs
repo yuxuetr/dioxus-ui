@@ -16,6 +16,7 @@ use crate::modal_focus::use_modal_focus_scope;
 use crate::root_state::{Controllable, use_controllable, use_root_context};
 use crate::safe_url::safe_href;
 use crate::script::{Script, component_script};
+
 /// Below this width the sidebar of an `off_canvas` provider is off-canvas.
 pub const SIDEBAR_MOBILE_QUERY: &str = "(max-width: 767px)";
 
@@ -27,9 +28,14 @@ component_script!(
 export async function run(dioxus) {
   const [scopeId, key] = await dioxus.recv();
   const present = () => document.querySelector(`[data-dxui-sidebar="${scopeId}"]`) !== null;
+  // Typing keeps the shortcut for itself, such as Ctrl+B for bold in an
+  // editor.
+  const editing = (target) =>
+    target instanceof Element && (target.isContentEditable || target.closest("input, textarea, select") !== null);
   const onKeyDown = (event) => {
     if (event.key.toLowerCase() !== key || event.altKey || event.shiftKey) return;
     if (!event.ctrlKey && !event.metaKey) return;
+    if (event.defaultPrevented || editing(event.target)) return;
     event.preventDefault();
     dioxus.send(null);
   };

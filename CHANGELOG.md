@@ -22,6 +22,12 @@ for commit messages.
   is ignored and the theme stays as the app set it. `theme_init_script`
   writes its storage key as an escaped JavaScript string, so no key can end
   the inline script.
+- One Escape closes one layer: Dialog, Sheet, Drawer, and Alert Dialog leave
+  Escape to an overlay opened inside them, such as a Popover, Select, or
+  another dialog, and close on the next one. Copied components bring a
+  `layer.rs` helper.
+- The Sidebar shortcut (Ctrl or Command and B) is left to inputs, text areas,
+  selects, and editable content, where it means bold in an editor.
 
 ## [0.6.1] - 2026-10-08
 

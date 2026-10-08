@@ -10,6 +10,7 @@ use super::overlay_root::{OverlayRoot, overlay_trigger, use_overlay_root};
 use super::root_state::use_root_context;
 use super::utils::{classes, merge_classes};
 use super::density::{density_control_class, use_density, with_density};
+use super::layer::use_layer;
 use dioxus::prelude::*;
 
 /// The screen edge a sheet attaches to.
@@ -162,6 +163,7 @@ pub fn SheetContent(
   let id = default_attribute(&attributes, "id", root.content_id());
   let (labelledby, describedby) = use_dialog_labels().content_attributes(&attributes);
   let focus_scope = use_modal_focus_scope(open, true);
+  let layer = use_layer(open);
 
   rsx! {
     div {
@@ -177,7 +179,8 @@ pub fn SheetContent(
       "data-state": if open { "open" } else { "closed" },
       "data-dxui-focus-scope": focus_scope,
       onkeydown: move |event| {
-        if event.key() == Key::Escape && dismiss.escape_key {
+        // An overlay opened inside, such as a popover, takes its Escape first.
+        if event.key() == Key::Escape && dismiss.escape_key && layer.is_top() {
           root.set_open.call(false);
         }
       },

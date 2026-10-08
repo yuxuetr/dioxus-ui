@@ -1,0 +1,12 @@
+{
+  "name": "layer",
+  "description": "Tracks the order overlays opened in, so Escape closes only the last one.",
+  "files": [
+    {
+      "source": "templates/layer.rs",
+      "target": "src/components/ui/layer.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

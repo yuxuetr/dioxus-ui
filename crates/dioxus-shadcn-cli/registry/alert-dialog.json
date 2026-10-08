@@ -10,6 +10,7 @@
   "dependencies": [
     "default-attribute",
     "dialog-labels",
+    "layer",
     "modal-focus",
     "overlay",
     "overlay-root",

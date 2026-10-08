@@ -243,6 +243,22 @@ mod default_attribute;
 mod hover_open;
 
 #[cfg(any(
+  feature = "alert-dialog",
+  feature = "combobox",
+  feature = "context-menu",
+  feature = "date-picker",
+  feature = "dialog",
+  feature = "drawer",
+  feature = "dropdown",
+  feature = "hover-card",
+  feature = "menubar",
+  feature = "popover",
+  feature = "select",
+  feature = "sheet",
+  feature = "tooltip"
+))]
+mod layer;
+#[cfg(any(
   feature = "accordion",
   feature = "radio-group",
   feature = "tabs",
