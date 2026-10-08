@@ -51,6 +51,21 @@ const servesApp = (url) =>
     req.end();
   });
 
+// Whether anything answers HTTP at `url`.
+const answers = (url) =>
+  new Promise((resolve) => {
+    const req = request(url, { method: "GET", timeout: 1000 }, (res) => {
+      res.resume();
+      resolve(true);
+    });
+    req.on("timeout", () => {
+      req.destroy();
+      resolve(false);
+    });
+    req.on("error", () => resolve(false));
+    req.end();
+  });
+
 // dx 0.8 hot-patches unless told `--hot-patch false`, and its fat-binary link
 // fails on this workspace; dx 0.7 takes `--hot-patch` as a bare flag that is
 // off by default and rejects a value.
@@ -82,18 +97,24 @@ export function serveDioxusWeb({ packageName, bin, port }) {
     ...hotPatchOffArgs(),
   );
   let output = "";
-  const server = spawn("dx", args, { cwd: repoRoot, stdio: ["ignore", "pipe", "pipe"] });
-  server.stdout.on("data", (chunk) => {
-    output += chunk.toString();
-  });
-  server.stderr.on("data", (chunk) => {
-    output += chunk.toString();
-  });
-  const exited = () => server.exitCode !== null || server.signalCode !== null;
+  let server = null;
+  const exited = () => server === null || server.exitCode !== null || server.signalCode !== null;
 
   return {
     url,
     async ready() {
+      // A server left on the port, such as a `dx serve` from a run that
+      // crashed, would answer for this one with its own, older build.
+      if (await answers(url)) {
+        throw new Error(`${url} already answers before dx serve started; stop the process listening on port ${port}.`);
+      }
+      server = spawn("dx", args, { cwd: repoRoot, stdio: ["ignore", "pipe", "pipe"] });
+      server.stdout.on("data", (chunk) => {
+        output += chunk.toString();
+      });
+      server.stderr.on("data", (chunk) => {
+        output += chunk.toString();
+      });
       const startedAt = Date.now();
       // A cold fullstack build (server and wasm) took about 105 s on the CI
       // runner and once passed 120 s; a failed build still ends the wait at once.
@@ -257,6 +278,8 @@ const strictPolicy = (scriptHashes) =>
 // adds, are allowed by hash, as a deployment would allow its own; a script
 // a component evaluates is not. `violations()` lists what was refused.
 export async function enforceStrictCsp(page) {
+  const pageErrors = [];
+  page.on("pageerror", (error) => pageErrors.push(error.message.split("\n")[0]));
   await page.addInitScript(() => {
     window.__cspViolations = [];
     document.addEventListener("securitypolicyviolation", (event) => {
@@ -268,8 +291,27 @@ export async function enforceStrictCsp(page) {
       await route.fallback();
       return;
     }
-    const response = await route.fetch();
-    const body = await response.text();
+    // `dx serve` 0.7.9 holds the first `Accept: text/html` request after a
+    // build open (no answer in 90 s, measured) and answers the next one at
+    // once, so a fetch gets a short limit and another try. A failure here
+    // fails the page load rather than escaping as an unhandled rejection,
+    // which would end the run before `dx serve` is stopped.
+    let response;
+    let body;
+    let failure;
+    for (let attempt = 0; attempt < 3 && body === undefined; attempt += 1) {
+      try {
+        response = await route.fetch({ timeout: 5000 });
+        body = await response.text();
+      } catch (error) {
+        failure = error;
+      }
+    }
+    if (body === undefined) {
+      pageErrors.push(`could not serve ${route.request().url()} with the policy: ${failure?.message.split("\n")[0]}`);
+      await route.abort().catch(() => {});
+      return;
+    }
     const scriptHashes = [...body.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)].map(
       ([, source]) => `'sha256-${createHash("sha256").update(source).digest("base64")}'`,
     );
@@ -279,8 +321,6 @@ export async function enforceStrictCsp(page) {
       headers: { ...response.headers(), "content-security-policy": strictPolicy(scriptHashes) },
     });
   });
-  const pageErrors = [];
-  page.on("pageerror", (error) => pageErrors.push(error.message.split("\n")[0]));
   return {
     async violations() {
       const refused = await page.evaluate(() => window.__cspViolations ?? []).catch(() => []);
