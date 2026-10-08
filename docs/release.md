@@ -690,6 +690,26 @@ with only `default_value: "system"`, and built a `Switch` whose
 `dxui` 0.6.0 copied Button, Select, and Switch with their helpers into a
 fresh app that built while denying warnings and rendered the same output.
 
+## 0.6.1 Publish
+
+0.6.1 was published on 2026-10-08 for the Content Security Policy fix
+(RFC 0080), once M220.1 to M220.5 were done. The first `npm run
+verify:release` failed at `verify:csp`: `dx serve` held the page request,
+so the check moved to a static server over a `dx build` (5058245); with it
+the rest of the gate passed, `verify:semver` found no change against
+`v0.6.0`, the dry run passed, and CI passed on the release commit. `cargo
+publish --workspace` uploaded `dioxus-shadcn-core` and then timed out
+waiting for the index; the other three were published one by one in
+dependency order once the index listed it. The tag is `v0.6.1`, annotated.
+A fresh web app on `dioxus-shadcn` 0.6.1 from crates.io, built with
+`dx build --release` and served with `script-src 'self' 'wasm-unsafe-eval'`,
+opened a Dialog with focus inside, closed it on Escape, and moved Tabs to
+the next tab with ArrowRight, with nothing refused; the same app on 0.6.0
+failed with the refused eval. The published `dxui` 0.6.1 copied Dialog and
+Tabs into a fresh app, named the three crates its `Cargo.toml` lacked and
+none once they were added, and the app built while denying warnings and
+passed the same check.
+
 ## Dioxus Next
 
 `npm run verify:dioxus-next` runs the Stage 14 checks against the newest
