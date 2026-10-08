@@ -50,6 +50,7 @@ const requiredScripts = {
   "verify:rendered-component-coverage": "node scripts/rendered-component-coverage-verify.mjs",
   "verify:rendered-component-dom": "node scripts/rendered-component-dom-verify.mjs",
   "verify:runtime-interactions": "node scripts/runtime-interactions-verify.mjs",
+  "verify:csp": "node scripts/runtime-interactions-verify.mjs --csp",
   "verify:repo-hygiene": "node scripts/repo-hygiene-verify.mjs",
   "verify:ci-docs": "node scripts/ci-docs-verify.mjs",
   "verify:ci-plan": "node scripts/ci-plan-verify.mjs",

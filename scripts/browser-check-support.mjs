@@ -1,5 +1,6 @@
 // Shared pieces of the browser checks: serving a Dioxus Web package with
 // `dx serve`, launching Chromium, and measuring text contrast.
+import { createHash } from "node:crypto";
 import { request } from "node:http";
 import { once } from "node:events";
 import { spawn, spawnSync } from "node:child_process";
@@ -224,8 +225,10 @@ export function lowContrastText() {
 // Runs axe-core on the page with the WCAG 2.1 A and AA and best-practice
 // rules (RFC 0054) and lists each violation with its first element.
 export async function accessibilityViolations(page, { disabledRules = [] } = {}) {
+  // Evaluated rather than added as an inline script tag, which a page's
+  // Content Security Policy refuses (RFC 0080).
   if (!(await page.evaluate(() => "axe" in window))) {
-    await page.addScriptTag({ content: axeSource });
+    await page.evaluate(axeSource);
   }
   return page.evaluate(async (disabled) => {
     const result = await window.axe.run(document, {
@@ -236,4 +239,52 @@ export async function accessibilityViolations(page, { disabledRules = [] } = {})
       (violation) => `${violation.id} (${violation.impact}): ${violation.help}: ${violation.nodes[0]?.html.slice(0, 160)}`,
     );
   }, disabledRules);
+}
+
+// The policy RFC 0080 holds the components to: scripts from the page's
+// origin and WebAssembly, never a string evaluated as code.
+const strictPolicy = (scriptHashes) =>
+  [
+    "default-src 'self'",
+    `script-src 'self' 'wasm-unsafe-eval' ${scriptHashes.join(" ")}`.trim(),
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data:",
+    "font-src 'self' data:",
+  ].join("; ");
+
+// Serves every page the browser loads with the strict policy and records
+// what it refuses. The page's own inline scripts, such as the one `dx serve`
+// adds, are allowed by hash, as a deployment would allow its own; a script
+// a component evaluates is not. `violations()` lists what was refused.
+export async function enforceStrictCsp(page) {
+  await page.addInitScript(() => {
+    window.__cspViolations = [];
+    document.addEventListener("securitypolicyviolation", (event) => {
+      window.__cspViolations.push(`${event.violatedDirective} refused ${event.blockedURI || "inline"} (${event.sourceFile || "page"}:${event.lineNumber})`);
+    });
+  });
+  await page.route("**/*", async (route) => {
+    if (route.request().resourceType() !== "document") {
+      await route.fallback();
+      return;
+    }
+    const response = await route.fetch();
+    const body = await response.text();
+    const scriptHashes = [...body.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)].map(
+      ([, source]) => `'sha256-${createHash("sha256").update(source).digest("base64")}'`,
+    );
+    await route.fulfill({
+      response,
+      body,
+      headers: { ...response.headers(), "content-security-policy": strictPolicy(scriptHashes) },
+    });
+  });
+  const pageErrors = [];
+  page.on("pageerror", (error) => pageErrors.push(error.message.split("\n")[0]));
+  return {
+    async violations() {
+      const refused = await page.evaluate(() => window.__cspViolations ?? []).catch(() => []);
+      return [...refused, ...pageErrors.map((message) => `page error: ${message}`)];
+    },
+  };
 }

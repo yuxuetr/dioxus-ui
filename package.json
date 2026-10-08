@@ -57,6 +57,7 @@
     "verify:rendered-component-coverage": "node scripts/rendered-component-coverage-verify.mjs",
     "verify:rendered-component-dom": "node scripts/rendered-component-dom-verify.mjs",
     "verify:runtime-interactions": "node scripts/runtime-interactions-verify.mjs",
+    "verify:csp": "node scripts/runtime-interactions-verify.mjs --csp",
     "verify:site": "node scripts/site-verify.mjs",
     "verify:fullstack-hydration": "node scripts/fullstack-hydration-verify.mjs",
     "verify:dioxus-next": "node scripts/dioxus-next-verify.mjs",

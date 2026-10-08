@@ -3,6 +3,7 @@ import { expect } from "@playwright/test";
 import { compilePreviewCss, utilityConflicts } from "./preview-tailwind.mjs";
 import {
   accessibilityViolations,
+  enforceStrictCsp,
   launchBrowser,
   lowContrastText,
   serveDioxusWeb,
@@ -10,6 +11,9 @@ import {
 } from "./browser-check-support.mjs";
 
 const viewport = { width: 1280, height: 900 };
+// `--csp` runs the same checks under the strict Content Security Policy
+// (RFC 0080) and fails on anything the browser refuses.
+const strictCsp = process.argv.includes("--csp");
 const server = serveDioxusWeb({ packageName: "dioxus-ui-web-demo", bin: "preview", port: 45239 });
 const previewUrl = server.url;
 
@@ -173,10 +177,12 @@ function utilityBackgroundColor(page, utility) {
 
 async function runBrowserAssertions() {
   const browser = await launchBrowser("scripts/runtime-interactions-verify.mjs");
+  let csp = null;
 
   try {
     const context = await browser.newContext({ viewport });
     const page = await context.newPage();
+    csp = strictCsp ? await enforceStrictCsp(page) : null;
     const previewCss = await compilePreviewCss();
     // dx serves the stylesheet uncompiled; answer it with compiled Tailwind so
     // class-based layout takes part in every check below.
@@ -2579,6 +2585,18 @@ async function runBrowserAssertions() {
     await expectNoUtilityConflicts(page, "after interactions");
     await expectReadableText(page, "after interactions");
     await expectPhoneWidthLayout(page, "after interactions");
+    const refused = (await csp?.violations()) ?? [];
+    if (refused.length > 0) {
+      throw new Error(`strict CSP: the browser refused:\n${refused.join("\n")}`);
+    }
+  } catch (error) {
+    // A refused script usually surfaces as a later interaction timing out;
+    // name what the browser refused alongside it.
+    const refused = (await csp?.violations()) ?? [];
+    if (refused.length > 0 && !String(error?.message).startsWith("strict CSP")) {
+      throw new Error(`${error?.message ?? error}\nstrict CSP: the browser refused:\n${[...new Set(refused)].join("\n")}`);
+    }
+    throw error;
   } finally {
     await browser.close();
   }
@@ -2587,7 +2605,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log("runtime interaction verification passed (52 fixtures)");
+  console.log(`runtime interaction verification passed (52 fixtures${strictCsp ? ", strict CSP" : ""})`);
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

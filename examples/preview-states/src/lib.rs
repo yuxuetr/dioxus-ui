@@ -879,8 +879,10 @@ const PREVIEW_CSS: Asset = asset!("/assets/preview.generated.css");
 #[component]
 pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let states = preview_lines(target);
-  // dx's page template has no `lang`, which assistive technology needs to
-  // pick a voice; the preview text is English.
+  // Assistive technology needs `lang` to pick a voice; the preview text is
+  // English. The web demo's `index.html` sets it, since the page's CSP
+  // refuses eval (RFC 0080); the Desktop and Mobile pages have no template.
+  #[cfg(not(target_arch = "wasm32"))]
   use_effect(|| {
     document::eval("document.documentElement.lang = 'en';");
   });

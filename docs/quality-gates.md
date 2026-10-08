@@ -501,6 +501,13 @@ write screenshots or traces, update generated docs, change component APIs, edit
 templates, certify full accessibility, verify native Desktop or Mobile
 behavior, or claim visual parity.
 
+`npm run verify:csp` runs the same checks with the page served under
+`script-src 'self' 'wasm-unsafe-eval'` (RFC 0080), the page's own inline
+scripts allowed by hash, and fails on anything the browser refuses or any
+page error, naming the refused source. The preview takes its title and
+`lang` from `examples/web-demo/Dioxus.toml` and `index.html`, so what it
+reports is the components'.
+
 `npm run verify:fullstack-hydration` serves `examples/fullstack-hydration`
 with `dx serve` and runs in the release gate. It fails when three requests
 write different element ids, or when, after hydration, ArrowRight does not
