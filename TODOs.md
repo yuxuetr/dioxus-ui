@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 50% (6 of 12 tasks)
-- Current milestone: M216 (0.7.0, Dioxus 0.8)
-- Current task: none until the Stage 14 gate exits 0 (then M216.1); M218 and M219 follow `v0.7.0`
+- Overall: 24% (6 of 25 tasks)
+- Current milestone: M220 (0.6.1, page scripts without eval)
+- Current task: M220.1; M221 follows `v0.6.1`; M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -13,7 +13,7 @@
 
 ## Goals
 
-- Follow [the roadmap](docs/roadmap.md) to 1.0. This plan covers Stage 14 (0.7.0, Dioxus 0.8) and Stage 15 (1.0). M215 and M217 need no Dioxus release; M216 starts when the Stage 14 gate in Deferred exits 0, M218 when `v0.7.0` is tagged, and M219 when outside feedback on an `rc` is in and closed.
+- Follow [the roadmap](docs/roadmap.md) to 1.0. This plan covers 0.6.1 (M220, page scripts without eval), 0.6.2 (M221, hardening from the same audit), Stage 14 (0.7.0, Dioxus 0.8), and Stage 15 (1.0). M215 and M217 need no Dioxus release; M216 starts when the Stage 14 gate in Deferred exits 0, M218 when `v0.7.0` is tagged, and M219 when outside feedback on an `rc` is in and closed.
 
 ## Evidence (measured 2026-10-07 at `v0.6.0`, in a scratch worktree on `dioxus` and `dioxus-ssr` `=0.8.0-alpha.1`)
 
@@ -33,6 +33,27 @@
 - No place for outside feedback: no `.github/ISSUE_TEMPLATE`, no labels for it, and the docs do not say what 1.x promises.
 - Users: 67 to 130 downloads per crate, 0 issues. The roadmap's exit needs an app outside this repository on an `rc`; only the community call can bring one.
 
+## M220 Evidence (measured 2026-10-08 at `9bc826b`)
+
+- An app migrating to the crate serves `script-src 'self' 'wasm-unsafe-eval'` and reported that the interactive components fail there (FB-02, with FB-13 and FB-14): 15 modules start a page script with `document::eval`, which `dioxus-web` 0.7.10 runs through `Function::new_with_args`; `0.8.0-alpha.1` does the same. Dialog, Dropdown, Command, and Navigation Menu block its migration.
+- A probe app on Dioxus 0.7.10 under that policy: `document::eval` is refused, and a `#[wasm_bindgen(inline_js = ...)]` function runs in a release build and under `dx serve`. Design and the rest of the probe: [RFC 0080](docs/rfcs/0080-page-scripts-without-eval.md).
+- The preview app the browser checks serve uses eval itself: `document::Title` in `examples/web-demo/src/bin/preview.rs` and the `lang` eval in `PreviewSurface`.
+
+## M221 Evidence (checked 2026-10-08 at `9bc826b`)
+
+- The same app's audit (FB-01 to FB-16) found no script injection path. Confirmed in the code:
+  - FB-03: no component checks a URL's scheme. `href` reaches the DOM unchanged in `BreadcrumbLink`, `NavigationMenuLink`, the `Pagination` links, `HoverCardTrigger`, `SidebarMenuButton`, `MenuItem`, and `DockItem`, so a `javascript:` URL from app data runs on a click. `AvatarImage` takes `src`, which cannot run script.
+  - FB-06: a disabled `NavigationMenuLink` keeps its `href` (`navigation_menu.rs:462`); Menu, Pagination, and Sidebar already drop it (`(!disabled).then_some(href)`).
+  - FB-04: `theme_init_script` writes `storage_key` into an inline script with `{:?}` (`theme_controller.rs:114`), which escapes quotes but not `</script>`.
+  - FB-05: the theme controller and the init script set any stored value as `data-theme` (`theme_controller.rs:63`, `:82`).
+  - FB-07: the anchored overlay script closes on every Escape on `document` without checking `defaultPrevented`, and Dialog, Sheet, Drawer, and Alert Dialog close on any Escape that bubbles, so one Escape in a popover inside a dialog closes both. Submenus already stop theirs (`listbox.rs:106`).
+  - FB-08: the Sidebar shortcut (Ctrl/Cmd+B) fires and prevents default inside inputs and editable content, which takes bold from a rich-text editor.
+  - FB-11: `dxui` writes with `fs::write` and `create_dir_all` and never checks for symlinks, so a symlinked `src/components` writes outside `--root`.
+  - FB-01: `dxui init` writes the crate's `@source` as an absolute path from `cargo metadata`, which breaks when the app builds in another directory, such as Docker or CI.
+  - FB-15: Table rows and footer use `border-b` and `border-t` without `border-border`, and the stylesheet has no base border color, so Tailwind 4 draws them in the text color.
+  - FB-10: no doc says what the components do and do not sanitize.
+- Not taken: FB-09 (Button keeps the native `submit` type in a form on purpose, documented at `button.rs:93`; M221.6 states it), FB-12 (the template parity test already compares every template with its crate module), FB-16 (the class-merge report runs in debug builds only, at `debug` level, once per distinct message).
+
 ## Scope Rules
 
 - A task lands complete: crate, templates, registry, docs, site, and tests together. What cannot meet this is cut, not stubbed.
@@ -42,6 +63,50 @@
 - Publish 0.7.0 once every task before M216.3 is done (the release owner's direction of 2026-10-07).
 - During the `rc` period only bug and docs changes land; a needed breaking change ends the period (another `rc` after it, and the exit's "no breaking change" restarts).
 - Posting the community call is outward-facing: the release owner posts it or approves the exact text first.
+- M220 changes no public API and ships as 0.6.1 from `main`; M216 then moves the same code to Dioxus 0.8.
+
+## M220 0.6.1 Page Scripts Without Eval (RFC 0080)
+
+- TODO M220.1 Strict-CSP browser run
+  - `npm run verify:csp` serves the web preview with `script-src 'self' 'wasm-unsafe-eval'` (the served page's own inline scripts allowed by hash) and runs the runtime interaction checks, failing on any `securitypolicyviolation` or page error. The preview gets `lang` and its title from a web demo `index.html` instead of an eval and `document::Title`, so what fails is the components.
+  - Exit: it fails on the current components and names the eval; without the policy the same run passes. Not yet in CI or `verify:release` (it stays red until M220.4).
+- TODO M220.2 `script` helper
+  - `component_script!` and `Script` (RFC 0080) in `dioxus-shadcn`, with `serde` and, on `wasm32`, `serde_json` and `wasm-bindgen`; the `script.rs` template and `script` helper entry; `dxui add` names the crates the app's `Cargo.toml` lacks when it writes the helper; the generated fixture declares them.
+  - Exit: unit tests for the eval source and the export check; in a browser test page a script receives what Rust sends, its messages arrive in order, and `recv` returns `Finished` when it ends; the parity test and the generated fixture smoke pass.
+- TODO M220.3 Overlay, focus, and roving scripts on `Script`
+  - Modal Focus, Anchored Overlay, Listbox, Hover Open, Dismiss Timer, and Roving Group, in the crate and the templates, with their entries listing `script`. These carry Dialog, Sheet, Drawer, Alert Dialog, Popover, Dropdown, Select, Tooltip, Command, Combobox, Hover Card, Toast, Tabs, Toggle Group, and Accordion.
+  - Exit: `verify:csp` passes the checks of those components; `verify:browser-local`, the Desktop interaction self-test, and the fullstack hydration check pass.
+- TODO M220.4 The other scripts on `Script`
+  - Checkbox, Input OTP, Media Query, Menubar, Navigation Menu, Resizable, Sidebar, Slider, and Theme Controller; no `document::eval` is left in the crate or the templates. `verify:csp` joins `verify:release` and CI.
+  - Exit: `verify:csp` passes; a `document::eval` put back into one component fails it (reverse-verify); `grep -rn 'document::eval' crates/dioxus-shadcn/src crates/dioxus-shadcn-cli/templates` prints nothing; the Desktop self-test and the browser checks pass.
+- TODO M220.5 CSP docs
+  - README and `docs/component-api.md`: the policy the components need, the theme init script's hash or nonce, the copy-mode crates, and that app code using `document::eval` or `document::Title` still needs `'unsafe-eval'`. CHANGELOG `[Unreleased]`.
+  - Exit: the docs checks pass.
+- TODO M220.6 Publish 0.6.1
+  - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.0`, publish in dependency order, annotated tag `v0.6.1`, then a fresh web app from crates.io served with the strict policy opens a Dialog and switches Tabs with no violation.
+
+## M221 0.6.2 Hardening (starts when `git tag -l v0.6.1 | grep -q .` exits 0)
+
+- TODO M221.1 URL props allow safe schemes only
+  - One helper keeps relative URLs, fragments, and `http:`, `https:`, `mailto:`, and `tel:`, and turns anything else into no `href`; every component in FB-03 uses it, in the crate and the templates. A disabled `NavigationMenuLink` drops its `href` (FB-06).
+  - Exit: unit tests for the schemes (including `JavaScript:`, leading spaces, and control characters); an SSR test renders each FB-03 component with `javascript:alert(1)` and finds no such `href`.
+- TODO M221.2 Theme storage
+  - `theme_init_script` refuses a `storage_key` outside `[A-Za-z0-9_-]` (FB-04); the controller and the init script apply a stored theme only when it is `system`, `light`, `dark`, or a preset the app lists, else `system` (FB-05).
+  - Exit: unit tests for both; the theme controller browser check passes, and a stored `x"><script>` leaves `data-theme` unset.
+- TODO M221.3 One Escape closes one layer
+  - The anchored overlay and Navigation Menu scripts skip an Escape whose `defaultPrevented` is set and prevent the one they act on; Dialog, Sheet, Drawer, and Alert Dialog skip a prevented Escape (FB-07). The Sidebar shortcut ignores inputs, `select`, and editable content (FB-08).
+  - Exit: browser checks: Escape in a Popover inside a Dialog closes only the Popover, a second Escape closes the Dialog; Ctrl+B in a text input leaves the Sidebar as it was. Both fail before the change.
+- TODO M221.4 `dxui` writes stay in the app
+  - Every write and directory creation refuses a symlink on the path under `--root` (FB-11); `@source` is written relative to the stylesheet when the crate is under the app's directory or Cargo home is shared, with the absolute path kept and a note otherwise (FB-01).
+  - Exit: CLI tests: a symlinked `src/components` fails with the path named and writes nothing; `@source` in a fixture is relative and Tailwind still finds the crate's classes (`verify:css-inputs`).
+- TODO M221.5 Table border color
+  - Table row, header, and footer borders use `border-border` (FB-15), crate and template.
+  - Exit: a rendered DOM check reads the row border color as the `--border` token in both themes.
+- TODO M221.6 Security notes
+  - A Security section in the README and `docs/component-api.md`: the URL schemes components keep, that children and rich content are not sanitized, the CSP the components need (RFC 0080), the theme storage key rule, and Button's native `submit` type in a form (FB-09, FB-10).
+  - Exit: the docs checks pass.
+- TODO M221.7 Publish 0.6.2
+  - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.1`, publish in dependency order, annotated tag `v0.6.2`.
 
 ## M215 Dioxus 0.8 Readiness
 
