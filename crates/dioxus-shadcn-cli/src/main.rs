@@ -1419,7 +1419,9 @@ mod tests {
     assert!(message.contains("available components:"));
     assert!(message.contains("button"));
     assert!(!message.contains("utils"));
-    assert!(message.contains("available blocks: dashboard, login, pricing, settings, signup"));
+    assert!(
+      message.contains("available blocks: dashboard, landing, login, pricing, settings, signup")
+    );
   }
 
   #[test]

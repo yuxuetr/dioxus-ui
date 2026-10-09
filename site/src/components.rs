@@ -3,6 +3,9 @@
 //! the same items, so it compiles the block sources unchanged.
 
 pub mod ui {
+  pub mod avatar {
+    pub use dioxus_shadcn::*;
+  }
   pub mod badge {
     pub use dioxus_shadcn::*;
   }

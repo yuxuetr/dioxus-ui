@@ -260,6 +260,21 @@ async function run() {
     await newPassword.fill("Correct-Horse-9");
     await expect(strength).toHaveAttribute("aria-valuetext", "Strong");
     await expect(newPassword).toHaveAttribute("aria-invalid", "false");
+    // The landing block's early-access form works from the keyboard alone.
+    await visit(page, "/blocks/landing");
+    const landing = page.locator("main [data-site-block-preview]");
+    const notify = landing.getByRole("button", { name: "Notify me", exact: true });
+    const landingEmail = landing.getByRole("textbox", { name: "Email", exact: true });
+    await landingEmail.focus();
+    await page.keyboard.press("Tab");
+    await expect(notify).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(landingEmail).toHaveAttribute("aria-invalid", "true");
+    await expect(landingEmail).toHaveAccessibleDescription("Enter your email address.");
+    await landingEmail.focus();
+    await page.keyboard.type("ada@acme.example");
+    await page.keyboard.press("Enter");
+    await expect(landing.getByRole("status")).toHaveText("Thanks. We will write to ada@acme.example.");
     // The pricing block's billing switch changes every plan's price.
     await visit(page, "/blocks/pricing");
     const pricing = page.locator("main [data-site-block-preview]");

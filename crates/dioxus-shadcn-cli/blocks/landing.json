@@ -1,0 +1,19 @@
+{
+  "name": "landing",
+  "description": "Product page with a hero, features, a testimonial, an early-access form, and a footer.",
+  "files": [
+    {
+      "source": "blocks/landing.rs",
+      "target": "src/blocks/landing.rs"
+    }
+  ],
+  "dependencies": [
+    "avatar",
+    "badge",
+    "button",
+    "card",
+    "input",
+    "separator"
+  ],
+  "assets": []
+}

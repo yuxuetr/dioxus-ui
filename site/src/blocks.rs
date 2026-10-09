@@ -4,6 +4,8 @@ use dioxus::prelude::*;
 
 #[path = "../../crates/dioxus-shadcn-cli/blocks/dashboard.rs"]
 mod dashboard;
+#[path = "../../crates/dioxus-shadcn-cli/blocks/landing.rs"]
+mod landing;
 #[path = "../../crates/dioxus-shadcn-cli/blocks/login.rs"]
 mod login;
 #[path = "../../crates/dioxus-shadcn-cli/blocks/pricing.rs"]
@@ -28,6 +30,13 @@ pub const BLOCKS: &[Block] = &[
     description: "App shell with an off-canvas sidebar, metrics, a chart, and an orders table.",
     source: include_str!("../../crates/dioxus-shadcn-cli/blocks/dashboard.rs"),
     render: || rsx! { dashboard::DashboardBlock {} },
+  },
+  Block {
+    slug: "landing",
+    title: "Landing",
+    description: "Product page with a hero, features, a testimonial, an early-access form, and a footer.",
+    source: include_str!("../../crates/dioxus-shadcn-cli/blocks/landing.rs"),
+    render: || rsx! { landing::LandingBlock {} },
   },
   Block {
     slug: "login",
