@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 83% (40 of 48 tasks)
+- Overall: 85% (41 of 48 tasks)
 - Current milestone: M225 (0.6.6, gaps the blocks found); M216 (0.7.0, Dioxus 0.8) waits for its gate
-- Current task: M225.2
+- Current task: M225.3
 
 ## Backup
 
@@ -219,9 +219,10 @@ The `files` and `schedule` blocks left two gaps (M224.2, M224.3 and M224.8). Nei
   - `ContextMenuTrigger` starts a page script that turns Shift+F10 on the focused element inside it into the `contextmenu` event the ContextMenu key sends, at the element's center, so app handlers on descendants run the same way. Crate and template; the `files` names take focus.
   - Exit: the context menu fixture focuses inside the trigger, presses Shift+F10, finds the menu at the element and the first item focused, and fails with the script returning at once (reverse-verify); the `files` site check deletes a file from the keyboard; template parity, `verify:csp`, and the release gate pass.
   - Done (709350e4): `context_menu_key_script` (crate and template; the template now needs `element-id` and `script`) listens on the trigger and dispatches `contextmenu` at the focused element's center. The fixture gained a button inside the trigger; Shift+F10 and the ContextMenu key each open the menu at the button's center with Back focused, and Escape returns focus to it. With the script returning at once the check fails (menu never anchors: "static"). `files` names are in the tab order with a focus ring and a hint under the table; the site check deletes Icon.svg with Shift+F10 and Enter. `verify:runtime-interactions` and `verify:csp` (59 fixtures), `verify:site` (98 routes), template parity, fixture smoke, workspace Clippy, and docs checks pass; the release gate runs in M225.3.
-- TODO M225.2 `schedule` block on Calendar
+- DONE M225.2 `schedule` block on Calendar
   - The block drops its own `Day` for `CalendarDate` and the copied helpers, and gains the month Calendar RFC 0082 planned: picking a day shows its week, and the shown week is marked in the month.
   - Exit: the `schedule` site check picks a day in another month and finds that week's columns; a fixture app from `dxui add schedule` builds under `#![deny(warnings)]`; CLI tests, fixture smoke, `verify:site`, and docs checks pass.
+  - Done (6f2bd827): the 50-line `Day` became four helpers over `CalendarDate` (`week_of` through `calendar_move_date`'s StartOfWeek, ISO format and parse, weekday name); a month Calendar beside the week marks the shown week with the grid's range ends, and a click or a key move shows that day's week, while the week buttons move the month along. `ScheduleBlock`'s `today` and `ScheduleEvent`'s `day` are `CalendarDate` (CHANGELOG, Changed). The site check finds October 18 and 24 as the range ends, pages to November, picks the 5th and finds "Thursday, November 5" and "November 1 – 7, 2026", then ArrowDown focuses the 12th and shows its week; with `on_select` emptied it fails on "Thursday, November 5". A scratch app made with `dxui add schedule` (which brings `calendar` and `calendar_grid`) passes `cargo check` under `#![deny(warnings)]`. CLI tests, fixture smoke, site Clippy, `verify:site` (98 routes), and docs checks pass. RFC 0082's row now says date and time inputs instead of DatePicker.
 - TODO M225.3 Publish 0.6.6
   - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.5`, publish in dependency order, annotated tag `v0.6.6`, then fresh apps in both modes from crates.io that open the `files` menu with Shift+F10 and pick a day in `schedule`.
 
