@@ -1,0 +1,3 @@
+[web.app]
+# Set here rather than with `document::Title`, which runs through eval.
+title = "dioxus-shadcn"

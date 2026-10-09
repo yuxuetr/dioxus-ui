@@ -54,6 +54,8 @@ async function visit(page, path) {
   await page.goto(`${server.url}${path}`, { waitUntil: "domcontentloaded", timeout: 30000 });
   const article = page.locator("main [data-site-page]");
   await article.waitFor({ state: "attached", timeout: 60000 });
+  // From `site/Dioxus.toml`, not `document::Title`, which runs through eval.
+  await expect(page).toHaveTitle("dioxus-shadcn");
   return article;
 }
 

@@ -44,7 +44,6 @@ fn main() {
 #[component]
 fn App() -> Element {
   rsx! {
-    document::Title { "dioxus-shadcn" }
     document::Stylesheet { href: SITE_CSS }
     Router::<Route> {}
   }

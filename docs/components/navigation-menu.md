@@ -84,6 +84,14 @@ rsx! {
 Content is laid out with CSS, not anchored. `NavigationMenuViewport` and
 `NavigationMenuIndicator` show while any item is open.
 
+Content opens from the app's state, so in a server-rendered page it opens
+only after hydration; until then top-level `NavigationMenuLink`s work as
+plain links and contents stay `hidden`. Showing contents by CSS hover before
+hydration would leave two sources of truth afterwards (a hovered content
+that ignores Escape and shows while its trigger says `aria-expanded="false"`),
+so a menu that must work without Wasm is better written with plain links and
+CSS of the app's own.
+
 ### Submenus
 
 Nest a `NavigationMenu` with `orientation: NavigationMenuOrientation::Vertical`
