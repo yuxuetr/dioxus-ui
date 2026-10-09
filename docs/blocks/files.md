@@ -8,7 +8,7 @@ with a context menu.
 dxui add files
 ```
 
-Components: Breadcrumb, Context Menu, Data Table, Tree.
+Components: Breadcrumb, Context Menu, Data Table, File Input, Tree.
 
 ## Behavior
 
@@ -17,7 +17,7 @@ Components: Breadcrumb, Context Menu, Data Table, Tree.
   with a deleted file.
 - Choosing a folder in the tree, or an ancestor in the breadcrumbs, opens it;
   opening a folder from the breadcrumbs also opens its parents in the tree.
-- Files dropped on the upload area, which shows a dashed primary outline
+- Files dropped on the upload area, a `FileDropzone` that marks itself
   while files are dragged over it, or picked with Upload, are added to the
   open folder.
 - Right-clicking a file name opens a context menu that deletes that file.

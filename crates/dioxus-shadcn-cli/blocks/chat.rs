@@ -1,4 +1,4 @@
-use dioxus::html::HasFileData;
+use dioxus::html::FileData;
 use dioxus::prelude::*;
 
 use crate::components::ui::attachment::{
@@ -8,6 +8,7 @@ use crate::components::ui::attachment::{
 use crate::components::ui::avatar::{Avatar, AvatarFallback};
 use crate::components::ui::bubble::{Bubble, BubbleAlign, BubbleContent, BubbleVariant};
 use crate::components::ui::button::{Button, ButtonVariant};
+use crate::components::ui::file_input::FileDropzone;
 use crate::components::ui::item::{Item, ItemContent, ItemDescription, ItemMedia, ItemTitle};
 use crate::components::ui::message::{
   Message, MessageAlign, MessageAvatar, MessageContent, MessageFooter,
@@ -104,7 +105,6 @@ pub fn ChatBlock(#[props(default)] on_send: Option<EventHandler<ChatSend>>) -> E
   let mut open = use_signal(|| 1_u32);
   let mut draft = use_signal(String::new);
   let mut pending = use_signal(Vec::<ChatFile>::new);
-  let mut dragging = use_signal(|| false);
   let mut next_id = use_signal(|| 100_u32);
 
   let current = conversations().into_iter().find(|conversation| conversation.id == open());
@@ -216,21 +216,14 @@ pub fn ChatBlock(#[props(default)] on_send: Option<EventHandler<ChatSend>>) -> E
               }
             }
           }
+          FileDropzone {
+            class: "rounded-none border-0 border-t border-solid border-border p-3 text-start text-foreground",
+            on_files: move |files: Vec<FileData>| {
+              add_files(files.iter().map(|file| ChatFile { name: file.name(), size: file.size() }).collect())
+            },
           form {
-            class: if dragging() { "grid gap-2 border-t bg-accent/40 p-3 outline-2 outline-dashed outline-primary" } else { "grid gap-2 border-t p-3" },
+            class: "grid gap-2",
             "aria-label": "Message composer",
-            ondragover: move |event| {
-              event.prevent_default();
-              dragging.set(true);
-            },
-            ondragleave: move |_| dragging.set(false),
-            ondrop: move |event| {
-              event.prevent_default();
-              dragging.set(false);
-              add_files(
-                event.files().iter().map(|file| ChatFile { name: file.name(), size: file.size() }).collect(),
-              );
-            },
             onsubmit: move |event| {
               event.prevent_default();
               send();
@@ -298,6 +291,7 @@ pub fn ChatBlock(#[props(default)] on_send: Option<EventHandler<ChatSend>>) -> E
               }
               Button { r#type: "submit", variant: ButtonVariant::Primary, "Send" }
             }
+          }
           }
         }
       }

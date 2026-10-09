@@ -2577,6 +2577,28 @@ async function runBrowserAssertions() {
     await expect(treeSelected).toHaveText("Selected: docs");
     await expect(treeItem("guide")).toBeVisible();
 
+    // A File Dropzone stays marked while files move over its children and
+    // passes a drop to its callback.
+    const dropzoneFixture = page.locator('[data-interaction-target="file-dropzone"]');
+    const dropzone = dropzoneFixture.locator("[data-dragging]");
+    await expect(dropzone).toHaveAttribute("data-dragging", "false");
+    await dropzone.evaluate((area) => {
+      const data = new DataTransfer();
+      data.items.add(new File(["a"], "notes.txt", { type: "text/plain" }));
+      data.items.add(new File(["b"], "photo.png", { type: "image/png" }));
+      window.__dxuiDrop = data;
+      const child = area.querySelector("span");
+      area.dispatchEvent(new DragEvent("dragenter", { bubbles: true, cancelable: true, dataTransfer: data }));
+      child.dispatchEvent(new DragEvent("dragenter", { bubbles: true, cancelable: true, dataTransfer: data }));
+      area.dispatchEvent(new DragEvent("dragleave", { bubbles: false, cancelable: true, dataTransfer: data }));
+    });
+    await expect(dropzone, "file dropzone stays marked over a child").toHaveAttribute("data-dragging", "true");
+    await dropzone.evaluate((area) => {
+      area.dispatchEvent(new DragEvent("drop", { bubbles: true, cancelable: true, dataTransfer: window.__dxuiDrop }));
+    });
+    await expect(dropzoneFixture.locator('[data-interaction-state="dropped-files"]')).toHaveText("Dropped: notes.txt, photo.png");
+    await expect(dropzone).toHaveAttribute("data-dragging", "false");
+
     // Escape in a Popover inside a Dialog closes the Popover; the next one
     // closes the Dialog.
     const layers = page.locator('[data-interaction-target="nested-layers"]');
@@ -2753,7 +2775,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log(`runtime interaction verification passed (58 fixtures${strictCsp ? ", strict CSP" : ""})`);
+  console.log(`runtime interaction verification passed (59 fixtures${strictCsp ? ", strict CSP" : ""})`);
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

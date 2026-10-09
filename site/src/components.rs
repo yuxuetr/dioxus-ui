@@ -42,6 +42,9 @@ pub mod ui {
   pub mod field {
     pub use dioxus_shadcn::*;
   }
+  pub mod file_input {
+    pub use dioxus_shadcn::*;
+  }
   pub mod input {
     pub use dioxus_shadcn::*;
   }

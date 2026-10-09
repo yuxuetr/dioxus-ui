@@ -1,4 +1,4 @@
-use dioxus::html::HasFileData;
+use dioxus::html::FileData;
 use dioxus::prelude::*;
 
 use crate::components::ui::breadcrumb::{
@@ -10,6 +10,7 @@ use crate::components::ui::context_menu::{
 use crate::components::ui::data_table::{
   DataTable, DataTableCell, DataTableContainer, DataTableHeaderCell, DataTableRow,
 };
+use crate::components::ui::file_input::FileDropzone;
 use crate::components::ui::tree::{Tree, TreeItem};
 
 struct Folder {
@@ -115,7 +116,6 @@ pub fn FilesBlock(
   let mut files = use_signal(sample_files);
   let mut folder = use_signal(|| "home".to_string());
   let mut expanded = use_signal(|| vec!["home".to_string()]);
-  let mut dragging = use_signal(|| false);
   let mut menu_target = use_signal(|| None::<String>);
 
   let mut open_folder = move |id: &str| {
@@ -197,20 +197,11 @@ pub fn FilesBlock(
             "Upload"
           }
         }
-        div {
-          class: if dragging() { "rounded-md border-2 border-dashed border-primary bg-accent/40 p-4 text-center text-sm" } else { "rounded-md border-2 border-dashed border-border p-4 text-center text-sm text-muted-foreground" },
+        FileDropzone {
+          class: "p-4",
           role: "region",
           "aria-label": "Upload area",
-          ondragover: move |event| {
-            event.prevent_default();
-            dragging.set(true);
-          },
-          ondragleave: move |_| dragging.set(false),
-          ondrop: move |event| {
-            event.prevent_default();
-            dragging.set(false);
-            upload(event.files().iter().map(|file| (file.name(), file.size())).collect());
-          },
+          on_files: move |files: Vec<FileData>| upload(files.iter().map(|file| (file.name(), file.size())).collect()),
           "Drop files here to add them to {folder_name(&folder())}"
         }
         ContextMenu {

@@ -8,8 +8,8 @@ picked or dropped on it.
 dxui add chat
 ```
 
-Components: Attachment, Avatar, Bubble, Button, Item, Message, Message
-Scroller, Textarea.
+Components: Attachment, Avatar, Bubble, Button, File Input, Item, Message,
+Message Scroller, Textarea.
 
 ## Behavior
 
@@ -19,8 +19,8 @@ Scroller, Textarea.
 - Enter sends and Shift+Enter starts a new line; Send does the same. A
   message needs text or at least one file.
 - Files come from Attach, a native file picker, or from a drop anywhere on
-  the composer, which shows a dashed outline while files are dragged over
-  it. Each pending file has a remove button until the message is sent.
+  the composer, a `FileDropzone` that marks itself while files are dragged
+  over it. Each pending file has a remove button until the message is sent.
 - The transcript is a reversed column, so the newest message stays in view
   as messages arrive, with no scroll script.
 - The block reads only each file's name and size. Upload the files in

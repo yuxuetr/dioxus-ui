@@ -885,7 +885,7 @@ pub use number_input::{NumberInput, number_input_class};
 pub use tags_input::{TagsInput, tags_input_class};
 
 #[cfg(feature = "file-input")]
-pub use file_input::{FileInput, file_input_class};
+pub use file_input::{FileDropzone, FileInput, file_dropzone_class, file_input_class};
 
 #[cfg(feature = "swap")]
 pub use swap::{Swap, SwapEffect, swap_class, swap_layer_class};

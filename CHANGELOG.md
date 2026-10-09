@@ -13,6 +13,10 @@ for commit messages.
   WAI-ARIA tree keyboard model (arrow keys, Home, End, typeahead, Enter and
   Space to select) and app-owned or tree-owned expansion and selection
   (`dxui add tree`, feature `tree`, [RFC 0082](docs/rfcs/0082-blocks-and-block-driven-components.md)).
+- `FileDropzone` in the File Input component: an area that passes files
+  dropped on it to `on_files` and sets `data-dragging` while files are over
+  it, without flickering across its children. The `chat` and `files` blocks
+  use it.
 - `checkout` block: contact, address, shipping method, and payment
   fields checked on Pay, beside an order summary (`dxui add checkout`).
 - `files` block: a folder tree, breadcrumbs, an upload area that takes

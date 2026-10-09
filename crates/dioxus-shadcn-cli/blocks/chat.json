@@ -12,6 +12,7 @@
     "avatar",
     "bubble",
     "button",
+    "file-input",
     "item",
     "message",
     "message-scroller",

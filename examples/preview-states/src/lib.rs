@@ -1,6 +1,7 @@
 use dioxus::prelude::*;
 
 mod self_test;
+use dioxus_shadcn::FileDropzone;
 use dioxus_shadcn::FileInput;
 use dioxus_shadcn::NavigationMenuOrientation;
 use dioxus_shadcn::NumberInput;
@@ -910,6 +911,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut late_query = use_signal(String::new);
   let mut late_results = use_signal(Vec::<&'static str>::new);
   let mut tree_selected = use_signal(String::new);
+  let mut dropped_files = use_signal(Vec::<String>::new);
   let mut command_result = use_signal(|| "none".to_string());
   let command_status = if command_query().trim().is_empty() {
     String::new()
@@ -2872,6 +2874,22 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               TreeItem { value: "readme", "README.md" }
             }
             p { class: "mt-2 text-xs text-muted-foreground", "data-interaction-state": "tree-selected", "Selected: {tree_selected}" }
+          }
+          // A File Dropzone marks itself while files are over it and passes
+          // dropped files to its callback.
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "file-dropzone",
+            h2 { class: "text-sm font-medium", "File dropzone interaction" }
+            FileDropzone {
+              class: "mt-3",
+              "aria-label": "Drop files",
+              on_files: move |files: Vec<dioxus::html::FileData>| {
+                  dropped_files.set(files.iter().map(|file| file.name()).collect())
+              },
+              span { "Drop files here" }
+            }
+            p { class: "mt-2 text-xs text-muted-foreground", "data-interaction-state": "dropped-files", "Dropped: {dropped_files().join(\", \")}" }
           }
           // One Escape closes only the overlay opened last.
           article {
