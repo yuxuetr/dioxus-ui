@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 61% (27 of 44 tasks)
+- Overall: 64% (28 of 44 tasks)
 - Current milestone: M223 (0.6.4, blocks)
-- Current task: M223.3; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
+- Current task: M223.4; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -160,9 +160,10 @@ Each block lands complete: `blocks/<name>.json` and `.rs`, the CLI block list te
   - Three plans, a monthly or yearly ToggleGroup, a highlighted plan, and feature lists; choosing a plan calls `on_choose`.
   - Interaction: switching to yearly changes the prices.
   - Done (c1bc14665): plans come from a `PLANS` constant; the Toggle Group "Billing period" is controlled and ignores the "" a released item reports, so a period stays pressed. Each plan is a `section` named by an `h2` inside CardTitle, since `Card` and `CardTitle` take no attributes. The site check finds "$12/month" in the Pro region, presses Yearly, and finds "$120/year" and Team's "$290/year". CLI tests, fixture smoke, `verify:site` (91 routes), Clippy, and docs checks pass.
-- TODO M223.3 `landing` block
+- DONE M223.3 `landing` block
   - Hero, feature grid, testimonial, call to action, and footer, as layout in the block.
   - Interaction: the call to action is reachable by Tab and calls its handler.
+  - Done (6cbe0a0da): the call to action is an early-access email form, so the site can observe it without an app handler: the check tabs from the email input to "Notify me", submits empty with Enter and finds the described error, then types an address and finds the thank-you `status`. Header and hero buttons call `on_get_started`; the form calls `on_subscribe`. Hero, features (`FEATURES`), quote, and footer stay layout. CLI tests, fixture smoke, `verify:site` (92 routes), Clippy, and docs checks pass.
 - TODO M223.4 `inbox` block
   - Folders, a searchable message list (Item), and a reading pane in a Resizable layout.
   - Interaction: picking a message shows it in the pane; the search narrows the list.
