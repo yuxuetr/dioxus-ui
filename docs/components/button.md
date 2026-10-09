@@ -43,7 +43,8 @@ button. Inside a form the button keeps the native `submit` type; pass
 
 `Button` takes its density from the nearest `DensityProvider`
 ([RFC 0078](../rfcs/0078-touch-density.md)), `Comfortable` without one. Under
-`Touch` it is at least 48 CSS pixels high and 44 wide, a touch target:
+`Touch` it is at least 48 CSS pixels high and 44 wide, a touch target; at
+`Comfortable` the size alone sets the height (`Sm` is 32 pixels):
 
 ```rust
 rsx! {

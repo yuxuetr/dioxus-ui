@@ -67,6 +67,8 @@ const BUTTON_BASE_CLASS: &str = "inline-flex items-center justify-center rounded
 
 /// Classes for the button: base classes, the variant's, the size's, a minimum
 /// height for `density` (and a minimum width at Touch), then `class` merged over them.
+/// At the default `Comfortable` the size alone sets the height, so `Sm` stays
+/// 32 pixels high.
 pub fn button_class(
   variant: ButtonVariant,
   size: ButtonSize,
@@ -74,18 +76,13 @@ pub fn button_class(
   class: &str,
 ) -> String {
   let density_class = match density {
-    UiDensity::Compact => "min-h-8",
-    UiDensity::Comfortable => "min-h-10",
-    UiDensity::Touch => "min-h-12 min-w-11",
+    UiDensity::Compact => Some("min-h-8"),
+    UiDensity::Comfortable => None,
+    UiDensity::Touch => Some("min-h-12 min-w-11"),
   };
 
   merge_classes(
-    classes([
-      Some(BUTTON_BASE_CLASS),
-      Some(variant.class()),
-      Some(size.class()),
-      Some(density_class),
-    ]),
+    classes([Some(BUTTON_BASE_CLASS), Some(variant.class()), Some(size.class()), density_class]),
     class,
   )
 }
@@ -139,7 +136,7 @@ mod tests {
     let html = dioxus_ssr::render(&dom);
 
     assert_eq!(html.matches("min-h-12").count(), 1, "{html}");
-    assert_eq!(html.matches("min-h-10").count(), 1);
+    assert_eq!(html.matches("min-h-").count(), 1, "{html}");
   }
 
   #[test]
@@ -152,6 +149,15 @@ mod tests {
     assert!(actual.contains("h-12 px-6 text-base"));
     assert!(actual.contains("min-h-12"));
     assert!(actual.ends_with("w-full"));
+  }
+
+  #[test]
+  fn default_density_keeps_the_size_height() {
+    let small = button_class(ButtonVariant::Primary, ButtonSize::Sm, UiDensity::Comfortable, "");
+    let medium = button_class(ButtonVariant::Primary, ButtonSize::Md, UiDensity::Comfortable, "");
+
+    assert!(small.contains("h-8") && !small.contains("min-h-10"), "{small}");
+    assert!(medium.contains("h-10"), "{medium}");
   }
 
   #[test]
