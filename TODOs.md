@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 82% (37 of 45 tasks)
+- Overall: 84% (38 of 45 tasks)
 - Current milestone: M224 (0.6.5, Tree and block-driven components)
-- Current task: M224.8; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
+- Current task: M224.7; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -202,9 +202,10 @@ Each block lands complete: `blocks/<name>.json` and `.rs`, the CLI block list te
   - Starts when `git grep -l ondrop -- crates/dioxus-shadcn-cli/blocks | wc -l` prints 2 or more. Count the drag handlers, drag-over state, and file reads in `chat` and `files`.
   - Exit: the same rule as M224.5; a lifted drop area has a browser check that drops a file and finds the callback called.
   - Done (e18181b16): lifted. The gate printed 2. `chat` had 15 drop-wiring lines and `files` 13 (28); on `FileDropzone` (in the File Input module and template, `on_files: Vec<FileData>`, `data-dragging`) they keep 5 and 3 (8), 71 percent less. Counting dragenter and dragleave also fixes the blocks' mark clearing over a child, which the new "file-dropzone" fixture (59 fixtures) checks before dropping two files and finding both names; with the callback removed it fails ("Dropped: "). The blocks' site checks still pass by dispatching dragover and drop. Release gate (59 fixtures under the strict policy) and `verify:site` (98 routes) pass.
-- TODO M224.8 Calendar month helpers in copy mode
+- DONE M224.8 Calendar month helpers in copy mode
   - Added during M224.3. The `calendar.rs` template gains what the crate's Calendar page uses from the primitives: `CalendarMonth`, `CalendarWeekday`, `CalendarMonthGrid`, `calendar_month_grid`, `calendar_move_date`, and the date arithmetic they need, kept equal to the primitives by the template parity test or a test of its own; the Calendar page says which helpers come with `dxui add calendar`.
   - Exit: a fixture app made with `dxui add calendar` builds the month example from the Calendar page unchanged; the parity test fails when one copy of `calendar_month_grid` changes alone (reverse-verify); the release gate passes.
+  - Done (3930dec78): a `calendar-grid` helper template is the primitives' `calendar.rs` without its tests, so the parity test compares every item with the primitives; inlining into `calendar.rs` was not possible because the primitives' `CalendarDay` struct and the styled `CalendarDay` component share a name. `calendar.rs` re-exports the helper with crate mode's `pub use` list (`CalendarDay as CalendarPrimitiveDay`). The generated fixture compiles `site/src/examples/calendar_month.rs` with only the import rewritten; without `calendar_month_grid` in the re-export it fails with E0432, and changing `0..6` to `0..5` in the helper alone fails parity ("differs from crates/dioxus-shadcn-primitives/src/calendar.rs"). The Calendar page lists the copied helpers. The `schedule` block keeps its own `Day`; a month Calendar there can come later. Release gate passes.
 - TODO M224.7 Publish 0.6.5
   - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.4`, publish in dependency order, annotated tag `v0.6.5`, then fresh apps in both modes from crates.io that use Tree and add a new block.
 
