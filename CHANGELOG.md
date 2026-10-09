@@ -8,6 +8,13 @@ for commit messages.
 
 ## [Unreleased]
 
+## [0.6.5] - 2026-10-09
+
+Version 0.6.5 adds the Tree component, a file drop area, and three more
+blocks that use them ([RFC 0082](docs/rfcs/0082-blocks-and-block-driven-components.md)),
+and copies the calendar's month grid helpers in source-copy mode. Existing
+API does not change.
+
 ### Added
 - Tree component: nested items whose branches open and close, with the
   WAI-ARIA tree keyboard model (arrow keys, Home, End, typeahead, Enter and

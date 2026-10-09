@@ -60,7 +60,7 @@ members = [
 ]
 
 [workspace.package]
-version = "0.6.4"
+version = "0.6.5"
 edition = "2024"
 license = "MIT"
 repository = "https://github.com/yuxuetr/dioxus-ui"
@@ -70,9 +70,9 @@ categories = ["gui", "web-programming"]
 
 [workspace.dependencies]
 dioxus = "0.7"
-dioxus-shadcn-core = { version = "0.6.4", path = "crates/dioxus-shadcn-core" }
-dioxus-shadcn-primitives = { version = "0.6.4", path = "crates/dioxus-shadcn-primitives" }
-dioxus-shadcn = { version = "0.6.4", path = "crates/dioxus-shadcn" }
+dioxus-shadcn-core = { version = "0.6.5", path = "crates/dioxus-shadcn-core" }
+dioxus-shadcn-primitives = { version = "0.6.5", path = "crates/dioxus-shadcn-primitives" }
+dioxus-shadcn = { version = "0.6.5", path = "crates/dioxus-shadcn" }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 ```

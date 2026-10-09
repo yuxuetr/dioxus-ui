@@ -80,7 +80,7 @@ writes an `@source` line for the crate's source, after the import, from
 
 ```css
 @import "tailwindcss";
-@source "/home/me/.cargo/registry/src/index.crates.io-…/dioxus-shadcn-0.6.4/src";
+@source "/home/me/.cargo/registry/src/index.crates.io-…/dioxus-shadcn-0.6.5/src";
 ```
 
 The path names one version, so run `dxui init` again after upgrading the
