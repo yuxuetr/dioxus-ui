@@ -14,6 +14,7 @@ roadmap plans the way from 0.4.2 to 1.0.
 | 8 | 0.2.0 | 33 theme presets, status variants, daisyUI components |
 | 9 | 0.3.0 | Menus with submenus, scroll lock, Theme Controller, blocks, template parity |
 | 10 | 0.4.0 to 0.4.2 | Helper templates, warning-free copies, `dxui diff`, render-scoped element ids |
+| 13a | 0.6.4 to 0.6.5 | Eight more blocks, Tree, File Dropzone, copied calendar helpers (RFC 0082) |
 
 ## What 1.0 Means
 
@@ -98,7 +99,7 @@ Exit criteria:
   it is for
 - `cargo-semver-checks` runs against the audited surface in the release gate
 
-## Stage 13a: 0.6.4 and 0.6.5 Blocks
+## Stage 13a: 0.6.4 and 0.6.5 Blocks (complete)
 
 Goal: more whole screens, and only the components they need
 ([RFC 0082](rfcs/0082-blocks-and-block-driven-components.md)). Needs no
