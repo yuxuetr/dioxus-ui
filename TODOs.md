@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 59% (26 of 44 tasks)
+- Overall: 61% (27 of 44 tasks)
 - Current milestone: M223 (0.6.4, blocks)
-- Current task: M223.2; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
+- Current task: M223.3; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -156,9 +156,10 @@ Each block lands complete: `blocks/<name>.json` and `.rs`, the CLI block list te
   - Name, email, password with a strength meter (Progress), and a terms checkbox; a valid submit calls `on_sign_up`.
   - Interaction: a weak password shows its meter level and blocks submit with its error.
   - Done (1b54ee037): the meter scores 8 and 12 characters, mixed case, a digit, and a symbol (Weak, Fair, Good, Strong) as a Progress named "Password strength" with the level in `aria-valuetext`; submit needs a name, an email with `@`, 8 or more characters rated Fair or better, and the terms. The site check rates "abc" Weak, finds the refused submit's error in the password's description, then rates "Correct-Horse-9" Strong. The site build first failed on a missing `progress` module in the site shim and `verify:site` timed out instead of saying so: `ready()` fetched without `Accept: text/html` and got the previous build's page; fixed in 87f9aba3e, after which the same state fails at once with "dx serve could not build" and the compiler error. CLI tests, fixture smoke, `verify:site` (90 routes), Clippy, and docs checks pass.
-- TODO M223.2 `pricing` block
+- DONE M223.2 `pricing` block
   - Three plans, a monthly or yearly ToggleGroup, a highlighted plan, and feature lists; choosing a plan calls `on_choose`.
   - Interaction: switching to yearly changes the prices.
+  - Done (c1bc14665): plans come from a `PLANS` constant; the Toggle Group "Billing period" is controlled and ignores the "" a released item reports, so a period stays pressed. Each plan is a `section` named by an `h2` inside CardTitle, since `Card` and `CardTitle` take no attributes. The site check finds "$12/month" in the Pro region, presses Yearly, and finds "$120/year" and Team's "$290/year". CLI tests, fixture smoke, `verify:site` (91 routes), Clippy, and docs checks pass.
 - TODO M223.3 `landing` block
   - Hero, feature grid, testimonial, call to action, and footer, as layout in the block.
   - Interaction: the call to action is reachable by Tab and calls its handler.
