@@ -121,6 +121,10 @@ Exit criteria:
 - Tree passes its keyboard browser check, template parity, and `verify:csp`
 - each lift decision is recorded with its line counts
 
+Follow-up, 0.6.6: Context Menu opens from Shift+F10 at the focused element,
+which the `files` block's keyboard delete needed, and the `schedule` block
+gains the month Calendar that the copied calendar helpers made possible.
+
 ## Stage 14: 0.7.0 Dioxus 0.8
 
 Goal: move to Dioxus 0.8 before 1.0, so 1.x does not start on a Dioxus line

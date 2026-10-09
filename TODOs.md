@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 87% (39 of 45 tasks)
-- Current milestone: M216 (0.7.0, Dioxus 0.8)
-- Current task: none until the Stage 14 gate exits 0 (then M216.1); M218 and M219 follow `v0.7.0`
+- Overall: 81% (39 of 48 tasks)
+- Current milestone: M225 (0.6.6, gaps the blocks found); M216 (0.7.0, Dioxus 0.8) waits for its gate
+- Current task: M225.1
 
 ## Backup
 
@@ -13,7 +13,7 @@
 
 ## Goals
 
-- Follow [the roadmap](docs/roadmap.md) to 1.0. This plan covers 0.6.1 (M220, page scripts without eval), 0.6.2 (M221, hardening from the same audit), 0.6.3 (M222, overlay and listbox fixes), 0.6.4 and 0.6.5 (M223 and M224, blocks and the components they need), Stage 14 (0.7.0, Dioxus 0.8), and Stage 15 (1.0). M215, M217, M223, and M224 need no Dioxus release; M216 starts when the Stage 14 gate in Deferred exits 0, M218 when `v0.7.0` is tagged, and M219 when outside feedback on an `rc` is in and closed.
+- Follow [the roadmap](docs/roadmap.md) to 1.0. This plan covers 0.6.1 (M220, page scripts without eval), 0.6.2 (M221, hardening from the same audit), 0.6.3 (M222, overlay and listbox fixes), 0.6.4 and 0.6.5 (M223 and M224, blocks and the components they need), 0.6.6 (M225, gaps those blocks found), Stage 14 (0.7.0, Dioxus 0.8), and Stage 15 (1.0). M215, M217, M223, M224, and M225 need no Dioxus release; M216 starts when the Stage 14 gate in Deferred exits 0, M218 when `v0.7.0` is tagged, and M219 when outside feedback on an `rc` is in and closed.
 
 ## Evidence (measured 2026-10-07 at `v0.6.0`, in a scratch worktree on `dioxus` and `dioxus-ssr` `=0.8.0-alpha.1`)
 
@@ -210,6 +210,20 @@ Each block lands complete: `blocks/<name>.json` and `.rs`, the CLI block list te
   - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.4`, publish in dependency order, annotated tag `v0.6.5`, then fresh apps in both modes from crates.io that use Tree and add a new block.
   - Done (918ceb1a3, tag `v0.6.5`): release gate passed (59 fixtures under the strict policy; `verify:semver` no required update against `v0.6.4`), then the dry run. CI's first attempt timed out in the fullstack hydration check (300 s, web build done in 11 s); the failed-job rerun passed it in 14 s like the 0.6.4 run, so it is recorded as a flake, not changed. Each crate was published after `cargo search` listed the one before. Fresh apps from `dxui` 0.6.5 (`files` and `calendar`, `#![deny(warnings)]`, with the Calendar page's month example) and from `dioxus-shadcn` 0.6.5 in crate mode passed the strict policy: tree keys, folder contents, a dropped file, and a month day. Recorded in `docs/release.md` (815e4ada7).
 
+## M225 0.6.6 Gaps the Blocks Found
+
+The `files` and `schedule` blocks left two gaps (M224.2, M224.3 and M224.8). Neither adds a component.
+
+- TODO M225.1 Context Menu from the keyboard
+  - Evidence (probe on the preview, Chromium, 2026-10-09): the ContextMenu key on a focused trigger fires `contextmenu` at the element's center and opens the menu there, but Shift+F10 fires nothing, and Mac keyboards have no ContextMenu key; the page already says "A context menu key opens it". `files` names are not focusable, so its delete is pointer-only.
+  - `ContextMenuTrigger` starts a page script that turns Shift+F10 on the focused element inside it into the `contextmenu` event the ContextMenu key sends, at the element's center, so app handlers on descendants run the same way. Crate and template; the `files` names take focus.
+  - Exit: the context menu fixture focuses inside the trigger, presses Shift+F10, finds the menu at the element and the first item focused, and fails with the script returning at once (reverse-verify); the `files` site check deletes a file from the keyboard; template parity, `verify:csp`, and the release gate pass.
+- TODO M225.2 `schedule` block on Calendar
+  - The block drops its own `Day` for `CalendarDate` and the copied helpers, and gains the month Calendar RFC 0082 planned: picking a day shows its week, and the shown week is marked in the month.
+  - Exit: the `schedule` site check picks a day in another month and finds that week's columns; a fixture app from `dxui add schedule` builds under `#![deny(warnings)]`; CLI tests, fixture smoke, `verify:site`, and docs checks pass.
+- TODO M225.3 Publish 0.6.6
+  - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.5`, publish in dependency order, annotated tag `v0.6.6`, then fresh apps in both modes from crates.io that open the `files` menu with Shift+F10 and pick a day in `schedule`.
+
 ## M215 Dioxus 0.8 Readiness
 
 - DONE M215.1 Browser checks on both `dx` lines
@@ -270,6 +284,7 @@ Each block lands complete: `blocks/<name>.json` and `.rs`, the CLI block list te
 - Form errors (M224.5, measured 2026-10-09 at 6b20f5c9): `login`, `settings`, `signup`, and `checkout` spend 136 lines on wiring 17 checked fields (17, 17, 30, and 72; 7.5 to 8.5 per field): the submitted signal, the error `let`s, `Field` and control `invalid`, `aria-describedby`, and the `FieldError` branch. A `Field` that renders its own error removes 3 lines a field (51, 37.5 percent), under RFC 0082's half; reaching 62.5 percent (85 lines) also needs Input, Textarea, Native Select, and Checkbox to read a `Field` context for `aria-invalid` and `aria-describedby`, five components coupled, not one small part. Re-evaluate when a fifth form block or an issue asks for it, with `python3` over the blocks counting the same lines; land the context version only if it then removes more than half and no control loses its own `invalid` prop.
 - Form state and validation, chart tooltips, swipe gestures, DOM portal, Command fuzzy ranking, a styled time picker (the `schedule` block uses `type="time"`), editing an Input OTP slot in the middle, and right-to-left Slider, Resizable, and Calendar keys: when `gh issue list -R yuxuetr/dioxus-ui --state all --search "<topic>" --json number -q length` prints more than 0, or a block needs one.
 - More blocks: when an issue asks for a screen, by the same command.
+- Attributes on more components (measured 2026-10-09 at 109aa0a4): 270 of 384 styled components take only `class` and `children`. The blocks wrap four of them: `pricing` names each Card with a `section`, `inbox` puts each Item in a `button`, `files` hears a right-click on a `span` inside DataTableCell, and `chat` reads Enter on a `div` around Textarea (event handlers cannot pass through `extends` at all). Re-evaluate when `gh issue list -R yuxuetr/dioxus-ui --state all --search "attributes" --json number -q length` prints more than 0, or a block needs a fifth wrapper; then decide for every component at once in an RFC, not one at a time.
 - Generating templates from the crate: when `CRATE_ONLY` in `crates/dioxus-shadcn-cli/tests/template_parity.rs` passes 10 entries, or M210 needs a template difference the parity rules cannot express. Checked 2026-10-07: 1 entry.
 
 ## Status Rules
