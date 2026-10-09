@@ -21,6 +21,7 @@ added; it is your code from then on. `dxui list blocks` prints the blocks.
 | Block | Command | Screen |
 | --- | --- | --- |
 | [Dashboard](dashboard.md) | `dxui add dashboard` | App shell with sidebar, metrics, chart, and orders table |
+| [Inbox](inbox.md) | `dxui add inbox` | Mail with folders, a searchable message list, and a reading pane |
 | [Landing](landing.md) | `dxui add landing` | Product page with hero, features, testimonial, early-access form, and footer |
 | [Login](login.md) | `dxui add login` | Sign-in form with checked fields |
 | [Pricing](pricing.md) | `dxui add pricing` | Three plans with a monthly or yearly switch |

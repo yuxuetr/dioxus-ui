@@ -260,6 +260,18 @@ async function run() {
     await newPassword.fill("Correct-Horse-9");
     await expect(strength).toHaveAttribute("aria-valuetext", "Strong");
     await expect(newPassword).toHaveAttribute("aria-invalid", "false");
+    // The inbox block opens a message in its pane and searches the list.
+    await visit(page, "/blocks/inbox");
+    const inbox = page.locator("main [data-site-block-preview]");
+    const messages = inbox.getByRole("list", { name: "Messages" }).getByRole("listitem");
+    const pane = inbox.getByRole("region", { name: "Reading pane" });
+    await expect(pane.getByRole("heading", { level: 2 })).toHaveText("Quarterly numbers");
+    await messages.filter({ hasText: "Design review notes" }).getByRole("button").click();
+    await expect(pane.getByRole("heading", { level: 2 })).toHaveText("Design review notes");
+    await expect(messages).toHaveCount(4);
+    await inbox.getByRole("searchbox", { name: "Search mail" }).fill("invoice");
+    await expect(messages).toHaveCount(1);
+    await expect(messages.first()).toContainText("Billing");
     // The landing block's early-access form works from the keyboard alone.
     await visit(page, "/blocks/landing");
     const landing = page.locator("main [data-site-block-preview]");

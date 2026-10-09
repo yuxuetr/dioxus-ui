@@ -30,6 +30,9 @@ pub mod ui {
   pub mod input {
     pub use dioxus_shadcn::*;
   }
+  pub mod item {
+    pub use dioxus_shadcn::*;
+  }
   pub mod label {
     pub use dioxus_shadcn::*;
   }
@@ -37,6 +40,12 @@ pub mod ui {
     pub use dioxus_shadcn::*;
   }
   pub mod progress {
+    pub use dioxus_shadcn::*;
+  }
+  pub mod resizable {
+    pub use dioxus_shadcn::*;
+  }
+  pub mod scroll_area {
     pub use dioxus_shadcn::*;
   }
   pub mod separator {

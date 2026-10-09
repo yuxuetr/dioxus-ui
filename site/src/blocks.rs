@@ -4,6 +4,8 @@ use dioxus::prelude::*;
 
 #[path = "../../crates/dioxus-shadcn-cli/blocks/dashboard.rs"]
 mod dashboard;
+#[path = "../../crates/dioxus-shadcn-cli/blocks/inbox.rs"]
+mod inbox;
 #[path = "../../crates/dioxus-shadcn-cli/blocks/landing.rs"]
 mod landing;
 #[path = "../../crates/dioxus-shadcn-cli/blocks/login.rs"]
@@ -30,6 +32,13 @@ pub const BLOCKS: &[Block] = &[
     description: "App shell with an off-canvas sidebar, metrics, a chart, and an orders table.",
     source: include_str!("../../crates/dioxus-shadcn-cli/blocks/dashboard.rs"),
     render: || rsx! { dashboard::DashboardBlock {} },
+  },
+  Block {
+    slug: "inbox",
+    title: "Inbox",
+    description: "Mail screen with folders, a searchable message list, and a reading pane.",
+    source: include_str!("../../crates/dioxus-shadcn-cli/blocks/inbox.rs"),
+    render: || rsx! { inbox::InboxBlock {} },
   },
   Block {
     slug: "landing",

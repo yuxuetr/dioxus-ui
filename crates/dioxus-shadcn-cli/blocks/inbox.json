@@ -1,0 +1,21 @@
+{
+  "name": "inbox",
+  "description": "Mail screen with folders, a searchable message list, and a reading pane.",
+  "files": [
+    {
+      "source": "blocks/inbox.rs",
+      "target": "src/blocks/inbox.rs"
+    }
+  ],
+  "dependencies": [
+    "avatar",
+    "badge",
+    "button",
+    "input",
+    "item",
+    "resizable",
+    "scroll-area",
+    "separator"
+  ],
+  "assets": []
+}
