@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 81% (39 of 48 tasks)
+- Overall: 83% (40 of 48 tasks)
 - Current milestone: M225 (0.6.6, gaps the blocks found); M216 (0.7.0, Dioxus 0.8) waits for its gate
-- Current task: M225.1
+- Current task: M225.2
 
 ## Backup
 
@@ -214,10 +214,11 @@ Each block lands complete: `blocks/<name>.json` and `.rs`, the CLI block list te
 
 The `files` and `schedule` blocks left two gaps (M224.2, M224.3 and M224.8). Neither adds a component.
 
-- TODO M225.1 Context Menu from the keyboard
+- DONE M225.1 Context Menu from the keyboard
   - Evidence (probe on the preview, Chromium, 2026-10-09): the ContextMenu key on a focused trigger fires `contextmenu` at the element's center and opens the menu there, but Shift+F10 fires nothing, and Mac keyboards have no ContextMenu key; the page already says "A context menu key opens it". `files` names are not focusable, so its delete is pointer-only.
   - `ContextMenuTrigger` starts a page script that turns Shift+F10 on the focused element inside it into the `contextmenu` event the ContextMenu key sends, at the element's center, so app handlers on descendants run the same way. Crate and template; the `files` names take focus.
   - Exit: the context menu fixture focuses inside the trigger, presses Shift+F10, finds the menu at the element and the first item focused, and fails with the script returning at once (reverse-verify); the `files` site check deletes a file from the keyboard; template parity, `verify:csp`, and the release gate pass.
+  - Done (709350e4): `context_menu_key_script` (crate and template; the template now needs `element-id` and `script`) listens on the trigger and dispatches `contextmenu` at the focused element's center. The fixture gained a button inside the trigger; Shift+F10 and the ContextMenu key each open the menu at the button's center with Back focused, and Escape returns focus to it. With the script returning at once the check fails (menu never anchors: "static"). `files` names are in the tab order with a focus ring and a hint under the table; the site check deletes Icon.svg with Shift+F10 and Enter. `verify:runtime-interactions` and `verify:csp` (59 fixtures), `verify:site` (98 routes), template parity, fixture smoke, workspace Clippy, and docs checks pass; the release gate runs in M225.3.
 - TODO M225.2 `schedule` block on Calendar
   - The block drops its own `Day` for `CalendarDate` and the copied helpers, and gains the month Calendar RFC 0082 planned: picking a day shows its week, and the shown week is marked in the month.
   - Exit: the `schedule` site check picks a day in another month and finds that week's columns; a fixture app from `dxui add schedule` builds under `#![deny(warnings)]`; CLI tests, fixture smoke, `verify:site`, and docs checks pass.
