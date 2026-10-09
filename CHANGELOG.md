@@ -8,6 +8,12 @@ for commit messages.
 
 ## [Unreleased]
 
+## [0.6.6] - 2026-10-09
+
+Version 0.6.6 closes two gaps the 0.6.5 blocks found: Context Menu opens
+from Shift+F10, and the `schedule` block picks its week from a month
+Calendar. Crate API does not change.
+
 ### Changed
 - The `schedule` block shows a month Calendar that marks the shown week and
   picks another, and uses `CalendarDate` and the Calendar's date helpers in
