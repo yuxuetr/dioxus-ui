@@ -753,6 +753,25 @@ Pro price to yearly, appended a message sent with Enter, and listed and sent
 a dropped file. The local `wasm-opt` stopped with SIGBUS in both release
 builds, so they ran unoptimized; `dx` still wrote the bundles.
 
+## 0.6.5 Publish
+
+0.6.5 was published on 2026-10-09 with the Tree component, `FileDropzone`,
+the `files`, `schedule`, and `checkout` blocks, and the copied calendar
+helpers (RFC 0082, M224). `npm run verify:release` passed (59 fixtures under
+the strict policy; the semver step found no required update against
+`v0.6.4`), as did the dry run. The first CI attempt on the release commit
+timed out in the fullstack hydration check after 300 seconds with the web
+build done in 11; the rerun of the failed job passed it in 14 seconds, as
+the 0.6.4 run had. The four crates were published one by one in dependency
+order and tagged `v0.6.5`, an annotated tag. The published `dxui` 0.6.5
+added `files` and `calendar` to a fresh app that built while denying
+warnings, including the Calendar page's month example with only its import
+changed; a second app on `dioxus-shadcn` 0.6.5 from crates.io compiled the
+same sources in crate mode. Both, served with the strict policy, moved
+through the folder tree with Down, Right, and Enter, showed the folder's
+files, took a dropped file, and selected a day in the month example.
+
+## Dioxus Next
 
 `npm run verify:dioxus-next` runs the Stage 14 checks against the newest
 Dioxus 0.8 version (see [Quality Gates](quality-gates.md)). Each run is
