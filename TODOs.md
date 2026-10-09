@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 61% (19 of 31 tasks)
+- Overall: 65% (20 of 31 tasks)
 - Current milestone: M222 (0.6.3, overlay and listbox fixes)
-- Current task: M222.1; then M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
+- Current task: M222.2; then M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -123,9 +123,10 @@
 
 ## M222 0.6.3 Overlay and Listbox Fixes (RFC 0081)
 
-- TODO M222.1 Anchored content leaves the flow before measuring
+- DONE M222.1 Anchored content leaves the flow before measuring
   - `place()` sets `position: fixed` before reading the anchor (FB-19), crate and template.
   - Exit: a browser check with a Dropdown trigger in a flex row finds the trigger unmoved after opening and the content aligned to it; it fails before the change.
+  - Done (4ca4962): `place()` sets `position: fixed` and `margin: 0`, then reads the anchor, then sets `--dxui-anchor-width`, in the crate and the template. A "flex-row-overlay" fixture (55 fixtures) puts a Dropdown trigger, its content, and a button in a `justify-end` flex row; the check finds the trigger unmoved and the menu's right edge on the trigger's. Before the change it failed with the menu's right edge at 976 and the trigger's at 1112 (the content's width plus the gap). `verify:runtime-interactions` and the parity test pass.
 - TODO M222.2 Command in a hidden container
   - In Command mode the listbox script ends only when the listbox leaves the page; while hidden it keeps no highlight, and on becoming visible highlights the initial option (FB-17).
   - Exit: a browser check opens a Dialog holding a Command, presses ArrowDown, and finds `aria-activedescendant` set, then closes, reopens, and finds it again; it fails before the change.
