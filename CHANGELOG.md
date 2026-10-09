@@ -8,9 +8,13 @@ for commit messages.
 
 ## [Unreleased]
 
+## [0.6.4] - 2026-10-09
+
+Version 0.6.4 adds five blocks built from the existing components
+([RFC 0082](docs/rfcs/0082-blocks-and-block-driven-components.md)). The
+crate API does not change; the blocks come with `dxui` 0.6.4.
+
 ### Added
-- `signup` block: account creation with a password strength meter and
-  checked fields (`dxui add signup`, [RFC 0082](docs/rfcs/0082-blocks-and-block-driven-components.md)).
 - `chat` block: conversations, messages with bubbles and attachments, and
   a composer that takes typed text and dropped files (`dxui add chat`).
 - `inbox` block: mail with folders, a searchable message list, and a
@@ -19,6 +23,8 @@ for commit messages.
   an early-access form, and a footer (`dxui add landing`).
 - `pricing` block: three plans with a monthly or yearly switch
   (`dxui add pricing`).
+- `signup` block: account creation with a password strength meter and
+  checked fields (`dxui add signup`).
 
 ## [0.6.3] - 2026-10-09
 
