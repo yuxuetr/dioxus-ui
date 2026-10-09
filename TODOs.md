@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 77% (24 of 31 tasks)
-- Current milestone: M222 (0.6.3, overlay and listbox fixes)
-- Current task: M222.6; then M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
+- Overall: 81% (25 of 31 tasks)
+- Current milestone: M216 (0.7.0, Dioxus 0.8)
+- Current task: none until the Stage 14 gate exits 0 (then M216.1); M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -143,8 +143,9 @@
   - The Navigation Menu page says panels need hydration (FB-20); the site drops `document::Title` (FB-13); an upstream issue for `WebDocument::set_title` is drafted for the release owner.
   - Exit: the docs and site checks pass.
   - Done (aa5f8a5e7): the Navigation Menu page says contents open from the app's state, so after hydration, that top-level links work before it, and why CSS hover is not offered (two sources of truth: Escape and `aria-expanded`). The site drops `document::Title`; with only `index.html`'s title, dx made it "dioxus-shadcndioxus | ⛺", so the site gets a `Dioxus.toml` `[web.app] title` and an empty `<title>`, as the web demo has, and `verify:site` now asserts the title on every page (it failed on the dx default before `Dioxus.toml`). The upstream issue (`WebDocument::set_title` evals `document.title = …` in 0.7.10 and 0.8.0-alpha.1; fix: `web_sys::Document::set_title`) is drafted for the release owner; DioxusLabs has no open issue for it (#3866, a general CSP request, is closed). `verify:site` and the docs checks pass.
-- TODO M222.6 Publish 0.6.3
+- DONE M222.6 Publish 0.6.3
   - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.2`, publish in dependency order, annotated tag `v0.6.3`.
+  - Done (817a86e90, tag `v0.6.3`): the first release gate run failed on a stale `docs/components/source-preview.md` (three templates changed size), regenerated in its own commit; the second passed (57 fixtures under the strict policy; `verify:semver` no change against `v0.6.2`), then the dry run and CI on the release commit. Published crate by crate. A fresh crates.io 0.6.3 app under the strict policy kept a flex-row Dropdown trigger in place with the menu aligned and moved a Dialog's Command highlight on open and reopen; on 0.6.2 the same app failed (menu off its trigger). The published `dxui` 0.6.3 copied Dialog, Command, and Dropdown into an app that built under `#![deny(warnings)]` and passed it too. Recorded in `docs/release.md` (0.6.3 Publish).
 
 ## M215 Dioxus 0.8 Readiness
 
