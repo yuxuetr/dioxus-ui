@@ -28,6 +28,7 @@ export async function run(dioxus) {
   const searchesByKey = mode === "select" || isMenu;
   // Command goes back to the first option when the query changes.
   const resetsOnInput = mode === "command";
+  const alwaysOpen = mode === "command";
   const itemSelector = isMenu
     ? '[role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"]'
     : '[role="option"]';
@@ -190,11 +191,22 @@ export async function run(dioxus) {
   const ended = new Promise((resolve) => {
     finish = resolve;
   });
-  // A menu inside a closed menu is hidden by its ancestor.
-  const closed = () => !listbox.isConnected || listbox.closest("[hidden]") !== null;
+  // A menu inside a closed menu is hidden by its ancestor. Command is always
+  // open, so a hidden ancestor (a closed Dialog, Popover, or tab) only pauses
+  // it: it keeps no highlight while hidden and starts over when shown.
+  const hidden = () => listbox.closest("[hidden]") !== null;
+  const closed = () => !listbox.isConnected || (!alwaysOpen && hidden());
+  let wasHidden = false;
   const observer = new MutationObserver(() => {
     if (closed()) return finish();
-    if (resetPending) {
+    const isHidden = hidden();
+    const shown = wasHidden && !isHidden;
+    wasHidden = isHidden;
+    if (isHidden) {
+      if (highlighted) highlight(null);
+    } else if (shown) {
+      highlight(initial());
+    } else if (resetPending) {
       resetPending = false;
       highlight(initial());
     } else if (highlighted && !options().includes(highlighted)) {
@@ -205,7 +217,8 @@ export async function run(dioxus) {
   if (closed()) return;
   const pointerOpened = isSubmenu && anchor !== null && "dxuiPointerOpen" in anchor.dataset;
   if (anchor) delete anchor.dataset.dxuiPointerOpen;
-  if (!pointerOpened) highlight(initial());
+  wasHidden = hidden();
+  if (!pointerOpened && !wasHidden) highlight(initial());
   observer.observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ["hidden", "data-disabled", "aria-disabled"] });
   if (keySource) keySource.addEventListener("keydown", onKeyDown);
   if (resetsOnInput && anchor) anchor.addEventListener("input", onInput);
@@ -291,7 +304,8 @@ impl ListboxMode {
 
 /// Runs the listbox script each time `open` turns true, with an `anchor_id`
 /// unless the mode is a menu. Choosing an option calls `on_value_change(value)` and then
-/// `on_open_change(false)`.
+/// `on_open_change(false)`. Command is always open: its script runs until the
+/// listbox leaves the page and pauses while an ancestor is hidden.
 ///
 /// Returns the value for the content's `data-dxui-listbox` attribute.
 pub(crate) fn use_listbox(

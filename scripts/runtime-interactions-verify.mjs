@@ -2505,6 +2505,23 @@ async function runBrowserAssertions() {
     await page.keyboard.press("Escape");
     await expect(flexRow.getByRole("menu")).toBeHidden();
 
+    // A Command mounted in a closed Dialog moves its highlight once the
+    // Dialog opens, and again after it closes and reopens.
+    const commandDialog = page.locator('[data-interaction-target="command-dialog"]');
+    const palette = commandDialog.getByRole("dialog", { name: "Palette", exact: true });
+    const paletteInput = palette.getByRole("combobox");
+    for (const round of ["first", "reopened"]) {
+      await commandDialog.getByRole("button", { name: "Open palette", exact: true }).click();
+      await expect(palette).toBeVisible();
+      await paletteInput.focus();
+      await expect(paletteInput, `command dialog (${round})`).toHaveAttribute("aria-activedescendant", /.+/);
+      await page.keyboard.press("ArrowDown");
+      const active = await paletteInput.getAttribute("aria-activedescendant");
+      await expect(palette.locator(`[id="${active}"]`), `command dialog (${round})`).toHaveText("Open file");
+      await palette.getByRole("button", { name: "Done", exact: true }).click();
+      await expect(palette).toBeHidden();
+    }
+
     // Escape in a Popover inside a Dialog closes the Popover; the next one
     // closes the Dialog.
     const layers = page.locator('[data-interaction-target="nested-layers"]');
@@ -2681,7 +2698,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log(`runtime interaction verification passed (55 fixtures${strictCsp ? ", strict CSP" : ""})`);
+  console.log(`runtime interaction verification passed (56 fixtures${strictCsp ? ", strict CSP" : ""})`);
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

@@ -2771,6 +2771,28 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               button { class: "{secondary_button_class}", "Help" }
             }
           }
+          // A Command mounted inside a closed Dialog reads keys once it opens,
+          // and again after a close and a reopen.
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "command-dialog",
+            h2 { class: "text-sm font-medium", "Command dialog interaction" }
+            Dialog {
+              DialogTrigger { class: "{secondary_button_class} mt-3", "Open palette" }
+              DialogOverlay {}
+              DialogContent {
+                DialogTitle { "Palette" }
+                Command {
+                  CommandInput { placeholder: "Search palette..." }
+                  CommandList {
+                    CommandItem { id: "palette-new", value: "new", "New file" }
+                    CommandItem { id: "palette-open", value: "open", "Open file" }
+                  }
+                }
+                DialogClose { "Done" }
+              }
+            }
+          }
           // One Escape closes only the overlay opened last.
           article {
             class: "rounded-md border border-border p-4",
