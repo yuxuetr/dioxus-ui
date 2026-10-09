@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 81% (25 of 31 tasks)
-- Current milestone: M216 (0.7.0, Dioxus 0.8)
-- Current task: none until the Stage 14 gate exits 0 (then M216.1); M218 and M219 follow `v0.7.0`
+- Overall: 57% (25 of 44 tasks)
+- Current milestone: M223 (0.6.4, blocks)
+- Current task: M223.1; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -13,7 +13,7 @@
 
 ## Goals
 
-- Follow [the roadmap](docs/roadmap.md) to 1.0. This plan covers 0.6.1 (M220, page scripts without eval), 0.6.2 (M221, hardening from the same audit), 0.6.3 (M222, overlay and listbox fixes), Stage 14 (0.7.0, Dioxus 0.8), and Stage 15 (1.0). M215 and M217 need no Dioxus release; M216 starts when the Stage 14 gate in Deferred exits 0, M218 when `v0.7.0` is tagged, and M219 when outside feedback on an `rc` is in and closed.
+- Follow [the roadmap](docs/roadmap.md) to 1.0. This plan covers 0.6.1 (M220, page scripts without eval), 0.6.2 (M221, hardening from the same audit), 0.6.3 (M222, overlay and listbox fixes), 0.6.4 and 0.6.5 (M223 and M224, blocks and the components they need), Stage 14 (0.7.0, Dioxus 0.8), and Stage 15 (1.0). M215, M217, M223, and M224 need no Dioxus release; M216 starts when the Stage 14 gate in Deferred exits 0, M218 when `v0.7.0` is tagged, and M219 when outside feedback on an `rc` is in and closed.
 
 ## Evidence (measured 2026-10-07 at `v0.6.0`, in a scratch worktree on `dioxus` and `dioxus-ssr` `=0.8.0-alpha.1`)
 
@@ -59,7 +59,8 @@
 - A task lands complete: crate, templates, registry, docs, site, and tests together. What cannot meet this is cut, not stubbed.
 - M215 changes scripts, examples, and docs only; it needs no crate release.
 - The Dioxus 0.8 move is the only breaking change in 0.7.0, with a Migration note in the CHANGELOG.
-- No new components or blocks without an issue or a block that needs them.
+- No new components or blocks without an issue or a block that needs them. RFC 0082's blocks are in scope (the release owner's direction of 2026-10-09), and a block adds a component only under RFC 0082's rule.
+- Blocks and components are designed from this library and openly licensed references; nothing comes from commercial kits whose licenses forbid library or template use (RFC 0082, Sources).
 - Publish 0.7.0 once every task before M216.3 is done (the release owner's direction of 2026-10-07).
 - During the `rc` period only bug and docs changes land; a needed breaking change ends the period (another `rc` after it, and the exit's "no breaking change" restarts).
 - Posting the community call is outward-facing: the release owner posts it or approves the exact text first.
@@ -147,6 +148,51 @@
   - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.2`, publish in dependency order, annotated tag `v0.6.3`.
   - Done (817a86e90, tag `v0.6.3`): the first release gate run failed on a stale `docs/components/source-preview.md` (three templates changed size), regenerated in its own commit; the second passed (57 fixtures under the strict policy; `verify:semver` no change against `v0.6.2`), then the dry run and CI on the release commit. Published crate by crate. A fresh crates.io 0.6.3 app under the strict policy kept a flex-row Dropdown trigger in place with the menu aligned and moved a Dialog's Command highlight on open and reopen; on 0.6.2 the same app failed (menu off its trigger). The published `dxui` 0.6.3 copied Dialog, Command, and Dropdown into an app that built under `#![deny(warnings)]` and passed it too. Recorded in `docs/release.md` (0.6.3 Publish).
 
+## M223 0.6.4 Blocks From Existing Components (RFC 0082)
+
+Each block lands complete: `blocks/<name>.json` and `.rs`, the CLI block list test, a docs page and a row in `docs/blocks/README.md`, a site page in `site/src/blocks.rs`, a `site-verify` interaction, and a CHANGELOG line. Exit for each: the CLI tests, the generated fixture smoke, `verify:site`, and the docs checks pass.
+
+- TODO M223.1 `signup` block
+  - Name, email, password with a strength meter (Progress), and a terms checkbox; a valid submit calls `on_sign_up`.
+  - Interaction: a weak password shows its meter level and blocks submit with its error.
+- TODO M223.2 `pricing` block
+  - Three plans, a monthly or yearly ToggleGroup, a highlighted plan, and feature lists; choosing a plan calls `on_choose`.
+  - Interaction: switching to yearly changes the prices.
+- TODO M223.3 `landing` block
+  - Hero, feature grid, testimonial, call to action, and footer, as layout in the block.
+  - Interaction: the call to action is reachable by Tab and calls its handler.
+- TODO M223.4 `inbox` block
+  - Folders, a searchable message list (Item), and a reading pane in a Resizable layout.
+  - Interaction: picking a message shows it in the pane; the search narrows the list.
+- TODO M223.5 `chat` block
+  - Conversations, messages with Bubble and MessageScroller, attachments, and a composer that takes typed text and dropped files.
+  - Interaction: sending adds a message at the end of the list.
+- TODO M223.6 Publish 0.6.4
+  - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.3` (blocks change no crate API), publish in dependency order, annotated tag `v0.6.4`, then fresh apps in both modes from crates.io that add a new block.
+
+## M224 0.6.5 Tree and Block-Driven Components (RFC 0082)
+
+- TODO M224.1 Tree component
+  - `Tree`, `TreeItem`, `TreeGroup` in the crate and a template: tree, treeitem, and group roles with levels; expanded and selected ids owned by the app; Up, Down, Home, End, Right, Left, Enter, and typeahead in the page-script path; one item in the tab order. Registry, docs page, site example.
+  - Exit: unit tests for roles and levels; a browser fixture walks the keys and checks focus, `aria-expanded`, and the selection callback, failing with the script removed; template parity, `verify:csp`, and Clippy pass.
+- TODO M224.2 `files` block
+  - Folder Tree, file DataTable with breadcrumbs, a row ContextMenu, and an upload area that takes dropped files.
+  - Interaction: choosing a folder in the tree changes the table and the breadcrumbs.
+- TODO M224.3 `schedule` block
+  - Week view with events, a month Calendar, and an event Dialog with DatePicker and `type="time"` inputs.
+  - Interaction: a new event appears in its day column.
+- TODO M224.4 `checkout` block
+  - Address and payment fields, NativeSelect country, shipping RadioGroup, and an order summary that follows the shipping choice.
+  - Interaction: a missing field blocks submit with its error; changing shipping changes the total.
+- TODO M224.5 Decide on shared form errors
+  - Count, per block (`login`, `settings`, `signup`, `checkout`), the lines that only wire errors: the submitted signal, the error `let`s, `invalid`, `aria-describedby`, and the `FieldError` branch.
+  - Exit: if one small component or function removes at least half of them with no block losing behavior, it lands (crate, template, docs) with the four blocks rewritten on it and their site checks passing; otherwise the Deferred entry records the counts. Either way the note gives the numbers.
+- TODO M224.6 Decide on a file drop area
+  - Starts when `git grep -l ondrop -- crates/dioxus-shadcn-cli/blocks | wc -l` prints 2 or more. Count the drag handlers, drag-over state, and file reads in `chat` and `files`.
+  - Exit: the same rule as M224.5; a lifted drop area has a browser check that drops a file and finds the callback called.
+- TODO M224.7 Publish 0.6.5
+  - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.4`, publish in dependency order, annotated tag `v0.6.5`, then fresh apps in both modes from crates.io that use Tree and add a new block.
+
 ## M215 Dioxus 0.8 Readiness
 
 - DONE M215.1 Browser checks on both `dx` lines
@@ -204,7 +250,7 @@
 
 - Dioxus 0.8 (Stage 14, M216): when `cargo search dioxus --limit 1 --color never | grep -qE '^dioxus = "0\.8\.[0-9]+"'` exits 0 (a 0.8 release, not a pre-release). Checked 2026-10-07: exits 1 on 0.8.0-alpha.1.
 - iOS 27 launch failure (Dioxus 0.7 lacks the UIScene lifecycle): when `gh api repos/DioxusLabs/dioxus/releases --jq '.[0:10][].body' | grep -qiE 'pull/5893|uiscene'` exits 0. The fix is DioxusLabs/dioxus#5893 (open since 2026-10-05, against `v0.7`), titled "launch with the iOS 27 SDK (... scene manifest ...)" without the word UIScene, so the old check (`gh release view` body contains `uiscene`) would have missed its release; it also read only the newest release. Checked 2026-10-07: exits 1; with a released PR number (5570) in place of 5893 it exits 0.
-- Form state and validation, chart tooltips, swipe gestures, DOM portal, Command fuzzy ranking, editing an Input OTP slot in the middle, and right-to-left Slider, Resizable, and Calendar keys: when `gh issue list -R yuxuetr/dioxus-ui --state all --search "<topic>" --json number -q length` prints more than 0, or a block needs one.
+- Form state and validation, chart tooltips, swipe gestures, DOM portal, Command fuzzy ranking, a styled time picker (the `schedule` block uses `type="time"`), editing an Input OTP slot in the middle, and right-to-left Slider, Resizable, and Calendar keys: when `gh issue list -R yuxuetr/dioxus-ui --state all --search "<topic>" --json number -q length` prints more than 0, or a block needs one.
 - More blocks: when an issue asks for a screen, by the same command.
 - Generating templates from the crate: when `CRATE_ONLY` in `crates/dioxus-shadcn-cli/tests/template_parity.rs` passes 10 entries, or M210 needs a template difference the parity rules cannot express. Checked 2026-10-07: 1 entry.
 

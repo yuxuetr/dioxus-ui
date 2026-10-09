@@ -98,6 +98,28 @@ Exit criteria:
   it is for
 - `cargo-semver-checks` runs against the audited surface in the release gate
 
+## Stage 13a: 0.6.4 and 0.6.5 Blocks
+
+Goal: more whole screens, and only the components they need
+([RFC 0082](rfcs/0082-blocks-and-block-driven-components.md)). Needs no
+Dioxus release; if Stage 14 opens first, the task in progress finishes and
+the rest ships as 0.7.x.
+
+Deliverables:
+
+- 0.6.4: the `signup`, `pricing`, `landing`, `inbox`, and `chat` blocks,
+  built from the existing components
+- 0.6.5: the Tree component and the `files`, `schedule`, and `checkout`
+  blocks, then a measured decision on lifting form errors and a file drop
+  area out of the blocks
+
+Exit criteria:
+
+- every block passes the block registry tests, compiles in the generated
+  fixture, and has a docs page, a site page, and a site interaction check
+- Tree passes its keyboard browser check, template parity, and `verify:csp`
+- each lift decision is recorded with its line counts
+
 ## Stage 14: 0.7.0 Dioxus 0.8
 
 Goal: move to Dioxus 0.8 before 1.0, so 1.x does not start on a Dioxus line
@@ -152,4 +174,5 @@ Each item is re-evaluated by the command in the
   right-to-left Slider, Resizable, and Calendar keys
 - generating templates from the crate, while `CRATE_ONLY` in the parity test
   stays at 10 entries or fewer
-- new components or blocks without an issue that asks for them
+- new components or blocks without an issue that asks for them, beyond
+  RFC 0082's blocks and the components they need

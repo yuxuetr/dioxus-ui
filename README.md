@@ -413,6 +413,7 @@ only.
 - [RFC 0079: Public Surface](docs/rfcs/0079-public-surface.md)
 - [RFC 0080: Page Scripts Without Eval](docs/rfcs/0080-page-scripts-without-eval.md)
 - [RFC 0081: Overlay and Listbox Fixes](docs/rfcs/0081-overlay-and-listbox-fixes.md)
+- [RFC 0082: Blocks and Block-Driven Components](docs/rfcs/0082-blocks-and-block-driven-components.md)
 
 ## Verification Shortcuts
 
