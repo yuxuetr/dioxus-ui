@@ -2487,6 +2487,24 @@ async function runBrowserAssertions() {
     }
     await setDarkTheme(page, false);
 
+    // A trigger in a flex row stays where it was when its sibling content
+    // opens, and the content's end edge lines up with it.
+    const flexRow = page.locator('[data-interaction-target="flex-row-overlay"]');
+    const accountTrigger = flexRow.getByRole("button", { name: "Account", exact: true });
+    const before = await accountTrigger.boundingBox();
+    await accountTrigger.click();
+    await expectAnchoredReady(flexRow);
+    const after = await accountTrigger.boundingBox();
+    const menu = await flexRow.getByRole("menu").boundingBox();
+    const triggerRight = after.x + after.width;
+    if (Math.abs(after.x - before.x) > 1 || Math.abs(menu.x + menu.width - triggerRight) > 1) {
+      throw new Error(
+        `flex row overlay: trigger ${before.x} -> ${after.x}, menu right ${menu.x + menu.width}, trigger right ${triggerRight}`,
+      );
+    }
+    await page.keyboard.press("Escape");
+    await expect(flexRow.getByRole("menu")).toBeHidden();
+
     // Escape in a Popover inside a Dialog closes the Popover; the next one
     // closes the Dialog.
     const layers = page.locator('[data-interaction-target="nested-layers"]');
@@ -2663,7 +2681,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log(`runtime interaction verification passed (54 fixtures${strictCsp ? ", strict CSP" : ""})`);
+  console.log(`runtime interaction verification passed (55 fixtures${strictCsp ? ", strict CSP" : ""})`);
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

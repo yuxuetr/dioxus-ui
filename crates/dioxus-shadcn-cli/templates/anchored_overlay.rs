@@ -37,11 +37,14 @@ export async function run(dioxus) {
   const clamp = (value, size, viewportSize) =>
     Math.min(Math.max(value, padding), Math.max(padding, viewportSize - padding - size));
   const place = () => {
-    const rect = anchorRect();
-    if (!rect || !(preferred in opposite)) return;
-    // Fixed positioning and the anchor width (a minimum width for lists) can
-    // change the content's size, so apply them before measuring.
+    if (!(preferred in opposite)) return;
+    // Content opens in normal flow and can push a sibling anchor aside, so it
+    // leaves the flow before the anchor is measured.
     Object.assign(content.style, { position: "fixed", margin: "0" });
+    const rect = anchorRect();
+    if (!rect) return;
+    // The anchor width (a minimum width for lists) can change the content's
+    // size, so apply it before measuring the content.
     content.style.setProperty("--dxui-anchor-width", `${rect.width}px`);
     const width = content.offsetWidth;
     const height = content.offsetHeight;

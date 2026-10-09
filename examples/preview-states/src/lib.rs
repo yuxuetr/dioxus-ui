@@ -2754,6 +2754,23 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
               TableFooter { TableRow { TableCell { "Total" } TableCell { "25" } } }
             }
           }
+          // Content that is a sibling of its trigger in a flex row leaves the
+          // row before the trigger is measured.
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "flex-row-overlay",
+            h2 { class: "text-sm font-medium", "Flex row overlay interaction" }
+            div { class: "mt-3 flex items-center justify-end gap-2",
+              Dropdown {
+                DropdownTrigger { class: "{secondary_button_class}", "Account" }
+                DropdownContent {
+                  DropdownItem { "Profile" }
+                  DropdownItem { "Sign out" }
+                }
+              }
+              button { class: "{secondary_button_class}", "Help" }
+            }
+          }
           // One Escape closes only the overlay opened last.
           article {
             class: "rounded-md border border-border p-4",
