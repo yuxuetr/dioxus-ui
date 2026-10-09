@@ -21,6 +21,7 @@ added; it is your code from then on. `dxui list blocks` prints the blocks.
 | Block | Command | Screen |
 | --- | --- | --- |
 | [Chat](chat.md) | `dxui add chat` | Conversations, messages, attachments, and a composer that takes dropped files |
+| [Checkout](checkout.md) | `dxui add checkout` | Address, shipping, and payment fields beside an order summary |
 | [Dashboard](dashboard.md) | `dxui add dashboard` | App shell with sidebar, metrics, chart, and orders table |
 | [Files](files.md) | `dxui add files` | Folder tree, breadcrumbs, drop-to-upload area, and a file table with a context menu |
 | [Inbox](inbox.md) | `dxui add inbox` | Mail with folders, a searchable message list, and a reading pane |

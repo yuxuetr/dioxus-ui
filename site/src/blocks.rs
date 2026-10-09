@@ -4,6 +4,8 @@ use dioxus::prelude::*;
 
 #[path = "../../crates/dioxus-shadcn-cli/blocks/chat.rs"]
 mod chat;
+#[path = "../../crates/dioxus-shadcn-cli/blocks/checkout.rs"]
+mod checkout;
 #[path = "../../crates/dioxus-shadcn-cli/blocks/dashboard.rs"]
 mod dashboard;
 #[path = "../../crates/dioxus-shadcn-cli/blocks/files.rs"]
@@ -38,6 +40,13 @@ pub const BLOCKS: &[Block] = &[
     description: "Chat screen with conversations, messages, attachments, and a composer that takes dropped files.",
     source: include_str!("../../crates/dioxus-shadcn-cli/blocks/chat.rs"),
     render: || rsx! { chat::ChatBlock {} },
+  },
+  Block {
+    slug: "checkout",
+    title: "Checkout",
+    description: "Checkout with address, shipping, and payment fields beside an order summary.",
+    source: include_str!("../../crates/dioxus-shadcn-cli/blocks/checkout.rs"),
+    render: || rsx! { checkout::CheckoutBlock {} },
   },
   Block {
     slug: "dashboard",

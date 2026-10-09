@@ -260,6 +260,30 @@ async function run() {
     await newPassword.fill("Correct-Horse-9");
     await expect(strength).toHaveAttribute("aria-valuetext", "Strong");
     await expect(newPassword).toHaveAttribute("aria-invalid", "false");
+    // The checkout block refuses missing fields, follows the shipping choice
+    // in its total, and confirms a complete order.
+    await visit(page, "/blocks/checkout");
+    const checkout = page.locator("main [data-site-block-preview]");
+    const total = checkout.locator("[data-checkout-total]");
+    await expect(total).toHaveText("$84.00");
+    await checkout.getByRole("radio", { name: "Express, 1 to 2 days" }).click();
+    await expect(total).toHaveText("$96.00");
+    await checkout.getByRole("button", { name: "Pay $96.00" }).click();
+    const checkoutEmail = checkout.getByRole("textbox", { name: "Email" });
+    await expect(checkoutEmail).toHaveAttribute("aria-invalid", "true");
+    await expect(checkoutEmail).toHaveAccessibleDescription("Enter your email address.");
+    await expect(checkout.getByRole("combobox", { name: "Country" })).toHaveAccessibleDescription("Choose a country.");
+    await checkoutEmail.fill("ada@acme.example");
+    await checkout.getByRole("textbox", { name: "Full name" }).fill("Ada Lovelace");
+    await checkout.getByRole("textbox", { name: "Street address" }).fill("12 St James's Square");
+    await checkout.getByRole("textbox", { name: "City" }).fill("Berlin");
+    await checkout.getByRole("textbox", { name: "Postal code" }).fill("10115");
+    await checkout.getByRole("combobox", { name: "Country" }).selectOption("DE");
+    await checkout.getByRole("textbox", { name: "Card number" }).fill("4242 4242 4242 4242");
+    await checkout.getByRole("textbox", { name: "Expiry" }).fill("12/29");
+    await checkout.getByRole("textbox", { name: "CVC" }).fill("123");
+    await checkout.getByRole("button", { name: "Pay $96.00" }).click();
+    await expect(checkout.getByRole("status")).toHaveText("Thanks, Ada Lovelace. We sent the receipt to ada@acme.example.");
     // The chat block appends a sent message and takes files dropped on the composer.
     await visit(page, "/blocks/chat");
     const chat = page.locator("main [data-site-block-preview]");

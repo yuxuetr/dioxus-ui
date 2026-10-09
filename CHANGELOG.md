@@ -13,6 +13,8 @@ for commit messages.
   WAI-ARIA tree keyboard model (arrow keys, Home, End, typeahead, Enter and
   Space to select) and app-owned or tree-owned expansion and selection
   (`dxui add tree`, feature `tree`, [RFC 0082](docs/rfcs/0082-blocks-and-block-driven-components.md)).
+- `checkout` block: contact, address, shipping method, and payment
+  fields checked on Pay, beside an order summary (`dxui add checkout`).
 - `files` block: a folder tree, breadcrumbs, an upload area that takes
   dropped files, and a file table with a context menu (`dxui add files`).
 - `schedule` block: a week of day columns, week navigation, and a new

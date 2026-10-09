@@ -1,0 +1,21 @@
+{
+  "name": "checkout",
+  "description": "Checkout with address, shipping, and payment fields beside an order summary.",
+  "files": [
+    {
+      "source": "blocks/checkout.rs",
+      "target": "src/blocks/checkout.rs"
+    }
+  ],
+  "dependencies": [
+    "button",
+    "card",
+    "field",
+    "input",
+    "label",
+    "native-select",
+    "radio-group",
+    "separator"
+  ],
+  "assets": []
+}

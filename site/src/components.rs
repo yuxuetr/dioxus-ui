@@ -63,6 +63,9 @@ pub mod ui {
   pub mod progress {
     pub use dioxus_shadcn::*;
   }
+  pub mod radio_group {
+    pub use dioxus_shadcn::*;
+  }
   pub mod resizable {
     pub use dioxus_shadcn::*;
   }

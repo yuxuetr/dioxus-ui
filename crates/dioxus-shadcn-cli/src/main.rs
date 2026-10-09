@@ -1420,7 +1420,7 @@ mod tests {
     assert!(message.contains("button"));
     assert!(!message.contains("utils"));
     assert!(message.contains(
-      "available blocks: chat, dashboard, files, inbox, landing, login, pricing, schedule, settings, signup"
+      "available blocks: chat, checkout, dashboard, files, inbox, landing, login, pricing, schedule, settings, signup"
     ));
   }
 
