@@ -723,6 +723,20 @@ Tabs moved with ArrowRight). The published `dxui` 0.6.2 copied Dialog and
 Tabs with the new `layer.rs`, and the app built while denying warnings and
 passed the same check.
 
+## 0.6.3 Publish
+
+0.6.3 was published on 2026-10-09 with the overlay, Command, and button
+fixes of RFC 0081 (M222). `npm run verify:release` passed (57 fixtures under
+the strict policy), its semver step finding no change against `v0.6.2`, as
+did the dry run and CI on the release commit. The four crates were published
+one by one in dependency order and tagged `v0.6.3`, an annotated tag. A fresh
+web app on `dioxus-shadcn` 0.6.3 from crates.io, served with the strict
+policy, kept a flex-row Dropdown trigger in place with the menu's end edge on
+it, and moved a Dialog's Command highlight with ArrowDown on the first open
+and after a reopen; the same app on 0.6.2 failed with the menu off its
+trigger. The published `dxui` 0.6.3 copied Dialog, Command, and Dropdown into
+an app that built while denying warnings and passed the same check.
+
 ## Dioxus Next
 
 `npm run verify:dioxus-next` runs the Stage 14 checks against the newest
