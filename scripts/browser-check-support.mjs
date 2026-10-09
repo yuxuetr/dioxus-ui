@@ -36,7 +36,10 @@ export async function launchBrowser(scriptName) {
 // /wasm/, so readiness waits for that.
 const servesApp = (url) =>
   new Promise((resolve) => {
-    const req = request(url, { method: "GET", timeout: 1000 }, (res) => {
+    // A browser asks for HTML, and dx answers that with its build placeholder
+    // until the new build is served; without the header it returns the last
+    // build's index.html, which hides a failed build behind a stale one.
+    const req = request(url, { method: "GET", timeout: 1000, headers: { accept: "text/html" } }, (res) => {
       let body = "";
       res.setEncoding("utf8");
       res.on("data", (chunk) => {
