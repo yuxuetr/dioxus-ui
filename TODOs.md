@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 76% (34 of 45 tasks)
+- Overall: 78% (35 of 45 tasks)
 - Current milestone: M224 (0.6.5, Tree and block-driven components)
-- Current task: M224.4; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
+- Current task: M224.5; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -190,9 +190,10 @@ Each block lands complete: `blocks/<name>.json` and `.rs`, the CLI block list te
   - Week view with events, a month Calendar, and an event Dialog with DatePicker and `type="time"` inputs.
   - Interaction: a new event appears in its day column.
   - Done (e0cbbe6fd): week columns, week buttons, and a New event dialog (title, `type="date"`, `type="time"` start and end, checked on Save). Changed from the plan: no month Calendar and no DatePicker. The copy-mode `calendar.rs` template exports `CalendarDate`, `days_in_month`, and `is_leap_year` but not `CalendarMonth`, `CalendarWeekday`, `calendar_month_grid`, `calendar_move_date`, or date arithmetic, which the crate re-exports from the primitives and the Calendar page shows, so a copied block cannot build a month grid without carrying that code; the block keeps a 50-line `Day` (days since 1970-01-01) and M224.8 takes the gap. The Cancel button sets `type="button"`, since Button keeps the native submit type in a form. The site check refuses an end before the start, saves "Design review" into "Thursday, October 15" (2 to 3 events), and finds "Thursday, October 22" after Next week. CLI tests, fixture smoke, `verify:site` (97 routes), Clippy (host and wasm), and docs checks pass.
-- TODO M224.4 `checkout` block
+- DONE M224.4 `checkout` block
   - Address and payment fields, NativeSelect country, shipping RadioGroup, and an order summary that follows the shipping choice.
   - Interaction: a missing field blocks submit with its error; changing shipping changes the total.
+  - Done (0cd3f0bb4): nine checked fields written the same way as `login`, `settings`, and `signup` (a submitted signal, an `Option<&str>` per field, `invalid`, `aria-describedby`, a `FieldError` branch), left plain for M224.5 to count. The order passed to `on_place_order` leaves out the card details. The site check finds $84.00, picks Express for $96.00, presses Pay and finds the email and country errors described, fills every field, and finds the confirmation status. CLI tests, fixture smoke, `verify:site` (98 routes), Clippy (host and wasm), and docs checks pass.
 - TODO M224.5 Decide on shared form errors
   - Count, per block (`login`, `settings`, `signup`, `checkout`), the lines that only wire errors: the submitted signal, the error `let`s, `invalid`, `aria-describedby`, and the `FieldError` branch.
   - Exit: if one small component or function removes at least half of them with no block losing behavior, it lands (crate, template, docs) with the four blocks rewritten on it and their site checks passing; otherwise the Deferred entry records the counts. Either way the note gives the numbers.
