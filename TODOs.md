@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 78% (35 of 45 tasks)
+- Overall: 80% (36 of 45 tasks)
 - Current milestone: M224 (0.6.5, Tree and block-driven components)
-- Current task: M224.5; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
+- Current task: M224.6; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -194,9 +194,10 @@ Each block lands complete: `blocks/<name>.json` and `.rs`, the CLI block list te
   - Address and payment fields, NativeSelect country, shipping RadioGroup, and an order summary that follows the shipping choice.
   - Interaction: a missing field blocks submit with its error; changing shipping changes the total.
   - Done (0cd3f0bb4): nine checked fields written the same way as `login`, `settings`, and `signup` (a submitted signal, an `Option<&str>` per field, `invalid`, `aria-describedby`, a `FieldError` branch), left plain for M224.5 to count. The order passed to `on_place_order` leaves out the card details. The site check finds $84.00, picks Express for $96.00, presses Pay and finds the email and country errors described, fills every field, and finds the confirmation status. CLI tests, fixture smoke, `verify:site` (98 routes), Clippy (host and wasm), and docs checks pass.
-- TODO M224.5 Decide on shared form errors
+- DONE M224.5 Decide on shared form errors
   - Count, per block (`login`, `settings`, `signup`, `checkout`), the lines that only wire errors: the submitted signal, the error `let`s, `invalid`, `aria-describedby`, and the `FieldError` branch.
   - Exit: if one small component or function removes at least half of them with no block losing behavior, it lands (crate, template, docs) with the four blocks rewritten on it and their site checks passing; otherwise the Deferred entry records the counts. Either way the note gives the numbers.
+  - Done (2beb09f98): deferred. 136 wiring lines for 17 fields (login 17, settings 17, signup 30, checkout 72). Option A, `Field` rendering its own error, removes 51 (37.5 percent); option B, adding a `Field` context read by four controls, removes 85 (62.5 percent) but is not one small part. The Deferred entry has the counts and the condition to measure again. Not counted, and app-side rather than library: each block computes its checks twice, once for the errors and once in submit (13 lines in `checkout`).
 - TODO M224.6 Decide on a file drop area
   - Starts when `git grep -l ondrop -- crates/dioxus-shadcn-cli/blocks | wc -l` prints 2 or more. Count the drag handlers, drag-over state, and file reads in `chat` and `files`.
   - Exit: the same rule as M224.5; a lifted drop area has a browser check that drops a file and finds the callback called.
