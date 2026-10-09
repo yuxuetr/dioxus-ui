@@ -12,6 +12,9 @@ pub mod ui {
   pub mod badge {
     pub use dioxus_shadcn::*;
   }
+  pub mod breadcrumb {
+    pub use dioxus_shadcn::*;
+  }
   pub mod bubble {
     pub use dioxus_shadcn::*;
   }
@@ -25,6 +28,9 @@ pub mod ui {
     pub use dioxus_shadcn::*;
   }
   pub mod checkbox {
+    pub use dioxus_shadcn::*;
+  }
+  pub mod context_menu {
     pub use dioxus_shadcn::*;
   }
   pub mod data_table {
@@ -79,6 +85,9 @@ pub mod ui {
     pub use dioxus_shadcn::*;
   }
   pub mod toggle_group {
+    pub use dioxus_shadcn::*;
+  }
+  pub mod tree {
     pub use dioxus_shadcn::*;
   }
 }

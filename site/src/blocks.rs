@@ -6,6 +6,8 @@ use dioxus::prelude::*;
 mod chat;
 #[path = "../../crates/dioxus-shadcn-cli/blocks/dashboard.rs"]
 mod dashboard;
+#[path = "../../crates/dioxus-shadcn-cli/blocks/files.rs"]
+mod files;
 #[path = "../../crates/dioxus-shadcn-cli/blocks/inbox.rs"]
 mod inbox;
 #[path = "../../crates/dioxus-shadcn-cli/blocks/landing.rs"]
@@ -41,6 +43,13 @@ pub const BLOCKS: &[Block] = &[
     description: "App shell with an off-canvas sidebar, metrics, a chart, and an orders table.",
     source: include_str!("../../crates/dioxus-shadcn-cli/blocks/dashboard.rs"),
     render: || rsx! { dashboard::DashboardBlock {} },
+  },
+  Block {
+    slug: "files",
+    title: "Files",
+    description: "File manager with a folder tree, breadcrumbs, an upload area that takes dropped files, and a file table with a context menu.",
+    source: include_str!("../../crates/dioxus-shadcn-cli/blocks/files.rs"),
+    render: || rsx! { files::FilesBlock {} },
   },
   Block {
     slug: "inbox",

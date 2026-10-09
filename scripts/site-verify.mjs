@@ -284,6 +284,33 @@ async function run() {
     await chat.getByRole("button", { name: "Send", exact: true }).click();
     await expect(toSend).toHaveCount(0);
     await expect(transcript).toContainText("notes.txt");
+    // The files block: the tree and the breadcrumbs pick the folder, a drop
+    // adds a file to it, and the context menu deletes the row it opened on.
+    await visit(page, "/blocks/files");
+    const filesBlock = page.locator("main [data-site-block-preview]");
+    const folderTree = filesBlock.getByRole("tree", { name: "Folders" });
+    const fileRows = () => filesBlock.locator("tbody tr");
+    const crumbs = filesBlock.getByRole("navigation", { name: "breadcrumb" });
+    await expect(fileRows()).toHaveCount(2);
+    await folderTree.getByRole("treeitem", { name: "Design" }).locator(":scope > [data-dxui-tree-row]").click();
+    await expect(fileRows()).toHaveCount(2);
+    await expect(fileRows().first()).toContainText("Logo.svg");
+    await expect(crumbs).toContainText("Design");
+    await filesBlock.getByRole("region", { name: "Upload area" }).evaluate((area) => {
+      const data = new DataTransfer();
+      data.items.add(new File(["<svg/>"], "Icon.svg", { type: "image/svg+xml" }));
+      area.dispatchEvent(new DragEvent("dragover", { bubbles: true, cancelable: true, dataTransfer: data }));
+      area.dispatchEvent(new DragEvent("drop", { bubbles: true, cancelable: true, dataTransfer: data }));
+    });
+    await expect(fileRows()).toHaveCount(3);
+    await expect(fileRows().last()).toContainText("Icon.svg");
+    await filesBlock.locator("tbody").getByText("Logo.svg", { exact: true }).click({ button: "right" });
+    await page.getByRole("menuitem", { name: "Delete Logo.svg" }).click();
+    await expect(fileRows()).toHaveCount(2);
+    await expect(filesBlock.locator("tbody")).not.toContainText("Logo.svg");
+    await crumbs.getByRole("button", { name: "My files" }).click();
+    await expect(fileRows().first()).toContainText("Roadmap.pdf");
+    await expect(folderTree.getByRole("treeitem", { name: "My files" })).toHaveAttribute("aria-selected", "true");
     // The inbox block opens a message in its pane and searches the list.
     await visit(page, "/blocks/inbox");
     const inbox = page.locator("main [data-site-block-preview]");

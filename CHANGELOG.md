@@ -13,6 +13,8 @@ for commit messages.
   WAI-ARIA tree keyboard model (arrow keys, Home, End, typeahead, Enter and
   Space to select) and app-owned or tree-owned expansion and selection
   (`dxui add tree`, feature `tree`, [RFC 0082](docs/rfcs/0082-blocks-and-block-driven-components.md)).
+- `files` block: a folder tree, breadcrumbs, an upload area that takes
+  dropped files, and a file table with a context menu (`dxui add files`).
 
 ## [0.6.4] - 2026-10-09
 
