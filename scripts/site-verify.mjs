@@ -309,7 +309,8 @@ async function run() {
     await expect(toSend).toHaveCount(0);
     await expect(transcript).toContainText("notes.txt");
     // The files block: the tree and the breadcrumbs pick the folder, a drop
-    // adds a file to it, and the context menu deletes the row it opened on.
+    // adds a file to it, and the context menu, from a right-click or from
+    // Shift+F10, deletes the row it opened on.
     await visit(page, "/blocks/files");
     const filesBlock = page.locator("main [data-site-block-preview]");
     const folderTree = filesBlock.getByRole("tree", { name: "Folders" });
@@ -332,6 +333,13 @@ async function run() {
     await page.getByRole("menuitem", { name: "Delete Logo.svg" }).click();
     await expect(fileRows()).toHaveCount(2);
     await expect(filesBlock.locator("tbody")).not.toContainText("Logo.svg");
+    // A focused file name opens the same menu with Shift+F10.
+    await filesBlock.locator("tbody").getByText("Icon.svg", { exact: true }).focus();
+    await page.keyboard.press("Shift+F10");
+    await expect(page.getByRole("menuitem", { name: "Delete Icon.svg" })).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(fileRows()).toHaveCount(1);
+    await expect(filesBlock.locator("tbody")).not.toContainText("Icon.svg");
     await crumbs.getByRole("button", { name: "My files" }).click();
     await expect(fileRows().first()).toContainText("Roadmap.pdf");
     await expect(folderTree.getByRole("treeitem", { name: "My files" })).toHaveAttribute("aria-selected", "true");

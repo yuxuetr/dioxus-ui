@@ -106,7 +106,8 @@ fn FolderNode(id: &'static str) -> Element {
 /// A file manager: a folder tree, breadcrumbs, an upload area that takes
 /// dropped or picked files, and the open folder's files in a table whose
 /// context menu deletes the row it was opened on. `on_upload` hears the
-/// files added to a folder and `on_delete` a deleted file; replace `FOLDERS`
+/// files added to a folder and `on_delete` a deleted file. File names take
+/// focus, so Shift+F10 opens the menu from the keyboard; replace `FOLDERS`
 /// and `sample_files` with your data.
 #[component]
 pub fn FilesBlock(
@@ -226,9 +227,11 @@ pub fn FilesBlock(
                     for entry in shown {
                       DataTableRow { key: "{entry.name}",
                         DataTableCell { class: "font-medium",
-                          // DataTableCell passes no handlers, so the name reports the right-click.
+                          // DataTableCell passes no handlers, so the name reports the
+                          // right-click, and takes focus for Shift+F10.
                           span {
-                            class: "block",
+                            class: "block rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                            tabindex: "0",
                             oncontextmenu: {
                               let name = entry.name.clone();
                               move |_| menu_target.set(Some(name.clone()))
@@ -271,6 +274,9 @@ pub fn FilesBlock(
               ContextMenuItem { disabled: true, "Right-click a file name" }
             }
           }
+        }
+        p { class: "text-xs text-muted-foreground",
+          "Right-click a file, or focus its name and press Shift+F10, to delete it."
         }
       }
     }

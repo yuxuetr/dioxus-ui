@@ -8,6 +8,15 @@ for commit messages.
 
 ## [Unreleased]
 
+### Fixed
+- Context Menu opens from Shift+F10 on a focused element inside its
+  trigger, at that element, as the ContextMenu key already did; Mac
+  keyboards have no ContextMenu key, so it could not open from the keyboard
+  there. The source-copy template needs the `element-id` and `script`
+  helpers, which `dxui add context-menu` now copies.
+- The `files` block's file names take focus, so its delete opens from the
+  keyboard.
+
 ## [0.6.5] - 2026-10-09
 
 Version 0.6.5 adds the Tree component, a file drop area, and three more

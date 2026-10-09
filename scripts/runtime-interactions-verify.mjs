@@ -2292,6 +2292,24 @@ async function runBrowserAssertions() {
     expectInViewport(contextBox, "context menu flip");
     await contextMenu.getByRole("heading", { name: "Context menu interaction" }).click();
     await expect(contextContent).toBeHidden();
+    // Shift+F10 and the ContextMenu key open it at the focused element.
+    const contextKeyTarget = contextMenu.locator('[data-interaction-control="context-key-target"]');
+    await contextArea.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    for (const key of ["Shift+F10", "ContextMenu"]) {
+      await contextKeyTarget.focus();
+      await page.keyboard.press(key);
+      await expectAnchoredReady(contextMenu);
+      await expect(contextItem("Back")).toBeFocused();
+      const targetBox = await contextKeyTarget.boundingBox();
+      contextBox = await contextContent.boundingBox();
+      const center = { x: targetBox.x + targetBox.width / 2, y: targetBox.y + targetBox.height / 2 };
+      if (Math.abs(contextBox.x - center.x) > 1 || Math.abs(contextBox.y - center.y) > 1) {
+        throw new Error(`${key} should open the context menu at the focused element: ${JSON.stringify({ center, contextBox })}`);
+      }
+      await page.keyboard.press("Escape");
+      await expect(contextContent).toBeHidden();
+      await expect(contextKeyTarget).toBeFocused();
+    }
 
     const tooltip = page.locator('[data-interaction-target="tooltip"]');
     const tooltipTrigger = tooltip.getByRole("button", { name: "Hover for tooltip" });

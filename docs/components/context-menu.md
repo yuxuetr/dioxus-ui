@@ -45,7 +45,9 @@ The module also re-exports `DropdownPrimitiveConfig` for users importing from
 `ContextMenu` owns whether the menu is open and its parts read it, so they
 must sit inside it (see
 [RFC 0077](../rfcs/0077-component-owned-state.md)). `ContextMenuTrigger` is
-the area that opens it: a right click inside opens the menu at the pointer.
+the area that opens it: a right click inside opens the menu at the pointer,
+and Shift+F10 or the ContextMenu key on a focused element inside opens it at
+that element.
 Pass `open` and `on_open_change` to control it, or `default_open` to start it
 open. A `ContextMenuRadioGroup` owns its value with `value`,
 `default_value`, and `on_value_change`, and its items take a `value`; a
@@ -66,8 +68,12 @@ rsx! {
 
 - The menu is placed with its top-left corner at the pointer (`side`
   `Bottom`, `align` `Start`, `side_offset` `0`), flipping and shifting to stay
-  8 pixels inside the viewport. A context menu key opens it at the focused
-  element.
+  8 pixels inside the viewport. Shift+F10 and the ContextMenu key open it
+  at the center of the focused element inside the trigger: a page script
+  sends that element the same `contextmenu` event the ContextMenu key does,
+  so handlers on descendants hear both. Mac keyboards have no ContextMenu
+  key, and browsers send nothing for Shift+F10 themselves. The trigger takes
+  no focus, so put a focusable element inside it.
 - Opening focuses the first enabled item. ArrowDown and ArrowUp move focus and
   wrap at the ends, skipping disabled items; Home and End jump to the first and
   last item; typing a prefix focuses the next matching item.

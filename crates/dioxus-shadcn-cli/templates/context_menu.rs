@@ -12,7 +12,50 @@ use super::overlay_root::{OverlayRoot, use_overlay_root};
 use super::root_state::use_root_context;
 use super::utils::{classes, merge_classes};
 use super::density::{density_control_class, use_density, with_density};
+use super::element_id::next_element_id;
+use super::script::{Script, component_script};
 use dioxus::prelude::*;
+
+// Runs for the trigger's lifetime. Shift+F10 on the focused element inside
+// the trigger sends that element the `contextmenu` event the ContextMenu key
+// sends, at its center, so handlers on descendants hear both alike. Mac
+// keyboards have no ContextMenu key, and browsers send nothing for Shift+F10.
+// Keep in sync with `context_menu_key_script` in the crate's `context_menu.rs`.
+component_script!(
+  context_menu_key_script = r#"
+export async function run(dioxus) {
+  const scopeId = await dioxus.recv();
+  const trigger = document.querySelector(`[data-dxui-context-trigger="${scopeId}"]`);
+  if (!trigger) return;
+  const onKeyDown = (event) => {
+    if (event.defaultPrevented || event.key !== "F10" || !event.shiftKey) return;
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+    const target = event.target instanceof Element ? event.target : trigger;
+    const rect = target.getBoundingClientRect();
+    event.preventDefault();
+    target.dispatchEvent(
+      new MouseEvent("contextmenu", {
+        bubbles: true,
+        cancelable: true,
+        clientX: rect.left + rect.width / 2,
+        clientY: rect.top + rect.height / 2,
+      }),
+    );
+  };
+  let finish;
+  const ended = new Promise((resolve) => {
+    finish = resolve;
+  });
+  const observer = new MutationObserver(() => {
+    if (!trigger.isConnected) finish();
+  });
+  observer.observe(document.documentElement, { subtree: true, childList: true });
+  trigger.addEventListener("keydown", onKeyDown);
+  await ended;
+  observer.disconnect();
+}
+"#
+);
 
 const CONTEXT_MENU_CONTENT_BASE_CLASS: &str = "z-50 min-w-32 overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md";
 const CONTEXT_MENU_GROUP_BASE_CLASS: &str = "p-1";
@@ -118,7 +161,7 @@ pub fn ContextMenu(
 }
 
 /// The area that opens the menu at the pointer on a right click, or at the
-/// area on the keyboard's context menu key.
+/// focused element inside it on the ContextMenu key or Shift+F10.
 #[component]
 pub fn ContextMenuTrigger(
   #[props(default)] class: String,
@@ -127,10 +170,19 @@ pub fn ContextMenuTrigger(
 ) -> Element {
   let context = use_context_menu("ContextMenuTrigger");
   let mut point = context.point;
+  let scope_id = use_hook(|| format!("dxui-context-trigger-{}", next_element_id()));
+  let effect_scope_id = scope_id.clone();
+
+  use_effect(move || {
+    let script = context_menu_key_script::start();
+    // A send error means the page already finished the script; nothing to track.
+    let _ = script.send(effect_scope_id.as_str());
+  });
 
   rsx! {
     div {
       class,
+      "data-dxui-context-trigger": scope_id,
       "data-state": if context.root.is_open() { "open" } else { "closed" },
       oncontextmenu: move |event| {
         event.prevent_default();

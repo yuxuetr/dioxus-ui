@@ -10,6 +10,7 @@
   "dependencies": [
     "anchored-overlay",
     "density",
+    "element-id",
     "listbox",
     "menu-marks",
     "menu-radio",
@@ -17,6 +18,7 @@
     "overlay",
     "overlay-root",
     "root-state",
+    "script",
     "utils"
   ],
   "assets": []

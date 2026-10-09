@@ -2568,6 +2568,12 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 class: "mt-3 h-24 border border-dashed border-input",
                 "data-interaction-control": "context-area",
                 "Right-click here"
+                button {
+                  class: "ms-3 rounded-sm px-2 py-1 text-sm underline",
+                  r#type: "button",
+                  "data-interaction-control": "context-key-target",
+                  "Or focus and press Shift+F10"
+                }
               }
               ContextMenuContent {
               ContextMenuItem { onclick: move |_| context_action.set("back"), "Back" }

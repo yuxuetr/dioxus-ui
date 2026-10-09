@@ -20,7 +20,8 @@ Components: Breadcrumb, Context Menu, Data Table, File Input, Tree.
 - Files dropped on the upload area, a `FileDropzone` that marks itself
   while files are dragged over it, or picked with Upload, are added to the
   open folder.
-- Right-clicking a file name opens a context menu that deletes that file.
+- Right-clicking a file name, or pressing Shift+F10 or the ContextMenu key
+  on a focused one, opens a context menu that deletes that file.
 - The folders come from `FOLDERS` (id, name, parent) and the files from
   `sample_files`. The block reads only each file's name and size: store the
   bytes in `on_upload`.
@@ -31,7 +32,7 @@ The tree is named "Folders" and follows the [Tree](../components/tree.md)
 keyboard model. The breadcrumbs are a navigation whose ancestors are buttons
 and whose open folder is the current page. The upload area is a region named
 "Upload area"; Upload is a labeled native file picker, which keyboard users
-reach instead of dropping. The table has a caption naming the folder. The
-context menu opens on a right-click only: its trigger takes no focus, so
-give keyboard users another way to delete, such as a row action button,
-before shipping the screen.
+reach instead of dropping. The table has a caption naming the folder. File
+names are in the tab order, and Shift+F10 or the ContextMenu key on one opens
+its context menu, as the hint under the table says; a row action button is
+still easier to find if the screen's users do not expect a context menu.
