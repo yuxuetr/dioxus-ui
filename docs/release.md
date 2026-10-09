@@ -737,7 +737,22 @@ and after a reopen; the same app on 0.6.2 failed with the menu off its
 trigger. The published `dxui` 0.6.3 copied Dialog, Command, and Dropdown into
 an app that built while denying warnings and passed the same check.
 
-## Dioxus Next
+## 0.6.4 Publish
+
+0.6.4 was published on 2026-10-09 with the `signup`, `pricing`, `landing`,
+`inbox`, and `chat` blocks of RFC 0082 (M223). `npm run verify:release`
+passed after the preview stylesheet was regenerated for the blocks' classes
+(57 fixtures under the strict policy; the semver step found no change
+against `v0.6.3`), as did the dry run and CI on the release commit. The four
+crates were published one by one in dependency order and tagged `v0.6.4`,
+an annotated tag. The published `dxui` 0.6.4 added `chat` and `pricing` to a
+fresh app that built while denying warnings; a second app on `dioxus-shadcn`
+0.6.4 from crates.io compiled the same block sources through crate-mode
+`components::ui` modules. Both, served with the strict policy, switched the
+Pro price to yearly, appended a message sent with Enter, and listed and sent
+a dropped file. The local `wasm-opt` stopped with SIGBUS in both release
+builds, so they ran unoptimized; `dx` still wrote the bundles.
+
 
 `npm run verify:dioxus-next` runs the Stage 14 checks against the newest
 Dioxus 0.8 version (see [Quality Gates](quality-gates.md)). Each run is
