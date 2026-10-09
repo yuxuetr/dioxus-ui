@@ -4,7 +4,7 @@
 
 - Overall: 87% (39 of 45 tasks)
 - Current milestone: M216 (0.7.0, Dioxus 0.8)
-- Current task: none until the Stage 14 gate exits 0 (then M216.1); M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
+- Current task: none until the Stage 14 gate exits 0 (then M216.1); M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -208,7 +208,7 @@ Each block lands complete: `blocks/<name>.json` and `.rs`, the CLI block list te
   - Done (3930dec78): a `calendar-grid` helper template is the primitives' `calendar.rs` without its tests, so the parity test compares every item with the primitives; inlining into `calendar.rs` was not possible because the primitives' `CalendarDay` struct and the styled `CalendarDay` component share a name. `calendar.rs` re-exports the helper with crate mode's `pub use` list (`CalendarDay as CalendarPrimitiveDay`). The generated fixture compiles `site/src/examples/calendar_month.rs` with only the import rewritten; without `calendar_month_grid` in the re-export it fails with E0432, and changing `0..6` to `0..5` in the helper alone fails parity ("differs from crates/dioxus-shadcn-primitives/src/calendar.rs"). The Calendar page lists the copied helpers. The `schedule` block keeps its own `Day`; a month Calendar there can come later. Release gate passes.
 - DONE M224.7 Publish 0.6.5
   - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.4`, publish in dependency order, annotated tag `v0.6.5`, then fresh apps in both modes from crates.io that use Tree and add a new block.
-  - Done (918ceb1a3, tag `v0.6.5`): release gate passed (59 fixtures under the strict policy; `verify:semver` no required update against `v0.6.4`), then the dry run. CI's first attempt timed out in the fullstack hydration check (300 s, web build done in 11 s); the failed-job rerun passed it in 14 s like the 0.6.4 run, so it is recorded as a flake, not changed. Each crate was published after `cargo search` listed the one before. Fresh apps from `dxui` 0.6.5 (`files` and `calendar`, `#![deny(warnings)]`, with the Calendar page's month example) and from `dioxus-shadcn` 0.6.5 in crate mode passed the strict policy: tree keys, folder contents, a dropped file, and a month day. Recorded in `docs/release.md` (918ceb1a7).
+  - Done (918ceb1a3, tag `v0.6.5`): release gate passed (59 fixtures under the strict policy; `verify:semver` no required update against `v0.6.4`), then the dry run. CI's first attempt timed out in the fullstack hydration check (300 s, web build done in 11 s); the failed-job rerun passed it in 14 s like the 0.6.4 run, so it is recorded as a flake, not changed. Each crate was published after `cargo search` listed the one before. Fresh apps from `dxui` 0.6.5 (`files` and `calendar`, `#![deny(warnings)]`, with the Calendar page's month example) and from `dioxus-shadcn` 0.6.5 in crate mode passed the strict policy: tree keys, folder contents, a dropped file, and a month day. Recorded in `docs/release.md` (815e4ada7).
 
 ## M215 Dioxus 0.8 Readiness
 
