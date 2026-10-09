@@ -209,6 +209,11 @@ export async function run(dioxus) {
       highlight(initial());
     } else if (highlighted && !options().includes(highlighted)) {
       highlight(initial());
+    } else if (alwaysOpen && !highlighted) {
+      // Results can arrive after the change that took the reset, as from a
+      // debounced server search; Command highlights them when they do.
+      const first = initial();
+      if (first) highlight(first);
     }
   });
   await new Promise((resolve) => requestAnimationFrame(resolve));

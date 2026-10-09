@@ -2522,6 +2522,16 @@ async function runBrowserAssertions() {
       await expect(palette).toBeHidden();
     }
 
+    // Results delivered after the query changed are highlighted without a
+    // key press.
+    const commandLate = page.locator('[data-interaction-target="command-late"]');
+    const lateInput = commandLate.getByRole("combobox");
+    await lateInput.fill("in");
+    await expect(lateInput).not.toHaveAttribute("aria-activedescendant", /.+/);
+    await commandLate.getByRole("button", { name: "Deliver results", exact: true }).click();
+    await expect(commandLate.getByRole("option")).toHaveCount(2);
+    await expect(lateInput, "late command results").toHaveAttribute("aria-activedescendant", "late-Install");
+
     // Escape in a Popover inside a Dialog closes the Popover; the next one
     // closes the Dialog.
     const layers = page.locator('[data-interaction-target="nested-layers"]');
@@ -2698,7 +2708,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log(`runtime interaction verification passed (56 fixtures${strictCsp ? ", strict CSP" : ""})`);
+  console.log(`runtime interaction verification passed (57 fixtures${strictCsp ? ", strict CSP" : ""})`);
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

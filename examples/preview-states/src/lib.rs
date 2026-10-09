@@ -899,6 +899,8 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut combobox_query = use_signal(String::new);
   let mut combobox_value = use_signal(|| "none".to_string());
   let mut command_query = use_signal(String::new);
+  let mut late_query = use_signal(String::new);
+  let mut late_results = use_signal(Vec::<&'static str>::new);
   let mut command_result = use_signal(|| "none".to_string());
   let command_status = if command_query().trim().is_empty() {
     String::new()
@@ -2790,6 +2792,37 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                   }
                 }
                 DialogClose { "Done" }
+              }
+            }
+          }
+          // Results that arrive after the query changed, as from a server,
+          // get the highlight without a key press.
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "command-late",
+            h2 { class: "text-sm font-medium", "Late command results interaction" }
+            button {
+              class: "{secondary_button_class} mt-3",
+              onclick: move |_| late_results.set(vec!["Install", "Theming"]),
+              "Deliver results"
+            }
+            Command { class: "mt-3 border border-border",
+              CommandInput {
+                value: late_query(),
+                placeholder: "Search docs...",
+                oninput: move |event: FormEvent| {
+                    late_query.set(event.value());
+                    late_results.set(Vec::new());
+                },
+              }
+              // The app's own change after the query: a loading line.
+              if late_results().is_empty() && !late_query().is_empty() {
+                CommandStatus { "Searching..." }
+              }
+              CommandList {
+                for result in late_results() {
+                  CommandItem { key: "{result}", id: "late-{result}", value: result, "{result}" }
+                }
               }
             }
           }
