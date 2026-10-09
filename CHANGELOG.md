@@ -8,6 +8,12 @@ for commit messages.
 
 ## [Unreleased]
 
+### Changed
+- The `schedule` block shows a month Calendar that marks the shown week and
+  picks another, and uses `CalendarDate` and the Calendar's date helpers in
+  place of its own `Day` type, so `ScheduleBlock`'s `today` and
+  `ScheduleEvent`'s `day` are `CalendarDate`s.
+
 ### Fixed
 - Context Menu opens from Shift+F10 on a focused element inside its
   trigger, at that element, as the ContextMenu key already did; Mac

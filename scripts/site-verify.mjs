@@ -343,7 +343,8 @@ async function run() {
     await crumbs.getByRole("button", { name: "My files" }).click();
     await expect(fileRows().first()).toContainText("Roadmap.pdf");
     await expect(folderTree.getByRole("treeitem", { name: "My files" })).toHaveAttribute("aria-selected", "true");
-    // The schedule block adds an event to its day and checks the times.
+    // The schedule block adds an event to its day, checks the times, and
+    // follows the week picked in its month calendar.
     await visit(page, "/blocks/schedule");
     const schedule = page.locator("main [data-site-block-preview]");
     const thursday = schedule.getByRole("region", { name: "Thursday, October 15" });
@@ -362,6 +363,17 @@ async function run() {
     await expect(thursday.getByRole("listitem").last()).toContainText("Design review");
     await schedule.getByRole("button", { name: "Next week", exact: true }).click();
     await expect(schedule.getByRole("region", { name: "Thursday, October 22" })).toBeVisible();
+    // The month calendar marks the shown week and picks another one.
+    const month = schedule.getByRole("grid");
+    await expect(month.locator('[data-date="2026-10-18"]')).toHaveAttribute("data-range", "start");
+    await expect(month.locator('[data-date="2026-10-24"]')).toHaveAttribute("data-range", "end");
+    await schedule.getByRole("button", { name: "Go to next month" }).click();
+    await month.locator('[data-date="2026-11-05"]').click();
+    await expect(schedule.getByRole("region", { name: "Thursday, November 5" })).toBeVisible();
+    await expect(schedule.getByText("November 1 \u2013 7, 2026")).toBeVisible();
+    await page.keyboard.press("ArrowDown");
+    await expect(month.locator('[data-date="2026-11-12"]')).toBeFocused();
+    await expect(schedule.getByRole("region", { name: "Thursday, November 12" })).toBeVisible();
     // The inbox block opens a message in its pane and searches the list.
     await visit(page, "/blocks/inbox");
     const inbox = page.locator("main [data-site-block-preview]");

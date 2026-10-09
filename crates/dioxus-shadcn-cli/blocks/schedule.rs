@@ -2,80 +2,37 @@ use dioxus::prelude::*;
 
 use crate::components::ui::badge::{Badge, BadgeVariant};
 use crate::components::ui::button::{Button, ButtonSize, ButtonVariant};
+use crate::components::ui::calendar::{
+  Calendar, CalendarBody, CalendarCaption, CalendarDate, CalendarDay, CalendarGrid, CalendarHead,
+  CalendarHeadCell, CalendarHeader, CalendarKeyMove, CalendarMonth, CalendarNav, CalendarNavButton,
+  CalendarNavDirection, CalendarRow, CalendarWeekday, calendar_month_grid, calendar_move_date,
+};
 use crate::components::ui::dialog::{
   Dialog, DialogContent, DialogDescription, DialogOverlay, DialogTitle,
 };
 use crate::components::ui::field::{Field, FieldError, FieldLabel};
 use crate::components::ui::input::Input;
 
-/// A calendar day as days since 1970-01-01, so weeks are plain arithmetic.
-#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
-pub struct Day(i64);
+const WEEK_START: CalendarWeekday = CalendarWeekday::Sunday;
 
-impl Day {
-  /// The day for a Gregorian date, or `None` when it does not exist.
-  pub fn from_ymd(year: i64, month: u32, day: u32) -> Option<Day> {
-    let days_in_month = match month {
-      1 | 3 | 5 | 7 | 8 | 10 | 12 => 31,
-      4 | 6 | 9 | 11 => 30,
-      2 if (year % 4 == 0 && year % 100 != 0) || year % 400 == 0 => 29,
-      2 => 28,
-      _ => return None,
-    };
-    if day == 0 || day > days_in_month {
-      return None;
-    }
-    // Days from civil, after Howard Hinnant's algorithm.
-    let year = if month <= 2 { year - 1 } else { year };
-    let era = year.div_euclid(400);
-    let year_of_era = year - era * 400;
-    let month = i64::from(month);
-    let day_of_year =
-      (153 * (if month > 2 { month - 3 } else { month + 9 }) + 2) / 5 + i64::from(day) - 1;
-    let day_of_era = year_of_era * 365 + year_of_era / 4 - year_of_era / 100 + day_of_year;
-    Some(Day(era * 146_097 + day_of_era - 719_468))
-  }
+fn week_of(date: CalendarDate) -> CalendarDate {
+  calendar_move_date(date, CalendarKeyMove::StartOfWeek, WEEK_START)
+}
 
-  /// Year, month, and day.
-  pub fn ymd(self) -> (i64, u32, u32) {
-    let z = self.0 + 719_468;
-    let era = z.div_euclid(146_097);
-    let day_of_era = z - era * 146_097;
-    let year_of_era =
-      (day_of_era - day_of_era / 1_460 + day_of_era / 36_524 - day_of_era / 146_096) / 365;
-    let day_of_year = day_of_era - (365 * year_of_era + year_of_era / 4 - year_of_era / 100);
-    let month_index = (5 * day_of_year + 2) / 153;
-    let day = (day_of_year - (153 * month_index + 2) / 5 + 1) as u32;
-    let month = if month_index < 10 { month_index + 3 } else { month_index - 9 } as u32;
-    let year = year_of_era + era * 400 + i64::from(month <= 2);
-    (year, month, day)
-  }
+fn iso(date: CalendarDate) -> String {
+  format!("{:04}-{:02}-{:02}", date.year, date.month, date.day)
+}
 
-  fn add(self, days: i64) -> Day {
-    Day(self.0 + days)
-  }
+fn parse_iso(text: &str) -> Option<CalendarDate> {
+  let mut parts = text.splitn(3, '-');
+  let year = parts.next()?.parse().ok()?;
+  let month = parts.next()?.parse().ok()?;
+  let day = parts.next()?.parse().ok()?;
+  CalendarDate::new(year, month, day)
+}
 
-  /// 0 for Sunday through 6 for Saturday.
-  fn weekday(self) -> usize {
-    (self.0 + 4).rem_euclid(7) as usize
-  }
-
-  fn week_start(self) -> Day {
-    self.add(-(self.weekday() as i64))
-  }
-
-  fn iso(self) -> String {
-    let (year, month, day) = self.ymd();
-    format!("{year:04}-{month:02}-{day:02}")
-  }
-
-  fn parse(text: &str) -> Option<Day> {
-    let mut parts = text.splitn(3, '-');
-    let year = parts.next()?.parse().ok()?;
-    let month = parts.next()?.parse().ok()?;
-    let day = parts.next()?.parse().ok()?;
-    Day::from_ymd(year, month, day)
-  }
+fn weekday_name(date: CalendarDate) -> &'static str {
+  WEEKDAYS[usize::from(date.weekday().number_from_sunday())]
 }
 
 const WEEKDAYS: [&str; 7] =
@@ -95,7 +52,7 @@ const MONTHS: [&str; 12] = [
   "December",
 ];
 
-fn month_name(month: u32) -> &'static str {
+fn month_name(month: u8) -> &'static str {
   MONTHS.get(month.saturating_sub(1) as usize).copied().unwrap_or("")
 }
 
@@ -104,16 +61,16 @@ fn month_name(month: u32) -> &'static str {
 pub struct ScheduleEvent {
   pub id: u32,
   pub title: String,
-  pub day: Day,
+  pub day: CalendarDate,
   pub start: String,
   pub end: String,
 }
 
-fn sample_events(today: Day) -> Vec<ScheduleEvent> {
+fn sample_events(today: CalendarDate) -> Vec<ScheduleEvent> {
   let event = |id, title: &str, offset, start: &str, end: &str| ScheduleEvent {
     id,
     title: title.to_string(),
-    day: today.add(offset),
+    day: today.add_days(offset),
     start: start.to_string(),
     end: end.to_string(),
   };
@@ -126,32 +83,44 @@ fn sample_events(today: Day) -> Vec<ScheduleEvent> {
   ]
 }
 
-/// A week schedule: seven day columns with their events in time order,
-/// previous and next week buttons, and a New event dialog with a title, a
-/// date, and start and end times. `on_create` hears each event added; pass
-/// `today` to start on another week, and replace `sample_events` with your
-/// data.
+/// A week schedule: a month Calendar that picks the week and marks it, seven
+/// day columns with their events in time order, previous and next week
+/// buttons, and a New event dialog with a title, a date, and start and end
+/// times. `on_create` hears each event added; pass `today` to start on
+/// another week, and replace `sample_events` with your data.
 #[component]
 pub fn ScheduleBlock(
-  #[props(default = Day::from_ymd(2026, 10, 15).unwrap_or(Day(0)))] today: Day,
+  #[props(default = CalendarDate::unchecked(2026, 10, 15))] today: CalendarDate,
   #[props(default)] on_create: Option<EventHandler<ScheduleEvent>>,
 ) -> Element {
   let mut events = use_signal(|| sample_events(today));
-  let mut week = use_signal(|| today.week_start());
+  let mut week = use_signal(|| week_of(today));
+  let mut month = use_signal(|| CalendarMonth::unchecked(today.year, today.month));
+  let mut focused = use_signal(|| today);
   let mut next_id = use_signal(|| 100_u32);
   let mut dialog_open = use_signal(|| false);
   let mut title = use_signal(String::new);
-  let mut date = use_signal(|| today.iso());
+  let mut date = use_signal(|| iso(today));
   let mut start = use_signal(|| "10:00".to_string());
   let mut end = use_signal(|| "11:00".to_string());
   let mut submitted = use_signal(|| false);
 
   let title_error = (submitted() && title().trim().is_empty()).then_some("Enter a title.");
-  let date_error = (submitted() && Day::parse(&date()).is_none()).then_some("Enter a date.");
+  let date_error = (submitted() && parse_iso(&date()).is_none()).then_some("Enter a date.");
   let time_error = (submitted() && end() <= start()).then_some("End after the start time.");
-  let days: Vec<Day> = (0..7).map(|offset| week().add(offset)).collect();
-  let (first_year, first_month, first_day) = week().ymd();
-  let (last_year, last_month, last_day) = week().add(6).ymd();
+  // Shows the week of `day` and the month around it, with `day` focused.
+  let mut show_week = move |day: CalendarDate| {
+    week.set(week_of(day));
+    month.set(CalendarMonth::unchecked(day.year, day.month));
+    focused.set(day);
+  };
+  let days: Vec<CalendarDate> = (0..7).map(|offset| week().add_days(offset)).collect();
+  let first = week();
+  let last = week().add_days(6);
+  let (first_year, first_month, first_day) = (first.year, first.month, first.day);
+  let (last_year, last_month, last_day) = (last.year, last.month, last.day);
+  let grid =
+    calendar_month_grid(month(), WEEK_START, Some(today), None, Some(first), Some(last), &[]);
   let range = if first_month == last_month {
     format!("{} {first_day} \u{2013} {last_day}, {last_year}", month_name(first_month))
   } else if first_year == last_year {
@@ -177,26 +146,26 @@ pub fn ScheduleBlock(
           Button {
             variant: ButtonVariant::Outline,
             size: ButtonSize::Sm,
-            onclick: move |_| week.set(week().add(-7)),
+            onclick: move |_| show_week(week().add_days(-7)),
             "Previous week"
           }
           Button {
             variant: ButtonVariant::Outline,
             size: ButtonSize::Sm,
-            onclick: move |_| week.set(today.week_start()),
+            onclick: move |_| show_week(today),
             "This week"
           }
           Button {
             variant: ButtonVariant::Outline,
             size: ButtonSize::Sm,
-            onclick: move |_| week.set(week().add(7)),
+            onclick: move |_| show_week(week().add_days(7)),
             "Next week"
           }
           Button {
             size: ButtonSize::Sm,
             onclick: move |_| {
               title.set(String::new());
-              date.set(today.iso());
+              date.set(iso(today));
               submitted.set(false);
               dialog_open.set(true);
             },
@@ -204,33 +173,80 @@ pub fn ScheduleBlock(
           }
         }
       }
-      div { class: "grid gap-3 md:grid-cols-7",
-        for day in days {
-          {
-            let (_, month, number) = day.ymd();
-            let mut items: Vec<ScheduleEvent> = events().into_iter().filter(|event| event.day == day).collect();
-            items.sort_by(|a, b| a.start.cmp(&b.start));
-            let label = format!("{}, {} {number}", WEEKDAYS[day.weekday()], month_name(month));
-            rsx! {
-              section {
-                key: "{day.0}",
-                class: if day == today { "grid content-start gap-2 rounded-md border border-primary p-2" } else { "grid content-start gap-2 rounded-md border p-2" },
-                "aria-label": "{label}",
-                h2 { class: "flex items-baseline gap-1 text-sm font-medium",
-                  span { "{&WEEKDAYS[day.weekday()][..3]}" }
-                  span { class: "text-muted-foreground", "{number}" }
-                  if day == today {
-                    Badge { class: "ms-auto", variant: BadgeVariant::Default, "Today" }
+      div { class: "grid items-start gap-4 lg:grid-cols-[auto_1fr]",
+        Calendar { class: "justify-self-start rounded-md border",
+          CalendarHeader {
+            CalendarCaption { id: "schedule-month-caption",
+              "{month_name(month().month)} {month().year}"
+            }
+            CalendarNav {
+              CalendarNavButton {
+                direction: CalendarNavDirection::Previous,
+                onclick: move |_| month.set(month().add_months(-1)),
+                "\u{2039}"
+              }
+              CalendarNavButton {
+                direction: CalendarNavDirection::Next,
+                onclick: move |_| month.set(month().add_months(1)),
+                "\u{203a}"
+              }
+            }
+          }
+          CalendarGrid { "aria-labelledby": "schedule-month-caption",
+            CalendarHead {
+              for name in WEEKDAYS {
+                CalendarHeadCell { key: "{name}", "{&name[..2]}" }
+              }
+            }
+            CalendarBody {
+              for row in grid.weeks {
+                CalendarRow {
+                  for cell in row {
+                    CalendarDay {
+                      key: "{iso(cell.date)}",
+                      date: cell.date,
+                      selected: cell.selected,
+                      today: cell.today,
+                      outside_month: cell.outside_month,
+                      range_state: cell.range_state,
+                      focused: cell.date == focused(),
+                      on_key_move: move |key_move| show_week(calendar_move_date(focused(), key_move, WEEK_START)),
+                      on_select: show_week,
+                      "{cell.date.day}"
+                    }
                   }
                 }
-                if items.is_empty() {
-                  p { class: "text-xs text-muted-foreground", "No events" }
-                }
-                ul { class: "grid gap-2",
-                  for event in items {
-                    li { key: "{event.id}", class: "rounded-md bg-accent p-2 text-sm",
-                      p { class: "font-medium", "{event.title}" }
-                      p { class: "text-xs text-muted-foreground", "{event.start}\u{2013}{event.end}" }
+              }
+            }
+          }
+        }
+        div { class: "grid gap-3 md:grid-cols-7",
+          for day in days {
+            {
+              let mut items: Vec<ScheduleEvent> = events().into_iter().filter(|event| event.day == day).collect();
+              items.sort_by(|a, b| a.start.cmp(&b.start));
+              let label = format!("{}, {} {}", weekday_name(day), month_name(day.month), day.day);
+              rsx! {
+                section {
+                  key: "{iso(day)}",
+                  class: if day == today { "grid content-start gap-2 rounded-md border border-primary p-2" } else { "grid content-start gap-2 rounded-md border p-2" },
+                  "aria-label": "{label}",
+                  h2 { class: "flex items-baseline gap-1 text-sm font-medium",
+                    span { "{&weekday_name(day)[..3]}" }
+                    span { class: "text-muted-foreground", "{day.day}" }
+                    if day == today {
+                      Badge { class: "ms-auto", variant: BadgeVariant::Default, "Today" }
+                    }
+                  }
+                  if items.is_empty() {
+                    p { class: "text-xs text-muted-foreground", "No events" }
+                  }
+                  ul { class: "grid gap-2",
+                    for event in items {
+                      li { key: "{event.id}", class: "rounded-md bg-accent p-2 text-sm",
+                        p { class: "font-medium", "{event.title}" }
+                        p { class: "text-xs text-muted-foreground", "{event.start}\u{2013}{event.end}" }
+                      }
                     }
                   }
                 }
@@ -250,7 +266,7 @@ pub fn ScheduleBlock(
             onsubmit: move |event| {
               event.prevent_default();
               submitted.set(true);
-              let Some(day) = Day::parse(&date()) else {
+              let Some(day) = parse_iso(&date()) else {
                 return;
               };
               if title().trim().is_empty() || end() <= start() {
@@ -260,7 +276,7 @@ pub fn ScheduleBlock(
               next_id.set(id + 1);
               let created = ScheduleEvent { id, title: title().trim().to_string(), day, start: start(), end: end() };
               events.with_mut(|all| all.push(created.clone()));
-              week.set(day.week_start());
+              show_week(day);
               dialog_open.set(false);
               if let Some(handler) = on_create {
                 handler.call(created);

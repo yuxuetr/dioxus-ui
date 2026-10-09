@@ -1197,6 +1197,9 @@
   .self-stretch {
     align-self: stretch;
   }
+  .justify-self-start {
+    justify-self: flex-start;
+  }
   .truncate {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2958,6 +2961,9 @@
     }
     .lg\:grid-cols-\[1fr_22rem\] {
       grid-template-columns: 1fr 22rem;
+    }
+    .lg\:grid-cols-\[auto_1fr\] {
+      grid-template-columns: auto 1fr;
     }
     .lg\:self-start {
       align-self: flex-start;

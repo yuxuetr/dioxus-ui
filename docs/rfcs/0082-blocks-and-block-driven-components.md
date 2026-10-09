@@ -63,7 +63,7 @@ data in signals, and callbacks for what an app connects.
 | `inbox` | Mail: folder list, message list with search, and a reading pane | Resizable, Item, Input, Badge, Avatar, ScrollArea, Separator, Button | nothing new |
 | `chat` | Conversation list, messages, attachments, and a composer that takes dropped files | Item, Avatar, Bubble, Message, MessageScroller, Attachment, Textarea, Button | nothing new |
 | `files` | Folder tree, file table with breadcrumbs, row menu, and an upload area | Tree, DataTable, Breadcrumb, ContextMenu, Attachment, Button | **Tree** |
-| `schedule` | Week view with events, a month picker, and an event dialog | Calendar, Dialog, Field, Input, DatePicker, Button, Badge | nothing new |
+| `schedule` | Week view with events, a month picker, and an event dialog | Calendar, Dialog, Field, Input, Button, Badge (date and time inputs, not DatePicker) | nothing new |
 | `checkout` | Address and payment form, shipping choice, and an order summary | Card, Field, Input, NativeSelect, RadioGroup, Separator, Button | nothing new |
 
 Hero and footer stay part of the `landing` block, not components: they are

@@ -28,6 +28,6 @@ added; it is your code from then on. `dxui list blocks` prints the blocks.
 | [Landing](landing.md) | `dxui add landing` | Product page with hero, features, testimonial, early-access form, and footer |
 | [Login](login.md) | `dxui add login` | Sign-in form with checked fields |
 | [Pricing](pricing.md) | `dxui add pricing` | Three plans with a monthly or yearly switch |
-| [Schedule](schedule.md) | `dxui add schedule` | Week schedule with day columns, week navigation, and a new event dialog |
+| [Schedule](schedule.md) | `dxui add schedule` | Week schedule with a month calendar, day columns, week navigation, and a new event dialog |
 | [Settings](settings.md) | `dxui add settings` | Profile and notification settings with save and reset |
 | [Signup](signup.md) | `dxui add signup` | Account creation with a password strength meter and checked fields |

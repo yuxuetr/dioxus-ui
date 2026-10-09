@@ -21,6 +21,9 @@ pub mod ui {
   pub mod button {
     pub use dioxus_shadcn::*;
   }
+  pub mod calendar {
+    pub use dioxus_shadcn::*;
+  }
   pub mod card {
     pub use dioxus_shadcn::*;
   }

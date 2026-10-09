@@ -93,7 +93,7 @@ pub const BLOCKS: &[Block] = &[
   Block {
     slug: "schedule",
     title: "Schedule",
-    description: "Week schedule with day columns, week navigation, and a new event dialog.",
+    description: "Week schedule with a month calendar, day columns, week navigation, and a new event dialog.",
     source: include_str!("../../crates/dioxus-shadcn-cli/blocks/schedule.rs"),
     render: || rsx! { schedule::ScheduleBlock {} },
   },
