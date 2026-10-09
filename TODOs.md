@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 66% (29 of 44 tasks)
+- Overall: 68% (30 of 44 tasks)
 - Current milestone: M223 (0.6.4, blocks)
-- Current task: M223.5; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
+- Current task: M223.6; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -168,9 +168,10 @@ Each block lands complete: `blocks/<name>.json` and `.rs`, the CLI block list te
   - Folders, a searchable message list (Item), and a reading pane in a Resizable layout.
   - Interaction: picking a message shows it in the pane; the search narrows the list.
   - Done (9ed90ac2b): folders are a navigation with unread Badges and `aria-current`; the list and pane sit in a ResizablePanelGroup (25 to 60 percent); opening marks a message read, Archive moves it, `on_reply` reports the id. `Item` takes no attributes or handlers, so each row is a `button` around an Item. The site check finds "Quarterly numbers" open, opens "Design review notes" and finds its heading in the "Reading pane" region, then searches "invoice" down from 4 rows to the Billing one. CLI tests, fixture smoke, `verify:site` (93 routes), Clippy, and docs checks pass.
-- TODO M223.5 `chat` block
+- DONE M223.5 `chat` block
   - Conversations, messages with Bubble and MessageScroller, attachments, and a composer that takes typed text and dropped files.
   - Interaction: sending adds a message at the end of the list.
+  - Done (25c15bb50): the transcript is a `log` in a `flex-col-reverse` viewport, so the newest message stays in view with no scroll command (Message Scroller measures nothing). Drops read `DragData::files` (`HasFileData`, imported from `dioxus::html`). `Textarea` passes no event handlers, so Enter is read on a wrapper. The site check sends with Enter and finds the text after the last sample message, then dispatches a drop of "notes.txt" on the composer, finds it under "Files to send", sends, and finds it in the log; with the drop handler emptied the check fails on "notes.txt". The first site build failed (`onkeydown` on Textarea, `files` without the trait) although the Clippy filter showed nothing: its `^error` pattern missed colored output, so later runs pass `--color never`; earlier tasks were covered by their passing site builds. CLI tests, fixture smoke, `verify:site` (94 routes), Clippy, and docs checks pass.
 - TODO M223.6 Publish 0.6.4
   - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.3` (blocks change no crate API), publish in dependency order, annotated tag `v0.6.4`, then fresh apps in both modes from crates.io that add a new block.
 
