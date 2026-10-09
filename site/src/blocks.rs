@@ -8,6 +8,8 @@ mod dashboard;
 mod login;
 #[path = "../../crates/dioxus-shadcn-cli/blocks/settings.rs"]
 mod settings;
+#[path = "../../crates/dioxus-shadcn-cli/blocks/signup.rs"]
+mod signup;
 
 pub struct Block {
   pub slug: &'static str,
@@ -38,5 +40,12 @@ pub const BLOCKS: &[Block] = &[
     description: "Settings page with profile and notification tabs, checked fields, and save and reset.",
     source: include_str!("../../crates/dioxus-shadcn-cli/blocks/settings.rs"),
     render: || rsx! { settings::SettingsBlock {} },
+  },
+  Block {
+    slug: "signup",
+    title: "Signup",
+    description: "Account creation page with a password strength meter and checked fields.",
+    source: include_str!("../../crates/dioxus-shadcn-cli/blocks/signup.rs"),
+    render: || rsx! { signup::SignupBlock {} },
   },
 ];

@@ -33,6 +33,9 @@ pub mod ui {
   pub mod native_select {
     pub use dioxus_shadcn::*;
   }
+  pub mod progress {
+    pub use dioxus_shadcn::*;
+  }
   pub mod separator {
     pub use dioxus_shadcn::*;
   }

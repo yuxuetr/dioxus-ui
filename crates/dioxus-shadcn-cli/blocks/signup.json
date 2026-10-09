@@ -1,0 +1,20 @@
+{
+  "name": "signup",
+  "description": "Account creation page with a password strength meter and checked fields.",
+  "files": [
+    {
+      "source": "blocks/signup.rs",
+      "target": "src/blocks/signup.rs"
+    }
+  ],
+  "dependencies": [
+    "button",
+    "card",
+    "checkbox",
+    "field",
+    "input",
+    "label",
+    "progress"
+  ],
+  "assets": []
+}

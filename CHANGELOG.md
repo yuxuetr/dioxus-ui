@@ -8,6 +8,10 @@ for commit messages.
 
 ## [Unreleased]
 
+### Added
+- `signup` block: account creation with a password strength meter and
+  checked fields (`dxui add signup`, [RFC 0082](docs/rfcs/0082-blocks-and-block-driven-components.md)).
+
 ## [0.6.3] - 2026-10-09
 
 Version 0.6.3 fixes overlay placement, Command, and small buttons, reported

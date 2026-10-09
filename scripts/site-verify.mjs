@@ -247,6 +247,19 @@ async function run() {
     await settings.getByRole("textbox", { name: "Name", exact: true }).fill("Grace Hopper");
     await save.click();
     await expect(settings.getByRole("status")).toHaveText("All changes saved");
+    // The signup block rates the password as it is typed and refuses a weak one.
+    await visit(page, "/blocks/signup");
+    const signup = page.locator("main [data-site-block-preview]");
+    const newPassword = signup.getByLabel("Password", { exact: true });
+    const strength = signup.getByRole("progressbar", { name: "Password strength" });
+    await newPassword.fill("abc");
+    await expect(strength).toHaveAttribute("aria-valuetext", "Weak");
+    await signup.getByRole("button", { name: "Create account", exact: true }).click();
+    await expect(newPassword).toHaveAttribute("aria-invalid", "true");
+    await expect(newPassword).toHaveAccessibleDescription(/Use 8 or more characters/);
+    await newPassword.fill("Correct-Horse-9");
+    await expect(strength).toHaveAttribute("aria-valuetext", "Strong");
+    await expect(newPassword).toHaveAttribute("aria-invalid", "false");
     await visit(page, "/blocks/dashboard");
     const dashboard = page.locator("main [data-site-block-preview]");
     // The chart's fallback table also has rows; the orders table has a Customer column.
