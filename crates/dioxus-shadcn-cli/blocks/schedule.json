@@ -1,0 +1,18 @@
+{
+  "name": "schedule",
+  "description": "Week schedule with day columns, week navigation, and a new event dialog.",
+  "files": [
+    {
+      "source": "blocks/schedule.rs",
+      "target": "src/blocks/schedule.rs"
+    }
+  ],
+  "dependencies": [
+    "badge",
+    "button",
+    "dialog",
+    "field",
+    "input"
+  ],
+  "assets": []
+}

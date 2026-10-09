@@ -311,6 +311,25 @@ async function run() {
     await crumbs.getByRole("button", { name: "My files" }).click();
     await expect(fileRows().first()).toContainText("Roadmap.pdf");
     await expect(folderTree.getByRole("treeitem", { name: "My files" })).toHaveAttribute("aria-selected", "true");
+    // The schedule block adds an event to its day and checks the times.
+    await visit(page, "/blocks/schedule");
+    const schedule = page.locator("main [data-site-block-preview]");
+    const thursday = schedule.getByRole("region", { name: "Thursday, October 15" });
+    await expect(thursday.getByRole("listitem")).toHaveCount(2);
+    await schedule.getByRole("button", { name: "New event", exact: true }).click();
+    const newEvent = page.getByRole("dialog", { name: "New event" });
+    await newEvent.getByRole("textbox", { name: "Title" }).fill("Design review");
+    await newEvent.getByLabel("End").fill("09:00");
+    await newEvent.getByRole("button", { name: "Save" }).click();
+    await expect(newEvent.getByLabel("End")).toHaveAttribute("aria-invalid", "true");
+    await newEvent.getByLabel("End").fill("15:00");
+    await newEvent.getByLabel("Start").fill("14:00");
+    await newEvent.getByRole("button", { name: "Save" }).click();
+    await expect(newEvent).toBeHidden();
+    await expect(thursday.getByRole("listitem")).toHaveCount(3);
+    await expect(thursday.getByRole("listitem").last()).toContainText("Design review");
+    await schedule.getByRole("button", { name: "Next week", exact: true }).click();
+    await expect(schedule.getByRole("region", { name: "Thursday, October 22" })).toBeVisible();
     // The inbox block opens a message in its pane and searches the list.
     await visit(page, "/blocks/inbox");
     const inbox = page.locator("main [data-site-block-preview]");

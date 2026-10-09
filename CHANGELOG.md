@@ -15,6 +15,8 @@ for commit messages.
   (`dxui add tree`, feature `tree`, [RFC 0082](docs/rfcs/0082-blocks-and-block-driven-components.md)).
 - `files` block: a folder tree, breadcrumbs, an upload area that takes
   dropped files, and a file table with a context menu (`dxui add files`).
+- `schedule` block: a week of day columns, week navigation, and a new
+  event dialog with date and time inputs (`dxui add schedule`).
 
 ## [0.6.4] - 2026-10-09
 

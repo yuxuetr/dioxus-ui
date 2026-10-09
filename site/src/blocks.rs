@@ -16,6 +16,8 @@ mod landing;
 mod login;
 #[path = "../../crates/dioxus-shadcn-cli/blocks/pricing.rs"]
 mod pricing;
+#[path = "../../crates/dioxus-shadcn-cli/blocks/schedule.rs"]
+mod schedule;
 #[path = "../../crates/dioxus-shadcn-cli/blocks/settings.rs"]
 mod settings;
 #[path = "../../crates/dioxus-shadcn-cli/blocks/signup.rs"]
@@ -78,6 +80,13 @@ pub const BLOCKS: &[Block] = &[
     description: "Pricing page with three plans and a monthly or yearly switch.",
     source: include_str!("../../crates/dioxus-shadcn-cli/blocks/pricing.rs"),
     render: || rsx! { pricing::PricingBlock {} },
+  },
+  Block {
+    slug: "schedule",
+    title: "Schedule",
+    description: "Week schedule with day columns, week navigation, and a new event dialog.",
+    source: include_str!("../../crates/dioxus-shadcn-cli/blocks/schedule.rs"),
+    render: || rsx! { schedule::ScheduleBlock {} },
   },
   Block {
     slug: "settings",

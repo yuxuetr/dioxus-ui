@@ -36,6 +36,9 @@ pub mod ui {
   pub mod data_table {
     pub use dioxus_shadcn::*;
   }
+  pub mod dialog {
+    pub use dioxus_shadcn::*;
+  }
   pub mod field {
     pub use dioxus_shadcn::*;
   }
