@@ -8,6 +8,29 @@ for commit messages.
 
 ## [Unreleased]
 
+## [0.6.3] - 2026-10-09
+
+Version 0.6.3 fixes overlay placement, Command, and small buttons, reported
+by an app on 0.6.2 ([RFC 0081](docs/rfcs/0081-overlay-and-listbox-fixes.md)).
+The API does not change.
+
+### Fixed
+- Anchored content (Dropdown, Popover, Select, Combobox, Context Menu, Date
+  Picker, and the rest) leaves the page flow before its trigger is measured,
+  so a trigger in a flex row with its content beside it no longer gets the
+  content placed one content-width away.
+- A Command inside a Dialog, Sheet, Popover, tab, or anything else hidden
+  with `hidden` reads its keys once shown, and again after a close and a
+  reopen; it used to stop on the first frame it was hidden.
+- Command highlights the first result when results arrive after the query
+  changed, as from a debounced server search.
+- `ButtonSize::Sm` is 32 pixels high at the default density again; the
+  default density no longer adds a 40 pixel minimum height.
+
+### Documentation
+- Navigation Menu contents open after hydration; the page says so and why
+  they are not shown by CSS hover before it.
+
 ## [0.6.2] - 2026-10-08
 
 Version 0.6.2 hardens the components against values from app data, from an
