@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 70% (31 of 44 tasks)
+- Overall: 73% (32 of 44 tasks)
 - Current milestone: M224 (0.6.5, Tree and block-driven components)
-- Current task: M224.1; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
+- Current task: M224.2; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -178,9 +178,10 @@ Each block lands complete: `blocks/<name>.json` and `.rs`, the CLI block list te
 
 ## M224 0.6.5 Tree and Block-Driven Components (RFC 0082)
 
-- TODO M224.1 Tree component
+- DONE M224.1 Tree component
   - `Tree`, `TreeItem`, `TreeGroup` in the crate and a template: tree, treeitem, and group roles with levels; expanded and selected ids owned by the app; Up, Down, Home, End, Right, Left, Enter, and typeahead in the page-script path; one item in the tab order. Registry, docs page, site example.
   - Exit: unit tests for roles and levels; a browser fixture walks the keys and checks focus, `aria-expanded`, and the selection callback, failing with the script removed; template parity, `verify:csp`, and Clippy pass.
+  - Done (bec505e22): no `TreeGroup` part: a `TreeItem`'s `group` prop (`Option<Element>`) holds its children, which makes it a branch, so the roles and `aria-expanded` are right in server rendering without the children registering with the parent. Unit tests check roles, levels, state, hidden groups, and indentation; the "tree" fixture (58 fixtures) checks one Tab stop, Down, Right to open and enter, Left to leave and close, End and Up skipping the disabled item, Home, typeahead "r", Enter selecting with the callback, Shift+Tab and Tab returning to the selection, a click on the disabled item doing nothing, and a click opening and selecting a branch. With the script returning at once the check fails on the Tab stop count (0 of 1). The release gate needed the preview and site stylesheets regenerated and `docs-component-status.mjs` rerun; then it passed (58 fixtures under the strict policy), and `verify:site` passed (95 routes, 92 examples).
 - TODO M224.2 `files` block
   - Folder Tree, file DataTable with breadcrumbs, a row ContextMenu, and an upload area that takes dropped files.
   - Interaction: choosing a folder in the tree changes the table and the breadcrumbs.
