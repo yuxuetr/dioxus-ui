@@ -54,4 +54,7 @@ pub mod ui {
   pub mod textarea {
     pub use dioxus_shadcn::*;
   }
+  pub mod toggle_group {
+    pub use dioxus_shadcn::*;
+  }
 }

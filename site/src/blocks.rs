@@ -6,6 +6,8 @@ use dioxus::prelude::*;
 mod dashboard;
 #[path = "../../crates/dioxus-shadcn-cli/blocks/login.rs"]
 mod login;
+#[path = "../../crates/dioxus-shadcn-cli/blocks/pricing.rs"]
+mod pricing;
 #[path = "../../crates/dioxus-shadcn-cli/blocks/settings.rs"]
 mod settings;
 #[path = "../../crates/dioxus-shadcn-cli/blocks/signup.rs"]
@@ -33,6 +35,13 @@ pub const BLOCKS: &[Block] = &[
     description: "Sign-in page with checked email and password fields.",
     source: include_str!("../../crates/dioxus-shadcn-cli/blocks/login.rs"),
     render: || rsx! { login::LoginBlock {} },
+  },
+  Block {
+    slug: "pricing",
+    title: "Pricing",
+    description: "Pricing page with three plans and a monthly or yearly switch.",
+    source: include_str!("../../crates/dioxus-shadcn-cli/blocks/pricing.rs"),
+    render: || rsx! { pricing::PricingBlock {} },
   },
   Block {
     slug: "settings",

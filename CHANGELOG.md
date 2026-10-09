@@ -11,6 +11,8 @@ for commit messages.
 ### Added
 - `signup` block: account creation with a password strength meter and
   checked fields (`dxui add signup`, [RFC 0082](docs/rfcs/0082-blocks-and-block-driven-components.md)).
+- `pricing` block: three plans with a monthly or yearly switch
+  (`dxui add pricing`).
 
 ## [0.6.3] - 2026-10-09
 

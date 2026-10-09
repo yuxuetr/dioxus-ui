@@ -260,6 +260,14 @@ async function run() {
     await newPassword.fill("Correct-Horse-9");
     await expect(strength).toHaveAttribute("aria-valuetext", "Strong");
     await expect(newPassword).toHaveAttribute("aria-invalid", "false");
+    // The pricing block's billing switch changes every plan's price.
+    await visit(page, "/blocks/pricing");
+    const pricing = page.locator("main [data-site-block-preview]");
+    const pro = pricing.getByRole("region", { name: "Pro", exact: true });
+    await expect(pro).toContainText("$12/month");
+    await pricing.getByRole("group", { name: "Billing period" }).getByRole("button", { name: "Yearly" }).click();
+    await expect(pro).toContainText("$120/year");
+    await expect(pricing.getByRole("region", { name: "Team", exact: true })).toContainText("$290/year");
     await visit(page, "/blocks/dashboard");
     const dashboard = page.locator("main [data-site-block-preview]");
     // The chart's fallback table also has rows; the orders table has a Customer column.
