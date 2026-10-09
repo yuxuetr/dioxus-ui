@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 76% (19 of 25 tasks)
-- Current milestone: M216 (0.7.0, Dioxus 0.8)
-- Current task: none until the Stage 14 gate exits 0 (then M216.1); M218 and M219 follow `v0.7.0`
+- Overall: 61% (19 of 31 tasks)
+- Current milestone: M222 (0.6.3, overlay and listbox fixes)
+- Current task: M222.1; then M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -13,7 +13,7 @@
 
 ## Goals
 
-- Follow [the roadmap](docs/roadmap.md) to 1.0. This plan covers 0.6.1 (M220, page scripts without eval), 0.6.2 (M221, hardening from the same audit), Stage 14 (0.7.0, Dioxus 0.8), and Stage 15 (1.0). M215 and M217 need no Dioxus release; M216 starts when the Stage 14 gate in Deferred exits 0, M218 when `v0.7.0` is tagged, and M219 when outside feedback on an `rc` is in and closed.
+- Follow [the roadmap](docs/roadmap.md) to 1.0. This plan covers 0.6.1 (M220, page scripts without eval), 0.6.2 (M221, hardening from the same audit), 0.6.3 (M222, overlay and listbox fixes), Stage 14 (0.7.0, Dioxus 0.8), and Stage 15 (1.0). M215 and M217 need no Dioxus release; M216 starts when the Stage 14 gate in Deferred exits 0, M218 when `v0.7.0` is tagged, and M219 when outside feedback on an `rc` is in and closed.
 
 ## Evidence (measured 2026-10-07 at `v0.6.0`, in a scratch worktree on `dioxus` and `dioxus-ssr` `=0.8.0-alpha.1`)
 
@@ -120,6 +120,26 @@
 - DONE M221.7 Publish 0.6.2
   - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.1`, publish in dependency order, annotated tag `v0.6.2`.
   - Done (117f810, tag `v0.6.2`): the full release gate passed (54 fixtures under the strict policy; `verify:semver` no change against `v0.6.1`), then the dry run and CI on 117f810. Each crate was published after `cargo search` listed its dependency, avoiding 0.6.1's index timeout. A fresh crates.io 0.6.2 app passed the strict-CSP check, and the published `dxui` 0.6.2 copied Dialog and Tabs (with `layer.rs`) into an app that built under `#![deny(warnings)]` and passed it too. Recorded in `docs/release.md` (0.6.2 Publish).
+
+## M222 0.6.3 Overlay and Listbox Fixes (RFC 0081)
+
+- TODO M222.1 Anchored content leaves the flow before measuring
+  - `place()` sets `position: fixed` before reading the anchor (FB-19), crate and template.
+  - Exit: a browser check with a Dropdown trigger in a flex row finds the trigger unmoved after opening and the content aligned to it; it fails before the change.
+- TODO M222.2 Command in a hidden container
+  - In Command mode the listbox script ends only when the listbox leaves the page; while hidden it keeps no highlight, and on becoming visible highlights the initial option (FB-17).
+  - Exit: a browser check opens a Dialog holding a Command, presses ArrowDown, and finds `aria-activedescendant` set, then closes, reopens, and finds it again; it fails before the change.
+- TODO M222.3 Late Command results
+  - In Command mode a DOM change that finds options and no highlight highlights the initial option (FB-18).
+  - Exit: a browser check with results that arrive after a delay finds the first one highlighted with no key pressed; it fails before the change.
+- TODO M222.4 Small buttons at the default density
+  - `Comfortable` adds no minimum height (FB-21), crate and template.
+  - Exit: a unit test finds no `min-h-10` on `Sm` at `Comfortable`; the existing density tests pass after review.
+- TODO M222.5 Navigation Menu and site title
+  - The Navigation Menu page says panels need hydration (FB-20); the site drops `document::Title` (FB-13); an upstream issue for `WebDocument::set_title` is drafted for the release owner.
+  - Exit: the docs and site checks pass.
+- TODO M222.6 Publish 0.6.3
+  - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.2`, publish in dependency order, annotated tag `v0.6.3`.
 
 ## M215 Dioxus 0.8 Readiness
 

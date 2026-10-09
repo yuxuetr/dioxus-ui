@@ -412,6 +412,7 @@ only.
 - [RFC 0078: Touch Density](docs/rfcs/0078-touch-density.md)
 - [RFC 0079: Public Surface](docs/rfcs/0079-public-surface.md)
 - [RFC 0080: Page Scripts Without Eval](docs/rfcs/0080-page-scripts-without-eval.md)
+- [RFC 0081: Overlay and Listbox Fixes](docs/rfcs/0081-overlay-and-listbox-fixes.md)
 
 ## Verification Shortcuts
 
