@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 80% (36 of 45 tasks)
+- Overall: 82% (37 of 45 tasks)
 - Current milestone: M224 (0.6.5, Tree and block-driven components)
-- Current task: M224.6; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
+- Current task: M224.8; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -198,9 +198,10 @@ Each block lands complete: `blocks/<name>.json` and `.rs`, the CLI block list te
   - Count, per block (`login`, `settings`, `signup`, `checkout`), the lines that only wire errors: the submitted signal, the error `let`s, `invalid`, `aria-describedby`, and the `FieldError` branch.
   - Exit: if one small component or function removes at least half of them with no block losing behavior, it lands (crate, template, docs) with the four blocks rewritten on it and their site checks passing; otherwise the Deferred entry records the counts. Either way the note gives the numbers.
   - Done (2beb09f98): deferred. 136 wiring lines for 17 fields (login 17, settings 17, signup 30, checkout 72). Option A, `Field` rendering its own error, removes 51 (37.5 percent); option B, adding a `Field` context read by four controls, removes 85 (62.5 percent) but is not one small part. The Deferred entry has the counts and the condition to measure again. Not counted, and app-side rather than library: each block computes its checks twice, once for the errors and once in submit (13 lines in `checkout`).
-- TODO M224.6 Decide on a file drop area
+- DONE M224.6 Decide on a file drop area
   - Starts when `git grep -l ondrop -- crates/dioxus-shadcn-cli/blocks | wc -l` prints 2 or more. Count the drag handlers, drag-over state, and file reads in `chat` and `files`.
   - Exit: the same rule as M224.5; a lifted drop area has a browser check that drops a file and finds the callback called.
+  - Done (e18181b16): lifted. The gate printed 2. `chat` had 15 drop-wiring lines and `files` 13 (28); on `FileDropzone` (in the File Input module and template, `on_files: Vec<FileData>`, `data-dragging`) they keep 5 and 3 (8), 71 percent less. Counting dragenter and dragleave also fixes the blocks' mark clearing over a child, which the new "file-dropzone" fixture (59 fixtures) checks before dropping two files and finding both names; with the callback removed it fails ("Dropped: "). The blocks' site checks still pass by dispatching dragover and drop. Release gate (59 fixtures under the strict policy) and `verify:site` (98 routes) pass.
 - TODO M224.8 Calendar month helpers in copy mode
   - Added during M224.3. The `calendar.rs` template gains what the crate's Calendar page uses from the primitives: `CalendarMonth`, `CalendarWeekday`, `CalendarMonthGrid`, `calendar_month_grid`, `calendar_move_date`, and the date arithmetic they need, kept equal to the primitives by the template parity test or a test of its own; the Calendar page says which helpers come with `dxui add calendar`.
   - Exit: a fixture app made with `dxui add calendar` builds the month example from the Calendar page unchanged; the parity test fails when one copy of `calendar_month_grid` changes alone (reverse-verify); the release gate passes.
