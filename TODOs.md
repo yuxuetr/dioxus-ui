@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 64% (28 of 44 tasks)
+- Overall: 66% (29 of 44 tasks)
 - Current milestone: M223 (0.6.4, blocks)
-- Current task: M223.4; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
+- Current task: M223.5; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -164,9 +164,10 @@ Each block lands complete: `blocks/<name>.json` and `.rs`, the CLI block list te
   - Hero, feature grid, testimonial, call to action, and footer, as layout in the block.
   - Interaction: the call to action is reachable by Tab and calls its handler.
   - Done (6cbe0a0da): the call to action is an early-access email form, so the site can observe it without an app handler: the check tabs from the email input to "Notify me", submits empty with Enter and finds the described error, then types an address and finds the thank-you `status`. Header and hero buttons call `on_get_started`; the form calls `on_subscribe`. Hero, features (`FEATURES`), quote, and footer stay layout. CLI tests, fixture smoke, `verify:site` (92 routes), Clippy, and docs checks pass.
-- TODO M223.4 `inbox` block
+- DONE M223.4 `inbox` block
   - Folders, a searchable message list (Item), and a reading pane in a Resizable layout.
   - Interaction: picking a message shows it in the pane; the search narrows the list.
+  - Done (9ed90ac2b): folders are a navigation with unread Badges and `aria-current`; the list and pane sit in a ResizablePanelGroup (25 to 60 percent); opening marks a message read, Archive moves it, `on_reply` reports the id. `Item` takes no attributes or handlers, so each row is a `button` around an Item. The site check finds "Quarterly numbers" open, opens "Design review notes" and finds its heading in the "Reading pane" region, then searches "invoice" down from 4 rows to the Billing one. CLI tests, fixture smoke, `verify:site` (93 routes), Clippy, and docs checks pass.
 - TODO M223.5 `chat` block
   - Conversations, messages with Bubble and MessageScroller, attachments, and a composer that takes typed text and dropped files.
   - Interaction: sending adds a message at the end of the list.
