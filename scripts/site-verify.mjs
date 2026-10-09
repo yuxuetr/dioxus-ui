@@ -260,6 +260,30 @@ async function run() {
     await newPassword.fill("Correct-Horse-9");
     await expect(strength).toHaveAttribute("aria-valuetext", "Strong");
     await expect(newPassword).toHaveAttribute("aria-invalid", "false");
+    // The chat block appends a sent message and takes files dropped on the composer.
+    await visit(page, "/blocks/chat");
+    const chat = page.locator("main [data-site-block-preview]");
+    const transcript = chat.getByRole("log", { name: "Messages" });
+    const composerText = chat.getByRole("textbox", { name: "Message", exact: true });
+    await composerText.fill("Shipping it today");
+    await composerText.press("Enter");
+    // Sent last, so it reads after the conversation's last message.
+    await expect.poll(async () => {
+      const text = await transcript.textContent();
+      return text.indexOf("Shipping it today") > text.indexOf("Here are the logs");
+    }).toBe(true);
+    await expect(composerText).toHaveValue("");
+    await chat.getByRole("form", { name: "Message composer" }).evaluate((form) => {
+      const data = new DataTransfer();
+      data.items.add(new File(["hello"], "notes.txt", { type: "text/plain" }));
+      form.dispatchEvent(new DragEvent("dragover", { bubbles: true, cancelable: true, dataTransfer: data }));
+      form.dispatchEvent(new DragEvent("drop", { bubbles: true, cancelable: true, dataTransfer: data }));
+    });
+    const toSend = chat.getByRole("group", { name: "Files to send" });
+    await expect(toSend).toContainText("notes.txt");
+    await chat.getByRole("button", { name: "Send", exact: true }).click();
+    await expect(toSend).toHaveCount(0);
+    await expect(transcript).toContainText("notes.txt");
     // The inbox block opens a message in its pane and searches the list.
     await visit(page, "/blocks/inbox");
     const inbox = page.locator("main [data-site-block-preview]");

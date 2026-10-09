@@ -2,6 +2,8 @@
 
 use dioxus::prelude::*;
 
+#[path = "../../crates/dioxus-shadcn-cli/blocks/chat.rs"]
+mod chat;
 #[path = "../../crates/dioxus-shadcn-cli/blocks/dashboard.rs"]
 mod dashboard;
 #[path = "../../crates/dioxus-shadcn-cli/blocks/inbox.rs"]
@@ -26,6 +28,13 @@ pub struct Block {
 }
 
 pub const BLOCKS: &[Block] = &[
+  Block {
+    slug: "chat",
+    title: "Chat",
+    description: "Chat screen with conversations, messages, attachments, and a composer that takes dropped files.",
+    source: include_str!("../../crates/dioxus-shadcn-cli/blocks/chat.rs"),
+    render: || rsx! { chat::ChatBlock {} },
+  },
   Block {
     slug: "dashboard",
     title: "Dashboard",

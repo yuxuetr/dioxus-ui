@@ -1,0 +1,21 @@
+{
+  "name": "chat",
+  "description": "Chat screen with conversations, messages, attachments, and a composer that takes dropped files.",
+  "files": [
+    {
+      "source": "blocks/chat.rs",
+      "target": "src/blocks/chat.rs"
+    }
+  ],
+  "dependencies": [
+    "attachment",
+    "avatar",
+    "bubble",
+    "button",
+    "item",
+    "message",
+    "message-scroller",
+    "textarea"
+  ],
+  "assets": []
+}

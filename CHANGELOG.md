@@ -11,6 +11,8 @@ for commit messages.
 ### Added
 - `signup` block: account creation with a password strength meter and
   checked fields (`dxui add signup`, [RFC 0082](docs/rfcs/0082-blocks-and-block-driven-components.md)).
+- `chat` block: conversations, messages with bubbles and attachments, and
+  a composer that takes typed text and dropped files (`dxui add chat`).
 - `inbox` block: mail with folders, a searchable message list, and a
   reading pane in resizable panels (`dxui add inbox`).
 - `landing` block: a product page with a hero, features, a testimonial,

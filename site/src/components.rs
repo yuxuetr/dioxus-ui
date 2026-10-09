@@ -3,10 +3,16 @@
 //! the same items, so it compiles the block sources unchanged.
 
 pub mod ui {
+  pub mod attachment {
+    pub use dioxus_shadcn::*;
+  }
   pub mod avatar {
     pub use dioxus_shadcn::*;
   }
   pub mod badge {
+    pub use dioxus_shadcn::*;
+  }
+  pub mod bubble {
     pub use dioxus_shadcn::*;
   }
   pub mod button {
@@ -34,6 +40,12 @@ pub mod ui {
     pub use dioxus_shadcn::*;
   }
   pub mod label {
+    pub use dioxus_shadcn::*;
+  }
+  pub mod message {
+    pub use dioxus_shadcn::*;
+  }
+  pub mod message_scroller {
     pub use dioxus_shadcn::*;
   }
   pub mod native_select {
