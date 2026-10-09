@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 71% (22 of 31 tasks)
+- Overall: 74% (23 of 31 tasks)
 - Current milestone: M222 (0.6.3, overlay and listbox fixes)
-- Current task: M222.4; then M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
+- Current task: M222.5; then M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -135,9 +135,10 @@
   - In Command mode a DOM change that finds options and no highlight highlights the initial option (FB-18).
   - Exit: a browser check with results that arrive after a delay finds the first one highlighted with no key pressed; it fails before the change.
   - Done (986275cea): in Command mode a DOM change that finds no highlight highlights the initial option when there is one. A "command-late" fixture (57 fixtures) clears its results on input, shows a "Searching..." status while empty, and fills two results from a button, standing in for a server reply; the check types, finds no `aria-activedescendant`, delivers, and finds the first result highlighted. Without the status line the fixture passed before the change (no DOM change took the reset), so the status is what reproduces FB-18; with it the check failed before the change. `verify:runtime-interactions` passes.
-- TODO M222.4 Small buttons at the default density
+- DONE M222.4 Small buttons at the default density
   - `Comfortable` adds no minimum height (FB-21), crate and template.
   - Exit: a unit test finds no `min-h-10` on `Sm` at `Comfortable`; the existing density tests pass after review.
+  - Done (1ceb13a77): `Comfortable` adds no density class (`Compact` keeps `min-h-8`, `Touch` keeps `min-h-12 min-w-11`), crate and template; `Md`, `Lg`, and `Icon` set 40 pixels or more themselves, so only `Sm` changes. The new unit test failed before the change (`h-8 ... min-h-10`); the provider test now finds one `min-h-` in the page, the Touch button's. The Button page says the size sets the height at `Comfortable`. The button tests, parity, `verify:browser-local`, and the docs checks pass.
 - TODO M222.5 Navigation Menu and site title
   - The Navigation Menu page says panels need hydration (FB-20); the site drops `document::Title` (FB-13); an upstream issue for `WebDocument::set_title` is drafted for the release owner.
   - Exit: the docs and site checks pass.
