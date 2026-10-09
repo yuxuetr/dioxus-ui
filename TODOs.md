@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 65% (20 of 31 tasks)
+- Overall: 68% (21 of 31 tasks)
 - Current milestone: M222 (0.6.3, overlay and listbox fixes)
-- Current task: M222.2; then M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
+- Current task: M222.3; then M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -127,9 +127,10 @@
   - `place()` sets `position: fixed` before reading the anchor (FB-19), crate and template.
   - Exit: a browser check with a Dropdown trigger in a flex row finds the trigger unmoved after opening and the content aligned to it; it fails before the change.
   - Done (4ca4962): `place()` sets `position: fixed` and `margin: 0`, then reads the anchor, then sets `--dxui-anchor-width`, in the crate and the template. A "flex-row-overlay" fixture (55 fixtures) puts a Dropdown trigger, its content, and a button in a `justify-end` flex row; the check finds the trigger unmoved and the menu's right edge on the trigger's. Before the change it failed with the menu's right edge at 976 and the trigger's at 1112 (the content's width plus the gap). `verify:runtime-interactions` and the parity test pass.
-- TODO M222.2 Command in a hidden container
+- DONE M222.2 Command in a hidden container
   - In Command mode the listbox script ends only when the listbox leaves the page; while hidden it keeps no highlight, and on becoming visible highlights the initial option (FB-17).
   - Exit: a browser check opens a Dialog holding a Command, presses ArrowDown, and finds `aria-activedescendant` set, then closes, reopens, and finds it again; it fails before the change.
+  - Done (025b7baa9): in Command mode a hidden ancestor no longer ends the listbox script, only leaving the page does; while hidden the script clears its highlight, and when shown it highlights the initial option. Select, Combobox, and menus still end on hide. A "command-dialog" fixture (56 fixtures) mounts a Command in a closed Dialog; the check opens it, finds `aria-activedescendant` set, presses ArrowDown onto "Open file", closes, and repeats. Before the change it failed on the first open. `verify:runtime-interactions` and the parity test pass.
 - TODO M222.3 Late Command results
   - In Command mode a DOM change that finds options and no highlight highlights the initial option (FB-18).
   - Exit: a browser check with results that arrive after a delay finds the first one highlighted with no key pressed; it fails before the change.
