@@ -771,6 +771,22 @@ same sources in crate mode. Both, served with the strict policy, moved
 through the folder tree with Down, Right, and Enter, showed the folder's
 files, took a dropped file, and selected a day in the month example.
 
+## 0.6.6 Publish
+
+0.6.6 was published on 2026-10-09 with Context Menu opening from Shift+F10
+and the `schedule` block's month Calendar (M225). `npm run verify:release`
+passed (59 fixtures under the strict policy; the semver step found no
+required update against `v0.6.5`), as did the dry run and CI on the release
+commit, at the first attempt. The four crates were published one by one in
+dependency order and tagged `v0.6.6`, an annotated tag. The published
+`dxui` 0.6.6 added `files` and `schedule` to a fresh app that built while
+denying warnings; a second app on `dioxus-shadcn` 0.6.6 from crates.io
+compiled the same block sources in crate mode. Both, served with the strict
+policy, deleted a file from its context menu opened with Shift+F10 on the
+focused name, and showed the week of a day picked in the next month and of
+the day ArrowDown moved to. Local `wasm-opt` crashed (SIGBUS) again, so both
+ran unoptimized.
+
 ## Dioxus Next
 
 `npm run verify:dioxus-next` runs the Stage 14 checks against the newest
