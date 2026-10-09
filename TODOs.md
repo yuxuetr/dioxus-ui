@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 68% (30 of 44 tasks)
-- Current milestone: M223 (0.6.4, blocks)
-- Current task: M223.6; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
+- Overall: 70% (31 of 44 tasks)
+- Current milestone: M224 (0.6.5, Tree and block-driven components)
+- Current task: M224.1; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -172,8 +172,9 @@ Each block lands complete: `blocks/<name>.json` and `.rs`, the CLI block list te
   - Conversations, messages with Bubble and MessageScroller, attachments, and a composer that takes typed text and dropped files.
   - Interaction: sending adds a message at the end of the list.
   - Done (25c15bb50): the transcript is a `log` in a `flex-col-reverse` viewport, so the newest message stays in view with no scroll command (Message Scroller measures nothing). Drops read `DragData::files` (`HasFileData`, imported from `dioxus::html`). `Textarea` passes no event handlers, so Enter is read on a wrapper. The site check sends with Enter and finds the text after the last sample message, then dispatches a drop of "notes.txt" on the composer, finds it under "Files to send", sends, and finds it in the log; with the drop handler emptied the check fails on "notes.txt". The first site build failed (`onkeydown` on Textarea, `files` without the trait) although the Clippy filter showed nothing: its `^error` pattern missed colored output, so later runs pass `--color never`; earlier tasks were covered by their passing site builds. CLI tests, fixture smoke, `verify:site` (94 routes), Clippy, and docs checks pass.
-- TODO M223.6 Publish 0.6.4
+- DONE M223.6 Publish 0.6.4
   - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.3` (blocks change no crate API), publish in dependency order, annotated tag `v0.6.4`, then fresh apps in both modes from crates.io that add a new block.
+  - Done (d0f3d0316, tag `v0.6.4`): the first release gate failed on a stale preview stylesheet (the blocks' new classes), regenerated in 0efdce1fb; the second passed (57 fixtures under the strict policy; `verify:semver` no change against `v0.6.3`), then the dry run and CI on d0f3d0316. Each crate was published after `cargo search` listed the one before. The published `dxui` 0.6.4 added `chat` and `pricing` to a fresh app under `#![deny(warnings)]`, and a crate-mode app on `dioxus-shadcn` 0.6.4 compiled the same sources through `components::ui` shims; both, served with the strict policy, switched Pro to yearly, sent with Enter, and listed and sent a dropped file. Local `wasm-opt` crashed (SIGBUS) in both builds, which ran unoptimized. Recorded in `docs/release.md` (31a3870a).
 
 ## M224 0.6.5 Tree and Block-Driven Components (RFC 0082)
 
