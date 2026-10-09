@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 75% (33 of 44 tasks)
+- Overall: 76% (34 of 45 tasks)
 - Current milestone: M224 (0.6.5, Tree and block-driven components)
-- Current task: M224.3; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
+- Current task: M224.4; M216 goes next whenever the Stage 14 gate exits 0, M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -186,9 +186,10 @@ Each block lands complete: `blocks/<name>.json` and `.rs`, the CLI block list te
   - Folder Tree, file DataTable with breadcrumbs, a row ContextMenu, and an upload area that takes dropped files.
   - Interaction: choosing a folder in the tree changes the table and the breadcrumbs.
   - Done (0c0cec320): the tree is controlled by the block (expanded and selected) and built recursively from `FOLDERS`; mounting nested items through `group` keeps their levels. `DataTableCell` passes no handlers, so the name's `span` records which row was right-clicked. The site check clicks Design and finds its files and crumb, drops "Icon.svg" on the upload area and finds a third row, deletes Logo.svg from the context menu, and returns through the "My files" crumb with the tree selection following. Gap: Context Menu's trigger takes no focus, so the sample's delete is pointer-only; the docs page says so. CLI tests, fixture smoke, `verify:site` (96 routes), Clippy (host and wasm), and docs checks pass.
-- TODO M224.3 `schedule` block
+- DONE M224.3 `schedule` block
   - Week view with events, a month Calendar, and an event Dialog with DatePicker and `type="time"` inputs.
   - Interaction: a new event appears in its day column.
+  - Done (e0cbbe6fd): week columns, week buttons, and a New event dialog (title, `type="date"`, `type="time"` start and end, checked on Save). Changed from the plan: no month Calendar and no DatePicker. The copy-mode `calendar.rs` template exports `CalendarDate`, `days_in_month`, and `is_leap_year` but not `CalendarMonth`, `CalendarWeekday`, `calendar_month_grid`, `calendar_move_date`, or date arithmetic, which the crate re-exports from the primitives and the Calendar page shows, so a copied block cannot build a month grid without carrying that code; the block keeps a 50-line `Day` (days since 1970-01-01) and M224.8 takes the gap. The Cancel button sets `type="button"`, since Button keeps the native submit type in a form. The site check refuses an end before the start, saves "Design review" into "Thursday, October 15" (2 to 3 events), and finds "Thursday, October 22" after Next week. CLI tests, fixture smoke, `verify:site` (97 routes), Clippy (host and wasm), and docs checks pass.
 - TODO M224.4 `checkout` block
   - Address and payment fields, NativeSelect country, shipping RadioGroup, and an order summary that follows the shipping choice.
   - Interaction: a missing field blocks submit with its error; changing shipping changes the total.
@@ -198,6 +199,9 @@ Each block lands complete: `blocks/<name>.json` and `.rs`, the CLI block list te
 - TODO M224.6 Decide on a file drop area
   - Starts when `git grep -l ondrop -- crates/dioxus-shadcn-cli/blocks | wc -l` prints 2 or more. Count the drag handlers, drag-over state, and file reads in `chat` and `files`.
   - Exit: the same rule as M224.5; a lifted drop area has a browser check that drops a file and finds the callback called.
+- TODO M224.8 Calendar month helpers in copy mode
+  - Added during M224.3. The `calendar.rs` template gains what the crate's Calendar page uses from the primitives: `CalendarMonth`, `CalendarWeekday`, `CalendarMonthGrid`, `calendar_month_grid`, `calendar_move_date`, and the date arithmetic they need, kept equal to the primitives by the template parity test or a test of its own; the Calendar page says which helpers come with `dxui add calendar`.
+  - Exit: a fixture app made with `dxui add calendar` builds the month example from the Calendar page unchanged; the parity test fails when one copy of `calendar_month_grid` changes alone (reverse-verify); the release gate passes.
 - TODO M224.7 Publish 0.6.5
   - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.4`, publish in dependency order, annotated tag `v0.6.5`, then fresh apps in both modes from crates.io that use Tree and add a new block.
 
