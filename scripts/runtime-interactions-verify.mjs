@@ -2532,6 +2532,51 @@ async function runBrowserAssertions() {
     await expect(commandLate.getByRole("option")).toHaveCount(2);
     await expect(lateInput, "late command results").toHaveAttribute("aria-activedescendant", "late-Install");
 
+    // A Tree: one Tab stop, arrow keys over visible items, Right and Left
+    // open, enter, leave, and close branches, the disabled item is skipped,
+    // typeahead finds an item, Enter and a click select.
+    const tree = page.locator('[data-interaction-target="tree"]');
+    const treeItem = (name) => tree.locator(`[role="treeitem"][data-value="${name}"]`);
+    const treeSelected = tree.locator('[data-interaction-state="tree-selected"]');
+    await expect(tree.locator('[role="treeitem"][tabindex="0"]')).toHaveCount(1);
+    await expect(treeItem("src")).toHaveAttribute("tabindex", "0");
+    await treeItem("src").focus();
+    await page.keyboard.press("ArrowDown");
+    await expect(treeItem("main")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(treeItem("ui")).toBeFocused();
+    await expect(treeItem("button")).toBeHidden();
+    await page.keyboard.press("ArrowRight");
+    await expect(treeItem("ui")).toHaveAttribute("aria-expanded", "true");
+    await expect(treeItem("ui")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(treeItem("button")).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expect(treeItem("ui")).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expect(treeItem("ui")).toHaveAttribute("aria-expanded", "false");
+    await page.keyboard.press("End");
+    await expect(treeItem("readme")).toBeFocused();
+    await page.keyboard.press("ArrowUp");
+    await expect(treeItem("docs"), "tree skips the disabled item").toBeFocused();
+    await page.keyboard.press("Home");
+    await expect(treeItem("src")).toBeFocused();
+    await page.keyboard.press("r");
+    await expect(treeItem("readme"), "tree typeahead").toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(treeSelected).toHaveText("Selected: readme");
+    await expect(treeItem("readme")).toHaveAttribute("aria-selected", "true");
+    // Leaving and coming back lands on the selected item.
+    await page.keyboard.press("Shift+Tab");
+    await page.keyboard.press("Tab");
+    await expect(treeItem("readme"), "tree Tab stop follows the selection").toBeFocused();
+    await treeItem("license").locator(":scope > [data-dxui-tree-row]").click();
+    await expect(treeSelected).toHaveText("Selected: readme");
+    await treeItem("docs").locator(":scope > [data-dxui-tree-row]").click();
+    await expect(treeItem("docs")).toHaveAttribute("aria-expanded", "true");
+    await expect(treeSelected).toHaveText("Selected: docs");
+    await expect(treeItem("guide")).toBeVisible();
+
     // Escape in a Popover inside a Dialog closes the Popover; the next one
     // closes the Dialog.
     const layers = page.locator('[data-interaction-target="nested-layers"]');
@@ -2708,7 +2753,7 @@ async function runBrowserAssertions() {
 try {
   await server.ready();
   await runBrowserAssertions();
-  console.log(`runtime interaction verification passed (57 fixtures${strictCsp ? ", strict CSP" : ""})`);
+  console.log(`runtime interaction verification passed (58 fixtures${strictCsp ? ", strict CSP" : ""})`);
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

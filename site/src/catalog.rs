@@ -313,6 +313,12 @@ pub const CATEGORIES: &[Category] = &[
         description: "Tabs components with controlled active state.",
         feature: "tabs",
       },
+      Component {
+        slug: "tree",
+        title: "Tree",
+        description: "Tree of items that expand and collapse, with WAI-ARIA tree keyboard navigation.",
+        feature: "tree",
+      },
     ],
   },
   Category {

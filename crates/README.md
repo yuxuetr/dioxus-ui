@@ -37,7 +37,7 @@ about the rest.
 you pass `--overwrite`, and says which files it kept. `dxui diff [<name>...]`
 shows how your copies, all of them unless you name some, differ from the
 templates of the installed CLI.
-`dxui list` prints the 82 components. Copied
+`dxui list` prints the 83 components. Copied
 components depend only on `dioxus`.
 
 `dxui add` also takes a block, a whole screen such as `login`: it copies the

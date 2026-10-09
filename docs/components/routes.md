@@ -11,7 +11,7 @@ It does not create rendered routes, router code, screenshots, or generated JSON.
 For source preview route metadata, see the
 [Source Preview Manifest](source-preview.md).
 
-Component routes: 82
+Component routes: 83
 Category routes: 8
 
 ## Top-level Routes
@@ -121,4 +121,5 @@ Category routes: 8
 | [Toggle](toggle.md) | /components/toggle | docs/components/toggle.md | /components#category-actions | /components/toggle/source |
 | [Toggle Group](toggle-group.md) | /components/toggle-group | docs/components/toggle-group.md | /components#category-actions | /components/toggle-group/source |
 | [Tooltip](tooltip.md) | /components/tooltip | docs/components/tooltip.md | /components#category-overlays | /components/tooltip/source |
+| [Tree](tree.md) | /components/tree | docs/components/tree.md | /components#category-navigation | /components/tree/source |
 | [Typography](typography.md) | /components/typography | docs/components/typography.md | /components#category-data-display | /components/typography/source |

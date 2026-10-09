@@ -10,7 +10,7 @@ The manifest defines template metadata for future source preview routes.
 It does not embed full template source, syntax highlighting, rendered routes,
 screenshots, or generated JSON.
 
-Source preview routes: 82
+Source preview routes: 83
 
 ## Source Preview Routes
 
@@ -97,4 +97,5 @@ Source preview routes: 82
 | [Toggle](toggle.md) | /components/toggle/source | crates/dioxus-shadcn-cli/templates/toggle.rs | src/components/ui/toggle.rs | rust | 98 | 3064 |
 | [Toggle Group](toggle-group.md) | /components/toggle-group/source | crates/dioxus-shadcn-cli/templates/toggle_group.rs | src/components/ui/toggle_group.rs | rust | 150 | 5515 |
 | [Tooltip](tooltip.md) | /components/tooltip/source | crates/dioxus-shadcn-cli/templates/tooltip.rs | src/components/ui/tooltip.rs | rust | 131 | 3978 |
+| [Tree](tree.md) | /components/tree/source | crates/dioxus-shadcn-cli/templates/tree.rs | src/components/ui/tree.rs | rust | 313 | 12134 |
 | [Typography](typography.md) | /components/typography/source | crates/dioxus-shadcn-cli/templates/typography.rs | src/components/ui/typography.rs | rust | 110 | 3877 |

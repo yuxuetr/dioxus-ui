@@ -28,7 +28,7 @@ use dioxus_shadcn::{
   SelectTrigger, SonnerClose, SonnerContent, SonnerTitle, SonnerToast, SonnerVariant,
   SonnerViewport, Switch, Tabs, TabsActivation, TabsContent, TabsList, TabsOrientation,
   TabsTrigger, ToastAction, ToastClose, ToastRoot, ToastTitle, ToastViewport, ToggleGroup,
-  ToggleGroupItem, calendar_month_grid, calendar_move_date, command_matches,
+  ToggleGroupItem, Tree, TreeItem, calendar_month_grid, calendar_move_date, command_matches,
   sonner_dismiss_reason_attribute, toast_dismiss_reason_attribute,
 };
 use dioxus_shadcn::{
@@ -708,6 +708,14 @@ pub const COMPONENT_PREVIEW_TARGETS: &[ComponentPreviewTarget] = &[
     notes: "Controlled state target; keyboard and click requests are browser-verified in the interaction panel.",
   },
   ComponentPreviewTarget {
+    component: "tree",
+    label: "Tree",
+    panel: "navigation",
+    test_id: "component-preview-tree",
+    coverage_level: "controlled",
+    notes: "Controlled state target; keyboard, expansion, and selection are browser-verified in the interaction fixture.",
+  },
+  ComponentPreviewTarget {
     component: "tags-input",
     label: "Tags Input",
     panel: "forms",
@@ -901,6 +909,7 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
   let mut command_query = use_signal(String::new);
   let mut late_query = use_signal(String::new);
   let mut late_results = use_signal(Vec::<&'static str>::new);
+  let mut tree_selected = use_signal(String::new);
   let mut command_result = use_signal(|| "none".to_string());
   let command_status = if command_query().trim().is_empty() {
     String::new()
@@ -2825,6 +2834,44 @@ pub fn PreviewSurface(target: PreviewTarget, title: String) -> Element {
                 }
               }
             }
+          }
+          // A Tree walks its visible items by keyboard, opens and closes
+          // branches, skips the disabled item, and reports the selection.
+          article {
+            class: "rounded-md border border-border p-4",
+            "data-interaction-target": "tree",
+            h2 { class: "text-sm font-medium", "Tree interaction" }
+            Tree {
+              class: "mt-3",
+              "aria-label": "Project files",
+              default_expanded: vec!["src".to_string()],
+              on_selected_change: move |value: String| tree_selected.set(value),
+              TreeItem {
+                value: "src",
+                group: rsx! {
+                  TreeItem { value: "main", "main.rs" }
+                  TreeItem {
+                    value: "ui",
+                    group: rsx! {
+                      TreeItem { value: "button", "button.rs" }
+                      TreeItem { value: "badge", "badge.rs" }
+                    },
+                    "ui"
+                  }
+                },
+                "src"
+              }
+              TreeItem {
+                value: "docs",
+                group: rsx! {
+                  TreeItem { value: "guide", "guide.md" }
+                },
+                "docs"
+              }
+              TreeItem { value: "license", disabled: true, "LICENSE" }
+              TreeItem { value: "readme", "README.md" }
+            }
+            p { class: "mt-2 text-xs text-muted-foreground", "data-interaction-state": "tree-selected", "Selected: {tree_selected}" }
           }
           // One Escape closes only the overlay opened last.
           article {

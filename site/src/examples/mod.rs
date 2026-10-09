@@ -80,6 +80,7 @@ examples! {
   pagination_basic => PaginationBasicDemo, "pagination", "Pages";
   sidebar_collapsible => SidebarCollapsibleDemo, "sidebar", "Collapsible";
   tabs_account => TabsAccountDemo, "tabs", "Account settings";
+  tree_files => TreeFilesDemo, "tree", "Project files";
   accordion_faq => AccordionFaqDemo, "accordion", "FAQ";
   aspect_ratio_basic => AspectRatioBasicDemo, "aspect-ratio", "Ratios";
   card_basic => CardBasicDemo, "card", "Form card";

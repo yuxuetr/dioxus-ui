@@ -18,10 +18,10 @@ Use it with:
 
 | Surface | Count | User-facing Mode | Notes |
 | --- | ---: | --- | --- |
-| Styled component crate modules | 82 | Crate mode | Feature-gated modules under `crates/dioxus-shadcn/src`. |
-| Styled component features | 82 | Crate mode | Public Cargo feature names in `crates/dioxus-shadcn/Cargo.toml`. |
-| Source-copy templates | 95 | Source-copy mode | 82 component templates plus 13 helper templates (RFC 0074). |
-| Registry entries | 95 | CLI/source-copy mode | 82 component entries in `registry/` plus 13 helper entries in `helpers/`. |
+| Styled component crate modules | 83 | Crate mode | Feature-gated modules under `crates/dioxus-shadcn/src`. |
+| Styled component features | 83 | Crate mode | Public Cargo feature names in `crates/dioxus-shadcn/Cargo.toml`. |
+| Source-copy templates | 96 | Source-copy mode | 83 component templates plus 13 helper templates (RFC 0074). |
+| Registry entries | 96 | CLI/source-copy mode | 83 component entries in `registry/` plus 13 helper entries in `helpers/`. |
 | Registry schema | 1 | Tooling metadata | `crates/dioxus-shadcn-cli/registry/schema.json` validates registry shape and is not a component. |
 | Primitive modules | 18 | Crate mode | Public helpers, config types, and runtime adapter traits in `dioxus-shadcn-primitives`, under its own semver promise (RFC 0079). |
 | Core crate exports | 4 groups | Crate/tooling mode | `classes`, `merge_classes`, `UiDensity`, and registry data structs. |

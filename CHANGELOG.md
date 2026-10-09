@@ -8,6 +8,12 @@ for commit messages.
 
 ## [Unreleased]
 
+### Added
+- Tree component: nested items whose branches open and close, with the
+  WAI-ARIA tree keyboard model (arrow keys, Home, End, typeahead, Enter and
+  Space to select) and app-owned or tree-owned expansion and selection
+  (`dxui add tree`, feature `tree`, [RFC 0082](docs/rfcs/0082-blocks-and-block-driven-components.md)).
+
 ## [0.6.4] - 2026-10-09
 
 Version 0.6.4 adds five blocks built from the existing components

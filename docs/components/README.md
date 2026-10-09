@@ -211,6 +211,7 @@ dioxus-shadcn = { version = "0.6", default-features = false, features = ["button
 | [Toggle Group](toggle-group.md) | `dxui add toggle-group` | `toggle-group` | Primitive-backed styled parts |
 | [Toast](toast.md) | `dxui add toast` | `toast` | Controlled notification parts |
 | [Tooltip](tooltip.md) | `dxui add tooltip` | `tooltip` | Primitive config + styled part |
+| [Tree](tree.md) | `dxui add tree` | `tree` | Nested items with tree keyboard navigation |
 | [Typography](typography.md) | `dxui add typography` | `typography` | Styled semantic text parts |
 
 ## Preview Commands

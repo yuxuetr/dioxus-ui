@@ -13,14 +13,14 @@ parity.
 
 ## Summary
 
-- Public components: 82
-- Registry entries: 106
+- Public components: 83
+- Registry entries: 107
 - Source-copy helpers: anchored-overlay, choice, class-merge, class-merge-table, default-attribute, density, dialog-labels, dismiss-timer, element-id, hover-open, layer, listbox, media-query, menu-marks, menu-radio, menu-sub, modal-focus, overlay, overlay-root, root-state, roving-group, safe-url, script, utils
-- Templates: 106
-- Crate modules: 82
-- Crate features: 82
-- Component docs pages: 82
-- Complete local wiring: 82
+- Templates: 107
+- Crate modules: 83
+- Crate features: 83
+- Component docs pages: 83
+- Complete local wiring: 83
 - Incomplete local wiring: 0
 
 ## Category Counts
@@ -30,7 +30,7 @@ parity.
 | Actions | 9 |
 | Forms | 18 |
 | Overlays | 11 |
-| Navigation | 8 |
+| Navigation | 9 |
 | Layout | 12 |
 | Data Display | 13 |
 | Feedback | 6 |
@@ -111,6 +111,7 @@ parity.
 | Sidebar | Navigation | yes | yes | yes | yes | yes | yes | yes |
 | Steps | Navigation | yes | yes | yes | yes | yes | yes | yes |
 | Tabs | Navigation | yes | yes | yes | yes | yes | yes | yes |
+| Tree | Navigation | yes | yes | yes | yes | yes | yes | yes |
 | Alert Dialog | Overlays | yes | yes | yes | yes | yes | yes | yes |
 | Combobox | Overlays | yes | yes | yes | yes | yes | yes | yes |
 | Context Menu | Overlays | yes | yes | yes | yes | yes | yes | yes |
@@ -198,6 +199,7 @@ parity.
 | Sidebar | Navigation | [docs](sidebar.md) | `dxui add sidebar` | `sidebar` | `crates/dioxus-shadcn-cli/templates/sidebar.rs` | `src/components/ui/sidebar.rs` |
 | Steps | Navigation | [docs](steps.md) | `dxui add steps` | `steps` | `crates/dioxus-shadcn-cli/templates/steps.rs` | `src/components/ui/steps.rs` |
 | Tabs | Navigation | [docs](tabs.md) | `dxui add tabs` | `tabs` | `crates/dioxus-shadcn-cli/templates/tabs.rs` | `src/components/ui/tabs.rs` |
+| Tree | Navigation | [docs](tree.md) | `dxui add tree` | `tree` | `crates/dioxus-shadcn-cli/templates/tree.rs` | `src/components/ui/tree.rs` |
 | Alert Dialog | Overlays | [docs](alert-dialog.md) | `dxui add alert-dialog` | `alert-dialog` | `crates/dioxus-shadcn-cli/templates/alert_dialog.rs` | `src/components/ui/alert_dialog.rs` |
 | Combobox | Overlays | [docs](combobox.md) | `dxui add combobox` | `combobox` | `crates/dioxus-shadcn-cli/templates/combobox.rs` | `src/components/ui/combobox.rs` |
 | Context Menu | Overlays | [docs](context-menu.md) | `dxui add context-menu` | `context-menu` | `crates/dioxus-shadcn-cli/templates/context_menu.rs` | `src/components/ui/context_menu.rs` |

@@ -94,6 +94,7 @@ resizable = []
 select = ["dioxus-shadcn-primitives/select"]
 scroll-area = []
 tooltip = ["dioxus-shadcn-primitives/tooltip"]
+tree = []
 
 [dependencies]
 dioxus.workspace = true

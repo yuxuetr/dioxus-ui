@@ -136,6 +136,7 @@ Statuses:
 | Sheet | Shares the Dialog focus scope and dismissal. | Implemented |
 | Tooltip | Anchored placement and Escape dismissal; under `Tooltip`, hover opens after a delay, keyboard focus opens at once, the pointer can move onto the content, and the trigger has `aria-describedby` while open; browser-verified on Web. | Implemented |
 | Tooltip | Skipping the delay between adjacent tooltips and touch long press are not implemented. | Planned |
+| Tree | `tree`, `treeitem`, and `group` roles with `aria-level`, `aria-expanded`, and `aria-selected`; one Tab stop; Up, Down, Home, End, Right, Left, Enter, Space, and typeahead; Right and Left mirror right to left. | Implemented |
 
 ## Data And Navigation
 

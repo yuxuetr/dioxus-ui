@@ -10,7 +10,7 @@ The catalog is derived from registry entries, templates, component docs,
 crate features, and crate modules. It intentionally does not include visual
 preview routes, screenshot artifacts, or generated JSON metadata.
 
-Public components: 82
+Public components: 83
 
 ## Groups
 
@@ -71,6 +71,7 @@ Public components: 82
 - [Sidebar](sidebar.md): Sidebar shell whose provider owns the collapsed and off-canvas state, with navigation parts.
 - [Steps](steps.md): Styled numbered steps with complete, current, and upcoming states.
 - [Tabs](tabs.md): Tabs components with controlled active state.
+- [Tree](tree.md): Tree of items that expand and collapse, with WAI-ARIA tree keyboard navigation.
 
 ### Layout
 
@@ -205,4 +206,5 @@ Public components: 82
 | [Toggle](toggle.md) | Toggle component for controlled pressed button states. | `dxui add toggle` | `toggle` | `crates/dioxus-shadcn-cli/templates/toggle.rs` | `src/components/ui/toggle.rs` |
 | [Toggle Group](toggle-group.md) | Toggle Group whose root owns the pressed item, or items. | `dxui add toggle-group` | `toggle-group` | `crates/dioxus-shadcn-cli/templates/toggle_group.rs` | `src/components/ui/toggle_group.rs` |
 | [Tooltip](tooltip.md) | Tooltip content component backed by primitive configuration types. | `dxui add tooltip` | `tooltip` | `crates/dioxus-shadcn-cli/templates/tooltip.rs` | `src/components/ui/tooltip.rs` |
+| [Tree](tree.md) | Tree of items that expand and collapse, with WAI-ARIA tree keyboard navigation. | `dxui add tree` | `tree` | `crates/dioxus-shadcn-cli/templates/tree.rs` | `src/components/ui/tree.rs` |
 | [Typography](typography.md) | Styled semantic typography parts. | `dxui add typography` | `typography` | `crates/dioxus-shadcn-cli/templates/typography.rs` | `src/components/ui/typography.rs` |

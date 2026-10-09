@@ -107,7 +107,8 @@ pub mod dialog;
   feature = "theme-controller",
   feature = "toast",
   feature = "toggle-group",
-  feature = "tooltip"
+  feature = "tooltip",
+  feature = "tree"
 ))]
 mod element_id;
 
@@ -136,7 +137,8 @@ mod element_id;
   feature = "sidebar",
   feature = "tabs",
   feature = "toggle-group",
-  feature = "tooltip"
+  feature = "tooltip",
+  feature = "tree"
 ))]
 mod root_state;
 
@@ -302,7 +304,8 @@ mod safe_url;
   feature = "theme-controller",
   feature = "toast",
   feature = "toggle-group",
-  feature = "tooltip"
+  feature = "tooltip",
+  feature = "tree"
 ))]
 mod script;
 
@@ -730,6 +733,9 @@ pub mod toggle_group;
 #[cfg(feature = "toast")]
 pub mod toast;
 
+#[cfg(feature = "tree")]
+pub mod tree;
+
 #[cfg(feature = "tooltip")]
 pub mod tooltip;
 
@@ -824,6 +830,8 @@ pub use tooltip::{
   OverlaySide as TooltipSide, Tooltip, TooltipContent, TooltipPrimitiveConfig, TooltipTrigger,
   tooltip_content_class,
 };
+#[cfg(feature = "tree")]
+pub use tree::{Tree, TreeItem, tree_class, tree_group_class, tree_item_row_class};
 #[cfg(feature = "typography")]
 pub use typography::{
   TypographyBlockquote, TypographyH1, TypographyH2, TypographyH3, TypographyInlineCode,

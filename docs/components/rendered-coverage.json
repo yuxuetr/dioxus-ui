@@ -82,6 +82,7 @@
     { "component": "toggle", "label": "Toggle", "category": "actions", "panel": "actions", "test_id": "component-preview-toggle", "coverage_level": "controlled", "notes": "Controlled rendered state target; mutations remain app-owned." },
     { "component": "toggle-group", "label": "Toggle Group", "category": "actions", "panel": "actions", "test_id": "component-preview-toggle-group", "coverage_level": "controlled", "notes": "Controlled state target; keyboard and click requests are browser-verified in the interaction panel." },
     { "component": "tooltip", "label": "Tooltip", "category": "overlays", "panel": "overlays", "test_id": "component-preview-tooltip", "coverage_level": "runtime-planned", "notes": "Rendered target exists; renderer behavior needs separate runtime verification." },
+    { "component": "tree", "label": "Tree", "category": "navigation", "panel": "navigation", "test_id": "component-preview-tree", "coverage_level": "controlled", "notes": "Controlled state target; keyboard, expansion, and selection are browser-verified in the interaction fixture." },
     { "component": "typography", "label": "Typography", "category": "data-display", "panel": "data-display", "test_id": "component-preview-typography", "coverage_level": "static", "notes": "Rendered markup and class-state coverage target." }
   ]
 }

@@ -82,6 +82,7 @@ const componentCategories = {
   toggle: "actions",
   "toggle-group": "actions",
   tooltip: "overlays",
+  tree: "navigation",
   typography: "data-display",
   fab: "actions",
   dock: "navigation",

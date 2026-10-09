@@ -258,6 +258,9 @@
   .pointer-events-none {
     pointer-events: none;
   }
+  .collapse {
+    visibility: collapse;
+  }
   .visible {
     visibility: visible;
   }
@@ -1609,6 +1612,9 @@
   }
   .pe-1 {
     padding-inline-end: var(--spacing);
+  }
+  .pe-2 {
+    padding-inline-end: calc(var(--spacing) * 2);
   }
   .pe-3 {
     padding-inline-end: calc(var(--spacing) * 3);
@@ -3000,6 +3006,29 @@
   .\[\&\>tr\]\:last\:border-b-0 > tr:last-child {
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 0px;
+  }
+  [aria-disabled=true] > .\[\[aria-disabled\=true\]\>\&\]\:cursor-not-allowed {
+    cursor: not-allowed;
+  }
+  [aria-disabled=true] > .\[\[aria-disabled\=true\]\>\&\]\:opacity-50 {
+    opacity: 50%;
+  }
+  [aria-selected=true] > .\[\[aria-selected\=true\]\>\&\]\:bg-accent {
+    background-color: var(--accent);
+  }
+  [aria-selected=true] > .\[\[aria-selected\=true\]\>\&\]\:font-medium {
+    --tw-font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-medium);
+  }
+  [aria-selected=true] > .\[\[aria-selected\=true\]\>\&\]\:text-accent-foreground {
+    color: var(--accent-foreground);
+  }
+  [role=treeitem]:focus-visible > .\[\[role\=treeitem\]\:focus-visible\>\&\]\:ring-2 {
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  [role=treeitem]:focus-visible > .\[\[role\=treeitem\]\:focus-visible\>\&\]\:ring-ring {
+    --tw-ring-color: var(--ring);
   }
 }
 :root {

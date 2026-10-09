@@ -1,0 +1,17 @@
+{
+  "name": "tree",
+  "description": "Tree of items that expand and collapse, with WAI-ARIA tree keyboard navigation.",
+  "files": [
+    {
+      "source": "templates/tree.rs",
+      "target": "src/components/ui/tree.rs"
+    }
+  ],
+  "dependencies": [
+    "element-id",
+    "root-state",
+    "script",
+    "utils"
+  ],
+  "assets": []
+}
