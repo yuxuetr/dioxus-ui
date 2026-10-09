@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 68% (21 of 31 tasks)
+- Overall: 71% (22 of 31 tasks)
 - Current milestone: M222 (0.6.3, overlay and listbox fixes)
-- Current task: M222.3; then M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
+- Current task: M222.4; then M216 waits for the Stage 14 gate, and M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -131,9 +131,10 @@
   - In Command mode the listbox script ends only when the listbox leaves the page; while hidden it keeps no highlight, and on becoming visible highlights the initial option (FB-17).
   - Exit: a browser check opens a Dialog holding a Command, presses ArrowDown, and finds `aria-activedescendant` set, then closes, reopens, and finds it again; it fails before the change.
   - Done (025b7baa9): in Command mode a hidden ancestor no longer ends the listbox script, only leaving the page does; while hidden the script clears its highlight, and when shown it highlights the initial option. Select, Combobox, and menus still end on hide. A "command-dialog" fixture (56 fixtures) mounts a Command in a closed Dialog; the check opens it, finds `aria-activedescendant` set, presses ArrowDown onto "Open file", closes, and repeats. Before the change it failed on the first open. `verify:runtime-interactions` and the parity test pass.
-- TODO M222.3 Late Command results
+- DONE M222.3 Late Command results
   - In Command mode a DOM change that finds options and no highlight highlights the initial option (FB-18).
   - Exit: a browser check with results that arrive after a delay finds the first one highlighted with no key pressed; it fails before the change.
+  - Done (986275cea): in Command mode a DOM change that finds no highlight highlights the initial option when there is one. A "command-late" fixture (57 fixtures) clears its results on input, shows a "Searching..." status while empty, and fills two results from a button, standing in for a server reply; the check types, finds no `aria-activedescendant`, delivers, and finds the first result highlighted. Without the status line the fixture passed before the change (no DOM change took the reset), so the status is what reproduces FB-18; with it the check failed before the change. `verify:runtime-interactions` passes.
 - TODO M222.4 Small buttons at the default density
   - `Comfortable` adds no minimum height (FB-21), crate and template.
   - Exit: a unit test finds no `min-h-10` on `Sm` at `Comfortable`; the existing density tests pass after review.
