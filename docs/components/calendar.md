@@ -1,9 +1,8 @@
 # Calendar
 
-Calendar provides controlled styled parts for date grids. Crate mode reexports
-pure date primitives for month grid generation, date movement, and range
-classification. Source-copy mode keeps the styled parts self-contained and lets
-the app own date-grid state.
+Calendar provides controlled styled parts for date grids, with pure date
+helpers for month grid generation, date movement, and range classification.
+Both modes have the same helpers; the app owns the date-grid state.
 
 ## Source Copy
 
@@ -15,7 +14,17 @@ This creates:
 
 ```text
 src/components/ui/calendar.rs
+src/components/ui/calendar_grid.rs
 ```
+
+`calendar_grid.rs` is a copy of the primitives' date module, and
+`calendar.rs` re-exports it under the names crate mode uses: `CalendarDate`,
+`CalendarMonth`, `CalendarWeekday`, `CalendarMonthGrid`,
+`CalendarPrimitiveDay`, `CalendarRangeState`, `CalendarKeyMove`,
+`calendar_month_grid`, `calendar_move_date`, `calendar_range_state`,
+`days_in_month`, and `is_leap_year`. The examples on this page build in a
+copied app with `use crate::components::ui::calendar::{...}` in place of
+`use dioxus_shadcn::{...}`.
 
 ## Crate Feature
 

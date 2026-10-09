@@ -1,0 +1,12 @@
+{
+  "name": "calendar-grid",
+  "description": "Date arithmetic and the month grid a Calendar or Date Picker renders: CalendarDate, CalendarMonth, calendar_month_grid, and calendar_move_date.",
+  "files": [
+    {
+      "source": "templates/calendar_grid.rs",
+      "target": "src/components/ui/calendar_grid.rs"
+    }
+  ],
+  "dependencies": [],
+  "assets": []
+}

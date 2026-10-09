@@ -24,6 +24,13 @@ for commit messages.
 - `schedule` block: a week of day columns, week navigation, and a new
   event dialog with date and time inputs (`dxui add schedule`).
 
+### Fixed
+- `dxui add calendar` copies the month grid and date helpers
+  (`CalendarMonth`, `CalendarWeekday`, `calendar_month_grid`,
+  `calendar_move_date`, and the rest crate mode re-exports) into
+  `calendar_grid.rs`, so the Calendar page's examples build in a copied app;
+  before, only `CalendarDate` came with the copy.
+
 ## [0.6.4] - 2026-10-09
 
 Version 0.6.4 adds five blocks built from the existing components

@@ -8,6 +8,7 @@
     }
   ],
   "dependencies": [
+    "calendar-grid",
     "density",
     "utils"
   ],

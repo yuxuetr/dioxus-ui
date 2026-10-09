@@ -109,8 +109,14 @@ RS
 cat > "${fixture_root}/src/lib.rs" <<'RS'
 #![deny(warnings)]
 pub mod blocks;
+pub mod calendar_month;
 pub mod components;
 RS
+
+# The Calendar page's month example builds from the copied calendar with only
+# its import path changed: the month grid helpers come with `dxui add calendar`.
+sed 's/^use dioxus_shadcn::{/use crate::components::ui::calendar::{/' \
+  site/src/examples/calendar_month.rs > "${fixture_root}/src/calendar_month.rs"
 
 # The fixture declares the crates the `script` helper uses (RFC 0080), so
 # `dxui add` names none of them.
