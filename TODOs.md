@@ -2,9 +2,9 @@
 
 ## Progress
 
-- Overall: 85% (41 of 48 tasks)
-- Current milestone: M225 (0.6.6, gaps the blocks found); M216 (0.7.0, Dioxus 0.8) waits for its gate
-- Current task: M225.3
+- Overall: 88% (42 of 48 tasks)
+- Current milestone: M216 (0.7.0, Dioxus 0.8)
+- Current task: none until the Stage 14 gate exits 0 (then M216.1); M218 and M219 follow `v0.7.0`
 
 ## Backup
 
@@ -223,8 +223,9 @@ The `files` and `schedule` blocks left two gaps (M224.2, M224.3 and M224.8). Nei
   - The block drops its own `Day` for `CalendarDate` and the copied helpers, and gains the month Calendar RFC 0082 planned: picking a day shows its week, and the shown week is marked in the month.
   - Exit: the `schedule` site check picks a day in another month and finds that week's columns; a fixture app from `dxui add schedule` builds under `#![deny(warnings)]`; CLI tests, fixture smoke, `verify:site`, and docs checks pass.
   - Done (6f2bd827): the 50-line `Day` became four helpers over `CalendarDate` (`week_of` through `calendar_move_date`'s StartOfWeek, ISO format and parse, weekday name); a month Calendar beside the week marks the shown week with the grid's range ends, and a click or a key move shows that day's week, while the week buttons move the month along. `ScheduleBlock`'s `today` and `ScheduleEvent`'s `day` are `CalendarDate` (CHANGELOG, Changed). The site check finds October 18 and 24 as the range ends, pages to November, picks the 5th and finds "Thursday, November 5" and "November 1 – 7, 2026", then ArrowDown focuses the 12th and shows its week; with `on_select` emptied it fails on "Thursday, November 5". A scratch app made with `dxui add schedule` (which brings `calendar` and `calendar_grid`) passes `cargo check` under `#![deny(warnings)]`. CLI tests, fixture smoke, site Clippy, `verify:site` (98 routes), and docs checks pass. RFC 0082's row now says date and time inputs instead of DatePicker.
-- TODO M225.3 Publish 0.6.6
+- DONE M225.3 Publish 0.6.6
   - Versions, CHANGELOG, release gate with `verify:semver` against `v0.6.5`, publish in dependency order, annotated tag `v0.6.6`, then fresh apps in both modes from crates.io that open the `files` menu with Shift+F10 and pick a day in `schedule`.
+  - Done (0c35d99b, tag `v0.6.6`): release gate passed (59 fixtures under the strict policy; `verify:semver` no required update against `v0.6.5`), then the dry run and CI at the first attempt. Each crate was published after `cargo search` listed the one before. A fresh app from `dxui` 0.6.6 (`files` and `schedule`, `#![deny(warnings)]`) and one on `dioxus-shadcn` 0.6.6 in crate mode, served with the strict policy, deleted Budget.xlsx from the menu opened with Shift+F10 and showed the weeks of November 5 and, after ArrowDown, November 12. Recorded in `docs/release.md` (afd0cd07).
 
 ## M215 Dioxus 0.8 Readiness
 

@@ -14,7 +14,7 @@ roadmap plans the way from 0.4.2 to 1.0.
 | 8 | 0.2.0 | 33 theme presets, status variants, daisyUI components |
 | 9 | 0.3.0 | Menus with submenus, scroll lock, Theme Controller, blocks, template parity |
 | 10 | 0.4.0 to 0.4.2 | Helper templates, warning-free copies, `dxui diff`, render-scoped element ids |
-| 13a | 0.6.4 to 0.6.5 | Eight more blocks, Tree, File Dropzone, copied calendar helpers (RFC 0082) |
+| 13a | 0.6.4 to 0.6.6 | Eight more blocks, Tree, File Dropzone, copied calendar helpers, Context Menu from Shift+F10 (RFC 0082) |
 
 ## What 1.0 Means
 
